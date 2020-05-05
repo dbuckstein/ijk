@@ -22,7 +22,7 @@
     <VCProjectVersion>16.0</VCProjectVersion>
     <ProjectGuid>{E5F40EF8-86A6-4671-A438-9E1C8AFBFDB8}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
-    <RootNamespace>ijkplatformwindows</RootNamespace>
+    <RootNamespace>ijkplatform</RootNamespace>
     <WindowsTargetPlatformVersion>$(SDKVersion)</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
