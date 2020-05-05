@@ -18,35 +18,38 @@
       <Platform>x64</Platform>
     </ProjectConfiguration>
   </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\..\source\ijk-base\common\ijk-base.c" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
-    <ProjectGuid>{130552D4-ADAD-42F6-AD40-94C8BA089981}</ProjectGuid>
+    <ProjectGuid>{5DE2A90F-D7A1-447C-9B75-3059B1CE9043}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
-    <RootNamespace>ijkplayer</RootNamespace>
+    <RootNamespace>ijkbase</RootNamespace>
     <WindowsTargetPlatformVersion>$(SDKVersion)</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>$(DefaultPlatformToolset)</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <PlatformToolset>$(DefaultPlatformToolset)</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>$(DefaultPlatformToolset)</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <PlatformToolset>$(DefaultPlatformToolset)</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
@@ -70,56 +73,52 @@
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <LinkIncremental>true</LinkIncremental>
-    <OutDir>$(ijk_sdk)bin\$(PlatformTarget)\$(PlatformToolset)\$(Configuration)\</OutDir>
-    <IntDir>$(ProjectDir)build\$(PlatformTarget)\$(PlatformToolset)\$(Configuration)\</IntDir>
-  </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
-    <OutDir>$(ijk_sdk)bin\$(PlatformTarget)\$(PlatformToolset)\$(Configuration)\</OutDir>
+    <OutDir>$(ijk_sdk)lib\$(PlatformTarget)\$(PlatformToolset)\$(Configuration)\</OutDir>
+    <IntDir>$(ProjectDir)build\$(PlatformTarget)\$(PlatformToolset)\$(Configuration)\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+    <OutDir>$(ijk_sdk)lib\$(PlatformTarget)\$(PlatformToolset)\$(Configuration)\</OutDir>
     <IntDir>$(ProjectDir)build\$(PlatformTarget)\$(PlatformToolset)\$(Configuration)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
-    <OutDir>$(ijk_sdk)bin\$(PlatformTarget)\$(PlatformToolset)\$(Configuration)\</OutDir>
+    <OutDir>$(ijk_sdk)lib\$(PlatformTarget)\$(PlatformToolset)\$(Configuration)\</OutDir>
     <IntDir>$(ProjectDir)build\$(PlatformTarget)\$(PlatformToolset)\$(Configuration)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
-    <OutDir>$(ijk_sdk)bin\$(PlatformTarget)\$(PlatformToolset)\$(Configuration)\</OutDir>
+    <OutDir>$(ijk_sdk)lib\$(PlatformTarget)\$(PlatformToolset)\$(Configuration)\</OutDir>
     <IntDir>$(ProjectDir)build\$(PlatformTarget)\$(PlatformToolset)\$(Configuration)\</IntDir>
   </PropertyGroup>
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <ClCompile>
-      <WarningLevel>Level3</WarningLevel>
-      <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>WIN$(PlatformArchitecture);_WINDOWS;WIN32_LEAN_AND_MEAN;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions);ijk_envstr_vsdevenv=$(ijk_vsdevenv.Replace('\','\\'));ijk_envstr_slnpath="$(SolutionPath.Replace('\','\\'))";ijk_envstr_sdkdir="$(ijk_sdk.Replace('\','\\')).";ijk_envstr_cfgdir="\\$(PlatformTarget)\\$(PlatformToolset)\\$(Configuration)\\.";_DEBUG</PreprocessorDefinitions>
-      <ConformanceMode>true</ConformanceMode>
-      <TreatWarningAsError>true</TreatWarningAsError>
-      <AdditionalIncludeDirectories>$(ijk_sdk)include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-    </ClCompile>
-    <Link>
-      <SubSystem>Windows</SubSystem>
-      <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(ijk_sdk)lib\$(PlatformTarget)\$(PlatformToolset)\$(Configuration)\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>ijk-base.lib;ijk-math.lib;ijk-platform.lib;%(AdditionalDependencies)</AdditionalDependencies>
-    </Link>
-  </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>WIN$(PlatformArchitecture);_WINDOWS;WIN32_LEAN_AND_MEAN;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions);ijk_envstr_vsdevenv=$(ijk_vsdevenv.Replace('\','\\'));ijk_envstr_slnpath="$(SolutionPath.Replace('\','\\'))";ijk_envstr_sdkdir="$(ijk_sdk.Replace('\','\\')).";ijk_envstr_cfgdir="\\$(PlatformTarget)\\$(PlatformToolset)\\$(Configuration)\\.";_DEBUG</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN$(PlatformArchitecture);WIN32_LEAN_AND_MEAN;_CRT_SECURE_NO_WARNINGS;_LIB;%(PreprocessorDefinitions);_DEBUG;</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <TreatWarningAsError>true</TreatWarningAsError>
       <AdditionalIncludeDirectories>$(ijk_sdk)include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <TreatWarningAsError>true</TreatWarningAsError>
     </ClCompile>
     <Link>
-      <SubSystem>Windows</SubSystem>
+      <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(ijk_sdk)lib\$(PlatformTarget)\$(PlatformToolset)\$(Configuration)\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>ijk-base.lib;ijk-math.lib;ijk-platform.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>WIN$(PlatformArchitecture);WIN32_LEAN_AND_MEAN;_CRT_SECURE_NO_WARNINGS;_LIB;%(PreprocessorDefinitions);_DEBUG;</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>$(ijk_sdk)include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <TreatWarningAsError>true</TreatWarningAsError>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -128,19 +127,16 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>WIN$(PlatformArchitecture);_WINDOWS;WIN32_LEAN_AND_MEAN;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions);ijk_envstr_vsdevenv=$(ijk_vsdevenv.Replace('\','\\'));ijk_envstr_slnpath="$(SolutionPath.Replace('\','\\'))";ijk_envstr_sdkdir="$(ijk_sdk.Replace('\','\\')).";ijk_envstr_cfgdir="\\$(PlatformTarget)\\$(PlatformToolset)\\$(Configuration)\\.";NDEBUG</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN$(PlatformArchitecture);WIN32_LEAN_AND_MEAN;_CRT_SECURE_NO_WARNINGS;_LIB;%(PreprocessorDefinitions);NDEBUG;</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <TreatWarningAsError>true</TreatWarningAsError>
       <AdditionalIncludeDirectories>$(ijk_sdk)include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <TreatWarningAsError>true</TreatWarningAsError>
     </ClCompile>
     <Link>
-      <SubSystem>Windows</SubSystem>
+      <SubSystem>Console</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <GenerateDebugInformation>false</GenerateDebugInformation>
-      <LinkTimeCodeGeneration>UseLinkTimeCodeGeneration</LinkTimeCodeGeneration>
-      <AdditionalLibraryDirectories>$(ijk_sdk)lib\$(PlatformTarget)\$(PlatformToolset)\$(Configuration)\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>ijk-base.lib;ijk-math.lib;ijk-platform.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -149,24 +145,18 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>WIN$(PlatformArchitecture);_WINDOWS;WIN32_LEAN_AND_MEAN;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions);ijk_envstr_vsdevenv=$(ijk_vsdevenv.Replace('\','\\'));ijk_envstr_slnpath="$(SolutionPath.Replace('\','\\'))";ijk_envstr_sdkdir="$(ijk_sdk.Replace('\','\\')).";ijk_envstr_cfgdir="\\$(PlatformTarget)\\$(PlatformToolset)\\$(Configuration)\\.";NDEBUG</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN$(PlatformArchitecture);WIN32_LEAN_AND_MEAN;_CRT_SECURE_NO_WARNINGS;_LIB;%(PreprocessorDefinitions);NDEBUG;</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <TreatWarningAsError>true</TreatWarningAsError>
       <AdditionalIncludeDirectories>$(ijk_sdk)include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <TreatWarningAsError>true</TreatWarningAsError>
     </ClCompile>
     <Link>
-      <SubSystem>Windows</SubSystem>
+      <SubSystem>Console</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <GenerateDebugInformation>false</GenerateDebugInformation>
-      <LinkTimeCodeGeneration>UseLinkTimeCodeGeneration</LinkTimeCodeGeneration>
-      <AdditionalLibraryDirectories>$(ijk_sdk)lib\$(PlatformTarget)\$(PlatformToolset)\$(Configuration)\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>ijk-base.lib;ijk-math.lib;ijk-platform.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
   </ItemDefinitionGroup>
-  <ItemGroup>
-    <ClCompile Include="_platform_win\ijk-winmain.c" />
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

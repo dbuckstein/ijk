@@ -13,19 +13,13 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="Source Files\_platform_win">
-      <UniqueIdentifier>{76e97919-7e00-4b2a-ba97-5be3c430b890}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source Files\common">
-      <UniqueIdentifier>{d5490cc1-6f54-4a63-aabd-6125786a660a}</UniqueIdentifier>
+      <UniqueIdentifier>{6c42c307-6a81-45de-97a0-22b5623f642a}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\..\source\ijk-platform\common\ijk-platform.c">
+    <ClCompile Include="..\..\..\source\ijk-base\common\ijk-base.c">
       <Filter>Source Files\common</Filter>
-    </ClCompile>
-    <ClCompile Include="_platform_win\ijkWindow.c">
-      <Filter>Source Files\_platform_win</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

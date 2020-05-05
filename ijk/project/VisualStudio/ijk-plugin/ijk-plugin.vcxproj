@@ -97,11 +97,14 @@
       <PreprocessorDefinitions>WIN$(PlatformArchitecture);WIN32_LEAN_AND_MEAN;_CRT_SECURE_NO_WARNINGS;_WINDOWS;_USRDLL;IJK_PLUGIN_EXPORTS;%(PreprocessorDefinitions);_DEBUG;</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <TreatWarningAsError>true</TreatWarningAsError>
+      <AdditionalIncludeDirectories>$(ijk_sdk)include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableUAC>false</EnableUAC>
+      <AdditionalLibraryDirectories>$(ijk_sdk)lib\$(PlatformTarget)\$(PlatformToolset)\$(Configuration)\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>ijk-base.lib;ijk-math.lib;ijk-platform.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
       <Command>call "$(ijk_sdk)utility\windows\dev\ijk-copy-build-call.bat" ".\lib\$(PlatformTarget)\$(PlatformToolset)\$(Configuration)\" ".\bin\$(PlatformTarget)\$(PlatformToolset)\$(Configuration)\ijk-plugin\" "$(TargetFileName)" "$(TargetFileName)" ".\bin\$(PlatformTarget)\$(PlatformToolset)\$(Configuration)\data\"</Command>
@@ -114,11 +117,14 @@
       <PreprocessorDefinitions>WIN$(PlatformArchitecture);WIN32_LEAN_AND_MEAN;_CRT_SECURE_NO_WARNINGS;_WINDOWS;_USRDLL;IJK_PLUGIN_EXPORTS;%(PreprocessorDefinitions);_DEBUG;</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <TreatWarningAsError>true</TreatWarningAsError>
+      <AdditionalIncludeDirectories>$(ijk_sdk)include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableUAC>false</EnableUAC>
+      <AdditionalLibraryDirectories>$(ijk_sdk)lib\$(PlatformTarget)\$(PlatformToolset)\$(Configuration)\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>ijk-base.lib;ijk-math.lib;ijk-platform.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
       <Command>call "$(ijk_sdk)utility\windows\dev\ijk-copy-build-call.bat" ".\lib\$(PlatformTarget)\$(PlatformToolset)\$(Configuration)\" ".\bin\$(PlatformTarget)\$(PlatformToolset)\$(Configuration)\ijk-plugin\" "$(TargetFileName)" "$(TargetFileName)" ".\bin\$(PlatformTarget)\$(PlatformToolset)\$(Configuration)\data\"</Command>
@@ -133,6 +139,7 @@
       <PreprocessorDefinitions>WIN$(PlatformArchitecture);WIN32_LEAN_AND_MEAN;_CRT_SECURE_NO_WARNINGS;_WINDOWS;_USRDLL;IJK_PLUGIN_EXPORTS;%(PreprocessorDefinitions);NDEBUG;</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <TreatWarningAsError>true</TreatWarningAsError>
+      <AdditionalIncludeDirectories>$(ijk_sdk)include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -141,6 +148,8 @@
       <GenerateDebugInformation>false</GenerateDebugInformation>
       <EnableUAC>false</EnableUAC>
       <LinkTimeCodeGeneration>UseLinkTimeCodeGeneration</LinkTimeCodeGeneration>
+      <AdditionalLibraryDirectories>$(ijk_sdk)lib\$(PlatformTarget)\$(PlatformToolset)\$(Configuration)\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>ijk-base.lib;ijk-math.lib;ijk-platform.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
       <Command>call "$(ijk_sdk)utility\windows\dev\ijk-copy-build-call.bat" ".\lib\$(PlatformTarget)\$(PlatformToolset)\$(Configuration)\" ".\bin\$(PlatformTarget)\$(PlatformToolset)\$(Configuration)\ijk-plugin\" "$(TargetFileName)" "$(TargetFileName)" ".\bin\$(PlatformTarget)\$(PlatformToolset)\$(Configuration)\data\"</Command>
@@ -155,6 +164,7 @@
       <PreprocessorDefinitions>WIN$(PlatformArchitecture);WIN32_LEAN_AND_MEAN;_CRT_SECURE_NO_WARNINGS;_WINDOWS;_USRDLL;IJK_PLUGIN_EXPORTS;%(PreprocessorDefinitions);NDEBUG;</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <TreatWarningAsError>true</TreatWarningAsError>
+      <AdditionalIncludeDirectories>$(ijk_sdk)include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -163,6 +173,8 @@
       <GenerateDebugInformation>false</GenerateDebugInformation>
       <EnableUAC>false</EnableUAC>
       <LinkTimeCodeGeneration>UseLinkTimeCodeGeneration</LinkTimeCodeGeneration>
+      <AdditionalLibraryDirectories>$(ijk_sdk)lib\$(PlatformTarget)\$(PlatformToolset)\$(Configuration)\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>ijk-base.lib;ijk-math.lib;ijk-platform.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
       <Command>call "$(ijk_sdk)utility\windows\dev\ijk-copy-build-call.bat" ".\lib\$(PlatformTarget)\$(PlatformToolset)\$(Configuration)\" ".\bin\$(PlatformTarget)\$(PlatformToolset)\$(Configuration)\ijk-plugin\" "$(TargetFileName)" "$(TargetFileName)" ".\bin\$(PlatformTarget)\$(PlatformToolset)\$(Configuration)\data\"</Command>
