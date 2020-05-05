@@ -16,6 +16,9 @@
     <Filter Include="Source Files\common">
       <UniqueIdentifier>{b278a13f-88b0-4c48-936a-5eedcc0be3dd}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\ijk-math">
+      <UniqueIdentifier>{0acaa139-38a6-43cd-80ce-ab2e91750ea8}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\source\ijk-math\common\ijk-math.c">
@@ -24,7 +27,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\include\ijk\ijk-math\ijk-math.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\ijk-math</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

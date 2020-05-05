@@ -16,6 +16,9 @@
     <Filter Include="Source Files\common">
       <UniqueIdentifier>{6c42c307-6a81-45de-97a0-22b5623f642a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\ijk-base">
+      <UniqueIdentifier>{fffdf380-5db8-4036-8439-4df631897b9d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\source\ijk-base\common\ijk-base.c">
@@ -24,7 +27,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\include\ijk\ijk-base\ijk-base.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\ijk-base</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
