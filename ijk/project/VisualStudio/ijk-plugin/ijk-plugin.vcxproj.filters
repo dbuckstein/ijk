@@ -16,10 +16,21 @@
     <Filter Include="Source Files\_platform_win">
       <UniqueIdentifier>{b18e4350-b162-4e96-89b4-79551606ca8f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\common">
+      <UniqueIdentifier>{870fed10-3a1b-4e7f-a5e8-cfb3547f86bc}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="_platform_win\ijk-dllmain.c">
       <Filter>Source Files\_platform_win</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\source\ijk-plugin\common\ijk-plugin.c">
+      <Filter>Source Files\common</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\source\ijk-plugin\ijk-dylib.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

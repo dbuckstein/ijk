@@ -21,6 +21,9 @@
   <ItemGroup>
     <ClCompile Include="..\..\..\source\ijk-base\common\ijk-base.c" />
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\include\ijk\ijk-base\ijk-base.h" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <ProjectGuid>{5DE2A90F-D7A1-447C-9B75-3059B1CE9043}</ProjectGuid>

@@ -28,4 +28,9 @@
       <Filter>Source Files\_platform_win</Filter>
     </ClCompile>
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\include\ijk\ijk-platform\ijk-platform.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
 </Project>

@@ -19,8 +19,7 @@
 		c-based rendering framework
 	By Daniel S. Buckstein
 
-	ijk-base.c
-	Default source for base library.
+	ijk-plugin.c
+	Default source for plugin dynamic library.
 */
 
-//#include "ijk/ijk-base/ijk-base.h"

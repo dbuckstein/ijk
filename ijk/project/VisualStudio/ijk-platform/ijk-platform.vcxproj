@@ -158,6 +158,9 @@
     <ClCompile Include="..\..\..\source\ijk-platform\common\ijk-platform.c" />
     <ClCompile Include="_platform_win\ijkWindow.c" />
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\include\ijk\ijk-platform\ijk-platform.h" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

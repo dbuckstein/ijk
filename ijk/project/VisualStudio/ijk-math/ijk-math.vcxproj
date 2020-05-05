@@ -157,6 +157,9 @@
   <ItemGroup>
     <ClCompile Include="..\..\..\source\ijk-math\common\ijk-math.c" />
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\include\ijk\ijk-math\ijk-math.h" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

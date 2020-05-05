@@ -19,8 +19,13 @@
 		c-based rendering framework
 	By Daniel S. Buckstein
 
-	ijk-base.c
-	Default source for base library.
+	ijk.h
+	Main header for ijk SDK.
 */
 
-//#include "ijk/ijk-base/ijk-base.h"
+#ifndef _IJK_H_
+#define _IJK_H_
+
+
+
+#endif	// !_IJK_H_
