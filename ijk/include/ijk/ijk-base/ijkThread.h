@@ -27,7 +27,73 @@
 #define _IJK_THREAD_H_
 
 
+#include "ijk/ijk/ijk-typedefs.h"
 
+
+#ifdef __cplusplus
+extern "C" {
+#else	// !__cplusplus
+typedef struct		ijkThread			ijkThread;
+#endif	// __cplusplus
+
+
+// ijkThreadFunc
+//	Entry function type for thread interface. Any function returning integer 
+//	and taking one pointer parameter (any type) qualifies.
+//		param: any pointer representing the data to be passed to the function
+//		return: any integer
+typedef iret(*ijkThreadFunc)(ptr);
+
+
+// ijkThread
+//	Thread descriptor.
+//		member handle: internal thread handle(s), not platform-specific
+//		member entryFunc: function to call for entry point
+//		member entryArg: argument pointer to pass to entry function
+//		member name: name of thread to appear in debugging interface
+//		member sysID: system ID number of thread, identifier for handle
+//		member active: boolean flag describing whether thread is running
+//		member result: integer return value from entry function
+struct ijkThread
+{
+	ptr handle[2];					// internal handles
+	ijkThreadFunc entryFunc;		// entry function
+	ptr entryArg;					// entry argument
+	tag name;						// name of thread
+	dword sysID;					// system ID of thread
+	ibool active;					// whether thread is still executing
+	iret result;					// return value from entry function
+};
+
+
+// ijkThreadCreate
+//	Create and launch a thread.
+//		param thread_out: pointer to thread descriptor
+//			valid: non-null, uninitialized
+//		param entryFunc: function to call when thread initializes
+//			valid: non-null
+//		param entryArg: argument to pass to entryFunc when it is called
+//			note: pass null/zero if no argument to pass to entryFunc
+//		param name: short name of thread
+//			note: pass empty string "" to use default name
+//		return SUCCESS: ijk_success if thread created
+//		return FAILURE: ijk_failure if invalid parameters
+//		return FAILURE: -2 if thread not created
+iret ijkThreadCreate(ijkThread* const thread_out, ijkThreadFunc const entryFunc, ptr const entryArg, tag const name);
+
+// ijkThreadRelease
+//	Terminate and release a thread.
+//		param thread: pointer to thread descriptor
+//			valid: non-null, initialized
+//		return SUCCESS: ijk_success if thread terminated
+//		return FAILURE: ijk_failure if invalid parameters
+//		return FAILURE: -2 if thread not terminated
+iret ijkThreadRelease(ijkThread* const thread);
+
+
+#ifdef __cplusplus
+}
+#endif	// __cplusplus
 
 
 #include "_inl/ijkThread.inl"
