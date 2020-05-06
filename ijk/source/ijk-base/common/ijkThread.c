@@ -19,15 +19,9 @@
 		c-based rendering framework
 	By Daniel S. Buckstein
 
-	ijk-base.h
-	Main header for base library.
+	ijkThread.c
+	Thread utility implementation.
 */
 
-#ifndef _IJK_BASE_H_
-#define _IJK_BASE_H_
+#include "ijk/ijk-base/ijkThread.h"
 
-
-#include "ijkThread.h"
-
-
-#endif	// !_IJK_BASE_H_

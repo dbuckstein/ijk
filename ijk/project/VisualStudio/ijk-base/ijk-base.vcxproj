@@ -20,9 +20,14 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\source\ijk-base\common\ijk-base.c" />
+    <ClCompile Include="..\..\..\source\ijk-base\common\ijkThread.c" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\include\ijk\ijk-base\ijk-base.h" />
+    <ClInclude Include="..\..\..\include\ijk\ijk-base\ijkThread.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\..\include\ijk\ijk-base\_inl\ijkThread.inl" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>

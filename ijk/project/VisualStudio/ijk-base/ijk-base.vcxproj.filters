@@ -19,9 +19,15 @@
     <Filter Include="Header Files\ijk-base">
       <UniqueIdentifier>{fffdf380-5db8-4036-8439-4df631897b9d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\ijk-base\_inl">
+      <UniqueIdentifier>{1c6f8557-ed1f-4d95-8050-deee106074f2}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\source\ijk-base\common\ijk-base.c">
+      <Filter>Source Files\common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\ijk-base\common\ijkThread.c">
       <Filter>Source Files\common</Filter>
     </ClCompile>
   </ItemGroup>
@@ -29,5 +35,13 @@
     <ClInclude Include="..\..\..\include\ijk\ijk-base\ijk-base.h">
       <Filter>Header Files\ijk-base</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\include\ijk\ijk-base\ijkThread.h">
+      <Filter>Header Files\ijk-base</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\..\include\ijk\ijk-base\_inl\ijkThread.inl">
+      <Filter>Header Files\ijk-base\_inl</Filter>
+    </None>
   </ItemGroup>
 </Project>
