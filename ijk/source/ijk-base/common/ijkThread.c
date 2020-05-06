@@ -25,3 +25,52 @@
 
 #include "ijk/ijk-base/ijkThread.h"
 
+
+// include platform APIs
+#if (__ijk_cfg_platform == WINDOWS)
+#include <Windows.h>
+#else	// !WINDOWS
+#include <pthread.h>
+#include <signal.h>
+#include <sys/types.h>
+#endif	// WINDOWS
+
+
+iret ijkThreadCreate(ijkThread* const thread_out, ijkThreadFunc const entryFunc, ptr const entryArg, tag const name)
+{
+	// validate parameters
+	if (thread_out && entryFunc)
+	{
+		// validate parameters are not in-use
+		if (*thread_out->handle == 0)
+		{
+			// default values
+			thread_out->active = ijk_false;
+			thread_out->result = ijk_failure;
+			thread_out->entryFunc = entryFunc;
+			thread_out->entryArg = entryArg;
+			ijk_copytag(thread_out->name, name);
+
+			// launch
+#if (__ijk_cfg_platform == WINDOWS)
+#else	// !WINDOWS
+#endif	// WINDOWS
+		}
+	}
+	return ijk_failure;
+}
+
+
+iret ijkThreadRelease(ijkThread* const thread)
+{
+	// validate parameter
+	if (thread)
+	{
+		// validate parameter is a valid thread in-use
+		if (*thread->handle != 0)
+		{
+
+		}
+	}
+	return ijk_failure;
+}
