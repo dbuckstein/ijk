@@ -21,7 +21,13 @@
     <ClInclude Include="..\..\..\include\ijk\ijk.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\include\ijk\ijk\ijk-config.h">
+      <Filter>Header Files\ijk</Filter>
+    </ClInclude>
     <ClInclude Include="..\..\..\include\ijk\ijk\ijk-macros.h">
+      <Filter>Header Files\ijk</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\ijk\ijk\ijk-typedefs.h">
       <Filter>Header Files\ijk</Filter>
     </ClInclude>
   </ItemGroup>

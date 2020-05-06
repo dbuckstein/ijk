@@ -148,7 +148,9 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\include\ijk\ijk.h" />
+    <ClInclude Include="..\..\..\include\ijk\ijk\ijk-config.h" />
     <ClInclude Include="..\..\..\include\ijk\ijk\ijk-macros.h" />
+    <ClInclude Include="..\..\..\include\ijk\ijk\ijk-typedefs.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -27,5 +27,10 @@
 #define _IJK_H_
 
 
+#include "ijk/ijk-typedefs.h"
+#include "ijk-base/ijk-base.h"
+#include "ijk-math/ijk-math.h"
+#include "ijk-platform/ijk-platform.h"
+
 
 #endif	// !_IJK_H_
