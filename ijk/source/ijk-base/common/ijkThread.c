@@ -249,3 +249,15 @@ iret ijkThreadCheckActive(ijkThread const* const thread)
 
 
 //-----------------------------------------------------------------------------
+
+dword ijkThreadInternalGetSysID()
+{
+#if (__ijk_cfg_platform == WINDOWS)
+	return GetCurrentThreadId();
+#else	// !WINDOWS
+	return gettid();
+#endif	// WINDOWS
+}
+
+
+//-----------------------------------------------------------------------------

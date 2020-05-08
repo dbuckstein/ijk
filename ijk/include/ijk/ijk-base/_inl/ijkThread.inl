@@ -32,54 +32,111 @@
 
 ijk_inl iret ijkMutexLock(ijkMutex* const mutex)
 {
+	dword ijkThreadInternalGetSysID();
 	if (mutex)
 	{
+		dword const caller = ijkThreadInternalGetSysID();
+		if (mutex->sysID != caller)
+		{
+			if (mutex->sysID == 0)
+			{
+				// set ID
+				mutex->sysID = caller;
 
+				// success
+				return ijk_success;
+			}
+
+			// failure
+			return ijk_fail_operationfail;
+		}
+
+		// warning
+		return ijk_warn_mutex_current;
 	}
 	return ijk_fail_invalidparams;
 }
+
 
 ijk_inl iret ijkMutexLockWait(ijkMutex* const mutex)
 {
+	dword ijkThreadInternalGetSysID();
 	if (mutex)
 	{
+		dword const caller = ijkThreadInternalGetSysID();
+		if (mutex->sysID != caller)
+		{
+			// wait for lock to be released
+			while (mutex->sysID > 0);
+			if (mutex->sysID == 0)
+			{
+				// set ID
+				mutex->sysID = caller;
 
+				// success
+				return ijk_success;
+			}
+
+			// failure
+			return ijk_fail_operationfail;
+		}
+
+		// warning
+		return ijk_warn_mutex_current;
 	}
 	return ijk_fail_invalidparams;
 }
+
 
 ijk_inl iret ijkMutexUnlock(ijkMutex* const mutex)
 {
+	dword ijkThreadInternalGetSysID();
 	if (mutex)
 	{
+		dword const caller = ijkThreadInternalGetSysID();
+		if (mutex->sysID == caller)
+		{
+			// reset handle
+			mutex->sysID = 0;
 
+			// success
+			return ijk_success;
+		}
+
+		// failure
+		return ijk_fail_operationfail;
 	}
 	return ijk_fail_invalidparams;
 }
+
 
 ijk_inl iret ijkMutexIsLocked(ijkMutex const* const mutex)
 {
 	if (mutex)
 	{
-
+		return (mutex->sysID != 0);
 	}
 	return ijk_fail_invalidparams;
 }
+
 
 ijk_inl iret ijkMutexIsLockedByCaller(ijkMutex const* const mutex)
 {
+	dword ijkThreadInternalGetSysID();
 	if (mutex)
 	{
-
+		dword const caller = ijkThreadInternalGetSysID();
+		return (mutex->sysID == caller);
 	}
 	return ijk_fail_invalidparams;
 }
+
 
 ijk_inl iret ijkMutexIsUnlocked(ijkMutex const* const mutex)
 {
 	if (mutex)
 	{
-
+		return (mutex->sysID == 0);
 	}
 	return ijk_fail_invalidparams;
 }

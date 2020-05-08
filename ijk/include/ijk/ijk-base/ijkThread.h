@@ -40,6 +40,11 @@ typedef struct		ijkMutex			ijkMutex;
 
 //-----------------------------------------------------------------------------
 
+// ijk_warn_mutex_current
+//	Mutex warning indicating that calling thread already holds mutex lock.
+#define ijk_warn_mutex_current	(ijk_warncode(1))
+
+
 // ijkThreadFunc
 //	Entry function type for thread interface. Any function returning integer 
 //	and taking one pointer parameter (any type) qualifies.
