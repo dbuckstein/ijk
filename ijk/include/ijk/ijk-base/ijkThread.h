@@ -77,8 +77,8 @@ struct ijkThread
 //		param name: short name of thread
 //			note: pass empty string "" to use default name
 //		return SUCCESS: ijk_success if thread created
-//		return FAILURE: ijk_failure if invalid parameters
-//		return FAILURE: -2 if thread not created
+//		return FAILURE: ijk_fail_invalidparams if invalid parameters
+//		return FAILURE: ijk_fail_operationfail if thread not created
 iret ijkThreadCreate(ijkThread* const thread_out, ijkThreadFunc const entryFunc, ptr const entryArg, tag const name);
 
 // ijkThreadReleaseUnsafe
@@ -86,8 +86,8 @@ iret ijkThreadCreate(ijkThread* const thread_out, ijkThreadFunc const entryFunc,
 //		param thread: pointer to thread descriptor
 //			valid: non-null, initialized
 //		return SUCCESS: ijk_success if thread terminated
-//		return FAILURE: ijk_failure if invalid parameters
-//		return FAILURE: -2 if thread not terminated
+//		return FAILURE: ijk_fail_invalidparams if invalid parameters
+//		return FAILURE: ijk_fail_operationfail if thread not terminated
 iret ijkThreadReleaseUnsafe(ijkThread* const thread);
 
 // ijkThreadReleaseSafe
@@ -95,9 +95,18 @@ iret ijkThreadReleaseUnsafe(ijkThread* const thread);
 //		param thread: pointer to thread descriptor
 //			valid: non-null, initialized
 //		return SUCCESS: ijk_success if thread terminated
-//		return FAILURE: ijk_failure if invalid parameters
-//		return FAILURE: -2 if failed to wait
+//		return FAILURE: ijk_fail_invalidparams if invalid parameters
+//		return FAILURE: ijk_fail_operationfail if failed to wait
 iret ijkThreadReleaseSafe(ijkThread* const thread);
+
+// ijkThreadCheckActive
+//	Check internally whether thread is still active
+//		param thread: pointer to thread descriptor
+//			valid: non-null, initialized
+//		return SUCCESS: ijk_true if thread is still active
+//		return SUCCESS: ijk_false if thread is not active
+//		return FAILURE: ijk_fail_invalidparams if invalid params
+iret ijkThreadCheckActive(ijkThread const* const thread);
 
 
 #ifdef __cplusplus

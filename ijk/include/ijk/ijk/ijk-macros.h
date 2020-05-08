@@ -32,7 +32,9 @@
 
 // general qualifiers
 ///
+#define ijk_inl_ext						extern inline
 #define ijk_inl							static inline
+#define ijk_ext							extern
 
 
 // general flags and checks

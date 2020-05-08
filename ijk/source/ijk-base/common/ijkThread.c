@@ -145,8 +145,12 @@ iret ijkThreadCreate(ijkThread* const thread_out, ijkThreadFunc const entryFunc,
 			pthread_create((pthread_t*)thread_out->handle, 0, ijkThreadInternalEntryFunc, thread_out);
 #endif	// WINDOWS
 
-			// done
-			return (*thread_out->handle ? ijk_success : ijk_fail_operationfail);
+			// success
+			if (*thread_out->handle)
+				return ijk_success;
+
+			// failure
+			return ijk_fail_operationfail;
 		}
 	}
 	return ijk_fail_invalidparams;
@@ -211,6 +215,29 @@ iret ijkThreadReleaseSafe(ijkThread* const thread)
 
 			// failure
 			return ijk_fail_operationfail;
+		}
+	}
+	return ijk_fail_invalidparams;
+}
+
+
+iret ijkThreadCheckActive(ijkThread const* const thread)
+{
+	if (thread)
+	{
+		if (*thread->handle)
+		{
+#if (__ijk_cfg_platform == WINDOWS)
+			dword result;
+			GetExitCodeThread(*thread->handle, &result);
+			if (result == STILL_ACTIVE)
+				return ijk_true;
+#else	// !WINDOWS
+			// check if "not complete" flag is set non-complete
+#endif	// WINDOWS
+
+			// inactive
+			return ijk_false;
 		}
 	}
 	return ijk_fail_invalidparams;
