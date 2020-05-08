@@ -36,6 +36,8 @@
 #endif	// WINDOWS
 
 
+//-----------------------------------------------------------------------------
+
 // internal name set function
 // from "How to: Set a Thread Name in Native Code"
 // msdn.microsoft.com
@@ -122,6 +124,8 @@ ptr ijkThreadFuncEntry(ijkThread* const thread)
 #endif	// WINDOWS
 
 
+//-----------------------------------------------------------------------------
+
 iret ijkThreadCreate(ijkThread* const thread_out, ijkThreadFunc const entryFunc, ptr const entryArg, tag const name)
 {
 	// validate parameters
@@ -148,6 +152,35 @@ iret ijkThreadCreate(ijkThread* const thread_out, ijkThreadFunc const entryFunc,
 			// success
 			if (*thread_out->handle)
 				return ijk_success;
+
+			// failure
+			return ijk_fail_operationfail;
+		}
+	}
+	return ijk_fail_invalidparams;
+}
+
+
+iret ijkThreadRelease(ijkThread* const thread)
+{
+	if (thread)
+	{
+		if (*thread->handle != 0)
+		{
+			ibool result;
+#if (__ijk_cfg_platform == WINDOWS)
+			result = (WaitForSingleObject(*thread->handle, INFINITE) == WAIT_OBJECT_0);
+#else	// !WINDOWS
+			result = ijk_issuccess(pthread_join(*(pthread_t*)thread->handle, 0));
+#endif	// WINDOWS
+
+			// success
+			if (result)
+			{
+				thread->sysID = 0;
+				*thread->handle = 0;
+				return ijk_success;
+			}
 
 			// failure
 			return ijk_fail_operationfail;
@@ -192,35 +225,6 @@ iret ijkThreadReleaseUnsafe(ijkThread* const thread)
 }
 
 
-iret ijkThreadReleaseSafe(ijkThread* const thread)
-{
-	if (thread)
-	{
-		if (*thread->handle != 0)
-		{
-			ibool result;
-#if (__ijk_cfg_platform == WINDOWS)
-			result = (WaitForSingleObject(*thread->handle, INFINITE) == WAIT_OBJECT_0);
-#else	// !WINDOWS
-			result = ijk_issuccess(pthread_join(*(pthread_t*)thread->handle, 0));
-#endif	// WINDOWS
-
-			// success
-			if (result)
-			{
-				thread->sysID = 0;
-				*thread->handle = 0;
-				return ijk_success;
-			}
-
-			// failure
-			return ijk_fail_operationfail;
-		}
-	}
-	return ijk_fail_invalidparams;
-}
-
-
 iret ijkThreadCheckActive(ijkThread const* const thread)
 {
 	if (thread)
@@ -242,3 +246,6 @@ iret ijkThreadCheckActive(ijkThread const* const thread)
 	}
 	return ijk_fail_invalidparams;
 }
+
+
+//-----------------------------------------------------------------------------

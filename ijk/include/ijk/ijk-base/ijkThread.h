@@ -34,8 +34,11 @@
 extern "C" {
 #else	// !__cplusplus
 typedef struct		ijkThread			ijkThread;
+typedef struct		ijkMutex			ijkMutex;
 #endif	// __cplusplus
 
+
+//-----------------------------------------------------------------------------
 
 // ijkThreadFunc
 //	Entry function type for thread interface. Any function returning integer 
@@ -66,6 +69,17 @@ struct ijkThread
 };
 
 
+// ijkMutex
+//	Simple mutex (mutual exclusion) descriptor.
+//		member sysID: system ID number of thread holding mutex
+struct ijkMutex
+{
+	dword sysID;
+};
+
+
+//-----------------------------------------------------------------------------
+
 // ijkThreadCreate
 //	Create and launch a thread.
 //		param thread_out: pointer to thread descriptor
@@ -81,6 +95,15 @@ struct ijkThread
 //		return FAILURE: ijk_fail_operationfail if thread not created
 iret ijkThreadCreate(ijkThread* const thread_out, ijkThreadFunc const entryFunc, ptr const entryArg, tag const name);
 
+// ijkThreadRelease
+//	Wait indefinitely for a thread to safely finish.
+//		param thread: pointer to thread descriptor
+//			valid: non-null, initialized
+//		return SUCCESS: ijk_success if thread terminated
+//		return FAILURE: ijk_fail_invalidparams if invalid parameters
+//		return FAILURE: ijk_fail_operationfail if failed to wait
+iret ijkThreadRelease(ijkThread* const thread);
+
 // ijkThreadReleaseUnsafe
 //	Terminate a thread.
 //		param thread: pointer to thread descriptor
@@ -90,23 +113,76 @@ iret ijkThreadCreate(ijkThread* const thread_out, ijkThreadFunc const entryFunc,
 //		return FAILURE: ijk_fail_operationfail if thread not terminated
 iret ijkThreadReleaseUnsafe(ijkThread* const thread);
 
-// ijkThreadReleaseSafe
-//	Wait indefinitely for a thread to finish.
-//		param thread: pointer to thread descriptor
-//			valid: non-null, initialized
-//		return SUCCESS: ijk_success if thread terminated
-//		return FAILURE: ijk_fail_invalidparams if invalid parameters
-//		return FAILURE: ijk_fail_operationfail if failed to wait
-iret ijkThreadReleaseSafe(ijkThread* const thread);
-
 // ijkThreadCheckActive
 //	Check internally whether thread is still active
 //		param thread: pointer to thread descriptor
 //			valid: non-null, initialized
 //		return SUCCESS: ijk_true if thread is still active
 //		return SUCCESS: ijk_false if thread is not active
-//		return FAILURE: ijk_fail_invalidparams if invalid params
+//		return FAILURE: ijk_fail_invalidparams if invalid parameters
 iret ijkThreadCheckActive(ijkThread const* const thread);
+
+
+//-----------------------------------------------------------------------------
+
+// ijkMutexLock
+//	Single attempt to lock (gain control of) mutex handle.
+//		param mutex: pointer to mutex descriptor
+//			valid: non-null
+//		return SUCCESS: ijk_success if mutex successfully locked
+//		return WARNING: ijk_warn_mutex_current if caller already locked mutex
+//		return FAILURE: ijk_fail_invalidparams if invalid parameters
+//		return FAILURE: ijk_fail_operationfail if mutex not locked
+iret ijkMutexLock(ijkMutex* const mutex);
+
+// ijkMutexLockWait
+//	Perpetual attempt to lock mutex handle.
+//		param mutex: pointer to mutex descriptor
+//			valid: non-null
+//		return SUCCESS: ijk_success if mutex successfully locked
+//		return WARNING: ijk_warn_mutex_current if caller already locked mutex
+//		return FAILURE: ijk_fail_invalidparams if invalid parameters
+//		return FAILURE: ijk_fail_operationfail if mutex not locked
+iret ijkMutexLockWait(ijkMutex* const mutex);
+
+// ijkMutexUnlock
+//	Unlock (release control of) mutex handle if calling thread holds it.
+//		param mutex: pointer to mutex descriptor
+//			valid: non-null
+//		return SUCCESS: ijk_success if mutex successfully unlocked
+//		return FAILURE: ijk_fail_invalidparams if invalid parameters
+//		return FAILURE: ijk_fail_operationfail if caller cannot unlock mutex
+iret ijkMutexUnlock(ijkMutex* const mutex);
+
+// ijkMutexIsLocked
+//	Check if mutex is locked.
+//		param mutex: pointer to mutex descriptor
+//			valid: non-null
+//		return SUCCESS: ijk_true if mutex is locked
+//		return SUCCESS: ijk_false if mutex is unlocked
+//		return FAILURE: ijk_fail_invalidparams if invalid parameters
+iret ijkMutexIsLocked(ijkMutex const* const mutex);
+
+// ijkMutexIsLockedByCaller
+//	Check if mutex is locked by calling thread.
+//		param mutex: pointer to mutex descriptor
+//			valid: non-null
+//		return SUCCESS: ijk_true if mutex is locked by caller
+//		return SUCCESS: ijk_false if mutex is unlocked
+//		return FAILURE: ijk_fail_invalidparams if invalid parameters
+iret ijkMutexIsLockedByCaller(ijkMutex const* const mutex);
+
+// ijkMutexIsUnlocked
+//	Check if mutex is unlocked.
+//		param mutex: pointer to mutex descriptor
+//			valid: non-null
+//		return SUCCESS: ijk_true if mutex is unlocked
+//		return SUCCESS: ijk_false if mutex is locked
+//		return FAILURE: ijk_fail_invalidparams if invalid parameters
+iret ijkMutexIsUnlocked(ijkMutex const* const mutex);
+
+
+//-----------------------------------------------------------------------------
 
 
 #ifdef __cplusplus

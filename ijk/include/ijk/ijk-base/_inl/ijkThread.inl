@@ -28,6 +28,65 @@
 #define _IJK_THREAD_INL_
 
 
+//-----------------------------------------------------------------------------
+
+ijk_inl iret ijkMutexLock(ijkMutex* const mutex)
+{
+	if (mutex)
+	{
+
+	}
+	return ijk_fail_invalidparams;
+}
+
+ijk_inl iret ijkMutexLockWait(ijkMutex* const mutex)
+{
+	if (mutex)
+	{
+
+	}
+	return ijk_fail_invalidparams;
+}
+
+ijk_inl iret ijkMutexUnlock(ijkMutex* const mutex)
+{
+	if (mutex)
+	{
+
+	}
+	return ijk_fail_invalidparams;
+}
+
+ijk_inl iret ijkMutexIsLocked(ijkMutex const* const mutex)
+{
+	if (mutex)
+	{
+
+	}
+	return ijk_fail_invalidparams;
+}
+
+ijk_inl iret ijkMutexIsLockedByCaller(ijkMutex const* const mutex)
+{
+	if (mutex)
+	{
+
+	}
+	return ijk_fail_invalidparams;
+}
+
+ijk_inl iret ijkMutexIsUnlocked(ijkMutex const* const mutex)
+{
+	if (mutex)
+	{
+
+	}
+	return ijk_fail_invalidparams;
+}
+
+
+//-----------------------------------------------------------------------------
+
 
 #endif	// !_IJK_THREAD_INL_
 #endif	// _IJK_THREAD_H_
