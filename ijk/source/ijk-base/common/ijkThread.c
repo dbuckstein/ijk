@@ -75,15 +75,16 @@ iret ijkThreadInternalSetName(dword id, kptag name)
 		__except (EXCEPTION_EXECUTE_HANDLER)
 		{
 			// unhandled exception
+			//return ijk_fail_operationfail;
 		}
 #pragma warning(pop)
-		return 1;
+		return ijk_success;
 #else	// !(defined _WINDOWS || defined _WIN32)
 		// do rename
-		return 0;
+		return ijk_success;
 #endif	// (defined _WINDOWS || defined _WIN32)
 	}
-	return -1;
+	return ijk_fail_invalidparams;
 }
 
 
@@ -143,13 +144,16 @@ iret ijkThreadCreate(ijkThread* const thread_out, ijkThreadFunc const entryFunc,
 			thread_out->sysID = 1;
 			pthread_create((pthread_t*)thread_out->handle, 0, ijkThreadInternalEntryFunc, thread_out);
 #endif	// WINDOWS
+
+			// done
+			return (*thread_out->handle ? ijk_success : ijk_fail_operationfail);
 		}
 	}
-	return ijk_failure;
+	return ijk_fail_invalidparams;
 }
 
 
-iret ijkThreadRelease(ijkThread* const thread)
+iret ijkThreadReleaseUnsafe(ijkThread* const thread)
 {
 	// validate parameter
 	if (thread)
@@ -157,8 +161,57 @@ iret ijkThreadRelease(ijkThread* const thread)
 		// validate parameter is a valid thread in-use
 		if (*thread->handle != 0)
 		{
+			ibool result;
+#if (__ijk_cfg_platform == WINDOWS)
+			// unsafe because TerminateThread does not allow thread to clean up
+			// https://docs.microsoft.com/en-us/cpp/code-quality/c6258?view=vs-2019
+			result = ijk_istrue(TerminateThread(*thread->handle, ijk_failure));
+			if (result)
+				result = ijk_istrue(CloseHandle(*thread->handle));
+#else	// !WINDOWS
+			result = ijk_issuccess(pthread_kill(*(pthread_t*)thread->handle, SIGKILL));
+#endif	// WINDOWS
 
+			// success
+			if (result)
+			{
+				thread->sysID = 0;
+				*thread->handle = 0;
+				return ijk_success;
+			}
+
+			// failure
+			return ijk_fail_operationfail;
 		}
 	}
-	return ijk_failure;
+	return ijk_fail_invalidparams;
+}
+
+
+iret ijkThreadReleaseSafe(ijkThread* const thread)
+{
+	if (thread)
+	{
+		if (*thread->handle != 0)
+		{
+			ibool result;
+#if (__ijk_cfg_platform == WINDOWS)
+			result = (WaitForSingleObject(*thread->handle, INFINITE) == WAIT_OBJECT_0);
+#else	// !WINDOWS
+			result = ijk_issuccess(pthread_join(*(pthread_t*)thread->handle, 0));
+#endif	// WINDOWS
+
+			// success
+			if (result)
+			{
+				thread->sysID = 0;
+				*thread->handle = 0;
+				return ijk_success;
+			}
+
+			// failure
+			return ijk_fail_operationfail;
+		}
+	}
+	return ijk_fail_invalidparams;
 }

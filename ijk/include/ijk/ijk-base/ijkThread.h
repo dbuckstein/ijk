@@ -81,14 +81,23 @@ struct ijkThread
 //		return FAILURE: -2 if thread not created
 iret ijkThreadCreate(ijkThread* const thread_out, ijkThreadFunc const entryFunc, ptr const entryArg, tag const name);
 
-// ijkThreadRelease
-//	Terminate and release a thread.
+// ijkThreadReleaseUnsafe
+//	Terminate a thread.
 //		param thread: pointer to thread descriptor
 //			valid: non-null, initialized
 //		return SUCCESS: ijk_success if thread terminated
 //		return FAILURE: ijk_failure if invalid parameters
 //		return FAILURE: -2 if thread not terminated
-iret ijkThreadRelease(ijkThread* const thread);
+iret ijkThreadReleaseUnsafe(ijkThread* const thread);
+
+// ijkThreadReleaseSafe
+//	Wait indefinitely for a thread to finish.
+//		param thread: pointer to thread descriptor
+//			valid: non-null, initialized
+//		return SUCCESS: ijk_success if thread terminated
+//		return FAILURE: ijk_failure if invalid parameters
+//		return FAILURE: -2 if failed to wait
+iret ijkThreadReleaseSafe(ijkThread* const thread);
 
 
 #ifdef __cplusplus
