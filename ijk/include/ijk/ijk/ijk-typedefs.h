@@ -34,7 +34,7 @@
 ///
 typedef	  signed	char					i8, sbyte;
 typedef	  signed	short					i16;
-typedef	  signed	long					i32;
+typedef	  signed	long					i32, iret, ibool;
 typedef	  signed	long long				i64;
 typedef	unsigned	char					ui8, byte, ubyte;
 typedef	unsigned	short					ui16, word;
@@ -66,7 +66,7 @@ typedef				ijk_tokencat_arch(ui)	size, chomp, uchomp, uitr, uindex;
 
 // convenient short c-string type abbreviations
 ///
-typedef				byte					tag[szaddr * szqword], * ptag;
+typedef				byte					tag[szdword * szqword], * ptag;
 typedef				byte const				* kptag;
 #define				sztag					((size)sizeof(tag))
 
@@ -76,6 +76,16 @@ typedef				byte const				* kptag;
 typedef				word					wtag[sztag], * pwtag;
 typedef				word const				* kpwtag;
 #define				szwtag					((size)sizeof(wtag))
+
+
+// simple copy operations
+///
+#define ijk_copyb(dst, src, offset)		(*((byte*)(dst) + (offset)) = *((byte const *)(src) + (offset)))
+#define ijk_copyw(dst, src, offset)		(*((word*)(dst) + (offset)) = *((word const *)(src) + (offset)))
+#define ijk_copydw(dst, src, offset)	(*((dword*)(dst) + (offset)) = *((dword const*)(src) + (offset)))
+#define ijk_copyqw(dst, src, offset)	(*((qword*)(dst) + (offset)) = *((qword const*)(src) + (offset)))
+#define ijk_copytag(dst, src)			ijk_copyqw(dst,src,0);ijk_copyqw(dst,src,1);ijk_copyqw(dst,src,2);ijk_copyqw(dst,src,3)
+#define ijk_copywtag(dst, src)			ijk_copytag((ptag)(dst),(kptag)(src));ijk_copytag((ptag)(dst)+sztag,(kptag)(src)+sztag)
 
 
 #endif	// !_IJK_TYPEDEFS_H_

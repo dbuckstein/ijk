@@ -30,6 +30,38 @@
 #include "ijk-config.h"
 
 
+// general qualifiers
+///
+#define ijk_inl_ext						extern inline
+#define ijk_inl							static inline
+#define ijk_ext							extern
+
+
+// general flags and checks
+///
+#define ijk_true						(1)
+#define ijk_false						(0)
+#define ijk_success						(0)
+#define ijk_failure						(-1)
+#define ijk_warning						(+1)
+#define ijk_failcode(x)					(-(x))
+#define ijk_warncode(x)					(+(x))
+#define ijk_fail_invalidparams			ijk_failcode(1)
+#define ijk_fail_operationfail			ijk_failcode(2)
+
+#define ijk_istrue(x)					((x) != ijk_false)
+#define ijk_isfalse(x)					((x) == ijk_false)
+#define ijk_issuccess(x)				((x) == ijk_success)
+#define ijk_isfailure(x)				((x) <= ijk_failure)
+#define ijk_iswarning(x)				((x) >= ijk_warning)
+#define ijk_isnfailure(x)				((x) > ijk_failure)
+
+#define ijk_flagch(x, f)				(((x) & (f)) != (0))
+#define ijk_flagnch(x, f)				(((x) & (f)) == (0))
+#define ijk_flageq(x, f)				(((x) & (f)) == (f))
+#define ijk_flagneq(x, f)				(((x) & (f)) != (f))
+
+
 // token stringify and concatenate
 ///
 #define ijk_tokenstr(x)					__ijk_cfg_tokenstr(x)
