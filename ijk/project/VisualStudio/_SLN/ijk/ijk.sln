@@ -1,0 +1,99 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30011.22
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ijk-player", "..\..\ijk-player\ijk-player.vcxproj", "{130552D4-ADAD-42F6-AD40-94C8BA089981}"
+	ProjectSection(ProjectDependencies) = postProject
+		{5DE2A90F-D7A1-447C-9B75-3059B1CE9043} = {5DE2A90F-D7A1-447C-9B75-3059B1CE9043}
+		{494ADA13-679F-4517-98DD-415C94CA4F66} = {494ADA13-679F-4517-98DD-415C94CA4F66}
+		{E5F40EF8-86A6-4671-A438-9E1C8AFBFDB8} = {E5F40EF8-86A6-4671-A438-9E1C8AFBFDB8}
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ijk-plugin", "..\..\ijk-plugin\ijk-plugin.vcxproj", "{7337059A-88B4-49C7-B6FF-A673CE9585ED}"
+	ProjectSection(ProjectDependencies) = postProject
+		{5DE2A90F-D7A1-447C-9B75-3059B1CE9043} = {5DE2A90F-D7A1-447C-9B75-3059B1CE9043}
+		{494ADA13-679F-4517-98DD-415C94CA4F66} = {494ADA13-679F-4517-98DD-415C94CA4F66}
+		{130552D4-ADAD-42F6-AD40-94C8BA089981} = {130552D4-ADAD-42F6-AD40-94C8BA089981}
+		{E5F40EF8-86A6-4671-A438-9E1C8AFBFDB8} = {E5F40EF8-86A6-4671-A438-9E1C8AFBFDB8}
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ijk-platform", "..\..\ijk-platform\ijk-platform.vcxproj", "{E5F40EF8-86A6-4671-A438-9E1C8AFBFDB8}"
+	ProjectSection(ProjectDependencies) = postProject
+		{5DE2A90F-D7A1-447C-9B75-3059B1CE9043} = {5DE2A90F-D7A1-447C-9B75-3059B1CE9043}
+		{494ADA13-679F-4517-98DD-415C94CA4F66} = {494ADA13-679F-4517-98DD-415C94CA4F66}
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ijk-math", "..\..\ijk-math\ijk-math.vcxproj", "{494ADA13-679F-4517-98DD-415C94CA4F66}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ijk-base", "..\..\ijk-base\ijk-base.vcxproj", "{5DE2A90F-D7A1-447C-9B75-3059B1CE9043}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Header Files", "Header Files", "{E926BA87-7EA5-4261-B473-506EBA92B42A}"
+	ProjectSection(SolutionItems) = preProject
+		..\..\..\..\include\ijk\ijk.h = ..\..\..\..\include\ijk\ijk.h
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ijk", "ijk", "{50901CF4-AC7B-47E9-A073-1E3BC505C0DC}"
+	ProjectSection(SolutionItems) = preProject
+		..\..\..\..\include\ijk\ijk\ijk-macros.h = ..\..\..\..\include\ijk\ijk\ijk-macros.h
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x64 = Debug|x64
+		Debug|x86 = Debug|x86
+		Release|x64 = Release|x64
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{130552D4-ADAD-42F6-AD40-94C8BA089981}.Debug|x64.ActiveCfg = Debug|x64
+		{130552D4-ADAD-42F6-AD40-94C8BA089981}.Debug|x64.Build.0 = Debug|x64
+		{130552D4-ADAD-42F6-AD40-94C8BA089981}.Debug|x86.ActiveCfg = Debug|Win32
+		{130552D4-ADAD-42F6-AD40-94C8BA089981}.Debug|x86.Build.0 = Debug|Win32
+		{130552D4-ADAD-42F6-AD40-94C8BA089981}.Release|x64.ActiveCfg = Release|x64
+		{130552D4-ADAD-42F6-AD40-94C8BA089981}.Release|x64.Build.0 = Release|x64
+		{130552D4-ADAD-42F6-AD40-94C8BA089981}.Release|x86.ActiveCfg = Release|Win32
+		{130552D4-ADAD-42F6-AD40-94C8BA089981}.Release|x86.Build.0 = Release|Win32
+		{7337059A-88B4-49C7-B6FF-A673CE9585ED}.Debug|x64.ActiveCfg = Debug|x64
+		{7337059A-88B4-49C7-B6FF-A673CE9585ED}.Debug|x64.Build.0 = Debug|x64
+		{7337059A-88B4-49C7-B6FF-A673CE9585ED}.Debug|x86.ActiveCfg = Debug|Win32
+		{7337059A-88B4-49C7-B6FF-A673CE9585ED}.Debug|x86.Build.0 = Debug|Win32
+		{7337059A-88B4-49C7-B6FF-A673CE9585ED}.Release|x64.ActiveCfg = Release|x64
+		{7337059A-88B4-49C7-B6FF-A673CE9585ED}.Release|x64.Build.0 = Release|x64
+		{7337059A-88B4-49C7-B6FF-A673CE9585ED}.Release|x86.ActiveCfg = Release|Win32
+		{7337059A-88B4-49C7-B6FF-A673CE9585ED}.Release|x86.Build.0 = Release|Win32
+		{E5F40EF8-86A6-4671-A438-9E1C8AFBFDB8}.Debug|x64.ActiveCfg = Debug|x64
+		{E5F40EF8-86A6-4671-A438-9E1C8AFBFDB8}.Debug|x64.Build.0 = Debug|x64
+		{E5F40EF8-86A6-4671-A438-9E1C8AFBFDB8}.Debug|x86.ActiveCfg = Debug|Win32
+		{E5F40EF8-86A6-4671-A438-9E1C8AFBFDB8}.Debug|x86.Build.0 = Debug|Win32
+		{E5F40EF8-86A6-4671-A438-9E1C8AFBFDB8}.Release|x64.ActiveCfg = Release|x64
+		{E5F40EF8-86A6-4671-A438-9E1C8AFBFDB8}.Release|x64.Build.0 = Release|x64
+		{E5F40EF8-86A6-4671-A438-9E1C8AFBFDB8}.Release|x86.ActiveCfg = Release|Win32
+		{E5F40EF8-86A6-4671-A438-9E1C8AFBFDB8}.Release|x86.Build.0 = Release|Win32
+		{494ADA13-679F-4517-98DD-415C94CA4F66}.Debug|x64.ActiveCfg = Debug|x64
+		{494ADA13-679F-4517-98DD-415C94CA4F66}.Debug|x64.Build.0 = Debug|x64
+		{494ADA13-679F-4517-98DD-415C94CA4F66}.Debug|x86.ActiveCfg = Debug|Win32
+		{494ADA13-679F-4517-98DD-415C94CA4F66}.Debug|x86.Build.0 = Debug|Win32
+		{494ADA13-679F-4517-98DD-415C94CA4F66}.Release|x64.ActiveCfg = Release|x64
+		{494ADA13-679F-4517-98DD-415C94CA4F66}.Release|x64.Build.0 = Release|x64
+		{494ADA13-679F-4517-98DD-415C94CA4F66}.Release|x86.ActiveCfg = Release|Win32
+		{494ADA13-679F-4517-98DD-415C94CA4F66}.Release|x86.Build.0 = Release|Win32
+		{5DE2A90F-D7A1-447C-9B75-3059B1CE9043}.Debug|x64.ActiveCfg = Debug|x64
+		{5DE2A90F-D7A1-447C-9B75-3059B1CE9043}.Debug|x64.Build.0 = Debug|x64
+		{5DE2A90F-D7A1-447C-9B75-3059B1CE9043}.Debug|x86.ActiveCfg = Debug|Win32
+		{5DE2A90F-D7A1-447C-9B75-3059B1CE9043}.Debug|x86.Build.0 = Debug|Win32
+		{5DE2A90F-D7A1-447C-9B75-3059B1CE9043}.Release|x64.ActiveCfg = Release|x64
+		{5DE2A90F-D7A1-447C-9B75-3059B1CE9043}.Release|x64.Build.0 = Release|x64
+		{5DE2A90F-D7A1-447C-9B75-3059B1CE9043}.Release|x86.ActiveCfg = Release|Win32
+		{5DE2A90F-D7A1-447C-9B75-3059B1CE9043}.Release|x86.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{50901CF4-AC7B-47E9-A073-1E3BC505C0DC} = {E926BA87-7EA5-4261-B473-506EBA92B42A}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {9478B636-91F7-4B3F-B219-0E4CB215994D}
+	EndGlobalSection
+EndGlobal
