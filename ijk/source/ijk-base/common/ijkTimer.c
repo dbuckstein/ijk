@@ -28,15 +28,10 @@
 
 #if (__ijk_cfg_platform == WINDOWS)
 #include <Windows.h>
-#ifdef MIDL_PASS
-#define Q			qs
-#else	// !MIDL_PASS
-#define Q			qu
-#endif	// MIDL_PASS
 #else	// !WINDOWS
 #include <time.h>
-#define Q			qs
-#define BILLION		1000000000
+#define BILLION				1000000000
+typedef struct timespec		timespec;
 #endif	// WINDOWS
 
 
@@ -46,7 +41,16 @@ iret ijkTimerReset(ijkTimer* const timer)
 {
 	if (timer)
 	{
+		// set all to zero
+		timer->active = ijk_false;
+		timer->tickCount = 0;
+		timer->totalTime = 0.0;
+		timer->tickMeasure = 0.0;
+		timer->tickComplete = 0.0;
+		*timer->tf = *timer->t0 = *timer->t1 = 0;
 
+		// success
+		return ijk_success;
 	}
 	return ijk_fail_invalidparams;
 }
@@ -56,7 +60,28 @@ iret ijkTimerSet(ijkTimer* const timer, dbl const ticksPerSecond)
 {
 	if (timer)
 	{
+		// set all to zero
+		timer->active = ijk_false;
+		timer->tickCount = 0;
+		timer->totalTime = 0.0;
+		timer->tickMeasure = 0.0;
+		timer->tickComplete = 0.0;
+		*timer->tf = *timer->t0 = *timer->t1 = 0;
 
+		// set rate
+		if (ticksPerSecond > 0.0)
+		{
+			timer->ticksPerSecond = ticksPerSecond;
+			timer->secondsPerTick = 1.0 / ticksPerSecond;
+		}
+		else
+		{
+			timer->ticksPerSecond = 0.0;
+			timer->secondsPerTick = 0.0;
+		}
+
+		// success
+		return ijk_success;
 	}
 	return ijk_fail_invalidparams;
 }
@@ -66,7 +91,34 @@ iret ijkTimerStart(ijkTimer* const timer)
 {
 	if (timer)
 	{
+		// take measurement
+		ibool result;
+#if (__ijk_cfg_platform == WINDOWS)
+		result = QueryPerformanceFrequency((PLARGE_INTEGER)timer->tf)
+			&& QueryPerformanceCounter((PLARGE_INTEGER)timer->t0);
+#else	// !WINDOWS
+		result = ijk_issuccess(clock_gettime(CLOCK_REALTIME, (timespec*)timer->t0));
+		if (result)
+		{
+			// convert to seconds
+			// measurement in nanoseconds
+			*timer->t0 = BILLION * ((dword*)timer->t0)[0] + ((dword*)timer->t0)[1];
+			*timer->tf = BILLION;
+		}
+#endif	// WINDOWS
 
+		// check result
+		if (result)
+		{
+			// raise flag
+			timer->active = ijk_true;
+
+			// success
+			return ijk_success;
+		}
+
+		// failure
+		return ijk_fail_operationfail;
 	}
 	return ijk_fail_invalidparams;
 }
@@ -76,7 +128,32 @@ iret ijkTimerStop(ijkTimer* const timer)
 {
 	if (timer)
 	{
+		// take measurement
+		ibool result;
+#if (__ijk_cfg_platform == WINDOWS)
+		result = QueryPerformanceFrequency((PLARGE_INTEGER)timer->tf)
+			&& QueryPerformanceCounter((PLARGE_INTEGER)timer->t1);
+#else	// !WINDOWS
+		result = ijk_issuccess(clock_gettime(CLOCK_REALTIME, (timespec*)timer->t1));
+		if (result)
+			*timer->t1 = BILLION * ((dword*)timer->t1)[0] + ((dword*)timer->t1)[1];
+#endif	// WINDOWS
 
+		// check result
+		if (result)
+		{
+			// measure tick
+			timer->tickMeasure = (dbl)(*timer->t1 - *timer->t0) / (dbl)(*timer->tf);
+
+			// lower flag
+			timer->active = ijk_false;
+
+			// success
+			return ijk_success;
+		}
+
+		// failure
+		return ijk_fail_operationfail;
 	}
 	return ijk_fail_invalidparams;
 }
@@ -86,7 +163,66 @@ iret ijkTimerCheckTick(ijkTimer* const timer)
 {
 	if (timer)
 	{
+		// take measurement
+		ibool result;
+#if (__ijk_cfg_platform == WINDOWS)
+		result = QueryPerformanceFrequency((PLARGE_INTEGER)timer->tf)
+			&& QueryPerformanceCounter((PLARGE_INTEGER)timer->t1);
+#else	// !WINDOWS
+		result = ijk_issuccess(clock_gettime(CLOCK_REALTIME, (timespec*)timer->t1));
+		if (result)
+			*timer->t1 = BILLION * ((dword*)timer->t1)[0] + ((dword*)timer->t1)[1];
+#endif	// WINDOWS
 
+		// check result
+		if (result)
+		{
+			// measure tick
+			timer->tickMeasure = (dbl)(*timer->t1 - *timer->t0) / (dbl)(*timer->tf);
+
+			// if not continuously updating
+			if (timer->secondsPerTick > 0.0)
+			{
+				// reset flag
+				result = ijk_false;
+
+				// if the current measure exceeds the rate
+				while (timer->tickMeasure >= timer->secondsPerTick)
+				{
+					// update tick: transfer expected delta from tick to total
+					//	until the measured tick does not exceed rate
+					timer->totalTime += timer->secondsPerTick;
+					timer->tickComplete = timer->tickMeasure;
+					timer->tickMeasure -= timer->secondsPerTick;
+
+					// increment count
+					++(timer->tickCount);
+
+					// raise flag
+					result = ijk_true;
+				}
+			}
+
+			// always update if "continuous"
+			else
+			{
+				// same as above
+				timer->totalTime += timer->tickMeasure;
+				timer->tickComplete = timer->tickMeasure;
+				timer->tickMeasure = 0.0;
+				++(timer->tickCount);
+			}
+
+			// copy current time measurement to previous
+			if (result)
+				*timer->t0 = *timer->t1;
+
+			// done
+			return result;
+		}
+
+		// failure
+		return ijk_fail_operationfail;
 	}
 	return ijk_fail_invalidparams;
 }

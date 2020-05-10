@@ -202,9 +202,8 @@ iret ijkThreadReleaseUnsafe(ijkThread* const thread)
 #if (__ijk_cfg_platform == WINDOWS)
 			// unsafe because TerminateThread does not allow thread to clean up
 			// https://docs.microsoft.com/en-us/cpp/code-quality/c6258?view=vs-2019
-			result = ijk_istrue(TerminateThread(*thread->handle, ijk_failure));
-			if (result)
-				result = ijk_istrue(CloseHandle(*thread->handle));
+			result = ijk_istrue(TerminateThread(*thread->handle, ijk_failure))
+				&& ijk_istrue(CloseHandle(*thread->handle));
 #else	// !WINDOWS
 			result = ijk_issuccess(pthread_kill(*(pthread_t*)thread->handle, SIGKILL));
 #endif	// WINDOWS

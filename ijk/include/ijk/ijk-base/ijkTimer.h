@@ -57,13 +57,7 @@ struct ijkTimer
 	dbl tickComplete;					// completed tick measurement
 	dbl ticksPerSecond;					// expected tick rate
 	dbl secondsPerTick;					// expected tick time
-	union {								// internal measurement
-		struct {
-			i32 q[2];
-			i64 qs;
-		};
-		ui64 qu;
-	} tf[1], t0[1], t1[1];
+	qword tf[1], t0[1], t1[1];			// internal measurement
 };
 
 
@@ -83,7 +77,7 @@ iret ijkTimerReset(ijkTimer* const timer);
 //			valid: non-null
 //		param ticksPerSecond: desired tick rate
 //			note: if rate > 0, timer ticks based on interval
-//			note: if rate <= 0, timer always ticks while running
+//			note: if rate <= 0, timer always ticks while running ("continuous")
 //		return SUCCESS: ijk_success if timer set
 //		return FAILURE: ijk_fail_invalidparams if invalid parameters
 iret ijkTimerSet(ijkTimer* const timer, dbl const ticksPerSecond);
