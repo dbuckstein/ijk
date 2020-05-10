@@ -79,7 +79,7 @@ struct ijkThread
 //		member sysID: system ID number of thread holding mutex
 struct ijkMutex
 {
-	dword sysID;
+	dword sysID;					// system ID of holding thread
 };
 
 
