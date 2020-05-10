@@ -19,16 +19,41 @@
 		c-based rendering framework
 	By Daniel S. Buckstein
 
-	ijk-base.h
-	Main header for base library.
+	ijkTimer.inl
+	Timer utility inline implementation.
 */
 
-#ifndef _IJK_BASE_H_
-#define _IJK_BASE_H_
+#ifdef _IJK_TIMER_H_
+#ifndef _IJK_TIMER_INL_
+#define _IJK_TIMER_INL_
 
 
-#include "ijkThread.h"
-#include "ijkTimer.h"
+//-----------------------------------------------------------------------------
+
+ijk_inl iret ijkTimerPause(ijkTimer* const timer)
+{
+	if (timer)
+	{
+		timer->active = ijk_false;
+		return ijk_success;
+	}
+	return ijk_fail_invalidparams;
+}
 
 
-#endif	// !_IJK_BASE_H_
+ijk_inl iret ijkTimerResume(ijkTimer* const timer)
+{
+	if (timer)
+	{
+		timer->active = ijk_true;
+		return ijk_success;
+	}
+	return ijk_fail_invalidparams;
+}
+
+
+//-----------------------------------------------------------------------------
+
+
+#endif	// !_IJK_TIMER_INL_
+#endif	// _IJK_TIMER_H_
