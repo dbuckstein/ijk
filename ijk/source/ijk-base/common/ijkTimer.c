@@ -25,3 +25,71 @@
 
 #include "ijk/ijk-base/ijkTimer.h"
 
+
+#if (__ijk_cfg_platform == WINDOWS)
+#include <Windows.h>
+#ifdef MIDL_PASS
+#define Q			qs
+#else	// !MIDL_PASS
+#define Q			qu
+#endif	// MIDL_PASS
+#else	// !WINDOWS
+#include <time.h>
+#define Q			qs
+#define BILLION		1000000000
+#endif	// WINDOWS
+
+
+//-----------------------------------------------------------------------------
+
+iret ijkTimerReset(ijkTimer* const timer)
+{
+	if (timer)
+	{
+
+	}
+	return ijk_fail_invalidparams;
+}
+
+
+iret ijkTimerSet(ijkTimer* const timer, dbl const ticksPerSecond)
+{
+	if (timer)
+	{
+
+	}
+	return ijk_fail_invalidparams;
+}
+
+
+iret ijkTimerStart(ijkTimer* const timer)
+{
+	if (timer)
+	{
+
+	}
+	return ijk_fail_invalidparams;
+}
+
+
+iret ijkTimerStop(ijkTimer* const timer)
+{
+	if (timer)
+	{
+
+	}
+	return ijk_fail_invalidparams;
+}
+
+
+iret ijkTimerCheckTick(ijkTimer* const timer)
+{
+	if (timer)
+	{
+
+	}
+	return ijk_fail_invalidparams;
+}
+
+
+//-----------------------------------------------------------------------------
