@@ -69,6 +69,68 @@ struct ijkTimer
 
 //-----------------------------------------------------------------------------
 
+// ijkTimerReset
+//	Stop and reset a timer to default settings, clear data.
+//		param timer: pointer to timer descriptor
+//			valid: non-null
+//		return SUCCESS: ijk_success if timer reset
+//		return FAILURE: ijk_fail_invalidparams if invalid parameters
+iret ijkTimerReset(ijkTimer* const timer);
+
+// ijkTimerSet
+//	Reset and set timer to desired rate; also stops timing.
+//		param timer: pointer to timer descriptor
+//			valid: non-null
+//		param ticksPerSecond: desired tick rate
+//			note: if rate > 0, timer ticks based on interval
+//			note: if rate <= 0, timer always ticks while running
+//		return SUCCESS: ijk_success if timer set
+//		return FAILURE: ijk_fail_invalidparams if invalid parameters
+iret ijkTimerSet(ijkTimer* const timer, dbl const ticksPerSecond);
+
+// ijkTimerStart
+//	Begin counting time; reset current tick if already running.
+//		param timer: pointer to timer descriptor
+//			valid: non-null
+//		return SUCCESS: ijk_success if timer started
+//		return FAILURE: ijk_fail_invalidparams if invalid parameters
+//		return FAILURE: ijk_fail_operationfail if timer not started
+iret ijkTimerStart(ijkTimer* const timer);
+
+// ijkTimerStop
+//	Stop counting time; measures current tick.
+//		param timer: pointer to timer descriptor
+//			valid: non-null
+//		return SUCCESS: ijk_success if timer stopped
+//		return FAILURE: ijk_fail_invalidparams if invalid parameters
+//		return FAILURE: ijk_fail_operationfail if timer not stopped
+iret ijkTimerStop(ijkTimer* const timer);
+
+// ijkTimerPause
+//	Pause timer; does not measure current tick.
+//		param timer: pointer to timer descriptor
+//			valid: non-null
+//		return SUCCESS: ijk_success if timer paused
+//		return FAILURE: ijk_fail_invalidparams if invalid parameters
+iret ijkTimerPause(ijkTimer* const timer);
+
+// ijkTimerResume
+//	Continue counting time; does not measure current tick.
+//		param timer: pointer to timer descriptor
+//			valid: non-null
+//		return SUCCESS: ijk_success if timer resumed
+//		return FAILURE: ijk_fail_invalidparams if invalid parameters
+iret ijkTimerResume(ijkTimer* const timer);
+
+// ijkTimerCheckTick
+//	Measure current tick and accumulate time.
+//		param timer: pointer to timer descriptor
+//			valid: non-null
+//		return SUCCESS: ijk_true if timer ticked
+//		return SUCCESS: ijk_false if timer did not tick
+//		return FAILURE: ijk_fail_invalidparams if invalid parameters
+//		return FAILURE: ijk_fail_operationfail if timer not updated
+iret ijkTimerCheckTick(ijkTimer* const timer);
 
 
 //-----------------------------------------------------------------------------
