@@ -28,7 +28,31 @@
 #define _IJK_TIMER_INL_
 
 
+//-----------------------------------------------------------------------------
 
+ijk_inl iret ijkTimerPause(ijkTimer* const timer)
+{
+	if (timer)
+	{
+		timer->active = ijk_false;
+		return ijk_success;
+	}
+	return ijk_fail_invalidparams;
+}
+
+
+ijk_inl iret ijkTimerResume(ijkTimer* const timer)
+{
+	if (timer)
+	{
+		timer->active = ijk_true;
+		return ijk_success;
+	}
+	return ijk_fail_invalidparams;
+}
+
+
+//-----------------------------------------------------------------------------
 
 
 #endif	// !_IJK_TIMER_INL_
