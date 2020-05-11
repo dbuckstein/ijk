@@ -26,27 +26,42 @@
 #include "ijk/ijk-base/ijkStream.h"
 
 #include <stdio.h>
-#include <stdlib.h>
+#include <memory.h>
 
 
 //-----------------------------------------------------------------------------
 
-iret ijkStreamReadElement(ijkStream* const stream, ptr const elem, size const elemSize, size* const bytes_opt)
+iret ijkStreamReadElement(ijkStream* const stream, ptr const elem, size const elemSize, size const elemCount, size* const bytes_opt)
 {
 	// validate parameters
-	if (stream && elem)
+	if (stream && elem && elemSize && elemCount)
 	{
 		// validate initialized
-		if (stream->stream && stream->isRead)
+		if (stream->base && stream->isRead)
 		{
+			size result = 0;
+			size const expected = elemSize * elemCount;
 			if (stream->isFile)
 			{
-
+				result = fread(elem, elemSize, elemCount, (FILE*)stream->base);
+				stream->length += result;
+				if (bytes_opt)
+					*bytes_opt = result;
 			}
 			else
 			{
-
+				size const offset = stream->head - stream->base;
+				size const capacity = stream->length - offset;
+				result = ijk_minimum(expected, capacity);
+				memcpy(elem, stream->head, result);
+				stream->head += result;
+				if (bytes_opt)
+					*bytes_opt = result;
 			}
+
+			// success
+			if (result)
+				return (result == expected ? ijk_success : ijk_warn_stream_incomplete);
 
 			// failed
 			return ijk_fail_operationfail;
@@ -56,20 +71,35 @@ iret ijkStreamReadElement(ijkStream* const stream, ptr const elem, size const el
 }
 
 
-iret ijkStreamWriteElement(ijkStream* const stream, kptr const elem, size const elemSize, size* const bytes_opt)
+iret ijkStreamWriteElement(ijkStream* const stream, kptr const elem, size const elemSize, size const elemCount, size* const bytes_opt)
 {
-	if (stream && elem)
+	if (stream && elem && elemSize && elemCount)
 	{
-		if (stream->stream && !stream->isRead)
+		if (stream->base && !stream->isRead)
 		{
+			size result = 0;
+			size const expected = elemSize * elemCount;
 			if (stream->isFile)
 			{
-
+				result = fwrite(elem, elemSize, elemCount, (FILE*)stream->base);
+				stream->length += result;
+				if (bytes_opt)
+					*bytes_opt = result;
 			}
 			else
 			{
-
+				size const offset = stream->head - stream->base;
+				size const capacity = stream->length - offset;
+				result = ijk_minimum(expected, capacity);
+				memcpy(stream->head, elem, result);
+				stream->head += result;
+				if (bytes_opt)
+					*bytes_opt = result;
 			}
+
+			// success
+			if (result)
+				return (result == expected ? ijk_success : ijk_warn_stream_incomplete);
 
 			// failed
 			return ijk_fail_operationfail;

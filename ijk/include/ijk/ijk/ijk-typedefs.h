@@ -36,7 +36,7 @@ typedef	  signed	char					i8, sbyte;
 typedef	  signed	short					i16;
 typedef	  signed	long					i32, iret, ibool;
 typedef	  signed	long long				i64;
-typedef	unsigned	char					ui8, byte, ubyte;
+typedef	unsigned	char					ui8, byte, ubyte, * pbyte;
 typedef	unsigned	short					ui16, word;
 typedef	unsigned	long					ui32, dword;
 typedef	unsigned	long long				ui64, qword;
@@ -67,7 +67,7 @@ typedef				ijk_tokencat_arch(ui)	size, chomp, uchomp, uitr, uindex;
 // convenient short c-string type abbreviations
 ///
 typedef				byte					tag[szdword * szqword], * ptag;
-typedef				byte const				* kptag;
+typedef				byte const				* kptag, * kpbyte;
 #define				sztag					((size)sizeof(tag))
 
 

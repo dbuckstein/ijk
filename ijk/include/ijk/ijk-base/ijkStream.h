@@ -46,16 +46,16 @@ typedef struct ijkStream				ijkStream;
 
 // ijkStream
 //	Stream descriptor.
-//		member stream: pointer to stream contents
+//		member base: pointer to base of stream contents
+//		member head: pointer to current content head
 //		member length: length of contents
-//		member offset: offset of stream head
 //		member isRead: flag whether interface is used for reading
 //		member isFile: flag whether interface is used for file streaming
 struct ijkStream
 {
-	kptr stream;						// stream contents
+	pbyte base;							// stream contents
+	pbyte head;							// content head
 	size length;						// length of contents
-	uitr offset;						// offset of head
 	ibool isRead;						// read flag
 	ibool isFile;						// file flag
 };
@@ -92,13 +92,15 @@ typedef iret(*ijkStreamWriteFunc)(ijkStream* const stream, kptr streamArg);
 //			valid: non-null
 //		param elemSize: size of element
 //			valid: non-zero
+//		param elemCount: number of elements to read
+//			valid: non-zero
 //		param bytes_opt: optional pointer to value holding number of bytes 
 //			read; used for caller validation
 //		return SUCCESS: ijk_success if read expected number of bytes
 //		return WARNING: ijk_warn_stream_incomplete if did not read all bytes
 //		return FAILURE: ijk_fail_invalidparams if invalid parameters
 //		return FAILURE: ijk_fail_operationfail if read failed
-iret ijkStreamReadElement(ijkStream* const stream, ptr const elem, size const elemSize, size* const bytes_opt);
+iret ijkStreamReadElement(ijkStream* const stream, ptr const elem, size const elemSize, size const elemCount, size* const bytes_opt);
 
 // ijkStreamWriteElement
 //	Write single element to stream.
@@ -109,13 +111,15 @@ iret ijkStreamReadElement(ijkStream* const stream, ptr const elem, size const el
 //			valid: non-null
 //		param elemSize: size of element
 //			valid: non-zero
+//		param elemCount: number of elements to write
+//			valid: non-zero
 //		param bytes_opt: optional pointer to value holding number of bytes 
 //			written; used for caller validation
 //		return SUCCESS: ijk_success if wrote expected number of bytes
 //		return WARNING: ijk_warn_stream_incomplete if did not write all bytes
 //		return FAILURE: ijk_fail_invalidparams if invalid parameters
 //		return FAILURE: ijk_fail_operationfail if write failed
-iret ijkStreamWriteElement(ijkStream* const stream, kptr const elem, size const elemSize, size* const bytes_opt);
+iret ijkStreamWriteElement(ijkStream* const stream, kptr const elem, size const elemSize, size const elemCount, size* const bytes_opt);
 
 
 //-----------------------------------------------------------------------------
