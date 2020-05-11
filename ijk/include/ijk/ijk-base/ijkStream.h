@@ -19,17 +19,41 @@
 		c-based rendering framework
 	By Daniel S. Buckstein
 
-	ijk-base.h
-	Main header for base library.
+	ijkStream.h
+	Stream utility interface.
 */
 
-#ifndef _IJK_BASE_H_
-#define _IJK_BASE_H_
+#ifndef _IJK_STREAM_H_
+#define _IJK_STREAM_H_
 
 
-#include "ijkStream.h"
-#include "ijkThread.h"
-#include "ijkTimer.h"
+#include "ijk/ijk/ijk-typedefs.h"
 
 
-#endif	// !_IJK_BASE_H_
+#ifdef __cplusplus
+extern "C" {
+#else	// !__cplusplus
+
+#endif	// __cplusplus
+
+
+//-----------------------------------------------------------------------------
+
+
+
+//-----------------------------------------------------------------------------
+
+
+
+//-----------------------------------------------------------------------------
+
+
+#ifdef __cplusplus
+}
+#endif	// __cplusplus
+
+
+#include "_inl/ijkStream.inl"
+
+
+#endif	// !_IJK_STREAM_H_
