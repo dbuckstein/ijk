@@ -95,7 +95,7 @@ iret ijkThreadInternalSetName(dword id, kptag name)
 iret __stdcall ijkThreadInternalEntryFunc(ijkThread* const thread)
 {
 #else	// !WINDOWS
-ptr ijkThreadFuncEntry(ijkThread* const thread)
+ptr ijkThreadInternalEntryFunc(ijkThread* const thread)
 {
 	// push "not complete" flag
 	// set "not complete" parameter to not-complete
@@ -126,7 +126,7 @@ ptr ijkThreadFuncEntry(ijkThread* const thread)
 
 //-----------------------------------------------------------------------------
 
-iret ijkThreadCreate(ijkThread* const thread_out, ijkThreadFunc const entryFunc, ptr const entryArg, tag const name)
+iret ijkThreadCreate(ijkThread* const thread_out, ijkThreadEntryFunc const entryFunc, ptr const entryArg, tag const name)
 {
 	// validate parameters
 	if (thread_out && entryFunc)

@@ -33,12 +33,46 @@
 #ifdef __cplusplus
 extern "C" {
 #else	// !__cplusplus
-
+typedef struct ijkStream				ijkStream;
 #endif	// __cplusplus
 
 
 //-----------------------------------------------------------------------------
 
+// ijkStream
+//	Stream descriptor.
+//		member stream: pointer to stream contents
+//		member length: length of contents
+//		member offset: offset of stream head
+//		member isRead: flag whether interface is used for reading
+//		member isFile: flag whether interface is used for file streaming
+struct ijkStream
+{
+	kptr stream;						// stream contents
+	size length;						// length of contents
+	uitr offset;						// offset of head
+	ibool isRead;						// read flag
+	ibool isFile;						// file flag
+};
+
+
+// ijkStreamReadFunc
+//	Read function type for stream interface. Any function returning integer 
+//	and taking a stream pointer and one pointer parameter (any type) qualifies.
+//		param stream: pointer to stream interface
+//		param streamArg: pointer representing data to be input
+//		return: any integer (e.g. number of bytes read)
+typedef iret(*ijkStreamReadFunc)(ijkStream* const stream, ptr streamArg);
+
+
+// ijkStreamWriteFunc
+//	Write function type for stream interface. Any function returning integer 
+//	and taking a stream pointer and one constant pointer parameter (any type)
+//	qualifies.
+//		param stream: pointer to stream interface
+//		param streamArg: pointer representing constant data to be output
+//		return: any integer (e.g. number of bytes written)
+typedef iret(*ijkStreamWriteFunc)(ijkStream* const stream, kptr streamArg);
 
 
 //-----------------------------------------------------------------------------
