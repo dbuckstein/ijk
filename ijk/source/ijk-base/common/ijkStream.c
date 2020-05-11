@@ -25,9 +25,58 @@
 
 #include "ijk/ijk-base/ijkStream.h"
 
+#include <stdio.h>
+#include <stdlib.h>
+
 
 //-----------------------------------------------------------------------------
 
+iret ijkStreamReadElement(ijkStream* const stream, ptr const elem, size const elemSize, size* const bytes_opt)
+{
+	// validate parameters
+	if (stream && elem)
+	{
+		// validate initialized
+		if (stream->stream && stream->isRead)
+		{
+			if (stream->isFile)
+			{
+
+			}
+			else
+			{
+
+			}
+
+			// failed
+			return ijk_fail_operationfail;
+		}
+	}
+	return ijk_fail_invalidparams;
+}
+
+
+iret ijkStreamWriteElement(ijkStream* const stream, kptr const elem, size const elemSize, size* const bytes_opt)
+{
+	if (stream && elem)
+	{
+		if (stream->stream && !stream->isRead)
+		{
+			if (stream->isFile)
+			{
+
+			}
+			else
+			{
+
+			}
+
+			// failed
+			return ijk_fail_operationfail;
+		}
+	}
+	return ijk_fail_invalidparams;
+}
 
 
 //-----------------------------------------------------------------------------

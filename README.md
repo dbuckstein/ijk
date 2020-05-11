@@ -37,20 +37,24 @@ This section outlines known tasks to be completed and that have been completed.
 
 ### Code
 #### General
-- [ ] core utilities
-- [ ] core integer types
-- [ ] core float types
-- [ ] core macros
+- [x] core config
+- [x] core macros
+- [x] core types
+- [x] core timer
+- [x] core thread
+- [ ] core stream
+- [ ] core memory
 #### Math
 - [ ] stats
 - [ ] random
 - [ ] sqrt
 - [ ] interpolation
 - [ ] trigonometry
-- [ ] vector
-- [ ] matrix
+- [ ] vector (flt, dbl, int)
+- [ ] matrix (flt, dbl, int)
 - [ ] quaternion
 - [ ] dual quaternion
+- [ ] managed vector
 - [ ] transformation
 #### Graphics
 - [ ] test window in app
