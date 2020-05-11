@@ -41,7 +41,7 @@ typedef struct ijkStream				ijkStream;
 
 // ijk_warn_stream_incomplete
 //	Stream warning indicating that read/write operation did not fully complete.
-#define ijk_warn_stream_incomplete	(ijk_warncode(1))
+#define ijk_warn_stream_incomplete	ijk_warncode(1)
 
 
 // ijkStream
@@ -67,7 +67,7 @@ struct ijkStream
 //	Allows for custom object streaming.
 //		param stream: pointer to stream interface
 //		param streamArg: pointer representing data to be input
-//		return: any integer (e.g. number of bytes read)
+//		return: number of bytes read
 typedef iret(*ijkStreamReadFunc)(ijkStream* const stream, ptr streamArg);
 
 
@@ -77,11 +77,96 @@ typedef iret(*ijkStreamReadFunc)(ijkStream* const stream, ptr streamArg);
 //	qualifies. Allows for custom object streaming.
 //		param stream: pointer to stream interface
 //		param streamArg: pointer representing constant data to be output
-//		return: any integer (e.g. number of bytes written)
+//		return: number of bytes written
 typedef iret(*ijkStreamWriteFunc)(ijkStream* const stream, kptr streamArg);
 
 
 //-----------------------------------------------------------------------------
+
+// ijkStreamCreateFile
+//	Open file for read/write.
+//		param stream_out: pointer to stream descriptor
+//			valid: non-null, uninitialized
+//		param filepath: relative or absolute path to file to open
+//			valid: non-null, non-empty c-string
+//		return SUCCESS: ijk_success if file opened
+//		return FAILURE: ijk_fail_invalidparams if invalid parameters
+//		return FAILURE: ijk_fail_operationfail if file not opened
+
+// ijkStreamCreateBuffer
+//	Allocate empty string for writing.
+//		param stream_out: pointer to stream descriptor
+//			valid: non-null, uninitialized
+//		param buffSize: size of buffer in bytes
+//			valid: non-zero
+//		return SUCCESS: ijk_success if buffer allocated
+//		return FAILURE: ijk_fail_invalidparams if invalid parameters
+//		return FAILURE: ijk_fail_operationfail if buffer not allocated
+
+// ijkStreamLoadBufferFromFile
+//	Allocate buffer from file for reading.
+//		param stream_out: pointer to stream descriptor
+//			valid: non-null, uninitialized
+//		param filepath: relative or absolute path to file to load
+//			valid: non-null, non-empty c-string
+//		return SUCCESS: ijk_success if file loaded
+//		return FAILURE: ijk_fail_invalidparams if invalid parameters
+//		return FAILURE: ijk_fail_operationfail if file not loaded
+
+// ijkStreamSaveBufferToFile
+//	Store buffer in file.
+//	Allocate buffer from file for reading.
+//		param stream: pointer to constant stream descriptor
+//			valid: non-null, initialized, file mode disabled
+//		param filepath: relative or absolute path to file to save
+//			valid: non-null, non-empty c-string
+//		return SUCCESS: ijk_success if file saved
+//		return FAILURE: ijk_fail_invalidparams if invalid parameters
+//		return FAILURE: ijk_fail_operationfail if file not saved
+
+// ijkStreamRelease
+//	Close file or release string contents.
+//		param stream: pointer to stream descriptor
+//			valid: non-null, initialized
+//		return SUCCESS: ijk_success if stream released
+//		return FAILURE: ijk_fail_invalidparams if invalid parameters
+//		return FAILURE: ijk_fail_operationfail if stream not released
+
+// ijkStreamReset
+//	Reset/rewind buffer head or file pointer.
+//		param stream: pointer to stream descriptor
+//			valid: non-null, initialized
+//		return SUCCESS: ijk_success if stream reset
+//		return FAILURE: ijk_fail_invalidparams if invalid parameters
+//		return FAILURE: ijk_fail_operationfail if stream not reset
+
+// ijkStreamRead
+//	Read from stream using callback.
+//		param stream: pointer to stream descriptor
+//			valid: non-null, initialized
+//		param streamFunc: pointer to read callback
+//			valid: non-null
+//		param streamArg: pointer to data to stream
+//			valid: non-null
+//		param bytes_opt: optional pointer to value holding number of bytes 
+//			read; used for caller validation
+//		return SUCCESS: ijk_success if read succeeded
+//		return FAILURE: ijk_fail_invalidparams if invalid parameters
+//		return FAILURE: ijk_fail_operationfail if read failed
+
+// ijkStreamWrite
+//	Write to stream using callback.
+//		param stream: pointer to stream descriptor
+//			valid: non-null, initialized
+//		param streamFunc: pointer to write callback
+//			valid: non-null
+//		param streamArg: pointer to data to stream
+//			valid: non-null
+//		param bytes_opt: optional pointer to value holding number of bytes 
+//			written; used for caller validation
+//		return SUCCESS: ijk_success if write succeeded
+//		return FAILURE: ijk_fail_invalidparams if invalid parameters
+//		return FAILURE: ijk_fail_operationfail if write failed
 
 // ijkStreamReadElement
 //	Read single element from stream.
@@ -120,6 +205,15 @@ iret ijkStreamReadElement(ijkStream* const stream, ptr const elem, size const el
 //		return FAILURE: ijk_fail_invalidparams if invalid parameters
 //		return FAILURE: ijk_fail_operationfail if write failed
 iret ijkStreamWriteElement(ijkStream* const stream, kptr const elem, size const elemSize, size const elemCount, size* const bytes_opt);
+
+// ijkStreamMakeDirectory
+//	Make a directory.
+//		param directory: relative or absolute path of directory to create
+//			valid: non-null, non-empty c-string
+//		return SUCCESS: ijk_success if directory created
+//		return FAILURE: ijk_fail_invalidparams if invalid parameters
+//		return FAILURE: ijk_fail_operationfail if directory creation failed
+iret ijkStreamMakeDirectory(kcstr const directory);
 
 
 //-----------------------------------------------------------------------------

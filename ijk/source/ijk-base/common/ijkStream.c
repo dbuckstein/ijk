@@ -110,3 +110,28 @@ iret ijkStreamWriteElement(ijkStream* const stream, kptr const elem, size const 
 
 
 //-----------------------------------------------------------------------------
+
+#if (__ijk_cfg_platform == WINDOWS)
+#include <direct.h>
+#else	// !WINDOWS
+#include <sys/stat.h>
+#endif	// WINDOWS
+
+
+iret ijkStreamMakeDirectory(kcstr const directory)
+{
+	if (directory && *directory)
+	{
+		iret const result =
+#if (__ijk_cfg_platform == WINDOWS)
+			_mkdir(directory);
+#else	// !WINDOWS
+			mkdir(directory, 0700);
+#endif	// WINDOWS
+		return (result * 2);
+	}
+	return ijk_fail_invalidparams;
+}
+
+
+//-----------------------------------------------------------------------------
