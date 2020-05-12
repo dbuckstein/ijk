@@ -89,10 +89,11 @@ typedef iret(*ijkStreamWriteFunc)(ijkStream* const stream, kptr streamArg);
 //			valid: non-null, uninitialized
 //		param filePath: relative or absolute path to file to open
 //			valid: non-null, non-empty c-string
+//		param readMode: open file for reading if true, otherwise for writing
 //		return SUCCESS: ijk_success if file opened
 //		return FAILURE: ijk_fail_invalidparams if invalid parameters
 //		return FAILURE: ijk_fail_operationfail if file not opened
-iret ijkStreamCreateFile(ijkStream* const stream_out, kcstr const filePath);
+iret ijkStreamCreateFile(ijkStream* const stream_out, kcstr const filePath, ibool const readMode);
 
 // ijkStreamCreateBuffer
 //	Allocate empty string for writing.
@@ -100,10 +101,12 @@ iret ijkStreamCreateFile(ijkStream* const stream_out, kcstr const filePath);
 //			valid: non-null, uninitialized
 //		param buffSize: size of buffer in bytes
 //			valid: non-zero
+//		param readSource: source data to copy from for reading
+//			note: non-null for reading, null for writing
 //		return SUCCESS: ijk_success if buffer allocated
 //		return FAILURE: ijk_fail_invalidparams if invalid parameters
 //		return FAILURE: ijk_fail_operationfail if buffer not allocated
-iret ijkStreamCreateBuffer(ijkStream* const stream_out, size const buffSize);
+iret ijkStreamCreateBuffer(ijkStream* const stream_out, size const buffSize, kcstr const readSource);
 
 // ijkStreamLoadBuffer
 //	Allocate buffer from file for reading.
@@ -136,15 +139,6 @@ iret ijkStreamSaveBuffer(ijkStream const* const stream, kcstr const filePath);
 //		return FAILURE: ijk_fail_invalidparams if invalid parameters
 //		return FAILURE: ijk_fail_operationfail if stream not released
 iret ijkStreamRelease(ijkStream* const stream);
-
-// ijkStreamReset
-//	Reset/rewind buffer head or file pointer.
-//		param stream: pointer to stream descriptor
-//			valid: non-null, initialized
-//		return SUCCESS: ijk_success if stream reset
-//		return FAILURE: ijk_fail_invalidparams if invalid parameters
-//		return FAILURE: ijk_fail_operationfail if stream not reset
-iret ijkStreamReset(ijkStream* const stream);
 
 // ijkStreamRead
 //	Read from stream using callback.

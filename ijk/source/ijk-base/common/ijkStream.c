@@ -27,30 +27,68 @@
 
 #include <stdio.h>
 #include <memory.h>
+#include <stdlib.h>
 
 
 //-----------------------------------------------------------------------------
 
-iret ijkStreamCreateFile(ijkStream* const stream_out, kcstr const filePath)
+iret ijkStreamCreateFile(ijkStream* const stream_out, kcstr const filePath, ibool const readMode)
 {
 	if (stream_out && filePath && *filePath)
 	{
 		if (!stream_out->base)
 		{
+			FILE* const fp = fopen(filePath, (readMode ? "rb" : "wb"));
+			if (fp)
+			{
+				stream_out->base = (pbyte)fp;
+				stream_out->head = 0;
+				stream_out->length = 0;
+				stream_out->isRead = readMode;
+				stream_out->isFile = ijk_true;
 
+				// opened file
+				return ijk_success;
+			}
+
+			// failed
+			return ijk_fail_operationfail;
 		}
 	}
 	return ijk_fail_invalidparams;
 }
 
 
-iret ijkStreamCreateBuffer(ijkStream* const stream_out, size const buffSize)
+iret ijkStreamCreateBuffer(ijkStream* const stream_out, size const buffSize, kcstr const readSource)
 {
 	if (stream_out && buffSize)
 	{
 		if (!stream_out->base)
 		{
+			// allocate
+			stream_out->base = (pbyte)malloc(buffSize);
+			if (stream_out->base)
+			{
+				stream_out->head = stream_out->base;
+				stream_out->length = buffSize;
+				stream_out->isFile = ijk_false;
+				if (readSource)
+				{
+					memcpy(stream_out->base, readSource, buffSize);
+					stream_out->isRead = ijk_true;
+				}
+				else
+				{
+					memset(stream_out->base, 0, buffSize);
+					stream_out->isRead = ijk_false;
+				}
 
+				// success
+				return ijk_success;
+			}
+
+			// failed
+			return ijk_fail_operationfail;
 		}
 	}
 	return ijk_fail_invalidparams;
@@ -74,7 +112,7 @@ iret ijkStreamSaveBuffer(ijkStream const* const stream, kcstr const filePath)
 {
 	if (stream && filePath && *filePath)
 	{
-		if (stream->base)
+		if (stream->base && ijk_isfalse(stream->isFile))
 		{
 
 		}
@@ -89,20 +127,23 @@ iret ijkStreamRelease(ijkStream* const stream)
 	{
 		if (stream->base)
 		{
+			if (stream->isFile)
+			{
+				iret const result = fclose((FILE*)stream->base);
+				if (ijk_issuccess(result))
+					stream->base = 0;
+				return result;
+			}
+			else
+			{
+				free(stream->base);
+				stream->base = 0;
+				stream->head = 0;
+				return ijk_success;
+			}
 
-		}
-	}
-	return ijk_fail_invalidparams;
-}
-
-
-iret ijkStreamReset(ijkStream* const stream)
-{
-	if (stream)
-	{
-		if (stream->base)
-		{
-
+			// failed
+			return ijk_fail_operationfail;
 		}
 	}
 	return ijk_fail_invalidparams;

@@ -36,7 +36,10 @@ ijk_inl iret ijkStreamRead(ijkStream* const stream, ijkStreamReadFunc const stre
 	{
 		if (stream->base)
 		{
-
+			size const result = streamFunc(stream, streamArg);
+			if (bytes_opt)
+				*bytes_opt = result;
+			return (result ? ijk_success : ijk_fail_operationfail);
 		}
 	}
 	return ijk_fail_invalidparams;
@@ -49,7 +52,10 @@ ijk_inl iret ijkStreamWrite(ijkStream* const stream, ijkStreamWriteFunc const st
 	{
 		if (stream->base)
 		{
-
+			size const result = streamFunc(stream, streamArg);
+			if (bytes_opt)
+				*bytes_opt = result;
+			return (result ? ijk_success : ijk_fail_operationfail);
 		}
 	}
 	return ijk_fail_invalidparams;
