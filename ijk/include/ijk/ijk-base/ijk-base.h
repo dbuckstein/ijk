@@ -27,8 +27,9 @@
 #define _IJK_BASE_H_
 
 
-#include "ijkThread.h"
 #include "ijkTimer.h"
+#include "ijkThread.h"
+#include "ijkStream.h"
 
 
 #endif	// !_IJK_BASE_H_

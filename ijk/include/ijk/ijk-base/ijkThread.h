@@ -42,15 +42,15 @@ typedef struct		ijkMutex			ijkMutex;
 
 // ijk_warn_mutex_current
 //	Mutex warning indicating that calling thread already holds mutex lock.
-#define ijk_warn_mutex_current	(ijk_warncode(1))
+#define ijk_warn_mutex_current	ijk_warncode(1)
 
 
-// ijkThreadFunc
+// ijkThreadEntryFunc
 //	Entry function type for thread interface. Any function returning integer 
 //	and taking one pointer parameter (any type) qualifies.
-//		param: any pointer representing the data to be passed to the function
+//		param entryArg: pointer representing data to be passed to the function
 //		return: any integer
-typedef iret(*ijkThreadFunc)(ptr);
+typedef iret(*ijkThreadEntryFunc)(ptr entryArg);
 
 
 // ijkThread
@@ -65,7 +65,7 @@ typedef iret(*ijkThreadFunc)(ptr);
 struct ijkThread
 {
 	ptr handle[2];					// internal handles
-	ijkThreadFunc entryFunc;		// entry function
+	ijkThreadEntryFunc entryFunc;	// entry function
 	ptr entryArg;					// entry argument
 	tag name;						// name of thread
 	dword sysID;					// system ID of thread
@@ -98,7 +98,7 @@ struct ijkMutex
 //		return SUCCESS: ijk_success if thread created
 //		return FAILURE: ijk_fail_invalidparams if invalid parameters
 //		return FAILURE: ijk_fail_operationfail if thread not created
-iret ijkThreadCreate(ijkThread* const thread_out, ijkThreadFunc const entryFunc, ptr const entryArg, tag const name);
+iret ijkThreadCreate(ijkThread* const thread_out, ijkThreadEntryFunc const entryFunc, ptr const entryArg, tag const name);
 
 // ijkThreadRelease
 //	Wait indefinitely for a thread to safely finish.
