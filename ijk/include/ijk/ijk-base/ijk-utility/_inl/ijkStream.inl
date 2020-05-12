@@ -32,13 +32,11 @@
 
 ijk_inl iret ijkStreamGetOffset(ijkStream const* const stream, size* const offset_out)
 {
-	if (stream && offset_out)
+	if (stream && offset_out &&
+		stream->base)
 	{
-		if (stream->base)
-		{
-			*offset_out = (stream->isFile ? stream->length : (stream->head - stream->base));
-			return ijk_success;
-		}
+		*offset_out = (stream->isFile ? stream->length : (stream->head - stream->base));
+		return ijk_success;
 	}
 	return ijk_fail_invalidparams;
 }
@@ -46,14 +44,12 @@ ijk_inl iret ijkStreamGetOffset(ijkStream const* const stream, size* const offse
 
 ijk_inl iret ijkStreamBufferReset(ijkStream* const stream, ibool const readMode)
 {
-	if (stream)
+	if (stream &&
+		stream->base && ijk_isfalse(stream->isFile))
 	{
-		if (stream->base && ijk_isfalse(stream->isFile))
-		{
-			stream->head = stream->base;
-			stream->isRead = readMode;
-			return ijk_success;
-		}
+		stream->head = stream->base;
+		stream->isRead = readMode;
+		return ijk_success;
 	}
 	return ijk_fail_invalidparams;
 }
@@ -61,15 +57,13 @@ ijk_inl iret ijkStreamBufferReset(ijkStream* const stream, ibool const readMode)
 
 ijk_inl iret ijkStreamRead(ijkStream* const stream, ijkStreamReadFunc const streamFunc, ptr streamArg, size* const bytes_opt)
 {
-	if (stream && streamFunc && streamArg)
+	if (stream && streamFunc && streamArg &&
+		stream->base)
 	{
-		if (stream->base)
-		{
-			size const result = streamFunc(stream, streamArg);
-			if (bytes_opt)
-				*bytes_opt = result;
-			return (result ? ijk_success : ijk_fail_operationfail);
-		}
+		size const result = streamFunc(stream, streamArg);
+		if (bytes_opt)
+			*bytes_opt = result;
+		return (result ? ijk_success : ijk_fail_operationfail);
 	}
 	return ijk_fail_invalidparams;
 }
@@ -77,15 +71,13 @@ ijk_inl iret ijkStreamRead(ijkStream* const stream, ijkStreamReadFunc const stre
 
 ijk_inl iret ijkStreamWrite(ijkStream* const stream, ijkStreamWriteFunc const streamFunc, kptr streamArg, size* const bytes_opt)
 {
-	if (stream && streamFunc && streamArg)
+	if (stream && streamFunc && streamArg &&
+		stream->base)
 	{
-		if (stream->base)
-		{
-			size const result = streamFunc(stream, streamArg);
-			if (bytes_opt)
-				*bytes_opt = result;
-			return (result ? ijk_success : ijk_fail_operationfail);
-		}
+		size const result = streamFunc(stream, streamArg);
+		if (bytes_opt)
+			*bytes_opt = result;
+		return (result ? ijk_success : ijk_fail_operationfail);
 	}
 	return ijk_fail_invalidparams;
 }

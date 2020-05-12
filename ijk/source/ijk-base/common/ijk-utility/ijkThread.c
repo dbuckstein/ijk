@@ -129,33 +129,30 @@ ptr ijkThreadInternalEntryFunc(ijkThread* const thread)
 iret ijkThreadCreate(ijkThread* const thread_out, ijkThreadEntryFunc const entryFunc, ptr const entryArg, tag const name)
 {
 	// validate parameters
-	if (thread_out && entryFunc)
+	if (thread_out && entryFunc &&
+		!*thread_out->handle)
 	{
-		// validate parameters are not in-use
-		if (*thread_out->handle == 0)
-		{
-			// default values
-			thread_out->active = ijk_false;
-			thread_out->result = ijk_failure;
-			thread_out->entryFunc = entryFunc;
-			thread_out->entryArg = entryArg;
-			ijk_copytag(thread_out->name, name);
+		// default values
+		thread_out->active = ijk_false;
+		thread_out->result = ijk_failure;
+		thread_out->entryFunc = entryFunc;
+		thread_out->entryArg = entryArg;
+		ijk_copytag(thread_out->name, name);
 
-			// launch
+		// launch
 #if (__ijk_cfg_platform == WINDOWS)
-			*thread_out->handle = CreateThread(0, 0, ijkThreadInternalEntryFunc, thread_out, 0, &thread_out->sysID);
+		* thread_out->handle = CreateThread(0, 0, ijkThreadInternalEntryFunc, thread_out, 0, &thread_out->sysID);
 #else	// !WINDOWS
-			thread_out->sysID = 1;
-			pthread_create((pthread_t*)thread_out->handle, 0, ijkThreadInternalEntryFunc, thread_out);
+		thread_out->sysID = 1;
+		pthread_create((pthread_t*)thread_out->handle, 0, ijkThreadInternalEntryFunc, thread_out);
 #endif	// WINDOWS
 
-			// success
-			if (*thread_out->handle)
-				return ijk_success;
+		// success
+		if (*thread_out->handle)
+			return ijk_success;
 
-			// failure
-			return ijk_fail_operationfail;
-		}
+		// failure
+		return ijk_fail_operationfail;
 	}
 	return ijk_fail_invalidparams;
 }
@@ -163,28 +160,26 @@ iret ijkThreadCreate(ijkThread* const thread_out, ijkThreadEntryFunc const entry
 
 iret ijkThreadRelease(ijkThread* const thread)
 {
-	if (thread)
+	if (thread &&
+		*thread->handle)
 	{
-		if (*thread->handle != 0)
-		{
-			ibool result;
+		ibool result;
 #if (__ijk_cfg_platform == WINDOWS)
-			result = (WaitForSingleObject(*thread->handle, INFINITE) == WAIT_OBJECT_0);
+		result = (WaitForSingleObject(*thread->handle, INFINITE) == WAIT_OBJECT_0);
 #else	// !WINDOWS
-			result = ijk_issuccess(pthread_join(*(pthread_t*)thread->handle, 0));
+		result = ijk_issuccess(pthread_join(*(pthread_t*)thread->handle, 0));
 #endif	// WINDOWS
 
-			// success
-			if (result)
-			{
-				thread->sysID = 0;
-				*thread->handle = 0;
-				return ijk_success;
-			}
-
-			// failure
-			return ijk_fail_operationfail;
+		// success
+		if (result)
+		{
+			thread->sysID = 0;
+			*thread->handle = 0;
+			return ijk_success;
 		}
+
+		// failure
+		return ijk_fail_operationfail;
 	}
 	return ijk_fail_invalidparams;
 }
@@ -193,32 +188,29 @@ iret ijkThreadRelease(ijkThread* const thread)
 iret ijkThreadReleaseUnsafe(ijkThread* const thread)
 {
 	// validate parameter
-	if (thread)
+	if (thread &&
+		*thread->handle)
 	{
-		// validate parameter is a valid thread in-use
-		if (*thread->handle != 0)
-		{
-			ibool result;
+		ibool result;
 #if (__ijk_cfg_platform == WINDOWS)
-			// unsafe because TerminateThread does not allow thread to clean up
-			// https://docs.microsoft.com/en-us/cpp/code-quality/c6258?view=vs-2019
-			result = ijk_istrue(TerminateThread(*thread->handle, ijk_failure))
-				&& ijk_istrue(CloseHandle(*thread->handle));
+		// unsafe because TerminateThread does not allow thread to clean up
+		// https://docs.microsoft.com/en-us/cpp/code-quality/c6258?view=vs-2019
+		result = ijk_istrue(TerminateThread(*thread->handle, ijk_failure))
+			&& ijk_istrue(CloseHandle(*thread->handle));
 #else	// !WINDOWS
-			result = ijk_issuccess(pthread_kill(*(pthread_t*)thread->handle, SIGKILL));
+		result = ijk_issuccess(pthread_kill(*(pthread_t*)thread->handle, SIGKILL));
 #endif	// WINDOWS
 
-			// success
-			if (result)
-			{
-				thread->sysID = 0;
-				*thread->handle = 0;
-				return ijk_success;
-			}
-
-			// failure
-			return ijk_fail_operationfail;
+		// success
+		if (result)
+		{
+			thread->sysID = 0;
+			*thread->handle = 0;
+			return ijk_success;
 		}
+
+		// failure
+		return ijk_fail_operationfail;
 	}
 	return ijk_fail_invalidparams;
 }
@@ -226,22 +218,20 @@ iret ijkThreadReleaseUnsafe(ijkThread* const thread)
 
 iret ijkThreadCheckActive(ijkThread const* const thread)
 {
-	if (thread)
+	if (thread &&
+		*thread->handle)
 	{
-		if (*thread->handle)
-		{
 #if (__ijk_cfg_platform == WINDOWS)
-			dword result;
-			GetExitCodeThread(*thread->handle, &result);
-			if (result == STILL_ACTIVE)
-				return ijk_true;
+		dword result;
+		GetExitCodeThread(*thread->handle, &result);
+		if (result == STILL_ACTIVE)
+			return ijk_true;
 #else	// !WINDOWS
-			// check if "not complete" flag is set non-complete
+		// check if "not complete" flag is set non-complete
 #endif	// WINDOWS
 
 			// inactive
-			return ijk_false;
-		}
+		return ijk_false;
 	}
 	return ijk_fail_invalidparams;
 }
