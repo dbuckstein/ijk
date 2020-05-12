@@ -19,47 +19,53 @@
     <Filter Include="Header Files\ijk-base">
       <UniqueIdentifier>{fffdf380-5db8-4036-8439-4df631897b9d}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\ijk-base\_inl">
+    <Filter Include="Header Files\ijk-base\ijk-utility">
+      <UniqueIdentifier>{e8046c22-dcc1-4b9a-9df9-78db30316882}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\ijk-base\ijk-utility\_inl">
       <UniqueIdentifier>{1c6f8557-ed1f-4d95-8050-deee106074f2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\common\ijk-utility">
+      <UniqueIdentifier>{2b55ce74-8cb5-4201-9eb7-44d5ebfe7cd5}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\source\ijk-base\common\ijk-base.c">
       <Filter>Source Files\common</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\source\ijk-base\common\ijkThread.c">
-      <Filter>Source Files\common</Filter>
+    <ClCompile Include="..\..\..\source\ijk-base\common\ijk-utility\ijkTimer.c">
+      <Filter>Source Files\common\ijk-utility</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\source\ijk-base\common\ijkTimer.c">
-      <Filter>Source Files\common</Filter>
+    <ClCompile Include="..\..\..\source\ijk-base\common\ijk-utility\ijkThread.c">
+      <Filter>Source Files\common\ijk-utility</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\source\ijk-base\common\ijkStream.c">
-      <Filter>Source Files\common</Filter>
+    <ClCompile Include="..\..\..\source\ijk-base\common\ijk-utility\ijkStream.c">
+      <Filter>Source Files\common\ijk-utility</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\include\ijk\ijk-base\ijk-base.h">
       <Filter>Header Files\ijk-base</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\include\ijk\ijk-base\ijkThread.h">
-      <Filter>Header Files\ijk-base</Filter>
+    <ClInclude Include="..\..\..\include\ijk\ijk-base\ijk-utility\ijkTimer.h">
+      <Filter>Header Files\ijk-base\ijk-utility</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\include\ijk\ijk-base\ijkTimer.h">
-      <Filter>Header Files\ijk-base</Filter>
+    <ClInclude Include="..\..\..\include\ijk\ijk-base\ijk-utility\ijkThread.h">
+      <Filter>Header Files\ijk-base\ijk-utility</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\include\ijk\ijk-base\ijkStream.h">
-      <Filter>Header Files\ijk-base</Filter>
+    <ClInclude Include="..\..\..\include\ijk\ijk-base\ijk-utility\ijkStream.h">
+      <Filter>Header Files\ijk-base\ijk-utility</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\..\..\include\ijk\ijk-base\_inl\ijkThread.inl">
-      <Filter>Header Files\ijk-base\_inl</Filter>
+    <None Include="..\..\..\include\ijk\ijk-base\ijk-utility\_inl\ijkTimer.inl">
+      <Filter>Header Files\ijk-base\ijk-utility\_inl</Filter>
     </None>
-    <None Include="..\..\..\include\ijk\ijk-base\_inl\ijkTimer.inl">
-      <Filter>Header Files\ijk-base\_inl</Filter>
+    <None Include="..\..\..\include\ijk\ijk-base\ijk-utility\_inl\ijkThread.inl">
+      <Filter>Header Files\ijk-base\ijk-utility\_inl</Filter>
     </None>
-    <None Include="..\..\..\include\ijk\ijk-base\_inl\ijkStream.inl">
-      <Filter>Header Files\ijk-base\_inl</Filter>
+    <None Include="..\..\..\include\ijk\ijk-base\ijk-utility\_inl\ijkStream.inl">
+      <Filter>Header Files\ijk-base\ijk-utility\_inl</Filter>
     </None>
   </ItemGroup>
 </Project>

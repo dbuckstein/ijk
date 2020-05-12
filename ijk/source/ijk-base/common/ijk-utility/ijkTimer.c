@@ -23,7 +23,7 @@
 	Timer utility implementation.
 */
 
-#include "ijk/ijk-base/ijkTimer.h"
+#include "ijk/ijk-base/ijk-utility/ijkTimer.h"
 
 
 #if (__ijk_cfg_platform == WINDOWS)

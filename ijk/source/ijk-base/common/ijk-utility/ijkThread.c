@@ -23,7 +23,7 @@
 	Thread utility implementation.
 */
 
-#include "ijk/ijk-base/ijkThread.h"
+#include "ijk/ijk-base/ijk-utility/ijkThread.h"
 
 
 // include platform APIs

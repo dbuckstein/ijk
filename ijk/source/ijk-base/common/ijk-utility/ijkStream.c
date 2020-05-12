@@ -23,7 +23,7 @@
 	Stream utility implementation.
 */
 
-#include "ijk/ijk-base/ijkStream.h"
+#include "ijk/ijk-base/ijk-utility/ijkStream.h"
 
 #include <stdio.h>
 #include <memory.h>

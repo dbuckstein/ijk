@@ -20,20 +20,20 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\source\ijk-base\common\ijk-base.c" />
-    <ClCompile Include="..\..\..\source\ijk-base\common\ijkStream.c" />
-    <ClCompile Include="..\..\..\source\ijk-base\common\ijkThread.c" />
-    <ClCompile Include="..\..\..\source\ijk-base\common\ijkTimer.c" />
+    <ClCompile Include="..\..\..\source\ijk-base\common\ijk-utility\ijkStream.c" />
+    <ClCompile Include="..\..\..\source\ijk-base\common\ijk-utility\ijkThread.c" />
+    <ClCompile Include="..\..\..\source\ijk-base\common\ijk-utility\ijkTimer.c" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\include\ijk\ijk-base\ijk-base.h" />
-    <ClInclude Include="..\..\..\include\ijk\ijk-base\ijkStream.h" />
-    <ClInclude Include="..\..\..\include\ijk\ijk-base\ijkThread.h" />
-    <ClInclude Include="..\..\..\include\ijk\ijk-base\ijkTimer.h" />
+    <ClInclude Include="..\..\..\include\ijk\ijk-base\ijk-utility\ijkStream.h" />
+    <ClInclude Include="..\..\..\include\ijk\ijk-base\ijk-utility\ijkThread.h" />
+    <ClInclude Include="..\..\..\include\ijk\ijk-base\ijk-utility\ijkTimer.h" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\..\..\include\ijk\ijk-base\_inl\ijkStream.inl" />
-    <None Include="..\..\..\include\ijk\ijk-base\_inl\ijkThread.inl" />
-    <None Include="..\..\..\include\ijk\ijk-base\_inl\ijkTimer.inl" />
+    <None Include="..\..\..\include\ijk\ijk-base\ijk-utility\_inl\ijkStream.inl" />
+    <None Include="..\..\..\include\ijk\ijk-base\ijk-utility\_inl\ijkThread.inl" />
+    <None Include="..\..\..\include\ijk\ijk-base\ijk-utility\_inl\ijkTimer.inl" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
