@@ -131,6 +131,26 @@ iret ijkStreamLoadBuffer(ijkStream* const stream_out, kcstr const filePath);
 //		return FAILURE: ijk_fail_operationfail if file not saved
 iret ijkStreamSaveBuffer(ijkStream const* const stream, kcstr const filePath);
 
+// ijkStreamGetOffset
+//	Get number of bytes streamed.
+//		param stream: pointer to constant stream descriptor
+//			valid: non-null, initialized
+//		param offset_out: pointer to value representing offset
+//			valid: non-null
+//		return SUCCESS: ijk_success if retrieved number of bytes streamed
+//		return FAILURE: ijk_fail_invalidparams if invalid parameters
+//		return FAILURE: ijk_fail_operationfail if did not get value
+iret ijkStreamGetOffset(ijkStream const* const stream, size* const offset_out);
+
+// ijkStreamBufferReset
+//	Reset buffer head.
+//		param stream: pointer to stream descriptor
+//			valid: non-null, initialized, file mode disabled
+//		param readMode: reset in read mode if true, otherwise write
+//		return SUCCESS: ijk_success if stream reset
+//		return FAILURE: ijk_fail_invalidparams if invalid parameters
+iret ijkStreamBufferReset(ijkStream* const stream, ibool const readMode);
+
 // ijkStreamRelease
 //	Close file or release string contents.
 //		param stream: pointer to stream descriptor

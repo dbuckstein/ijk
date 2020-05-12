@@ -30,6 +30,35 @@
 
 //-----------------------------------------------------------------------------
 
+ijk_inl iret ijkStreamGetOffset(ijkStream const* const stream, size* const offset_out)
+{
+	if (stream && offset_out)
+	{
+		if (stream->base)
+		{
+			*offset_out = (stream->isFile ? stream->length : (stream->head - stream->base));
+			return ijk_success;
+		}
+	}
+	return ijk_fail_invalidparams;
+}
+
+
+ijk_inl iret ijkStreamBufferReset(ijkStream* const stream, ibool const readMode)
+{
+	if (stream)
+	{
+		if (stream->base && ijk_isfalse(stream->isFile))
+		{
+			stream->head = stream->base;
+			stream->isRead = readMode;
+			return ijk_success;
+		}
+	}
+	return ijk_fail_invalidparams;
+}
+
+
 ijk_inl iret ijkStreamRead(ijkStream* const stream, ijkStreamReadFunc const streamFunc, ptr streamArg, size* const bytes_opt)
 {
 	if (stream && streamFunc && streamArg)

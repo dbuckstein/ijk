@@ -101,7 +101,34 @@ iret ijkStreamLoadBuffer(ijkStream* const stream_out, kcstr const filePath)
 	{
 		if (!stream_out->base)
 		{
+			size result = 0;
+			FILE* const fp = fopen(filePath, "rb");
+			if (fp)
+			{
+				fseek(fp, 0, SEEK_END);
+				result = (size)ftell(fp);
+				if (result)
+				{
+					// allocate and read from beginning
+					stream_out->base = (pbyte)malloc(result + 1);
+					fread(stream_out->base, result, 1, fp);
+					stream_out->base[result] = 0;
+					stream_out->head = stream_out->base;
+					stream_out->length = result;
+					stream_out->isRead = ijk_true;
+					stream_out->isFile = ijk_false;
+				}
 
+				// done
+				fclose(fp);
+
+				// if loaded contents, success
+				if (result)
+					return ijk_success;
+			}
+
+			// failed
+			return ijk_fail_operationfail;
 		}
 	}
 	return ijk_fail_invalidparams;
@@ -114,7 +141,19 @@ iret ijkStreamSaveBuffer(ijkStream const* const stream, kcstr const filePath)
 	{
 		if (stream->base && ijk_isfalse(stream->isFile))
 		{
+			FILE* const fp = fopen(filePath, "wb");
+			if (fp)
+			{
+				// write data
+				fwrite(stream->base, stream->length, 1, fp);
 
+				// done
+				fclose(fp);
+				return ijk_success;
+			}
+
+			// failed
+			return ijk_fail_operationfail;
 		}
 	}
 	return ijk_fail_invalidparams;
