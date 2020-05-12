@@ -30,6 +30,30 @@
 
 //-----------------------------------------------------------------------------
 
+ijk_inl iret ijkStreamRead(ijkStream* const stream, ijkStreamReadFunc const streamFunc, ptr streamArg, size* const bytes_opt)
+{
+	if (stream && streamFunc && streamArg)
+	{
+		if (stream->base)
+		{
+
+		}
+	}
+	return ijk_fail_invalidparams;
+}
+
+
+ijk_inl iret ijkStreamWrite(ijkStream* const stream, ijkStreamWriteFunc const streamFunc, kptr streamArg, size* const bytes_opt)
+{
+	if (stream && streamFunc && streamArg)
+	{
+		if (stream->base)
+		{
+
+		}
+	}
+	return ijk_fail_invalidparams;
+}
 
 
 //-----------------------------------------------------------------------------

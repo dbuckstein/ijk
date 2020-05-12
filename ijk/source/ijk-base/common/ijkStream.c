@@ -31,6 +31,86 @@
 
 //-----------------------------------------------------------------------------
 
+iret ijkStreamCreateFile(ijkStream* const stream_out, kcstr const filePath)
+{
+	if (stream_out && filePath && *filePath)
+	{
+		if (!stream_out->base)
+		{
+
+		}
+	}
+	return ijk_fail_invalidparams;
+}
+
+
+iret ijkStreamCreateBuffer(ijkStream* const stream_out, size const buffSize)
+{
+	if (stream_out && buffSize)
+	{
+		if (!stream_out->base)
+		{
+
+		}
+	}
+	return ijk_fail_invalidparams;
+}
+
+
+iret ijkStreamLoadBuffer(ijkStream* const stream_out, kcstr const filePath)
+{
+	if (stream_out && filePath && *filePath)
+	{
+		if (!stream_out->base)
+		{
+
+		}
+	}
+	return ijk_fail_invalidparams;
+}
+
+
+iret ijkStreamSaveBuffer(ijkStream const* const stream, kcstr const filePath)
+{
+	if (stream && filePath && *filePath)
+	{
+		if (stream->base)
+		{
+
+		}
+	}
+	return ijk_fail_invalidparams;
+}
+
+
+iret ijkStreamRelease(ijkStream* const stream)
+{
+	if (stream)
+	{
+		if (stream->base)
+		{
+
+		}
+	}
+	return ijk_fail_invalidparams;
+}
+
+
+iret ijkStreamReset(ijkStream* const stream)
+{
+	if (stream)
+	{
+		if (stream->base)
+		{
+
+		}
+	}
+	return ijk_fail_invalidparams;
+}
+
+
+//-----------------------------------------------------------------------------
+
 iret ijkStreamReadElement(ijkStream* const stream, ptr const elem, size const elemSize, size const elemCount, size* const bytes_opt)
 {
 	// validate parameters

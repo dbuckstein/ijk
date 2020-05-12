@@ -87,11 +87,12 @@ typedef iret(*ijkStreamWriteFunc)(ijkStream* const stream, kptr streamArg);
 //	Open file for read/write.
 //		param stream_out: pointer to stream descriptor
 //			valid: non-null, uninitialized
-//		param filepath: relative or absolute path to file to open
+//		param filePath: relative or absolute path to file to open
 //			valid: non-null, non-empty c-string
 //		return SUCCESS: ijk_success if file opened
 //		return FAILURE: ijk_fail_invalidparams if invalid parameters
 //		return FAILURE: ijk_fail_operationfail if file not opened
+iret ijkStreamCreateFile(ijkStream* const stream_out, kcstr const filePath);
 
 // ijkStreamCreateBuffer
 //	Allocate empty string for writing.
@@ -102,27 +103,30 @@ typedef iret(*ijkStreamWriteFunc)(ijkStream* const stream, kptr streamArg);
 //		return SUCCESS: ijk_success if buffer allocated
 //		return FAILURE: ijk_fail_invalidparams if invalid parameters
 //		return FAILURE: ijk_fail_operationfail if buffer not allocated
+iret ijkStreamCreateBuffer(ijkStream* const stream_out, size const buffSize);
 
-// ijkStreamLoadBufferFromFile
+// ijkStreamLoadBuffer
 //	Allocate buffer from file for reading.
 //		param stream_out: pointer to stream descriptor
 //			valid: non-null, uninitialized
-//		param filepath: relative or absolute path to file to load
+//		param filePath: relative or absolute path to file to load
 //			valid: non-null, non-empty c-string
 //		return SUCCESS: ijk_success if file loaded
 //		return FAILURE: ijk_fail_invalidparams if invalid parameters
 //		return FAILURE: ijk_fail_operationfail if file not loaded
+iret ijkStreamLoadBuffer(ijkStream* const stream_out, kcstr const filePath);
 
-// ijkStreamSaveBufferToFile
+// ijkStreamSaveBuffer
 //	Store buffer in file.
 //	Allocate buffer from file for reading.
 //		param stream: pointer to constant stream descriptor
 //			valid: non-null, initialized, file mode disabled
-//		param filepath: relative or absolute path to file to save
+//		param filePath: relative or absolute path to file to save
 //			valid: non-null, non-empty c-string
 //		return SUCCESS: ijk_success if file saved
 //		return FAILURE: ijk_fail_invalidparams if invalid parameters
 //		return FAILURE: ijk_fail_operationfail if file not saved
+iret ijkStreamSaveBuffer(ijkStream const* const stream, kcstr const filePath);
 
 // ijkStreamRelease
 //	Close file or release string contents.
@@ -131,6 +135,7 @@ typedef iret(*ijkStreamWriteFunc)(ijkStream* const stream, kptr streamArg);
 //		return SUCCESS: ijk_success if stream released
 //		return FAILURE: ijk_fail_invalidparams if invalid parameters
 //		return FAILURE: ijk_fail_operationfail if stream not released
+iret ijkStreamRelease(ijkStream* const stream);
 
 // ijkStreamReset
 //	Reset/rewind buffer head or file pointer.
@@ -139,6 +144,7 @@ typedef iret(*ijkStreamWriteFunc)(ijkStream* const stream, kptr streamArg);
 //		return SUCCESS: ijk_success if stream reset
 //		return FAILURE: ijk_fail_invalidparams if invalid parameters
 //		return FAILURE: ijk_fail_operationfail if stream not reset
+iret ijkStreamReset(ijkStream* const stream);
 
 // ijkStreamRead
 //	Read from stream using callback.
@@ -153,6 +159,7 @@ typedef iret(*ijkStreamWriteFunc)(ijkStream* const stream, kptr streamArg);
 //		return SUCCESS: ijk_success if read succeeded
 //		return FAILURE: ijk_fail_invalidparams if invalid parameters
 //		return FAILURE: ijk_fail_operationfail if read failed
+iret ijkStreamRead(ijkStream* const stream, ijkStreamReadFunc const streamFunc, ptr streamArg, size* const bytes_opt);
 
 // ijkStreamWrite
 //	Write to stream using callback.
@@ -160,13 +167,17 @@ typedef iret(*ijkStreamWriteFunc)(ijkStream* const stream, kptr streamArg);
 //			valid: non-null, initialized
 //		param streamFunc: pointer to write callback
 //			valid: non-null
-//		param streamArg: pointer to data to stream
+//		param streamArg: pointer to constant data to stream
 //			valid: non-null
 //		param bytes_opt: optional pointer to value holding number of bytes 
 //			written; used for caller validation
 //		return SUCCESS: ijk_success if write succeeded
 //		return FAILURE: ijk_fail_invalidparams if invalid parameters
 //		return FAILURE: ijk_fail_operationfail if write failed
+iret ijkStreamWrite(ijkStream* const stream, ijkStreamWriteFunc const streamFunc, kptr streamArg, size* const bytes_opt);
+
+
+//-----------------------------------------------------------------------------
 
 // ijkStreamReadElement
 //	Read single element from stream.
@@ -205,6 +216,9 @@ iret ijkStreamReadElement(ijkStream* const stream, ptr const elem, size const el
 //		return FAILURE: ijk_fail_invalidparams if invalid parameters
 //		return FAILURE: ijk_fail_operationfail if write failed
 iret ijkStreamWriteElement(ijkStream* const stream, kptr const elem, size const elemSize, size const elemCount, size* const bytes_opt);
+
+
+//-----------------------------------------------------------------------------
 
 // ijkStreamMakeDirectory
 //	Make a directory.
