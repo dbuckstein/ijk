@@ -25,8 +25,6 @@
 
 #include "ijk/ijk-base/ijk-utility/ijkMemory.h"
 
-#include "ijk/ijk-base/ijk-utility/ijkStream.h"
-
 
 //-----------------------------------------------------------------------------
 
@@ -62,7 +60,11 @@ struct ijkMemoryPool
 
 // szmempool
 //	Convenient macro for size of pool.
-#define szmempool						((size)sizeof(ijkMemoryPool))
+#define szmempool						szb(ijkMemoryPool)
+
+// szcmempool
+//	Size of pool in chomps.
+#define szcmempool						szc(ijkMemoryPool)
 
 
 // ijkMemoryBlock
@@ -91,7 +93,11 @@ struct ijkMemoryBlock
 
 // szmemblock
 //	Convenient macro for size of reservation block.
-#define szmemblock						((size)sizeof(ijkMemoryBlock))
+#define szmemblock						szb(ijkMemoryBlock)
+
+// szcmemblock
+//	Size of reservation block in chomps.
+#define szcmempool						szc(ijkMemoryPool)
 
 
 //-----------------------------------------------------------------------------

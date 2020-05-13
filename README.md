@@ -42,8 +42,9 @@ This section outlines known tasks to be completed and that have been completed.
 - [x] core types
 - [x] core timer
 - [x] core thread
-- [ ] core stream
+- [x] core stream
 - [ ] core memory
+- [ ] input devices
 #### Math
 - [ ] stats
 - [ ] random
