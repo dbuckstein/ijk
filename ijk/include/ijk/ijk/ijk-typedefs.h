@@ -78,6 +78,20 @@ typedef				word const				* kpwtag, * kwcstr;
 #define				szwtag					((size)sizeof(wtag))
 
 
+// convenient short dynamic (architecture-dependent) c-string abbreviations
+///
+typedef				byte					dtag[szchomp * szqword], * pdtag;
+typedef				byte const				* kdtag;
+#define				szdtag					((size)sizeof(dtag))
+
+
+// convenient short dynamic wide-character string abbreviation
+///
+typedef				word					dwtag[szdtag], *pdwtag;
+typedef				word const				* kdwtag;
+#define				szdwtag					((size)sizeof(dwtag))
+
+
 // simple copy operations
 ///
 #define ijk_copyb(dst, src, offset)		(*((byte*)(dst) + (offset)) = *((byte const *)(src) + (offset)))
@@ -86,6 +100,12 @@ typedef				word const				* kpwtag, * kwcstr;
 #define ijk_copyqw(dst, src, offset)	(*((qword*)(dst) + (offset)) = *((qword const*)(src) + (offset)))
 #define ijk_copytag(dst, src)			ijk_copyqw(dst,src,0);ijk_copyqw(dst,src,1);ijk_copyqw(dst,src,2);ijk_copyqw(dst,src,3)
 #define ijk_copywtag(dst, src)			ijk_copytag((ptag)(dst),(kptag)(src));ijk_copytag((ptag)(dst)+sztag,(kptag)(src)+sztag)
+
+
+// conversion between bytes/chomps
+///
+#define ijk_byte2chomp(bytes)			((bytes+szchomp-1)/szchomp)
+#define ijk_chomp2byte(chomps)			(chomps*szchomp)
 
 
 #endif	// !_IJK_TYPEDEFS_H_

@@ -56,6 +56,9 @@ This section outlines known tasks to be completed and that have been completed.
 - [ ] dual quaternion
 - [ ] managed vector
 - [ ] transformation
+- [ ] extension: basic blending
+- [ ] extension: basic physics
+- [ ] extension: geometry generation
 #### Graphics
 - [ ] test window in app
 - [ ] Vulkan context in app
