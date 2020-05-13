@@ -126,8 +126,8 @@ typedef ptr(*ijkMemoryInitCallback)(ptr dst, size sz_bytes);
 // ijkMemoryPoolCreate
 //	Initialize managed pool given pre-allocated (stack or heap) block of 
 //	memory. Effectively turns any memory block into a managed block.
-//		param base: base pointer to pre-allocated block
-//			valid: non-null
+//		param pool_base: base pointer to pre-allocated block
+//			valid: non-null, uninitialized as pool
 //		param baseSize: size of base block in bytes
 //			valid: non-zero
 //		param poolSize: size of pool in bytes
@@ -141,9 +141,9 @@ typedef ptr(*ijkMemoryInitCallback)(ptr dst, size sz_bytes);
 
 // ijkMemoryPoolRelease
 //	Terminate managed pool, leaving the contained memory unaffected.
-//		param base: base pointer to pre-allocated block
-//			valid: non-null
-//			note: assumes all objects within have been released
+//		param pool: base pointer to pre-allocated block
+//			valid: non-null, initialized
+//			note: does not format; assumes objects within have been released
 //		param termCallback_opt: optional termination callback
 //		return SUCCESS: ijk_success if pool terminated
 //		return FAILURE: ijk_fail_invalidparams if invalid parameters
@@ -151,8 +151,8 @@ typedef ptr(*ijkMemoryInitCallback)(ptr dst, size sz_bytes);
 
 // ijkMemoryPoolLoad
 //	Load managed pool from an open stream.
-//		param base: base pointer to pre-allocated block
-//			valid: non-null
+//		param pool: base pointer to pre-allocated block
+//			valid: non-null, initialized
 //		param stream: pointer to stream descriptor
 //			valid: non-null, initialized, read mode enabled
 //		param baseSize: size of base block in bytes
@@ -164,8 +164,8 @@ typedef ptr(*ijkMemoryInitCallback)(ptr dst, size sz_bytes);
 
 // ijkMemoryPoolSave
 //	Save managed pool to an open stream.
-//		param base: base pointer to pre-allocated block
-//			valid: non-null
+//		param pool: base pointer to pre-allocated block
+//			valid: non-null, initialized
 //		param stream: pointer to stream descriptor
 //			valid: non-null, initialized, read mode disabled
 //		param baseSize: size of base block in bytes
@@ -202,17 +202,56 @@ typedef ptr(*ijkMemoryInitCallback)(ptr dst, size sz_bytes);
 
 //-----------------------------------------------------------------------------
 
-// ijkMemoryBlockReserve
+// ijkMemoryBlockCreate
 //	Reserve a block within a pool.
+//		param block_out: pointer to block pointer
+//			valid: non-null, points to null
+//		param pool: base pointer to managed pool
+//			valid: non-null, initialized
+//		param blockSize: size of pool in bytes
+//			valid: non-zero
+//		param name: name of pool
+//			valid: non-zero, non-empty c-string
+//		param initCallback_opt: optional initialization callback
+//		return SUCCESS: ijk_success if block reserved
+//		return FAILURE: ijk_fail_invalidparams if invalid parameters
+//		return FAILURE: ijk_fail_operationfail if not reserved
 
 // ijkMemoryBlockRelease
 //	Release a block back into a pool.
+//		param block: pointer to block
+//			valid: non-null, initialized
+//			note: does not format
+//		param termCallback_opt: optional termination callback
+//		return SUCCESS: ijk_success if block released
+//		return FAILURE: ijk_fail_invalidparams if invalid parameters
+//		return FAILURE: ijk_fail_operationfail if not released
 
 // ijkMemoryBlockLoad
 //	Load a block from an open stream.
+//		param block: pointer to block
+//			valid: non-null, initialized
+//		param stream: pointer to stream descriptor
+//			valid: non-null, initialized, read mode enabled
+//		param baseSize: size of base block in bytes
+//			valid: non-zero
+//		param loadCallback_opt: optional load callback
+//		return SUCCESS: ijk_success if block loaded
+//		return FAILURE: ijk_fail_invalidparams if invalid parameters
+//		return FAILURE: ijk_fail_operationfail if block not loaded
 
 // ijkMemoryBlockSave
 //	Save a block to an open stream.
+//		param block: pointer to block
+//			valid: non-null, initialized
+//		param stream: pointer to stream descriptor
+//			valid: non-null, initialized, read mode disabled
+//		param baseSize: size of base block in bytes
+//			valid: non-zero
+//		param saveCallback_opt: optional load callback
+//		return SUCCESS: ijk_success if block saved
+//		return FAILURE: ijk_fail_invalidparams if invalid parameters
+//		return FAILURE: ijk_fail_operationfail if block not saved
 
 // ijkMemoryBlockGetName
 //	Get the name of a reserved block.
