@@ -106,7 +106,35 @@ iret ijkMemoryPoolCreate(ptr const pool_base, size const baseSize, size const po
 {
 	if (pool_base && baseSize && poolSize && name && *name)
 	{
+		size const spaceRequired = szmempool + szmemblock;
+		if (baseSize > spaceRequired)
+		{
+			size const spaceAvailable = baseSize - spaceRequired;
+			if (poolSize <= spaceAvailable)
+			{
+				ijkMemoryPool* const desc = (ijkMemoryPool*)pool_base;
 
+				// initialize pool
+				ijk_copytag(desc->name, name);
+				desc->name[sztag - 1] = 0;
+				desc->chompsReserved = 0;
+				desc->chompsAvailable = ijk_b2c(poolSize);
+				desc->chompsFragmented = 0;
+				desc->chompSize = desc->chompsAvailable;
+				desc->chompOffsetPrev = 0;
+				desc->chompOffsetNext = szcmempool;
+				desc->chompOffsetLastRelease = 0;
+				desc->reserveCount = 0;
+
+				// callback
+				if (initCallback_opt)
+					initCallback_opt(desc, desc->chompSize);
+
+				// done
+				return ijk_success;
+			}
+		}
+		return ijk_fail_operationfail;
 	}
 	return ijk_fail_invalidparams;
 }
@@ -116,7 +144,13 @@ iret ijkMemoryPoolRelease(ptr const pool, ijkMemoryInitCallback const termCallba
 {
 	if (pool)
 	{
-
+		ijkMemoryPool* const desc = (ijkMemoryPool*)pool;
+		if (desc->reserveCount)
+		{
+			if (termCallback_opt)
+				termCallback_opt(desc, desc->chompSize);
+		}
+		return ijk_success;
 	}
 	return ijk_fail_invalidparams;
 }
@@ -127,6 +161,7 @@ iret ijkMemoryPoolLoad(ptr const pool_base, size const baseSize, ijkStream* cons
 	if (pool_base && baseSize && stream &&
 		stream->base && stream->isRead)
 	{
+	//	ijkMemoryPool* const desc = (ijkMemoryPool*)pool_base;
 
 	}
 	return ijk_fail_invalidparams;
@@ -138,6 +173,7 @@ iret ijkMemoryPoolSave(kptr const pool, size const baseSize, ijkStream* const st
 	if (pool && baseSize && stream &&
 		stream->base && !stream->isRead)
 	{
+	//	ijkMemoryPool const* const desc = (ijkMemoryPool*)pool;
 
 	}
 	return ijk_fail_invalidparams;
@@ -148,17 +184,36 @@ iret ijkMemoryPoolDefragment(ptr const pool, ijkMemoryCopyCallback const copyCal
 {
 	if (pool)
 	{
+	//	ijkMemoryPool* const desc = (ijkMemoryPool*)pool;
 
 	}
 	return ijk_fail_invalidparams;
 }
 
 
-iret ijkMemoryPoolGetBlock(kptr const pool, ptr* const block_out)
+iret ijkMemoryPoolGetBlock(kptr const pool, kptr* const block_out, tag const name)
 {
-	if (pool && block_out && !*block_out)
+	if (pool && block_out && name && *name &&
+		!*block_out)
 	{
+		ijkMemoryPool const* const desc = (ijkMemoryPool*)pool;
+		ijkMemoryBlock const* block_next = (ijkMemoryBlock*)(desc + 1);
+		size const n = desc->reserveCount;
+		uitr i = 0;
+		while (i < n)
+		{
+			// compare names; if found, return block pointer
+			if (ijkMemoryCompare(block_next->name, name, sztag) == sztag)
+			{
+				*block_out = (block_next + 1);
+				return ijk_success;
+			}
 
+			// if not found, jump to next
+			block_next = (ijkMemoryBlock*)((kpchomp)block_next + block_next->chompOffsetNext);
+			++i;
+		}
+		return ijk_fail_operationfail;
 	}
 	return ijk_fail_invalidparams;
 }
@@ -168,7 +223,10 @@ iret ijkMemoryPoolGetName(kptr const pool, tag name_out)
 {
 	if (pool && name_out)
 	{
-
+		ijkMemoryPool const* const desc = (ijkMemoryPool*)pool;
+		ijk_copytag(name_out, desc->name);
+		name_out[sztag - 1] = 0;
+		return ijk_success;
 	}
 	return ijk_fail_invalidparams;
 }
@@ -178,7 +236,10 @@ iret ijkMemoryPoolSetName(ptr const pool, tag const name)
 {
 	if (pool && name && *name)
 	{
-
+		ijkMemoryPool* const desc = (ijkMemoryPool*)pool;
+		ijk_copytag(desc->name, name);
+		desc->name[sztag - 1] = 0;
+		return ijk_success;
 	}
 	return ijk_fail_invalidparams;
 }
@@ -188,7 +249,9 @@ iret ijkMemoryPoolGetReserved(kptr const pool, size* const size_out)
 {
 	if (pool && size_out)
 	{
-
+		ijkMemoryPool const* const desc = (ijkMemoryPool*)pool;
+		*size_out = desc->chompsReserved;
+		return ijk_success;
 	}
 	return ijk_fail_invalidparams;
 }
@@ -198,7 +261,9 @@ iret ijkMemoryPoolGetAvailable(kptr const pool, size* const size_out)
 {
 	if (pool && size_out)
 	{
-
+		ijkMemoryPool const* const desc = (ijkMemoryPool*)pool;
+		*size_out = desc->chompsAvailable;
+		return ijk_success;
 	}
 	return ijk_fail_invalidparams;
 }
@@ -208,7 +273,9 @@ iret ijkMemoryPoolGetFragmented(kptr const pool, size* const size_out)
 {
 	if (pool && size_out)
 	{
-
+		ijkMemoryPool const* const desc = (ijkMemoryPool*)pool;
+		*size_out = desc->chompsFragmented;
+		return ijk_success;
 	}
 	return ijk_fail_invalidparams;
 }
@@ -218,7 +285,9 @@ iret ijkMemoryPoolGetSize(kptr const pool, size* const size_out)
 {
 	if (pool && size_out)
 	{
-
+		ijkMemoryPool const* const desc = (ijkMemoryPool*)pool;
+		*size_out = desc->chompSize;
+		return ijk_success;
 	}
 	return ijk_fail_invalidparams;
 }
@@ -226,20 +295,23 @@ iret ijkMemoryPoolGetSize(kptr const pool, size* const size_out)
 
 //-----------------------------------------------------------------------------
 
-iret ijkMemoryBlockCreate(ptr const block_out, size const blockSize, ptr const pool, tag const name, flag const type, ijkMemoryInitCallback const initCallback_opt)
+iret ijkMemoryBlockCreate(ptr* const block_out, size const blockSize, ptr const pool, tag const name, flag const type, ijkMemoryInitCallback const initCallback_opt)
 {
-	if (block_out && blockSize && pool && name && *name && type >= 0)
+	if (block_out && blockSize && pool && name && *name && type >= 0 &&
+		!*block_out)
 	{
+	//	ijkMemoryBlock* const desc = (ijkMemoryBlock*)block_out - 1;
 
 	}
 	return ijk_fail_invalidparams;
 }
 
 
-iret ijkMemoryBlockRelease(ptr const block, ijkMemoryInitCallback const termCallback_opt)
+iret ijkMemoryBlockRelease(ptr const block, ptr const pool, ijkMemoryInitCallback const termCallback_opt)
 {
 	if (block)
 	{
+	//	ijkMemoryBlock* const desc = (ijkMemoryBlock*)block - 1;
 
 	}
 	return ijk_fail_invalidparams;
@@ -251,6 +323,7 @@ iret ijkMemoryBlockLoad(ptr const block, ijkStream* const stream, ijkStreamReadF
 	if (block && stream &&
 		stream->base && stream->isRead)
 	{
+	//	ijkMemoryBlock* const desc = (ijkMemoryBlock*)block - 1;
 
 	}
 	return ijk_fail_invalidparams;
@@ -262,6 +335,7 @@ iret ijkMemoryBlockSave(kptr const block, ijkStream* const stream, ijkStreamWrit
 	if (block && stream &&
 		stream->base && !stream->isRead)
 	{
+	//	ijkMemoryBlock const* const desc = (ijkMemoryBlock*)block - 1;
 
 	}
 	return ijk_fail_invalidparams;
@@ -272,7 +346,9 @@ iret ijkMemoryBlockIsInPool(kptr const block, kptr const pool, ibool* const stat
 {
 	if (block && pool && status_out)
 	{
-
+		ijkMemoryBlock const* const desc = (ijkMemoryBlock*)block - 1;
+		*status_out = (desc == (ijkMemoryBlock*)((kpchomp)pool + desc->chompOffsetHead));
+		return ijk_success;
 	}
 	return ijk_fail_invalidparams;
 }
@@ -282,7 +358,10 @@ iret ijkMemoryBlockGetName(kptr const block, tag name_out)
 {
 	if (block && name_out)
 	{
-
+		ijkMemoryBlock const* const desc = (ijkMemoryBlock*)block - 1;
+		ijk_copytag(name_out, desc->name);
+		name_out[sztag - 1] = 0;
+		return ijk_success;
 	}
 	return ijk_fail_invalidparams;
 }
@@ -292,7 +371,10 @@ iret ijkMemoryBlockSetName(ptr const block, tag const name)
 {
 	if (block && name && *name)
 	{
-
+		ijkMemoryBlock* const desc = (ijkMemoryBlock*)block - 1;
+		ijk_copytag(desc->name, name);
+		desc->name[sztag - 1] = 0;
+		return ijk_success;
 	}
 	return ijk_fail_invalidparams;
 }
@@ -302,7 +384,9 @@ iret ijkMemoryBlockGetType(kptr const block, flag* const type_out)
 {
 	if (block && type_out)
 	{
-
+		ijkMemoryBlock const* const desc = (ijkMemoryBlock*)block - 1;
+		*type_out = desc->type;
+		return ijk_success;
 	}
 	return ijk_fail_invalidparams;
 }
@@ -312,7 +396,9 @@ iret ijkMemoryBlockSetType(ptr const block, flag const type)
 {
 	if (block && type >= 0)
 	{
-
+		ijkMemoryBlock* const desc = (ijkMemoryBlock*)block - 1;
+		desc->type = type;
+		return ijk_success;
 	}
 	return ijk_fail_invalidparams;
 }
@@ -322,7 +408,9 @@ iret ijkMemoryBlockGetSize(kptr const block, size* const size_out)
 {
 	if (block && size_out)
 	{
-
+		ijkMemoryBlock const* const desc = (ijkMemoryBlock*)block - 1;
+		*size_out = desc->chompSize;
+		return ijk_success;
 	}
 	return ijk_fail_invalidparams;
 }

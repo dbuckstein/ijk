@@ -91,7 +91,7 @@ ptr ijkMemorySetZero(ptr const dst, size const sz_bytes);
 //			valid: non-zero
 //		return SUCCESS: dst
 //		return FAILURE: null/zero
-ptr ijkMemoryCopy(ptr const dst, ptr const src, size const sz_bytes);
+ptr ijkMemoryCopy(ptr const dst, kptr const src, size const sz_bytes);
 
 // ijkMemoryCompare
 //	Compare memory block.
@@ -103,7 +103,7 @@ ptr ijkMemoryCopy(ptr const dst, ptr const src, size const sz_bytes);
 //			valid: non-zero
 //		return SUCCESS: number of bytes before difference
 //		return FAILURE: ijk_fail_invalidparams if invalid parameters
-ptrdiff ijkMemoryCompare(ptr const dst, ptr const src, size const sz_bytes);
+ptrdiff ijkMemoryCompare(kptr const dst, kptr const src, size const sz_bytes);
 
 // ijkMemoryCopyC
 //	Set/format memory block of chomps.
@@ -136,7 +136,7 @@ ptr ijkMemorySetZeroC(ptr const dst, size const sz_chomps);
 //			valid: non-zero
 //		return SUCCESS: dst
 //		return FAILURE: null/zero
-ptr ijkMemoryCopyC(ptr const dst, ptr const src, size const sz_chomps);
+ptr ijkMemoryCopyC(ptr const dst, kptr const src, size const sz_chomps);
 
 // ijkMemoryCompareC
 //	Compare memory block of chomps.
@@ -148,7 +148,7 @@ ptr ijkMemoryCopyC(ptr const dst, ptr const src, size const sz_chomps);
 //			valid: non-zero
 //		return SUCCESS: number of chomps before difference
 //		return FAILURE: ijk_fail_invalidparams if invalid parameters
-ptrdiff ijkMemoryCompareC(ptr const dst, ptr const src, size const sz_chomps);
+ptrdiff ijkMemoryCompareC(kptr const dst, kptr const src, size const sz_chomps);
 
 
 //-----------------------------------------------------------------------------
@@ -227,10 +227,12 @@ iret ijkMemoryPoolDefragment(ptr const pool, ijkMemoryCopyCallback const copyCal
 //		param block_out: pointer to block pointer
 //			valid: non-null, points to null
 //			note: upon function success, points to non-null block address
+//		param name: name of block to locate
+//			valid: non-null, non-empty c-string
 //		return SUCCESS: ijk_success if block retrieved
 //		return FAILURE: ijk_fail_invalidparams if invalid parameters
 //		return FAILURE: ijk_fail_operationfail if block not retrieved
-iret ijkMemoryPoolGetBlock(kptr const pool, ptr* const block_out);
+iret ijkMemoryPoolGetBlock(kptr const pool, kptr* const block_out, tag const name);
 
 // ijkMemoryPoolGetName
 //	Get the name of a pool.
@@ -321,18 +323,20 @@ iret ijkMemoryPoolGetSize(kptr const pool, size* const size_out);
 //		return SUCCESS: ijk_success if block reserved
 //		return FAILURE: ijk_fail_invalidparams if invalid parameters
 //		return FAILURE: ijk_fail_operationfail if not reserved
-iret ijkMemoryBlockCreate(ptr const block_out, size const blockSize, ptr const pool, tag const name, flag const type, ijkMemoryInitCallback const initCallback_opt);
+iret ijkMemoryBlockCreate(ptr* const block_out, size const blockSize, ptr const pool, tag const name, flag const type, ijkMemoryInitCallback const initCallback_opt);
 
 // ijkMemoryBlockRelease
 //	Release a block back into a pool.
 //		param block: pointer to block
 //			valid: non-null, initialized
 //			note: does not format
+//		param pool: base pointer to managed pool
+//			valid: non-null, initialized
 //		param termCallback_opt: optional termination callback
 //		return SUCCESS: ijk_success if block released
 //		return FAILURE: ijk_fail_invalidparams if invalid parameters
 //		return FAILURE: ijk_fail_operationfail if not released
-iret ijkMemoryBlockRelease(ptr const block, ijkMemoryInitCallback const termCallback_opt);
+iret ijkMemoryBlockRelease(ptr const block, ptr const pool, ijkMemoryInitCallback const termCallback_opt);
 
 // ijkMemoryBlockLoad
 //	Load a block from an open stream.
