@@ -30,6 +30,7 @@
 #include "ijk-utility/ijkTimer.h"
 #include "ijk-utility/ijkThread.h"
 #include "ijk-utility/ijkStream.h"
+#include "ijk-utility/ijkMemory.h"
 
 
 #endif	// !_IJK_BASE_H_

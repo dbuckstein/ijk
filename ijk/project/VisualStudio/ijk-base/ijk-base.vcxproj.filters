@@ -42,6 +42,9 @@
     <ClCompile Include="..\..\..\source\ijk-base\common\ijk-utility\ijkStream.c">
       <Filter>Source Files\common\ijk-utility</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\source\ijk-base\common\ijk-utility\ijkMemory.c">
+      <Filter>Source Files\common\ijk-utility</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\include\ijk\ijk-base\ijk-base.h">
@@ -56,6 +59,9 @@
     <ClInclude Include="..\..\..\include\ijk\ijk-base\ijk-utility\ijkStream.h">
       <Filter>Header Files\ijk-base\ijk-utility</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\include\ijk\ijk-base\ijk-utility\ijkMemory.h">
+      <Filter>Header Files\ijk-base\ijk-utility</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\include\ijk\ijk-base\ijk-utility\_inl\ijkTimer.inl">
@@ -65,6 +71,9 @@
       <Filter>Header Files\ijk-base\ijk-utility\_inl</Filter>
     </None>
     <None Include="..\..\..\include\ijk\ijk-base\ijk-utility\_inl\ijkStream.inl">
+      <Filter>Header Files\ijk-base\ijk-utility\_inl</Filter>
+    </None>
+    <None Include="..\..\..\include\ijk\ijk-base\ijk-utility\_inl\ijkMemory.inl">
       <Filter>Header Files\ijk-base\ijk-utility\_inl</Filter>
     </None>
   </ItemGroup>
