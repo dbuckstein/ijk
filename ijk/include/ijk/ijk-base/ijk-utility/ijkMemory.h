@@ -63,62 +63,92 @@ typedef ptr(*ijkMemoryInitCallback)(ptr dst, size sz_bytes);
 // ijkMemorySet
 //	Set/format memory block.
 //		param dst: pointer to destination block
+//			valid: non-null
 //		param sz_bytes: size of block in bytes
+//			valid: non-zero
 //		param value: value used to set all bytes
 //		return SUCCESS: dst
 //		return FAILURE: null/zero
+ptr ijkMemorySet(ptr const dst, size const sz_bytes, byte const value);
 
 // ijkMemorySetZero
 //	Set/format memory block such that all bytes are zero.
 //		param dst: pointer to destination block
+//			valid: non-null
 //		param sz_bytes: size of block in bytes
+//			valid: non-zero
 //		return SUCCESS: dst
 //		return FAILURE: null/zero
+ptr ijkMemorySetZero(ptr const dst, size const sz_bytes);
 
 // ijkMemoryCopy
 //	Copy memory block.
 //		param dst: pointer to destination block
+//			valid: non-null
 //		param src: pointer to source block
+//			valid: non-null
 //		param sz_bytes: size of block in bytes
+//			valid: non-zero
 //		return SUCCESS: dst
 //		return FAILURE: null/zero
+ptr ijkMemoryCopy(ptr const dst, ptr const src, size const sz_bytes);
 
 // ijkMemoryCompare
 //	Compare memory block.
 //		param dst: pointer to destination block
+//			valid: non-null
 //		param src: pointer to source block
+//			valid: non-null
+//		param sz_bytes: size of block in bytes
+//			valid: non-zero
 //		return SUCCESS: number of bytes before difference
 //		return FAILURE: ijk_fail_invalidparams if invalid parameters
+ptrdiff ijkMemoryCompare(ptr const dst, ptr const src, size const sz_bytes);
 
 // ijkMemoryCopyC
 //	Set/format memory block of chomps.
 //		param dst: pointer to destination block
+//			valid: non-null
 //		param sz_chomps: size of block in chomps
+//			valid: non-zero
 //		param value: value used to set all chomps
 //		return SUCCESS: dst
 //		return FAILURE: null/zero
+ptr ijkMemorySetC(ptr const dst, size const sz_chomps, chomp const value);
 
 // ijkMemorySetZeroC
 //	Set/format memory block of chomps such that all bytes are zero.
 //		param dst: pointer to destination block
+//			valid: non-null
 //		param sz_chomps: size of block in chomps
+//			valid: non-zero
 //		return SUCCESS: dst
 //		return FAILURE: null/zero
+ptr ijkMemorySetZeroC(ptr const dst, size const sz_chomps);
 
 // ijkMemoryCopyC
 //	Copy memory block of chomps.
 //		param dst: pointer to destination block
+//			valid: non-null
 //		param src: pointer to source block
-//		param sz_bytes: size of block in bytes
+//			valid: non-null
+//		param sz_chomps: size of block in chomps
+//			valid: non-zero
 //		return SUCCESS: dst
 //		return FAILURE: null/zero
+ptr ijkMemoryCopyC(ptr const dst, ptr const src, size const sz_chomps);
 
 // ijkMemoryCompareC
 //	Compare memory block of chomps.
 //		param dst: pointer to destination block
+//			valid: non-null
 //		param src: pointer to source block
+//			valid: non-null
+//		param sz_chomps: size of block in chomps
+//			valid: non-zero
 //		return SUCCESS: number of chomps before difference
 //		return FAILURE: ijk_fail_invalidparams if invalid parameters
+ptrdiff ijkMemoryCompareC(ptr const dst, ptr const src, size const sz_chomps);
 
 
 //-----------------------------------------------------------------------------

@@ -30,6 +30,149 @@
 
 //-----------------------------------------------------------------------------
 
+// helper macros for basic operations
+///
+#define ijk_memory_set(dst, end, value)		while (dst < end) (*(dst++) = value)
+#define ijk_memory_copy(dst, src, end)		while (dst < end) (*(dst++) = *(src++))
+#define ijk_memory_compare(dst, src, end)	while (dst < end) if (*(dst) == *(src++)) (++dst); else break
+
+
+//-----------------------------------------------------------------------------
+
+ijk_inl ptr ijkMemorySet(ptr const dst, size const sz_bytes, byte const value)
+{
+	if (dst && sz_bytes)
+	{
+		byte const value2chomp[8] = { value, value, value, value, value, value, value, value };
+		chomp const value_chomp = *((pchomp)value2chomp);
+		pchomp dst_chomp = (pchomp)dst;
+		pbyte dst_byte = (pbyte)dst;
+		pchomp const end_chomp = dst_chomp + sz_bytes / szchomp;
+		kpbyte const end_byte = dst_byte + sz_bytes;
+
+		// set integers until the last integer can fit
+		ijk_memory_set(dst_chomp, end_chomp, value_chomp);
+
+		// set the remaining bytes
+		dst_byte = (pbyte)dst_chomp;
+		ijk_memory_set(dst_byte, end_byte, value);
+
+		// done
+		return dst;
+	}
+	return 0;
+}
+
+
+ijk_inl ptr ijkMemorySetZero(ptr const dst, size const sz_bytes)
+{
+	return ijkMemorySet(dst, sz_bytes, 0);
+}
+
+
+ijk_inl ptr ijkMemoryCopy(ptr const dst, ptr const src, size const sz_bytes)
+{
+	if (dst && src && sz_bytes)
+	{
+		pchomp dst_chomp = (pchomp)dst;
+		kpchomp src_chomp = (pchomp)src;
+		pbyte dst_byte = (pbyte)dst;
+		kpbyte src_byte = (pbyte)src;
+		pchomp const end_chomp = dst_chomp + sz_bytes / szchomp;
+		kpbyte const end_byte = dst_byte + sz_bytes;
+
+		// copy integers until the last integer can fit
+		ijk_memory_copy(dst_chomp, src_chomp, end_chomp);
+
+		// copy the remaining bytes
+		dst_byte = (pbyte)dst_chomp;
+		src_byte = (pbyte)src_chomp;
+		ijk_memory_copy(dst_byte, src_byte, end_byte);
+
+		// done
+		return dst;
+	}
+	return 0;
+}
+
+
+ijk_inl ptrdiff ijkMemoryCompare(ptr const dst, ptr const src, size const sz_bytes)
+{
+	if (dst && src && sz_bytes)
+	{
+		pchomp dst_chomp = (pchomp)dst;
+		kpchomp src_chomp = (pchomp)src;
+		pbyte dst_byte = (pbyte)dst, base = dst_byte;
+		kpbyte src_byte = (pbyte)src;
+		pchomp const end_chomp = dst_chomp + sz_bytes / szchomp;
+		kpbyte const end_byte = dst_byte + sz_bytes;
+
+		// compare integers until the last integer can be compared
+		ijk_memory_compare(dst_chomp, src_chomp, end_chomp);
+
+		// compare the remaining bytes
+		dst_byte = (pbyte)dst_chomp;
+		src_byte = (pbyte)src_chomp;
+		ijk_memory_compare(dst_byte, src_byte, end_byte);
+
+		// done
+		return (dst_byte - base);
+	}
+	return ijk_fail_invalidparams;
+}
+
+
+ijk_inl ptr ijkMemorySetC(ptr const dst, size const sz_chomps, chomp const value)
+{
+	if (dst && sz_chomps)
+	{
+		pchomp dst_chomp = (pchomp)dst;
+		pchomp const end_chomp = dst_chomp + sz_chomps;
+		ijk_memory_set(dst_chomp, end_chomp, value);
+
+		// done
+		return dst;
+	}
+	return 0;
+}
+
+
+ijk_inl ptr ijkMemorySetZeroC(ptr const dst, size const sz_chomps)
+{
+	return ijkMemorySetC(dst, sz_chomps, 0);
+}
+
+
+ijk_inl ptr ijkMemoryCopyC(ptr const dst, ptr const src, size const sz_chomps)
+{
+	if (dst && src && sz_chomps)
+	{
+		pchomp dst_chomp = (pchomp)dst;
+		kpchomp src_chomp = (pchomp)src;
+		pchomp const end_chomp = dst_chomp + sz_chomps;
+		ijk_memory_copy(dst_chomp, src_chomp, end_chomp);
+
+		// done
+		return dst;
+	}
+	return 0;
+}
+
+
+ijk_inl ptrdiff ijkMemoryCompareC(ptr const dst, ptr const src, size const sz_chomps)
+{
+	if (dst && src && sz_chomps)
+	{
+		pchomp dst_chomp = (pchomp)dst, base = dst_chomp;
+		kpchomp src_chomp = (pchomp)src;
+		pchomp const end_chomp = dst_chomp + sz_chomps;
+		ijk_memory_compare(dst_chomp, src_chomp, end_chomp);
+
+		// done
+		return (dst_chomp - base);
+	}
+	return ijk_fail_invalidparams;
+}
 
 
 //-----------------------------------------------------------------------------

@@ -36,7 +36,7 @@ typedef	  signed	char					i8, sbyte;
 typedef	  signed	short					i16;
 typedef	  signed	long					i32, iret, ibool;
 typedef	  signed	long long				i64;
-typedef	unsigned	char					ui8, byte, ubyte, * pbyte, * cstr;
+typedef	unsigned	char					ui8, byte, ubyte;
 typedef	unsigned	short					ui16, word;
 typedef	unsigned	long					ui32, dword;
 typedef	unsigned	long long				ui64, qword;
@@ -44,16 +44,20 @@ typedef				float					f32, flt;
 typedef				double					f64, dbl;
 
 
+// convenient types sized for current architecture
+///
+typedef				ijk_tokencat_arch( i)	ptrdiff, schomp, itr, index, flag;
+typedef				ijk_tokencat_arch(ui)	chomp, uchomp, uitr, uindex, size;
+
+
 // core pointer type abbreviations
 ///
 typedef				void					* ptr, * addr;
 typedef				void const				* kptr, * kaddr;
-
-
-// convenient types sized for current architecture
-///
-typedef				ijk_tokencat_arch( i)	flag, ptrdiff, schomp, itr, index;
-typedef				ijk_tokencat_arch(ui)	size, chomp, uchomp, uitr, uindex;
+typedef				byte					* pbyte, * cstr;
+typedef				byte const				* kpbyte, * kcstr;
+typedef				chomp					* pchomp, * cbuff;
+typedef				chomp const				* kpchomp, * kcbuff;
 
 
 // convenient size abbreviations for byte and chomp
@@ -79,7 +83,7 @@ typedef				ijk_tokencat_arch(ui)	size, chomp, uchomp, uitr, uindex;
 // convenient short c-string type abbreviations
 ///
 typedef				byte					tag[szdword * szqword], * ptag;
-typedef				byte const				* kptag, * kpbyte, * kcstr;
+typedef				byte const				* kptag;
 #define				sztag					szb(tag)
 
 
@@ -92,15 +96,9 @@ typedef				word const				* kpwtag, * kwcstr;
 
 // convenient short dynamic (architecture-dependent) c-string abbreviations
 ///
-typedef				byte					dtag[szchomp * szqword], * pdtag;
-typedef				byte const				* kdtag;
+typedef				byte					dtag[szchomp * szqword];
 #define				szdtag					szb(dtag)
-
-
-// convenient short dynamic wide-character string abbreviation
-///
-typedef				word					dwtag[szdtag], *pdwtag;
-typedef				word const				* kdwtag;
+typedef				word					dwtag[szdtag];
 #define				szdwtag					szb(dwtag)
 
 
