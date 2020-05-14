@@ -193,7 +193,7 @@ iret ijkMemoryPoolRelease(ptr const pool, ijkMemoryInitCallback const termCallba
 //		return SUCCESS: ijk_success if pool loaded
 //		return FAILURE: ijk_fail_invalidparams if invalid parameters
 //		return FAILURE: ijk_fail_operationfail if pool not loaded
-iret ijkMemoryPoolLoad(ptr const pool_base, size const baseSize, ijkStream* const stream, ijkMemoryInitCallback const loadCallback_opt);
+iret ijkMemoryPoolLoad(ptr const pool_base, size const baseSize, ijkStream* const stream, ijkStreamReadFunc const loadCallback_opt);
 
 // ijkMemoryPoolSave
 //	Save managed pool to an open stream.
@@ -207,7 +207,7 @@ iret ijkMemoryPoolLoad(ptr const pool_base, size const baseSize, ijkStream* cons
 //		return SUCCESS: ijk_success if pool saved
 //		return FAILURE: ijk_fail_invalidparams if invalid parameters
 //		return FAILURE: ijk_fail_operationfail if pool not saved
-iret ijkMemoryPoolSave(kptr const pool, size const baseSize, ijkStream* const stream, ijkMemoryInitCallback const saveCallback_opt);
+iret ijkMemoryPoolSave(kptr const pool, size const baseSize, ijkStream* const stream, ijkStreamWriteFunc const saveCallback_opt);
 
 // ijkMemoryPoolDefragment
 //	Defragment pool.
@@ -230,7 +230,7 @@ iret ijkMemoryPoolDefragment(ptr const pool, ijkMemoryCopyCallback const copyCal
 //		return SUCCESS: ijk_success if block retrieved
 //		return FAILURE: ijk_fail_invalidparams if invalid parameters
 //		return FAILURE: ijk_fail_operationfail if block not retrieved
-iret ijkMemoryPoolGetBlock(ptr const pool, ptr* const block_out);
+iret ijkMemoryPoolGetBlock(kptr const pool, ptr* const block_out);
 
 // ijkMemoryPoolGetName
 //	Get the name of a pool.
@@ -241,7 +241,7 @@ iret ijkMemoryPoolGetBlock(ptr const pool, ptr* const block_out);
 //		return SUCCESS: ijk_success if name retrieved
 //		return FAILURE: ijk_fail_invalidparams if invalid parameters
 //		return FAILURE: ijk_fail_operationfail if name not retrieved
-iret ijkMemoryPoolGetName(ptr const pool, tag name_out);
+iret ijkMemoryPoolGetName(kptr const pool, tag name_out);
 
 // ijkMemoryPoolSetName
 //	Set the name of a pool.
@@ -264,7 +264,7 @@ iret ijkMemoryPoolSetName(ptr const pool, tag const name);
 //		return SUCCESS: ijk_success if size retrieved
 //		return FAILURE: ijk_fail_invalidparams if invalid parameters
 //		return FAILURE: ijk_fail_operationfail if size not retrieved
-iret ijkMemoryPoolGetReserved(ptr const pool, size* const size_out);
+iret ijkMemoryPoolGetReserved(kptr const pool, size* const size_out);
 
 // ijkMemoryPoolGetAvailable
 //	Get the number of bytes available.
@@ -276,7 +276,7 @@ iret ijkMemoryPoolGetReserved(ptr const pool, size* const size_out);
 //		return SUCCESS: ijk_success if size retrieved
 //		return FAILURE: ijk_fail_invalidparams if invalid parameters
 //		return FAILURE: ijk_fail_operationfail if size not retrieved
-iret ijkMemoryPoolGetAvailable(ptr const pool, size* const size_out);
+iret ijkMemoryPoolGetAvailable(kptr const pool, size* const size_out);
 
 // ijkMemoryPoolGetFragmented
 //	Get the number of bytes fragmented.
@@ -288,7 +288,7 @@ iret ijkMemoryPoolGetAvailable(ptr const pool, size* const size_out);
 //		return SUCCESS: ijk_success if size retrieved
 //		return FAILURE: ijk_fail_invalidparams if invalid parameters
 //		return FAILURE: ijk_fail_operationfail if size not retrieved
-iret ijkMemoryPoolGetFragmented(ptr const pool, size* const size_out);
+iret ijkMemoryPoolGetFragmented(kptr const pool, size* const size_out);
 
 // ijkMemoryPoolGetSize
 //	Get the full size of a pool in bytes.
@@ -300,7 +300,7 @@ iret ijkMemoryPoolGetFragmented(ptr const pool, size* const size_out);
 //		return SUCCESS: ijk_success if size retrieved
 //		return FAILURE: ijk_fail_invalidparams if invalid parameters
 //		return FAILURE: ijk_fail_operationfail if size not retrieved
-iret ijkMemoryPoolGetSize(ptr const pool, size* const size_out);
+iret ijkMemoryPoolGetSize(kptr const pool, size* const size_out);
 
 
 //-----------------------------------------------------------------------------
@@ -309,10 +309,10 @@ iret ijkMemoryPoolGetSize(ptr const pool, size* const size_out);
 //	Reserve a block within a pool.
 //		param block_out: pointer to block pointer
 //			valid: non-null, points to null
+//		param blockSize: size of block in bytes
+//			valid: non-zero
 //		param pool: base pointer to managed pool
 //			valid: non-null, initialized
-//		param blockSize: size of pool in bytes
-//			valid: non-zero
 //		param name: name of pool
 //			valid: non-zero, non-empty c-string
 //		param type: user-defined data type of block
@@ -321,6 +321,7 @@ iret ijkMemoryPoolGetSize(ptr const pool, size* const size_out);
 //		return SUCCESS: ijk_success if block reserved
 //		return FAILURE: ijk_fail_invalidparams if invalid parameters
 //		return FAILURE: ijk_fail_operationfail if not reserved
+iret ijkMemoryBlockCreate(ptr const block_out, size const blockSize, ptr const pool, tag const name, flag const type, ijkMemoryInitCallback const initCallback_opt);
 
 // ijkMemoryBlockRelease
 //	Release a block back into a pool.
@@ -331,6 +332,7 @@ iret ijkMemoryPoolGetSize(ptr const pool, size* const size_out);
 //		return SUCCESS: ijk_success if block released
 //		return FAILURE: ijk_fail_invalidparams if invalid parameters
 //		return FAILURE: ijk_fail_operationfail if not released
+iret ijkMemoryBlockRelease(ptr const block, ijkMemoryInitCallback const termCallback_opt);
 
 // ijkMemoryBlockLoad
 //	Load a block from an open stream.
@@ -338,12 +340,11 @@ iret ijkMemoryPoolGetSize(ptr const pool, size* const size_out);
 //			valid: non-null, initialized
 //		param stream: pointer to stream descriptor
 //			valid: non-null, initialized, read mode enabled
-//		param baseSize: size of base block in bytes
-//			valid: non-zero
 //		param loadCallback_opt: optional load callback
 //		return SUCCESS: ijk_success if block loaded
 //		return FAILURE: ijk_fail_invalidparams if invalid parameters
 //		return FAILURE: ijk_fail_operationfail if block not loaded
+iret ijkMemoryBlockLoad(ptr const block, ijkStream* const stream, ijkStreamReadFunc const loadCallback_opt);
 
 // ijkMemoryBlockSave
 //	Save a block to an open stream.
@@ -351,32 +352,47 @@ iret ijkMemoryPoolGetSize(ptr const pool, size* const size_out);
 //			valid: non-null, initialized
 //		param stream: pointer to stream descriptor
 //			valid: non-null, initialized, read mode disabled
-//		param baseSize: size of base block in bytes
-//			valid: non-zero
 //		param saveCallback_opt: optional load callback
 //		return SUCCESS: ijk_success if block saved
 //		return FAILURE: ijk_fail_invalidparams if invalid parameters
 //		return FAILURE: ijk_fail_operationfail if block not saved
+iret ijkMemoryBlockSave(kptr const block, ijkStream* const stream, ijkStreamWriteFunc const saveCallback_opt);
+
+// ijkMemoryBlockIsInPool
+//	Check if reserved block is contained within a pool.
+//		param block: pointer to block
+//			valid: non-null, initialized
+//		param pool: pointer to pool
+//			valid: non-null, initialized
+//		param status_out: pointer to status
+//			valid: non-null
+//			note: upon function success, points to boolean status
+//		return SUCCESS: ijk_success if status retrieved
+//		return FAILURE: ijk_fail_invalidparams if invalid parameters
+//		return FAILURE: ijk_fail_operationfail if status not retrieved
+iret ijkMemoryBlockIsInPool(kptr const block, kptr const pool, ibool* const status_out);
 
 // ijkMemoryBlockGetName
 //	Get the name of a reserved block.
 //		param block: pointer to block
 //			valid: non-null, initialized
-//		param name_out: name of pool to be retrieved
+//		param name_out: name of block to be retrieved
 //			valid: non-null c-string
 //		return SUCCESS: ijk_success if name retrieved
 //		return FAILURE: ijk_fail_invalidparams if invalid parameters
 //		return FAILURE: ijk_fail_operationfail if name not retrieved
+iret ijkMemoryBlockGetName(kptr const block, tag name_out);
 
 // ijkMemoryBlockSetName
 //	Set the name of a reserved block.
 //		param block: pointer to block
 //			valid: non-null, initialized
-//		param name: name of pool to be set
+//		param name: name of block to be set
 //			valid: non-null, non-empty c-string
 //		return SUCCESS: ijk_success if name set
 //		return FAILURE: ijk_fail_invalidparams if invalid parameters
 //		return FAILURE: ijk_fail_operationfail if name not set
+iret ijkMemoryBlockSetName(ptr const block, tag const name);
 
 // ijkMemoryBlockGetType
 //	Get the user-defined data type of a reserved block.
@@ -388,6 +404,7 @@ iret ijkMemoryPoolGetSize(ptr const pool, size* const size_out);
 //		return SUCCESS: ijk_success if type retrieved
 //		return FAILURE: ijk_fail_invalidparams if invalid parameters
 //		return FAILURE: ijk_fail_operationfail if type not retrieved
+iret ijkMemoryBlockGetType(kptr const block, flag* const type_out);
 
 // ijkMemoryBlockSetType
 //	Set the user-defined data type of a reserved block.
@@ -398,6 +415,7 @@ iret ijkMemoryPoolGetSize(ptr const pool, size* const size_out);
 //		return SUCCESS: ijk_success if type set
 //		return FAILURE: ijk_fail_invalidparams if invalid parameters
 //		return FAILURE: ijk_fail_operationfail if type not set
+iret ijkMemoryBlockSetType(ptr const block, flag const type);
 
 // ijkMemoryBlockGetSize
 //	Get the size of a reserved block.
@@ -409,17 +427,7 @@ iret ijkMemoryPoolGetSize(ptr const pool, size* const size_out);
 //		return SUCCESS: ijk_success if size retrieved
 //		return FAILURE: ijk_fail_invalidparams if invalid parameters
 //		return FAILURE: ijk_fail_operationfail if size not retrieved
-
-// ijkMemoryBlockIsInPool
-//	Check if reserved block is contained within a pool.
-//		param block: pointer to block
-//			valid: non-null, initialized
-//		param status_out: pointer to status
-//			valid: non-null
-//			note: upon function success, points to boolean status
-//		return SUCCESS: ijk_success if status retrieved
-//		return FAILURE: ijk_fail_invalidparams if invalid parameters
-//		return FAILURE: ijk_fail_operationfail if status not retrieved
+iret ijkMemoryBlockGetSize(kptr const block, size* const size_out);
 
 
 //-----------------------------------------------------------------------------
