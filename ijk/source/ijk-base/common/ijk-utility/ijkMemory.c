@@ -101,3 +101,131 @@ struct ijkMemoryBlock
 
 
 //-----------------------------------------------------------------------------
+
+iret ijkMemoryPoolCreate(ptr const pool_base, size const baseSize, size const poolSize, tag const name, ijkMemoryInitCallback const initCallback_opt)
+{
+	if (pool_base && baseSize && poolSize && name && *name)
+	{
+
+	}
+	return ijk_fail_invalidparams;
+}
+
+
+iret ijkMemoryPoolRelease(ptr const pool, ijkMemoryInitCallback const termCallback_opt)
+{
+	if (pool)
+	{
+
+	}
+	return ijk_fail_invalidparams;
+}
+
+
+iret ijkMemoryPoolLoad(ptr const pool_base, size const baseSize, ijkStream* const stream, ijkMemoryInitCallback const loadCallback_opt)
+{
+	if (pool_base && baseSize && stream &&
+		stream->base && stream->isRead)
+	{
+
+	}
+	return ijk_fail_invalidparams;
+}
+
+
+iret ijkMemoryPoolSave(kptr const pool, size const baseSize, ijkStream* const stream, ijkMemoryInitCallback const saveCallback_opt)
+{
+	if (pool && baseSize && stream &&
+		stream->base && !stream->isRead)
+	{
+
+	}
+	return ijk_fail_invalidparams;
+}
+
+
+iret ijkMemoryPoolDefragment(ptr const pool, ijkMemoryCopyCallback const copyCallback_opt)
+{
+	if (pool)
+	{
+
+	}
+	return ijk_fail_invalidparams;
+}
+
+
+iret ijkMemoryPoolGetBlock(ptr const pool, ptr* const block_out)
+{
+	if (pool && block_out && !*block_out)
+	{
+
+	}
+	return ijk_fail_invalidparams;
+}
+
+
+iret ijkMemoryPoolGetName(ptr const pool, tag name_out)
+{
+	if (pool && name_out)
+	{
+
+	}
+	return ijk_fail_invalidparams;
+}
+
+
+iret ijkMemoryPoolSetName(ptr const pool, tag const name)
+{
+	if (pool && name && *name)
+	{
+
+	}
+	return ijk_fail_invalidparams;
+}
+
+
+iret ijkMemoryPoolGetReserved(ptr const pool, size* const size_out)
+{
+	if (pool && size_out)
+	{
+
+	}
+	return ijk_fail_invalidparams;
+}
+
+
+iret ijkMemoryPoolGetAvailable(ptr const pool, size* const size_out)
+{
+	if (pool && size_out)
+	{
+
+	}
+	return ijk_fail_invalidparams;
+}
+
+
+iret ijkMemoryPoolGetFragmented(ptr const pool, size* const size_out)
+{
+	if (pool && size_out)
+	{
+
+	}
+	return ijk_fail_invalidparams;
+}
+
+
+iret ijkMemoryPoolGetSize(ptr const pool, size* const size_out)
+{
+	if (pool && size_out)
+	{
+
+	}
+	return ijk_fail_invalidparams;
+}
+
+
+//-----------------------------------------------------------------------------
+
+
+
+//-----------------------------------------------------------------------------

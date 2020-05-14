@@ -45,17 +45,17 @@ extern "C" {
 //	Format of callback to use when copying; allows for user-managed copies.
 //		param dst: pointer to destination block
 //		param src: pointer to source block
-//		param sz_bytes: size of block in bytes
+//		param sz_chomps: size of block in chomps
 //		return (recommended): dst
-typedef	ptr(*ijkMemoryCopyCallback)(ptr dst, kptr src, size sz_bytes);
+typedef	ptr(*ijkMemoryCopyCallback)(ptr dst, kptr src, size sz_chomps);
 
 
 // ijkMemoryInitCallback
 //	Format of callback to use when initializing or terminating.
 //		param dst: pointer to destination block
-//		param sz_bytes: size of block in bytes
+//		param sz_chomps: size of block in chomps
 //		return (recommended): dst
-typedef ptr(*ijkMemoryInitCallback)(ptr dst, size sz_bytes);
+typedef ptr(*ijkMemoryInitCallback)(ptr dst, size sz_chomps);
 
 
 //-----------------------------------------------------------------------------
@@ -158,9 +158,9 @@ ptrdiff ijkMemoryCompareC(ptr const dst, ptr const src, size const sz_chomps);
 //	memory. Effectively turns any memory block into a managed block.
 //		param pool_base: base pointer to pre-allocated block
 //			valid: non-null, uninitialized as pool
-//		param baseSize: size of base block in bytes
+//		param baseSize: size of base block (pre-allocated) in bytes
 //			valid: non-zero
-//		param poolSize: size of pool in bytes
+//		param poolSize: size of pool (managed) in bytes
 //			valid: non-zero
 //		param name: name of pool
 //			valid: non-zero, non-empty c-string
@@ -168,6 +168,7 @@ ptrdiff ijkMemoryCompareC(ptr const dst, ptr const src, size const sz_chomps);
 //		return SUCCESS: ijk_success if pool initialized
 //		return FAILURE: ijk_fail_invalidparams if invalid parameters
 //		return FAILURE: ijk_fail_operationfail if not initialized
+iret ijkMemoryPoolCreate(ptr const pool_base, size const baseSize, size const poolSize, tag const name, ijkMemoryInitCallback const initCallback_opt);
 
 // ijkMemoryPoolRelease
 //	Terminate managed pool, leaving the contained memory unaffected.
@@ -178,104 +179,46 @@ ptrdiff ijkMemoryCompareC(ptr const dst, ptr const src, size const sz_chomps);
 //		return SUCCESS: ijk_success if pool terminated
 //		return FAILURE: ijk_fail_invalidparams if invalid parameters
 //		return FAILURE: ijk_fail_operationfail if not terminated
+iret ijkMemoryPoolRelease(ptr const pool, ijkMemoryInitCallback const termCallback_opt);
 
 // ijkMemoryPoolLoad
 //	Load managed pool from an open stream.
-//		param pool: base pointer to pre-allocated block
+//		param pool_base: base pointer to pre-allocated block
 //			valid: non-null, initialized
-//		param stream: pointer to stream descriptor
-//			valid: non-null, initialized, read mode enabled
 //		param baseSize: size of base block in bytes
 //			valid: non-zero
+//		param stream: pointer to stream descriptor
+//			valid: non-null, initialized, read mode enabled
 //		param loadCallback_opt: optional load callback
 //		return SUCCESS: ijk_success if pool loaded
 //		return FAILURE: ijk_fail_invalidparams if invalid parameters
 //		return FAILURE: ijk_fail_operationfail if pool not loaded
+iret ijkMemoryPoolLoad(ptr const pool_base, size const baseSize, ijkStream* const stream, ijkMemoryInitCallback const loadCallback_opt);
 
 // ijkMemoryPoolSave
 //	Save managed pool to an open stream.
 //		param pool: base pointer to pre-allocated block
 //			valid: non-null, initialized
-//		param stream: pointer to stream descriptor
-//			valid: non-null, initialized, read mode disabled
 //		param baseSize: size of base block in bytes
 //			valid: non-zero
+//		param stream: pointer to stream descriptor
+//			valid: non-null, initialized, read mode disabled
 //		param saveCallback_opt: optional load callback
 //		return SUCCESS: ijk_success if pool saved
 //		return FAILURE: ijk_fail_invalidparams if invalid parameters
 //		return FAILURE: ijk_fail_operationfail if pool not saved
+iret ijkMemoryPoolSave(kptr const pool, size const baseSize, ijkStream* const stream, ijkMemoryInitCallback const saveCallback_opt);
 
 // ijkMemoryPoolDefragment
 //	Defragment pool.
 //		param pool: base pointer to pre-allocated block
 //			valid: non-null, initialized
+//		param copyCallback_opt: optional callback to perform copying
+//			note: if null is passed, uses ijkMemoryCopyC
 //		return SUCCESS: ijk_success if defragmented
 //		return FAILURE: ijk_fail_invalidparams if invalid parameters
 //		return FAILURE: ijk_fail_operationfail if not defragmented
-
-// ijkMemoryPoolGetName
-//	Get the name of a pool.
-//		param pool: base pointer to pre-allocated block
-//			valid: non-null, initialized
-//		param name_out: name of pool to be retrieved
-//			valid: non-null c-string
-//		return SUCCESS: ijk_success if name retrieved
-//		return FAILURE: ijk_fail_invalidparams if invalid parameters
-//		return FAILURE: ijk_fail_operationfail if name not retrieved
-
-// ijkMemoryPoolSetName
-//	Set the name of a pool.
-//		param pool: base pointer to pre-allocated block
-//			valid: non-null, initialized
-//		param name: name of pool to be set
-//			valid: non-null, non-empty c-string
-//		return SUCCESS: ijk_success if name set
-//		return FAILURE: ijk_fail_invalidparams if invalid parameters
-//		return FAILURE: ijk_fail_operationfail if name not set
-
-// ijkMemoryPoolGetReserved
-//	Get the number of bytes reserved.
-//		param pool: base pointer to pre-allocated block
-//			valid: non-null, initialized
-//		param size_out: pointer to reserved size
-//			valid: non-null
-//			note: upon function success, points to non-negative reserved size
-//		return SUCCESS: ijk_success if size retrieved
-//		return FAILURE: ijk_fail_invalidparams if invalid parameters
-//		return FAILURE: ijk_fail_operationfail if size not retrieved
-
-// ijkMemoryPoolGetAvailable
-//	Get the number of bytes available.
-//		param pool: base pointer to pre-allocated block
-//			valid: non-null, initialized
-//		param size_out: pointer to available size
-//			valid: non-null
-//			note: upon function success, points to non-negative available size
-//		return SUCCESS: ijk_success if size retrieved
-//		return FAILURE: ijk_fail_invalidparams if invalid parameters
-//		return FAILURE: ijk_fail_operationfail if size not retrieved
-
-// ijkMemoryPoolGetFragmented
-//	Get the number of bytes fragmented.
-//		param pool: base pointer to pre-allocated block
-//			valid: non-null, initialized
-//		param size_out: pointer to fragmented size
-//			valid: non-null
-//			note: upon function success, points to non-negative fragmented size
-//		return SUCCESS: ijk_success if size retrieved
-//		return FAILURE: ijk_fail_invalidparams if invalid parameters
-//		return FAILURE: ijk_fail_operationfail if size not retrieved
-
-// ijkMemoryPoolGetSize
-//	Get the full size of a pool in bytes.
-//		param pool: base pointer to pre-allocated block
-//			valid: non-null, initialized
-//		param size_out: pointer to size of pool
-//			valid: non-null
-//			note: upon function success, points to non-negative pool size
-//		return SUCCESS: ijk_success if size retrieved
-//		return FAILURE: ijk_fail_invalidparams if invalid parameters
-//		return FAILURE: ijk_fail_operationfail if size not retrieved
+iret ijkMemoryPoolDefragment(ptr const pool, ijkMemoryCopyCallback const copyCallback_opt);
 
 // ijkMemoryPoolGetBlock
 //	Find a reserved block by name within a pool.
@@ -287,6 +230,77 @@ ptrdiff ijkMemoryCompareC(ptr const dst, ptr const src, size const sz_chomps);
 //		return SUCCESS: ijk_success if block retrieved
 //		return FAILURE: ijk_fail_invalidparams if invalid parameters
 //		return FAILURE: ijk_fail_operationfail if block not retrieved
+iret ijkMemoryPoolGetBlock(ptr const pool, ptr* const block_out);
+
+// ijkMemoryPoolGetName
+//	Get the name of a pool.
+//		param pool: base pointer to pre-allocated block
+//			valid: non-null, initialized
+//		param name_out: name of pool to be retrieved
+//			valid: non-null c-string
+//		return SUCCESS: ijk_success if name retrieved
+//		return FAILURE: ijk_fail_invalidparams if invalid parameters
+//		return FAILURE: ijk_fail_operationfail if name not retrieved
+iret ijkMemoryPoolGetName(ptr const pool, tag name_out);
+
+// ijkMemoryPoolSetName
+//	Set the name of a pool.
+//		param pool: base pointer to pre-allocated block
+//			valid: non-null, initialized
+//		param name: name of pool to be set
+//			valid: non-null, non-empty c-string
+//		return SUCCESS: ijk_success if name set
+//		return FAILURE: ijk_fail_invalidparams if invalid parameters
+//		return FAILURE: ijk_fail_operationfail if name not set
+iret ijkMemoryPoolSetName(ptr const pool, tag const name);
+
+// ijkMemoryPoolGetReserved
+//	Get the number of bytes reserved.
+//		param pool: base pointer to pre-allocated block
+//			valid: non-null, initialized
+//		param size_out: pointer to reserved size
+//			valid: non-null
+//			note: upon function success, points to non-negative reserved size
+//		return SUCCESS: ijk_success if size retrieved
+//		return FAILURE: ijk_fail_invalidparams if invalid parameters
+//		return FAILURE: ijk_fail_operationfail if size not retrieved
+iret ijkMemoryPoolGetReserved(ptr const pool, size* const size_out);
+
+// ijkMemoryPoolGetAvailable
+//	Get the number of bytes available.
+//		param pool: base pointer to pre-allocated block
+//			valid: non-null, initialized
+//		param size_out: pointer to available size
+//			valid: non-null
+//			note: upon function success, points to non-negative available size
+//		return SUCCESS: ijk_success if size retrieved
+//		return FAILURE: ijk_fail_invalidparams if invalid parameters
+//		return FAILURE: ijk_fail_operationfail if size not retrieved
+iret ijkMemoryPoolGetAvailable(ptr const pool, size* const size_out);
+
+// ijkMemoryPoolGetFragmented
+//	Get the number of bytes fragmented.
+//		param pool: base pointer to pre-allocated block
+//			valid: non-null, initialized
+//		param size_out: pointer to fragmented size
+//			valid: non-null
+//			note: upon function success, points to non-negative fragmented size
+//		return SUCCESS: ijk_success if size retrieved
+//		return FAILURE: ijk_fail_invalidparams if invalid parameters
+//		return FAILURE: ijk_fail_operationfail if size not retrieved
+iret ijkMemoryPoolGetFragmented(ptr const pool, size* const size_out);
+
+// ijkMemoryPoolGetSize
+//	Get the full size of a pool in bytes.
+//		param pool: base pointer to pre-allocated block
+//			valid: non-null, initialized
+//		param size_out: pointer to size of pool
+//			valid: non-null
+//			note: upon function success, points to non-negative pool size
+//		return SUCCESS: ijk_success if size retrieved
+//		return FAILURE: ijk_fail_invalidparams if invalid parameters
+//		return FAILURE: ijk_fail_operationfail if size not retrieved
+iret ijkMemoryPoolGetSize(ptr const pool, size* const size_out);
 
 
 //-----------------------------------------------------------------------------
@@ -397,7 +411,7 @@ ptrdiff ijkMemoryCompareC(ptr const dst, ptr const src, size const sz_chomps);
 //		return FAILURE: ijk_fail_operationfail if size not retrieved
 
 // ijkMemoryBlockIsInPool
-//	Check if reserved block is ontained within a pool.
+//	Check if reserved block is contained within a pool.
 //		param block: pointer to block
 //			valid: non-null, initialized
 //		param status_out: pointer to status
