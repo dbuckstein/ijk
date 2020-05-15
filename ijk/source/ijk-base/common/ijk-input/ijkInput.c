@@ -35,6 +35,41 @@
 
 //-----------------------------------------------------------------------------
 
+iret ijkInputGetSystemCursor(i32* x_out, i32* y_out)
+{
+	if (x_out && y_out)
+	{
+		iret result = 0;
+#if (__ijk_cfg_platform == WINDOWS)
+		POINT p[1];
+		result = GetCursorPos(p);
+		if (result)
+		{
+			*x_out = p->x;
+			*y_out = p->y;
+			return ijk_success;
+		}
+#else	// !WINDOWS
+
+#endif	// WINDOWS
+		return ijk_fail_operationfail;
+	}
+	return ijk_fail_invalidparams;
+}
+
+
+iret ijkInputSetSystemCursor(i32 const x, i32 const y)
+{
+	iret result = 0;
+#if (__ijk_cfg_platform == WINDOWS)
+	result = SetCursorPos(x, y);
+	if (result)
+		return ijk_success;
+#else	// !WINDOWS
+
+#endif	// WINDOWS
+	return ijk_fail_operationfail;
+}
 
 
 //-----------------------------------------------------------------------------

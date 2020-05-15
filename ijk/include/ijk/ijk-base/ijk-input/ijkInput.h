@@ -50,6 +50,28 @@ typedef struct ijkKeyboardInput			ijkKeyboardInput;
 
 //-----------------------------------------------------------------------------
 
+// ijkInputGetSystemCursor
+//	Get the cursor position at the system level.
+//		param x_out: pointer to horizontal position of cursor
+//			note: [0, w) = [left, right)
+//		param y_out: pointer to vertical position of cursor
+//			note: [0, h) = [top, bottom)
+//		return SUCCESS: ijk_success if cursor position retrieved
+//		return FAILURE: ijk_fail_invalidparams if invalid parameters
+//		return FAILURE: ijk_fail_operationfail if did not get position
+iret ijkInputGetSystemCursor(i32* x_out, i32* y_out);
+
+
+// ijkInputSetSystemCursor
+//	Set the cursor position at the system level.
+//		param x: horizontal position of cursor
+//			note: [0, w) = [left, right)
+//		param y: vertical position of cursor
+//			note: [0, h) = [top, bottom)
+//		return SUCCESS: ijk_success if cursor position set
+//		return FAILURE: ijk_fail_invalidparams if invalid parameters
+//		return FAILURE: ijk_fail_operationfail if did not set position
+iret ijkInputSetSystemCursor(i32 const x, i32 const y);
 
 
 //-----------------------------------------------------------------------------
