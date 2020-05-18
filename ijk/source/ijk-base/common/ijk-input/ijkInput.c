@@ -35,7 +35,7 @@
 
 //-----------------------------------------------------------------------------
 
-iret ijkInputGetSystemCursor(i32* x_out, i32* y_out)
+iret ijkInputGetSystemCursor(i32 x_out[1], i32 y_out[1])
 {
 	if (x_out && y_out)
 	{
@@ -69,6 +69,44 @@ iret ijkInputSetSystemCursor(i32 const x, i32 const y)
 
 #endif	// WINDOWS
 	return ijk_fail_operationfail;
+}
+
+
+iret ijkInputGetSystemKeyboardState(sbyte keys_out[256])
+{
+	if (keys_out)
+	{
+		iret result = 0;
+#if (__ijk_cfg_platform == WINDOWS)
+		result = GetKeyboardState((pbyte)keys_out);
+		if (result)
+			return ijk_success;
+#else	// !WINDOWS
+
+#endif	// WINDOWS
+		return ijk_fail_operationfail;
+	}
+	return ijk_fail_invalidparams;
+}
+
+
+iret ijkInputGetSystemKeyState(sbyte key_out[1], ijkKeyBtn const keycode)
+{
+	if (key_out)
+	{
+#if (__ijk_cfg_platform == WINDOWS)
+		word const result = GetAsyncKeyState(keycode);
+		if (result)
+		{
+			*key_out = ijk_istrue(result & (word)(1 << 15));
+			return ijk_success;
+		}
+#else	// !WINDOWS
+
+#endif	// WINDOWS
+		return ijk_fail_operationfail;
+	}
+	return ijk_fail_invalidparams;
 }
 
 

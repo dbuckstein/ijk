@@ -34,9 +34,9 @@
 extern "C" {
 #else	// !__cplusplus
 typedef enum ijkMouseBtn				ijkMouseBtn;
-typedef struct ijkMouseState			ijkMouseState;
 typedef enum ijkKeyBtn					ijkKeyBtn;
 typedef enum ijkKeyChar					ijkKeyChar;
+typedef struct ijkMouseState			ijkMouseState;
 typedef struct ijkKeyboardState			ijkKeyboardState;
 #endif	// __cplusplus
 
@@ -44,7 +44,7 @@ typedef struct ijkKeyboardState			ijkKeyboardState;
 //-----------------------------------------------------------------------------
 
 // ijkMouseBtn
-//	
+//	Enumeration of mouse buttons.
 enum ijkMouseBtn
 {
 	ijkMouseBtn_left,
@@ -53,17 +53,6 @@ enum ijkMouseBtn
 	ijkMouseBtn_extra1,
 	ijkMouseBtn_extra2,
 	ijkMouseBtn_wheel,
-};
-
-
-// ijkMouseState
-//	
-struct ijkMouseState
-{
-	struct {
-		sbyte button[8];
-		i32 x, y;
-	} state, state_prev;
 };
 
 
@@ -303,6 +292,17 @@ enum ijkKeyChar
 };
 
 
+// ijkMouseState
+//	
+struct ijkMouseState
+{
+	struct {
+		sbyte button[8];
+		i32 x, y;
+	} state, state_prev;
+};
+
+
 // ijkKeyboardState
 //	
 struct ijkKeyboardState
@@ -319,13 +319,15 @@ struct ijkKeyboardState
 // ijkInputGetSystemCursor
 //	Get the cursor position at the system level.
 //		param x_out: pointer to horizontal position of cursor
+//			valid: non-null
 //			note: [0, w) = [left, right)
 //		param y_out: pointer to vertical position of cursor
+//			valid: non-null
 //			note: [0, h) = [top, bottom)
 //		return SUCCESS: ijk_success if cursor position retrieved
 //		return FAILURE: ijk_fail_invalidparams if invalid parameters
 //		return FAILURE: ijk_fail_operationfail if did not get position
-iret ijkInputGetSystemCursor(i32* x_out, i32* y_out);
+iret ijkInputGetSystemCursor(i32 x_out[1], i32 y_out[1]);
 
 // ijkInputSetSystemCursor
 //	Set the cursor position at the system level.
@@ -337,6 +339,28 @@ iret ijkInputGetSystemCursor(i32* x_out, i32* y_out);
 //		return FAILURE: ijk_fail_invalidparams if invalid parameters
 //		return FAILURE: ijk_fail_operationfail if did not set position
 iret ijkInputSetSystemCursor(i32 const x, i32 const y);
+
+// ijkInputGetSystemKeyboardState
+//	Get the state of the keyboard at a system level.
+//		param keys_out: array of key states to capture keyboard
+//			valid: non-null
+//			note: upon successful return, points to an array of boolean states 
+//				where true is pressed and false is not pressed
+//		return SUCCESS: ijk_success if keyboard state captured
+//		return FAILURE: ijk_fail_invalidparams if invalid parameters
+//		return FAILURE: ijk_fail_operationfail if did not get state
+iret ijkInputGetSystemKeyboardState(sbyte keys_out[256]);
+
+// ijkInputGetSystemKeyState
+//	Get the state of a single key at a system level.
+//		param key_out: pointer to key state
+//			valid: non-null
+//			note: upon successful return, points to boolean (true is pressed)
+//		param keycode: which key to check
+//		return SUCCESS: ijk_success if key state captured
+//		return FAILURE: ijk_fail_invalidparams if invalid parameters
+//		return FAILURE: ijk_fail_operationfail if did not get state
+iret ijkInputGetSystemKeyState(sbyte key_out[1], ijkKeyBtn const keycode);
 
 
 //-----------------------------------------------------------------------------
