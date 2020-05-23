@@ -90,12 +90,12 @@ iret ijkInputGetSystemKeyboardState(sbyte keys_out[256])
 }
 
 
-iret ijkInputGetSystemKeyState(sbyte key_out[1], ijkKeyBtn const keycode)
+iret ijkInputGetSystemKeyState(sbyte key_out[1], ijkKeyVirt const keyVirt)
 {
 	if (key_out)
 	{
 #if (__ijk_cfg_platform == WINDOWS)
-		word const result = GetAsyncKeyState(keycode);
+		word const result = GetAsyncKeyState(keyVirt);
 		if (result)
 		{
 			*key_out = ijk_istrue(result & (word)(1 << 15));

@@ -34,7 +34,7 @@
 extern "C" {
 #else	// !__cplusplus
 typedef enum ijkMouseBtn				ijkMouseBtn;
-typedef enum ijkKeyBtn					ijkKeyBtn;
+typedef enum ijkKeyVirt					ijkKeyVirt;
 typedef enum ijkKeyChar					ijkKeyChar;
 typedef struct ijkMouseState			ijkMouseState;
 typedef struct ijkKeyboardState			ijkKeyboardState;
@@ -55,184 +55,184 @@ enum ijkMouseBtn
 };
 
 
-// ijkKeyBtn
+// ijkKeyVirt
 //	Enumeration of virtual keys. These are not ASCII characters, they are the 
 //	codes for the actual keys. For special ASCII character codes, see below.
-enum ijkKeyBtn
+enum ijkKeyVirt
 {
-	ijkKeyBtn_null,
-	ijkKeyBtn_backspace = 8,
-	ijkKeyBtn_tab,
-	ijkKeyBtn_clear = 12,
-	ijkKeyBtn_return,
-	ijkKeyBtn_enter = ijkKeyBtn_return,
-	ijkKeyBtn_shift = 16,
-	ijkKeyBtn_control,
-	ijkKeyBtn_alt,							// not processed
-	ijkKeyBtn_pause,
-	ijkKeyBtn_capslock,
-	ijkKeyBtn_escape = 27,
-	ijkKeyBtn_esc = ijkKeyBtn_escape,
-	ijkKeyBtn_space = 32,
-	ijkKeyBtn_pageup,
-	ijkKeyBtn_pagedown,
-	ijkKeyBtn_end,
-	ijkKeyBtn_home,
-	ijkKeyBtn_left,
-	ijkKeyBtn_up,
-	ijkKeyBtn_right,
-	ijkKeyBtn_down,
-	ijkKeyBtn_select,
-	ijkKeyBtn_print,
-	ijkKeyBtn_execute,
-	ijkKeyBtn_printscreen,					// processed only on release
-	ijkKeyBtn_insert,
-	ijkKeyBtn_delete,
-	ijkKeyBtn_help,
-	ijkKeyBtn_0,
-	ijkKeyBtn_1,
-	ijkKeyBtn_2,
-	ijkKeyBtn_3,
-	ijkKeyBtn_4,
-	ijkKeyBtn_5,
-	ijkKeyBtn_6,
-	ijkKeyBtn_7,
-	ijkKeyBtn_8,
-	ijkKeyBtn_9,
-	ijkKeyBtn_rightparen = ijkKeyBtn_0,
-	ijkKeyBtn_exclamation,
-	ijkKeyBtn_at,
-	ijkKeyBtn_number,
-	ijkKeyBtn_dollar,
-	ijkKeyBtn_percent,
-	ijkKeyBtn_hat,
-	ijkKeyBtn_ampersand,
-	ijkKeyBtn_asterisk,
-	ijkKeyBtn_leftparen,
-	ijkKeyBtn_A = 65,
-	ijkKeyBtn_B,
-	ijkKeyBtn_C,
-	ijkKeyBtn_D,
-	ijkKeyBtn_E,
-	ijkKeyBtn_F,
-	ijkKeyBtn_G,
-	ijkKeyBtn_H,
-	ijkKeyBtn_I,
-	ijkKeyBtn_J,
-	ijkKeyBtn_K,
-	ijkKeyBtn_L,
-	ijkKeyBtn_M,
-	ijkKeyBtn_N,
-	ijkKeyBtn_O,
-	ijkKeyBtn_P,
-	ijkKeyBtn_Q,
-	ijkKeyBtn_R,
-	ijkKeyBtn_S,
-	ijkKeyBtn_T,
-	ijkKeyBtn_U,
-	ijkKeyBtn_V,
-	ijkKeyBtn_W,
-	ijkKeyBtn_X,
-	ijkKeyBtn_Y,
-	ijkKeyBtn_Z,
-	ijkKeyBtn_command_left,
-	ijkKeyBtn_command_right,
-	ijkKeyBtn_window_left = ijkKeyBtn_command_left,
-	ijkKeyBtn_window_right,
-	ijkKeyBtn_menu,
-	ijkKeyBtn_sleep = 95,
-	ijkKeyBtn_numpad_0,
-	ijkKeyBtn_numpad_1,
-	ijkKeyBtn_numpad_2,
-	ijkKeyBtn_numpad_3,
-	ijkKeyBtn_numpad_4,
-	ijkKeyBtn_numpad_5,
-	ijkKeyBtn_numpad_6,
-	ijkKeyBtn_numpad_7,
-	ijkKeyBtn_numpad_8,
-	ijkKeyBtn_numpad_9,
-	ijkKeyBtn_numpad_times,
-	ijkKeyBtn_numpad_plus,
-	ijkKeyBtn_numpad_separator,
-	ijkKeyBtn_numpad_minus,
-	ijkKeyBtn_numpad_point,
-	ijkKeyBtn_numpad_divide,
-	ijkKeyBtn_F1,
-	ijkKeyBtn_F2,
-	ijkKeyBtn_F3,
-	ijkKeyBtn_F4,
-	ijkKeyBtn_F5,
-	ijkKeyBtn_F6,
-	ijkKeyBtn_F7,
-	ijkKeyBtn_F8,
-	ijkKeyBtn_F9,
-	ijkKeyBtn_F10,							// not processed
-	ijkKeyBtn_F11,
-	ijkKeyBtn_F12,
-	ijkKeyBtn_F13,
-	ijkKeyBtn_F14,
-	ijkKeyBtn_F15,
-	ijkKeyBtn_F16,
-	ijkKeyBtn_F17,
-	ijkKeyBtn_F18,
-	ijkKeyBtn_F19,
-	ijkKeyBtn_F20,
-	ijkKeyBtn_F21,
-	ijkKeyBtn_F22,
-	ijkKeyBtn_F23,
-	ijkKeyBtn_F24,
-	ijkKeyBtn_numlock = 144,
-	ijkKeyBtn_scrolllock,
-	ijkKeyBtn_numpad_equal,
-	ijkKeyBtn_shift_left = 160,				// not processed with callbacks
-	ijkKeyBtn_shift_right,					// not processed with callbacks
-	ijkKeyBtn_control_left,					// not processed with callbacks
-	ijkKeyBtn_control_right,				// not processed with callbacks
-	ijkKeyBtn_menu_left,					// not processed with callbacks
-	ijkKeyBtn_menu_right,					// not processed with callbacks
-	ijkKeyBtn_browser_back,
-	ijkKeyBtn_browser_forward,
-	ijkKeyBtn_browser_refresh,
-	ijkKeyBtn_browser_stop,
-	ijkKeyBtn_browser_search,
-	ijkKeyBtn_browser_favorites,
-	ijkKeyBtn_browser_home,
-	ijkKeyBtn_media_mute,
-	ijkKeyBtn_media_volumedown,
-	ijkKeyBtn_media_volumeup,
-	ijkKeyBtn_media_next,
-	ijkKeyBtn_media_prev,
-	ijkKeyBtn_media_stop,
-	ijkKeyBtn_media_playpause,
-	ijkKeyBtn_launch_email,
-	ijkKeyBtn_launch_media,
-	ijkKeyBtn_launch_app1,
-	ijkKeyBtn_launch_app2,
-	ijkKeyBtn_semicolon = 186,
-	ijkKeyBtn_equal,
-	ijkKeyBtn_comma,
-	ijkKeyBtn_dash,
-	ijkKeyBtn_period,
-	ijkKeyBtn_slash,
-	ijkKeyBtn_colon = ijkKeyBtn_semicolon,
-	ijkKeyBtn_minus = ijkKeyBtn_dash,
-	ijkKeyBtn_plus,
-	ijkKeyBtn_lessthan,
-	ijkKeyBtn_underscore,
-	ijkKeyBtn_greaterthan,
-	ijkKeyBtn_question,
-	ijkKeyBtn_tilde,
-	ijkKeyBtn_leftbracket = 219,
-	ijkKeyBtn_backslash,
-	ijkKeyBtn_rightbracket,
-	ijkKeyBtn_singlequote,
-	ijkKeyBtn_leftbrace = ijkKeyBtn_leftbracket,
-	ijkKeyBtn_pipe,
-	ijkKeyBtn_rightbrace,
-	ijkKeyBtn_doublequote,
-	ijkKeyBtn_quote = ijkKeyBtn_singlequote,
-	ijkKeyBtn_apostrophe = ijkKeyBtn_singlequote,
-	ijkKeyBtn_function = 255
+	ijkKeyVirt_null,
+	ijkKeyVirt_backspace = 8,
+	ijkKeyVirt_tab,
+	ijkKeyVirt_clear = 12,
+	ijkKeyVirt_return,
+	ijkKeyVirt_enter = ijkKeyVirt_return,
+	ijkKeyVirt_shift = 16,
+	ijkKeyVirt_control,
+	ijkKeyVirt_alt,							// not processed
+	ijkKeyVirt_pause,
+	ijkKeyVirt_capslock,
+	ijkKeyVirt_escape = 27,
+	ijkKeyVirt_esc = ijkKeyVirt_escape,
+	ijkKeyVirt_space = 32,
+	ijkKeyVirt_pageup,
+	ijkKeyVirt_pagedown,
+	ijkKeyVirt_end,
+	ijkKeyVirt_home,
+	ijkKeyVirt_left,
+	ijkKeyVirt_up,
+	ijkKeyVirt_right,
+	ijkKeyVirt_down,
+	ijkKeyVirt_select,
+	ijkKeyVirt_print,
+	ijkKeyVirt_execute,
+	ijkKeyVirt_printscreen,					// processed only on release
+	ijkKeyVirt_insert,
+	ijkKeyVirt_delete,
+	ijkKeyVirt_help,
+	ijkKeyVirt_0,
+	ijkKeyVirt_1,
+	ijkKeyVirt_2,
+	ijkKeyVirt_3,
+	ijkKeyVirt_4,
+	ijkKeyVirt_5,
+	ijkKeyVirt_6,
+	ijkKeyVirt_7,
+	ijkKeyVirt_8,
+	ijkKeyVirt_9,
+	ijkKeyVirt_rightparen = ijkKeyVirt_0,
+	ijkKeyVirt_exclamation,
+	ijkKeyVirt_at,
+	ijkKeyVirt_number,
+	ijkKeyVirt_dollar,
+	ijkKeyVirt_percent,
+	ijkKeyVirt_hat,
+	ijkKeyVirt_ampersand,
+	ijkKeyVirt_asterisk,
+	ijkKeyVirt_leftparen,
+	ijkKeyVirt_A = 65,
+	ijkKeyVirt_B,
+	ijkKeyVirt_C,
+	ijkKeyVirt_D,
+	ijkKeyVirt_E,
+	ijkKeyVirt_F,
+	ijkKeyVirt_G,
+	ijkKeyVirt_H,
+	ijkKeyVirt_I,
+	ijkKeyVirt_J,
+	ijkKeyVirt_K,
+	ijkKeyVirt_L,
+	ijkKeyVirt_M,
+	ijkKeyVirt_N,
+	ijkKeyVirt_O,
+	ijkKeyVirt_P,
+	ijkKeyVirt_Q,
+	ijkKeyVirt_R,
+	ijkKeyVirt_S,
+	ijkKeyVirt_T,
+	ijkKeyVirt_U,
+	ijkKeyVirt_V,
+	ijkKeyVirt_W,
+	ijkKeyVirt_X,
+	ijkKeyVirt_Y,
+	ijkKeyVirt_Z,
+	ijkKeyVirt_command_left,
+	ijkKeyVirt_command_right,
+	ijkKeyVirt_window_left = ijkKeyVirt_command_left,
+	ijkKeyVirt_window_right,
+	ijkKeyVirt_menu,
+	ijkKeyVirt_sleep = 95,
+	ijkKeyVirt_numpad_0,
+	ijkKeyVirt_numpad_1,
+	ijkKeyVirt_numpad_2,
+	ijkKeyVirt_numpad_3,
+	ijkKeyVirt_numpad_4,
+	ijkKeyVirt_numpad_5,
+	ijkKeyVirt_numpad_6,
+	ijkKeyVirt_numpad_7,
+	ijkKeyVirt_numpad_8,
+	ijkKeyVirt_numpad_9,
+	ijkKeyVirt_numpad_times,
+	ijkKeyVirt_numpad_plus,
+	ijkKeyVirt_numpad_separator,
+	ijkKeyVirt_numpad_minus,
+	ijkKeyVirt_numpad_point,
+	ijkKeyVirt_numpad_divide,
+	ijkKeyVirt_F1,
+	ijkKeyVirt_F2,
+	ijkKeyVirt_F3,
+	ijkKeyVirt_F4,
+	ijkKeyVirt_F5,
+	ijkKeyVirt_F6,
+	ijkKeyVirt_F7,
+	ijkKeyVirt_F8,
+	ijkKeyVirt_F9,
+	ijkKeyVirt_F10,							// not processed
+	ijkKeyVirt_F11,
+	ijkKeyVirt_F12,
+	ijkKeyVirt_F13,
+	ijkKeyVirt_F14,
+	ijkKeyVirt_F15,
+	ijkKeyVirt_F16,
+	ijkKeyVirt_F17,
+	ijkKeyVirt_F18,
+	ijkKeyVirt_F19,
+	ijkKeyVirt_F20,
+	ijkKeyVirt_F21,
+	ijkKeyVirt_F22,
+	ijkKeyVirt_F23,
+	ijkKeyVirt_F24,
+	ijkKeyVirt_numlock = 144,
+	ijkKeyVirt_scrolllock,
+	ijkKeyVirt_numpad_equal,
+	ijkKeyVirt_shift_left = 160,				// not processed with callbacks
+	ijkKeyVirt_shift_right,					// not processed with callbacks
+	ijkKeyVirt_control_left,					// not processed with callbacks
+	ijkKeyVirt_control_right,				// not processed with callbacks
+	ijkKeyVirt_menu_left,					// not processed with callbacks
+	ijkKeyVirt_menu_right,					// not processed with callbacks
+	ijkKeyVirt_browser_back,
+	ijkKeyVirt_browser_forward,
+	ijkKeyVirt_browser_refresh,
+	ijkKeyVirt_browser_stop,
+	ijkKeyVirt_browser_search,
+	ijkKeyVirt_browser_favorites,
+	ijkKeyVirt_browser_home,
+	ijkKeyVirt_media_mute,
+	ijkKeyVirt_media_volumedown,
+	ijkKeyVirt_media_volumeup,
+	ijkKeyVirt_media_next,
+	ijkKeyVirt_media_prev,
+	ijkKeyVirt_media_stop,
+	ijkKeyVirt_media_playpause,
+	ijkKeyVirt_launch_email,
+	ijkKeyVirt_launch_media,
+	ijkKeyVirt_launch_app1,
+	ijkKeyVirt_launch_app2,
+	ijkKeyVirt_semicolon = 186,
+	ijkKeyVirt_equal,
+	ijkKeyVirt_comma,
+	ijkKeyVirt_dash,
+	ijkKeyVirt_period,
+	ijkKeyVirt_slash,
+	ijkKeyVirt_colon = ijkKeyVirt_semicolon,
+	ijkKeyVirt_minus = ijkKeyVirt_dash,
+	ijkKeyVirt_plus,
+	ijkKeyVirt_lessthan,
+	ijkKeyVirt_underscore,
+	ijkKeyVirt_greaterthan,
+	ijkKeyVirt_question,
+	ijkKeyVirt_tilde,
+	ijkKeyVirt_leftbracket = 219,
+	ijkKeyVirt_backslash,
+	ijkKeyVirt_rightbracket,
+	ijkKeyVirt_singlequote,
+	ijkKeyVirt_leftbrace = ijkKeyVirt_leftbracket,
+	ijkKeyVirt_pipe,
+	ijkKeyVirt_rightbrace,
+	ijkKeyVirt_doublequote,
+	ijkKeyVirt_quote = ijkKeyVirt_singlequote,
+	ijkKeyVirt_apostrophe = ijkKeyVirt_singlequote,
+	ijkKeyVirt_function = 255
 };
 
 
@@ -326,114 +326,295 @@ struct ijkKeyboardState
 
 // ijkMouseGetButtonState
 //	Get the current state of a mouse button.
+//		param mouse: pointer to mouse descriptor
+//			valid: non-null
+//		param state_out: pointer to button state
+//			valid: non-null
+//			note: upon successful return, points to boolean (true is pressed)
+//		param button: button enumerator
+//		return SUCCESS: ijk_success if retrieved state
+//		return FAILURE: ijk_fail_invalidparams if invalid parameters
 
 // ijkMouseSetButtonState
 //	Set the current state of a mouse button.
+//		param mouse: pointer to mouse descriptor
+//			valid: non-null
+//		param state: button state to set
+//		param button: button enumerator
+//		return SUCCESS: ijk_success if set state
+//		return FAILURE: ijk_fail_invalidparams if invalid parameters
 
 // ijkMouseGetWheelState
 //	Get the current state of the mouse wheel.
+//		param mouse: pointer to mouse descriptor
+//			valid: non-null
+//		param state_out: pointer to wheel state
+//			valid: non-null
+//			note: upon successful return, points to wheel state value
+//		return SUCCESS: ijk_success if retrieved state
+//		return FAILURE: ijk_fail_invalidparams if invalid parameters
 
 // ijkMouseSetWheelState
 //	Set the current state of the mouse wheel.
+//		param mouse: pointer to mouse descriptor
+//			valid: non-null
+//		param state: wheel state to set
+//		return SUCCESS: ijk_success if set state
+//		return FAILURE: ijk_fail_invalidparams if invalid parameters
 
 // ijkMouseGetButtonStatePrev
 //	Get the previous state of a mouse button.
+//		param mouse: pointer to mouse descriptor
+//			valid: non-null
+//		param state_out: pointer to button state
+//			valid: non-null
+//			note: upon successful return, points to boolean (true is pressed)
+//		param button: button enumerator
+//		return SUCCESS: ijk_success if retrieved state
+//		return FAILURE: ijk_fail_invalidparams if invalid parameters
 
 // ijkMouseGetWheelStatePrev
 //	Get the previous state of the mouse wheel.
+//		param mouse: pointer to mouse descriptor
+//			valid: non-null
+//		param state_out: pointer to wheel state
+//			valid: non-null
+//			note: upon successful return, points to wheel state value
+//		return SUCCESS: ijk_success if retrieved state
+//		return FAILURE: ijk_fail_invalidparams if invalid parameters
 
 // ijkMouseIsButtonDown
 //	Check whether a mouse button is down.
+//		param mouse: pointer to mouse descriptor
+//			valid: non-null
+//		param button: button enumerator
+//		return SUCCESS: ijk_true if button is down
+//		return SUCCESS: ijk_false if button is up
+//		return FAILURE: ijk_fail_invalidparams if invalid parameters
 
 // ijkMouseIsButtonUp
 //	Check whether a mouse button is up.
+//		param mouse: pointer to mouse descriptor
+//			valid: non-null
+//		param button: button enumerator
+//		return SUCCESS: ijk_true if button is up
+//		return SUCCESS: ijk_false if button is down
+//		return FAILURE: ijk_fail_invalidparams if invalid parameters
 
 // ijkMouseIsButtonDownAgain
 //	Check whether a mouse button is consistently down between updates.
+//		param mouse: pointer to mouse descriptor
+//			valid: non-null
+//		param button: button enumerator
+//		return SUCCESS: ijk_true if button is consistently down
+//		return SUCCESS: ijk_false if button is not consistently down
+//		return FAILURE: ijk_fail_invalidparams if invalid parameters
 
 // ijkMouseIsButtonUpAgain
 //	Check whether a mouse button is consistently up between updates.
+//		param mouse: pointer to mouse descriptor
+//			valid: non-null
+//		param button: button enumerator
+//		return SUCCESS: ijk_true if button is consistently up
+//		return SUCCESS: ijk_false if button is not consistently up
+//		return FAILURE: ijk_fail_invalidparams if invalid parameters
 
 // ijkMouseIsButtonPressed
 //	Check whether a mouse button changed from up to down.
+//		param mouse: pointer to mouse descriptor
+//			valid: non-null
+//		param button: button enumerator
+//		return SUCCESS: ijk_true if button changed from up to down
+//		return SUCCESS: ijk_false if button did not change from up to down
+//		return FAILURE: ijk_fail_invalidparams if invalid parameters
 
 // ijkMouseIsButtonReleased
 //	Check whether a mouse button changed from down to up.
+//		param mouse: pointer to mouse descriptor
+//			valid: non-null
+//		param button: button enumerator
+//		return SUCCESS: ijk_true if button changed from down to up
+//		return SUCCESS: ijk_false if button did not change from down to up
+//		return FAILURE: ijk_fail_invalidparams if invalid parameters
 
 // ijkMouseGetWheelChange
 //	Get the change in the mouse wheel state.
+//		param mouse: pointer to mouse descriptor
+//			valid: non-null
+//		param state_out: pointer to wheel state
+//			valid: non-null
+//			note: upon successful return, points to wheel change value
+//		return SUCCESS: ijk_success if retrieved state
+//		return FAILURE: ijk_fail_invalidparams if invalid parameters
 
 // ijkMouseGetPos
 //	Get the current position of the cursor.
+//		param mouse: pointer to mouse descriptor
+//			valid: non-null
+//		param x_out: pointer to horizontal position of cursor
+//			valid: non-null
+//			note: [0, w) = [left, right)
+//		param y_out: pointer to vertical position of cursor
+//			valid: non-null
+//			note: [0, h) = [top, bottom)
+//		return SUCCESS: ijk_success if cursor position retrieved
+//		return FAILURE: ijk_fail_invalidparams if invalid parameters
 
 // ijkMouseSetPos
 //	Set the current position of the cursor.
+//		param mouse: pointer to mouse descriptor
+//			valid: non-null
+//		param x: horizontal position of cursor
+//			note: [0, w) = [left, right)
+//		param y: vertical position of cursor
+//			note: [0, h) = [top, bottom)
+//		return SUCCESS: ijk_success if cursor position set
+//		return FAILURE: ijk_fail_invalidparams if invalid parameters
 
 // ijkMouseGetPosPrev
 //	Get the previous position of the cursor.
+//		param mouse: pointer to mouse descriptor
+//			valid: non-null
+//		param x_out: pointer to horizontal position of cursor
+//			valid: non-null
+//			note: [0, w) = [left, right)
+//		param y_out: pointer to vertical position of cursor
+//			valid: non-null
+//			note: [0, h) = [top, bottom)
+//		return SUCCESS: ijk_success if cursor position retrieved
+//		return FAILURE: ijk_fail_invalidparams if invalid parameters
 
 // ijkMouseUpdate
 //	Copy the current state to the previous state.
+//		param mouse: pointer to mouse descriptor
+//			valid: non-null
+//		return SUCCESS: ijk_success if state updated
+//		return FAILURE: ijk_fail_invalidparams if invalid parameters
 
 // ijkMouseReset
 //	Reset the current state.
+//		param mouse: pointer to mouse descriptor
+//			valid: non-null
+//		return SUCCESS: ijk_success if state reset
+//		return FAILURE: ijk_fail_invalidparams if invalid parameters
 
 
 //-----------------------------------------------------------------------------
 
 // ijkKeyboardGetKeyState
 //	Get the current state of a virtual key.
+//		param keyboard: pointer to keyboard descriptor
+//			valid: non-null
+//		param state_out: pointer to button state
+//			valid: non-null
+//			note: upon successful return, points to boolean (true is pressed)
+//		param keyVirt: virtual key code
+//		return SUCCESS: ijk_success if retrieved state
+//		return FAILURE: ijk_fail_invalidparams if invalid parameters
 
 // ijkKeyboardSetKeyState
 //	Set the current state of a virtual key.
+//		param keyboard: pointer to keyboard descriptor
+//			valid: non-null
+//		return FAILURE: ijk_fail_invalidparams if invalid parameters
 
 // ijkKeyboardGetKeyCharState
 //	Get the current state of a character/ASCII key.
+//		param keyboard: pointer to keyboard descriptor
+//			valid: non-null
+//		return FAILURE: ijk_fail_invalidparams if invalid parameters
 
 // ijkKeyboardSetKeyCharState
 //	Set the current state of a character/ASCII key.
+//		param keyboard: pointer to keyboard descriptor
+//			valid: non-null
+//		return FAILURE: ijk_fail_invalidparams if invalid parameters
 
 // ijkKeyboardIsKeyDown
 //	Check whether key is down.
+//		param keyboard: pointer to keyboard descriptor
+//			valid: non-null
+//		return FAILURE: ijk_fail_invalidparams if invalid parameters
 
 // ijkKeyboardIsKeyUp
 //	Check whether key is up.
+//		param keyboard: pointer to keyboard descriptor
+//			valid: non-null
+//		return FAILURE: ijk_fail_invalidparams if invalid parameters
 
 // ijkKeyboardIsKeyDownAgain
 //	Check whether key is consistently down between updates.
+//		param keyboard: pointer to keyboard descriptor
+//			valid: non-null
+//		return FAILURE: ijk_fail_invalidparams if invalid parameters
 
 // ijkKeyboardIsKeyUpAgain
 //	Check whether key is consistently up between updates.
+//		param keyboard: pointer to keyboard descriptor
+//			valid: non-null
+//		return FAILURE: ijk_fail_invalidparams if invalid parameters
 
 // ijkKeyboardIsKeyPressed
 //	Check whether key changed from up to down.
+//		param keyboard: pointer to keyboard descriptor
+//			valid: non-null
+//		return FAILURE: ijk_fail_invalidparams if invalid parameters
 
 // ijkKeyboardIsKeyReleased
 //	Check whether key changed from down to up.
+//		param keyboard: pointer to keyboard descriptor
+//			valid: non-null
+//		return FAILURE: ijk_fail_invalidparams if invalid parameters
 
 // ijkKeyboardIsKeyCharDown
 //	Check whether character key is down.
+//		param keyboard: pointer to keyboard descriptor
+//			valid: non-null
+//		return FAILURE: ijk_fail_invalidparams if invalid parameters
 
 // ijkKeyboardIsKeyCharUp
 //	Check whether character key is up.
+//		param keyboard: pointer to keyboard descriptor
+//			valid: non-null
+//		return FAILURE: ijk_fail_invalidparams if invalid parameters
 
 // ijkKeyboardIsKeyCharDownAgain
 //	Check whether character key is consistently down between updates.
+//		param keyboard: pointer to keyboard descriptor
+//			valid: non-null
+//		return FAILURE: ijk_fail_invalidparams if invalid parameters
 
 // ijkKeyboardIsKeyCharUpAgain
 //	Check whether character key is consistently up between updates.
+//		param keyboard: pointer to keyboard descriptor
+//			valid: non-null
+//		return FAILURE: ijk_fail_invalidparams if invalid parameters
 
 // ijkKeyboardIsKeyCharPressed
 //	Check whether character key changed from up to down.
+//		param keyboard: pointer to keyboard descriptor
+//			valid: non-null
+//		return FAILURE: ijk_fail_invalidparams if invalid parameters
 
 // ijkKeyboardIsKeyCharReleased
 //	Check whether character key changed from down to up.
+//		param keyboard: pointer to keyboard descriptor
+//			valid: non-null
+//		return FAILURE: ijk_fail_invalidparams if invalid parameters
 
 // ijkKeyboardUpdate
 //	Copy the current state to the previous state.
+//		param keyboard: pointer to keyboard descriptor
+//			valid: non-null
+//		return SUCCESS: ijk_success if state updated
+//		return FAILURE: ijk_fail_invalidparams if invalid parameters
 
 // ijkKeyboardReset
 //	Reset the current state.
+//		param keyboard: pointer to keyboard descriptor
+//			valid: non-null
+//		return SUCCESS: ijk_success if state reset
+//		return FAILURE: ijk_fail_invalidparams if invalid parameters
 
 
 //-----------------------------------------------------------------------------
@@ -478,11 +659,11 @@ iret ijkInputGetSystemKeyboardState(sbyte keys_out[256]);
 //		param key_out: pointer to key state
 //			valid: non-null
 //			note: upon successful return, points to boolean (true is pressed)
-//		param keycode: which key to check
+//		param keyVirt: virtual key to check
 //		return SUCCESS: ijk_success if key state captured
 //		return FAILURE: ijk_fail_invalidparams if invalid parameters
 //		return FAILURE: ijk_fail_operationfail if did not get state
-iret ijkInputGetSystemKeyState(sbyte key_out[1], ijkKeyBtn const keycode);
+iret ijkInputGetSystemKeyState(sbyte key_out[1], ijkKeyVirt const keyVirt);
 
 
 //-----------------------------------------------------------------------------
