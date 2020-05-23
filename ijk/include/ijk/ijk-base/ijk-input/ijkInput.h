@@ -52,7 +52,6 @@ enum ijkMouseBtn
 	ijkMouseBtn_right,
 	ijkMouseBtn_extra1,
 	ijkMouseBtn_extra2,
-	ijkMouseBtn_wheel,
 };
 
 
@@ -293,25 +292,148 @@ enum ijkKeyChar
 
 
 // ijkMouseState
-//	
+//	Mouse state tracker descriptor.
+//		member state: current state of mouse
+//		member state_prev: previous state of mouse
+//		member button: within states, flags to describe button states
+//		member x: within states, horizontal coordinate of cursor
+//		member y: within states, vertical coordinate of cursor
 struct ijkMouseState
 {
 	struct {
-		sbyte button[8];
-		i32 x, y;
-	} state, state_prev;
+		sbyte button[8];		// button state flags
+		i32 x, y;				// screen coordinate of cursor
+	} state, state_prev;		// current and previous states
 };
 
 
 // ijkKeyboardState
-//	
+//	Keyboard state tracker descriptor.
+//		member state: current state of keyboard
+//		member state_prev: previous state of keyboard
+//		member key: within states, flags to describe virtual key states
+//		member keyChar: within states, flags to describe ASCII/char key states
 struct ijkKeyboardState
 {
 	struct {
-		sbyte key[256];
-		sbyte keyChar[128];
-	} state, state_prev;
+		sbyte key[256];			// virtual key state flags
+		sbyte keyChar[128];		// ASCII/char key state flags
+	} state, state_prev;		// current and previous states
 };
+
+
+//-----------------------------------------------------------------------------
+
+// ijkMouseGetButtonState
+//	Get the current state of a mouse button.
+
+// ijkMouseSetButtonState
+//	Set the current state of a mouse button.
+
+// ijkMouseGetWheelState
+//	Get the current state of the mouse wheel.
+
+// ijkMouseSetWheelState
+//	Set the current state of the mouse wheel.
+
+// ijkMouseGetButtonStatePrev
+//	Get the previous state of a mouse button.
+
+// ijkMouseGetWheelStatePrev
+//	Get the previous state of the mouse wheel.
+
+// ijkMouseIsButtonDown
+//	Check whether a mouse button is down.
+
+// ijkMouseIsButtonUp
+//	Check whether a mouse button is up.
+
+// ijkMouseIsButtonDownAgain
+//	Check whether a mouse button is consistently down between updates.
+
+// ijkMouseIsButtonUpAgain
+//	Check whether a mouse button is consistently up between updates.
+
+// ijkMouseIsButtonPressed
+//	Check whether a mouse button changed from up to down.
+
+// ijkMouseIsButtonReleased
+//	Check whether a mouse button changed from down to up.
+
+// ijkMouseGetWheelChange
+//	Get the change in the mouse wheel state.
+
+// ijkMouseGetPos
+//	Get the current position of the cursor.
+
+// ijkMouseSetPos
+//	Set the current position of the cursor.
+
+// ijkMouseGetPosPrev
+//	Get the previous position of the cursor.
+
+// ijkMouseUpdate
+//	Copy the current state to the previous state.
+
+// ijkMouseReset
+//	Reset the current state.
+
+
+//-----------------------------------------------------------------------------
+
+// ijkKeyboardGetKeyState
+//	Get the current state of a virtual key.
+
+// ijkKeyboardSetKeyState
+//	Set the current state of a virtual key.
+
+// ijkKeyboardGetKeyCharState
+//	Get the current state of a character/ASCII key.
+
+// ijkKeyboardSetKeyCharState
+//	Set the current state of a character/ASCII key.
+
+// ijkKeyboardIsKeyDown
+//	Check whether key is down.
+
+// ijkKeyboardIsKeyUp
+//	Check whether key is up.
+
+// ijkKeyboardIsKeyDownAgain
+//	Check whether key is consistently down between updates.
+
+// ijkKeyboardIsKeyUpAgain
+//	Check whether key is consistently up between updates.
+
+// ijkKeyboardIsKeyPressed
+//	Check whether key changed from up to down.
+
+// ijkKeyboardIsKeyReleased
+//	Check whether key changed from down to up.
+
+// ijkKeyboardIsKeyCharDown
+//	Check whether character key is down.
+
+// ijkKeyboardIsKeyCharUp
+//	Check whether character key is up.
+
+// ijkKeyboardIsKeyCharDownAgain
+//	Check whether character key is consistently down between updates.
+
+// ijkKeyboardIsKeyCharUpAgain
+//	Check whether character key is consistently up between updates.
+
+// ijkKeyboardIsKeyCharPressed
+//	Check whether character key changed from up to down.
+
+// ijkKeyboardIsKeyCharReleased
+//	Check whether character key changed from down to up.
+
+// ijkKeyboardUpdate
+//	Copy the current state to the previous state.
+
+// ijkKeyboardReset
+//	Reset the current state.
 
 
 //-----------------------------------------------------------------------------
