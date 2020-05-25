@@ -516,90 +516,145 @@ struct ijkKeyboardState
 //	Set the current state of a virtual key.
 //		param keyboard: pointer to keyboard descriptor
 //			valid: non-null
-//		return FAILURE: ijk_fail_invalidparams if invalid parameters
-
-// ijkKeyboardGetKeyCharState
-//	Get the current state of a character/ASCII key.
-//		param keyboard: pointer to keyboard descriptor
-//			valid: non-null
-//		return FAILURE: ijk_fail_invalidparams if invalid parameters
-
-// ijkKeyboardSetKeyCharState
-//	Set the current state of a character/ASCII key.
-//		param keyboard: pointer to keyboard descriptor
-//			valid: non-null
+//		param state: button state
+//		param keyVirt: virtual key code
+//		return SUCCESS: ijk_success if set state
 //		return FAILURE: ijk_fail_invalidparams if invalid parameters
 
 // ijkKeyboardIsKeyDown
 //	Check whether key is down.
 //		param keyboard: pointer to keyboard descriptor
 //			valid: non-null
+//		param keyVirt: virtual key to check
+//		return SUCCESS: ijk_true if key is down
+//		return SUCCESS: ijk_false if key is up
 //		return FAILURE: ijk_fail_invalidparams if invalid parameters
 
 // ijkKeyboardIsKeyUp
 //	Check whether key is up.
 //		param keyboard: pointer to keyboard descriptor
 //			valid: non-null
+//		param keyVirt: virtual key to check
+//		return SUCCESS: ijk_true if key is up
+//		return SUCCESS: ijk_false if key is down
 //		return FAILURE: ijk_fail_invalidparams if invalid parameters
 
 // ijkKeyboardIsKeyDownAgain
 //	Check whether key is consistently down between updates.
 //		param keyboard: pointer to keyboard descriptor
 //			valid: non-null
+//		param keyVirt: virtual key to check
+//		return SUCCESS: ijk_true if key is consistently down
+//		return SUCCESS: ijk_false if key is not consistently down
 //		return FAILURE: ijk_fail_invalidparams if invalid parameters
 
 // ijkKeyboardIsKeyUpAgain
 //	Check whether key is consistently up between updates.
 //		param keyboard: pointer to keyboard descriptor
 //			valid: non-null
+//		param keyVirt: virtual key to check
+//		return SUCCESS: ijk_true if key is consistently up
+//		return SUCCESS: ijk_false if key is not consistently up
 //		return FAILURE: ijk_fail_invalidparams if invalid parameters
 
 // ijkKeyboardIsKeyPressed
 //	Check whether key changed from up to down.
 //		param keyboard: pointer to keyboard descriptor
 //			valid: non-null
+//		param keyVirt: virtual key to check
+//		return SUCCESS: ijk_true if key changed from up to down
+//		return SUCCESS: ijk_false if key did not change from up to down
 //		return FAILURE: ijk_fail_invalidparams if invalid parameters
 
 // ijkKeyboardIsKeyReleased
 //	Check whether key changed from down to up.
 //		param keyboard: pointer to keyboard descriptor
 //			valid: non-null
+//		param keyVirt: virtual key to check
+//		return SUCCESS: ijk_true if key changed from down to up
+//		return SUCCESS: ijk_false if key did not change from down to up
+//		return FAILURE: ijk_fail_invalidparams if invalid parameters
+
+// ijkKeyboardGetKeyCharState
+//	Get the current state of a character/ASCII key.
+//		param keyboard: pointer to keyboard descriptor
+//			valid: non-null
+//		param state_out: pointer to button state
+//			valid: non-null
+//			note: upon successful return, points to boolean (true is pressed)
+//		param keyChar: character/ASCII key code
+//			valid: non-negative
+//		return SUCCESS: ijk_success if retrieved state
+//		return FAILURE: ijk_fail_invalidparams if invalid parameters
+
+// ijkKeyboardSetKeyCharState
+//	Set the current state of a character/ASCII key.
+//		param keyboard: pointer to keyboard descriptor
+//			valid: non-null
+//		param state: button state
+//		param keyChar: character/ASCII key code
+//			valid: non-negative
+//		return SUCCESS: ijk_success if set state
 //		return FAILURE: ijk_fail_invalidparams if invalid parameters
 
 // ijkKeyboardIsKeyCharDown
 //	Check whether character key is down.
 //		param keyboard: pointer to keyboard descriptor
 //			valid: non-null
+//		param keyChar: character/ASCII key to check
+//			valid: non-negative
+//		return SUCCESS: ijk_true if key is down
+//		return SUCCESS: ijk_false if key is up
 //		return FAILURE: ijk_fail_invalidparams if invalid parameters
 
 // ijkKeyboardIsKeyCharUp
 //	Check whether character key is up.
 //		param keyboard: pointer to keyboard descriptor
 //			valid: non-null
+//		param keyChar: character/ASCII key to check
+//			valid: non-negative
+//		return SUCCESS: ijk_true if key is up
+//		return SUCCESS: ijk_false if key is down
 //		return FAILURE: ijk_fail_invalidparams if invalid parameters
 
 // ijkKeyboardIsKeyCharDownAgain
 //	Check whether character key is consistently down between updates.
 //		param keyboard: pointer to keyboard descriptor
 //			valid: non-null
+//		param keyChar: character/ASCII key to check
+//			valid: non-negative
+//		return SUCCESS: ijk_true if key is consistently down
+//		return SUCCESS: ijk_false if key is not consistently down
 //		return FAILURE: ijk_fail_invalidparams if invalid parameters
 
 // ijkKeyboardIsKeyCharUpAgain
 //	Check whether character key is consistently up between updates.
 //		param keyboard: pointer to keyboard descriptor
 //			valid: non-null
+//		param keyChar: character/ASCII key to check
+//			valid: non-negative
+//		return SUCCESS: ijk_true if key is consistently up
+//		return SUCCESS: ijk_false if key is not consistently up
 //		return FAILURE: ijk_fail_invalidparams if invalid parameters
 
 // ijkKeyboardIsKeyCharPressed
 //	Check whether character key changed from up to down.
 //		param keyboard: pointer to keyboard descriptor
 //			valid: non-null
+//		param keyChar: character/ASCII key to check
+//			valid: non-negative
+//		return SUCCESS: ijk_true if key changed from up to down
+//		return SUCCESS: ijk_false if key did not change from up to down
 //		return FAILURE: ijk_fail_invalidparams if invalid parameters
 
 // ijkKeyboardIsKeyCharReleased
 //	Check whether character key changed from down to up.
 //		param keyboard: pointer to keyboard descriptor
 //			valid: non-null
+//		param keyChar: character/ASCII key to check
+//			valid: non-negative
+//		return SUCCESS: ijk_true if key changed from down to up
+//		return SUCCESS: ijk_false if key did not change from down to up
 //		return FAILURE: ijk_fail_invalidparams if invalid parameters
 
 // ijkKeyboardUpdate
