@@ -458,6 +458,7 @@ struct ijkKeyboardState
 //		param button: button enumerator
 //		return SUCCESS: ijk_success if retrieved state
 //		return FAILURE: ijk_fail_invalidparams if invalid parameters
+iret ijkMouseGetButtonState(ijkMouseState const* const mouse, ibool state_out[1], ijkMouseBtn const button);
 
 // ijkMouseSetButtonState
 //	Set the current state of a mouse button.
@@ -467,6 +468,67 @@ struct ijkKeyboardState
 //		param button: button enumerator
 //		return SUCCESS: ijk_success if set state
 //		return FAILURE: ijk_fail_invalidparams if invalid parameters
+iret ijkMouseSetButtonState(ijkMouseState* const mouse, ibool const state, ijkMouseBtn const button);
+
+// ijkMouseIsButtonDown
+//	Check whether a mouse button is down.
+//		param mouse: pointer to mouse descriptor
+//			valid: non-null
+//		param button: button enumerator
+//		return SUCCESS: ijk_true if button is down
+//		return SUCCESS: ijk_false if button is up
+//		return FAILURE: ijk_fail_invalidparams if invalid parameters
+iret ijkMouseIsButtonDown(ijkMouseState const* const mouse, ijkMouseBtn const button);
+
+// ijkMouseIsButtonUp
+//	Check whether a mouse button is up.
+//		param mouse: pointer to mouse descriptor
+//			valid: non-null
+//		param button: button enumerator
+//		return SUCCESS: ijk_true if button is up
+//		return SUCCESS: ijk_false if button is down
+//		return FAILURE: ijk_fail_invalidparams if invalid parameters
+iret ijkMouseIsButtonUp(ijkMouseState const* const mouse, ijkMouseBtn const button);
+
+// ijkMouseIsButtonDownAgain
+//	Check whether a mouse button is consistently down between updates.
+//		param mouse: pointer to mouse descriptor
+//			valid: non-null
+//		param button: button enumerator
+//		return SUCCESS: ijk_true if button is consistently down
+//		return SUCCESS: ijk_false if button is not consistently down
+//		return FAILURE: ijk_fail_invalidparams if invalid parameters
+iret ijkMouseIsButtonDownAgain(ijkMouseState const* const mouse, ijkMouseBtn const button);
+
+// ijkMouseIsButtonUpAgain
+//	Check whether a mouse button is consistently up between updates.
+//		param mouse: pointer to mouse descriptor
+//			valid: non-null
+//		param button: button enumerator
+//		return SUCCESS: ijk_true if button is consistently up
+//		return SUCCESS: ijk_false if button is not consistently up
+//		return FAILURE: ijk_fail_invalidparams if invalid parameters
+iret ijkMouseIsButtonUpAgain(ijkMouseState const* const mouse, ijkMouseBtn const button);
+
+// ijkMouseIsButtonPressed
+//	Check whether a mouse button changed from up to down.
+//		param mouse: pointer to mouse descriptor
+//			valid: non-null
+//		param button: button enumerator
+//		return SUCCESS: ijk_true if button changed from up to down
+//		return SUCCESS: ijk_false if button did not change from up to down
+//		return FAILURE: ijk_fail_invalidparams if invalid parameters
+iret ijkMouseIsButtonPressed(ijkMouseState const* const mouse, ijkMouseBtn const button);
+
+// ijkMouseIsButtonReleased
+//	Check whether a mouse button changed from down to up.
+//		param mouse: pointer to mouse descriptor
+//			valid: non-null
+//		param button: button enumerator
+//		return SUCCESS: ijk_true if button changed from down to up
+//		return SUCCESS: ijk_false if button did not change from down to up
+//		return FAILURE: ijk_fail_invalidparams if invalid parameters
+iret ijkMouseIsButtonReleased(ijkMouseState const* const mouse, ijkMouseBtn const button);
 
 // ijkMouseGetWheelState
 //	Get the current state of the mouse wheel.
@@ -477,6 +539,7 @@ struct ijkKeyboardState
 //			note: upon successful return, points to wheel state value
 //		return SUCCESS: ijk_success if retrieved state
 //		return FAILURE: ijk_fail_invalidparams if invalid parameters
+iret ijkMouseGetWheelState(ijkMouseState const* const mouse, istate state_out[1]);
 
 // ijkMouseSetWheelState
 //	Set the current state of the mouse wheel.
@@ -485,81 +548,7 @@ struct ijkKeyboardState
 //		param state: wheel state to set
 //		return SUCCESS: ijk_success if set state
 //		return FAILURE: ijk_fail_invalidparams if invalid parameters
-
-// ijkMouseGetButtonStatePrev
-//	Get the previous state of a mouse button.
-//		param mouse: pointer to mouse descriptor
-//			valid: non-null
-//		param state_out: pointer to button state
-//			valid: non-null
-//			note: upon successful return, points to boolean (true is pressed)
-//		param button: button enumerator
-//		return SUCCESS: ijk_success if retrieved state
-//		return FAILURE: ijk_fail_invalidparams if invalid parameters
-
-// ijkMouseGetWheelStatePrev
-//	Get the previous state of the mouse wheel.
-//		param mouse: pointer to mouse descriptor
-//			valid: non-null
-//		param state_out: pointer to wheel state
-//			valid: non-null
-//			note: upon successful return, points to wheel state value
-//		return SUCCESS: ijk_success if retrieved state
-//		return FAILURE: ijk_fail_invalidparams if invalid parameters
-
-// ijkMouseIsButtonDown
-//	Check whether a mouse button is down.
-//		param mouse: pointer to mouse descriptor
-//			valid: non-null
-//		param button: button enumerator
-//		return SUCCESS: ijk_true if button is down
-//		return SUCCESS: ijk_false if button is up
-//		return FAILURE: ijk_fail_invalidparams if invalid parameters
-
-// ijkMouseIsButtonUp
-//	Check whether a mouse button is up.
-//		param mouse: pointer to mouse descriptor
-//			valid: non-null
-//		param button: button enumerator
-//		return SUCCESS: ijk_true if button is up
-//		return SUCCESS: ijk_false if button is down
-//		return FAILURE: ijk_fail_invalidparams if invalid parameters
-
-// ijkMouseIsButtonDownAgain
-//	Check whether a mouse button is consistently down between updates.
-//		param mouse: pointer to mouse descriptor
-//			valid: non-null
-//		param button: button enumerator
-//		return SUCCESS: ijk_true if button is consistently down
-//		return SUCCESS: ijk_false if button is not consistently down
-//		return FAILURE: ijk_fail_invalidparams if invalid parameters
-
-// ijkMouseIsButtonUpAgain
-//	Check whether a mouse button is consistently up between updates.
-//		param mouse: pointer to mouse descriptor
-//			valid: non-null
-//		param button: button enumerator
-//		return SUCCESS: ijk_true if button is consistently up
-//		return SUCCESS: ijk_false if button is not consistently up
-//		return FAILURE: ijk_fail_invalidparams if invalid parameters
-
-// ijkMouseIsButtonPressed
-//	Check whether a mouse button changed from up to down.
-//		param mouse: pointer to mouse descriptor
-//			valid: non-null
-//		param button: button enumerator
-//		return SUCCESS: ijk_true if button changed from up to down
-//		return SUCCESS: ijk_false if button did not change from up to down
-//		return FAILURE: ijk_fail_invalidparams if invalid parameters
-
-// ijkMouseIsButtonReleased
-//	Check whether a mouse button changed from down to up.
-//		param mouse: pointer to mouse descriptor
-//			valid: non-null
-//		param button: button enumerator
-//		return SUCCESS: ijk_true if button changed from down to up
-//		return SUCCESS: ijk_false if button did not change from down to up
-//		return FAILURE: ijk_fail_invalidparams if invalid parameters
+iret ijkMouseSetWheelState(ijkMouseState* const mouse, istate const state);
 
 // ijkMouseGetWheelChange
 //	Get the change in the mouse wheel state.
@@ -570,6 +559,7 @@ struct ijkKeyboardState
 //			note: upon successful return, points to wheel change value
 //		return SUCCESS: ijk_success if retrieved state
 //		return FAILURE: ijk_fail_invalidparams if invalid parameters
+iret ijkMouseGetWheelChange(ijkMouseState const* const mouse, istate state_out[1]);
 
 // ijkMouseGetPos
 //	Get the current position of the cursor.
@@ -583,6 +573,7 @@ struct ijkKeyboardState
 //			note: [0, h) = [top, bottom)
 //		return SUCCESS: ijk_success if cursor position retrieved
 //		return FAILURE: ijk_fail_invalidparams if invalid parameters
+iret ijkMouseGetPos(ijkMouseState const* const mouse, i32 x_out[1], i32 y_out[1]);
 
 // ijkMouseSetPos
 //	Set the current position of the cursor.
@@ -594,19 +585,19 @@ struct ijkKeyboardState
 //			note: [0, h) = [top, bottom)
 //		return SUCCESS: ijk_success if cursor position set
 //		return FAILURE: ijk_fail_invalidparams if invalid parameters
+iret ijkMouseSetPos(ijkMouseState* const mouse, i32 const x, i32 const y);
 
-// ijkMouseGetPosPrev
-//	Get the previous position of the cursor.
+// ijkMouseGetPosChange
+//	Get the change in position of the cursor.
 //		param mouse: pointer to mouse descriptor
 //			valid: non-null
-//		param x_out: pointer to horizontal position of cursor
+//		param dx_out: pointer to horizontal position change of cursor
 //			valid: non-null
-//			note: [0, w) = [left, right)
-//		param y_out: pointer to vertical position of cursor
+//		param dy_out: pointer to vertical position change of cursor
 //			valid: non-null
-//			note: [0, h) = [top, bottom)
 //		return SUCCESS: ijk_success if cursor position retrieved
 //		return FAILURE: ijk_fail_invalidparams if invalid parameters
+iret ijkMouseGetPosChange(ijkMouseState const* const mouse, i32 dx_out[1], i32 dy_out[1]);
 
 // ijkMouseUpdate
 //	Copy the current state to the previous state.
@@ -614,6 +605,7 @@ struct ijkKeyboardState
 //			valid: non-null
 //		return SUCCESS: ijk_success if state updated
 //		return FAILURE: ijk_fail_invalidparams if invalid parameters
+iret ijkMouseUpdate(ijkMouseState* const mouse);
 
 // ijkMouseReset
 //	Reset the current state.
@@ -621,6 +613,7 @@ struct ijkKeyboardState
 //			valid: non-null
 //		return SUCCESS: ijk_success if state reset
 //		return FAILURE: ijk_fail_invalidparams if invalid parameters
+iret ijkMouseReset(ijkMouseState* const mouse);
 
 
 //-----------------------------------------------------------------------------

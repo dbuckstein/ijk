@@ -34,7 +34,7 @@
 ///
 typedef	  signed	char					i8, sbyte, asciicode;
 typedef	  signed	short					i16;
-typedef	  signed	long					i32, iret, ibool;
+typedef	  signed	long					i32, iret, ibool, istate;
 typedef	  signed	long long				i64;
 typedef	unsigned	char					ui8, byte, ubyte, keycode;
 typedef	unsigned	short					ui16, word;
