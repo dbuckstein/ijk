@@ -19,21 +19,28 @@
 		c-based rendering framework
 	By Daniel S. Buckstein
 
-	ijk-base.h
-	Main header for base library.
+	ijkGamepad.c
+	Gamepad/controller/handheld input device implementation.
 */
 
-#ifndef _IJK_BASE_H_
-#define _IJK_BASE_H_
+#include "ijk/ijk-base/ijk-input/ijkGamepad.h"
 
 
-#include "ijk-utility/ijkTimer.h"
-#include "ijk-utility/ijkThread.h"
-#include "ijk-utility/ijkStream.h"
-#include "ijk-utility/ijkMemory.h"
-
-#include "ijk-input/ijkInput.h"
-#include "ijk-input/ijkGamepad.h"
+#if (__ijk_cfg_platform == WINDOWS)
+#include <Windows.h>
+#include <Xinput.h>
 
 
-#endif	// !_IJK_BASE_H_
+//-----------------------------------------------------------------------------
+
+
+#else	// !WINDOWS
+
+
+//-----------------------------------------------------------------------------
+
+
+#endif	// WINDOWS
+
+
+//-----------------------------------------------------------------------------

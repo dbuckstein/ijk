@@ -57,6 +57,9 @@
     <ClCompile Include="..\..\..\source\ijk-base\common\ijk-input\ijkInput.c">
       <Filter>Source Files\common\ijk-input</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\source\ijk-base\common\ijk-input\ijkGamepad.c">
+      <Filter>Source Files\common\ijk-input</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\include\ijk\ijk-base\ijk-base.h">
@@ -77,6 +80,9 @@
     <ClInclude Include="..\..\..\include\ijk\ijk-base\ijk-input\ijkInput.h">
       <Filter>Header Files\ijk-base\ijk-input</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\include\ijk\ijk-base\ijk-input\ijkGamepad.h">
+      <Filter>Header Files\ijk-base\ijk-input</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\include\ijk\ijk-base\ijk-utility\_inl\ijkTimer.inl">
@@ -92,6 +98,9 @@
       <Filter>Header Files\ijk-base\ijk-utility\_inl</Filter>
     </None>
     <None Include="..\..\..\include\ijk\ijk-base\ijk-input\_inl\ijkInput.inl">
+      <Filter>Header Files\ijk-base\ijk-input\_inl</Filter>
+    </None>
+    <None Include="..\..\..\include\ijk\ijk-base\ijk-input\_inl\ijkGamepad.inl">
       <Filter>Header Files\ijk-base\ijk-input\_inl</Filter>
     </None>
   </ItemGroup>
