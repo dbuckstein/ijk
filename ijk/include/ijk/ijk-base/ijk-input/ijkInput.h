@@ -230,7 +230,7 @@ enum ijkKeyVirt
 	ijkKeyVirt_pipe,
 	ijkKeyVirt_rightbrace,
 	ijkKeyVirt_doublequote,
-	ijkKeyVirt_quote = ijkKeyVirt_singlequote,
+	ijkKeyVirt_quotes = ijkKeyVirt_singlequote,
 	ijkKeyVirt_apostrophe = ijkKeyVirt_singlequote,
 	ijkKeyVirt_function = 255
 };
@@ -244,8 +244,135 @@ enum ijkKeyVirt
 //	codes to check the state of an ASCII key.
 enum ijkKeyChar
 {
-	ijkKeyChar_null,
-	ijkKeyChar_ctrl_a,						// ctrl + 'a'
+	ijkKeyChar_null,						// '\0'
+	ijkKeyChar_starthead,
+	ijkKeyChar_starttext,
+	ijkKeyChar_endtext,
+	ijkKeyChar_endtrans,
+	ijkKeyChar_enquiry,
+	ijkKeyChar_acknowledge,
+	ijkKeyChar_bell,						// '\a'
+	ijkKeyChar_backspace,					// '\b'
+	ijkKeyChar_tab_horiz,					// '\t'
+	ijkKeyChar_linefeed,					// '\n' or ctrl + enter
+	ijkKeyChar_tab_vert,					// '\v'
+	ijkKeyChar_formfeed,					// '\f'
+	ijkKeyChar_return,						// '\r'
+	ijkKeyChar_shift_out,
+	ijkKeyChar_shift_in,
+	ijkKeyChar_datalinkesc,
+	ijkKeyChar_devicectrl1,
+	ijkKeyChar_devicectrl2,
+	ijkKeyChar_devicectrl3,
+	ijkKeyChar_devicectrl4,
+	ijkKeyChar_acknowledge_negative,
+	ijkKeyChar_syncidle,
+	ijkKeyChar_endtrans_block,
+	ijkKeyChar_cancel,
+	ijkKeyChar_endmedium,
+	ijkKeyChar_substitute,
+	ijkKeyChar_escape,
+	ijkKeyChar_filesep,
+	ijkKeyChar_groupsep,
+	ijkKeyChar_recordsep,
+	ijkKeyChar_unitsep,
+	ijkKeyChar_space,
+	ijkKeyChar_exclamation,
+	ijkKeyChar_quotes,						// '\"'
+	ijkKeyChar_number,
+	ijkKeyChar_dollar,
+	ijkKeyChar_percent,
+	ijkKeyChar_ampersand,
+	ijkKeyChar_apostrophe,					// '\''
+	ijkKeyChar_leftparen,
+	ijkKeyChar_rightparen,
+	ijkKeyChar_asterisk,
+	ijkKeyChar_plus,
+	ijkKeyChar_comma,
+	ijkKeyChar_dash,
+	ijkKeyChar_period,
+	ijkKeyChar_slash,
+	ijkKeyChar_0,
+	ijkKeyChar_1,
+	ijkKeyChar_2,
+	ijkKeyChar_3,
+	ijkKeyChar_4,
+	ijkKeyChar_5,
+	ijkKeyChar_6,
+	ijkKeyChar_7,
+	ijkKeyChar_8,
+	ijkKeyChar_9,
+	ijkKeyChar_colon,
+	ijkKeyChar_semicolon,
+	ijkKeyChar_less,
+	ijkKeyChar_equal,
+	ijkKeyChar_greater,
+	ijkKeyChar_question,					// '\?'
+	ijkKeyChar_at,
+	ijkKeyChar_A,
+	ijkKeyChar_B,
+	ijkKeyChar_C,
+	ijkKeyChar_D,
+	ijkKeyChar_E,
+	ijkKeyChar_F,
+	ijkKeyChar_G,
+	ijkKeyChar_H,
+	ijkKeyChar_I,
+	ijkKeyChar_J,
+	ijkKeyChar_K,
+	ijkKeyChar_L,
+	ijkKeyChar_M,
+	ijkKeyChar_N,
+	ijkKeyChar_O,
+	ijkKeyChar_P,
+	ijkKeyChar_Q,
+	ijkKeyChar_R,
+	ijkKeyChar_S,
+	ijkKeyChar_T,
+	ijkKeyChar_U,
+	ijkKeyChar_V,
+	ijkKeyChar_W,
+	ijkKeyChar_X,
+	ijkKeyChar_Y,
+	ijkKeyChar_Z,
+	ijkKeyChar_leftbracket,
+	ijkKeyChar_backslash,					// '\\'
+	ijkKeyChar_rightbracket,
+	ijkKeyChar_hat,
+	ijkKeyChar_underscore,
+	ijkKeyChar_backquote,
+	ijkKeyChar_a,
+	ijkKeyChar_b,
+	ijkKeyChar_c,
+	ijkKeyChar_d,
+	ijkKeyChar_e,
+	ijkKeyChar_f,
+	ijkKeyChar_g,
+	ijkKeyChar_h,
+	ijkKeyChar_i,
+	ijkKeyChar_j,
+	ijkKeyChar_k,
+	ijkKeyChar_l,
+	ijkKeyChar_m,
+	ijkKeyChar_n,
+	ijkKeyChar_o,
+	ijkKeyChar_p,
+	ijkKeyChar_q,
+	ijkKeyChar_r,
+	ijkKeyChar_s,
+	ijkKeyChar_t,
+	ijkKeyChar_u,
+	ijkKeyChar_v,
+	ijkKeyChar_w,
+	ijkKeyChar_x,
+	ijkKeyChar_y,
+	ijkKeyChar_z,
+	ijkKeyChar_leftbrace,
+	ijkKeyChar_pipe,
+	ijkKeyChar_rightbrace,
+	ijkKeyChar_tilde,
+	ijkKeyChar_delete,
+	ijkKeyChar_ctrl_a = 1,					// ctrl + 'a'
 	ijkKeyChar_ctrl_b,						// ctrl + 'b'
 	ijkKeyChar_ctrl_c,						// ctrl + 'c' etc.
 	ijkKeyChar_ctrl_d,
@@ -276,18 +403,15 @@ enum ijkKeyChar
 	ijkKeyChar_ctrl_rightbracket,			// ctrl + ']'
 	ijkKeyChar_ctrl_pause = 3,				// ctrl + pause
 	ijkKeyChar_ctrl_scrolllock = 3,			// ctrl + scrolllock
-	ijkKeyChar_alert = 7,					// '\a'
-	ijkKeyChar_backspace,					// '\b'
-	ijkKeyChar_tab,							// '\t'
-	ijkKeyChar_newline,						// '\n' or ctrl + enter
-	ijkKeyChar_tab_vert,					// '\v'
-	ijkKeyChar_formfeed,					// '\f'
-	ijkKeyChar_return,						// '\r'
-	ijkKeyChar_tab_horiz = ijkKeyChar_tab,
-	ijkKeyChar_ctrl_enter,
-	ijkKeyChar_enter = ijkKeyChar_return,
-	ijkKeyChar_escape = 27,
-	ijkKeyChar_ctrl_backspace = 127
+	ijkKeyChar_alert = ijkKeyChar_bell,		// '\a' etc.
+	ijkKeyChar_bs,
+	ijkKeyChar_tab,
+	ijkKeyChar_newline,
+	ijkKeyChar_vtab,
+	ijkKeyChar_newpage,
+	ijkKeyChar_enter,
+	ijkKeyChar_ctrl_enter = ijkKeyChar_newline,
+	ijkKeyChar_ctrl_backspace = ijkKeyChar_delete
 };
 
 
