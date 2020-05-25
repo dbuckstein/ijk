@@ -32,5 +32,7 @@
 #include "ijk-utility/ijkStream.h"
 #include "ijk-utility/ijkMemory.h"
 
+#include "ijk-input/ijkInput.h"
+
 
 #endif	// !_IJK_BASE_H_

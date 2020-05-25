@@ -28,6 +28,15 @@
     <Filter Include="Source Files\common\ijk-utility">
       <UniqueIdentifier>{2b55ce74-8cb5-4201-9eb7-44d5ebfe7cd5}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\ijk-base\ijk-input">
+      <UniqueIdentifier>{239c8e7b-28ea-46e1-9364-020ca804e763}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\common\ijk-input">
+      <UniqueIdentifier>{6a1b9223-2ec2-47ed-990f-96a6206c9a9a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\ijk-base\ijk-input\_inl">
+      <UniqueIdentifier>{fde45da6-c269-455a-8b2b-272c65a3777c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\source\ijk-base\common\ijk-base.c">
@@ -44,6 +53,9 @@
     </ClCompile>
     <ClCompile Include="..\..\..\source\ijk-base\common\ijk-utility\ijkMemory.c">
       <Filter>Source Files\common\ijk-utility</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\ijk-base\common\ijk-input\ijkInput.c">
+      <Filter>Source Files\common\ijk-input</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -62,6 +74,9 @@
     <ClInclude Include="..\..\..\include\ijk\ijk-base\ijk-utility\ijkMemory.h">
       <Filter>Header Files\ijk-base\ijk-utility</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\include\ijk\ijk-base\ijk-input\ijkInput.h">
+      <Filter>Header Files\ijk-base\ijk-input</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\include\ijk\ijk-base\ijk-utility\_inl\ijkTimer.inl">
@@ -75,6 +90,9 @@
     </None>
     <None Include="..\..\..\include\ijk\ijk-base\ijk-utility\_inl\ijkMemory.inl">
       <Filter>Header Files\ijk-base\ijk-utility\_inl</Filter>
+    </None>
+    <None Include="..\..\..\include\ijk\ijk-base\ijk-input\_inl\ijkInput.inl">
+      <Filter>Header Files\ijk-base\ijk-input\_inl</Filter>
     </None>
   </ItemGroup>
 </Project>
