@@ -30,11 +30,19 @@
 
 //-----------------------------------------------------------------------------
 
+// helper macro for wheel index
+///
+#define ijkMouseBtn_wheel 7
+
+
+//-----------------------------------------------------------------------------
+
 ijk_inl iret ijkMouseGetButtonState(ijkMouseState const* const mouse, ibool state_out[1], ijkMouseBtn const button)
 {
 	if (mouse && state_out)
 	{
-
+		*state_out = (ibool)(mouse->state.button[button]);
+		return ijk_success;
 	}
 	return ijk_fail_invalidparams;
 }
@@ -44,7 +52,8 @@ ijk_inl iret ijkMouseSetButtonState(ijkMouseState* const mouse, ibool const stat
 {
 	if (mouse)
 	{
-
+		mouse->state.button[button] = (sbyte)ijk_istrue(state);
+		return ijk_success;
 	}
 	return ijk_fail_invalidparams;
 }
@@ -54,7 +63,7 @@ ijk_inl iret ijkMouseIsButtonDown(ijkMouseState const* const mouse, ijkMouseBtn 
 {
 	if (mouse)
 	{
-
+		return (mouse->state.button[button]);
 	}
 	return ijk_fail_invalidparams;
 }
@@ -64,7 +73,7 @@ ijk_inl iret ijkMouseIsButtonUp(ijkMouseState const* const mouse, ijkMouseBtn co
 {
 	if (mouse)
 	{
-
+		return !(mouse->state.button[button]);
 	}
 	return ijk_fail_invalidparams;
 }
@@ -74,7 +83,7 @@ ijk_inl iret ijkMouseIsButtonDownAgain(ijkMouseState const* const mouse, ijkMous
 {
 	if (mouse)
 	{
-
+		return (mouse->state.button[button] & mouse->state_prev.button[button]);
 	}
 	return ijk_fail_invalidparams;
 }
@@ -84,7 +93,7 @@ ijk_inl iret ijkMouseIsButtonUpAgain(ijkMouseState const* const mouse, ijkMouseB
 {
 	if (mouse)
 	{
-
+		return !(mouse->state.button[button] | mouse->state.button[button]);
 	}
 	return ijk_fail_invalidparams;
 }
@@ -94,7 +103,7 @@ ijk_inl iret ijkMouseIsButtonPressed(ijkMouseState const* const mouse, ijkMouseB
 {
 	if (mouse)
 	{
-
+		return (mouse->state.button[button] & ~mouse->state_prev.button[button]);
 	}
 	return ijk_fail_invalidparams;
 }
@@ -104,7 +113,7 @@ ijk_inl iret ijkMouseIsButtonReleased(ijkMouseState const* const mouse, ijkMouse
 {
 	if (mouse)
 	{
-
+		return (~mouse->state.button[button] & mouse->state_prev.button[button]);
 	}
 	return ijk_fail_invalidparams;
 }
@@ -114,7 +123,8 @@ ijk_inl iret ijkMouseGetWheelState(ijkMouseState const* const mouse, istate stat
 {
 	if (mouse && state_out)
 	{
-
+		*state_out = (istate)(mouse->state.button[ijkMouseBtn_wheel]);
+		return ijk_success;
 	}
 	return ijk_fail_invalidparams;
 }
@@ -124,7 +134,8 @@ ijk_inl iret ijkMouseSetWheelState(ijkMouseState* const mouse, istate const stat
 {
 	if (mouse)
 	{
-
+		mouse->state.button[ijkMouseBtn_wheel] = (sbyte)state;
+		return ijk_success;
 	}
 	return ijk_fail_invalidparams;
 }
@@ -134,7 +145,8 @@ ijk_inl iret ijkMouseGetWheelChange(ijkMouseState const* const mouse, istate sta
 {
 	if (mouse && state_out)
 	{
-
+		*state_out = (istate)(mouse->state.button[ijkMouseBtn_wheel] - mouse->state_prev.button[ijkMouseBtn_wheel]);
+		return ijk_success;
 	}
 	return ijk_fail_invalidparams;
 }
@@ -144,7 +156,9 @@ ijk_inl iret ijkMouseGetPos(ijkMouseState const* const mouse, i32 x_out[1], i32 
 {
 	if (mouse && x_out && y_out)
 	{
-
+		*x_out = mouse->state.x;
+		*y_out = mouse->state.y;
+		return ijk_success;
 	}
 	return ijk_fail_invalidparams;
 }
@@ -154,7 +168,9 @@ ijk_inl iret ijkMouseSetPos(ijkMouseState* const mouse, i32 const x, i32 const y
 {
 	if (mouse)
 	{
-
+		mouse->state.x = x;
+		mouse->state.y = y;
+		return ijk_success;
 	}
 	return ijk_fail_invalidparams;
 }
@@ -164,7 +180,9 @@ ijk_inl iret ijkMouseGetPosChange(ijkMouseState const* const mouse, i32 dx_out[1
 {
 	if (mouse && dx_out && dy_out)
 	{
-
+		*dx_out = (mouse->state.x - mouse->state_prev.x);
+		*dy_out = (mouse->state.y - mouse->state_prev.y);
+		return ijk_success;
 	}
 	return ijk_fail_invalidparams;
 }
