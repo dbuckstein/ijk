@@ -628,6 +628,7 @@ iret ijkMouseReset(ijkMouseState* const mouse);
 //		param keyVirt: virtual key code
 //		return SUCCESS: ijk_success if retrieved state
 //		return FAILURE: ijk_fail_invalidparams if invalid parameters
+iret ijkKeyboardGetKeyState(ijkKeyboardState const* const keyboard, ibool state_out[1], ijkKeyVirt const keyVirt);
 
 // ijkKeyboardSetKeyState
 //	Set the current state of a virtual key.
@@ -637,6 +638,7 @@ iret ijkMouseReset(ijkMouseState* const mouse);
 //		param keyVirt: virtual key code
 //		return SUCCESS: ijk_success if set state
 //		return FAILURE: ijk_fail_invalidparams if invalid parameters
+iret ijkKeyboardSetKeyState(ijkKeyboardState* const keyboard, ibool const state, ijkKeyVirt const keyVirt);
 
 // ijkKeyboardIsKeyDown
 //	Check whether key is down.
@@ -646,6 +648,7 @@ iret ijkMouseReset(ijkMouseState* const mouse);
 //		return SUCCESS: ijk_true if key is down
 //		return SUCCESS: ijk_false if key is up
 //		return FAILURE: ijk_fail_invalidparams if invalid parameters
+iret ijkKeyboardIsKeyDown(ijkKeyboardState const* const keyboard, ijkKeyVirt const keyVirt);
 
 // ijkKeyboardIsKeyUp
 //	Check whether key is up.
@@ -655,6 +658,7 @@ iret ijkMouseReset(ijkMouseState* const mouse);
 //		return SUCCESS: ijk_true if key is up
 //		return SUCCESS: ijk_false if key is down
 //		return FAILURE: ijk_fail_invalidparams if invalid parameters
+iret ijkKeyboardIsKeyUp(ijkKeyboardState const* const keyboard, ijkKeyVirt const keyVirt);
 
 // ijkKeyboardIsKeyDownAgain
 //	Check whether key is consistently down between updates.
@@ -664,6 +668,7 @@ iret ijkMouseReset(ijkMouseState* const mouse);
 //		return SUCCESS: ijk_true if key is consistently down
 //		return SUCCESS: ijk_false if key is not consistently down
 //		return FAILURE: ijk_fail_invalidparams if invalid parameters
+iret ijkKeyboardIsKeyDownAgain(ijkKeyboardState const* const keyboard, ijkKeyVirt const keyVirt);
 
 // ijkKeyboardIsKeyUpAgain
 //	Check whether key is consistently up between updates.
@@ -673,6 +678,7 @@ iret ijkMouseReset(ijkMouseState* const mouse);
 //		return SUCCESS: ijk_true if key is consistently up
 //		return SUCCESS: ijk_false if key is not consistently up
 //		return FAILURE: ijk_fail_invalidparams if invalid parameters
+iret ijkKeyboardIsKeyUpAgain(ijkKeyboardState const* const keyboard, ijkKeyVirt const keyVirt);
 
 // ijkKeyboardIsKeyPressed
 //	Check whether key changed from up to down.
@@ -682,6 +688,7 @@ iret ijkMouseReset(ijkMouseState* const mouse);
 //		return SUCCESS: ijk_true if key changed from up to down
 //		return SUCCESS: ijk_false if key did not change from up to down
 //		return FAILURE: ijk_fail_invalidparams if invalid parameters
+iret ijkKeyboardIsKeyPressed(ijkKeyboardState const* const keyboard, ijkKeyVirt const keyVirt);
 
 // ijkKeyboardIsKeyReleased
 //	Check whether key changed from down to up.
@@ -691,6 +698,7 @@ iret ijkMouseReset(ijkMouseState* const mouse);
 //		return SUCCESS: ijk_true if key changed from down to up
 //		return SUCCESS: ijk_false if key did not change from down to up
 //		return FAILURE: ijk_fail_invalidparams if invalid parameters
+iret ijkKeyboardIsKeyReleased(ijkKeyboardState const* const keyboard, ijkKeyVirt const keyVirt);
 
 // ijkKeyboardGetKeyCharState
 //	Get the current state of a character/ASCII key.
@@ -703,6 +711,7 @@ iret ijkMouseReset(ijkMouseState* const mouse);
 //			valid: non-negative
 //		return SUCCESS: ijk_success if retrieved state
 //		return FAILURE: ijk_fail_invalidparams if invalid parameters
+iret ijkKeyboardGetKeyCharState(ijkKeyboardState const* const keyboard, ibool state_out[1], sbyte const keyChar);
 
 // ijkKeyboardSetKeyCharState
 //	Set the current state of a character/ASCII key.
@@ -713,6 +722,7 @@ iret ijkMouseReset(ijkMouseState* const mouse);
 //			valid: non-negative
 //		return SUCCESS: ijk_success if set state
 //		return FAILURE: ijk_fail_invalidparams if invalid parameters
+iret ijkKeyboardSetKeyCharState(ijkKeyboardState* const keyboard, ibool const state, sbyte const keyChar);
 
 // ijkKeyboardIsKeyCharDown
 //	Check whether character key is down.
@@ -723,6 +733,7 @@ iret ijkMouseReset(ijkMouseState* const mouse);
 //		return SUCCESS: ijk_true if key is down
 //		return SUCCESS: ijk_false if key is up
 //		return FAILURE: ijk_fail_invalidparams if invalid parameters
+iret ijkKeyboardIsKeyCharDown(ijkKeyboardState const* const keyboard, sbyte const keyChar);
 
 // ijkKeyboardIsKeyCharUp
 //	Check whether character key is up.
@@ -733,6 +744,7 @@ iret ijkMouseReset(ijkMouseState* const mouse);
 //		return SUCCESS: ijk_true if key is up
 //		return SUCCESS: ijk_false if key is down
 //		return FAILURE: ijk_fail_invalidparams if invalid parameters
+iret ijkKeyboardIsKeyCharUp(ijkKeyboardState const* const keyboard, sbyte const keyChar);
 
 // ijkKeyboardIsKeyCharDownAgain
 //	Check whether character key is consistently down between updates.
@@ -743,6 +755,7 @@ iret ijkMouseReset(ijkMouseState* const mouse);
 //		return SUCCESS: ijk_true if key is consistently down
 //		return SUCCESS: ijk_false if key is not consistently down
 //		return FAILURE: ijk_fail_invalidparams if invalid parameters
+iret ijkKeyboardIsKeyCharDownAgain(ijkKeyboardState const* const keyboard, sbyte const keyChar);
 
 // ijkKeyboardIsKeyCharUpAgain
 //	Check whether character key is consistently up between updates.
@@ -753,6 +766,7 @@ iret ijkMouseReset(ijkMouseState* const mouse);
 //		return SUCCESS: ijk_true if key is consistently up
 //		return SUCCESS: ijk_false if key is not consistently up
 //		return FAILURE: ijk_fail_invalidparams if invalid parameters
+iret ijkKeyboardIsKeyCharUpAgain(ijkKeyboardState const* const keyboard, sbyte const keyChar);
 
 // ijkKeyboardIsKeyCharPressed
 //	Check whether character key changed from up to down.
@@ -763,6 +777,7 @@ iret ijkMouseReset(ijkMouseState* const mouse);
 //		return SUCCESS: ijk_true if key changed from up to down
 //		return SUCCESS: ijk_false if key did not change from up to down
 //		return FAILURE: ijk_fail_invalidparams if invalid parameters
+iret ijkKeyboardIsKeyCharPressed(ijkKeyboardState const* const keyboard, sbyte const keyChar);
 
 // ijkKeyboardIsKeyCharReleased
 //	Check whether character key changed from down to up.
@@ -773,6 +788,7 @@ iret ijkMouseReset(ijkMouseState* const mouse);
 //		return SUCCESS: ijk_true if key changed from down to up
 //		return SUCCESS: ijk_false if key did not change from down to up
 //		return FAILURE: ijk_fail_invalidparams if invalid parameters
+iret ijkKeyboardIsKeyCharReleased(ijkKeyboardState const* const keyboard, sbyte const keyChar);
 
 // ijkKeyboardUpdate
 //	Copy the current state to the previous state.
@@ -780,6 +796,7 @@ iret ijkMouseReset(ijkMouseState* const mouse);
 //			valid: non-null
 //		return SUCCESS: ijk_success if state updated
 //		return FAILURE: ijk_fail_invalidparams if invalid parameters
+iret ijkKeyboardUpdate(ijkKeyboardState* const keyboard);
 
 // ijkKeyboardReset
 //	Reset the current state.
@@ -787,6 +804,7 @@ iret ijkMouseReset(ijkMouseState* const mouse);
 //			valid: non-null
 //		return SUCCESS: ijk_success if state reset
 //		return FAILURE: ijk_fail_invalidparams if invalid parameters
+iret ijkKeyboardReset(ijkKeyboardState* const keyboard);
 
 
 //-----------------------------------------------------------------------------
