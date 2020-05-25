@@ -43,7 +43,7 @@ ijk_inl ptr ijkMemorySet(ptr const dst, size const sz_bytes, byte const value)
 {
 	if (dst && sz_bytes)
 	{
-		byte const value2chomp[8] = { value, value, value, value, value, value, value, value };
+		byte const value2chomp[szqword] = { value, value, value, value, value, value, value, value };
 		chomp const value_chomp = *((pchomp)value2chomp);
 		pchomp dst_chomp = (pchomp)dst;
 		pbyte dst_byte = (pbyte)dst;

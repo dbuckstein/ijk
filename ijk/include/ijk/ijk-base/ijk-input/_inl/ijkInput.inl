@@ -30,6 +30,352 @@
 
 //-----------------------------------------------------------------------------
 
+ijk_inl iret ijkMouseGetButtonState(ijkMouseState const* const mouse, ibool state_out[1], ijkMouseBtn const button)
+{
+	if (mouse && state_out)
+	{
+
+	}
+	return ijk_fail_invalidparams;
+}
+
+
+ijk_inl iret ijkMouseSetButtonState(ijkMouseState* const mouse, ibool const state, ijkMouseBtn const button)
+{
+	if (mouse)
+	{
+
+	}
+	return ijk_fail_invalidparams;
+}
+
+
+ijk_inl iret ijkMouseIsButtonDown(ijkMouseState const* const mouse, ijkMouseBtn const button)
+{
+	if (mouse)
+	{
+
+	}
+	return ijk_fail_invalidparams;
+}
+
+
+ijk_inl iret ijkMouseIsButtonUp(ijkMouseState const* const mouse, ijkMouseBtn const button)
+{
+	if (mouse)
+	{
+
+	}
+	return ijk_fail_invalidparams;
+}
+
+
+ijk_inl iret ijkMouseIsButtonDownAgain(ijkMouseState const* const mouse, ijkMouseBtn const button)
+{
+	if (mouse)
+	{
+
+	}
+	return ijk_fail_invalidparams;
+}
+
+
+ijk_inl iret ijkMouseIsButtonUpAgain(ijkMouseState const* const mouse, ijkMouseBtn const button)
+{
+	if (mouse)
+	{
+
+	}
+	return ijk_fail_invalidparams;
+}
+
+
+ijk_inl iret ijkMouseIsButtonPressed(ijkMouseState const* const mouse, ijkMouseBtn const button)
+{
+	if (mouse)
+	{
+
+	}
+	return ijk_fail_invalidparams;
+}
+
+
+ijk_inl iret ijkMouseIsButtonReleased(ijkMouseState const* const mouse, ijkMouseBtn const button)
+{
+	if (mouse)
+	{
+
+	}
+	return ijk_fail_invalidparams;
+}
+
+
+ijk_inl iret ijkMouseGetWheelState(ijkMouseState const* const mouse, istate state_out[1])
+{
+	if (mouse && state_out)
+	{
+
+	}
+	return ijk_fail_invalidparams;
+}
+
+
+ijk_inl iret ijkMouseSetWheelState(ijkMouseState* const mouse, istate const state)
+{
+	if (mouse)
+	{
+
+	}
+	return ijk_fail_invalidparams;
+}
+
+
+ijk_inl iret ijkMouseGetWheelChange(ijkMouseState const* const mouse, istate state_out[1])
+{
+	if (mouse && state_out)
+	{
+
+	}
+	return ijk_fail_invalidparams;
+}
+
+
+ijk_inl iret ijkMouseGetPos(ijkMouseState const* const mouse, i32 x_out[1], i32 y_out[1])
+{
+	if (mouse && x_out && y_out)
+	{
+
+	}
+	return ijk_fail_invalidparams;
+}
+
+
+ijk_inl iret ijkMouseSetPos(ijkMouseState* const mouse, i32 const x, i32 const y)
+{
+	if (mouse)
+	{
+
+	}
+	return ijk_fail_invalidparams;
+}
+
+
+ijk_inl iret ijkMouseGetPosChange(ijkMouseState const* const mouse, i32 dx_out[1], i32 dy_out[1])
+{
+	if (mouse && dx_out && dy_out)
+	{
+
+	}
+	return ijk_fail_invalidparams;
+}
+
+
+ijk_inl iret ijkMouseUpdate(ijkMouseState* const mouse)
+{
+	if (mouse)
+	{
+		mouse->state_prev = mouse->state;
+		return ijk_success;
+	}
+	return ijk_fail_invalidparams;
+}
+
+
+ijk_inl iret ijkMouseReset(ijkMouseState* const mouse)
+{
+	ptr ijkMemorySetZero(ptr const dst, size const sz_bytes);
+	if (mouse)
+	{
+		ijkMemorySetZero(mouse->state.button, szb(mouse->state));
+		return ijk_success;
+	}
+	return ijk_fail_invalidparams;
+}
+
+
+//-----------------------------------------------------------------------------
+
+ijk_inl iret ijkKeyboardGetKeyState(ijkKeyboardState const* const keyboard, ibool state_out[1], ijkKeyVirt const keyVirt)
+{
+	if (keyboard && state_out)
+	{
+
+	}
+	return ijk_fail_invalidparams;
+}
+
+
+ijk_inl iret ijkKeyboardSetKeyState(ijkKeyboardState* const keyboard, ibool const state, ijkKeyVirt const keyVirt)
+{
+	if (keyboard)
+	{
+
+	}
+	return ijk_fail_invalidparams;
+}
+
+
+ijk_inl iret ijkKeyboardIsKeyDown(ijkKeyboardState const* const keyboard, ijkKeyVirt const keyVirt)
+{
+	if (keyboard)
+	{
+
+	}
+	return ijk_fail_invalidparams;
+}
+
+
+ijk_inl iret ijkKeyboardIsKeyUp(ijkKeyboardState const* const keyboard, ijkKeyVirt const keyVirt)
+{
+	if (keyboard)
+	{
+
+	}
+	return ijk_fail_invalidparams;
+}
+
+
+ijk_inl iret ijkKeyboardIsKeyDownAgain(ijkKeyboardState const* const keyboard, ijkKeyVirt const keyVirt)
+{
+	if (keyboard)
+	{
+
+	}
+	return ijk_fail_invalidparams;
+}
+
+
+ijk_inl iret ijkKeyboardIsKeyUpAgain(ijkKeyboardState const* const keyboard, ijkKeyVirt const keyVirt)
+{
+	if (keyboard)
+	{
+
+	}
+	return ijk_fail_invalidparams;
+}
+
+
+ijk_inl iret ijkKeyboardIsKeyPressed(ijkKeyboardState const* const keyboard, ijkKeyVirt const keyVirt)
+{
+	if (keyboard)
+	{
+
+	}
+	return ijk_fail_invalidparams;
+}
+
+
+ijk_inl iret ijkKeyboardIsKeyReleased(ijkKeyboardState const* const keyboard, ijkKeyVirt const keyVirt)
+{
+	if (keyboard)
+	{
+
+	}
+	return ijk_fail_invalidparams;
+}
+
+
+ijk_inl iret ijkKeyboardGetKeyCharState(ijkKeyboardState const* const keyboard, ibool state_out[1], sbyte const keyChar)
+{
+	if (keyboard && state_out && keyChar >= 0)
+	{
+
+	}
+	return ijk_fail_invalidparams;
+}
+
+
+ijk_inl iret ijkKeyboardSetKeyCharState(ijkKeyboardState* const keyboard, ibool const state, sbyte const keyChar)
+{
+	if (keyboard && keyChar >= 0)
+	{
+
+	}
+	return ijk_fail_invalidparams;
+}
+
+
+ijk_inl iret ijkKeyboardIsKeyCharDown(ijkKeyboardState const* const keyboard, sbyte const keyChar)
+{
+	if (keyboard && keyChar >= 0)
+	{
+
+	}
+	return ijk_fail_invalidparams;
+}
+
+
+ijk_inl iret ijkKeyboardIsKeyCharUp(ijkKeyboardState const* const keyboard, sbyte const keyChar)
+{
+	if (keyboard && keyChar >= 0)
+	{
+
+	}
+	return ijk_fail_invalidparams;
+}
+
+
+ijk_inl iret ijkKeyboardIsKeyCharDownAgain(ijkKeyboardState const* const keyboard, sbyte const keyChar)
+{
+	if (keyboard && keyChar >= 0)
+	{
+
+	}
+	return ijk_fail_invalidparams;
+}
+
+
+ijk_inl iret ijkKeyboardIsKeyCharUpAgain(ijkKeyboardState const* const keyboard, sbyte const keyChar)
+{
+	if (keyboard && keyChar >= 0)
+	{
+
+	}
+	return ijk_fail_invalidparams;
+}
+
+
+ijk_inl iret ijkKeyboardIsKeyCharPressed(ijkKeyboardState const* const keyboard, sbyte const keyChar)
+{
+	if (keyboard && keyChar >= 0)
+	{
+
+	}
+	return ijk_fail_invalidparams;
+}
+
+
+ijk_inl iret ijkKeyboardIsKeyCharReleased(ijkKeyboardState const* const keyboard, sbyte const keyChar)
+{
+	if (keyboard && keyChar >= 0)
+	{
+
+	}
+	return ijk_fail_invalidparams;
+}
+
+
+ijk_inl iret ijkKeyboardUpdate(ijkKeyboardState* const keyboard)
+{
+	if (keyboard)
+	{
+		keyboard->state_prev = keyboard->state;
+		return ijk_success;
+	}
+	return ijk_fail_invalidparams;
+}
+
+
+ijk_inl iret ijkKeyboardReset(ijkKeyboardState* const keyboard)
+{
+	ptr ijkMemorySetZero(ptr const dst, size const sz_bytes);
+	if (keyboard)
+	{
+		ijkMemorySetZero(keyboard->state.key, szb(keyboard->state));
+		return ijk_success;
+	}
+	return ijk_fail_invalidparams;
+}
 
 
 //-----------------------------------------------------------------------------
