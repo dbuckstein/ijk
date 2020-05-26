@@ -33,7 +33,7 @@ This section outlines known tasks to be completed and that have been completed.
 - [x] LIB: platform
 - [x] LIB: math
 - [x] LIB: core
-- [ ] LIB: renderer (per SDK or integrate with platform)
+- [ ] LIB: renderer (per SDK or integrate with platform library)
 
 ### Code
 #### General
@@ -43,23 +43,24 @@ This section outlines known tasks to be completed and that have been completed.
 - [x] core timer
 - [x] core thread
 - [x] core stream
-- [x] core memory
-- [ ] input devices
+- [ ] core memory - implemented basics
+- [x] basic input
+- [ ] gamepad input - implemented xinput for Windows
 #### Math
-- [ ] stats
-- [ ] random
-- [ ] sqrt
-- [ ] interpolation
-- [ ] trigonometry
+- [ ] stats (flt, dbl, int)
+- [ ] random (flt, dbl, int)
+- [ ] sqrt (flt, dbl)
+- [ ] interpolation (flt, dbl)
+- [ ] trigonometry (flt, dbl)
 - [ ] vector (flt, dbl, int)
 - [ ] matrix (flt, dbl, int)
-- [ ] quaternion
-- [ ] dual quaternion
-- [ ] managed vector
-- [ ] transformation
-- [ ] extension: basic blending
-- [ ] extension: basic physics
-- [ ] extension: geometry generation
+- [ ] quaternion (flt, dbl)
+- [ ] dual quaternion (flt, dbl)
+- [ ] managed vector (flt, dbl)
+- [ ] managed transformation (flt, dbl)
+- [ ] extension: basic physics (flt)
+- [ ] extension: basic blending (flt)
+- [ ] extension: geometry generation (flt)
 #### Graphics
 - [ ] test window in app
 - [ ] Vulkan context in app

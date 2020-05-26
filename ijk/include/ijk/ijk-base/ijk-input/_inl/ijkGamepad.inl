@@ -30,6 +30,27 @@
 
 //-----------------------------------------------------------------------------
 
+ijk_inl iret ijkGamepadSetID(ijkGamepadState* const gamepad, ijkGamepadID const gamepadID)
+{
+	if (gamepad)
+	{
+		gamepad->ctrlID = gamepadID;
+		return ijkGamepadUpdate(gamepad);
+	}
+	return ijk_fail_invalidparams;
+}
+
+
+ijk_inl iret ijkGamepadReset(ijkGamepadState* const gamepad)
+{
+	ptr ijkMemorySetZero(ptr const dst, size const sz_bytes);
+	if (gamepad)
+	{
+		ijkMemorySetZero(gamepad->packet, (szb(gamepad->packet) + szb(gamepad->state)));
+		return ijk_success;
+	}
+	return ijk_fail_invalidparams;
+}
 
 
 //-----------------------------------------------------------------------------

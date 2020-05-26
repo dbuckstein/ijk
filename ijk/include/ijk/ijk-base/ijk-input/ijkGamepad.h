@@ -310,6 +310,27 @@ iret ijkGamepadGetThumbstickLeftChange(ijkGamepadState const* const gamepad, dbl
 //		return FAILURE: ijk_fail_invalidparams if invalid parameters
 iret ijkGamepadGetThumbstickRightChange(ijkGamepadState const* const gamepad, dbl dv_out[1]);
 
+// ijkGamepadSetID
+//	Initialize gamepad given ID and update.
+//		param gamepad: pointer to gamepad descriptor
+//			valid: non-null
+//		param gamepadID: gamepad player identifier
+//		return SUCCESS: ijk_success if ID set and state updated
+//		return FAILURE: ijk_fail_operationfail if state not updated
+//		return FAILURE: ijk_fail_invalidparams if invalid parameters
+iret ijkGamepadSetID(ijkGamepadState* const gamepad, ijkGamepadID const gamepadID);
+
+// ijkGamepadSetRumble
+//	Set gamepad rumble motors.
+//		param gamepad: pointer to gamepad descriptor
+//			valid: non-null
+//		param rumble_left: new setting for left motor
+//		param rumble_right: new setting for right motor
+//		return SUCCESS: ijk_success if rumble set
+//		return FAILURE: ijk_fail_operationfail if did not set rumble
+//		return FAILURE: ijk_fail_invalidparams if invalid parameters
+iret ijkGamepadSetRumble(ijkGamepadState const* const gamepad, word const rumble_left, word const rumble_right);
+
 // ijkGamepadUpdate
 //	Copy the current state to the previous state.
 //		param gamepad: pointer to gamepad descriptor
@@ -326,26 +347,6 @@ iret ijkGamepadUpdate(ijkGamepadState* const gamepad);
 //		return SUCCESS: ijk_success if state reset
 //		return FAILURE: ijk_fail_invalidparams if invalid parameters
 iret ijkGamepadReset(ijkGamepadState* const gamepad);
-
-// ijkGamepadSetID
-//	Initialize gamepad given ID and update.
-//		param gamepad: pointer to gamepad descriptor
-//			valid: non-null
-//		param gamepadID: gamepad player identifier
-//		return SUCCESS: ijk_success if ID set
-//		return FAILURE: ijk_fail_invalidparams if invalid parameters
-iret ijkGamepadSetID(ijkGamepadState* const gamepad, ijkGamepadID const gamepadID);
-
-// ijkGamepadSetRumble
-//	Set gamepad rumble motors.
-//		param gamepad: pointer to gamepad descriptor
-//			valid: non-null
-//		param rumble_left: new setting for left motor
-//		param rumble_right: new setting for right motor
-//		return SUCCESS: ijk_success if rumble set
-//		return FAILURE: ijk_fail_operationfail if did not set rumble
-//		return FAILURE: ijk_fail_invalidparams if invalid parameters
-iret ijkGamepadSetRumble(ijkGamepadState* const gamepad, word const rumble_left, word const rumble_right);
 
 
 //-----------------------------------------------------------------------------
