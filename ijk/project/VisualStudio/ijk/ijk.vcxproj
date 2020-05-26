@@ -18,37 +18,11 @@
       <Platform>x64</Platform>
     </ProjectConfiguration>
   </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="..\..\..\source\ijk-base\common\ijk-base.c" />
-    <ClCompile Include="..\..\..\source\ijk-base\common\ijk-input\ijkGamepad.c" />
-    <ClCompile Include="..\..\..\source\ijk-base\common\ijk-input\ijkInput.c" />
-    <ClCompile Include="..\..\..\source\ijk-base\common\ijk-utility\ijkMemory.c" />
-    <ClCompile Include="..\..\..\source\ijk-base\common\ijk-utility\ijkStream.c" />
-    <ClCompile Include="..\..\..\source\ijk-base\common\ijk-utility\ijkThread.c" />
-    <ClCompile Include="..\..\..\source\ijk-base\common\ijk-utility\ijkTimer.c" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="..\..\..\include\ijk\ijk-base\ijk-base.h" />
-    <ClInclude Include="..\..\..\include\ijk\ijk-base\ijk-input\ijkGamepad.h" />
-    <ClInclude Include="..\..\..\include\ijk\ijk-base\ijk-input\ijkInput.h" />
-    <ClInclude Include="..\..\..\include\ijk\ijk-base\ijk-utility\ijkMemory.h" />
-    <ClInclude Include="..\..\..\include\ijk\ijk-base\ijk-utility\ijkStream.h" />
-    <ClInclude Include="..\..\..\include\ijk\ijk-base\ijk-utility\ijkThread.h" />
-    <ClInclude Include="..\..\..\include\ijk\ijk-base\ijk-utility\ijkTimer.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="..\..\..\include\ijk\ijk-base\ijk-input\_inl\ijkGamepad.inl" />
-    <None Include="..\..\..\include\ijk\ijk-base\ijk-input\_inl\ijkInput.inl" />
-    <None Include="..\..\..\include\ijk\ijk-base\ijk-utility\_inl\ijkMemory.inl" />
-    <None Include="..\..\..\include\ijk\ijk-base\ijk-utility\_inl\ijkStream.inl" />
-    <None Include="..\..\..\include\ijk\ijk-base\ijk-utility\_inl\ijkThread.inl" />
-    <None Include="..\..\..\include\ijk\ijk-base\ijk-utility\_inl\ijkTimer.inl" />
-  </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
-    <ProjectGuid>{5DE2A90F-D7A1-447C-9B75-3059B1CE9043}</ProjectGuid>
+    <ProjectGuid>{74BB7D9E-78E4-43A6-8067-63EEFE08407E}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
-    <RootNamespace>ijkbase</RootNamespace>
+    <RootNamespace>ijk</RootNamespace>
     <WindowsTargetPlatformVersion>$(SDKVersion)</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -120,10 +94,8 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>WIN$(PlatformArchitecture);WIN32_LEAN_AND_MEAN;_CRT_SECURE_NO_WARNINGS;_LIB;%(PreprocessorDefinitions);_DEBUG;</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(ijk_sdk)include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <TreatWarningAsError>true</TreatWarningAsError>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -134,10 +106,8 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>WIN$(PlatformArchitecture);WIN32_LEAN_AND_MEAN;_CRT_SECURE_NO_WARNINGS;_LIB;%(PreprocessorDefinitions);_DEBUG;</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(ijk_sdk)include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <TreatWarningAsError>true</TreatWarningAsError>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -150,10 +120,8 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>WIN$(PlatformArchitecture);WIN32_LEAN_AND_MEAN;_CRT_SECURE_NO_WARNINGS;_LIB;%(PreprocessorDefinitions);NDEBUG;</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(ijk_sdk)include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <TreatWarningAsError>true</TreatWarningAsError>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -168,10 +136,8 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>WIN$(PlatformArchitecture);WIN32_LEAN_AND_MEAN;_CRT_SECURE_NO_WARNINGS;_LIB;%(PreprocessorDefinitions);NDEBUG;</PreprocessorDefinitions>
+      <PreprocessorDefinitions>NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(ijk_sdk)include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <TreatWarningAsError>true</TreatWarningAsError>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -180,6 +146,12 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
   </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\include\ijk\ijk.h" />
+    <ClInclude Include="..\..\..\include\ijk\ijk\ijk-config.h" />
+    <ClInclude Include="..\..\..\include\ijk\ijk\ijk-macros.h" />
+    <ClInclude Include="..\..\..\include\ijk\ijk\ijk-typedefs.h" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

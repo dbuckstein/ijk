@@ -16,15 +16,92 @@
     <Filter Include="Source Files\common">
       <UniqueIdentifier>{6c42c307-6a81-45de-97a0-22b5623f642a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\ijk-base">
+      <UniqueIdentifier>{fffdf380-5db8-4036-8439-4df631897b9d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\ijk-base\ijk-utility">
+      <UniqueIdentifier>{e8046c22-dcc1-4b9a-9df9-78db30316882}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\ijk-base\ijk-utility\_inl">
+      <UniqueIdentifier>{1c6f8557-ed1f-4d95-8050-deee106074f2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\common\ijk-utility">
+      <UniqueIdentifier>{2b55ce74-8cb5-4201-9eb7-44d5ebfe7cd5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\ijk-base\ijk-input">
+      <UniqueIdentifier>{239c8e7b-28ea-46e1-9364-020ca804e763}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\common\ijk-input">
+      <UniqueIdentifier>{6a1b9223-2ec2-47ed-990f-96a6206c9a9a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\ijk-base\ijk-input\_inl">
+      <UniqueIdentifier>{fde45da6-c269-455a-8b2b-272c65a3777c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\source\ijk-base\common\ijk-base.c">
       <Filter>Source Files\common</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\source\ijk-base\common\ijk-utility\ijkTimer.c">
+      <Filter>Source Files\common\ijk-utility</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\ijk-base\common\ijk-utility\ijkThread.c">
+      <Filter>Source Files\common\ijk-utility</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\ijk-base\common\ijk-utility\ijkStream.c">
+      <Filter>Source Files\common\ijk-utility</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\ijk-base\common\ijk-utility\ijkMemory.c">
+      <Filter>Source Files\common\ijk-utility</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\ijk-base\common\ijk-input\ijkInput.c">
+      <Filter>Source Files\common\ijk-input</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\ijk-base\common\ijk-input\ijkGamepad.c">
+      <Filter>Source Files\common\ijk-input</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\include\ijk\ijk-base\ijk-base.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\ijk-base</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\include\ijk\ijk-base\ijk-utility\ijkTimer.h">
+      <Filter>Header Files\ijk-base\ijk-utility</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\ijk\ijk-base\ijk-utility\ijkThread.h">
+      <Filter>Header Files\ijk-base\ijk-utility</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\ijk\ijk-base\ijk-utility\ijkStream.h">
+      <Filter>Header Files\ijk-base\ijk-utility</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\ijk\ijk-base\ijk-utility\ijkMemory.h">
+      <Filter>Header Files\ijk-base\ijk-utility</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\ijk\ijk-base\ijk-input\ijkInput.h">
+      <Filter>Header Files\ijk-base\ijk-input</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\ijk\ijk-base\ijk-input\ijkGamepad.h">
+      <Filter>Header Files\ijk-base\ijk-input</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\..\include\ijk\ijk-base\ijk-utility\_inl\ijkTimer.inl">
+      <Filter>Header Files\ijk-base\ijk-utility\_inl</Filter>
+    </None>
+    <None Include="..\..\..\include\ijk\ijk-base\ijk-utility\_inl\ijkThread.inl">
+      <Filter>Header Files\ijk-base\ijk-utility\_inl</Filter>
+    </None>
+    <None Include="..\..\..\include\ijk\ijk-base\ijk-utility\_inl\ijkStream.inl">
+      <Filter>Header Files\ijk-base\ijk-utility\_inl</Filter>
+    </None>
+    <None Include="..\..\..\include\ijk\ijk-base\ijk-utility\_inl\ijkMemory.inl">
+      <Filter>Header Files\ijk-base\ijk-utility\_inl</Filter>
+    </None>
+    <None Include="..\..\..\include\ijk\ijk-base\ijk-input\_inl\ijkInput.inl">
+      <Filter>Header Files\ijk-base\ijk-input\_inl</Filter>
+    </None>
+    <None Include="..\..\..\include\ijk\ijk-base\ijk-input\_inl\ijkGamepad.inl">
+      <Filter>Header Files\ijk-base\ijk-input\_inl</Filter>
+    </None>
   </ItemGroup>
 </Project>
