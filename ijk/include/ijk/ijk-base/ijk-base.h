@@ -33,6 +33,7 @@
 #include "ijk-utility/ijkMemory.h"
 
 #include "ijk-input/ijkInput.h"
+#include "ijk-input/ijkGamepad.h"
 
 
 #endif	// !_IJK_BASE_H_
