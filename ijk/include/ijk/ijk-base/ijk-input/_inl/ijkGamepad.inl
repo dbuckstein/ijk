@@ -190,6 +190,16 @@ ijk_inl iret ijkGamepadGetTriggerRight(ijkGamepadState const* const gamepad, dbl
 }
 
 
+ijk_inl iret ijkGamepadGetTriggers(ijkGamepadState const* const gamepad, dbl vl_out[1], dbl vr_out[1])
+{
+	if (gamepad && vl_out && vr_out)
+	{
+
+	}
+	return ijk_fail_invalidparams;
+}
+
+
 ijk_inl iret ijkGamepadGetTriggerLeftChange(ijkGamepadState const* const gamepad, dbl dv_out[1])
 {
 	if (gamepad && dv_out)
@@ -210,7 +220,17 @@ ijk_inl iret ijkGamepadGetTriggerRightChange(ijkGamepadState const* const gamepa
 }
 
 
-ijk_inl iret ijkGamepadGetThumbstickLeft(ijkGamepadState const* const gamepad, dbl v_out[1])
+ijk_inl iret ijkGamepadGetTriggersChange(ijkGamepadState const* const gamepad, dbl dvl_out[1], dbl dvr_out[1])
+{
+	if (gamepad && dvl_out && dvr_out)
+	{
+
+	}
+	return ijk_fail_invalidparams;
+}
+
+
+ijk_inl iret ijkGamepadGetThumbstickLeft(ijkGamepadState const* const gamepad, dbl v_out[2])
 {
 	if (gamepad && v_out)
 	{
@@ -220,7 +240,7 @@ ijk_inl iret ijkGamepadGetThumbstickLeft(ijkGamepadState const* const gamepad, d
 }
 
 
-ijk_inl iret ijkGamepadGetThumbstickRight(ijkGamepadState const* const gamepad, dbl v_out[1])
+ijk_inl iret ijkGamepadGetThumbstickRight(ijkGamepadState const* const gamepad, dbl v_out[2])
 {
 	if (gamepad && v_out)
 	{
@@ -230,7 +250,17 @@ ijk_inl iret ijkGamepadGetThumbstickRight(ijkGamepadState const* const gamepad, 
 }
 
 
-ijk_inl iret ijkGamepadGetThumbstickLeftChange(ijkGamepadState const* const gamepad, dbl dv_out[1])
+ijk_inl iret ijkGamepadGetThumbsticks(ijkGamepadState const* const gamepad, dbl vl_out[2], dbl vr_out[2])
+{
+	if (gamepad && vl_out && vr_out)
+	{
+
+	}
+	return ijk_fail_invalidparams;
+}
+
+
+ijk_inl iret ijkGamepadGetThumbstickLeftChange(ijkGamepadState const* const gamepad, dbl dv_out[2])
 {
 	if (gamepad && dv_out)
 	{
@@ -240,9 +270,19 @@ ijk_inl iret ijkGamepadGetThumbstickLeftChange(ijkGamepadState const* const game
 }
 
 
-ijk_inl iret ijkGamepadGetThumbstickRightChange(ijkGamepadState const* const gamepad, dbl dv_out[1])
+ijk_inl iret ijkGamepadGetThumbstickRightChange(ijkGamepadState const* const gamepad, dbl dv_out[2])
 {
 	if (gamepad && dv_out)
+	{
+
+	}
+	return ijk_fail_invalidparams;
+}
+
+
+ijk_inl iret ijkGamepadGetThumbsticksChange(ijkGamepadState const* const gamepad, dbl dvl_out[2], dbl dvr_out[2])
+{
+	if (gamepad && dvl_out && dvr_out)
 	{
 
 	}

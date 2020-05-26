@@ -261,6 +261,18 @@ iret ijkGamepadGetTriggerLeft(ijkGamepadState const* const gamepad, dbl v_out[1]
 //		return FAILURE: ijk_fail_invalidparams if invalid parameters
 iret ijkGamepadGetTriggerRight(ijkGamepadState const* const gamepad, dbl v_out[1]);
 
+// ijkGamepadGetTriggers
+//	Get both triggers as unit values.
+//		param gamepad: pointer to gamepad descriptor
+//			valid: non-null
+//		param vl_out: pointer to left trigger value output
+//			valid: non-null
+//		param vr_out: pointer to right trigger value output
+//			valid: non-null
+//		return SUCCESS: ijk_success if retrieved value
+//		return FAILURE: ijk_fail_invalidparams if invalid parameters
+iret ijkGamepadGetTriggers(ijkGamepadState const* const gamepad, dbl vl_out[1], dbl vr_out[1]);
+
 // ijkGamepadGetTriggerLeftChange
 //	Get the left trigger value difference from the previous state.
 //		param gamepad: pointer to gamepad descriptor
@@ -281,6 +293,18 @@ iret ijkGamepadGetTriggerLeftChange(ijkGamepadState const* const gamepad, dbl dv
 //		return FAILURE: ijk_fail_invalidparams if invalid parameters
 iret ijkGamepadGetTriggerRightChange(ijkGamepadState const* const gamepad, dbl dv_out[1]);
 
+// ijkGamepadGetTriggersChange
+//	Get both trigger value differences from the previous state.
+//		param gamepad: pointer to gamepad descriptor
+//			valid: non-null
+//		param dvl_out: pointer to left trigger value output
+//			valid: non-null
+//		param dvr_out: pointer to right trigger value output
+//			valid: non-null
+//		return SUCCESS: ijk_success if retrieved value
+//		return FAILURE: ijk_fail_invalidparams if invalid parameters
+iret ijkGamepadGetTriggersChange(ijkGamepadState const* const gamepad, dbl dvl_out[1], dbl dvr_out[1]);
+
 // ijkGamepadGetThumbstickLeft
 //	Get the left thumbstick as a unit direction vector.
 //		param gamepad: pointer to gamepad descriptor
@@ -289,7 +313,7 @@ iret ijkGamepadGetTriggerRightChange(ijkGamepadState const* const gamepad, dbl d
 //			valid: non-null
 //		return SUCCESS: ijk_success if retrieved value
 //		return FAILURE: ijk_fail_invalidparams if invalid parameters
-iret ijkGamepadGetThumbstickLeft(ijkGamepadState const* const gamepad, dbl v_out[1]);
+iret ijkGamepadGetThumbstickLeft(ijkGamepadState const* const gamepad, dbl v_out[2]);
 
 // ijkGamepadGetThumbstickRight
 //	Get the right thumbstick as a unit direction vector.
@@ -299,7 +323,19 @@ iret ijkGamepadGetThumbstickLeft(ijkGamepadState const* const gamepad, dbl v_out
 //			valid: non-null
 //		return SUCCESS: ijk_success if retrieved value
 //		return FAILURE: ijk_fail_invalidparams if invalid parameters
-iret ijkGamepadGetThumbstickRight(ijkGamepadState const* const gamepad, dbl v_out[1]);
+iret ijkGamepadGetThumbstickRight(ijkGamepadState const* const gamepad, dbl v_out[2]);
+
+// ijkGamepadGetThumbsticks
+//	Get both thumbsticks as unit direction vectors.
+//		param gamepad: pointer to gamepad descriptor
+//			valid: non-null
+//		param vl_out: pointer to left joystick vector output
+//			valid: non-null
+//		param vr_out: pointer to right joystick vector output
+//			valid: non-null
+//		return SUCCESS: ijk_success if retrieved value
+//		return FAILURE: ijk_fail_invalidparams if invalid parameters
+iret ijkGamepadGetThumbsticks(ijkGamepadState const* const gamepad, dbl vl_out[2], dbl vr_out[2]);
 
 // ijkGamepadGetThumbstickLeftChange
 //	Get the left thumbstick vector difference from the previous state.
@@ -309,7 +345,7 @@ iret ijkGamepadGetThumbstickRight(ijkGamepadState const* const gamepad, dbl v_ou
 //			valid: non-null
 //		return SUCCESS: ijk_success if retrieved value
 //		return FAILURE: ijk_fail_invalidparams if invalid parameters
-iret ijkGamepadGetThumbstickLeftChange(ijkGamepadState const* const gamepad, dbl dv_out[1]);
+iret ijkGamepadGetThumbstickLeftChange(ijkGamepadState const* const gamepad, dbl dv_out[2]);
 
 // ijkGamepadGetThumbstickRightChange
 //	Get the right thumbstick vector difference from the previous state.
@@ -319,7 +355,19 @@ iret ijkGamepadGetThumbstickLeftChange(ijkGamepadState const* const gamepad, dbl
 //			valid: non-null
 //		return SUCCESS: ijk_success if retrieved value
 //		return FAILURE: ijk_fail_invalidparams if invalid parameters
-iret ijkGamepadGetThumbstickRightChange(ijkGamepadState const* const gamepad, dbl dv_out[1]);
+iret ijkGamepadGetThumbstickRightChange(ijkGamepadState const* const gamepad, dbl dv_out[2]);
+
+// ijkGamepadGetThumbsticksChange
+//	Get both thumbstick vector differences from the previous state.
+//		param gamepad: pointer to gamepad descriptor
+//			valid: non-null
+//		param dvl_out: pointer to left joystick vector output
+//			valid: non-null
+//		param dvr_out: pointer to right joystick vector output
+//			valid: non-null
+//		return SUCCESS: ijk_success if retrieved value
+//		return FAILURE: ijk_fail_invalidparams if invalid parameters
+iret ijkGamepadGetThumbsticksChange(ijkGamepadState const* const gamepad, dbl dvl_out[2], dbl dvt_out[2]);
 
 // ijkGamepadSetID
 //	Initialize gamepad given ID and update.
