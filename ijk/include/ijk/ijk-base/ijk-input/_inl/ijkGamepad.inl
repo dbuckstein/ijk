@@ -34,7 +34,8 @@ ijk_inl iret ijkGamepadGetButtonState(ijkGamepadState const* const gamepad, iboo
 {
 	if (gamepad && state_out)
 	{
-
+		*state_out = (ibool)ijk_flagch(gamepad->state.button, button);
+		return ijk_success;
 	}
 	return ijk_fail_invalidparams;
 }
@@ -44,7 +45,7 @@ ijk_inl iret ijkGamepadIsButtonDown(ijkGamepadState const* const gamepad, ijkGam
 {
 	if (gamepad)
 	{
-
+		return ijk_flagch(gamepad->state.button, button);
 	}
 	return ijk_fail_invalidparams;
 }
@@ -54,7 +55,7 @@ ijk_inl iret ijkGamepadIsButtonUp(ijkGamepadState const* const gamepad, ijkGamep
 {
 	if (gamepad)
 	{
-
+		return ijk_flagnch(gamepad->state.button, button);
 	}
 	return ijk_fail_invalidparams;
 }
@@ -64,7 +65,7 @@ ijk_inl iret ijkGamepadIsButtonDownAgain(ijkGamepadState const* const gamepad, i
 {
 	if (gamepad)
 	{
-
+		return ijk_flagch(gamepad->state.button & gamepad->state_prev.button, button);
 	}
 	return ijk_fail_invalidparams;
 }
@@ -74,7 +75,7 @@ ijk_inl iret ijkGamepadIsButtonUpAgain(ijkGamepadState const* const gamepad, ijk
 {
 	if (gamepad)
 	{
-
+		return ijk_flagnch(gamepad->state.button | gamepad->state_prev.button, button);
 	}
 	return ijk_fail_invalidparams;
 }
@@ -84,7 +85,7 @@ ijk_inl iret ijkGamepadIsButtonPressed(ijkGamepadState const* const gamepad, ijk
 {
 	if (gamepad)
 	{
-
+		return ijk_flagch(gamepad->state.button & ~gamepad->state_prev.button, button);
 	}
 	return ijk_fail_invalidparams;
 }
@@ -94,7 +95,7 @@ ijk_inl iret ijkGamepadIsButtonReleased(ijkGamepadState const* const gamepad, ij
 {
 	if (gamepad)
 	{
-
+		return ijk_flagch(~gamepad->state.button & gamepad->state_prev.button, button);
 	}
 	return ijk_fail_invalidparams;
 }
@@ -104,7 +105,8 @@ ijk_inl iret ijkGamepadGetConnectionState(ijkGamepadState const* const gamepad, 
 {
 	if (gamepad && state_out)
 	{
-
+		*state_out = (ibool)ijk_istrue(gamepad->state.connected);
+		return ijk_success;
 	}
 	return ijk_fail_invalidparams;
 }
@@ -114,7 +116,7 @@ ijk_inl iret ijkGamepadIsConnected(ijkGamepadState const* const gamepad)
 {
 	if (gamepad)
 	{
-
+		return (gamepad->state.connected);
 	}
 	return ijk_fail_invalidparams;
 }
@@ -124,7 +126,7 @@ ijk_inl iret ijkGamepadIsNotConnected(ijkGamepadState const* const gamepad)
 {
 	if (gamepad)
 	{
-
+		return !(gamepad->state.connected);
 	}
 	return ijk_fail_invalidparams;
 }
@@ -134,7 +136,7 @@ ijk_inl iret ijkGamepadIsConnectedAgain(ijkGamepadState const* const gamepad)
 {
 	if (gamepad)
 	{
-
+		return (gamepad->state.connected & gamepad->state_prev.connected);
 	}
 	return ijk_fail_invalidparams;
 }
@@ -144,7 +146,7 @@ ijk_inl iret ijkGamepadIsNotConnectedAgain(ijkGamepadState const* const gamepad)
 {
 	if (gamepad)
 	{
-
+		return !(gamepad->state.connected | gamepad->state_prev.connected);
 	}
 	return ijk_fail_invalidparams;
 }
@@ -154,7 +156,7 @@ ijk_inl iret ijkGamepadReconnected(ijkGamepadState const* const gamepad)
 {
 	if (gamepad)
 	{
-
+		return (gamepad->state.connected & ~gamepad->state_prev.connected);
 	}
 	return ijk_fail_invalidparams;
 }
@@ -164,7 +166,7 @@ ijk_inl iret ijkGamepadDisconnected(ijkGamepadState const* const gamepad)
 {
 	if (gamepad)
 	{
-
+		return (~gamepad->state.connected & gamepad->state_prev.connected);
 	}
 	return ijk_fail_invalidparams;
 }
@@ -174,7 +176,8 @@ ijk_inl iret ijkGamepadGetTriggerLeft(ijkGamepadState const* const gamepad, dbl 
 {
 	if (gamepad && v_out)
 	{
-
+		*v_out = gamepad->state.trigger_left_unit;
+		return ijk_success;
 	}
 	return ijk_fail_invalidparams;
 }
@@ -184,7 +187,8 @@ ijk_inl iret ijkGamepadGetTriggerRight(ijkGamepadState const* const gamepad, dbl
 {
 	if (gamepad && v_out)
 	{
-
+		*v_out = gamepad->state.trigger_right_unit;
+		return ijk_success;
 	}
 	return ijk_fail_invalidparams;
 }
@@ -194,7 +198,9 @@ ijk_inl iret ijkGamepadGetTriggers(ijkGamepadState const* const gamepad, dbl vl_
 {
 	if (gamepad && vl_out && vr_out)
 	{
-
+		*vl_out = gamepad->state.trigger_left_unit;
+		*vr_out = gamepad->state.trigger_right_unit;
+		return ijk_success;
 	}
 	return ijk_fail_invalidparams;
 }
@@ -204,7 +210,8 @@ ijk_inl iret ijkGamepadGetTriggerLeftChange(ijkGamepadState const* const gamepad
 {
 	if (gamepad && dv_out)
 	{
-
+		*dv_out = (gamepad->state.trigger_left_unit - gamepad->state_prev.trigger_left_unit);
+		return ijk_success;
 	}
 	return ijk_fail_invalidparams;
 }
@@ -214,7 +221,8 @@ ijk_inl iret ijkGamepadGetTriggerRightChange(ijkGamepadState const* const gamepa
 {
 	if (gamepad && dv_out)
 	{
-
+		*dv_out = (gamepad->state.trigger_right_unit - gamepad->state_prev.trigger_right_unit);
+		return ijk_success;
 	}
 	return ijk_fail_invalidparams;
 }
@@ -224,7 +232,9 @@ ijk_inl iret ijkGamepadGetTriggersChange(ijkGamepadState const* const gamepad, d
 {
 	if (gamepad && dvl_out && dvr_out)
 	{
-
+		*dvl_out = (gamepad->state.trigger_left_unit - gamepad->state_prev.trigger_left_unit);
+		*dvr_out = (gamepad->state.trigger_right_unit - gamepad->state_prev.trigger_right_unit);
+		return ijk_success;
 	}
 	return ijk_fail_invalidparams;
 }
@@ -234,7 +244,9 @@ ijk_inl iret ijkGamepadGetThumbstickLeft(ijkGamepadState const* const gamepad, d
 {
 	if (gamepad && v_out)
 	{
-
+		v_out[0] = gamepad->state.thumbX_left;
+		v_out[1] = gamepad->state.thumbY_left;
+		return ijk_success;
 	}
 	return ijk_fail_invalidparams;
 }
@@ -244,7 +256,9 @@ ijk_inl iret ijkGamepadGetThumbstickRight(ijkGamepadState const* const gamepad, 
 {
 	if (gamepad && v_out)
 	{
-
+		v_out[0] = gamepad->state.thumbX_right;
+		v_out[1] = gamepad->state.thumbY_right;
+		return ijk_success;
 	}
 	return ijk_fail_invalidparams;
 }
@@ -254,7 +268,11 @@ ijk_inl iret ijkGamepadGetThumbsticks(ijkGamepadState const* const gamepad, dbl 
 {
 	if (gamepad && vl_out && vr_out)
 	{
-
+		vl_out[0] = gamepad->state.thumbX_left;
+		vl_out[1] = gamepad->state.thumbY_left;
+		vr_out[0] = gamepad->state.thumbX_right;
+		vr_out[1] = gamepad->state.thumbY_right;
+		return ijk_success;
 	}
 	return ijk_fail_invalidparams;
 }
@@ -264,7 +282,9 @@ ijk_inl iret ijkGamepadGetThumbstickLeftChange(ijkGamepadState const* const game
 {
 	if (gamepad && dv_out)
 	{
-
+		dv_out[0] = (gamepad->state.thumbX_left - gamepad->state_prev.thumbX_left);
+		dv_out[1] = (gamepad->state.thumbY_left - gamepad->state_prev.thumbY_left);
+		return ijk_success;
 	}
 	return ijk_fail_invalidparams;
 }
@@ -274,7 +294,9 @@ ijk_inl iret ijkGamepadGetThumbstickRightChange(ijkGamepadState const* const gam
 {
 	if (gamepad && dv_out)
 	{
-
+		dv_out[0] = (gamepad->state.thumbX_right - gamepad->state_prev.thumbX_right);
+		dv_out[1] = (gamepad->state.thumbY_right - gamepad->state_prev.thumbY_right);
+		return ijk_success;
 	}
 	return ijk_fail_invalidparams;
 }
@@ -284,7 +306,11 @@ ijk_inl iret ijkGamepadGetThumbsticksChange(ijkGamepadState const* const gamepad
 {
 	if (gamepad && dvl_out && dvr_out)
 	{
-
+		dvl_out[0] = (gamepad->state.thumbX_left - gamepad->state_prev.thumbX_left);
+		dvl_out[1] = (gamepad->state.thumbY_left - gamepad->state_prev.thumbY_left);
+		dvr_out[0] = (gamepad->state.thumbX_right - gamepad->state_prev.thumbX_right);
+		dvr_out[1] = (gamepad->state.thumbY_right - gamepad->state_prev.thumbY_right);
+		return ijk_success;
 	}
 	return ijk_fail_invalidparams;
 }
