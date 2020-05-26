@@ -19,6 +19,18 @@
     <Filter Include="Header Files\ijk-math">
       <UniqueIdentifier>{0acaa139-38a6-43cd-80ce-ab2e91750ea8}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\ijk-math\ijk-real">
+      <UniqueIdentifier>{8d4f16bf-e393-4d75-b66a-08d3dd4ad6d2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\common\ijk-real">
+      <UniqueIdentifier>{58f84b7a-d689-403c-b3a0-03cbe87b6393}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\ijk-math\ijk-xmath">
+      <UniqueIdentifier>{ce829540-eaad-456d-91a9-29dc2b332887}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\common\ijk-xmath">
+      <UniqueIdentifier>{5e26b8f2-7b71-4114-88a9-84e1eefb3fb4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\source\ijk-math\common\ijk-math.c">
