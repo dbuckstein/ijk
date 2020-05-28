@@ -30,6 +30,8 @@
 #include "ijk/ijk/ijk-typedefs.h"
 
 
+//-----------------------------------------------------------------------------
+
 // IJK_REAL_DBL
 //	User-defined macro to select double as base real number type. If not 
 //	defined, the base real number type defaults to float.	
@@ -329,6 +331,9 @@ typedef ijk_real		real;
 #define ijk_rad2deg_flt(x)			((x) * flt_rad2deg)
 #define ijk_rad2deg_dbl(x)			((x) * dbl_rad2deg)
 #define ijk_rad2deg					ijk_tokencat(ijk_rad2deg_,ijk_real)
+
+
+//-----------------------------------------------------------------------------
 
 
 #endif	// !_IJK_REAL_H_
