@@ -156,12 +156,17 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\source\ijk-math\common\ijk-math.c" />
+    <ClCompile Include="..\..\..\source\ijk-math\common\ijk-real\ijkRandom.c" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\include\ijk\ijk-math\ijk-math.h" />
     <ClInclude Include="..\..\..\include\ijk\ijk-math\ijk-real\ijkMatrix.h" />
+    <ClInclude Include="..\..\..\include\ijk\ijk-math\ijk-real\ijkRandom.h" />
     <ClInclude Include="..\..\..\include\ijk\ijk-math\ijk-real\ijkReal.h" />
     <ClInclude Include="..\..\..\include\ijk\ijk-math\ijk-real\ijkVector.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\..\include\ijk\ijk-math\ijk-real\_inl\ijkRandom.inl" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

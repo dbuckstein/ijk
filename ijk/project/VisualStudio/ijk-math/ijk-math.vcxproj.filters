@@ -31,10 +31,19 @@
     <Filter Include="Source Files\common\ijk-xmath">
       <UniqueIdentifier>{5e26b8f2-7b71-4114-88a9-84e1eefb3fb4}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\ijk-math\ijk-real\_inl">
+      <UniqueIdentifier>{ab5a83be-bd92-4a97-8549-cdb70bb169eb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\ijk-math\ijk-xmath\_inl">
+      <UniqueIdentifier>{cff62012-f43b-4a9a-8a41-16c32f34cb55}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\source\ijk-math\common\ijk-math.c">
       <Filter>Source Files\common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\ijk-math\common\ijk-real\ijkRandom.c">
+      <Filter>Source Files\common\ijk-real</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -50,5 +59,13 @@
     <ClInclude Include="..\..\..\include\ijk\ijk-math\ijk-real\ijkMatrix.h">
       <Filter>Header Files\ijk-math\ijk-real</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\include\ijk\ijk-math\ijk-real\ijkRandom.h">
+      <Filter>Header Files\ijk-math\ijk-real</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\..\include\ijk\ijk-math\ijk-real\_inl\ijkRandom.inl">
+      <Filter>Header Files\ijk-math\ijk-real\_inl</Filter>
+    </None>
   </ItemGroup>
 </Project>

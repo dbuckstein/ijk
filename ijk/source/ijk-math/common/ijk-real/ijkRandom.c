@@ -19,16 +19,8 @@
 		c-based rendering framework
 	By Daniel S. Buckstein
 
-	ijk-math.h
-	Main header for math library.
+	ijkRandom.c
+	Source definitions for random number generation.
 */
 
-#ifndef _IJK_MATH_H_
-#define _IJK_MATH_H_
-
-
-#include "ijk-real/ijkReal.h"
-#include "ijk-real/ijkRandom.h"
-
-
-#endif	// !_IJK_MATH_H_
+#include "ijk/ijk-math/ijk-real/ijkRandom.h"
