@@ -121,7 +121,7 @@ ijk_inl dbl ijkRandomNumMax_dbl(dbl const usermax)
 }
 
 
-ijk_inl i32 ijkRandomNumRange_i32(i32 const usermin, i32 const usermax)
+ijk_inl i32 ijkRandomNumRange_int(i32 const usermin, i32 const usermax)
 {
 	return (ijkRandomNum_int() % (usermax - usermin) + usermin);
 }
