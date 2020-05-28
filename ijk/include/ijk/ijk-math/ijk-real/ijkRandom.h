@@ -30,7 +30,41 @@
 #include "ijkReal.h"
 
 
+//-----------------------------------------------------------------------------
 
+// ijkRandomGetMax
+//	Get maximum number that can be generated.
+//		return: random max
+i32 ijkRandomGetMax();
+
+// ijkRandomGetSeed
+//	Get random number generation seed.
+//		return: random seed
+i32 ijkRandomGetSeed();
+
+// ijkRandomSetSeed
+//	Set random number generation seed.
+//		param seed: new seed
+//		return: old random seed (before change)
+i32 ijkRandomSetSeed(i32 const seed);
+
+// ijkRandomNum_int
+//	Generate random integer in [0, max).
+//		return: random number
+i32 ijkRandomNum_int();
+
+// ijkRandomNum_flt
+//	Generate random float in [0, max).
+//		return: random number
+flt ijkRandomNum_flt();
+
+// ijkRandomNum_dbl
+//	Generate random double in [0, max).
+//		return: random number
+dbl ijkRandomNum_dbl();
+
+
+//-----------------------------------------------------------------------------
 
 
 #include "_inl/ijkRandom.inl"

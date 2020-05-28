@@ -24,3 +24,25 @@
 */
 
 #include "ijk/ijk-math/ijk-real/ijkRandom.h"
+
+
+//-----------------------------------------------------------------------------
+
+// ijk_random_seed
+//	Random number generation seed.
+i32 ijk_random_seed = 1235;
+
+// ijk_random_max
+//	Maximum random number that can be generated.
+i32 const ijk_random_max = 134456;
+
+// ijk_random_max_inv_dbl
+//	Inverse of maximum random number as double.
+dbl const ijk_random_max_inv_dbl = 7.4373772832748259653715713690724e-6;
+
+// ijk_random_max_inv_flt
+//	Inverse of maximum random number as float.
+flt const ijk_random_max_inv_flt = 7.4373772832748259653715713690724e-6f;
+
+
+//-----------------------------------------------------------------------------
