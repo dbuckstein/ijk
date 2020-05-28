@@ -106,7 +106,7 @@ dbl ijkRandomNumMax_dbl(dbl const usermax);
 //		param usermin: user-specified minimum
 //		param usermax: user-specified maximum
 //		return: random number
-i32 ijkRandomNumRange_i32(i32 const usermin, i32 const usermax);
+i32 ijkRandomNumRange_int(i32 const usermin, i32 const usermax);
 
 // ijkRandomNumRange_flt
 //	Generate a random float with specified range in [usermin, usermax).
@@ -121,6 +121,17 @@ flt ijkRandomNumRange_flt(flt const usermin, flt const usermax);
 //		param usermax: user-specified maximum
 //		return: random number
 dbl ijkRandomNumRange_dbl(dbl const usermin, dbl const usermax);
+
+
+//-----------------------------------------------------------------------------
+
+// Random number generators for real type.
+///
+#define ijkRandomNum			ijk_tokencat(ijkRandomNum_,ijk_real)
+#define ijkRandomNumUnitNrm		ijk_tokencat(ijkRandomNumUnitNrm_,ijk_real)
+#define ijkRandomNumUnitSym		ijk_tokencat(ijkRandomNumUnitSym_,ijk_real)
+#define ijkRandomNumMax			ijk_tokencat(ijkRandomNumMax_,ijk_real)
+#define ijkRandomNumRange		ijk_tokencat(ijkRandomNumRange_,ijk_real)
 
 
 //-----------------------------------------------------------------------------
