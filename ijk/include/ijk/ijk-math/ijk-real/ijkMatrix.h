@@ -19,15 +19,27 @@
 		c-based rendering framework
 	By Daniel S. Buckstein
 
-	ijk-math.h
-	Main header for math library.
+	ijkMatrix.h
+	Matrix types and functions.
 */
 
-#ifndef _IJK_MATH_H_
-#define _IJK_MATH_H_
+#ifndef _IJK_MATRIX_H_
+#define _IJK_MATRIX_H_
 
 
-#include "ijk-real/ijkReal.h"
+#include "ijkVector.h"
 
 
-#endif	// !_IJK_MATH_H_
+// Reusable pointer-based matrix types.
+typedef int2		int2x2[2], * pint2x2;
+typedef int3		int3x3[3], * pint3x3;
+typedef int4		int4x4[4], * pint4x4;
+typedef flt2		flt2x2[2], * pflt2x2;
+typedef flt3		flt3x3[3], * pflt3x3;
+typedef flt4		flt4x4[4], * pflt4x4;
+typedef dbl2		dbl2x2[2], * pdbl2x2;
+typedef dbl3		dbl3x3[3], * pdbl3x3;
+typedef dbl4		dbl4x4[4], * pdbl4x4;
+
+
+#endif	// !_IJK_MATRIX_H_

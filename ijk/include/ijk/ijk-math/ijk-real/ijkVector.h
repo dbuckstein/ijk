@@ -19,15 +19,21 @@
 		c-based rendering framework
 	By Daniel S. Buckstein
 
-	ijk-math.h
-	Main header for math library.
+	ijkVector.h
+	Vector types and functions.
 */
 
-#ifndef _IJK_MATH_H_
-#define _IJK_MATH_H_
+#ifndef _IJK_VECTOR_H_
+#define _IJK_VECTOR_H_
 
 
-#include "ijk-real/ijkReal.h"
+#include "ijkReal.h"
 
 
-#endif	// !_IJK_MATH_H_
+// Reusable pointer-based vector types.
+typedef i32			int2[2], int3[3], int4[4], * pint2, * pint3, * pint4;
+typedef flt			flt2[2], flt3[3], flt4[4], * pflt2, * pflt3, * pflt4;
+typedef dbl			dbl2[2], dbl3[3], dbl4[4], * pdbl2, * pdbl3, * pdbl4;
+
+
+#endif	// !_IJK_VECTOR_H_
