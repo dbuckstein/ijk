@@ -157,6 +157,7 @@
   <ItemGroup>
     <ClCompile Include="..\..\..\source\ijk-math\common\ijk-math.c" />
     <ClCompile Include="..\..\..\source\ijk-math\common\ijk-real\ijkRandom.c" />
+    <ClCompile Include="..\..\..\source\ijk-math\common\ijk-real\ijkReal.c" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\include\ijk\ijk-math\ijk-math.h" />
