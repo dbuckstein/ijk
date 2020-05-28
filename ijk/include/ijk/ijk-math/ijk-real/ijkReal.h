@@ -53,6 +53,12 @@ typedef ijk_real					real;
 //		return: value as real
 #define ijk_x2real(x)				(real)(x)
 
+// ijk_declreal
+//	Declare real function.
+//		param func: name of function to declare for real type
+//		return: name of function for real type
+#define ijk_declreal(func)			ijk_tokencat(ijk_tokencat(func,_),ijk_real)
+
 
 // global constants for float type
 ///
@@ -241,104 +247,111 @@ ijk_ext dbl const dbl_rad2deg;
 //	Re-map/re-interpolate with division-by-zero safety.
 #define ijk_remap_safe(v0_new,v1_new,v0_orig,v1_orig,v_orig)	((v0_orig) != (v1_orig) ? ijk_remap(v0_new,v1_new,v0_orig,v1_orig,v_orig) : (v0_new))
 
+// ijk_divide
+//	Perform division.
+//		param n: numerator (top)
+//		param d: denominator (bottom)
+//		return: quotient of (n/d)
+#define ijk_divide(n,d)				((n) / (d))
+
 
 // sign function
 ///
 #define ijk_sgn_int(x)				((x) > ijk_zero ? +ijk_one : (x) < ijk_zero ? -ijk_one : ijk_zero)
 #define ijk_sgn_flt(x)				((x) > flt_zero ? +flt_one : (x) < flt_zero ? -flt_one : flt_zero)
 #define ijk_sgn_dbl(x)				((x) > dbl_zero ? +dbl_one : (x) < dbl_zero ? -dbl_one : dbl_zero)
-#define ijk_sgn						ijk_tokencat(ijk_sign_,ijk_real)
+#define ijk_sgn						ijk_declreal(ijk_sgn)
 
 // absolute value function
 ///
 #define ijk_abs_int(x)				((x) >= ijk_zero ? +(x) : -(x))
 #define ijk_abs_flt(x)				((x) >= flt_zero ? +(x) : -(x))
 #define ijk_abs_dbl(x)				((x) >= dbl_zero ? +(x) : -(x))
-#define ijk_abs						ijk_tokencat(ijk_abs_,ijk_real)
+#define ijk_abs						ijk_declreal(ijk_abs)
 
 // conversion from normalized unit [0,1] to symmetric unit [-1,+1]
 ///
 #define ijk_nrm2sym_int(x)			(((x) << ijk_one) - ijk_one)
 #define ijk_nrm2sym_flt(x)			((x) * flt_two - flt_one)
 #define ijk_nrm2sym_dbl(x)			((x) * dbl_two - dbl_one)
-#define ijk_nrm2sym					ijk_tokencat(ijk_nrm2sym_,ijk_real)
+#define ijk_nrm2sym					ijk_declreal(ijk_nrm2sym)
 
 // conversion from symmetric unit [-1,+1] to normalized unit [0,1]
 ///
 #define ijk_sym2nrm_int(x)			(((x) + ijk_one) >> ijk_one)
 #define ijk_sym2nrm_flt(x)			((x) * flt_half + flt_half)
 #define ijk_sym2nrm_dbl(x)			((x) * dbl_half + dbl_half)
-#define ijk_sym2nrm					ijk_tokencat(ijk_sym2nrm_,ijk_real)
+#define ijk_sym2nrm					ijk_declreal(ijk_sym2nrm)
 
 // check if value is in normalized unit range [0,1]
 #define ijk_isnrm_int(x)			((x) >= ijk_zero && (x) <= ijk_one)
 #define ijk_isnrm_flt(x)			((x) >= flt_zero && (x) <= flt_one)
 #define ijk_isnrm_dbl(x)			((x) >= dbl_zero && (x) <= dbl_one)
-#define ijk_isnrm					ijk_tokencat(ijk_isnrm_,ijk_real)
+#define ijk_isnrm					ijk_declreal(ijk_isnrm)
 
 // check if value is not in normalized unit range
 #define ijk_isnnrm_int(x)			((x) < ijk_zero || (x) > ijk_one)
 #define ijk_isnnrm_flt(x)			((x) < flt_zero || (x) > flt_one)
 #define ijk_isnnrm_dbl(x)			((x) < dbl_zero || (x) > dbl_one)
-#define ijk_isnnrm					ijk_tokencat(ijk_isnrm_,ijk_real)
+#define ijk_isnnrm					ijk_declreal(ijk_isnnrm)
 
 // check if value is in symmetric unit range [-1,+1]
 #define ijk_issym_int(x)			((x) >= -ijk_one && (x) <= +ijk_one)
 #define ijk_issym_flt(x)			((x) >= -flt_one && (x) <= +flt_one)
 #define ijk_issym_dbl(x)			((x) >= -dbl_one && (x) <= +dbl_one)
-#define ijk_issym					ijk_tokencat(ijk_issym_,ijk_real)
+#define ijk_issym					ijk_declreal(ijk_issym)
 
 // check if value is not in symmetric unit range
 #define ijk_isnsym_int(x)			((x) < -ijk_one || (x) > +ijk_one)
 #define ijk_isnsym_flt(x)			((x) < -flt_one || (x) > +flt_one)
 #define ijk_isnsym_dbl(x)			((x) < -dbl_one || (x) > +dbl_one)
-#define ijk_isnsym					ijk_tokencat(ijk_issym_,ijk_real)
+#define ijk_isnsym					ijk_declreal(ijk_isnsym)
 
 // check if value is near zero
 ///
 #define ijk_iszero_int(x)			((x) == ijk_zero)
 #define ijk_iszero_flt(x)			((x) >= -flt_eps && (x) <= +flt_eps)
 #define ijk_iszero_dbl(x)			((x) >= -dbl_eps && (x) <= +dbl_eps)
-#define ijk_iszero					ijk_tokencat(ijk_iszero_,ijk_real)
+#define ijk_iszero					ijk_declreal(ijk_iszero)
 
 // check if value is not near zero
 ///
 #define ijk_isnzero_int(x)			((x) != ijk_zero)
 #define ijk_isnzero_flt(x)			((x) < -flt_eps || (x) > +flt_eps)
 #define ijk_isnzero_dbl(x)			((x) < -dbl_eps || (x) > +dbl_eps)
-#define ijk_isnzero					ijk_tokencat(ijk_isnzero_,ijk_real)
+#define ijk_isnzero					ijk_declreal(ijk_isnzero)
 
 // division-by-zero safety
 ///
-#define ijk_divide_safe_int(n,d)	((d) != ijk_zero ? (n) / (d) : ijk_zero)
-#define ijk_divide_safe_flt(n,d)	((d) != flt_zero ? (n) / (d) : flt_zero)
-#define ijk_divide_safe_dbl(n,d)	((d) != dbl_zero ? (n) / (d) : dbl_zero)
-#define ijk_divide_safe				ijk_tokencat(ijk_divide_safe_,ijk_real)
+#define ijk_divide_safe_int(n,d)	((d) != ijk_zero ? ijk_divide(n,d) : ijk_zero)
+#define ijk_divide_safe_flt(n,d)	((d) != flt_zero ? ijk_divide(n,d) : flt_zero)
+#define ijk_divide_safe_dbl(n,d)	((d) != dbl_zero ? ijk_divide(n,d) : dbl_zero)
+#define ijk_divide_safe				ijk_declreal(ijk_divide_safe)
 
 
 // reciprocal
 ///
 #define ijk_recip_flt(x)			(flt_one / (x))
 #define ijk_recip_dbl(x)			(dbl_one / (x))
-#define ijk_recip					ijk_tokencat(ijk_recip_,ijk_real)
+#define ijk_recip					ijk_declreal(ijk_recip)
 
 // reciprocal with division-by-zero safety
 ///
-#define ijk_recip_safe_flt(x)		((x != flt_zero) ? flt_one / (x) : flt_zero)
-#define ijk_recip_safe_dbl(x)		((x != dbl_zero) ? dbl_one / (x) : dbl_zero)
-#define ijk_recip_safe				ijk_tokencat(ijk_recip_safe_,ijk_real)
+#define ijk_recip_safe_flt(x)		((x != flt_zero) ? ijk_recip_flt(x) : flt_zero)
+#define ijk_recip_safe_dbl(x)		((x != dbl_zero) ? ijk_recip_dbl(x) : dbl_zero)
+#define ijk_recip_safe				ijk_declreal(ijk_recip_safe)
 
 // convert degrees to radians
 ///
 #define ijk_deg2rad_flt(x)			((x) * flt_deg2rad)
 #define ijk_deg2rad_dbl(x)			((x) * dbl_deg2rad)
-#define ijk_deg2rad					ijk_tokencat(ijk_deg2rad_,ijk_real)
+#define ijk_deg2rad					ijk_declreal(ijk_deg2rad)
 
 // convert radians to degrees
 ///
 #define ijk_rad2deg_flt(x)			((x) * flt_rad2deg)
 #define ijk_rad2deg_dbl(x)			((x) * dbl_rad2deg)
-#define ijk_rad2deg					ijk_tokencat(ijk_rad2deg_,ijk_real)
+#define ijk_rad2deg					ijk_declreal(ijk_rad2deg)
 
 
 //-----------------------------------------------------------------------------

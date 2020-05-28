@@ -48,16 +48,3 @@ flt const ijk_random_max_inv_flt = (flt)__ijk_random_max_inv;
 
 
 //-----------------------------------------------------------------------------
-
-iret ijkRandomTest()
-{
-	i32 test_int = ijk_zero;
-	flt test_flt = flt_zero;
-	dbl test_dbl = dbl_zero;
-	real test = real_zero;
-
-	return ijk_success;
-}
-
-
-//-----------------------------------------------------------------------------
