@@ -63,6 +63,26 @@ flt ijkRandomNum_flt();
 //		return: random number
 dbl ijkRandomNum_dbl();
 
+// ijkRandomNumUnitNrm_flt
+//	Generate a random float in normal unit range [0, 1).
+//		return random number
+flt ijkRandomNumUnitNrm_flt();
+
+// ijkRandomNumUnitNrm_dbl
+//	Generate a random double in normal unit range [0, 1).
+//		return random number
+dbl ijkRandomNumUnitNrm_dbl();
+
+// ijkRandomNumUnitSym_flt
+//	Generate a random float in symmetric unit range [-1, +1).
+//		return random number
+flt ijkRandomNumUnitSym_flt();
+
+// ijkRandomNumUnitSym_dbl
+//	Generate a random float in symmetric unit range [-1, +1).
+//		return random number
+dbl ijkRandomNumUnitSym_dbl();
+
 // ijkRandomNumMax_int
 //	Generate a random integer with specified maximum in [0, usermax).
 //		param usermax: user-specified maximum
@@ -101,26 +121,6 @@ flt ijkRandomNumRange_flt(flt const usermin, flt const usermax);
 //		param usermax: user-specified maximum
 //		return: random number
 dbl ijkRandomNumRange_dbl(dbl const usermin, dbl const usermax);
-
-// ijkRandomNumUnitNrm_flt
-//	Generate a random float in normal unit range [0, 1).
-//		return random number
-flt ijkRandomNumUnitNrm_flt();
-
-// ijkRandomNumUnitNrm_dbl
-//	Generate a random double in normal unit range [0, 1).
-//		return random number
-dbl ijkRandomNumUnitNrm_dbl();
-
-// ijkRandomNumUnitSym_flt
-//	Generate a random float in symmetric unit range [-1, +1).
-//		return random number
-flt ijkRandomNumUnitSym_flt();
-
-// ijkRandomNumUnitSym_dbl
-//	Generate a random float in symmetric unit range [-1, +1).
-//		return random number
-dbl ijkRandomNumUnitSym_dbl();
 
 
 //-----------------------------------------------------------------------------
