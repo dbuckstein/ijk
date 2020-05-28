@@ -27,5 +27,7 @@
 #define _IJK_MATH_H_
 
 
+#include "ijk-real/ijkReal.h"
+
 
 #endif	// !_IJK_MATH_H_

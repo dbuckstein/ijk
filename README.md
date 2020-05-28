@@ -56,6 +56,7 @@ This section outlines known tasks to be completed and that have been completed.
 - [ ] sqrt (flt, dbl)
 - [ ] interpolation (flt, dbl)
 - [ ] trigonometry (flt, dbl)
+- [ ] complex(flt, dbl)
 - [ ] vector (flt, dbl, int)
 - [ ] matrix (flt, dbl, int)
 - [ ] quaternion (flt, dbl)

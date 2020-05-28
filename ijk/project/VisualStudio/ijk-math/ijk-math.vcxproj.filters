@@ -41,5 +41,8 @@
     <ClInclude Include="..\..\..\include\ijk\ijk-math\ijk-math.h">
       <Filter>Header Files\ijk-math</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\include\ijk\ijk-math\ijk-real\ijkReal.h">
+      <Filter>Header Files\ijk-math\ijk-real</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
