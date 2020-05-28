@@ -159,7 +159,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\include\ijk\ijk-math\ijk-math.h" />
+    <ClInclude Include="..\..\..\include\ijk\ijk-math\ijk-real\ijkMatrix.h" />
     <ClInclude Include="..\..\..\include\ijk\ijk-math\ijk-real\ijkReal.h" />
+    <ClInclude Include="..\..\..\include\ijk\ijk-math\ijk-real\ijkVector.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
