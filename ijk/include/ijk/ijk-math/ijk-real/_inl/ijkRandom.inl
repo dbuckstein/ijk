@@ -28,6 +28,57 @@
 #define _IJK_RANDOM_INL_
 
 
+//-----------------------------------------------------------------------------
+
+ijk_inl i32 ijkRandomGetMax()
+{
+	extern i32 const ijk_random_max;
+	return ijk_random_max;
+}
+
+
+ijk_inl i32 ijkRandomGetSeed()
+{
+	extern i32 const ijk_random_seed;
+	return ijk_random_seed;
+}
+
+
+ijk_inl i32 ijkRandomSetSeed(i32 const seed)
+{
+	extern i32 ijk_random_seed;
+	i32 const ret = ijk_random_seed;
+	ijk_random_seed = seed;
+	return ret;
+}
+
+
+ijk_inl i32 ijkRandomNum_int()
+{
+	// quick n' dirty random number generator that has been around for decades
+	// set the seed every time for true randomness
+	extern i32 const ijk_random_max;
+	extern i32 ijk_random_seed;
+	i32 const rp_a = 8121, rp_c = 28411;
+	ijk_random_seed = (ijk_random_seed * rp_a + rp_c) % ijk_random_max;
+	return ijk_random_seed;
+}
+
+
+ijk_inl flt ijkRandomNum_flt()
+{
+	return (flt)ijkRandomNum_int();
+}
+
+
+ijk_inl dbl ijkRandomNum_dbl()
+{
+	return (dbl)ijkRandomNum_dbl();
+}
+
+
+//-----------------------------------------------------------------------------
+
 
 #endif	// !_IJK_RANDOM_INL_
 #endif	// _IJK_RANDOM_H_
