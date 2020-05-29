@@ -84,6 +84,8 @@
 #define ijk_minimum(x,y)				((x) <= (y) ? (x) : (y))
 #define ijk_maximum(x,y)				((x) >= (y) ? (x) : (y))
 #define ijk_clamp(lower,upper,value)	((value) >= (lower) ? (value) <= (upper) ? (value) : (upper) : (lower))
+#define ijk_isclamp(lower,upper,value)	(((value) >= (lower)) && ((value) <= (upper)))
+#define ijk_isnclamp(lower,upper,value)	(((value) < (lower)) || ((value) > (upper)))
 #define ijk_swap2(x,y,tmp)				tmp=x;x=y;y=tmp
 #define ijk_swap3(x,y,z,tmp)			tmp=x;x=y;y=z;z=tmp
 #define ijk_swap4(x,y,z,w,tmp)			tmp=x;x=y;y=z;z=w;w=tmp

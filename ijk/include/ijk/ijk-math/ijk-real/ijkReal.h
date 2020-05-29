@@ -291,44 +291,44 @@ ijk_ext dbl const dbl_rad2deg;
 
 // check if value is in normalized unit range [0,1]
 ///
-#define ijk_isnrm_int(x)			((x) >= ijk_zero && (x) <= ijk_one)
-#define ijk_isnrm_flt(x)			((x) >= flt_zero && (x) <= flt_one)
-#define ijk_isnrm_dbl(x)			((x) >= dbl_zero && (x) <= dbl_one)
+#define ijk_isnrm_int(x)			ijk_isclamp(ijk_zero,ijk_one,x)
+#define ijk_isnrm_flt(x)			ijk_isclamp(flt_zero,flt_one,x)
+#define ijk_isnrm_dbl(x)			ijk_isclamp(dbl_zero,dbl_one,x)
 #define ijk_isnrm					ijk_declrealf(ijk_isnrm)
 
 // check if value is not in normalized unit range
 ///
-#define ijk_isnnrm_int(x)			((x) < ijk_zero || (x) > ijk_one)
-#define ijk_isnnrm_flt(x)			((x) < flt_zero || (x) > flt_one)
-#define ijk_isnnrm_dbl(x)			((x) < dbl_zero || (x) > dbl_one)
+#define ijk_isnnrm_int(x)			ijk_isnclamp(ijk_zero,ijk_one,x)
+#define ijk_isnnrm_flt(x)			ijk_isnclamp(flt_zero,flt_one,x)
+#define ijk_isnnrm_dbl(x)			ijk_isnclamp(dbl_zero,dbl_one,x)
 #define ijk_isnnrm					ijk_declrealf(ijk_isnnrm)
 
 // check if value is in symmetric unit range [-1,+1]
 ///
-#define ijk_issym_int(x)			((x) >= -ijk_one && (x) <= +ijk_one)
-#define ijk_issym_flt(x)			((x) >= -flt_one && (x) <= +flt_one)
-#define ijk_issym_dbl(x)			((x) >= -dbl_one && (x) <= +dbl_one)
+#define ijk_issym_int(x)			ijk_isclamp(-ijk_one,+ijk_one,x)
+#define ijk_issym_flt(x)			ijk_isclamp(-flt_one,+flt_one,x)
+#define ijk_issym_dbl(x)			ijk_isclamp(-dbl_one,+dbl_one,x)
 #define ijk_issym					ijk_declrealf(ijk_issym)
 
 // check if value is not in symmetric unit range
 ///
-#define ijk_isnsym_int(x)			((x) < -ijk_one || (x) > +ijk_one)
-#define ijk_isnsym_flt(x)			((x) < -flt_one || (x) > +flt_one)
-#define ijk_isnsym_dbl(x)			((x) < -dbl_one || (x) > +dbl_one)
+#define ijk_isnsym_int(x)			ijk_isnclamp(-ijk_one,+ijk_one,x)
+#define ijk_isnsym_flt(x)			ijk_isnclamp(-flt_one,+flt_one,x)
+#define ijk_isnsym_dbl(x)			ijk_isnclamp(-dbl_one,+dbl_one,x)
 #define ijk_isnsym					ijk_declrealf(ijk_isnsym)
 
 // check if value is near zero
 ///
 #define ijk_iszero_int(x)			((x) == ijk_zero)
-#define ijk_iszero_flt(x)			((x) >= -flt_eps && (x) <= +flt_eps)
-#define ijk_iszero_dbl(x)			((x) >= -dbl_eps && (x) <= +dbl_eps)
+#define ijk_iszero_flt(x)			ijk_isclamp(-flt_eps,+flt_eps,x)
+#define ijk_iszero_dbl(x)			ijk_isclamp(-dbl_eps,+dbl_eps,x)
 #define ijk_iszero					ijk_declrealf(ijk_iszero)
 
 // check if value is not near zero
 ///
 #define ijk_isnzero_int(x)			((x) != ijk_zero)
-#define ijk_isnzero_flt(x)			((x) < -flt_eps || (x) > +flt_eps)
-#define ijk_isnzero_dbl(x)			((x) < -dbl_eps || (x) > +dbl_eps)
+#define ijk_isnzero_flt(x)			ijk_isnclamp(-flt_eps,+flt_eps,x)
+#define ijk_isnzero_dbl(x)			ijk_isnclamp(-dbl_eps,+dbl_eps,x)
 #define ijk_isnzero					ijk_declrealf(ijk_isnzero)
 
 // division-by-zero safety
