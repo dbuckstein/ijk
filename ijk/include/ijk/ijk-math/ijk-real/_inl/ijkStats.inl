@@ -19,17 +19,21 @@
 		c-based rendering framework
 	By Daniel S. Buckstein
 
-	ijk-math.h
-	Main header for math library.
+	ijkStats.inl
+	Inline definitions for statistics functions.
 */
 
-#ifndef _IJK_MATH_H_
-#define _IJK_MATH_H_
+#ifdef _IJK_STATS_H_
+#ifndef _IJK_STATS_INL_
+#define _IJK_STATS_INL_
 
 
-#include "ijk-real/ijkReal.h"
-#include "ijk-real/ijkRandom.h"
-#include "ijk-real/ijkStats.h"
+//-----------------------------------------------------------------------------
 
 
-#endif	// !_IJK_MATH_H_
+
+//-----------------------------------------------------------------------------
+
+
+#endif	// !_IJK_STATS_INL_
+#endif	// _IJK_STATS_H_
