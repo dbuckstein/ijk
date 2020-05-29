@@ -171,7 +171,54 @@ void ijkMathTestRandom()
 	flt test_flt = flt_zero;
 	dbl test_dbl = dbl_zero;
 	real test = real_zero;
+	i32 seed = 0;
 
+	test_int = ijkRandomGetMax();
+
+	test_int = ijkRandomGetSeed();
+
+	seed = ijkRandomSetSeed(seed);
+
+	ijkRandomSetSeed(seed);
+	test_int = ijkRandomNum_int();
+	ijkRandomSetSeed(seed);
+	test_flt = ijkRandomNum_flt();
+	ijkRandomSetSeed(seed);
+	test_dbl = ijkRandomNum_dbl();
+	ijkRandomSetSeed(seed);
+	test = ijkRandomNum();
+
+	ijkRandomSetSeed(seed);
+	test_flt = ijkRandomNumUnitNrm_flt();
+	ijkRandomSetSeed(seed);
+	test_dbl = ijkRandomNumUnitNrm_dbl();
+	ijkRandomSetSeed(seed);
+	test = ijkRandomNumUnitNrm();
+
+	ijkRandomSetSeed(seed);
+	test_flt = ijkRandomNumUnitSym_flt();
+	ijkRandomSetSeed(seed);
+	test_dbl = ijkRandomNumUnitSym_dbl();
+	ijkRandomSetSeed(seed);
+	test = ijkRandomNumUnitSym();
+
+	ijkRandomSetSeed(seed);
+	test_int = ijkRandomNumMax_int(65535);
+	ijkRandomSetSeed(seed);
+	test_flt = ijkRandomNumMax_flt(65535.0f);
+	ijkRandomSetSeed(seed);
+	test_dbl = ijkRandomNumMax_dbl(65535.0);
+	ijkRandomSetSeed(seed);
+	test = ijkRandomNumMax(ijk_x2r(65535));
+
+	ijkRandomSetSeed(seed);
+	test_int = ijkRandomNumRange_int(256, 65535);
+	ijkRandomSetSeed(seed);
+	test_flt = ijkRandomNumRange_flt(256.0f, 65535.0f);
+	ijkRandomSetSeed(seed);
+	test_dbl = ijkRandomNumRange_dbl(256.0, 65535.0);
+	ijkRandomSetSeed(seed);
+	test = ijkRandomNumRange(ijk_x2r(256), ijk_x2r(65535));
 }
 
 

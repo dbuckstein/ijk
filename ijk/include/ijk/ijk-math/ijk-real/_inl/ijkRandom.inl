@@ -73,7 +73,7 @@ ijk_inl flt ijkRandomNum_flt()
 
 ijk_inl dbl ijkRandomNum_dbl()
 {
-	return (dbl)ijkRandomNum_dbl();
+	return (dbl)ijkRandomNum_int();
 }
 
 
