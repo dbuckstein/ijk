@@ -47,9 +47,9 @@ void ijkMathTestReal()
 	test_dbl = ijk_sgn_dbl(dbl_zero);
 	test_dbl = ijk_sgn_dbl(-9001.0);
 
-	test = ijk_sgn(+ijk_x2real(9001));
+	test = ijk_sgn(+ijk_x2r(9001));
 	test = ijk_sgn(real_zero);
-	test = ijk_sgn(-ijk_x2real(9001));
+	test = ijk_sgn(-ijk_x2r(9001));
 
 	test_int = ijk_abs_int(+9001);
 	test_int = ijk_abs_int(ijk_zero);
@@ -63,9 +63,9 @@ void ijkMathTestReal()
 	test_dbl = ijk_abs_dbl(dbl_zero);
 	test_dbl = ijk_abs_dbl(-9001.0);
 
-	test = ijk_abs(+ijk_x2real(9001));
+	test = ijk_abs(+ijk_x2r(9001));
 	test = ijk_abs(real_zero);
-	test = ijk_abs(-ijk_x2real(9001));
+	test = ijk_abs(-ijk_x2r(9001));
 }
 
 

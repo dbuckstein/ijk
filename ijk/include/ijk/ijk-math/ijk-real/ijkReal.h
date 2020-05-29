@@ -47,17 +47,23 @@
 //	Real number type.
 typedef ijk_real					real;
 
-// ijk_x2real
+// ijk_x2r
 //	Cast to real.
 //		param x: value to cast
-//		return: value as real
-#define ijk_x2real(x)				(real)(x)
+//		result: value as real
+#define ijk_x2r(x)					(real)(x)
 
-// ijk_declreal
+// ijk_declrealf
 //	Declare real function.
 //		param func: name of function to declare for real type
-//		return: name of function for real type
-#define ijk_declreal(func)			ijk_tokencat(ijk_tokencat(func,_),ijk_real)
+//		result: name of function for real type
+#define ijk_declrealf(func)			ijk_tokencat(ijk_tokencat(func,_),ijk_real)
+
+// ijk_declrealv
+//	Declare real variable.
+//		param var: name of variable to declare for real type
+//		result: name of variable for real type
+#define ijk_declrealv(var)			ijk_tokencat(ijk_real,ijk_tokencat(_,var))
 
 
 // global constants for float type
@@ -162,52 +168,52 @@ ijk_ext dbl const dbl_rad2deg;
 
 // global constants for real type
 ///
-#define real_zero					ijk_tokencat(ijk_real,_zero)
-#define real_eps					ijk_tokencat(ijk_real,_eps)
-#define real_halfeps				ijk_tokencat(ijk_real,_halfeps)
-#define real_1000th					ijk_tokencat(ijk_real,_1000th)
-#define real_100th					ijk_tokencat(ijk_real,_100th)
-#define real_10th					ijk_tokencat(ijk_real,_10th)
-#define real_9th					ijk_tokencat(ijk_real,_9th)
-#define real_8th					ijk_tokencat(ijk_real,_8th)
-#define real_7th					ijk_tokencat(ijk_real,_7th)
-#define real_6th					ijk_tokencat(ijk_real,_6th)
-#define real_5th					ijk_tokencat(ijk_real,_5th)
-#define real_quarter				ijk_tokencat(ijk_real,_quarter)
-#define real_third					ijk_tokencat(ijk_real,_third)
-#define real_half					ijk_tokencat(ijk_real,_half)
-#define real_2thirds				ijk_tokencat(ijk_real,_2thirds)
-#define real_3quarters				ijk_tokencat(ijk_real,_3quarters)
-#define real_one					ijk_tokencat(ijk_real,_one)
-#define real_4third					ijk_tokencat(ijk_real,_4third)
-#define real_3half					ijk_tokencat(ijk_real,_3half)
-#define real_two					ijk_tokencat(ijk_real,_two)
-#define real_three					ijk_tokencat(ijk_real,_three)
-#define real_four					ijk_tokencat(ijk_real,_four)
-#define real_five					ijk_tokencat(ijk_real,_five)
-#define real_six					ijk_tokencat(ijk_real,_six)
-#define real_seven					ijk_tokencat(ijk_real,_seven)
-#define real_eight					ijk_tokencat(ijk_real,_eight)
-#define real_nine					ijk_tokencat(ijk_real,_nine)
-#define real_ten					ijk_tokencat(ijk_real,_ten)
-#define real_hundred				ijk_tokencat(ijk_real,_hundred)
-#define real_thousand				ijk_tokencat(ijk_real,_thousand)
-#define real_sqrtthird				ijk_tokencat(ijk_real,_sqrtthird)
-#define real_sqrthalf				ijk_tokencat(ijk_real,_sqrthalf)
-#define real_sqrt2					ijk_tokencat(ijk_real,_sqrt2)
-#define real_sqrt3					ijk_tokencat(ijk_real,_sqrt3)
-#define real_2pi					ijk_tokencat(ijk_real,_2pi)
-#define real_pi						ijk_tokencat(ijk_real,_pi)
-#define real_halfpi					ijk_tokencat(ijk_real,_halfpi)
-#define real_thirdpi				ijk_tokencat(ijk_real,_thirdpi)
-#define real_quarterpi				ijk_tokencat(ijk_real,_quarterpi)
-#define real_360					ijk_tokencat(ijk_real,_360)
-#define real_180					ijk_tokencat(ijk_real,_180)
-#define real_90						ijk_tokencat(ijk_real,_90)
-#define real_60						ijk_tokencat(ijk_real,_60)
-#define real_45						ijk_tokencat(ijk_real,_45)
-#define real_deg2rad				ijk_tokencat(ijk_real,_deg2rad)
-#define real_rad2deg				ijk_tokencat(ijk_real,_rad2deg)
+#define real_zero					ijk_declrealv(zero)
+#define real_eps					ijk_declrealv(eps)
+#define real_halfeps				ijk_declrealv(halfeps)
+#define real_1000th					ijk_declrealv(1000th)
+#define real_100th					ijk_declrealv(100th)
+#define real_10th					ijk_declrealv(10th)
+#define real_9th					ijk_declrealv(9th)
+#define real_8th					ijk_declrealv(8th)
+#define real_7th					ijk_declrealv(7th)
+#define real_6th					ijk_declrealv(6th)
+#define real_5th					ijk_declrealv(5th)
+#define real_quarter				ijk_declrealv(quarter)
+#define real_third					ijk_declrealv(third)
+#define real_half					ijk_declrealv(half)
+#define real_2thirds				ijk_declrealv(2thirds)
+#define real_3quarters				ijk_declrealv(3quarters)
+#define real_one					ijk_declrealv(one)
+#define real_4third					ijk_declrealv(4third)
+#define real_3half					ijk_declrealv(3half)
+#define real_two					ijk_declrealv(two)
+#define real_three					ijk_declrealv(three)
+#define real_four					ijk_declrealv(four)
+#define real_five					ijk_declrealv(five)
+#define real_six					ijk_declrealv(six)
+#define real_seven					ijk_declrealv(seven)
+#define real_eight					ijk_declrealv(eight)
+#define real_nine					ijk_declrealv(nine)
+#define real_ten					ijk_declrealv(ten)
+#define real_hundred				ijk_declrealv(hundred)
+#define real_thousand				ijk_declrealv(thousand)
+#define real_sqrtthird				ijk_declrealv(sqrtthird)
+#define real_sqrthalf				ijk_declrealv(sqrthalf)
+#define real_sqrt2					ijk_declrealv(sqrt2)
+#define real_sqrt3					ijk_declrealv(sqrt3)
+#define real_2pi					ijk_declrealv(2pi)
+#define real_pi						ijk_declrealv(pi)
+#define real_halfpi					ijk_declrealv(halfpi)
+#define real_thirdpi				ijk_declrealv(thirdpi)
+#define real_quarterpi				ijk_declrealv(quarterpi)
+#define real_360					ijk_declrealv(360)
+#define real_180					ijk_declrealv(180)
+#define real_90						ijk_declrealv(90)
+#define real_60						ijk_declrealv(60)
+#define real_45						ijk_declrealv(45)
+#define real_deg2rad				ijk_declrealv(deg2rad)
+#define real_rad2deg				ijk_declrealv(rad2deg)
 
 
 // ijk_lerp
@@ -216,7 +222,7 @@ ijk_ext dbl const dbl_rad2deg;
 //		param v1: upper bound at t=1
 //		param t: interpolation parameter; t=[0,1] for interpolation,
 //			t=(-inf,0)U(1,+inf) for extrapolation
-//		return: interpolated value 'v'; v=[v0,v1] for interpolation,
+//		result: interpolated value 'v'; v=[v0,v1] for interpolation,
 //			v=(-inf,v0)U(v1,+inf) for extrapolation
 #define ijk_lerp(v0,v1,t)			((v0) + ((v1) - (v0)) * (t))
 
@@ -226,12 +232,12 @@ ijk_ext dbl const dbl_rad2deg;
 //		param v1: upper bound at t=1
 //		param v: interpolated value; v=[v0,v1] for interpolation,
 //			v=(-inf,v0)U(v1,+inf) for extrapolation
-//		return: interpolation parameter 't'; t=[0,1] for interpolation,
+//		result: interpolation parameter 't'; t=[0,1] for interpolation,
 //			t=(-inf,0)U(1,+inf) for extrapolation
 #define ijk_unlerp(v0,v1,v)			(((v) - (v0)) / ((v1) - (v0)))
 
 // ijk_unlerp_safe
-//	Linear interpolation with division-by-zero safety.
+//	Linear interpolation inverse with division-by-zero safety.
 #define ijk_unlerp_safe(v0,v1,v)	((v0) != (v1) ? ijk_unlerp(v0,v1,v) : ((v1) - (v0)))
 
 // ijk_remap
@@ -240,18 +246,18 @@ ijk_ext dbl const dbl_rad2deg;
 //		param v1_new: upper bound of new/output range
 //		param v0_orig: lower bound of original/input range
 //		param v1_orig: upper bound of original/input range
-//		return: re-interpolated value 'v_new' in new/output range
+//		result: re-interpolated value 'v_new' in new/output range
 #define ijk_remap(v0_new,v1_new,v0_orig,v1_orig,v_orig)			((v0_new) + (((v1_new) - (v0_new)) * ((v_orig) - (v0_orig))) / ((v1_orig) - (v0_orig)))
 
 // ijk_remap_safe
-//	Re-map/re-interpolate with division-by-zero safety.
+//	Re-map/re-interpolate value with division-by-zero safety.
 #define ijk_remap_safe(v0_new,v1_new,v0_orig,v1_orig,v_orig)	((v0_orig) != (v1_orig) ? ijk_remap(v0_new,v1_new,v0_orig,v1_orig,v_orig) : (v0_new))
 
 // ijk_divide
 //	Perform division.
 //		param n: numerator (top)
 //		param d: denominator (bottom)
-//		return: quotient of (n/d)
+//		result: quotient of (n/d)
 #define ijk_divide(n,d)				((n) / (d))
 
 
@@ -260,98 +266,102 @@ ijk_ext dbl const dbl_rad2deg;
 #define ijk_sgn_int(x)				((x) > ijk_zero ? +ijk_one : (x) < ijk_zero ? -ijk_one : ijk_zero)
 #define ijk_sgn_flt(x)				((x) > flt_zero ? +flt_one : (x) < flt_zero ? -flt_one : flt_zero)
 #define ijk_sgn_dbl(x)				((x) > dbl_zero ? +dbl_one : (x) < dbl_zero ? -dbl_one : dbl_zero)
-#define ijk_sgn						ijk_declreal(ijk_sgn)
+#define ijk_sgn						ijk_declrealf(ijk_sgn)
 
 // absolute value function
 ///
 #define ijk_abs_int(x)				((x) >= ijk_zero ? +(x) : -(x))
 #define ijk_abs_flt(x)				((x) >= flt_zero ? +(x) : -(x))
 #define ijk_abs_dbl(x)				((x) >= dbl_zero ? +(x) : -(x))
-#define ijk_abs						ijk_declreal(ijk_abs)
+#define ijk_abs						ijk_declrealf(ijk_abs)
 
 // conversion from normalized unit [0,1] to symmetric unit [-1,+1]
 ///
 #define ijk_nrm2sym_int(x)			(((x) << ijk_one) - ijk_one)
 #define ijk_nrm2sym_flt(x)			((x) * flt_two - flt_one)
 #define ijk_nrm2sym_dbl(x)			((x) * dbl_two - dbl_one)
-#define ijk_nrm2sym					ijk_declreal(ijk_nrm2sym)
+#define ijk_nrm2sym					ijk_declrealf(ijk_nrm2sym)
 
 // conversion from symmetric unit [-1,+1] to normalized unit [0,1]
 ///
 #define ijk_sym2nrm_int(x)			(((x) + ijk_one) >> ijk_one)
 #define ijk_sym2nrm_flt(x)			((x) * flt_half + flt_half)
 #define ijk_sym2nrm_dbl(x)			((x) * dbl_half + dbl_half)
-#define ijk_sym2nrm					ijk_declreal(ijk_sym2nrm)
+#define ijk_sym2nrm					ijk_declrealf(ijk_sym2nrm)
 
 // check if value is in normalized unit range [0,1]
+///
 #define ijk_isnrm_int(x)			((x) >= ijk_zero && (x) <= ijk_one)
 #define ijk_isnrm_flt(x)			((x) >= flt_zero && (x) <= flt_one)
 #define ijk_isnrm_dbl(x)			((x) >= dbl_zero && (x) <= dbl_one)
-#define ijk_isnrm					ijk_declreal(ijk_isnrm)
+#define ijk_isnrm					ijk_declrealf(ijk_isnrm)
 
 // check if value is not in normalized unit range
+///
 #define ijk_isnnrm_int(x)			((x) < ijk_zero || (x) > ijk_one)
 #define ijk_isnnrm_flt(x)			((x) < flt_zero || (x) > flt_one)
 #define ijk_isnnrm_dbl(x)			((x) < dbl_zero || (x) > dbl_one)
-#define ijk_isnnrm					ijk_declreal(ijk_isnnrm)
+#define ijk_isnnrm					ijk_declrealf(ijk_isnnrm)
 
 // check if value is in symmetric unit range [-1,+1]
+///
 #define ijk_issym_int(x)			((x) >= -ijk_one && (x) <= +ijk_one)
 #define ijk_issym_flt(x)			((x) >= -flt_one && (x) <= +flt_one)
 #define ijk_issym_dbl(x)			((x) >= -dbl_one && (x) <= +dbl_one)
-#define ijk_issym					ijk_declreal(ijk_issym)
+#define ijk_issym					ijk_declrealf(ijk_issym)
 
 // check if value is not in symmetric unit range
+///
 #define ijk_isnsym_int(x)			((x) < -ijk_one || (x) > +ijk_one)
 #define ijk_isnsym_flt(x)			((x) < -flt_one || (x) > +flt_one)
 #define ijk_isnsym_dbl(x)			((x) < -dbl_one || (x) > +dbl_one)
-#define ijk_isnsym					ijk_declreal(ijk_isnsym)
+#define ijk_isnsym					ijk_declrealf(ijk_isnsym)
 
 // check if value is near zero
 ///
 #define ijk_iszero_int(x)			((x) == ijk_zero)
 #define ijk_iszero_flt(x)			((x) >= -flt_eps && (x) <= +flt_eps)
 #define ijk_iszero_dbl(x)			((x) >= -dbl_eps && (x) <= +dbl_eps)
-#define ijk_iszero					ijk_declreal(ijk_iszero)
+#define ijk_iszero					ijk_declrealf(ijk_iszero)
 
 // check if value is not near zero
 ///
 #define ijk_isnzero_int(x)			((x) != ijk_zero)
 #define ijk_isnzero_flt(x)			((x) < -flt_eps || (x) > +flt_eps)
 #define ijk_isnzero_dbl(x)			((x) < -dbl_eps || (x) > +dbl_eps)
-#define ijk_isnzero					ijk_declreal(ijk_isnzero)
+#define ijk_isnzero					ijk_declrealf(ijk_isnzero)
 
 // division-by-zero safety
 ///
 #define ijk_divide_safe_int(n,d)	((d) != ijk_zero ? ijk_divide(n,d) : ijk_zero)
 #define ijk_divide_safe_flt(n,d)	((d) != flt_zero ? ijk_divide(n,d) : flt_zero)
 #define ijk_divide_safe_dbl(n,d)	((d) != dbl_zero ? ijk_divide(n,d) : dbl_zero)
-#define ijk_divide_safe				ijk_declreal(ijk_divide_safe)
+#define ijk_divide_safe				ijk_declrealf(ijk_divide_safe)
 
 
 // reciprocal
 ///
 #define ijk_recip_flt(x)			(flt_one / (x))
 #define ijk_recip_dbl(x)			(dbl_one / (x))
-#define ijk_recip					ijk_declreal(ijk_recip)
+#define ijk_recip					ijk_declrealf(ijk_recip)
 
 // reciprocal with division-by-zero safety
 ///
 #define ijk_recip_safe_flt(x)		((x != flt_zero) ? ijk_recip_flt(x) : flt_zero)
 #define ijk_recip_safe_dbl(x)		((x != dbl_zero) ? ijk_recip_dbl(x) : dbl_zero)
-#define ijk_recip_safe				ijk_declreal(ijk_recip_safe)
+#define ijk_recip_safe				ijk_declrealf(ijk_recip_safe)
 
 // convert degrees to radians
 ///
 #define ijk_deg2rad_flt(x)			((x) * flt_deg2rad)
 #define ijk_deg2rad_dbl(x)			((x) * dbl_deg2rad)
-#define ijk_deg2rad					ijk_declreal(ijk_deg2rad)
+#define ijk_deg2rad					ijk_declrealf(ijk_deg2rad)
 
 // convert radians to degrees
 ///
 #define ijk_rad2deg_flt(x)			((x) * flt_rad2deg)
 #define ijk_rad2deg_dbl(x)			((x) * dbl_rad2deg)
-#define ijk_rad2deg					ijk_declreal(ijk_rad2deg)
+#define ijk_rad2deg					ijk_declrealf(ijk_rad2deg)
 
 
 //-----------------------------------------------------------------------------
