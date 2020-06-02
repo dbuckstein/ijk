@@ -49,17 +49,65 @@ COMMENT @
 */
 @
 
+;//////////////////////////////////////////////////////////////////////////////
+; 64-bit defined if rax register exists
+IFDEF RAX
+
+
+.data
+one				EQU			1.0			; effectively the same as define
+fs1				dd			one			; constant single (float) set to 1
+fd1				dq			one			; constant double set to 1
+
+
+.code
+
+; sqrt (float)
+; simple sqrt call
+ijkSqrt_flt PROC
+	sqrtss		xmm0,		xmm0		; do scalar single sqrt on xmm0 (already contains arg from function setup)
+	ret									; exit function
+ijkSqrt_flt ENDP
+
+
+; sqrt (double)
+; simple sqrt call
+ijkSqrt_dbl PROC
+	sqrtsd		xmm0,		xmm0		; do scalar double sqrt on xmm0
+	ret									; exit function
+ijkSqrt_dbl ENDP
+
+
+; sqrt inverse (float)
+; rsqrtss is handy (one line) but does not give correct result
+; nor does rcpss with reciprocal of square root; better with recip first
+; need to do reciprocal of square root randomly
+ijkSqrtInv_flt PROC
+	movss		xmm1,		[fs1]		; copy constant to register xmm1
+	divss		xmm1,		xmm0		; do reciprocal of xmm0, store in xmm1
+	sqrtss		xmm0,		xmm1		; do scalar single sqrt on xmm1 -> xmm0
+	ret									; exit
+ijkSqrtInv_flt ENDP
+
+
+; sqrt inverse (double)
+ijkSqrtInv_dbl PROC
+	movsd		xmm1,		[fd1]		; copy constant to register xmm1
+	divsd		xmm1,		xmm0		; do reciprocal of xmm0, store in xmm1
+	sqrtsd		xmm0,		xmm1		; do scalar double sqrt on xmm1 -> xmm0
+	ret									; exit
+ijkSqrtInv_dbl ENDP
 
 
 ;//////////////////////////////////////////////////////////////////////////////
+; 32-bit if no rax register
+ELSE	; !RAX
 
 
 
 ;//////////////////////////////////////////////////////////////////////////////
-
-
-
-;//////////////////////////////////////////////////////////////////////////////
+; done
+ENDIF
 
 
 ; required at end (no newline)
