@@ -56,32 +56,32 @@ size ijkStatsGetCombinations(size const n, size const k);
 
 
 // ijkStatsGetMedian_int_flt
-//	Calculate the median of an integer data set. Half of the data are less and 
-//	half are greater than the median.
+//	Calculate the median of a sorted integer data set. Half of the data are 
+//	less and half are greater than the median.
 //		param v: array of values
 //		param n: number of values in set
 //		return: median as float
 flt ijkStatsGetMedian_int_flt(schomp const v[], size const n);
 
 // ijkStatsGetMedian_int_dbl
-//	Calculate the median of an integer data set. Half of the data are less and 
-//	half are greater than the median.
+//	Calculate the median of a sorted integer data set. Half of the data are 
+//	less and half are greater than the median.
 //		param v: array of values
 //		param n: number of values in set
 //		return: median as double
 dbl ijkStatsGetMedian_int_dbl(schomp const v[], size const n);
 
 // ijkStatsGetMedian_flt
-//	Calculate the median of a float data set. Half of the data are less and 
-//	half are greater than the median.
+//	Calculate the median of a sorted float data set. Half of the data are 
+//	less and half are greater than the median.
 //		param v: array of values
 //		param n: number of values in set
 //		return: median
 flt ijkStatsGetMedian_flt(flt const v[], size const n);
 
 // ijkStatsGetMedian_dbl
-//	Calculate the median of a double data set. Half of the data are less and 
-//	half are greater than the median.
+//	Calculate the median of a sorted double data set. Half of the data are 
+//	less and half are greater than the median.
 //		param v: array of values
 //		param n: number of values in set
 //		return: median
