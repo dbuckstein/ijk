@@ -51,6 +51,9 @@
     <ClCompile Include="..\..\..\source\ijk-math\common\ijk-real\ijkRandom.c">
       <Filter>Source Files\common\ijk-real</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\source\ijk-math\common\ijk-real\ijkSqrt.c">
+      <Filter>Source Files\common\ijk-real</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\include\ijk\ijk-math\ijk-math.h">
