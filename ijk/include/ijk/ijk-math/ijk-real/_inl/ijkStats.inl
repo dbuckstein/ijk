@@ -93,73 +93,149 @@ ijk_inl dbl ijkStatsGetMedian_dbl(dbl const v[], size const n)
 
 ijk_inl flt ijkStatsGetMean_int_flt(schomp const v[], size const n)
 {
-
+	if (n > 0)
+	{
+		schomp sum;
+		uitr i;
+		for (i = 0, sum = 0; i < n; ++i)
+			sum += v[i];
+		return ((flt)sum / (flt)n);
+	}
+	return flt_zero;
 }
 
 
 ijk_inl dbl ijkStatsGetMean_int_dbl(schomp const v[], size const n)
 {
-
+	if (n > 0)
+	{
+		schomp sum;
+		uitr i;
+		for (i = 0, sum = 0; i < n; ++i)
+			sum += v[i];
+		return ((dbl)sum / (dbl)n);
+	}
+	return dbl_zero;
 }
 
 
 ijk_inl flt ijkStatsGetMean_flt(flt const v[], size const n)
 {
-
+	if (n > 0)
+	{
+		flt sum;
+		uitr i;
+		for (i = 0, sum = flt_zero; i < n; ++i)
+			sum += v[i];
+		return (sum / (flt)n);
+	}
+	return flt_zero;
 }
 
 
 ijk_inl dbl ijkStatsGetMean_dbl(dbl const v[], size const n)
 {
-
+	if (n > 0)
+	{
+		dbl sum;
+		uitr i;
+		for (i = 0, sum = dbl_zero; i < n; ++i)
+			sum += v[i];
+		return (sum / (dbl)n);
+	}
+	return dbl_zero;
 }
 
 
 ijk_inl flt ijkStatsGetVariance_int_flt(schomp const v[], size const n, flt mean_opt[1])
 {
-
+	flt const mean = ijkStatsGetMean_int_flt(v, n);
+	flt var, dvar;
+	uitr i;
+	for (i = 0, var = flt_zero; i < n; ++i)
+	{
+		dvar = (flt)v[i] - mean;
+		var += dvar * dvar;
+	}
+	if (mean_opt)
+		*mean_opt = mean;
+	return var;
 }
 
 
 ijk_inl dbl ijkStatsGetVariance_int_dbl(schomp const v[], size const n, dbl mean_opt[1])
 {
-
+	dbl const mean = ijkStatsGetMean_int_dbl(v, n);
+	dbl var, dvar;
+	uitr i;
+	for (i = 0, var = dbl_zero; i < n; ++i)
+	{
+		dvar = (dbl)v[i] - mean;
+		var += dvar * dvar;
+	}
+	if (mean_opt)
+		*mean_opt = mean;
+	return var;
 }
 
 
 ijk_inl flt ijkStatsGetVariance_flt(flt const v[], size const n, flt mean_opt[1])
 {
-
+	flt const mean = ijkStatsGetMean_flt(v, n);
+	flt var, dvar;
+	uitr i;
+	for (i = 0, var = flt_zero; i < n; ++i)
+	{
+		dvar = v[i] - mean;
+		var += dvar * dvar;
+	}
+	if (mean_opt)
+		*mean_opt = mean;
+	return var;
 }
 
 
 ijk_inl dbl ijkStatsGetVariance_dbl(dbl const v[], size const n, dbl mean_opt[1])
 {
-
+	dbl const mean = ijkStatsGetMean_dbl(v, n);
+	dbl var, dvar;
+	uitr i;
+	for (i = 0, var = dbl_zero; i < n; ++i)
+	{
+		dvar = v[i] - mean;
+		var += dvar * dvar;
+	}
+	if (mean_opt)
+		*mean_opt = mean;
+	return var;
 }
 
 
 ijk_inl flt ijkStatsGetStdDev_int_flt(schomp const v[], size const n, flt mean_opt[1])
 {
-
+	flt const var = ijkStatsGetVariance_int_flt(v, n, mean_opt);
+	return /*ijkSqrt_flt*/(var);
 }
 
 
 ijk_inl dbl ijkStatsGetStdDev_int_dbl(schomp const v[], size const n, dbl mean_opt[1])
 {
-
+	dbl const var = ijkStatsGetVariance_int_dbl(v, n, mean_opt);
+	return /*ijkSqrt_dbl*/(var);
 }
 
 
 ijk_inl flt ijkStatsGetStdDev_flt(flt const v[], size const n, flt mean_opt[1])
 {
-
+	flt const var = ijkStatsGetVariance_flt(v, n, mean_opt);
+	return /*ijkSqrt_flt*/(var);
 }
 
 
 ijk_inl dbl ijkStatsGetStdDev_dbl(dbl const v[], size const n, dbl mean_opt[1])
 {
-
+	dbl const var = ijkStatsGetVariance_dbl(v, n, mean_opt);
+	return /*ijkSqrt_dbl*/(var);
 }
 
 
