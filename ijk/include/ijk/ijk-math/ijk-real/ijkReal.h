@@ -66,155 +66,7 @@ typedef ijk_real					real;
 #define ijk_declrealv(var)			ijk_tokencat(ijk_real,ijk_tokencat(_,var))
 
 
-// global constants for float type
-///
-ijk_ext flt const flt_zero;
-ijk_ext flt const flt_eps;
-ijk_ext flt const flt_halfeps;
-ijk_ext flt const flt_1000th;
-ijk_ext flt const flt_100th;
-ijk_ext flt const flt_10th;
-ijk_ext flt const flt_9th;
-ijk_ext flt const flt_8th;
-ijk_ext flt const flt_7th;
-ijk_ext flt const flt_6th;
-ijk_ext flt const flt_5th;
-ijk_ext flt const flt_quarter;
-ijk_ext flt const flt_third;
-ijk_ext flt const flt_half;
-ijk_ext flt const flt_2thirds;
-ijk_ext flt const flt_3quarters;
-ijk_ext flt const flt_one;
-ijk_ext flt const flt_4third;
-ijk_ext flt const flt_3half;
-ijk_ext flt const flt_two;
-ijk_ext flt const flt_three;
-ijk_ext flt const flt_four;
-ijk_ext flt const flt_five;
-ijk_ext flt const flt_six;
-ijk_ext flt const flt_seven;
-ijk_ext flt const flt_eight;
-ijk_ext flt const flt_nine;
-ijk_ext flt const flt_ten;
-ijk_ext flt const flt_hundred;
-ijk_ext flt const flt_thousand;
-ijk_ext flt const flt_sqrtthird;
-ijk_ext flt const flt_sqrthalf;
-ijk_ext flt const flt_sqrt2;
-ijk_ext flt const flt_sqrt3;
-ijk_ext flt const flt_2pi;
-ijk_ext flt const flt_pi;
-ijk_ext flt const flt_halfpi;
-ijk_ext flt const flt_thirdpi;
-ijk_ext flt const flt_quarterpi;
-ijk_ext flt const flt_360;
-ijk_ext flt const flt_180;
-ijk_ext flt const flt_90;
-ijk_ext flt const flt_60;
-ijk_ext flt const flt_45;
-ijk_ext flt const flt_deg2rad;
-ijk_ext flt const flt_rad2deg;
-
-
-// global constants for double type
-///
-ijk_ext dbl const dbl_zero;
-ijk_ext dbl const dbl_eps;
-ijk_ext dbl const dbl_halfeps;
-ijk_ext dbl const dbl_1000th;
-ijk_ext dbl const dbl_100th;
-ijk_ext dbl const dbl_10th;
-ijk_ext dbl const dbl_9th;
-ijk_ext dbl const dbl_8th;
-ijk_ext dbl const dbl_7th;
-ijk_ext dbl const dbl_6th;
-ijk_ext dbl const dbl_5th;
-ijk_ext dbl const dbl_quarter;
-ijk_ext dbl const dbl_third;
-ijk_ext dbl const dbl_half;
-ijk_ext dbl const dbl_2thirds;
-ijk_ext dbl const dbl_3quarters;
-ijk_ext dbl const dbl_one;
-ijk_ext dbl const dbl_4third;
-ijk_ext dbl const dbl_3half;
-ijk_ext dbl const dbl_two;
-ijk_ext dbl const dbl_three;
-ijk_ext dbl const dbl_four;
-ijk_ext dbl const dbl_five;
-ijk_ext dbl const dbl_six;
-ijk_ext dbl const dbl_seven;
-ijk_ext dbl const dbl_eight;
-ijk_ext dbl const dbl_nine;
-ijk_ext dbl const dbl_ten;
-ijk_ext dbl const dbl_hundred;
-ijk_ext dbl const dbl_thousand;
-ijk_ext dbl const dbl_sqrtthird;
-ijk_ext dbl const dbl_sqrthalf;
-ijk_ext dbl const dbl_sqrt2;
-ijk_ext dbl const dbl_sqrt3;
-ijk_ext dbl const dbl_2pi;
-ijk_ext dbl const dbl_pi;
-ijk_ext dbl const dbl_halfpi;
-ijk_ext dbl const dbl_thirdpi;
-ijk_ext dbl const dbl_quarterpi;
-ijk_ext dbl const dbl_360;
-ijk_ext dbl const dbl_180;
-ijk_ext dbl const dbl_90;
-ijk_ext dbl const dbl_60;
-ijk_ext dbl const dbl_45;
-ijk_ext dbl const dbl_deg2rad;
-ijk_ext dbl const dbl_rad2deg;
-
-
-// global constants for real type
-///
-#define real_zero					ijk_declrealv(zero)
-#define real_eps					ijk_declrealv(eps)
-#define real_halfeps				ijk_declrealv(halfeps)
-#define real_1000th					ijk_declrealv(1000th)
-#define real_100th					ijk_declrealv(100th)
-#define real_10th					ijk_declrealv(10th)
-#define real_9th					ijk_declrealv(9th)
-#define real_8th					ijk_declrealv(8th)
-#define real_7th					ijk_declrealv(7th)
-#define real_6th					ijk_declrealv(6th)
-#define real_5th					ijk_declrealv(5th)
-#define real_quarter				ijk_declrealv(quarter)
-#define real_third					ijk_declrealv(third)
-#define real_half					ijk_declrealv(half)
-#define real_2thirds				ijk_declrealv(2thirds)
-#define real_3quarters				ijk_declrealv(3quarters)
-#define real_one					ijk_declrealv(one)
-#define real_4third					ijk_declrealv(4third)
-#define real_3half					ijk_declrealv(3half)
-#define real_two					ijk_declrealv(two)
-#define real_three					ijk_declrealv(three)
-#define real_four					ijk_declrealv(four)
-#define real_five					ijk_declrealv(five)
-#define real_six					ijk_declrealv(six)
-#define real_seven					ijk_declrealv(seven)
-#define real_eight					ijk_declrealv(eight)
-#define real_nine					ijk_declrealv(nine)
-#define real_ten					ijk_declrealv(ten)
-#define real_hundred				ijk_declrealv(hundred)
-#define real_thousand				ijk_declrealv(thousand)
-#define real_sqrtthird				ijk_declrealv(sqrtthird)
-#define real_sqrthalf				ijk_declrealv(sqrthalf)
-#define real_sqrt2					ijk_declrealv(sqrt2)
-#define real_sqrt3					ijk_declrealv(sqrt3)
-#define real_2pi					ijk_declrealv(2pi)
-#define real_pi						ijk_declrealv(pi)
-#define real_halfpi					ijk_declrealv(halfpi)
-#define real_thirdpi				ijk_declrealv(thirdpi)
-#define real_quarterpi				ijk_declrealv(quarterpi)
-#define real_360					ijk_declrealv(360)
-#define real_180					ijk_declrealv(180)
-#define real_90						ijk_declrealv(90)
-#define real_60						ijk_declrealv(60)
-#define real_45						ijk_declrealv(45)
-#define real_deg2rad				ijk_declrealv(deg2rad)
-#define real_rad2deg				ijk_declrealv(rad2deg)
-
+//-----------------------------------------------------------------------------
 
 // ijk_lerp
 //	Linear interpolation.
@@ -261,107 +113,234 @@ ijk_ext dbl const dbl_rad2deg;
 #define ijk_divide(n,d)				((n) / (d))
 
 
-// sign function
-///
-#define ijk_sgn_int(x)				((x) > ijk_zero ? +ijk_one : (x) < ijk_zero ? -ijk_one : ijk_zero)
-#define ijk_sgn_flt(x)				((x) > flt_zero ? +flt_one : (x) < flt_zero ? -flt_one : flt_zero)
-#define ijk_sgn_dbl(x)				((x) > dbl_zero ? +dbl_one : (x) < dbl_zero ? -dbl_one : dbl_zero)
-#define ijk_sgn						ijk_declrealf(ijk_sgn)
+//-----------------------------------------------------------------------------
 
-// absolute value function
+// Macros for integers.
 ///
-#define ijk_abs_int(x)				((x) >= ijk_zero ? +(x) : -(x))
-#define ijk_abs_flt(x)				((x) >= flt_zero ? +(x) : -(x))
-#define ijk_abs_dbl(x)				((x) >= dbl_zero ? +(x) : -(x))
-#define ijk_abs						ijk_declrealf(ijk_abs)
-
-// conversion from normalized unit [0,1] to symmetric unit [-1,+1]
-///
-#define ijk_nrm2sym_int(x)			(((x) << ijk_one) - ijk_one)
-#define ijk_nrm2sym_flt(x)			((x) * flt_two - flt_one)
-#define ijk_nrm2sym_dbl(x)			((x) * dbl_two - dbl_one)
-#define ijk_nrm2sym					ijk_declrealf(ijk_nrm2sym)
-
-// conversion from symmetric unit [-1,+1] to normalized unit [0,1]
-///
-#define ijk_sym2nrm_int(x)			(((x) + ijk_one) >> ijk_one)
-#define ijk_sym2nrm_flt(x)			((x) * flt_half + flt_half)
-#define ijk_sym2nrm_dbl(x)			((x) * dbl_half + dbl_half)
-#define ijk_sym2nrm					ijk_declrealf(ijk_sym2nrm)
-
-// check if value is in normalized unit range [0,1]
-///
-#define ijk_isnrm_int(x)			ijk_isclamp(ijk_zero,ijk_one,x)
-#define ijk_isnrm_flt(x)			ijk_isclamp(flt_zero,flt_one,x)
-#define ijk_isnrm_dbl(x)			ijk_isclamp(dbl_zero,dbl_one,x)
-#define ijk_isnrm					ijk_declrealf(ijk_isnrm)
-
-// check if value is not in normalized unit range
-///
-#define ijk_isnnrm_int(x)			ijk_isnclamp(ijk_zero,ijk_one,x)
-#define ijk_isnnrm_flt(x)			ijk_isnclamp(flt_zero,flt_one,x)
-#define ijk_isnnrm_dbl(x)			ijk_isnclamp(dbl_zero,dbl_one,x)
-#define ijk_isnnrm					ijk_declrealf(ijk_isnnrm)
-
-// check if value is in symmetric unit range [-1,+1]
-///
-#define ijk_issym_int(x)			ijk_isclamp(-ijk_one,+ijk_one,x)
-#define ijk_issym_flt(x)			ijk_isclamp(-flt_one,+flt_one,x)
-#define ijk_issym_dbl(x)			ijk_isclamp(-dbl_one,+dbl_one,x)
-#define ijk_issym					ijk_declrealf(ijk_issym)
-
-// check if value is not in symmetric unit range
-///
-#define ijk_isnsym_int(x)			ijk_isnclamp(-ijk_one,+ijk_one,x)
-#define ijk_isnsym_flt(x)			ijk_isnclamp(-flt_one,+flt_one,x)
-#define ijk_isnsym_dbl(x)			ijk_isnclamp(-dbl_one,+dbl_one,x)
-#define ijk_isnsym					ijk_declrealf(ijk_isnsym)
-
-// check if value is near zero
-///
-#define ijk_iszero_int(x)			((x) == ijk_zero)
-#define ijk_iszero_flt(x)			ijk_isclamp(-flt_eps,+flt_eps,x)
-#define ijk_iszero_dbl(x)			ijk_isclamp(-dbl_eps,+dbl_eps,x)
-#define ijk_iszero					ijk_declrealf(ijk_iszero)
-
-// check if value is not near zero
-///
-#define ijk_isnzero_int(x)			((x) != ijk_zero)
-#define ijk_isnzero_flt(x)			ijk_isnclamp(-flt_eps,+flt_eps,x)
-#define ijk_isnzero_dbl(x)			ijk_isnclamp(-dbl_eps,+dbl_eps,x)
-#define ijk_isnzero					ijk_declrealf(ijk_isnzero)
-
-// division-by-zero safety
-///
-#define ijk_divide_safe_int(n,d)	((d) != ijk_zero ? ijk_divide(n,d) : ijk_zero)
-#define ijk_divide_safe_flt(n,d)	((d) != flt_zero ? ijk_divide(n,d) : flt_zero)
-#define ijk_divide_safe_dbl(n,d)	((d) != dbl_zero ? ijk_divide(n,d) : dbl_zero)
-#define ijk_divide_safe				ijk_declrealf(ijk_divide_safe)
+#define ijk_sgn_int(x)				((x) > ijk_zero ? +ijk_one : (x) < ijk_zero ? -ijk_one : ijk_zero)	// sgn(x) = x > 0 ? +1 : x < 0 ? -1 : 0
+#define ijk_abs_int(x)				((x) >= ijk_zero ? +(x) : -(x))										// abs(x) = x >= 0 ? +x : -x
+#define ijk_nrm2sym_int(x)			(((x) << ijk_one) - ijk_one)										// nrm2sym(x) = 2x - 1
+#define ijk_sym2nrm_int(x)			(((x) + ijk_one) >> ijk_one)										// sym2nrm(x) = (x + 1)/2
+#define ijk_isnrm_int(x)			ijk_isclamp(ijk_zero,ijk_one,x)										// isnrm(x) = 0 <= x <= 1
+#define ijk_isnnrm_int(x)			ijk_isnclamp(ijk_zero,ijk_one,x)									// isnnrm(x) = !isnrm(x)
+#define ijk_issym_int(x)			ijk_isclamp(-ijk_one,+ijk_one,x)									// issym(x) = -1 <= x <= +1
+#define ijk_isnsym_int(x)			ijk_isnclamp(-ijk_one,+ijk_one,x)									// isnsym(x) = !issym(x)
+#define ijk_iszero_int(x)			((x) == ijk_zero)													// iszero(x) = -eps <= x <= +eps
+#define ijk_isnzero_int(x)			((x) != ijk_zero)													// isnzero(x) = !iszero(x)
+#define ijk_divide_safe_int(n,d)	((d) != ijk_zero ? ijk_divide(n,d) : ijk_zero)						// divide_safe(n,d) = n/d, d != 0
 
 
-// reciprocal
-///
-#define ijk_recip_flt(x)			(flt_one / (x))
-#define ijk_recip_dbl(x)			(dbl_one / (x))
-#define ijk_recip					ijk_declrealf(ijk_recip)
+//-----------------------------------------------------------------------------
 
-// reciprocal with division-by-zero safety
+// Global constants for float type.
 ///
-#define ijk_recip_safe_flt(x)		((x != flt_zero) ? ijk_recip_flt(x) : flt_zero)
-#define ijk_recip_safe_dbl(x)		((x != dbl_zero) ? ijk_recip_dbl(x) : dbl_zero)
-#define ijk_recip_safe				ijk_declrealf(ijk_recip_safe)
+ijk_ext flt const flt_zero;										   // Zero as float.
+ijk_ext flt const flt_eps;										   // Epsilon as float.
+ijk_ext flt const flt_halfeps;									   // Half epsilon as float.
+ijk_ext flt const flt_1000th;									   // 1/1000 as float.
+ijk_ext flt const flt_100th;									   // 1/100 as float.
+ijk_ext flt const flt_10th;										   // 1/10 as float.
+ijk_ext flt const flt_9th;										   // 1/9 as float.
+ijk_ext flt const flt_8th;										   // 1/8 as float.
+ijk_ext flt const flt_7th;										   // 1/7 as float.
+ijk_ext flt const flt_6th;										   // 1/6 as float.
+ijk_ext flt const flt_5th;										   // 1/5 as float.
+ijk_ext flt const flt_quarter;									   // 1/4 as float.
+ijk_ext flt const flt_third;									   // 1/3 as float.
+ijk_ext flt const flt_half;										   // 1/2 as float.
+ijk_ext flt const flt_2thirds;									   // 2/3 as float.
+ijk_ext flt const flt_3quarters;								   // 3/4 as float.
+ijk_ext flt const flt_one;										   // One as float.
+ijk_ext flt const flt_4third;									   // 4/3 as float.
+ijk_ext flt const flt_3half;									   // 3/2 as float.
+ijk_ext flt const flt_two;										   // 2 as float.
+ijk_ext flt const flt_three;									   // 3 as float.
+ijk_ext flt const flt_four;										   // 4 as float.
+ijk_ext flt const flt_five;										   // 5 as float.
+ijk_ext flt const flt_six;										   // 6 as float.
+ijk_ext flt const flt_seven;									   // 7 as float.
+ijk_ext flt const flt_eight;									   // 8 as float.
+ijk_ext flt const flt_nine;										   // 9 as float.
+ijk_ext flt const flt_ten;										   // 10 as float.
+ijk_ext flt const flt_hundred;									   // 100 as float.
+ijk_ext flt const flt_thousand;									   // 1000 as float.
+ijk_ext flt const flt_sqrtthird;								   // Sqrt(1/3) as float.
+ijk_ext flt const flt_sqrthalf;									   // Sqrt(1/2) as float.
+ijk_ext flt const flt_sqrt2;									   // Sqrt(2) as float.
+ijk_ext flt const flt_sqrt3;									   // Sqrt(3) as float.
+ijk_ext flt const flt_2pi;										   // Pi*2 (approx 6.28319) as float.
+ijk_ext flt const flt_pi;										   // Pi (approx 3.14159) as float.
+ijk_ext flt const flt_halfpi;									   // Pi/2 (approx 1.57079) as float.
+ijk_ext flt const flt_thirdpi;									   // Pi/3 (approx 1.05719) as float.
+ijk_ext flt const flt_quarterpi;								   // Pi/4 (approx 0.78539) as float.
+ijk_ext flt const flt_360;										   // 360 as float.
+ijk_ext flt const flt_180;										   // 180 as float.
+ijk_ext flt const flt_90;										   // 90 as float.
+ijk_ext flt const flt_60;										   // 60 as float.
+ijk_ext flt const flt_45;										   // 45 as float.
+ijk_ext flt const flt_deg2rad;									   // Pi/180 (approx 0.01745) as float.
+ijk_ext flt const flt_rad2deg;									   // 180/pi (approx 57.29578) as float.
 
-// convert degrees to radians
-///
-#define ijk_deg2rad_flt(x)			((x) * flt_deg2rad)
-#define ijk_deg2rad_dbl(x)			((x) * dbl_deg2rad)
-#define ijk_deg2rad					ijk_declrealf(ijk_deg2rad)
 
-// convert radians to degrees
+// Macros for floats.
 ///
-#define ijk_rad2deg_flt(x)			((x) * flt_rad2deg)
-#define ijk_rad2deg_dbl(x)			((x) * dbl_rad2deg)
-#define ijk_rad2deg					ijk_declrealf(ijk_rad2deg)
+#define ijk_sgn_flt(x)				((x) > flt_zero ? +flt_one : (x) < flt_zero ? -flt_one : flt_zero)	// sgn(x) = x > 0 ? +1 : x < 0 ? -1 : 0
+#define ijk_abs_flt(x)				((x) >= flt_zero ? +(x) : -(x))										// abs(x) = x >= 0 ? +x : -x
+#define ijk_nrm2sym_flt(x)			((x) * flt_two - flt_one)											// nrm2sym(x) = 2x - 1
+#define ijk_sym2nrm_flt(x)			((x) * flt_half + flt_half)											// sym2nrm(x) = (x + 1)/2
+#define ijk_isnrm_flt(x)			ijk_isclamp(flt_zero,flt_one,x)										// isnrm(x) = 0 <= x <= 1
+#define ijk_isnnrm_flt(x)			ijk_isnclamp(flt_zero,flt_one,x)									// isnnrm(x) = !isnrm(x)
+#define ijk_issym_flt(x)			ijk_isclamp(-flt_one,+flt_one,x)									// issym(x) = -1 <= x <= +1
+#define ijk_isnsym_flt(x)			ijk_isnclamp(-flt_one,+flt_one,x)									// isnsym(x) = !issym(x)
+#define ijk_iszero_flt(x)			ijk_isclamp(-flt_eps,+flt_eps,x)									// iszero(x) = -eps <= x <= +eps
+#define ijk_isnzero_flt(x)			ijk_isnclamp(-flt_eps,+flt_eps,x)									// isnzero(x) = !iszero(x)
+#define ijk_divide_safe_flt(n,d)	((d) != flt_zero ? ijk_divide(n,d) : flt_zero)						// divide_safe(n,d) = n/d, d != 0
+#define ijk_recip_flt(x)			(flt_one / (x))														// recip(x) = 1/x
+#define ijk_recip_safe_flt(x)		((x != flt_zero) ? ijk_recip_flt(x) : flt_zero)						// recip_safe(x) = 1/x, x != 0
+#define ijk_deg2rad_flt(x)			((x) * flt_deg2rad)													// deg2rad(x) = x * pi/180
+#define ijk_rad2deg_flt(x)			((x) * flt_rad2deg)													// rad2deg(x) = x * 180/pi
+
+
+//-----------------------------------------------------------------------------
+
+// Global constants for double type.
+///
+ijk_ext dbl const dbl_zero;										   // Zero as double.
+ijk_ext dbl const dbl_eps;										   // Epsilon as double.
+ijk_ext dbl const dbl_halfeps;									   // Half epsilon as double.
+ijk_ext dbl const dbl_1000th;									   // 1/1000 as double.
+ijk_ext dbl const dbl_100th;									   // 1/100 as double.
+ijk_ext dbl const dbl_10th;										   // 1/10 as double.
+ijk_ext dbl const dbl_9th;										   // 1/9 as double.
+ijk_ext dbl const dbl_8th;										   // 1/8 as double.
+ijk_ext dbl const dbl_7th;										   // 1/7 as double.
+ijk_ext dbl const dbl_6th;										   // 1/6 as double.
+ijk_ext dbl const dbl_5th;										   // 1/5 as double.
+ijk_ext dbl const dbl_quarter;									   // 1/4 as double.
+ijk_ext dbl const dbl_third;									   // 1/3 as double.
+ijk_ext dbl const dbl_half;										   // 1/2 as double.
+ijk_ext dbl const dbl_2thirds;									   // 2/3 as double.
+ijk_ext dbl const dbl_3quarters;								   // 3/4 as double.
+ijk_ext dbl const dbl_one;										   // One as double.
+ijk_ext dbl const dbl_4third;									   // 4/3 as double.
+ijk_ext dbl const dbl_3half;									   // 3/2 as double.
+ijk_ext dbl const dbl_two;										   // 2 as double.
+ijk_ext dbl const dbl_three;									   // 3 as double.
+ijk_ext dbl const dbl_four;										   // 4 as double.
+ijk_ext dbl const dbl_five;										   // 5 as double.
+ijk_ext dbl const dbl_six;										   // 6 as double.
+ijk_ext dbl const dbl_seven;									   // 7 as double.
+ijk_ext dbl const dbl_eight;									   // 8 as double.
+ijk_ext dbl const dbl_nine;										   // 9 as double.
+ijk_ext dbl const dbl_ten;										   // 10 as double.
+ijk_ext dbl const dbl_hundred;									   // 100 as double.
+ijk_ext dbl const dbl_thousand;									   // 1000 as double.
+ijk_ext dbl const dbl_sqrtthird;								   // Sqrt(1/3) as double.
+ijk_ext dbl const dbl_sqrthalf;									   // Sqrt(1/2) as double.
+ijk_ext dbl const dbl_sqrt2;									   // Sqrt(2) as double.
+ijk_ext dbl const dbl_sqrt3;									   // Sqrt(3) as double.
+ijk_ext dbl const dbl_2pi;										   // Pi*2 (approx 6.28319) as double.
+ijk_ext dbl const dbl_pi;										   // Pi (approx 3.14159) as double.
+ijk_ext dbl const dbl_halfpi;									   // Pi/2 (approx 1.57079) as double.
+ijk_ext dbl const dbl_thirdpi;									   // Pi/3 (approx 1.05719) as double.
+ijk_ext dbl const dbl_quarterpi;								   // Pi/4 (approx 0.78539) as double.
+ijk_ext dbl const dbl_360;										   // 360 as double.
+ijk_ext dbl const dbl_180;										   // 180 as double.
+ijk_ext dbl const dbl_90;										   // 90 as double.
+ijk_ext dbl const dbl_60;										   // 60 as double.
+ijk_ext dbl const dbl_45;										   // 45 as double.
+ijk_ext dbl const dbl_deg2rad;									   // Pi/180 (approx 0.01745) as double.
+ijk_ext dbl const dbl_rad2deg;									   // 180/pi (approx 57.29578) as double.
+
+
+// Macros for doubles.
+///
+#define ijk_sgn_dbl(x)				((x) > dbl_zero ? +dbl_one : (x) < dbl_zero ? -dbl_one : dbl_zero)	// sgn(x) = x > 0 ? +1 : x < 0 ? -1 : 0
+#define ijk_abs_dbl(x)				((x) >= dbl_zero ? +(x) : -(x))										// abs(x) = x >= 0 ? +x : -x
+#define ijk_nrm2sym_dbl(x)			((x) * dbl_two - dbl_one)											// nrm2sym(x) = 2x - 1
+#define ijk_sym2nrm_dbl(x)			((x) * dbl_half + dbl_half)											// sym2nrm(x) = (x + 1)/2
+#define ijk_isnrm_dbl(x)			ijk_isclamp(dbl_zero,dbl_one,x)										// isnrm(x) = 0 <= x <= 1
+#define ijk_isnnrm_dbl(x)			ijk_isnclamp(dbl_zero,dbl_one,x)									// isnnrm(x) = !isnrm(x)
+#define ijk_issym_dbl(x)			ijk_isclamp(-dbl_one,+dbl_one,x)									// issym(x) = -1 <= x <= +1
+#define ijk_isnsym_dbl(x)			ijk_isnclamp(-dbl_one,+dbl_one,x)									// isnsym(x) = !issym(x)
+#define ijk_iszero_dbl(x)			ijk_isclamp(-dbl_eps,+dbl_eps,x)									// iszero(x) = -eps <= x <= +eps
+#define ijk_isnzero_dbl(x)			ijk_isnclamp(-dbl_eps,+dbl_eps,x)									// isnzero(x) = !iszero(x)
+#define ijk_divide_safe_dbl(n,d)	((d) != dbl_zero ? ijk_divide(n,d) : dbl_zero)						// divide_safe(n,d) = n/d, d != 0
+#define ijk_recip_dbl(x)			(dbl_one / (x))														// recip(x) = 1/x
+#define ijk_recip_safe_dbl(x)		((x != dbl_zero) ? ijk_recip_dbl(x) : dbl_zero)						// recip_safe(x) = 1/x, x != 0
+#define ijk_deg2rad_dbl(x)			((x) * dbl_deg2rad)													// deg2rad(x) = x * pi/180
+#define ijk_rad2deg_dbl(x)			((x) * dbl_rad2deg)													// rad2deg(x) = x * 180/pi
+
+
+//-----------------------------------------------------------------------------
+
+// Global constants for real type.
+///
+#define real_zero					ijk_declrealv(zero)				// Zero as real type.
+#define real_eps					ijk_declrealv(eps)				// Epsilon as real type.
+#define real_halfeps				ijk_declrealv(halfeps)			// Half epsilon as real type.
+#define real_1000th					ijk_declrealv(1000th)			// 1/1000 as real type.
+#define real_100th					ijk_declrealv(100th)			// 1/100 as real type.
+#define real_10th					ijk_declrealv(10th)				// 1/10 as real type.
+#define real_9th					ijk_declrealv(9th)				// 1/9 as real type.
+#define real_8th					ijk_declrealv(8th)				// 1/8 as real type.
+#define real_7th					ijk_declrealv(7th)				// 1/7 as real type.
+#define real_6th					ijk_declrealv(6th)				// 1/6 as real type.
+#define real_5th					ijk_declrealv(5th)				// 1/5 as real type.
+#define real_quarter				ijk_declrealv(quarter)			// 1/4 as real type.
+#define real_third					ijk_declrealv(third)			// 1/3 as real type.
+#define real_half					ijk_declrealv(half)				// 1/2 as real type.
+#define real_2thirds				ijk_declrealv(2thirds)			// 2/3 as real type.
+#define real_3quarters				ijk_declrealv(3quarters)		// 3/4 as real type.
+#define real_one					ijk_declrealv(one)				// One as real type.
+#define real_4third					ijk_declrealv(4third)			// 4/3 as real type.
+#define real_3half					ijk_declrealv(3half)			// 3/2 as real type.
+#define real_two					ijk_declrealv(two)				// 2 as real type.
+#define real_three					ijk_declrealv(three)			// 3 as real type.
+#define real_four					ijk_declrealv(four)				// 4 as real type.
+#define real_five					ijk_declrealv(five)				// 5 as real type.
+#define real_six					ijk_declrealv(six)				// 6 as real type.
+#define real_seven					ijk_declrealv(seven)			// 7 as real type.
+#define real_eight					ijk_declrealv(eight)			// 8 as real type.
+#define real_nine					ijk_declrealv(nine)				// 9 as real type.
+#define real_ten					ijk_declrealv(ten)				// 10 as real type.
+#define real_hundred				ijk_declrealv(hundred)			// 100 as real type.
+#define real_thousand				ijk_declrealv(thousand)			// 1000 as real type.
+#define real_sqrtthird				ijk_declrealv(sqrtthird)		// Sqrt(1/3) as real type.
+#define real_sqrthalf				ijk_declrealv(sqrthalf)			// Sqrt(1/2) as real type.
+#define real_sqrt2					ijk_declrealv(sqrt2)			// Sqrt(2) as real type.
+#define real_sqrt3					ijk_declrealv(sqrt3)			// Sqrt(3) as real type.
+#define real_2pi					ijk_declrealv(2pi)				// Pi*2 (approx 6.28319) as real type.
+#define real_pi						ijk_declrealv(pi)				// Pi (approx 3.14159) as real type.
+#define real_halfpi					ijk_declrealv(halfpi)			// Pi/2 (approx 1.57079) as real type.
+#define real_thirdpi				ijk_declrealv(thirdpi)			// Pi/3 (approx 1.05719) as real type.
+#define real_quarterpi				ijk_declrealv(quarterpi)		// Pi/4 (approx 0.78539) as real type.
+#define real_360					ijk_declrealv(360)				// 360 as real type.
+#define real_180					ijk_declrealv(180)				// 180 as real type.
+#define real_90						ijk_declrealv(90)				// 90 as real type.
+#define real_60						ijk_declrealv(60)				// 60 as real type.
+#define real_45						ijk_declrealv(45)				// 45 as real type.
+#define real_deg2rad				ijk_declrealv(deg2rad)			// Pi/180 (approx 0.01745) as real type.
+#define real_rad2deg				ijk_declrealv(rad2deg)			// 180/pi (approx 57.29578) as real type.
+
+
+// Macros for real type.
+///
+#define ijk_sgn						ijk_declrealf(ijk_sgn)												 // sgn(x) = x > 0 ? +1 : x < 0 ? -1 : 0
+#define ijk_abs						ijk_declrealf(ijk_abs)												 // abs(x) = x >= 0 ? +x : -x
+#define ijk_nrm2sym					ijk_declrealf(ijk_nrm2sym)											 // nrm2sym(x) = 2x - 1
+#define ijk_sym2nrm					ijk_declrealf(ijk_sym2nrm)											 // sym2nrm(x) = (x + 1)/2
+#define ijk_isnrm					ijk_declrealf(ijk_isnrm)											 // isnrm(x) = 0 <= x <= 1
+#define ijk_isnnrm					ijk_declrealf(ijk_isnnrm)											 // isnnrm(x) = !isnrm(x)
+#define ijk_issym					ijk_declrealf(ijk_issym)											 // issym(x) = -1 <= x <= +1
+#define ijk_isnsym					ijk_declrealf(ijk_isnsym)											 // isnsym(x) = !issym(x)
+#define ijk_iszero					ijk_declrealf(ijk_iszero)											 // iszero(x) = -eps <= x <= +eps
+#define ijk_isnzero					ijk_declrealf(ijk_isnzero)											 // isnzero(x) = !iszero(x)
+#define ijk_divide_safe				ijk_declrealf(ijk_divide_safe)										 // divide_safe(n,d) = n/d, d != 0
+#define ijk_recip					ijk_declrealf(ijk_recip)											 // recip(x) = 1/x
+#define ijk_recip_safe				ijk_declrealf(ijk_recip_safe)										 // recip_safe(x) = 1/x, x != 0
+#define ijk_deg2rad					ijk_declrealf(ijk_deg2rad)											 // deg2rad(x) = x * pi/180
+#define ijk_rad2deg					ijk_declrealf(ijk_rad2deg)											 // rad2deg(x) = x * 180/pi
 
 
 //-----------------------------------------------------------------------------
