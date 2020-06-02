@@ -54,6 +54,7 @@
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
+    <Import Project="$(VCTargetsPath)\BuildCustomizations\masm.props" />
   </ImportGroup>
   <ImportGroup Label="Shared">
   </ImportGroup>
@@ -158,20 +159,32 @@
     <ClCompile Include="..\..\..\source\ijk-math\common\ijk-math.c" />
     <ClCompile Include="..\..\..\source\ijk-math\common\ijk-real\ijkRandom.c" />
     <ClCompile Include="..\..\..\source\ijk-math\common\ijk-real\ijkReal.c" />
+    <ClCompile Include="..\..\..\source\ijk-math\common\ijk-real\ijkSqrt.c">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\include\ijk\ijk-math\ijk-math.h" />
     <ClInclude Include="..\..\..\include\ijk\ijk-math\ijk-real\ijkMatrix.h" />
     <ClInclude Include="..\..\..\include\ijk\ijk-math\ijk-real\ijkRandom.h" />
     <ClInclude Include="..\..\..\include\ijk\ijk-math\ijk-real\ijkReal.h" />
+    <ClInclude Include="..\..\..\include\ijk\ijk-math\ijk-real\ijkSqrt.h" />
     <ClInclude Include="..\..\..\include\ijk\ijk-math\ijk-real\ijkStats.h" />
     <ClInclude Include="..\..\..\include\ijk\ijk-math\ijk-real\ijkVector.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\include\ijk\ijk-math\ijk-real\_inl\ijkRandom.inl" />
+    <None Include="..\..\..\include\ijk\ijk-math\ijk-real\_inl\ijkSqrt.inl" />
     <None Include="..\..\..\include\ijk\ijk-math\ijk-real\_inl\ijkStats.inl" />
+    <MASM Include="..\..\..\source\ijk-math\common\ijk-real\_asm\ijkSqrt_a.asm">
+      <FileType>Document</FileType>
+    </MASM>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
+    <Import Project="$(VCTargetsPath)\BuildCustomizations\masm.targets" />
   </ImportGroup>
 </Project>
