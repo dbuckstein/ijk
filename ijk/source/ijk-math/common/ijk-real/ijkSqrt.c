@@ -35,14 +35,16 @@ flt ijkSqrt_flt(flt const x)
 }
 
 
-dbl ijkSqrt_dbl(dbl const x)
+flt ijkSqrtInv_flt(flt const x)
 {
 	// see 'ijkSqrt_a.asm'
 	return x;
 }
 
 
-flt ijkSqrtInv_flt(flt const x)
+//-----------------------------------------------------------------------------
+
+dbl ijkSqrt_dbl(dbl const x)
 {
 	// see 'ijkSqrt_a.asm'
 	return x;

@@ -70,14 +70,6 @@ ijkSqrt_flt PROC
 ijkSqrt_flt ENDP
 
 
-; sqrt (double)
-; simple sqrt call
-ijkSqrt_dbl PROC
-	sqrtsd		xmm0,		xmm0		; do scalar double sqrt on xmm0
-	ret									; exit function
-ijkSqrt_dbl ENDP
-
-
 ; sqrt inverse (float)
 ; rsqrtss is handy (one line) but does not give correct result
 ; nor does rcpss with reciprocal of square root; better with recip first
@@ -88,6 +80,14 @@ ijkSqrtInv_flt PROC
 	sqrtss		xmm0,		xmm1		; do scalar single sqrt on xmm1 -> xmm0
 	ret									; exit
 ijkSqrtInv_flt ENDP
+
+
+; sqrt (double)
+; simple sqrt call
+ijkSqrt_dbl PROC
+	sqrtsd		xmm0,		xmm0		; do scalar double sqrt on xmm0
+	ret									; exit function
+ijkSqrt_dbl ENDP
 
 
 ; sqrt inverse (double)
@@ -116,14 +116,6 @@ ijkSqrt_flt PROC
 ijkSqrt_flt ENDP
 
 
-; sqrt (double)
-ijkSqrt_dbl PROC
-	fld			qword ptr	[esp+4]		; load input to float stack (st0) as double (i64 size); arg is still 4 bytes past return address (4-byte ptr)
-	fsqrt								; do sqrt on top of float stack (st0)
-	ret									; exit
-ijkSqrt_dbl ENDP
-
-
 ; sqrt inverse (float)
 ijkSqrtInv_flt PROC
 	fld1								; load 1 to float stack (st0)
@@ -132,6 +124,14 @@ ijkSqrtInv_flt PROC
 	fsqrt								; do sqrt on top of stack
 	ret									; exit
 ijkSqrtInv_flt ENDP
+
+
+; sqrt (double)
+ijkSqrt_dbl PROC
+	fld			qword ptr	[esp+4]		; load input to float stack (st0) as double (i64 size); arg is still 4 bytes past return address (4-byte ptr)
+	fsqrt								; do sqrt on top of float stack (st0)
+	ret									; exit
+ijkSqrt_dbl ENDP
 
 
 ; sqrt inverse (double)

@@ -51,15 +51,17 @@ ijk_inl flt ijkSqrtInv0x_flt(flt const x)
 }
 
 
-ijk_inl dbl ijkSqrtInv0x_dbl(dbl const x)
-{
-	return (dbl)ijkSqrtInv0x_flt((flt)x);
-}
-
-
 ijk_inl flt ijkSqrt0x_flt(flt const x)
 {
 	return (x * ijkSqrtInv0x_flt(x));
+}
+
+
+//-----------------------------------------------------------------------------
+
+ijk_inl dbl ijkSqrtInv0x_dbl(dbl const x)
+{
+	return (dbl)ijkSqrtInv0x_flt((flt)x);
 }
 
 
