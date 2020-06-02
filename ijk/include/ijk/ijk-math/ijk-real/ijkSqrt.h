@@ -32,10 +32,82 @@
 
 //-----------------------------------------------------------------------------
 
+// ijkSqrt0x_flt
+//	Compute fast square root using Quake's method ("0x5f3759df") using 
+//	Newton's approximation method.
+//		param x: number to square root
+//		return: approximate square root of x
+flt ijkSqrt0x_flt(flt const x);
+
+// ijkSqrt0x_dbl
+//	Compute fast square root using Quake's method ("0x5f3759df") using 
+//	Newton's approximation method.
+//		param x: number to square root
+//		return: approximate square root of x
+dbl ijkSqrt0x_dbl(dbl const x);
+
+
+// ijkSqrtInv0x_flt
+//	Compute fast square root inverse using Quake's method ("0x5f3759df") using 
+//	Newton's approximation method.
+//		param x: number to square root and invert
+//		return: approximate inverse (reciprocal) square root of x
+flt ijkSqrtInv0x_flt(flt const x);
+
+// ijkSqrtInv0x_dbl
+//	Compute fast square root inverse using Quake's method ("0x5f3759df") using 
+//	Newton's approximation method.
+//		param x: number to square root and invert
+//		return: approximate inverse (reciprocal) square root of x
+dbl ijkSqrtInv0x_dbl(dbl const x);
+
+
+// ijkSqrt_flt
+//	Compute fast square root.
+//		param x: number to square root
+//		return: square root of x
+flt ijkSqrt_flt(flt const x);
+
+// ijkSqrt_dbl
+//	Compute fast square root.
+//		param x: number to square root
+//		return: square root of x
+dbl ijkSqrt_dbl(dbl const x);
+
+
+// ijkSqrtInv_flt
+//	Compute fast inverse square root.
+//		param x: number to square root
+//		return: inverse square root of x
+flt ijkSqrtInv_flt(flt const x);
+
+// ijkSqrtInv_dbl
+//	Compute fast inverse square root.
+//		param x: number to square root
+//		return: inverse square root of x
+dbl ijkSqrtInv_dbl(dbl const x);
+
+
+// ijkSqrtInvSafe_flt
+//	Compute fast inverse square root with divide-by-zero safety.
+//		param x: number to square root
+//		return: inverse square root of x
+flt ijkSqrtInvSafe_flt(flt const x);
+
+// ijkSqrtInvSafe_dbl
+//	Compute fast inverse square root with divide-by-zero safety.
+//		param x: number to square root
+//		return: inverse square root of x
+dbl ijkSqrtInvSafe_dbl(dbl const x);
 
 
 //-----------------------------------------------------------------------------
 
+#define ijkSqrt0x			ijk_declrealf(ijkSqrt0x)
+#define ijkSqrtInv0x		ijk_declrealf(ijkSqrtInv0x)
+#define ijkSqrt				ijk_declrealf(ijkSqrt)
+#define ijkSqrtInv			ijk_declrealf(ijkSqrtInv)
+#define ijkSqrtInvSafe		ijk_declrealf(ijkSqrtInvSafe)
 
 
 //-----------------------------------------------------------------------------
