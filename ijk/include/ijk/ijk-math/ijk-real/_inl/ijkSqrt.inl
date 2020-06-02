@@ -19,18 +19,21 @@
 		c-based rendering framework
 	By Daniel S. Buckstein
 
-	ijk-math.h
-	Main header for math library.
+	ijkSqrt.inl
+	Inline definitions for square root.
 */
 
-#ifndef _IJK_MATH_H_
-#define _IJK_MATH_H_
+#ifdef _IJK_SQRT_H_
+#ifndef _IJK_SQRT_INL_
+#define _IJK_SQRT_INL_
 
 
-#include "ijk-real/ijkReal.h"
-#include "ijk-real/ijkRandom.h"
-#include "ijk-real/ijkSqrt.h"
-#include "ijk-real/ijkStats.h"
+//-----------------------------------------------------------------------------
 
 
-#endif	// !_IJK_MATH_H_
+
+//-----------------------------------------------------------------------------
+
+
+#endif	// !_IJK_SQRT_INL_
+#endif	// _IJK_SQRT_H_
