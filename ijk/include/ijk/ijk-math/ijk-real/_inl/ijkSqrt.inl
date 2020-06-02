@@ -30,6 +30,43 @@
 
 //-----------------------------------------------------------------------------
 
+ijk_inl flt ijkSqrtInv0x_flt(flt const x)
+{
+	union {
+		f32 f;
+		i32 i;
+	} u = { x };
+
+	// input is converted to an integer, shifted one bit, wizardry occurs, 
+	//	then it is converted back to decimal as a guess for Newton's method
+	u.i = 0x5f3759df - (u.i >> 1);
+
+	// run Newton's method to converge on solution
+	// multiple iterations takes longer, but converges more
+	// 1x optimizes speed while 3x is better for precision
+	u.f *= (flt_3half - flt_half * x * u.f * u.f);
+
+	// done
+	return u.f;
+}
+
+
+ijk_inl dbl ijkSqrtInv0x_dbl(dbl const x)
+{
+	return (dbl)ijkSqrtInv0x_flt((flt)x);
+}
+
+
+ijk_inl flt ijkSqrt0x_flt(flt const x)
+{
+	return (x * ijkSqrtInv0x_flt(x));
+}
+
+
+ijk_inl dbl ijkSqrt0x_dbl(dbl const x)
+{
+	return (x * ijkSqrtInv0x_dbl(x));
+}
 
 
 //-----------------------------------------------------------------------------

@@ -32,21 +32,6 @@
 
 //-----------------------------------------------------------------------------
 
-// ijkSqrt0x_flt
-//	Compute fast square root using Quake's method ("0x5f3759df") using 
-//	Newton's approximation method.
-//		param x: number to square root
-//		return: approximate square root of x
-flt ijkSqrt0x_flt(flt const x);
-
-// ijkSqrt0x_dbl
-//	Compute fast square root using Quake's method ("0x5f3759df") using 
-//	Newton's approximation method.
-//		param x: number to square root
-//		return: approximate square root of x
-dbl ijkSqrt0x_dbl(dbl const x);
-
-
 // ijkSqrtInv0x_flt
 //	Compute fast square root inverse using Quake's method ("0x5f3759df") using 
 //	Newton's approximation method.
@@ -60,6 +45,21 @@ flt ijkSqrtInv0x_flt(flt const x);
 //		param x: number to square root and invert
 //		return: approximate inverse (reciprocal) square root of x
 dbl ijkSqrtInv0x_dbl(dbl const x);
+
+
+// ijkSqrt0x_flt
+//	Compute fast square root using Quake's method ("0x5f3759df") using 
+//	Newton's approximation method.
+//		param x: number to square root
+//		return: approximate square root of x
+flt ijkSqrt0x_flt(flt const x);
+
+// ijkSqrt0x_dbl
+//	Compute fast square root using Quake's method ("0x5f3759df") using 
+//	Newton's approximation method.
+//		param x: number to square root
+//		return: approximate square root of x
+dbl ijkSqrt0x_dbl(dbl const x);
 
 
 // ijkSqrt_flt
@@ -92,13 +92,13 @@ dbl ijkSqrtInv_dbl(dbl const x);
 //	Compute fast inverse square root with divide-by-zero safety.
 //		param x: number to square root
 //		return: inverse square root of x
-flt ijkSqrtInvSafe_flt(flt const x);
+#define ijkSqrtInvSafe_flt(x)	(x != flt_zero ? ijkSqrtInv_flt(x) : flt_zero)
 
 // ijkSqrtInvSafe_dbl
 //	Compute fast inverse square root with divide-by-zero safety.
 //		param x: number to square root
 //		return: inverse square root of x
-dbl ijkSqrtInvSafe_dbl(dbl const x);
+#define ijkSqrtInvSafe_dbl(x)	(x != dbl_zero ? ijkSqrtInv_dbl(x) : dbl_zero)
 
 
 //-----------------------------------------------------------------------------
