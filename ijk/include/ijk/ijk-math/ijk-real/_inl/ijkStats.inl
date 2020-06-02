@@ -214,28 +214,28 @@ ijk_inl dbl ijkStatsGetVariance_dbl(dbl const v[], size const n, dbl mean_opt[1]
 ijk_inl flt ijkStatsGetStdDev_int_flt(schomp const v[], size const n, flt mean_opt[1])
 {
 	flt const var = ijkStatsGetVariance_int_flt(v, n, mean_opt);
-	return /*ijkSqrt_flt*/(var);
+	return ijkSqrt_flt(var);
 }
 
 
 ijk_inl dbl ijkStatsGetStdDev_int_dbl(schomp const v[], size const n, dbl mean_opt[1])
 {
 	dbl const var = ijkStatsGetVariance_int_dbl(v, n, mean_opt);
-	return /*ijkSqrt_dbl*/(var);
+	return ijkSqrt_dbl(var);
 }
 
 
 ijk_inl flt ijkStatsGetStdDev_flt(flt const v[], size const n, flt mean_opt[1])
 {
 	flt const var = ijkStatsGetVariance_flt(v, n, mean_opt);
-	return /*ijkSqrt_flt*/(var);
+	return ijkSqrt_flt(var);
 }
 
 
 ijk_inl dbl ijkStatsGetStdDev_dbl(dbl const v[], size const n, dbl mean_opt[1])
 {
 	dbl const var = ijkStatsGetVariance_dbl(v, n, mean_opt);
-	return /*ijkSqrt_dbl*/(var);
+	return ijkSqrt_dbl(var);
 }
 
 
