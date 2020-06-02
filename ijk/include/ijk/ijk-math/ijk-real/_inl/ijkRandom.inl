@@ -39,7 +39,7 @@ ijk_inl i32 ijkRandomGetMax()
 
 ijk_inl i32 ijkRandomGetSeed()
 {
-	ijk_ext i32 const ijk_random_seed;
+	ijk_ext i32 ijk_random_seed;
 	return ijk_random_seed;
 }
 
@@ -65,15 +65,23 @@ ijk_inl i32 ijkRandomNum_int()
 }
 
 
-ijk_inl flt ijkRandomNum_flt()
+ijk_inl i32 ijkRandomNumMax_int(i32 const usermax)
 {
-	return (flt)ijkRandomNum_int();
+	return (ijkRandomNum_int() % usermax);
 }
 
 
-ijk_inl dbl ijkRandomNum_dbl()
+ijk_inl i32 ijkRandomNumRange_int(i32 const usermin, i32 const usermax)
 {
-	return (dbl)ijkRandomNum_int();
+	return (ijkRandomNum_int() % (usermax - usermin) + usermin);
+}
+
+
+//-----------------------------------------------------------------------------
+
+ijk_inl flt ijkRandomNum_flt()
+{
+	return (flt)ijkRandomNum_int();
 }
 
 
@@ -84,28 +92,9 @@ ijk_inl flt ijkRandomNumUnitNrm_flt()
 }
 
 
-ijk_inl dbl ijkRandomNumUnitNrm_dbl()
-{
-	ijk_ext dbl const ijk_random_max_inv_dbl;
-	return (ijkRandomNum_dbl() * ijk_random_max_inv_dbl);
-}
-
-
 ijk_inl flt ijkRandomNumUnitSym_flt()
 {
 	return ijk_nrm2sym_flt(ijkRandomNumUnitNrm_flt());
-}
-
-
-ijk_inl dbl ijkRandomNumUnitSym_dbl()
-{
-	return ijk_nrm2sym_dbl(ijkRandomNumUnitNrm_dbl());
-}
-
-
-ijk_inl i32 ijkRandomNumMax_int(i32 const usermax)
-{
-	return (ijkRandomNum_int() % usermax);
 }
 
 
@@ -115,21 +104,36 @@ ijk_inl flt ijkRandomNumMax_flt(flt const usermax)
 }
 
 
-ijk_inl dbl ijkRandomNumMax_dbl(dbl const usermax)
-{
-	return (ijkRandomNumUnitNrm_dbl() * usermax);
-}
-
-
-ijk_inl i32 ijkRandomNumRange_int(i32 const usermin, i32 const usermax)
-{
-	return (ijkRandomNum_int() % (usermax - usermin) + usermin);
-}
-
-
 ijk_inl flt ijkRandomNumRange_flt(flt const usermin, flt const usermax)
 {
 	return ijk_lerp(usermin, usermax, ijkRandomNumUnitNrm_flt());
+}
+
+
+//-----------------------------------------------------------------------------
+
+ijk_inl dbl ijkRandomNum_dbl()
+{
+	return (dbl)ijkRandomNum_int();
+}
+
+
+ijk_inl dbl ijkRandomNumUnitNrm_dbl()
+{
+	ijk_ext dbl const ijk_random_max_inv_dbl;
+	return (ijkRandomNum_dbl() * ijk_random_max_inv_dbl);
+}
+
+
+ijk_inl dbl ijkRandomNumUnitSym_dbl()
+{
+	return ijk_nrm2sym_dbl(ijkRandomNumUnitNrm_dbl());
+}
+
+
+ijk_inl dbl ijkRandomNumMax_dbl(dbl const usermax)
+{
+	return (ijkRandomNumUnitNrm_dbl() * usermax);
 }
 
 

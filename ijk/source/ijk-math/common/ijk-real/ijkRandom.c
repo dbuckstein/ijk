@@ -28,23 +28,25 @@
 
 //-----------------------------------------------------------------------------
 
+#define __ijk_random_max 134456
+#define __ijk_random_max_inv 7.4373772832748259653715713690724e-6
+
+
 // ijk_random_seed
 //	Random number generation seed.
 i32 ijk_random_seed = 1235;
 
 // ijk_random_max
 //	Maximum random number that can be generated.
-#define __ijk_random_max 134456
 i32 const ijk_random_max = __ijk_random_max;
-
-// ijk_random_max_inv_dbl
-//	Inverse of maximum random number as double.
-#define __ijk_random_max_inv 7.4373772832748259653715713690724e-6
-dbl const ijk_random_max_inv_dbl = (dbl)__ijk_random_max_inv;
 
 // ijk_random_max_inv_flt
 //	Inverse of maximum random number as float.
 flt const ijk_random_max_inv_flt = (flt)__ijk_random_max_inv;
+
+// ijk_random_max_inv_dbl
+//	Inverse of maximum random number as double.
+dbl const ijk_random_max_inv_dbl = (dbl)__ijk_random_max_inv;
 
 
 //-----------------------------------------------------------------------------
