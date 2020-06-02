@@ -104,6 +104,45 @@ ijkSqrtInv_dbl ENDP
 ELSE	; !RAX
 
 
+.model flat, c
+.code
+
+
+; sqrt (float)
+ijkSqrt_flt PROC
+	fld			dword ptr	[esp+4]		; load input to float stack (st0) as float (i32 size); arg is 4 bytes past return address (which is ptr size)
+	fsqrt								; do sqrt on top of float stack (st0)
+	ret									; exit function
+ijkSqrt_flt ENDP
+
+
+; sqrt (double)
+ijkSqrt_dbl PROC
+	fld			qword ptr	[esp+4]		; load input to float stack (st0) as double (i64 size); arg is still 4 bytes past return address (4-byte ptr)
+	fsqrt								; do sqrt on top of float stack (st0)
+	ret									; exit
+ijkSqrt_dbl ENDP
+
+
+; sqrt inverse (float)
+ijkSqrtInv_flt PROC
+	fld1								; load 1 to float stack (st0)
+	fld			dword ptr	[esp+4]		; load input to float stack (st0); pushes previously-loaded value (st0 = 1 -> st1 = 1)
+	fdivp								; divide st1 by st0, store in st1 and pop
+	fsqrt								; do sqrt on top of stack
+	ret									; exit
+ijkSqrtInv_flt ENDP
+
+
+; sqrt inverse (double)
+ijkSqrtInv_dbl PROC
+	fld1								; load 1 to float stack (st0)
+	fld			qword ptr	[esp+4]		; load input to float stack (st0); pushes previously-loaded value (st0 = 1 -> st1 = 1)
+	fdivp								; divide st1 by st0, store in st1 and pop
+	fsqrt								; do sqrt on top of stack
+	ret									; exit
+ijkSqrtInv_dbl ENDP
+
 
 ;//////////////////////////////////////////////////////////////////////////////
 ; done
