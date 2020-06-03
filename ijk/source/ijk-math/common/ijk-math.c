@@ -36,105 +36,146 @@ void ijkMathTestReal()
 	real test = real_zero;
 	ibool test_b = ijk_false;
 
-	test_int = ijk_lerp(100, 200, 6);
-	test_int = ijk_unlerp(100, 200, 160);
-	test_int = ijk_unlerp_safe(100, 200, 160);
-	test_int = ijk_remap(-100, -50, 100, 200, 160);
-	test_int = ijk_remap_safe(-100, -50, 100, 200, 160);
-	test_int = ijk_divide(100, 4);
-	test_int = ijk_sgn_int(+9001);
-	test_int = ijk_sgn_int(ijk_zero);
-	test_int = ijk_sgn_int(-9001);
-	test_int = ijk_abs_int(+9001);
-	test_int = ijk_abs_int(ijk_zero);
-	test_int = ijk_abs_int(-9001);
-	test_int = ijk_nrm2sym_int(0);
-	test_int = ijk_sym2nrm_int(0);
-	test_b = ijk_isnrm_int(-1);
-	test_b = ijk_isnnrm_int(-1);
-	test_b = ijk_issym_int(-1);
-	test_b = ijk_isnsym_int(-1);
-	test_b = ijk_iszero_int(0);
-	test_b = ijk_isnzero_int(0);
-	test_int = ijk_divide_safe_int(100, 4);
+	i32 const x0min_int = 100, x0max_int = 200, x1min_int = -100, x1max_int = -50, x_int = 160;
+	flt const x0min_flt = 100.0f, x0max_flt = 200.0f, x1min_flt = -100.0f, x1max_flt = -50.0f, x_flt = 160.0f;
+	dbl const x0min_dbl = 100.0, x0max_dbl = 200.0, x1min_dbl = -100.0, x1max_dbl = -50.0, x_dbl = 160.0;
+	real const x0min = ijk_x2r(100), x0max = ijk_x2r(200), x1min = ijk_x2r(-100), x1max = ijk_x2r(-50), x = ijk_x2r(160);
 
-	test_flt = ijk_lerp(100.0f, 200.0f, 0.6f);
-	test_flt = ijk_unlerp(100.0f, 200.0f, 160.0f);
-	test_flt = ijk_unlerp_safe(100.0f, 200.0f, 160.0f);
-	test_flt = ijk_remap(-100.0f, -50.0f, 100.0f, 200.0f, 160.0f);
-	test_flt = ijk_remap_safe(-100.0f, -50.0f, 100.0f, 200.0f, 160.0f);
-	test_flt = ijk_divide(100.0f, 4.0f);
-	test_flt = ijk_sgn_flt(+9001.0f);
+	test_int = ijk_lerp(x0min_int, x0max_int, 6);
+	test_int = ijk_unlerp(x0min_int, x0max_int, x_int);
+	test_int = ijk_unlerp_safe(x0min_int, x0max_int, x_int);
+	test_int = ijk_remap(x1min_int, x1max_int, x0min_int, x0max_int, x_int);
+	test_int = ijk_remap_safe(x1min_int, x1max_int, x0min_int, x0max_int, x_int);
+	test_int = ijk_divide(x_int, 4);
+	test_int = ijk_sgn_int(+x_int);
+	test_int = ijk_sgn_int(ijk_zero);
+	test_int = ijk_sgn_int(-x_int);
+	test_int = ijk_abs_int(+x_int);
+	test_int = ijk_abs_int(ijk_zero);
+	test_int = ijk_abs_int(-x_int);
+	test_int = ijk_nrm2sym_int(ijk_zero);
+	test_int = ijk_sym2nrm_int(ijk_zero);
+	test_b = ijk_isnrm_int(-ijk_one);
+	test_b = ijk_isnnrm_int(-ijk_one);
+	test_b = ijk_issym_int(-ijk_one);
+	test_b = ijk_isnsym_int(-ijk_one);
+	test_b = ijk_iszero_int(ijk_zero);
+	test_b = ijk_isnzero_int(ijk_zero);
+	test_int = ijk_divide_safe_int(x_int, 4);
+
+	test_flt = ijk_lerp(x0min_flt, x0max_flt, flt_3quarters);
+	test_flt = ijk_unlerp(x0min_flt, x0max_flt, x_flt);
+	test_flt = ijk_unlerp_safe(x0min_flt, x0max_flt, x_flt);
+	test_flt = ijk_remap(x1min_flt, x1max_flt, x0min_flt, x0max_flt, x_flt);
+	test_flt = ijk_remap_safe(x1min_flt, x1max_flt, x0min_flt, x0max_flt, x_flt);
+	test_flt = ijk_divide(x_flt, flt_four);
+	test_flt = ijk_sgn_flt(+x_flt);
 	test_flt = ijk_sgn_flt(flt_zero);
-	test_flt = ijk_sgn_flt(-9001.0f);
-	test_flt = ijk_abs_flt(+9001.0f);
+	test_flt = ijk_sgn_flt(-x_flt);
+	test_flt = ijk_abs_flt(+x_flt);
 	test_flt = ijk_abs_flt(flt_zero);
-	test_flt = ijk_abs_flt(-9001.0f);
-	test_flt = ijk_nrm2sym_flt(0.5f);
-	test_flt = ijk_sym2nrm_flt(0.5f);
-	test_b = ijk_isnrm_flt(-1.0f);
-	test_b = ijk_isnnrm_flt(-1.0f);
-	test_b = ijk_issym_flt(-1.0f);
-	test_b = ijk_isnsym_flt(-1.0f);
-	test_b = ijk_iszero_flt(flt_halfeps);
-	test_b = ijk_isnzero_flt(flt_halfeps);
-	test_flt = ijk_divide_safe_flt(100.0f, 4.0f);
-	test_flt = ijk_recip_flt(100.0f);
-	test_flt = ijk_recip_safe_flt(100.0f);
+	test_flt = ijk_abs_flt(-x_flt);
+	test_flt = ijk_nrm2sym_flt(flt_zero);
+	test_flt = ijk_sym2nrm_flt(flt_zero);
+	test_b = ijk_isnrm_flt(-flt_one);
+	test_b = ijk_isnnrm_flt(-flt_one);
+	test_b = ijk_issym_flt(-flt_one);
+	test_b = ijk_isnsym_flt(-flt_one);
+	test_b = ijk_iszero_flt(flt_zero);
+	test_b = ijk_isnzero_flt(flt_zero);
+	test_flt = ijk_divide_safe_flt(x_flt, flt_four);
+	test_flt = ijk_recip_flt(x_flt);
+	test_flt = ijk_recip_safe_flt(x_flt);
 	test_flt = ijk_deg2rad_flt(flt_180);
 	test_flt = ijk_rad2deg_flt(flt_pi);
 
-	test_dbl = ijk_lerp(100.0, 200.0, 0.6);
-	test_dbl = ijk_unlerp(100.0, 200.0, 160.0);
-	test_dbl = ijk_unlerp_safe(100.0, 200.0, 160.0);
-	test_dbl = ijk_remap(-100.0, -50.0, 100.0, 200.0, 160.0);
-	test_dbl = ijk_remap_safe(-100.0, -50.0, 100.0, 200.0, 160.0);
-	test_dbl = ijk_divide(100.0, 4.0);
-	test_dbl = ijk_sgn_dbl(+9001.0);
+	test_dbl = ijk_lerp(x0min_dbl, x0max_dbl, dbl_3quarters);
+	test_dbl = ijk_unlerp(x0min_dbl, x0max_dbl, x_dbl);
+	test_dbl = ijk_unlerp_safe(x0min_dbl, x0max_dbl, x_dbl);
+	test_dbl = ijk_remap(x1min_dbl, x1max_dbl, x0min_dbl, x0max_dbl, x_dbl);
+	test_dbl = ijk_remap_safe(x1min_dbl, x1max_dbl, x0min_dbl, x0max_dbl, x_dbl);
+	test_dbl = ijk_divide(x_dbl, dbl_four);
+	test_dbl = ijk_sgn_dbl(+x_dbl);
 	test_dbl = ijk_sgn_dbl(dbl_zero);
-	test_dbl = ijk_sgn_dbl(-9001.0);
-	test_dbl = ijk_abs_dbl(+9001.0);
+	test_dbl = ijk_sgn_dbl(-x_dbl);
+	test_dbl = ijk_abs_dbl(+x_dbl);
 	test_dbl = ijk_abs_dbl(dbl_zero);
-	test_dbl = ijk_abs_dbl(-9001.0);
-	test_dbl = ijk_nrm2sym_dbl(0.5);
-	test_dbl = ijk_sym2nrm_dbl(0.5);
-	test_b = ijk_isnrm_dbl(-1.0);
-	test_b = ijk_isnnrm_dbl(-1.0);
-	test_b = ijk_issym_dbl(-1.0);
-	test_b = ijk_isnsym_dbl(-1.0);
-	test_b = ijk_iszero_dbl(dbl_halfeps);
-	test_b = ijk_isnzero_dbl(dbl_halfeps);
-	test_dbl = ijk_divide_safe_dbl(100.0, 4.0);
-	test_dbl = ijk_recip_dbl(100.0);
-	test_dbl = ijk_recip_safe_dbl(100.0);
+	test_dbl = ijk_abs_dbl(-x_dbl);
+	test_dbl = ijk_nrm2sym_dbl(dbl_zero);
+	test_dbl = ijk_sym2nrm_dbl(dbl_zero);
+	test_b = ijk_isnrm_dbl(-dbl_one);
+	test_b = ijk_isnnrm_dbl(-dbl_one);
+	test_b = ijk_issym_dbl(-dbl_one);
+	test_b = ijk_isnsym_dbl(-dbl_one);
+	test_b = ijk_iszero_dbl(dbl_zero);
+	test_b = ijk_isnzero_dbl(dbl_zero);
+	test_dbl = ijk_divide_safe_dbl(x_dbl, dbl_four);
+	test_dbl = ijk_recip_dbl(x_dbl);
+	test_dbl = ijk_recip_safe_dbl(x_dbl);
 	test_dbl = ijk_deg2rad_dbl(dbl_180);
 	test_dbl = ijk_rad2deg_dbl(dbl_pi);
 
-	test = ijk_lerp(ijk_x2r(100), ijk_x2r(200), ijk_x2r(0.6));
-	test = ijk_unlerp(ijk_x2r(100), ijk_x2r(200), ijk_x2r(160));
-	test = ijk_unlerp_safe(ijk_x2r(100), ijk_x2r(200), ijk_x2r(160));
-	test = ijk_remap(ijk_x2r(-100), ijk_x2r(-50), ijk_x2r(100), ijk_x2r(200), ijk_x2r(160));
-	test = ijk_remap_safe(-ijk_x2r(100), ijk_x2r(-50), ijk_x2r(100), ijk_x2r(200), ijk_x2r(160));
-	test = ijk_divide(ijk_x2r(100), ijk_x2r(4));
-	test = ijk_abs(+ijk_x2r(9001));
-	test = ijk_abs(real_zero);
-	test = ijk_abs(-ijk_x2r(9001));
-	test = ijk_sgn(+ijk_x2r(9001));
+	test = ijk_lerp(x0min, x0max, real_3quarters);
+	test = ijk_unlerp(x0min, x0max, x);
+	test = ijk_unlerp_safe(x0min, x0max, x);
+	test = ijk_remap(x1min, x1max, x0min, x0max, x);
+	test = ijk_remap_safe(x1min, x1max, x0min, x0max, x);
+	test = ijk_divide(x, real_four);
+	test = ijk_sgn(+x);
 	test = ijk_sgn(real_zero);
-	test = ijk_sgn(-ijk_x2r(9001));
-	test = ijk_nrm2sym(ijk_x2r(0.5));
-	test = ijk_sym2nrm(ijk_x2r(0.5));
-	test_b = ijk_isnrm(ijk_x2r(-1.0));
-	test_b = ijk_isnnrm(ijk_x2r(-1.0));
-	test_b = ijk_issym(ijk_x2r(-1.0));
-	test_b = ijk_isnsym(ijk_x2r(-1.0));
-	test_b = ijk_iszero(real_halfeps);
-	test_b = ijk_isnzero(real_halfeps);
-	test = ijk_divide_safe(ijk_x2r(100), ijk_x2r(4));
-	test = ijk_recip(ijk_x2r(100));
-	test = ijk_recip_safe(ijk_x2r(100));
+	test = ijk_sgn(-x);
+	test = ijk_abs(+x);
+	test = ijk_abs(real_zero);
+	test = ijk_abs(-x);
+	test = ijk_nrm2sym(real_zero);
+	test = ijk_sym2nrm(real_zero);
+	test_b = ijk_isnrm(-real_one);
+	test_b = ijk_isnnrm(-real_one);
+	test_b = ijk_issym(-real_one);
+	test_b = ijk_isnsym(-real_one);
+	test_b = ijk_iszero(real_zero);
+	test_b = ijk_isnzero(real_zero);
+	test = ijk_divide_safe(x, real_four);
+	test = ijk_recip(x);
+	test = ijk_recip_safe(x);
 	test = ijk_deg2rad(real_180);
 	test = ijk_rad2deg(real_pi);
+}
+
+
+void ijkMathTestSqrt()
+{
+	flt test_flt = flt_zero;
+	dbl test_dbl = dbl_zero;
+	real test = real_zero;
+
+	flt const x_flt = 16.0f;
+	dbl const x_dbl = 16.0;
+	real const x = ijk_x2r(16);
+
+	test_flt = ijkSqrtInv0x_flt(x_flt);
+	test_flt = ijkSqrt0x_flt(x_flt);
+	test_flt = ijkSqrt_flt(x_flt);
+	test_flt = ijkSqrtInv_flt(x_flt);
+	test_flt = ijkSqrtInvSafe_flt(x_flt);
+
+	test_dbl = ijkSqrtInv0x_dbl(x_dbl);
+	test_dbl = ijkSqrt0x_dbl(x_dbl);
+	test_dbl = ijkSqrt_dbl(x_dbl);
+	test_dbl = ijkSqrtInv_dbl(x_dbl);
+	test_dbl = ijkSqrtInvSafe_dbl(x_dbl);
+
+	test = ijkSqrtInv0x(x);
+	test = ijkSqrt0x(x);
+	test = ijkSqrt(x);
+	test = ijkSqrtInv(x);
+	test = ijkSqrtInvSafe(x);
+}
+
+
+void ijkMathTestStats()
+{
+
 }
 
 
@@ -184,6 +225,8 @@ void ijkMathTestRandom()
 void ijkMathTest()
 {
 	ijkMathTestReal();
+	ijkMathTestSqrt();
+	ijkMathTestStats();
 	ijkMathTestRandom();
 }
 
