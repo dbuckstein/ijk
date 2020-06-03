@@ -108,7 +108,7 @@ dbl ijkSqrtInv_dbl(dbl const x);
 //		param x: number to square root and invert
 //		return: approximate inverse (reciprocal) square root of x
 // real ijkSqrtInv0x(real const x);
-#define ijkSqrt0x			ijk_declrealf(ijkSqrt0x)
+#define ijkSqrtInv0x		ijk_declrealf(ijkSqrtInv0x)
 
 // ijkSqrt0x
 //	Compute fast square root using Quake's method ("0x5f3759df") using 
@@ -116,7 +116,7 @@ dbl ijkSqrtInv_dbl(dbl const x);
 //		param x: number to square root
 //		return: approximate square root of x
 // real ijkSqrt0x(real const x);
-#define ijkSqrtInv0x		ijk_declrealf(ijkSqrtInv0x)
+#define ijkSqrt0x			ijk_declrealf(ijkSqrt0x)
 
 // ijkSqrt
 //	Compute fast square root.

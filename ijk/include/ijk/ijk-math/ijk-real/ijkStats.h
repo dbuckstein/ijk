@@ -55,127 +55,129 @@ size ijkStatsGetPermutations(size const n, size const k);
 size ijkStatsGetCombinations(size const n, size const k);
 
 
-// ijkStatsGetMedian_int_flt
+//-----------------------------------------------------------------------------
+
+// ijkStatsGetMedianInt_flt
 //	Calculate the median of a sorted integer data set. Half of the data are 
 //	less and half are greater than the median.
 //		param v: array of values
 //		param n: number of values in set
 //		return: median as float
-flt ijkStatsGetMedian_int_flt(schomp const v[], size const n);
+flt ijkStatsGetMedianInt_flt(schomp const v[], size const n);
 
-// ijkStatsGetMedian_int_dbl
-//	Calculate the median of a sorted integer data set. Half of the data are 
-//	less and half are greater than the median.
+// ijkStatsGetMeanInt_flt
+//	Calculate the mean (average) of an integer data set.
 //		param v: array of values
 //		param n: number of values in set
-//		return: median as double
-dbl ijkStatsGetMedian_int_dbl(schomp const v[], size const n);
+//		return: mean as float
+flt ijkStatsGetMeanInt_flt(schomp const v[], size const n);
+
+// ijkStatsGetVarianceInt_flt
+//	Calculate the variance (squared mean deviation) of an integer data set.
+//		param v: array of values
+//		param n: number of values in set
+//		param mean_opt: optional pointer to capture mean in calculation
+//		return: variance as float
+flt ijkStatsGetVarianceInt_flt(schomp const v[], size const n, flt mean_opt[1]);
+
+// ijkStatsGetStdDevInt_flt
+//	Calculate the standard deviation (from mean) of an integer data set.
+//		param v: array of values
+//		param n: number of values in set
+//		param mean_opt: optional pointer to capture mean in calculation
+//		return: standard deviation as float
+flt ijkStatsGetStdDevInt_flt(schomp const v[], size const n, flt mean_opt[1]);
 
 // ijkStatsGetMedian_flt
-//	Calculate the median of a sorted float data set. Half of the data are 
+//	Calculate the median of a sorted data set. Half of the data are 
 //	less and half are greater than the median.
 //		param v: array of values
 //		param n: number of values in set
 //		return: median
 flt ijkStatsGetMedian_flt(flt const v[], size const n);
 
-// ijkStatsGetMedian_dbl
-//	Calculate the median of a sorted double data set. Half of the data are 
-//	less and half are greater than the median.
-//		param v: array of values
-//		param n: number of values in set
-//		return: median
-dbl ijkStatsGetMedian_dbl(dbl const v[], size const n);
-
-
-// ijkStatsGetMean_int_flt
-//	Calculate the mean (average) of an integer data set.
-//		param v: array of values
-//		param n: number of values in set
-//		return: mean as float
-flt ijkStatsGetMean_int_flt(schomp const v[], size const n);
-
-// ijkStatsGetMean_int_dbl
-//	Calculate the mean (average) of an integer data set.
-//		param v: array of values
-//		param n: number of values in set
-//		return: mean as double
-dbl ijkStatsGetMean_int_dbl(schomp const v[], size const n);
-
 // ijkStatsGetMean_flt
-//	Calculate the mean (average) of a float data set.
+//	Calculate the mean (average) of a data set.
 //		param v: array of values
 //		param n: number of values in set
 //		return: mean
 flt ijkStatsGetMean_flt(flt const v[], size const n);
 
-// ijkStatsGetMean_dbl
-//	Calculate the mean (average) of a double data set.
-//		param v: array of values
-//		param n: number of values in set
-//		return: mean
-dbl ijkStatsGetMean_dbl(dbl const v[], size const n);
-
-
-// ijkStatsGetVariance_int_flt
-//	Calculate the variance (squared mean deviation) of an integer data set.
-//		param v: array of values
-//		param n: number of values in set
-//		param mean_opt: optional pointer to capture mean in calculation
-//		return: variance as float
-flt ijkStatsGetVariance_int_flt(schomp const v[], size const n, flt mean_opt[1]);
-
-// ijkStatsGetVariance_int_dbl
-//	Calculate the variance (squared mean deviation) of an integer data set.
-//		param v: array of values
-//		param n: number of values in set
-//		param mean_opt: optional pointer to capture mean in calculation
-//		return: variance as double
-dbl ijkStatsGetVariance_int_dbl(schomp const v[], size const n, dbl mean_opt[1]);
-
 // ijkStatsGetVariance_flt
-//	Calculate the variance (squared mean deviation) of a float data set.
+//	Calculate the variance (squared mean deviation) of a data set.
 //		param v: array of values
 //		param n: number of values in set
 //		param mean_opt: optional pointer to capture mean in calculation
 //		return: variance
 flt ijkStatsGetVariance_flt(flt const v[], size const n, flt mean_opt[1]);
 
-// ijkStatsGetVariance_dbl
-//	Calculate the variance (squared mean deviation) of a double data set.
-//		param v: array of values
-//		param n: number of values in set
-//		param mean_opt: optional pointer to capture mean in calculation
-//		return: variance
-dbl ijkStatsGetVariance_dbl(dbl const v[], size const n, dbl mean_opt[1]);
-
-
-// ijkStatsGetStdDev_int_flt
-//	Calculate the standard deviation (from mean) of an integer data set.
-//		param v: array of values
-//		param n: number of values in set
-//		param mean_opt: optional pointer to capture mean in calculation
-//		return: standard deviation as float
-flt ijkStatsGetStdDev_int_flt(schomp const v[], size const n, flt mean_opt[1]);
-
-// ijkStatsGetStdDev_int_dbl
-//	Calculate the standard deviation (from mean) of an integer data set.
-//		param v: array of values
-//		param n: number of values in set
-//		param mean_opt: optional pointer to capture mean in calculation
-//		return: standard deviation as double
-dbl ijkStatsGetStdDev_int_dbl(schomp const v[], size const n, dbl mean_opt[1]);
-
 // ijkStatsGetStdDev_flt
-//	Calculate the standard deviation (from mean) of an integer data set.
+//	Calculate the standard deviation (from mean) of a data set.
 //		param v: array of values
 //		param n: number of values in set
 //		param mean_opt: optional pointer to capture mean in calculation
 //		return: standard deviation
 flt ijkStatsGetStdDev_flt(flt const v[], size const n, flt mean_opt[1]);
 
-// ijkStatsGetStdDev_dbl
+
+//-----------------------------------------------------------------------------
+
+// ijkStatsGetMedianInt_dbl
+//	Calculate the median of a sorted integer data set. Half of the data are 
+//	less and half are greater than the median.
+//		param v: array of values
+//		param n: number of values in set
+//		return: median as double
+dbl ijkStatsGetMedianInt_dbl(schomp const v[], size const n);
+
+// ijkStatsGetMeanInt_dbl
+//	Calculate the mean (average) of an integer data set.
+//		param v: array of values
+//		param n: number of values in set
+//		return: mean as double
+dbl ijkStatsGetMeanInt_dbl(schomp const v[], size const n);
+
+// ijkStatsGetVarianceInt_dbl
+//	Calculate the variance (squared mean deviation) of an integer data set.
+//		param v: array of values
+//		param n: number of values in set
+//		param mean_opt: optional pointer to capture mean in calculation
+//		return: variance as double
+dbl ijkStatsGetVarianceInt_dbl(schomp const v[], size const n, dbl mean_opt[1]);
+
+// ijkStatsGetStdDevInt_dbl
 //	Calculate the standard deviation (from mean) of an integer data set.
+//		param v: array of values
+//		param n: number of values in set
+//		param mean_opt: optional pointer to capture mean in calculation
+//		return: standard deviation as double
+dbl ijkStatsGetStdDevInt_dbl(schomp const v[], size const n, dbl mean_opt[1]);
+
+// ijkStatsGetMedian_dbl
+//	Calculate the median of a sorted data set. Half of the data are 
+//	less and half are greater than the median.
+//		param v: array of values
+//		param n: number of values in set
+//		return: median
+dbl ijkStatsGetMedian_dbl(dbl const v[], size const n);
+
+// ijkStatsGetMean_dbl
+//	Calculate the mean (average) of a data set.
+//		param v: array of values
+//		param n: number of values in set
+//		return: mean
+dbl ijkStatsGetMean_dbl(dbl const v[], size const n);
+
+// ijkStatsGetVariance_dbl
+//	Calculate the variance (squared mean deviation) of a data set.
+//		param v: array of values
+//		param n: number of values in set
+//		param mean_opt: optional pointer to capture mean in calculation
+//		return: variance
+dbl ijkStatsGetVariance_dbl(dbl const v[], size const n, dbl mean_opt[1]);
+
+// ijkStatsGetStdDev_dbl
+//	Calculate the standard deviation (from mean) of a data set.
 //		param v: array of values
 //		param n: number of values in set
 //		param mean_opt: optional pointer to capture mean in calculation
@@ -185,13 +187,74 @@ dbl ijkStatsGetStdDev_dbl(dbl const v[], size const n, dbl mean_opt[1]);
 
 //-----------------------------------------------------------------------------
 
-#define ijkStatsGetMedian_int	ijk_declrealf(ijkStatsGetMedian_int)
+// ijkStatsGetMedianInt
+//	Calculate the median of a sorted integer data set. Half of the data are 
+//	less and half are greater than the median.
+//		param v: array of values
+//		param n: number of values in set
+//		return: median as double
+// real ijkStatsGetMedianInt(schomp const v[], size const n);
+#define ijkStatsGetMedianInt	ijk_declrealf(ijkStatsGetMedianInt)
+
+// ijkStatsGetMeanInt
+//	Calculate the mean (average) of an integer data set.
+//		param v: array of values
+//		param n: number of values in set
+//		return: mean as double
+// real ijkStatsGetMeanInt(schomp const v[], size const n);
+#define ijkStatsGetMeanInt		ijk_declrealf(ijkStatsGetMeanInt)
+
+// ijkStatsGetVarianceInt
+//	Calculate the variance (squared mean deviation) of an integer data set.
+//		param v: array of values
+//		param n: number of values in set
+//		param mean_opt: optional pointer to capture mean in calculation
+//		return: variance as double
+// real ijkStatsGetVarianceInt(schomp const v[], size const n, real mean_opt[1]);
+#define ijkStatsGetVarianceInt	ijk_declrealf(ijkStatsGetVarianceInt)
+
+// ijkStatsGetStdDevInt
+//	Calculate the standard deviation (from mean) of an integer data set.
+//		param v: array of values
+//		param n: number of values in set
+//		param mean_opt: optional pointer to capture mean in calculation
+//		return: standard deviation as double
+// real ijkStatsGetStdDevInt(schomp const v[], size const n, real mean_opt[1]);
+#define ijkStatsGetStdDevInt	ijk_declrealf(ijkStatsGetStdDevInt)
+
+// ijkStatsGetMedian
+//	Calculate the median of a sorted data set. Half of the data are 
+//	less and half are greater than the median.
+//		param v: array of values
+//		param n: number of values in set
+//		return: median
+// real ijkStatsGetMedian(real const v[], size const n);
 #define ijkStatsGetMedian		ijk_declrealf(ijkStatsGetMedian)
-#define ijkStatsGetMean_int		ijk_declrealf(ijkStatsGetMean_int)
+
+// ijkStatsGetMean
+//	Calculate the mean (average) of a data set.
+//		param v: array of values
+//		param n: number of values in set
+//		return: mean
+// real ijkStatsGetMean(real const v[], size const n);
 #define ijkStatsGetMean			ijk_declrealf(ijkStatsGetMean)
-#define ijkStatsGetVariance_int	ijk_declrealf(ijkStatsGetVariance_int)
+
+// ijkStatsGetVariance
+//	Calculate the variance (squared mean deviation) of a data set.
+//		param v: array of values
+//		param n: number of values in set
+//		param mean_opt: optional pointer to capture mean in calculation
+//		return: variance
+// real ijkStatsGetVariance(real const v[], size const n, real mean_opt[1]);
 #define ijkStatsGetVariance		ijk_declrealf(ijkStatsGetVariance)
-#define ijkStatsGetStdDev_int	ijk_declrealf(ijkStatsGetStdDev_int)
+
+// ijkStatsGetStdDev
+//	Calculate the standard deviation (from mean) of a data set.
+//		param v: array of values
+//		param n: number of values in set
+//		param mean_opt: optional pointer to capture mean in calculation
+//		return: standard deviation
+// real ijkStatsGetStdDev(real const v[], size const n, real mean_opt[1]);
 #define ijkStatsGetStdDev		ijk_declrealf(ijkStatsGetStdDev)
 
 
