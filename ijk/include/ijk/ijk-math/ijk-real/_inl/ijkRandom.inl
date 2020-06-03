@@ -85,6 +85,18 @@ ijk_inl flt ijkRandomNum_flt()
 }
 
 
+ijk_inl flt ijkRandomNumMax_flt(flt const usermax)
+{
+	return (ijkRandomNumUnitNrm_flt() * usermax);
+}
+
+
+ijk_inl flt ijkRandomNumRange_flt(flt const usermin, flt const usermax)
+{
+	return ijk_lerp(usermin, usermax, ijkRandomNumUnitNrm_flt());
+}
+
+
 ijk_inl flt ijkRandomNumUnitNrm_flt()
 {
 	ijk_ext flt const ijk_random_max_inv_flt;
@@ -98,23 +110,23 @@ ijk_inl flt ijkRandomNumUnitSym_flt()
 }
 
 
-ijk_inl flt ijkRandomNumMax_flt(flt const usermax)
-{
-	return (ijkRandomNumUnitNrm_flt() * usermax);
-}
-
-
-ijk_inl flt ijkRandomNumRange_flt(flt const usermin, flt const usermax)
-{
-	return ijk_lerp(usermin, usermax, ijkRandomNumUnitNrm_flt());
-}
-
-
 //-----------------------------------------------------------------------------
 
 ijk_inl dbl ijkRandomNum_dbl()
 {
 	return (dbl)ijkRandomNum_int();
+}
+
+
+ijk_inl dbl ijkRandomNumMax_dbl(dbl const usermax)
+{
+	return (ijkRandomNumUnitNrm_dbl() * usermax);
+}
+
+
+ijk_inl dbl ijkRandomNumRange_dbl(dbl const usermin, dbl const usermax)
+{
+	return ijk_lerp(usermin, usermax, ijkRandomNumUnitNrm_dbl());
 }
 
 
@@ -128,18 +140,6 @@ ijk_inl dbl ijkRandomNumUnitNrm_dbl()
 ijk_inl dbl ijkRandomNumUnitSym_dbl()
 {
 	return ijk_nrm2sym_dbl(ijkRandomNumUnitNrm_dbl());
-}
-
-
-ijk_inl dbl ijkRandomNumMax_dbl(dbl const usermax)
-{
-	return (ijkRandomNumUnitNrm_dbl() * usermax);
-}
-
-
-ijk_inl dbl ijkRandomNumRange_dbl(dbl const usermin, dbl const usermax)
-{
-	return ijk_lerp(usermin, usermax, ijkRandomNumUnitNrm_dbl());
 }
 
 

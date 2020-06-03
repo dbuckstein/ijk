@@ -28,9 +28,9 @@
 
 
 #include "ijk-real/ijkReal.h"
-#include "ijk-real/ijkRandom.h"
 #include "ijk-real/ijkSqrt.h"
 #include "ijk-real/ijkStats.h"
+#include "ijk-real/ijkRandom.h"
 
 
 #endif	// !_IJK_MATH_H_

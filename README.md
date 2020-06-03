@@ -51,9 +51,9 @@ This section outlines known tasks to be completed and that have been completed.
 - [x] basic input
 - [ ] gamepad input - implemented xinput for Windows
 #### Math
-- [ ] stats (flt, dbl, int)
-- [ ] random (flt, dbl, int)
-- [ ] sqrt (flt, dbl)
+- [x] sqrt (flt, dbl)
+- [x] stats (flt, dbl, int)
+- [x] random (flt, dbl, int)
 - [ ] interpolation (flt, dbl)
 - [ ] trigonometry (flt, dbl)
 - [ ] complex(flt, dbl)
