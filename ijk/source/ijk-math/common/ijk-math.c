@@ -175,7 +175,47 @@ void ijkMathTestSqrt()
 
 void ijkMathTestStats()
 {
+	size test_int = ijk_zero;
+	flt test_flt = flt_zero, test2_flt[1] = { flt_zero };
+	dbl test_dbl = dbl_zero, test2_dbl[1] = { dbl_zero };
+	real test = real_zero, test2[1] = { real_zero };
 
+	size const n = 8, k = 4;
+	schomp const v_int[] = { 100, 200, -100, -50, 160, 9000, 8, 5 };
+	flt const v_flt[] = { 100.0f, 200.0f, -100.0f, -50.0f, 160.0f, 9000.0f, 8.0f, 5.0f };
+	dbl const v_dbl[] = { 100.0, 200.0, -100.0, -50.0, 160.0, 9000.0, 8.0, 5.0 };
+	real const v[] = { ijk_x2r(100), ijk_x2r(200), ijk_x2r(-100), ijk_x2r(-50), ijk_x2r(160), ijk_x2r(9000), ijk_x2r(8), ijk_x2r(5) };
+
+	test_int = ijkStatsGetFactorial(n);
+	test_int = ijkStatsGetPermutations(n, k);
+	test_int = ijkStatsGetCombinations(n, k);
+
+	test_flt = ijkStatsGetMedianInt_flt(v_int, n);
+	test_flt = ijkStatsGetMeanInt_flt(v_int, n);
+	test_flt = ijkStatsGetVarianceInt_flt(v_int, n, test2_flt);
+	test_flt = ijkStatsGetStdDevInt_flt(v_int, n, test2_flt);
+	test_flt = ijkStatsGetMedian_flt(v_flt, n);
+	test_flt = ijkStatsGetMean_flt(v_flt, n);
+	test_flt = ijkStatsGetVariance_flt(v_flt, n, test2_flt);
+	test_flt = ijkStatsGetStdDev_flt(v_flt, n, test2_flt);
+
+	test_dbl = ijkStatsGetMedianInt_dbl(v_int, n);
+	test_dbl = ijkStatsGetMeanInt_dbl(v_int, n);
+	test_dbl = ijkStatsGetVarianceInt_dbl(v_int, n, test2_dbl);
+	test_dbl = ijkStatsGetStdDevInt_dbl(v_int, n, test2_dbl);
+	test_dbl = ijkStatsGetMedian_dbl(v_dbl, n);
+	test_dbl = ijkStatsGetMean_dbl(v_dbl, n);
+	test_dbl = ijkStatsGetVariance_dbl(v_dbl, n, test2_dbl);
+	test_dbl = ijkStatsGetStdDev_dbl(v_dbl, n, test2_dbl);
+
+	test = ijkStatsGetMedianInt(v_int, n);
+	test = ijkStatsGetMeanInt(v_int, n);
+	test = ijkStatsGetVarianceInt(v_int, n, test2);
+	test = ijkStatsGetStdDevInt(v_int, n, test2);
+	test = ijkStatsGetMedian(v, n);
+	test = ijkStatsGetMean(v, n);
+	test = ijkStatsGetVariance(v, n, test2);
+	test = ijkStatsGetStdDev(v, n, test2);
 }
 
 
