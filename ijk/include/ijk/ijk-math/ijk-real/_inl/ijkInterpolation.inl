@@ -19,19 +19,29 @@
 		c-based rendering framework
 	By Daniel S. Buckstein
 
-	ijk-math.h
-	Main header for math library.
+	ijkInterpolation.inl
+	Inline definitions for interpolation.
 */
 
-#ifndef _IJK_MATH_H_
-#define _IJK_MATH_H_
+#ifdef _IJK_INTERPOLATION_H_
+#ifndef _IJK_INTERPOLATION_INL_
+#define _IJK_INTERPOLATION_INL_
 
 
-#include "ijk-real/ijkReal.h"
-#include "ijk-real/ijkSqrt.h"
-#include "ijk-real/ijkStats.h"
-#include "ijk-real/ijkRandom.h"
-#include "ijk-real/ijkInterpolation.h"
+//-----------------------------------------------------------------------------
 
 
-#endif	// !_IJK_MATH_H_
+
+//-----------------------------------------------------------------------------
+
+
+
+//-----------------------------------------------------------------------------
+
+
+
+//-----------------------------------------------------------------------------
+
+
+#endif	// !_IJK_INTERPOLATION_INL_
+#endif	// _IJK_INTERPOLATION_H_
