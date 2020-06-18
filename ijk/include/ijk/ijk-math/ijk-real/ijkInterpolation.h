@@ -32,6 +32,50 @@
 
 //-----------------------------------------------------------------------------
 
+// ijkInterpLinear_flt
+//	Linear interpolation ("LERP") between two reference values.
+//		param v0: initial reference value/start point, result when t = 0
+//		param v1: terminal reference value/end point, result when t = 1
+//		param t: interpolation parameter; inputs in [0,1] interpolate in 
+//			[v0,v1], others yield extrapolation beyond reference values
+//		return: interpolated value between v0 and v1
+
+// ijkInterpLinearInv_flt
+//	Inverse linear interpolation between two reference values to get parameter.
+//		param v0: initial reference value/start point, result when t = 0
+//		param v1: terminal reference value/end point, result when t = 1
+//		param v: interpolated value; inputs within [v0,v1] yield a paremeter 
+//			in [0,1] used for interpolation, others yield parameters beyond 
+//			unit range used for extrapolation
+//		return: interpolation parameter used to interpolate between v0 and v1
+
+// ijkInterpLinearInvSafe_flt
+//	Inverse linear interpolation between two reference values to get parameter 
+//	with divide-by-zero safety.
+//		param v0: initial reference value/start point, result when t = 0
+//		param v1: terminal reference value/end point, result when t = 1
+//		param v: interpolated value; inputs within [v0,v1] yield a paremeter 
+//			in [0,1] used for interpolation, others yield parameters beyond 
+//			unit range used for extrapolation
+//		return: interpolation parameter used to interpolate between v0 and v1
+
+// ijkInterpRemap_flt
+//	Linear remap between two ranges.
+//		param v0_dst: initial referene value in destination/target range
+//		param v1_dst: terminal reference value in destination/target range
+//		param v0_src: initial referene value in source/original range
+//		param v1_src: terminal reference value in source/original range
+//		param v_src: value to be remapped from original to target range
+//		return: value in original range remapped to target range
+
+// ijkInterpRemapSafe_flt
+//	Linear remap between two ranges with divide-by-zero safety.
+//		param v0_dst: initial referene value in destination/target range
+//		param v1_dst: terminal reference value in destination/target range
+//		param v0_src: initial referene value in source/original range
+//		param v1_src: terminal reference value in source/original range
+//		param v_src: value to be remapped from original to target range
+//		return: value in original range remapped to target range
 
 
 //-----------------------------------------------------------------------------
