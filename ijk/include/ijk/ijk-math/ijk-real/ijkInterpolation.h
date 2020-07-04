@@ -125,14 +125,15 @@
 // ijkInterpBezier0_flt
 //	Perform order-0 (point) Bezier interpolation given one reference value.
 //		param v0: reference value, always returned
-//		param t: interpolation parameter; inputs in [0,1] interpolate
+//		param t: interpolation parameter; not used for order 0 interpolation
 //		return: v0
 
 // ijkInterpBezier1_flt
 //	Perform order-1 (linear) Bezier interpolation given two reference values.
 //		param v0: first reference value, result when t=0
 //		param v1: second reference value, result when t=1
-//		param t: interpolation parameter; inputs in [0,1] interpolate
+//		param t: interpolation parameter; inputs in [0,1] interpolate between 
+//			v0 and v1
 //		return: linear interpolation between v0 and v1
 
 // ijkInterpBezier2_flt
@@ -141,7 +142,8 @@
 //		param v0: first reference value, result when t=0
 //		param v1: second reference value
 //		param v2: third reference value, result when t=1
-//		param t: interpolation parameter; inputs in [0,1] interpolate
+//		param t: interpolation parameter; inputs in [0,1] interpolate between 
+//			v0 and v2
 //		return: quadratic Bezier interpolation between v0 and v2
 
 // ijkInterpBezier3_flt
@@ -150,7 +152,8 @@
 //		param v1: second reference value
 //		param v2: third reference value
 //		param v3: fourth reference value, result when t=1
-//		param t: interpolation parameter; inputs in [0,1] interpolate
+//		param t: interpolation parameter; inputs in [0,1] interpolate between 
+//			v0 and v3
 //		return: cubic Bezier interpolation between v0 and v3
 
 // ijkInterpBezierN_flt
@@ -158,9 +161,11 @@
 //	reference values.
 //		param v: array of reference values, result when t=0 is v[0], result 
 //			when t=1 is v[order]
+//			valid: non-null
 //		param order: order of interpolation or number of recursive steps; 
 //			note: size of array is order+1, order is maximum index
-//		param t: interpolation parameter; inputs in [0,1] interpolate
+//		param t: interpolation parameter; inputs in [0,1] interpolate between 
+//			v[0] and v[order]
 //		return: recursive Bezier interpolation between v[0] and v[order]
 
 // ijkInterpCubicHermite_flt
@@ -170,7 +175,8 @@
 //		param dv0: initial tangent/rate of change
 //		param v1: terminal reference value/end point, result when t=1
 //		param dv1: terminal tangent/rate of change
-//		param t: interpolation parameter; inputs in [0,1] interpolate
+//		param t: interpolation parameter; inputs in [0,1] interpolate between 
+//			v0 and v1
 //		return: interpolated value on spline/curve segment
 
 // ijkInterpCubicHermiteHandles_flt
@@ -182,7 +188,8 @@
 //		param v1: terminal reference value/end point, result when t=1
 //		param cv1: terminal control handle value, should be greater than v1 
 //			for a positive rate of change
-//		param t: interpolation parameter; inputs in [0,1] interpolate
+//		param t: interpolation parameter; inputs in [0,1] interpolate between 
+//			v0 and v1
 //		return: interpolated value on spline/curve segment
 
 // ijkInterpCubicCatmullRom_flt
@@ -229,9 +236,135 @@
 //		param t: interpolation parameter for result
 //		return: interpolated value
 
+// ijkInterpReparamCubicHermite_flt
+//	Reparameterize a cubic Hermite segment into sample table.
+//		param tTable_out: array of interpolation parameters at each sample
+//			valid: non-null
+//		param lTable_out: array of accumulated arc lengths at each sample
+//			valid: non-null
+//		param vTable_out: array of values sampled
+//			valid: non-null
+//		param numDivisions: number of intermediate samples on segment
+//			valid: non-zero
+//			note: tables should have at least (numDivisions+1) elements
+//			note: precision of arc length increases as this number increases
+//		param lNormalize: option to normalize arc lengths
+//		param v0: initial reference value/start point, result when t=0
+//		param dv0: initial tangent/rate of change
+//		param v1: terminal reference value/end point, result when t=1
+//		param dv1: terminal tangent/rate of change
+//		return: total arc length
+
+// ijkInterpReparamCubicHermiteHandles_flt
+//	Reparameterize a cubic Hermite segment with handles into sample table.
+//		param tTable_out: array of interpolation parameters at each sample
+//			valid: non-null
+//		param lTable_out: array of accumulated arc lengths at each sample
+//			valid: non-null
+//		param vTable_out: array of values sampled
+//			valid: non-null
+//		param numDivisions: number of intermediate samples on segment
+//			valid: non-zero
+//			note: tables should have at least (numDivisions+1) elements
+//			note: precision of arc length increases as this number increases
+//		param lNormalize: option to normalize arc lengths
+//		param v0: initial reference value/start point, result when t=0
+//		param cv0: initial control handle value, should be greater than v0 
+//			for a positive rate of change
+//		param v1: terminal reference value/end point, result when t=1
+//		param cv1: terminal control handle value, should be greater than v1 
+//			for a positive rate of change
+//		return: total arc length
+
+// ijkInterpReparamCubicCatmullRom_flt
+//	Reparameterize a cubic Catmull-Rom segment into sample table.
+//		param tTable_out: array of interpolation parameters at each sample
+//			valid: non-null
+//		param lTable_out: array of accumulated arc lengths at each sample
+//			valid: non-null
+//		param vTable_out: array of values sampled
+//			valid: non-null
+//		param numDivisions: number of intermediate samples on segment
+//			valid: non-zero
+//			note: tables should have at least (numDivisions+1) elements
+//			note: precision of arc length increases as this number increases
+//		param lNormalize: option to normalize arc lengths
+//		param vPrev: initial control value
+//		param v0: initial reference value/start point, result when t=0
+//		param v1: terminal reference value/end point, result when t=1
+//		param vNext: terminal control value
+//		return: total arc length
+
+// ijkInterpSampleTableInc_flt
+//	Find index of parameter in table and approximate value by interpolating 
+//	surrounding samples in table. Assumes that parameter values increase as 
+//	the table is traversed (parameter increases as index increases) and will 
+//	contuinue searching until tabled parameter is greater than input parameter.
+//		param tTable: array of increasing sampling parameters (parameter table)
+//			valid: non-null
+//		param vTable: array of sampled values (value table)
+//			valid: non-null
+//		param i: starting search index
+//			note: zero if starting from beginning of tables
+//		param di: search index step size (increment of i at each iteration)
+//			note: defaults to 1 if passed 0
+//		param t: input parameter to find in parameter table
+//		return: interpolated value in table that approximates input parameter
+
+// ijkInterpSampleTableDec_flt
+//	Find index of parameter in table and approximate value by interpolating 
+//	surrounding samples in table. Assumes that parameter values decrease as 
+//	the table is traversed (parameter increases as index increases) and will 
+//	contuinue searching until tabled parameter is less than input parameter.
+//		param tTable: array of decreasing sampling parameters (parameter table)
+//			valid: non-null
+//		param vTable: array of sampled values (value table)
+//			valid: non-null
+//		param i: starting search index
+//			note: zero if starting from beginning of tables
+//		param di: search index step size (increment of i at each iteration)
+//			note: defaults to 1 if passed 0
+//		param t: input parameter to find in parameter table
+//		return: interpolated value in table that approximates input parameter
+
+// ijkInterpSampleTableIncIndex_flt
+//	Find index of parameter in table and retrieve interpolation parameter for 
+//	surrounding samples in table. Assumes that parameter values increase as 
+//	the table is traversed (parameter increases as index increases) and will 
+//	contuinue searching until tabled parameter is greater than input parameter.
+//		param tReparam_out: interpolation parameter for final approximation
+//			valid: non-null
+//			note: represents parameter to use to interpolate between value in 
+//			some table at return index, and the following value in the table
+//		param tTable: array of increasing sampling parameters (parameter table)
+//			valid: non-null
+//		param i: starting search index
+//			note: zero if starting from beginning of tables
+//		param di: search index step size (increment of i at each iteration)
+//			note: defaults to 1 if passed 0
+//		param t: input parameter to find in parameter table
+//		return: index of interpolation parameter discovered
+
+// ijkInterpSampleTableDecIndex_flt
+//	Find index of parameter in table and approximate value by interpolating 
+//	surrounding samples in table. Assumes that parameter values decrease as 
+//	the table is traversed (parameter increases as index increases) and will 
+//	contuinue searching until tabled parameter is less than input parameter.
+//		param tReparam_out: interpolation parameter for final approximation
+//			valid: non-null
+//			note: represents parameter to use to interpolate between value in 
+//			some table at return index, and the following value in the table
+//		param tTable: array of decreasing sampling parameters (parameter table)
+//			valid: non-null
+//		param i: starting search index
+//			note: zero if starting from beginning of tables
+//		param di: search index step size (increment of i at each iteration)
+//			note: defaults to 1 if passed 0
+//		param t: input parameter to find in parameter table
+//		return: index of interpolation parameter discovered
+
 
 //-----------------------------------------------------------------------------
-
 
 
 //-----------------------------------------------------------------------------
