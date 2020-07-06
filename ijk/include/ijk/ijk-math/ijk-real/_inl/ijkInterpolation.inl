@@ -32,18 +32,21 @@
 
 ijk_inl flt ijkInterpNearest_flt(flt const v0, flt const v1, flt const t)
 {
+	// v = v0 if t < 0.5, v1 otherwise
 	return (t < flt_half ? v0 : v1);
 }
 
 
 ijk_inl flt ijkInterpBinearest_flt(flt const v00, flt const v01, flt const v10, flt const v11, flt const t0, flt const t1, flt const t)
 {
+	// v = near(v00, v01, t0) if t < 0.5, near(v10, v11, t1) otherwise
 	return (t < flt_half ? t0 < flt_half ? v00 : v01 : t1 < flt_half ? v10 : v11);
 }
 
 
 ijk_inl flt ijkInterpLinear_flt(flt const v0, flt const v1, flt const t)
 {
+	// v = lerp(v0, v1, t) = v0 + (v1 - v0) * t
 	return (v0 + (v1 - v0) * t);
 }
 
@@ -133,25 +136,78 @@ ijk_inl flt ijkInterpBezierN_flt(flt const v[], size const order, flt const t)
 
 ijk_inl flt ijkInterpCubicHermite_flt(flt const v0, flt const dv0, flt const v1, flt const dv1, flt const t)
 {
-	return flt_zero;
+	// v = [v0, dv0, v1, dv1] K (1, t, t2, t3)
+	// K =	|  1  0 -3  2 |
+	//		|  0  1 -2  1 |
+	//		|  0  0  3 -2 |
+	//		|  0  0 -1  1 |
+	// v = [v0, dv0, v1, dv1] ( 1 - 3t2 + 2t3 , t - 2t2 + t3 , 3t2 - 2t3 , t3 - t2 )
+	//	= v0*(1 - 3t2 + 2t3) + dv0*(t - 2t2 + t3) + v1*(3t2 - 2t3) + dv1*(t3 - t2)
+	//	= v0 + t * (dv0 + v0*(2t2 - 3t) + dv0*(t2 - 2t) + v1*(3t - 2t2) + dv1*(t2 - t))
+	//	= v0 + t * (dv0 + t * (v0*(2t - 3) + dv0*(t - 2) + v1*(3 - 2t) + dv1*(t - 1)))
+	//	= v0 + t * (dv0 + t * (2t*v0 - 3v0 + t*dv0 - 2dv0 + 3v1 - 2t*v1 + t*dv1 - dv1))
+	// v = v0 + t * (dv0 + t * (3(v1 - v0) - dv1 - 2dv0 + t * (2(v0 - v1) + dv0 + dv1)))
+	return (v0 + (dv0 + ((v1 - v0) * flt_three - dv1 - dv0 * flt_two + ((v0 - v1) * flt_two + dv0 + dv1) * t) * t) * t);
 }
 
 
 ijk_inl flt ijkInterpCubicHermiteHandles_flt(flt const v0, flt const cv0, flt const v1, flt const cv1, flt const t)
 {
-	return flt_zero;
+	// v = [v0, dv0, v1, dv1] K (1, t, t2, t3)
+	//	= [v0, cv0 - v0, v1, cv1 - v1] K (1, t, t2, t3)
+	// K =	|  1  0 -3  2 |
+	//		|  0  1 -2  1 |
+	//		|  0  0  3 -2 |
+	//		|  0  0 -1  1 |
+	// v = [v0, cv0 - v0, v1, cv1 - v1] ( 1 - 3t2 + 2t3 , t - 2t2 + t3 , 3t2 - 2t3 , t3 - t2 )
+	//	= v0 + t * (cv0 - v0 + t * (3(v1 - v0) - (cv1 - v1) - 2(cv0 - v0) + t * (2(v0 - v1) + cv0 - v0 + cv1 - v1)))
+	//	= v0 + t * (cv0 - v0 + t * (3v1 - 3v0 - cv1 + v1 - 2cv0 + 2v0 + t * (2v0 - 2v1 + cv0 - v0 + cv1 - v1)))
+	//	= v0 + t * (cv0 - v0 + t * (4v1 - v0 - cv1 - 2cv0 + t * (v0 - 3v1 + cv0 + cv1)))
+	// v = [v0, cv0, v1, cv1] K' (1, t, t2, t3)
+	// K' =	|  1 -1 -1  1 |
+	//		|  0  1 -2  1 |
+	//		|  0  0  4 -3 |
+	//		|  0  0 -1  1 |
+	// v = v0 + t * (cv0 - v0 + t * (4v1 - cv1 - v0 - 2cv0 + t * (v0 + cv0 - 3v1 + cv1)))
+	return (v0 + (cv0 - v0 + (v1 * flt_four - cv1 - v0 - cv0 * flt_two + (v0 + cv0 - v1 * flt_three + cv1) * t) * t) * t);
 }
 
 
 ijk_inl flt ijkInterpCubicCatmullRom_flt(flt const vp, flt const v0, flt const v1, flt const v2, flt const t)
 {
-	return flt_zero;
+	// v = [v0, dv0, v1, dv1] K (1, t, t2, t3)
+	//	= [v0, (v1 - vp)/2, v1, (v2 - v0)/2] K (1, t, t2, t3)
+	//	K = |  1  0 -3  2 |
+	//		|  0  1 -2  1 |
+	//		|  0  0  3 -2 |
+	//		|  0  0 -1  1 |
+	// v = [v0, (v1 - vp)/2, v1, (v2 - v0)/2] ( 1 - 3t2 + 2t3 , t - 2t2 + t3 , 3t2 - 2t3 , t3 - t2 )
+	//	= v0 + t * ((v1 - vp)/2 + t * (3(v1 - v0) - (v2 - v0)/2 - 2(v1 - vp)/2 + t * (2(v0 - v1) + (v1 - vp)/2 + (v2 - v0)/2)))
+	//	= v0 + t * ((v1 - vp)/2 + t * ((6(v1 - v0) - (v2 - v0) - 2(v1 - vp))/2 + t/2 * (4(v0 - v1) + v1 - vp + v2 - v0)))
+	//	= v0 + t * ((v1 - vp)/2 + t/2 * (6v1 - 6v0 - v2 + v0 - 2v1 + 2vp + t * (4v0 - 4v1 + v1 - vp + v2 - v0)))
+	//	= 2v0/2 + t/2 * (v1 - vp + t * (4v1 - 5v0 - v2 + 2vp + t * (3v0 - 3v1 - vp + v2)))
+	// v = [vp, v0, v1, v2] K' (1, t, t2, t3)
+	//		|  0 -1  2 -1 |
+	// K' =	|  2  0 -5  3 |
+	//		|  0  1  4 -3 |
+	//		|  0  0 -1  1 | / 2
+	// v = v0 + t/2 * (v1 - vp + t * (2vp - 5v0 + 4v1 - v2 + t * (3(v0 - v1) + v2 - vp)))
+	return (v0 + (v1 - vp + (vp * flt_two - v0 * flt_five + v1 * flt_four - v2 + ((v0 - v1) * flt_three + v2 - vp) * t) * t) * t * flt_half);
 }
 
 
 ijk_inl flt ijkInterpBicubicCatmullRom_flt(flt const vpp, flt const vp0, flt const vp1, flt const vp2, flt const v0p, flt const v00, flt const v01, flt const v02, flt const v1p, flt const v10, flt const v11, flt const v12, flt const v2p, flt const v20, flt const v21, flt const v22, flt const tp, flt const t0, flt const t1, flt const t2, flt const t)
 {
-	return flt_zero;
+	// vp = CatmullRom(vpp, vp0, vp1, vp2, tp)
+	// v0 = CatmullRom(v0p, v00, v01, v02, t0)
+	// v1 = CatmullRom(v1p, v10, v11, v12, t1)
+	// v2 = CatmullRom(v2p, v20, v21, v22, t2)
+	// v = CatmullRom(vp, v0, v1, v2, t)
+	flt const vp = ijkInterpCubicCatmullRom_flt(vpp, vp0, vp1, vp2, tp);
+	flt const v0 = ijkInterpCubicCatmullRom_flt(v0p, v00, v01, v02, t0);
+	flt const v1 = ijkInterpCubicCatmullRom_flt(v1p, v10, v11, v12, t1);
+	flt const v2 = ijkInterpCubicCatmullRom_flt(v2p, v20, v21, v22, t2);
+	return ijkInterpCubicCatmullRom_flt(vp, v0, v1, v2, t);
 }
 
 
