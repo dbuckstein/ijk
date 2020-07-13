@@ -168,6 +168,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\include\ijk\ijk-math\ijk-math.h" />
+    <ClInclude Include="..\..\..\include\ijk\ijk-math\ijk-real\ijkInterpolation.h" />
     <ClInclude Include="..\..\..\include\ijk\ijk-math\ijk-real\ijkMatrix.h" />
     <ClInclude Include="..\..\..\include\ijk\ijk-math\ijk-real\ijkRandom.h" />
     <ClInclude Include="..\..\..\include\ijk\ijk-math\ijk-real\ijkReal.h" />
@@ -176,6 +177,7 @@
     <ClInclude Include="..\..\..\include\ijk\ijk-math\ijk-real\ijkVector.h" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="..\..\..\include\ijk\ijk-math\ijk-real\_inl\ijkInterpolation.inl" />
     <None Include="..\..\..\include\ijk\ijk-math\ijk-real\_inl\ijkRandom.inl" />
     <None Include="..\..\..\include\ijk\ijk-math\ijk-real\_inl\ijkSqrt.inl" />
     <None Include="..\..\..\include\ijk\ijk-math\ijk-real\_inl\ijkStats.inl" />
