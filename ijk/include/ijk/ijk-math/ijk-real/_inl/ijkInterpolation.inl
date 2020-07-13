@@ -213,25 +213,122 @@ ijk_inl flt ijkInterpBicubicCatmullRom_flt(flt const vpp, flt const vp0, flt con
 
 ijk_inl flt ijkInterpReparamCubicHermite_flt(flt tTable_out[], flt lTable_out[], flt vTable_out[], size const numDivisions, ibool const lNormalize, flt const v0, flt const dv0, flt const v1, flt const dv1)
 {
-	return flt_zero;
+	flt t = flt_zero, dt, arcLength = flt_zero, arcLengthDelta, arcLengthInv, u, u0;
+	flt* lTable = lTable_out;
+	uindex i;
+
+	if (tTable_out && lTable_out && vTable_out && numDivisions)
+	{
+		*tTable_out = t;
+		*lTable_out = arcLength;
+		*vTable_out = u0 = v0;
+		for (i = 1, dt = ijk_recip_flt((flt)numDivisions); i <= numDivisions; ++i)
+		{
+			t = (flt)i * dt;
+			u = ijkInterpCubicHermite_flt(v0, dv0, v1, dv1, t);
+			arcLengthDelta = u - u0;
+			arcLength += ijk_abs_flt(arcLengthDelta);
+			*(++tTable_out) = t;
+			*(++lTable_out) = arcLength;
+			*(++vTable_out) = u0 = u;
+		}
+		if (lNormalize)
+			for (i = 1, arcLengthInv = ijk_recip_flt(arcLength); i <= numDivisions; ++i)
+				*(++lTable) *= arcLengthInv;
+	}
+	return arcLength;
 }
 
 
 ijk_inl flt ijkInterpReparamCubicHermiteHandles_flt(flt tTable_out[], flt lTable_out[], flt vTable_out[], size const numDivisions, ibool const lNormalize, flt const v0, flt const cv0, flt const v1, flt const cv1)
 {
-	return flt_zero;
+	flt t = flt_zero, dt, arcLength = flt_zero, arcLengthDelta, arcLengthInv, u, u0;
+	flt* lTable = lTable_out;
+	uindex i;
+
+	if (tTable_out && lTable_out && vTable_out && numDivisions)
+	{
+		*tTable_out = t;
+		*lTable_out = arcLength;
+		*vTable_out = u0 = v0;
+		for (i = 1, dt = ijk_recip_flt((flt)numDivisions); i <= numDivisions; ++i)
+		{
+			t = (flt)i * dt;
+			u = ijkInterpCubicHermiteHandles_flt(v0, cv0, v1, cv1, t);
+			arcLengthDelta = u - u0;
+			arcLength += ijk_abs_flt(arcLengthDelta);
+			*(++tTable_out) = t;
+			*(++lTable_out) = arcLength;
+			*(++vTable_out) = u0 = u;
+		}
+		if (lNormalize)
+			for (i = 1, arcLengthInv = ijk_recip_flt(arcLength); i <= numDivisions; ++i)
+				*(++lTable) *= arcLengthInv;
+	}
+	return arcLength;
 }
 
 
 ijk_inl flt ijkInterpReparamCubicCatmullRom_flt(flt tTable_out[], flt lTable_out[], flt vTable_out[], size const numDivisions, ibool const lNormalize, flt const vp, flt const v0, flt const v1, flt const v2)
 {
-	return flt_zero;
+	flt t = flt_zero, dt, arcLength = flt_zero, arcLengthDelta, arcLengthInv, u, u0;
+	flt* lTable = lTable_out;
+	uindex i;
+
+	if (tTable_out && lTable_out && vTable_out && numDivisions)
+	{
+		*tTable_out = t;
+		*lTable_out = arcLength;
+		*vTable_out = u0 = v0;
+		for (i = 1, dt = ijk_recip_flt((flt)numDivisions); i <= numDivisions; ++i)
+		{
+			t = (flt)i * dt;
+			u = ijkInterpCubicCatmullRom_flt(vp, v0, v1, v2, t);
+			arcLengthDelta = u - u0;
+			arcLength += ijk_abs_flt(arcLengthDelta);
+			*(++tTable_out) = t;
+			*(++lTable_out) = arcLength;
+			*(++vTable_out) = u0 = u;
+		}
+		if (lNormalize)
+			for (i = 1, arcLengthInv = ijk_recip_flt(arcLength); i <= numDivisions; ++i)
+				*(++lTable) *= arcLengthInv;
+	}
+	return arcLength;
 }
 
 
 ijk_inl flt ijkInterpReparamBicubicCatmullRom_flt(flt tTable_out[], flt lTable_out[], flt vTable_out[], size const numDivisions, ibool const lNormalize, flt const vpp, flt const vp0, flt const vp1, flt const vp2, flt const v0p, flt const v00, flt const v01, flt const v02, flt const v1p, flt const v10, flt const v11, flt const v12, flt const v2p, flt const v20, flt const v21, flt const v22, flt const tp, flt const t0, flt const t1, flt const t2)
 {
-	return flt_zero;
+	flt t = flt_zero, dt, arcLength = flt_zero, arcLengthDelta, arcLengthInv, u, u0;
+	flt* lTable = lTable_out;
+	uindex i;
+
+	if (tTable_out && lTable_out && vTable_out && numDivisions)
+	{
+		flt const vp = ijkInterpCubicCatmullRom_flt(vpp, vp0, vp1, vp2, tp);
+		flt const v0 = ijkInterpCubicCatmullRom_flt(v0p, v00, v01, v02, t0);
+		flt const v1 = ijkInterpCubicCatmullRom_flt(v1p, v10, v11, v12, t1);
+		flt const v2 = ijkInterpCubicCatmullRom_flt(v2p, v20, v21, v22, t2);
+
+		*tTable_out = t;
+		*lTable_out = arcLength;
+		*vTable_out = u0 = v0;
+		for (i = 1, dt = ijk_recip_flt((flt)numDivisions); i <= numDivisions; ++i)
+		{
+			t = (flt)i * dt;
+			u = ijkInterpCubicCatmullRom_flt(vp, v0, v1, v2, t);
+			arcLengthDelta = u - u0;
+			arcLength += ijk_abs_flt(arcLengthDelta);
+			*(++tTable_out) = t;
+			*(++lTable_out) = arcLength;
+			*(++vTable_out) = u0 = u;
+		}
+		if (lNormalize)
+			for (i = 1, arcLengthInv = ijk_recip_flt(arcLength); i <= numDivisions; ++i)
+				*(++lTable) *= arcLengthInv;
+	}
+	return arcLength;
 }
 
 
