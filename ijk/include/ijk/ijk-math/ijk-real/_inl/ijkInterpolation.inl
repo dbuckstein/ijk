@@ -219,9 +219,13 @@ ijk_inl flt ijkInterpReparamCubicHermite_flt(flt tTable_out[], flt lTable_out[],
 
 	if (tTable_out && lTable_out && vTable_out && numDivisions)
 	{
+		// first table entry 
 		*tTable_out = t;
 		*lTable_out = arcLength;
 		*vTable_out = u0 = v0;
+
+		// iterate through curve and calculate change in arc length
+		// store entries in tables
 		for (i = 1, dt = ijk_recip_flt((flt)numDivisions); i <= numDivisions; ++i)
 		{
 			t = (flt)i * dt;
@@ -232,6 +236,8 @@ ijk_inl flt ijkInterpReparamCubicHermite_flt(flt tTable_out[], flt lTable_out[],
 			*(++lTable_out) = arcLength;
 			*(++vTable_out) = u0 = u;
 		}
+
+		// normalize arc lengths so that they fall in [0, 1]
 		if (lNormalize)
 			for (i = 1, arcLengthInv = ijk_recip_flt(arcLength); i <= numDivisions; ++i)
 				*(++lTable) *= arcLengthInv;
@@ -251,6 +257,7 @@ ijk_inl flt ijkInterpReparamCubicHermiteHandles_flt(flt tTable_out[], flt lTable
 		*tTable_out = t;
 		*lTable_out = arcLength;
 		*vTable_out = u0 = v0;
+
 		for (i = 1, dt = ijk_recip_flt((flt)numDivisions); i <= numDivisions; ++i)
 		{
 			t = (flt)i * dt;
@@ -261,6 +268,7 @@ ijk_inl flt ijkInterpReparamCubicHermiteHandles_flt(flt tTable_out[], flt lTable
 			*(++lTable_out) = arcLength;
 			*(++vTable_out) = u0 = u;
 		}
+
 		if (lNormalize)
 			for (i = 1, arcLengthInv = ijk_recip_flt(arcLength); i <= numDivisions; ++i)
 				*(++lTable) *= arcLengthInv;
@@ -280,6 +288,7 @@ ijk_inl flt ijkInterpReparamCubicCatmullRom_flt(flt tTable_out[], flt lTable_out
 		*tTable_out = t;
 		*lTable_out = arcLength;
 		*vTable_out = u0 = v0;
+
 		for (i = 1, dt = ijk_recip_flt((flt)numDivisions); i <= numDivisions; ++i)
 		{
 			t = (flt)i * dt;
@@ -290,6 +299,7 @@ ijk_inl flt ijkInterpReparamCubicCatmullRom_flt(flt tTable_out[], flt lTable_out
 			*(++lTable_out) = arcLength;
 			*(++vTable_out) = u0 = u;
 		}
+
 		if (lNormalize)
 			for (i = 1, arcLengthInv = ijk_recip_flt(arcLength); i <= numDivisions; ++i)
 				*(++lTable) *= arcLengthInv;
@@ -314,6 +324,7 @@ ijk_inl flt ijkInterpReparamBicubicCatmullRom_flt(flt tTable_out[], flt lTable_o
 		*tTable_out = t;
 		*lTable_out = arcLength;
 		*vTable_out = u0 = v0;
+
 		for (i = 1, dt = ijk_recip_flt((flt)numDivisions); i <= numDivisions; ++i)
 		{
 			t = (flt)i * dt;
@@ -324,6 +335,7 @@ ijk_inl flt ijkInterpReparamBicubicCatmullRom_flt(flt tTable_out[], flt lTable_o
 			*(++lTable_out) = arcLength;
 			*(++vTable_out) = u0 = u;
 		}
+
 		if (lNormalize)
 			for (i = 1, arcLengthInv = ijk_recip_flt(arcLength); i <= numDivisions; ++i)
 				*(++lTable) *= arcLengthInv;
@@ -334,25 +346,84 @@ ijk_inl flt ijkInterpReparamBicubicCatmullRom_flt(flt tTable_out[], flt lTable_o
 
 ijk_inl flt ijkInterpSampleTableInc_flt(flt const tTable[], flt const vTable[], uindex i, uindex di, flt const t)
 {
-	return flt_zero;
+	flt tReparam, v0, v1, v;
+	flt t0, t1 = *(tTable + (i += (di = ijk_maximum(di, 1))));
+	
+	// step through parameter table until entry exceeds target parameter, 
+	//	indicating it can be used to interpolate current segment
+	while (t1 < t)
+		t1 = *(tTable + (i += di));
+
+	// after discovering index, get initial and terminal values on segment
+	v1 = *(vTable + i);
+	v0 = *(vTable + (i -= di));
+
+	// get initial interpolation parameter, use to get segment parameter
+	t0 = *(tTable + i);
+	tReparam = ijkInterpLinearInv_flt(t0, t1, t);
+	v = ijkInterpLinear_flt(v0, v1, tReparam);
+	
+	// done
+	return v;
 }
 
 
 ijk_inl flt ijkInterpSampleTableDec_flt(flt const tTable[], flt const vTable[], uindex i, uindex di, flt const t)
 {
-	return flt_zero;
+	flt tReparam, v0, v1, v;
+	flt t0, t1 = *(tTable + (i += (di = ijk_maximum(di, 1))));
+
+	// same as above, except parameters in table are decreasing so terminal 
+	//	parameter will be less than target parameter
+	while (t1 > t)
+		t1 = *(tTable + (i += di));
+
+	v1 = *(vTable + i);
+	v0 = *(vTable + (i -= di));
+
+	t0 = *(tTable + i);
+	tReparam = ijkInterpLinearInv_flt(t0, t1, t);
+	v = ijkInterpLinear_flt(v0, v1, tReparam);
+
+	return v;
 }
 
 
 ijk_inl index ijkInterpSampleTableIncIndex_flt(flt* const tReparam_out, flt const tTable[], uindex i, uindex di, flt const t)
 {
-	return ijk_zero;
+	flt t0, t1 = *(tTable + (i += (di = ijk_maximum(di, 1))));
+
+	// this time just looking for the index where we exceed target parameter
+	while (t1 < t)
+		t1 = *(tTable + (i += di));
+
+	// get new parameter if user needs it
+	if (tReparam_out)
+	{
+		t0 = *(tTable + i - di);
+		*tReparam_out = ijkInterpLinearInv_flt(t0, t1, t);
+	}
+
+	// done
+	return i;
 }
 
 
 ijk_inl index ijkInterpSampleTableDecIndex_flt(flt* const tReparam_out, flt const tTable[], uindex i, uindex di, flt const t)
 {
-	return ijk_zero;
+	flt t0, t1 = *(tTable + (i += (di = ijk_maximum(di, 1))));
+
+	// same as above with decreasing parameter entries
+	while (t1 > t)
+		t1 = *(tTable + (i += di));
+
+	if (tReparam_out)
+	{
+		t0 = *(tTable + i - di);
+		*tReparam_out = ijkInterpLinearInv_flt(t0, t1, t);
+	}
+
+	return i;
 }
 
 
