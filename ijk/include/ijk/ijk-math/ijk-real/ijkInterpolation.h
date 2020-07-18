@@ -315,7 +315,7 @@ flt ijkInterpReparamCubicHermiteHandles_flt(flt tTable_out[], flt lTable_out[], 
 //		return: total arc length
 flt ijkInterpReparamCubicCatmullRom_flt(flt tTable_out[], flt lTable_out[], flt vTable_out[], size const numDivisions, ibool const lNormalize, flt const vp, flt const v0, flt const v1, flt const v2);
 
-// ijkInterpReparamCubicCatmullRom_flt
+// ijkInterpReparamBicubicCatmullRom_flt
 //	Reparameterize a bi-cubic Catmull-Rom segment into sample table.
 //		param tTable_out: array of interpolation parameters at each sample
 //			valid: non-null
@@ -717,7 +717,7 @@ dbl ijkInterpReparamCubicHermiteHandles_dbl(dbl tTable_out[], dbl lTable_out[], 
 //		return: total arc length
 dbl ijkInterpReparamCubicCatmullRom_dbl(dbl tTable_out[], dbl lTable_out[], dbl vTable_out[], size const numDivisions, ibool const lNormalize, dbl const vp, dbl const v0, dbl const v1, dbl const v2);
 
-// ijkInterpReparamCubicCatmullRom_dbl
+// ijkInterpReparamBicubicCatmullRom_dbl
 //	Reparameterize a bi-cubic Catmull-Rom segment into sample table.
 //		param tTable_out: array of interpolation parameters at each sample
 //			valid: non-null
@@ -1139,7 +1139,7 @@ index ijkInterpSampleTableDecIndex_dbl(dbl* const tReparam_out, dbl const tTable
 //real ijkInterpReparamCubicCatmullRom(real tTable_out[], real lTable_out[], real vTable_out[], size const numDivisions, ibool const lNormalize, real const vp, real const v0, real const v1, real const v2);
 #define ijkInterpReparamCubicCatmullRom		ijk_declrealf(ijkInterpReparamCubicCatmullRom)
 
-// ijkInterpReparamCubicCatmullRom
+// ijkInterpReparamBicubicCatmullRom
 //	Reparameterize a bi-cubic Catmull-Rom segment into sample table.
 //		param tTable_out: array of interpolation parameters at each sample
 //			valid: non-null

@@ -262,30 +262,60 @@ void ijkMathTestRandom()
 
 void ijkMathTestInterpolation()
 {
-	i32 const seed_flt = ijkRandomSetSeed(0);
-	flt const pmin_flt = -8.0f, pmax_flt = +8.0f, mmin_flt = -2.0f, mmax_flt = +2.0f;
-	flt const p_flt[] = { ijkRandomNumRange_flt(pmin_flt, pmax_flt), ijkRandomNumRange_flt(pmin_flt, pmax_flt), ijkRandomNumRange_flt(pmin_flt, pmax_flt), ijkRandomNumRange_flt(pmin_flt, pmax_flt), ijkRandomNumRange_flt(pmin_flt, pmax_flt), ijkRandomNumRange_flt(pmin_flt, pmax_flt), ijkRandomNumRange_flt(pmin_flt, pmax_flt), ijkRandomNumRange_flt(pmin_flt, pmax_flt), ijkRandomNumRange_flt(pmin_flt, pmax_flt), ijkRandomNumRange_flt(pmin_flt, pmax_flt), ijkRandomNumRange_flt(pmin_flt, pmax_flt), ijkRandomNumRange_flt(pmin_flt, pmax_flt), ijkRandomNumRange_flt(pmin_flt, pmax_flt), ijkRandomNumRange_flt(pmin_flt, pmax_flt), ijkRandomNumRange_flt(pmin_flt, pmax_flt), ijkRandomNumRange_flt(pmin_flt, pmax_flt), };
-	flt const m_flt[] = { ijkRandomNumRange_flt(mmin_flt, mmax_flt), ijkRandomNumRange_flt(mmin_flt, mmax_flt), ijkRandomNumRange_flt(mmin_flt, mmax_flt), ijkRandomNumRange_flt(mmin_flt, mmax_flt), ijkRandomNumRange_flt(mmin_flt, mmax_flt), ijkRandomNumRange_flt(mmin_flt, mmax_flt), ijkRandomNumRange_flt(mmin_flt, mmax_flt), ijkRandomNumRange_flt(mmin_flt, mmax_flt), ijkRandomNumRange_flt(mmin_flt, mmax_flt), ijkRandomNumRange_flt(mmin_flt, mmax_flt), ijkRandomNumRange_flt(mmin_flt, mmax_flt), ijkRandomNumRange_flt(mmin_flt, mmax_flt), ijkRandomNumRange_flt(mmin_flt, mmax_flt), ijkRandomNumRange_flt(mmin_flt, mmax_flt), ijkRandomNumRange_flt(mmin_flt, mmax_flt), ijkRandomNumRange_flt(mmin_flt, mmax_flt), };
+	i32 const seedbase = 2048;
+	i32 const vmin = -16, vmax = +16;
 
-	i32 const seed_dbl = ijkRandomSetSeed(0);
-	dbl const pmin_dbl = -8.0, pmax_dbl = +8.0, mmin_dbl = -2.0, mmax_dbl = +2.0;
-	dbl const p_dbl[] = { ijkRandomNumRange_dbl(pmin_dbl, pmax_dbl), ijkRandomNumRange_dbl(pmin_dbl, pmax_dbl), ijkRandomNumRange_dbl(pmin_dbl, pmax_dbl), ijkRandomNumRange_dbl(pmin_dbl, pmax_dbl), ijkRandomNumRange_dbl(pmin_dbl, pmax_dbl), ijkRandomNumRange_dbl(pmin_dbl, pmax_dbl), ijkRandomNumRange_dbl(pmin_dbl, pmax_dbl), ijkRandomNumRange_dbl(pmin_dbl, pmax_dbl), ijkRandomNumRange_dbl(pmin_dbl, pmax_dbl), ijkRandomNumRange_dbl(pmin_dbl, pmax_dbl), ijkRandomNumRange_dbl(pmin_dbl, pmax_dbl), ijkRandomNumRange_dbl(pmin_dbl, pmax_dbl), ijkRandomNumRange_dbl(pmin_dbl, pmax_dbl), ijkRandomNumRange_dbl(pmin_dbl, pmax_dbl), ijkRandomNumRange_dbl(pmin_dbl, pmax_dbl), ijkRandomNumRange_dbl(pmin_dbl, pmax_dbl), };
-	dbl const m_dbl[] = { ijkRandomNumRange_dbl(mmin_dbl, mmax_dbl), ijkRandomNumRange_dbl(mmin_dbl, mmax_dbl), ijkRandomNumRange_dbl(mmin_dbl, mmax_dbl), ijkRandomNumRange_dbl(mmin_dbl, mmax_dbl), ijkRandomNumRange_dbl(mmin_dbl, mmax_dbl), ijkRandomNumRange_dbl(mmin_dbl, mmax_dbl), ijkRandomNumRange_dbl(mmin_dbl, mmax_dbl), ijkRandomNumRange_dbl(mmin_dbl, mmax_dbl), ijkRandomNumRange_dbl(mmin_dbl, mmax_dbl), ijkRandomNumRange_dbl(mmin_dbl, mmax_dbl), ijkRandomNumRange_dbl(mmin_dbl, mmax_dbl), ijkRandomNumRange_dbl(mmin_dbl, mmax_dbl), ijkRandomNumRange_dbl(mmin_dbl, mmax_dbl), ijkRandomNumRange_dbl(mmin_dbl, mmax_dbl), ijkRandomNumRange_dbl(mmin_dbl, mmax_dbl), ijkRandomNumRange_dbl(mmin_dbl, mmax_dbl), };
+	i32 const seed_flt = ijkRandomSetSeed(seedbase);
+	flt const v_flt[][4] = { { flt_quarter * (flt)ijkRandomNumRange_int(vmin, vmax), flt_quarter * (flt)ijkRandomNumRange_int(vmin, vmax), flt_quarter * (flt)ijkRandomNumRange_int(vmin, vmax), flt_quarter * (flt)ijkRandomNumRange_int(vmin, vmax) }, { flt_quarter * (flt)ijkRandomNumRange_int(vmin, vmax), flt_quarter * (flt)ijkRandomNumRange_int(vmin, vmax), flt_quarter * (flt)ijkRandomNumRange_int(vmin, vmax), flt_quarter * (flt)ijkRandomNumRange_int(vmin, vmax) }, { flt_quarter * (flt)ijkRandomNumRange_int(vmin, vmax), flt_quarter * (flt)ijkRandomNumRange_int(vmin, vmax), flt_quarter * (flt)ijkRandomNumRange_int(vmin, vmax), flt_quarter * (flt)ijkRandomNumRange_int(vmin, vmax) }, { flt_quarter * (flt)ijkRandomNumRange_int(vmin, vmax), flt_quarter * (flt)ijkRandomNumRange_int(vmin, vmax), flt_quarter * (flt)ijkRandomNumRange_int(vmin, vmax), flt_quarter * (flt)ijkRandomNumRange_int(vmin, vmax) } };
+	flt const tp_flt = flt_8th * (flt)ijkRandomNumMax_int(8), t0_flt = flt_8th * (flt)ijkRandomNumMax_int(8), t1_flt = flt_8th * (flt)ijkRandomNumMax_int(8), t2_flt = flt_8th * (flt)ijkRandomNumMax_int(8), t_flt = flt_8th * (flt)ijkRandomNumMax_int(8);
 
-	i32 const seed = ijkRandomSetSeed(0);
-	real const pmin = ijk_x2r(-8), pmax = ijk_x2r(+8), mmin = ijk_x2r(-2), mmax = ijk_x2r(+2);
-	real const p[] = { ijkRandomNumRange(pmin, pmax), ijkRandomNumRange(pmin, pmax), ijkRandomNumRange(pmin, pmax), ijkRandomNumRange(pmin, pmax), ijkRandomNumRange(pmin, pmax), ijkRandomNumRange(pmin, pmax), ijkRandomNumRange(pmin, pmax), ijkRandomNumRange(pmin, pmax), ijkRandomNumRange(pmin, pmax), ijkRandomNumRange(pmin, pmax), ijkRandomNumRange(pmin, pmax), ijkRandomNumRange(pmin, pmax), ijkRandomNumRange(pmin, pmax), ijkRandomNumRange(pmin, pmax), ijkRandomNumRange(pmin, pmax), ijkRandomNumRange(pmin, pmax), };
-	real const m[] = { ijkRandomNumRange(mmin, mmax), ijkRandomNumRange(mmin, mmax), ijkRandomNumRange(mmin, mmax), ijkRandomNumRange(mmin, mmax), ijkRandomNumRange(mmin, mmax), ijkRandomNumRange(mmin, mmax), ijkRandomNumRange(mmin, mmax), ijkRandomNumRange(mmin, mmax), ijkRandomNumRange(mmin, mmax), ijkRandomNumRange(mmin, mmax), ijkRandomNumRange(mmin, mmax), ijkRandomNumRange(mmin, mmax), ijkRandomNumRange(mmin, mmax), ijkRandomNumRange(mmin, mmax), ijkRandomNumRange(mmin, mmax), ijkRandomNumRange(mmin, mmax), };
+	i32 const seed_dbl = ijkRandomSetSeed(seedbase);
+	dbl const v_dbl[][4] = { { dbl_quarter * (dbl)ijkRandomNumRange_int(vmin, vmax), dbl_quarter * (dbl)ijkRandomNumRange_int(vmin, vmax), dbl_quarter * (dbl)ijkRandomNumRange_int(vmin, vmax), dbl_quarter * (dbl)ijkRandomNumRange_int(vmin, vmax) }, { dbl_quarter * (dbl)ijkRandomNumRange_int(vmin, vmax), dbl_quarter * (dbl)ijkRandomNumRange_int(vmin, vmax), dbl_quarter * (dbl)ijkRandomNumRange_int(vmin, vmax), dbl_quarter * (dbl)ijkRandomNumRange_int(vmin, vmax) }, { dbl_quarter * (dbl)ijkRandomNumRange_int(vmin, vmax), dbl_quarter * (dbl)ijkRandomNumRange_int(vmin, vmax), dbl_quarter * (dbl)ijkRandomNumRange_int(vmin, vmax), dbl_quarter * (dbl)ijkRandomNumRange_int(vmin, vmax) }, { dbl_quarter * (dbl)ijkRandomNumRange_int(vmin, vmax), dbl_quarter * (dbl)ijkRandomNumRange_int(vmin, vmax), dbl_quarter * (dbl)ijkRandomNumRange_int(vmin, vmax), dbl_quarter * (dbl)ijkRandomNumRange_int(vmin, vmax) } };
+	dbl const tp_dbl = dbl_8th * (dbl)ijkRandomNumMax_int(8), t0_dbl = dbl_8th * (dbl)ijkRandomNumMax_int(8), t1_dbl = dbl_8th * (dbl)ijkRandomNumMax_int(8), t2_dbl = dbl_8th * (dbl)ijkRandomNumMax_int(8), t_dbl = dbl_8th * (dbl)ijkRandomNumMax_int(8);
+
+	i32 const seed = ijkRandomSetSeed(seedbase);
+	real const v[][4] = { { real_quarter * (real)ijkRandomNumRange_int(vmin, vmax), real_quarter * (real)ijkRandomNumRange_int(vmin, vmax), real_quarter * (real)ijkRandomNumRange_int(vmin, vmax), real_quarter * (real)ijkRandomNumRange_int(vmin, vmax) }, { real_quarter * (real)ijkRandomNumRange_int(vmin, vmax), real_quarter * (real)ijkRandomNumRange_int(vmin, vmax), real_quarter * (real)ijkRandomNumRange_int(vmin, vmax), real_quarter * (real)ijkRandomNumRange_int(vmin, vmax) }, { real_quarter * (real)ijkRandomNumRange_int(vmin, vmax), real_quarter * (real)ijkRandomNumRange_int(vmin, vmax), real_quarter * (real)ijkRandomNumRange_int(vmin, vmax), real_quarter * (real)ijkRandomNumRange_int(vmin, vmax) }, { real_quarter * (real)ijkRandomNumRange_int(vmin, vmax), real_quarter * (real)ijkRandomNumRange_int(vmin, vmax), real_quarter * (real)ijkRandomNumRange_int(vmin, vmax), real_quarter * (real)ijkRandomNumRange_int(vmin, vmax) } };
+	real const tp = real_8th * (real)ijkRandomNumMax_int(8), t0 = real_8th * (real)ijkRandomNumMax_int(8), t1 = real_8th * (real)ijkRandomNumMax_int(8), t2 = real_8th * (real)ijkRandomNumMax_int(8), t = real_8th * (real)ijkRandomNumMax_int(8);
 
 	flt test_tTable_flt[33], test_lTable_flt[33], test_vTable_flt[33];
 	dbl test_tTable_dbl[33], test_lTable_dbl[33], test_vTable_dbl[33];
 	real test_tTable[33], test_lTable[33], test_vTable[33];
-	size const numDivisions = (sizeof(test_tTable) - 1) / sizeof(*test_tTable);
+	size const numDivisions = (sizeof(test_tTable) - 1) / (sizeof(*test_tTable));
+	size const order = 3;
 
 	index test_index;
 	flt test_flt;
 	dbl test_dbl;
 	real test;
+
+	test_flt = ijkInterpNearest_flt(v_flt[0][0], v_flt[0][1], t_flt);
+	test_flt = ijkInterpBinearest_flt(v_flt[0][0], v_flt[0][1], v_flt[1][0], v_flt[1][1], t0_flt, t1_flt, t_flt);
+	test_flt = ijkInterpLinear_flt(v_flt[0][0], v_flt[0][1], t_flt);
+	test_flt = ijkInterpBilinear_flt(v_flt[0][0], v_flt[0][1], v_flt[1][0], v_flt[1][1], t0_flt, t1_flt, t_flt);
+	test_flt = ijkInterpLinearInv_flt(v_flt[0][0], v_flt[0][1], v_flt[0][2]);
+	test_flt = ijkInterpLinearInvSafe_flt(v_flt[0][0], v_flt[0][1], v_flt[0][2]);
+	test_flt = ijkInterpRemap_flt(v_flt[0][0], v_flt[0][1], v_flt[1][0], v_flt[1][1], v_flt[1][2]);
+	test_flt = ijkInterpRemapSafe_flt(v_flt[0][0], v_flt[0][1], v_flt[1][0], v_flt[1][1], v_flt[1][2]);
+	test_flt = ijkInterpBezier0_flt(v_flt[0][0], t_flt);
+	test_flt = ijkInterpBezier1_flt(v_flt[0][0], v_flt[0][1], t_flt);
+	test_flt = ijkInterpBezier2_flt(v_flt[0][0], v_flt[0][1], v_flt[0][2], t_flt);
+	test_flt = ijkInterpBezier3_flt(v_flt[0][0], v_flt[0][1], v_flt[0][2], v_flt[0][3], t_flt);
+	test_flt = ijkInterpBezierN_flt(*v_flt, order, t_flt);
+	test_flt = ijkInterpCubicHermite_flt(v_flt[0][0], (v_flt[1][0] - v_flt[0][0]), v_flt[0][1], (v_flt[1][1] - v_flt[0][1]), t_flt);
+	test_flt = ijkInterpCubicHermiteHandles_flt(v_flt[0][0], v_flt[1][0], v_flt[0][1], v_flt[1][1], t_flt);
+	test_flt = ijkInterpCubicCatmullRom_flt(v_flt[0][3], v_flt[0][0], v_flt[0][1], v_flt[0][2], t_flt);
+	test_flt = ijkInterpBicubicCatmullRom_flt(v_flt[3][3], v_flt[3][0], v_flt[3][1], v_flt[3][2], v_flt[0][3], v_flt[0][0], v_flt[0][1], v_flt[0][2], v_flt[1][3], v_flt[1][0], v_flt[1][1], v_flt[1][2], v_flt[2][3], v_flt[2][0], v_flt[2][1], v_flt[2][2], tp_flt, t0_flt, t1_flt, t2_flt, t_flt);
+	test_flt = ijkInterpReparamCubicHermite_flt(test_tTable_flt, test_lTable_flt, test_vTable_flt, numDivisions, ijk_true, v_flt[0][0], (v_flt[1][0] - v_flt[0][0]), v_flt[0][1], (v_flt[1][1] - v_flt[0][1]));
+	test_flt = ijkInterpReparamCubicHermiteHandles_flt(test_tTable_flt, test_lTable_flt, test_vTable_flt, numDivisions, ijk_true, v_flt[0][0], v_flt[1][0], v_flt[0][1], v_flt[1][1]);
+	test_flt = ijkInterpReparamCubicCatmullRom_flt(test_tTable_flt, test_lTable_flt, test_vTable_flt, numDivisions, ijk_true, v_flt[0][3], v_flt[0][0], v_flt[0][1], v_flt[0][2]);
+	test_flt = ijkInterpReparamBicubicCatmullRom_flt(test_tTable_flt, test_lTable_flt, test_vTable_flt, numDivisions, ijk_true, v_flt[3][3], v_flt[3][0], v_flt[3][1], v_flt[3][2], v_flt[0][3], v_flt[0][0], v_flt[0][1], v_flt[0][2], v_flt[1][3], v_flt[1][0], v_flt[1][1], v_flt[1][2], v_flt[2][3], v_flt[2][0], v_flt[2][1], v_flt[2][2], tp_flt, t0_flt, t1_flt, t2_flt);
+	test_flt = ijkInterpSampleTableInc_flt(test_tTable_flt, test_vTable_flt, 0, 0, t_flt);
+	test_flt = ijkInterpSampleTableDec_flt(test_tTable_flt, test_vTable_flt, 0, 2, t_flt);
+	test_index = ijkInterpSampleTableIncIndex_flt(test_vTable_flt, test_tTable_flt, 0, 0, t_flt);
+	test_index = ijkInterpSampleTableDecIndex_flt(test_vTable_flt, test_tTable_flt, 0, 2, t_flt);
+
+	test_dbl = *test_tTable_dbl = *test_lTable_dbl = *test_vTable_dbl = dbl_zero;
+	test = *test_tTable = *test_lTable = *test_vTable = real_zero;
 }
 
 
