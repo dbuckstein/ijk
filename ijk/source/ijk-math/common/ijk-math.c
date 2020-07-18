@@ -314,8 +314,57 @@ void ijkMathTestInterpolation()
 	test_index = ijkInterpSampleTableIncIndex_flt(test_vTable_flt, test_tTable_flt, 0, 0, t_flt);
 	test_index = ijkInterpSampleTableDecIndex_flt(test_vTable_flt, test_tTable_flt, 0, 2, t_flt);
 
-	test_dbl = *test_tTable_dbl = *test_lTable_dbl = *test_vTable_dbl = dbl_zero;
-	test = *test_tTable = *test_lTable = *test_vTable = real_zero;
+	test_dbl = ijkInterpNearest_dbl(v_dbl[0][0], v_dbl[0][1], t_dbl);
+	test_dbl = ijkInterpBinearest_dbl(v_dbl[0][0], v_dbl[0][1], v_dbl[1][0], v_dbl[1][1], t0_dbl, t1_dbl, t_dbl);
+	test_dbl = ijkInterpLinear_dbl(v_dbl[0][0], v_dbl[0][1], t_dbl);
+	test_dbl = ijkInterpBilinear_dbl(v_dbl[0][0], v_dbl[0][1], v_dbl[1][0], v_dbl[1][1], t0_dbl, t1_dbl, t_dbl);
+	test_dbl = ijkInterpLinearInv_dbl(v_dbl[0][0], v_dbl[0][1], v_dbl[0][2]);
+	test_dbl = ijkInterpLinearInvSafe_dbl(v_dbl[0][0], v_dbl[0][1], v_dbl[0][2]);
+	test_dbl = ijkInterpRemap_dbl(v_dbl[0][0], v_dbl[0][1], v_dbl[1][0], v_dbl[1][1], v_dbl[1][2]);
+	test_dbl = ijkInterpRemapSafe_dbl(v_dbl[0][0], v_dbl[0][1], v_dbl[1][0], v_dbl[1][1], v_dbl[1][2]);
+	test_dbl = ijkInterpBezier0_dbl(v_dbl[0][0], t_dbl);
+	test_dbl = ijkInterpBezier1_dbl(v_dbl[0][0], v_dbl[0][1], t_dbl);
+	test_dbl = ijkInterpBezier2_dbl(v_dbl[0][0], v_dbl[0][1], v_dbl[0][2], t_dbl);
+	test_dbl = ijkInterpBezier3_dbl(v_dbl[0][0], v_dbl[0][1], v_dbl[0][2], v_dbl[0][3], t_dbl);
+	test_dbl = ijkInterpBezierN_dbl(*v_dbl, order, t_dbl);
+	test_dbl = ijkInterpCubicHermite_dbl(v_dbl[0][0], (v_dbl[1][0] - v_dbl[0][0]), v_dbl[0][1], (v_dbl[1][1] - v_dbl[0][1]), t_dbl);
+	test_dbl = ijkInterpCubicHermiteHandles_dbl(v_dbl[0][0], v_dbl[1][0], v_dbl[0][1], v_dbl[1][1], t_dbl);
+	test_dbl = ijkInterpCubicCatmullRom_dbl(v_dbl[0][3], v_dbl[0][0], v_dbl[0][1], v_dbl[0][2], t_dbl);
+	test_dbl = ijkInterpBicubicCatmullRom_dbl(v_dbl[3][3], v_dbl[3][0], v_dbl[3][1], v_dbl[3][2], v_dbl[0][3], v_dbl[0][0], v_dbl[0][1], v_dbl[0][2], v_dbl[1][3], v_dbl[1][0], v_dbl[1][1], v_dbl[1][2], v_dbl[2][3], v_dbl[2][0], v_dbl[2][1], v_dbl[2][2], tp_dbl, t0_dbl, t1_dbl, t2_dbl, t_dbl);
+	test_dbl = ijkInterpReparamCubicHermite_dbl(test_tTable_dbl, test_lTable_dbl, test_vTable_dbl, numDivisions, ijk_true, v_dbl[0][0], (v_dbl[1][0] - v_dbl[0][0]), v_dbl[0][1], (v_dbl[1][1] - v_dbl[0][1]));
+	test_dbl = ijkInterpReparamCubicHermiteHandles_dbl(test_tTable_dbl, test_lTable_dbl, test_vTable_dbl, numDivisions, ijk_true, v_dbl[0][0], v_dbl[1][0], v_dbl[0][1], v_dbl[1][1]);
+	test_dbl = ijkInterpReparamCubicCatmullRom_dbl(test_tTable_dbl, test_lTable_dbl, test_vTable_dbl, numDivisions, ijk_true, v_dbl[0][3], v_dbl[0][0], v_dbl[0][1], v_dbl[0][2]);
+	test_dbl = ijkInterpReparamBicubicCatmullRom_dbl(test_tTable_dbl, test_lTable_dbl, test_vTable_dbl, numDivisions, ijk_true, v_dbl[3][3], v_dbl[3][0], v_dbl[3][1], v_dbl[3][2], v_dbl[0][3], v_dbl[0][0], v_dbl[0][1], v_dbl[0][2], v_dbl[1][3], v_dbl[1][0], v_dbl[1][1], v_dbl[1][2], v_dbl[2][3], v_dbl[2][0], v_dbl[2][1], v_dbl[2][2], tp_dbl, t0_dbl, t1_dbl, t2_dbl);
+	test_dbl = ijkInterpSampleTableInc_dbl(test_tTable_dbl, test_vTable_dbl, 0, 0, t_dbl);
+	test_dbl = ijkInterpSampleTableDec_dbl(test_tTable_dbl, test_vTable_dbl, 0, 2, t_dbl);
+	test_index = ijkInterpSampleTableIncIndex_dbl(test_vTable_dbl, test_tTable_dbl, 0, 0, t_dbl);
+	test_index = ijkInterpSampleTableDecIndex_dbl(test_vTable_dbl, test_tTable_dbl, 0, 2, t_dbl);
+
+	test = ijkInterpNearest(v[0][0], v[0][1], t);
+	test = ijkInterpBinearest(v[0][0], v[0][1], v[1][0], v[1][1], t0, t1, t);
+	test = ijkInterpLinear(v[0][0], v[0][1], t);
+	test = ijkInterpBilinear(v[0][0], v[0][1], v[1][0], v[1][1], t0, t1, t);
+	test = ijkInterpLinearInv(v[0][0], v[0][1], v[0][2]);
+	test = ijkInterpLinearInvSafe(v[0][0], v[0][1], v[0][2]);
+	test = ijkInterpRemap(v[0][0], v[0][1], v[1][0], v[1][1], v[1][2]);
+	test = ijkInterpRemapSafe(v[0][0], v[0][1], v[1][0], v[1][1], v[1][2]);
+	test = ijkInterpBezier0(v[0][0], t);
+	test = ijkInterpBezier1(v[0][0], v[0][1], t);
+	test = ijkInterpBezier2(v[0][0], v[0][1], v[0][2], t);
+	test = ijkInterpBezier3(v[0][0], v[0][1], v[0][2], v[0][3], t);
+	test = ijkInterpBezierN(*v, order, t);
+	test = ijkInterpCubicHermite(v[0][0], (v[1][0] - v[0][0]), v[0][1], (v[1][1] - v[0][1]), t);
+	test = ijkInterpCubicHermiteHandles(v[0][0], v[1][0], v[0][1], v[1][1], t);
+	test = ijkInterpCubicCatmullRom(v[0][3], v[0][0], v[0][1], v[0][2], t);
+	test = ijkInterpBicubicCatmullRom(v[3][3], v[3][0], v[3][1], v[3][2], v[0][3], v[0][0], v[0][1], v[0][2], v[1][3], v[1][0], v[1][1], v[1][2], v[2][3], v[2][0], v[2][1], v[2][2], tp, t0, t1, t2, t);
+	test = ijkInterpReparamCubicHermite(test_tTable, test_lTable, test_vTable, numDivisions, ijk_true, v[0][0], (v[1][0] - v[0][0]), v[0][1], (v[1][1] - v[0][1]));
+	test = ijkInterpReparamCubicHermiteHandles(test_tTable, test_lTable, test_vTable, numDivisions, ijk_true, v[0][0], v[1][0], v[0][1], v[1][1]);
+	test = ijkInterpReparamCubicCatmullRom(test_tTable, test_lTable, test_vTable, numDivisions, ijk_true, v[0][3], v[0][0], v[0][1], v[0][2]);
+	test = ijkInterpReparamBicubicCatmullRom(test_tTable, test_lTable, test_vTable, numDivisions, ijk_true, v[3][3], v[3][0], v[3][1], v[3][2], v[0][3], v[0][0], v[0][1], v[0][2], v[1][3], v[1][0], v[1][1], v[1][2], v[2][3], v[2][0], v[2][1], v[2][2], tp, t0, t1, t2);
+	test = ijkInterpSampleTableInc(test_tTable, test_vTable, 0, 0, t);
+	test = ijkInterpSampleTableDec(test_tTable, test_vTable, 0, 2, t);
+	test_index = ijkInterpSampleTableIncIndex(test_vTable, test_tTable, 0, 0, t);
+	test_index = ijkInterpSampleTableDecIndex(test_vTable, test_tTable, 0, 2, t);
 }
 
 
