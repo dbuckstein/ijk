@@ -19,20 +19,33 @@
 		c-based rendering framework
 	By Daniel S. Buckstein
 
-	ijk-math.h
-	Main header for math library.
+	ijkTrigonometry.h
+	Core fast trigonometry functions and utilities.
 */
 
-#ifndef _IJK_MATH_H_
-#define _IJK_MATH_H_
+#ifndef _IJK_TRIGONOMETRY_H_
+#define _IJK_TRIGONOMETRY_H_
 
 
-#include "ijk-real/ijkReal.h"
-#include "ijk-real/ijkSqrt.h"
-#include "ijk-real/ijkStats.h"
-#include "ijk-real/ijkRandom.h"
-#include "ijk-real/ijkInterpolation.h"
-#include "ijk-real/ijkTrigonometry.h"
+#include "ijkReal.h"
 
 
-#endif	// !_IJK_MATH_H_
+//-----------------------------------------------------------------------------
+
+
+
+//-----------------------------------------------------------------------------
+
+
+
+//-----------------------------------------------------------------------------
+
+
+
+//-----------------------------------------------------------------------------
+
+
+#include "_inl/ijkTrigonometry.inl"
+
+
+#endif	// !_IJK_TRIGONOMETRY_H_
