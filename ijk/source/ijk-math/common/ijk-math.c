@@ -260,6 +260,35 @@ void ijkMathTestRandom()
 }
 
 
+void ijkMathTestInterpolation()
+{
+	i32 const seed_flt = ijkRandomSetSeed(0);
+	flt const pmin_flt = -8.0f, pmax_flt = +8.0f, mmin_flt = -2.0f, mmax_flt = +2.0f;
+	flt const p_flt[] = { ijkRandomNumRange_flt(pmin_flt, pmax_flt), ijkRandomNumRange_flt(pmin_flt, pmax_flt), ijkRandomNumRange_flt(pmin_flt, pmax_flt), ijkRandomNumRange_flt(pmin_flt, pmax_flt), ijkRandomNumRange_flt(pmin_flt, pmax_flt), ijkRandomNumRange_flt(pmin_flt, pmax_flt), ijkRandomNumRange_flt(pmin_flt, pmax_flt), ijkRandomNumRange_flt(pmin_flt, pmax_flt), ijkRandomNumRange_flt(pmin_flt, pmax_flt), ijkRandomNumRange_flt(pmin_flt, pmax_flt), ijkRandomNumRange_flt(pmin_flt, pmax_flt), ijkRandomNumRange_flt(pmin_flt, pmax_flt), ijkRandomNumRange_flt(pmin_flt, pmax_flt), ijkRandomNumRange_flt(pmin_flt, pmax_flt), ijkRandomNumRange_flt(pmin_flt, pmax_flt), ijkRandomNumRange_flt(pmin_flt, pmax_flt), };
+	flt const m_flt[] = { ijkRandomNumRange_flt(mmin_flt, mmax_flt), ijkRandomNumRange_flt(mmin_flt, mmax_flt), ijkRandomNumRange_flt(mmin_flt, mmax_flt), ijkRandomNumRange_flt(mmin_flt, mmax_flt), ijkRandomNumRange_flt(mmin_flt, mmax_flt), ijkRandomNumRange_flt(mmin_flt, mmax_flt), ijkRandomNumRange_flt(mmin_flt, mmax_flt), ijkRandomNumRange_flt(mmin_flt, mmax_flt), ijkRandomNumRange_flt(mmin_flt, mmax_flt), ijkRandomNumRange_flt(mmin_flt, mmax_flt), ijkRandomNumRange_flt(mmin_flt, mmax_flt), ijkRandomNumRange_flt(mmin_flt, mmax_flt), ijkRandomNumRange_flt(mmin_flt, mmax_flt), ijkRandomNumRange_flt(mmin_flt, mmax_flt), ijkRandomNumRange_flt(mmin_flt, mmax_flt), ijkRandomNumRange_flt(mmin_flt, mmax_flt), };
+
+	i32 const seed_dbl = ijkRandomSetSeed(0);
+	dbl const pmin_dbl = -8.0, pmax_dbl = +8.0, mmin_dbl = -2.0, mmax_dbl = +2.0;
+	dbl const p_dbl[] = { ijkRandomNumRange_dbl(pmin_dbl, pmax_dbl), ijkRandomNumRange_dbl(pmin_dbl, pmax_dbl), ijkRandomNumRange_dbl(pmin_dbl, pmax_dbl), ijkRandomNumRange_dbl(pmin_dbl, pmax_dbl), ijkRandomNumRange_dbl(pmin_dbl, pmax_dbl), ijkRandomNumRange_dbl(pmin_dbl, pmax_dbl), ijkRandomNumRange_dbl(pmin_dbl, pmax_dbl), ijkRandomNumRange_dbl(pmin_dbl, pmax_dbl), ijkRandomNumRange_dbl(pmin_dbl, pmax_dbl), ijkRandomNumRange_dbl(pmin_dbl, pmax_dbl), ijkRandomNumRange_dbl(pmin_dbl, pmax_dbl), ijkRandomNumRange_dbl(pmin_dbl, pmax_dbl), ijkRandomNumRange_dbl(pmin_dbl, pmax_dbl), ijkRandomNumRange_dbl(pmin_dbl, pmax_dbl), ijkRandomNumRange_dbl(pmin_dbl, pmax_dbl), ijkRandomNumRange_dbl(pmin_dbl, pmax_dbl), };
+	dbl const m_dbl[] = { ijkRandomNumRange_dbl(mmin_dbl, mmax_dbl), ijkRandomNumRange_dbl(mmin_dbl, mmax_dbl), ijkRandomNumRange_dbl(mmin_dbl, mmax_dbl), ijkRandomNumRange_dbl(mmin_dbl, mmax_dbl), ijkRandomNumRange_dbl(mmin_dbl, mmax_dbl), ijkRandomNumRange_dbl(mmin_dbl, mmax_dbl), ijkRandomNumRange_dbl(mmin_dbl, mmax_dbl), ijkRandomNumRange_dbl(mmin_dbl, mmax_dbl), ijkRandomNumRange_dbl(mmin_dbl, mmax_dbl), ijkRandomNumRange_dbl(mmin_dbl, mmax_dbl), ijkRandomNumRange_dbl(mmin_dbl, mmax_dbl), ijkRandomNumRange_dbl(mmin_dbl, mmax_dbl), ijkRandomNumRange_dbl(mmin_dbl, mmax_dbl), ijkRandomNumRange_dbl(mmin_dbl, mmax_dbl), ijkRandomNumRange_dbl(mmin_dbl, mmax_dbl), ijkRandomNumRange_dbl(mmin_dbl, mmax_dbl), };
+
+	i32 const seed = ijkRandomSetSeed(0);
+	real const pmin = ijk_x2r(-8), pmax = ijk_x2r(+8), mmin = ijk_x2r(-2), mmax = ijk_x2r(+2);
+	real const p[] = { ijkRandomNumRange(pmin, pmax), ijkRandomNumRange(pmin, pmax), ijkRandomNumRange(pmin, pmax), ijkRandomNumRange(pmin, pmax), ijkRandomNumRange(pmin, pmax), ijkRandomNumRange(pmin, pmax), ijkRandomNumRange(pmin, pmax), ijkRandomNumRange(pmin, pmax), ijkRandomNumRange(pmin, pmax), ijkRandomNumRange(pmin, pmax), ijkRandomNumRange(pmin, pmax), ijkRandomNumRange(pmin, pmax), ijkRandomNumRange(pmin, pmax), ijkRandomNumRange(pmin, pmax), ijkRandomNumRange(pmin, pmax), ijkRandomNumRange(pmin, pmax), };
+	real const m[] = { ijkRandomNumRange(mmin, mmax), ijkRandomNumRange(mmin, mmax), ijkRandomNumRange(mmin, mmax), ijkRandomNumRange(mmin, mmax), ijkRandomNumRange(mmin, mmax), ijkRandomNumRange(mmin, mmax), ijkRandomNumRange(mmin, mmax), ijkRandomNumRange(mmin, mmax), ijkRandomNumRange(mmin, mmax), ijkRandomNumRange(mmin, mmax), ijkRandomNumRange(mmin, mmax), ijkRandomNumRange(mmin, mmax), ijkRandomNumRange(mmin, mmax), ijkRandomNumRange(mmin, mmax), ijkRandomNumRange(mmin, mmax), ijkRandomNumRange(mmin, mmax), };
+
+	flt test_tTable_flt[33], test_lTable_flt[33], test_vTable_flt[33];
+	dbl test_tTable_dbl[33], test_lTable_dbl[33], test_vTable_dbl[33];
+	real test_tTable[33], test_lTable[33], test_vTable[33];
+	size const numDivisions = (sizeof(test_tTable) - 1) / sizeof(*test_tTable);
+
+	index test_index;
+	flt test_flt;
+	dbl test_dbl;
+	real test;
+}
+
+
 //-----------------------------------------------------------------------------
 
 void ijkMathTest()
@@ -268,6 +297,7 @@ void ijkMathTest()
 	ijkMathTestSqrt();
 	ijkMathTestStats();
 	ijkMathTestRandom();
+	ijkMathTestInterpolation();
 }
 
 
