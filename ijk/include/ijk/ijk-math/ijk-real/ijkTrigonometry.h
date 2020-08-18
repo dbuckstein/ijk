@@ -51,7 +51,7 @@ size ijkTrigGetTableSize_flt(size const subdivisionsPerDegree);
 //			valid: at least the minimum required size
 //			note: minimum required size (in bytes) is: 
 //				SZ	= SZ_sample * (
-//						(720 degrees * 3 sets [params, sine, cosine]
+//						(720 degrees * 2 sets [params, sine]
 //						+ 90 degrees * 1 set [cosine])
 //						* (samples per degree) + 4 padding)
 //					+ SZ_index * (
@@ -72,7 +72,7 @@ size ijkTrigSetTable_flt(flt const table[], size const tableSize_bytes, size con
 //			valid: at least the minimum required size
 //			note: minimum required size (in bytes) is: 
 //				SZ	= SZ_sample * (
-//						(720 degrees * 3 sets [params, sine, cosine]
+//						(720 degrees * 2 sets [params, sine]
 //						+ 90 degrees * 1 set [cosine])
 //						* (samples per degree) + 4 padding)
 //					+ SZ_index * (
@@ -83,7 +83,7 @@ size ijkTrigSetTable_flt(flt const table[], size const tableSize_bytes, size con
 //			note: each degree will be subsampled this number of times
 //		return SUCCESS: size of data set
 //		return FAILURE: zero if invalid parameters
-size ijkTrigInit_flt(flt table[], size const tableSize_bytes, size const subdivisionsPerDegree);
+size ijkTrigInit_flt(flt table_out[], size const tableSize_bytes, size const subdivisionsPerDegree);
 
 // ijkTrigValidateDegree_flt
 //	Validate a degree parameter to be passed to a trig function. Maps 
