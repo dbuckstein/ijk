@@ -42,11 +42,15 @@ flt const* ijkTrigTableCos_flt;
 
 // ijkTrigTableIndexAsin_flt
 //	Pointer to arcsine index table.
-uindex const* ijkTrigTableIndexAsin_flt;
+index const* ijkTrigTableIndexAsin_flt;
 
 // ijkTrigTableIndexAcos_flt
 //	Pointer to arccosine index table.
-uindex const* ijkTrigTableIndexAcos_flt;
+index const* ijkTrigTableIndexAcos_flt;
+
+// ijkTrigSubdivisionsPerDegree_flt
+//	Number of subdivisions per degree.
+size ijkTrigSubdivisionsPerDegree_flt;
 
 
 //-----------------------------------------------------------------------------
@@ -76,18 +80,19 @@ size ijkTrigSetTable_flt(flt const table[], size const tableSize_bytes, size con
 	if (table && sz && tableSize_bytes > sz)
 	{
 		flt const* const table_param = table;
-		uindex const offset_param = 0, offset_sin = offset_param + subdivisionsPerDegree * 720 + 2, offset_cos = offset_sin + subdivisionsPerDegree * 90;
-		uindex const* const table_index = (uindex *)(table_param + (offset_cos + subdivisionsPerDegree * 720 + 2));
-		uindex const offset_index_asin = 0, offset_index_acos = offset_index_asin + 720 + 2;
+		index const offset_param = 0, offset_sin = offset_param + subdivisionsPerDegree * 720 + 2, offset_cos = offset_sin + subdivisionsPerDegree * 90;
+		index const* const table_index = (index *)(table_param + (offset_cos + subdivisionsPerDegree * 720 + 2));
+		index const offset_index_asin = 0, offset_index_acos = offset_index_asin + 720 + 2;
 		kptr const table_end = (ptr)(table_index + (offset_index_acos + 720 + 2));
 		kptr const table_end_chksum = (ptr)((pbyte)table + sz);
 
 		// set pointers to center of respective domain/range
-		ijkTrigTableParam_flt = table_param + offset_param + subdivisionsPerDegree * 360;
-		ijkTrigTableSin_flt = table_param + offset_sin + subdivisionsPerDegree * 360;
-		ijkTrigTableCos_flt = table_param + offset_cos + subdivisionsPerDegree * 360;
-		ijkTrigTableIndexAsin_flt = table_index + offset_index_asin + 360;
-		ijkTrigTableIndexAcos_flt = table_index + offset_index_acos + 360;
+		ijkTrigTableParam_flt = table_param + offset_param;
+		ijkTrigTableSin_flt = table_param + offset_sin;
+		ijkTrigTableCos_flt = table_param + offset_cos;
+		ijkTrigTableIndexAsin_flt = table_index + offset_index_asin;
+		ijkTrigTableIndexAcos_flt = table_index + offset_index_acos;
+		ijkTrigSubdivisionsPerDegree_flt = subdivisionsPerDegree;
 
 		// done
 		return sz;
@@ -101,12 +106,12 @@ size ijkTrigInit_flt(flt table_out[], size const tableSize_bytes, size const sub
 	size const sz = ijkTrigSetTable_flt(table_out, tableSize_bytes, subdivisionsPerDegree);
 	if (sz)
 	{
-		flt* tableParam_flt = ijkTrigTableParam_flt - subdivisionsPerDegree * 360;
-		flt* tableSin_flt = ijkTrigTableSin_flt - subdivisionsPerDegree * 360;
-		flt* tableCos_flt = ijkTrigTableCos_flt - subdivisionsPerDegree * 360;
-		uindex* tableIndexAsin_flt = ijkTrigTableIndexAsin_flt - 360;
-		uindex* tableIndexAcos_flt = ijkTrigTableIndexAcos_flt - 360;
-		kptr const tableEnd = ijkTrigTableIndexAcos_flt + 360 + 2;
+		flt* tableParam_flt = (flt*)ijkTrigTableParam_flt;
+		flt* tableSin_flt = (flt*)ijkTrigTableSin_flt;
+		flt* tableCos_flt = (flt*)ijkTrigTableCos_flt;
+		index* tableIndexAsin_flt = (index*)ijkTrigTableIndexAsin_flt;
+		index* tableIndexAcos_flt = (index*)ijkTrigTableIndexAcos_flt;
+		kptr const tableEnd = ijkTrigTableIndexAcos_flt + 720 + 2;
 
 		uindex const numSubdivisions = subdivisionsPerDegree * 360, cosOffset = subdivisionsPerDegree * 90;
 		uindex i, j;
@@ -130,7 +135,7 @@ size ijkTrigInit_flt(flt table_out[], size const tableSize_bytes, size const sub
 		
 		// store padding values
 		*(tableParam_flt) = flt_360;
-		*(tableSin_flt) = *(tableSin_flt - j);
+		*(tableSin_flt) = *(tableSin_flt - numSubdivisions);
 		*(++tableParam_flt) = *(++tableSin_flt) = flt_zero;
 
 		// prepare indices for sampling inverse trig
@@ -145,7 +150,9 @@ size ijkTrigInit_flt(flt table_out[], size const tableSize_bytes, size const sub
 				i = j++;
 
 			// assign index
-			*(tableIndexAsin_flt++) = i - numSubdivisions;
+			// sin starts at -90 index (which maps to -1)
+			// cos starts at -180 index (which maps to -1)
+			*(tableIndexAsin_flt++) = i;
 			*(tableIndexAcos_flt++) = i - cosOffset;
 		}
 

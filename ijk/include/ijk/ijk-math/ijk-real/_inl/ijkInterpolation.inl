@@ -344,7 +344,7 @@ ijk_inl flt ijkInterpReparamBicubicCatmullRom_flt(flt tTable_out[], flt lTable_o
 }
 
 
-ijk_inl flt ijkInterpSampleTableInc_flt(flt const tTable[], flt const vTable[], uindex i, uindex di, flt const t)
+ijk_inl flt ijkInterpSampleTableInc_flt(flt const tTable[], flt const vTable[], index i, index di, flt const t)
 {
 	flt tReparam, v0, v1, v;
 	flt t0, t1 = *(tTable + (i += (di = ijk_maximum(di, 1))));
@@ -368,7 +368,7 @@ ijk_inl flt ijkInterpSampleTableInc_flt(flt const tTable[], flt const vTable[], 
 }
 
 
-ijk_inl flt ijkInterpSampleTableDec_flt(flt const tTable[], flt const vTable[], uindex i, uindex di, flt const t)
+ijk_inl flt ijkInterpSampleTableDec_flt(flt const tTable[], flt const vTable[], index i, index di, flt const t)
 {
 	flt tReparam, v0, v1, v;
 	flt t0, t1 = *(tTable + (i += (di = ijk_maximum(di, 1))));
@@ -389,7 +389,7 @@ ijk_inl flt ijkInterpSampleTableDec_flt(flt const tTable[], flt const vTable[], 
 }
 
 
-ijk_inl index ijkInterpSampleTableIncIndex_flt(flt* const tReparam_out, flt const tTable[], uindex i, uindex di, flt const t)
+ijk_inl index ijkInterpSampleTableIncIndex_flt(flt* const tReparam_out, flt const tTable[], index i, index di, flt const t)
 {
 	flt t0, t1 = *(tTable + (i += (di = ijk_maximum(di, 1))));
 
@@ -409,7 +409,7 @@ ijk_inl index ijkInterpSampleTableIncIndex_flt(flt* const tReparam_out, flt cons
 }
 
 
-ijk_inl index ijkInterpSampleTableDecIndex_flt(flt* const tReparam_out, flt const tTable[], uindex i, uindex di, flt const t)
+ijk_inl index ijkInterpSampleTableDecIndex_flt(flt* const tReparam_out, flt const tTable[], index i, index di, flt const t)
 {
 	flt t0, t1 = *(tTable + (i += (di = ijk_maximum(di, 1))));
 

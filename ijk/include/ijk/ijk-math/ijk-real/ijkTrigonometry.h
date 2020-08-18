@@ -27,7 +27,7 @@
 #define _IJK_TRIGONOMETRY_H_
 
 
-#include "ijkReal.h"
+#include "ijkInterpolation.h"
 
 
 //-----------------------------------------------------------------------------
@@ -84,6 +84,18 @@ size ijkTrigSetTable_flt(flt const table[], size const tableSize_bytes, size con
 //		return SUCCESS: size of data set
 //		return FAILURE: zero if invalid parameters
 size ijkTrigInit_flt(flt table_out[], size const tableSize_bytes, size const subdivisionsPerDegree);
+
+// ijkTrigDeg2Rad_flt
+//	Convert degree to radian.
+//		param x: degree input
+//		return: x as radian
+flt ijkTrigDeg2Rad_flt(flt const x);
+
+// ijkTrigRad2Deg_flt
+//	Convert radian to degree.
+//		param x: radian input
+//		return: x as degree
+flt ijkTrigRad2Deg_flt(flt const x);
 
 // ijkTrigValidateDegree_flt
 //	Validate a degree parameter to be passed to a trig function. Maps 
@@ -190,51 +202,7 @@ flt ijkTrigAcotd_flt(flt const x);
 //		param y_sin: numerator (y or sine) used to calculate tangent
 //		param x_cos: denominator (x or cosine) used to calculate tangent
 //		return: atan(y/x) in range (-90, +90)
-flt ijkTrigAtan2d_flt(flt const x);
-
-// ijkTrigSindTaylor_flt
-//	Calculate sine with degree input using a Taylor series.
-//		param x: input in domain [-360, +360]
-//		return: sin(x) in range [-1, +1]
-flt ijkTrigSindTaylor_flt(flt const x);
-
-// ijkTrigCosdTaylor_flt
-//	Calculate cosine with degree input using a Taylor series.
-//		param x: input in domain [-360, +360]
-//		return: cos(x) in range [-1, +1]
-flt ijkTrigCosdTaylor_flt(flt const x);
-
-// ijkTrigTandTaylor_flt
-//	Calculate tangent with degree input using a Taylor series.
-//		param x: input in domain (-90, +90)
-//		return: tan(x) in range (-inf, +inf)
-flt ijkTrigTandTaylor_flt(flt const x);
-
-// ijkTrigCscdTaylor_flt
-//	Calculate cosecant with degree input using a Taylor series.
-//		param x: input in domain (-180, 0) U (0, +180)
-//		return: csc(x) in range (-inf, -1] U [+1, +inf)
-flt ijkTrigCscdTaylor_flt(flt const x);
-
-// ijkTrigSecdTaylor_flt
-//	Calculate secant with degree input using a Taylor series.
-//		param x: input in domain (-90, +90) U (+90, +270)
-//		return: sec(x) in range (-inf, -1] U [+1, +inf)
-flt ijkTrigSecdTaylor_flt(flt const x);
-
-// ijkTrigCotdTaylor_flt
-//	Calculate cotangent with degree input using a Taylor series.
-//		param x: input in domain (0, +180)
-//		return: cot(x) in range (-inf, +inf)
-flt ijkTrigCotdTaylor_flt(flt const x);
-
-// ijkTrigSindCosdTaylor_flt
-//	Calculate sine and cosine with degree input using a Taylor series.
-//		param x: input in domain [-360, +360]
-//		param sinx_out: pointer to value to capture sin(x) in range [-1, +1]
-//		param cosx_out: pointer to value to capture cos(x) in range [-1, +1]
-//		return: x
-flt ijkTrigSindCosdTaylor_flt(flt const x);
+flt ijkTrigAtan2d_flt(flt const y_sin, flt const x_cos);
 
 // ijkTrigSinr_flt
 //	Calculate sine with radian input.
@@ -313,7 +281,31 @@ flt ijkTrigAcotr_flt(flt const x);
 //		param y_sin: numerator (y or sine) used to calculate tangent
 //		param x_cos: denominator (x or cosine) used to calculate tangent
 //		return: atan(y/x) in range (-pi/2, +pi/2)
-flt ijkTrigAtan2r_flt(flt const x);
+flt ijkTrigAtan2r_flt(flt const y_sin, flt const x_cos);
+
+// ijkTrigSinrCosrTaylor_flt
+//	Calculate sine and cosine with radian input using a Taylor series.
+//		param x: input in domain [-2pi, +2pi]
+//		param sinx_out: pointer to value to capture sin(x) in range [-1, +1]
+//		param cosx_out: pointer to value to capture cos(x) in range [-1, +1]
+//		return: x
+flt ijkTrigSinrCosrTaylor_flt(flt const x, flt* sinx_out, flt* cosx_out);
+
+// ijkTrigTanrSinrCosrTaylor_flt
+//	Calculate sine and cosine with radian input using a Taylor series.
+//		param x: input in domain [-2pi, +2pi]
+//		param sinx_out: pointer to value to capture sin(x) in range [-1, +1]
+//		param cosx_out: pointer to value to capture cos(x) in range [-1, +1]
+//		return: tan(x) in range (-inf, +inf)
+flt ijkTrigTanrSinrCosrTaylor_flt(flt const x, flt* sinx_out, flt* cosx_out);
+
+// ijkTrigCotrSinrCosrTaylor_flt
+//	Calculate sine and cosine with radian input using a Taylor series.
+//		param x: input in domain [-2pi, +2pi]
+//		param sinx_out: pointer to value to capture sin(x) in range [-1, +1]
+//		param cosx_out: pointer to value to capture cos(x) in range [-1, +1]
+//		return: cot(x) in range (-inf, +inf)
+flt ijkTrigCotrSinrCosrTaylor_flt(flt const x, flt* sinx_out, flt* cosx_out);
 
 // ijkTrigSinrTaylor_flt
 //	Calculate sine with radian input using a Taylor series.
@@ -351,13 +343,65 @@ flt ijkTrigSecrTaylor_flt(flt const x);
 //		return: cot(x) in range (-inf, +inf)
 flt ijkTrigCotrTaylor_flt(flt const x);
 
-// ijkTrigSinrCosrTaylor_flt
-//	Calculate sine and cosine with radian input using a Taylor series.
-//		param x: input in domain [-2pi, +2pi]
+// ijkTrigSindCosdTaylor_flt
+//	Calculate sine and cosine with degree input using a Taylor series.
+//		param x: input in domain [-360, +360]
 //		param sinx_out: pointer to value to capture sin(x) in range [-1, +1]
 //		param cosx_out: pointer to value to capture cos(x) in range [-1, +1]
 //		return: x
-flt ijkTrigSinrCosrTaylor_flt(flt const x);
+flt ijkTrigSindCosdTaylor_flt(flt const x, flt* sinx_out, flt* cosx_out);
+
+// ijkTrigTandSindCosdTaylor_flt
+//	Calculate tangent, sine and cosine with degree input using a Taylor series.
+//		param x: input in domain [-360, +360]
+//		param sinx_out: pointer to value to capture sin(x) in range [-1, +1]
+//		param cosx_out: pointer to value to capture cos(x) in range [-1, +1]
+//		return: tan(x) in range (-inf, +inf)
+flt ijkTrigTandSindCosdTaylor_flt(flt const x, flt* sinx_out, flt* cosx_out);
+
+// ijkTrigCotdSindCosdTaylor_flt
+//	Calculate tangent, sine and cosine with degree input using a Taylor series.
+//		param x: input in domain [-360, +360]
+//		param sinx_out: pointer to value to capture sin(x) in range [-1, +1]
+//		param cosx_out: pointer to value to capture cos(x) in range [-1, +1]
+//		return: cot(x) in range (-inf, +inf)
+flt ijkTrigCotdSindCosdTaylor_flt(flt const x, flt* sinx_out, flt* cosx_out);
+
+// ijkTrigSindTaylor_flt
+//	Calculate sine with degree input using a Taylor series.
+//		param x: input in domain [-360, +360]
+//		return: sin(x) in range [-1, +1]
+flt ijkTrigSindTaylor_flt(flt const x);
+
+// ijkTrigCosdTaylor_flt
+//	Calculate cosine with degree input using a Taylor series.
+//		param x: input in domain [-360, +360]
+//		return: cos(x) in range [-1, +1]
+flt ijkTrigCosdTaylor_flt(flt const x);
+
+// ijkTrigTandTaylor_flt
+//	Calculate tangent with degree input using a Taylor series.
+//		param x: input in domain (-90, +90)
+//		return: tan(x) in range (-inf, +inf)
+flt ijkTrigTandTaylor_flt(flt const x);
+
+// ijkTrigCscdTaylor_flt
+//	Calculate cosecant with degree input using a Taylor series.
+//		param x: input in domain (-180, 0) U (0, +180)
+//		return: csc(x) in range (-inf, -1] U [+1, +inf)
+flt ijkTrigCscdTaylor_flt(flt const x);
+
+// ijkTrigSecdTaylor_flt
+//	Calculate secant with degree input using a Taylor series.
+//		param x: input in domain (-90, +90) U (+90, +270)
+//		return: sec(x) in range (-inf, -1] U [+1, +inf)
+flt ijkTrigSecdTaylor_flt(flt const x);
+
+// ijkTrigCotdTaylor_flt
+//	Calculate cotangent with degree input using a Taylor series.
+//		param x: input in domain (0, +180)
+//		return: cot(x) in range (-inf, +inf)
+flt ijkTrigCotdTaylor_flt(flt const x);
 
 // ijkTrigPointToEdgeRatio_flt
 //	Calculate the size ratio of a real to discrete circle given edge size. The 
