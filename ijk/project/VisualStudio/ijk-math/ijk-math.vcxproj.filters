@@ -54,6 +54,9 @@
     <ClCompile Include="..\..\..\source\ijk-math\common\ijk-real\ijkSqrt.c">
       <Filter>Source Files\common\ijk-real</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\source\ijk-math\common\ijk-real\ijkTrigonometry.c">
+      <Filter>Source Files\common\ijk-real</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\include\ijk\ijk-math\ijk-math.h">
@@ -103,7 +106,7 @@
   </ItemGroup>
   <ItemGroup>
     <MASM Include="..\..\..\source\ijk-math\common\ijk-real\_asm\ijkSqrt_a.asm">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\common\ijk-real\_asm</Filter>
     </MASM>
   </ItemGroup>
 </Project>
