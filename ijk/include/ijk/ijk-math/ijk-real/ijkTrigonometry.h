@@ -192,6 +192,50 @@
 //		return: atan(y/x) in range (-90, +90)
 
 
+// ijkTrigSindTaylor_flt
+//	Calculate sine with degree input using a Taylor series.
+//		param x: input in domain [-360, +360]
+//		return: sin(x) in range [-1, +1]
+
+
+// ijkTrigCosdTaylor_flt
+//	Calculate cosine with degree input using a Taylor series.
+//		param x: input in domain [-360, +360]
+//		return: cos(x) in range [-1, +1]
+
+
+// ijkTrigTandTaylor_flt
+//	Calculate tangent with degree input using a Taylor series.
+//		param x: input in domain (-90, +90)
+//		return: tan(x) in range (-inf, +inf)
+
+
+// ijkTrigCscdTaylor_flt
+//	Calculate cosecant with degree input using a Taylor series.
+//		param x: input in domain (-180, 0) U (0, +180)
+//		return: csc(x) in range (-inf, -1] U [+1, +inf)
+
+
+// ijkTrigSecdTaylor_flt
+//	Calculate secant with degree input using a Taylor series.
+//		param x: input in domain (-90, +90) U (+90, +270)
+//		return: sec(x) in range (-inf, -1] U [+1, +inf)
+
+
+// ijkTrigCotdTaylor_flt
+//	Calculate cotangent with degree input using a Taylor series.
+//		param x: input in domain (0, +180)
+//		return: cot(x) in range (-inf, +inf)
+
+
+// ijkTrigSindCosdTaylor_flt
+//	Calculate sine and cosine with degree input using a Taylor series.
+//		param x: input in domain [-360, +360]
+//		param sinx_out: pointer to value to capture sin(x) in range [-1, +1]
+//		param cosx_out: pointer to value to capture cos(x) in range [-1, +1]
+//		return: x
+
+
 // ijkTrigSinr_flt
 //	Calculate sine with radian input.
 //		param x: input in domain [-2pi, +2pi]
@@ -269,6 +313,98 @@
 //		param y_sin: numerator (y or sine) used to calculate tangent
 //		param x_cos: denominator (x or cosine) used to calculate tangent
 //		return: atan(y/x) in range (-pi/2, +pi/2)
+
+
+// ijkTrigSinrTaylor_flt
+//	Calculate sine with radian input using a Taylor series.
+//		param x: input in domain [-2pi, +2pi]
+//		return: sin(x) in range [-1, +1]
+
+
+// ijkTrigCosrTaylor_flt
+//	Calculate cosine with radian input using a Taylor series.
+//		param x: input in domain [-2pi, +2pi]
+//		return: cos(x) in range [-1, +1]
+
+
+// ijkTrigTanrTaylor_flt
+//	Calculate tangent with radian input using a Taylor series.
+//		param x: input in domain (-pi/2, +pi/2)
+//		return: tan(x) in range (-inf, +inf)
+
+
+// ijkTrigCscrTaylor_flt
+//	Calculate cosecant with radian input using a Taylor series.
+//		param x: input in domain (-pi, 0) U (0, +pi)
+//		return: csc(x) in range (-inf, -1] U [+1, +inf)
+
+
+// ijkTrigSecrTaylor_flt
+//	Calculate secant with radian input using a Taylor series.
+//		param x: input in domain (-pi/2, +pi/2) U (+pi/2, +3pi/2)
+//		return: sec(x) in range (-inf, -1] U [+1, +inf)
+
+
+// ijkTrigCotrTaylor_flt
+//	Calculate cotangent with radian input using a Taylor series.
+//		param x: input in domain (0, +pi)
+//		return: cot(x) in range (-inf, +inf)
+
+
+// ijkTrigSinrCosrTaylor_flt
+//	Calculate sine and cosine with radian input using a Taylor series.
+//		param x: input in domain [-2pi, +2pi]
+//		param sinx_out: pointer to value to capture sin(x) in range [-1, +1]
+//		param cosx_out: pointer to value to capture cos(x) in range [-1, +1]
+//		return: x
+
+
+// ijkTrigPointToEdgeRatio_flt
+//	Calculate the size ratio of a real to discrete circle given edge size. The 
+//	error ratio occurring from discrete geometry sampling (e.g. since a circle 
+//	in graphics is not continuous, edge centers are closer to the center than 
+//	the vertices) determines the uniform scale required to expand or contract 
+//	geometry to match true continuous radii (e.g. volume lighting).
+//		param azimuth: arc coverage of circle in degrees, in [0, +360]
+//		param numSlices: number of slices in discrete circle (azimuth divs)
+//		return: ratio of real to discrete circle size
+
+
+// ijkTrigEdgeToPointRatio_flt
+//	Calculate the size ratio of a discrete to real circle given edge size. The 
+//	error ratio occurring from discrete geometry sampling (e.g. since a circle 
+//	in graphics is not continuous, edge centers are closer to the center than 
+//	the vertices) determines the uniform scale required to expand or contract 
+//	geometry to match true continuous radii (e.g. volume lighting).
+//		param azimuth: arc coverage of circle in degrees, in [0, +360]
+//		param numSlices: number of slices in discrete circle (azimuth divs)
+//		return: ratio of discrete to real circle size
+
+
+// ijkTrigPointToFaceRatio_flt
+//	Calculate the size ratio of a real to discrete sphere given face size. The 
+//	error ratio occurring from discrete geometry sampling (e.g. since a sphere 
+//	in graphics is not continuous, face centers are closer to the center than 
+//	the vertices) determines the uniform scale required to expand or contract 
+//	geometry to match true continuous radii (e.g. volume lighting).
+//		param azimuth: arc coverage of sphere in degrees, in [0, +360]
+//		param elevation: layer coverage of circle in degrees, in [0, +180]
+//		param numSlices: number of slices in discrete sphere (azimuth divs)
+//		param numStacks: number of stacks in discrete sphere (elevation divs)
+//		return: ratio of real to discrete sphere size
+
+
+// ijkTrigFaceToPointRatio_flt
+//	Calculate the size ratio of a discrete to real sphere given face size. The 
+//	error ratio occurring from discrete geometry sampling (e.g. since a sphere 
+//	in graphics is not continuous, face centers are closer to the center than 
+//	the vertices) determines the uniform scale required to expand or contract 
+//	geometry to match true continuous radii (e.g. volume lighting).
+//		param azimuth: arc coverage of sphere in degrees, in [0, +360]
+//		param elevation: layer coverage of circle in degrees, in [0, +180]
+//		param numSlices: number of slices in discrete sphere (azimuth divs)
+//		param numStacks: number of stacks in discrete sphere (elevation divs)
+//		return: ratio of discrete to real sphere size
 
 
 //-----------------------------------------------------------------------------
