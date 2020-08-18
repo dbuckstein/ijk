@@ -28,6 +28,49 @@
 
 //-----------------------------------------------------------------------------
 
+size ijkTrigGetTableSize_flt(size const subdivisionsPerDegree)
+{
+	//	SZ	= SZ_sample * (
+	//			(720 degrees * 3 sets [params, sine, cosine]
+	//			+ 90 degrees * 1 set [cosine])
+	//			* (samples per degree) + 4 padding)
+	//		+ SZ_index * (
+	//			(720 indices * 2 sets[arcsine, arccosine])
+	//			+ 4 padding)
+	if (subdivisionsPerDegree)
+	{
+		size const sz = szflt * ((720 * 3 + 90 * 1) * subdivisionsPerDegree + 4) + szindex * ((720 * 2) + 4);
+		return sz;
+	}
+	return ijk_zero;
+}
+
+
+size ijkTrigSetTable_flt(flt const table[], size const tableSize_bytes, size const subdivisionsPerDegree)
+{
+	size const sz = ijkTrigGetTableSize_flt(subdivisionsPerDegree);
+	if (sz && tableSize_bytes > sz)
+	{
+
+		return sz;
+	}
+	return ijk_zero;
+}
+
+
+size ijkTrigInit_flt(flt table[], size const tableSize_bytes, size const subdivisionsPerDegree)
+{
+	size const sz = ijkTrigSetTable_flt(table, tableSize_bytes, subdivisionsPerDegree);
+	if (sz)
+	{
+
+	}
+	return sz;
+}
+
+
+//-----------------------------------------------------------------------------
+
 
 
 //-----------------------------------------------------------------------------
