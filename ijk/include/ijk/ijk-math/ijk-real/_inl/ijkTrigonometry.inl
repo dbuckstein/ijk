@@ -72,8 +72,8 @@ ijk_inl flt ijkTrigValidateInverseRecip_flt(flt x)
 
 ijk_inl flt ijkTrigSinCos_deg_flt(flt const x, flt* const sinx_out, flt* const cosx_out)
 {
-	extern size const ijkTrigSubdivisionsPerDegree_flt;
-	extern flt const ijkTrigSubdivisionsPerDegreeInv_flt, * const ijkTrigTableSin_flt, * const ijkTrigTableCos_flt;
+	ijk_ext size const ijkTrigSubdivisionsPerDegree_flt;
+	ijk_ext flt const ijkTrigSubdivisionsPerDegreeInv_flt, * const ijkTrigTableSin_flt, * const ijkTrigTableCos_flt;
 	flt f = (x + flt_360) * (flt)ijkTrigSubdivisionsPerDegree_flt;
 	index const i = (index)f;
 	f = (f - (flt)i) * ijkTrigSubdivisionsPerDegreeInv_flt;
@@ -85,8 +85,8 @@ ijk_inl flt ijkTrigSinCos_deg_flt(flt const x, flt* const sinx_out, flt* const c
 
 ijk_inl flt ijkTrigTanSinCos_deg_flt(flt const x, flt* const sinx_out, flt* const cosx_out)
 {
-	extern size const ijkTrigSubdivisionsPerDegree_flt;
-	extern flt const ijkTrigSubdivisionsPerDegreeInv_flt, * const ijkTrigTableSin_flt, * const ijkTrigTableCos_flt;
+	ijk_ext size const ijkTrigSubdivisionsPerDegree_flt;
+	ijk_ext flt const ijkTrigSubdivisionsPerDegreeInv_flt, * const ijkTrigTableSin_flt, * const ijkTrigTableCos_flt;
 	flt f = (x + flt_360) * (flt)ijkTrigSubdivisionsPerDegree_flt, s, c;
 	index const i = (index)f;
 	f = (f - (flt)i) * ijkTrigSubdivisionsPerDegreeInv_flt;
@@ -98,8 +98,8 @@ ijk_inl flt ijkTrigTanSinCos_deg_flt(flt const x, flt* const sinx_out, flt* cons
 
 ijk_inl flt ijkTrigCotSinCos_deg_flt(flt const x, flt* const sinx_out, flt* const cosx_out)
 {
-	extern size const ijkTrigSubdivisionsPerDegree_flt;
-	extern flt const ijkTrigSubdivisionsPerDegreeInv_flt, * const ijkTrigTableSin_flt, * const ijkTrigTableCos_flt;
+	ijk_ext size const ijkTrigSubdivisionsPerDegree_flt;
+	ijk_ext flt const ijkTrigSubdivisionsPerDegreeInv_flt, * const ijkTrigTableSin_flt, * const ijkTrigTableCos_flt;
 	flt f = (x + flt_360) * (flt)ijkTrigSubdivisionsPerDegree_flt, s, c;
 	index const i = (index)f;
 	f = (f - (flt)i) * ijkTrigSubdivisionsPerDegreeInv_flt;
@@ -111,8 +111,8 @@ ijk_inl flt ijkTrigCotSinCos_deg_flt(flt const x, flt* const sinx_out, flt* cons
 
 ijk_inl flt ijkTrigSin_deg_flt(flt const x)
 {
-	extern size const ijkTrigSubdivisionsPerDegree_flt;
-	extern flt const ijkTrigSubdivisionsPerDegreeInv_flt, * const ijkTrigTableSin_flt, * const ijkTrigTableCos_flt;
+	ijk_ext size const ijkTrigSubdivisionsPerDegree_flt;
+	ijk_ext flt const ijkTrigSubdivisionsPerDegreeInv_flt, * const ijkTrigTableSin_flt, * const ijkTrigTableCos_flt;
 	flt f = (x + flt_360) * (flt)ijkTrigSubdivisionsPerDegree_flt;
 	index const i = (index)f;
 	f = (f - (flt)i) * ijkTrigSubdivisionsPerDegreeInv_flt;
@@ -122,8 +122,8 @@ ijk_inl flt ijkTrigSin_deg_flt(flt const x)
 
 ijk_inl flt ijkTrigCos_deg_flt(flt const x)
 {
-	extern size const ijkTrigSubdivisionsPerDegree_flt;
-	extern flt const ijkTrigSubdivisionsPerDegreeInv_flt, * const ijkTrigTableSin_flt, * const ijkTrigTableCos_flt;
+	ijk_ext size const ijkTrigSubdivisionsPerDegree_flt;
+	ijk_ext flt const ijkTrigSubdivisionsPerDegreeInv_flt, * const ijkTrigTableSin_flt, * const ijkTrigTableCos_flt;
 	flt f = (x + flt_360) * (flt)ijkTrigSubdivisionsPerDegree_flt;
 	index const i = (index)f;
 	f = (f - (flt)i) * ijkTrigSubdivisionsPerDegreeInv_flt;
@@ -133,8 +133,8 @@ ijk_inl flt ijkTrigCos_deg_flt(flt const x)
 
 ijk_inl flt ijkTrigTan_deg_flt(flt const x)
 {
-	extern size const ijkTrigSubdivisionsPerDegree_flt;
-	extern flt const ijkTrigSubdivisionsPerDegreeInv_flt, * const ijkTrigTableSin_flt, * const ijkTrigTableCos_flt;
+	ijk_ext size const ijkTrigSubdivisionsPerDegree_flt;
+	ijk_ext flt const ijkTrigSubdivisionsPerDegreeInv_flt, * const ijkTrigTableSin_flt, * const ijkTrigTableCos_flt;
 	flt f = (x + flt_360) * (flt)ijkTrigSubdivisionsPerDegree_flt, s, c;
 	index const i = (index)f;
 	f = (f - (flt)i) * ijkTrigSubdivisionsPerDegreeInv_flt;
@@ -158,8 +158,8 @@ ijk_inl flt ijkTrigSec_deg_flt(flt const x)
 
 ijk_inl flt ijkTrigCot_deg_flt(flt const x)
 {
-	extern size const ijkTrigSubdivisionsPerDegree_flt;
-	extern flt const ijkTrigSubdivisionsPerDegreeInv_flt, * const ijkTrigTableSin_flt, * const ijkTrigTableCos_flt;
+	ijk_ext size const ijkTrigSubdivisionsPerDegree_flt;
+	ijk_ext flt const ijkTrigSubdivisionsPerDegreeInv_flt, * const ijkTrigTableSin_flt, * const ijkTrigTableCos_flt;
 	flt f = (x + flt_360) * (flt)ijkTrigSubdivisionsPerDegree_flt, s, c;
 	index const i = (index)f;
 	f = (f - (flt)i) * ijkTrigSubdivisionsPerDegreeInv_flt;
@@ -171,8 +171,8 @@ ijk_inl flt ijkTrigCot_deg_flt(flt const x)
 
 ijk_inl flt ijkTrigAsin_deg_flt(flt const x)
 {
-	extern flt const* const ijkTrigTableParam_flt, * const ijkTrigTableSin_flt;
-	extern index const* const ijkTrigTableIndexAsin_flt;
+	ijk_ext flt const* const ijkTrigTableParam_flt, * const ijkTrigTableSin_flt;
+	ijk_ext index const* const ijkTrigTableIndexAsin_flt;
 	return +ijkInterpSampleTableInc_flt(ijkTrigTableSin_flt, ijkTrigTableParam_flt,
 		*(ijkTrigTableIndexAsin_flt + 360 + (index)(x * flt_360)), 1, x);
 }
@@ -180,8 +180,8 @@ ijk_inl flt ijkTrigAsin_deg_flt(flt const x)
 
 ijk_inl flt ijkTrigAcos_deg_flt(flt const x)
 {
-	extern flt const* const ijkTrigTableParam_flt, * const ijkTrigTableCos_flt;
-	extern index const* const ijkTrigTableIndexAcos_flt;
+	ijk_ext flt const* const ijkTrigTableParam_flt, * const ijkTrigTableCos_flt;
+	ijk_ext index const* const ijkTrigTableIndexAcos_flt;
 	return -ijkInterpSampleTableInc_flt(ijkTrigTableCos_flt, ijkTrigTableParam_flt,
 		*(ijkTrigTableIndexAcos_flt + 360 + (index)(x * flt_360)), 1, x);
 }
@@ -191,7 +191,7 @@ ijk_inl flt ijkTrigAtan_deg_flt(flt const x)
 {
 	// sin(atan(x)) = x / sqrt(x^2 + 1)
 	// atan(x) = asin(x / sqrt(x^2 + 1))
-	extern flt ijkSqrtInv_flt(flt const x);
+	ijk_ext flt ijkSqrtInv_flt(flt const x);
 	return ijkTrigAsin_deg_flt(x * ijkSqrtInv_flt(x * x + flt_one));
 }
 

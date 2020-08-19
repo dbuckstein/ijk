@@ -28,25 +28,39 @@
 
 //-----------------------------------------------------------------------------
 
-#define __ijk_random_max 134456
-#define __ijk_random_max_inv 7.4373772832748259653715713690724e-6
+#define __ijk_random_mod		134456
+#define __ijk_random_max		134455
+#define __ijk_random_mod_inv	7.4373772832748259653715713690724e-6
+#define __ijk_random_mod_2inv	1.4874754566549651930743142738145e-5
 
 
 // ijk_random_seed
 //	Random number generation seed.
 i32 ijk_random_seed = 1235;
 
+// ijk_random_mod
+//	Modulus that yields maximum random number that can be generated.
+i32 const ijk_random_mod = __ijk_random_mod;
+
 // ijk_random_max
 //	Maximum random number that can be generated.
 i32 const ijk_random_max = __ijk_random_max;
 
-// ijk_random_max_inv_flt
+// ijk_random_mod_inv_flt
 //	Inverse of maximum random number as float.
-flt const ijk_random_max_inv_flt = (flt)__ijk_random_max_inv;
+flt const ijk_random_mod_inv_flt = (flt)__ijk_random_mod_inv;
 
-// ijk_random_max_inv_dbl
+// ijk_random_mod_2inv_flt
+//	Inverse of maximum random number, times 2, as float.
+flt const ijk_random_mod_2inv_flt = (flt)__ijk_random_mod_2inv;
+
+// ijk_random_mod_inv_dbl
 //	Inverse of maximum random number as double.
-dbl const ijk_random_max_inv_dbl = (dbl)__ijk_random_max_inv;
+dbl const ijk_random_mod_inv_dbl = (dbl)__ijk_random_mod_inv;
+
+// ijk_random_mod_2inv_dbl
+//	Inverse of maximum random number, times 2, as double.
+dbl const ijk_random_mod_2inv_dbl = (dbl)__ijk_random_mod_2inv;
 
 
 //-----------------------------------------------------------------------------
