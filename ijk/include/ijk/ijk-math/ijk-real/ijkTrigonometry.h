@@ -125,331 +125,331 @@ flt ijkTrigValidateInverse_flt(flt x);
 //		return: x clamped to [-1, +1]
 flt ijkTrigValidateInverseRecip_flt(flt x);
 
-// ijkTrigSindCosd_flt
-//	Calculate sine with degree input.
+// ijkTrigSinCos_deg_flt
+//	Calculate sine and cosine with degree input.
 //		param x: input in domain [-360, +360]
 //		param sinx_out: pointer to value to capture sin(x) in range [-1, +1]
 //		param cosx_out: pointer to value to capture cos(x) in range [-1, +1]
 //		return: x
-flt ijkTrigSindCosd_flt(flt const x, flt* const sinx_out, flt* const cosx_out);
+flt ijkTrigSinCos_deg_flt(flt const x, flt* const sinx_out, flt* const cosx_out);
 
-// ijkTrigTandSindCosd_flt
-//	Calculate sine with degree input.
+// ijkTrigTanSinCos_deg_flt
+//	Calculate tangent, sine and consine with degree input.
 //		param x: input in domain [-360, +360]
 //		param sinx_out: pointer to value to capture sin(x) in range [-1, +1]
 //		param cosx_out: pointer to value to capture cos(x) in range [-1, +1]
 //		return: tan(x) in range (-inf, +inf)
-flt ijkTrigTandSindCosd_flt(flt const x, flt* const sinx_out, flt* const cosx_out);
+flt ijkTrigTanSinCos_deg_flt(flt const x, flt* const sinx_out, flt* const cosx_out);
 
-// ijkTrigCotdSindCosd_flt
-//	Calculate sine with degree input.
+// ijkTrigCotSinCos_deg_flt
+//	Calculate cotantent, sine and cosine with degree input.
 //		param x: input in domain [-360, +360]
 //		param sinx_out: pointer to value to capture sin(x) in range [-1, +1]
 //		param cosx_out: pointer to value to capture cos(x) in range [-1, +1]
 //		return: cot(x) in range (-inf, +inf)
-flt ijkTrigCotdSindCosd_flt(flt const x, flt* const sinx_out, flt* const cosx_out);
+flt ijkTrigCotSinCos_deg_flt(flt const x, flt* const sinx_out, flt* const cosx_out);
 
-// ijkTrigSind_flt
+// ijkTrigSin_deg_flt
 //	Calculate sine with degree input.
 //		param x: input in domain [-360, +360]
 //		return: sin(x) in range [-1, +1]
-flt ijkTrigSind_flt(flt const x);
+flt ijkTrigSin_deg_flt(flt const x);
 
-// ijkTrigCosd_flt
+// ijkTrigCos_deg_flt
 //	Calculate cosine with degree input.
 //		param x: input in domain [-360, +360]
 //		return: cos(x) in range [-1, +1]
-flt ijkTrigCosd_flt(flt const x);
+flt ijkTrigCos_deg_flt(flt const x);
 
-// ijkTrigTand_flt
+// ijkTrigTan_deg_flt
 //	Calculate tangent with degree input.
 //		param x: input in domain (-90, +90)
 //		return: tan(x) in range (-inf, +inf)
-flt ijkTrigTand_flt(flt const x);
+flt ijkTrigTan_deg_flt(flt const x);
 
-// ijkTrigCscd_flt
+// ijkTrigCsc_deg_flt
 //	Calculate cosecant with degree input.
 //		param x: input in domain (-180, 0) U (0, +180)
 //		return: csc(x) in range (-inf, -1] U [+1, +inf)
-flt ijkTrigCscd_flt(flt const x);
+flt ijkTrigCsc_deg_flt(flt const x);
 
-// ijkTrigSecd_flt
+// ijkTrigSec_deg_flt
 //	Calculate secant with degree input.
 //		param x: input in domain (-90, +90) U (+90, +270)
 //		return: sec(x) in range (-inf, -1] U [+1, +inf)
-flt ijkTrigSecd_flt(flt const x);
+flt ijkTrigSec_deg_flt(flt const x);
 
-// ijkTrigCotd_flt
+// ijkTrigCot_deg_flt
 //	Calculate cotangent with degree input.
 //		param x: input in domain (0, +180)
 //		return: cot(x) in range (-inf, +inf)
-flt ijkTrigCotd_flt(flt const x);
+flt ijkTrigCot_deg_flt(flt const x);
 
-// ijkTrigAsind_flt
+// ijkTrigAsin_deg_flt
 //	Calculate arcsine with degree output.
 //		param x: input in domain [-1, +1]
 //		return: asin(x) in range [-90, +90]
-flt ijkTrigAsind_flt(flt const x);
+flt ijkTrigAsin_deg_flt(flt const x);
 
-// ijkTrigAcosd_flt
+// ijkTrigAcos_deg_flt
 //	Calculate arccosine with degree output.
 //		param x: input in domain [-1, +1]
 //		return: acos(x) in range [+180, 0]
-flt ijkTrigAcosd_flt(flt const x);
+flt ijkTrigAcos_deg_flt(flt const x);
 
-// ijkTrigAtand_flt
+// ijkTrigAtan_deg_flt
 //	Calculate arctangent with degree output.
 //		param x: input in domain (-inf, +inf)
 //		return: atan(x) in range (-90, +90)
-flt ijkTrigAtand_flt(flt const x);
+flt ijkTrigAtan_deg_flt(flt const x);
 
-// ijkTrigAcscd_flt
+// ijkTrigAcsc_deg_flt
 //	Calculate arccosecant with degree output.
 //		param x: input in domain (-inf, -1] U [+1, +inf)
 //		return: acsc(x) in range (0, -90] U [+90, 0)
-flt ijkTrigAcscd_flt(flt const x);
+flt ijkTrigAcsc_deg_flt(flt const x);
 
-// ijkTrigAsecd_flt
+// ijkTrigAsec_deg_flt
 //	Calculate arcsecant with degree output.
 //		param x: input in domain (-inf, -1] U [+1, +inf)
 //		return: asec(x) in range (+90, +180] U [0, +90)
-flt ijkTrigAsecd_flt(flt const x);
+flt ijkTrigAsec_deg_flt(flt const x);
 
-// ijkTrigAcotd_flt
+// ijkTrigAcot_deg_flt
 //	Calculate arccotangent with degree output.
 //		param x: input in domain (-inf, +inf)
 //		return: acot(x) in range (+180, 0)
-flt ijkTrigAcotd_flt(flt const x);
+flt ijkTrigAcot_deg_flt(flt const x);
 
-// ijkTrigAtan2d_flt
+// ijkTrigAtan2_deg_flt
 //	Calculate arctangent with degree output, given fraction components.
 //		param y_sin: numerator (y or sine) used to calculate tangent
 //		param x_cos: denominator (x or cosine) used to calculate tangent
 //		return: atan(y/x) in range (-90, +90)
-flt ijkTrigAtan2d_flt(flt const y_sin, flt const x_cos);
+flt ijkTrigAtan2_deg_flt(flt const y_sin, flt const x_cos);
 
-// ijkTrigSinrCosr_flt
-//	Calculate sine with degree input.
+// ijkTrigSinCos_rad_flt
+//	Calculate sine and cosine with radian input.
 //		param x: input in domain [-2pi, +2pi]
 //		param sinx_out: pointer to value to capture sin(x) in range [-1, +1]
 //		param cosx_out: pointer to value to capture cos(x) in range [-1, +1]
 //		return: x
-flt ijkTrigSinrCosr_flt(flt const x, flt* const sinx_out, flt* const cosx_out);
+flt ijkTrigSinCos_rad_flt(flt const x, flt* const sinx_out, flt* const cosx_out);
 
-// ijkTrigTanrSinrCosr_flt
-//	Calculate sine with degree input.
+// ijkTrigTanSinCos_rad_flt
+//	Calculate tangent, sine and cosine with radian input.
 //		param x: input in domain [-2pi, +2pi]
 //		param sinx_out: pointer to value to capture sin(x) in range [-1, +1]
 //		param cosx_out: pointer to value to capture cos(x) in range [-1, +1]
 //		return: tan(x) in range (-inf, +inf)
-flt ijkTrigTanrSinrCosr_flt(flt const x, flt* const sinx_out, flt* const cosx_out);
+flt ijkTrigTanSinCos_rad_flt(flt const x, flt* const sinx_out, flt* const cosx_out);
 
-// ijkTrigCotrSinrCosr_flt
-//	Calculate sine with degree input.
+// ijkTrigCotSinCos_rad_flt
+//	Calculate cotangent, sine and cosine with radian input.
 //		param x: input in domain [-2pi, +2pi]
 //		param sinx_out: pointer to value to capture sin(x) in range [-1, +1]
 //		param cosx_out: pointer to value to capture cos(x) in range [-1, +1]
 //		return: cot(x) in range (-inf, +inf)
-flt ijkTrigCotrSinrCosr_flt(flt const x, flt* const sinx_out, flt* const cosx_out);
+flt ijkTrigCotSinCos_rad_flt(flt const x, flt* const sinx_out, flt* const cosx_out);
 
-// ijkTrigSinr_flt
+// ijkTrigSin_rad_flt
 //	Calculate sine with radian input.
 //		param x: input in domain [-2pi, +2pi]
 //		return: sin(x) in range [-1, +1]
-flt ijkTrigSinr_flt(flt const x);
+flt ijkTrigSin_rad_flt(flt const x);
 
-// ijkTrigCosr_flt
+// ijkTrigCos_rad_flt
 //	Calculate cosine with radian input.
 //		param x: input in domain [-2pi, +2pi]
 //		return: cos(x) in range [-1, +1]
-flt ijkTrigCosr_flt(flt const x);
+flt ijkTrigCos_rad_flt(flt const x);
 
-// ijkTrigTanr_flt
+// ijkTrigTan_rad_flt
 //	Calculate tangent with radian input.
 //		param x: input in domain (-pi/2, +pi/2)
 //		return: tan(x) in range (-inf, +inf)
-flt ijkTrigTanr_flt(flt const x);
+flt ijkTrigTan_rad_flt(flt const x);
 
-// ijkTrigCscr_flt
+// ijkTrigCsc_rad_flt
 //	Calculate cosecant with radian input.
 //		param x: input in domain (-pi, 0) U (0, +pi)
 //		return: csc(x) in range (-inf, -1] U [+1, +inf)
-flt ijkTrigCscr_flt(flt const x);
+flt ijkTrigCsc_rad_flt(flt const x);
 
-// ijkTrigSecr_flt
+// ijkTrigSec_rad_flt
 //	Calculate secant with radian input.
 //		param x: input in domain (-pi/2, +pi/2) U (+pi/2, +3pi/2)
 //		return: sec(x) in range (-inf, -1] U [+1, +inf)
-flt ijkTrigSecr_flt(flt const x);
+flt ijkTrigSec_rad_flt(flt const x);
 
-// ijkTrigCotr_flt
+// ijkTrigCot_rad_flt
 //	Calculate cotangent with radian input.
 //		param x: input in domain (0, +pi)
 //		return: cot(x) in range (-inf, +inf)
-flt ijkTrigCotr_flt(flt const x);
+flt ijkTrigCot_rad_flt(flt const x);
 
-// ijkTrigAsinr_flt
+// ijkTrigAsin_rad_flt
 //	Calculate arcsine with radian output.
 //		param x: input in domain [-1, +1]
 //		return: asin(x) in range [-pi/2, +pi/2]
-flt ijkTrigAsinr_flt(flt const x);
+flt ijkTrigAsin_rad_flt(flt const x);
 
-// ijkTrigAcosr_flt
+// ijkTrigAcos_rad_flt
 //	Calculate arccosine with radian output.
 //		param x: input in domain [-1, +1]
 //		return: acos(x) in range [+pi, 0]
-flt ijkTrigAcosr_flt(flt const x);
+flt ijkTrigAcos_rad_flt(flt const x);
 
-// ijkTrigAtanr_flt
+// ijkTrigAtan_rad_flt
 //	Calculate arctangent with radian output.
 //		param x: input in domain (-inf, +inf)
 //		return: atan(x) in range (-pi/2, +pi/2)
-flt ijkTrigAtanr_flt(flt const x);
+flt ijkTrigAtan_rad_flt(flt const x);
 
-// ijkTrigAcscr_flt
+// ijkTrigAcsc_rad_flt
 //	Calculate arccosecant with radian output.
 //		param x: input in domain (-inf, -1] U [+1, +inf)
 //		return: acsc(x) in range (0, -pi/2] U [+pi/2, 0)
-flt ijkTrigAcscr_flt(flt const x);
+flt ijkTrigAcsc_rad_flt(flt const x);
 
-// ijkTrigAsecr_flt
+// ijkTrigAsec_rad_flt
 //	Calculate arcsecant with radian output.
 //		param x: input in domain (-inf, -1] U [+1, +inf)
 //		return: asec(x) in range (+pi/2, +pi] U [0, +pi/2)
-flt ijkTrigAsecr_flt(flt const x);
+flt ijkTrigAsec_rad_flt(flt const x);
 
-// ijkTrigAcotr_flt
+// ijkTrigAcot_rad_flt
 //	Calculate arccotangent with radian output.
 //		param x: input in domain (-inf, +inf)
 //		return: acot(x) in range (+pi, 0)
-flt ijkTrigAcotr_flt(flt const x);
+flt ijkTrigAcot_rad_flt(flt const x);
 
-// ijkTrigAtan2r_flt
+// ijkTrigAtan2_rad_flt
 //	Calculate arctangent with radian output, given fraction components.
 //		param y_sin: numerator (y or sine) used to calculate tangent
 //		param x_cos: denominator (x or cosine) used to calculate tangent
 //		return: atan(y/x) in range (-pi/2, +pi/2)
-flt ijkTrigAtan2r_flt(flt const y_sin, flt const x_cos);
+flt ijkTrigAtan2_rad_flt(flt const y_sin, flt const x_cos);
 
-// ijkTrigSinrCosrTaylor_flt
+// ijkTrigSinCosTaylor_rad_flt
 //	Calculate sine and cosine with radian input using a Taylor series.
 //		param x: input in domain [-2pi, +2pi]
 //		param sinx_out: pointer to value to capture sin(x) in range [-1, +1]
 //		param cosx_out: pointer to value to capture cos(x) in range [-1, +1]
 //		return: x
-flt ijkTrigSinrCosrTaylor_flt(flt const x, flt* const sinx_out, flt* const cosx_out);
+flt ijkTrigSinCosTaylor_rad_flt(flt const x, flt* const sinx_out, flt* const cosx_out);
 
-// ijkTrigTanrSinrCosrTaylor_flt
+// ijkTrigTanSinCosTaylor_rad_flt
 //	Calculate sine and cosine with radian input using a Taylor series.
 //		param x: input in domain [-2pi, +2pi]
 //		param sinx_out: pointer to value to capture sin(x) in range [-1, +1]
 //		param cosx_out: pointer to value to capture cos(x) in range [-1, +1]
 //		return: tan(x) in range (-inf, +inf)
-flt ijkTrigTanrSinrCosrTaylor_flt(flt const x, flt* const sinx_out, flt* const cosx_out);
+flt ijkTrigTanSinCosTaylor_rad_flt(flt const x, flt* const sinx_out, flt* const cosx_out);
 
-// ijkTrigCotrSinrCosrTaylor_flt
+// ijkTrigCotSinCosTaylor_rad_flt
 //	Calculate sine and cosine with radian input using a Taylor series.
 //		param x: input in domain [-2pi, +2pi]
 //		param sinx_out: pointer to value to capture sin(x) in range [-1, +1]
 //		param cosx_out: pointer to value to capture cos(x) in range [-1, +1]
 //		return: cot(x) in range (-inf, +inf)
-flt ijkTrigCotrSinrCosrTaylor_flt(flt const x, flt* const sinx_out, flt* const cosx_out);
+flt ijkTrigCotSinCosTaylor_rad_flt(flt const x, flt* const sinx_out, flt* const cosx_out);
 
-// ijkTrigSinrTaylor_flt
+// ijkTrigSinTaylor_rad_flt
 //	Calculate sine with radian input using a Taylor series.
 //		param x: input in domain [-2pi, +2pi]
 //		return: sin(x) in range [-1, +1]
-flt ijkTrigSinrTaylor_flt(flt const x);
+flt ijkTrigSinTaylor_rad_flt(flt const x);
 
-// ijkTrigCosrTaylor_flt
+// ijkTrigCosTaylor_rad_flt
 //	Calculate cosine with radian input using a Taylor series.
 //		param x: input in domain [-2pi, +2pi]
 //		return: cos(x) in range [-1, +1]
-flt ijkTrigCosrTaylor_flt(flt const x);
+flt ijkTrigCosTaylor_rad_flt(flt const x);
 
-// ijkTrigTanrTaylor_flt
+// ijkTrigTanTaylor_rad_flt
 //	Calculate tangent with radian input using a Taylor series.
 //		param x: input in domain (-pi/2, +pi/2)
 //		return: tan(x) in range (-inf, +inf)
-flt ijkTrigTanrTaylor_flt(flt const x);
+flt ijkTrigTanTaylor_rad_flt(flt const x);
 
-// ijkTrigCscrTaylor_flt
+// ijkTrigCscTaylor_rad_flt
 //	Calculate cosecant with radian input using a Taylor series.
 //		param x: input in domain (-pi, 0) U (0, +pi)
 //		return: csc(x) in range (-inf, -1] U [+1, +inf)
-flt ijkTrigCscrTaylor_flt(flt const x);
+flt ijkTrigCscTaylor_rad_flt(flt const x);
 
-// ijkTrigSecrTaylor_flt
+// ijkTrigSecTaylor_rad_flt
 //	Calculate secant with radian input using a Taylor series.
 //		param x: input in domain (-pi/2, +pi/2) U (+pi/2, +3pi/2)
 //		return: sec(x) in range (-inf, -1] U [+1, +inf)
-flt ijkTrigSecrTaylor_flt(flt const x);
+flt ijkTrigSecTaylor_rad_flt(flt const x);
 
-// ijkTrigCotrTaylor_flt
+// ijkTrigCotTaylor_rad_flt
 //	Calculate cotangent with radian input using a Taylor series.
 //		param x: input in domain (0, +pi)
 //		return: cot(x) in range (-inf, +inf)
-flt ijkTrigCotrTaylor_flt(flt const x);
+flt ijkTrigCotTaylor_rad_flt(flt const x);
 
-// ijkTrigSindCosdTaylor_flt
+// ijkTrigSinCosTaylor_deg_flt
 //	Calculate sine and cosine with degree input using a Taylor series.
 //		param x: input in domain [-360, +360]
 //		param sinx_out: pointer to value to capture sin(x) in range [-1, +1]
 //		param cosx_out: pointer to value to capture cos(x) in range [-1, +1]
 //		return: x
-flt ijkTrigSindCosdTaylor_flt(flt const x, flt* const sinx_out, flt* const cosx_out);
+flt ijkTrigSinCosTaylor_deg_flt(flt const x, flt* const sinx_out, flt* const cosx_out);
 
-// ijkTrigTandSindCosdTaylor_flt
+// ijkTrigTanSinCosTaylor_deg_flt
 //	Calculate tangent, sine and cosine with degree input using a Taylor series.
 //		param x: input in domain [-360, +360]
 //		param sinx_out: pointer to value to capture sin(x) in range [-1, +1]
 //		param cosx_out: pointer to value to capture cos(x) in range [-1, +1]
 //		return: tan(x) in range (-inf, +inf)
-flt ijkTrigTandSindCosdTaylor_flt(flt const x, flt* const sinx_out, flt* const cosx_out);
+flt ijkTrigTanSinCosTaylor_deg_flt(flt const x, flt* const sinx_out, flt* const cosx_out);
 
-// ijkTrigCotdSindCosdTaylor_flt
+// ijkTrigCotSinCosTaylor_deg_flt
 //	Calculate tangent, sine and cosine with degree input using a Taylor series.
 //		param x: input in domain [-360, +360]
 //		param sinx_out: pointer to value to capture sin(x) in range [-1, +1]
 //		param cosx_out: pointer to value to capture cos(x) in range [-1, +1]
 //		return: cot(x) in range (-inf, +inf)
-flt ijkTrigCotdSindCosdTaylor_flt(flt const x, flt* const sinx_out, flt* const cosx_out);
+flt ijkTrigCotSinCosTaylor_deg_flt(flt const x, flt* const sinx_out, flt* const cosx_out);
 
-// ijkTrigSindTaylor_flt
+// ijkTrigSinTaylor_deg_flt
 //	Calculate sine with degree input using a Taylor series.
 //		param x: input in domain [-360, +360]
 //		return: sin(x) in range [-1, +1]
-flt ijkTrigSindTaylor_flt(flt const x);
+flt ijkTrigSinTaylor_deg_flt(flt const x);
 
-// ijkTrigCosdTaylor_flt
+// ijkTrigCosTaylor_deg_flt
 //	Calculate cosine with degree input using a Taylor series.
 //		param x: input in domain [-360, +360]
 //		return: cos(x) in range [-1, +1]
-flt ijkTrigCosdTaylor_flt(flt const x);
+flt ijkTrigCosTaylor_deg_flt(flt const x);
 
-// ijkTrigTandTaylor_flt
+// ijkTrigTanTaylor_deg_flt
 //	Calculate tangent with degree input using a Taylor series.
 //		param x: input in domain (-90, +90)
 //		return: tan(x) in range (-inf, +inf)
-flt ijkTrigTandTaylor_flt(flt const x);
+flt ijkTrigTanTaylor_deg_flt(flt const x);
 
-// ijkTrigCscdTaylor_flt
+// ijkTrigCscTaylor_deg_flt
 //	Calculate cosecant with degree input using a Taylor series.
 //		param x: input in domain (-180, 0) U (0, +180)
 //		return: csc(x) in range (-inf, -1] U [+1, +inf)
-flt ijkTrigCscdTaylor_flt(flt const x);
+flt ijkTrigCscTaylor_deg_flt(flt const x);
 
-// ijkTrigSecdTaylor_flt
+// ijkTrigSecTaylor_deg_flt
 //	Calculate secant with degree input using a Taylor series.
 //		param x: input in domain (-90, +90) U (+90, +270)
 //		return: sec(x) in range (-inf, -1] U [+1, +inf)
-flt ijkTrigSecdTaylor_flt(flt const x);
+flt ijkTrigSecTaylor_deg_flt(flt const x);
 
-// ijkTrigCotdTaylor_flt
+// ijkTrigCotTaylor_deg_flt
 //	Calculate cotangent with degree input using a Taylor series.
 //		param x: input in domain (0, +180)
 //		return: cot(x) in range (-inf, +inf)
-flt ijkTrigCotdTaylor_flt(flt const x);
+flt ijkTrigCotTaylor_deg_flt(flt const x);
 
 // ijkTrigPointToEdgeRatio_flt
 //	Calculate the size ratio of a real to discrete circle given edge size. The 

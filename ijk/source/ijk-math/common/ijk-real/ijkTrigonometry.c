@@ -129,7 +129,7 @@ size ijkTrigInit_flt(flt table_out[], size const tableSize_bytes, size const sub
 			for (i = 0; i < subdivisionsPerDegree; ++i)
 			{
 				x = *(tableParam_flt++) = (flt)x0 + (flt)i * dx;
-				*(tableSin_flt++) = ijkTrigSindTaylor_flt(x);
+				*(tableSin_flt++) = ijkTrigSinTaylor_deg_flt(x);
 			}
 
 		// copy additional 90 degrees of data for cosine
