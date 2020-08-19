@@ -30,6 +30,11 @@
 #include "ijkInterpolation.h"
 
 
+#ifdef __cplusplus
+extern "C" {
+#endif	// __cplusplus
+
+
 //-----------------------------------------------------------------------------
 
 // ijkTrigGetTableSize_flt
@@ -509,6 +514,11 @@ flt ijkTrigFaceToPointRatio_flt(flt const azimuth, flt const elevation, size con
 
 
 //-----------------------------------------------------------------------------
+
+
+#ifdef __cplusplus
+}
+#endif	// __cplusplus
 
 
 #include "_inl/ijkTrigonometry.inl"

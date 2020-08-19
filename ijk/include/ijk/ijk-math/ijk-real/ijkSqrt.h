@@ -30,6 +30,11 @@
 #include "ijkReal.h"
 
 
+#ifdef __cplusplus
+extern "C" {
+#endif	// __cplusplus
+
+
 //-----------------------------------------------------------------------------
 
 // ijkSqrtInv0x_flt
@@ -141,6 +146,11 @@ dbl ijkSqrtInv_dbl(dbl const x);
 
 
 //-----------------------------------------------------------------------------
+
+
+#ifdef __cplusplus
+}
+#endif	// __cplusplus
 
 
 #include "_inl/ijkSqrt.inl"

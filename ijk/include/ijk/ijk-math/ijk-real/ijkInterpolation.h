@@ -30,6 +30,11 @@
 #include "ijkReal.h"
 
 
+#ifdef __cplusplus
+extern "C" {
+#endif	// __cplusplus
+
+
 //-----------------------------------------------------------------------------
 
 // ijkInterpNearest_flt
@@ -1262,6 +1267,11 @@ index ijkInterpSampleTableDecIndex_dbl(dbl* const tReparam_out, dbl const tTable
 
 
 //-----------------------------------------------------------------------------
+
+
+#ifdef __cplusplus
+}
+#endif	// __cplusplus
 
 
 #include "_inl/ijkInterpolation.inl"

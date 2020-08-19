@@ -30,6 +30,11 @@
 #include "ijk/ijk/ijk-typedefs.h"
 
 
+#ifdef __cplusplus
+extern "C" {
+#endif	// __cplusplus
+
+
 //-----------------------------------------------------------------------------
 
 // IJK_REAL_DBL
@@ -377,6 +382,11 @@ ijk_ext dbl const dbl_rad2deg;									   // 180/pi (approx 57.29578) as double.
 
 
 //-----------------------------------------------------------------------------
+
+
+#ifdef __cplusplus
+}
+#endif	// __cplusplus
 
 
 #endif	// !_IJK_REAL_H_

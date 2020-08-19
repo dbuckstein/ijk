@@ -30,6 +30,11 @@
 #include "ijkReal.h"
 
 
+#ifdef __cplusplus
+extern "C" {
+#endif	// __cplusplus
+
+
 //-----------------------------------------------------------------------------
 
 // ijkRandomGetMod
@@ -171,6 +176,11 @@ dbl ijkRandomNumUnitSym_dbl();
 
 
 //-----------------------------------------------------------------------------
+
+
+#ifdef __cplusplus
+}
+#endif	// __cplusplus
 
 
 #include "_inl/ijkRandom.inl"
