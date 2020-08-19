@@ -52,6 +52,10 @@ index const* ijkTrigTableIndexAcos_flt;
 //	Number of subdivisions per degree.
 size ijkTrigSubdivisionsPerDegree_flt;
 
+// ijkTrigSubdivisionsPerDegreeInv_flt
+//	Inverse of subdivisions per degree.
+flt ijkTrigSubdivisionsPerDegreeInv_flt;
+
 
 //-----------------------------------------------------------------------------
 
@@ -93,6 +97,7 @@ size ijkTrigSetTable_flt(flt const table[], size const tableSize_bytes, size con
 		ijkTrigTableIndexAsin_flt = table_index + offset_index_asin;
 		ijkTrigTableIndexAcos_flt = table_index + offset_index_acos;
 		ijkTrigSubdivisionsPerDegree_flt = subdivisionsPerDegree;
+		ijkTrigSubdivisionsPerDegreeInv_flt = ijk_recip_flt((flt)subdivisionsPerDegree);
 
 		// done
 		return sz;
