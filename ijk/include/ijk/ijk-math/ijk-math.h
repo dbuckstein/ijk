@@ -32,6 +32,7 @@
 #include "ijk-real/ijkStats.h"
 #include "ijk-real/ijkRandom.h"
 #include "ijk-real/ijkInterpolation.h"
+#include "ijk-real/ijkTrigonometry.h"
 
 
 #endif	// !_IJK_MATH_H_

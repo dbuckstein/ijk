@@ -65,6 +65,7 @@ typedef				chomp const				* kpchomp, * kcbuff;
 #define				szb(x)					(size)sizeof(x)
 #define				szbyte					szb(byte)
 #define				szchomp					szb(chomp)
+#define				szindex					szb(index)
 #define				ijk_b2c(b)				(((b)+szchomp-1)/szchomp)
 #define				ijk_c2b(c)				((c)*szchomp)
 #define				szc(x)					ijk_b2c(szb(x))

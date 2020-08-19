@@ -54,6 +54,9 @@
     <ClCompile Include="..\..\..\source\ijk-math\common\ijk-real\ijkSqrt.c">
       <Filter>Source Files\common\ijk-real</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\source\ijk-math\common\ijk-real\ijkTrigonometry.c">
+      <Filter>Source Files\common\ijk-real</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\include\ijk\ijk-math\ijk-math.h">
@@ -80,6 +83,9 @@
     <ClInclude Include="..\..\..\include\ijk\ijk-math\ijk-real\ijkInterpolation.h">
       <Filter>Header Files\ijk-math\ijk-real</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\include\ijk\ijk-math\ijk-real\ijkTrigonometry.h">
+      <Filter>Header Files\ijk-math\ijk-real</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\include\ijk\ijk-math\ijk-real\_inl\ijkRandom.inl">
@@ -94,10 +100,13 @@
     <None Include="..\..\..\include\ijk\ijk-math\ijk-real\_inl\ijkInterpolation.inl">
       <Filter>Header Files\ijk-math\ijk-real\_inl</Filter>
     </None>
+    <None Include="..\..\..\include\ijk\ijk-math\ijk-real\_inl\ijkTrigonometry.inl">
+      <Filter>Header Files\ijk-math\ijk-real\_inl</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <MASM Include="..\..\..\source\ijk-math\common\ijk-real\_asm\ijkSqrt_a.asm">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\common\ijk-real\_asm</Filter>
     </MASM>
   </ItemGroup>
 </Project>

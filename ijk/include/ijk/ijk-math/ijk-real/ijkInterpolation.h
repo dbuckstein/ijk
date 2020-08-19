@@ -374,7 +374,7 @@ flt ijkInterpReparamBicubicCatmullRom_flt(flt tTable_out[], flt lTable_out[], fl
 //			note: defaults to 1 if passed 0
 //		param t: input parameter to find in search table
 //		return: interpolated value in table that approximates input parameter
-flt ijkInterpSampleTableInc_flt(flt const tTable[], flt const vTable[], uindex i, uindex di, flt const t);
+flt ijkInterpSampleTableInc_flt(flt const tTable[], flt const vTable[], index i, index di, flt const t);
 
 // ijkInterpSampleTableDec_flt
 //	Find index of parameter in table and approximate value by interpolating 
@@ -391,7 +391,7 @@ flt ijkInterpSampleTableInc_flt(flt const tTable[], flt const vTable[], uindex i
 //			note: defaults to 1 if passed 0
 //		param t: input parameter to find in search table
 //		return: interpolated value in table that approximates input parameter
-flt ijkInterpSampleTableDec_flt(flt const tTable[], flt const vTable[], uindex i, uindex di, flt const t);
+flt ijkInterpSampleTableDec_flt(flt const tTable[], flt const vTable[], index i, index di, flt const t);
 
 // ijkInterpSampleTableIncIndex_flt
 //	Find index of parameter in table and retrieve interpolation parameter for 
@@ -410,7 +410,7 @@ flt ijkInterpSampleTableDec_flt(flt const tTable[], flt const vTable[], uindex i
 //			note: defaults to 1 if passed 0
 //		param t: input parameter to find in search table
 //		return: index of interpolation parameter discovered
-index ijkInterpSampleTableIncIndex_flt(flt* const tReparam_out, flt const tTable[], uindex i, uindex di, flt const t);
+index ijkInterpSampleTableIncIndex_flt(flt* const tReparam_out, flt const tTable[], index i, index di, flt const t);
 
 // ijkInterpSampleTableDecIndex_flt
 //	Find index of parameter in table and approximate value by interpolating 
@@ -429,7 +429,7 @@ index ijkInterpSampleTableIncIndex_flt(flt* const tReparam_out, flt const tTable
 //			note: defaults to 1 if passed 0
 //		param t: input parameter to find in search table
 //		return: index of interpolation parameter discovered
-index ijkInterpSampleTableDecIndex_flt(flt* const tReparam_out, flt const tTable[], uindex i, uindex di, flt const t);
+index ijkInterpSampleTableDecIndex_flt(flt* const tReparam_out, flt const tTable[], index i, index di, flt const t);
 
 
 //-----------------------------------------------------------------------------

@@ -168,16 +168,27 @@ ijk_ext flt const flt_sqrtthird;								   // Sqrt(1/3) as float.
 ijk_ext flt const flt_sqrthalf;									   // Sqrt(1/2) as float.
 ijk_ext flt const flt_sqrt2;									   // Sqrt(2) as float.
 ijk_ext flt const flt_sqrt3;									   // Sqrt(3) as float.
+ijk_ext flt const flt_6pi;										   // Pi*6 (approx 18.84956) as float.
+ijk_ext flt const flt_4pi;										   // Pi*4 (approx 12.56637) as float.
+ijk_ext flt const flt_3pi;										   // Pi*3 (approx 9.42478) as float.
 ijk_ext flt const flt_2pi;										   // Pi*2 (approx 6.28319) as float.
+ijk_ext flt const flt_3pi_2;									   // Pi*3/2 (approx 4.71239) as float.
+ijk_ext flt const flt_4pi_3;									   // Pi*4/3 (approx 4.18879) as float.
+ijk_ext flt const flt_6pi_5;									   // Pi*6/5 (approx 3.76991) as float.
 ijk_ext flt const flt_pi;										   // Pi (approx 3.14159) as float.
-ijk_ext flt const flt_halfpi;									   // Pi/2 (approx 1.57079) as float.
-ijk_ext flt const flt_thirdpi;									   // Pi/3 (approx 1.05719) as float.
-ijk_ext flt const flt_quarterpi;								   // Pi/4 (approx 0.78539) as float.
+ijk_ext flt const flt_5pi_6;									   // Pi*5/6 (approx 2.61799) as float.
+ijk_ext flt const flt_3pi_4;									   // Pi*3/4 (approx 2.35619) as float.
+ijk_ext flt const flt_2pi_3;									   // Pi*2/3 (approx 2.09439) as float.
+ijk_ext flt const flt_pi_2;										   // Pi/2 (approx 1.57079) as float.
+ijk_ext flt const flt_pi_3;										   // Pi/3 (approx 1.05719) as float.
+ijk_ext flt const flt_pi_4;										   // Pi/4 (approx 0.78539) as float.
+ijk_ext flt const flt_pi_6;										   // Pi/6 (approx 0.52360) as float.
 ijk_ext flt const flt_360;										   // 360 as float.
 ijk_ext flt const flt_180;										   // 180 as float.
 ijk_ext flt const flt_90;										   // 90 as float.
 ijk_ext flt const flt_60;										   // 60 as float.
 ijk_ext flt const flt_45;										   // 45 as float.
+ijk_ext flt const flt_30;										   // 30 as float.
 ijk_ext flt const flt_deg2rad;									   // Pi/180 (approx 0.01745) as float.
 ijk_ext flt const flt_rad2deg;									   // 180/pi (approx 57.29578) as float.
 
@@ -239,16 +250,27 @@ ijk_ext dbl const dbl_sqrtthird;								   // Sqrt(1/3) as double.
 ijk_ext dbl const dbl_sqrthalf;									   // Sqrt(1/2) as double.
 ijk_ext dbl const dbl_sqrt2;									   // Sqrt(2) as double.
 ijk_ext dbl const dbl_sqrt3;									   // Sqrt(3) as double.
+ijk_ext dbl const dbl_6pi;										   // Pi*6 (approx 18.84956) as double.
+ijk_ext dbl const dbl_4pi;										   // Pi*4 (approx 12.56637) as double.
+ijk_ext dbl const dbl_3pi;										   // Pi*3 (approx 9.42478) as double.
 ijk_ext dbl const dbl_2pi;										   // Pi*2 (approx 6.28319) as double.
+ijk_ext dbl const dbl_3pi_2;									   // Pi*3/2 (approx 4.71239) as double.
+ijk_ext dbl const dbl_4pi_3;									   // Pi*4/3 (approx 4.18879) as double.
+ijk_ext dbl const dbl_6pi_5;									   // Pi*6/5 (approx 3.76991) as double.
 ijk_ext dbl const dbl_pi;										   // Pi (approx 3.14159) as double.
-ijk_ext dbl const dbl_halfpi;									   // Pi/2 (approx 1.57079) as double.
-ijk_ext dbl const dbl_thirdpi;									   // Pi/3 (approx 1.05719) as double.
-ijk_ext dbl const dbl_quarterpi;								   // Pi/4 (approx 0.78539) as double.
+ijk_ext dbl const dbl_5pi_6;									   // Pi*5/6 (approx 2.61799) as double.
+ijk_ext dbl const dbl_3pi_4;									   // Pi*3/4 (approx 2.35619) as double.
+ijk_ext dbl const dbl_2pi_3;									   // Pi*2/3 (approx 2.09439) as double.
+ijk_ext dbl const dbl_pi_2;										   // Pi/2 (approx 1.57079) as double.
+ijk_ext dbl const dbl_pi_3;										   // Pi/3 (approx 1.05719) as double.
+ijk_ext dbl const dbl_pi_4;										   // Pi/4 (approx 0.78539) as double.
+ijk_ext dbl const dbl_pi_6;										   // Pi/6 (approx 0.52360) as double.
 ijk_ext dbl const dbl_360;										   // 360 as double.
 ijk_ext dbl const dbl_180;										   // 180 as double.
 ijk_ext dbl const dbl_90;										   // 90 as double.
 ijk_ext dbl const dbl_60;										   // 60 as double.
 ijk_ext dbl const dbl_45;										   // 45 as double.
+ijk_ext dbl const dbl_30;										   // 30 as double.
 ijk_ext dbl const dbl_deg2rad;									   // Pi/180 (approx 0.01745) as double.
 ijk_ext dbl const dbl_rad2deg;									   // 180/pi (approx 57.29578) as double.
 
@@ -310,16 +332,27 @@ ijk_ext dbl const dbl_rad2deg;									   // 180/pi (approx 57.29578) as double.
 #define real_sqrthalf				ijk_declrealv(sqrthalf)			// Sqrt(1/2) as real type.
 #define real_sqrt2					ijk_declrealv(sqrt2)			// Sqrt(2) as real type.
 #define real_sqrt3					ijk_declrealv(sqrt3)			// Sqrt(3) as real type.
+#define real_6pi					ijk_declrealv(6pi)				// Pi*6 (approx 18.84956) as real type.
+#define real_4pi					ijk_declrealv(4pi)				// Pi*4 (approx 12.56637) as real type.
+#define real_3pi					ijk_declrealv(3pi)				// Pi*3 (approx 9.42478) as real type.
 #define real_2pi					ijk_declrealv(2pi)				// Pi*2 (approx 6.28319) as real type.
+#define real_3pi_2					ijk_declrealv(3pi_2)			// Pi*3/2 (approx 4.71239) as real type.
+#define real_4pi_3					ijk_declrealv(4pi_3)			// Pi*4/3 (approx 4.18879) as real type.
+#define real_6pi_5					ijk_declrealv(6pi_5)			// Pi*6/5 (approx 3.76991) as real type.
 #define real_pi						ijk_declrealv(pi)				// Pi (approx 3.14159) as real type.
-#define real_halfpi					ijk_declrealv(halfpi)			// Pi/2 (approx 1.57079) as real type.
-#define real_thirdpi				ijk_declrealv(thirdpi)			// Pi/3 (approx 1.05719) as real type.
-#define real_quarterpi				ijk_declrealv(quarterpi)		// Pi/4 (approx 0.78539) as real type.
+#define real_5pi_6					ijk_declrealv(5pi_6)			// Pi*5/6 (approx 2.61799) as real type.
+#define real_3pi_4					ijk_declrealv(3pi_4)			// Pi*3/4 (approx 2.35619) as real type.
+#define real_2pi_3					ijk_declrealv(2pi_3)			// Pi*2/3 (approx 2.09439) as real type.
+#define real_pi_2					ijk_declrealv(pi_2)				// Pi/2 (approx 1.57079) as real type.
+#define real_pi_3					ijk_declrealv(pi_3)				// Pi/3 (approx 1.05719) as real type.
+#define real_pi_4					ijk_declrealv(pi_4)				// Pi/4 (approx 0.78539) as real type.
+#define real_pi_6					ijk_declrealv(pi_6)				// Pi/6 (approx 0.52360) as real type.
 #define real_360					ijk_declrealv(360)				// 360 as real type.
 #define real_180					ijk_declrealv(180)				// 180 as real type.
 #define real_90						ijk_declrealv(90)				// 90 as real type.
 #define real_60						ijk_declrealv(60)				// 60 as real type.
 #define real_45						ijk_declrealv(45)				// 45 as real type.
+#define real_30						ijk_declrealv(30)				// 30 as real type.
 #define real_deg2rad				ijk_declrealv(deg2rad)			// Pi/180 (approx 0.01745) as real type.
 #define real_rad2deg				ijk_declrealv(rad2deg)			// 180/pi (approx 57.29578) as real type.
 
