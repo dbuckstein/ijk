@@ -44,10 +44,6 @@ flt const* ijkTrigTableCos_flt;
 //	Pointer to arcsine index table.
 index const* ijkTrigTableIndexAsin_flt;
 
-// ijkTrigTableIndexAcos_flt
-//	Pointer to arccosine index table.
-index const* ijkTrigTableIndexAcos_flt;
-
 // ijkTrigSubdivisionsPerDegree_flt
 //	Number of subdivisions per degree.
 size ijkTrigSubdivisionsPerDegree_flt;
@@ -66,12 +62,12 @@ size ijkTrigGetTableSize_flt(size const subdivisionsPerDegree)
 	//			+ 90 degrees * 1 set [cosine])
 	//			* (samples per degree) + 4 padding)
 	//		+ SZ_index * (
-	//			(720 indices * 2 sets[arcsine, arccosine])
-	//			+ 4 padding)
+//				(1024 indices * 1 set [arcsine])
+//				+ 2 padding)
 	if (subdivisionsPerDegree)
 	{
 		// calculate size
-		size const sz = szflt * ((720 * 2 + 90 * 1) * subdivisionsPerDegree + 4) + szindex * ((720 * 2) + 4);
+		size const sz = szflt * ((720 * 2 + 90 * 1) * subdivisionsPerDegree + 4) + szindex * ((1024 * 1) + 2);
 		return sz;
 	}
 	return ijk_zero;
@@ -81,13 +77,13 @@ size ijkTrigGetTableSize_flt(size const subdivisionsPerDegree)
 size ijkTrigSetTable_flt(flt const table[], size const tableSize_bytes, size const subdivisionsPerDegree)
 {
 	size const sz = ijkTrigGetTableSize_flt(subdivisionsPerDegree);
-	if (table && sz && tableSize_bytes > sz)
+	if (table && sz && tableSize_bytes >= sz)
 	{
 		flt const* const table_param = table;
 		index const offset_param = 0, offset_sin = offset_param + subdivisionsPerDegree * 720 + 2, offset_cos = offset_sin + subdivisionsPerDegree * 90;
 		index const* const table_index = (index *)(table_param + (offset_cos + subdivisionsPerDegree * 720 + 2));
-		index const offset_index_asin = 0, offset_index_acos = offset_index_asin + 720 + 2;
-		kptr const table_end = (ptr)(table_index + (offset_index_acos + 720 + 2));
+		index const offset_index_asin = 0;
+		kptr const table_end = (ptr)(table_index + (offset_index_asin + 1024 + 2));
 		kptr const table_end_chksum = (ptr)((pbyte)table + sz);
 
 		// set pointers to center of respective domain/range
@@ -95,7 +91,6 @@ size ijkTrigSetTable_flt(flt const table[], size const tableSize_bytes, size con
 		ijkTrigTableSin_flt = table_param + offset_sin;
 		ijkTrigTableCos_flt = table_param + offset_cos;
 		ijkTrigTableIndexAsin_flt = table_index + offset_index_asin;
-		ijkTrigTableIndexAcos_flt = table_index + offset_index_acos;
 		ijkTrigSubdivisionsPerDegree_flt = subdivisionsPerDegree;
 		ijkTrigSubdivisionsPerDegreeInv_flt = ijk_recip_flt((flt)subdivisionsPerDegree);
 
@@ -113,57 +108,57 @@ size ijkTrigInit_flt(flt table_out[], size const tableSize_bytes, size const sub
 	{
 		flt* tableParam_flt = (flt*)ijkTrigTableParam_flt;
 		flt* tableSin_flt = (flt*)ijkTrigTableSin_flt;
-		flt* tableCos_flt = (flt*)ijkTrigTableCos_flt;
 		index* tableIndexAsin_flt = (index*)ijkTrigTableIndexAsin_flt;
-		index* tableIndexAcos_flt = (index*)ijkTrigTableIndexAcos_flt;
-		kptr const tableEnd = ijkTrigTableIndexAcos_flt + 720 + 2;
+		kptr const table_end = ijkTrigTableIndexAsin_flt + 1024 + 2;
+		kptr const table_end_chksum = (ptr)((pbyte)table_out + sz);
 
-		uindex const numSubdivisions = subdivisionsPerDegree * 360, cosOffset = subdivisionsPerDegree * 90;
+		uindex const numSubdivisions = ijkTrigSubdivisionsPerDegree_flt * 720;
 		uindex i, j;
 		index x0;
-		flt x;
+		flt x, y, c, s;
 		flt dx;
 
 		// store parameters as well as sine/cosine values
-		for (x0 = -360, dx = ijk_recip_flt(subdivisionsPerDegree); x0 < +360; ++x0)
-			for (i = 0; i < subdivisionsPerDegree; ++i)
+		for (x0 = -360, dx = ijkTrigSubdivisionsPerDegreeInv_flt; x0 < +360; ++x0)
+			for (i = 0; i < ijkTrigSubdivisionsPerDegree_flt; ++i)
 			{
+				// calculate parameter
 				x = *(tableParam_flt++) = (flt)x0 + (flt)i * dx;
-				*(tableSin_flt++) = ijkTrigSinTaylor_deg_flt(x);
+
+				// calculate most accurate trig result
+				c = ijkTrigCosTaylor_deg_flt(x - flt_90);
+				s = ijkTrigSinTaylor_deg_flt(x + flt_zero);
+				y = *(tableSin_flt++) = (c + s) * flt_half;
 			}
 
 		// copy additional 90 degrees of data for cosine
-		// sine and cosine table pointers should now be equal
 		for (; x0 < +450; ++x0)
-			for (i = 0; i < subdivisionsPerDegree; ++i, ++tableSin_flt)
-				*(tableSin_flt) = *(tableSin_flt - numSubdivisions);
+			for (i = 0; i < ijkTrigSubdivisionsPerDegree_flt; ++i, ++tableSin_flt)
+				y = *(tableSin_flt) = *(tableSin_flt - numSubdivisions);
 		
-		// store padding values
-		*(tableParam_flt) = flt_360;
-		*(tableSin_flt) = *(tableSin_flt - numSubdivisions);
-		*(++tableParam_flt) = *(++tableSin_flt) = flt_zero;
-
 		// prepare indices for sampling inverse trig
-		for (x0 = -360, dx = ijk_recip_flt(flt_360), i = subdivisionsPerDegree * 270, j = i + 1; x0 <= +360; ++x0)
+		for (x0 = -512, dx = ijk_recip_flt((flt)512), i = ijkTrigSubdivisionsPerDegree_flt * 270, j = i + 1; x0 < +512; ++x0)
 		{
 			// threshold: index should not be higher than the sampling index 
 			//	that would yield this number when computing sine
-			x = x0 * dx;
+			x = (flt)x0 * dx;
 
 			// increment index until sample exceeds threshold
-			while (*(tableSin_flt + j) < x)
+			while ((y = *(ijkTrigTableSin_flt + j)) < x)
 				i = j++;
 
 			// assign index
-			// sin starts at -90 index (which maps to -1)
-			// cos starts at -180 index (which maps to -1)
+			// asin starts at -90 index (which maps to -1)
+			// acos uses identity: acos(x) = 90 - asin(x)
 			*(tableIndexAsin_flt++) = i;
-			*(tableIndexAcos_flt++) = i - cosOffset;
 		}
 
-		// store padding values
-		*(tableIndexAsin_flt++) = 0;
-		*(tableIndexAcos_flt++) = 0;
+		// store final values and padding values
+		i = *(tableIndexAsin_flt) = (ijkTrigSubdivisionsPerDegree_flt * 450 - 1);
+		x = *(tableParam_flt) = (flt_360);
+		y = *(tableSin_flt) = *(tableSin_flt - numSubdivisions);
+		*(++tableParam_flt) = *(++tableSin_flt) = flt_zero;
+		*(++tableIndexAsin_flt) = 0;
 
 		// done
 		return sz;

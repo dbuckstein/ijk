@@ -30,11 +30,21 @@
 #include "ijkReal.h"
 
 
+#ifdef __cplusplus
+extern "C" {
+#endif	// __cplusplus
+
+
 //-----------------------------------------------------------------------------
+
+// ijkRandomGetMod
+//	Get modulus that yields maximum number that can be generated.
+//		return: random maximum modulus
+i32 ijkRandomGetMod();
 
 // ijkRandomGetMax
 //	Get maximum number that can be generated.
-//		return: random max
+//		return: random maximum
 i32 ijkRandomGetMax();
 
 // ijkRandomGetSeed
@@ -166,6 +176,11 @@ dbl ijkRandomNumUnitSym_dbl();
 
 
 //-----------------------------------------------------------------------------
+
+
+#ifdef __cplusplus
+}
+#endif	// __cplusplus
 
 
 #include "_inl/ijkRandom.inl"

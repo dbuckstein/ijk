@@ -30,6 +30,11 @@
 #include "ijkSqrt.h"
 
 
+#ifdef __cplusplus
+extern "C" {
+#endif	// __cplusplus
+
+
 //-----------------------------------------------------------------------------
 
 // ijkStatsGetFactorial
@@ -259,6 +264,11 @@ dbl ijkStatsGetStdDev_dbl(dbl const v[], size const n, dbl mean_opt[1]);
 
 
 //-----------------------------------------------------------------------------
+
+
+#ifdef __cplusplus
+}
+#endif	// __cplusplus
 
 
 #include "_inl/ijkStats.inl"

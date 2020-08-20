@@ -30,6 +30,11 @@
 #include "ijkInterpolation.h"
 
 
+#ifdef __cplusplus
+extern "C" {
+#endif	// __cplusplus
+
+
 //-----------------------------------------------------------------------------
 
 // ijkTrigGetTableSize_flt
@@ -55,8 +60,8 @@ size ijkTrigGetTableSize_flt(size const subdivisionsPerDegree);
 //						+ 90 degrees * 1 set [cosine])
 //						* (samples per degree) + 4 padding)
 //					+ SZ_index * (
-//						(720 indices * 2 sets[arcsine, arccosine])
-//						+ 4 padding)
+//						(1024 indices * 1 set [arcsine])
+//						+ 2 padding)
 //		param subdivisionsPerDegree: number of samples per degree
 //			valid: non-zero
 //			note: each degree will be subsampled this number of times
@@ -76,8 +81,8 @@ size ijkTrigSetTable_flt(flt const table[], size const tableSize_bytes, size con
 //						+ 90 degrees * 1 set [cosine])
 //						* (samples per degree) + 4 padding)
 //					+ SZ_index * (
-//						(720 indices * 2 sets[arcsine, arccosine])
-//						+ 4 padding)
+//						(1024 indices * 1 set [arcsine])
+//						+ 2 padding)
 //		param subdivisionsPerDegree: number of samples per degree
 //			valid: non-zero
 //			note: each degree will be subsampled this number of times
@@ -509,6 +514,11 @@ flt ijkTrigFaceToPointRatio_flt(flt const azimuth, flt const elevation, size con
 
 
 //-----------------------------------------------------------------------------
+
+
+#ifdef __cplusplus
+}
+#endif	// __cplusplus
 
 
 #include "_inl/ijkTrigonometry.inl"
