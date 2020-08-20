@@ -333,21 +333,21 @@ ijk_inl flt ijkTrigAtan2_rad_flt(flt const y_sin, flt const x_cos)
 
 ijk_inl flt ijkTrigSinCosTaylor_rad_flt(flt const x, flt* const sinx_out, flt* const cosx_out)
 {
-	size const iterations = 32;
-	dbl x2 = x, ssum = x, csum = dbl_one;
-	dbl degree = dbl_one, f = dbl_one;
-	uindex i;
-	for (i = iterations; i > 0; --i)
+	dbl const xd = (dbl)x;
+	dbl X = xd, F = dbl_one, degree = dbl_one, ssum = xd, csum = dbl_one, ssum0 = dbl_zero, csum0 = dbl_zero;
+	while (ssum != ssum0 && csum != csum0)
 	{
 		// do cos accumulation
-		f *= -(degree += dbl_one);
-		x2 *= x;
-		csum += x2 / f;
+		F *= -(degree += dbl_one);
+		X *= xd;
+		csum0 = csum;
+		csum += X / F;
 
 		// do sin accumulation
-		f *= +(degree += dbl_one);
-		x2 *= x;
-		ssum += x2 / f;
+		F *= +(degree += dbl_one);
+		X *= xd;
+		ssum0 = ssum;
+		ssum += X / F;
 	}
 
 	// copy results to outputs
@@ -361,21 +361,21 @@ ijk_inl flt ijkTrigSinCosTaylor_rad_flt(flt const x, flt* const sinx_out, flt* c
 
 ijk_inl flt ijkTrigTanSinCosTaylor_rad_flt(flt const x, flt* const sinx_out, flt* const cosx_out)
 {
-	size const iterations = 32;
-	dbl x2 = x, ssum = x, csum = dbl_one;
-	dbl degree = dbl_one, f = dbl_one;
-	uindex i;
-	for (i = iterations; i > 0; --i)
+	dbl const xd = (dbl)x;
+	dbl X = xd, F = dbl_one, degree = dbl_one, ssum = xd, csum = dbl_one, ssum0 = dbl_zero, csum0 = dbl_zero;
+	while (ssum != ssum0 && csum != csum0)
 	{
 		// do cos accumulation
-		f *= -(degree += dbl_one);
-		x2 *= x;
-		csum += x2 / f;
+		F *= -(degree += dbl_one);
+		X *= xd;
+		csum0 = csum;
+		csum += X / F;
 
 		// do sin accumulation
-		f *= +(degree += dbl_one);
-		x2 *= x;
-		ssum += x2 / f;
+		F *= +(degree += dbl_one);
+		X *= xd;
+		ssum0 = ssum;
+		ssum += X / F;
 	}
 
 	// copy results to outputs
@@ -389,21 +389,21 @@ ijk_inl flt ijkTrigTanSinCosTaylor_rad_flt(flt const x, flt* const sinx_out, flt
 
 ijk_inl flt ijkTrigCotSinCosTaylor_rad_flt(flt const x, flt* const sinx_out, flt* const cosx_out)
 {
-	size const iterations = 32;
-	dbl x2 = x, ssum = x, csum = dbl_one;
-	dbl degree = dbl_one, f = dbl_one;
-	uindex i;
-	for (i = iterations; i > 0; --i)
+	dbl const xd = (dbl)x;
+	dbl X = xd, F = dbl_one, degree = dbl_one, ssum = xd, csum = dbl_one, ssum0 = dbl_zero, csum0 = dbl_zero;
+	while (ssum != ssum0 && csum != csum0)
 	{
 		// do cos accumulation
-		f *= -(degree += dbl_one);
-		x2 *= x;
-		csum += x2 / f;
+		F *= -(degree += dbl_one);
+		X *= xd;
+		csum0 = csum;
+		csum += X / F;
 
 		// do sin accumulation
-		f *= +(degree += dbl_one);
-		x2 *= x;
-		ssum += x2 / f;
+		F *= +(degree += dbl_one);
+		X *= xd;
+		ssum0 = ssum;
+		ssum += X / F;
 	}
 
 	// copy results to outputs
@@ -417,36 +417,33 @@ ijk_inl flt ijkTrigCotSinCosTaylor_rad_flt(flt const x, flt* const sinx_out, flt
 
 ijk_inl flt ijkTrigSinTaylor_rad_flt(flt const x)
 {
-	size const iterations = 32;
-	dbl x2 = x, ssum = x2;
-	dbl degree = dbl_one, f = dbl_one;
-	uindex i;
-	for (i = iterations; i > 0; --i)
+	dbl const xd = (dbl)x, x2 = xd * xd;
+	dbl X = x, F = dbl_one, degree = dbl_one, sum = X, sum0 = dbl_zero;
+	while (sum != sum0)
 	{
-		f *= -(degree += dbl_one);
-		f *= +(degree += dbl_one);
-		x2 *= x * x;
-		ssum += x2 / f;
+		F *= -(degree += dbl_one);
+		F *= +(degree += dbl_one);
+		X *= x2;
+		sum0 = sum;
+		sum += X / F;
 	}
-	return (flt)ssum;
+	return (flt)sum;
 }
 
 
 ijk_inl flt ijkTrigCosTaylor_rad_flt(flt const x)
 {
-	size const iterations = 32;
-	dbl x2 = dbl_one, csum = x2;
-	dbl degree = dbl_zero, f = dbl_one;
-	uindex i;
-	for (i = iterations; i > 0; --i)
+	dbl const xd = (dbl)x, x2 = xd * xd;
+	dbl X = dbl_one, F = dbl_one, degree = dbl_zero, sum = X, sum0 = dbl_zero;
+	while (sum != sum0)
 	{
-		// do cos accumulation
-		f *= -(degree += dbl_one);
-		f *= +(degree += dbl_one);
-		x2 *= x * x;
-		csum += x2 / f;
+		F *= -(degree += dbl_one);
+		F *= +(degree += dbl_one);
+		X *= x2;
+		sum0 = sum;
+		sum += X / F;
 	}
-	return (flt)csum;
+	return (flt)sum;
 }
 
 
@@ -701,7 +698,7 @@ ijk_inl dbl ijkTrigAsin_deg_dbl(dbl const x)
 	ijk_ext dbl const* const ijkTrigTableParam_dbl, * const ijkTrigTableSin_dbl;
 	ijk_ext index const* const ijkTrigTableIndexAsin_dbl;
 	return (dbl_zero + ijkInterpSampleTableInc_dbl(ijkTrigTableSin_dbl, ijkTrigTableParam_dbl,
-		*(ijkTrigTableIndexAsin_dbl + (index)((x + 1.0) * 512.0)), 1, x));
+		*(ijkTrigTableIndexAsin_dbl + (index)((x + 1.0) * 1024.0)), 1, x));
 }
 
 
@@ -710,7 +707,7 @@ ijk_inl dbl ijkTrigAcos_deg_dbl(dbl const x)
 	ijk_ext dbl const* const ijkTrigTableParam_dbl, * const ijkTrigTableSin_dbl;
 	ijk_ext index const* const ijkTrigTableIndexAsin_dbl;
 	return (dbl_90 - ijkInterpSampleTableInc_dbl(ijkTrigTableSin_dbl, ijkTrigTableParam_dbl,
-		*(ijkTrigTableIndexAsin_dbl + (index)((x + 1.0) * 512.0)), 1, x));
+		*(ijkTrigTableIndexAsin_dbl + (index)((x + 1.0) * 1024.0)), 1, x));
 }
 
 
@@ -860,21 +857,20 @@ ijk_inl dbl ijkTrigAtan2_rad_dbl(dbl const y_sin, dbl const x_cos)
 
 ijk_inl dbl ijkTrigSinCosTaylor_rad_dbl(dbl const x, dbl* const sinx_out, dbl* const cosx_out)
 {
-	size const iterations = 32;
-	dbl x2 = x, ssum = x, csum = dbl_one;
-	dbl degree = dbl_one, f = dbl_one;
-	uindex i;
-	for (i = iterations; i > 0; --i)
+	dbl X = x, F = dbl_one, degree = dbl_one, ssum = x, csum = dbl_one, ssum0 = dbl_zero, csum0 = dbl_zero;
+	while (ssum != ssum0 && csum != csum0)
 	{
 		// do cos accumulation
-		f *= -(degree += dbl_one);
-		x2 *= x;
-		csum += x2 / f;
+		F *= -(degree += dbl_one);
+		X *= x;
+		csum0 = csum;
+		csum += X / F;
 
 		// do sin accumulation
-		f *= +(degree += dbl_one);
-		x2 *= x;
-		ssum += x2 / f;
+		F *= +(degree += dbl_one);
+		X *= x;
+		ssum0 = ssum;
+		ssum += X / F;
 	}
 
 	// copy results to outputs
@@ -888,21 +884,20 @@ ijk_inl dbl ijkTrigSinCosTaylor_rad_dbl(dbl const x, dbl* const sinx_out, dbl* c
 
 ijk_inl dbl ijkTrigTanSinCosTaylor_rad_dbl(dbl const x, dbl* const sinx_out, dbl* const cosx_out)
 {
-	size const iterations = 32;
-	dbl x2 = x, ssum = x, csum = dbl_one;
-	dbl degree = dbl_one, f = dbl_one;
-	uindex i;
-	for (i = iterations; i > 0; --i)
+	dbl X = x, F = dbl_one, degree = dbl_one, ssum = x, csum = dbl_one, ssum0 = dbl_zero, csum0 = dbl_zero;
+	while (ssum != ssum0 && csum != csum0)
 	{
 		// do cos accumulation
-		f *= -(degree += dbl_one);
-		x2 *= x;
-		csum += x2 / f;
+		F *= -(degree += dbl_one);
+		X *= x;
+		csum0 = csum;
+		csum += X / F;
 
 		// do sin accumulation
-		f *= +(degree += dbl_one);
-		x2 *= x;
-		ssum += x2 / f;
+		F *= +(degree += dbl_one);
+		X *= x;
+		ssum0 = ssum;
+		ssum += X / F;
 	}
 
 	// copy results to outputs
@@ -916,21 +911,20 @@ ijk_inl dbl ijkTrigTanSinCosTaylor_rad_dbl(dbl const x, dbl* const sinx_out, dbl
 
 ijk_inl dbl ijkTrigCotSinCosTaylor_rad_dbl(dbl const x, dbl* const sinx_out, dbl* const cosx_out)
 {
-	size const iterations = 32;
-	dbl x2 = x, ssum = x, csum = dbl_one;
-	dbl degree = dbl_one, f = dbl_one;
-	uindex i;
-	for (i = iterations; i > 0; --i)
+	dbl X = x, F = dbl_one, degree = dbl_one, ssum = x, csum = dbl_one, ssum0 = dbl_zero, csum0 = dbl_zero;
+	while (ssum != ssum0 && csum != csum0)
 	{
 		// do cos accumulation
-		f *= -(degree += dbl_one);
-		x2 *= x;
-		csum += x2 / f;
+		F *= -(degree += dbl_one);
+		X *= x;
+		csum0 = csum;
+		csum += X / F;
 
 		// do sin accumulation
-		f *= +(degree += dbl_one);
-		x2 *= x;
-		ssum += x2 / f;
+		F *= +(degree += dbl_one);
+		X *= x;
+		ssum0 = ssum;
+		ssum += X / F;
 	}
 
 	// copy results to outputs
@@ -944,36 +938,33 @@ ijk_inl dbl ijkTrigCotSinCosTaylor_rad_dbl(dbl const x, dbl* const sinx_out, dbl
 
 ijk_inl dbl ijkTrigSinTaylor_rad_dbl(dbl const x)
 {
-	size const iterations = 32;
-	dbl x2 = x, ssum = x2;
-	dbl degree = dbl_one, f = dbl_one;
-	uindex i;
-	for (i = iterations; i > 0; --i)
+	dbl const x2 = x * x;
+	dbl X = x, F = dbl_one, degree = dbl_one, sum = X, sum0 = dbl_zero;
+	while (sum != sum0)
 	{
-		f *= -(degree += dbl_one);
-		f *= +(degree += dbl_one);
-		x2 *= x * x;
-		ssum += x2 / f;
+		F *= -(degree += dbl_one);
+		F *= +(degree += dbl_one);
+		X *= x2;
+		sum0 = sum;
+		sum += X / F;
 	}
-	return ssum;
+	return sum;
 }
 
 
 ijk_inl dbl ijkTrigCosTaylor_rad_dbl(dbl const x)
 {
-	size const iterations = 32;
-	dbl x2 = dbl_one, csum = x2;
-	dbl degree = dbl_zero, f = dbl_one;
-	uindex i;
-	for (i = iterations; i > 0; --i)
+	dbl const x2 = x * x;
+	dbl X = dbl_one, F = dbl_one, degree = dbl_zero, sum = X, sum0 = dbl_zero;
+	while (sum != sum0)
 	{
-		// do cos accumulation
-		f *= -(degree += dbl_one);
-		f *= +(degree += dbl_one);
-		x2 *= x * x;
-		csum += x2 / f;
+		F *= -(degree += dbl_one);
+		F *= +(degree += dbl_one);
+		X *= x2;
+		sum0 = sum;
+		sum += X / F;
 	}
-	return csum;
+	return sum;
 }
 
 

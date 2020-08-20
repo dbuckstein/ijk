@@ -44,6 +44,7 @@ extern "C" {
 //		param subdivisionsPerDegree: number of samples per degree
 //			valid: non-zero
 //			note: each degree will be subsampled this number of times
+//			note: ideal results with 4 as input
 //		return SUCCESS: size of data set
 //		return FAILURE: zero if invalid parameters
 size ijkTrigGetTableSize_flt(size const subdivisionsPerDegree);
@@ -55,11 +56,11 @@ size ijkTrigGetTableSize_flt(size const subdivisionsPerDegree);
 //		param tableSize_bytes: size of provided table in bytes
 //			valid: at least the minimum required size
 //			note: minimum required size (in bytes) is: 
-//				SZ	= SZ_sample * (
+//				SZ	= szflt * (
 //						(720 degrees * 2 sets [params, sine]
 //						+ 90 degrees * 1 set [cosine])
 //						* (samples per degree) + 4 padding)
-//					+ SZ_index * (
+//					+ szindex * (
 //						(1024 indices * 1 set [arcsine])
 //						+ 2 padding)
 //		param subdivisionsPerDegree: number of samples per degree
@@ -76,11 +77,11 @@ size ijkTrigSetTable_flt(flt const table[], size const tableSize_bytes, size con
 //		param tableSize_bytes: size of provided table in bytes
 //			valid: at least the minimum required size
 //			note: minimum required size (in bytes) is: 
-//				SZ	= SZ_sample * (
+//				SZ	= szflt * (
 //						(720 degrees * 2 sets [params, sine]
 //						+ 90 degrees * 1 set [cosine])
 //						* (samples per degree) + 4 padding)
-//					+ SZ_index * (
+//					+ szindex * (
 //						(1024 indices * 1 set [arcsine])
 //						+ 2 padding)
 //		param subdivisionsPerDegree: number of samples per degree
@@ -514,6 +515,7 @@ flt ijkTrigFaceToPointRatio_flt(flt const azimuth, flt const elevation, size con
 //		param subdivisionsPerDegree: number of samples per degree
 //			valid: non-zero
 //			note: each degree will be subsampled this number of times
+//			note: ideal results with 4 as input
 //		return SUCCESS: size of data set
 //		return FAILURE: zero if invalid parameters
 size ijkTrigGetTableSize_dbl(size const subdivisionsPerDegree);
@@ -525,13 +527,13 @@ size ijkTrigGetTableSize_dbl(size const subdivisionsPerDegree);
 //		param tableSize_bytes: size of provided table in bytes
 //			valid: at least the minimum required size
 //			note: minimum required size (in bytes) is: 
-//				SZ	= SZ_sample * (
+//				SZ	= szdbl * (
 //						(720 degrees * 2 sets [params, sine]
 //						+ 90 degrees * 1 set [cosine])
 //						* (samples per degree) + 4 padding)
-//					+ SZ_index * (
-//						(1024 indices * 1 set [arcsine])
-//						+ 2 padding)
+//					+ szindex * (
+//						(2048 indices * 1 set [arcsine])
+//						+ 4 padding)
 //		param subdivisionsPerDegree: number of samples per degree
 //			valid: non-zero
 //			note: each degree will be subsampled this number of times
@@ -546,13 +548,13 @@ size ijkTrigSetTable_dbl(dbl const table[], size const tableSize_bytes, size con
 //		param tableSize_bytes: size of provided table in bytes
 //			valid: at least the minimum required size
 //			note: minimum required size (in bytes) is: 
-//				SZ	= SZ_sample * (
+//				SZ	= szdbl * (
 //						(720 degrees * 2 sets [params, sine]
 //						+ 90 degrees * 1 set [cosine])
 //						* (samples per degree) + 4 padding)
-//					+ SZ_index * (
-//						(1024 indices * 1 set [arcsine])
-//						+ 2 padding)
+//					+ szindex * (
+//						(2048 indices * 1 set [arcsine])
+//						+ 4 padding)
 //		param subdivisionsPerDegree: number of samples per degree
 //			valid: non-zero
 //			note: each degree will be subsampled this number of times
@@ -984,6 +986,7 @@ dbl ijkTrigFaceToPointRatio_dbl(dbl const azimuth, dbl const elevation, size con
 //		param subdivisionsPerDegree: number of samples per degree
 //			valid: non-zero
 //			note: each degree will be subsampled this number of times
+//			note: ideal results with 4 as input
 //		return SUCCESS: size of data set
 //		return FAILURE: zero if invalid parameters
 //size ijkTrigGetTableSize(size const subdivisionsPerDegree);
@@ -996,11 +999,11 @@ dbl ijkTrigFaceToPointRatio_dbl(dbl const azimuth, dbl const elevation, size con
 //		param tableSize_bytes: size of provided table in bytes
 //			valid: at least the minimum required size
 //			note: minimum required size (in bytes) is: 
-//				SZ	= SZ_sample * (
+//				SZ	= szreal * (
 //						(720 degrees * 2 sets [params, sine]
 //						+ 90 degrees * 1 set [cosine])
 //						* (samples per degree) + 4 padding)
-//					+ SZ_index * (
+//					+ szindex * szrealbr * (
 //						(1024 indices * 1 set [arcsine])
 //						+ 2 padding)
 //		param subdivisionsPerDegree: number of samples per degree
@@ -1018,11 +1021,11 @@ dbl ijkTrigFaceToPointRatio_dbl(dbl const azimuth, dbl const elevation, size con
 //		param tableSize_bytes: size of provided table in bytes
 //			valid: at least the minimum required size
 //			note: minimum required size (in bytes) is: 
-//				SZ	= SZ_sample * (
+//				SZ	= szreal * (
 //						(720 degrees * 2 sets [params, sine]
 //						+ 90 degrees * 1 set [cosine])
 //						* (samples per degree) + 4 padding)
-//					+ SZ_index * (
+//					+ szindex * szrealbr * (
 //						(1024 indices * 1 set [arcsine])
 //						+ 2 padding)
 //		param subdivisionsPerDegree: number of samples per degree
