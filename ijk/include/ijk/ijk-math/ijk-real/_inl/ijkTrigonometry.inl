@@ -557,10 +557,529 @@ ijk_inl flt ijkTrigFaceToPointRatio_flt(flt const azimuth, flt const elevation, 
 
 //-----------------------------------------------------------------------------
 
+ijk_inl dbl ijkTrigDeg2Rad_dbl(dbl const x)
+{
+	return ijk_deg2rad(x);
+}
 
 
-//-----------------------------------------------------------------------------
+ijk_inl dbl ijkTrigRad2Deg_dbl(dbl const x)
+{
+	return ijk_rad2deg(x);
+}
 
+
+ijk_inl dbl ijkTrigValidateDegree_dbl(dbl x)
+{
+	ijk_clamp_loop(-360, +360, 720, x);
+	return x;
+}
+
+
+ijk_inl dbl ijkTrigValidateRadian_dbl(dbl x)
+{
+	ijk_clamp_loop(-dbl_2pi, +dbl_2pi, dbl_4pi, x);
+	return x;
+}
+
+
+ijk_inl dbl ijkTrigValidateInverse_dbl(dbl x)
+{
+	x = ijk_clamp(-dbl_one, +dbl_one, x);
+	return x;
+}
+
+
+ijk_inl dbl ijkTrigValidateInverseRecip_dbl(dbl x)
+{
+	x = ijk_clamp_inv(-dbl_one, +dbl_one, dbl_zero, x);
+	return x;
+}
+
+
+ijk_inl dbl ijkTrigSinCos_deg_dbl(dbl const x, dbl* const sinx_out, dbl* const cosx_out)
+{
+	ijk_ext size const ijkTrigSubdivisionsPerDegree_dbl;
+	ijk_ext dbl const ijkTrigSubdivisionsPerDegreeInv_dbl, * const ijkTrigTableSin_dbl, * const ijkTrigTableCos_dbl;
+	dbl f = (x + dbl_360) * (dbl)ijkTrigSubdivisionsPerDegree_dbl;
+	index const i = (index)f, j = i + 1;
+	f = (f - (dbl)i) * ijkTrigSubdivisionsPerDegreeInv_dbl;
+	*sinx_out = ijkInterpLinear(ijkTrigTableSin_dbl[i], ijkTrigTableSin_dbl[j], f);
+	*cosx_out = ijkInterpLinear(ijkTrigTableCos_dbl[i], ijkTrigTableCos_dbl[j], f);
+	return x;
+}
+
+
+ijk_inl dbl ijkTrigTanSinCos_deg_dbl(dbl const x, dbl* const sinx_out, dbl* const cosx_out)
+{
+	ijk_ext size const ijkTrigSubdivisionsPerDegree_dbl;
+	ijk_ext dbl const ijkTrigSubdivisionsPerDegreeInv_dbl, * const ijkTrigTableSin_dbl, * const ijkTrigTableCos_dbl;
+	dbl f = (x + dbl_360) * (dbl)ijkTrigSubdivisionsPerDegree_dbl, s, c;
+	index const i = (index)f, j = i + 1;
+	f = (f - (dbl)i) * ijkTrigSubdivisionsPerDegreeInv_dbl;
+	*sinx_out = s = ijkInterpLinear(ijkTrigTableSin_dbl[i], ijkTrigTableSin_dbl[j], f);
+	*cosx_out = c = ijkInterpLinear(ijkTrigTableCos_dbl[i], ijkTrigTableCos_dbl[j], f);
+	return (s / c);
+}
+
+
+ijk_inl dbl ijkTrigCotSinCos_deg_dbl(dbl const x, dbl* const sinx_out, dbl* const cosx_out)
+{
+	ijk_ext size const ijkTrigSubdivisionsPerDegree_dbl;
+	ijk_ext dbl const ijkTrigSubdivisionsPerDegreeInv_dbl, * const ijkTrigTableSin_dbl, * const ijkTrigTableCos_dbl;
+	dbl f = (x + dbl_360) * (dbl)ijkTrigSubdivisionsPerDegree_dbl, s, c;
+	index const i = (index)f, j = i + 1;
+	f = (f - (dbl)i) * ijkTrigSubdivisionsPerDegreeInv_dbl;
+	*sinx_out = s = ijkInterpLinear(ijkTrigTableSin_dbl[i], ijkTrigTableSin_dbl[j], f);
+	*cosx_out = c = ijkInterpLinear(ijkTrigTableCos_dbl[i], ijkTrigTableCos_dbl[j], f);
+	return (c / s);
+}
+
+
+ijk_inl dbl ijkTrigSin_deg_dbl(dbl const x)
+{
+	ijk_ext size const ijkTrigSubdivisionsPerDegree_dbl;
+	ijk_ext dbl const ijkTrigSubdivisionsPerDegreeInv_dbl, * const ijkTrigTableSin_dbl;
+	dbl f = (x + dbl_360) * (dbl)ijkTrigSubdivisionsPerDegree_dbl;
+	index const i = (index)f;
+	f = (f - (dbl)i) * ijkTrigSubdivisionsPerDegreeInv_dbl;
+	return ijkInterpLinear(ijkTrigTableSin_dbl[i], ijkTrigTableSin_dbl[i + 1], f);
+}
+
+
+ijk_inl dbl ijkTrigCos_deg_dbl(dbl const x)
+{
+	ijk_ext size const ijkTrigSubdivisionsPerDegree_dbl;
+	ijk_ext dbl const ijkTrigSubdivisionsPerDegreeInv_dbl, * const ijkTrigTableCos_dbl;
+	dbl f = (x + dbl_360) * (dbl)ijkTrigSubdivisionsPerDegree_dbl;
+	index const i = (index)f;
+	f = (f - (dbl)i) * ijkTrigSubdivisionsPerDegreeInv_dbl;
+	return ijkInterpLinear(ijkTrigTableCos_dbl[i], ijkTrigTableCos_dbl[i + 1], f);
+}
+
+
+ijk_inl dbl ijkTrigTan_deg_dbl(dbl const x)
+{
+	ijk_ext size const ijkTrigSubdivisionsPerDegree_dbl;
+	ijk_ext dbl const ijkTrigSubdivisionsPerDegreeInv_dbl, * const ijkTrigTableSin_dbl, * const ijkTrigTableCos_dbl;
+	dbl f = (x + dbl_360) * (dbl)ijkTrigSubdivisionsPerDegree_dbl, s, c;
+	index const i = (index)f, j = i + 1;
+	f = (f - (dbl)i) * ijkTrigSubdivisionsPerDegreeInv_dbl;
+	s = ijkInterpLinear(ijkTrigTableSin_dbl[i], ijkTrigTableSin_dbl[j], f);
+	c = ijkInterpLinear(ijkTrigTableCos_dbl[i], ijkTrigTableCos_dbl[j], f);
+	return (s / c);
+}
+
+
+ijk_inl dbl ijkTrigCsc_deg_dbl(dbl const x)
+{
+	return ijk_recip_dbl(ijkTrigSin_deg_dbl(x));
+}
+
+
+ijk_inl dbl ijkTrigSec_deg_dbl(dbl const x)
+{
+	return ijk_recip_dbl(ijkTrigCos_deg_dbl(x));
+}
+
+
+ijk_inl dbl ijkTrigCot_deg_dbl(dbl const x)
+{
+	ijk_ext size const ijkTrigSubdivisionsPerDegree_dbl;
+	ijk_ext dbl const ijkTrigSubdivisionsPerDegreeInv_dbl, * const ijkTrigTableSin_dbl, * const ijkTrigTableCos_dbl;
+	dbl f = (x + dbl_360) * (dbl)ijkTrigSubdivisionsPerDegree_dbl, s, c;
+	index const i = (index)f, j = i + 1;
+	f = (f - (dbl)i) * ijkTrigSubdivisionsPerDegreeInv_dbl;
+	s = ijkInterpLinear(ijkTrigTableSin_dbl[i], ijkTrigTableSin_dbl[j], f);
+	c = ijkInterpLinear(ijkTrigTableCos_dbl[i], ijkTrigTableCos_dbl[j], f);
+	return (c / s);
+}
+
+
+ijk_inl dbl ijkTrigAsin_deg_dbl(dbl const x)
+{
+	ijk_ext dbl const* const ijkTrigTableParam_dbl, * const ijkTrigTableSin_dbl;
+	ijk_ext index const* const ijkTrigTableIndexAsin_dbl;
+	return (dbl_zero + ijkInterpSampleTableInc_dbl(ijkTrigTableSin_dbl, ijkTrigTableParam_dbl,
+		*(ijkTrigTableIndexAsin_dbl + (index)((x + 1.0) * 512.0)), 1, x));
+}
+
+
+ijk_inl dbl ijkTrigAcos_deg_dbl(dbl const x)
+{
+	ijk_ext dbl const* const ijkTrigTableParam_dbl, * const ijkTrigTableSin_dbl;
+	ijk_ext index const* const ijkTrigTableIndexAsin_dbl;
+	return (dbl_90 - ijkInterpSampleTableInc_dbl(ijkTrigTableSin_dbl, ijkTrigTableParam_dbl,
+		*(ijkTrigTableIndexAsin_dbl + (index)((x + 1.0) * 512.0)), 1, x));
+}
+
+
+ijk_inl dbl ijkTrigAtan_deg_dbl(dbl const x)
+{
+	// sin(atan(x)) = x / sqrt(x^2 + 1)
+	// atan(x) = asin(x / sqrt(x^2 + 1))
+	ijk_ext dbl ijkSqrtInv_dbl(dbl const x);
+	return ijkTrigAsin_deg_dbl(x * ijkSqrtInv_dbl(x * x + dbl_one));
+}
+
+
+ijk_inl dbl ijkTrigAcsc_deg_dbl(dbl const x)
+{
+	// sin(acsc(x)) = 1 / x
+	// acsc(x) = asin(1 / x)
+	return ijkTrigAsin_deg_dbl(ijk_recip_dbl(x));
+}
+
+
+ijk_inl dbl ijkTrigAsec_deg_dbl(dbl const x)
+{
+	// cos(asec(x)) = 1 / x
+	// asec(x) = acos(1 / x)
+	return ijkTrigAcos_deg_dbl(ijk_recip_dbl(x));
+}
+
+
+ijk_inl dbl ijkTrigAcot_deg_dbl(dbl const x)
+{
+	// tan(acot(x)) = 1 / x
+	// acot(x) = atan(1 / x)
+	return ijkTrigAtan_deg_dbl(ijk_recip_dbl(x));
+}
+
+
+ijk_inl dbl ijkTrigAtan2_deg_dbl(dbl const y_sin, dbl const x_cos)
+{
+	if (x_cos > dbl_zero)
+		return ijkTrigAtan_deg_dbl(y_sin / x_cos);
+	else if (x_cos < dbl_zero)
+		return ijkTrigAtan_deg_dbl(y_sin / x_cos) + (y_sin >= dbl_zero ? +dbl_180 : -dbl_180);
+	else if (y_sin > dbl_zero)
+		return +dbl_90;
+	else if (y_sin < dbl_zero)
+		return -dbl_90;
+	return dbl_zero;
+}
+
+
+ijk_inl dbl ijkTrigSinCos_rad_dbl(dbl const x, dbl* const sinx_out, dbl* const cosx_out)
+{
+	ijkTrigSinCos_deg_dbl(ijk_rad2deg_dbl(x), sinx_out, cosx_out);
+	return x;
+}
+
+
+ijk_inl dbl ijkTrigTanSinCos_rad_dbl(dbl const x, dbl* const sinx_out, dbl* const cosx_out)
+{
+	return ijkTrigTanSinCos_deg_dbl(ijk_rad2deg_dbl(x), sinx_out, cosx_out);
+}
+
+
+ijk_inl dbl ijkTrigCotSinCos_rad_dbl(dbl const x, dbl* const sinx_out, dbl* const cosx_out)
+{
+	return ijkTrigCotSinCos_deg_dbl(ijk_rad2deg_dbl(x), sinx_out, cosx_out);
+}
+
+
+ijk_inl dbl ijkTrigSin_rad_dbl(dbl const x)
+{
+	return ijkTrigSin_deg_dbl(ijk_rad2deg_dbl(x));
+}
+
+
+ijk_inl dbl ijkTrigCos_rad_dbl(dbl const x)
+{
+	return ijkTrigCos_deg_dbl(ijk_rad2deg_dbl(x));
+}
+
+
+ijk_inl dbl ijkTrigTan_rad_dbl(dbl const x)
+{
+	return ijkTrigTan_deg_dbl(ijk_rad2deg_dbl(x));
+}
+
+
+ijk_inl dbl ijkTrigCsc_rad_dbl(dbl const x)
+{
+	return ijkTrigCsc_deg_dbl(ijk_rad2deg_dbl(x));
+}
+
+
+ijk_inl dbl ijkTrigSec_rad_dbl(dbl const x)
+{
+	return ijkTrigSec_deg_dbl(ijk_rad2deg_dbl(x));
+}
+
+
+ijk_inl dbl ijkTrigCot_rad_dbl(dbl const x)
+{
+	return ijkTrigCot_deg_dbl(ijk_rad2deg_dbl(x));
+}
+
+
+ijk_inl dbl ijkTrigAsin_rad_dbl(dbl const x)
+{
+	return ijk_deg2rad(ijkTrigAsin_deg_dbl(x));
+}
+
+
+ijk_inl dbl ijkTrigAcos_rad_dbl(dbl const x)
+{
+	return ijk_deg2rad(ijkTrigAcos_deg_dbl(x));
+}
+
+
+ijk_inl dbl ijkTrigAtan_rad_dbl(dbl const x)
+{
+	return ijk_deg2rad(ijkTrigAtan_deg_dbl(x));
+}
+
+
+ijk_inl dbl ijkTrigAcsc_rad_dbl(dbl const x)
+{
+	return ijk_deg2rad(ijkTrigAcsc_deg_dbl(x));
+}
+
+
+ijk_inl dbl ijkTrigAsec_rad_dbl(dbl const x)
+{
+	return ijk_deg2rad(ijkTrigAsec_deg_dbl(x));
+}
+
+
+ijk_inl dbl ijkTrigAcot_rad_dbl(dbl const x)
+{
+	return ijk_deg2rad(ijkTrigAcot_deg_dbl(x));
+}
+
+
+ijk_inl dbl ijkTrigAtan2_rad_dbl(dbl const y_sin, dbl const x_cos)
+{
+	return ijk_deg2rad(ijkTrigAtan2_deg_dbl(y_sin, x_cos));
+}
+
+
+ijk_inl dbl ijkTrigSinCosTaylor_rad_dbl(dbl const x, dbl* const sinx_out, dbl* const cosx_out)
+{
+	size const iterations = 16;
+	dbl x2 = x, ssum = x, csum = dbl_one;
+	dbl degree = dbl_one, f = dbl_one;
+	uindex i;
+	for (i = iterations; i > 0; --i)
+	{
+		// do cos accumulation
+		f *= -(degree += dbl_one);
+		x2 *= x;
+		csum += x2 / f;
+
+		// do sin accumulation
+		f *= +(degree += dbl_one);
+		x2 *= x;
+		ssum += x2 / f;
+	}
+
+	// copy results to outputs
+	*sinx_out = ssum;
+	*cosx_out = csum;
+
+	// done, return param for reuse
+	return x;
+}
+
+
+ijk_inl dbl ijkTrigTanSinCosTaylor_rad_dbl(dbl const x, dbl* const sinx_out, dbl* const cosx_out)
+{
+	size const iterations = 16;
+	dbl x2 = x, ssum = x, csum = dbl_one;
+	dbl degree = dbl_one, f = dbl_one;
+	uindex i;
+	for (i = iterations; i > 0; --i)
+	{
+		// do cos accumulation
+		f *= -(degree += dbl_one);
+		x2 *= x;
+		csum += x2 / f;
+
+		// do sin accumulation
+		f *= +(degree += dbl_one);
+		x2 *= x;
+		ssum += x2 / f;
+	}
+
+	// copy results to outputs
+	*sinx_out = ssum;
+	*cosx_out = csum;
+
+	// done, return tan(x)
+	return (ssum / csum);
+}
+
+
+ijk_inl dbl ijkTrigCotSinCosTaylor_rad_dbl(dbl const x, dbl* const sinx_out, dbl* const cosx_out)
+{
+	size const iterations = 16;
+	dbl x2 = x, ssum = x, csum = dbl_one;
+	dbl degree = dbl_one, f = dbl_one;
+	uindex i;
+	for (i = iterations; i > 0; --i)
+	{
+		// do cos accumulation
+		f *= -(degree += dbl_one);
+		x2 *= x;
+		csum += x2 / f;
+
+		// do sin accumulation
+		f *= +(degree += dbl_one);
+		x2 *= x;
+		ssum += x2 / f;
+	}
+
+	// copy results to outputs
+	*sinx_out = ssum;
+	*cosx_out = csum;
+
+	// done, return cot(x)
+	return (csum / ssum);
+}
+
+
+ijk_inl dbl ijkTrigSinTaylor_rad_dbl(dbl const x)
+{
+	size const iterations = 16;
+	dbl x2 = x, ssum = x2;
+	dbl degree = dbl_one, f = dbl_one;
+	uindex i;
+	for (i = iterations; i > 0; --i)
+	{
+		f *= -(degree += dbl_one);
+		f *= +(degree += dbl_one);
+		x2 *= x * x;
+		ssum += x2 / f;
+	}
+	return ssum;
+}
+
+
+ijk_inl dbl ijkTrigCosTaylor_rad_dbl(dbl const x)
+{
+	size const iterations = 16;
+	dbl x2 = dbl_one, csum = x2;
+	dbl degree = dbl_zero, f = dbl_one;
+	uindex i;
+	for (i = iterations; i > 0; --i)
+	{
+		// do cos accumulation
+		f *= -(degree += dbl_one);
+		f *= +(degree += dbl_one);
+		x2 *= x * x;
+		csum += x2 / f;
+	}
+	return csum;
+}
+
+
+ijk_inl dbl ijkTrigTanTaylor_rad_dbl(dbl const x)
+{
+	dbl sinx[1], cosx[1];
+	return ijkTrigTanSinCosTaylor_rad_dbl(x, sinx, cosx);
+}
+
+
+ijk_inl dbl ijkTrigCscTaylor_rad_dbl(dbl const x)
+{
+	return ijk_recip_dbl(ijkTrigSinTaylor_rad_dbl(x));
+}
+
+
+ijk_inl dbl ijkTrigSecTaylor_rad_dbl(dbl const x)
+{
+	return ijk_recip_dbl(ijkTrigCosTaylor_rad_dbl(x));
+}
+
+
+ijk_inl dbl ijkTrigCotTaylor_rad_dbl(dbl const x)
+{
+	dbl sinx[1], cosx[1];
+	return ijkTrigCotSinCosTaylor_rad_dbl(x, sinx, cosx);
+}
+
+
+ijk_inl dbl ijkTrigSinCosTaylor_deg_dbl(dbl const x, dbl* const sinx_out, dbl* const cosx_out)
+{
+	ijkTrigSinCosTaylor_rad_dbl(ijk_deg2rad_dbl(x), sinx_out, cosx_out);
+	return x;
+}
+
+
+ijk_inl dbl ijkTrigTanSinCosTaylor_deg_dbl(dbl const x, dbl* const sinx_out, dbl* const cosx_out)
+{
+	return ijkTrigTanSinCosTaylor_rad_dbl(ijk_deg2rad_dbl(x), sinx_out, cosx_out);
+}
+
+
+ijk_inl dbl ijkTrigCotSinCosTaylor_deg_dbl(dbl const x, dbl* const sinx_out, dbl* const cosx_out)
+{
+	return ijkTrigCotSinCosTaylor_rad_dbl(ijk_deg2rad_dbl(x), sinx_out, cosx_out);
+}
+
+
+ijk_inl dbl ijkTrigSinTaylor_deg_dbl(dbl const x)
+{
+	return ijkTrigSinTaylor_rad_dbl(ijk_deg2rad_dbl(x));
+}
+
+
+ijk_inl dbl ijkTrigCosTaylor_deg_dbl(dbl const x)
+{
+	return ijkTrigCosTaylor_rad_dbl(ijk_deg2rad_dbl(x));
+}
+
+
+ijk_inl dbl ijkTrigTanTaylor_deg_dbl(dbl const x)
+{
+	return ijkTrigTanTaylor_rad_dbl(ijk_deg2rad_dbl(x));
+}
+
+
+ijk_inl dbl ijkTrigCscTaylor_deg_dbl(dbl const x)
+{
+	return ijkTrigCscTaylor_rad_dbl(ijk_deg2rad_dbl(x));
+}
+
+
+ijk_inl dbl ijkTrigSecTaylor_deg_dbl(dbl const x)
+{
+	return ijkTrigSecTaylor_rad_dbl(ijk_deg2rad_dbl(x));
+}
+
+
+ijk_inl dbl ijkTrigCotTaylor_deg_dbl(dbl const x)
+{
+	return ijkTrigCotTaylor_rad_dbl(ijk_deg2rad_dbl(x));
+}
+
+
+ijk_inl dbl ijkTrigPointToEdgeRatio_dbl(dbl const azimuth, size const numSlices)
+{
+	return ijkTrigCos_deg_dbl(dbl_half * azimuth / (dbl)numSlices);
+}
+
+
+ijk_inl dbl ijkTrigEdgeToPointRatio_dbl(dbl const azimuth, size const numSlices)
+{
+	return ijk_recip_dbl(ijkTrigPointToEdgeRatio_dbl(azimuth, numSlices));
+}
+
+
+ijk_inl dbl ijkTrigPointToFaceRatio_dbl(dbl const azimuth, dbl const elevation, size const numSlices, size const numStacks)
+{
+	return (ijkTrigPointToEdgeRatio_dbl(azimuth, numSlices) * ijkTrigPointToEdgeRatio_dbl(elevation, numStacks));
+}
+
+
+ijk_inl dbl ijkTrigFaceToPointRatio_dbl(dbl const azimuth, dbl const elevation, size const numSlices, size const numStacks)
+{
+	return ijk_recip_dbl(ijkTrigPointToFaceRatio_dbl(azimuth, elevation, numSlices, numStacks));
+}
 
 
 //-----------------------------------------------------------------------------
