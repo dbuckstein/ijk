@@ -173,17 +173,17 @@ ijk_inl flt ijkTrigAsin_deg_flt(flt const x)
 {
 	ijk_ext flt const* const ijkTrigTableParam_flt, * const ijkTrigTableSin_flt;
 	ijk_ext index const* const ijkTrigTableIndexAsin_flt;
-	return +ijkInterpSampleTableInc_flt(ijkTrigTableSin_flt, ijkTrigTableParam_flt,
-		*(ijkTrigTableIndexAsin_flt + (index)((x + flt_one) * (flt)512)), 1, x);
+	return (flt_zero + ijkInterpSampleTableInc_flt(ijkTrigTableSin_flt, ijkTrigTableParam_flt,
+		*(ijkTrigTableIndexAsin_flt + (index)((x + 1.0) * 512.0)), 1, x));
 }
 
 
 ijk_inl flt ijkTrigAcos_deg_flt(flt const x)
 {
-	ijk_ext flt const* const ijkTrigTableParam_flt, * const ijkTrigTableCos_flt;
-	ijk_ext index const* const ijkTrigTableIndexAcos_flt;
-	return -ijkInterpSampleTableInc_flt(ijkTrigTableCos_flt, ijkTrigTableParam_flt,
-		*(ijkTrigTableIndexAcos_flt + (index)((x + flt_one) * (flt)512)), 1, x);
+	ijk_ext flt const* const ijkTrigTableParam_flt, * const ijkTrigTableSin_flt;
+	ijk_ext index const* const ijkTrigTableIndexAsin_flt;
+	return (flt_90 - ijkInterpSampleTableInc_flt(ijkTrigTableSin_flt, ijkTrigTableParam_flt,
+		*(ijkTrigTableIndexAsin_flt + (index)((x + 1.0) * 512.0)), 1, x));
 }
 
 
@@ -453,7 +453,7 @@ ijk_inl flt ijkTrigCosTaylor_rad_flt(flt const x)
 ijk_inl flt ijkTrigTanTaylor_rad_flt(flt const x)
 {
 	flt sinx[1], cosx[1];
-	return ijkTrigCotSinCosTaylor_rad_flt(x, sinx, cosx);
+	return ijkTrigTanSinCosTaylor_rad_flt(x, sinx, cosx);
 }
 
 
