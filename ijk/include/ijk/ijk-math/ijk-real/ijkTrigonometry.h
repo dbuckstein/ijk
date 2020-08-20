@@ -60,7 +60,7 @@ size ijkTrigGetTableSize_flt(size const subdivisionsPerDegree);
 //						+ 90 degrees * 1 set [cosine])
 //						* (samples per degree) + 4 padding)
 //					+ SZ_index * (
-//						(720 indices * 2 sets[arcsine, arccosine])
+//						(1024 indices * 2 sets[arcsine, arccosine])
 //						+ 4 padding)
 //		param subdivisionsPerDegree: number of samples per degree
 //			valid: non-zero
@@ -81,7 +81,7 @@ size ijkTrigSetTable_flt(flt const table[], size const tableSize_bytes, size con
 //						+ 90 degrees * 1 set [cosine])
 //						* (samples per degree) + 4 padding)
 //					+ SZ_index * (
-//						(720 indices * 2 sets[arcsine, arccosine])
+//						(1024 indices * 2 sets[arcsine, arccosine])
 //						+ 4 padding)
 //		param subdivisionsPerDegree: number of samples per degree
 //			valid: non-zero

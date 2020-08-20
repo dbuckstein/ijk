@@ -371,7 +371,83 @@ void ijkMathTestInterpolation()
 
 void ijkMathTestTrigonometry()
 {
+	size const subdivisionsPerDegree = 4;
 
+	size tableSz_flt;
+	flt table_flt[10240];
+	flt y_flt, y_sin_flt, x_cos_flt;
+	flt const x_deg_flt = flt_60, x_inv_flt = flt_half;
+	flt const x_rad_flt = flt_pi_3;
+
+//	size tableSz_dbl;
+//	dbl table_dbl[10000];
+//	dbl y_dbl, y_sin_dbl, x_cos_dbl;
+//	dbl const x_deg_dbl = dbl_60, x_inv_dbl = dbl_half;
+//	dbl const x_rad_dbl = dbl_pi_3;
+
+	tableSz_flt = ijkTrigGetTableSize_flt(subdivisionsPerDegree);
+	tableSz_flt = ijkTrigSetTable_flt(table_flt, sizeof(table_flt), subdivisionsPerDegree);
+	tableSz_flt = ijkTrigInit_flt(table_flt, sizeof(table_flt), subdivisionsPerDegree);
+	y_flt = ijkTrigDeg2Rad_flt(x_deg_flt);
+	y_flt = ijkTrigRad2Deg_flt(x_rad_flt);
+	y_flt = ijkTrigValidateDegree_flt((flt)780);
+	y_flt = ijkTrigValidateRadian_flt(flt_2pi + flt_pi_3);
+	y_flt = ijkTrigValidateInverse_flt(flt_two);
+	y_flt = ijkTrigValidateInverseRecip_flt(flt_half);
+	y_flt = ijkTrigSinCos_deg_flt(x_deg_flt, &y_sin_flt, &x_cos_flt);
+	y_flt = ijkTrigTanSinCos_deg_flt(x_deg_flt, &y_sin_flt, &x_cos_flt);
+	y_flt = ijkTrigCotSinCos_deg_flt(x_deg_flt, &y_sin_flt, &x_cos_flt);
+	y_flt = ijkTrigSin_deg_flt(x_deg_flt);
+	y_flt = ijkTrigCos_deg_flt(x_deg_flt);
+	y_flt = ijkTrigTan_deg_flt(x_deg_flt);
+	y_flt = ijkTrigCsc_deg_flt(x_deg_flt);
+	y_flt = ijkTrigSec_deg_flt(x_deg_flt);
+	y_flt = ijkTrigCot_deg_flt(x_deg_flt);
+	y_flt = ijkTrigAsin_deg_flt(x_inv_flt);
+	y_flt = ijkTrigAcos_deg_flt(x_inv_flt);
+	y_flt = ijkTrigAtan_deg_flt(x_inv_flt);
+	y_flt = ijkTrigAcsc_deg_flt(x_inv_flt);
+	y_flt = ijkTrigAsec_deg_flt(x_inv_flt);
+	y_flt = ijkTrigAcot_deg_flt(x_inv_flt);
+	y_flt = ijkTrigAtan2_deg_flt(flt_one, flt_one);
+	y_flt = ijkTrigSinCos_rad_flt(x_rad_flt, &y_sin_flt, &x_cos_flt);
+	y_flt = ijkTrigTanSinCos_rad_flt(x_rad_flt, &y_sin_flt, &x_cos_flt);
+	y_flt = ijkTrigCotSinCos_rad_flt(x_rad_flt, &y_sin_flt, &x_cos_flt);
+	y_flt = ijkTrigSin_rad_flt(x_rad_flt);
+	y_flt = ijkTrigCos_rad_flt(x_rad_flt);
+	y_flt = ijkTrigTan_rad_flt(x_rad_flt);
+	y_flt = ijkTrigCsc_rad_flt(x_rad_flt);
+	y_flt = ijkTrigSec_rad_flt(x_rad_flt);
+	y_flt = ijkTrigCot_rad_flt(x_rad_flt);
+	y_flt = ijkTrigAsin_rad_flt(x_inv_flt);
+	y_flt = ijkTrigAcos_rad_flt(x_inv_flt);
+	y_flt = ijkTrigAtan_rad_flt(x_inv_flt);
+	y_flt = ijkTrigAcsc_rad_flt(x_inv_flt);
+	y_flt = ijkTrigAsec_rad_flt(x_inv_flt);
+	y_flt = ijkTrigAcot_rad_flt(x_inv_flt);
+	y_flt = ijkTrigAtan2_rad_flt(flt_one, flt_one);
+	y_flt = ijkTrigSinCosTaylor_rad_flt(x_rad_flt, &y_sin_flt, &x_cos_flt);
+	y_flt = ijkTrigTanSinCosTaylor_rad_flt(x_rad_flt, &y_sin_flt, &x_cos_flt);
+	y_flt = ijkTrigCotSinCosTaylor_rad_flt(x_rad_flt, &y_sin_flt, &x_cos_flt);
+	y_flt = ijkTrigSinTaylor_rad_flt(x_rad_flt);
+	y_flt = ijkTrigCosTaylor_rad_flt(x_rad_flt);
+	y_flt = ijkTrigTanTaylor_rad_flt(x_rad_flt);
+	y_flt = ijkTrigCscTaylor_rad_flt(x_rad_flt);
+	y_flt = ijkTrigSecTaylor_rad_flt(x_rad_flt);
+	y_flt = ijkTrigCotTaylor_rad_flt(x_rad_flt);
+	y_flt = ijkTrigSinCosTaylor_deg_flt(x_deg_flt, &y_sin_flt, &x_cos_flt);
+	y_flt = ijkTrigTanSinCosTaylor_deg_flt(x_deg_flt, &y_sin_flt, &x_cos_flt);
+	y_flt = ijkTrigCotSinCosTaylor_deg_flt(x_deg_flt, &y_sin_flt, &x_cos_flt);
+	y_flt = ijkTrigSinTaylor_deg_flt(x_deg_flt);
+	y_flt = ijkTrigCosTaylor_deg_flt(x_deg_flt);
+	y_flt = ijkTrigTanTaylor_deg_flt(x_deg_flt);
+	y_flt = ijkTrigCscTaylor_deg_flt(x_deg_flt);
+	y_flt = ijkTrigSecTaylor_deg_flt(x_deg_flt);
+	y_flt = ijkTrigCotTaylor_deg_flt(x_deg_flt);
+	y_flt = ijkTrigPointToEdgeRatio_flt(flt_360, 24);
+	y_flt = ijkTrigEdgeToPointRatio_flt(flt_360, 24);
+	y_flt = ijkTrigPointToFaceRatio_flt(flt_360, flt_180, 24, 12);
+	y_flt = ijkTrigFaceToPointRatio_flt(flt_360, flt_180, 24, 12);
 }
 
 
