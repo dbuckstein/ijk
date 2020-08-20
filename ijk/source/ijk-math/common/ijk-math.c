@@ -372,12 +372,12 @@ void ijkMathTestInterpolation()
 void ijkMathTestTrigonometry()
 {
 	typedef union {
-		flt table_flt[8192];
+		flt table[6144 + 256 * szindex];
 		struct {
 			// ((720 * 2 + 90 * 1) * subdivisionsPerDegree + 4)
-			flt const table_flt_param[(720 * 1) * 4 + 2];
-			flt const table_flt_value[(720 * 1 + 90 * 1) * 4 + 2];
-			index const table_flt_index[(1024 * 1) + 2];
+			flt const table_param[(720 * 1) * 4 + 2];
+			flt const table_value[(720 * 1 + 90 * 1) * 4 + 2];
+			index const table_index[(1024 * 1) + 2];
 		};
 	} TABLE_FLT;
 	TABLE_FLT t_flt;
@@ -387,12 +387,12 @@ void ijkMathTestTrigonometry()
 	flt const x_rad_flt = flt_pi_3;
 
 	typedef union {
-		dbl table_dbl[8192];
+		dbl table[6144 + 256 * szindex];
 		struct {
 			// ((720 * 2 + 90 * 1) * subdivisionsPerDegree + 4)
-			dbl const table_dbl_param[(720 * 1) * 4 + 2];
-			dbl const table_dbl_value[(720 * 1 + 90 * 1) * 4 + 2];
-			index const table_dbl_index[(2048 * 1) + 4];
+			dbl const table_param[(720 * 1) * 4 + 2];
+			dbl const table_value[(720 * 1 + 90 * 1) * 4 + 2];
+			index const table_index[(2048 * 1) + 4];
 		};
 	} TABLE_dbl;
 	TABLE_dbl t_dbl;
@@ -402,7 +402,7 @@ void ijkMathTestTrigonometry()
 	dbl const x_rad_dbl = dbl_pi_3;
 
 	typedef union {
-		real table[8192];
+		real table[6144 + 256 * szindex];
 		struct {
 			// ((720 * 2 + 90 * 1) * subdivisionsPerDegree + 4)
 			real const table_param[(720 * 1) * 4 + 2];
@@ -419,12 +419,12 @@ void ijkMathTestTrigonometry()
 	size const subdivisionsPerDegree = 4;
 
 	tableSz_flt = ijkTrigGetTableSize_flt(subdivisionsPerDegree);
-	tableSz_flt = ijkTrigSetTable_flt(t_flt.table_flt, sizeof(t_flt.table_flt), subdivisionsPerDegree);
-	tableSz_flt = ijkTrigInit_flt(t_flt.table_flt, sizeof(t_flt.table_flt), subdivisionsPerDegree);
+	tableSz_flt = ijkTrigSetTable_flt(t_flt.table, sizeof(t_flt.table), subdivisionsPerDegree);
+	tableSz_flt = ijkTrigInit_flt(t_flt.table, sizeof(t_flt.table), subdivisionsPerDegree);
 
 	tableSz_dbl = ijkTrigGetTableSize_dbl(subdivisionsPerDegree);
-	tableSz_dbl = ijkTrigSetTable_dbl(t_dbl.table_dbl, sizeof(t_dbl.table_dbl), subdivisionsPerDegree);
-	tableSz_dbl = ijkTrigInit_dbl(t_dbl.table_dbl, sizeof(t_dbl.table_dbl), subdivisionsPerDegree);
+	tableSz_dbl = ijkTrigSetTable_dbl(t_dbl.table, sizeof(t_dbl.table), subdivisionsPerDegree);
+	tableSz_dbl = ijkTrigInit_dbl(t_dbl.table, sizeof(t_dbl.table), subdivisionsPerDegree);
 
 	tableSz = ijkTrigGetTableSize(subdivisionsPerDegree);
 	tableSz = ijkTrigSetTable(t.table, sizeof(t.table), subdivisionsPerDegree);

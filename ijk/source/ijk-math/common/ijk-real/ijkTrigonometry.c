@@ -111,19 +111,21 @@ size ijkTrigInit_flt(flt table_out[], size const tableSize_bytes, size const sub
 		index* tableIndexAsin_flt = (index*)ijkTrigTableIndexAsin_flt;
 		kptr const table_end = ijkTrigTableIndexAsin_flt + 1024 + 2;
 		kptr const table_end_chksum = (ptr)((pbyte)table_out + sz);
-		size const numSubdivisions180 = ijkTrigSubdivisionsPerDegree_flt * 180, numSubdivisions360 = numSubdivisions180 * 2, numSubdivisions720 = numSubdivisions360 * 2;
+		index const numSubdivisions180 = ijkTrigSubdivisionsPerDegree_flt * 180, numSubdivisions360 = numSubdivisions180 * 2,
+			numSubdivisions540 = numSubdivisions360 + numSubdivisions180, numSubdivisions720 = numSubdivisions360 * 2;
+
 		uindex i, j;
 		index x0;
 		dbl c, s;
 		flt x, y, dx;
 
 		// store parameters as well as sine/cosine values
-		for (dx = ijkTrigSubdivisionsPerDegreeInv_flt,
+		for (dx = ijkTrigSubdivisionsPerDegreeInv_flt, tableParam_flt += numSubdivisions360,
 			x0 = 0; x0 < +180; ++x0)
 			for (i = 0; i < ijkTrigSubdivisionsPerDegree_flt; ++i, ++tableParam_flt, ++tableSin_flt)
 			{
 				// calculate parameter
-				x = *(tableParam_flt) = *(tableParam_flt + numSubdivisions360) = (flt)x0 + (flt)i * dx;
+				x = *(tableParam_flt) = (flt)x0 + (flt)i * dx;
 
 				// calculate most accurate trig result
 				c = ijkTrigCosTaylor_deg_dbl(x - dbl_90);
@@ -131,21 +133,22 @@ size ijkTrigInit_flt(flt table_out[], size const tableSize_bytes, size const sub
 				y = *(tableSin_flt) = *(tableSin_flt + numSubdivisions360) = (flt)((c + s) * dbl_half);
 
 				// calculate parameter and value offset by 180 using identity
-				x = *(tableParam_flt + numSubdivisions180) = (x + flt_180);
-				y = *(tableSin_flt + numSubdivisions180) = (-y);
+				*(tableParam_flt - numSubdivisions360) = (x - flt_360);
+				*(tableParam_flt - numSubdivisions180) = (x - flt_180);
+				*(tableParam_flt + numSubdivisions180) = (x + flt_180);
+				y = *(tableSin_flt + numSubdivisions180) = *(tableSin_flt + numSubdivisions540) = (-y);
 			}
 
 		// correct rational values
-		tableParam_flt = (flt*)ijkTrigTableParam_flt;
 		tableSin_flt = (flt*)ijkTrigTableSin_flt;
-		y = *(tableSin_flt) = *(tableSin_flt + numSubdivisions180) = flt_zero;
+		y = *(tableSin_flt) = *(tableSin_flt + numSubdivisions180) = *(tableSin_flt + numSubdivisions360) = *(tableSin_flt + numSubdivisions540) = flt_zero;
 		//y = *(tableSin_flt + ijkTrigSubdivisionsPerDegree_flt * 90) = +flt_one;
 		//y = *(tableSin_flt + ijkTrigSubdivisionsPerDegree_flt * 30) = *(tableSin_flt + ijkTrigSubdivisionsPerDegree_flt * 150) = +flt_half;
 		//y = *(tableSin_flt + ijkTrigSubdivisionsPerDegree_flt * 210) = *(tableSin_flt + ijkTrigSubdivisionsPerDegree_flt * 330) = -flt_half;
 		//y = *(tableSin_flt + ijkTrigSubdivisionsPerDegree_flt * 270) = -flt_one;
 
 		// copy additional 90 degrees of data for cosine
-		for (tableParam_flt += numSubdivisions720, tableSin_flt += numSubdivisions720,
+		for (tableParam_flt += numSubdivisions180, tableSin_flt += numSubdivisions720,
 			x0 = +360; x0 < +450; ++x0)
 			for (i = 0; i < ijkTrigSubdivisionsPerDegree_flt; ++i, ++tableSin_flt)
 				y = *(tableSin_flt) = *(tableSin_flt - numSubdivisions720);
@@ -269,19 +272,21 @@ size ijkTrigInit_dbl(dbl table_out[], size const tableSize_bytes, size const sub
 		index* tableIndexAsin_dbl = (index*)ijkTrigTableIndexAsin_dbl;
 		kptr const table_end = ijkTrigTableIndexAsin_dbl + 2048 + 4;
 		kptr const table_end_chksum = (ptr)((pbyte)table_out + sz);
-		size const numSubdivisions180 = ijkTrigSubdivisionsPerDegree_dbl * 180, numSubdivisions360 = numSubdivisions180 * 2, numSubdivisions720 = numSubdivisions360 * 2;
+		index const numSubdivisions180 = ijkTrigSubdivisionsPerDegree_dbl * 180, numSubdivisions360 = numSubdivisions180 * 2,
+			numSubdivisions540 = numSubdivisions360 + numSubdivisions180, numSubdivisions720 = numSubdivisions360 * 2;
+
 		uindex i, j;
 		index x0;
 		dbl c, s;
 		dbl x, y, dx;
 
 		// store parameters as well as sine/cosine values
-		for (dx = ijkTrigSubdivisionsPerDegreeInv_dbl,
+		for (dx = ijkTrigSubdivisionsPerDegreeInv_dbl, tableParam_dbl += numSubdivisions360,
 			x0 = 0; x0 < +180; ++x0)
 			for (i = 0; i < ijkTrigSubdivisionsPerDegree_dbl; ++i, ++tableParam_dbl, ++tableSin_dbl)
 			{
 				// calculate parameter
-				x = *(tableParam_dbl) = *(tableParam_dbl + numSubdivisions360) = (dbl)x0 + (dbl)i * dx;
+				x = *(tableParam_dbl) = (dbl)x0 + (dbl)i * dx;
 
 				// calculate most accurate trig result
 				c = ijkTrigCosTaylor_deg_dbl(x - dbl_90);
@@ -289,21 +294,22 @@ size ijkTrigInit_dbl(dbl table_out[], size const tableSize_bytes, size const sub
 				y = *(tableSin_dbl) = *(tableSin_dbl + numSubdivisions360) = ((c + s) * dbl_half);
 
 				// calculate parameter and value offset by 180 using identity
-				x = *(tableParam_dbl + numSubdivisions180) = (x + dbl_180);
-				y = *(tableSin_dbl + numSubdivisions180) = (-y);
+				*(tableParam_dbl - numSubdivisions360) = (x - dbl_360);
+				*(tableParam_dbl - numSubdivisions180) = (x - dbl_180);
+				*(tableParam_dbl + numSubdivisions180) = (x + dbl_180);
+				y = *(tableSin_dbl + numSubdivisions180) = *(tableSin_dbl + numSubdivisions540) = (-y);
 			}
 
 		// correct rational values
-		tableParam_dbl = (dbl*)ijkTrigTableParam_dbl;
 		tableSin_dbl = (dbl*)ijkTrigTableSin_dbl;
-		y = *(tableSin_dbl) = *(tableSin_dbl + numSubdivisions180) = dbl_zero;
+		y = *(tableSin_dbl) = *(tableSin_dbl + numSubdivisions180) = *(tableSin_dbl + numSubdivisions360) = *(tableSin_dbl + numSubdivisions540) = dbl_zero;
 		//y = *(tableSin_dbl + ijkTrigSubdivisionsPerDegree_dbl * 90) = +dbl_one;
 		//y = *(tableSin_dbl + ijkTrigSubdivisionsPerDegree_dbl * 30) = *(tableSin_dbl + ijkTrigSubdivisionsPerDegree_dbl * 150) = +dbl_half;
 		//y = *(tableSin_dbl + ijkTrigSubdivisionsPerDegree_dbl * 210) = *(tableSin_dbl + ijkTrigSubdivisionsPerDegree_dbl * 330) = -dbl_half;
 		//y = *(tableSin_dbl + ijkTrigSubdivisionsPerDegree_dbl * 270) = -dbl_one;
 
 		// copy additional 90 degrees of data for cosine
-		for (tableParam_dbl += numSubdivisions720, tableSin_dbl += numSubdivisions720,
+		for (tableParam_dbl += numSubdivisions180, tableSin_dbl += numSubdivisions720,
 			x0 = +360; x0 < +450; ++x0)
 			for (i = 0; i < ijkTrigSubdivisionsPerDegree_dbl; ++i, ++tableSin_dbl)
 				y = *(tableSin_dbl) = *(tableSin_dbl - numSubdivisions720);

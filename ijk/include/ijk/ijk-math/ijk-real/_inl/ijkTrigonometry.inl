@@ -173,17 +173,14 @@ ijk_inl flt ijkTrigAsin_deg_flt(flt const x)
 {
 	ijk_ext flt const* const ijkTrigTableParam_flt, * const ijkTrigTableSin_flt;
 	ijk_ext index const* const ijkTrigTableIndexAsin_flt;
-	return (flt_zero + ijkInterpSampleTableInc_flt(ijkTrigTableSin_flt, ijkTrigTableParam_flt,
-		*(ijkTrigTableIndexAsin_flt + (index)((x + 1.0) * 512.0)), 1, x));
+	return ijkInterpSampleTableInc_flt(ijkTrigTableSin_flt, ijkTrigTableParam_flt,
+		*(ijkTrigTableIndexAsin_flt + (index)((x + 1.0) * 512.0)), 1, x);
 }
 
 
 ijk_inl flt ijkTrigAcos_deg_flt(flt const x)
 {
-	ijk_ext flt const* const ijkTrigTableParam_flt, * const ijkTrigTableSin_flt;
-	ijk_ext index const* const ijkTrigTableIndexAsin_flt;
-	return (flt_90 - ijkInterpSampleTableInc_flt(ijkTrigTableSin_flt, ijkTrigTableParam_flt,
-		*(ijkTrigTableIndexAsin_flt + (index)((x + 1.0) * 512.0)), 1, x));
+	return (flt_90 - ijkTrigAsin_deg_flt(x));
 }
 
 
@@ -697,17 +694,14 @@ ijk_inl dbl ijkTrigAsin_deg_dbl(dbl const x)
 {
 	ijk_ext dbl const* const ijkTrigTableParam_dbl, * const ijkTrigTableSin_dbl;
 	ijk_ext index const* const ijkTrigTableIndexAsin_dbl;
-	return (dbl_zero + ijkInterpSampleTableInc_dbl(ijkTrigTableSin_dbl, ijkTrigTableParam_dbl,
-		*(ijkTrigTableIndexAsin_dbl + (index)((x + 1.0) * 1024.0)), 1, x));
+	return ijkInterpSampleTableInc_dbl(ijkTrigTableSin_dbl, ijkTrigTableParam_dbl,
+		*(ijkTrigTableIndexAsin_dbl + (index)((x + 1.0) * 1024.0)), 1, x);
 }
 
 
 ijk_inl dbl ijkTrigAcos_deg_dbl(dbl const x)
 {
-	ijk_ext dbl const* const ijkTrigTableParam_dbl, * const ijkTrigTableSin_dbl;
-	ijk_ext index const* const ijkTrigTableIndexAsin_dbl;
-	return (dbl_90 - ijkInterpSampleTableInc_dbl(ijkTrigTableSin_dbl, ijkTrigTableParam_dbl,
-		*(ijkTrigTableIndexAsin_dbl + (index)((x + 1.0) * 1024.0)), 1, x));
+	return (dbl_90 - ijkTrigAsin_deg_dbl(x));
 }
 
 
