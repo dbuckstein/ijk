@@ -52,6 +52,14 @@ extern "C" {
 //	Real number type.
 typedef ijk_real					real;
 
+// szreal
+//	Size of real type.
+#define szreal						szb(real)
+
+// szrealbr
+//	Byte ratio of real type size to single-precision float size.
+#define szrealbr					(szreal / szflt)
+
 // ijk_x2r
 //	Cast to real.
 //		param x: value to cast

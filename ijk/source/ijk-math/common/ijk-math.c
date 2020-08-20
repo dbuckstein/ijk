@@ -371,8 +371,6 @@ void ijkMathTestInterpolation()
 
 void ijkMathTestTrigonometry()
 {
-	size const subdivisionsPerDegree = 4;
-
 	typedef union {
 		flt table_flt[8192];
 		struct {
@@ -382,15 +380,55 @@ void ijkMathTestTrigonometry()
 			index const table_flt_index[(1024 * 1) + 2];
 		};
 	} TABLE_FLT;
-	TABLE_FLT t;
+	TABLE_FLT t_flt;
 	size tableSz_flt;
 	flt y_flt, y_sin_flt, x_cos_flt;
 	flt const x_deg_flt = flt_60, x_inv_flt = flt_half, x_invrcp_flt = flt_two;
 	flt const x_rad_flt = flt_pi_3;
 
+	typedef union {
+		dbl table_dbl[8192];
+		struct {
+			// ((720 * 2 + 90 * 1) * subdivisionsPerDegree + 4)
+			dbl const table_dbl_param[(720 * 1) * 4 + 2];
+			dbl const table_dbl_value[(720 * 1 + 90 * 1) * 4 + 2];
+			index const table_dbl_index[(2048 * 1) + 4];
+		};
+	} TABLE_dbl;
+	TABLE_dbl t_dbl;
+	size tableSz_dbl;
+	dbl y_dbl, y_sin_dbl, x_cos_dbl;
+	dbl const x_deg_dbl = dbl_60, x_inv_dbl = dbl_half, x_invrcp_dbl = dbl_two;
+	dbl const x_rad_dbl = dbl_pi_3;
+
+	typedef union {
+		real table[8192];
+		struct {
+			// ((720 * 2 + 90 * 1) * subdivisionsPerDegree + 4)
+			real const table_param[(720 * 1) * 4 + 2];
+			real const table_value[(720 * 1 + 90 * 1) * 4 + 2];
+			index const table_index[((1024 * 1) + 2) * szrealbr];
+		};
+	} TABLE;
+	TABLE t;
+	size tableSz;
+	real y, y_sin, x_cos;
+	real const x_deg = real_60, x_inv = real_half, x_invrcp = real_two;
+	real const x_rad = real_pi_3;
+
+	size const subdivisionsPerDegree = 4;
+
 	tableSz_flt = ijkTrigGetTableSize_flt(subdivisionsPerDegree);
-	tableSz_flt = ijkTrigSetTable_flt(t.table_flt, sizeof(t.table_flt), subdivisionsPerDegree);
-	tableSz_flt = ijkTrigInit_flt(t.table_flt, sizeof(t.table_flt), subdivisionsPerDegree);
+	tableSz_flt = ijkTrigSetTable_flt(t_flt.table_flt, sizeof(t_flt.table_flt), subdivisionsPerDegree);
+	tableSz_flt = ijkTrigInit_flt(t_flt.table_flt, sizeof(t_flt.table_flt), subdivisionsPerDegree);
+
+	tableSz_dbl = ijkTrigGetTableSize_dbl(subdivisionsPerDegree);
+	tableSz_dbl = ijkTrigSetTable_dbl(t_dbl.table_dbl, sizeof(t_dbl.table_dbl), subdivisionsPerDegree);
+	tableSz_dbl = ijkTrigInit_dbl(t_dbl.table_dbl, sizeof(t_dbl.table_dbl), subdivisionsPerDegree);
+
+	tableSz = ijkTrigGetTableSize(subdivisionsPerDegree);
+	tableSz = ijkTrigSetTable(t.table, sizeof(t.table), subdivisionsPerDegree);
+	tableSz = ijkTrigInit(t.table, sizeof(t.table), subdivisionsPerDegree);
 
 	y_flt = ijkTrigDeg2Rad_flt(+x_deg_flt);	// +1.047197 (pi/3)
 	y_flt = ijkTrigDeg2Rad_flt(-x_deg_flt);	// -1.047197 (pi/3)
@@ -511,6 +549,246 @@ void ijkMathTestTrigonometry()
 	y_flt = ijkTrigEdgeToPointRatio_flt(flt_360, 24);	// 1.008629
 	y_flt = ijkTrigPointToFaceRatio_flt(flt_360, flt_180, 24, 18);	// 0.987672
 	y_flt = ijkTrigFaceToPointRatio_flt(flt_360, flt_180, 24, 18);	// 1.012482
+
+	y_dbl = ijkTrigDeg2Rad_dbl(+x_deg_dbl);	// +1.047197 (pi/3)
+	y_dbl = ijkTrigDeg2Rad_dbl(-x_deg_dbl);	// -1.047197 (pi/3)
+	y_dbl = ijkTrigRad2Deg_dbl(+x_rad_dbl);	// +60
+	y_dbl = ijkTrigRad2Deg_dbl(-x_rad_dbl);	// -60
+	y_dbl = ijkTrigValidateDegree_dbl(+(dbl)780);	// +60
+	y_dbl = ijkTrigValidateDegree_dbl(-(dbl)780);	// -60
+	y_dbl = ijkTrigValidateRadian_dbl(+dbl_4pi + dbl_pi_3);	// +1.047197 (pi/3)
+	y_dbl = ijkTrigValidateRadian_dbl(-dbl_4pi - dbl_pi_3);	// -1.047197 (pi/3)
+	y_dbl = ijkTrigValidateInverse_dbl(+x_invrcp_dbl);	// +1
+	y_dbl = ijkTrigValidateInverse_dbl(-x_invrcp_dbl);	// -1
+	y_dbl = ijkTrigValidateInverseRecip_dbl(+x_inv_dbl);	// +1
+	y_dbl = ijkTrigValidateInverseRecip_dbl(-x_inv_dbl);	// -1
+
+	y_dbl = ijkTrigSinCos_deg_dbl(x_deg_dbl, &y_sin_dbl, &x_cos_dbl);	// 60, 0.866, 0.5
+	y_dbl = ijkTrigTanSinCos_deg_dbl(x_deg_dbl, &y_sin_dbl, &x_cos_dbl);	// 1.732, 0.866, 0.5
+	y_dbl = ijkTrigCotSinCos_deg_dbl(x_deg_dbl, &y_sin_dbl, &x_cos_dbl);	// 0.577, 0.866, 0.5
+	y_dbl = ijkTrigSin_deg_dbl(+x_deg_dbl);	// +0.866
+	y_dbl = ijkTrigSin_deg_dbl(-x_deg_dbl);	// -0.866
+	y_dbl = ijkTrigCos_deg_dbl(+x_deg_dbl);	// +0.5
+	y_dbl = ijkTrigCos_deg_dbl(-x_deg_dbl);	// +0.5
+	y_dbl = ijkTrigTan_deg_dbl(+x_deg_dbl);	// +1.732
+	y_dbl = ijkTrigTan_deg_dbl(-x_deg_dbl);	// -1.732
+	y_dbl = ijkTrigCsc_deg_dbl(+x_deg_dbl);	// +1.1547
+	y_dbl = ijkTrigCsc_deg_dbl(-x_deg_dbl);	// -1.1547
+	y_dbl = ijkTrigSec_deg_dbl(+x_deg_dbl);	// +2
+	y_dbl = ijkTrigSec_deg_dbl(-x_deg_dbl);	// +2
+	y_dbl = ijkTrigCot_deg_dbl(+x_deg_dbl);	// +0.577
+	y_dbl = ijkTrigCot_deg_dbl(-x_deg_dbl);	// -0.577
+	y_dbl = ijkTrigAsin_deg_dbl(+x_inv_dbl);	// +30
+	y_dbl = ijkTrigAsin_deg_dbl(-x_inv_dbl);	// -30
+	y_dbl = ijkTrigAcos_deg_dbl(+x_inv_dbl);	// +60
+	y_dbl = ijkTrigAcos_deg_dbl(-x_inv_dbl);	// +120
+	y_dbl = ijkTrigAtan_deg_dbl(+x_inv_dbl);	// +26.565
+	y_dbl = ijkTrigAtan_deg_dbl(-x_inv_dbl);	// -26.565
+	y_dbl = ijkTrigAcsc_deg_dbl(+x_invrcp_dbl);	// +30
+	y_dbl = ijkTrigAcsc_deg_dbl(-x_invrcp_dbl);	// -30
+	y_dbl = ijkTrigAsec_deg_dbl(+x_invrcp_dbl);	// +60
+	y_dbl = ijkTrigAsec_deg_dbl(-x_invrcp_dbl);	// +120
+	y_dbl = ijkTrigAcot_deg_dbl(+x_invrcp_dbl);	// +26.565
+	y_dbl = ijkTrigAcot_deg_dbl(-x_invrcp_dbl);	// -26.565
+	y_dbl = ijkTrigAtan2_deg_dbl(+x_inv_dbl, +dbl_one);	// +26.565
+	y_dbl = ijkTrigAtan2_deg_dbl(-x_inv_dbl, +dbl_one);	// -26.565
+	y_dbl = ijkTrigAtan2_deg_dbl(+x_inv_dbl, -dbl_one);	// +153.435
+	y_dbl = ijkTrigAtan2_deg_dbl(-x_inv_dbl, -dbl_one);	// -153.435
+	y_dbl = ijkTrigAtan2_deg_dbl(+x_inv_dbl, dbl_zero);	// +90
+	y_dbl = ijkTrigAtan2_deg_dbl(-x_inv_dbl, dbl_zero);	// -90
+	y_dbl = ijkTrigAtan2_deg_dbl(dbl_zero, dbl_zero);	// 0 (undef)
+
+	y_dbl = ijkTrigSinCosTaylor_rad_dbl(x_rad_dbl, &y_sin_dbl, &x_cos_dbl);	// 1.047197 (pi/3), 0.866, 0.5
+	y_dbl = ijkTrigTanSinCosTaylor_rad_dbl(x_rad_dbl, &y_sin_dbl, &x_cos_dbl);	// 1.732, 0.866, 0.5
+	y_dbl = ijkTrigCotSinCosTaylor_rad_dbl(x_rad_dbl, &y_sin_dbl, &x_cos_dbl);	// 0.577, 0.866, 0.5
+	y_dbl = ijkTrigSinTaylor_rad_dbl(+x_rad_dbl);	// +0.866
+	y_dbl = ijkTrigSinTaylor_rad_dbl(-x_rad_dbl);	// -0.866
+	y_dbl = ijkTrigCosTaylor_rad_dbl(+x_rad_dbl);	// +0.5
+	y_dbl = ijkTrigCosTaylor_rad_dbl(-x_rad_dbl);	// +0.5
+	y_dbl = ijkTrigTanTaylor_rad_dbl(+x_rad_dbl);	// +1.732
+	y_dbl = ijkTrigTanTaylor_rad_dbl(-x_rad_dbl);	// -1.732
+	y_dbl = ijkTrigCscTaylor_rad_dbl(+x_rad_dbl);	// +1.1547
+	y_dbl = ijkTrigCscTaylor_rad_dbl(-x_rad_dbl);	// -1.1547
+	y_dbl = ijkTrigSecTaylor_rad_dbl(+x_rad_dbl);	// +2
+	y_dbl = ijkTrigSecTaylor_rad_dbl(-x_rad_dbl);	// +2
+	y_dbl = ijkTrigCotTaylor_rad_dbl(+x_rad_dbl);	// +0.577
+	y_dbl = ijkTrigCotTaylor_rad_dbl(-x_rad_dbl);	// -0.577
+
+	y_dbl = ijkTrigSinCos_rad_dbl(x_rad_dbl, &y_sin_dbl, &x_cos_dbl);	// 1.047197 (pi/3), 0.866, 0.5
+	y_dbl = ijkTrigTanSinCos_rad_dbl(x_rad_dbl, &y_sin_dbl, &x_cos_dbl);	// 1.732, 0.866, 0.5
+	y_dbl = ijkTrigCotSinCos_rad_dbl(x_rad_dbl, &y_sin_dbl, &x_cos_dbl);	// 0.577, 0.866, 0.5
+	y_dbl = ijkTrigSin_rad_dbl(+x_rad_dbl);	// +0.866
+	y_dbl = ijkTrigSin_rad_dbl(-x_rad_dbl);	// -0.866
+	y_dbl = ijkTrigCos_rad_dbl(+x_rad_dbl);	// +0.5
+	y_dbl = ijkTrigCos_rad_dbl(-x_rad_dbl);	// +0.5
+	y_dbl = ijkTrigTan_rad_dbl(+x_rad_dbl);	// +1.732
+	y_dbl = ijkTrigTan_rad_dbl(-x_rad_dbl);	// -1.732
+	y_dbl = ijkTrigCsc_rad_dbl(+x_rad_dbl);	// +1.1547
+	y_dbl = ijkTrigCsc_rad_dbl(-x_rad_dbl);	// -1.1547
+	y_dbl = ijkTrigSec_rad_dbl(+x_rad_dbl);	// +2
+	y_dbl = ijkTrigSec_rad_dbl(-x_rad_dbl);	// +2
+	y_dbl = ijkTrigCot_rad_dbl(+x_rad_dbl);	// +0.577
+	y_dbl = ijkTrigCot_rad_dbl(-x_rad_dbl);	// -0.577
+	y_dbl = ijkTrigAsin_rad_dbl(+x_inv_dbl);	// +0.523599 (pi/6)
+	y_dbl = ijkTrigAsin_rad_dbl(-x_inv_dbl);	// -0.523599 (pi/6)
+	y_dbl = ijkTrigAcos_rad_dbl(+x_inv_dbl);	// +1.047197 (pi/3)
+	y_dbl = ijkTrigAcos_rad_dbl(-x_inv_dbl);	// +2.094395 (2pi/3)
+	y_dbl = ijkTrigAtan_rad_dbl(+x_inv_dbl);	// +0.463647
+	y_dbl = ijkTrigAtan_rad_dbl(-x_inv_dbl);	// -0.463647
+	y_dbl = ijkTrigAcsc_rad_dbl(+x_invrcp_dbl);	// +0.523599 (pi/6)
+	y_dbl = ijkTrigAcsc_rad_dbl(-x_invrcp_dbl);	// -0.523599 (pi/6)
+	y_dbl = ijkTrigAsec_rad_dbl(+x_invrcp_dbl);	// +1.047197 (pi/3)
+	y_dbl = ijkTrigAsec_rad_dbl(-x_invrcp_dbl);	// +2.094395 (2pi/3)
+	y_dbl = ijkTrigAcot_rad_dbl(+x_invrcp_dbl);	// +0.463647
+	y_dbl = ijkTrigAcot_rad_dbl(-x_invrcp_dbl);	// -0.463647
+	y_dbl = ijkTrigAtan2_rad_dbl(+x_inv_dbl, +dbl_one);	// +0.463647
+	y_dbl = ijkTrigAtan2_rad_dbl(-x_inv_dbl, +dbl_one);	// -0.463647
+	y_dbl = ijkTrigAtan2_rad_dbl(+x_inv_dbl, -dbl_one);	// +2.677946
+	y_dbl = ijkTrigAtan2_rad_dbl(-x_inv_dbl, -dbl_one);	// -2.677946
+	y_dbl = ijkTrigAtan2_rad_dbl(+x_inv_dbl, dbl_zero);	// +1.570796 (pi/2)
+	y_dbl = ijkTrigAtan2_rad_dbl(-x_inv_dbl, dbl_zero);	// -1.570796 (pi/2)
+	y_dbl = ijkTrigAtan2_rad_dbl(dbl_zero, dbl_zero);	// 0 (undef)
+
+	y_dbl = ijkTrigSinCosTaylor_deg_dbl(x_deg_dbl, &y_sin_dbl, &x_cos_dbl);	// 1.047197 (pi/3), 0.866, 0.5
+	y_dbl = ijkTrigTanSinCosTaylor_deg_dbl(x_deg_dbl, &y_sin_dbl, &x_cos_dbl);	// 1.732, 0.866, 0.5
+	y_dbl = ijkTrigCotSinCosTaylor_deg_dbl(x_deg_dbl, &y_sin_dbl, &x_cos_dbl);	// 0.577, 0.866, 0.5
+	y_dbl = ijkTrigSinTaylor_deg_dbl(+x_deg_dbl);	// +0.866
+	y_dbl = ijkTrigSinTaylor_deg_dbl(-x_deg_dbl);	// -0.866
+	y_dbl = ijkTrigCosTaylor_deg_dbl(+x_deg_dbl);	// +0.5
+	y_dbl = ijkTrigCosTaylor_deg_dbl(-x_deg_dbl);	// +0.5
+	y_dbl = ijkTrigTanTaylor_deg_dbl(+x_deg_dbl);	// +1.732
+	y_dbl = ijkTrigTanTaylor_deg_dbl(-x_deg_dbl);	// -1.732
+	y_dbl = ijkTrigCscTaylor_deg_dbl(+x_deg_dbl);	// +1.1547
+	y_dbl = ijkTrigCscTaylor_deg_dbl(-x_deg_dbl);	// -1.1547
+	y_dbl = ijkTrigSecTaylor_deg_dbl(+x_deg_dbl);	// +2
+	y_dbl = ijkTrigSecTaylor_deg_dbl(-x_deg_dbl);	// +2
+	y_dbl = ijkTrigCotTaylor_deg_dbl(+x_deg_dbl);	// +0.577
+	y_dbl = ijkTrigCotTaylor_deg_dbl(-x_deg_dbl);	// -0.577
+
+	y_dbl = ijkTrigPointToEdgeRatio_dbl(dbl_360, 24);	// 0.991445
+	y_dbl = ijkTrigEdgeToPointRatio_dbl(dbl_360, 24);	// 1.008629
+	y_dbl = ijkTrigPointToFaceRatio_dbl(dbl_360, dbl_180, 24, 18);	// 0.987672
+	y_dbl = ijkTrigFaceToPointRatio_dbl(dbl_360, dbl_180, 24, 18);	// 1.012482
+
+	y = ijkTrigDeg2Rad(+x_deg);	// +1.047197 (pi/3)
+	y = ijkTrigDeg2Rad(-x_deg);	// -1.047197 (pi/3)
+	y = ijkTrigRad2Deg(+x_rad);	// +60
+	y = ijkTrigRad2Deg(-x_rad);	// -60
+	y = ijkTrigValidateDegree(+(real)780);	// +60
+	y = ijkTrigValidateDegree(-(real)780);	// -60
+	y = ijkTrigValidateRadian(+real_4pi + real_pi_3);	// +1.047197 (pi/3)
+	y = ijkTrigValidateRadian(-real_4pi - real_pi_3);	// -1.047197 (pi/3)
+	y = ijkTrigValidateInverse(+x_invrcp);	// +1
+	y = ijkTrigValidateInverse(-x_invrcp);	// -1
+	y = ijkTrigValidateInverseRecip(+x_inv);	// +1
+	y = ijkTrigValidateInverseRecip(-x_inv);	// -1
+
+	y = ijkTrigSinCos_deg(x_deg, &y_sin, &x_cos);	// 60, 0.866, 0.5
+	y = ijkTrigTanSinCos_deg(x_deg, &y_sin, &x_cos);	// 1.732, 0.866, 0.5
+	y = ijkTrigCotSinCos_deg(x_deg, &y_sin, &x_cos);	// 0.577, 0.866, 0.5
+	y = ijkTrigSin_deg(+x_deg);	// +0.866
+	y = ijkTrigSin_deg(-x_deg);	// -0.866
+	y = ijkTrigCos_deg(+x_deg);	// +0.5
+	y = ijkTrigCos_deg(-x_deg);	// +0.5
+	y = ijkTrigTan_deg(+x_deg);	// +1.732
+	y = ijkTrigTan_deg(-x_deg);	// -1.732
+	y = ijkTrigCsc_deg(+x_deg);	// +1.1547
+	y = ijkTrigCsc_deg(-x_deg);	// -1.1547
+	y = ijkTrigSec_deg(+x_deg);	// +2
+	y = ijkTrigSec_deg(-x_deg);	// +2
+	y = ijkTrigCot_deg(+x_deg);	// +0.577
+	y = ijkTrigCot_deg(-x_deg);	// -0.577
+	y = ijkTrigAsin_deg(+x_inv);	// +30
+	y = ijkTrigAsin_deg(-x_inv);	// -30
+	y = ijkTrigAcos_deg(+x_inv);	// +60
+	y = ijkTrigAcos_deg(-x_inv);	// +120
+	y = ijkTrigAtan_deg(+x_inv);	// +26.565
+	y = ijkTrigAtan_deg(-x_inv);	// -26.565
+	y = ijkTrigAcsc_deg(+x_invrcp);	// +30
+	y = ijkTrigAcsc_deg(-x_invrcp);	// -30
+	y = ijkTrigAsec_deg(+x_invrcp);	// +60
+	y = ijkTrigAsec_deg(-x_invrcp);	// +120
+	y = ijkTrigAcot_deg(+x_invrcp);	// +26.565
+	y = ijkTrigAcot_deg(-x_invrcp);	// -26.565
+	y = ijkTrigAtan2_deg(+x_inv, +real_one);	// +26.565
+	y = ijkTrigAtan2_deg(-x_inv, +real_one);	// -26.565
+	y = ijkTrigAtan2_deg(+x_inv, -real_one);	// +153.435
+	y = ijkTrigAtan2_deg(-x_inv, -real_one);	// -153.435
+	y = ijkTrigAtan2_deg(+x_inv, real_zero);	// +90
+	y = ijkTrigAtan2_deg(-x_inv, real_zero);	// -90
+	y = ijkTrigAtan2_deg(real_zero, real_zero);	// 0 (undef)
+
+	y = ijkTrigSinCosTaylor_rad(x_rad, &y_sin, &x_cos);	// 1.047197 (pi/3), 0.866, 0.5
+	y = ijkTrigTanSinCosTaylor_rad(x_rad, &y_sin, &x_cos);	// 1.732, 0.866, 0.5
+	y = ijkTrigCotSinCosTaylor_rad(x_rad, &y_sin, &x_cos);	// 0.577, 0.866, 0.5
+	y = ijkTrigSinTaylor_rad(+x_rad);	// +0.866
+	y = ijkTrigSinTaylor_rad(-x_rad);	// -0.866
+	y = ijkTrigCosTaylor_rad(+x_rad);	// +0.5
+	y = ijkTrigCosTaylor_rad(-x_rad);	// +0.5
+	y = ijkTrigTanTaylor_rad(+x_rad);	// +1.732
+	y = ijkTrigTanTaylor_rad(-x_rad);	// -1.732
+	y = ijkTrigCscTaylor_rad(+x_rad);	// +1.1547
+	y = ijkTrigCscTaylor_rad(-x_rad);	// -1.1547
+	y = ijkTrigSecTaylor_rad(+x_rad);	// +2
+	y = ijkTrigSecTaylor_rad(-x_rad);	// +2
+	y = ijkTrigCotTaylor_rad(+x_rad);	// +0.577
+	y = ijkTrigCotTaylor_rad(-x_rad);	// -0.577
+
+	y = ijkTrigSinCos_rad(x_rad, &y_sin, &x_cos);	// 1.047197 (pi/3), 0.866, 0.5
+	y = ijkTrigTanSinCos_rad(x_rad, &y_sin, &x_cos);	// 1.732, 0.866, 0.5
+	y = ijkTrigCotSinCos_rad(x_rad, &y_sin, &x_cos);	// 0.577, 0.866, 0.5
+	y = ijkTrigSin_rad(+x_rad);	// +0.866
+	y = ijkTrigSin_rad(-x_rad);	// -0.866
+	y = ijkTrigCos_rad(+x_rad);	// +0.5
+	y = ijkTrigCos_rad(-x_rad);	// +0.5
+	y = ijkTrigTan_rad(+x_rad);	// +1.732
+	y = ijkTrigTan_rad(-x_rad);	// -1.732
+	y = ijkTrigCsc_rad(+x_rad);	// +1.1547
+	y = ijkTrigCsc_rad(-x_rad);	// -1.1547
+	y = ijkTrigSec_rad(+x_rad);	// +2
+	y = ijkTrigSec_rad(-x_rad);	// +2
+	y = ijkTrigCot_rad(+x_rad);	// +0.577
+	y = ijkTrigCot_rad(-x_rad);	// -0.577
+	y = ijkTrigAsin_rad(+x_inv);	// +0.523599 (pi/6)
+	y = ijkTrigAsin_rad(-x_inv);	// -0.523599 (pi/6)
+	y = ijkTrigAcos_rad(+x_inv);	// +1.047197 (pi/3)
+	y = ijkTrigAcos_rad(-x_inv);	// +2.094395 (2pi/3)
+	y = ijkTrigAtan_rad(+x_inv);	// +0.463647
+	y = ijkTrigAtan_rad(-x_inv);	// -0.463647
+	y = ijkTrigAcsc_rad(+x_invrcp);	// +0.523599 (pi/6)
+	y = ijkTrigAcsc_rad(-x_invrcp);	// -0.523599 (pi/6)
+	y = ijkTrigAsec_rad(+x_invrcp);	// +1.047197 (pi/3)
+	y = ijkTrigAsec_rad(-x_invrcp);	// +2.094395 (2pi/3)
+	y = ijkTrigAcot_rad(+x_invrcp);	// +0.463647
+	y = ijkTrigAcot_rad(-x_invrcp);	// -0.463647
+	y = ijkTrigAtan2_rad(+x_inv, +real_one);	// +0.463647
+	y = ijkTrigAtan2_rad(-x_inv, +real_one);	// -0.463647
+	y = ijkTrigAtan2_rad(+x_inv, -real_one);	// +2.677946
+	y = ijkTrigAtan2_rad(-x_inv, -real_one);	// -2.677946
+	y = ijkTrigAtan2_rad(+x_inv, real_zero);	// +1.570796 (pi/2)
+	y = ijkTrigAtan2_rad(-x_inv, real_zero);	// -1.570796 (pi/2)
+	y = ijkTrigAtan2_rad(real_zero, real_zero);	// 0 (undef)
+
+	y = ijkTrigSinCosTaylor_deg(x_deg, &y_sin, &x_cos);	// 1.047197 (pi/3), 0.866, 0.5
+	y = ijkTrigTanSinCosTaylor_deg(x_deg, &y_sin, &x_cos);	// 1.732, 0.866, 0.5
+	y = ijkTrigCotSinCosTaylor_deg(x_deg, &y_sin, &x_cos);	// 0.577, 0.866, 0.5
+	y = ijkTrigSinTaylor_deg(+x_deg);	// +0.866
+	y = ijkTrigSinTaylor_deg(-x_deg);	// -0.866
+	y = ijkTrigCosTaylor_deg(+x_deg);	// +0.5
+	y = ijkTrigCosTaylor_deg(-x_deg);	// +0.5
+	y = ijkTrigTanTaylor_deg(+x_deg);	// +1.732
+	y = ijkTrigTanTaylor_deg(-x_deg);	// -1.732
+	y = ijkTrigCscTaylor_deg(+x_deg);	// +1.1547
+	y = ijkTrigCscTaylor_deg(-x_deg);	// -1.1547
+	y = ijkTrigSecTaylor_deg(+x_deg);	// +2
+	y = ijkTrigSecTaylor_deg(-x_deg);	// +2
+	y = ijkTrigCotTaylor_deg(+x_deg);	// +0.577
+	y = ijkTrigCotTaylor_deg(-x_deg);	// -0.577
+
+	y = ijkTrigPointToEdgeRatio(real_360, 24);	// 0.991445
+	y = ijkTrigEdgeToPointRatio(real_360, 24);	// 1.008629
+	y = ijkTrigPointToFaceRatio(real_360, real_180, 24, 18);	// 0.987672
+	y = ijkTrigFaceToPointRatio(real_360, real_180, 24, 18);	// 1.012482
 }
 
 
