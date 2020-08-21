@@ -25,6 +25,8 @@
 
 #include "ijk/ijk-math/ijk-math.h"
 
+#include <malloc.h>
+
 
 //-----------------------------------------------------------------------------
 
@@ -41,105 +43,105 @@ void ijkMathTestReal()
 	dbl const x0min_dbl = 100.0, x0max_dbl = 200.0, x1min_dbl = -100.0, x1max_dbl = -50.0, x_dbl = 160.0;
 	real const x0min = ijk_x2r(100), x0max = ijk_x2r(200), x1min = ijk_x2r(-100), x1max = ijk_x2r(-50), x = ijk_x2r(160);
 
-	test_int = ijk_lerp(x0min_int, x0max_int, 6);
-	test_int = ijk_unlerp(x0min_int, x0max_int, x_int);
-	test_int = ijk_unlerp_safe(x0min_int, x0max_int, x_int);
-	test_int = ijk_remap(x1min_int, x1max_int, x0min_int, x0max_int, x_int);
-	test_int = ijk_remap_safe(x1min_int, x1max_int, x0min_int, x0max_int, x_int);
-	test_int = ijk_divide(x_int, 4);
-	test_int = ijk_sgn_int(+x_int);
-	test_int = ijk_sgn_int(ijk_zero);
-	test_int = ijk_sgn_int(-x_int);
-	test_int = ijk_abs_int(+x_int);
-	test_int = ijk_abs_int(ijk_zero);
-	test_int = ijk_abs_int(-x_int);
-	test_int = ijk_nrm2sym_int(ijk_zero);
-	test_int = ijk_sym2nrm_int(ijk_zero);
-	test_b = ijk_isnrm_int(-ijk_one);
-	test_b = ijk_isnnrm_int(-ijk_one);
-	test_b = ijk_issym_int(-ijk_one);
-	test_b = ijk_isnsym_int(-ijk_one);
-	test_b = ijk_iszero_int(ijk_zero);
-	test_b = ijk_isnzero_int(ijk_zero);
-	test_int = ijk_divide_safe_int(x_int, 4);
+	test_int = ijk_lerp(x0min_int, x0max_int, 6);	// 700
+	test_int = ijk_unlerp(x0min_int, x0max_int, x_int);	// 0
+	test_int = ijk_unlerp_safe(x0min_int, x0max_int, x_int);	// 0
+	test_int = ijk_remap(x1min_int, x1max_int, x0min_int, x0max_int, x_int);	// -70
+	test_int = ijk_remap_safe(x1min_int, x1max_int, x0min_int, x0max_int, x_int);	// -70
+	test_int = ijk_divide(x_int, 4);	// 40
+	test_int = ijk_sgn_int(+x_int);		// +1
+	test_int = ijk_sgn_int(ijk_zero);	// 0
+	test_int = ijk_sgn_int(-x_int);		// -1
+	test_int = ijk_abs_int(+x_int);		// +160
+	test_int = ijk_abs_int(ijk_zero);	// 0
+	test_int = ijk_abs_int(-x_int);		// +160
+	test_int = ijk_nrm2sym_int(ijk_zero);	// -1
+	test_int = ijk_sym2nrm_int(ijk_zero);	// 0
+	test_b = ijk_isnrm_int(-ijk_one);	// 0 (false)
+	test_b = ijk_isnnrm_int(-ijk_one);	// 1 (true)
+	test_b = ijk_issym_int(-ijk_one);	// 1 (true)
+	test_b = ijk_isnsym_int(-ijk_one);	// 0 (false)
+	test_b = ijk_iszero_int(ijk_zero);	// 1 (true)
+	test_b = ijk_isnzero_int(ijk_zero);	// 0 (false)
+	test_int = ijk_divide_safe_int(x_int, 4);	// 40
 
-	test_flt = ijk_lerp(x0min_flt, x0max_flt, flt_3quarters);
-	test_flt = ijk_unlerp(x0min_flt, x0max_flt, x_flt);
-	test_flt = ijk_unlerp_safe(x0min_flt, x0max_flt, x_flt);
-	test_flt = ijk_remap(x1min_flt, x1max_flt, x0min_flt, x0max_flt, x_flt);
-	test_flt = ijk_remap_safe(x1min_flt, x1max_flt, x0min_flt, x0max_flt, x_flt);
-	test_flt = ijk_divide(x_flt, flt_four);
-	test_flt = ijk_sgn_flt(+x_flt);
-	test_flt = ijk_sgn_flt(flt_zero);
-	test_flt = ijk_sgn_flt(-x_flt);
-	test_flt = ijk_abs_flt(+x_flt);
-	test_flt = ijk_abs_flt(flt_zero);
-	test_flt = ijk_abs_flt(-x_flt);
-	test_flt = ijk_nrm2sym_flt(flt_zero);
-	test_flt = ijk_sym2nrm_flt(flt_zero);
-	test_b = ijk_isnrm_flt(-flt_one);
-	test_b = ijk_isnnrm_flt(-flt_one);
-	test_b = ijk_issym_flt(-flt_one);
-	test_b = ijk_isnsym_flt(-flt_one);
-	test_b = ijk_iszero_flt(flt_zero);
-	test_b = ijk_isnzero_flt(flt_zero);
-	test_flt = ijk_divide_safe_flt(x_flt, flt_four);
-	test_flt = ijk_recip_flt(x_flt);
-	test_flt = ijk_recip_safe_flt(x_flt);
-	test_flt = ijk_deg2rad_flt(flt_180);
-	test_flt = ijk_rad2deg_flt(flt_pi);
+	test_flt = ijk_lerp(x0min_flt, x0max_flt, flt_3quarters);	// 175.0
+	test_flt = ijk_unlerp(x0min_flt, x0max_flt, x_flt);	// 0.6
+	test_flt = ijk_unlerp_safe(x0min_flt, x0max_flt, x_flt);	// 0.6
+	test_flt = ijk_remap(x1min_flt, x1max_flt, x0min_flt, x0max_flt, x_flt);	// -70.0
+	test_flt = ijk_remap_safe(x1min_flt, x1max_flt, x0min_flt, x0max_flt, x_flt);	// -70.0
+	test_flt = ijk_divide(x_flt, flt_four);	// 40.0
+	test_flt = ijk_sgn_flt(+x_flt);			// +1.0
+	test_flt = ijk_sgn_flt(flt_zero);		// 0.0
+	test_flt = ijk_sgn_flt(-x_flt);			// -1.0
+	test_flt = ijk_abs_flt(+x_flt);			// +160.0
+	test_flt = ijk_abs_flt(flt_zero);		// 0.0
+	test_flt = ijk_abs_flt(-x_flt);			// +160.0
+	test_flt = ijk_nrm2sym_flt(flt_zero);	// -1.0
+	test_flt = ijk_sym2nrm_flt(flt_zero);	// 0.5
+	test_b = ijk_isnrm_flt(-flt_one);		// 0 (false)
+	test_b = ijk_isnnrm_flt(-flt_one);		// 1 (true)
+	test_b = ijk_issym_flt(-flt_one);		// 1 (true)
+	test_b = ijk_isnsym_flt(-flt_one);		// 0 (false)
+	test_b = ijk_iszero_flt(flt_zero);		// 1 (true)
+	test_b = ijk_isnzero_flt(flt_zero);		// 0 (false)
+	test_flt = ijk_divide_safe_flt(x_flt, flt_four);	// 40.0
+	test_flt = ijk_recip_flt(x_flt);		// 0.00625
+	test_flt = ijk_recip_safe_flt(x_flt);	// 0.00625
+	test_flt = ijk_deg2rad_flt(flt_180);	// 3.14159 (pi)
+	test_flt = ijk_rad2deg_flt(flt_pi);		// 180.0
 
-	test_dbl = ijk_lerp(x0min_dbl, x0max_dbl, dbl_3quarters);
-	test_dbl = ijk_unlerp(x0min_dbl, x0max_dbl, x_dbl);
-	test_dbl = ijk_unlerp_safe(x0min_dbl, x0max_dbl, x_dbl);
-	test_dbl = ijk_remap(x1min_dbl, x1max_dbl, x0min_dbl, x0max_dbl, x_dbl);
-	test_dbl = ijk_remap_safe(x1min_dbl, x1max_dbl, x0min_dbl, x0max_dbl, x_dbl);
-	test_dbl = ijk_divide(x_dbl, dbl_four);
-	test_dbl = ijk_sgn_dbl(+x_dbl);
-	test_dbl = ijk_sgn_dbl(dbl_zero);
-	test_dbl = ijk_sgn_dbl(-x_dbl);
-	test_dbl = ijk_abs_dbl(+x_dbl);
-	test_dbl = ijk_abs_dbl(dbl_zero);
-	test_dbl = ijk_abs_dbl(-x_dbl);
-	test_dbl = ijk_nrm2sym_dbl(dbl_zero);
-	test_dbl = ijk_sym2nrm_dbl(dbl_zero);
-	test_b = ijk_isnrm_dbl(-dbl_one);
-	test_b = ijk_isnnrm_dbl(-dbl_one);
-	test_b = ijk_issym_dbl(-dbl_one);
-	test_b = ijk_isnsym_dbl(-dbl_one);
-	test_b = ijk_iszero_dbl(dbl_zero);
-	test_b = ijk_isnzero_dbl(dbl_zero);
-	test_dbl = ijk_divide_safe_dbl(x_dbl, dbl_four);
-	test_dbl = ijk_recip_dbl(x_dbl);
-	test_dbl = ijk_recip_safe_dbl(x_dbl);
-	test_dbl = ijk_deg2rad_dbl(dbl_180);
-	test_dbl = ijk_rad2deg_dbl(dbl_pi);
+	test_dbl = ijk_lerp(x0min_dbl, x0max_dbl, dbl_3quarters);	// 175.0
+	test_dbl = ijk_unlerp(x0min_dbl, x0max_dbl, x_dbl);	// 0.6
+	test_dbl = ijk_unlerp_safe(x0min_dbl, x0max_dbl, x_dbl);	// 0.6
+	test_dbl = ijk_remap(x1min_dbl, x1max_dbl, x0min_dbl, x0max_dbl, x_dbl);	// -70.0
+	test_dbl = ijk_remap_safe(x1min_dbl, x1max_dbl, x0min_dbl, x0max_dbl, x_dbl);	// -70.0
+	test_dbl = ijk_divide(x_dbl, dbl_four);	// 40.0
+	test_dbl = ijk_sgn_dbl(+x_dbl);			// +1.0
+	test_dbl = ijk_sgn_dbl(dbl_zero);		// 0.0
+	test_dbl = ijk_sgn_dbl(-x_dbl);			// -1.0
+	test_dbl = ijk_abs_dbl(+x_dbl);			// +160.0
+	test_dbl = ijk_abs_dbl(dbl_zero);		// 0.0
+	test_dbl = ijk_abs_dbl(-x_dbl);			// +160.0
+	test_dbl = ijk_nrm2sym_dbl(dbl_zero);	// -1.0
+	test_dbl = ijk_sym2nrm_dbl(dbl_zero);	// 0.5
+	test_b = ijk_isnrm_dbl(-dbl_one);		// 0 (false)
+	test_b = ijk_isnnrm_dbl(-dbl_one);		// 1 (true)
+	test_b = ijk_issym_dbl(-dbl_one);		// 1 (true)
+	test_b = ijk_isnsym_dbl(-dbl_one);		// 0 (false)
+	test_b = ijk_iszero_dbl(dbl_zero);		// 1 (true)
+	test_b = ijk_isnzero_dbl(dbl_zero);		// 0 (false)
+	test_dbl = ijk_divide_safe_dbl(x_dbl, dbl_four);	// 40.0
+	test_dbl = ijk_recip_dbl(x_dbl);		// 0.00625
+	test_dbl = ijk_recip_safe_dbl(x_dbl);	// 0.00625
+	test_dbl = ijk_deg2rad_dbl(dbl_180);	// 3.14159 (pi)
+	test_dbl = ijk_rad2deg_dbl(dbl_pi);		// 180.0
 
-	test = ijk_lerp(x0min, x0max, real_3quarters);
-	test = ijk_unlerp(x0min, x0max, x);
-	test = ijk_unlerp_safe(x0min, x0max, x);
-	test = ijk_remap(x1min, x1max, x0min, x0max, x);
-	test = ijk_remap_safe(x1min, x1max, x0min, x0max, x);
-	test = ijk_divide(x, real_four);
-	test = ijk_sgn(+x);
-	test = ijk_sgn(real_zero);
-	test = ijk_sgn(-x);
-	test = ijk_abs(+x);
-	test = ijk_abs(real_zero);
-	test = ijk_abs(-x);
-	test = ijk_nrm2sym(real_zero);
-	test = ijk_sym2nrm(real_zero);
-	test_b = ijk_isnrm(-real_one);
-	test_b = ijk_isnnrm(-real_one);
-	test_b = ijk_issym(-real_one);
-	test_b = ijk_isnsym(-real_one);
-	test_b = ijk_iszero(real_zero);
-	test_b = ijk_isnzero(real_zero);
-	test = ijk_divide_safe(x, real_four);
-	test = ijk_recip(x);
-	test = ijk_recip_safe(x);
-	test = ijk_deg2rad(real_180);
-	test = ijk_rad2deg(real_pi);
+	test = ijk_lerp(x0min, x0max, real_3quarters);	// 175.0
+	test = ijk_unlerp(x0min, x0max, x);	// 0.6
+	test = ijk_unlerp_safe(x0min, x0max, x);	// 0.6
+	test = ijk_remap(x1min, x1max, x0min, x0max, x);	// -70.0
+	test = ijk_remap_safe(x1min, x1max, x0min, x0max, x);	// -70.0
+	test = ijk_divide(x, real_four);	// 40.0
+	test = ijk_sgn(+x);					// +1.0
+	test = ijk_sgn(real_zero);			// 0.0
+	test = ijk_sgn(-x);					// -1.0
+	test = ijk_abs(+x);					// +160.0
+	test = ijk_abs(real_zero);			// 0.0
+	test = ijk_abs(-x);					// +160.0
+	test = ijk_nrm2sym(real_zero);		// -1.0
+	test = ijk_sym2nrm(real_zero);		// 0.5
+	test_b = ijk_isnrm(-real_one);		// 0 (false)
+	test_b = ijk_isnnrm(-real_one);		// 1 (true)
+	test_b = ijk_issym(-real_one);		// 1 (true)
+	test_b = ijk_isnsym(-real_one);		// 0 (false)
+	test_b = ijk_iszero(real_zero);		// 1 (true)
+	test_b = ijk_isnzero(real_zero);	// 0 (false)
+	test = ijk_divide_safe(x, real_four);	// 40.0
+	test = ijk_recip(x);				// 0.00625
+	test = ijk_recip_safe(x);			// 0.00625
+	test = ijk_deg2rad(real_180);		// 3.14159 (pi)
+	test = ijk_rad2deg(real_pi);		// 180.0
 }
 
 
@@ -380,7 +382,7 @@ void ijkMathTestTrigonometry()
 			index const table_index[(1024 * 1) + 2];
 		};
 	} TABLE_FLT;
-	TABLE_FLT t_flt;
+	TABLE_FLT* t_flt = (TABLE_FLT*)malloc(sizeof(TABLE_FLT));
 	size tableSz_flt;
 	flt y_flt, y_sin_flt, x_cos_flt;
 	flt const x_deg_flt = flt_60, x_inv_flt = flt_half, x_invrcp_flt = flt_two;
@@ -394,8 +396,8 @@ void ijkMathTestTrigonometry()
 			dbl const table_value[(720 * 1 + 90 * 1) * 4 + 2];
 			index const table_index[(2048 * 1) + 4];
 		};
-	} TABLE_dbl;
-	TABLE_dbl t_dbl;
+	} TABLE_DBL;
+	TABLE_DBL* t_dbl = (TABLE_DBL*)malloc(sizeof(TABLE_DBL));
 	size tableSz_dbl;
 	dbl y_dbl, y_sin_dbl, x_cos_dbl;
 	dbl const x_deg_dbl = dbl_60, x_inv_dbl = dbl_half, x_invrcp_dbl = dbl_two;
@@ -410,7 +412,7 @@ void ijkMathTestTrigonometry()
 			index const table_index[((1024 * 1) + 2) * szrealbr];
 		};
 	} TABLE;
-	TABLE t;
+	TABLE* t = (TABLE*)malloc(sizeof(TABLE));
 	size tableSz;
 	real y, y_sin, x_cos;
 	real const x_deg = real_60, x_inv = real_half, x_invrcp = real_two;
@@ -419,16 +421,16 @@ void ijkMathTestTrigonometry()
 	size const subdivisionsPerDegree = 4;
 
 	tableSz_flt = ijkTrigGetTableSize_flt(subdivisionsPerDegree);
-	tableSz_flt = ijkTrigSetTable_flt(t_flt.table, sizeof(t_flt.table), subdivisionsPerDegree);
-	tableSz_flt = ijkTrigInit_flt(t_flt.table, sizeof(t_flt.table), subdivisionsPerDegree);
+	tableSz_flt = ijkTrigSetTable_flt(t_flt->table, sizeof(t_flt->table), subdivisionsPerDegree);
+	tableSz_flt = ijkTrigInit_flt(t_flt->table, sizeof(t_flt->table), subdivisionsPerDegree);
 
 	tableSz_dbl = ijkTrigGetTableSize_dbl(subdivisionsPerDegree);
-	tableSz_dbl = ijkTrigSetTable_dbl(t_dbl.table, sizeof(t_dbl.table), subdivisionsPerDegree);
-	tableSz_dbl = ijkTrigInit_dbl(t_dbl.table, sizeof(t_dbl.table), subdivisionsPerDegree);
+	tableSz_dbl = ijkTrigSetTable_dbl(t_dbl->table, sizeof(t_dbl->table), subdivisionsPerDegree);
+	tableSz_dbl = ijkTrigInit_dbl(t_dbl->table, sizeof(t_dbl->table), subdivisionsPerDegree);
 
 	tableSz = ijkTrigGetTableSize(subdivisionsPerDegree);
-	tableSz = ijkTrigSetTable(t.table, sizeof(t.table), subdivisionsPerDegree);
-	tableSz = ijkTrigInit(t.table, sizeof(t.table), subdivisionsPerDegree);
+	tableSz = ijkTrigSetTable(t->table, sizeof(t->table), subdivisionsPerDegree);
+	tableSz = ijkTrigInit(t->table, sizeof(t->table), subdivisionsPerDegree);
 
 	y_flt = ijkTrigDeg2Rad_flt(+x_deg_flt);	// +1.047197 (pi/3)
 	y_flt = ijkTrigDeg2Rad_flt(-x_deg_flt);	// -1.047197 (pi/3)
@@ -789,6 +791,10 @@ void ijkMathTestTrigonometry()
 	y = ijkTrigEdgeToPointRatio(real_360, 24);	// 1.008629
 	y = ijkTrigPointToFaceRatio(real_360, real_180, 24, 18);	// 0.987672
 	y = ijkTrigFaceToPointRatio(real_360, real_180, 24, 18);	// 1.012482
+
+	free(t_flt);
+	free(t_dbl);
+	free(t);
 }
 
 
