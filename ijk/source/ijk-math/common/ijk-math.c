@@ -155,23 +155,23 @@ void ijkMathTestSqrt()
 	dbl const x_dbl = 16.0;
 	real const x = ijk_x2r(16);
 
-	test_flt = ijkSqrtInv0x_flt(x_flt);
-	test_flt = ijkSqrt0x_flt(x_flt);
-	test_flt = ijkSqrt_flt(x_flt);
-	test_flt = ijkSqrtInv_flt(x_flt);
-	test_flt = ijkSqrtInvSafe_flt(x_flt);
+	test_flt = ijkSqrtInv0x_flt(x_flt);		// 0.25 (approx)
+	test_flt = ijkSqrt0x_flt(x_flt);		// 4.0 (approx)
+	test_flt = ijkSqrt_flt(x_flt);			// 4.0
+	test_flt = ijkSqrtInv_flt(x_flt);		// 0.25
+	test_flt = ijkSqrtInvSafe_flt(x_flt);	// 0.25
 
-	test_dbl = ijkSqrtInv0x_dbl(x_dbl);
-	test_dbl = ijkSqrt0x_dbl(x_dbl);
-	test_dbl = ijkSqrt_dbl(x_dbl);
-	test_dbl = ijkSqrtInv_dbl(x_dbl);
-	test_dbl = ijkSqrtInvSafe_dbl(x_dbl);
+	test_dbl = ijkSqrtInv0x_dbl(x_dbl);		// 0.25 (approx)
+	test_dbl = ijkSqrt0x_dbl(x_dbl);		// 4.0 (approx)
+	test_dbl = ijkSqrt_dbl(x_dbl);			// 4.0
+	test_dbl = ijkSqrtInv_dbl(x_dbl);		// 0.25
+	test_dbl = ijkSqrtInvSafe_dbl(x_dbl);	// 0.25
 
-	test = ijkSqrtInv0x(x);
-	test = ijkSqrt0x(x);
-	test = ijkSqrt(x);
-	test = ijkSqrtInv(x);
-	test = ijkSqrtInvSafe(x);
+	test = ijkSqrtInv0x(x);		// 0.25 (approx)
+	test = ijkSqrt0x(x);		// 4.0 (approx)
+	test = ijkSqrt(x);			// 4.0
+	test = ijkSqrtInv(x);		// 0.25
+	test = ijkSqrtInvSafe(x);	// 0.25
 }
 
 
@@ -183,41 +183,41 @@ void ijkMathTestStats()
 	real test = real_zero, test2[1] = { real_zero };
 
 	size const n = 8, k = 4;
-	schomp const v_int[] = { 1, 2, -1, -5, 16, 9, 8, 5 };
-	flt const v_flt[] = { 1.0f, 2.0f, -1.0f, -5.0f, 16.0f, 9.0f, 8.0f, 5.0f };
-	dbl const v_dbl[] = { 1.0, 2.0, -1.0, -5.0, 16.0, 9.0, 8.0, 5.0 };
-	real const v[] = { ijk_x2r(1), ijk_x2r(2), ijk_x2r(-1), ijk_x2r(-5), ijk_x2r(16), ijk_x2r(9), ijk_x2r(8), ijk_x2r(5) };
+	schomp const v_int[] = { -5, -1, 1, 2, 5, 8, 9, 16 };
+	flt const v_flt[] = { -5.0f, -1.0f, 1.0f, 2.0f, 5.0f, 8.0f, 9.0f, 16.0f };
+	dbl const v_dbl[] = { -5.0, -1.0, 1.0, 2.0, 5.0, 8.0, 9.0, 16.0 };
+	real const v[] = { ijk_x2r(-5), ijk_x2r(-1), ijk_x2r(1), ijk_x2r(2), ijk_x2r(5), ijk_x2r(8), ijk_x2r(9), ijk_x2r(16) };
 
-	test_int = ijkStatsGetFactorial(n);
-	test_int = ijkStatsGetPermutations(n, k);
-	test_int = ijkStatsGetCombinations(n, k);
+	test_int = ijkStatsGetFactorial(n);			// 40320
+	test_int = ijkStatsGetPermutations(n, k);	// 1680
+	test_int = ijkStatsGetCombinations(n, k);	// 70
 
-	test_flt = ijkStatsGetMedianInt_flt(v_int, n);
-	test_flt = ijkStatsGetMeanInt_flt(v_int, n);
-	test_flt = ijkStatsGetVarianceInt_flt(v_int, n, test2_flt);
-	test_flt = ijkStatsGetStdDevInt_flt(v_int, n, test2_flt);
-	test_flt = ijkStatsGetMedian_flt(v_flt, n);
-	test_flt = ijkStatsGetMean_flt(v_flt, n);
-	test_flt = ijkStatsGetVariance_flt(v_flt, n, test2_flt);
-	test_flt = ijkStatsGetStdDev_flt(v_flt, n, test2_flt);
+	test_flt = ijkStatsGetMedianInt_flt(v_int, n);				// 3.5
+	test_flt = ijkStatsGetMeanInt_flt(v_int, n);				// 4.375
+	test_flt = ijkStatsGetVarianceInt_flt(v_int, n, test2_flt);	// 43.410714
+	test_flt = ijkStatsGetStdDevInt_flt(v_int, n, test2_flt);	// 6.588681
+	test_flt = ijkStatsGetMedian_flt(v_flt, n);					// 3.5
+	test_flt = ijkStatsGetMean_flt(v_flt, n);					// 4.375
+	test_flt = ijkStatsGetVariance_flt(v_flt, n, test2_flt);	// 43.410714
+	test_flt = ijkStatsGetStdDev_flt(v_flt, n, test2_flt);		// 6.588681
 
-	test_dbl = ijkStatsGetMedianInt_dbl(v_int, n);
-	test_dbl = ijkStatsGetMeanInt_dbl(v_int, n);
-	test_dbl = ijkStatsGetVarianceInt_dbl(v_int, n, test2_dbl);
-	test_dbl = ijkStatsGetStdDevInt_dbl(v_int, n, test2_dbl);
-	test_dbl = ijkStatsGetMedian_dbl(v_dbl, n);
-	test_dbl = ijkStatsGetMean_dbl(v_dbl, n);
-	test_dbl = ijkStatsGetVariance_dbl(v_dbl, n, test2_dbl);
-	test_dbl = ijkStatsGetStdDev_dbl(v_dbl, n, test2_dbl);
+	test_dbl = ijkStatsGetMedianInt_dbl(v_int, n);				// 3.5
+	test_dbl = ijkStatsGetMeanInt_dbl(v_int, n);				// 4.375
+	test_dbl = ijkStatsGetVarianceInt_dbl(v_int, n, test2_dbl);	// 43.410714
+	test_dbl = ijkStatsGetStdDevInt_dbl(v_int, n, test2_dbl);	// 6.588681
+	test_dbl = ijkStatsGetMedian_dbl(v_dbl, n);					// 3.5
+	test_dbl = ijkStatsGetMean_dbl(v_dbl, n);					// 4.375
+	test_dbl = ijkStatsGetVariance_dbl(v_dbl, n, test2_dbl);	// 43.410714
+	test_dbl = ijkStatsGetStdDev_dbl(v_dbl, n, test2_dbl);		// 6.588681
 
-	test = ijkStatsGetMedianInt(v_int, n);
-	test = ijkStatsGetMeanInt(v_int, n);
-	test = ijkStatsGetVarianceInt(v_int, n, test2);
-	test = ijkStatsGetStdDevInt(v_int, n, test2);
-	test = ijkStatsGetMedian(v, n);
-	test = ijkStatsGetMean(v, n);
-	test = ijkStatsGetVariance(v, n, test2);
-	test = ijkStatsGetStdDev(v, n, test2);
+	test = ijkStatsGetMedianInt(v_int, n);			// 3.5
+	test = ijkStatsGetMeanInt(v_int, n);			// 4.375
+	test = ijkStatsGetVarianceInt(v_int, n, test2);	// 43.410714
+	test = ijkStatsGetStdDevInt(v_int, n, test2);	// 6.588681
+	test = ijkStatsGetMedian(v, n);					// 3.5
+	test = ijkStatsGetMean(v, n);					// 4.375
+	test = ijkStatsGetVariance(v, n, test2);		// 43.410714
+	test = ijkStatsGetStdDev(v, n, test2);			// 6.588681
 }
 
 

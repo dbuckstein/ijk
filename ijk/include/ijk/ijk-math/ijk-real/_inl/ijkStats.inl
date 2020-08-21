@@ -82,15 +82,21 @@ ijk_inl flt ijkStatsGetMeanInt_flt(schomp const v[], size const n)
 
 ijk_inl flt ijkStatsGetVarianceInt_flt(schomp const v[], size const n, flt mean_opt[1])
 {
-	flt const mean = ijkStatsGetMeanInt_flt(v, n);
-	flt var, dvar;
+	flt mean = flt_zero, var = flt_zero, dvar;
+	schomp sum;
 	uitr i;
-	for (i = 0, var = flt_zero; i < n; ++i)
+	if (n > 1)
 	{
-		dvar = (flt)v[i] - mean;
-		var += dvar * dvar;
+		for (i = 0, sum = 0; i < n; ++i)
+			sum += v[i];
+		for (mean = ((flt)sum / (flt)n),
+			i = 0; i < n; ++i)
+		{
+			dvar = (flt)v[i] - mean;
+			var += dvar * dvar;
+		}
+		var /= (flt)(n - 1);
 	}
-	var /= (flt)n;
 	if (mean_opt)
 		*mean_opt = mean;
 	return var;
@@ -129,15 +135,20 @@ ijk_inl flt ijkStatsGetMean_flt(flt const v[], size const n)
 
 ijk_inl flt ijkStatsGetVariance_flt(flt const v[], size const n, flt mean_opt[1])
 {
-	flt const mean = ijkStatsGetMean_flt(v, n);
-	flt var, dvar;
+	flt mean = flt_zero, var = flt_zero, dvar;
 	uitr i;
-	for (i = 0, var = flt_zero; i < n; ++i)
+	if (n > 1)
 	{
-		dvar = v[i] - mean;
-		var += dvar * dvar;
+		for (i = 0; i < n; ++i)
+			mean += v[i];
+		for (mean /= (flt)n,
+			i = 0; i < n; ++i)
+		{
+			dvar = v[i] - mean;
+			var += dvar * dvar;
+		}
+		var /= (flt)(n - 1);
 	}
-	var /= (flt)n;
 	if (mean_opt)
 		*mean_opt = mean;
 	return var;
@@ -178,15 +189,21 @@ ijk_inl dbl ijkStatsGetMeanInt_dbl(schomp const v[], size const n)
 
 ijk_inl dbl ijkStatsGetVarianceInt_dbl(schomp const v[], size const n, dbl mean_opt[1])
 {
-	dbl const mean = ijkStatsGetMeanInt_dbl(v, n);
-	dbl var, dvar;
+	dbl mean = flt_zero, var = flt_zero, dvar;
+	schomp sum;
 	uitr i;
-	for (i = 0, var = dbl_zero; i < n; ++i)
+	if (n > 1)
 	{
-		dvar = (dbl)v[i] - mean;
-		var += dvar * dvar;
+		for (i = 0, sum = 0; i < n; ++i)
+			sum += v[i];
+		for (mean = ((dbl)sum / (dbl)n),
+			i = 0; i < n; ++i)
+		{
+			dvar = (dbl)v[i] - mean;
+			var += dvar * dvar;
+		}
+		var /= (dbl)(n - 1);
 	}
-	var /= (dbl)n;
 	if (mean_opt)
 		*mean_opt = mean;
 	return var;
@@ -225,15 +242,20 @@ ijk_inl dbl ijkStatsGetMean_dbl(dbl const v[], size const n)
 
 ijk_inl dbl ijkStatsGetVariance_dbl(dbl const v[], size const n, dbl mean_opt[1])
 {
-	dbl const mean = ijkStatsGetMean_dbl(v, n);
-	dbl var, dvar;
+	dbl mean = flt_zero, var = flt_zero, dvar;
 	uitr i;
-	for (i = 0, var = dbl_zero; i < n; ++i)
+	if (n > 1)
 	{
-		dvar = v[i] - mean;
-		var += dvar * dvar;
+		for (i = 0; i < n; ++i)
+			mean += v[i];
+		for (mean /= (dbl)n,
+			i = 0; i < n; ++i)
+		{
+			dvar = v[i] - mean;
+			var += dvar * dvar;
+		}
+		var /= (dbl)(n - 1);
 	}
-	var /= (dbl)n;
 	if (mean_opt)
 		*mean_opt = mean;
 	return var;

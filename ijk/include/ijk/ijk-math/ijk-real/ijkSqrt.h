@@ -67,7 +67,7 @@ flt ijkSqrtInv_flt(flt const x);
 //	Compute fast inverse square root with divide-by-zero safety.
 //		param x: number to square root
 //		return: inverse square root of x
-#define ijkSqrtInvSafe_flt(x)	(x != flt_zero ? ijkSqrtInv_flt(x) : flt_zero)
+#define ijkSqrtInvSafe_flt(x)	((x) != flt_zero ? ijkSqrtInv_flt(x) : flt_zero)
 
 
 //-----------------------------------------------------------------------------
@@ -102,7 +102,7 @@ dbl ijkSqrtInv_dbl(dbl const x);
 //	Compute fast inverse square root with divide-by-zero safety.
 //		param x: number to square root
 //		return: inverse square root of x
-#define ijkSqrtInvSafe_dbl(x)	(x != dbl_zero ? ijkSqrtInv_dbl(x) : dbl_zero)
+#define ijkSqrtInvSafe_dbl(x)	((x) != dbl_zero ? ijkSqrtInv_dbl(x) : dbl_zero)
 
 
 //-----------------------------------------------------------------------------
