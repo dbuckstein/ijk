@@ -77,12 +77,6 @@ typedef dbl const* dblkv;		// Generic constant double-precision array-based vect
 
 //-----------------------------------------------------------------------------
 
-// Global constants for array-based vector types.
-///
-
-
-//-----------------------------------------------------------------------------
-
 // ivec2
 //	Data structure representing 2D integer vector.
 //		member v: array of elements, used as pointer argument to vector functions
@@ -124,6 +118,83 @@ union ivec4
 	struct { i32 r, g, b, a; };
 };
 
+
+// Global constants for integer array-based vectors and data structures.
+///
+ijk_ext int2 const int2_one;		// ( +1, +1 )
+ijk_ext int2 const int2_zero;		// (  0,  0 )
+ijk_ext int2 const int2_one_n;		// ( -1, -1 )
+ijk_ext int2 const int2_x;			// ( +1,  0 )
+ijk_ext int2 const int2_y;			// (  0, +1 )
+ijk_ext int2 const int2_x_n;		// ( -1,  0 )
+ijk_ext int2 const int2_y_n;		// (  0, -1 )
+
+ijk_ext int3 const int3_one;		// ( +1, +1, +1 )
+ijk_ext int3 const int3_zero;		// (  0,  0,  0 )
+ijk_ext int3 const int3_one_n;		// ( -1, -1, -1 )
+ijk_ext int3 const int3_x;			// ( +1,  0,  0 )
+ijk_ext int3 const int3_y;			// (  0, +1,  0 )
+ijk_ext int3 const int3_z;			// (  0,  0, +1 )
+ijk_ext int3 const int3_x_n;		// ( -1,  0,  0 )
+ijk_ext int3 const int3_y_n;		// (  0, -1,  0 )
+ijk_ext int3 const int3_z_n;		// (  0,  0, -1 )
+
+ijk_ext int4 const int4_one;		// ( +1, +1, +1, +1 )
+ijk_ext int4 const int4_zero;		// (  0,  0,  0,  0 )
+ijk_ext int4 const int4_one_n;		// ( -1, -1, -1, -1 )
+ijk_ext int4 const int4_x;			// ( +1,  0,  0,  0 )
+ijk_ext int4 const int4_y;			// (  0, +1,  0,  0 )
+ijk_ext int4 const int4_z;			// (  0,  0, +1,  0 )
+ijk_ext int4 const int4_w;			// (  0,  0,  0, +1 )
+ijk_ext int4 const int4_x_n;		// ( -1,  0,  0,  0 )
+ijk_ext int4 const int4_y_n;		// (  0, -1,  0,  0 )
+ijk_ext int4 const int4_z_n;		// (  0,  0, -1,  0 )
+ijk_ext int4 const int4_w_n;		// (  0,  0,  0, -1 )
+
+ijk_ext ivec2 const ivec2_one;		// ( +1, +1 )
+ijk_ext ivec2 const ivec2_zero;		// (  0,  0 )
+ijk_ext ivec2 const ivec2_one_n;	// ( -1, -1 )
+ijk_ext ivec2 const ivec2_x;		// ( +1,  0 )
+ijk_ext ivec2 const ivec2_y;		// (  0, +1 )
+ijk_ext ivec2 const ivec2_x_n;		// ( -1,  0 )
+ijk_ext ivec2 const ivec2_y_n;		// (  0, -1 )
+
+ijk_ext ivec3 const ivec3_one;		// ( +1, +1, +1 )
+ijk_ext ivec3 const ivec3_zero;		// (  0,  0,  0 )
+ijk_ext ivec3 const ivec3_one_n;	// ( -1, -1, -1 )
+ijk_ext ivec3 const ivec3_x;		// ( +1,  0,  0 )
+ijk_ext ivec3 const ivec3_y;		// (  0, +1,  0 )
+ijk_ext ivec3 const ivec3_z;		// (  0,  0, +1 )
+ijk_ext ivec3 const ivec3_x_n;		// ( -1,  0,  0 )
+ijk_ext ivec3 const ivec3_y_n;		// (  0, -1,  0 )
+ijk_ext ivec3 const ivec3_z_n;		// (  0,  0, -1 )
+
+ijk_ext ivec4 const ivec4_one;		// ( +1, +1, +1, +1 )
+ijk_ext ivec4 const ivec4_zero;		// (  0,  0,  0,  0 )
+ijk_ext ivec4 const ivec4_one_n;	// ( -1, -1, -1, -1 )
+ijk_ext ivec4 const ivec4_x;		// ( +1,  0,  0,  0 )
+ijk_ext ivec4 const ivec4_y;		// (  0, +1,  0,  0 )
+ijk_ext ivec4 const ivec4_z;		// (  0,  0, +1,  0 )
+ijk_ext ivec4 const ivec4_w;		// (  0,  0,  0, +1 )
+ijk_ext ivec4 const ivec4_x_n;		// ( -1,  0,  0,  0 )
+ijk_ext ivec4 const ivec4_y_n;		// (  0, -1,  0,  0 )
+ijk_ext ivec4 const ivec4_z_n;		// (  0,  0, -1,  0 )
+ijk_ext ivec4 const ivec4_w_n;		// (  0,  0,  0, -1 )
+
+
+//-----------------------------------------------------------------------------
+
+
+
+//-----------------------------------------------------------------------------
+
+
+
+//-----------------------------------------------------------------------------
+
+
+
+//-----------------------------------------------------------------------------
 
 // fvec2
 //	Data structure representing 2D single-precision (float) vector.
@@ -173,6 +244,83 @@ union fvec4
 };
 
 
+// Global constants for float array-based vectors and data structures.
+///
+ijk_ext flt2 const flt2_one;		// ( +1, +1 )
+ijk_ext flt2 const flt2_zero;		// (  0,  0 )
+ijk_ext flt2 const flt2_one_n;		// ( -1, -1 )
+ijk_ext flt2 const flt2_x;			// ( +1,  0 )
+ijk_ext flt2 const flt2_y;			// (  0, +1 )
+ijk_ext flt2 const flt2_x_n;		// ( -1,  0 )
+ijk_ext flt2 const flt2_y_n;		// (  0, -1 )
+
+ijk_ext flt3 const flt3_one;		// ( +1, +1, +1 )
+ijk_ext flt3 const flt3_zero;		// (  0,  0,  0 )
+ijk_ext flt3 const flt3_one_n;		// ( -1, -1, -1 )
+ijk_ext flt3 const flt3_x;			// ( +1,  0,  0 )
+ijk_ext flt3 const flt3_y;			// (  0, +1,  0 )
+ijk_ext flt3 const flt3_z;			// (  0,  0, +1 )
+ijk_ext flt3 const flt3_x_n;		// ( -1,  0,  0 )
+ijk_ext flt3 const flt3_y_n;		// (  0, -1,  0 )
+ijk_ext flt3 const flt3_z_n;		// (  0,  0, -1 )
+
+ijk_ext flt4 const flt4_one;		// ( +1, +1, +1, +1 )
+ijk_ext flt4 const flt4_zero;		// (  0,  0,  0,  0 )
+ijk_ext flt4 const flt4_one_n;		// ( -1, -1, -1, -1 )
+ijk_ext flt4 const flt4_x;			// ( +1,  0,  0,  0 )
+ijk_ext flt4 const flt4_y;			// (  0, +1,  0,  0 )
+ijk_ext flt4 const flt4_z;			// (  0,  0, +1,  0 )
+ijk_ext flt4 const flt4_w;			// (  0,  0,  0, +1 )
+ijk_ext flt4 const flt4_x_n;		// ( -1,  0,  0,  0 )
+ijk_ext flt4 const flt4_y_n;		// (  0, -1,  0,  0 )
+ijk_ext flt4 const flt4_z_n;		// (  0,  0, -1,  0 )
+ijk_ext flt4 const flt4_w_n;		// (  0,  0,  0, -1 )
+
+ijk_ext fvec2 const fvec2_one;		// ( +1, +1 )
+ijk_ext fvec2 const fvec2_zero;		// (  0,  0 )
+ijk_ext fvec2 const fvec2_one_n;	// ( -1, -1 )
+ijk_ext fvec2 const fvec2_x;		// ( +1,  0 )
+ijk_ext fvec2 const fvec2_y;		// (  0, +1 )
+ijk_ext fvec2 const fvec2_x_n;		// ( -1,  0 )
+ijk_ext fvec2 const fvec2_y_n;		// (  0, -1 )
+
+ijk_ext fvec3 const fvec3_one;		// ( +1, +1, +1 )
+ijk_ext fvec3 const fvec3_zero;		// (  0,  0,  0 )
+ijk_ext fvec3 const fvec3_one_n;	// ( -1, -1, -1 )
+ijk_ext fvec3 const fvec3_x;		// ( +1,  0,  0 )
+ijk_ext fvec3 const fvec3_y;		// (  0, +1,  0 )
+ijk_ext fvec3 const fvec3_z;		// (  0,  0, +1 )
+ijk_ext fvec3 const fvec3_x_n;		// ( -1,  0,  0 )
+ijk_ext fvec3 const fvec3_y_n;		// (  0, -1,  0 )
+ijk_ext fvec3 const fvec3_z_n;		// (  0,  0, -1 )
+
+ijk_ext fvec4 const fvec4_one;		// ( +1, +1, +1, +1 )
+ijk_ext fvec4 const fvec4_zero;		// (  0,  0,  0,  0 )
+ijk_ext fvec4 const fvec4_one_n;	// ( -1, -1, -1, -1 )
+ijk_ext fvec4 const fvec4_x;		// ( +1,  0,  0,  0 )
+ijk_ext fvec4 const fvec4_y;		// (  0, +1,  0,  0 )
+ijk_ext fvec4 const fvec4_z;		// (  0,  0, +1,  0 )
+ijk_ext fvec4 const fvec4_w;		// (  0,  0,  0, +1 )
+ijk_ext fvec4 const fvec4_x_n;		// ( -1,  0,  0,  0 )
+ijk_ext fvec4 const fvec4_y_n;		// (  0, -1,  0,  0 )
+ijk_ext fvec4 const fvec4_z_n;		// (  0,  0, -1,  0 )
+ijk_ext fvec4 const fvec4_w_n;		// (  0,  0,  0, -1 )
+
+
+//-----------------------------------------------------------------------------
+
+
+
+//-----------------------------------------------------------------------------
+
+
+
+//-----------------------------------------------------------------------------
+
+
+
+//-----------------------------------------------------------------------------
+
 // dvec2
 //	Data structure representing 2D double-precision (double) vector.
 //		member v: array of elements, used as pointer argument to vector functions
@@ -221,10 +369,67 @@ union dvec4
 };
 
 
-//-----------------------------------------------------------------------------
-
-// Global constants for vector data structures.
+// Global constants for double array-based vectors and data structures.
 ///
+ijk_ext dbl2 const dbl2_one;		// ( +1, +1 )
+ijk_ext dbl2 const dbl2_zero;		// (  0,  0 )
+ijk_ext dbl2 const dbl2_one_n;		// ( -1, -1 )
+ijk_ext dbl2 const dbl2_x;			// ( +1,  0 )
+ijk_ext dbl2 const dbl2_y;			// (  0, +1 )
+ijk_ext dbl2 const dbl2_x_n;		// ( -1,  0 )
+ijk_ext dbl2 const dbl2_y_n;		// (  0, -1 )
+
+ijk_ext dbl3 const dbl3_one;		// ( +1, +1, +1 )
+ijk_ext dbl3 const dbl3_zero;		// (  0,  0,  0 )
+ijk_ext dbl3 const dbl3_one_n;		// ( -1, -1, -1 )
+ijk_ext dbl3 const dbl3_x;			// ( +1,  0,  0 )
+ijk_ext dbl3 const dbl3_y;			// (  0, +1,  0 )
+ijk_ext dbl3 const dbl3_z;			// (  0,  0, +1 )
+ijk_ext dbl3 const dbl3_x_n;		// ( -1,  0,  0 )
+ijk_ext dbl3 const dbl3_y_n;		// (  0, -1,  0 )
+ijk_ext dbl3 const dbl3_z_n;		// (  0,  0, -1 )
+
+ijk_ext dbl4 const dbl4_one;		// ( +1, +1, +1, +1 )
+ijk_ext dbl4 const dbl4_zero;		// (  0,  0,  0,  0 )
+ijk_ext dbl4 const dbl4_one_n;		// ( -1, -1, -1, -1 )
+ijk_ext dbl4 const dbl4_x;			// ( +1,  0,  0,  0 )
+ijk_ext dbl4 const dbl4_y;			// (  0, +1,  0,  0 )
+ijk_ext dbl4 const dbl4_z;			// (  0,  0, +1,  0 )
+ijk_ext dbl4 const dbl4_w;			// (  0,  0,  0, +1 )
+ijk_ext dbl4 const dbl4_x_n;		// ( -1,  0,  0,  0 )
+ijk_ext dbl4 const dbl4_y_n;		// (  0, -1,  0,  0 )
+ijk_ext dbl4 const dbl4_z_n;		// (  0,  0, -1,  0 )
+ijk_ext dbl4 const dbl4_w_n;		// (  0,  0,  0, -1 )
+
+ijk_ext dvec2 const dvec2_one;		// ( +1, +1 )
+ijk_ext dvec2 const dvec2_zero;		// (  0,  0 )
+ijk_ext dvec2 const dvec2_one_n;	// ( -1, -1 )
+ijk_ext dvec2 const dvec2_x;		// ( +1,  0 )
+ijk_ext dvec2 const dvec2_y;		// (  0, +1 )
+ijk_ext dvec2 const dvec2_x_n;		// ( -1,  0 )
+ijk_ext dvec2 const dvec2_y_n;		// (  0, -1 )
+
+ijk_ext dvec3 const dvec3_one;		// ( +1, +1, +1 )
+ijk_ext dvec3 const dvec3_zero;		// (  0,  0,  0 )
+ijk_ext dvec3 const dvec3_one_n;	// ( -1, -1, -1 )
+ijk_ext dvec3 const dvec3_x;		// ( +1,  0,  0 )
+ijk_ext dvec3 const dvec3_y;		// (  0, +1,  0 )
+ijk_ext dvec3 const dvec3_z;		// (  0,  0, +1 )
+ijk_ext dvec3 const dvec3_x_n;		// ( -1,  0,  0 )
+ijk_ext dvec3 const dvec3_y_n;		// (  0, -1,  0 )
+ijk_ext dvec3 const dvec3_z_n;		// (  0,  0, -1 )
+
+ijk_ext dvec4 const dvec4_one;		// ( +1, +1, +1, +1 )
+ijk_ext dvec4 const dvec4_zero;		// (  0,  0,  0,  0 )
+ijk_ext dvec4 const dvec4_one_n;	// ( -1, -1, -1, -1 )
+ijk_ext dvec4 const dvec4_x;		// ( +1,  0,  0,  0 )
+ijk_ext dvec4 const dvec4_y;		// (  0, +1,  0,  0 )
+ijk_ext dvec4 const dvec4_z;		// (  0,  0, +1,  0 )
+ijk_ext dvec4 const dvec4_w;		// (  0,  0,  0, +1 )
+ijk_ext dvec4 const dvec4_x_n;		// ( -1,  0,  0,  0 )
+ijk_ext dvec4 const dvec4_y_n;		// (  0, -1,  0,  0 )
+ijk_ext dvec4 const dvec4_z_n;		// (  0,  0, -1,  0 )
+ijk_ext dvec4 const dvec4_w_n;		// (  0,  0,  0, -1 )
 
 
 //-----------------------------------------------------------------------------
@@ -244,6 +449,47 @@ union dvec4
 
 #ifdef __cplusplus
 }
+
+
+//-----------------------------------------------------------------------------
+
+
+
+//-----------------------------------------------------------------------------
+
+
+
+//-----------------------------------------------------------------------------
+
+
+
+//-----------------------------------------------------------------------------
+
+
+
+//-----------------------------------------------------------------------------
+
+
+
+//-----------------------------------------------------------------------------
+
+
+
+//-----------------------------------------------------------------------------
+
+
+
+//-----------------------------------------------------------------------------
+
+
+
+//-----------------------------------------------------------------------------
+
+
+
+//-----------------------------------------------------------------------------
+
+
 #endif	// __cplusplus
 
 
