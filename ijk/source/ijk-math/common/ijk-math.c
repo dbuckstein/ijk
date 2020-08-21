@@ -229,37 +229,37 @@ void ijkMathTestRandom()
 	real test = real_zero;
 	i32 seed = 0;
 
-	test_int = ijkRandomGetMod();
-	test_int = ijkRandomGetMax();
-	test_int = ijkRandomGetSeed();
-	seed = ijkRandomSetSeed(127);
-	ijkRandomSetSeed(seed);
+	test_int = ijkRandomGetMod();	// 134456
+	test_int = ijkRandomGetMax();	// 134455
+	test_int = ijkRandomGetSeed();	// 1235
+	seed = ijkRandomSetSeed(127);	// 1235
+	ijkRandomSetSeed(seed);			// 127
 
-	ijkRandomSetSeed(seed);
-	test_int = ijkRandomNum_int();
-	test_int = ijkRandomNumMax_int(65536);
-	test_int = ijkRandomNumRange_int(256, 65536);
+	ijkRandomSetSeed(seed);							// 1235
+	test_int = ijkRandomNum_int();					// 108102 = (1235 * 8121 + 28411) % 134456
+	test_int = ijkRandomNumMax_int(65536);			// 61529 = (61529 = (108102 * 8121 + 28411) % 134456) % 65536
+	test_int = ijkRandomNumRange_int(256, 65536);	// 1900 = (66924 = (61529 * 8121 + 28411) % 134456) % (65536 - 256) + 256
 
-	ijkRandomSetSeed(seed);
-	test_flt = ijkRandomNum_flt();
-	test_flt = ijkRandomNumMax_flt(65536.0f);
-	test_flt = ijkRandomNumRange_flt(256.0f, 65536.0f);
-	test_flt = ijkRandomNumUnitNrm_flt();
-	test_flt = ijkRandomNumUnitSym_flt();
+	ijkRandomSetSeed(seed);								// 66924
+	test_flt = ijkRandomNum_flt();						// 108102 = (1235 * 8121 + 28411) % 134456
+	test_flt = ijkRandomNumMax_flt(65536.0f);			// 29990.2164574 = (61529 = (108102 * 8121 + 28411) % 134456) * 65536 / 134456
+	test_flt = ijkRandomNumRange_flt(256.0f, 65536.0f);	// 32748.4043553 = (66924 = (61529 * 8121 + 28411) % 134456) * (65536 - 256) / 134456 + 256
+	test_flt = ijkRandomNumUnitNrm_flt();				// 0.350025287 = (47063 = (66924 * 8121 + 28411) % 134456) / 134456
+	test_flt = ijkRandomNumUnitSym_flt();				// 0.53331945 = (103082 = (47063 * 8121 + 28411) % 134456) * 2 / 134456 - 1
 
-	ijkRandomSetSeed(seed);
-	test_dbl = ijkRandomNum_dbl();
-	test_dbl = ijkRandomNumMax_dbl(65536.0);
-	test_dbl = ijkRandomNumRange_dbl(256.0, 65536.0);
-	test_dbl = ijkRandomNumUnitNrm_dbl();
-	test_dbl = ijkRandomNumUnitSym_dbl();
+	ijkRandomSetSeed(seed);								// 103082
+	test_dbl = ijkRandomNum_dbl();						// 108102 = (1235 * 8121 + 28411) % 134456
+	test_dbl = ijkRandomNumMax_dbl(65536.0);			// 29990.2164574 = (61529 = (108102 * 8121 + 28411) % 134456) * 65536 / 134456
+	test_dbl = ijkRandomNumRange_dbl(256.0, 65536.0);	// 32748.4043553 = (66924 = (61529 * 8121 + 28411) % 134456) * (65536 - 256) / 134456 + 256
+	test_dbl = ijkRandomNumUnitNrm_dbl();				// 0.350025287 = (47063 = (66924 * 8121 + 28411) % 134456) / 134456
+	test_dbl = ijkRandomNumUnitSym_dbl();				// 0.53331945 = (103082 = (47063 * 8121 + 28411) % 134456) * 2 / 134456 - 1
 
-	ijkRandomSetSeed(seed);
-	test = ijkRandomNum();
-	test = ijkRandomNumMax(ijk_x2r(65536));
-	test = ijkRandomNumRange(ijk_x2r(256), ijk_x2r(65536));
-	test = ijkRandomNumUnitNrm();
-	test = ijkRandomNumUnitSym();
+	ijkRandomSetSeed(seed);									// 103082
+	test = ijkRandomNum();									// 108102 = (1235 * 8121 + 28411) % 134456
+	test = ijkRandomNumMax(ijk_x2r(65536));					// 29990.2164574 = (61529 = (108102 * 8121 + 28411) % 134456) * 65536 / 134456
+	test = ijkRandomNumRange(ijk_x2r(256), ijk_x2r(65536));	// 32748.4043553 = (66924 = (61529 * 8121 + 28411) % 134456) * (65536 - 256) / 134456 + 256
+	test = ijkRandomNumUnitNrm();							// 0.350025287 = (47063 = (66924 * 8121 + 28411) % 134456) / 134456
+	test = ijkRandomNumUnitSym();							// 0.53331945 = (103082 = (47063 * 8121 + 28411) % 134456) * 2 / 134456 - 1
 }
 
 
