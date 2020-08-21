@@ -166,6 +166,7 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="..\..\..\source\ijk-math\common\ijk-real\ijkTrigonometry.c" />
+    <ClCompile Include="..\..\..\source\ijk-math\common\ijk-real\ijkVector.c" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\include\ijk\ijk-math\ijk-math.h" />
@@ -187,6 +188,7 @@
       <FileType>Document</FileType>
     </MASM>
     <None Include="..\..\..\include\ijk\ijk-math\ijk-real\_inl\ijkTrigonometry.inl" />
+    <None Include="..\..\..\include\ijk\ijk-math\ijk-real\_inl\ijkVector.inl" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

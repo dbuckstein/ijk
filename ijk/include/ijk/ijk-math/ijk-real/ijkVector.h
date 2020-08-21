@@ -27,13 +27,45 @@
 #define _IJK_VECTOR_H_
 
 
-#include "ijkReal.h"
+#include "ijkTrigonometry.h"
 
 
-// Reusable pointer-based vector types.
-typedef i32			int2[2], int3[3], int4[4], * pint2, * pint3, * pint4;
-typedef flt			flt2[2], flt3[3], flt4[4], * pflt2, * pflt3, * pflt4;
-typedef dbl			dbl2[2], dbl3[3], dbl4[4], * pdbl2, * pdbl3, * pdbl4;
+#ifdef __cplusplus
+extern "C" {
+#else	// !__cplusplus
+
+#endif	// __cplusplus
+
+
+// Reusable array-based vector types.
+///
+typedef i32
+	int2[2],					// 2D integer array-based vector, always passed by pointer.
+	int3[3],					// 3D integer array-based vector, always passed by pointer.
+	int4[4],					// 4D integer array-based vector, always passed by pointer.
+	* intv;						// Generic integer array-based vector, represented by pointer, used as vector return type since returning sized array is not allowed.
+typedef flt
+	flt2[2],					// 2D single-precision array-based vector, always passed by pointer.
+	flt3[3],					// 3D single-precision array-based vector, always passed by pointer.
+	flt4[4],					// 4D single-precision array-based vector, always passed by pointer.
+	* fltv;						// Generic float single-precision-based vector, represented by pointer, used as vector return type since returning sized array is not allowed.
+typedef dbl
+	dbl2[2],					// 2D double-precision array-based vector, always passed by pointer.
+	dbl3[3],					// 3D double-precision array-based vector, always passed by pointer.
+	dbl4[4],					// 4D double-precision array-based vector, always passed by pointer.
+	* dblv;						// Generic double-precision array-based vector, represented by pointer, used as vector return type since returning sized array is not allowed.
+
+typedef i32 const* intkv;		// Generic constant integer array-based vector, represented by pointer, used as constant vector return type since returning sized array is not allowed.
+typedef flt const* fltkv;		// Generic constant single-precision array-based vector, represented by pointer, used as constant vector return type since returning sized array is not allowed.
+typedef dbl const* dblkv;		// Generic constant double-precision array-based vector, represented by pointer, used as constant vector return type since returning sized array is not allowed.
+
+
+#ifdef __cplusplus
+}
+#endif	// __cplusplus
+
+
+#include "_inl/ijkVector.inl"
 
 
 #endif	// !_IJK_VECTOR_H_

@@ -57,6 +57,9 @@
     <ClCompile Include="..\..\..\source\ijk-math\common\ijk-real\ijkTrigonometry.c">
       <Filter>Source Files\common\ijk-real</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\source\ijk-math\common\ijk-real\ijkVector.c">
+      <Filter>Source Files\common\ijk-real</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\include\ijk\ijk-math\ijk-math.h">
@@ -101,6 +104,9 @@
       <Filter>Header Files\ijk-math\ijk-real\_inl</Filter>
     </None>
     <None Include="..\..\..\include\ijk\ijk-math\ijk-real\_inl\ijkTrigonometry.inl">
+      <Filter>Header Files\ijk-math\ijk-real\_inl</Filter>
+    </None>
+    <None Include="..\..\..\include\ijk\ijk-math\ijk-real\_inl\ijkVector.inl">
       <Filter>Header Files\ijk-math\ijk-real\_inl</Filter>
     </None>
   </ItemGroup>
