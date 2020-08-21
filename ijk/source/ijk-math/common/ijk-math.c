@@ -268,10 +268,23 @@ void ijkMathTestInterpolation()
 	i32 const seedbase = 2048;
 	i32 const vmin = -16, vmax = +16;
 
+	/*
+		[0][0] +0.75	[1][0] -0.25	[2][0] -3.25	[3][0] -0.25
+		[0][1] +1.50	[1][1] -3.50	[2][1] +1.50	[3][1] +2.50
+		[0][2] +2.25	[1][2] +1.25	[2][2] +0.25	[3][2] +3.25
+		[0][3] +3.00	[1][3] -2.00	[2][3] +3.00	[3][3] -2.00
+		
+		tp = 0.375
+		t0 = 0.750
+		t1 = 0.125
+		t2 = 0.500
+		t = 0.875
+	*/
+
 	i32 const seed_flt = ijkRandomSetSeed(seedbase);
 	flt const v_flt[][4] = { { flt_quarter * (flt)ijkRandomNumRange_int(vmin, vmax), flt_quarter * (flt)ijkRandomNumRange_int(vmin, vmax), flt_quarter * (flt)ijkRandomNumRange_int(vmin, vmax), flt_quarter * (flt)ijkRandomNumRange_int(vmin, vmax) }, { flt_quarter * (flt)ijkRandomNumRange_int(vmin, vmax), flt_quarter * (flt)ijkRandomNumRange_int(vmin, vmax), flt_quarter * (flt)ijkRandomNumRange_int(vmin, vmax), flt_quarter * (flt)ijkRandomNumRange_int(vmin, vmax) }, { flt_quarter * (flt)ijkRandomNumRange_int(vmin, vmax), flt_quarter * (flt)ijkRandomNumRange_int(vmin, vmax), flt_quarter * (flt)ijkRandomNumRange_int(vmin, vmax), flt_quarter * (flt)ijkRandomNumRange_int(vmin, vmax) }, { flt_quarter * (flt)ijkRandomNumRange_int(vmin, vmax), flt_quarter * (flt)ijkRandomNumRange_int(vmin, vmax), flt_quarter * (flt)ijkRandomNumRange_int(vmin, vmax), flt_quarter * (flt)ijkRandomNumRange_int(vmin, vmax) } };
 	flt const tp_flt = flt_8th * (flt)ijkRandomNumMax_int(8), t0_flt = flt_8th * (flt)ijkRandomNumMax_int(8), t1_flt = flt_8th * (flt)ijkRandomNumMax_int(8), t2_flt = flt_8th * (flt)ijkRandomNumMax_int(8), t_flt = flt_8th * (flt)ijkRandomNumMax_int(8);
-
+	
 	i32 const seed_dbl = ijkRandomSetSeed(seedbase);
 	dbl const v_dbl[][4] = { { dbl_quarter * (dbl)ijkRandomNumRange_int(vmin, vmax), dbl_quarter * (dbl)ijkRandomNumRange_int(vmin, vmax), dbl_quarter * (dbl)ijkRandomNumRange_int(vmin, vmax), dbl_quarter * (dbl)ijkRandomNumRange_int(vmin, vmax) }, { dbl_quarter * (dbl)ijkRandomNumRange_int(vmin, vmax), dbl_quarter * (dbl)ijkRandomNumRange_int(vmin, vmax), dbl_quarter * (dbl)ijkRandomNumRange_int(vmin, vmax), dbl_quarter * (dbl)ijkRandomNumRange_int(vmin, vmax) }, { dbl_quarter * (dbl)ijkRandomNumRange_int(vmin, vmax), dbl_quarter * (dbl)ijkRandomNumRange_int(vmin, vmax), dbl_quarter * (dbl)ijkRandomNumRange_int(vmin, vmax), dbl_quarter * (dbl)ijkRandomNumRange_int(vmin, vmax) }, { dbl_quarter * (dbl)ijkRandomNumRange_int(vmin, vmax), dbl_quarter * (dbl)ijkRandomNumRange_int(vmin, vmax), dbl_quarter * (dbl)ijkRandomNumRange_int(vmin, vmax), dbl_quarter * (dbl)ijkRandomNumRange_int(vmin, vmax) } };
 	dbl const tp_dbl = dbl_8th * (dbl)ijkRandomNumMax_int(8), t0_dbl = dbl_8th * (dbl)ijkRandomNumMax_int(8), t1_dbl = dbl_8th * (dbl)ijkRandomNumMax_int(8), t2_dbl = dbl_8th * (dbl)ijkRandomNumMax_int(8), t_dbl = dbl_8th * (dbl)ijkRandomNumMax_int(8);
@@ -291,57 +304,59 @@ void ijkMathTestInterpolation()
 	dbl test_dbl;
 	real test;
 
-	test_flt = ijkInterpNearest_flt(v_flt[0][0], v_flt[0][1], t_flt);
-	test_flt = ijkInterpBinearest_flt(v_flt[0][0], v_flt[0][1], v_flt[1][0], v_flt[1][1], t0_flt, t1_flt, t_flt);
-	test_flt = ijkInterpLinear_flt(v_flt[0][0], v_flt[0][1], t_flt);
-	test_flt = ijkInterpBilinear_flt(v_flt[0][0], v_flt[0][1], v_flt[1][0], v_flt[1][1], t0_flt, t1_flt, t_flt);
-	test_flt = ijkInterpLinearInv_flt(v_flt[0][0], v_flt[0][1], v_flt[0][2]);
-	test_flt = ijkInterpLinearInvSafe_flt(v_flt[0][0], v_flt[0][1], v_flt[0][2]);
-	test_flt = ijkInterpRemap_flt(v_flt[0][0], v_flt[0][1], v_flt[1][0], v_flt[1][1], v_flt[1][2]);
-	test_flt = ijkInterpRemapSafe_flt(v_flt[0][0], v_flt[0][1], v_flt[1][0], v_flt[1][1], v_flt[1][2]);
-	test_flt = ijkInterpBezier0_flt(v_flt[0][0], t_flt);
-	test_flt = ijkInterpBezier1_flt(v_flt[0][0], v_flt[0][1], t_flt);
-	test_flt = ijkInterpBezier2_flt(v_flt[0][0], v_flt[0][1], v_flt[0][2], t_flt);
-	test_flt = ijkInterpBezier3_flt(v_flt[0][0], v_flt[0][1], v_flt[0][2], v_flt[0][3], t_flt);
-	test_flt = ijkInterpBezierN_flt(*v_flt, order, t_flt);
-	test_flt = ijkInterpCubicHermite_flt(v_flt[0][0], (v_flt[1][0] - v_flt[0][0]), v_flt[0][1], (v_flt[1][1] - v_flt[0][1]), t_flt);
-	test_flt = ijkInterpCubicHermiteHandles_flt(v_flt[0][0], v_flt[1][0], v_flt[0][1], v_flt[1][1], t_flt);
-	test_flt = ijkInterpCubicCatmullRom_flt(v_flt[0][3], v_flt[0][0], v_flt[0][1], v_flt[0][2], t_flt);
-	test_flt = ijkInterpBicubicCatmullRom_flt(v_flt[3][3], v_flt[3][0], v_flt[3][1], v_flt[3][2], v_flt[0][3], v_flt[0][0], v_flt[0][1], v_flt[0][2], v_flt[1][3], v_flt[1][0], v_flt[1][1], v_flt[1][2], v_flt[2][3], v_flt[2][0], v_flt[2][1], v_flt[2][2], tp_flt, t0_flt, t1_flt, t2_flt, t_flt);
-	test_flt = ijkInterpReparamCubicHermite_flt(test_tTable_flt, test_lTable_flt, test_vTable_flt, numDivisions, ijk_true, v_flt[0][0], (v_flt[1][0] - v_flt[0][0]), v_flt[0][1], (v_flt[1][1] - v_flt[0][1]));
-	test_flt = ijkInterpReparamCubicHermiteHandles_flt(test_tTable_flt, test_lTable_flt, test_vTable_flt, numDivisions, ijk_true, v_flt[0][0], v_flt[1][0], v_flt[0][1], v_flt[1][1]);
-	test_flt = ijkInterpReparamCubicCatmullRom_flt(test_tTable_flt, test_lTable_flt, test_vTable_flt, numDivisions, ijk_true, v_flt[0][3], v_flt[0][0], v_flt[0][1], v_flt[0][2]);
-	test_flt = ijkInterpReparamBicubicCatmullRom_flt(test_tTable_flt, test_lTable_flt, test_vTable_flt, numDivisions, ijk_true, v_flt[3][3], v_flt[3][0], v_flt[3][1], v_flt[3][2], v_flt[0][3], v_flt[0][0], v_flt[0][1], v_flt[0][2], v_flt[1][3], v_flt[1][0], v_flt[1][1], v_flt[1][2], v_flt[2][3], v_flt[2][0], v_flt[2][1], v_flt[2][2], tp_flt, t0_flt, t1_flt, t2_flt);
-	test_flt = ijkInterpSampleTableInc_flt(test_tTable_flt, test_vTable_flt, 0, 0, t_flt);
-	test_flt = ijkInterpSampleTableDec_flt(test_tTable_flt, test_vTable_flt, 0, 2, t_flt);
-	test_index = ijkInterpSampleTableIncIndex_flt(test_vTable_flt, test_tTable_flt, 0, 0, t_flt);
-	test_index = ijkInterpSampleTableDecIndex_flt(test_vTable_flt, test_tTable_flt, 0, 2, t_flt);
+	test_flt = ijkInterpNearest_flt(v_flt[0][0], v_flt[0][1], t_flt);	// 1.5
+	test_flt = ijkInterpBinearest_flt(v_flt[0][0], v_flt[0][1], v_flt[1][0], v_flt[1][1], t0_flt, t1_flt, t_flt);	// near(1.5, -0.25) = -0.25
+	test_flt = ijkInterpLinear_flt(v_flt[0][0], v_flt[0][1], t_flt);	// 1.40625
+	test_flt = ijkInterpBilinear_flt(v_flt[0][0], v_flt[0][1], v_flt[1][0], v_flt[1][1], t0_flt, t1_flt, t_flt);	// lerp(1.3125, -0.65625) = -0.41015625
+	test_flt = ijkInterpLinearInv_flt(v_flt[0][0], v_flt[0][1], v_flt[0][2]);		// 2.0
+	test_flt = ijkInterpLinearInvSafe_flt(v_flt[0][0], v_flt[0][1], v_flt[0][2]);	// 2.0
+	test_flt = ijkInterpRemap_flt(v_flt[0][0], v_flt[0][1], v_flt[1][0], v_flt[1][1], v_flt[1][2]);		// -0.4615384 -> 0.4038461
+	test_flt = ijkInterpRemapSafe_flt(v_flt[0][0], v_flt[0][1], v_flt[1][0], v_flt[1][1], v_flt[1][2]);	// -0.4615384 -> 0.4038461
+	test_flt = ijkInterpBezier0_flt(v_flt[0][0], t_flt);	// 0.75
+	test_flt = ijkInterpBezier1_flt(v_flt[0][0], v_flt[0][1], t_flt);	// 1.40625
+	test_flt = ijkInterpBezier2_flt(v_flt[0][0], v_flt[0][1], v_flt[0][2], t_flt);	// lerp(1.40625, lerp(1.5, 2.25) = 2.15625) = 2.0625
+	test_flt = ijkInterpBezier3_flt(v_flt[0][0], v_flt[0][1], v_flt[0][2], v_flt[0][3], t_flt);	// lerp(2.0625, lerp(2.15625, lerp(2.25, 3) = 2.90625) = 2.8125) = 2.71875
+	test_flt = ijkInterpBezierN_flt(*v_flt, order, t_flt);	// 2.71875
 
-	test_dbl = ijkInterpNearest_dbl(v_dbl[0][0], v_dbl[0][1], t_dbl);
-	test_dbl = ijkInterpBinearest_dbl(v_dbl[0][0], v_dbl[0][1], v_dbl[1][0], v_dbl[1][1], t0_dbl, t1_dbl, t_dbl);
-	test_dbl = ijkInterpLinear_dbl(v_dbl[0][0], v_dbl[0][1], t_dbl);
-	test_dbl = ijkInterpBilinear_dbl(v_dbl[0][0], v_dbl[0][1], v_dbl[1][0], v_dbl[1][1], t0_dbl, t1_dbl, t_dbl);
-	test_dbl = ijkInterpLinearInv_dbl(v_dbl[0][0], v_dbl[0][1], v_dbl[0][2]);
-	test_dbl = ijkInterpLinearInvSafe_dbl(v_dbl[0][0], v_dbl[0][1], v_dbl[0][2]);
-	test_dbl = ijkInterpRemap_dbl(v_dbl[0][0], v_dbl[0][1], v_dbl[1][0], v_dbl[1][1], v_dbl[1][2]);
-	test_dbl = ijkInterpRemapSafe_dbl(v_dbl[0][0], v_dbl[0][1], v_dbl[1][0], v_dbl[1][1], v_dbl[1][2]);
-	test_dbl = ijkInterpBezier0_dbl(v_dbl[0][0], t_dbl);
-	test_dbl = ijkInterpBezier1_dbl(v_dbl[0][0], v_dbl[0][1], t_dbl);
-	test_dbl = ijkInterpBezier2_dbl(v_dbl[0][0], v_dbl[0][1], v_dbl[0][2], t_dbl);
-	test_dbl = ijkInterpBezier3_dbl(v_dbl[0][0], v_dbl[0][1], v_dbl[0][2], v_dbl[0][3], t_dbl);
-	test_dbl = ijkInterpBezierN_dbl(*v_dbl, order, t_dbl);
-	test_dbl = ijkInterpCubicHermite_dbl(v_dbl[0][0], (v_dbl[1][0] - v_dbl[0][0]), v_dbl[0][1], (v_dbl[1][1] - v_dbl[0][1]), t_dbl);
-	test_dbl = ijkInterpCubicHermiteHandles_dbl(v_dbl[0][0], v_dbl[1][0], v_dbl[0][1], v_dbl[1][1], t_dbl);
-	test_dbl = ijkInterpCubicCatmullRom_dbl(v_dbl[0][3], v_dbl[0][0], v_dbl[0][1], v_dbl[0][2], t_dbl);
-	test_dbl = ijkInterpBicubicCatmullRom_dbl(v_dbl[3][3], v_dbl[3][0], v_dbl[3][1], v_dbl[3][2], v_dbl[0][3], v_dbl[0][0], v_dbl[0][1], v_dbl[0][2], v_dbl[1][3], v_dbl[1][0], v_dbl[1][1], v_dbl[1][2], v_dbl[2][3], v_dbl[2][0], v_dbl[2][1], v_dbl[2][2], tp_dbl, t0_dbl, t1_dbl, t2_dbl, t_dbl);
-	test_dbl = ijkInterpReparamCubicHermite_dbl(test_tTable_dbl, test_lTable_dbl, test_vTable_dbl, numDivisions, ijk_true, v_dbl[0][0], (v_dbl[1][0] - v_dbl[0][0]), v_dbl[0][1], (v_dbl[1][1] - v_dbl[0][1]));
-	test_dbl = ijkInterpReparamCubicHermiteHandles_dbl(test_tTable_dbl, test_lTable_dbl, test_vTable_dbl, numDivisions, ijk_true, v_dbl[0][0], v_dbl[1][0], v_dbl[0][1], v_dbl[1][1]);
-	test_dbl = ijkInterpReparamCubicCatmullRom_dbl(test_tTable_dbl, test_lTable_dbl, test_vTable_dbl, numDivisions, ijk_true, v_dbl[0][3], v_dbl[0][0], v_dbl[0][1], v_dbl[0][2]);
-	test_dbl = ijkInterpReparamBicubicCatmullRom_dbl(test_tTable_dbl, test_lTable_dbl, test_vTable_dbl, numDivisions, ijk_true, v_dbl[3][3], v_dbl[3][0], v_dbl[3][1], v_dbl[3][2], v_dbl[0][3], v_dbl[0][0], v_dbl[0][1], v_dbl[0][2], v_dbl[1][3], v_dbl[1][0], v_dbl[1][1], v_dbl[1][2], v_dbl[2][3], v_dbl[2][0], v_dbl[2][1], v_dbl[2][2], tp_dbl, t0_dbl, t1_dbl, t2_dbl);
-	test_dbl = ijkInterpSampleTableInc_dbl(test_tTable_dbl, test_vTable_dbl, 0, 0, t_dbl);
-	test_dbl = ijkInterpSampleTableDec_dbl(test_tTable_dbl, test_vTable_dbl, 0, 2, t_dbl);
-	test_index = ijkInterpSampleTableIncIndex_dbl(test_vTable_dbl, test_tTable_dbl, 0, 0, t_dbl);
-	test_index = ijkInterpSampleTableDecIndex_dbl(test_vTable_dbl, test_tTable_dbl, 0, 2, t_dbl);
+	test_flt = ijkInterpCubicHermite_flt(v_flt[0][0], (v_flt[1][0] - v_flt[0][0]), v_flt[0][1], (v_flt[1][1] - v_flt[0][1]), t_flt);	// 1.9326171875
+	test_flt = ijkInterpCubicHermiteHandles_flt(v_flt[0][0], v_flt[1][0], v_flt[0][1], v_flt[1][1], t_flt);	// 1.9326171875
+	test_flt = ijkInterpCubicCatmullRom_flt(v_flt[0][3], v_flt[0][0], v_flt[0][1], v_flt[0][2], t_flt);		// 1.3857421875
+	test_flt = ijkInterpBicubicCatmullRom_flt(v_flt[3][3], v_flt[3][0], v_flt[3][1], v_flt[3][2], v_flt[0][3], v_flt[0][0], v_flt[0][1], v_flt[0][2], v_flt[1][3], v_flt[1][0], v_flt[1][1], v_flt[1][2], v_flt[2][3], v_flt[2][0], v_flt[2][1], v_flt[2][2], tp_flt, t0_flt, t1_flt, t2_flt, t_flt);	// CR(0.7958984375, 1.2421875, -0.4716796875, -1.1875) = -0.290437698364
+	test_flt = ijkInterpReparamCubicHermite_flt(test_tTable_flt, test_lTable_flt, test_vTable_flt, numDivisions, ijk_true, v_flt[0][0], (v_flt[1][0] - v_flt[0][0]), v_flt[0][1], (v_flt[1][1] - v_flt[0][1]));	// 1.88452148438
+	test_flt = ijkInterpReparamCubicHermiteHandles_flt(test_tTable_flt, test_lTable_flt, test_vTable_flt, numDivisions, ijk_true, v_flt[0][0], v_flt[1][0], v_flt[0][1], v_flt[1][1]);	// 1.88452148438
+	test_flt = ijkInterpReparamCubicCatmullRom_flt(test_tTable_flt, test_lTable_flt, test_vTable_flt, numDivisions, ijk_true, v_flt[0][3], v_flt[0][0], v_flt[0][1], v_flt[0][2]);	// 0.849609375
+	test_flt = ijkInterpReparamBicubicCatmullRom_flt(test_tTable_flt, test_lTable_flt, test_vTable_flt, numDivisions, ijk_true, v_flt[3][3], v_flt[3][0], v_flt[3][1], v_flt[3][2], v_flt[0][3], v_flt[0][0], v_flt[0][1], v_flt[0][2], v_flt[1][3], v_flt[1][0], v_flt[1][1], v_flt[1][2], v_flt[2][3], v_flt[2][0], v_flt[2][1], v_flt[2][2], tp_flt, t0_flt, t1_flt, t2_flt);	// 1.7138671875
+	test_flt = ijkInterpSampleTableInc_flt(test_tTable_flt, test_vTable_flt, 0, 0, t_flt);	// -0.290437698364
+	test_flt = ijkInterpSampleTableDec_flt(test_tTable_flt + numDivisions, test_vTable_flt + numDivisions, 0, 2, t_flt);
+	test_index = ijkInterpSampleTableIncIndex_flt(test_vTable_flt, test_tTable_flt, 0, 0, t_flt);	// 28 = 32 * 0.875
+	test_index = ijkInterpSampleTableDecIndex_flt(test_vTable_flt, test_tTable_flt + numDivisions, 0, 2, t_flt);
+
+	test_dbl = ijkInterpNearest_dbl(v_dbl[0][0], v_dbl[0][1], t_dbl);	// 1.5
+	test_dbl = ijkInterpBinearest_dbl(v_dbl[0][0], v_dbl[0][1], v_dbl[1][0], v_dbl[1][1], t0_dbl, t1_dbl, t_dbl);	// near(1.5, -0.25) = -0.25
+	test_dbl = ijkInterpLinear_dbl(v_dbl[0][0], v_dbl[0][1], t_dbl);	// 1.40625
+	test_dbl = ijkInterpBilinear_dbl(v_dbl[0][0], v_dbl[0][1], v_dbl[1][0], v_dbl[1][1], t0_dbl, t1_dbl, t_dbl);	// lerp(1.3125, -0.65625) = -0.41015625
+	test_dbl = ijkInterpLinearInv_dbl(v_dbl[0][0], v_dbl[0][1], v_dbl[0][2]);		// 2.0
+	test_dbl = ijkInterpLinearInvSafe_dbl(v_dbl[0][0], v_dbl[0][1], v_dbl[0][2]);	// 2.0
+	test_dbl = ijkInterpRemap_dbl(v_dbl[0][0], v_dbl[0][1], v_dbl[1][0], v_dbl[1][1], v_dbl[1][2]);		// -0.4615384 -> 0.4038461
+	test_dbl = ijkInterpRemapSafe_dbl(v_dbl[0][0], v_dbl[0][1], v_dbl[1][0], v_dbl[1][1], v_dbl[1][2]);	// -0.4615384 -> 0.4038461
+	test_dbl = ijkInterpBezier0_dbl(v_dbl[0][0], t_dbl);	// 0.75
+	test_dbl = ijkInterpBezier1_dbl(v_dbl[0][0], v_dbl[0][1], t_dbl);	// 1.40625
+	test_dbl = ijkInterpBezier2_dbl(v_dbl[0][0], v_dbl[0][1], v_dbl[0][2], t_dbl);	// lerp(1.40625, lerp(1.5, 2.25) = 2.15625) = 2.0625
+	test_dbl = ijkInterpBezier3_dbl(v_dbl[0][0], v_dbl[0][1], v_dbl[0][2], v_dbl[0][3], t_dbl);	// lerp(2.0625, lerp(2.15625, lerp(2.25, 3) = 2.90625) = 2.8125) = 2.71875
+	test_dbl = ijkInterpBezierN_dbl(*v_dbl, order, t_dbl);	// 2.71875
+
+	test_dbl = ijkInterpCubicHermite_dbl(v_dbl[0][0], (v_dbl[1][0] - v_dbl[0][0]), v_dbl[0][1], (v_dbl[1][1] - v_dbl[0][1]), t_dbl);	// 1.9326171875
+	test_dbl = ijkInterpCubicHermiteHandles_dbl(v_dbl[0][0], v_dbl[1][0], v_dbl[0][1], v_dbl[1][1], t_dbl);	// 1.9326171875
+	test_dbl = ijkInterpCubicCatmullRom_dbl(v_dbl[0][3], v_dbl[0][0], v_dbl[0][1], v_dbl[0][2], t_dbl);		// 1.3857421875
+	test_dbl = ijkInterpBicubicCatmullRom_dbl(v_dbl[3][3], v_dbl[3][0], v_dbl[3][1], v_dbl[3][2], v_dbl[0][3], v_dbl[0][0], v_dbl[0][1], v_dbl[0][2], v_dbl[1][3], v_dbl[1][0], v_dbl[1][1], v_dbl[1][2], v_dbl[2][3], v_dbl[2][0], v_dbl[2][1], v_dbl[2][2], tp_dbl, t0_dbl, t1_dbl, t2_dbl, t_dbl);	// CR(0.7958984375, 1.2421875, -0.4716796875, -1.1875) = -0.290437698364
+	test_dbl = ijkInterpReparamCubicHermite_dbl(test_tTable_dbl, test_lTable_dbl, test_vTable_dbl, numDivisions, ijk_true, v_dbl[0][0], (v_dbl[1][0] - v_dbl[0][0]), v_dbl[0][1], (v_dbl[1][1] - v_dbl[0][1]));	// 1.88452148438
+	test_dbl = ijkInterpReparamCubicHermiteHandles_dbl(test_tTable_dbl, test_lTable_dbl, test_vTable_dbl, numDivisions, ijk_true, v_dbl[0][0], v_dbl[1][0], v_dbl[0][1], v_dbl[1][1]);	// 1.88452148438
+	test_dbl = ijkInterpReparamCubicCatmullRom_dbl(test_tTable_dbl, test_lTable_dbl, test_vTable_dbl, numDivisions, ijk_true, v_dbl[0][3], v_dbl[0][0], v_dbl[0][1], v_dbl[0][2]);	// 0.849609375
+	test_dbl = ijkInterpReparamBicubicCatmullRom_dbl(test_tTable_dbl, test_lTable_dbl, test_vTable_dbl, numDivisions, ijk_true, v_dbl[3][3], v_dbl[3][0], v_dbl[3][1], v_dbl[3][2], v_dbl[0][3], v_dbl[0][0], v_dbl[0][1], v_dbl[0][2], v_dbl[1][3], v_dbl[1][0], v_dbl[1][1], v_dbl[1][2], v_dbl[2][3], v_dbl[2][0], v_dbl[2][1], v_dbl[2][2], tp_dbl, t0_dbl, t1_dbl, t2_dbl);	// 1.7138671875
+	test_dbl = ijkInterpSampleTableInc_dbl(test_tTable_dbl, test_vTable_dbl, 0, 0, t_dbl);	// -0.290437698364
+	test_dbl = ijkInterpSampleTableDec_dbl(test_tTable_dbl + numDivisions, test_vTable_dbl + numDivisions, 0, 2, t_dbl);
+	test_index = ijkInterpSampleTableIncIndex_dbl(test_vTable_dbl, test_tTable_dbl, 0, 0, t_dbl);	// 28 = 32 * 0.875
+	test_index = ijkInterpSampleTableDecIndex_dbl(test_vTable_dbl, test_tTable_dbl + numDivisions, 0, 2, t_dbl);
 
 	test = ijkInterpNearest(v[0][0], v[0][1], t);
 	test = ijkInterpBinearest(v[0][0], v[0][1], v[1][0], v[1][1], t0, t1, t);
@@ -356,6 +371,7 @@ void ijkMathTestInterpolation()
 	test = ijkInterpBezier2(v[0][0], v[0][1], v[0][2], t);
 	test = ijkInterpBezier3(v[0][0], v[0][1], v[0][2], v[0][3], t);
 	test = ijkInterpBezierN(*v, order, t);
+
 	test = ijkInterpCubicHermite(v[0][0], (v[1][0] - v[0][0]), v[0][1], (v[1][1] - v[0][1]), t);
 	test = ijkInterpCubicHermiteHandles(v[0][0], v[1][0], v[0][1], v[1][1], t);
 	test = ijkInterpCubicCatmullRom(v[0][3], v[0][0], v[0][1], v[0][2], t);
