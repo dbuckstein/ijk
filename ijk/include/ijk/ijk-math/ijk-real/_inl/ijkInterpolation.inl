@@ -346,8 +346,8 @@ ijk_inl flt ijkInterpReparamBicubicCatmullRom_flt(flt tTable_out[], flt lTable_o
 
 ijk_inl flt ijkInterpSampleTableInc_flt(flt const tTable[], flt const vTable[], index i, index di, flt const t)
 {
-	flt tReparam, v0, v1, v;
-	flt t0, t1 = *(tTable + (i += (di = ijk_maximum(di, 1))));
+	flt tReparam, v0, v1;
+	flt t0, t1 = *(tTable + (i += (di ? di : (di = 1))));
 	
 	// step through parameter table until entry exceeds target parameter, 
 	//	indicating it can be used to interpolate current segment
@@ -361,17 +361,14 @@ ijk_inl flt ijkInterpSampleTableInc_flt(flt const tTable[], flt const vTable[], 
 	// get initial interpolation parameter, use to get segment parameter
 	t0 = *(tTable + i);
 	tReparam = ijkInterpLinearInv_flt(t0, t1, t);
-	v = ijkInterpLinear_flt(v0, v1, tReparam);
-	
-	// done
-	return v;
+	return ijkInterpLinear_flt(v0, v1, tReparam);
 }
 
 
 ijk_inl flt ijkInterpSampleTableDec_flt(flt const tTable[], flt const vTable[], index i, index di, flt const t)
 {
-	flt tReparam, v0, v1, v;
-	flt t0, t1 = *(tTable + (i += (di = ijk_maximum(di, 1))));
+	flt tReparam, v0, v1;
+	flt t0, t1 = *(tTable + (i += (di ? di : (di = 1))));
 
 	// same as above, except parameters in table are decreasing so terminal 
 	//	parameter will be less than target parameter
@@ -383,15 +380,13 @@ ijk_inl flt ijkInterpSampleTableDec_flt(flt const tTable[], flt const vTable[], 
 
 	t0 = *(tTable + i);
 	tReparam = ijkInterpLinearInv_flt(t0, t1, t);
-	v = ijkInterpLinear_flt(v0, v1, tReparam);
-
-	return v;
+	return ijkInterpLinear_flt(v0, v1, tReparam);
 }
 
 
 ijk_inl index ijkInterpSampleTableIncIndex_flt(flt* const tReparam_out, flt const tTable[], index i, index di, flt const t)
 {
-	flt t0, t1 = *(tTable + (i += (di = ijk_maximum(di, 1))));
+	flt t0, t1 = *(tTable + (i += (di ? di : (di = 1))));
 
 	// this time just looking for the index where we exceed target parameter
 	while (t1 < t)
@@ -403,15 +398,13 @@ ijk_inl index ijkInterpSampleTableIncIndex_flt(flt* const tReparam_out, flt cons
 		t0 = *(tTable + i - di);
 		*tReparam_out = ijkInterpLinearInv_flt(t0, t1, t);
 	}
-
-	// done
 	return i;
 }
 
 
 ijk_inl index ijkInterpSampleTableDecIndex_flt(flt* const tReparam_out, flt const tTable[], index i, index di, flt const t)
 {
-	flt t0, t1 = *(tTable + (i += (di = ijk_maximum(di, 1))));
+	flt t0, t1 = *(tTable + (i += (di ? di : (di = 1))));
 
 	// same as above with decreasing parameter entries
 	while (t1 > t)
@@ -422,7 +415,6 @@ ijk_inl index ijkInterpSampleTableDecIndex_flt(flt* const tReparam_out, flt cons
 		t0 = *(tTable + i - di);
 		*tReparam_out = ijkInterpLinearInv_flt(t0, t1, t);
 	}
-
 	return i;
 }
 
@@ -745,8 +737,8 @@ ijk_inl dbl ijkInterpReparamBicubicCatmullRom_dbl(dbl tTable_out[], dbl lTable_o
 
 ijk_inl dbl ijkInterpSampleTableInc_dbl(dbl const tTable[], dbl const vTable[], uindex i, uindex di, dbl const t)
 {
-	dbl tReparam, v0, v1, v;
-	dbl t0, t1 = *(tTable + (i += (di = ijk_maximum(di, 1))));
+	dbl tReparam, v0, v1;
+	dbl t0, t1 = *(tTable + (i += (di ? di : (di = 1))));
 
 	// step through parameter table until entry exceeds target parameter, 
 	//	indicating it can be used to interpolate current segment
@@ -760,17 +752,14 @@ ijk_inl dbl ijkInterpSampleTableInc_dbl(dbl const tTable[], dbl const vTable[], 
 	// get initial interpolation parameter, use to get segment parameter
 	t0 = *(tTable + i);
 	tReparam = ijkInterpLinearInv_dbl(t0, t1, t);
-	v = ijkInterpLinear_dbl(v0, v1, tReparam);
-
-	// done
-	return v;
+	return ijkInterpLinear_dbl(v0, v1, tReparam);
 }
 
 
 ijk_inl dbl ijkInterpSampleTableDec_dbl(dbl const tTable[], dbl const vTable[], uindex i, uindex di, dbl const t)
 {
-	dbl tReparam, v0, v1, v;
-	dbl t0, t1 = *(tTable + (i += (di = ijk_maximum(di, 1))));
+	dbl tReparam, v0, v1;
+	dbl t0, t1 = *(tTable + (i += (di ? di : (di = 1))));
 
 	// same as above, except parameters in table are decreasing so terminal 
 	//	parameter will be less than target parameter
@@ -782,15 +771,13 @@ ijk_inl dbl ijkInterpSampleTableDec_dbl(dbl const tTable[], dbl const vTable[], 
 
 	t0 = *(tTable + i);
 	tReparam = ijkInterpLinearInv_dbl(t0, t1, t);
-	v = ijkInterpLinear_dbl(v0, v1, tReparam);
-
-	return v;
+	return ijkInterpLinear_dbl(v0, v1, tReparam);
 }
 
 
 ijk_inl index ijkInterpSampleTableIncIndex_dbl(dbl* const tReparam_out, dbl const tTable[], uindex i, uindex di, dbl const t)
 {
-	dbl t0, t1 = *(tTable + (i += (di = ijk_maximum(di, 1))));
+	dbl t0, t1 = *(tTable + (i += (di ? di : (di = 1))));
 
 	// this time just looking for the index where we exceed target parameter
 	while (t1 < t)
@@ -802,15 +789,13 @@ ijk_inl index ijkInterpSampleTableIncIndex_dbl(dbl* const tReparam_out, dbl cons
 		t0 = *(tTable + i - di);
 		*tReparam_out = ijkInterpLinearInv_dbl(t0, t1, t);
 	}
-
-	// done
 	return i;
 }
 
 
 ijk_inl index ijkInterpSampleTableDecIndex_dbl(dbl* const tReparam_out, dbl const tTable[], uindex i, uindex di, dbl const t)
 {
-	dbl t0, t1 = *(tTable + (i += (di = ijk_maximum(di, 1))));
+	dbl t0, t1 = *(tTable + (i += (di ? di : (di = 1))));
 
 	// same as above with decreasing parameter entries
 	while (t1 > t)
@@ -821,7 +806,6 @@ ijk_inl index ijkInterpSampleTableDecIndex_dbl(dbl* const tReparam_out, dbl cons
 		t0 = *(tTable + i - di);
 		*tReparam_out = ijkInterpLinearInv_dbl(t0, t1, t);
 	}
-
 	return i;
 }
 
