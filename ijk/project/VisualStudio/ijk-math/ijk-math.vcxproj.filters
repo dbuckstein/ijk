@@ -40,6 +40,9 @@
     <Filter Include="Source Files\common\ijk-real\_asm">
       <UniqueIdentifier>{9b63c867-16b2-4359-8e70-466f5ef76d9e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\common\ijk-real\_cpp">
+      <UniqueIdentifier>{d39a2a6b-d0b5-435f-9f07-3dcd12d65deb}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\source\ijk-math\common\ijk-math.c">
@@ -59,6 +62,9 @@
     </ClCompile>
     <ClCompile Include="..\..\..\source\ijk-math\common\ijk-real\ijkVector.c">
       <Filter>Source Files\common\ijk-real</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\ijk-math\common\ijk-real\_cpp\ijkVector_c.cpp">
+      <Filter>Source Files\common\ijk-real\_cpp</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
