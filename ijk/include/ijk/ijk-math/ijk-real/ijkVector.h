@@ -159,6 +159,7 @@ union ivec2
 	ivec2& operator =(dvec3 const& xy);
 	ivec2& operator =(dvec4 const& xy);
 
+	ivec2& operator+();
 	ivec2& operator +=(i32 const s);
 	ivec2& operator +=(ivec2 const& v);
 	ivec2& operator -=(i32 const s);
@@ -167,6 +168,11 @@ union ivec2
 	ivec2& operator *=(ivec2 const& v);
 	ivec2& operator /=(i32 const s);
 	ivec2& operator /=(ivec2 const& v);
+	i32& operator[](index const i);
+	operator intv();
+
+	ivec2 const operator+() const;
+	ivec2 const operator-() const;
 	ivec2 const operator +(i32 const s) const;
 	ivec2 const operator +(ivec2 const& v) const;
 	ivec2 const operator -(i32 const s) const;
@@ -175,16 +181,11 @@ union ivec2
 	ivec2 const operator *(ivec2 const& v) const;
 	ivec2 const operator /(i32 const s) const;
 	ivec2 const operator /(ivec2 const& v) const;
+	i32 operator[](index const i) const;
+	operator intkv() const;
 
 	bool operator ==(ivec2 const& v) const;
 	bool operator !=(ivec2 const& v) const;
-
-	i32& operator[](uindex const i);
-	i32 operator[](uindex const i) const;
-
-	ivec2& operator+();
-	ivec2 const operator+() const;
-	ivec2 const operator-() const;
 
 	IJK_SWIZZLE_XY(IJK_SWIZZLE, IJK_SWIZZLE, IJK_SWIZZLE, 2, 3, 4, i);
 #endif	// __cplusplus
@@ -235,6 +236,7 @@ union ivec3
 	ivec3& operator =(dvec3 const& xyz);
 	ivec3& operator =(dvec4 const& xyz);
 
+	ivec3& operator+();
 	ivec3& operator +=(i32 const s);
 	ivec3& operator +=(ivec3 const& v);
 	ivec3& operator -=(i32 const s);
@@ -243,6 +245,11 @@ union ivec3
 	ivec3& operator *=(ivec3 const& v);
 	ivec3& operator /=(i32 const s);
 	ivec3& operator /=(ivec3 const& v);
+	i32& operator[](index const i);
+	operator intv();
+
+	ivec3 const operator+() const;
+	ivec3 const operator-() const;
 	ivec3 const operator +(i32 const s) const;
 	ivec3 const operator +(ivec3 const& v) const;
 	ivec3 const operator -(i32 const s) const;
@@ -251,16 +258,11 @@ union ivec3
 	ivec3 const operator *(ivec3 const& v) const;
 	ivec3 const operator /(i32 const s) const;
 	ivec3 const operator /(ivec3 const& v) const;
+	i32 operator[](index const i) const;
+	operator intkv() const;
 
 	bool operator ==(ivec3 const& v) const;
 	bool operator !=(ivec3 const& v) const;
-
-	i32& operator[](uindex const i);
-	i32 operator[](uindex const i) const;
-
-	ivec3& operator+();
-	ivec3 const operator+() const;
-	ivec3 const operator-() const;
 
 	IJK_SWIZZLE_XYZ(IJK_SWIZZLE, IJK_SWIZZLE, IJK_SWIZZLE, 2, 3, 4, i);
 #endif	// __cplusplus
@@ -314,6 +316,7 @@ union ivec4
 	ivec4& operator =(dvec3 const& xyz);
 	ivec4& operator =(dvec4 const& xyzw);
 
+	ivec4& operator+();
 	ivec4& operator +=(i32 const s);
 	ivec4& operator +=(ivec4 const& v);
 	ivec4& operator -=(i32 const s);
@@ -322,6 +325,11 @@ union ivec4
 	ivec4& operator *=(ivec4 const& v);
 	ivec4& operator /=(i32 const s);
 	ivec4& operator /=(ivec4 const& v);
+	i32& operator[](index const i);
+	operator intv();
+
+	ivec4 const operator+() const;
+	ivec4 const operator-() const;
 	ivec4 const operator +(i32 const s) const;
 	ivec4 const operator +(ivec4 const& v) const;
 	ivec4 const operator -(i32 const s) const;
@@ -330,16 +338,11 @@ union ivec4
 	ivec4 const operator *(ivec4 const& v) const;
 	ivec4 const operator /(i32 const s) const;
 	ivec4 const operator /(ivec4 const& v) const;
+	i32 operator[](index const i) const;
+	operator intkv() const;
 
 	bool operator ==(ivec3 const& v) const;
 	bool operator !=(ivec3 const& v) const;
-
-	i32& operator[](uindex const i);
-	i32 operator[](uindex const i) const;
-
-	ivec4& operator+();
-	ivec4 const operator+() const;
-	ivec4 const operator-() const;
 
 	IJK_SWIZZLE_XYZW(IJK_SWIZZLE, IJK_SWIZZLE, IJK_SWIZZLE, 2, 3, 4, i);
 #endif	// __cplusplus
@@ -466,6 +469,7 @@ union fvec2
 	fvec2& operator =(dvec3 const& xy);
 	fvec2& operator =(dvec4 const& xy);
 
+	fvec2& operator+();
 	fvec2& operator +=(flt const s);
 	fvec2& operator +=(fvec2 const& v);
 	fvec2& operator -=(flt const s);
@@ -474,6 +478,11 @@ union fvec2
 	fvec2& operator *=(fvec2 const& v);
 	fvec2& operator /=(flt const s);
 	fvec2& operator /=(fvec2 const& v);
+	flt& operator[](index const i);
+	operator fltv();
+
+	fvec2 const operator+() const;
+	fvec2 const operator-() const;
 	fvec2 const operator +(flt const s) const;
 	fvec2 const operator +(fvec2 const& v) const;
 	fvec2 const operator -(flt const s) const;
@@ -482,16 +491,11 @@ union fvec2
 	fvec2 const operator *(fvec2 const& v) const;
 	fvec2 const operator /(flt const s) const;
 	fvec2 const operator /(fvec2 const& v) const;
+	flt operator[](index const i) const;
+	operator fltkv() const;
 
 	bool operator ==(fvec2 const& v) const;
 	bool operator !=(fvec2 const& v) const;
-
-	flt& operator[](uindex const i);
-	flt operator[](uindex const i) const;
-
-	fvec2& operator+();
-	fvec2 const operator+() const;
-	fvec2 const operator-() const;
 
 	IJK_SWIZZLE_XY(IJK_SWIZZLE, IJK_SWIZZLE, IJK_SWIZZLE, 2, 3, 4, f);
 #endif	// __cplusplus
@@ -542,6 +546,7 @@ union fvec3
 	fvec3& operator =(dvec3 const& xyz);
 	fvec3& operator =(dvec4 const& xyz);
 
+	fvec3& operator+();
 	fvec3& operator +=(flt const s);
 	fvec3& operator +=(fvec3 const& v);
 	fvec3& operator -=(flt const s);
@@ -550,6 +555,11 @@ union fvec3
 	fvec3& operator *=(fvec3 const& v);
 	fvec3& operator /=(flt const s);
 	fvec3& operator /=(fvec3 const& v);
+	flt& operator[](index const i);
+	operator fltv();
+
+	fvec3 const operator+() const;
+	fvec3 const operator-() const;
 	fvec3 const operator +(flt const s) const;
 	fvec3 const operator +(fvec3 const& v) const;
 	fvec3 const operator -(flt const s) const;
@@ -558,16 +568,11 @@ union fvec3
 	fvec3 const operator *(fvec3 const& v) const;
 	fvec3 const operator /(flt const s) const;
 	fvec3 const operator /(fvec3 const& v) const;
+	flt operator[](index const i) const;
+	operator fltkv() const;
 
 	bool operator ==(fvec3 const& v) const;
 	bool operator !=(fvec3 const& v) const;
-
-	flt& operator[](uindex const i);
-	flt operator[](uindex const i) const;
-
-	fvec3& operator+();
-	fvec3 const operator+() const;
-	fvec3 const operator-() const;
 
 	IJK_SWIZZLE_XYZ(IJK_SWIZZLE, IJK_SWIZZLE, IJK_SWIZZLE, 2, 3, 4, f);
 #endif	// __cplusplus
@@ -621,6 +626,7 @@ union fvec4
 	fvec4& operator =(dvec3 const& xyz);
 	fvec4& operator =(dvec4 const& xyzw);
 
+	fvec4& operator+();
 	fvec4& operator +=(flt const s);
 	fvec4& operator +=(fvec4 const& v);
 	fvec4& operator -=(flt const s);
@@ -629,6 +635,11 @@ union fvec4
 	fvec4& operator *=(fvec4 const& v);
 	fvec4& operator /=(flt const s);
 	fvec4& operator /=(fvec4 const& v);
+	flt& operator[](index const i);
+	operator fltv();
+
+	fvec4 const operator+() const;
+	fvec4 const operator-() const;
 	fvec4 const operator +(flt const s) const;
 	fvec4 const operator +(fvec4 const& v) const;
 	fvec4 const operator -(flt const s) const;
@@ -637,16 +648,11 @@ union fvec4
 	fvec4 const operator *(fvec4 const& v) const;
 	fvec4 const operator /(flt const s) const;
 	fvec4 const operator /(fvec4 const& v) const;
+	flt operator[](index const i) const;
+	operator fltkv() const;
 
 	bool operator ==(fvec3 const& v) const;
 	bool operator !=(fvec3 const& v) const;
-
-	flt& operator[](uindex const i);
-	flt operator[](uindex const i) const;
-
-	fvec4& operator+();
-	fvec4 const operator+() const;
-	fvec4 const operator-() const;
 
 	IJK_SWIZZLE_XYZW(IJK_SWIZZLE, IJK_SWIZZLE, IJK_SWIZZLE, 2, 3, 4, f);
 #endif	// __cplusplus
@@ -773,6 +779,7 @@ union dvec2
 	dvec2& operator =(dvec3 const& xy);
 	dvec2& operator =(dvec4 const& xy);
 
+	dvec2& operator+();
 	dvec2& operator +=(dbl const s);
 	dvec2& operator +=(dvec2 const& v);
 	dvec2& operator -=(dbl const s);
@@ -781,6 +788,11 @@ union dvec2
 	dvec2& operator *=(dvec2 const& v);
 	dvec2& operator /=(dbl const s);
 	dvec2& operator /=(dvec2 const& v);
+	dbl& operator[](index const i);
+	operator dblv();
+
+	dvec2 const operator+() const;
+	dvec2 const operator-() const;
 	dvec2 const operator +(dbl const s) const;
 	dvec2 const operator +(dvec2 const& v) const;
 	dvec2 const operator -(dbl const s) const;
@@ -789,16 +801,11 @@ union dvec2
 	dvec2 const operator *(dvec2 const& v) const;
 	dvec2 const operator /(dbl const s) const;
 	dvec2 const operator /(dvec2 const& v) const;
+	dbl operator[](index const i) const;
+	operator dblkv() const;
 
 	bool operator ==(dvec2 const& v) const;
 	bool operator !=(dvec2 const& v) const;
-
-	dbl& operator[](uindex const i);
-	dbl operator[](uindex const i) const;
-
-	dvec2& operator+();
-	dvec2 const operator+() const;
-	dvec2 const operator-() const;
 
 	IJK_SWIZZLE_XY(IJK_SWIZZLE, IJK_SWIZZLE, IJK_SWIZZLE, 2, 3, 4, d);
 #endif	// __cplusplus
@@ -849,6 +856,7 @@ union dvec3
 	dvec3& operator =(dvec3 const& xyz);
 	dvec3& operator =(dvec4 const& xyz);
 
+	dvec3& operator+();
 	dvec3& operator +=(dbl const s);
 	dvec3& operator +=(dvec3 const& v);
 	dvec3& operator -=(dbl const s);
@@ -857,6 +865,11 @@ union dvec3
 	dvec3& operator *=(dvec3 const& v);
 	dvec3& operator /=(dbl const s);
 	dvec3& operator /=(dvec3 const& v);
+	dbl& operator[](index const i);
+	operator dblv();
+
+	dvec3 const operator+() const;
+	dvec3 const operator-() const;
 	dvec3 const operator +(dbl const s) const;
 	dvec3 const operator +(dvec3 const& v) const;
 	dvec3 const operator -(dbl const s) const;
@@ -865,16 +878,11 @@ union dvec3
 	dvec3 const operator *(dvec3 const& v) const;
 	dvec3 const operator /(dbl const s) const;
 	dvec3 const operator /(dvec3 const& v) const;
+	dbl operator[](index const i) const;
+	operator dblkv() const;
 
 	bool operator ==(dvec3 const& v) const;
 	bool operator !=(dvec3 const& v) const;
-
-	dbl& operator[](uindex const i);
-	dbl operator[](uindex const i) const;
-
-	dvec3& operator+();
-	dvec3 const operator+() const;
-	dvec3 const operator-() const;
 
 	IJK_SWIZZLE_XYZ(IJK_SWIZZLE, IJK_SWIZZLE, IJK_SWIZZLE, 2, 3, 4, d);
 #endif	// __cplusplus
@@ -928,6 +936,7 @@ union dvec4
 	dvec4& operator =(dvec3 const& xyz);
 	dvec4& operator =(dvec4 const& xyzw);
 
+	dvec4& operator+();
 	dvec4& operator +=(dbl const s);
 	dvec4& operator +=(dvec4 const& v);
 	dvec4& operator -=(dbl const s);
@@ -936,6 +945,11 @@ union dvec4
 	dvec4& operator *=(dvec4 const& v);
 	dvec4& operator /=(dbl const s);
 	dvec4& operator /=(dvec4 const& v);
+	dbl& operator[](index const i);
+	operator dblv();
+
+	dvec4 const operator+() const;
+	dvec4 const operator-() const;
 	dvec4 const operator +(dbl const s) const;
 	dvec4 const operator +(dvec4 const& v) const;
 	dvec4 const operator -(dbl const s) const;
@@ -944,16 +958,11 @@ union dvec4
 	dvec4 const operator *(dvec4 const& v) const;
 	dvec4 const operator /(dbl const s) const;
 	dvec4 const operator /(dvec4 const& v) const;
+	dbl operator[](index const i) const;
+	operator dblkv() const;
 
 	bool operator ==(dvec3 const& v) const;
 	bool operator !=(dvec3 const& v) const;
-
-	dbl& operator[](uindex const i);
-	dbl operator[](uindex const i) const;
-
-	dvec4& operator+();
-	dvec4 const operator+() const;
-	dvec4 const operator-() const;
 
 	IJK_SWIZZLE_XYZW(IJK_SWIZZLE, IJK_SWIZZLE, IJK_SWIZZLE, 2, 3, 4, d);
 #endif	// __cplusplus
