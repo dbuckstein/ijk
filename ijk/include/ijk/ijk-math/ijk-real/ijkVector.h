@@ -46,9 +46,9 @@ extern "C" {
 #pragma region IJK_SWIZZLE_MACRO_DECL
 
 #define IJK_SWIZZLE(n,t,x,y,z,w)						t##vec##n const	_##x##y##z##w() const													// Declare swizzle function.
-#define IJK_SWIZZLE2(n,t,x,y,...)						ijk_inl t##vec2	const t##vec##n::_##x##y() const { return t##vec2(x, y); }				// Implement 2-element swizzle.
-#define IJK_SWIZZLE3(n,t,x,y,z,...)						ijk_inl t##vec3	const t##vec##n::_##x##y##z() const { return t##vec3(x, y, z); }		// Implement 3-element swizzle.
-#define IJK_SWIZZLE4(n,t,x,y,z,w)						ijk_inl t##vec4	const t##vec##n::_##x##y##z##w() const { return t##vec4(x, y, z, w); }	// Implement 4-element swizzle.
+#define IJK_SWIZZLE2(n,t,x,y,...)						inline t##vec2 const t##vec##n::_##x##y() const { return t##vec2(x, y); }				// Implement 2-element swizzle.
+#define IJK_SWIZZLE3(n,t,x,y,z,...)						inline t##vec3 const t##vec##n::_##x##y##z() const { return t##vec3(x, y, z); }			// Implement 3-element swizzle.
+#define IJK_SWIZZLE4(n,t,x,y,z,w)						inline t##vec4 const t##vec##n::_##x##y##z##w() const { return t##vec4(x, y, z, w); }	// Implement 4-element swizzle.
 
 #define IJK_SWIZZLE_2X1(swiz,n,t,x,u,v)					swiz(n,t,x,x,u,v)				// Return 2 elements from 1 item: 1^2 = 1 combo
 #define IJK_SWIZZLE_3X1(swiz,n,t,x,v)					IJK_SWIZZLE_2X1(swiz,n,t,x,x,v)	// Return 3 elements from 1 item: 1^3 = 1 combo
@@ -63,10 +63,10 @@ extern "C" {
 #define IJK_SWIZZLE_3X4(swiz,n,t,x,y,z,w,v)				IJK_SWIZZLE_2X4(swiz,n,t,x,y,z,w,x,v); IJK_SWIZZLE_2X4(swiz,n,t,x,y,z,w,y,v); IJK_SWIZZLE_2X4(swiz,n,t,x,y,z,w,z,v); IJK_SWIZZLE_2X4(swiz,n,t,x,y,z,w,w,v)					// Return 3 elements from 4 items: 4^3 = 64 combos = 27+37
 #define IJK_SWIZZLE_4X4(swiz,n,t,x,y,z,w)				IJK_SWIZZLE_3X4(swiz,n,t,x,y,z,w,x); IJK_SWIZZLE_3X4(swiz,n,t,x,y,z,w,y); IJK_SWIZZLE_3X4(swiz,n,t,x,y,z,w,z); IJK_SWIZZLE_3X4(swiz,n,t,x,y,z,w,w)							// Return 4 elements from 4 items: 4^4 = 256 combos = 81+175
 
-#define IJK_SWIZZLE_X1(swiz2,swiz3,swiz4,n2,n3,n4,t)	IJK_SWIZZLE_2X1(swiz2,n2,t,x,,); IJK_SWIZZLE_3X1(swiz3,n3,t,x,); IJK_SWIZZLE_4X1(swiz4,n4,t,x)						// Declare all swizzle combos with 1 element.
-#define IJK_SWIZZLE_X2(swiz2,swiz3,swiz4,n2,n3,n4,t)	IJK_SWIZZLE_2X2(swiz2,n2,t,x,y,,); IJK_SWIZZLE_3X2(swiz3,n3,t,x,y,); IJK_SWIZZLE_4X2(swiz4,n4,t,x,y)				// Declare all swizzle combos with 2 elements.
-#define IJK_SWIZZLE_X3(swiz2,swiz3,swiz4,n2,n3,n4,t)	IJK_SWIZZLE_2X3(swiz2,n2,t,x,y,z,,); IJK_SWIZZLE_3X3(swiz3,n3,t,x,y,z,); IJK_SWIZZLE_4X3(swiz4,n4,t,x,y,z)			// Declare all swizzle combos with 3 elements.
-#define IJK_SWIZZLE_X4(swiz2,swiz3,swiz4,n2,n3,n4,t)	IJK_SWIZZLE_2X4(swiz2,n2,t,x,y,z,w,,); IJK_SWIZZLE_3X4(swiz3,n3,t,x,y,z,w,); IJK_SWIZZLE_4X4(swiz4,n4,t,x,y,z,w)	// Declare all swizzle combos with 4 elements.
+#define IJK_SWIZZLE_X(swiz2,swiz3,swiz4,n2,n3,n4,t)		IJK_SWIZZLE_2X1(swiz2,n2,t,x,,); IJK_SWIZZLE_3X1(swiz3,n3,t,x,); IJK_SWIZZLE_4X1(swiz4,n4,t,x)						// Declare all swizzle combos with 1 element.
+#define IJK_SWIZZLE_XY(swiz2,swiz3,swiz4,n2,n3,n4,t)	IJK_SWIZZLE_2X2(swiz2,n2,t,x,y,,); IJK_SWIZZLE_3X2(swiz3,n3,t,x,y,); IJK_SWIZZLE_4X2(swiz4,n4,t,x,y)				// Declare all swizzle combos with 2 elements.
+#define IJK_SWIZZLE_XYZ(swiz2,swiz3,swiz4,n2,n3,n4,t)	IJK_SWIZZLE_2X3(swiz2,n2,t,x,y,z,,); IJK_SWIZZLE_3X3(swiz3,n3,t,x,y,z,); IJK_SWIZZLE_4X3(swiz4,n4,t,x,y,z)			// Declare all swizzle combos with 3 elements.
+#define IJK_SWIZZLE_XYZW(swiz2,swiz3,swiz4,n2,n3,n4,t)	IJK_SWIZZLE_2X4(swiz2,n2,t,x,y,z,w,,); IJK_SWIZZLE_3X4(swiz3,n3,t,x,y,z,w,); IJK_SWIZZLE_4X4(swiz4,n4,t,x,y,z,w)	// Declare all swizzle combos with 4 elements.
 
 #pragma endregion
 // IJK_SWIZZLE_MACRO_DECL
@@ -182,7 +182,7 @@ union ivec2
 	ivec2 const operator+() const;
 	ivec2 const operator-() const;
 
-	IJK_SWIZZLE_X2(IJK_SWIZZLE, IJK_SWIZZLE, IJK_SWIZZLE, 2, 3, 4, i);
+	IJK_SWIZZLE_XY(IJK_SWIZZLE, IJK_SWIZZLE, IJK_SWIZZLE, 2, 3, 4, i);
 #endif	// __cplusplus
 };
 
@@ -256,7 +256,7 @@ union ivec3
 	ivec3 const operator+() const;
 	ivec3 const operator-() const;
 
-	IJK_SWIZZLE_X3(IJK_SWIZZLE, IJK_SWIZZLE, IJK_SWIZZLE, 2, 3, 4, i);
+	IJK_SWIZZLE_XYZ(IJK_SWIZZLE, IJK_SWIZZLE, IJK_SWIZZLE, 2, 3, 4, i);
 #endif	// __cplusplus
 };
 
@@ -333,7 +333,7 @@ union ivec4
 	ivec4 const operator+() const;
 	ivec4 const operator-() const;
 
-	IJK_SWIZZLE_X4(IJK_SWIZZLE, IJK_SWIZZLE, IJK_SWIZZLE, 2, 3, 4, i);
+	IJK_SWIZZLE_XYZW(IJK_SWIZZLE, IJK_SWIZZLE, IJK_SWIZZLE, 2, 3, 4, i);
 #endif	// __cplusplus
 };
 
@@ -483,7 +483,7 @@ union fvec2
 	fvec2 const operator+() const;
 	fvec2 const operator-() const;
 
-	IJK_SWIZZLE_X2(IJK_SWIZZLE, IJK_SWIZZLE, IJK_SWIZZLE, 2, 3, 4, f);
+	IJK_SWIZZLE_XY(IJK_SWIZZLE, IJK_SWIZZLE, IJK_SWIZZLE, 2, 3, 4, f);
 #endif	// __cplusplus
 };
 
@@ -559,7 +559,7 @@ union fvec3
 	fvec3 const operator+() const;
 	fvec3 const operator-() const;
 
-	IJK_SWIZZLE_X3(IJK_SWIZZLE, IJK_SWIZZLE, IJK_SWIZZLE, 2, 3, 4, f);
+	IJK_SWIZZLE_XYZ(IJK_SWIZZLE, IJK_SWIZZLE, IJK_SWIZZLE, 2, 3, 4, f);
 #endif	// __cplusplus
 };
 
@@ -638,7 +638,7 @@ union fvec4
 	fvec4 const operator+() const;
 	fvec4 const operator-() const;
 
-	IJK_SWIZZLE_X4(IJK_SWIZZLE, IJK_SWIZZLE, IJK_SWIZZLE, 2, 3, 4, f);
+	IJK_SWIZZLE_XYZW(IJK_SWIZZLE, IJK_SWIZZLE, IJK_SWIZZLE, 2, 3, 4, f);
 #endif	// __cplusplus
 };
 
@@ -788,7 +788,7 @@ union dvec2
 	dvec2 const operator+() const;
 	dvec2 const operator-() const;
 
-	IJK_SWIZZLE_X2(IJK_SWIZZLE, IJK_SWIZZLE, IJK_SWIZZLE, 2, 3, 4, d);
+	IJK_SWIZZLE_XY(IJK_SWIZZLE, IJK_SWIZZLE, IJK_SWIZZLE, 2, 3, 4, d);
 #endif	// __cplusplus
 };
 
@@ -864,7 +864,7 @@ union dvec3
 	dvec3 const operator+() const;
 	dvec3 const operator-() const;
 
-	IJK_SWIZZLE_X3(IJK_SWIZZLE, IJK_SWIZZLE, IJK_SWIZZLE, 2, 3, 4, d);
+	IJK_SWIZZLE_XYZ(IJK_SWIZZLE, IJK_SWIZZLE, IJK_SWIZZLE, 2, 3, 4, d);
 #endif	// __cplusplus
 };
 
@@ -943,7 +943,7 @@ union dvec4
 	dvec4 const operator+() const;
 	dvec4 const operator-() const;
 
-	IJK_SWIZZLE_X4(IJK_SWIZZLE, IJK_SWIZZLE, IJK_SWIZZLE, 2, 3, 4, d);
+	IJK_SWIZZLE_XYZW(IJK_SWIZZLE, IJK_SWIZZLE, IJK_SWIZZLE, 2, 3, 4, d);
 #endif	// __cplusplus
 };
 
