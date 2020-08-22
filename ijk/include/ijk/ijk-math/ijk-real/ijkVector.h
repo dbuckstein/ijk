@@ -120,10 +120,14 @@ typedef dbl const* dblkv;		// Generic constant double-precision array-based vect
 //	Data structure representing 2D integer vector.
 //		member v: array of elements, used as pointer argument to vector functions
 //		members x, y: individual named elements representing a spatial coordinate
+//		members r, g: individual named elements representing a color
+//		members s, t: individual named elements representing a parametric coordinate
 union ivec2
 {
 	int2 v;
 	struct { i32 x, y; };
+	struct { i32 r, g; };
+	struct { i32 s, t; };
 
 #ifdef __cplusplus
 	ivec2(i32 const xy = 0);			// Construct vector with all elements set to single scalar.
@@ -192,12 +196,14 @@ union ivec2
 //		member xy: 2D vector of first two components, useful for direct assignment
 //		members x, y, z: individual named elements representing a spatial coordinate
 //		members r, g, b: individual named elements representing a color
+//		members s, t, p: individual named elements representing a parametric coordinate
 union ivec3
 {
 	int3 v;
 	ivec2 xy;
 	struct { i32 x, y, z; };
 	struct { i32 r, g, b; };
+	struct { i32 s, t, p; };
 
 #ifdef __cplusplus
 	ivec3(i32 const xyz = 0);							// Construct vector with all elements set to single scalar.
@@ -268,6 +274,7 @@ union ivec3
 //		members x, y, z, w: individual named elements representing a spatial coordinate
 //			note: vectors have w = 0, while points have w = 1
 //		members r, g, b, a: individual named elements representing a color
+//		members s, t, p, q: individual named elements representing a parametric coordinate
 union ivec4
 {
 	int4 v;
@@ -275,6 +282,7 @@ union ivec4
 	ivec2 xy;
 	struct { i32 x, y, z, w; };
 	struct { i32 r, g, b, a; };
+	struct { i32 s, t, p, q; };
 
 #ifdef __cplusplus
 	ivec4(i32 const xyzw = 0);											// Construct vector with all elements set to single scalar.
@@ -419,11 +427,13 @@ ijk_ext ivec4 const ivec4_w_n;		// (  0,  0,  0, -1 )
 //	Data structure representing 2D single-precision (float) vector.
 //		member v: array of elements, used as pointer argument to vector functions
 //		members x, y: individual named elements representing a spatial coordinate
+//		members r, g: individual named elements representing a color
 //		members s, t: individual named elements representing a parametric coordinate
 union fvec2
 {
 	flt2 v;
 	struct { flt x, y; };
+	struct { flt r, g; };
 	struct { flt s, t; };
 
 #ifdef __cplusplus
@@ -724,11 +734,13 @@ ijk_ext fvec4 const fvec4_w_n;		// (  0,  0,  0, -1 )
 //	Data structure representing 2D double-precision (double) vector.
 //		member v: array of elements, used as pointer argument to vector functions
 //		members x, y: individual named elements representing a spatial coordinate
+//		members r, g: individual named elements representing a color
 //		members s, t: individual named elements representing a parametric coordinate
 union dvec2
 {
 	dbl2 v;
 	struct { dbl x, y; };
+	struct { dbl r, g; };
 	struct { dbl s, t; };
 
 #ifdef __cplusplus
@@ -1021,6 +1033,20 @@ ijk_ext dvec4 const dvec4_w_n;		// (  0,  0,  0, -1 )
 
 //-----------------------------------------------------------------------------
 
+
+
+//-----------------------------------------------------------------------------
+
+// Select real vector types.
+#ifdef IJK_REAL_DBL
+typedef dvec2	rvec2;		// Real 2D vector data structure type is 2D double vector.
+typedef dvec3	rvec3;		// Real 3D vector data structure type is 3D double vector.
+typedef dvec4	rvec4;		// Real 4D vector data structure type is 4D double vector.
+#else	// !IJK_REAL_DBL
+typedef fvec2	rvec2;		// Real 2D vector data structure type is 2D float vector.
+typedef fvec3	rvec3;		// Real 3D vector data structure type is 3D float vector.
+typedef fvec4	rvec4;		// Real 4D vector data structure type is 4D float vector.
+#endif	// IJK_REAL_DBL
 
 
 //-----------------------------------------------------------------------------
