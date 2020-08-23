@@ -1530,3 +1530,531 @@ void ijkVectorTestCPP_swizzle()
 
 
 //-----------------------------------------------------------------------------
+/*
+	OWNER	RETURN
+	(MIN)
+			vec1	vec2	vec3	vec4L
+	vec1+	x		xx		xxx		xxxx
+	vec2+							xxxy
+	vec3+							xxxz
+	vec4+							xxxw
+	vec2+					xxy		xxyx
+	vec2+							xxyy
+	vec3+							xxyz
+	vec4+							xxyw
+	vec3+					xxz		xxzx
+	vec3+							xxzy
+	vec3+							xxzz
+	vec4+							xxzw
+	vec4+					xxw		xxwx
+	vec4+							xxwy
+	vec4+							xxwz
+	vec4+							xxww
+	vec2+			xy		xyx		xyxx
+	vec2+							xyxy
+	vec3+							xyxz
+	vec4+							xyxw
+	vec2+					xyy		xyyx
+	vec2+							xyyy
+	vec3+							xyyz
+	vec4+							xyyw
+	vec3+					xyz		xyzx
+	vec3+							xyzy
+	vec3+							xyzz
+	vec4+							xyzw
+	vec4+					xyw		xywx
+	vec4+							xywy
+	vec4+							xywz
+	vec4+							xyww
+	vec3+			xz		xzx		xzxx
+	vec3+							xzxy
+	vec3+							xzxz
+	vec4+							xzxw
+	vec3+					xzy		xzyx
+	vec3+							xzyy
+	vec3+							xzyz
+	vec4+							xzyw
+	vec3+					xzz		xzzx
+	vec3+							xzzy
+	vec3+							xzzz
+	vec4+							xzzw
+	vec4+					xzw		xzwx
+	vec4+							xzwy
+	vec4+							xzwz
+	vec4+							xzww
+	vec4+			xw		xwx		xwxx
+	vec4+							xwxy
+	vec4+							xwxz
+	vec4+							xwxw
+	vec4+					xwy		xwyx
+	vec4+							xwyy
+	vec4+							xwyz
+	vec4+							xwyw
+	vec4+					xwz		xwzx
+	vec4+							xwzy
+	vec4+							xwzz
+	vec4+							xwzw
+	vec4+					xww		xwwx
+	vec4+							xwwy
+	vec4+							xwwz
+	vec4+							xwww
+	vec2+	y		yx		yxx		yxxx
+	vec2+							yxxy
+	vec3+							yxxz
+	vec4+							yxxw
+	vec2+					yxy		yxyx
+	vec2+							yxyy
+	vec3+							yxyz
+	vec4+							yxyw
+	vec3+					yxz		yxzx
+	vec3+							yxzy
+	vec3+							yxzz
+	vec4+							yxzw
+	vec4+					yxw		yxwx
+	vec4+							yxwy
+	vec4+							yxwz
+	vec4+							yxww
+	vec2+			yy		yyx		yyxx
+	vec2+							yyxy
+	vec3+							yyxz
+	vec4+							yyxw
+	vec2+					yyy		yyyx
+	vec2+							yyyy
+	vec3+							yyyz
+	vec4+							yyyw
+	vec3+					yyz		yyzx
+	vec3+							yyzy
+	vec3+							yyzz
+	vec4+							yyzw
+	vec4+					yyw		yywx
+	vec4+							yywy
+	vec4+							yywz
+	vec4+							yyww
+	vec3+			yz		yzx		yzxx
+	vec3+							yzxy
+	vec3+							yzxz
+	vec4+							yzxw
+	vec3+					yzy		yzyx
+	vec3+							yzyy
+	vec3+							yzyz
+	vec4+							yzyw
+	vec3+					yzz		yzzx
+	vec3+							yzzy
+	vec3+							yzzz
+	vec4+							yzzw
+	vec4+					yzw		yzwx
+	vec4+							yzwy
+	vec4+							yzwz
+	vec4+							yzww
+	vec4+			yw		ywx		ywxx
+	vec4+							ywxy
+	vec4+							ywxz
+	vec4+							ywxw
+	vec4+					ywy		ywyx
+	vec4+							ywyy
+	vec4+							ywyz
+	vec4+							ywyw
+	vec4+					ywz		ywzx
+	vec4+							ywzy
+	vec4+							ywzz
+	vec4+							ywzw
+	vec4+					yww		ywwx
+	vec4+							ywwy
+	vec4+							ywwz
+	vec4+							ywww
+	vec3+	z		zx		zxx		zxxx
+	vec3+							zxxy
+	vec3+							zxxz
+	vec4+							zxxw
+	vec3+					zxy		zxyx
+	vec3+							zxyy
+	vec3+							zxyz
+	vec4+							zxyw
+	vec3+					zxz		zxzx
+	vec3+							zxzy
+	vec3+							zxzz
+	vec4+							zxzw
+	vec4+					zxw		zxwx
+	vec4+							zxwy
+	vec4+							zxwz
+	vec4+							zxww
+	vec3+			zy		zyx		zyxx
+	vec3+							zyxy
+	vec3+							zyxz
+	vec4+							zyxw
+	vec3+					zyy		zyyx
+	vec3+							zyyy
+	vec3+							zyyz
+	vec4+							zyyw
+	vec3+					zyz		zyzx
+	vec3+							zyzy
+	vec3+							zyzz
+	vec4+							zyzw
+	vec4+					zyw		zywx
+	vec4+							zywy
+	vec4+							zywz
+	vec4+							zyww
+	vec3+			zz		zzx		zzxx
+	vec3+							zzxy
+	vec3+							zzxz
+	vec4+							zzxw
+	vec3+					zzy		zzyx
+	vec3+							zzyy
+	vec3+							zzyz
+	vec4+							zzyw
+	vec3+					zzz		zzzx
+	vec3+							zzzy
+	vec3+							zzzz
+	vec4+							zzzw
+	vec4+					zzw		zzwx
+	vec4+							zzwy
+	vec4+							zzwz
+	vec4+							zzww
+	vec4+			zw		zwx		zwxx
+	vec4+							zwxy
+	vec4+							zwxz
+	vec4+							zwxw
+	vec4+					zwy		zwyx
+	vec4+							zwyy
+	vec4+							zwyz
+	vec4+							zwyw
+	vec4+					zwz		zwzx
+	vec4+							zwzy
+	vec4+							zwzz
+	vec4+							zwzw
+	vec4+					zww		zwwx
+	vec4+							zwwy
+	vec4+							zwwz
+	vec4+							zwww
+	vec4+	w		wx		wxx		wxxx
+	vec4+							wxxy
+	vec4+							wxxz
+	vec4+							wxxw
+	vec4+					wxy		wxyx
+	vec4+							wxyy
+	vec4+							wxyz
+	vec4+							wxyw
+	vec4+					wxz		wxzx
+	vec4+							wxzy
+	vec4+							wxzz
+	vec4+							wxzw
+	vec4+					wxw		wxwx
+	vec4+							wxwy
+	vec4+							wxwz
+	vec4+							wxww
+	vec4+			wy		wyx		wyxx
+	vec4+							wyxy
+	vec4+							wyxz
+	vec4+							wyxw
+	vec4+					wyy		wyyx
+	vec4+							wyyy
+	vec4+							wyyz
+	vec4+							wyyw
+	vec4+					wyz		wyzx
+	vec4+							wyzy
+	vec4+							wyzz
+	vec4+							wyzw
+	vec4+					wyw		wywx
+	vec4+							wywy
+	vec4+							wywz
+	vec4+							wyww
+	vec4+			wz		wzx		wzxx
+	vec4+							wzxy
+	vec4+							wzxz
+	vec4+							wzxw
+	vec4+					wzy		wzyx
+	vec4+							wzyy
+	vec4+							wzyz
+	vec4+							wzyw
+	vec4+					wzz		wzzx
+	vec4+							wzzy
+	vec4+							wzzz
+	vec4+							wzzw
+	vec4+					wzw		wzwx
+	vec4+							wzwy
+	vec4+							wzwz
+	vec4+							wzww
+	vec4+			ww		wwx		wwxx
+	vec4+							wwxy
+	vec4+							wwxz
+	vec4+							wwxw
+	vec4+					wwy		wwyx
+	vec4+							wwyy
+	vec4+							wwyz
+	vec4+							wwyw
+	vec4+					wwz		wwzx
+	vec4+							wwzy
+	vec4+							wwzz
+	vec4+							wwzw
+	vec4+					www		wwwx
+	vec4+							wwwy
+	vec4+							wwwz
+	vec4+							wwww
+*/
+
+/*
+	OWNER	RETURN								vec1 from 1	+	vec2 from 1	+	vec3 from 1	+	vec4 from 1	+	vec2 from 2	+	vec3 from 2	+	vec4 from 2		=	TOTAL NEW
+	(MIN)										UNIQUE 															UNIQUE													
+			vec1	vec2	vec3	vec4L	0
+
+	vec1+	x/______xx______xxx_____xxxx	+=	[[	1(x)]	+		1(xx)	+		1(xxx)	+		1(xxxx)]+		0		+		0		+		0			=	4
+							   
+	vec2+						 ___xxxy*
+	vec2+				 ___xxy_|___xxyx**t(xy)
+	vec2+				|		|___xxyy**
+	vec2+			xy/_|___xyx_____xyxx**
+	vec2+			||	|		|___xyxy**
+	vec2+			||	|___xyy_____xyyx**
+	vec2+			||			|___xyyy**
+	vec2+	y/ 		yx/  ___yxx_____yxxx**t(yx)
+	vec2+	|		|	|		|___yxxy**
+	vec2+	|		|___|___yxy_____yxyx**
+	vec2+	|			|		|___yxyy**
+	vec2+	|_______yy	|___yyx_____yyxx**
+	vec2+			|			|___yyxy**
+	vec2+			|_______yyy	|___yyyx*
+	vec2+					|_______yyyy	+=	[[	1(y)]	+		1(yy)	+		1(yyy)	+		1(yyyy)]+	[	2(xy)]	+		2(3)	+		2(3(2)+1)	=	0
+
+	vec3+							xxxz
+	vec3+							xxyz
+	vec3+					xxz		xxzx
+	vec3+							xxzy
+	vec3+							xxzz
+	vec3+							xyxz
+	vec3+							xyyz
+	vec3+					xyz		xyzx
+	vec3+							xyzy
+	vec3+							xyzz
+	vec3+			xz		xzx		xzxx
+	vec3+							xzxy
+	vec3+							xzxz
+	vec3+					xzy		xzyx
+	vec3+							xzyy
+	vec3+							xzyz
+	vec3+					xzz		xzzx
+	vec3+							xzzy
+	vec3+							xzzz
+	vec3+							yxxz
+	vec3+							yxyz
+	vec3+					yxz		yxzx
+	vec3+							yxzy
+	vec3+							yxzz
+	vec3+							yyxz
+	vec3+							yyyz
+	vec3+					yyz		yyzx
+	vec3+							yyzy
+	vec3+							yyzz
+	vec3+			yz		yzx		yzxx
+	vec3+							yzxy
+	vec3+							yzxz
+	vec3+					yzy		yzyx
+	vec3+							yzyy
+	vec3+							yzyz
+	vec3+					yzz		yzzx
+	vec3+							yzzy
+	vec3+							yzzz
+	vec3+	z		zx		zxx		zxxx
+	vec3+							zxxy
+	vec3+							zxxz
+	vec3+					zxy		zxyx
+	vec3+							zxyy
+	vec3+							zxyz
+	vec3+					zxz		zxzx
+	vec3+							zxzy
+	vec3+							zxzz
+	vec3+			zy		zyx		zyxx
+	vec3+							zyxy
+	vec3+							zyxz
+	vec3+					zyy		zyyx
+	vec3+							zyyy
+	vec3+							zyyz
+	vec3+					zyz		zyzx
+	vec3+							zyzy
+	vec3+							zyzz
+	vec3+			zz		zzx		zzxx
+	vec3+							zzxy
+	vec3+							zzxz
+	vec3+					zzy		zzyx
+	vec3+							zzyy
+	vec3+							zzyz
+	vec3+					zzz		zzzx
+	vec3+							zzzy
+	vec3+							zzzz
+
+	vec4+							xxxw
+	vec4+							xxyw
+	vec4+							xxzw
+	vec4+					xxw		xxwx
+	vec4+							xxwy
+	vec4+							xxwz
+	vec4+							xxww
+	vec4+							xyxw
+	vec4+							xyyw
+	vec4+							xyzw
+	vec4+					xyw		xywx
+	vec4+							xywy
+	vec4+							xywz
+	vec4+							xyww
+	vec4+							xzxw
+	vec4+							xzyw
+	vec4+							xzzw
+	vec4+					xzw		xzwx
+	vec4+							xzwy
+	vec4+							xzwz
+	vec4+							xzww
+	vec4+			xw		xwx		xwxx
+	vec4+							xwxy
+	vec4+							xwxz
+	vec4+							xwxw
+	vec4+					xwy		xwyx
+	vec4+							xwyy
+	vec4+							xwyz
+	vec4+							xwyw
+	vec4+					xwz		xwzx
+	vec4+							xwzy
+	vec4+							xwzz
+	vec4+							xwzw
+	vec4+					xww		xwwx
+	vec4+							xwwy
+	vec4+							xwwz
+	vec4+							xwww
+	vec4+							yxxw
+	vec4+							yxyw
+	vec4+							yxzw
+	vec4+					yxw		yxwx
+	vec4+							yxwy
+	vec4+							yxwz
+	vec4+							yxww
+	vec4+							yyxw
+	vec4+							yyyw
+	vec4+							yyzw
+	vec4+					yyw		yywx
+	vec4+							yywy
+	vec4+							yywz
+	vec4+							yyww
+	vec4+							yzxw
+	vec4+							yzyw
+	vec4+							yzzw
+	vec4+					yzw		yzwx
+	vec4+							yzwy
+	vec4+							yzwz
+	vec4+							yzww
+	vec4+			yw		ywx		ywxx
+	vec4+							ywxy
+	vec4+							ywxz
+	vec4+							ywxw
+	vec4+					ywy		ywyx
+	vec4+							ywyy
+	vec4+							ywyz
+	vec4+							ywyw
+	vec4+					ywz		ywzx
+	vec4+							ywzy
+	vec4+							ywzz
+	vec4+							ywzw
+	vec4+					yww		ywwx
+	vec4+							ywwy
+	vec4+							ywwz
+	vec4+							ywww
+	vec4+							zxxw
+	vec4+							zxyw
+	vec4+							zxzw
+	vec4+					zxw		zxwx
+	vec4+							zxwy
+	vec4+							zxwz
+	vec4+							zxww
+	vec4+							zyxw
+	vec4+							zyyw
+	vec4+							zyzw
+	vec4+					zyw		zywx
+	vec4+							zywy
+	vec4+							zywz
+	vec4+							zyww
+	vec4+							zzxw
+	vec4+							zzyw
+	vec4+							zzzw
+	vec4+					zzw		zzwx
+	vec4+							zzwy
+	vec4+							zzwz
+	vec4+							zzww
+	vec4+			zw		zwx		zwxx
+	vec4+							zwxy
+	vec4+							zwxz
+	vec4+							zwxw
+	vec4+					zwy		zwyx
+	vec4+							zwyy
+	vec4+							zwyz
+	vec4+							zwyw
+	vec4+					zwz		zwzx
+	vec4+							zwzy
+	vec4+							zwzz
+	vec4+							zwzw
+	vec4+					zww		zwwx
+	vec4+							zwwy
+	vec4+							zwwz
+	vec4+							zwww
+	vec4+	w		wx		wxx		wxxx
+	vec4+							wxxy
+	vec4+							wxxz
+	vec4+							wxxw
+	vec4+					wxy		wxyx
+	vec4+							wxyy
+	vec4+							wxyz
+	vec4+							wxyw
+	vec4+					wxz		wxzx
+	vec4+							wxzy
+	vec4+							wxzz
+	vec4+							wxzw
+	vec4+					wxw		wxwx
+	vec4+							wxwy
+	vec4+							wxwz
+	vec4+							wxww
+	vec4+			wy		wyx		wyxx
+	vec4+							wyxy
+	vec4+							wyxz
+	vec4+							wyxw
+	vec4+					wyy		wyyx
+	vec4+							wyyy
+	vec4+							wyyz
+	vec4+							wyyw
+	vec4+					wyz		wyzx
+	vec4+							wyzy
+	vec4+							wyzz
+	vec4+							wyzw
+	vec4+					wyw		wywx
+	vec4+							wywy
+	vec4+							wywz
+	vec4+							wyww
+	vec4+			wz		wzx		wzxx
+	vec4+							wzxy
+	vec4+							wzxz
+	vec4+							wzxw
+	vec4+					wzy		wzyx
+	vec4+							wzyy
+	vec4+							wzyz
+	vec4+							wzyw
+	vec4+					wzz		wzzx
+	vec4+							wzzy
+	vec4+							wzzz
+	vec4+							wzzw
+	vec4+					wzw		wzwx
+	vec4+							wzwy
+	vec4+							wzwz
+	vec4+							wzww
+	vec4+			ww		wwx		wwxx
+	vec4+							wwxy
+	vec4+							wwxz
+	vec4+							wwxw
+	vec4+					wwy		wwyx
+	vec4+							wwyy
+	vec4+							wwyz
+	vec4+							wwyw
+	vec4+					wwz		wwzx
+	vec4+							wwzy
+	vec4+							wwzz
+	vec4+							wwzw
+	vec4+					www		wwwx
+	vec4+							wwwy
+	vec4+							wwwz
+	vec4+							wwww
+*/
+

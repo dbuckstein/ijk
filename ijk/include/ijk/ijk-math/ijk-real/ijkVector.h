@@ -45,6 +45,17 @@ extern "C" {
 // IJK_SWIZZLE_MACRO_DECL
 #pragma region IJK_SWIZZLE_MACRO_DECL
 
+#define IJK_SWIZZLE_DECL(ownerType,returnType,constFunc,x,y,z,w)						returnType _##x##y##z##w() constFunc
+#define IJK_SWIZZLE_IMPL(ownerType,returnType,constFunc,x,y,...)						inline returnType ownerType::_##x##y##z##w() constFunc { return returnType(x,y __VA_OPT__(,) __VA_ARGS__); }
+
+
+//#define IJK_SWIZZLE1(swizzleMacro,ownerType,returnType2,returnType3,returnType4,...)	
+//#define IJK_SWIZZLE2(swizzleMacro,ownerType,returnType2,returnType3,returnType4,...)	
+//#define IJK_SWIZZLE3(swizzleMacro,ownerType,returnType2,returnType3,returnType4,...)	
+//#define IJK_SWIZZLE4(swizzleMacro,ownerType,returnType2,returnType3,returnType4,...)	
+	// __VA_ARGS__ is empty or 'const', appends to collector type (empty is unique only, const suffix gathers all)
+
+
 #define IJK_SWIZZLE(n,t,x,y,z,w)						t##vec##n const _##x##y##z##w() const													// Declare swizzle function.
 #define IJK_SWIZZLE2(n,t,x,y,...)						inline t##vec2 const t##vec##n::_##x##y() const { return t##vec2(x, y); }				// Implement 2-element swizzle.
 #define IJK_SWIZZLE3(n,t,x,y,z,...)						inline t##vec3 const t##vec##n::_##x##y##z() const { return t##vec3(x, y, z); }			// Implement 3-element swizzle.
