@@ -1793,93 +1793,110 @@ void ijkVectorTestCPP_swizzle()
 */
 
 /*
-	OWNER	RETURN								vec1 from 1	+	vec2 from 1	+	vec3 from 1	+	vec4 from 1	+	vec2 from 2	+	vec3 from 2	+	vec4 from 2		=	TOTAL NEW
-	(MIN)										UNIQUE 															UNIQUE													
-			vec1	vec2	vec3	vec4L	0
+	OWNER	RETURN												
+	(MIN)													
+			vec1	vec2	vec3	vec4					NEW	vec1 from 1	+	vec2 from 1	+	vec3 from 1	+	vec4 from 1
+																UNIQUE
+	vec1+	x/______xx______xxx_____xxxx*u1(x)+n1(x)			[ 1(x)	  ]	+	{ 1(xx)		+	  1(...)	+	  1			}	= 4 = 1 unique + 3
 
-	vec1+	x/______xx______xxx_____xxxx	+=	[[	1(x)]	+		1(xx)	+		1(xxx)	+		1(xxxx)]+		0		+		0		+		0			=	4
-							   
-	vec2+						 ___xxxy*
-	vec2+				 ___xxy_|___xxyx**t(xy)
-	vec2+				|		|___xxyy**
-	vec2+			xy/_|___xyx_____xyxx**
-	vec2+			||	|		|___xyxy**
-	vec2+			||	|___xyy_____xyyx**
-	vec2+			||			|___xyyy**
-	vec2+	y/ 		yx/  ___yxx_____yxxx**t(yx)
-	vec2+	|		|	|		|___yxxy**
-	vec2+	|		|___|___yxy_____yxyx**
-	vec2+	|			|		|___yxyy**
-	vec2+	|_______yy	|___yyx_____yyxx**
-	vec2+			|			|___yyxy**
-	vec2+			|_______yyy	|___yyyx*
-	vec2+					|_______yyyy	+=	[[	1(y)]	+		1(yy)	+		1(yyy)	+		1(yyyy)]+	[	2(xy)]	+		2(3)	+		2(3(2)+1)	=	0
 
-	vec3+							xxxz
+			vec1	vec2	vec3	vec4					NEW	vec1 from 1	+	vec2 from 1	+	vec3 from 1	+	vec4 from 1	+	vec2 from 2	+	vec3 from 2	+	vec4 from 2
+																UNIQUE															UNIQUE
+	vec2+						 ___xxxy**
+	vec2+						|___xxyx**
+	vec2+				 ___xxy_|___xxyy**
+	vec2+				|		 ___xyxx**					
+	vec2+				|___xyx_|___xyxy**					
+	vec2+				|		 ___xyyx**
+	vec2+			xy/_|___xyy_|___xyyy**u2(xy)+n2(xy)	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	+	[ 1(xy)	  ]	+	{	3		+	  3(2)+1	}	= 4 + 2(1 + 3 + 3(2)+1) = 26 = 3 unique + 23
+	vec2+	 		yx/_____yxx_____yxxx**u2(yx)+n2(yx)	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	+	[ 1(yx)	  ]	+	{	3		+	  3(2)+1	}
+	vec2+				|		|___yxxy**																					|
+	vec2+				|___yxy_____yxyx**																					|
+	vec2+				|		|___yxyy**																					|
+	vec2+				|___yyx_____yyxx**																					|
+	vec2+						|___yyxy**																					|
+	vec2+						|___yyyx**																					|
+	vec2+	y/______yy______yyy_____yyyy*u1(y)+n1(y)	--	--	[ 1(y)	  ]	+	{ 1(yy)		+	  1(...)	+	  1		}	+
+
+
+			vec1	vec2	vec3	vec4					NEW	vec1 from 1	+	vec2 from 1	+	vec3 from 1	+	vec4 from 1	+	vec2 from 2	+	vec3 from 2	+	vec4 from 2	
+																UNIQUE															UNIQUE
+	vec3+						 ___xxxz**
+	vec3+						|___xxzx**
+	vec3+				 ___xxz_|___xxzz**
+	vec3+				|		 ___xzxx**
+	vec3+				|___xzx_|___xzxz**
+	vec3+				|		 ___xzzx**
+	vec3+			xz/_|___xzz_|___xzzz**u2(xz)+n2(xz)	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	+	[ 1(xz)	  ]	+	{	3		+	  3(2)+1	}
+	vec3+			zx/_____zxx_____zxxx**u2(zx)+n2(zx)	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	+	[ 1(zx)	  ]	+	{	3		+	  3(2)+1	}
+	vec3+				|		|___zxxz**																					|
+	vec3+				|___zxz_____zxzx**																					|
+	vec3+				|		|___zxzz**																					|
+	vec3+				|___zzx_____zzxx**																					|
+	vec3+						|___zzxz**																					|
+	vec3+						|___zzzx**																					|
+
 	vec3+							xxyz
-	vec3+					xxz		xxzx
-	vec3+							xxzy
-	vec3+							xxzz
 	vec3+							xyxz
 	vec3+							xyyz
-	vec3+					xyz		xyzx
-	vec3+							xyzy
-	vec3+							xyzz
-	vec3+			xz		xzx		xzxx
+
+	vec3+							xxzy
 	vec3+							xzxy
-	vec3+							xzxz
-	vec3+					xzy		xzyx
-	vec3+							xzyy
-	vec3+							xzyz
-	vec3+					xzz		xzzx
+	vec3+							xzyx
 	vec3+							xzzy
-	vec3+							xzzz
+	vec3+					xzy/____xzyz
+	vec3+					zxy/____zxyz
+	vec3+							zxzy
+	vec3+							zxyx
+	vec3+							zxxy
+
+	vec3+							xzyy
+	vec3+							zxyy
+
+
+	vec3+							xyzx
+	vec3+							xyzy
+	vec3+					xyz/____xyzz
+	vec3+					yxz/____yxzz
+	vec3+							yxzy
+	vec3+							yxzx
+
+	vec3+							yzxx
+	vec3+							zyxx
+
+	vec3+							yyzx
+	vec3+							yzzx
+	vec3+							yzxz
+	vec3+							yzyx
+	vec3+					yzx/____yzxy
+	vec3+					zyx/____zyxy
+	vec3+							zyyx
+	vec3+							zyxz
+	vec3+							zyzx
+	vec3+							zzxy
+	vec3+				  			zzyx
+
 	vec3+							yxxz
 	vec3+							yxyz
-	vec3+					yxz		yxzx
-	vec3+							yxzy
-	vec3+							yxzz
 	vec3+							yyxz
-	vec3+							yyyz
-	vec3+					yyz		yyzx
-	vec3+							yyzy
-	vec3+							yyzz
-	vec3+			yz		yzx		yzxx
-	vec3+							yzxy
-	vec3+							yzxz
-	vec3+					yzy		yzyx
-	vec3+							yzyy
-	vec3+							yzyz
-	vec3+					yzz		yzzx
-	vec3+							yzzy
-	vec3+							yzzz
-	vec3+	z		zx		zxx		zxxx
-	vec3+							zxxy
-	vec3+							zxxz
-	vec3+					zxy		zxyx
-	vec3+							zxyy
-	vec3+							zxyz
-	vec3+					zxz		zxzx
-	vec3+							zxzy
-	vec3+							zxzz
-	vec3+			zy		zyx		zyxx
-	vec3+							zyxy
-	vec3+							zyxz
-	vec3+					zyy		zyyx
-	vec3+							zyyy
-	vec3+							zyyz
-	vec3+					zyz		zyzx
-	vec3+							zyzy
-	vec3+							zyzz
-	vec3+			zz		zzx		zzxx
-	vec3+							zzxy
-	vec3+							zzxz
-	vec3+					zzy		zzyx
-	vec3+							zzyy
-	vec3+							zzyz
-	vec3+					zzz		zzzx
-	vec3+							zzzy
-	vec3+							zzzz
+
+	vec3+						 ___yyyz**																					|
+	vec3+						|___yyzy**																					|
+	vec3+				 ___yyz_|___yyzz**																					|
+	vec3+				|		 ___yzyy**																					|
+	vec3+				|___yzy_|___yzyz**																					|
+	vec3+				|		 ___yzzy**																					|
+	vec3+			yz/_|___yzz_|___yzzz**u2(yz)+n2(yz)	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	+	[ 1(yz)	  ]	+	{	3		+	  3(2)+1	}
+	vec3+			zy/_____zyy_____zyyy**u2(zy)+n2(zy)	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	+	[ 1(zy)	  ]	+	{	3		+	  3(2)+1	}
+	vec3+				|		|___zyyz**																					|
+	vec3+				|___zyz_____zyzy**																					|
+	vec3+				|		|___zyzz**																					|
+	vec3+				|___zzy_____zzyy**																					|
+	vec3+						|___zzyz**																					|
+	vec3+						|___zzzy**																					|
+	vec3+	z/______zz______zzz_____zzzz*u1(z)+n1(z)	--	--	[ 1(z)	  ]	+	{ 1(zz)		+	  1(...)	+	  1		}	+
+
+
 
 	vec4+							xxxw
 	vec4+							xxyw
