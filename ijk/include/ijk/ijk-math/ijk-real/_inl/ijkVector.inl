@@ -107,15 +107,15 @@ inline ivec2::ivec2(ivec4 const& xy)
 	: x(xy.x), y(xy.y)
 {
 }
-inline ivec2::ivec2(fvec2 const& xy)
+inline ivec2::ivec2(vec2 const& xy)
 	: x((i32)xy.x), y((i32)xy.y)
 {
 }
-inline ivec2::ivec2(fvec3 const& xy)
+inline ivec2::ivec2(vec3 const& xy)
 	: x((i32)xy.x), y((i32)xy.y)
 {
 }
-inline ivec2::ivec2(fvec4 const& xy)
+inline ivec2::ivec2(vec4 const& xy)
 	: x((i32)xy.x), y((i32)xy.y)
 {
 }
@@ -269,27 +269,17 @@ inline bool ivec2::operator !=(ivec2 const& v_rh) const
 }
 
 
-inline ivec2 ivec2::isvec2::operator=(ivec2 const v)
+inline ivec2 isvec2::operator=(ivec2 const v)
 {
 	return ivec2(x = v.x, y = v.y);
 }
-inline ivec2 ivec2::isvec2::operator=(isvec2 const& v)
+inline ivec2 isvec2::operator=(isvec2 const& v)
 {
 	return (*this = ivec2(v));
 }
-inline ivec2::isvec2::isvec2(i32& xr, i32& yr)
+inline isvec2::isvec2(i32& xr, i32& yr)
 	: x(xr), y(yr)
 {
-}
-
-
-inline ivec2::isvec2 ivec2::_xy()
-{
-	return isvec2(x, y);
-}
-inline ivec2::isvec2 ivec2::_yx()
-{
-	return isvec2(y, x);
 }
 
 
@@ -343,6 +333,10 @@ inline ivec4::ivec4(i32 const xc, i32 const yc, i32 const zc, i32 const wc) : x(
 //IJK_SWIZZLE_XYZW(IJK_SWIZZLE2, IJK_SWIZZLE3, IJK_SWIZZLE4, 4, 4, 4, d);
 IJK_SWIZZLE_READONLY(IJK_SWIZZLE_IMPL, 2, ivec, ivec);
 
+#define x		_x()
+#define y		_y()
+#define z		_z()
+#define w		_w()
 #define xx		_xx()
 #define xy		_xy()
 #define xz		_xz()
@@ -680,6 +674,10 @@ IJK_SWIZZLE_READONLY(IJK_SWIZZLE_IMPL, 2, ivec, ivec);
 #define wwwz	_wwwz()
 #define wwww	_wwww()
 
+#define r		_r()
+#define g		_g()
+#define b		_b()
+#define a		_a()
 #define rr		_xx()
 #define rg		_xy()
 #define rb		_xz()
@@ -1017,6 +1015,10 @@ IJK_SWIZZLE_READONLY(IJK_SWIZZLE_IMPL, 2, ivec, ivec);
 #define aaab	_wwwz()
 #define aaaa	_wwww()
 
+#define s		_s()
+#define t		_t()
+#define p		_p()
+#define q		_q()
 #define ss		_xx()
 #define st		_xy()
 #define sp		_xz()
