@@ -35,8 +35,8 @@ extern "C" {
 void ijkVectorTestCPP_swizzle()
 {
 	ivec2 test_ivec2(7, 13);
-	ivec2 test_ivec2r = ivec2(42, 9001).yx;	// ivec2 ctor -> call swiz -> ivec2r ctor -> ivec2 ctor: test_ivec2r = (9001, 42)
-	ivec2 const test_ivec2k = test_ivec2r.yx;	// call swiz -> ivec2r ctor -> ivec2 ctor: test_ivec2k = (42, 9001)
+	ivec2 test_isvec2 = ivec2(42, 9001).yx;	// ivec2 ctor -> call swiz -> isvec2 ctor -> ivec2 ctor: test_isvec2 = (9001, 42)
+	ivec2 const test_ivec2k = test_isvec2.yx;	// call swiz -> isvec2 ctor -> ivec2 ctor: test_ivec2k = (42, 9001)
 
 /*
 	ivec3 test_ivec3;
@@ -51,32 +51,32 @@ void ijkVectorTestCPP_swizzle()
 	dvec4 test_dvec4;
 */
 
-	test_ivec2r = test_ivec2.xx;	// call swiz -> ivec2 ctor -> ivec2 assign ivec2: test_ivec2r = (7, 7)
-	test_ivec2r = test_ivec2.xy;	// call swiz -> ivec2r ctor -> ivec2 assign ivec2r: test_ivec2r = (7, 13)
-	test_ivec2r = test_ivec2.yx;	// call swiz -> ivec2r ctor -> ivec2 assign ivec2r: test_ivec2r = (13, 7)
-	test_ivec2r = test_ivec2.yy;	// call swiz -> ivec2 ctor -> ivec2 assign ivec2: test_ivec2r = (13, 13)
+	test_isvec2 = test_ivec2.xx;	// call swiz -> ivec2 ctor -> ivec2 assign ivec2: test_isvec2 = (7, 7)
+	test_isvec2 = test_ivec2.xy;	// call swiz -> isvec2 ctor -> ivec2 assign isvec2: test_isvec2 = (7, 13)
+	test_isvec2 = test_ivec2.yx;	// call swiz -> isvec2 ctor -> ivec2 assign isvec2: test_isvec2 = (13, 7)
+	test_isvec2 = test_ivec2.yy;	// call swiz -> ivec2 ctor -> ivec2 assign ivec2: test_isvec2 = (13, 13)
 
-	test_ivec2r = test_ivec2k.xx;	// call swiz -> ivec2 ctor -> ivec2 assign ivec2: test_ivec2r = (42, 42)
-	test_ivec2r = test_ivec2k.xy;	// call swiz -> ivec2 ctor -> ivec2 assign ivec2: test_ivec2r = (42, 9001)
-	test_ivec2r = test_ivec2k.yx;	// call swiz -> ivec2 ctor -> ivec2 assign ivec2: test_ivec2r = (9001, 42)
-	test_ivec2r = test_ivec2k.yy;	// call swiz -> ivec2 ctor -> ivec2 assign ivec2: test_ivec2r = (9001, 9001)
+	test_isvec2 = test_ivec2k.xx;	// call swiz -> ivec2 ctor -> ivec2 assign ivec2: test_isvec2 = (42, 42)
+	test_isvec2 = test_ivec2k.xy;	// call swiz -> ivec2 ctor -> ivec2 assign ivec2: test_isvec2 = (42, 9001)
+	test_isvec2 = test_ivec2k.yx;	// call swiz -> ivec2 ctor -> ivec2 assign ivec2: test_isvec2 = (9001, 42)
+	test_isvec2 = test_ivec2k.yy;	// call swiz -> ivec2 ctor -> ivec2 assign ivec2: test_isvec2 = (9001, 9001)
 
-//	test_ivec2r = test_ivec2.xx = test_ivec2k;		// error: xx returns const
-//	test_ivec2r = test_ivec2.yy = test_ivec2k;		// error: yy returns const
+//	test_isvec2 = test_ivec2.xx = test_ivec2k;		// error: xx returns const
+//	test_isvec2 = test_ivec2.yy = test_ivec2k;		// error: yy returns const
 //	test_ivec2k.xy = test_ivec2;					// error: test_ivec2k is const
 //	test_ivec2k.yx = test_ivec2;					// error: test_ivec2k is const
-	test_ivec2r.yx = test_ivec2.yx = test_ivec2k;	// test_ivec2 call swiz -> ivec2r (test_ivec2) ctor -> ivec2r (test_ivec2) assign ivec2: test_ivec2 = (9001, 42) -> test_ivec2r call swiz -> ivec2r (test_ivec2r) ctor -> ivec2r (test_ivec2r) assign ivec2: test_ivec2r = (9001, 42)
-	test_ivec2r = test_ivec2.xy = test_ivec2k;		// test_ivec2 call swiz -> ivec2r ctor -> ivec2r (test_ivec2) assign ivec2: test_ivec2 = (42, 9001) -> test_ivec2r ivec2 assign ivec2: test_ivec2r = (42, 9001)
-	test_ivec2 = test_ivec2.yx;						// test_ivec2 call swiz -> ivec2r ctor -> ivec2 assign ivec2r -> ivec2 ctor ivec2r: test_ivec2 = (9001, 42)
-	test_ivec2.yx = test_ivec2;						// test_ivec2 call swiz -> ivec2r ctor -> ivec2r assign ivec2: test_ivec2 = (42, 9001)
-	test_ivec2r.xy = test_ivec2.xy;					// test_ivec2 call swiz -> ivec2r (test_ivec2) ctor -> test_ivec2r call swiz -> ivec2r (test_ivec2r) ctor -> ivec2r (test_ivec2r) assign ivec2r (test_ivec2) -> test_ivec2r = (42, 9001)
-	test_ivec2r.xy = test_ivec2.yx;					// test_ivec2 call swiz -> ivec2r (test_ivec2) ctor -> test_ivec2r call swiz -> ivec2r (test_ivec2r) ctor -> ivec2r (test_ivec2r) assign ivec2r (test_ivec2) -> test_ivec2r = (9001, 42)
-	test_ivec2r.yx = test_ivec2.xy;					// test_ivec2 call swiz -> ivec2r (test_ivec2) ctor -> test_ivec2r call swiz -> ivec2r (test_ivec2r) ctor -> ivec2r (test_ivec2r) assign ivec2r (test_ivec2) -> test_ivec2r = (9001, 42)
-	test_ivec2r.yx = test_ivec2.yx;					// test_ivec2 call swiz -> ivec2r (test_ivec2) ctor -> test_ivec2r call swiz -> ivec2r (test_ivec2r) ctor -> ivec2r (test_ivec2r) assign ivec2r (test_ivec2) -> test_ivec2r = (42, 9001)
-	test_ivec2.xy = test_ivec2.xy;					// test_ivec2 call swiz -> ivec2r ctor -> test_ivec2 call swiz -> ivec2r ctor -> ivec2r assign ivec2r -> test_ivec2r = (42, 9001)
-	test_ivec2.xy = test_ivec2.yx;					// test_ivec2 call swiz -> ivec2r ctor -> test_ivec2 call swiz -> ivec2r ctor -> ivec2r assign ivec2r -> test_ivec2r = (9001, 42)
-	test_ivec2.yx = test_ivec2.xy;					// test_ivec2 call swiz -> ivec2r ctor -> test_ivec2 call swiz -> ivec2r ctor -> ivec2r assign ivec2r -> test_ivec2r = (42, 9001)
-	test_ivec2.yx = test_ivec2.yx;					// test_ivec2 call swiz -> ivec2r ctor -> test_ivec2 call swiz -> ivec2r ctor -> ivec2r assign ivec2r -> test_ivec2r = (42, 9001)
+	test_isvec2.yx = test_ivec2.yx = test_ivec2k;	// test_ivec2 call swiz -> isvec2 (test_ivec2) ctor -> isvec2 (test_ivec2) assign ivec2: test_ivec2 = (9001, 42) -> test_isvec2 call swiz -> isvec2 (test_isvec2) ctor -> isvec2 (test_isvec2) assign ivec2: test_isvec2 = (9001, 42)
+	test_isvec2 = test_ivec2.xy = test_ivec2k;		// test_ivec2 call swiz -> isvec2 ctor -> isvec2 (test_ivec2) assign ivec2: test_ivec2 = (42, 9001) -> test_isvec2 ivec2 assign ivec2: test_isvec2 = (42, 9001)
+	test_ivec2 = test_ivec2.yx;						// test_ivec2 call swiz -> isvec2 ctor -> ivec2 assign isvec2 -> ivec2 ctor isvec2: test_ivec2 = (9001, 42)
+	test_ivec2.yx = test_ivec2;						// test_ivec2 call swiz -> isvec2 ctor -> isvec2 assign ivec2: test_ivec2 = (42, 9001)
+	test_isvec2.xy = test_ivec2.xy;					// test_ivec2 call swiz -> isvec2 (test_ivec2) ctor -> test_isvec2 call swiz -> isvec2 (test_isvec2) ctor -> isvec2 (test_isvec2) assign isvec2 (test_ivec2) -> test_isvec2 = (42, 9001)
+	test_isvec2.xy = test_ivec2.yx;					// test_ivec2 call swiz -> isvec2 (test_ivec2) ctor -> test_isvec2 call swiz -> isvec2 (test_isvec2) ctor -> isvec2 (test_isvec2) assign isvec2 (test_ivec2) -> test_isvec2 = (9001, 42)
+	test_isvec2.yx = test_ivec2.xy;					// test_ivec2 call swiz -> isvec2 (test_ivec2) ctor -> test_isvec2 call swiz -> isvec2 (test_isvec2) ctor -> isvec2 (test_isvec2) assign isvec2 (test_ivec2) -> test_isvec2 = (9001, 42)
+	test_isvec2.yx = test_ivec2.yx;					// test_ivec2 call swiz -> isvec2 (test_ivec2) ctor -> test_isvec2 call swiz -> isvec2 (test_isvec2) ctor -> isvec2 (test_isvec2) assign isvec2 (test_ivec2) -> test_isvec2 = (42, 9001)
+	test_ivec2.xy = test_ivec2.xy;					// test_ivec2 call swiz -> isvec2 ctor -> test_ivec2 call swiz -> isvec2 ctor -> isvec2 assign isvec2 -> test_isvec2 = (42, 9001)
+	test_ivec2.xy = test_ivec2.yx;					// test_ivec2 call swiz -> isvec2 ctor -> test_ivec2 call swiz -> isvec2 ctor -> isvec2 assign isvec2 -> test_isvec2 = (9001, 42)
+	test_ivec2.yx = test_ivec2.xy;					// test_ivec2 call swiz -> isvec2 ctor -> test_ivec2 call swiz -> isvec2 ctor -> isvec2 assign isvec2 -> test_isvec2 = (42, 9001)
+	test_ivec2.yx = test_ivec2.yx;					// test_ivec2 call swiz -> isvec2 ctor -> test_ivec2 call swiz -> isvec2 ctor -> isvec2 assign isvec2 -> test_isvec2 = (42, 9001)
 
 	test_ivec2.xxx;
 	test_ivec2.xxy;
@@ -1825,7 +1825,7 @@ void ijkVectorTestCPP_swizzle()
 	u2(xy) =	xy;
 	n2(xy) =	xxy, xyx, xyy;
 				xxxy, xxyx, xxyy, xyxx, xyxy, xyyx, xyyy;
-	F2(xy) =	f1(y); 
+	F2(xy) =	f1(y);
 				f2(xy), f2(yx);
 
 
@@ -2081,10 +2081,10 @@ void ijkVectorTestCPP_swizzle()
 	vec4+						  \	wzxy****
 	vec4+						   \wzyx****
 	u4(xyzw) =	xyzw;
-	n4(xyzw)	
+	n4(xyzw)	<empty set>
 	F4(xyzw) =	f1(w);
 				f2(xw), f2(wx), f2(yw), f2(wy), f2(zw), f2(wz);
 				f3(xyw), f3(yxw), f3(xzw), f3(zxw), f3(xwy), f3(wxy), f3(yzw), f3(zyw), f3(ywx), f3(wyx), f3(xwz), f3(wxz), f3(ywz), f3(wyz), f3(zwx), f3(wzx), f3(wzy), f3(zwy);
-				f4(xyzw), f4(xywz), f4(xzyw), f4(xzwy), f4(xwyz), f4(xwzy), f4(yxzw), f4(yxwz), f4(yzxw), f4(yzwx), f4(ywxz), f4(ywzx), f4(zxyw), f4(zxwy), f4(zyxw), f4(zywx), f4(zwxy), f4(zwyx), f4(wxyz), f4(wxzy), f4(wyxz), f4(wyzx), f4(wzxy), f4(wzyx), 
+				f4(xyzw), f4(xywz), f4(xzyw), f4(xzwy), f4(xwyz), f4(xwzy), f4(yxzw), f4(yxwz), f4(yzxw), f4(yzwx), f4(ywxz), f4(ywzx), f4(zxyw), f4(zxwy), f4(zyxw), f4(zywx), f4(zwxy), f4(zwyx), f4(wxyz), f4(wxzy), f4(wyxz), f4(wyzx), f4(wzxy), f4(wzyx);
 */
 

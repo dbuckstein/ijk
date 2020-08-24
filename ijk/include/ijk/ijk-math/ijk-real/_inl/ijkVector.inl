@@ -79,7 +79,7 @@ inline ivec2::ivec2(i32 const xc, i32 const yc)
 	: x(xc), y(yc)
 {
 }
-inline ivec2::ivec2(ivec2r const& xy)
+inline ivec2::ivec2(isvec2 const& xy)
 	: x(xy.x), y(xy.y)
 {
 }
@@ -149,7 +149,7 @@ inline ivec2& ivec2::operator =(ivec2 const& xy)
 	y = xy.y;
 	return *this;
 }
-inline ivec2& ivec2::operator =(ivec2r const& xy)
+inline ivec2& ivec2::operator =(isvec2 const& xy)
 {
 	return (*this = ivec2(xy));
 }
@@ -269,27 +269,27 @@ inline bool ivec2::operator !=(ivec2 const& v_rh) const
 }
 
 
-inline ivec2 ivec2::ivec2r::operator=(ivec2 const v)
+inline ivec2 ivec2::isvec2::operator=(ivec2 const v)
 {
 	return ivec2(x = v.x, y = v.y);
 }
-inline ivec2 ivec2::ivec2r::operator=(ivec2r const& v)
+inline ivec2 ivec2::isvec2::operator=(isvec2 const& v)
 {
 	return (*this = ivec2(v));
 }
-inline ivec2::ivec2r::ivec2r(i32& xr, i32& yr)
+inline ivec2::isvec2::isvec2(i32& xr, i32& yr)
 	: x(xr), y(yr)
 {
 }
 
 
-inline ivec2::ivec2r ivec2::_xy()
+inline ivec2::isvec2 ivec2::_xy()
 {
-	return ivec2r(x, y);
+	return isvec2(x, y);
 }
-inline ivec2::ivec2r ivec2::_yx()
+inline ivec2::isvec2 ivec2::_yx()
 {
-	return ivec2r(y, x);
+	return isvec2(y, x);
 }
 
 
@@ -332,15 +332,16 @@ inline ivec4::ivec4(i32 const xc, i32 const yc, i32 const zc, i32 const wc) : x(
 // IJK_SWIZZLE_MACRO_IMPL
 #pragma region IJK_SWIZZLE_MACRO_IMPL
 
-IJK_SWIZZLE_XY(IJK_SWIZZLE2, IJK_SWIZZLE3, IJK_SWIZZLE4, 2, 2, 2, i);
-IJK_SWIZZLE_XYZ(IJK_SWIZZLE2, IJK_SWIZZLE3, IJK_SWIZZLE4, 3, 3, 3, i);
-IJK_SWIZZLE_XYZW(IJK_SWIZZLE2, IJK_SWIZZLE3, IJK_SWIZZLE4, 4, 4, 4, i);
-IJK_SWIZZLE_XY(IJK_SWIZZLE2, IJK_SWIZZLE3, IJK_SWIZZLE4, 2, 2, 2, f);
-IJK_SWIZZLE_XYZ(IJK_SWIZZLE2, IJK_SWIZZLE3, IJK_SWIZZLE4, 3, 3, 3, f);
-IJK_SWIZZLE_XYZW(IJK_SWIZZLE2, IJK_SWIZZLE3, IJK_SWIZZLE4, 4, 4, 4, f);
-IJK_SWIZZLE_XY(IJK_SWIZZLE2, IJK_SWIZZLE3, IJK_SWIZZLE4, 2, 2, 2, d);
-IJK_SWIZZLE_XYZ(IJK_SWIZZLE2, IJK_SWIZZLE3, IJK_SWIZZLE4, 3, 3, 3, d);
-IJK_SWIZZLE_XYZW(IJK_SWIZZLE2, IJK_SWIZZLE3, IJK_SWIZZLE4, 4, 4, 4, d);
+//IJK_SWIZZLE_XY(IJK_SWIZZLE2, IJK_SWIZZLE3, IJK_SWIZZLE4, 2, 2, 2, i);
+//IJK_SWIZZLE_XYZ(IJK_SWIZZLE2, IJK_SWIZZLE3, IJK_SWIZZLE4, 3, 3, 3, i);
+//IJK_SWIZZLE_XYZW(IJK_SWIZZLE2, IJK_SWIZZLE3, IJK_SWIZZLE4, 4, 4, 4, i);
+//IJK_SWIZZLE_XY(IJK_SWIZZLE2, IJK_SWIZZLE3, IJK_SWIZZLE4, 2, 2, 2, f);
+//IJK_SWIZZLE_XYZ(IJK_SWIZZLE2, IJK_SWIZZLE3, IJK_SWIZZLE4, 3, 3, 3, f);
+//IJK_SWIZZLE_XYZW(IJK_SWIZZLE2, IJK_SWIZZLE3, IJK_SWIZZLE4, 4, 4, 4, f);
+//IJK_SWIZZLE_XY(IJK_SWIZZLE2, IJK_SWIZZLE3, IJK_SWIZZLE4, 2, 2, 2, d);
+//IJK_SWIZZLE_XYZ(IJK_SWIZZLE2, IJK_SWIZZLE3, IJK_SWIZZLE4, 3, 3, 3, d);
+//IJK_SWIZZLE_XYZW(IJK_SWIZZLE2, IJK_SWIZZLE3, IJK_SWIZZLE4, 4, 4, 4, d);
+IJK_SWIZZLE_READONLY(IJK_SWIZZLE_IMPL, 2, ivec, ivec);
 
 #define xx		_xx()
 #define xy		_xy()

@@ -45,39 +45,49 @@ extern "C" {
 // IJK_SWIZZLE_MACRO_DECL
 #pragma region IJK_SWIZZLE_MACRO_DECL
 
-#define IJK_SWIZZLE_DECL(ownerType,returnType,constFunc,x,y,z,w)						returnType _##x##y##z##w() constFunc
-#define IJK_SWIZZLE_IMPL(ownerType,returnType,constFunc,x,y,...)						inline returnType ownerType::_##x##y##z##w() constFunc { return returnType(x,y __VA_OPT__(,) __VA_ARGS__); }
+// Internal swizzling implementation.
+///
+#define IJK_SWIZZLE_U1(...)								/*swiz,cf,ot,rt,x,...*/	// swiz(cf,ot,rt##1,x,,,))	// unique 1	// empty set, no 1-element swizzle
+#define IJK_SWIZZLE_U2(swiz,cf,ot,rt,x,y,...)			swiz(cf,ot,rt##2,x,y,,)	// unique 2
+#define IJK_SWIZZLE_U3(swiz,cf,ot,rt,x,y,z,...)			swiz(cf,ot,rt##3,x,y,z,)	// unique 3
+#define IJK_SWIZZLE_U4(swiz,cf,ot,rt,x,y,z,w,...)		swiz(cf,ot,rt##4,x,y,z,w)	// unique 4
+#define IJK_SWIZZLE_D1(swiz,cf,ot,rt,x,...)				swiz(cf,ot,rt##2,x,x,,); swiz(cf,ot,rt##3,x,x,x,); swiz(cf,ot,rt##4,x,x,x,x)	// duplicate 1
+#define IJK_SWIZZLE_D2(swiz,cf,ot,rt,x,y,...)			swiz(cf,ot,rt##3,x,x,y,); swiz(cf,ot,rt##3,x,y,x,); swiz(cf,ot,rt##3,x,y,y,); swiz(cf,ot,rt##4,x,x,x,y); swiz(cf,ot,rt##4,x,x,y,x); swiz(cf,ot,rt##4,x,x,y,y); swiz(cf,ot,rt##4,x,y,x,x); swiz(cf,ot,rt##4,x,y,x,y); swiz(cf,ot,rt##4,x,y,y,x); swiz(cf,ot,rt##4,x,y,y,y)	// duplicate 2
+#define IJK_SWIZZLE_D3(swiz,cf,ot,rt,x,y,z,...)			swiz(cf,ot,rt##4,x,x,y,z); swiz(cf,ot,rt##4,x,y,x,z); swiz(cf,ot,rt##4,x,y,y,z); swiz(cf,ot,rt##4,x,y,z,z); swiz(cf,ot,rt##4,x,y,z,y); swiz(cf,ot,rt##4,x,y,z,x)	// duplicate 3
+#define IJK_SWIZZLE_D4(...)								/*swiz,cf,ot,rt,x,y,z,w,...*/	// IJK_SWIZZLEU1()	// duplicate 4	// empty set, no combos remaining
+#define IJK_SWIZZLE_F1(swiz,cf,ot,rt,f1,...)			f1(swiz,cf,ot,rt,x,,,)
+#define IJK_SWIZZLE_F2(swiz,cf,ot,rt,f1,f2,...)			IJK_SWIZZLE_F1(swiz,cf,ot,rt,f1); f1(swiz,cf,ot,rt,y,,,); f2(swiz,cf,ot,rt,x,y,,); f2(swiz,cf,ot,rt,y,x,,)
+#define IJK_SWIZZLE_F3(swiz,cf,ot,rt,f1,f2,f3,...)		IJK_SWIZZLE_F2(swiz,cf,ot,rt,f1,f2); f1(swiz,cf,ot,rt,z,,,); f2(swiz,cf,ot,rt,x,z,,); f2(swiz,cf,ot,rt,z,x,,); f2(swiz,cf,ot,rt,y,z,,); f2(swiz,cf,ot,rt,z,x,,); f3(swiz,cf,ot,rt,x,y,z,); f3(swiz,cf,ot,rt,y,z,x,); f3(swiz,cf,ot,rt,z,x,y,); f3(swiz,cf,ot,rt,y,x,z,); f3(swiz,cf,ot,rt,x,z,y,); f3(swiz,cf,ot,rt,z,y,x,)
+#define IJK_SWIZZLE_F4(swiz,cf,ot,rt,f1,f2,f3,f4,...)	IJK_SWIZZLE_F3(swiz,cf,ot,rt,f1,f2,f3); f1(swiz,cf,ot,rt,w,,,); f2(swiz,cf,ot,rt,x,w,,); f2(swiz,cf,ot,rt,w,x,,); f2(swiz,cf,ot,rt,y,w,,); f2(swiz,cf,ot,rt,w,y,,); f2(swiz,cf,ot,rt,z,w,,); f2(swiz,cf,ot,rt,w,z,,); f3(swiz,cf,ot,rt,x,y,w,); f3(swiz,cf,ot,rt,y,x,w,); f3(swiz,cf,ot,rt,x,z,w,); f3(swiz,cf,ot,rt,z,x,w,); f3(swiz,cf,ot,rt,x,w,y,); f3(swiz,cf,ot,rt,w,x,y,); f3(swiz,cf,ot,rt,y,z,w,); f3(swiz,cf,ot,rt,z,y,w,); f3(swiz,cf,ot,rt,y,w,x,); f3(swiz,cf,ot,rt,w,y,x,); f3(swiz,cf,ot,rt,x,w,z,); f3(swiz,cf,ot,rt,w,x,z,); f3(swiz,cf,ot,rt,y,w,z,); f3(swiz,cf,ot,rt,w,y,z,); f3(swiz,cf,ot,rt,z,w,x,); f3(swiz,cf,ot,rt,w,z,x,); f3(swiz,cf,ot,rt,w,z,y,); f3(swiz,cf,ot,rt,z,w,y,); f4(swiz,cf,ot,rt,x,y,z,w); f4(swiz,cf,ot,rt,x,y,w,z); f4(swiz,cf,ot,rt,x,z,y,w); f4(swiz,cf,ot,rt,x,z,w,y); f4(swiz,cf,ot,rt,x,w,y,z); f4(swiz,cf,ot,rt,x,w,z,y); f4(swiz,cf,ot,rt,y,x,z,w); f4(swiz,cf,ot,rt,y,x,w,z); f4(swiz,cf,ot,rt,y,z,x,w); f4(swiz,cf,ot,rt,y,z,w,x); f4(swiz,cf,ot,rt,y,w,x,z); f4(swiz,cf,ot,rt,y,w,z,x); f4(swiz,cf,ot,rt,z,x,y,w); f4(swiz,cf,ot,rt,z,x,w,y); f4(swiz,cf,ot,rt,z,y,x,w); f4(swiz,cf,ot,rt,z,y,w,x); f4(swiz,cf,ot,rt,z,w,x,y); f4(swiz,cf,ot,rt,z,w,y,x); f4(swiz,cf,ot,rt,w,x,y,z); f4(swiz,cf,ot,rt,w,x,z,y); f4(swiz,cf,ot,rt,w,y,x,z); f4(swiz,cf,ot,rt,w,y,z,x); f4(swiz,cf,ot,rt,w,z,x,y); f4(swiz,cf,ot,rt,w,z,y,x)
+#define IJK_SWIZZLE(F,swiz,ot,rt,f1,f2,f3,f4,...)		F(swiz,__VA_ARGS__,ot,rt,f1,f2,f3,f4)
 
+// IJK_SWIZZLE_READONLY
+//	Configure read-only (constant) swizzling in calling interface.
+//		param swizzleFormat: swizzle function format ('IJK_SWIZZLE_DECL' or 'IJK_SWIZZLE_IMPL' or 'IJK_SWIZZLE_DECL_IMPL')
+//		param ownerTypeSize: owner type size (e.g. just '2' for some version of vec2)
+//		param ownerTypeBase: owner type, without size, of swizzle function (e.g. 'ivec' not 'ivec2')
+//		param returnTypeBase: return type, without size, of swizzle results (e.g. 'ivec' not 'ivec2'; may differ from 'ownerTypeBase')
+#define IJK_SWIZZLE_READONLY(swizzleFormat,ownerTypeSize,ownerTypeBase,returnTypeBase)	IJK_SWIZZLE(IJK_SWIZZLE_F##ownerTypeSize,swizzleFormat,ownerTypeBase##ownerTypeSize,returnTypeBase,IJK_SWIZZLE_D1,IJK_SWIZZLE_D2,IJK_SWIZZLE_D3,IJK_SWIZZLE_D4,const); IJK_SWIZZLE(IJK_SWIZZLE_F##ownerTypeSize,swizzleFormat,ownerTypeBase##ownerTypeSize,returnTypeBase,IJK_SWIZZLE_U1,IJK_SWIZZLE_U2,IJK_SWIZZLE_U3,IJK_SWIZZLE_U4,const)
 
-//#define IJK_SWIZZLE1(swizzleMacro,ownerType,returnType2,returnType3,returnType4,...)	
-//#define IJK_SWIZZLE2(swizzleMacro,ownerType,returnType2,returnType3,returnType4,...)	
-//#define IJK_SWIZZLE3(swizzleMacro,ownerType,returnType2,returnType3,returnType4,...)	
-//#define IJK_SWIZZLE4(swizzleMacro,ownerType,returnType2,returnType3,returnType4,...)	
-	// __VA_ARGS__ is empty or 'const', appends to collector type (empty is unique only, const suffix gathers all)
+// IJK_SWIZZLE_WRITABLE
+//	Configure writable (non-constant) swizzling in calling interface.
+//		param swizzleFormat: swizzle function format ('IJK_SWIZZLE_DECL' or 'IJK_SWIZZLE_IMPL' or 'IJK_SWIZZLE_DECL_IMPL')
+//		param ownerTypeSize: owner type size (e.g. just '2' for some version of vec2)
+//		param ownerTypeBase: owner type, without size, of swizzle function (e.g. 'ivec' not 'ivec2')
+//		param returnTypeBase: return type, without size, of swizzle results (e.g. 'ivec' not 'ivec2'; may differ from 'ownerTypeBase')
+#define IJK_SWIZZLE_WRITABLE(swizzleFormat,ownerTypeSize,ownerTypeBase,returnTypeBase)	IJK_SWIZZLE(IJK_SWIZZLE_F##ownerTypeSize,swizzleFormat,ownerTypeBase##ownerTypeSize,returnTypeBase,IJK_SWIZZLE_U1,IJK_SWIZZLE_U2,IJK_SWIZZLE_U3,IJK_SWIZZLE_U4)
 
+// IJK_SWIZZLE_DECL
+//	Pass to IJK_SWIZZLE as 'swizzleMacro' to declare swizzling functions within interface.
+#define IJK_SWIZZLE_DECL(cf,ot,rt,x,y,z,w,...)											rt _##x##y##z##w() cf
 
-#define IJK_SWIZZLE(n,t,x,y,z,w)						t##vec##n const _##x##y##z##w() const													// Declare swizzle function.
-#define IJK_SWIZZLE2(n,t,x,y,...)						inline t##vec2 const t##vec##n::_##x##y() const { return t##vec2(x, y); }				// Implement 2-element swizzle.
-#define IJK_SWIZZLE3(n,t,x,y,z,...)						inline t##vec3 const t##vec##n::_##x##y##z() const { return t##vec3(x, y, z); }			// Implement 3-element swizzle.
-#define IJK_SWIZZLE4(n,t,x,y,z,w)						inline t##vec4 const t##vec##n::_##x##y##z##w() const { return t##vec4(x, y, z, w); }	// Implement 4-element swizzle.
+// IJK_SWIZZLE_IMPL
+//	Pass to IJK_SWIZZLE as 'swizzleMacro' to implement inline swizzling functions outside of interface (in header or inline file).
+#define IJK_SWIZZLE_IMPL(cf,ot,rt,x,y,z,w,...)											inline rt ot::_##x##y##z##w() cf { return rt(__VA_ARGS__); }
 
-#define IJK_SWIZZLE_2X1(swiz,n,t,x,u,v)					swiz(n,t,x,x,u,v)				// Return 2 elements from 1 item: 1^2 = 1 combo
-#define IJK_SWIZZLE_3X1(swiz,n,t,x,v)					IJK_SWIZZLE_2X1(swiz,n,t,x,x,v)	// Return 3 elements from 1 item: 1^3 = 1 combo
-#define IJK_SWIZZLE_4X1(swiz,n,t,x)						IJK_SWIZZLE_3X1(swiz,n,t,x,x)	// Return 4 elements from 1 item: 1^4 = 1 combo
-#define IJK_SWIZZLE_2X2(swiz,n,t,x,y,u,v)				IJK_SWIZZLE_2X1(swiz,n,t,x,u,v); swiz(n,t,x,y,u,v); swiz(n,t,y,x,u,v); swiz(n,t,y,y,u,v)	// Return 2 elements from 2 items: 2^2 = 4 combos
-#define IJK_SWIZZLE_3X2(swiz,n,t,x,y,v)					IJK_SWIZZLE_2X2(swiz,n,t,x,y,x,v); IJK_SWIZZLE_2X2(swiz,n,t,x,y,y,v)						// Return 3 elements from 2 items: 2^3 = 8 combos
-#define IJK_SWIZZLE_4X2(swiz,n,t,x,y)					IJK_SWIZZLE_3X2(swiz,n,t,x,y,x); IJK_SWIZZLE_3X2(swiz,n,t,x,y,y)							// Return 4 elements from 2 items: 2^4 = 16 combos
-#define IJK_SWIZZLE_2X3(swiz,n,t,x,y,z,u,v)				IJK_SWIZZLE_2X2(swiz,n,t,x,y,u,v); swiz(n,t,x,z,u,v); swiz(n,t,y,z,u,v); swiz(n,t,z,x,u,v); swiz(n,t,z,y,u,v); swiz(n,t,z,z,u,v)	// Return 2 elements from 3 items: 3^2 = 9 combos = 4+5
-#define IJK_SWIZZLE_3X3(swiz,n,t,x,y,z,v)				IJK_SWIZZLE_2X3(swiz,n,t,x,y,z,x,v); IJK_SWIZZLE_2X3(swiz,n,t,x,y,z,y,v); IJK_SWIZZLE_2X3(swiz,n,t,x,y,z,z,v)						// Return 3 elements from 3 items: 3^3 = 27 combos = 8+19
-#define IJK_SWIZZLE_4X3(swiz,n,t,x,y,z)					IJK_SWIZZLE_3X3(swiz,n,t,x,y,z,x); IJK_SWIZZLE_3X3(swiz,n,t,x,y,z,y); IJK_SWIZZLE_3X3(swiz,n,t,x,y,z,z)								// Return 4 elements from 3 items: 3^4 = 81 combos = 16+65
-#define IJK_SWIZZLE_2X4(swiz,n,t,x,y,z,w,u,v)			IJK_SWIZZLE_2X3(swiz,n,t,x,y,z,u,v); swiz(n,t,x,w,u,v); swiz(n,t,y,w,u,v); swiz(n,t,z,w,u,v); swiz(n,t,w,x,u,v); swiz(n,t,w,y,u,v); swiz(n,t,w,z,u,v); swiz(n,t,w,w,u,v)	// Return 2 elements from 4 items: 4^2 = 16 combos = 9+7
-#define IJK_SWIZZLE_3X4(swiz,n,t,x,y,z,w,v)				IJK_SWIZZLE_2X4(swiz,n,t,x,y,z,w,x,v); IJK_SWIZZLE_2X4(swiz,n,t,x,y,z,w,y,v); IJK_SWIZZLE_2X4(swiz,n,t,x,y,z,w,z,v); IJK_SWIZZLE_2X4(swiz,n,t,x,y,z,w,w,v)					// Return 3 elements from 4 items: 4^3 = 64 combos = 27+37
-#define IJK_SWIZZLE_4X4(swiz,n,t,x,y,z,w)				IJK_SWIZZLE_3X4(swiz,n,t,x,y,z,w,x); IJK_SWIZZLE_3X4(swiz,n,t,x,y,z,w,y); IJK_SWIZZLE_3X4(swiz,n,t,x,y,z,w,z); IJK_SWIZZLE_3X4(swiz,n,t,x,y,z,w,w)							// Return 4 elements from 4 items: 4^4 = 256 combos = 81+175
-
-#define IJK_SWIZZLE_X(swiz2,swiz3,swiz4,n2,n3,n4,t)		IJK_SWIZZLE_2X1(swiz2,n2,t,x,,); IJK_SWIZZLE_3X1(swiz3,n3,t,x,); IJK_SWIZZLE_4X1(swiz4,n4,t,x)						// Declare all swizzle combos with 1 element.
-#define IJK_SWIZZLE_XY(swiz2,swiz3,swiz4,n2,n3,n4,t)	IJK_SWIZZLE_2X2(swiz2,n2,t,x,y,,); IJK_SWIZZLE_3X2(swiz3,n3,t,x,y,); IJK_SWIZZLE_4X2(swiz4,n4,t,x,y)				// Declare all swizzle combos with 2 elements.
-#define IJK_SWIZZLE_XYZ(swiz2,swiz3,swiz4,n2,n3,n4,t)	IJK_SWIZZLE_2X3(swiz2,n2,t,x,y,z,,); IJK_SWIZZLE_3X3(swiz3,n3,t,x,y,z,); IJK_SWIZZLE_4X3(swiz4,n4,t,x,y,z)			// Declare all swizzle combos with 3 elements.
-#define IJK_SWIZZLE_XYZW(swiz2,swiz3,swiz4,n2,n3,n4,t)	IJK_SWIZZLE_2X4(swiz2,n2,t,x,y,z,w,,); IJK_SWIZZLE_3X4(swiz3,n3,t,x,y,z,w,); IJK_SWIZZLE_4X4(swiz4,n4,t,x,y,z,w)	// Declare all swizzle combos with 4 elements.
+// IJK_SWIZZLE_DECL_IMPL
+//	Pass to IJK_SWIZZLE as 'swizzleMacro' to declare and implement inline swizzling functions within interface.
+#define IJK_SWIZZLE_DECL_IMPL(cf,ot,rt,x,y,z,w,...)										inline rt _##x##y##z##w() cf { return rt(__VA_ARGS__); }
 
 #pragma endregion
 // IJK_SWIZZLE_MACRO_DECL
@@ -141,13 +151,13 @@ union ivec2
 	struct { i32 s, t; };
 
 #ifdef __cplusplus
-	struct ivec2r
+	struct isvec2
 	{
 		ivec2 operator=(ivec2 const v);			// Convert to vec2 (pass by const value, need copy).
-		ivec2 operator=(ivec2r const& v);		// Convert to vec2 (calls former).
+		ivec2 operator=(isvec2 const& v);		// Convert to vec2 (calls former).
 	private:
 		i32& x, & y;							// References to values.
-		ivec2r(i32& xr, i32& yr);				// Construct using individual values so they can be reordered.
+		isvec2(i32& xr, i32& yr);				// Construct using individual values so they can be reordered.
 		friend union ivec2;
 		friend union ivec3;
 		friend union ivec4;
@@ -155,7 +165,7 @@ union ivec2
 
 	explicit ivec2(i32 const xy = 0);			// Construct vector with all elements set to single scalar.
 	explicit ivec2(i32 const xc, i32 const yc);	// Construct vector with elements set individually.
-	ivec2(ivec2r const& xy);
+	ivec2(isvec2 const& xy);
 	ivec2(int2 const xy);						// Construct vector given integer array-based vector.
 	explicit ivec2(flt2 const xy);				// Construct vector given float array-based vector.
 	explicit ivec2(dbl2 const xy);				// Construct vector given double array-based vector.
@@ -172,7 +182,7 @@ union ivec2
 	ivec2& operator+();
 	ivec2& operator =(int2 const xy);
 	ivec2& operator =(ivec2 const& xy);
-	ivec2& operator =(ivec2r const& xy);
+	ivec2& operator =(isvec2 const& xy);
 	ivec2& operator +=(ivec2 const& v_rh);
 	ivec2& operator -=(ivec2 const& v_rh);
 	ivec2& operator *=(ivec2 const& v_rh);
@@ -199,9 +209,12 @@ union ivec2
 	bool operator ==(ivec2 const& v_rh) const;
 	bool operator !=(ivec2 const& v_rh) const;
 
-	IJK_SWIZZLE_XY(IJK_SWIZZLE, IJK_SWIZZLE, IJK_SWIZZLE, 2, 3, 4, i);
-	ivec2r _xy();
-	ivec2r _yx();
+	//IJK_SWIZZLE_XY(IJK_SWIZZLE, IJK_SWIZZLE, IJK_SWIZZLE, 2, 3, 4, i);
+	//isvec2 _xy();
+	//isvec2 _yx();
+
+	IJK_SWIZZLE_READONLY(IJK_SWIZZLE_DECL, 2, ivec, ivec);
+	IJK_SWIZZLE_WRITABLE(IJK_SWIZZLE_DECL, 2, ivec, isvec);
 #endif	// __cplusplus
 };
 
@@ -278,7 +291,7 @@ union ivec3
 	bool operator ==(ivec3 const& v) const;
 	bool operator !=(ivec3 const& v) const;
 
-	IJK_SWIZZLE_XYZ(IJK_SWIZZLE, IJK_SWIZZLE, IJK_SWIZZLE, 2, 3, 4, i);
+	//IJK_SWIZZLE_XYZ(IJK_SWIZZLE, IJK_SWIZZLE, IJK_SWIZZLE, 2, 3, 4, i);
 #endif	// __cplusplus
 };
 
@@ -358,7 +371,7 @@ union ivec4
 	bool operator ==(ivec3 const& v) const;
 	bool operator !=(ivec3 const& v) const;
 
-	IJK_SWIZZLE_XYZW(IJK_SWIZZLE, IJK_SWIZZLE, IJK_SWIZZLE, 2, 3, 4, i);
+	//IJK_SWIZZLE_XYZW(IJK_SWIZZLE, IJK_SWIZZLE, IJK_SWIZZLE, 2, 3, 4, i);
 #endif	// __cplusplus
 };
 
@@ -511,7 +524,7 @@ union fvec2
 	bool operator ==(fvec2 const& v) const;
 	bool operator !=(fvec2 const& v) const;
 
-	IJK_SWIZZLE_XY(IJK_SWIZZLE, IJK_SWIZZLE, IJK_SWIZZLE, 2, 3, 4, f);
+	//IJK_SWIZZLE_XY(IJK_SWIZZLE, IJK_SWIZZLE, IJK_SWIZZLE, 2, 3, 4, f);
 #endif	// __cplusplus
 };
 
@@ -588,7 +601,7 @@ union fvec3
 	bool operator ==(fvec3 const& v) const;
 	bool operator !=(fvec3 const& v) const;
 
-	IJK_SWIZZLE_XYZ(IJK_SWIZZLE, IJK_SWIZZLE, IJK_SWIZZLE, 2, 3, 4, f);
+	//IJK_SWIZZLE_XYZ(IJK_SWIZZLE, IJK_SWIZZLE, IJK_SWIZZLE, 2, 3, 4, f);
 #endif	// __cplusplus
 };
 
@@ -668,7 +681,7 @@ union fvec4
 	bool operator ==(fvec3 const& v) const;
 	bool operator !=(fvec3 const& v) const;
 
-	IJK_SWIZZLE_XYZW(IJK_SWIZZLE, IJK_SWIZZLE, IJK_SWIZZLE, 2, 3, 4, f);
+	//IJK_SWIZZLE_XYZW(IJK_SWIZZLE, IJK_SWIZZLE, IJK_SWIZZLE, 2, 3, 4, f);
 #endif	// __cplusplus
 };
 
@@ -821,7 +834,7 @@ union dvec2
 	bool operator ==(dvec2 const& v) const;
 	bool operator !=(dvec2 const& v) const;
 
-	IJK_SWIZZLE_XY(IJK_SWIZZLE, IJK_SWIZZLE, IJK_SWIZZLE, 2, 3, 4, d);
+	//IJK_SWIZZLE_XY(IJK_SWIZZLE, IJK_SWIZZLE, IJK_SWIZZLE, 2, 3, 4, d);
 #endif	// __cplusplus
 };
 
@@ -898,7 +911,7 @@ union dvec3
 	bool operator ==(dvec3 const& v) const;
 	bool operator !=(dvec3 const& v) const;
 
-	IJK_SWIZZLE_XYZ(IJK_SWIZZLE, IJK_SWIZZLE, IJK_SWIZZLE, 2, 3, 4, d);
+	//IJK_SWIZZLE_XYZ(IJK_SWIZZLE, IJK_SWIZZLE, IJK_SWIZZLE, 2, 3, 4, d);
 #endif	// __cplusplus
 };
 
@@ -978,7 +991,7 @@ union dvec4
 	bool operator ==(dvec3 const& v) const;
 	bool operator !=(dvec3 const& v) const;
 
-	IJK_SWIZZLE_XYZW(IJK_SWIZZLE, IJK_SWIZZLE, IJK_SWIZZLE, 2, 3, 4, d);
+	//IJK_SWIZZLE_XYZW(IJK_SWIZZLE, IJK_SWIZZLE, IJK_SWIZZLE, 2, 3, 4, d);
 #endif	// __cplusplus
 };
 
