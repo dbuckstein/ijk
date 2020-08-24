@@ -1797,281 +1797,294 @@ void ijkVectorTestCPP_swizzle()
 	(MIN)													
 			vec1	vec2	vec3	vec4					NEW	vec1 from 1	+	vec2 from 1	+	vec3 from 1	+	vec4 from 1
 																UNIQUE
-	vec1+	x+______xx______xxx_____xxxx*u1(x)+n1(x)			[ 1(x)	  ]	+	{ 1(xx)		+	  1(...)	+	  1			}	= 4 = 1 unique + 3
-	u1(x) = x;
-	n1(x) = xx; xxx; xxxx;
-	F1(x) = f1(x);
+	vec1+	x+______xx______xxx_____xxxx*u1(x)+n1(x)			[ 1(x)	  ]	+	{ 1(xx)		+	  1(...)	+	  1		}
+	u1(x) =		x;
+	n1(x) =		xx;
+				xxx;
+				xxxx;
+	F1(x) =		f1(x);
 
 
 			vec1	vec2	vec3	vec4					NEW	vec1 from 1	+	vec2 from 1	+	vec3 from 1	+	vec4 from 1	+	vec2 from 2	+	vec3 from 2	+	vec4 from 2
 																UNIQUE															UNIQUE
 	vec2+	y+______yy______yyy_____yyyy*u1(y)+n1(y)	--	--	[ 1(y)	  ]	+	{ 1(yy)		+	  1(...)	+	  1		}
-	vec2+			xy+_____xxy_____xxxy**u2(xy)+n2(xy)	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	+	[ 1(xy)	  ]	+	{	3		+	  3(2)+1	}
+	vec2+			xy+_____xxy_____xxxy**u2(xy)+n2(xy)	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	+	[ 1(xy)	  ]	+	{	3		+	  3(2)+1  }
 	vec2+			||\		   \___/xxyx**																					|
 	vec2+			|| \		   \xxyy**																					|
 	vec2+			||	\___xyx____/xyxx**																					|
 	vec2+			||	 \		   \xyxy**																					|
 	vec2+			||	  \_xyy____/xyyx**																					|
 	vec2+			||			   \xyyy**																					|
-	vec2+	 		yx+_____yyx_____yyyx**u2(yx)+n2(yx)	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	+	[ 1(yx)	  ]	+	{	3		+	  3(2)+1	}	= 4 + 2(1 + 3 + 3(2)+1) = 26 = 3 unique + 23
+	vec2+	 		yx+_____yyx_____yyyx**u2(yx)+n2(yx)	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	+	[ 1(yx)	  ]	+	{	3		+	  3(2)+1  }
 	vec2+			  \		   \___/yyxy**
 	vec2+			   \		   \yyxx**
 	vec2+				\___yxy____/yxyy**
 	vec2+				 \		   \yxyx**
 	vec2+				  \_yxx____/yxxy**
 	vec2+						   \yxxx**
-	u2(xy) = xy;
-	n2(xy) = xxy, xyx, xyy;	xxxy, xxyx, xxyy, xyxx, xyxy, xyyx, xyyy;
-	F2(xy) = f1(y); f2(xy), f2(yx);
+	u2(xy) =	xy;
+	n2(xy) =	xxy, xyx, xyy;
+				xxxy, xxyx, xxyy, xyxx, xyxy, xyyx, xyyy;
+	F2(xy) =	f1(y); 
+				f2(xy), f2(yx);
 
 
 			vec1	vec2	vec3	vec4					NEW	vec1 from 1	+	vec2 from 1	+	vec3 from 1	+	vec4 from 1	+	vec2 from 2	+	vec3 from 2	+	vec4 from 2	+	vec3 from 3	+	vec4 from 3	
 																UNIQUE															UNIQUE											UNIQUE
-	vec3+	z+______zz______zzz_____zzzz*u1(z)+n1(z)	--	--	[ 1(z)	  ]	+	{ 1(zz)		+	  1(...)	+	  1		}
-	vec3+			xz+_____xxz_____xxxz**u2(xz)+n2(xz)	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	+	[ 1(xz)	  ]	+	{	3		+	  3(2)+1	}
+	vec3+	z+______zz______zzz_____zzzz*u1(z)+n1(z)	--	--	[ 1(z)	  ]	+	{ 1(zz)		+	  1(...)	+	  1		}	+
+	vec3+			xz+_____xxz_____xxxz**u2(xz)+n2(xz)	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	+	[ 1(xz)	  ]	+	{	3		+	  3(2)+1  }
 	vec3+			||\		   \___/xxzx**																					|
 	vec3+			|| \		   \xxzz**																					|
 	vec3+			||	\___xzx____/xzxx**																					|
 	vec3+			||	 \		   \xzxz**																					|
 	vec3+			||	  \_xzz____/xzzx**																					|
 	vec3+			||			   \xzzz**																					|
-	vec3+			zx+_____zzx_____zzzx**u2(zx)+n2(zx)	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	+	[ 1(zx)	  ]	+	{	3		+	  3(2)+1	}
+	vec3+			zx+_____zzx_____zzzx**u2(zx)+n2(zx)	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	+	[ 1(zx)	  ]	+	{	3		+	  3(2)+1  }
 	vec3+			  \		   \___/zzxz**																					|
 	vec3+			   \		   \zzxx**																					|
 	vec3+				\___zxz____/zxzz**																					|
 	vec3+				 \		   \zxzx**																					|
 	vec3+				  \_zxx____/zxxz**																					|
 	vec3+						   \zxxx**																					|
-	vec3+			yz+_____yyz_____yyyz**u2(yz)+n2(yz)	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	+	[ 1(yz)	  ]	+	{	3		+	  3(2)+1	}																					|
+	vec3+			yz+_____yyz_____yyyz**u2(yz)+n2(yz)	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	+	[ 1(yz)	  ]	+	{	3		+	  3(2)+1  }
 	vec3+			||\		   \___/yyzy**																					|
 	vec3+			|| \		   \yyzz**																					|
 	vec3+			||	\___yzy____/yzyy**																					|
 	vec3+			||	 \		   \yzyz**																					|
 	vec3+			||	  \_yzz____/yzzy**																					|
 	vec3+			||			   \yzzz**																					|
-	vec3+			zy+_____zzy_____zzzy**u2(zy)+n2(zy)	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	+	[ 1(zy)	  ]	+	{	3		+	  3(2)+1	}
-	vec3+			  \		   \___/zzyz**
-	vec3+			   \		   \zzyy**
-	vec3+				\___zyz____/zyzz**
-	vec3+				 \		   \zyzy**
-	vec3+				  \_zyy____/zyyz**
-	vec3+						   \zyyy**
-	vec3+						   /xxyz***u3(xyz)+n2(xyz)
-	vec3+					xyz+__/ xyxz***
-	vec3+					|||\  \_xyyz***
-	vec3+					|||	\  /xyzz***
-	vec3+					|||  \/ xyzy***
-	vec3+					|||	  \_xyzx***
-	vec3+					|||	   /yyxz***u3(yxz)+n2(yxz)
-	vec3+					yxz+__/ yxyz***
-	vec3+					   \  \_yxxz***
-	vec3+						\  /yxzz***
-	vec3+						 \/	yxzy***
-	vec3+						  \_yxzx***
-	vec3+						   /xxzy***u3(xzy)+n2(xzy)
-	vec3+					xzy+__/ xzxy***
-	vec3+					|||\  \_xzzy***
-	vec3+					||| \  /xzyy***
-	vec3+					|||	 \/ xzyz***
-	vec3+					|||	  \_xzyx***
-	vec3+					|||	   /zzxy***u3(zxy)+n2(zxy)
-	vec3+					zxy+__/ zxzy***
-	vec3+					   \  \_zxxy***
-	vec3+						\  /zxyy***
-	vec3+						 \/ zxyx***
-	vec3+						  \_zxyz***
-	vec3+						   /yyzx***u3(yzx)+n2(yzx)
-	vec3+					yzx+__/ yzyx***
-	vec3+					|||\  \_yzzx***
-	vec3+					||| \  /yzxx***
-	vec3+					|||	 \/ yzxz***
-	vec3+					|||	  \_yzxy***
-	vec3+					|||	   /zzyx***u3(zyx)+n2(zyx)
+	vec3+			zy+_____zzy_____zzzy**u2(zy)+n2(zy)	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	+	[ 1(zy)	  ]	+	{	3		+	  3(2)+1  }	+
+	vec3+			  \		   \___/zzyz**																																	|
+	vec3+			   \		   \zzyy**																																	|
+	vec3+				\___zyz____/zyzz**																																	|
+	vec3+				 \		   \zyzy**																																	|
+	vec3+				  \_zyy____/zyyz**																																	|
+	vec3+						   \zyyy**																																	|
+	vec3+						   /xxyz***u3(xyz)+n3(xyz)	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	+	[ 1(xyz)  ]	+	{	2(3)  }
+	vec3+					xyz+__/ xyxz***																																	|
+	vec3+					|||\  \_xyyz***																																	|
+	vec3+					|||	\  /xyzz***																																	|
+	vec3+					|||  \/ xyzy***																																	|
+	vec3+					|||	  \_xyzx***																																	|
+	vec3+					|||	   /yyxz***u3(yxz)+n3(yxz)	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	+	[ 1(yxz)  ]	+	{	2(3)  }
+	vec3+					yxz+__/ yxyz***																																	|
+	vec3+					   \  \_yxxz***																																	|
+	vec3+						\  /yxzz***																																	|
+	vec3+						 \/	yxzy***																																	|
+	vec3+						  \_yxzx***																																	|
+	vec3+						   /xxzy***u3(xzy)+n3(xzy)	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	+	[ 1(xzy)  ]	+	{	2(3)  }
+	vec3+					xzy+__/ xzxy***																																	|
+	vec3+					|||\  \_xzzy***																																	|
+	vec3+					||| \  /xzyy***																																	|
+	vec3+					|||	 \/ xzyz***																																	|
+	vec3+					|||	  \_xzyx***																																	|
+	vec3+					|||	   /zzxy***u3(zxy)+n3(zxy)	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	+	[ 1(zxy)  ]	+	{	2(3)  }
+	vec3+					zxy+__/ zxzy***																																	|
+	vec3+					   \  \_zxxy***																																	|
+	vec3+						\  /zxyy***																																	|
+	vec3+						 \/ zxyx***																																	|
+	vec3+						  \_zxyz***																																	|
+	vec3+						   /yyzx***u3(yzx)+n3(yzx)	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	+	[ 1(yzx)  ]	+	{	2(3)  }
+	vec3+					yzx+__/ yzyx***																																	|
+	vec3+					|||\  \_yzzx***																																	|
+	vec3+					||| \  /yzxx***																																	|
+	vec3+					|||	 \/ yzxz***																																	|
+	vec3+					|||	  \_yzxy***																																	|
+	vec3+					|||	   /zzyx***u3(zyx)+n3(zyx)	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	+	[ 1(zyx)  ]	+	{	2(3)  }
 	vec3+					zyx+__/ zyzx***
 	vec3+					   \  \_zyyx***
 	vec3+						\  /zyxx***
 	vec3+						 \/ zyxy***
 	vec3+						  \_zyxz***
-	u3(xyz) = xyz;
-	n3(xyz) = xxyz, xyxz, xyyz, xyzz, xyzy, xyzx;
-	F3(xyz) = f1(z); f2(xz), f2(zx), f2(yz), f2(zy); f3(xyz), f3(yzx), f3(zxy), f3(yxz), f3(xzy), f3(zyx);
+	u3(xyz) =	xyz;
+	n3(xyz) =	xxyz, xyxz, xyyz, xyzz, xyzy, xyzx;
+	F3(xyz) =	f1(z);
+				f2(xz), f2(zx), f2(yz), f2(zy);
+				f3(xyz), f3(yzx), f3(zxy), f3(yxz), f3(xzy), f3(zyx);
 
 
-
-	vec4+							xxxw
-	vec4+							xxyw
-	vec4+							xxzw
-	vec4+					xxw		xxwx
-	vec4+							xxwy
-	vec4+							xxwz
-	vec4+							xxww
-	vec4+							xyxw
-	vec4+							xyyw
-	vec4+							xyzw
-	vec4+					xyw		xywx
-	vec4+							xywy
-	vec4+							xywz
-	vec4+							xyww
-	vec4+							xzxw
-	vec4+							xzyw
-	vec4+							xzzw
-	vec4+					xzw		xzwx
-	vec4+							xzwy
-	vec4+							xzwz
-	vec4+							xzww
-	vec4+			xw		xwx		xwxx
-	vec4+							xwxy
-	vec4+							xwxz
-	vec4+							xwxw
-	vec4+					xwy		xwyx
-	vec4+							xwyy
-	vec4+							xwyz
-	vec4+							xwyw
-	vec4+					xwz		xwzx
-	vec4+							xwzy
-	vec4+							xwzz
-	vec4+							xwzw
-	vec4+					xww		xwwx
-	vec4+							xwwy
-	vec4+							xwwz
-	vec4+							xwww
-	vec4+							yxxw
-	vec4+							yxyw
-	vec4+							yxzw
-	vec4+					yxw		yxwx
-	vec4+							yxwy
-	vec4+							yxwz
-	vec4+							yxww
-	vec4+							yyxw
-	vec4+							yyyw
-	vec4+							yyzw
-	vec4+					yyw		yywx
-	vec4+							yywy
-	vec4+							yywz
-	vec4+							yyww
-	vec4+							yzxw
-	vec4+							yzyw
-	vec4+							yzzw
-	vec4+					yzw		yzwx
-	vec4+							yzwy
-	vec4+							yzwz
-	vec4+							yzww
-	vec4+			yw		ywx		ywxx
-	vec4+							ywxy
-	vec4+							ywxz
-	vec4+							ywxw
-	vec4+					ywy		ywyx
-	vec4+							ywyy
-	vec4+							ywyz
-	vec4+							ywyw
-	vec4+					ywz		ywzx
-	vec4+							ywzy
-	vec4+							ywzz
-	vec4+							ywzw
-	vec4+					yww		ywwx
-	vec4+							ywwy
-	vec4+							ywwz
-	vec4+							ywww
-	vec4+							zxxw
-	vec4+							zxyw
-	vec4+							zxzw
-	vec4+					zxw		zxwx
-	vec4+							zxwy
-	vec4+							zxwz
-	vec4+							zxww
-	vec4+							zyxw
-	vec4+							zyyw
-	vec4+							zyzw
-	vec4+					zyw		zywx
-	vec4+							zywy
-	vec4+							zywz
-	vec4+							zyww
-	vec4+							zzxw
-	vec4+							zzyw
-	vec4+							zzzw
-	vec4+					zzw		zzwx
-	vec4+							zzwy
-	vec4+							zzwz
-	vec4+							zzww
-	vec4+			zw		zwx		zwxx
-	vec4+							zwxy
-	vec4+							zwxz
-	vec4+							zwxw
-	vec4+					zwy		zwyx
-	vec4+							zwyy
-	vec4+							zwyz
-	vec4+							zwyw
-	vec4+					zwz		zwzx
-	vec4+							zwzy
-	vec4+							zwzz
-	vec4+							zwzw
-	vec4+					zww		zwwx
-	vec4+							zwwy
-	vec4+							zwwz
-	vec4+							zwww
-	vec4+	w		wx		wxx		wxxx
-	vec4+							wxxy
-	vec4+							wxxz
-	vec4+							wxxw
-	vec4+					wxy		wxyx
-	vec4+							wxyy
-	vec4+							wxyz
-	vec4+							wxyw
-	vec4+					wxz		wxzx
-	vec4+							wxzy
-	vec4+							wxzz
-	vec4+							wxzw
-	vec4+					wxw		wxwx
-	vec4+							wxwy
-	vec4+							wxwz
-	vec4+							wxww
-	vec4+			wy		wyx		wyxx
-	vec4+							wyxy
-	vec4+							wyxz
-	vec4+							wyxw
-	vec4+					wyy		wyyx
-	vec4+							wyyy
-	vec4+							wyyz
-	vec4+							wyyw
-	vec4+					wyz		wyzx
-	vec4+							wyzy
-	vec4+							wyzz
-	vec4+							wyzw
-	vec4+					wyw		wywx
-	vec4+							wywy
-	vec4+							wywz
-	vec4+							wyww
-	vec4+			wz		wzx		wzxx
-	vec4+							wzxy
-	vec4+							wzxz
-	vec4+							wzxw
-	vec4+					wzy		wzyx
-	vec4+							wzyy
-	vec4+							wzyz
-	vec4+							wzyw
-	vec4+					wzz		wzzx
-	vec4+							wzzy
-	vec4+							wzzz
-	vec4+							wzzw
-	vec4+					wzw		wzwx
-	vec4+							wzwy
-	vec4+							wzwz
-	vec4+							wzww
-	vec4+			ww		wwx		wwxx
-	vec4+							wwxy
-	vec4+							wwxz
-	vec4+							wwxw
-	vec4+					wwy		wwyx
-	vec4+							wwyy
-	vec4+							wwyz
-	vec4+							wwyw
-	vec4+					wwz		wwzx
-	vec4+							wwzy
-	vec4+							wwzz
-	vec4+							wwzw
-	vec4+					www		wwwx
-	vec4+							wwwy
-	vec4+							wwwz
-	vec4+							wwww
+			vec1	vec2	vec3	vec4					NEW	vec1 from 1	+	vec2 from 1	+	vec3 from 1	+	vec4 from 1	+	vec2 from 2	+	vec3 from 2	+	vec4 from 2	+	vec3 from 3	+	vec4 from 3	+	vec4 from 4
+																UNIQUE															UNIQUE											UNIQUE							UNIQUE
+	vec4+	w+______ww______www_____wwww*u1(w)+n1(w)	--	--	[ 1(w)	  ]	+	{ 1(ww)		+	  1(...)	+	  1		}	+
+	vec4+			xw+_____xxw_____xxxw**u2(xw)+n2(xw)	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	+	[ 1(xw)	  ]	+	{	3		+	  3(2)+1  }
+	vec4+			||\		   \___/xxwx**																					|
+	vec4+			|| \		   \xxww**																					|
+	vec4+			||	\___xwx____/xwxx**																					|
+	vec4+			||	 \		   \xwxw**																					|
+	vec4+			||	  \_xww____/xwwx**																					|
+	vec4+			||			   \xwww**																					|
+	vec4+			wx+_____wwx_____wwwx**u2(wx)+n2(wx)	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	+	[ 1(wx)	  ]	+	{	3		+	  3(2)+1  }
+	vec4+			  \		   \___/wwxw**																					|
+	vec4+			   \		   \wwxx**																					|
+	vec4+				\___wxw____/wxww**																					|
+	vec4+				 \		   \wxwx**																					|
+	vec4+				  \_wxx____/wxxw**																					|
+	vec4+						   \wxxx**																					|
+	vec4+			yw+_____yyw_____yyyw**u2(yw)+n2(yw)	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	+	[ 1(yw)	  ]	+	{	3		+	  3(2)+1  }
+	vec4+			||\		   \___/yywy**																					|
+	vec4+			|| \		   \yyww**																					|
+	vec4+			||	\___ywy____/ywyy**																					|
+	vec4+			||	 \		   \ywyw**																					|
+	vec4+			||	  \_yww____/ywwy**																					|
+	vec4+			||			   \ywww**																					|
+	vec4+			wy+_____wwy_____wwwy**u2(wy)+n2(wy)	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	+	[ 1(wy)	  ]	+	{	3		+	  3(2)+1  }
+	vec4+			  \		   \___/wwyw**																					|
+	vec4+			   \		   \wwyy**																					|
+	vec4+				\___wyw____/wyww**																					|
+	vec4+				 \		   \wywy**																					|
+	vec4+				  \_wyy____/wyyw**																					|
+	vec4+						   \wyyy**																					|
+	vec4+			zw+_____zzw_____zzzw**u2(zw)+n2(zw)	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	+	[ 1(zw)	  ]	+	{	3		+	  3(2)+1  }
+	vec4+			||\		   \___/zzwz**			   																		|
+	vec4+			|| \		   \zzww**			   																		|
+	vec4+			||	\___zwz____/zwzz**			   																		|
+	vec4+			||	 \		   \zwzw**			   																		|
+	vec4+			||	  \_zww____/zwwz**			   																		|
+	vec4+			||			   \zwww**			   																		|
+	vec4+			wz+_____wwz_____wwwz**u2(wz)+n2(wz)	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	+	[ 1(wz)	  ]	+	{	3		+	  3(2)+1  }	+
+	vec4+			  \		   \___/wwzw**																																	|
+	vec4+			   \		   \wwzz**																																	|
+	vec4+				\___wzw____/wzww**																																	|
+	vec4+				 \		   \wzwz**																																	|
+	vec4+				  \_wzz____/wzzw**																																	|
+	vec4+						   \wzzz**																																	|
+	vec4+						   /xxyw***u3(xyw)+n3(xyw)	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	+	[ 1(xyw)  ]	+	{	2(3)  }
+	vec4+					xyw+__/ xyxw***																																	|
+	vec4+					|||\  \_xyyw***																																	|
+	vec4+					|||	\  /xyww***																																	|
+	vec4+					|||  \/ xywy***																																	|
+	vec4+					|||	  \_xywx***																																	|
+	vec4+					|||	   /yyxw***u3(yxw)+n3(yxw)	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	+	[ 1(yxw)  ]	+	{	2(3)  }
+	vec4+					yxw+__/ yxyw***																																	|
+	vec4+					   \  \_yxxw***																																	|
+	vec4+						\  /yxww***																																	|
+	vec4+						 \/	yxwy***																																	|
+	vec4+						  \_yxwx***																																	|
+	vec4+						   /xxzw***u3(xzw)+n3(xzw)	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	+	[ 1(xzw)  ]	+	{	2(3)  }
+	vec4+					xzw+__/ xzxw***																																	|
+	vec4+					|||\  \_xzzw***																																	|
+	vec4+					||| \  /xzww***																																	|
+	vec4+					|||	 \/ xzwz***																																	|
+	vec4+					|||	  \_xzwx***																																	|
+	vec4+					|||	   /zzxw***u3(zxw)+n3(zxw)	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	+	[ 1(zxw)  ]	+	{	2(3)  }
+	vec4+					zxw+__/ zxzw***																																	|
+	vec4+					   \  \_zxxw***																																	|
+	vec4+						\  /zxww***																																	|
+	vec4+						 \/ zxwx***																																	|
+	vec4+						  \_zxwz***																																	|
+	vec4+						   /xxwy***u3(xwy)+n3(xwy)	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	+	[ 1(xwy)  ]	+	{	2(3)  }
+	vec4+					xwy+__/ xwxy***																																	|
+	vec4+					|||\  \_xwwy***																																	|
+	vec4+					||| \  /xwyy***																																	|
+	vec4+					|||	 \/ xwyw***																																	|
+	vec4+					|||	  \_xwyx***																																	|
+	vec4+					|||	   /wwxy***u3(wxy)+n3(wxy)	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	+	[ 1(wxy)  ]	+	{	2(3)  }
+	vec4+					wxy+__/ wxwy***																																	|
+	vec4+					   \  \_wxxy***																																	|
+	vec4+						\  /wxyy***																																	|
+	vec4+						 \/ wxyx***																																	|
+	vec4+						  \_wxyw***																																	|
+	vec4+						   /yyzw***u3(yzw)+n3(yzw)	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	+	[ 1(yzw)  ]	+	{	2(3)  }
+	vec4+					yzw+__/ yzyw***																																	|
+	vec4+					|||\  \_yzzw***																																	|
+	vec4+					||| \  /yzww***																																	|
+	vec4+					|||	 \/ yzwz***																																	|
+	vec4+					|||	  \_yzwy***																																	|
+	vec4+					|||	   /zzyw***u3(zyw)+n3(zyw)	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	+	[ 1(zyw)  ]	+	{	2(3)  }
+	vec4+					zyw+__/ zyzw***																																	|
+	vec4+					   \  \_zyyw***																																	|
+	vec4+						\  /zyww***																																	|
+	vec4+						 \/ zywy***																																	|
+	vec4+						  \_zywz***																																	|
+	vec4+						   /yywx***u3(ywx)+n3(ywx)	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	+	[ 1(ywx)  ]	+	{	2(3)  }
+	vec4+					ywx+__/ ywyx***																																	|
+	vec4+					|||\  \_ywwx***																																	|
+	vec4+					||| \  /ywxx***																																	|
+	vec4+					|||	 \/ ywxw***																																	|
+	vec4+					|||	  \_ywxy***																																	|
+	vec4+					|||	   /wwyx***u3(wyx)+n3(wyx)	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	+	[ 1(wyx)  ]	+	{	2(3)  }
+	vec4+					wyx+__/ wywx***																																	|
+	vec4+					   \  \_wyyx***																																	|
+	vec4+						\  /wyxx***																																	|
+	vec4+						 \/ wyxy***																																	|
+	vec4+						  \_wyxw***																																	|
+	vec4+						   /xxwz***u3(xwz)+n3(xwz)	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	+	[ 1(xwz)  ]	+	{	2(3)  }
+	vec4+					xwz+__/ xwxz***																																	|
+	vec4+					|||\  \_xwwz***																																	|
+	vec4+					|||	\  /xwzz***																																	|
+	vec4+					|||  \/ xwzw***																																	|
+	vec4+					|||	  \_xwzx***																																	|
+	vec4+					|||	   /wwxz***u3(wxz)+n3(wxz)	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	+	[ 1(wxz)  ]	+	{	2(3)  }
+	vec4+					wxz+__/ wxwz***																																	|
+	vec4+					   \  \_wxxz***																																	|
+	vec4+						\  /wxzz***																																	|
+	vec4+						 \/	wxzw***																																	|
+	vec4+						  \_wxzx***																																	|
+	vec4+						   /yywz***u3(ywz)+n3(ywz)	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	+	[ 1(ywz)  ]	+	{	2(3)  }
+	vec4+					ywz+__/ ywyz***																																	|
+	vec4+					|||\  \_ywwz***																																	|
+	vec4+					|||	\  /ywzz***																																	|
+	vec4+					|||  \/	ywzy***																																	|
+	vec4+					|||	  \_ywzw***																																	|
+	vec4+					|||	   /wwyz***u3(wyz)+n3(wyz)	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	+	[ 1(wyz)  ]	+	{	2(3)  }
+	vec4+					wyz+__/ wywz***																																	|
+	vec4+					   \  \_wyyz***																																	|
+	vec4+						\  /wyzz***																																	|
+	vec4+						 \/ wyzy***																																	|
+	vec4+						  \_wyzw***																																	|
+	vec4+						   /zzwx***u3(zwx)+n3(zwx)	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	+	[ 1(zwx)  ]	+	{	2(3)  }
+	vec4+					zwx+__/ zwzx***																																	|
+	vec4+					|||\  \_zwwx***																																	|
+	vec4+					||| \  /zwxx***																																	|
+	vec4+					|||	 \/ zwxw***																																	|
+	vec4+					|||	  \_zwxz***																																	|
+	vec4+					|||	   /wwzx***u3(wzx)+n3(wzx)	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	+	[ 1(wzx)  ]	+	{	2(3)  }
+	vec4+					wzx+__/ wzwx***																																	|
+	vec4+					   \  \_wzzx***																																	|
+	vec4+						\  /wzxx***																																	|
+	vec4+						 \/ wzxz***																																	|
+	vec4+						  \_wzxw***																																	|
+	vec4+						   /wwzy***u3(wzy)+n3(wzy)	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	+	[ 1(wzy)  ]	+	{	2(3)  }
+	vec4+					wzy+__/ wzwy***																																	|
+	vec4+					|||\  \_wzzy***																																	|
+	vec4+					||| \  /wzyy***																																	|
+	vec4+					|||	 \/ wzyz***																																	|
+	vec4+					|||	  \_wzyw***																																	|
+	vec4+					|||	   /zzwy***u3(zwy)+n3(zwy)	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	+	[ 1(zwy)  ]	+	{	2(3)  }	+
+	vec4+					zwy+__/ zwzy***																																									|
+	vec4+					   \  \_zwwy***																																									|
+	vec4+						\  /zwyy***																																									|
+	vec4+						 \/ zwyw***																																									|
+	vec4+						  \_zwyz***																																									|
+	vec4+						   /xyzw****u4(x...)+n4(x...)	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	+	[ 6(x...) ]
+	vec4+						  /	xywz****																																								|
+	vec4+						 /	xzyw****																																								|
+	vec4+						 \	xzwy****																																								|
+	vec4+						  \	xwyz****																																								|
+	vec4+						   \xwzy****																																								|
+	vec4+						   /yxzw****u4(y...)+n4(y...)	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	+	[ 6(y...) ]
+	vec4+						  /	yxwz****																																								|
+	vec4+						 /	yzxw****																																								|
+	vec4+						 \	yzwx****																																								|
+	vec4+						  \	ywxz****																																								|
+	vec4+						   \ywzx****																																								|
+	vec4+						   /zxyw****u4(z...)+n4(z...)	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	+	[ 6(z...) ]
+	vec4+						  /	zxwy****																																								|
+	vec4+						 /	zyxw****																																								|
+	vec4+						 \	zywx****																																								|
+	vec4+						  \	zwxy****																																								|
+	vec4+						   \zwyx****																																								|
+	vec4+						   /wxyz****u4(w...)+n4(w...)	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	--	+	[ 6(w...) ]
+	vec4+						  /	wxzy****
+	vec4+						 /	wyxz****
+	vec4+						 \	wyzx****
+	vec4+						  \	wzxy****
+	vec4+						   \wzyx****
+	u4(xyzw) =	xyzw;
+	n4(xyzw)	
+	F4(xyzw) =	f1(w);
+				f2(xw), f2(wx), f2(yw), f2(wy), f2(zw), f2(wz);
+				f3(xyw), f3(yxw), f3(xzw), f3(zxw), f3(xwy), f3(wxy), f3(yzw), f3(zyw), f3(ywx), f3(wyx), f3(xwz), f3(wxz), f3(ywz), f3(wyz), f3(zwx), f3(wzx), f3(wzy), f3(zwy);
+				f4(xyzw), f4(xywz), f4(xzyw), f4(xzwy), f4(xwyz), f4(xwzy), f4(yxzw), f4(yxwz), f4(yzxw), f4(yzwx), f4(ywxz), f4(ywzx), f4(zxyw), f4(zxwy), f4(zyxw), f4(zywx), f4(zwxy), f4(zwyx), f4(wxyz), f4(wxzy), f4(wyxz), f4(wyzx), f4(wzxy), f4(wzyx), 
 */
 
