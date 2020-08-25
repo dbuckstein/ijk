@@ -71,27 +71,55 @@
 
 //-----------------------------------------------------------------------------
 
-
-
-//-----------------------------------------------------------------------------
-
-
-
-//-----------------------------------------------------------------------------
-
-
-
-//-----------------------------------------------------------------------------
-
-inline ivec2::ivec2(int const xy)
+inline bvec2::bvec2(bool const& xy)
 	: x(xy), y(xy)
 {
 }
-inline ivec2::ivec2(int const xc, int const yc)
+inline bvec2::bvec2(bool const& xc, bool const& yc)
+	: x(xc), y(yc)
+{
+}
+
+
+//-----------------------------------------------------------------------------
+
+inline bvec3::bvec3(bool const& xyz)
+	: x(xyz), y(xyz), z(xyz)
+{
+}
+inline bvec3::bvec3(bool const& xc, bool const& yc, bool const& zc)
+	: x(xc), y(yc), z(zc)
+{
+}
+
+
+//-----------------------------------------------------------------------------
+
+inline bvec4::bvec4(bool const& xyzw)
+	: x(xyzw), y(xyzw), z(xyzw), w(xyzw)
+{
+}
+inline bvec4::bvec4(bool const& xc, bool const& yc, bool const& zc, bool const& wc)
+	: x(xc), y(yc), z(zc), w(wc)
+{
+}
+
+
+//-----------------------------------------------------------------------------
+
+inline ivec2::ivec2(int const& xy)
+	: x(xy), y(xy)
+{
+}
+inline ivec2::ivec2(int const& xc, int const& yc)
 	: x(xc), y(yc)
 {
 }
 inline ivec2::ivec2(int2 const xy)
+	: x(xy[0]), y(xy[1])
+{
+}
+inline ivec2::ivec2(uint2 const xy)
 	: x(xy[0]), y(xy[1])
 {
 }
@@ -103,6 +131,18 @@ inline ivec2::ivec2(double2 const xy)
 	: x((i32)xy[0]), y((i32)xy[1])
 {
 }
+inline ivec2::ivec2(bvec2 const& xy)
+	: x(xy.x), y(xy.y)
+{
+}
+inline ivec2::ivec2(bvec3 const& xy)
+	: x(xy.x), y(xy.y)
+{
+}
+inline ivec2::ivec2(bvec4 const& xy)
+	: x(xy.x), y(xy.y)
+{
+}
 inline ivec2::ivec2(ivec2 const& xy)
 	: x(xy.x), y(xy.y)
 {
@@ -112,6 +152,18 @@ inline ivec2::ivec2(ivec3 const& xy)
 {
 }
 inline ivec2::ivec2(ivec4 const& xy)
+	: x(xy.x), y(xy.y)
+{
+}
+inline ivec2::ivec2(uvec2 const& xy)
+	: x(xy.x), y(xy.y)
+{
+}
+inline ivec2::ivec2(uvec3 const& xy)
+	: x(xy.x), y(xy.y)
+{
+}
+inline ivec2::ivec2(uvec4 const& xy)
 	: x(xy.x), y(xy.y)
 {
 }
@@ -163,13 +215,17 @@ inline ivec2& ivec2::operator =(sivec2 const& v_rh)
 	return *this;
 }
 
-inline ivec2 ivec2::operator+() const
+inline ivec2 ivec2::operator +() const
 {
 	return *this;
 }
-inline ivec2 ivec2::operator-() const
+inline ivec2 ivec2::operator -() const
 {
 	return ivec2(-x, -y);
+}
+inline ivec2 ivec2::operator ~() const
+{
+	return ivec2(~x, ~y);
 }
 inline ivec2 ivec2::operator +(ivec2 const& v_rh) const
 {
@@ -211,45 +267,93 @@ inline ivec2 ivec2::operator >>(ivec2 const& v_rh) const
 {
 	return ivec2(x >> v_rh.x, y >> v_rh.y);
 }
-inline ivec2 ivec2::operator +(int const s_rh) const
+inline bvec2 ivec2::operator ==(ivec2 const& v_rh) const
+{
+	return bvec2(x == v_rh.x, y == v_rh.y);
+}
+inline bvec2 ivec2::operator !=(ivec2 const& v_rh) const
+{
+	return bvec2(x != v_rh.x, y != v_rh.y);
+}
+inline bvec2 ivec2::operator <=(ivec2 const& v_rh) const
+{
+	return bvec2(x <= v_rh.x, y <= v_rh.y);
+}
+inline bvec2 ivec2::operator >=(ivec2 const& v_rh) const
+{
+	return bvec2(x >= v_rh.x, y >= v_rh.y);
+}
+inline bvec2 ivec2::operator <(ivec2 const& v_rh) const
+{
+	return bvec2(x < v_rh.x, y < v_rh.y);
+}
+inline bvec2 ivec2::operator >(ivec2 const& v_rh) const
+{
+	return bvec2(x > v_rh.x, y > v_rh.y);
+}
+inline ivec2 ivec2::operator +(int const& s_rh) const
 {
 	return ivec2(x + s_rh, y + s_rh);
 }
-inline ivec2 ivec2::operator -(int const s_rh) const
+inline ivec2 ivec2::operator -(int const& s_rh) const
 {
 	return ivec2(x + s_rh, y + s_rh);
 }
-inline ivec2 ivec2::operator *(int const s_rh) const
+inline ivec2 ivec2::operator *(int const& s_rh) const
 {
 	return ivec2(x + s_rh, y + s_rh);
 }
-inline ivec2 ivec2::operator /(int const s_rh) const
+inline ivec2 ivec2::operator /(int const& s_rh) const
 {
 	return ivec2(x + s_rh, y + s_rh);
 }
-inline ivec2 ivec2::operator %(int const s_rh) const
+inline ivec2 ivec2::operator %(int const& s_rh) const
 {
 	return ivec2(x + s_rh, y + s_rh);
 }
-inline ivec2 ivec2::operator &(int const s_rh) const
+inline ivec2 ivec2::operator &(int const& s_rh) const
 {
 	return ivec2(x + s_rh, y + s_rh);
 }
-inline ivec2 ivec2::operator |(int const s_rh) const
+inline ivec2 ivec2::operator |(int const& s_rh) const
 {
 	return ivec2(x + s_rh, y + s_rh);
 }
-inline ivec2 ivec2::operator ^(int const s_rh) const
+inline ivec2 ivec2::operator ^(int const& s_rh) const
 {
 	return ivec2(x + s_rh, y + s_rh);
 }
-inline ivec2 ivec2::operator <<(int const s_rh) const
+inline ivec2 ivec2::operator <<(int const& s_rh) const
 {
 	return ivec2(x + s_rh, y + s_rh);
 }
-inline ivec2 ivec2::operator >>(int const s_rh) const
+inline ivec2 ivec2::operator >>(int const& s_rh) const
 {
 	return ivec2(x + s_rh, y + s_rh);
+}
+inline bvec2 ivec2::operator ==(int const& s_rh) const
+{
+	return bvec2(x == s_rh, y == s_rh);
+}
+inline bvec2 ivec2::operator !=(int const& s_rh) const
+{
+	return bvec2(x != s_rh, y != s_rh);
+}
+inline bvec2 ivec2::operator <=(int const& s_rh) const
+{
+	return bvec2(x <= s_rh, y <= s_rh);
+}
+inline bvec2 ivec2::operator >=(int const& s_rh) const
+{
+	return bvec2(x >= s_rh, y >= s_rh);
+}
+inline bvec2 ivec2::operator <(int const& s_rh) const
+{
+	return bvec2(x < s_rh, y < s_rh);
+}
+inline bvec2 ivec2::operator >(int const& s_rh) const
+{
+	return bvec2(x > s_rh, y > s_rh);
 }
 inline int ivec2::operator[](index const i) const
 {
@@ -259,35 +363,7 @@ inline ivec2::operator intkv() const
 {
 	return v;
 }
-inline bool ivec2::operator ==(ivec2 const& v_rh) const
-{
-	return (x == v_rh.x && y == v_rh.y);
-}
-inline bool ivec2::operator !=(ivec2 const& v_rh) const
-{
-	return (x != v_rh.x || y != v_rh.y);
-}
-inline bool ivec2::operator <=(ivec2 const& v_rh) const
-{
-	return (x <= v_rh.x && y <= v_rh.y);
-}
-inline bool ivec2::operator >=(ivec2 const& v_rh) const
-{
-	return (x >= v_rh.x && y >= v_rh.y);
-}
-inline bool ivec2::operator <(ivec2 const& v_rh) const
-{
-	return (x < v_rh.x && y < v_rh.y);
-}
-inline bool ivec2::operator >(ivec2 const& v_rh) const
-{
-	return (x > v_rh.x&& y > v_rh.y);
-}
 
-inline ivec2& ivec2::operator+()
-{
-	return *this;
-}
 inline ivec2& ivec2::operator +=(ivec2 const& v_rh)
 {
 	x += v_rh.x;
@@ -348,61 +424,61 @@ inline ivec2& ivec2::operator >>=(ivec2 const& v_rh)
 	y >>= v_rh.y;
 	return *this;
 }
-inline ivec2& ivec2::operator +=(int const s_rh)
+inline ivec2& ivec2::operator +=(int const& s_rh)
 {
 	x += s_rh;
 	y += s_rh;
 	return *this;
 }
-inline ivec2& ivec2::operator -=(int const s_rh)
+inline ivec2& ivec2::operator -=(int const& s_rh)
 {
 	x -= s_rh;
 	y -= s_rh;
 	return *this;
 }
-inline ivec2& ivec2::operator *=(int const s_rh)
+inline ivec2& ivec2::operator *=(int const& s_rh)
 {
 	x *= s_rh;
 	y *= s_rh;
 	return *this;
 }
-inline ivec2& ivec2::operator /=(int const s_rh)
+inline ivec2& ivec2::operator /=(int const& s_rh)
 {
 	x /= s_rh;
 	y /= s_rh;
 	return *this;
 }
-inline ivec2& ivec2::operator %=(int const s_rh)
+inline ivec2& ivec2::operator %=(int const& s_rh)
 {
 	x %= s_rh;
 	y %= s_rh;
 	return *this;
 }
-inline ivec2& ivec2::operator &=(int const s_rh)
+inline ivec2& ivec2::operator &=(int const& s_rh)
 {
 	x &= s_rh;
 	y &= s_rh;
 	return *this;
 }
-inline ivec2& ivec2::operator |=(int const s_rh)
+inline ivec2& ivec2::operator |=(int const& s_rh)
 {
 	x |= s_rh;
 	y |= s_rh;
 	return *this;
 }
-inline ivec2& ivec2::operator ^=(int const s_rh)
+inline ivec2& ivec2::operator ^=(int const& s_rh)
 {
 	x ^= s_rh;
 	y ^= s_rh;
 	return *this;
 }
-inline ivec2& ivec2::operator <<=(int const s_rh)
+inline ivec2& ivec2::operator <<=(int const& s_rh)
 {
 	x <<= s_rh;
 	y <<= s_rh;
 	return *this;
 }
-inline ivec2& ivec2::operator >>=(int const s_rh)
+inline ivec2& ivec2::operator >>=(int const& s_rh)
 {
 	x >>= s_rh;
 	y >>= s_rh;
@@ -420,11 +496,11 @@ inline ivec2::operator intv()
 
 //-----------------------------------------------------------------------------
 
-inline ivec3::ivec3(int const xyz)
+inline ivec3::ivec3(int const& xyz)
 	: x(xyz), y(xyz), z(xyz)
 {
 }
-inline ivec3::ivec3(int const xc, int const yc, int const zc)
+inline ivec3::ivec3(int const& xc, int const& yc, int const& zc)
 	: x(xc), y(yc), z(zc)
 {
 }
@@ -432,14 +508,26 @@ inline ivec3::ivec3(int const xc, int const yc, int const zc)
 
 //-----------------------------------------------------------------------------
 
-inline ivec4::ivec4(int const xyzw)
+inline ivec4::ivec4(int const& xyzw)
 	: x(xyzw), y(xyzw), z(xyzw), w(xyzw)
 {
 }
-inline ivec4::ivec4(int const xc, int const yc, int const zc, int const wc)
+inline ivec4::ivec4(int const& xc, int const& yc, int const& zc, int const& wc)
 	: x(xc), y(yc), z(zc), w(wc)
 {
 }
+
+
+//-----------------------------------------------------------------------------
+
+
+
+//-----------------------------------------------------------------------------
+
+
+
+//-----------------------------------------------------------------------------
+
 
 
 //-----------------------------------------------------------------------------
