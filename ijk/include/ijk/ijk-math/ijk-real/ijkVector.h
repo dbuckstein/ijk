@@ -31,23 +31,6 @@
 
 
 #ifdef __cplusplus
-extern "C" {
-	union bvec2;
-	union bvec3;
-	union bvec4;
-	union ivec2;
-	union ivec3;
-	union ivec4;
-	union uvec2;
-	union uvec3;
-	union uvec4;
-	union vec2;
-	union vec3;
-	union vec4;
-	union dvec2;
-	union dvec3;
-	union dvec4;
-}
 
 //-----------------------------------------------------------------------------
 
@@ -116,8 +99,8 @@ extern "C" {
 template <typename type, typename tvec1, typename tvec2, typename tvec3, typename tvec4>
 struct stvec1
 {
-	tvec1 operator=(tvec1 const v);
-	tvec1 operator=(stvec1 const& v);
+	tvec1 operator =(tvec1 const v);
+	tvec1 operator =(stvec1 const& v);
 private:
 	type& x;
 	stvec1(type& xr);
@@ -130,8 +113,8 @@ private:
 template <typename type, typename tvec1, typename tvec2, typename tvec3, typename tvec4>
 struct stvec2
 {
-	tvec2 operator=(tvec2 const v);
-	tvec2 operator=(stvec2 const& v);
+	tvec2 operator =(tvec2 const v);
+	tvec2 operator =(stvec2 const& v);
 private:
 	type& x, & y;
 	stvec2(type& xr, type& yr);
@@ -144,8 +127,8 @@ private:
 template <typename type, typename tvec1, typename tvec2, typename tvec3, typename tvec4>
 struct stvec3
 {
-	tvec3 operator=(tvec3 const v);
-	tvec3 operator=(stvec3 const& v);
+	tvec3 operator =(tvec3 const v);
+	tvec3 operator =(stvec3 const& v);
 private:
 	type& x, & y, & z;
 	stvec3(type& xr, type& yr, type& zr);
@@ -158,8 +141,8 @@ private:
 template <typename type, typename tvec1, typename tvec2, typename tvec3, typename tvec4>
 struct stvec4
 {
-	tvec4 operator=(tvec4 const v);
-	tvec4 operator=(stvec4 const& v);
+	tvec4 operator =(tvec4 const v);
+	tvec4 operator =(stvec4 const& v);
 private:
 	type& x, & y, & z, & w;
 	stvec4(type& xr, type& yr, type& zr, type& wr);
@@ -174,16 +157,38 @@ union tvec1
 {
 	tvec1(type const xc = 0);
 	tvec1& operator =(type const xc);
+	operator type () const;
 	operator type& ();
-	operator type() const;
+	explicit operator type const* () const;
+	explicit operator type* ();
 
 	IJK_SWIZZLE_READONLY(IJK_SWIZZLE_FMT_DECL_IMPL, 1, tvec, tvec, inline);
 	IJK_SWIZZLE_WRITABLE(IJK_SWIZZLE_FMT_DECL_IMPL_TEMP, 1, tvec, stvec, inline);
 private:
+	type v[1];
 	type x;
 };
 
-typedef tvec1<ibool, ivec2, ivec3, ivec4>			bvec1;
+
+extern "C" {
+	union bvec2;
+	union bvec3;
+	union bvec4;
+	union ivec2;
+	union ivec3;
+	union ivec4;
+	union uvec2;
+	union uvec3;
+	union uvec4;
+	union vec2;
+	union vec3;
+	union vec4;
+	union dvec2;
+	union dvec3;
+	union dvec4;
+}
+
+typedef tvec1<ibool, bvec2, bvec3, bvec4>			bvec1;
 typedef tvec1<i32, ivec2, ivec3, ivec4>				ivec1;
 typedef tvec1<ui32, uvec2, uvec3, uvec4>			uvec1;
 typedef tvec1<flt, vec2, vec3, vec4>				vec1;
@@ -240,7 +245,7 @@ typedef union dvec2	dvec2;
 typedef union dvec3	dvec3;
 typedef union dvec4	dvec4;
 
-#define bool		ibool;
+#define bool		ibool
 #define int			i32
 #define uint		ui32
 #define float		flt
@@ -252,37 +257,37 @@ typedef union dvec4	dvec4;
 
 // Reusable array-based vector types.
 ///
-typedef i32
-	int2[2], bool2[2],				// 2D unsigned integer array-based vector, always passed by pointer.
-	int3[3], bool3[3],				// 3D unsigned integer array-based vector, always passed by pointer.
-	int4[4], bool4[4],				// 4D unsigned integer array-based vector, always passed by pointer.
-	* intv, * boolv;				// Generic unsigned integer array-based vector, represented by pointer, used as vector return type since returning sized array is not allowed.
-typedef ui32
-	uint2[2],						// 2D signed integer array-based vector, always passed by pointer.
-	uint3[3],						// 3D signed integer array-based vector, always passed by pointer.
-	uint4[4],						// 4D signed integer array-based vector, always passed by pointer.
-	* uintv;						// Generic signed integer array-based vector, represented by pointer, used as vector return type since returning sized array is not allowed.
-typedef flt
-	float2[2],						// 2D single-precision array-based vector, always passed by pointer.
-	float3[3],						// 3D single-precision array-based vector, always passed by pointer.
-	float4[4],						// 4D single-precision array-based vector, always passed by pointer.
-	* floatv;						// Generic float single-precision-based vector, represented by pointer, used as vector return type since returning sized array is not allowed.
-typedef dbl
-	double2[2],						// 2D double-precision array-based vector, always passed by pointer.
-	double3[3],						// 3D double-precision array-based vector, always passed by pointer.
-	double4[4],						// 4D double-precision array-based vector, always passed by pointer.
-	* doublev;						// Generic double-precision array-based vector, represented by pointer, used as vector return type since returning sized array is not allowed.
-typedef real
-	real2[2],						// 2D real-type array-based vector, always passed by pointer.
-	real3[3],						// 3D real-type array-based vector, always passed by pointer.
-	real4[4],						// 4D real-type array-based vector, always passed by pointer.
-	* realv;						// Generic real-type array-based vector, represented by pointer, used as vector return type since returning sized array is not allowed.
+typedef bool
+	bool2[2],					// 2D boolean array-based vector, always passed by pointer.
+	bool3[3],					// 3D boolean array-based vector, always passed by pointer.
+	bool4[4],					// 4D boolean array-based vector, always passed by pointer.
+	* boolv;					// Generic signed integer array-based vector, represented by pointer, used as vector return type since returning sized array is not allowed.
+typedef int
+	int2[2],					// 2D signed integer array-based vector, always passed by pointer.
+	int3[3],					// 3D signed integer array-based vector, always passed by pointer.
+	int4[4],					// 4D signed integer array-based vector, always passed by pointer.
+	* intv;						// Generic signed integer array-based vector, represented by pointer, used as vector return type since returning sized array is not allowed.
+typedef uint
+	uint2[2],					// 2D unsigned integer array-based vector, always passed by pointer.
+	uint3[3],					// 3D unsigned integer array-based vector, always passed by pointer.
+	uint4[4],					// 4D unsigned integer array-based vector, always passed by pointer.
+	* uintv;					// Generic unsigned integer array-based vector, represented by pointer, used as vector return type since returning sized array is not allowed.
+typedef float
+	float2[2],					// 2D single-precision array-based vector, always passed by pointer.
+	float3[3],					// 3D single-precision array-based vector, always passed by pointer.
+	float4[4],					// 4D single-precision array-based vector, always passed by pointer.
+	* floatv;					// Generic float single-precision-based vector, represented by pointer, used as vector return type since returning sized array is not allowed.
+typedef double
+	double2[2],					// 2D double-precision array-based vector, always passed by pointer.
+	double3[3],					// 3D double-precision array-based vector, always passed by pointer.
+	double4[4],					// 4D double-precision array-based vector, always passed by pointer.
+	* doublev;					// Generic double-precision array-based vector, represented by pointer, used as vector return type since returning sized array is not allowed.
 
-typedef i32 const* intkv, * boolkv;	// Generic constant signed integer array-based vector, represented by pointer, used as constant vector return type since returning sized array is not allowed.
-typedef ui32 const* uintkv;			// Generic constant unsigned integer array-based vector, represented by pointer, used as constant vector return type since returning sized array is not allowed.
-typedef flt const* floatkv;			// Generic constant single-precision array-based vector, represented by pointer, used as constant vector return type since returning sized array is not allowed.
-typedef dbl const* doublekv;		// Generic constant double-precision array-based vector, represented by pointer, used as constant vector return type since returning sized array is not allowed.
-typedef real const* realkv;			// Generic constant real-type array-based vector, represented by pointer, used as constant vector return type since returning sized array is not allowed.
+typedef bool const* boolkv;		// Generic constant signed integer array-based vector, represented by pointer, used as constant vector return type since returning sized array is not allowed.
+typedef int const* intkv;		// Generic constant signed integer array-based vector, represented by pointer, used as constant vector return type since returning sized array is not allowed.
+typedef uint const* uintkv;		// Generic constant unsigned integer array-based vector, represented by pointer, used as constant vector return type since returning sized array is not allowed.
+typedef float const* floatkv;	// Generic constant single-precision array-based vector, represented by pointer, used as constant vector return type since returning sized array is not allowed.
+typedef double const* doublekv;	// Generic constant double-precision array-based vector, represented by pointer, used as constant vector return type since returning sized array is not allowed.
 
 
 //-----------------------------------------------------------------------------
@@ -290,11 +295,9 @@ typedef real const* realkv;			// Generic constant real-type array-based vector, 
 union bvec2
 {
 	bool2 v;
-//	bool sv[2];
-//	struct { bool x, y; };
-//	struct { bool r, g; };
-//	struct { bool s, t; };
-	struct { ibool x, y; };
+	struct { bool x, y; };
+	struct { bool r, g; };
+	struct { bool s, t; };
 
 #ifdef __cplusplus
 	explicit bvec2(bool const& xy = false);			// Construct vector with all elements set to single scalar.
@@ -312,12 +315,10 @@ union bvec2
 union bvec3
 {
 	bool3 v;
-//	bool sv[3];
-//	//bvec2 xy;
-//	struct { bool x, y, z; };
-//	struct { bool r, g, b; };
-//	struct { bool s, t, p; };
-	struct { ibool x, y, z; };
+	//bvec2 xy;
+	struct { bool x, y, z; };
+	struct { bool r, g, b; };
+	struct { bool s, t, p; };
 
 #ifdef __cplusplus
 	explicit bvec3(bool const& xyz = false);								// Construct vector with all elements set to single scalar.
@@ -337,13 +338,11 @@ union bvec3
 union bvec4
 {
 	bool4 v;
-//	bool sv[4];
-//	//bvec3 xyz;
-//	//bvec2 xy;
-//	struct { bool x, y, z, w; };
-//	struct { bool r, g, b, a; };
-//	struct { bool s, t, p, q; };
-	struct { ibool x, y, z, w; };
+	//bvec3 xyz;
+	//bvec2 xy;
+	struct { bool x, y, z, w; };
+	struct { bool r, g, b, a; };
+	struct { bool s, t, p, q; };
 
 #ifdef __cplusplus
 	explicit bvec4(bool const& xyzw = false);														// Construct vector with all elements set to single scalar.
@@ -363,7 +362,6 @@ union bvec4
 union ivec2
 {
 	int2 v;
-	int sv[2];
 	struct { int x, y; };
 	struct { int r, g; };
 	struct { int s, t; };
@@ -431,8 +429,9 @@ union ivec2
 	bvec2 operator >=(int const& s_rh) const;
 	bvec2 operator <(int const& s_rh) const;
 	bvec2 operator >(int const& s_rh) const;
-	int operator[](index const i) const;
-	operator intkv() const;
+	int operator [](index const i) const;
+	operator intkv () const;
+	operator i32 const* () const;
 
 	ivec2& operator +=(ivec2 const& v_rh);
 	ivec2& operator -=(ivec2 const& v_rh);
@@ -454,8 +453,9 @@ union ivec2
 	ivec2& operator ^=(int const& s_rh);
 	ivec2& operator <<=(int const& s_rh);
 	ivec2& operator >>=(int const& s_rh);
-	int& operator[](index const i);
-	operator intv();
+	int& operator [](index const i);
+	operator intv ();
+	operator i32* ();
 
 	IJK_SWIZZLE_READONLY(IJK_SWIZZLE_FMT_DECL, 2, ivec, ivec);
 	IJK_SWIZZLE_WRITABLE(IJK_SWIZZLE_FMT_DECL, 2, ivec, sivec);
@@ -609,7 +609,7 @@ union uvec2
 union uvec3
 {
 	uint3 v;
-	uvec2 xy;
+	//uvec2 xy;
 	struct { uint x, y, z; };
 	struct { uint r, g, b; };
 	struct { uint s, t, p; };
@@ -627,8 +627,8 @@ union uvec3
 union uvec4
 {
 	uint4 v;
-	uvec3 xyz;
-	uvec2 xy;
+	//uvec3 xyz;
+	//uvec2 xy;
 	struct { uint x, y, z, w; };
 	struct { uint r, g, b, a; };
 	struct { uint s, t, p, q; };
@@ -737,7 +737,7 @@ union vec2
 union vec3
 {
 	float3 v;
-	vec2 xy;
+	//vec2 xy;
 	struct { float x, y, z; };
 	struct { float r, g, b; };
 	struct { float s, t, p; };
@@ -755,8 +755,8 @@ union vec3
 union vec4
 {
 	float4 v;
-	vec3 xyz;
-	vec2 xy;
+	//vec3 xyz;
+	//vec2 xy;
 	struct { float x, y, z, w; };
 	struct { float r, g, b, a; };
 	struct { float s, t, p, q; };
@@ -864,7 +864,7 @@ union dvec2
 union dvec3
 {
 	double3 v;
-	dvec2 xy;
+	//dvec2 xy;
 	struct { double x, y, z; };
 	struct { double r, g, b; };
 	struct { double s, t, p; };
@@ -882,8 +882,8 @@ union dvec3
 union dvec4
 {
 	double4 v;
-	dvec3 xyz;
-	dvec2 xy;
+	//dvec3 xyz;
+	//dvec2 xy;
 	struct { double x, y, z, w; };
 	struct { double r, g, b, a; };
 	struct { double s, t, p, q; };
@@ -968,6 +968,15 @@ ijk_ext dvec4 const dvec4_w_n;			// (  0,  0,  0, -1 )
 //-----------------------------------------------------------------------------
 
 // Select real vector types.
+///
+typedef real
+	real2[2],					// 2D real-type array-based vector, always passed by pointer.
+	real3[3],					// 3D real-type array-based vector, always passed by pointer.
+	real4[4],					// 4D real-type array-based vector, always passed by pointer.
+	* realv;					// Generic real-type array-based vector, represented by pointer, used as vector return type since returning sized array is not allowed.
+
+typedef real const* realkv;		// Generic constant real-type array-based vector, represented by pointer, used as constant vector return type since returning sized array is not allowed.
+
 #ifdef IJK_REAL_DBL
 typedef dvec2	rvec2;		// Real 2D vector data structure type is 2D double vector.
 typedef dvec3	rvec3;		// Real 3D vector data structure type is 3D double vector.

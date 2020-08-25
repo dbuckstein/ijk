@@ -355,13 +355,17 @@ inline bvec2 ivec2::operator >(int const& s_rh) const
 {
 	return bvec2(x > s_rh, y > s_rh);
 }
-inline int ivec2::operator[](index const i) const
+inline int ivec2::operator [](index const i) const
 {
-	return sv[i];
+	return v[i];
 }
-inline ivec2::operator intkv() const
+inline ivec2::operator intkv () const
 {
 	return v;
+}
+inline ivec2::operator i32 const* () const
+{
+	return (i32 const*)v;
 }
 
 inline ivec2& ivec2::operator +=(ivec2 const& v_rh)
@@ -484,13 +488,17 @@ inline ivec2& ivec2::operator >>=(int const& s_rh)
 	y >>= s_rh;
 	return *this;
 }
-inline int& ivec2::operator[](index const i)
+inline int& ivec2::operator [](index const i)
 {
-	return sv[i];
+	return v[i];
 }
-inline ivec2::operator intv()
+inline ivec2::operator intv ()
 {
 	return v;
+}
+inline ivec2::operator i32* ()
+{
+	return (i32*)v;
 }
 
 
@@ -560,12 +568,12 @@ inline ivec4::ivec4(int const& xc, int const& yc, int const& zc, int const& wc)
 #pragma region IJK_SWIZZLE_MACRO_IMPL
 
 template <typename type, typename tvec1, typename tvec2, typename tvec3, typename tvec4>
-inline tvec1 stvec1<type, tvec1, tvec2, tvec3, tvec4>::operator=(tvec1 const v)
+inline tvec1 stvec1<type, tvec1, tvec2, tvec3, tvec4>::operator =(tvec1 const v)
 {
 	return tvec1(x = v.x);
 }
 template <typename type, typename tvec1, typename tvec2, typename tvec3, typename tvec4>
-inline tvec1 stvec1<type, tvec1, tvec2, tvec3, tvec4>::operator=(stvec1 const& v)
+inline tvec1 stvec1<type, tvec1, tvec2, tvec3, tvec4>::operator =(stvec1 const& v)
 {
 	return (*this = tvec1(v));
 }
@@ -577,12 +585,12 @@ inline stvec1<type, tvec1, tvec2, tvec3, tvec4>::stvec1(type& xr)
 
 
 template <typename type, typename tvec1, typename tvec2, typename tvec3, typename tvec4>
-inline tvec2 stvec2<type, tvec1, tvec2, tvec3, tvec4>::operator=(tvec2 const v)
+inline tvec2 stvec2<type, tvec1, tvec2, tvec3, tvec4>::operator =(tvec2 const v)
 {
 	return tvec2(x = v.x, y = v.x);
 }
 template <typename type, typename tvec1, typename tvec2, typename tvec3, typename tvec4>
-inline tvec2 stvec2<type, tvec1, tvec2, tvec3, tvec4>::operator=(stvec2 const& v)
+inline tvec2 stvec2<type, tvec1, tvec2, tvec3, tvec4>::operator =(stvec2 const& v)
 {
 	return (*this = tvec2(v));
 }
@@ -594,12 +602,12 @@ inline stvec2<type, tvec1, tvec2, tvec3, tvec4>::stvec2(type& xr, type& yr)
 
 
 template <typename type, typename tvec1, typename tvec2, typename tvec3, typename tvec4>
-inline tvec3 stvec3<type, tvec1, tvec2, tvec3, tvec4>::operator=(tvec3 const v)
+inline tvec3 stvec3<type, tvec1, tvec2, tvec3, tvec4>::operator =(tvec3 const v)
 {
 	return tvec3(x = v.x, y = v.x, z = v.z);
 }
 template <typename type, typename tvec1, typename tvec2, typename tvec3, typename tvec4>
-inline tvec3 stvec3<type, tvec1, tvec2, tvec3, tvec4>::operator=(stvec3 const& v)
+inline tvec3 stvec3<type, tvec1, tvec2, tvec3, tvec4>::operator =(stvec3 const& v)
 {
 	return (*this = tvec3(v));
 }
@@ -611,12 +619,12 @@ inline stvec3<type, tvec1, tvec2, tvec3, tvec4>::stvec3(type& xr, type& yr, type
 
 
 template <typename type, typename tvec1, typename tvec2, typename tvec3, typename tvec4>
-inline tvec4 stvec4<type, tvec1, tvec2, tvec3, tvec4>::operator=(tvec4 const v)
+inline tvec4 stvec4<type, tvec1, tvec2, tvec3, tvec4>::operator =(tvec4 const v)
 {
 	return tvec4(x = v.x, y = v.x, z = v.z, w = v.w);
 }
 template <typename type, typename tvec1, typename tvec2, typename tvec3, typename tvec4>
-inline tvec4 stvec4<type, tvec1, tvec2, tvec3, tvec4>::operator=(stvec4 const& v)
+inline tvec4 stvec4<type, tvec1, tvec2, tvec3, tvec4>::operator =(stvec4 const& v)
 {
 	return (*this = tvec4(v));
 }
@@ -639,14 +647,24 @@ inline tvec1<type, tvec2, tvec3, tvec4>& tvec1<type, tvec2, tvec3, tvec4>::opera
 	return *this;
 }
 template <typename type, typename tvec2, typename tvec3, typename tvec4>
+inline tvec1<type, tvec2, tvec3, tvec4>::operator type () const
+{
+	return x;
+}
+template <typename type, typename tvec2, typename tvec3, typename tvec4>
 inline tvec1<type, tvec2, tvec3, tvec4>::operator type& ()
 {
 	return x;
 }
 template <typename type, typename tvec2, typename tvec3, typename tvec4>
-inline tvec1<type, tvec2, tvec3, tvec4>::operator type() const
+inline tvec1<type, tvec2, tvec3, tvec4>::operator type const* () const
 {
-	return x;
+	return v;
+}
+template <typename type, typename tvec2, typename tvec3, typename tvec4>
+inline tvec1<type, tvec2, tvec3, tvec4>::operator type* ()
+{
+	return v;
 }
 
 
