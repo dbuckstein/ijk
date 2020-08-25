@@ -83,16 +83,12 @@
 
 //-----------------------------------------------------------------------------
 
-inline ivec2::ivec2(i32 const xy)
+inline ivec2::ivec2(int const xy)
 	: x(xy), y(xy)
 {
 }
-inline ivec2::ivec2(i32 const xc, i32 const yc)
+inline ivec2::ivec2(int const xc, int const yc)
 	: x(xc), y(yc)
-{
-}
-inline ivec2::ivec2(isvec2 const& xy)
-	: x(xy.x), y(xy.y)
 {
 }
 inline ivec2::ivec2(int2 const xy)
@@ -143,21 +139,154 @@ inline ivec2::ivec2(dvec4 const& xy)
 	: x((i32)xy.x), y((i32)xy.y)
 {
 }
+inline ivec2::ivec2(sivec2 const& xy)
+	: x(xy.x), y(xy.y)
+{
+}
 
+inline ivec2& ivec2::operator =(int2 const v_rh)
+{
+	x = v_rh[0];
+	y = v_rh[1];
+	return *this;
+}
+inline ivec2& ivec2::operator =(ivec2 const& v_rh)
+{
+	x = v_rh.x;
+	y = v_rh.y;
+	return *this;
+}
+inline ivec2& ivec2::operator =(sivec2 const& v_rh)
+{
+	x = v_rh.x;
+	y = v_rh.y;
+	return *this;
+}
+
+inline ivec2 ivec2::operator+() const
+{
+	return *this;
+}
+inline ivec2 ivec2::operator-() const
+{
+	return ivec2(-x, -y);
+}
+inline ivec2 ivec2::operator +(ivec2 const& v_rh) const
+{
+	return ivec2(x + v_rh.x, y + v_rh.y);
+}
+inline ivec2 ivec2::operator -(ivec2 const& v_rh) const
+{
+	return ivec2(x - v_rh.x, y - v_rh.y);
+}
+inline ivec2 ivec2::operator *(ivec2 const& v_rh) const
+{
+	return ivec2(x * v_rh.x, y * v_rh.y);
+}
+inline ivec2 ivec2::operator /(ivec2 const& v_rh) const
+{
+	return ivec2(x / v_rh.x, y / v_rh.y);
+}
+inline ivec2 ivec2::operator %(ivec2 const& v_rh) const
+{
+	return ivec2(x % v_rh.x, y % v_rh.y);
+}
+inline ivec2 ivec2::operator &(ivec2 const& v_rh) const
+{
+	return ivec2(x & v_rh.x, y & v_rh.y);
+}
+inline ivec2 ivec2::operator |(ivec2 const& v_rh) const
+{
+	return ivec2(x | v_rh.x, y | v_rh.y);
+}
+inline ivec2 ivec2::operator ^(ivec2 const& v_rh) const
+{
+	return ivec2(x ^ v_rh.x, y ^ v_rh.y);
+}
+inline ivec2 ivec2::operator <<(ivec2 const& v_rh) const
+{
+	return ivec2(x << v_rh.x, y << v_rh.y);
+}
+inline ivec2 ivec2::operator >>(ivec2 const& v_rh) const
+{
+	return ivec2(x >> v_rh.x, y >> v_rh.y);
+}
+inline ivec2 ivec2::operator +(int const s_rh) const
+{
+	return ivec2(x + s_rh, y + s_rh);
+}
+inline ivec2 ivec2::operator -(int const s_rh) const
+{
+	return ivec2(x + s_rh, y + s_rh);
+}
+inline ivec2 ivec2::operator *(int const s_rh) const
+{
+	return ivec2(x + s_rh, y + s_rh);
+}
+inline ivec2 ivec2::operator /(int const s_rh) const
+{
+	return ivec2(x + s_rh, y + s_rh);
+}
+inline ivec2 ivec2::operator %(int const s_rh) const
+{
+	return ivec2(x + s_rh, y + s_rh);
+}
+inline ivec2 ivec2::operator &(int const s_rh) const
+{
+	return ivec2(x + s_rh, y + s_rh);
+}
+inline ivec2 ivec2::operator |(int const s_rh) const
+{
+	return ivec2(x + s_rh, y + s_rh);
+}
+inline ivec2 ivec2::operator ^(int const s_rh) const
+{
+	return ivec2(x + s_rh, y + s_rh);
+}
+inline ivec2 ivec2::operator <<(int const s_rh) const
+{
+	return ivec2(x + s_rh, y + s_rh);
+}
+inline ivec2 ivec2::operator >>(int const s_rh) const
+{
+	return ivec2(x + s_rh, y + s_rh);
+}
+inline int ivec2::operator[](index const i) const
+{
+	return sv[i];
+}
+inline ivec2::operator intkv() const
+{
+	return v;
+}
+inline bool ivec2::operator ==(ivec2 const& v_rh) const
+{
+	return (x == v_rh.x && y == v_rh.y);
+}
+inline bool ivec2::operator !=(ivec2 const& v_rh) const
+{
+	return (x != v_rh.x || y != v_rh.y);
+}
+inline bool ivec2::operator <=(ivec2 const& v_rh) const
+{
+	return (x <= v_rh.x && y <= v_rh.y);
+}
+inline bool ivec2::operator >=(ivec2 const& v_rh) const
+{
+	return (x >= v_rh.x && y >= v_rh.y);
+}
+inline bool ivec2::operator <(ivec2 const& v_rh) const
+{
+	return (x < v_rh.x && y < v_rh.y);
+}
+inline bool ivec2::operator >(ivec2 const& v_rh) const
+{
+	return (x > v_rh.x&& y > v_rh.y);
+}
 
 inline ivec2& ivec2::operator+()
 {
 	return *this;
-}
-inline ivec2& ivec2::operator =(ivec2 const& xy)
-{
-	x = xy.x;
-	y = xy.y;
-	return *this;
-}
-inline ivec2& ivec2::operator =(isvec2 const& xy)
-{
-	return (*this = ivec2(xy));
 }
 inline ivec2& ivec2::operator +=(ivec2 const& v_rh)
 {
@@ -183,33 +312,105 @@ inline ivec2& ivec2::operator /=(ivec2 const& v_rh)
 	y /= v_rh.y;
 	return *this;
 }
-inline ivec2& ivec2::operator +=(i32 const s_rh)
+inline ivec2& ivec2::operator %=(ivec2 const& v_rh)
+{
+	x %= v_rh.x;
+	y %= v_rh.y;
+	return *this;
+}
+inline ivec2& ivec2::operator &=(ivec2 const& v_rh)
+{
+	x &= v_rh.x;
+	y &= v_rh.y;
+	return *this;
+}
+inline ivec2& ivec2::operator |=(ivec2 const& v_rh)
+{
+	x |= v_rh.x;
+	y |= v_rh.y;
+	return *this;
+}
+inline ivec2& ivec2::operator ^=(ivec2 const& v_rh)
+{
+	x ^= v_rh.x;
+	y ^= v_rh.y;
+	return *this;
+}
+inline ivec2& ivec2::operator <<=(ivec2 const& v_rh)
+{
+	x <<= v_rh.x;
+	y <<= v_rh.y;
+	return *this;
+}
+inline ivec2& ivec2::operator >>=(ivec2 const& v_rh)
+{
+	x >>= v_rh.x;
+	y >>= v_rh.y;
+	return *this;
+}
+inline ivec2& ivec2::operator +=(int const s_rh)
 {
 	x += s_rh;
 	y += s_rh;
 	return *this;
 }
-inline ivec2& ivec2::operator -=(i32 const s_rh)
+inline ivec2& ivec2::operator -=(int const s_rh)
 {
 	x -= s_rh;
 	y -= s_rh;
 	return *this;
 }
-inline ivec2& ivec2::operator *=(i32 const s_rh)
+inline ivec2& ivec2::operator *=(int const s_rh)
 {
 	x *= s_rh;
 	y *= s_rh;
 	return *this;
 }
-inline ivec2& ivec2::operator /=(i32 const s_rh)
+inline ivec2& ivec2::operator /=(int const s_rh)
 {
 	x /= s_rh;
 	y /= s_rh;
 	return *this;
 }
-inline i32& ivec2::operator[](index const i)
+inline ivec2& ivec2::operator %=(int const s_rh)
 {
-	return v[i];
+	x %= s_rh;
+	y %= s_rh;
+	return *this;
+}
+inline ivec2& ivec2::operator &=(int const s_rh)
+{
+	x &= s_rh;
+	y &= s_rh;
+	return *this;
+}
+inline ivec2& ivec2::operator |=(int const s_rh)
+{
+	x |= s_rh;
+	y |= s_rh;
+	return *this;
+}
+inline ivec2& ivec2::operator ^=(int const s_rh)
+{
+	x ^= s_rh;
+	y ^= s_rh;
+	return *this;
+}
+inline ivec2& ivec2::operator <<=(int const s_rh)
+{
+	x <<= s_rh;
+	y <<= s_rh;
+	return *this;
+}
+inline ivec2& ivec2::operator >>=(int const s_rh)
+{
+	x >>= s_rh;
+	y >>= s_rh;
+	return *this;
+}
+inline int& ivec2::operator[](index const i)
+{
+	return sv[i];
 }
 inline ivec2::operator intv()
 {
@@ -217,74 +418,28 @@ inline ivec2::operator intv()
 }
 
 
-inline ivec2 const ivec2::operator+() const
+//-----------------------------------------------------------------------------
+
+inline ivec3::ivec3(int const xyz)
+	: x(xyz), y(xyz), z(xyz)
 {
-	return *this;
 }
-inline ivec2 const ivec2::operator-() const
+inline ivec3::ivec3(int const xc, int const yc, int const zc)
+	: x(xc), y(yc), z(zc)
 {
-	return ivec2(-x, -y);
-}
-inline ivec2 const ivec2::operator +(ivec2 const& v_rh) const
-{
-	return ivec2(x + v_rh.x, y + v_rh.y);
-}
-inline ivec2 const ivec2::operator -(ivec2 const& v_rh) const
-{
-	return ivec2(x - v_rh.x, y - v_rh.y);
-}
-inline ivec2 const ivec2::operator *(ivec2 const& v_rh) const
-{
-	return ivec2(x * v_rh.x, y * v_rh.y);
-}
-inline ivec2 const ivec2::operator /(ivec2 const& v_rh) const
-{
-	return ivec2(x / v_rh.x, y / v_rh.y);
-}
-inline ivec2 const ivec2::operator +(i32 const s_rh) const
-{
-	return ivec2(x + s_rh, y + s_rh);
-}
-inline ivec2 const ivec2::operator -(i32 const s_rh) const
-{
-	return ivec2(x - s_rh, y - s_rh);
-}
-inline ivec2 const ivec2::operator *(i32 const s_rh) const
-{
-	return ivec2(x * s_rh, y * s_rh);
-}
-inline ivec2 const ivec2::operator /(i32 const s_rh) const
-{
-	return ivec2(x / s_rh, y / s_rh);
-}
-inline i32 ivec2::operator[](index const i) const
-{
-	return v[i];
-}
-inline ivec2::operator intkv() const
-{
-	return v;
-}
-inline bool ivec2::operator ==(ivec2 const& v_rh) const
-{
-	return (x == v_rh.x && y == v_rh.y);
-}
-inline bool ivec2::operator !=(ivec2 const& v_rh) const
-{
-	return !(*this == v_rh);
 }
 
 
 //-----------------------------------------------------------------------------
 
-inline ivec3::ivec3(i32 const xyz) : x(xyz), y(xyz), z(xyz) {}
-inline ivec3::ivec3(i32 const xc, i32 const yc, i32 const zc) : x(xc), y(yc), z(zc) {}
-
-
-//-----------------------------------------------------------------------------
-
-inline ivec4::ivec4(i32 const xyzw) : x(xyzw), y(xyzw), z(xyzw), w(xyzw) {}
-inline ivec4::ivec4(i32 const xc, i32 const yc, i32 const zc, i32 const wc) : x(xc), y(yc), z(zc), w(wc) {}
+inline ivec4::ivec4(int const xyzw)
+	: x(xyzw), y(xyzw), z(xyzw), w(xyzw)
+{
+}
+inline ivec4::ivec4(int const xc, int const yc, int const zc, int const wc)
+	: x(xc), y(yc), z(zc), w(wc)
+{
+}
 
 
 //-----------------------------------------------------------------------------
@@ -317,75 +472,100 @@ inline ivec4::ivec4(i32 const xc, i32 const yc, i32 const zc, i32 const wc) : x(
 #pragma region IJK_SWIZZLE_MACRO_IMPL
 
 template <typename type, typename tvec1, typename tvec2, typename tvec3, typename tvec4>
-inline tvec1 tsvec1<type, tvec1, tvec2, tvec3, tvec4>::operator=(tvec1 const v)
+inline tvec1 stvec1<type, tvec1, tvec2, tvec3, tvec4>::operator=(tvec1 const v)
 {
 	return tvec1(x = v.x);
 }
 template <typename type, typename tvec1, typename tvec2, typename tvec3, typename tvec4>
-inline tvec1 tsvec1<type, tvec1, tvec2, tvec3, tvec4>::operator=(tsvec1 const& v)
+inline tvec1 stvec1<type, tvec1, tvec2, tvec3, tvec4>::operator=(stvec1 const& v)
 {
 	return (*this = tvec1(v));
 }
 template <typename type, typename tvec1, typename tvec2, typename tvec3, typename tvec4>
-inline tsvec1<type, tvec1, tvec2, tvec3, tvec4>::tsvec1(type& xr)
+inline stvec1<type, tvec1, tvec2, tvec3, tvec4>::stvec1(type& xr)
 	: x(xr)
 {
 }
 
 
 template <typename type, typename tvec1, typename tvec2, typename tvec3, typename tvec4>
-inline tvec2 tsvec2<type, tvec1, tvec2, tvec3, tvec4>::operator=(tvec2 const v)
+inline tvec2 stvec2<type, tvec1, tvec2, tvec3, tvec4>::operator=(tvec2 const v)
 {
 	return tvec2(x = v.x, y = v.x);
 }
 template <typename type, typename tvec1, typename tvec2, typename tvec3, typename tvec4>
-inline tvec2 tsvec2<type, tvec1, tvec2, tvec3, tvec4>::operator=(tsvec2 const& v)
+inline tvec2 stvec2<type, tvec1, tvec2, tvec3, tvec4>::operator=(stvec2 const& v)
 {
 	return (*this = tvec2(v));
 }
 template <typename type, typename tvec1, typename tvec2, typename tvec3, typename tvec4>
-inline tsvec2<type, tvec1, tvec2, tvec3, tvec4>::tsvec2(type& xr, type& yr)
+inline stvec2<type, tvec1, tvec2, tvec3, tvec4>::stvec2(type& xr, type& yr)
 	: x(xr), y(yr)
 {
 }
 
 
 template <typename type, typename tvec1, typename tvec2, typename tvec3, typename tvec4>
-inline tvec3 tsvec3<type, tvec1, tvec2, tvec3, tvec4>::operator=(tvec3 const v)
+inline tvec3 stvec3<type, tvec1, tvec2, tvec3, tvec4>::operator=(tvec3 const v)
 {
 	return tvec3(x = v.x, y = v.x, z = v.z);
 }
 template <typename type, typename tvec1, typename tvec2, typename tvec3, typename tvec4>
-inline tvec3 tsvec3<type, tvec1, tvec2, tvec3, tvec4>::operator=(tsvec3 const& v)
+inline tvec3 stvec3<type, tvec1, tvec2, tvec3, tvec4>::operator=(stvec3 const& v)
 {
 	return (*this = tvec3(v));
 }
 template <typename type, typename tvec1, typename tvec2, typename tvec3, typename tvec4>
-inline tsvec3<type, tvec1, tvec2, tvec3, tvec4>::tsvec3(type& xr, type& yr, type& zr)
+inline stvec3<type, tvec1, tvec2, tvec3, tvec4>::stvec3(type& xr, type& yr, type& zr)
 	: x(xr), y(yr), z(zr)
 {
 }
 
 
 template <typename type, typename tvec1, typename tvec2, typename tvec3, typename tvec4>
-inline tvec4 tsvec4<type, tvec1, tvec2, tvec3, tvec4>::operator=(tvec4 const v)
+inline tvec4 stvec4<type, tvec1, tvec2, tvec3, tvec4>::operator=(tvec4 const v)
 {
 	return tvec4(x = v.x, y = v.x, z = v.z, w = v.w);
 }
 template <typename type, typename tvec1, typename tvec2, typename tvec3, typename tvec4>
-inline tvec4 tsvec4<type, tvec1, tvec2, tvec3, tvec4>::operator=(tsvec4 const& v)
+inline tvec4 stvec4<type, tvec1, tvec2, tvec3, tvec4>::operator=(stvec4 const& v)
 {
 	return (*this = tvec4(v));
 }
 template <typename type, typename tvec1, typename tvec2, typename tvec3, typename tvec4>
-inline tsvec4<type, tvec1, tvec2, tvec3, tvec4>::tsvec4(type& xr, type& yr, type& zr, type& wr)
+inline stvec4<type, tvec1, tvec2, tvec3, tvec4>::stvec4(type& xr, type& yr, type& zr, type& wr)
 	: x(xr), y(yr), z(zr), w(wr)
 {
 }
 
 
+template <typename type, typename tvec2, typename tvec3, typename tvec4>
+inline tvec1<type, tvec2, tvec3, tvec4>::tvec1(type const xc)
+	: x(xc)
+{
+}
+template <typename type, typename tvec2, typename tvec3, typename tvec4>
+inline tvec1<type, tvec2, tvec3, tvec4>& tvec1<type, tvec2, tvec3, tvec4>::operator =(type const xc)
+{
+	x = xc;
+	return *this;
+}
+template <typename type, typename tvec2, typename tvec3, typename tvec4>
+inline tvec1<type, tvec2, tvec3, tvec4>::operator type& ()
+{
+	return x;
+}
+template <typename type, typename tvec2, typename tvec3, typename tvec4>
+inline tvec1<type, tvec2, tvec3, tvec4>::operator type() const
+{
+	return x;
+}
+
+
+//-----------------------------------------------------------------------------
+
 IJK_SWIZZLE_READONLY(IJK_SWIZZLE_FMT_IMPL, 2, ivec, ivec, inline);
-IJK_SWIZZLE_WRITABLE(IJK_SWIZZLE_FMT_IMPL, 2, ivec, isvec, inline);
+IJK_SWIZZLE_WRITABLE(IJK_SWIZZLE_FMT_IMPL, 2, ivec, sivec, inline);
 
 
 //-----------------------------------------------------------------------------
@@ -1424,7 +1604,7 @@ IJK_SWIZZLE_WRITABLE(IJK_SWIZZLE_FMT_IMPL, 2, ivec, isvec, inline);
 //	prior IJK_SWIZZLE_DECL within target interface.
 #define IJK_SWIZZLE_FMT_IMPL_TEMP(inl,cf,ot,rtb,rts,x,y,z,w,...)								template<typename type, typename tvec1, typename tvec2, typename tvec3, typename tvec4> inl rtb##rts<type,tvec1,tvec2,tvec3,tvec4> ot<type,tvec1,tvec2,tvec3,tvec4>::_##x##y##z##w() cf { return rtb##rts<type,tvec1,tvec2,tvec3,tvec4>(__VA_ARGS__); }
 IJK_SWIZZLE_READONLY(IJK_SWIZZLE_FMT_IMPL_TEMP, 1, tvec, tvec, inline);
-IJK_SWIZZLE_WRITABLE(IJK_SWIZZLE_FMT_IMPL_TEMP, 1, tvec, tsvec, inline);
+IJK_SWIZZLE_WRITABLE(IJK_SWIZZLE_FMT_IMPL_TEMP, 1, tvec, stvec, inline);
 */
 
 #pragma endregion

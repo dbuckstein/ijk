@@ -111,13 +111,13 @@ extern "C" {
 //-----------------------------------------------------------------------------
 
 template <typename type, typename tvec1, typename tvec2, typename tvec3, typename tvec4>
-struct tsvec1
+struct stvec1
 {
 	tvec1 operator=(tvec1 const v);
-	tvec1 operator=(tsvec1 const& v);
+	tvec1 operator=(stvec1 const& v);
 private:
 	type& x;
-	tsvec1(type& xr);
+	stvec1(type& xr);
 	friend tvec1;
 	friend tvec2;
 	friend tvec3;
@@ -125,13 +125,13 @@ private:
 };
 
 template <typename type, typename tvec1, typename tvec2, typename tvec3, typename tvec4>
-struct tsvec2
+struct stvec2
 {
 	tvec2 operator=(tvec2 const v);
-	tvec2 operator=(tsvec2 const& v);
+	tvec2 operator=(stvec2 const& v);
 private:
 	type& x, & y;
-	tsvec2(type& xr, type& yr);
+	stvec2(type& xr, type& yr);
 	friend tvec1;
 	friend tvec2;
 	friend tvec3;
@@ -139,13 +139,13 @@ private:
 };
 
 template <typename type, typename tvec1, typename tvec2, typename tvec3, typename tvec4>
-struct tsvec3
+struct stvec3
 {
 	tvec3 operator=(tvec3 const v);
-	tvec3 operator=(tsvec3 const& v);
+	tvec3 operator=(stvec3 const& v);
 private:
 	type& x, & y, & z;
-	tsvec3(type& xr, type& yr, type& zr);
+	stvec3(type& xr, type& yr, type& zr);
 	friend tvec1;
 	friend tvec2;
 	friend tvec3;
@@ -153,29 +153,29 @@ private:
 };
 
 template <typename type, typename tvec1, typename tvec2, typename tvec3, typename tvec4>
-struct tsvec4
+struct stvec4
 {
 	tvec4 operator=(tvec4 const v);
-	tvec4 operator=(tsvec4 const& v);
+	tvec4 operator=(stvec4 const& v);
 private:
 	type& x, & y, & z, & w;
-	tsvec4(type& xr, type& yr, type& zr, type& wr);
+	stvec4(type& xr, type& yr, type& zr, type& wr);
 	friend tvec1;
 	friend tvec2;
 	friend tvec3;
 	friend tvec4;
 };
 
-template<typename type, typename tvec2, typename tvec3, typename tvec4, size = 1>
+template<typename type, typename tvec2, typename tvec3, typename tvec4>
 union tvec1
 {
-	inline tvec1(type const xc = 0) : x(xc) {}
-	inline tvec1& operator =(type const xc) { x = xc; return *this; }
-	inline operator type& () { return x; }
-	inline operator type const() const { return x; }
+	tvec1(type const xc = 0);
+	tvec1& operator =(type const xc);
+	operator type& ();
+	operator type() const;
 
 	IJK_SWIZZLE_READONLY(IJK_SWIZZLE_FMT_DECL_IMPL, 1, tvec, tvec, inline);
-	IJK_SWIZZLE_WRITABLE(IJK_SWIZZLE_FMT_DECL_IMPL_TEMP, 1, tvec, tsvec, inline);
+	IJK_SWIZZLE_WRITABLE(IJK_SWIZZLE_FMT_DECL_IMPL_TEMP, 1, tvec, stvec, inline);
 private:
 	type x;
 };
@@ -184,26 +184,27 @@ typedef tvec1<i32, ivec2, ivec3, ivec4>				ivec1;
 typedef tvec1<ui32, uvec2, uvec3, uvec4>			uvec1;
 typedef tvec1<flt, vec2, vec3, vec4>				vec1;
 typedef tvec1<dbl, dvec2, dvec3, dvec4>				dvec1;
-typedef tsvec1<i32, ivec1, ivec2, ivec3, ivec4>		isvec1;
-typedef tsvec1<ui32, uvec1, uvec2, uvec3, uvec4>	usvec1;
-typedef tsvec1<flt, vec1, vec2, vec3, vec4>			svec1;
-typedef tsvec1<dbl, dvec1, dvec2, dvec3, dvec4>		dsvec1;
-typedef tsvec2<i32, ivec1, ivec2, ivec3, ivec4>		isvec2;
-typedef tsvec2<ui32, uvec1, uvec2, uvec3, uvec4>	usvec2;
-typedef tsvec2<flt, vec1, vec2, vec3, vec4>			svec2;
-typedef tsvec2<dbl, dvec1, dvec2, dvec3, dvec4>		dsvec2;
-typedef tsvec3<i32, ivec1, ivec2, ivec3, ivec4>		isvec3;
-typedef tsvec3<ui32, uvec1, uvec2, uvec3, uvec4>	usvec3;
-typedef tsvec3<flt, vec1, vec2, vec3, vec4>			svec3;
-typedef tsvec3<dbl, dvec1, dvec2, dvec3, dvec4>		dsvec3;
-typedef tsvec4<i32, ivec1, ivec2, ivec3, ivec4>		isvec4;
-typedef tsvec4<ui32, uvec1, uvec2, uvec3, uvec4>	usvec4;
-typedef tsvec4<flt, vec1, vec2, vec3, vec4>			svec4;
-typedef tsvec4<dbl, dvec1, dvec2, dvec3, dvec4>		dsvec4;
 #define int											ivec1
 #define uint										uvec1
 #define float										vec1
 #define double										dvec1
+
+typedef stvec1<int, ivec1, ivec2, ivec3, ivec4>		sivec1;
+typedef stvec1<uint, uvec1, uvec2, uvec3, uvec4>	suvec1;
+typedef stvec1<float, vec1, vec2, vec3, vec4>		svec1;
+typedef stvec1<double, dvec1, dvec2, dvec3, dvec4>	sdvec1;
+typedef stvec2<int, ivec1, ivec2, ivec3, ivec4>		sivec2;
+typedef stvec2<uint, uvec1, uvec2, uvec3, uvec4>	suvec2;
+typedef stvec2<float, vec1, vec2, vec3, vec4>		svec2;
+typedef stvec2<double, dvec1, dvec2, dvec3, dvec4>	sdvec2;
+typedef stvec3<int, ivec1, ivec2, ivec3, ivec4>		sivec3;
+typedef stvec3<uint, uvec1, uvec2, uvec3, uvec4>	suvec3;
+typedef stvec3<float, vec1, vec2, vec3, vec4>		svec3;
+typedef stvec3<double, dvec1, dvec2, dvec3, dvec4>	sdvec3;
+typedef stvec4<int, ivec1, ivec2, ivec3, ivec4>		sivec4;
+typedef stvec4<uint, uvec1, uvec2, uvec3, uvec4>	suvec4;
+typedef stvec4<float, vec1, vec2, vec3, vec4>		svec4;
+typedef stvec4<double, dvec1, dvec2, dvec3, dvec4>	sdvec4;
 
 
 #pragma endregion
@@ -226,6 +227,7 @@ typedef union vec4	vec4;
 typedef union dvec2	dvec2;
 typedef union dvec3	dvec3;
 typedef union dvec4	dvec4;
+
 #define int			i32
 #define uint		ui32
 #define float		flt
@@ -281,58 +283,89 @@ typedef real const* realkv;		// Generic constant real-type array-based vector, r
 union ivec2
 {
 	int2 v;
+	int sv[2];
 	struct { int x, y; };
 	struct { int r, g; };
 	struct { int s, t; };
 
 #ifdef __cplusplus
-	explicit ivec2(i32 const xy = 0);			// Construct vector with all elements set to single scalar.
-	explicit ivec2(i32 const xc, i32 const yc);	// Construct vector with elements set individually.
-	ivec2(isvec2 const& xy);					// Construct vector given swizzle vector.
-	explicit ivec2(int2 const xy);				// Construct vector given integer array-based vector.
-	explicit ivec2(float2 const xy);			// Construct vector given float array-based vector.
-	explicit ivec2(double2 const xy);			// Construct vector given double array-based vector.
-	ivec2(ivec2 const& xy);						// Construct vector given another 2D integer vector.
-	explicit ivec2(ivec3 const& xy);			// Construct vector given the first two elements of a 3D integer vector.
-	explicit ivec2(ivec4 const& xy);			// Construct vector given the first two elements of a 4D integer vector.
-	explicit ivec2(vec2 const& xy);				// Construct vector given a 2D float vector.
-	explicit ivec2(vec3 const& xy);				// Construct vector given the first two elements of a 3D float vector.
-	explicit ivec2(vec4 const& xy);				// Construct vector given the first two elements of a 4D float vector.
-	explicit ivec2(dvec2 const& xy);			// Construct vector given a 2D double vector.
-	explicit ivec2(dvec3 const& xy);			// Construct vector given the first two elements of a 3D double vector.
-	explicit ivec2(dvec4 const& xy);			// Construct vector given the first two elements of a 4D double vector.
+	explicit ivec2(int const xy = 0);				// Construct vector with all elements set to single scalar.
+	explicit ivec2(int const xc, int const yc);		// Construct vector with elements set individually.
+	ivec2(int2 const xy);							// Construct vector given integer array-based vector.
+	explicit ivec2(float2 const xy);				// Construct vector given float array-based vector.
+	explicit ivec2(double2 const xy);				// Construct vector given double array-based vector.
+	ivec2(ivec2 const& xy);							// Construct vector given another 2D integer vector.
+	explicit ivec2(ivec3 const& xy);				// Construct vector given the first two elements of a 3D integer vector.
+	explicit ivec2(ivec4 const& xy);				// Construct vector given the first two elements of a 4D integer vector.
+	explicit ivec2(vec2 const& xy);					// Construct vector given a 2D float vector.
+	explicit ivec2(vec3 const& xy);					// Construct vector given the first two elements of a 3D float vector.
+	explicit ivec2(vec4 const& xy);					// Construct vector given the first two elements of a 4D float vector.
+	explicit ivec2(dvec2 const& xy);				// Construct vector given a 2D double vector.
+	explicit ivec2(dvec3 const& xy);				// Construct vector given the first two elements of a 3D double vector.
+	explicit ivec2(dvec4 const& xy);				// Construct vector given the first two elements of a 4D double vector.
+	ivec2(sivec2 const& xy);						// Construct vector given swizzle vector.
+
+	ivec2& operator =(int2 const v_rh);
+	ivec2& operator =(ivec2 const& v_rh);
+	ivec2& operator =(sivec2 const& v_rh);
+
+	ivec2 operator+() const;
+	ivec2 operator-() const;
+	ivec2 operator +(ivec2 const& v_rh) const;
+	ivec2 operator -(ivec2 const& v_rh) const;
+	ivec2 operator *(ivec2 const& v_rh) const;
+	ivec2 operator /(ivec2 const& v_rh) const;
+	ivec2 operator %(ivec2 const& v_rh) const;
+	ivec2 operator &(ivec2 const& v_rh) const;
+	ivec2 operator |(ivec2 const& v_rh) const;
+	ivec2 operator ^(ivec2 const& v_rh) const;
+	ivec2 operator <<(ivec2 const& v_rh) const;
+	ivec2 operator >>(ivec2 const& v_rh) const;
+	ivec2 operator +(int const s_rh) const;
+	ivec2 operator -(int const s_rh) const;
+	ivec2 operator *(int const s_rh) const;
+	ivec2 operator /(int const s_rh) const;
+	ivec2 operator %(int const s_rh) const;
+	ivec2 operator &(int const s_rh) const;
+	ivec2 operator |(int const s_rh) const;
+	ivec2 operator ^(int const s_rh) const;
+	ivec2 operator <<(int const s_rh) const;
+	ivec2 operator >>(int const s_rh) const;
+	int operator[](index const i) const;
+	operator intkv() const;
+	bool operator ==(ivec2 const& v_rh) const;
+	bool operator !=(ivec2 const& v_rh) const;
+	bool operator <=(ivec2 const& v_rh) const;
+	bool operator >=(ivec2 const& v_rh) const;
+	bool operator <(ivec2 const& v_rh) const;
+	bool operator >(ivec2 const& v_rh) const;
 
 	ivec2& operator+();
-	ivec2& operator =(ivec2 const& xy);
-	ivec2& operator =(isvec2 const& xy);
 	ivec2& operator +=(ivec2 const& v_rh);
 	ivec2& operator -=(ivec2 const& v_rh);
 	ivec2& operator *=(ivec2 const& v_rh);
 	ivec2& operator /=(ivec2 const& v_rh);
-	ivec2& operator +=(i32 const s_rh);
-	ivec2& operator -=(i32 const s_rh);
-	ivec2& operator *=(i32 const s_rh);
-	ivec2& operator /=(i32 const s_rh);
-	i32& operator[](index const i);
+	ivec2& operator %=(ivec2 const& v_rh);
+	ivec2& operator &=(ivec2 const& v_rh);
+	ivec2& operator |=(ivec2 const& v_rh);
+	ivec2& operator ^=(ivec2 const& v_rh);
+	ivec2& operator <<=(ivec2 const& v_rh);
+	ivec2& operator >>=(ivec2 const& v_rh);
+	ivec2& operator +=(int const s_rh);
+	ivec2& operator -=(int const s_rh);
+	ivec2& operator *=(int const s_rh);
+	ivec2& operator /=(int const s_rh);
+	ivec2& operator %=(int const s_rh);
+	ivec2& operator &=(int const s_rh);
+	ivec2& operator |=(int const s_rh);
+	ivec2& operator ^=(int const s_rh);
+	ivec2& operator <<=(int const s_rh);
+	ivec2& operator >>=(int const s_rh);
+	int& operator[](index const i);
 	operator intv();
 
-	ivec2 const operator+() const;
-	ivec2 const operator-() const;
-	ivec2 const operator +(ivec2 const& v_rh) const;
-	ivec2 const operator -(ivec2 const& v_rh) const;
-	ivec2 const operator *(ivec2 const& v_rh) const;
-	ivec2 const operator /(ivec2 const& v_rh) const;
-	ivec2 const operator +(i32 const s_rh) const;
-	ivec2 const operator -(i32 const s_rh) const;
-	ivec2 const operator *(i32 const s_rh) const;
-	ivec2 const operator /(i32 const s_rh) const;
-	i32 operator[](index const i) const;
-	operator intkv() const;
-	bool operator ==(ivec2 const& v_rh) const;
-	bool operator !=(ivec2 const& v_rh) const;
-
 	IJK_SWIZZLE_READONLY(IJK_SWIZZLE_FMT_DECL, 2, ivec, ivec);
-	IJK_SWIZZLE_WRITABLE(IJK_SWIZZLE_FMT_DECL, 2, ivec, isvec);
+	IJK_SWIZZLE_WRITABLE(IJK_SWIZZLE_FMT_DECL, 2, ivec, sivec);
 #endif	// __cplusplus
 };
 
@@ -346,27 +379,14 @@ union ivec2
 union ivec3
 {
 	int3 v;
-	ivec2 xy;
+	//ivec2 xy;
 	struct { int x, y, z; };
 	struct { int r, g, b; };
 	struct { int s, t, p; };
 
 #ifdef __cplusplus
-	explicit ivec3(i32 const xyz = 0);								// Construct vector with all elements set to single scalar.
-	explicit ivec3(i32 const xc, i32 const yc, i32 const zc = 0);	// Construct vector with elements set individually.
-	ivec3(isvec3 const& xyz);										// Construct vector given swizzle vector.
-	explicit ivec3(int3 const xyz);									// Construct vector given integer array-based vector.
-	explicit ivec3(float3 const xyz);								// Construct vector given float array-based vector.
-	explicit ivec3(double3 const xyz);								// Construct vector given double array-based vector.
-	explicit ivec3(ivec2 const& xy, i32 const z = 0);				// Construct vector given a 2D integer vector and the third element.
-	ivec3(ivec3 const& xyz);										// Construct vector given another 3D integer vector.
-	explicit ivec3(ivec4 const& xyz);								// Construct vector given the first three elements of a 4D integer vector.
-	explicit ivec3(vec2 const& xy, i32 const z = 0);				// Construct vector given a 2D float vector and the third element.
-	explicit ivec3(vec3 const& xyz);								// Construct vector given a 3D float vector.
-	explicit ivec3(vec4 const& xyz);								// Construct vector given the first three elements of a 4D float vector.
-	explicit ivec3(dvec2 const& xy, i32 const z = 0);				// Construct vector given a 2D double vector and the third element.
-	explicit ivec3(dvec3 const& xyz);								// Construct vector given a 3D double vector.
-	explicit ivec3(dvec4 const& xyz);								// Construct vector given the first three elements of a 4D double vector.
+	explicit ivec3(int const xyz = 0);								// Construct vector with all elements set to single scalar.
+	explicit ivec3(int const xc, int const yc, int const zc = 0);	// Construct vector with elements set individually.
 #endif	// __cplusplus
 };
 
@@ -382,28 +402,15 @@ union ivec3
 union ivec4
 {
 	int4 v;
-	ivec3 xyz;
-	ivec2 xy;
+	//ivec3 xyz;
+	//ivec2 xy;
 	struct { int x, y, z, w; };
 	struct { int r, g, b, a; };
 	struct { int s, t, p, q; };
 
 #ifdef __cplusplus
-	explicit ivec4(i32 const xyzw = 0);												// Construct vector with all elements set to single scalar.
-	explicit ivec4(i32 const xc, i32 const yc, i32 const zc = 0, i32 const wc = 0);	// Construct vector with elements set individually.
-	ivec4(isvec4 const& xyzw);														// Construct vector given swizzle vector.
-	explicit ivec4(int4 const xyzw);												// Construct vector given integer array-based vector.
-	explicit ivec4(float4 const xyzw);												// Construct vector given float array-based vector.
-	explicit ivec4(double4 const xyzw);												// Construct vector given double array-based vector.
-	explicit ivec4(ivec2 const& xy, i32 const z = 0, i32 const w = 0);				// Construct vector given a 2D integer vector and the third and fourth elements.
-	explicit ivec4(ivec3 const& xyz, i32 const w = 0);								// Construct vector given a 3D integer vector and the fourth element.
-	ivec4(ivec4 const& xyzw);														// Construct vector given another 4D integer vector.
-	explicit ivec4(vec2 const& xy, i32 const z = 0, i32 const w = 0);				// Construct vector given a 2D float vector and the third and fourth elements.
-	explicit ivec4(vec3 const& xyz, i32 const w = 0);								// Construct vector given a 3D float vector and the fourth element.
-	explicit ivec4(vec4 const& xyzw);												// Construct vector given a 4D float vector.
-	explicit ivec4(dvec2 const& xy, i32 const z = 0, i32 const w = 0);				// Construct vector given a 2D double vector and the third and fourth elements.
-	explicit ivec4(dvec3 const& xyz, i32 const w = 0);								// Construct vector given a 3D double vector and the fourth element.
-	explicit ivec4(dvec4 const& xyzw);												// Construct vector given a 4D double vector.
+	explicit ivec4(int const xyzw = 0);												// Construct vector with all elements set to single scalar.
+	explicit ivec4(int const xc, int const yc, int const zc = 0, int const wc = 0);	// Construct vector with elements set individually.
 #endif	// __cplusplus
 };
 
@@ -887,7 +894,7 @@ typedef vec4	rvec4;		// Real 4D vector data structure type is 4D float vector.
 
 
 //-----------------------------------------------------------------------------
-
+/*
 ivec2 const operator +(i32 const s, ivec2 const& v);
 ivec2 const operator -(i32 const s, ivec2 const& v);
 ivec2 const operator *(i32 const s, ivec2 const& v);
@@ -904,7 +911,7 @@ i32 crossSgn(ivec2 const& v_lh, ivec2 const& v_rh);
 //ivec2& unitSet(ivec2& v);
 //ivec2 const proj(ivec2 const& v_base, ivec2 const& v);
 //ivec2& projSet(ivec2 const& v_base, ivec2& v);
-
+*/
 
 //-----------------------------------------------------------------------------
 
