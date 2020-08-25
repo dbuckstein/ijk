@@ -399,7 +399,8 @@ inline tsvec4<type, tvec1, tvec2, tvec3, tvec4>::tsvec4(type& xr, type& yr, type
 //IJK_SWIZZLE_XY(IJK_SWIZZLE2, IJK_SWIZZLE3, IJK_SWIZZLE4, 2, 2, 2, d);
 //IJK_SWIZZLE_XYZ(IJK_SWIZZLE2, IJK_SWIZZLE3, IJK_SWIZZLE4, 3, 3, 3, d);
 //IJK_SWIZZLE_XYZW(IJK_SWIZZLE2, IJK_SWIZZLE3, IJK_SWIZZLE4, 4, 4, 4, d);
-IJK_SWIZZLE_READONLY(IJK_SWIZZLE_IMPL, 2, ivec, ivec);
+IJK_SWIZZLE_READONLY(IJK_SWIZZLE_IMPL, 2, ivec, ivec, inline);
+IJK_SWIZZLE_WRITABLE(IJK_SWIZZLE_IMPL, 2, ivec, isvec, inline);
 
 #define x		_x()
 #define y		_y()
