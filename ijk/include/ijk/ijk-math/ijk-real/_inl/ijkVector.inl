@@ -99,11 +99,11 @@ inline ivec2::ivec2(int2 const xy)
 	: x(xy[0]), y(xy[1])
 {
 }
-inline ivec2::ivec2(flt2 const xy)
+inline ivec2::ivec2(float2 const xy)
 	: x((i32)xy[0]), y((i32)xy[1])
 {
 }
-inline ivec2::ivec2(dbl2 const xy)
+inline ivec2::ivec2(double2 const xy)
 	: x((i32)xy[0]), y((i32)xy[1])
 {
 }
@@ -147,12 +147,6 @@ inline ivec2::ivec2(dvec4 const& xy)
 
 inline ivec2& ivec2::operator+()
 {
-	return *this;
-}
-inline ivec2& ivec2::operator =(int2 const xy)
-{
-	x = xy[0];
-	y = xy[1];
 	return *this;
 }
 inline ivec2& ivec2::operator =(ivec2 const& xy)
@@ -390,18 +384,14 @@ inline tsvec4<type, tvec1, tvec2, tvec3, tvec4>::tsvec4(type& xr, type& yr, type
 }
 
 
-//IJK_SWIZZLE_XY(IJK_SWIZZLE2, IJK_SWIZZLE3, IJK_SWIZZLE4, 2, 2, 2, i);
-//IJK_SWIZZLE_XYZ(IJK_SWIZZLE2, IJK_SWIZZLE3, IJK_SWIZZLE4, 3, 3, 3, i);
-//IJK_SWIZZLE_XYZW(IJK_SWIZZLE2, IJK_SWIZZLE3, IJK_SWIZZLE4, 4, 4, 4, i);
-//IJK_SWIZZLE_XY(IJK_SWIZZLE2, IJK_SWIZZLE3, IJK_SWIZZLE4, 2, 2, 2, f);
-//IJK_SWIZZLE_XYZ(IJK_SWIZZLE2, IJK_SWIZZLE3, IJK_SWIZZLE4, 3, 3, 3, f);
-//IJK_SWIZZLE_XYZW(IJK_SWIZZLE2, IJK_SWIZZLE3, IJK_SWIZZLE4, 4, 4, 4, f);
-//IJK_SWIZZLE_XY(IJK_SWIZZLE2, IJK_SWIZZLE3, IJK_SWIZZLE4, 2, 2, 2, d);
-//IJK_SWIZZLE_XYZ(IJK_SWIZZLE2, IJK_SWIZZLE3, IJK_SWIZZLE4, 3, 3, 3, d);
-//IJK_SWIZZLE_XYZW(IJK_SWIZZLE2, IJK_SWIZZLE3, IJK_SWIZZLE4, 4, 4, 4, d);
-IJK_SWIZZLE_READONLY(IJK_SWIZZLE_IMPL, 2, ivec, ivec, inline);
-IJK_SWIZZLE_WRITABLE(IJK_SWIZZLE_IMPL, 2, ivec, isvec, inline);
+IJK_SWIZZLE_READONLY(IJK_SWIZZLE_FMT_IMPL, 2, ivec, ivec, inline);
+IJK_SWIZZLE_WRITABLE(IJK_SWIZZLE_FMT_IMPL, 2, ivec, isvec, inline);
 
+
+//-----------------------------------------------------------------------------
+
+// Swizzle shorthand macros.
+///
 #define x		_x()
 #define y		_y()
 #define z		_z()
@@ -1424,6 +1414,18 @@ IJK_SWIZZLE_WRITABLE(IJK_SWIZZLE_IMPL, 2, ivec, isvec, inline);
 #define qqqt	_wwwy()
 #define qqqp	_wwwz()
 #define qqqq	_wwww()
+
+
+//-----------------------------------------------------------------------------
+/*
+// IJK_SWIZZLE_FMT_IMPL_TEMP
+//	Pass to IJK_SWIZZLE as 'swizzleFormat' to implement inline swizzling
+//	functions outside of target interface using template types. Requires
+//	prior IJK_SWIZZLE_DECL within target interface.
+#define IJK_SWIZZLE_FMT_IMPL_TEMP(inl,cf,ot,rtb,rts,x,y,z,w,...)								template<typename type, typename tvec1, typename tvec2, typename tvec3, typename tvec4> inl rtb##rts<type,tvec1,tvec2,tvec3,tvec4> ot<type,tvec1,tvec2,tvec3,tvec4>::_##x##y##z##w() cf { return rtb##rts<type,tvec1,tvec2,tvec3,tvec4>(__VA_ARGS__); }
+IJK_SWIZZLE_READONLY(IJK_SWIZZLE_FMT_IMPL_TEMP, 1, tvec, tvec, inline);
+IJK_SWIZZLE_WRITABLE(IJK_SWIZZLE_FMT_IMPL_TEMP, 1, tvec, tsvec, inline);
+*/
 
 #pragma endregion
 // IJK_SWIZZLE_MACRO_IMPL

@@ -40,7 +40,7 @@ typedef	unsigned	char					ui8, byte, ubyte, keycode;
 typedef	unsigned	short					ui16, word;
 typedef	unsigned	long					ui32, dword;
 typedef	unsigned	long long				ui64, qword;
-typedef				float					f32, flt, single, sngl;
+typedef				float					f32, flt;
 typedef				double					f64, dbl;
 
 
