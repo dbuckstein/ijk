@@ -51,6 +51,69 @@ extern "C" {
 // IJK_SWIZZLE_MACRO_DECL
 #pragma region IJK_SWIZZLE_MACRO_DECL
 
+// Internal swizzling implementation.
+///
+#define IJK_SWIZZLE_U1(swiz,inl,cf,ot,rtb,x,...)			swiz(inl,cf,ot,rtb,1,x,,,,x)	// unique 1
+#define IJK_SWIZZLE_U2(swiz,inl,cf,ot,rtb,x,y,...)			swiz(inl,cf,ot,rtb,2,x,y,,,x,y)	// unique 2
+#define IJK_SWIZZLE_U3(swiz,inl,cf,ot,rtb,x,y,z,...)		swiz(inl,cf,ot,rtb,3,x,y,z,,x,y,z)	// unique 3
+#define IJK_SWIZZLE_U4(swiz,inl,cf,ot,rtb,x,y,z,w,...)		swiz(inl,cf,ot,rtb,4,x,y,z,w,x,y,z,w)	// unique 4
+#define IJK_SWIZZLE_D1(swiz,inl,cf,ot,rtb,x,...)			swiz(inl,cf,ot,rtb,2,x,x,,,x,x); swiz(inl,cf,ot,rtb,3,x,x,x,,x,x,x); swiz(inl,cf,ot,rtb,4,x,x,x,x,x,x,x,x)	// duplicate 1
+#define IJK_SWIZZLE_D2(swiz,inl,cf,ot,rtb,x,y,...)			swiz(inl,cf,ot,rtb,3,x,x,y,,x,x,y); swiz(inl,cf,ot,rtb,3,x,y,x,,x,y,x); swiz(inl,cf,ot,rtb,3,x,y,y,,x,y,y); swiz(inl,cf,ot,rtb,4,x,x,x,y,x,x,x,y); swiz(inl,cf,ot,rtb,4,x,x,y,x,x,x,y,x); swiz(inl,cf,ot,rtb,4,x,x,y,y,x,x,y,y); swiz(inl,cf,ot,rtb,4,x,y,x,x,x,y,x,x); swiz(inl,cf,ot,rtb,4,x,y,x,y,x,y,x,y); swiz(inl,cf,ot,rtb,4,x,y,y,x,x,y,y,x); swiz(inl,cf,ot,rtb,4,x,y,y,y,x,y,y,y)	// duplicate 2
+#define IJK_SWIZZLE_D3(swiz,inl,cf,ot,rtb,x,y,z,...)		swiz(inl,cf,ot,rtb,4,x,x,y,z,x,x,y,z); swiz(inl,cf,ot,rtb,4,x,y,x,z,x,y,x,z); swiz(inl,cf,ot,rtb,4,x,y,y,z,x,y,y,z); swiz(inl,cf,ot,rtb,4,x,y,z,z,x,y,z,z); swiz(inl,cf,ot,rtb,4,x,y,z,y,x,y,z,y); swiz(inl,cf,ot,rtb,4,x,y,z,x,x,y,z,x)	// duplicate 3
+#define IJK_SWIZZLE_D4(swiz,inl,cf,ot,rtb,x,y,z,w,...)		// duplicate 4	// empty set, no combos remaining
+#define IJK_SWIZZLE_F1(swiz,inl,cf,ot,rtb,f1,...)			f1(swiz,inl,cf,ot,rtb,x,,,)
+#define IJK_SWIZZLE_F2(swiz,inl,cf,ot,rtb,f1,f2,...)		IJK_SWIZZLE_F1(swiz,inl,cf,ot,rtb,f1); f1(swiz,inl,cf,ot,rtb,y,,,); f2(swiz,inl,cf,ot,rtb,x,y,,); f2(swiz,inl,cf,ot,rtb,y,x,,)
+#define IJK_SWIZZLE_F3(swiz,inl,cf,ot,rtb,f1,f2,f3,...)		IJK_SWIZZLE_F2(swiz,inl,cf,ot,rtb,f1,f2); f1(swiz,inl,cf,ot,rtb,z,,,); f2(swiz,inl,cf,ot,rtb,x,z,,); f2(swiz,inl,cf,ot,rtb,z,x,,); f2(swiz,inl,cf,ot,rtb,y,z,,); f2(swiz,inl,cf,ot,rtb,z,x,,); f3(swiz,inl,cf,ot,rtb,x,y,z,); f3(swiz,inl,cf,ot,rtb,y,z,x,); f3(swiz,inl,cf,ot,rtb,z,x,y,); f3(swiz,inl,cf,ot,rtb,y,x,z,); f3(swiz,inl,cf,ot,rtb,x,z,y,); f3(swiz,inl,cf,ot,rtb,z,y,x,)
+#define IJK_SWIZZLE_F4(swiz,inl,cf,ot,rtb,f1,f2,f3,f4,...)	IJK_SWIZZLE_F3(swiz,inl,cf,ot,rtb,f1,f2,f3); f1(swiz,inl,cf,ot,rtb,w,,,); f2(swiz,inl,cf,ot,rtb,x,w,,); f2(swiz,inl,cf,ot,rtb,w,x,,); f2(swiz,inl,cf,ot,rtb,y,w,,); f2(swiz,inl,cf,ot,rtb,w,y,,); f2(swiz,inl,cf,ot,rtb,z,w,,); f2(swiz,inl,cf,ot,rtb,w,z,,); f3(swiz,inl,cf,ot,rtb,x,y,w,); f3(swiz,inl,cf,ot,rtb,y,x,w,); f3(swiz,inl,cf,ot,rtb,x,z,w,); f3(swiz,inl,cf,ot,rtb,z,x,w,); f3(swiz,inl,cf,ot,rtb,x,w,y,); f3(swiz,inl,cf,ot,rtb,w,x,y,); f3(swiz,inl,cf,ot,rtb,y,z,w,); f3(swiz,inl,cf,ot,rtb,z,y,w,); f3(swiz,inl,cf,ot,rtb,y,w,x,); f3(swiz,inl,cf,ot,rtb,w,y,x,); f3(swiz,inl,cf,ot,rtb,x,w,z,); f3(swiz,inl,cf,ot,rtb,w,x,z,); f3(swiz,inl,cf,ot,rtb,y,w,z,); f3(swiz,inl,cf,ot,rtb,w,y,z,); f3(swiz,inl,cf,ot,rtb,z,w,x,); f3(swiz,inl,cf,ot,rtb,w,z,x,); f3(swiz,inl,cf,ot,rtb,w,z,y,); f3(swiz,inl,cf,ot,rtb,z,w,y,); f4(swiz,inl,cf,ot,rtb,x,y,z,w); f4(swiz,inl,cf,ot,rtb,x,y,w,z); f4(swiz,inl,cf,ot,rtb,x,z,y,w); f4(swiz,inl,cf,ot,rtb,x,z,w,y); f4(swiz,inl,cf,ot,rtb,x,w,y,z); f4(swiz,inl,cf,ot,rtb,x,w,z,y); f4(swiz,inl,cf,ot,rtb,y,x,z,w); f4(swiz,inl,cf,ot,rtb,y,x,w,z); f4(swiz,inl,cf,ot,rtb,y,z,x,w); f4(swiz,inl,cf,ot,rtb,y,z,w,x); f4(swiz,inl,cf,ot,rtb,y,w,x,z); f4(swiz,inl,cf,ot,rtb,y,w,z,x); f4(swiz,inl,cf,ot,rtb,z,x,y,w); f4(swiz,inl,cf,ot,rtb,z,x,w,y); f4(swiz,inl,cf,ot,rtb,z,y,x,w); f4(swiz,inl,cf,ot,rtb,z,y,w,x); f4(swiz,inl,cf,ot,rtb,z,w,x,y); f4(swiz,inl,cf,ot,rtb,z,w,y,x); f4(swiz,inl,cf,ot,rtb,w,x,y,z); f4(swiz,inl,cf,ot,rtb,w,x,z,y); f4(swiz,inl,cf,ot,rtb,w,y,x,z); f4(swiz,inl,cf,ot,rtb,w,y,z,x); f4(swiz,inl,cf,ot,rtb,w,z,x,y); f4(swiz,inl,cf,ot,rtb,w,z,y,x)
+#define IJK_SWIZZLE(F,swiz,inl,cf,ot,rtb,f1,f2,f3,f4)		F(swiz,inl,cf,ot,rtb,f1,f2,f3,f4)
+
+// IJK_SWIZZLE_READONLY
+//	Configure read-only (constant) swizzling in calling interface.
+//		param swizzleFormat: swizzle function format ('IJK_SWIZZLE_DECL' or 'IJK_SWIZZLE_IMPL' or 'IJK_SWIZZLE_DECL_IMPL')
+//		param ownerTypeSize: owner type size (e.g. just '2' for some version of vec2)
+//		param ownerTypeBase: owner type, without size, of swizzle function (e.g. 'ivec' not 'ivec2')
+//		param returnTypeBase: return type, without size, of swizzle results (e.g. 'ivec' not 'ivec2'; may differ from 'ownerTypeBase')
+//		param __VA_ARGS__: optional: pass 'inline' to add inline qualifier to functions
+#define IJK_SWIZZLE_READONLY(swizzleFormat,ownerTypeSize,ownerTypeBase,returnTypeBase,...)	IJK_SWIZZLE(IJK_SWIZZLE_F##ownerTypeSize,swizzleFormat,__VA_ARGS__,const,ownerTypeBase##ownerTypeSize,returnTypeBase,IJK_SWIZZLE_D1,IJK_SWIZZLE_D2,IJK_SWIZZLE_D3,IJK_SWIZZLE_D4); IJK_SWIZZLE(IJK_SWIZZLE_F##ownerTypeSize,swizzleFormat,__VA_ARGS__,const,ownerTypeBase##ownerTypeSize,returnTypeBase,IJK_SWIZZLE_U1,IJK_SWIZZLE_U2,IJK_SWIZZLE_U3,IJK_SWIZZLE_U4)
+
+// IJK_SWIZZLE_WRITABLE
+//	Configure writable (non-constant) swizzling in calling interface.
+//		param swizzleFormat: swizzle function format ('IJK_SWIZZLE_DECL' or 'IJK_SWIZZLE_IMPL' or 'IJK_SWIZZLE_DECL_IMPL')
+//		param ownerTypeSize: owner type size (e.g. just '2' for some version of vec2)
+//		param ownerTypeBase: owner type, without size, of swizzle function (e.g. 'ivec' not 'ivec2')
+//		param returnTypeBase: return type, without size, of swizzle results (e.g. 'ivec' not 'ivec2'; may differ from 'ownerTypeBase')
+//		param __VA_ARGS__: optional: pass 'inline' to add inline qualifier to functions
+#define IJK_SWIZZLE_WRITABLE(swizzleFormat,ownerTypeSize,ownerTypeBase,returnTypeBase,...)	IJK_SWIZZLE(IJK_SWIZZLE_F##ownerTypeSize,swizzleFormat,__VA_ARGS__,,ownerTypeBase##ownerTypeSize,returnTypeBase,IJK_SWIZZLE_U1,IJK_SWIZZLE_U2,IJK_SWIZZLE_U3,IJK_SWIZZLE_U4)
+
+// IJK_SWIZZLE_DECL
+//	Pass to IJK_SWIZZLE as 'swizzleMacro' to declare swizzling functions 
+//	within interface. Follow with IJK_SWIZZLE_IMPL or IJK_SWIZZLE_IMPL_TEMP 
+//	outside of the interface (in header or inline file).
+#define IJK_SWIZZLE_DECL(inl,cf,ot,rtb,rts,x,y,z,w,...)										inl rtb##rts _##x##y##z##w() cf
+
+// IJK_SWIZZLE_IMPL
+//	Pass to IJK_SWIZZLE as 'swizzleMacro' to implement inline swizzling 
+//	functions outside of target interface. Requires prior IJK_SWIZZLE_DECL 
+//	within target interface.
+#define IJK_SWIZZLE_IMPL(inl,cf,ot,rtb,rts,x,y,z,w,...)										inl rtb##rts ot::_##x##y##z##w() cf { return rtb##rts(__VA_ARGS__); }
+
+// IJK_SWIZZLE_DECL_IMPL
+//	Pass to IJK_SWIZZLE as 'swizzleMacro' to declare and implement swizzling 
+//	functions within interface.
+#define IJK_SWIZZLE_DECL_IMPL(inl,cf,ot,rtb,rts,x,y,z,w,...)								inl rtb##rts _##x##y##z##w() cf { return rtb##rts(__VA_ARGS__); }
+
+// IJK_SWIZZLE_IMPL_TEMP
+//	Pass to IJK_SWIZZLE as 'swizzleMacro' to implement inline swizzling 
+//	functions outside of target interface using template types. Requires 
+//	prior IJK_SWIZZLE_DECL within target interface.
+#define IJK_SWIZZLE_IMPL_TEMP(inl,cf,ot,rtb,rts,x,y,z,w,...)								template<typename type, typename tvec1, typename tvec2, typename tvec3, typename tvec4> inl rtb##rts<type,tvec1,tvec2,tvec3,tvec4> ot::_##x##y##z##w() cf { return rtb##rts<type,tvec1,tvec2,tvec3,tvec4>(__VA_ARGS__); }
+
+// IJK_SWIZZLE_DECL_IMPL_TEMP
+//	Pass to IJK_SWIZZLE as 'swizzleMacro' to declare and implement swizzling 
+//	functions within interface using template types.
+#define IJK_SWIZZLE_DECL_IMPL_TEMP(inl,cf,ot,rtb,rts,x,y,z,w,...)							inl rtb##rts<type,tvec1,tvec2,tvec3,tvec4> _##x##y##z##w() cf { return rtb##rts<type,tvec1,tvec2,tvec3,tvec4>(__VA_ARGS__); }
+
+
 template <typename type, typename tvec1, typename tvec2, typename tvec3, typename tvec4>
 struct tsvec1
 {
@@ -107,18 +170,24 @@ private:
 	friend tvec4;
 };
 
-template<typename type>
+template<typename type, typename tvec2, typename tvec3, typename tvec4>
 union tvec1
 {
+	inline tvec1(type const xc = 0) : x(xc) {}
+	inline tvec1& operator =(type const xc) { x = xc; return *this; }
+	inline operator type& () { return x; }
+	inline operator type const() const { return x; }
+
+	IJK_SWIZZLE_READONLY(IJK_SWIZZLE_DECL_IMPL, 1, tvec, tvec);
+	IJK_SWIZZLE_WRITABLE(IJK_SWIZZLE_DECL_IMPL_TEMP, 1, tvec, tsvec);
+private:
 	type x;
-	tvec1(type const xc = 0);
-	tvec1(tvec1& const xc);
-	tvec1& operator =(type const xc);
-	tvec1& operator =(tvec1& const xc);
-	operator type& ();
-	operator type() const;
 };
 
+typedef tvec1<ui32, uvec2, uvec3, uvec4>			uvec1;
+typedef tvec1<i32, ivec2, ivec3, ivec4>				ivec1;
+typedef tvec1<flt, vec2, vec3, vec4>				vec1;
+typedef tvec1<dbl, dvec2, dvec3, dvec4>				dvec1;
 typedef tsvec1<ui32, uvec1, uvec2, uvec3, uvec4>	usvec1;
 typedef tsvec1<i32, ivec1, ivec2, ivec3, ivec4>		isvec1;
 typedef tsvec1<flt, vec1, vec2, vec3, vec4>			svec1;
@@ -135,59 +204,11 @@ typedef tsvec4<ui32, uvec1, uvec2, uvec3, uvec4>	usvec4;
 typedef tsvec4<i32, ivec1, ivec2, ivec3, ivec4>		isvec4;
 typedef tsvec4<flt, vec1, vec2, vec3, vec4>			svec4;
 typedef tsvec4<dbl, dvec1, dvec2, dvec3, dvec4>		dsvec4;
-typedef tvec1<ui32>									uvec1;
-typedef tvec1<i32>									ivec1;
-typedef tvec1<flt>									vec1;
-typedef tvec1<dbl>									dvec1;
 #define uint										uvec1
 #define int											ivec1
 #define float										vec1
 #define double										dvec1
 
-
-// Internal swizzling implementation.
-///
-#define IJK_SWIZZLE_U1(swiz,cf,ot,rt,x,...)				swiz(cf,ot,rt##1,x,,,,x) // unique 1
-#define IJK_SWIZZLE_U2(swiz,cf,ot,rt,x,y,...)			swiz(cf,ot,rt##2,x,y,,,x,y)	// unique 2
-#define IJK_SWIZZLE_U3(swiz,cf,ot,rt,x,y,z,...)			swiz(cf,ot,rt##3,x,y,z,,x,y,z)	// unique 3
-#define IJK_SWIZZLE_U4(swiz,cf,ot,rt,x,y,z,w,...)		swiz(cf,ot,rt##4,x,y,z,w,x,y,z,w)	// unique 4
-#define IJK_SWIZZLE_D1(swiz,cf,ot,rt,x,...)				swiz(cf,ot,rt##2,x,x,,,x,x); swiz(cf,ot,rt##3,x,x,x,,x,x,x); swiz(cf,ot,rt##4,x,x,x,x,x,x,x,x)	// duplicate 1
-#define IJK_SWIZZLE_D2(swiz,cf,ot,rt,x,y,...)			swiz(cf,ot,rt##3,x,x,y,,x,x,y); swiz(cf,ot,rt##3,x,y,x,,x,y,x); swiz(cf,ot,rt##3,x,y,y,,x,y,y); swiz(cf,ot,rt##4,x,x,x,y,x,x,x,y); swiz(cf,ot,rt##4,x,x,y,x,x,x,y,x); swiz(cf,ot,rt##4,x,x,y,y,x,x,y,y); swiz(cf,ot,rt##4,x,y,x,x,x,y,x,x); swiz(cf,ot,rt##4,x,y,x,y,x,y,x,y); swiz(cf,ot,rt##4,x,y,y,x,x,y,y,x); swiz(cf,ot,rt##4,x,y,y,y,x,y,y,y)	// duplicate 2
-#define IJK_SWIZZLE_D3(swiz,cf,ot,rt,x,y,z,...)			swiz(cf,ot,rt##4,x,x,y,z,x,x,y,z); swiz(cf,ot,rt##4,x,y,x,z,x,y,x,z); swiz(cf,ot,rt##4,x,y,y,z,x,y,y,z); swiz(cf,ot,rt##4,x,y,z,z,x,y,z,z); swiz(cf,ot,rt##4,x,y,z,y,x,y,z,y); swiz(cf,ot,rt##4,x,y,z,x,x,y,z,x)	// duplicate 3
-#define IJK_SWIZZLE_D4(swiz,cf,ot,rt,x,y,z,w,...)		// duplicate 4	// empty set, no combos remaining
-#define IJK_SWIZZLE_F1(swiz,cf,ot,rt,f1,...)			f1(swiz,cf,ot,rt,x,,,)
-#define IJK_SWIZZLE_F2(swiz,cf,ot,rt,f1,f2,...)			IJK_SWIZZLE_F1(swiz,cf,ot,rt,f1); f1(swiz,cf,ot,rt,y,,,); f2(swiz,cf,ot,rt,x,y,,); f2(swiz,cf,ot,rt,y,x,,)
-#define IJK_SWIZZLE_F3(swiz,cf,ot,rt,f1,f2,f3,...)		IJK_SWIZZLE_F2(swiz,cf,ot,rt,f1,f2); f1(swiz,cf,ot,rt,z,,,); f2(swiz,cf,ot,rt,x,z,,); f2(swiz,cf,ot,rt,z,x,,); f2(swiz,cf,ot,rt,y,z,,); f2(swiz,cf,ot,rt,z,x,,); f3(swiz,cf,ot,rt,x,y,z,); f3(swiz,cf,ot,rt,y,z,x,); f3(swiz,cf,ot,rt,z,x,y,); f3(swiz,cf,ot,rt,y,x,z,); f3(swiz,cf,ot,rt,x,z,y,); f3(swiz,cf,ot,rt,z,y,x,)
-#define IJK_SWIZZLE_F4(swiz,cf,ot,rt,f1,f2,f3,f4,...)	IJK_SWIZZLE_F3(swiz,cf,ot,rt,f1,f2,f3); f1(swiz,cf,ot,rt,w,,,); f2(swiz,cf,ot,rt,x,w,,); f2(swiz,cf,ot,rt,w,x,,); f2(swiz,cf,ot,rt,y,w,,); f2(swiz,cf,ot,rt,w,y,,); f2(swiz,cf,ot,rt,z,w,,); f2(swiz,cf,ot,rt,w,z,,); f3(swiz,cf,ot,rt,x,y,w,); f3(swiz,cf,ot,rt,y,x,w,); f3(swiz,cf,ot,rt,x,z,w,); f3(swiz,cf,ot,rt,z,x,w,); f3(swiz,cf,ot,rt,x,w,y,); f3(swiz,cf,ot,rt,w,x,y,); f3(swiz,cf,ot,rt,y,z,w,); f3(swiz,cf,ot,rt,z,y,w,); f3(swiz,cf,ot,rt,y,w,x,); f3(swiz,cf,ot,rt,w,y,x,); f3(swiz,cf,ot,rt,x,w,z,); f3(swiz,cf,ot,rt,w,x,z,); f3(swiz,cf,ot,rt,y,w,z,); f3(swiz,cf,ot,rt,w,y,z,); f3(swiz,cf,ot,rt,z,w,x,); f3(swiz,cf,ot,rt,w,z,x,); f3(swiz,cf,ot,rt,w,z,y,); f3(swiz,cf,ot,rt,z,w,y,); f4(swiz,cf,ot,rt,x,y,z,w); f4(swiz,cf,ot,rt,x,y,w,z); f4(swiz,cf,ot,rt,x,z,y,w); f4(swiz,cf,ot,rt,x,z,w,y); f4(swiz,cf,ot,rt,x,w,y,z); f4(swiz,cf,ot,rt,x,w,z,y); f4(swiz,cf,ot,rt,y,x,z,w); f4(swiz,cf,ot,rt,y,x,w,z); f4(swiz,cf,ot,rt,y,z,x,w); f4(swiz,cf,ot,rt,y,z,w,x); f4(swiz,cf,ot,rt,y,w,x,z); f4(swiz,cf,ot,rt,y,w,z,x); f4(swiz,cf,ot,rt,z,x,y,w); f4(swiz,cf,ot,rt,z,x,w,y); f4(swiz,cf,ot,rt,z,y,x,w); f4(swiz,cf,ot,rt,z,y,w,x); f4(swiz,cf,ot,rt,z,w,x,y); f4(swiz,cf,ot,rt,z,w,y,x); f4(swiz,cf,ot,rt,w,x,y,z); f4(swiz,cf,ot,rt,w,x,z,y); f4(swiz,cf,ot,rt,w,y,x,z); f4(swiz,cf,ot,rt,w,y,z,x); f4(swiz,cf,ot,rt,w,z,x,y); f4(swiz,cf,ot,rt,w,z,y,x)
-#define IJK_SWIZZLE(F,swiz,ot,rt,f1,f2,f3,f4,...)		F(swiz,__VA_ARGS__,ot,rt,f1,f2,f3,f4)
-
-// IJK_SWIZZLE_READONLY
-//	Configure read-only (constant) swizzling in calling interface.
-//		param swizzleFormat: swizzle function format ('IJK_SWIZZLE_DECL' or 'IJK_SWIZZLE_IMPL' or 'IJK_SWIZZLE_DECL_IMPL')
-//		param ownerTypeSize: owner type size (e.g. just '2' for some version of vec2)
-//		param ownerTypeBase: owner type, without size, of swizzle function (e.g. 'ivec' not 'ivec2')
-//		param returnTypeBase: return type, without size, of swizzle results (e.g. 'ivec' not 'ivec2'; may differ from 'ownerTypeBase')
-#define IJK_SWIZZLE_READONLY(swizzleFormat,ownerTypeSize,ownerTypeBase,returnTypeBase)	IJK_SWIZZLE(IJK_SWIZZLE_F##ownerTypeSize,swizzleFormat,ownerTypeBase##ownerTypeSize,returnTypeBase,IJK_SWIZZLE_D1,IJK_SWIZZLE_D2,IJK_SWIZZLE_D3,IJK_SWIZZLE_D4,const); IJK_SWIZZLE(IJK_SWIZZLE_F##ownerTypeSize,swizzleFormat,ownerTypeBase##ownerTypeSize,returnTypeBase,IJK_SWIZZLE_U1,IJK_SWIZZLE_U2,IJK_SWIZZLE_U3,IJK_SWIZZLE_U4,const)
-
-// IJK_SWIZZLE_WRITABLE
-//	Configure writable (non-constant) swizzling in calling interface.
-//		param swizzleFormat: swizzle function format ('IJK_SWIZZLE_DECL' or 'IJK_SWIZZLE_IMPL' or 'IJK_SWIZZLE_DECL_IMPL')
-//		param ownerTypeSize: owner type size (e.g. just '2' for some version of vec2)
-//		param ownerTypeBase: owner type, without size, of swizzle function (e.g. 'ivec' not 'ivec2')
-//		param returnTypeBase: return type, without size, of swizzle results (e.g. 'ivec' not 'ivec2'; may differ from 'ownerTypeBase')
-#define IJK_SWIZZLE_WRITABLE(swizzleFormat,ownerTypeSize,ownerTypeBase,returnTypeBase)	IJK_SWIZZLE(IJK_SWIZZLE_F##ownerTypeSize,swizzleFormat,ownerTypeBase##ownerTypeSize,returnTypeBase,IJK_SWIZZLE_U1,IJK_SWIZZLE_U2,IJK_SWIZZLE_U3,IJK_SWIZZLE_U4)
-
-// IJK_SWIZZLE_DECL
-//	Pass to IJK_SWIZZLE as 'swizzleMacro' to declare swizzling functions within interface.
-#define IJK_SWIZZLE_DECL(cf,ot,rt,x,y,z,w,...)											rt _##x##y##z##w() cf
-
-// IJK_SWIZZLE_IMPL
-//	Pass to IJK_SWIZZLE as 'swizzleMacro' to implement inline swizzling functions outside of interface (in header or inline file).
-#define IJK_SWIZZLE_IMPL(cf,ot,rt,x,y,z,w,...)											inline rt ot::_##x##y##z##w() cf { return rt(__VA_ARGS__); }
-
-// IJK_SWIZZLE_DECL_IMPL
-//	Pass to IJK_SWIZZLE as 'swizzleMacro' to declare and implement inline swizzling functions within interface.
-#define IJK_SWIZZLE_DECL_IMPL(cf,ot,rt,x,y,z,w,...)										inline rt _##x##y##z##w() cf { return rt(__VA_ARGS__); }
 
 #pragma endregion
 // IJK_SWIZZLE_MACRO_DECL

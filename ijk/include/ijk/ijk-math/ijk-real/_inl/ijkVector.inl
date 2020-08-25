@@ -71,6 +71,18 @@
 
 //-----------------------------------------------------------------------------
 
+
+
+//-----------------------------------------------------------------------------
+
+
+
+//-----------------------------------------------------------------------------
+
+
+
+//-----------------------------------------------------------------------------
+
 inline ivec2::ivec2(i32 const xy)
 	: x(xy), y(xy)
 {
@@ -269,27 +281,15 @@ inline bool ivec2::operator !=(ivec2 const& v_rh) const
 }
 
 
-inline ivec2 isvec2::operator=(ivec2 const v)
-{
-	return ivec2(x = v.x, y = v.y);
-}
-inline ivec2 isvec2::operator=(isvec2 const& v)
-{
-	return (*this = ivec2(v));
-}
-inline isvec2::isvec2(i32& xr, i32& yr)
-	: x(xr), y(yr)
-{
-}
-
-
 //-----------------------------------------------------------------------------
 
+inline ivec3::ivec3(i32 const xyz) : x(xyz), y(xyz), z(xyz) {}
 inline ivec3::ivec3(i32 const xc, i32 const yc, i32 const zc) : x(xc), y(yc), z(zc) {}
 
 
 //-----------------------------------------------------------------------------
 
+inline ivec4::ivec4(i32 const xyzw) : x(xyzw), y(xyzw), z(xyzw), w(xyzw) {}
 inline ivec4::ivec4(i32 const xc, i32 const yc, i32 const zc, i32 const wc) : x(xc), y(yc), z(zc), w(wc) {}
 
 
@@ -321,6 +321,74 @@ inline ivec4::ivec4(i32 const xc, i32 const yc, i32 const zc, i32 const wc) : x(
 
 // IJK_SWIZZLE_MACRO_IMPL
 #pragma region IJK_SWIZZLE_MACRO_IMPL
+
+template <typename type, typename tvec1, typename tvec2, typename tvec3, typename tvec4>
+inline tvec1 tsvec1<type, tvec1, tvec2, tvec3, tvec4>::operator=(tvec1 const v)
+{
+	return tvec1(x = v.x);
+}
+template <typename type, typename tvec1, typename tvec2, typename tvec3, typename tvec4>
+inline tvec1 tsvec1<type, tvec1, tvec2, tvec3, tvec4>::operator=(tsvec1 const& v)
+{
+	return (*this = tvec1(v));
+}
+template <typename type, typename tvec1, typename tvec2, typename tvec3, typename tvec4>
+inline tsvec1<type, tvec1, tvec2, tvec3, tvec4>::tsvec1(type& xr)
+	: x(xr)
+{
+}
+
+
+template <typename type, typename tvec1, typename tvec2, typename tvec3, typename tvec4>
+inline tvec2 tsvec2<type, tvec1, tvec2, tvec3, tvec4>::operator=(tvec2 const v)
+{
+	return tvec2(x = v.x, y = v.x);
+}
+template <typename type, typename tvec1, typename tvec2, typename tvec3, typename tvec4>
+inline tvec2 tsvec2<type, tvec1, tvec2, tvec3, tvec4>::operator=(tsvec2 const& v)
+{
+	return (*this = tvec2(v));
+}
+template <typename type, typename tvec1, typename tvec2, typename tvec3, typename tvec4>
+inline tsvec2<type, tvec1, tvec2, tvec3, tvec4>::tsvec2(type& xr, type& yr)
+	: x(xr), y(yr)
+{
+}
+
+
+template <typename type, typename tvec1, typename tvec2, typename tvec3, typename tvec4>
+inline tvec3 tsvec3<type, tvec1, tvec2, tvec3, tvec4>::operator=(tvec3 const v)
+{
+	return tvec3(x = v.x, y = v.x, z = v.z);
+}
+template <typename type, typename tvec1, typename tvec2, typename tvec3, typename tvec4>
+inline tvec3 tsvec3<type, tvec1, tvec2, tvec3, tvec4>::operator=(tsvec3 const& v)
+{
+	return (*this = tvec3(v));
+}
+template <typename type, typename tvec1, typename tvec2, typename tvec3, typename tvec4>
+inline tsvec3<type, tvec1, tvec2, tvec3, tvec4>::tsvec3(type& xr, type& yr, type& zr)
+	: x(xr), y(yr), z(zr)
+{
+}
+
+
+template <typename type, typename tvec1, typename tvec2, typename tvec3, typename tvec4>
+inline tvec4 tsvec4<type, tvec1, tvec2, tvec3, tvec4>::operator=(tvec4 const v)
+{
+	return tvec4(x = v.x, y = v.x, z = v.z, w = v.w);
+}
+template <typename type, typename tvec1, typename tvec2, typename tvec3, typename tvec4>
+inline tvec4 tsvec4<type, tvec1, tvec2, tvec3, tvec4>::operator=(tsvec4 const& v)
+{
+	return (*this = tvec4(v));
+}
+template <typename type, typename tvec1, typename tvec2, typename tvec3, typename tvec4>
+inline tsvec4<type, tvec1, tvec2, tvec3, tvec4>::tsvec4(type& xr, type& yr, type& zr, type& wr)
+	: x(xr), y(yr), z(zr), w(wr)
+{
+}
+
 
 //IJK_SWIZZLE_XY(IJK_SWIZZLE2, IJK_SWIZZLE3, IJK_SWIZZLE4, 2, 2, 2, i);
 //IJK_SWIZZLE_XYZ(IJK_SWIZZLE2, IJK_SWIZZLE3, IJK_SWIZZLE4, 3, 3, 3, i);
