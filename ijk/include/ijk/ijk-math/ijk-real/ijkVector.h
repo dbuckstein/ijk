@@ -55,55 +55,91 @@
 
 // IJK_SWIZZLE_READONLY
 //	Configure read-only (constant) swizzling in calling interface.
-//		param swizzleFormat: swizzle function format ('IJK_SWIZZLE_DECL' or 'IJK_SWIZZLE_IMPL' or 'IJK_SWIZZLE_DECL_IMPL')
-//		param ownerTypeSize: owner type size (e.g. just '2' for some version of vec2)
+//		param swizzleFormat: swizzle function format (see below)
+//		param ownerTypeSize: owner type size (e.g. just '2' for some version of 2D vector)
 //		param ownerTypeBase: owner type, without size, of swizzle function (e.g. 'ivec' not 'ivec2')
 //		param returnTypeBase: return type, without size, of swizzle results (e.g. 'ivec' not 'ivec2'; may differ from 'ownerTypeBase')
-//		param __VA_ARGS__: optional: pass 'inline' to add inline qualifier to functions
+//		param __VA_ARGS__ (optional): pass 'inline' to add inline qualifier to functions
 #define IJK_SWIZZLE_READONLY(swizzleFormat,ownerTypeSize,ownerTypeBase,returnTypeBase,...)	IJK_SWIZZLE(IJK_SWIZZLE_F##ownerTypeSize,swizzleFormat,__VA_ARGS__,const,ownerTypeBase##ownerTypeSize,returnTypeBase,IJK_SWIZZLE_D1,IJK_SWIZZLE_D2,IJK_SWIZZLE_D3,IJK_SWIZZLE_D4); IJK_SWIZZLE(IJK_SWIZZLE_F##ownerTypeSize,swizzleFormat,__VA_ARGS__,const,ownerTypeBase##ownerTypeSize,returnTypeBase,IJK_SWIZZLE_U1,IJK_SWIZZLE_U2,IJK_SWIZZLE_U3,IJK_SWIZZLE_U4)
 
 // IJK_SWIZZLE_WRITABLE
 //	Configure writable (non-constant) swizzling in calling interface.
-//		param swizzleFormat: swizzle function format ('IJK_SWIZZLE_DECL' or 'IJK_SWIZZLE_IMPL' or 'IJK_SWIZZLE_DECL_IMPL')
-//		param ownerTypeSize: owner type size (e.g. just '2' for some version of vec2)
+//		param swizzleFormat: swizzle function format (see below)
+//		param ownerTypeSize: owner type size (e.g. just '2' for some version of 2D vector)
 //		param ownerTypeBase: owner type, without size, of swizzle function (e.g. 'ivec' not 'ivec2')
 //		param returnTypeBase: return type, without size, of swizzle results (e.g. 'ivec' not 'ivec2'; may differ from 'ownerTypeBase')
-//		param __VA_ARGS__: optional: pass 'inline' to add inline qualifier to functions
+//		param __VA_ARGS__ (optional): pass 'inline' to add inline qualifier to functions
 #define IJK_SWIZZLE_WRITABLE(swizzleFormat,ownerTypeSize,ownerTypeBase,returnTypeBase,...)	IJK_SWIZZLE(IJK_SWIZZLE_F##ownerTypeSize,swizzleFormat,__VA_ARGS__,,ownerTypeBase##ownerTypeSize,returnTypeBase,IJK_SWIZZLE_U1,IJK_SWIZZLE_U2,IJK_SWIZZLE_U3,IJK_SWIZZLE_U4)
 
-// IJK_SWIZZLE_FMT_DECL
-//	Pass to IJK_SWIZZLE as 'swizzleFormat' to declare swizzling functions 
-//	within interface. Follow with IJK_SWIZZLE_IMPL or IJK_SWIZZLE_IMPL_TEMP 
-//	outside of calling interface.
-#define IJK_SWIZZLE_FMT_DECL(inl,cf,ot,rtb,rts,x,y,z,w,...)										inl rtb##rts _##x##y##z##w() cf
+// IJK_SWIZZLE_DECL
+//	Pass to IJK_SWIZZLE_READONLY or IJK_SWIZZLE_READONLY as 'swizzleFormat'
+//	to declare swizzling functions within interface. Requires paired use of
+//	IJK_SWIZZLE_IMPL, IJK_SWIZZLE_IMPL_TEMP or IJK_SWIZZLE_IMPL_RTEMP
+//	outside of target interface.
+#define IJK_SWIZZLE_DECL(inl,cf,ot,rtb,rts,x,y,z,w,...)										inl rtb##rts _##x##y##z##w() cf
 
-// IJK_SWIZZLE_FMT_IMPL
-//	Pass to IJK_SWIZZLE as 'swizzleFormat' to implement inline swizzling 
-//	functions outside of target interface. Requires prior IJK_SWIZZLE_DECL 
-//	within target interface.
-#define IJK_SWIZZLE_FMT_IMPL(inl,cf,ot,rtb,rts,x,y,z,w,...)										inl rtb##rts ot::_##x##y##z##w() cf { return rtb##rts(__VA_ARGS__); }
+// IJK_SWIZZLE_DECL_IMPL
+//	Pass to IJK_SWIZZLE_READONLY or IJK_SWIZZLE_READONLY as 'swizzleFormat'
+//	to declare and implement swizzling functions within interface.
+#define IJK_SWIZZLE_DECL_IMPL(inl,cf,ot,rtb,rts,x,y,z,w,...)								inl rtb##rts _##x##y##z##w() cf { return rtb##rts(__VA_ARGS__); }
 
-// IJK_SWIZZLE_FMT_DECL_IMPL
-//	Pass to IJK_SWIZZLE as 'swizzleFormat' to declare and implement swizzling 
-//	functions within interface.
-#define IJK_SWIZZLE_FMT_DECL_IMPL(inl,cf,ot,rtb,rts,x,y,z,w,...)								inl rtb##rts _##x##y##z##w() cf { return rtb##rts(__VA_ARGS__); }
+// IJK_SWIZZLE_IMPL
+//	Pass to IJK_SWIZZLE_READONLY or IJK_SWIZZLE_READONLY as 'swizzleFormat'
+//	to implement swizzling functions outside of target interface. Requires
+//	prior paired use of IJK_SWIZZLE_DECL within target interface.
+#define IJK_SWIZZLE_IMPL(inl,cf,ot,rtb,rts,x,y,z,w,...)										inl rtb##rts ot::_##x##y##z##w() cf { return rtb##rts(__VA_ARGS__); }
 
-// IJK_SWIZZLE_FMT_DECL_IMPL_TEMP
-//	Pass to IJK_SWIZZLE as 'swizzleFormat' to declare and implement swizzling 
-//	functions within interface using template types.
-#define IJK_SWIZZLE_FMT_DECL_IMPL_TEMP(inl,cf,ot,rtb,rts,x,y,z,w,...)							inl rtb##rts<type,tvec1,tvec2,tvec3,tvec4> _##x##y##z##w() cf { return rtb##rts<type,tvec1,tvec2,tvec3,tvec4>(__VA_ARGS__); }
+// IJK_SWIZZLE_DECL_RTEMP
+//	Pass to IJK_SWIZZLE_READONLY or IJK_SWIZZLE_READONLY as 'swizzleFormat'
+//	to declare swizzling functions within interface using template return
+//	types. Requires paired use of IJK_SWIZZLE_IMPL_RTEMP outside of target 
+//	interface.
+#define IJK_SWIZZLE_DECL_RTEMP(inl,cf,ot,rtb,rts,x,y,z,w,...)								inl rtb##rts<type,tvec1,tvec2,tvec3,tvec4> _##x##y##z##w() cf
+
+// IJK_SWIZZLE_DECL_IMPL_RTEMP
+//	Pass to IJK_SWIZZLE_READONLY or IJK_SWIZZLE_READONLY as 'swizzleFormat'
+//	to declare and implement swizzling functions within template interface
+//	using template return types.
+#define IJK_SWIZZLE_DECL_IMPL_RTEMP(inl,cf,ot,rtb,rts,x,y,z,w,...)							inl rtb##rts<type,tvec1,tvec2,tvec3,tvec4> _##x##y##z##w() cf { return rtb##rts<type,tvec1,tvec2,tvec3,tvec4>(__VA_ARGS__); }
+
+// IJK_SWIZZLE_IMPL_TEMP
+//	Pass to IJK_SWIZZLE_READONLY or IJK_SWIZZLE_READONLY as 'swizzleFormat'
+//	to implement swizzling functions outside of target template interface.
+//	Requires prior paired use of IJK_SWIZZLE_DECL within target interface.
+#define IJK_SWIZZLE_IMPL_TEMP(inl,cf,ot,rtb,rts,x,y,z,w,...)								template<typename type, typename tvec1, typename tvec2, typename tvec3, typename tvec4> inl rtb##rts ot<type,tvec1,tvec2,tvec3,tvec4>::_##x##y##z##w() cf { return rtb##rts(__VA_ARGS__); }
+
+// IJK_SWIZZLE_IMPL_RTEMP
+//	Pass to IJK_SWIZZLE_READONLY or IJK_SWIZZLE_READONLY as 'swizzleFormat'
+//	to implement swizzling functions outside of target template interface
+//	using template return types. Requires prior IJK_SWIZZLE_DECL within
+//	target interface.
+#define IJK_SWIZZLE_IMPL_RTEMP(inl,cf,ot,rtb,rts,x,y,z,w,...)								template<typename type, typename tvec1, typename tvec2, typename tvec3, typename tvec4> inl rtb##rts<type,tvec1,tvec2,tvec3,tvec4> ot<type,tvec1,tvec2,tvec3,tvec4>::_##x##y##z##w() cf { return rtb##rts<type,tvec1,tvec2,tvec3,tvec4>(__VA_ARGS__); }
 
 
 //-----------------------------------------------------------------------------
+
+template <typename type, typename tvec1, typename tvec2, typename tvec3, typename tvec4>
+struct stvec4;
+
+template <typename type, typename tvec1, typename tvec2, typename tvec3, typename tvec4>
+struct stvec3;
+
+template <typename type, typename tvec1, typename tvec2, typename tvec3, typename tvec4>
+struct stvec2;
 
 template <typename type, typename tvec1, typename tvec2, typename tvec3, typename tvec4>
 struct stvec1
 {
 	tvec1 operator =(tvec1 const v);
 	tvec1 operator =(stvec1 const& v);
+	IJK_SWIZZLE_READONLY(IJK_SWIZZLE_DECL, 1, stvec, tvec);
+	IJK_SWIZZLE_WRITABLE(IJK_SWIZZLE_DECL_RTEMP, 1, stvec, stvec);
 private:
 	type& x;
 	stvec1(type& xr);
+	friend stvec2<type, tvec1, tvec2, tvec3, tvec4>;
+	friend stvec3<type, tvec1, tvec2, tvec3, tvec4>;
+	friend stvec4<type, tvec1, tvec2, tvec3, tvec4>;
 	friend tvec1;
 	friend tvec2;
 	friend tvec3;
@@ -115,9 +151,13 @@ struct stvec2
 {
 	tvec2 operator =(tvec2 const v);
 	tvec2 operator =(stvec2 const& v);
+	IJK_SWIZZLE_READONLY(IJK_SWIZZLE_DECL, 2, stvec, tvec);
+	IJK_SWIZZLE_WRITABLE(IJK_SWIZZLE_DECL_RTEMP, 2, stvec, stvec);
 private:
 	type& x, & y;
 	stvec2(type& xr, type& yr);
+	friend stvec3<type, tvec1, tvec2, tvec3, tvec4>;
+	friend stvec4<type, tvec1, tvec2, tvec3, tvec4>;
 	friend tvec1;
 	friend tvec2;
 	friend tvec3;
@@ -129,9 +169,12 @@ struct stvec3
 {
 	tvec3 operator =(tvec3 const v);
 	tvec3 operator =(stvec3 const& v);
+//	IJK_SWIZZLE_READONLY(IJK_SWIZZLE_DECL, 3, stvec, tvec);
+//	IJK_SWIZZLE_WRITABLE(IJK_SWIZZLE_DECL_RTEMP, 3, stvec, stvec);
 private:
 	type& x, & y, & z;
 	stvec3(type& xr, type& yr, type& zr);
+	friend stvec4<type, tvec1, tvec2, tvec3, tvec4>;
 	friend tvec1;
 	friend tvec2;
 	friend tvec3;
@@ -143,6 +186,8 @@ struct stvec4
 {
 	tvec4 operator =(tvec4 const v);
 	tvec4 operator =(stvec4 const& v);
+//	IJK_SWIZZLE_READONLY(IJK_SWIZZLE_DECL, 4, stvec, tvec);
+//	IJK_SWIZZLE_WRITABLE(IJK_SWIZZLE_DECL_RTEMP, 4, stvec, stvec);
 private:
 	type& x, & y, & z, & w;
 	stvec4(type& xr, type& yr, type& zr, type& wr);
@@ -152,18 +197,17 @@ private:
 	friend tvec4;
 };
 
-template<typename type, typename tvec2, typename tvec3, typename tvec4>
-union tvec1
+template<typename type, typename tvec1, typename tvec2, typename tvec3, typename tvec4>
+union ttvec1
 {
-	tvec1(type const xc = 0);
-	tvec1& operator =(type const xc);
+	ttvec1(type const xc = 0);
+	ttvec1& operator =(type const xc);
 	operator type () const;
 	operator type& ();
 	explicit operator type const* () const;
 	explicit operator type* ();
-
-	IJK_SWIZZLE_READONLY(IJK_SWIZZLE_FMT_DECL_IMPL, 1, tvec, tvec, inline);
-	IJK_SWIZZLE_WRITABLE(IJK_SWIZZLE_FMT_DECL_IMPL_TEMP, 1, tvec, stvec, inline);
+	IJK_SWIZZLE_READONLY(IJK_SWIZZLE_DECL, 1, ttvec, tvec);
+	IJK_SWIZZLE_WRITABLE(IJK_SWIZZLE_DECL_RTEMP, 1, ttvec, stvec);
 private:
 	type v[1];
 	type x;
@@ -188,11 +232,11 @@ extern "C" {
 	union dvec4;
 }
 
-typedef tvec1<ibool, bvec2, bvec3, bvec4>			bvec1;
-typedef tvec1<i32, ivec2, ivec3, ivec4>				ivec1;
-typedef tvec1<ui32, uvec2, uvec3, uvec4>			uvec1;
-typedef tvec1<flt, vec2, vec3, vec4>				vec1;
-typedef tvec1<dbl, dvec2, dvec3, dvec4>				dvec1;
+typedef ttvec1<ibool, void, bvec2, bvec3, bvec4>	bvec1;
+typedef ttvec1<i32, void, ivec2, ivec3, ivec4>		ivec1;
+typedef ttvec1<ui32, void, uvec2, uvec3, uvec4>		uvec1;
+typedef ttvec1<flt, void, vec2, vec3, vec4>			vec1;
+typedef ttvec1<dbl, void, dvec2, dvec3, dvec4>		dvec1;
 #define bool										bvec1
 #define int											ivec1
 #define uint										uvec1
@@ -283,7 +327,7 @@ typedef double
 	double4[4],					// 4D double-precision array-based vector, always passed by pointer.
 	* doublev;					// Generic double-precision array-based vector, represented by pointer, used as vector return type since returning sized array is not allowed.
 
-typedef bool const* boolkv;		// Generic constant signed integer array-based vector, represented by pointer, used as constant vector return type since returning sized array is not allowed.
+typedef bool const* boolkv;		// Generic constant boolean array-based vector, represented by pointer, used as constant vector return type since returning sized array is not allowed.
 typedef int const* intkv;		// Generic constant signed integer array-based vector, represented by pointer, used as constant vector return type since returning sized array is not allowed.
 typedef uint const* uintkv;		// Generic constant unsigned integer array-based vector, represented by pointer, used as constant vector return type since returning sized array is not allowed.
 typedef float const* floatkv;	// Generic constant single-precision array-based vector, represented by pointer, used as constant vector return type since returning sized array is not allowed.
@@ -292,6 +336,13 @@ typedef double const* doublekv;	// Generic constant double-precision array-based
 
 //-----------------------------------------------------------------------------
 
+// bvec2
+//	Data structure representing 2D boolean vector.
+//		member v: array of elements, used as pointer argument to vector functions
+//		member xyz: 2D vector of first three components, useful for direct assignment
+//		members x, y: individual named elements representing a spatial coordinate
+//		members r, g: individual named elements representing a color
+//		members s, t: individual named elements representing a parametric coordinate
 union bvec2
 {
 	bool2 v;
@@ -306,7 +357,7 @@ union bvec2
 };
 
 // bvec3
-//	Data structure representing 4D boolean vector.
+//	Data structure representing 3D boolean vector.
 //		member v: array of elements, used as pointer argument to vector functions
 //		member xyz: 3D vector of first three components, useful for direct assignment
 //		members x, y, z: individual named elements representing a spatial coordinate
@@ -457,8 +508,8 @@ union ivec2
 	operator intv ();
 	operator i32* ();
 
-	IJK_SWIZZLE_READONLY(IJK_SWIZZLE_FMT_DECL, 2, ivec, ivec);
-	IJK_SWIZZLE_WRITABLE(IJK_SWIZZLE_FMT_DECL, 2, ivec, sivec);
+	IJK_SWIZZLE_READONLY(IJK_SWIZZLE_DECL, 2, ivec, ivec);
+	IJK_SWIZZLE_WRITABLE(IJK_SWIZZLE_DECL, 2, ivec, sivec);
 #endif	// __cplusplus
 };
 

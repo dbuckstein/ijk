@@ -635,34 +635,34 @@ inline stvec4<type, tvec1, tvec2, tvec3, tvec4>::stvec4(type& xr, type& yr, type
 }
 
 
-template <typename type, typename tvec2, typename tvec3, typename tvec4>
-inline tvec1<type, tvec2, tvec3, tvec4>::tvec1(type const xc)
+template <typename type, typename tvec1, typename tvec2, typename tvec3, typename tvec4>
+inline ttvec1<type, tvec1, tvec2, tvec3, tvec4>::ttvec1(type const xc)
 	: x(xc)
 {
 }
-template <typename type, typename tvec2, typename tvec3, typename tvec4>
-inline tvec1<type, tvec2, tvec3, tvec4>& tvec1<type, tvec2, tvec3, tvec4>::operator =(type const xc)
+template <typename type, typename tvec1, typename tvec2, typename tvec3, typename tvec4>
+inline ttvec1<type, tvec1, tvec2, tvec3, tvec4>& ttvec1<type, tvec1, tvec2, tvec3, tvec4>::operator =(type const xc)
 {
 	x = xc;
 	return *this;
 }
-template <typename type, typename tvec2, typename tvec3, typename tvec4>
-inline tvec1<type, tvec2, tvec3, tvec4>::operator type () const
+template <typename type, typename tvec1, typename tvec2, typename tvec3, typename tvec4>
+inline ttvec1<type, tvec1, tvec2, tvec3, tvec4>::operator type () const
 {
 	return x;
 }
-template <typename type, typename tvec2, typename tvec3, typename tvec4>
-inline tvec1<type, tvec2, tvec3, tvec4>::operator type& ()
+template <typename type, typename tvec1, typename tvec2, typename tvec3, typename tvec4>
+inline ttvec1<type, tvec1, tvec2, tvec3, tvec4>::operator type& ()
 {
 	return x;
 }
-template <typename type, typename tvec2, typename tvec3, typename tvec4>
-inline tvec1<type, tvec2, tvec3, tvec4>::operator type const* () const
+template <typename type, typename tvec1, typename tvec2, typename tvec3, typename tvec4>
+inline ttvec1<type, tvec1, tvec2, tvec3, tvec4>::operator type const* () const
 {
 	return v;
 }
-template <typename type, typename tvec2, typename tvec3, typename tvec4>
-inline tvec1<type, tvec2, tvec3, tvec4>::operator type* ()
+template <typename type, typename tvec1, typename tvec2, typename tvec3, typename tvec4>
+inline ttvec1<type, tvec1, tvec2, tvec3, tvec4>::operator type* ()
 {
 	return v;
 }
@@ -670,8 +670,24 @@ inline tvec1<type, tvec2, tvec3, tvec4>::operator type* ()
 
 //-----------------------------------------------------------------------------
 
-IJK_SWIZZLE_READONLY(IJK_SWIZZLE_FMT_IMPL, 2, ivec, ivec, inline);
-IJK_SWIZZLE_WRITABLE(IJK_SWIZZLE_FMT_IMPL, 2, ivec, sivec, inline);
+IJK_SWIZZLE_READONLY(IJK_SWIZZLE_IMPL_TEMP, 1, stvec, tvec, inline);
+IJK_SWIZZLE_WRITABLE(IJK_SWIZZLE_IMPL_RTEMP, 1, stvec, stvec, inline);
+
+IJK_SWIZZLE_READONLY(IJK_SWIZZLE_IMPL_TEMP, 2, stvec, tvec, inline);
+IJK_SWIZZLE_WRITABLE(IJK_SWIZZLE_IMPL_RTEMP, 2, stvec, stvec, inline);
+
+//IJK_SWIZZLE_READONLY(IJK_SWIZZLE_IMPL_TEMP, 3, stvec, tvec, inline);
+//IJK_SWIZZLE_WRITABLE(IJK_SWIZZLE_IMPL_RTEMP, 3, stvec, stvec, inline);
+
+//IJK_SWIZZLE_READONLY(IJK_SWIZZLE_IMPL_TEMP, 4, stvec, tvec, inline);
+//IJK_SWIZZLE_WRITABLE(IJK_SWIZZLE_IMPL_RTEMP, 4, stvec, stvec, inline);
+
+IJK_SWIZZLE_READONLY(IJK_SWIZZLE_IMPL_TEMP, 1, ttvec, tvec, inline);
+IJK_SWIZZLE_WRITABLE(IJK_SWIZZLE_IMPL_RTEMP, 1, ttvec, stvec, inline);
+
+
+IJK_SWIZZLE_READONLY(IJK_SWIZZLE_IMPL, 2, ivec, ivec, inline);
+IJK_SWIZZLE_WRITABLE(IJK_SWIZZLE_IMPL, 2, ivec, sivec, inline);
 
 
 //-----------------------------------------------------------------------------
@@ -1703,15 +1719,6 @@ IJK_SWIZZLE_WRITABLE(IJK_SWIZZLE_FMT_IMPL, 2, ivec, sivec, inline);
 
 
 //-----------------------------------------------------------------------------
-/*
-// IJK_SWIZZLE_FMT_IMPL_TEMP
-//	Pass to IJK_SWIZZLE as 'swizzleFormat' to implement inline swizzling
-//	functions outside of target interface using template types. Requires
-//	prior IJK_SWIZZLE_DECL within target interface.
-#define IJK_SWIZZLE_FMT_IMPL_TEMP(inl,cf,ot,rtb,rts,x,y,z,w,...)								template<typename type, typename tvec1, typename tvec2, typename tvec3, typename tvec4> inl rtb##rts<type,tvec1,tvec2,tvec3,tvec4> ot<type,tvec1,tvec2,tvec3,tvec4>::_##x##y##z##w() cf { return rtb##rts<type,tvec1,tvec2,tvec3,tvec4>(__VA_ARGS__); }
-IJK_SWIZZLE_READONLY(IJK_SWIZZLE_FMT_IMPL_TEMP, 1, tvec, tvec, inline);
-IJK_SWIZZLE_WRITABLE(IJK_SWIZZLE_FMT_IMPL_TEMP, 1, tvec, stvec, inline);
-*/
 
 #pragma endregion
 // IJK_SWIZZLE_MACRO_IMPL
