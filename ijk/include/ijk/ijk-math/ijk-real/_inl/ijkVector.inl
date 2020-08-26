@@ -1709,17 +1709,6 @@ IJK_SWIZZLE_ALL(IJK_SWIZZLE_IMPL, IJK_SWIZZLE_IMPL, ivec, sivec, ivec, 2, inline
 
 
 //-----------------------------------------------------------------------------
-/*
-// Vector definition shortcuts (in lieu of templates in C).
-///
-#define IJK_VECS2(type,vtype2,vtype3,vtype,x,y,...)			vtype2 x##y; struct { type x, y; }
-#define IJK_VECS3(type,vtype2,vtype3,vtype,x,y,z,...)		vtype3 x##y##z; vtype2 x##y; struct { type x; union { IJK_VEC2(vtype2, vtype1, y, z); }; }
-#define IJK_VECS4(type,vtype2,vtype3,vtype,x,y,z,w,...)		vtype4 x##y##z##w; vtype3 x##y##z; vtype2 x##y; struct { type x; union { IJK_VEC3(vtype3, vtype2, vtype1, y, z, w); }; }
-#define IJK_VEC_DECL(decl,type,vtype2,vtype3,vtype4)		decl(type,vtype2,vtype3,vtype4,x,y,z,w); decl(type,vtype2,vtype3,vtype4,r,g,b,a); decl(type,vtype2,vtype3,vtype4,s,t,p,q)
-#define IJK_VEC(type,sz)									IJK_VEC_DECL(IJK_VECS##sz,type,type##2,type##3,type##4)
-*/
-
-//-----------------------------------------------------------------------------
 
 
 #endif	// __cplusplus

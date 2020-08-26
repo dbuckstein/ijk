@@ -306,39 +306,58 @@ typedef union dvec4	dvec4;
 
 //-----------------------------------------------------------------------------
 
-// Reusable array-based vector types.
-///
 typedef bool
 	bool2[2],					// 2D boolean array-based vector, always passed by pointer.
 	bool3[3],					// 3D boolean array-based vector, always passed by pointer.
 	bool4[4],					// 4D boolean array-based vector, always passed by pointer.
 	* boolv;					// Generic signed integer array-based vector, represented by pointer, used as vector return type since returning sized array is not allowed.
+typedef bool const* boolkv;		// Generic constant boolean array-based vector, represented by pointer, used as constant vector return type since returning sized array is not allowed.
+
 typedef int
 	int2[2],					// 2D signed integer array-based vector, always passed by pointer.
 	int3[3],					// 3D signed integer array-based vector, always passed by pointer.
 	int4[4],					// 4D signed integer array-based vector, always passed by pointer.
 	* intv;						// Generic signed integer array-based vector, represented by pointer, used as vector return type since returning sized array is not allowed.
+typedef int const* intkv;		// Generic constant signed integer array-based vector, represented by pointer, used as constant vector return type since returning sized array is not allowed.
+
 typedef uint
 	uint2[2],					// 2D unsigned integer array-based vector, always passed by pointer.
 	uint3[3],					// 3D unsigned integer array-based vector, always passed by pointer.
 	uint4[4],					// 4D unsigned integer array-based vector, always passed by pointer.
 	* uintv;					// Generic unsigned integer array-based vector, represented by pointer, used as vector return type since returning sized array is not allowed.
+typedef uint const* uintkv;		// Generic constant unsigned integer array-based vector, represented by pointer, used as constant vector return type since returning sized array is not allowed.
+
 typedef float
 	float2[2],					// 2D single-precision array-based vector, always passed by pointer.
 	float3[3],					// 3D single-precision array-based vector, always passed by pointer.
 	float4[4],					// 4D single-precision array-based vector, always passed by pointer.
 	* floatv;					// Generic float single-precision-based vector, represented by pointer, used as vector return type since returning sized array is not allowed.
+typedef float const* floatkv;	// Generic constant single-precision array-based vector, represented by pointer, used as constant vector return type since returning sized array is not allowed.
+
 typedef double
 	double2[2],					// 2D double-precision array-based vector, always passed by pointer.
 	double3[3],					// 3D double-precision array-based vector, always passed by pointer.
 	double4[4],					// 4D double-precision array-based vector, always passed by pointer.
 	* doublev;					// Generic double-precision array-based vector, represented by pointer, used as vector return type since returning sized array is not allowed.
-
-typedef bool const* boolkv;		// Generic constant boolean array-based vector, represented by pointer, used as constant vector return type since returning sized array is not allowed.
-typedef int const* intkv;		// Generic constant signed integer array-based vector, represented by pointer, used as constant vector return type since returning sized array is not allowed.
-typedef uint const* uintkv;		// Generic constant unsigned integer array-based vector, represented by pointer, used as constant vector return type since returning sized array is not allowed.
-typedef float const* floatkv;	// Generic constant single-precision array-based vector, represented by pointer, used as constant vector return type since returning sized array is not allowed.
 typedef double const* doublekv;	// Generic constant double-precision array-based vector, represented by pointer, used as constant vector return type since returning sized array is not allowed.
+
+
+
+//-----------------------------------------------------------------------------
+
+// Vector definition shortcuts (in lieu of templates in C).
+///
+#define IJK_VECS(t1,x,t2,y)				struct { t1 x; t2 y; }
+#define IJK_VEC2(t1,t2,t3,t4,x,y,z,w)	t2 x##y; IJK_VECS(t1,x,t1,y)
+#define IJK_VEC3(t1,t2,t3,t4,x,y,z,w)	t3 x##y##z; t2 x##y; IJK_VECS(t1,x,union,{ IJK_VEC2(t1,t2,,,y,z,,); })
+#define IJK_VEC4(t1,t2,t3,t4,x,y,z,w)	t4 x##y##z##w; t3 x##y##z; t2 x##y; IJK_VECS(t1,x,union,{ IJK_VEC3(t1,t2,t3,,y,z,w,); })
+#define IJK_VEC_DECL(decl,t1,t2,t3,t4)	decl(t1,t2,t3,t4,x,y,z,w); decl(t1,t2,t3,t4,r,g,b,a); decl(t1,t2,t3,t4,s,t,p,q)
+
+// IJK_VEC
+//	Implements union vector of specified type in target interface.
+//		param vecType: base type of vector (e.g. 'int' for integer vectors)
+//		param vecSize: number of elements in vector (e.g. '2' for a 2D vector)
+#define IJK_VEC_IMPL(vecType,vecSize)	IJK_VEC_DECL(IJK_VEC##vecSize,vecType,vecType##2,vecType##3,vecType##4)
 
 
 //-----------------------------------------------------------------------------
@@ -351,9 +370,7 @@ typedef double const* doublekv;	// Generic constant double-precision array-based
 //		members s, t: individual named elements representing a parametric coordinate
 union bvec2
 {
-	bool2 xy; struct { bool x, y; };
-	bool2 rg; struct { bool r, g; };
-	bool2 st; struct { bool s, t; };
+	IJK_VEC_IMPL(bool, 2);
 
 #ifdef __cplusplus
 	explicit bvec2(bool const& xy = false);			// Construct vector with all elements set to single scalar.
@@ -371,9 +388,7 @@ union bvec2
 //		members s, t, p: individual named elements representing a parametric coordinate
 union bvec3
 {
-	bool3 xyz; bool2 xy; struct { bool x; union { bool2 yz; struct { bool y, z; }; }; };
-	bool3 rgb; bool2 rg; struct { bool r; union { bool2 gb; struct { bool g, b; }; }; };
-	bool3 stp; bool2 st; struct { bool s; union { bool2 tp; struct { bool t, p; }; }; };
+	IJK_VEC_IMPL(bool, 3);
 
 #ifdef __cplusplus
 	explicit bvec3(bool const& xyz = false);								// Construct vector with all elements set to single scalar.
@@ -395,9 +410,7 @@ union bvec3
 //		members s, t, p, q: individual named elements representing a parametric coordinate
 union bvec4
 {
-	bool4 xyzw; bool3 xyz; bool2 xy; struct { bool x; union { bool3 yzw; bool2 yz; struct { bool y; union { bool2 zw; struct { bool z, w; }; }; }; }; };
-	bool4 rgba; bool3 rgb; bool2 rg; struct { bool r; union { bool3 gba; bool2 gb; struct { bool g; union { bool2 ba; struct { bool b, a; }; }; }; }; };
-	bool4 stpq; bool3 stp; bool2 st; struct { bool s; union { bool3 tpq; bool2 tp; struct { bool t; union { bool2 pq; struct { bool p, q; }; }; }; }; };
+	IJK_VEC_IMPL(bool, 4);
 
 #ifdef __cplusplus
 	explicit bvec4(bool const& xyzw = false);														// Construct vector with all elements set to single scalar.
