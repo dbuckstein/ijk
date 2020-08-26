@@ -672,8 +672,8 @@ inline ttvec1<type, tvec1, tvec2, tvec3, tvec4>::operator type* ()
 
 IJK_SWIZZLE_ALL(IJK_SWIZZLE_IMPL_TEMP, IJK_SWIZZLE_IMPL_RTEMP, tvec, stvec, stvec, 1, inline);
 IJK_SWIZZLE_ALL(IJK_SWIZZLE_IMPL_TEMP, IJK_SWIZZLE_IMPL_RTEMP, tvec, stvec, stvec, 2, inline);
-//IJK_SWIZZLE_ALL(IJK_SWIZZLE_IMPL_TEMP, IJK_SWIZZLE_IMPL_RTEMP, tvec, stvec, stvec, 3, inline);
-//IJK_SWIZZLE_ALL(IJK_SWIZZLE_IMPL_TEMP, IJK_SWIZZLE_IMPL_RTEMP, tvec, stvec, stvec, 4, inline);
+IJK_SWIZZLE_ALL(IJK_SWIZZLE_IMPL_TEMP, IJK_SWIZZLE_IMPL_RTEMP, tvec, stvec, stvec, 3, inline);
+IJK_SWIZZLE_ALL(IJK_SWIZZLE_IMPL_TEMP, IJK_SWIZZLE_IMPL_RTEMP, tvec, stvec, stvec, 4, inline);
 
 IJK_SWIZZLE_ALL(IJK_SWIZZLE_IMPL_TEMP, IJK_SWIZZLE_IMPL_RTEMP, tvec, stvec, ttvec, 1, inline);
 
