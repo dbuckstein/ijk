@@ -670,24 +670,14 @@ inline ttvec1<type, tvec1, tvec2, tvec3, tvec4>::operator type* ()
 
 //-----------------------------------------------------------------------------
 
-IJK_SWIZZLE_READONLY(IJK_SWIZZLE_IMPL_TEMP, 1, stvec, tvec, inline);
-IJK_SWIZZLE_WRITABLE(IJK_SWIZZLE_IMPL_RTEMP, 1, stvec, stvec, inline);
+IJK_SWIZZLE_ALL(IJK_SWIZZLE_IMPL_TEMP, IJK_SWIZZLE_IMPL_RTEMP, tvec, stvec, stvec, 1, inline);
+IJK_SWIZZLE_ALL(IJK_SWIZZLE_IMPL_TEMP, IJK_SWIZZLE_IMPL_RTEMP, tvec, stvec, stvec, 2, inline);
+//IJK_SWIZZLE_ALL(IJK_SWIZZLE_IMPL_TEMP, IJK_SWIZZLE_IMPL_RTEMP, tvec, stvec, stvec, 3, inline);
+//IJK_SWIZZLE_ALL(IJK_SWIZZLE_IMPL_TEMP, IJK_SWIZZLE_IMPL_RTEMP, tvec, stvec, stvec, 4, inline);
 
-IJK_SWIZZLE_READONLY(IJK_SWIZZLE_IMPL_TEMP, 2, stvec, tvec, inline);
-IJK_SWIZZLE_WRITABLE(IJK_SWIZZLE_IMPL_RTEMP, 2, stvec, stvec, inline);
+IJK_SWIZZLE_ALL(IJK_SWIZZLE_IMPL_TEMP, IJK_SWIZZLE_IMPL_RTEMP, tvec, stvec, ttvec, 1, inline);
 
-//IJK_SWIZZLE_READONLY(IJK_SWIZZLE_IMPL_TEMP, 3, stvec, tvec, inline);
-//IJK_SWIZZLE_WRITABLE(IJK_SWIZZLE_IMPL_RTEMP, 3, stvec, stvec, inline);
-
-//IJK_SWIZZLE_READONLY(IJK_SWIZZLE_IMPL_TEMP, 4, stvec, tvec, inline);
-//IJK_SWIZZLE_WRITABLE(IJK_SWIZZLE_IMPL_RTEMP, 4, stvec, stvec, inline);
-
-IJK_SWIZZLE_READONLY(IJK_SWIZZLE_IMPL_TEMP, 1, ttvec, tvec, inline);
-IJK_SWIZZLE_WRITABLE(IJK_SWIZZLE_IMPL_RTEMP, 1, ttvec, stvec, inline);
-
-
-IJK_SWIZZLE_READONLY(IJK_SWIZZLE_IMPL, 2, ivec, ivec, inline);
-IJK_SWIZZLE_WRITABLE(IJK_SWIZZLE_IMPL, 2, ivec, sivec, inline);
+IJK_SWIZZLE_ALL(IJK_SWIZZLE_IMPL, IJK_SWIZZLE_IMPL, ivec, sivec, ivec, 2, inline);
 
 
 //-----------------------------------------------------------------------------
