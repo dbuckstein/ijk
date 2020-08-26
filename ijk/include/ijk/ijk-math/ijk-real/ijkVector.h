@@ -215,11 +215,8 @@ union ttvec1
 	ttvec1& operator =(type const xc);
 	operator type () const;
 	operator type& ();
-	explicit operator type const* () const;
-	explicit operator type* ();
 	IJK_SWIZZLE_ALL(IJK_SWIZZLE_DECL, IJK_SWIZZLE_DECL_RTEMP, tvec, stvec, ttvec, 1);
 private:
-	type v[1];
 	type x;
 };
 
@@ -348,17 +345,15 @@ typedef double const* doublekv;	// Generic constant double-precision array-based
 
 // bvec2
 //	Data structure representing 2D boolean vector.
-//		member v: array of elements, used as pointer argument to vector functions
-//		member xyz: 2D vector of first three components, useful for direct assignment
+//		members xy, rg, st: array of elements, used as pointer argument to vector functions
 //		members x, y: individual named elements representing a spatial coordinate
 //		members r, g: individual named elements representing a color
 //		members s, t: individual named elements representing a parametric coordinate
 union bvec2
 {
-	bool2 v;
-	struct { bool x, y; };
-	struct { bool r, g; };
-	struct { bool s, t; };
+	bool2 xy; struct { bool x, y; };
+	bool2 rg; struct { bool r, g; };
+	bool2 st; struct { bool s, t; };
 
 #ifdef __cplusplus
 	explicit bvec2(bool const& xy = false);			// Construct vector with all elements set to single scalar.
@@ -368,18 +363,17 @@ union bvec2
 
 // bvec3
 //	Data structure representing 3D boolean vector.
-//		member v: array of elements, used as pointer argument to vector functions
-//		member xyz: 3D vector of first three components, useful for direct assignment
+//		members xyz, rgb, stp: array of elements, used as pointer argument to vector functions
+//		members xy, rg, st: partial swizzle of first two elements, used in same fashion as above
+//		members yz, gb, tp: partial swizzle of last two elements, used in same fashion as above
 //		members x, y, z: individual named elements representing a spatial coordinate
 //		members r, g, b: individual named elements representing a color
 //		members s, t, p: individual named elements representing a parametric coordinate
 union bvec3
 {
-	bool3 v;
-	//bvec2 xy;
-	struct { bool x, y, z; };
-	struct { bool r, g, b; };
-	struct { bool s, t, p; };
+	bool3 xyz; bool2 xy; struct { bool x; union { bool2 yz; struct { bool y, z; }; }; };
+	bool3 rgb; bool2 rg; struct { bool r; union { bool2 gb; struct { bool g, b; }; }; };
+	bool3 stp; bool2 st; struct { bool s; union { bool2 tp; struct { bool t, p; }; }; };
 
 #ifdef __cplusplus
 	explicit bvec3(bool const& xyz = false);								// Construct vector with all elements set to single scalar.
@@ -389,21 +383,21 @@ union bvec3
 
 // bvec4
 //	Data structure representing 4D boolean vector.
-//		member v: array of elements, used as pointer argument to vector functions
-//		member xyz: 3D vector of first three components, useful for direct assignment
-//		member xy: 2D vector of first two components, useful for direct assignment
+//		members xyzw, rgba, stpq: array of elements, used as pointer argument to vector functions
+//		members xyz, rgb, stp: partial swizzle of first three elements, used in same fashion as above
+//		members yzw, gba, tpq: partial swizzle of last three elements, used in same fashion as above
+//		members xy, rg, st: partial swizzle of first two elements, used in same fashion as above
+//		members yz, gb, tp: partial swizzle of middle two elements, used in same fashion as above
+//		members zw, ba, pq: partial swizzle of last two elements, used in same fashion as above
 //		members x, y, z, w: individual named elements representing a spatial coordinate
 //			note: vectors have w = 0, while points have w = 1
 //		members r, g, b, a: individual named elements representing a color
 //		members s, t, p, q: individual named elements representing a parametric coordinate
 union bvec4
 {
-	bool4 v;
-	//bvec3 xyz;
-	//bvec2 xy;
-	struct { bool x, y, z, w; };
-	struct { bool r, g, b, a; };
-	struct { bool s, t, p, q; };
+	bool4 xyzw; bool3 xyz; bool2 xy; struct { bool x; union { bool3 yzw; bool2 yz; struct { bool y; union { bool2 zw; struct { bool z, w; }; }; }; }; };
+	bool4 rgba; bool3 rgb; bool2 rg; struct { bool r; union { bool3 gba; bool2 gb; struct { bool g; union { bool2 ba; struct { bool b, a; }; }; }; }; };
+	bool4 stpq; bool3 stp; bool2 st; struct { bool s; union { bool3 tpq; bool2 tp; struct { bool t; union { bool2 pq; struct { bool p, q; }; }; }; }; };
 
 #ifdef __cplusplus
 	explicit bvec4(bool const& xyzw = false);														// Construct vector with all elements set to single scalar.
@@ -416,21 +410,20 @@ union bvec4
 
 // ivec2
 //	Data structure representing 2D signed integer vector.
-//		member v: array of elements, used as pointer argument to vector functions
+//		members xy, rg, st: array of elements, used as pointer argument to vector functions
 //		members x, y: individual named elements representing a spatial coordinate
 //		members r, g: individual named elements representing a color
 //		members s, t: individual named elements representing a parametric coordinate
 union ivec2
 {
-	int2 v;
-	struct { int x, y; };
-	struct { int r, g; };
-	struct { int s, t; };
+	int2 xy; struct { int x, y; };
+	int2 rg; struct { int r, g; };
+	int2 st; struct { int s, t; };
 
 #ifdef __cplusplus
 	explicit ivec2(int const& xy = 0);				// Construct vector with all elements set to single scalar.
 	explicit ivec2(int const& xc, int const& yc);	// Construct vector with elements set individually.
-	ivec2(int2 const xy);							// Construct vector given signed integer array-based vector.
+	explicit ivec2(int2 const xy);					// Construct vector given signed integer array-based vector.
 	explicit ivec2(uint2 const xy);					// Construct vector given unsigned integer array-based vector.
 	explicit ivec2(float2 const xy);				// Construct vector given float array-based vector.
 	explicit ivec2(double2 const xy);				// Construct vector given double array-based vector.
@@ -524,18 +517,17 @@ union ivec2
 
 // ivec3
 //	Data structure representing 3D signed integer vector.
-//		member v: array of elements, used as pointer argument to vector functions
-//		member xy: 2D vector of first two components, useful for direct assignment
+//		members xyz, rgb, stp: array of elements, used as pointer argument to vector functions
+//		members xy, rg, st: partial swizzle of first two elements, used in same fashion as above
+//		members yz, gb, tp: partial swizzle of last two elements, used in same fashion as above
 //		members x, y, z: individual named elements representing a spatial coordinate
 //		members r, g, b: individual named elements representing a color
 //		members s, t, p: individual named elements representing a parametric coordinate
 union ivec3
 {
-	int3 v;
-	//ivec2 xy;
-	struct { int x, y, z; };
-	struct { int r, g, b; };
-	struct { int s, t, p; };
+	int3 xyz; int2 xy; struct { int x; union { int2 yz; struct { int y, z; }; }; };
+	int3 rgb; int2 rg; struct { int r; union { int2 gb; struct { int g, b; }; }; };
+	int3 stp; int2 st; struct { int s; union { int2 tp; struct { int t, p; }; }; };
 
 #ifdef __cplusplus
 	explicit ivec3(int const& xyz = 0);									// Construct vector with all elements set to single scalar.
@@ -545,21 +537,21 @@ union ivec3
 
 // ivec4
 //	Data structure representing 4D signed integer vector.
-//		member v: array of elements, used as pointer argument to vector functions
-//		member xyz: 3D vector of first three components, useful for direct assignment
-//		member xy: 2D vector of first two components, useful for direct assignment
+//		members xyzw, rgba, stpq: array of elements, used as pointer argument to vector functions
+//		members xyz, rgb, stp: partial swizzle of first three elements, used in same fashion as above
+//		members yzw, gba, tpq: partial swizzle of last three elements, used in same fashion as above
+//		members xy, rg, st: partial swizzle of first two elements, used in same fashion as above
+//		members yz, gb, tp: partial swizzle of middle two elements, used in same fashion as above
+//		members zw, ba, pq: partial swizzle of last two elements, used in same fashion as above
 //		members x, y, z, w: individual named elements representing a spatial coordinate
 //			note: vectors have w = 0, while points have w = 1
 //		members r, g, b, a: individual named elements representing a color
 //		members s, t, p, q: individual named elements representing a parametric coordinate
 union ivec4
 {
-	int4 v;
-	//ivec3 xyz;
-	//ivec2 xy;
-	struct { int x, y, z, w; };
-	struct { int r, g, b, a; };
-	struct { int s, t, p, q; };
+	int4 xyzw; int3 xyz; int2 xy; struct { int x; union { int3 yzw; int2 yz; struct { int y; union { int2 zw; struct { int z, w; }; }; }; }; };
+	int4 rgba; int3 rgb; int2 rg; struct { int r; union { int3 gba; int2 gb; struct { int g; union { int2 ba; struct { int b, a; }; }; }; }; };
+	int4 stpq; int3 stp; int2 st; struct { int s; union { int3 tpq; int2 tp; struct { int t; union { int2 pq; struct { int p, q; }; }; }; }; };
 
 #ifdef __cplusplus
 	explicit ivec4(int const& xyzw = 0);												// Construct vector with all elements set to single scalar.
@@ -647,51 +639,49 @@ ijk_ext ivec4 const ivec4_w_n;		// (  0,  0,  0, -1 )
 
 // uvec2
 //	Data structure representing 2D unsigned integer vector.
-//		member v: array of elements, used as pointer argument to vector functions
+//		members xy, rg, st: array of elements, used as pointer argument to vector functions
 //		members x, y: individual named elements representing a spatial coordinate
 //		members r, g: individual named elements representing a color
 //		members s, t: individual named elements representing a parametric coordinate
 union uvec2
 {
-	uint2 v;
-	struct { uint x, y, z, w; };
-	struct { uint r, g, b, a; };
-	struct { uint s, t, p, q; };
+	uint2 xy; struct { uint x, y; };
+	uint2 rg; struct { uint r, g; };
+	uint2 st; struct { uint s, t; };
 };
 
 // uvec3
 //	Data structure representing 3D unsigned integer vector.
-//		member v: array of elements, used as pointer argument to vector functions
-//		member xy: 2D vector of first two components, useful for direct assignment
+//		members xyz, rgb, stp: array of elements, used as pointer argument to vector functions
+//		members xy, rg, st: partial swizzle of first two elements, used in same fashion as above
+//		members yz, gb, tp: partial swizzle of last two elements, used in same fashion as above
 //		members x, y, z: individual named elements representing a spatial coordinate
 //		members r, g, b: individual named elements representing a color
 //		members s, t, p: individual named elements representing a parametric coordinate
 union uvec3
 {
-	uint3 v;
-	//uvec2 xy;
-	struct { uint x, y, z; };
-	struct { uint r, g, b; };
-	struct { uint s, t, p; };
+	uint3 xyz; uint2 xy; struct { uint x; union { uint2 yz; struct { uint y, z; }; }; };
+	uint3 rgb; uint2 rg; struct { uint r; union { uint2 gb; struct { uint g, b; }; }; };
+	uint3 stp; uint2 st; struct { uint s; union { uint2 tp; struct { uint t, p; }; }; };
 };
 
 // uvec4
 //	Data structure representing 4D unsigned integer vector.
-//		member v: array of elements, used as pointer argument to vector functions
-//		member xyz: 3D vector of first three components, useful for direct assignment
-//		member xy: 2D vector of first two components, useful for direct assignment
+//		members xyzw, rgba, stpq: array of elements, used as pointer argument to vector functions
+//		members xyz, rgb, stp: partial swizzle of first three elements, used in same fashion as above
+//		members yzw, gba, tpq: partial swizzle of last three elements, used in same fashion as above
+//		members xy, rg, st: partial swizzle of first two elements, used in same fashion as above
+//		members yz, gb, tp: partial swizzle of middle two elements, used in same fashion as above
+//		members zw, ba, pq: partial swizzle of last two elements, used in same fashion as above
 //		members x, y, z, w: individual named elements representing a spatial coordinate
 //			note: vectors have w = 0, while points have w = 1
 //		members r, g, b, a: individual named elements representing a color
 //		members s, t, p, q: individual named elements representing a parametric coordinate
 union uvec4
 {
-	uint4 v;
-	//uvec3 xyz;
-	//uvec2 xy;
-	struct { uint x, y, z, w; };
-	struct { uint r, g, b, a; };
-	struct { uint s, t, p, q; };
+	uint4 xyzw; uint3 xyz; uint2 xy; struct { uint x; union { uint3 yzw; uint2 yz; struct { uint y; union { uint2 zw; struct { uint z, w; }; }; }; }; };
+	uint4 rgba; uint3 rgb; uint2 rg; struct { uint r; union { uint3 gba; uint2 gb; struct { uint g; union { uint2 ba; struct { uint b, a; }; }; }; }; };
+	uint4 stpq; uint3 stp; uint2 st; struct { uint s; union { uint3 tpq; uint2 tp; struct { uint t; union { uint2 pq; struct { uint p, q; }; }; }; }; };
 };
 
 
@@ -775,51 +765,49 @@ ijk_ext uvec4 const uvec4_w_n;		// (  0,  0,  0, -1 )
 
 // vec2
 //	Data structure representing 2D single-precision (float) vector.
-//		member v: array of elements, used as pointer argument to vector functions
+//		members xy, rg, st: array of elements, used as pointer argument to vector functions
 //		members x, y: individual named elements representing a spatial coordinate
 //		members r, g: individual named elements representing a color
 //		members s, t: individual named elements representing a parametric coordinate
 union vec2
 {
-	float2 v;
-	struct { float x, y, z, w; };
-	struct { float r, g, b, a; };
-	struct { float s, t, p, q; };
+	float2 xy; struct { float x, y; };
+	float2 rg; struct { float r, g; };
+	float2 st; struct { float s, t; };
 };
 
 // vec3
 //	Data structure representing 3D single-precision (float) vector.
-//		member v: array of elements, used as pointer argument to vector functions
-//		member xy: 2D vector of first two components, useful for direct assignment
+//		members xyz, rgb, stp: array of elements, used as pointer argument to vector functions
+//		members xy, rg, st: partial swizzle of first two elements, used in same fashion as above
+//		members yz, gb, tp: partial swizzle of last two elements, used in same fashion as above
 //		members x, y, z: individual named elements representing a spatial coordinate
 //		members r, g, b: individual named elements representing a color
 //		members s, t, p: individual named elements representing a parametric coordinate
 union vec3
 {
-	float3 v;
-	//vec2 xy;
-	struct { float x, y, z; };
-	struct { float r, g, b; };
-	struct { float s, t, p; };
+	float3 xyz; float2 xy; struct { float x; union { float2 yz; struct { float y, z; }; }; };
+	float3 rgb; float2 rg; struct { float r; union { float2 gb; struct { float g, b; }; }; };
+	float3 stp; float2 st; struct { float s; union { float2 tp; struct { float t, p; }; }; };
 };
 
 // vec4
 //	Data structure representing 4D single-precision (float) vector.
-//		member v: array of elements, used as pointer argument to vector functions
-//		member xyz: 3D vector of first three components, useful for direct assignment
-//		member xy: 2D vector of first two components, useful for direct assignment
+//		members xyzw, rgba, stpq: array of elements, used as pointer argument to vector functions
+//		members xyz, rgb, stp: partial swizzle of first three elements, used in same fashion as above
+//		members yzw, gba, tpq: partial swizzle of last three elements, used in same fashion as above
+//		members xy, rg, st: partial swizzle of first two elements, used in same fashion as above
+//		members yz, gb, tp: partial swizzle of middle two elements, used in same fashion as above
+//		members zw, ba, pq: partial swizzle of last two elements, used in same fashion as above
 //		members x, y, z, w: individual named elements representing a spatial coordinate
 //			note: vectors have w = 0, while points have w = 1
 //		members r, g, b, a: individual named elements representing a color
 //		members s, t, p, q: individual named elements representing a parametric coordinate
 union vec4
 {
-	float4 v;
-	//vec3 xyz;
-	//vec2 xy;
-	struct { float x, y, z, w; };
-	struct { float r, g, b, a; };
-	struct { float s, t, p, q; };
+	float4 xyzw; float3 xyz; float2 xy; struct { float x; union { float3 yzw; float2 yz; struct { float y; union { float2 zw; struct { float z, w; }; }; }; }; };
+	float4 rgba; float3 rgb; float2 rg; struct { float r; union { float3 gba; float2 gb; struct { float g; union { float2 ba; struct { float b, a; }; }; }; }; };
+	float4 stpq; float3 stp; float2 st; struct { float s; union { float3 tpq; float2 tp; struct { float t; union { float2 pq; struct { float p, q; }; }; }; }; };
 };
 
 
@@ -902,51 +890,49 @@ ijk_ext vec4 const vec4_w_n;		// (  0,  0,  0, -1 )
 
 // dvec2
 //	Data structure representing 2D double-precision (double) vector.
-//		member v: array of elements, used as pointer argument to vector functions
+//		members xy, rg, st: array of elements, used as pointer argument to vector functions
 //		members x, y: individual named elements representing a spatial coordinate
 //		members r, g: individual named elements representing a color
 //		members s, t: individual named elements representing a parametric coordinate
 union dvec2
 {
-	double2 v;
-	struct { double x, y, z, w; };
-	struct { double r, g, b, a; };
-	struct { double s, t, p, q; };
+	double2 xy; struct { double x, y; };
+	double2 rg; struct { double r, g; };
+	double2 st; struct { double s, t; };
 };
 
 // dvec3
 //	Data structure representing 3D double-precision (double) vector.
-//		member v: array of elements, used as pointer argument to vector functions
-//		member xy: 2D vector of first two components, useful for direct assignment
+//		members xyz, rgb, stp: array of elements, used as pointer argument to vector functions
+//		members xy, rg, st: partial swizzle of first two elements, used in same fashion as above
+//		members yz, gb, tp: partial swizzle of last two elements, used in same fashion as above
 //		members x, y, z: individual named elements representing a spatial coordinate
 //		members r, g, b: individual named elements representing a color
 //		members s, t, p: individual named elements representing a parametric coordinate
 union dvec3
 {
-	double3 v;
-	//dvec2 xy;
-	struct { double x, y, z; };
-	struct { double r, g, b; };
-	struct { double s, t, p; };
+	double3 xyz; double2 xy; struct { double x; union { double2 yz; struct { double y, z; }; }; };
+	double3 rgb; double2 rg; struct { double r; union { double2 gb; struct { double g, b; }; }; };
+	double3 stp; double2 st; struct { double s; union { double2 tp; struct { double t, p; }; }; };
 };
 
 // dvec4
 //	Data structure representing 4D double-precision (double) vector.
-//		member v: array of elements, used as pointer argument to vector functions
-//		member xyz: 3D vector of first three components, useful for direct assignment
-//		member xy: 2D vector of first two components, useful for direct assignment
+//		members xyzw, rgba, stpq: array of elements, used as pointer argument to vector functions
+//		members xyz, rgb, stp: partial swizzle of first three elements, used in same fashion as above
+//		members yzw, gba, tpq: partial swizzle of last three elements, used in same fashion as above
+//		members xy, rg, st: partial swizzle of first two elements, used in same fashion as above
+//		members yz, gb, tp: partial swizzle of middle two elements, used in same fashion as above
+//		members zw, ba, pq: partial swizzle of last two elements, used in same fashion as above
 //		members x, y, z, w: individual named elements representing a spatial coordinate
 //			note: vectors have w = 0, while points have w = 1
 //		members r, g, b, a: individual named elements representing a color
 //		members s, t, p, q: individual named elements representing a parametric coordinate
 union dvec4
 {
-	double4 v;
-	//dvec3 xyz;
-	//dvec2 xy;
-	struct { double x, y, z, w; };
-	struct { double r, g, b, a; };
-	struct { double s, t, p, q; };
+	double4 xyzw; double3 xyz; double2 xy; struct { double x; union { double3 yzw; double2 yz; struct { double y; union { double2 zw; struct { double z, w; }; }; }; }; };
+	double4 rgba; double3 rgb; double2 rg; struct { double r; union { double3 gba; double2 gb; struct { double g; union { double2 ba; struct { double b, a; }; }; }; }; };
+	double4 stpq; double3 stp; double2 st; struct { double s; union { double3 tpq; double2 tp; struct { double t; union { double2 pq; struct { double p, q; }; }; }; }; };
 };
 
 

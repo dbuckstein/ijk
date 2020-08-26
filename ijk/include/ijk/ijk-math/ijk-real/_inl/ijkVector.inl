@@ -357,15 +357,15 @@ inline bvec2 ivec2::operator >(int const& s_rh) const
 }
 inline int ivec2::operator [](index const i) const
 {
-	return v[i];
+	return xy[i];
 }
 inline ivec2::operator intkv () const
 {
-	return v;
+	return xy;
 }
 inline ivec2::operator i32 const* () const
 {
-	return (i32 const*)v;
+	return (i32 const*)xy;
 }
 
 inline ivec2& ivec2::operator +=(ivec2 const& v_rh)
@@ -490,15 +490,15 @@ inline ivec2& ivec2::operator >>=(int const& s_rh)
 }
 inline int& ivec2::operator [](index const i)
 {
-	return v[i];
+	return xy[i];
 }
 inline ivec2::operator intv ()
 {
-	return v;
+	return xy;
 }
 inline ivec2::operator i32* ()
 {
-	return (i32*)v;
+	return (i32*)xy;
 }
 
 
@@ -570,6 +570,7 @@ inline ivec4::ivec4(int const& xc, int const& yc, int const& zc, int const& wc)
 template <typename type, typename tvec1, typename tvec2, typename tvec3, typename tvec4>
 inline tvec1 stvec1<type, tvec1, tvec2, tvec3, tvec4>::operator =(tvec1 const v)
 {
+	// pass-by-value is deliberate; need copy in case 'v' is the swizzle target
 	return tvec1(x = v.x);
 }
 template <typename type, typename tvec1, typename tvec2, typename tvec3, typename tvec4>
@@ -587,6 +588,7 @@ inline stvec1<type, tvec1, tvec2, tvec3, tvec4>::stvec1(type& xr)
 template <typename type, typename tvec1, typename tvec2, typename tvec3, typename tvec4>
 inline tvec2 stvec2<type, tvec1, tvec2, tvec3, tvec4>::operator =(tvec2 const v)
 {
+	// pass-by-value is deliberate; need copy in case 'v' is the swizzle target
 	return tvec2(x = v.x, y = v.x);
 }
 template <typename type, typename tvec1, typename tvec2, typename tvec3, typename tvec4>
@@ -604,6 +606,7 @@ inline stvec2<type, tvec1, tvec2, tvec3, tvec4>::stvec2(type& xr, type& yr)
 template <typename type, typename tvec1, typename tvec2, typename tvec3, typename tvec4>
 inline tvec3 stvec3<type, tvec1, tvec2, tvec3, tvec4>::operator =(tvec3 const v)
 {
+	// pass-by-value is deliberate; need copy in case 'v' is the swizzle target
 	return tvec3(x = v.x, y = v.x, z = v.z);
 }
 template <typename type, typename tvec1, typename tvec2, typename tvec3, typename tvec4>
@@ -621,6 +624,7 @@ inline stvec3<type, tvec1, tvec2, tvec3, tvec4>::stvec3(type& xr, type& yr, type
 template <typename type, typename tvec1, typename tvec2, typename tvec3, typename tvec4>
 inline tvec4 stvec4<type, tvec1, tvec2, tvec3, tvec4>::operator =(tvec4 const v)
 {
+	// pass-by-value is deliberate; need copy in case 'v' is the swizzle target
 	return tvec4(x = v.x, y = v.x, z = v.z, w = v.w);
 }
 template <typename type, typename tvec1, typename tvec2, typename tvec3, typename tvec4>
@@ -655,16 +659,6 @@ template <typename type, typename tvec1, typename tvec2, typename tvec3, typenam
 inline ttvec1<type, tvec1, tvec2, tvec3, tvec4>::operator type& ()
 {
 	return x;
-}
-template <typename type, typename tvec1, typename tvec2, typename tvec3, typename tvec4>
-inline ttvec1<type, tvec1, tvec2, tvec3, tvec4>::operator type const* () const
-{
-	return v;
-}
-template <typename type, typename tvec1, typename tvec2, typename tvec3, typename tvec4>
-inline ttvec1<type, tvec1, tvec2, tvec3, tvec4>::operator type* ()
-{
-	return v;
 }
 
 
@@ -1713,6 +1707,17 @@ IJK_SWIZZLE_ALL(IJK_SWIZZLE_IMPL, IJK_SWIZZLE_IMPL, ivec, sivec, ivec, 2, inline
 #pragma endregion
 // IJK_SWIZZLE_MACRO_IMPL
 
+
+//-----------------------------------------------------------------------------
+/*
+// Vector definition shortcuts (in lieu of templates in C).
+///
+#define IJK_VECS2(type,vtype2,vtype3,vtype,x,y,...)			vtype2 x##y; struct { type x, y; }
+#define IJK_VECS3(type,vtype2,vtype3,vtype,x,y,z,...)		vtype3 x##y##z; vtype2 x##y; struct { type x; union { IJK_VEC2(vtype2, vtype1, y, z); }; }
+#define IJK_VECS4(type,vtype2,vtype3,vtype,x,y,z,w,...)		vtype4 x##y##z##w; vtype3 x##y##z; vtype2 x##y; struct { type x; union { IJK_VEC3(vtype3, vtype2, vtype1, y, z, w); }; }
+#define IJK_VEC_DECL(decl,type,vtype2,vtype3,vtype4)		decl(type,vtype2,vtype3,vtype4,x,y,z,w); decl(type,vtype2,vtype3,vtype4,r,g,b,a); decl(type,vtype2,vtype3,vtype4,s,t,p,q)
+#define IJK_VEC(type,sz)									IJK_VEC_DECL(IJK_VECS##sz,type,type##2,type##3,type##4)
+*/
 
 //-----------------------------------------------------------------------------
 
