@@ -485,113 +485,116 @@ inline ivec4::ivec4(int const& xc, int const& yc, int const& zc, int const& wc)
 	: x(xc), y(yc), z(zc), w(wc)
 {
 }
+*/
+
+//-----------------------------------------------------------------------------
+
+template<typename type>
+inline ttvec1<type>::ttvec1(type const& xc)
+	: x(xc)
+{
+}
+template<typename type>
+inline ttvec1<type>& ttvec1<type>::operator =(type const& xc)
+{
+	x = xc;
+	return *this;
+}
+template<typename type>
+inline ttvec1<type>::operator type () const
+{
+	return x;
+}
+template<typename type>
+inline ttvec1<type>::operator type& ()
+{
+	return x;
+}
 
 
 //-----------------------------------------------------------------------------
-*/
-template <typename type, typename tvec1, typename tvec2, typename tvec3, typename tvec4>
-inline tvec1 stvec1<type, tvec1, tvec2, tvec3, tvec4>::operator =(tvec1 const v)
+
+template<typename type>
+inline ttvec1<type> stvec1<type>::operator =(ttvec1<type> const v)
 {
 	// pass-by-value is deliberate; need copy in case 'v' is the swizzle target
-	return tvec1(x = v.x);
+	return ttvec1<type>(x = v.x);
 }
-template <typename type, typename tvec1, typename tvec2, typename tvec3, typename tvec4>
-inline tvec1 stvec1<type, tvec1, tvec2, tvec3, tvec4>::operator =(stvec1 const& v)
+template<typename type>
+inline ttvec1<type> stvec1<type>::operator =(stvec1 const& v)
 {
-	return (*this = tvec1(v));
+	return (*this = ttvec1<type>(v));
 }
-template <typename type, typename tvec1, typename tvec2, typename tvec3, typename tvec4>
-inline stvec1<type, tvec1, tvec2, tvec3, tvec4>::stvec1(type& xr)
+template<typename type>
+inline stvec1<type>::stvec1(type& xr)
 	: x(xr)
 {
 }
 
 
-template <typename type, typename tvec1, typename tvec2, typename tvec3, typename tvec4>
-inline tvec2 stvec2<type, tvec1, tvec2, tvec3, tvec4>::operator =(tvec2 const v)
+template<typename type>
+inline ttvec2<type> stvec2<type>::operator =(ttvec2<type> const v)
 {
 	// pass-by-value is deliberate; need copy in case 'v' is the swizzle target
-	return tvec2(x = v.x, y = v.x);
+	return ttvec2<type>(x = v.x, y = v.x);
 }
-template <typename type, typename tvec1, typename tvec2, typename tvec3, typename tvec4>
-inline tvec2 stvec2<type, tvec1, tvec2, tvec3, tvec4>::operator =(stvec2 const& v)
+template<typename type>
+inline ttvec2<type> stvec2<type>::operator =(stvec2 const& v)
 {
-	return (*this = tvec2(v));
+	return (*this = ttvec2<type>(v));
 }
-template <typename type, typename tvec1, typename tvec2, typename tvec3, typename tvec4>
-inline stvec2<type, tvec1, tvec2, tvec3, tvec4>::stvec2(type& xr, type& yr)
+template<typename type>
+inline stvec2<type>::stvec2(type& xr, type& yr)
 	: x(xr), y(yr)
 {
 }
 
 
-template <typename type, typename tvec1, typename tvec2, typename tvec3, typename tvec4>
-inline tvec3 stvec3<type, tvec1, tvec2, tvec3, tvec4>::operator =(tvec3 const v)
+template<typename type>
+inline ttvec3<type> stvec3<type>::operator =(ttvec3<type> const v)
 {
 	// pass-by-value is deliberate; need copy in case 'v' is the swizzle target
-	return tvec3(x = v.x, y = v.x, z = v.z);
+	return ttvec3<type>(x = v.x, y = v.x, z = v.z);
 }
-template <typename type, typename tvec1, typename tvec2, typename tvec3, typename tvec4>
-inline tvec3 stvec3<type, tvec1, tvec2, tvec3, tvec4>::operator =(stvec3 const& v)
+template<typename type>
+inline ttvec3<type> stvec3<type>::operator =(stvec3 const& v)
 {
-	return (*this = tvec3(v));
+	return (*this = ttvec3<type>(v));
 }
-template <typename type, typename tvec1, typename tvec2, typename tvec3, typename tvec4>
-inline stvec3<type, tvec1, tvec2, tvec3, tvec4>::stvec3(type& xr, type& yr, type& zr)
+template<typename type>
+inline stvec3<type>::stvec3(type& xr, type& yr, type& zr)
 	: x(xr), y(yr), z(zr)
 {
 }
 
 
-template <typename type, typename tvec1, typename tvec2, typename tvec3, typename tvec4>
-inline tvec4 stvec4<type, tvec1, tvec2, tvec3, tvec4>::operator =(tvec4 const v)
+template<typename type>
+inline ttvec4<type> stvec4<type>::operator =(ttvec4<type> const v)
 {
 	// pass-by-value is deliberate; need copy in case 'v' is the swizzle target
 	return tvec4(x = v.x, y = v.x, z = v.z, w = v.w);
 }
-template <typename type, typename tvec1, typename tvec2, typename tvec3, typename tvec4>
-inline tvec4 stvec4<type, tvec1, tvec2, tvec3, tvec4>::operator =(stvec4 const& v)
+template<typename type>
+inline ttvec4<type> stvec4<type>::operator =(stvec4 const& v)
 {
-	return (*this = tvec4(v));
+	return (*this = ttvec4<type>(v));
 }
-template <typename type, typename tvec1, typename tvec2, typename tvec3, typename tvec4>
-inline stvec4<type, tvec1, tvec2, tvec3, tvec4>::stvec4(type& xr, type& yr, type& zr, type& wr)
+template<typename type>
+inline stvec4<type>::stvec4(type& xr, type& yr, type& zr, type& wr)
 	: x(xr), y(yr), z(zr), w(wr)
 {
 }
 
 
-template <typename type, typename tvec1, typename tvec2, typename tvec3, typename tvec4>
-inline ttvec1<type, tvec1, tvec2, tvec3, tvec4>::ttvec1(type const xc)
-	: x(xc)
-{
-}
-template <typename type, typename tvec1, typename tvec2, typename tvec3, typename tvec4>
-inline ttvec1<type, tvec1, tvec2, tvec3, tvec4>& ttvec1<type, tvec1, tvec2, tvec3, tvec4>::operator =(type const xc)
-{
-	x = xc;
-	return *this;
-}
-template <typename type, typename tvec1, typename tvec2, typename tvec3, typename tvec4>
-inline ttvec1<type, tvec1, tvec2, tvec3, tvec4>::operator type () const
-{
-	return x;
-}
-template <typename type, typename tvec1, typename tvec2, typename tvec3, typename tvec4>
-inline ttvec1<type, tvec1, tvec2, tvec3, tvec4>::operator type& ()
-{
-	return x;
-}
-
-
 //-----------------------------------------------------------------------------
 
-IJK_SWIZZLE_ALL(IJK_SWIZZLE_IMPL_TEMP, IJK_SWIZZLE_IMPL_RTEMP, tvec, stvec, stvec, 1, inline);
-IJK_SWIZZLE_ALL(IJK_SWIZZLE_IMPL_TEMP, IJK_SWIZZLE_IMPL_RTEMP, tvec, stvec, stvec, 2, inline);
-IJK_SWIZZLE_ALL(IJK_SWIZZLE_IMPL_TEMP, IJK_SWIZZLE_IMPL_RTEMP, tvec, stvec, stvec, 3, inline);
-IJK_SWIZZLE_ALL(IJK_SWIZZLE_IMPL_TEMP, IJK_SWIZZLE_IMPL_RTEMP, tvec, stvec, stvec, 4, inline);
+IJK_SWIZZLE_ALL(IJK_SWIZZLE_IMPL_RTEMP, IJK_SWIZZLE_IMPL_RTEMP, ttvec, stvec, ttvec, 1, inline);
+IJK_SWIZZLE_ALL(IJK_SWIZZLE_IMPL_RTEMP, IJK_SWIZZLE_IMPL_RTEMP, ttvec, stvec, ttvec, 2, inline);
 
-IJK_SWIZZLE_ALL(IJK_SWIZZLE_IMPL_TEMP, IJK_SWIZZLE_IMPL_RTEMP, tvec, stvec, ttvec, 1, inline);
+IJK_SWIZZLE_ALL(IJK_SWIZZLE_IMPL_RTEMP, IJK_SWIZZLE_IMPL_RTEMP, ttvec, stvec, stvec, 1, inline);
+IJK_SWIZZLE_ALL(IJK_SWIZZLE_IMPL_RTEMP, IJK_SWIZZLE_IMPL_RTEMP, ttvec, stvec, stvec, 2, inline);
+IJK_SWIZZLE_ALL(IJK_SWIZZLE_IMPL_RTEMP, IJK_SWIZZLE_IMPL_RTEMP, ttvec, stvec, stvec, 3, inline);
+IJK_SWIZZLE_ALL(IJK_SWIZZLE_IMPL_RTEMP, IJK_SWIZZLE_IMPL_RTEMP, ttvec, stvec, stvec, 4, inline);
 
 
 //-----------------------------------------------------------------------------

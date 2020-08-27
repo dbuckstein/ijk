@@ -54,6 +54,40 @@ typedef union dvec4	dvec4;
 
 //-----------------------------------------------------------------------------
 
+typedef bool const		* boolkv;	// Generic constant boolean array-based vector, represented by pointer, used as constant vector return type since returning sized array is not allowed.
+typedef bool			* boolv,	// Generic signed integer array-based vector, represented by pointer, used as vector return type since returning sized array is not allowed.
+						bool2[2],	// 2D boolean array-based vector, always passed by pointer.
+						bool3[3],	// 3D boolean array-based vector, always passed by pointer.
+						bool4[4];	// 4D boolean array-based vector, always passed by pointer.
+
+typedef int const		* intkv;	// Generic constant signed integer array-based vector, represented by pointer, used as constant vector return type since returning sized array is not allowed.
+typedef int				* intv,		// Generic signed integer array-based vector, represented by pointer, used as vector return type since returning sized array is not allowed.
+						int2[2],	// 2D signed integer array-based vector, always passed by pointer.
+						int3[3],	// 3D signed integer array-based vector, always passed by pointer.
+						int4[4];	// 4D signed integer array-based vector, always passed by pointer.
+
+
+typedef uint const		* uintkv;	// Generic constant unsigned integer array-based vector, represented by pointer, used as constant vector return type since returning sized array is not allowed.
+typedef uint			* uintv,	// Generic unsigned integer array-based vector, represented by pointer, used as vector return type since returning sized array is not allowed.
+						uint2[2],	// 2D unsigned integer array-based vector, always passed by pointer.
+						uint3[3],	// 3D unsigned integer array-based vector, always passed by pointer.
+						uint4[4];	// 4D unsigned integer array-based vector, always passed by pointer.
+
+typedef float const		* floatkv;	// Generic constant single-precision array-based vector, represented by pointer, used as constant vector return type since returning sized array is not allowed.
+typedef float			* floatv,		// Generic float single-precision-based vector, represented by pointer, used as vector return type since returning sized array is not allowed.
+						float2[2],	// 2D single-precision array-based vector, always passed by pointer.
+						float3[3],	// 3D single-precision array-based vector, always passed by pointer.
+						float4[4];	// 4D single-precision array-based vector, always passed by pointer.
+
+typedef double const	* doublekv;	// Generic constant double-precision array-based vector, represented by pointer, used as constant vector return type since returning sized array is not allowed.
+typedef double			* doublev,	// Generic double-precision array-based vector, represented by pointer, used as vector return type since returning sized array is not allowed.
+						double2[2],	// 2D double-precision array-based vector, always passed by pointer.
+						double3[3],	// 3D double-precision array-based vector, always passed by pointer.
+						double4[4];	// 4D double-precision array-based vector, always passed by pointer.
+
+
+//-----------------------------------------------------------------------------
+
 // bvec2
 //	Data structure representing 2D boolean vector.
 //		members xy, rg, st: array of elements, used as pointer argument to vector functions
@@ -63,8 +97,8 @@ typedef union dvec4	dvec4;
 union bvec2
 {
 #ifdef __cplusplus
-	explicit bvec2(bool const& xy = false);			// Construct vector with all elements set to single scalar.
-	explicit bvec2(bool const& xc, bool const& yc);	// Construct vector with elements set individually.
+//	explicit bvec2(bool const& xy = false);			// Construct vector with all elements set to single scalar.
+//	explicit bvec2(bool const& xc, bool const& yc);	// Construct vector with elements set individually.
 #else // !__cplusplus
 	IJK_BVEC_IMPL(2);
 #endif	// __cplusplus
@@ -81,8 +115,8 @@ union bvec2
 union bvec3
 {
 #ifdef __cplusplus
-	explicit bvec3(bool const& xyz = false);								// Construct vector with all elements set to single scalar.
-	explicit bvec3(bool const& xc, bool const& yc, bool const& zc = false);	// Construct vector with elements set individually.
+//	explicit bvec3(bool const& xyz = false);								// Construct vector with all elements set to single scalar.
+//	explicit bvec3(bool const& xc, bool const& yc, bool const& zc = false);	// Construct vector with elements set individually.
 #else // !__cplusplus
 	IJK_BVEC_IMPL(3);
 #endif	// __cplusplus
@@ -103,8 +137,8 @@ union bvec3
 union bvec4
 {
 #ifdef __cplusplus
-	explicit bvec4(bool const& xyzw = false);														// Construct vector with all elements set to single scalar.
-	explicit bvec4(bool const& xc, bool const& yc, bool const& zc = false, bool const& wc = true);	// Construct vector with elements set individually.
+//	explicit bvec4(bool const& xyzw = false);														// Construct vector with all elements set to single scalar.
+//	explicit bvec4(bool const& xc, bool const& yc, bool const& zc = false, bool const& wc = true);	// Construct vector with elements set individually.
 #else // !__cplusplus
 	IJK_BVEC_IMPL(4);
 #endif	// __cplusplus
@@ -122,7 +156,7 @@ union bvec4
 union ivec2
 {
 #ifdef __cplusplus
-	explicit ivec2(int const& xy = 0);				// Construct vector with all elements set to single scalar.
+/*	explicit ivec2(int const& xy = 0);				// Construct vector with all elements set to single scalar.
 	explicit ivec2(int const& xc, int const& yc);	// Construct vector with elements set individually.
 	explicit ivec2(int2 const xy);					// Construct vector given signed integer array-based vector.
 	explicit ivec2(uint2 const xy);					// Construct vector given unsigned integer array-based vector.
@@ -213,6 +247,7 @@ union ivec2
 	operator i32* ();
 
 	IJK_SWIZZLE_ALL(IJK_SWIZZLE_DECL, IJK_SWIZZLE_DECL, ivec, sivec, ivec, 2);
+*/
 #else // !__cplusplus
 	IJK_IVEC_IMPL(2);
 #endif	// __cplusplus
@@ -229,8 +264,8 @@ union ivec2
 union ivec3
 {
 #ifdef __cplusplus
-	explicit ivec3(int const& xyz = 0);									// Construct vector with all elements set to single scalar.
-	explicit ivec3(int const& xc, int const& yc, int const& zc = 0);	// Construct vector with elements set individually.
+//	explicit ivec3(int const& xyz = 0);									// Construct vector with all elements set to single scalar.
+//	explicit ivec3(int const& xc, int const& yc, int const& zc = 0);	// Construct vector with elements set individually.
 #else // !__cplusplus
 	IJK_IVEC_IMPL(3);
 #endif	// __cplusplus
@@ -251,8 +286,8 @@ union ivec3
 union ivec4
 {
 #ifdef __cplusplus
-	explicit ivec4(int const& xyzw = 0);												// Construct vector with all elements set to single scalar.
-	explicit ivec4(int const& xc, int const& yc, int const& zc = 0, int const& wc = 1);	// Construct vector with elements set individually.
+//	explicit ivec4(int const& xyzw = 0);												// Construct vector with all elements set to single scalar.
+//	explicit ivec4(int const& xc, int const& yc, int const& zc = 0, int const& wc = 1);	// Construct vector with elements set individually.
 #else // !__cplusplus
 	IJK_IVEC_IMPL(4);
 #endif	// __cplusplus

@@ -107,261 +107,71 @@
 //	IJK_SWIZZLE_ALL to declare swizzling functions within target interface
 //	using template return types. Requires paired use of IJK_SWIZZLE_IMPL_RTEMP
 //	outside of target interface.
-#define IJK_SWIZZLE_DECL_RTEMP(inl,cf,ot,rtb,rts,x,y,z,w,...)								inl rtb##rts<type,tvec1,tvec2,tvec3,tvec4> _##x##y##z##w() cf
+#define IJK_SWIZZLE_DECL_RTEMP(inl,cf,ot,rtb,rts,x,y,z,w,...)								inl rtb##rts<type> _##x##y##z##w() cf
 
 // IJK_SWIZZLE_DECL_IMPL_RTEMP
 //	Pass as 'swizzleFormat' to IJK_SWIZZLE_READONLY, IJK_SWIZZLE_READONLY or
 //	IJK_SWIZZLE_ALL to declare and implement swizzling functions within target
 //	template interface using template return types.
-#define IJK_SWIZZLE_DECL_IMPL_RTEMP(inl,cf,ot,rtb,rts,x,y,z,w,...)							inl rtb##rts<type,tvec1,tvec2,tvec3,tvec4> _##x##y##z##w() cf { return rtb##rts<type,tvec1,tvec2,tvec3,tvec4>(__VA_ARGS__); }
+#define IJK_SWIZZLE_DECL_IMPL_RTEMP(inl,cf,ot,rtb,rts,x,y,z,w,...)							inl rtb##rts<type> _##x##y##z##w() cf { return rtb##rts<type>(__VA_ARGS__); }
 
 // IJK_SWIZZLE_IMPL_TEMP
 //	Pass as 'swizzleFormat' to IJK_SWIZZLE_READONLY, IJK_SWIZZLE_READONLY or
 //	IJK_SWIZZLE_ALL to implement swizzling functions outside of target template
 //	interface. Requires prior paired use of IJK_SWIZZLE_DECL within target
 //	interface.
-#define IJK_SWIZZLE_IMPL_TEMP(inl,cf,ot,rtb,rts,x,y,z,w,...)								template<typename type, typename tvec1, typename tvec2, typename tvec3, typename tvec4> inl rtb##rts ot<type,tvec1,tvec2,tvec3,tvec4>::_##x##y##z##w() cf { return rtb##rts(__VA_ARGS__); }
+#define IJK_SWIZZLE_IMPL_TEMP(inl,cf,ot,rtb,rts,x,y,z,w,...)								template<typename type> inl rtb##rts ot<type>::_##x##y##z##w() cf { return rtb##rts(__VA_ARGS__); }
 
 // IJK_SWIZZLE_IMPL_RTEMP
 //	Pass as 'swizzleFormat' to IJK_SWIZZLE_READONLY, IJK_SWIZZLE_READONLY or
 //	IJK_SWIZZLE_ALL to implement swizzling functions outside of target template
 //	interface using template return types. Requires prior IJK_SWIZZLE_DECL or
 //	IJK_SWIZZLE_DECL_RTEMP within target interface.
-#define IJK_SWIZZLE_IMPL_RTEMP(inl,cf,ot,rtb,rts,x,y,z,w,...)								template<typename type, typename tvec1, typename tvec2, typename tvec3, typename tvec4> inl rtb##rts<type,tvec1,tvec2,tvec3,tvec4> ot<type,tvec1,tvec2,tvec3,tvec4>::_##x##y##z##w() cf { return rtb##rts<type,tvec1,tvec2,tvec3,tvec4>(__VA_ARGS__); }
+#define IJK_SWIZZLE_IMPL_RTEMP(inl,cf,ot,rtb,rts,x,y,z,w,...)								template<typename type> inl rtb##rts<type> ot<type>::_##x##y##z##w() cf { return rtb##rts<type>(__VA_ARGS__); }
 
 #pragma endregion
 // IJK_SWIZZLE_MACRO_DECL
 
 //-----------------------------------------------------------------------------
 
-template<typename type, typename tvec1, typename tvec2, typename tvec3, typename tvec4>
+template<typename type>
 union ttvec1;
-template<typename type, typename tvec1, typename tvec2, typename tvec3, typename tvec4>
+template<typename type>
 union ttvec2;
-template<typename type, typename tvec1, typename tvec2, typename tvec3, typename tvec4>
+template<typename type>
 union ttvec3;
-template<typename type, typename tvec1, typename tvec2, typename tvec3, typename tvec4>
+template<typename type>
 union ttvec4;
 
-template<typename type, typename tvec1, typename tvec2, typename tvec3, typename tvec4>
+template<typename type>
 struct stvec1;
-template<typename type, typename tvec1, typename tvec2, typename tvec3, typename tvec4>
+template<typename type>
 struct stvec2;
-template<typename type, typename tvec1, typename tvec2, typename tvec3, typename tvec4>
+template<typename type>
 struct stvec3;
-template<typename type, typename tvec1, typename tvec2, typename tvec3, typename tvec4>
+template<typename type>
 struct stvec4;
 
 
 //-----------------------------------------------------------------------------
 
-// Template vector types.
-///
-
-template<typename type, typename tvec1, typename tvec2, typename tvec3, typename tvec4>
+// Template scalar type.
+template<typename type>
 union ttvec1
 {
-	ttvec1(type const xc = 0);
-	ttvec1& operator =(type const xc);
+	ttvec1(type const& xc = 0);
+	ttvec1& operator =(type const& xc);
 	operator type () const;
 	operator type& ();
-	IJK_SWIZZLE_ALL(IJK_SWIZZLE_DECL, IJK_SWIZZLE_DECL_RTEMP, tvec, stvec, ttvec, 1);
+	IJK_SWIZZLE_ALL(IJK_SWIZZLE_DECL_RTEMP, IJK_SWIZZLE_DECL_RTEMP, ttvec, stvec, ttvec, 1);
 private:
 	type x;
 };
-typedef ttvec1<ibool, void, bvec2, bvec3, bvec4>	bvec1;
-typedef ttvec1<i32, void, ivec2, ivec3, ivec4>		ivec1;
-typedef ttvec1<ui32, void, uvec2, uvec3, uvec4>		uvec1;
-typedef ttvec1<flt, void, vec2, vec3, vec4>			vec1;
-typedef ttvec1<dbl, void, dvec2, dvec3, dvec4>		dvec1;
-
-template <typename type, typename tvec1, typename tvec2, typename tvec3, typename tvec4>
-union ttvec2
-{
-	explicit ttvec2(type const& xy = 0);							// Construct vector with all elements set to single scalar.
-	explicit ttvec2(type const& xc, type const& yc);				// Construct vector with elements set individually.
-	explicit ttvec2(bool2 const xy);								// Construct vector given boolean array-based vector.
-	explicit ttvec2(int2 const xy);									// Construct vector given signed integer array-based vector.
-	explicit ttvec2(uint2 const xy);								// Construct vector given unsigned integer array-based vector.
-	explicit ttvec2(float2 const xy);								// Construct vector given float array-based vector.
-	explicit ttvec2(double2 const xy);								// Construct vector given double array-based vector.
-	explicit ttvec2(ttvec2 const& xy);								// Construct vector given another 2D vector.
-	explicit ttvec2(ttvec3 const& xy);								// Construct vector given the first two elements of a 3D vector.
-	explicit ttvec2(ttvec4 const& xy);								// Construct vector given the first two elements of a 4D vector.
-	explicit ttvec2(stvec1 const& xy);								// Construct vector given swizzle scalar.
-	explicit ttvec2(stvec2 const& xy);								// Construct vector given 2D swizzle vector.
-	explicit ttvec2(stvec3 const& xy);								// Construct vector given 3D swizzle vector.
-	explicit ttvec2(stvec4 const& xy);								// Construct vector given 4D swizzle vector.
-	ttvec2(ttvec2<type, tvec1, tvec2, tvec3, tvec4> const& xy);		// Construct vector given another 2D vector of the same base type.
-	ttvec2(stvec2<type, tvec1, tvec2, tvec3, tvec4> const& xy);		// Construct vector given swizzle vector of the same base type.
-
-	ttvec2& operator =(ttvec2 const& v_rh);
-	ttvec2& operator =(stvec2 const& v_rh);
-
-	ttvec2 operator +() const;
-	ttvec2 operator -() const;
-	ttvec2 operator ~() const;
-	ttvec2 operator +(ttvec2 const& v_rh) const;
-	ttvec2 operator -(ttvec2 const& v_rh) const;
-	ttvec2 operator *(ttvec2 const& v_rh) const;
-	ttvec2 operator /(ttvec2 const& v_rh) const;
-	ttvec2 operator %(ttvec2 const& v_rh) const;
-	ttvec2 operator &(ttvec2 const& v_rh) const;
-	ttvec2 operator |(ttvec2 const& v_rh) const;
-	ttvec2 operator ^(ttvec2 const& v_rh) const;
-	ttvec2 operator <<(ttvec2 const& v_rh) const;
-	ttvec2 operator >>(ttvec2 const& v_rh) const;
-	bvec2 operator ==(ttvec2 const& v_rh) const;
-	bvec2 operator !=(ttvec2 const& v_rh) const;
-	bvec2 operator <=(ttvec2 const& v_rh) const;
-	bvec2 operator >=(ttvec2 const& v_rh) const;
-	bvec2 operator <(ttvec2 const& v_rh) const;
-	bvec2 operator >(ttvec2 const& v_rh) const;
-	ttvec2 operator +(type const& s_rh) const;
-	ttvec2 operator -(type const& s_rh) const;
-	ttvec2 operator *(type const& s_rh) const;
-	ttvec2 operator /(type const& s_rh) const;
-	ttvec2 operator %(type const& s_rh) const;
-	ttvec2 operator &(type const& s_rh) const;
-	ttvec2 operator |(type const& s_rh) const;
-	ttvec2 operator ^(type const& s_rh) const;
-	ttvec2 operator <<(type const& s_rh) const;
-	ttvec2 operator >>(type const& s_rh) const;
-	bvec2 operator ==(type const& s_rh) const;
-	bvec2 operator !=(type const& s_rh) const;
-	bvec2 operator <=(type const& s_rh) const;
-	bvec2 operator >=(type const& s_rh) const;
-	bvec2 operator <(type const& s_rh) const;
-	bvec2 operator >(type const& s_rh) const;
-	type operator [](index const i) const;
-	operator type const* () const;
-
-	ttvec2& operator +=(ttvec2 const& v_rh);
-	ttvec2& operator -=(ttvec2 const& v_rh);
-	ttvec2& operator *=(ttvec2 const& v_rh);
-	ttvec2& operator /=(ttvec2 const& v_rh);
-	ttvec2& operator %=(ttvec2 const& v_rh);
-	ttvec2& operator &=(ttvec2 const& v_rh);
-	ttvec2& operator |=(ttvec2 const& v_rh);
-	ttvec2& operator ^=(ttvec2 const& v_rh);
-	ttvec2& operator <<=(ttvec2 const& v_rh);
-	ttvec2& operator >>=(ttvec2 const& v_rh);
-	ttvec2& operator +=(type const& s_rh);
-	ttvec2& operator -=(type const& s_rh);
-	ttvec2& operator *=(type const& s_rh);
-	ttvec2& operator /=(type const& s_rh);
-	ttvec2& operator %=(type const& s_rh);
-	ttvec2& operator &=(type const& s_rh);
-	ttvec2& operator |=(type const& s_rh);
-	ttvec2& operator ^=(type const& s_rh);
-	ttvec2& operator <<=(type const& s_rh);
-	ttvec2& operator >>=(type const& s_rh);
-	type& operator [](index const i);
-	operator type* ();
-
-	IJK_SWIZZLE_ALL(IJK_SWIZZLE_DECL, IJK_SWIZZLE_DECL, tvec, stvec, ttvec, 2);
-private:
-	type v[2];
-	struct { type x, y; };
-};
-
-typedef ttvec2<bool, bvec1, bvec2, bvec3, bvec4>	bvec2;
-typedef ttvec2<int, ivec1, ivec2, ivec3, ivec4>		ivec2;
-typedef ttvec2<uint, uvec1, uvec2, uvec3, uvec4>	uvec2;
-typedef ttvec2<float, vec1, vec2, vec3, vec4>		vec2;
-typedef ttvec2<double, dvec1, dvec2, dvec3, dvec4>	dvec2;
-
-
-//-----------------------------------------------------------------------------
-
-// Swizzle vector types.
-///
-
-template <typename type, typename tvec1, typename tvec2, typename tvec3, typename tvec4>
-struct stvec1
-{
-	tvec1 operator =(tvec1 const v);
-	tvec1 operator =(stvec1 const& v);
-	IJK_SWIZZLE_ALL(IJK_SWIZZLE_DECL, IJK_SWIZZLE_DECL_RTEMP, tvec, stvec, stvec, 1);
-private:
-	type& x;
-	stvec1(type& xr);
-	friend stvec2<type, tvec1, tvec2, tvec3, tvec4>;
-	friend stvec3<type, tvec1, tvec2, tvec3, tvec4>;
-	friend stvec4<type, tvec1, tvec2, tvec3, tvec4>;
-	friend tvec1;
-	friend tvec2;
-	friend tvec3;
-	friend tvec4;
-};
-typedef stvec1<bool, bvec1, bvec2, bvec3, bvec4>	sbvec1;
-typedef stvec1<int, ivec1, ivec2, ivec3, ivec4>		sivec1;
-typedef stvec1<uint, uvec1, uvec2, uvec3, uvec4>	suvec1;
-typedef stvec1<float, vec1, vec2, vec3, vec4>		svec1;
-typedef stvec1<double, dvec1, dvec2, dvec3, dvec4>	sdvec1;
-
-template <typename type, typename tvec1, typename tvec2, typename tvec3, typename tvec4>
-struct stvec2
-{
-	tvec2 operator =(tvec2 const v);
-	tvec2 operator =(stvec2 const& v);
-	IJK_SWIZZLE_ALL(IJK_SWIZZLE_DECL, IJK_SWIZZLE_DECL_RTEMP, tvec, stvec, stvec, 2);
-private:
-	type& x, & y;
-	stvec2(type& xr, type& yr);
-	friend stvec3<type, tvec1, tvec2, tvec3, tvec4>;
-	friend stvec4<type, tvec1, tvec2, tvec3, tvec4>;
-	friend tvec1;
-	friend tvec2;
-	friend tvec3;
-	friend tvec4;
-};
-typedef stvec2<bool, bvec1, bvec2, bvec3, bvec4>	sbvec2;
-typedef stvec2<int, ivec1, ivec2, ivec3, ivec4>		sivec2;
-typedef stvec2<uint, uvec1, uvec2, uvec3, uvec4>	suvec2;
-typedef stvec2<float, vec1, vec2, vec3, vec4>		svec2;
-typedef stvec2<double, dvec1, dvec2, dvec3, dvec4>	sdvec2;
-
-template <typename type, typename tvec1, typename tvec2, typename tvec3, typename tvec4>
-struct stvec3
-{
-	tvec3 operator =(tvec3 const v);
-	tvec3 operator =(stvec3 const& v);
-	IJK_SWIZZLE_ALL(IJK_SWIZZLE_DECL, IJK_SWIZZLE_DECL_RTEMP, tvec, stvec, stvec, 3);
-private:
-	type& x, & y, & z;
-	stvec3(type& xr, type& yr, type& zr);
-	friend stvec4<type, tvec1, tvec2, tvec3, tvec4>;
-	friend tvec1;
-	friend tvec2;
-	friend tvec3;
-	friend tvec4;
-};
-typedef stvec3<bool, bvec1, bvec2, bvec3, bvec4>	sbvec3;
-typedef stvec3<int, ivec1, ivec2, ivec3, ivec4>		sivec3;
-typedef stvec3<uint, uvec1, uvec2, uvec3, uvec4>	suvec3;
-typedef stvec3<float, vec1, vec2, vec3, vec4>		svec3;
-typedef stvec3<double, dvec1, dvec2, dvec3, dvec4>	sdvec3;
-
-template <typename type, typename tvec1, typename tvec2, typename tvec3, typename tvec4>
-struct stvec4
-{
-	tvec4 operator =(tvec4 const v);
-	tvec4 operator =(stvec4 const& v);
-	IJK_SWIZZLE_ALL(IJK_SWIZZLE_DECL, IJK_SWIZZLE_DECL_RTEMP, tvec, stvec, stvec, 4);
-private:
-	type& x, & y, & z, & w;
-	stvec4(type& xr, type& yr, type& zr, type& wr);
-	friend tvec1;
-	friend tvec2;
-	friend tvec3;
-	friend tvec4;
-};
-typedef stvec4<bool, bvec1, bvec2, bvec3, bvec4>	sbvec4;
-typedef stvec4<int, ivec1, ivec2, ivec3, ivec4>		sivec4;
-typedef stvec4<uint, uvec1, uvec2, uvec3, uvec4>	suvec4;
-typedef stvec4<float, vec1, vec2, vec3, vec4>		svec4;
-typedef stvec4<double, dvec1, dvec2, dvec3, dvec4>	sdvec4;
+typedef ttvec1<ibool>	bvec1;	// bvec = ivec
+typedef ttvec1<i32>		ivec1;	// bvec = ivec
+typedef ttvec1<ui32>	uvec1;
+typedef ttvec1<flt>		vec1;
+typedef ttvec1<dbl>		dvec1;
 
 
 //-----------------------------------------------------------------------------
@@ -410,45 +220,169 @@ typedef stvec4<double, dvec1, dvec2, dvec3, dvec4>	sdvec4;
 
 //-----------------------------------------------------------------------------
 
-typedef bool
-bool2[2],					// 2D boolean array-based vector, always passed by pointer.
-bool3[3],					// 3D boolean array-based vector, always passed by pointer.
-bool4[4],					// 4D boolean array-based vector, always passed by pointer.
-* boolv;					// Generic signed integer array-based vector, represented by pointer, used as vector return type since returning sized array is not allowed.
-typedef bool const* boolkv;		// Generic constant boolean array-based vector, represented by pointer, used as constant vector return type since returning sized array is not allowed.
+#ifdef __cplusplus
 
-typedef int
-int2[2],					// 2D signed integer array-based vector, always passed by pointer.
-int3[3],					// 3D signed integer array-based vector, always passed by pointer.
-int4[4],					// 4D signed integer array-based vector, always passed by pointer.
-* intv;						// Generic signed integer array-based vector, represented by pointer, used as vector return type since returning sized array is not allowed.
-typedef int const* intkv;		// Generic constant signed integer array-based vector, represented by pointer, used as constant vector return type since returning sized array is not allowed.
+// Template 2D vector type.
+template<typename type>
+union ttvec2
+{
+	explicit ttvec2(type const& xy = 0);							// Construct vector with all elements set to single scalar.
+	explicit ttvec2(type const& xc, type const& yc);				// Construct vector with elements set individually.
+	//explicit ttvec2(bool const* xy);								// Construct vector given boolean array-based vector.
+	explicit ttvec2(int const* xy);									// Construct vector given signed integer array-based vector.
+	explicit ttvec2(uint const* xy);								// Construct vector given unsigned integer array-based vector.
+	explicit ttvec2(float const* xy);								// Construct vector given float array-based vector.
+	explicit ttvec2(double const* xy);								// Construct vector given double array-based vector.
+	ttvec2(ttvec2 const& xy);										// Construct vector given another 2D vector.
+	explicit ttvec2(ttvec3<type> const& xy);						// Construct vector given the first two elements of a 3D vector.
+	explicit ttvec2(ttvec4<type> const& xy);						// Construct vector given the first two elements of a 4D vector.
+	explicit ttvec2(stvec1<type> const& xy);						// Construct vector given swizzle scalar.
+	ttvec2(stvec2<type> const& xy);									// Construct vector given 2D swizzle vector.
+	explicit ttvec2(stvec3<type> const& xy);						// Construct vector given 3D swizzle vector.
+	explicit ttvec2(stvec4<type> const& xy);						// Construct vector given 4D swizzle vector.
 
-typedef uint
-uint2[2],					// 2D unsigned integer array-based vector, always passed by pointer.
-uint3[3],					// 3D unsigned integer array-based vector, always passed by pointer.
-uint4[4],					// 4D unsigned integer array-based vector, always passed by pointer.
-* uintv;					// Generic unsigned integer array-based vector, represented by pointer, used as vector return type since returning sized array is not allowed.
-typedef uint const* uintkv;		// Generic constant unsigned integer array-based vector, represented by pointer, used as constant vector return type since returning sized array is not allowed.
+	ttvec2& operator =(ttvec2 const& v_rh);
+	ttvec2& operator =(stvec2<type> const& v_rh);
 
-typedef float
-float2[2],					// 2D single-precision array-based vector, always passed by pointer.
-float3[3],					// 3D single-precision array-based vector, always passed by pointer.
-float4[4],					// 4D single-precision array-based vector, always passed by pointer.
-* floatv;					// Generic float single-precision-based vector, represented by pointer, used as vector return type since returning sized array is not allowed.
-typedef float const* floatkv;	// Generic constant single-precision array-based vector, represented by pointer, used as constant vector return type since returning sized array is not allowed.
+	ttvec2 operator +() const;
+	ttvec2 operator -() const;
+	ttvec2 operator ~() const;
+	ttvec2 operator +(ttvec2 const& v_rh) const;
+	ttvec2 operator -(ttvec2 const& v_rh) const;
+	ttvec2 operator *(ttvec2 const& v_rh) const;
+	ttvec2 operator /(ttvec2 const& v_rh) const;
+	ttvec2 operator %(ttvec2 const& v_rh) const;
+	ttvec2 operator &(ttvec2 const& v_rh) const;
+	ttvec2 operator |(ttvec2 const& v_rh) const;
+	ttvec2 operator ^(ttvec2 const& v_rh) const;
+	ttvec2 operator <<(ttvec2 const& v_rh) const;
+	ttvec2 operator >>(ttvec2 const& v_rh) const;
+	ttvec2<bool> operator ==(ttvec2 const& v_rh) const;
+	ttvec2<bool> operator !=(ttvec2 const& v_rh) const;
+	ttvec2<bool> operator <=(ttvec2 const& v_rh) const;
+	ttvec2<bool> operator >=(ttvec2 const& v_rh) const;
+	ttvec2<bool> operator <(ttvec2 const& v_rh) const;
+	ttvec2<bool> operator >(ttvec2 const& v_rh) const;
+	ttvec2 operator +(type const& s_rh) const;
+	ttvec2 operator -(type const& s_rh) const;
+	ttvec2 operator *(type const& s_rh) const;
+	ttvec2 operator /(type const& s_rh) const;
+	ttvec2 operator %(type const& s_rh) const;
+	ttvec2 operator &(type const& s_rh) const;
+	ttvec2 operator |(type const& s_rh) const;
+	ttvec2 operator ^(type const& s_rh) const;
+	ttvec2 operator <<(type const& s_rh) const;
+	ttvec2 operator >>(type const& s_rh) const;
+	ttvec2<bool> operator ==(type const& s_rh) const;
+	ttvec2<bool> operator !=(type const& s_rh) const;
+	ttvec2<bool> operator <=(type const& s_rh) const;
+	ttvec2<bool> operator >=(type const& s_rh) const;
+	ttvec2<bool> operator <(type const& s_rh) const;
+	ttvec2<bool> operator >(type const& s_rh) const;
+	type operator [](index const i) const;
+	operator type const* () const;
 
-typedef double
-double2[2],					// 2D double-precision array-based vector, always passed by pointer.
-double3[3],					// 3D double-precision array-based vector, always passed by pointer.
-double4[4],					// 4D double-precision array-based vector, always passed by pointer.
-* doublev;					// Generic double-precision array-based vector, represented by pointer, used as vector return type since returning sized array is not allowed.
-typedef double const* doublekv;	// Generic constant double-precision array-based vector, represented by pointer, used as constant vector return type since returning sized array is not allowed.
+	ttvec2& operator +=(ttvec2 const& v_rh);
+	ttvec2& operator -=(ttvec2 const& v_rh);
+	ttvec2& operator *=(ttvec2 const& v_rh);
+	ttvec2& operator /=(ttvec2 const& v_rh);
+	ttvec2& operator %=(ttvec2 const& v_rh);
+	ttvec2& operator &=(ttvec2 const& v_rh);
+	ttvec2& operator |=(ttvec2 const& v_rh);
+	ttvec2& operator ^=(ttvec2 const& v_rh);
+	ttvec2& operator <<=(ttvec2 const& v_rh);
+	ttvec2& operator >>=(ttvec2 const& v_rh);
+	ttvec2& operator +=(type const& s_rh);
+	ttvec2& operator -=(type const& s_rh);
+	ttvec2& operator *=(type const& s_rh);
+	ttvec2& operator /=(type const& s_rh);
+	ttvec2& operator %=(type const& s_rh);
+	ttvec2& operator &=(type const& s_rh);
+	ttvec2& operator |=(type const& s_rh);
+	ttvec2& operator ^=(type const& s_rh);
+	ttvec2& operator <<=(type const& s_rh);
+	ttvec2& operator >>=(type const& s_rh);
+	type& operator [](index const i);
+	operator type* ();
+
+	IJK_SWIZZLE_ALL(IJK_SWIZZLE_DECL_RTEMP, IJK_SWIZZLE_DECL_RTEMP, ttvec, stvec, ttvec, 2);
+private:
+	type v[2];
+	struct { type x, y; };
+};
 
 
 //-----------------------------------------------------------------------------
 
-#ifdef __cplusplus
+// Swizzle scalar type.
+template<typename type>
+struct stvec1
+{
+	ttvec1<type> operator =(ttvec1<type> const v);
+	ttvec1<type> operator =(stvec1 const& v);
+	IJK_SWIZZLE_ALL(IJK_SWIZZLE_DECL_RTEMP, IJK_SWIZZLE_DECL_RTEMP, ttvec, stvec, stvec, 1);
+private:
+	type& x;
+	stvec1(type& xr);
+	friend stvec2<type>;
+	friend stvec3<type>;
+	friend stvec4<type>;
+	friend ttvec1<type>;
+	friend ttvec2<type>;
+	friend ttvec3<type>;
+	friend ttvec4<type>;
+};
+
+// Swizzle 2D vector type.
+template<typename type>
+struct stvec2
+{
+	ttvec2<type> operator =(ttvec2<type> const v);
+	ttvec2<type> operator =(stvec2 const& v);
+	IJK_SWIZZLE_ALL(IJK_SWIZZLE_DECL_RTEMP, IJK_SWIZZLE_DECL_RTEMP, ttvec, stvec, stvec, 2);
+private:
+	type& x, & y;
+	stvec2(type& xr, type& yr);
+	friend stvec3<type>;
+	friend stvec4<type>;
+	friend ttvec1<type>;
+	friend ttvec2<type>;
+	friend ttvec3<type>;
+	friend ttvec4<type>;
+};
+
+// Swizzle 3D vector type.
+template<typename type>
+struct stvec3
+{
+	ttvec3<type> operator =(ttvec3<type> const v);
+	ttvec3<type> operator =(stvec3 const& v);
+	IJK_SWIZZLE_ALL(IJK_SWIZZLE_DECL_RTEMP, IJK_SWIZZLE_DECL_RTEMP, ttvec, stvec, stvec, 3);
+private:
+	type& x, & y, & z;
+	stvec3(type& xr, type& yr, type& zr);
+	friend stvec4<type>;
+	friend ttvec1<type>;
+	friend ttvec2<type>;
+	friend ttvec3<type>;
+	friend ttvec4<type>;
+};
+
+// Swizzle 4D vector type.
+template<typename type>
+struct stvec4
+{
+	ttvec4<type> operator =(ttvec4<type> const v);
+	ttvec4<type> operator =(stvec4 const& v);
+	IJK_SWIZZLE_ALL(IJK_SWIZZLE_DECL_RTEMP, IJK_SWIZZLE_DECL_RTEMP, ttvec, stvec, stvec, 4);
+private:
+	type& x, & y, & z, & w;
+	stvec4(type& xr, type& yr, type& zr, type& wr);
+	friend ttvec1<type>;
+	friend ttvec2<type>;
+	friend ttvec3<type>;
+	friend ttvec4<type>;
+};
 
 
 #endif	// __cplusplus
