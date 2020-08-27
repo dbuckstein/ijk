@@ -54,45 +54,6 @@ typedef union dvec4	dvec4;
 
 //-----------------------------------------------------------------------------
 
-typedef bool
-	bool2[2],					// 2D boolean array-based vector, always passed by pointer.
-	bool3[3],					// 3D boolean array-based vector, always passed by pointer.
-	bool4[4],					// 4D boolean array-based vector, always passed by pointer.
-	* boolv;					// Generic signed integer array-based vector, represented by pointer, used as vector return type since returning sized array is not allowed.
-typedef bool const* boolkv;		// Generic constant boolean array-based vector, represented by pointer, used as constant vector return type since returning sized array is not allowed.
-
-typedef int
-	int2[2],					// 2D signed integer array-based vector, always passed by pointer.
-	int3[3],					// 3D signed integer array-based vector, always passed by pointer.
-	int4[4],					// 4D signed integer array-based vector, always passed by pointer.
-	* intv;						// Generic signed integer array-based vector, represented by pointer, used as vector return type since returning sized array is not allowed.
-typedef int const* intkv;		// Generic constant signed integer array-based vector, represented by pointer, used as constant vector return type since returning sized array is not allowed.
-
-typedef uint
-	uint2[2],					// 2D unsigned integer array-based vector, always passed by pointer.
-	uint3[3],					// 3D unsigned integer array-based vector, always passed by pointer.
-	uint4[4],					// 4D unsigned integer array-based vector, always passed by pointer.
-	* uintv;					// Generic unsigned integer array-based vector, represented by pointer, used as vector return type since returning sized array is not allowed.
-typedef uint const* uintkv;		// Generic constant unsigned integer array-based vector, represented by pointer, used as constant vector return type since returning sized array is not allowed.
-
-typedef float
-	float2[2],					// 2D single-precision array-based vector, always passed by pointer.
-	float3[3],					// 3D single-precision array-based vector, always passed by pointer.
-	float4[4],					// 4D single-precision array-based vector, always passed by pointer.
-	* floatv;					// Generic float single-precision-based vector, represented by pointer, used as vector return type since returning sized array is not allowed.
-typedef float const* floatkv;	// Generic constant single-precision array-based vector, represented by pointer, used as constant vector return type since returning sized array is not allowed.
-
-typedef double
-	double2[2],					// 2D double-precision array-based vector, always passed by pointer.
-	double3[3],					// 3D double-precision array-based vector, always passed by pointer.
-	double4[4],					// 4D double-precision array-based vector, always passed by pointer.
-	* doublev;					// Generic double-precision array-based vector, represented by pointer, used as vector return type since returning sized array is not allowed.
-typedef double const* doublekv;	// Generic constant double-precision array-based vector, represented by pointer, used as constant vector return type since returning sized array is not allowed.
-
-
-
-//-----------------------------------------------------------------------------
-
 // bvec2
 //	Data structure representing 2D boolean vector.
 //		members xy, rg, st: array of elements, used as pointer argument to vector functions

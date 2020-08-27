@@ -599,9 +599,6 @@ IJK_SWIZZLE_ALL(IJK_SWIZZLE_IMPL_TEMP, IJK_SWIZZLE_IMPL_RTEMP, tvec, stvec, ttve
 // IJK_SWIZZLE_MACRO_IMPL
 #pragma region IJK_SWIZZLE_MACRO_IMPL
 
-
-//-----------------------------------------------------------------------------
-
 // Swizzle shorthand macros.
 ///
 #define x		_x()
@@ -1635,7 +1632,6 @@ IJK_SWIZZLE_ALL(IJK_SWIZZLE_IMPL_TEMP, IJK_SWIZZLE_IMPL_RTEMP, tvec, stvec, ttve
 
 
 //-----------------------------------------------------------------------------
-
 
 #endif	// __cplusplus
 
