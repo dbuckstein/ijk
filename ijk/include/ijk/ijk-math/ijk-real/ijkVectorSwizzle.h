@@ -247,6 +247,7 @@ union ttvec2
 	ttvec2 operator +() const;
 	ttvec2 operator -() const;
 	ttvec2 operator ~() const;
+	ttvec2<bool> operator !() const;
 	ttvec2 operator +(ttvec2 const& v_rh) const;
 	ttvec2 operator -(ttvec2 const& v_rh) const;
 	ttvec2 operator *(ttvec2 const& v_rh) const;
@@ -307,7 +308,7 @@ union ttvec2
 
 	IJK_SWIZZLE_ALL(IJK_SWIZZLE_DECL_RTEMP, IJK_SWIZZLE_DECL_RTEMP, ttvec, stvec, ttvec, 2);
 private:
-	type v[2];
+	type xy[2];
 	struct { type x, y; };
 };
 
