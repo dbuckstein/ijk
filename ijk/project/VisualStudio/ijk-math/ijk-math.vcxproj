@@ -167,7 +167,7 @@
     </ClCompile>
     <ClCompile Include="..\..\..\source\ijk-math\common\ijk-real\ijkTrigonometry.c" />
     <ClCompile Include="..\..\..\source\ijk-math\common\ijk-real\ijkVector.c" />
-    <ClCompile Include="..\..\..\source\ijk-math\common\ijk-real\_cpp\ijkVector_c.cpp">
+    <ClCompile Include="..\..\..\source\ijk-math\common\ijk-real\_cpp\ijkVectorSwizzle.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
@@ -184,6 +184,7 @@
     <ClInclude Include="..\..\..\include\ijk\ijk-math\ijk-real\ijkStats.h" />
     <ClInclude Include="..\..\..\include\ijk\ijk-math\ijk-real\ijkTrigonometry.h" />
     <ClInclude Include="..\..\..\include\ijk\ijk-math\ijk-real\ijkVector.h" />
+    <ClInclude Include="..\..\..\include\ijk\ijk-math\ijk-real\ijkVectorSwizzle.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\include\ijk\ijk-math\ijk-real\_inl\ijkInterpolation.inl" />
@@ -195,6 +196,7 @@
     </MASM>
     <None Include="..\..\..\include\ijk\ijk-math\ijk-real\_inl\ijkTrigonometry.inl" />
     <None Include="..\..\..\include\ijk\ijk-math\ijk-real\_inl\ijkVector.inl" />
+    <None Include="..\..\..\include\ijk\ijk-math\ijk-real\_inl\ijkVectorSwizzle.inl" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

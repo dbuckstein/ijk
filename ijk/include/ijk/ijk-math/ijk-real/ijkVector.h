@@ -27,257 +27,11 @@
 #define _IJK_VECTOR_H_
 
 
+#include "ijkVectorSwizzle.h"
 #include "ijkTrigonometry.h"
 
 
 #ifdef __cplusplus
-
-//-----------------------------------------------------------------------------
-
-// IJK_SWIZZLE_MACRO_DECL
-#pragma region IJK_SWIZZLE_MACRO_DECL
-
-// Internal swizzling implementation.
-///
-#define IJK_SWIZZLE_U1(swiz,inl,cf,ot,rtb,x,...)			swiz(inl,cf,ot,rtb,1,x,,,,x)	// unique 1
-#define IJK_SWIZZLE_U2(swiz,inl,cf,ot,rtb,x,y,...)			swiz(inl,cf,ot,rtb,2,x,y,,,x,y)	// unique 2
-#define IJK_SWIZZLE_U3(swiz,inl,cf,ot,rtb,x,y,z,...)		swiz(inl,cf,ot,rtb,3,x,y,z,,x,y,z)	// unique 3
-#define IJK_SWIZZLE_U4(swiz,inl,cf,ot,rtb,x,y,z,w,...)		swiz(inl,cf,ot,rtb,4,x,y,z,w,x,y,z,w)	// unique 4
-#define IJK_SWIZZLE_D1(swiz,inl,cf,ot,rtb,x,...)			swiz(inl,cf,ot,rtb,2,x,x,,,x,x); swiz(inl,cf,ot,rtb,3,x,x,x,,x,x,x); swiz(inl,cf,ot,rtb,4,x,x,x,x,x,x,x,x)	// duplicate 1
-#define IJK_SWIZZLE_D2(swiz,inl,cf,ot,rtb,x,y,...)			swiz(inl,cf,ot,rtb,3,x,x,y,,x,x,y); swiz(inl,cf,ot,rtb,3,x,y,x,,x,y,x); swiz(inl,cf,ot,rtb,3,x,y,y,,x,y,y); swiz(inl,cf,ot,rtb,4,x,x,x,y,x,x,x,y); swiz(inl,cf,ot,rtb,4,x,x,y,x,x,x,y,x); swiz(inl,cf,ot,rtb,4,x,x,y,y,x,x,y,y); swiz(inl,cf,ot,rtb,4,x,y,x,x,x,y,x,x); swiz(inl,cf,ot,rtb,4,x,y,x,y,x,y,x,y); swiz(inl,cf,ot,rtb,4,x,y,y,x,x,y,y,x); swiz(inl,cf,ot,rtb,4,x,y,y,y,x,y,y,y)	// duplicate 2
-#define IJK_SWIZZLE_D3(swiz,inl,cf,ot,rtb,x,y,z,...)		swiz(inl,cf,ot,rtb,4,x,x,y,z,x,x,y,z); swiz(inl,cf,ot,rtb,4,x,y,x,z,x,y,x,z); swiz(inl,cf,ot,rtb,4,x,y,y,z,x,y,y,z); swiz(inl,cf,ot,rtb,4,x,y,z,z,x,y,z,z); swiz(inl,cf,ot,rtb,4,x,y,z,y,x,y,z,y); swiz(inl,cf,ot,rtb,4,x,y,z,x,x,y,z,x)	// duplicate 3
-#define IJK_SWIZZLE_D4(swiz,inl,cf,ot,rtb,x,y,z,w,...)		// duplicate 4	// empty set, no combos remaining
-#define IJK_SWIZZLE_F1(swiz,inl,cf,ot,rtb,f1,...)			f1(swiz,inl,cf,ot,rtb,x,,,)
-#define IJK_SWIZZLE_F2(swiz,inl,cf,ot,rtb,f1,f2,...)		IJK_SWIZZLE_F1(swiz,inl,cf,ot,rtb,f1); f1(swiz,inl,cf,ot,rtb,y,,,); f2(swiz,inl,cf,ot,rtb,x,y,,); f2(swiz,inl,cf,ot,rtb,y,x,,)
-#define IJK_SWIZZLE_F3(swiz,inl,cf,ot,rtb,f1,f2,f3,...)		IJK_SWIZZLE_F2(swiz,inl,cf,ot,rtb,f1,f2); f1(swiz,inl,cf,ot,rtb,z,,,); f2(swiz,inl,cf,ot,rtb,x,z,,); f2(swiz,inl,cf,ot,rtb,z,x,,); f2(swiz,inl,cf,ot,rtb,y,z,,); f2(swiz,inl,cf,ot,rtb,z,y,,); f3(swiz,inl,cf,ot,rtb,x,y,z,); f3(swiz,inl,cf,ot,rtb,y,z,x,); f3(swiz,inl,cf,ot,rtb,z,x,y,); f3(swiz,inl,cf,ot,rtb,y,x,z,); f3(swiz,inl,cf,ot,rtb,x,z,y,); f3(swiz,inl,cf,ot,rtb,z,y,x,)
-#define IJK_SWIZZLE_F4(swiz,inl,cf,ot,rtb,f1,f2,f3,f4,...)	IJK_SWIZZLE_F3(swiz,inl,cf,ot,rtb,f1,f2,f3); f1(swiz,inl,cf,ot,rtb,w,,,); f2(swiz,inl,cf,ot,rtb,x,w,,); f2(swiz,inl,cf,ot,rtb,w,x,,); f2(swiz,inl,cf,ot,rtb,y,w,,); f2(swiz,inl,cf,ot,rtb,w,y,,); f2(swiz,inl,cf,ot,rtb,z,w,,); f2(swiz,inl,cf,ot,rtb,w,z,,); f3(swiz,inl,cf,ot,rtb,x,y,w,); f3(swiz,inl,cf,ot,rtb,y,x,w,); f3(swiz,inl,cf,ot,rtb,x,z,w,); f3(swiz,inl,cf,ot,rtb,z,x,w,); f3(swiz,inl,cf,ot,rtb,x,w,y,); f3(swiz,inl,cf,ot,rtb,w,x,y,); f3(swiz,inl,cf,ot,rtb,y,z,w,); f3(swiz,inl,cf,ot,rtb,z,y,w,); f3(swiz,inl,cf,ot,rtb,y,w,x,); f3(swiz,inl,cf,ot,rtb,w,y,x,); f3(swiz,inl,cf,ot,rtb,x,w,z,); f3(swiz,inl,cf,ot,rtb,w,x,z,); f3(swiz,inl,cf,ot,rtb,y,w,z,); f3(swiz,inl,cf,ot,rtb,w,y,z,); f3(swiz,inl,cf,ot,rtb,z,w,x,); f3(swiz,inl,cf,ot,rtb,w,z,x,); f3(swiz,inl,cf,ot,rtb,z,w,y,); f3(swiz,inl,cf,ot,rtb,w,z,y,); f4(swiz,inl,cf,ot,rtb,x,y,z,w); f4(swiz,inl,cf,ot,rtb,x,y,w,z); f4(swiz,inl,cf,ot,rtb,x,z,y,w); f4(swiz,inl,cf,ot,rtb,x,z,w,y); f4(swiz,inl,cf,ot,rtb,x,w,y,z); f4(swiz,inl,cf,ot,rtb,x,w,z,y); f4(swiz,inl,cf,ot,rtb,y,x,z,w); f4(swiz,inl,cf,ot,rtb,y,x,w,z); f4(swiz,inl,cf,ot,rtb,y,z,x,w); f4(swiz,inl,cf,ot,rtb,y,z,w,x); f4(swiz,inl,cf,ot,rtb,y,w,x,z); f4(swiz,inl,cf,ot,rtb,y,w,z,x); f4(swiz,inl,cf,ot,rtb,z,x,y,w); f4(swiz,inl,cf,ot,rtb,z,x,w,y); f4(swiz,inl,cf,ot,rtb,z,y,x,w); f4(swiz,inl,cf,ot,rtb,z,y,w,x); f4(swiz,inl,cf,ot,rtb,z,w,x,y); f4(swiz,inl,cf,ot,rtb,z,w,y,x); f4(swiz,inl,cf,ot,rtb,w,x,y,z); f4(swiz,inl,cf,ot,rtb,w,x,z,y); f4(swiz,inl,cf,ot,rtb,w,y,x,z); f4(swiz,inl,cf,ot,rtb,w,y,z,x); f4(swiz,inl,cf,ot,rtb,w,z,x,y); f4(swiz,inl,cf,ot,rtb,w,z,y,x)
-#define IJK_SWIZZLE(F,swiz,inl,cf,ot,rtb,f1,f2,f3,f4)		F(swiz,inl,cf,ot,rtb,f1,f2,f3,f4)
-
-// IJK_SWIZZLE_READONLY
-//	Configure read-only (constant) swizzling in calling interface.
-//		param swizzleFormat: swizzle function format (see options below)
-//		param returnTypeBase: return type, without size, of swizzle results (e.g. 'ivec' not 'ivec2'; may differ from 'ownerTypeBase')
-//		param ownerTypeBase: owner type, without size, of swizzle function (e.g. 'ivec' not 'ivec2')
-//		param ownerTypeSize: owner type size (e.g. just '2' for some version of 2D vector)
-//		param __VA_ARGS__ (optional): pass 'inline' to add inline qualifier to functions
-#define IJK_SWIZZLE_READONLY(swizzleFormat,returnTypeBase,ownerTypeBase,ownerTypeSize,...)	IJK_SWIZZLE(IJK_SWIZZLE_F##ownerTypeSize,swizzleFormat,__VA_ARGS__,const,ownerTypeBase##ownerTypeSize,returnTypeBase,IJK_SWIZZLE_D1,IJK_SWIZZLE_D2,IJK_SWIZZLE_D3,IJK_SWIZZLE_D4); IJK_SWIZZLE(IJK_SWIZZLE_F##ownerTypeSize,swizzleFormat,__VA_ARGS__,const,ownerTypeBase##ownerTypeSize,returnTypeBase,IJK_SWIZZLE_U1,IJK_SWIZZLE_U2,IJK_SWIZZLE_U3,IJK_SWIZZLE_U4)
-
-// IJK_SWIZZLE_WRITABLE
-//	Configure writable (non-constant) swizzling in calling interface.
-//		param swizzleFormat: swizzle function format (see options below)
-//		param returnTypeBase: return type, without size, of swizzle results (e.g. 'ivec' not 'ivec2'; may differ from 'ownerTypeBase')
-//		param ownerTypeBase: owner type, without size, of swizzle function (e.g. 'ivec' not 'ivec2')
-//		param ownerTypeSize: owner type size (e.g. just '2' for some version of 2D vector)
-//		param __VA_ARGS__ (optional): pass 'inline' to add inline qualifier to functions
-#define IJK_SWIZZLE_WRITABLE(swizzleFormat,returnTypeBase,ownerTypeBase,ownerTypeSize,...)	IJK_SWIZZLE(IJK_SWIZZLE_F##ownerTypeSize,swizzleFormat,__VA_ARGS__,,ownerTypeBase##ownerTypeSize,returnTypeBase,IJK_SWIZZLE_U1,IJK_SWIZZLE_U2,IJK_SWIZZLE_U3,IJK_SWIZZLE_U4)
-
-// IJK_SWIZZLE_ALL
-//	Configure swizzling in calling interface.
-//		param swizzleFormat_readonly: swizzle function format for read-only functions (see options below)
-//		param swizzleFormat_writable: swizzle function format for writable functions (see options below)
-//		param returnTypeBase_readonly: return type, without size, of read-only swizzle results
-//		param returnTypeBase_writable: return type, without size, of read-only swizzle results
-//		param ownerTypeBase: owner type, without size, of swizzle function (e.g. 'ivec' not 'ivec2')
-//		param ownerTypeSize: owner type size (e.g. just '2' for some version of 2D vector)
-//		param __VA_ARGS__ (optional): pass 'inline' to add inline qualifier to functions
-#define IJK_SWIZZLE_ALL(swizzleFormat_readonly,swizzleFormat_writable,returnTypeBase_readonly,returnTypeBase_writable,ownerTypeBase,ownerTypeSize,...)	IJK_SWIZZLE_READONLY(swizzleFormat_readonly,returnTypeBase_readonly,ownerTypeBase,ownerTypeSize,__VA_ARGS__); IJK_SWIZZLE_WRITABLE(swizzleFormat_writable,returnTypeBase_writable,ownerTypeBase,ownerTypeSize,__VA_ARGS__)
-
-
-// IJK_SWIZZLE_DECL
-//	Pass as 'swizzleFormat' to IJK_SWIZZLE_READONLY, IJK_SWIZZLE_READONLY or
-//	IJK_SWIZZLE_ALL to declare swizzling functions within target interface.
-//	Requires paired use of IJK_SWIZZLE_IMPL_TEMP, IJK_SWIZZLE_IMPL_RTEMP or
-//	IJK_SWIZZLE_IMPL outside of target interface.
-#define IJK_SWIZZLE_DECL(inl,cf,ot,rtb,rts,x,y,z,w,...)										inl rtb##rts _##x##y##z##w() cf
-
-// IJK_SWIZZLE_DECL_IMPL
-//	Pass as 'swizzleFormat' to IJK_SWIZZLE_READONLY, IJK_SWIZZLE_READONLY or
-//	IJK_SWIZZLE_ALL to declare and implement swizzling functions within
-//	target interface.
-#define IJK_SWIZZLE_DECL_IMPL(inl,cf,ot,rtb,rts,x,y,z,w,...)								inl rtb##rts _##x##y##z##w() cf { return rtb##rts(__VA_ARGS__); }
-
-// IJK_SWIZZLE_IMPL
-//	Pass as 'swizzleFormat' to IJK_SWIZZLE_READONLY, IJK_SWIZZLE_READONLY or
-//	IJK_SWIZZLE_ALL to implement swizzling functions outside of target
-//	interface. Requires prior paired use of IJK_SWIZZLE_DECL within target
-//	interface.
-#define IJK_SWIZZLE_IMPL(inl,cf,ot,rtb,rts,x,y,z,w,...)										inl rtb##rts ot::_##x##y##z##w() cf { return rtb##rts(__VA_ARGS__); }
-
-// IJK_SWIZZLE_DECL_RTEMP
-//	Pass as 'swizzleFormat' to IJK_SWIZZLE_READONLY, IJK_SWIZZLE_READONLY or
-//	IJK_SWIZZLE_ALL to declare swizzling functions within target interface
-//	using template return types. Requires paired use of IJK_SWIZZLE_IMPL_RTEMP
-//	outside of target interface.
-#define IJK_SWIZZLE_DECL_RTEMP(inl,cf,ot,rtb,rts,x,y,z,w,...)								inl rtb##rts<type,tvec1,tvec2,tvec3,tvec4> _##x##y##z##w() cf
-
-// IJK_SWIZZLE_DECL_IMPL_RTEMP
-//	Pass as 'swizzleFormat' to IJK_SWIZZLE_READONLY, IJK_SWIZZLE_READONLY or
-//	IJK_SWIZZLE_ALL to declare and implement swizzling functions within target
-//	template interface using template return types.
-#define IJK_SWIZZLE_DECL_IMPL_RTEMP(inl,cf,ot,rtb,rts,x,y,z,w,...)							inl rtb##rts<type,tvec1,tvec2,tvec3,tvec4> _##x##y##z##w() cf { return rtb##rts<type,tvec1,tvec2,tvec3,tvec4>(__VA_ARGS__); }
-
-// IJK_SWIZZLE_IMPL_TEMP
-//	Pass as 'swizzleFormat' to IJK_SWIZZLE_READONLY, IJK_SWIZZLE_READONLY or
-//	IJK_SWIZZLE_ALL to implement swizzling functions outside of target template
-//	interface. Requires prior paired use of IJK_SWIZZLE_DECL within target
-//	interface.
-#define IJK_SWIZZLE_IMPL_TEMP(inl,cf,ot,rtb,rts,x,y,z,w,...)								template<typename type, typename tvec1, typename tvec2, typename tvec3, typename tvec4> inl rtb##rts ot<type,tvec1,tvec2,tvec3,tvec4>::_##x##y##z##w() cf { return rtb##rts(__VA_ARGS__); }
-
-// IJK_SWIZZLE_IMPL_RTEMP
-//	Pass as 'swizzleFormat' to IJK_SWIZZLE_READONLY, IJK_SWIZZLE_READONLY or
-//	IJK_SWIZZLE_ALL to implement swizzling functions outside of target template
-//	interface using template return types. Requires prior IJK_SWIZZLE_DECL or
-//	IJK_SWIZZLE_DECL_RTEMP within target interface.
-#define IJK_SWIZZLE_IMPL_RTEMP(inl,cf,ot,rtb,rts,x,y,z,w,...)								template<typename type, typename tvec1, typename tvec2, typename tvec3, typename tvec4> inl rtb##rts<type,tvec1,tvec2,tvec3,tvec4> ot<type,tvec1,tvec2,tvec3,tvec4>::_##x##y##z##w() cf { return rtb##rts<type,tvec1,tvec2,tvec3,tvec4>(__VA_ARGS__); }
-
-
-//-----------------------------------------------------------------------------
-
-template <typename type, typename tvec1, typename tvec2, typename tvec3, typename tvec4>
-struct stvec4;
-
-template <typename type, typename tvec1, typename tvec2, typename tvec3, typename tvec4>
-struct stvec3;
-
-template <typename type, typename tvec1, typename tvec2, typename tvec3, typename tvec4>
-struct stvec2;
-
-template <typename type, typename tvec1, typename tvec2, typename tvec3, typename tvec4>
-struct stvec1
-{
-	tvec1 operator =(tvec1 const v);
-	tvec1 operator =(stvec1 const& v);
-	IJK_SWIZZLE_ALL(IJK_SWIZZLE_DECL, IJK_SWIZZLE_DECL_RTEMP, tvec, stvec, stvec, 1);
-private:
-	type& x;
-	stvec1(type& xr);
-	friend stvec2<type, tvec1, tvec2, tvec3, tvec4>;
-	friend stvec3<type, tvec1, tvec2, tvec3, tvec4>;
-	friend stvec4<type, tvec1, tvec2, tvec3, tvec4>;
-	friend tvec1;
-	friend tvec2;
-	friend tvec3;
-	friend tvec4;
-};
-
-template <typename type, typename tvec1, typename tvec2, typename tvec3, typename tvec4>
-struct stvec2
-{
-	tvec2 operator =(tvec2 const v);
-	tvec2 operator =(stvec2 const& v);
-	IJK_SWIZZLE_ALL(IJK_SWIZZLE_DECL, IJK_SWIZZLE_DECL_RTEMP, tvec, stvec, stvec, 2);
-private:
-	type& x, & y;
-	stvec2(type& xr, type& yr);
-	friend stvec3<type, tvec1, tvec2, tvec3, tvec4>;
-	friend stvec4<type, tvec1, tvec2, tvec3, tvec4>;
-	friend tvec1;
-	friend tvec2;
-	friend tvec3;
-	friend tvec4;
-};
-
-template <typename type, typename tvec1, typename tvec2, typename tvec3, typename tvec4>
-struct stvec3
-{
-	tvec3 operator =(tvec3 const v);
-	tvec3 operator =(stvec3 const& v);
-	IJK_SWIZZLE_ALL(IJK_SWIZZLE_DECL, IJK_SWIZZLE_DECL_RTEMP, tvec, stvec, stvec, 3);
-private:
-	type& x, & y, & z;
-	stvec3(type& xr, type& yr, type& zr);
-	friend stvec4<type, tvec1, tvec2, tvec3, tvec4>;
-	friend tvec1;
-	friend tvec2;
-	friend tvec3;
-	friend tvec4;
-};
-
-template <typename type, typename tvec1, typename tvec2, typename tvec3, typename tvec4>
-struct stvec4
-{
-	tvec4 operator =(tvec4 const v);
-	tvec4 operator =(stvec4 const& v);
-	IJK_SWIZZLE_ALL(IJK_SWIZZLE_DECL, IJK_SWIZZLE_DECL_RTEMP, tvec, stvec, stvec, 4);
-private:
-	type& x, & y, & z, & w;
-	stvec4(type& xr, type& yr, type& zr, type& wr);
-	friend tvec1;
-	friend tvec2;
-	friend tvec3;
-	friend tvec4;
-};
-
-template<typename type, typename tvec1, typename tvec2, typename tvec3, typename tvec4>
-union ttvec1
-{
-	ttvec1(type const xc = 0);
-	ttvec1& operator =(type const xc);
-	operator type () const;
-	operator type& ();
-	IJK_SWIZZLE_ALL(IJK_SWIZZLE_DECL, IJK_SWIZZLE_DECL_RTEMP, tvec, stvec, ttvec, 1);
-private:
-	type x;
-};
-
-
-extern "C" {
-	union bvec2;
-	union bvec3;
-	union bvec4;
-	union ivec2;
-	union ivec3;
-	union ivec4;
-	union uvec2;
-	union uvec3;
-	union uvec4;
-	union vec2;
-	union vec3;
-	union vec4;
-	union dvec2;
-	union dvec3;
-	union dvec4;
-}
-
-typedef ttvec1<ibool, void, bvec2, bvec3, bvec4>	bvec1;
-typedef ttvec1<i32, void, ivec2, ivec3, ivec4>		ivec1;
-typedef ttvec1<ui32, void, uvec2, uvec3, uvec4>		uvec1;
-typedef ttvec1<flt, void, vec2, vec3, vec4>			vec1;
-typedef ttvec1<dbl, void, dvec2, dvec3, dvec4>		dvec1;
-#define bool										bvec1
-#define int											ivec1
-#define uint										uvec1
-#define float										vec1
-#define double										dvec1
-
-typedef stvec1<bool, ivec1, ivec2, ivec3, ivec4>	sbvec1;
-typedef stvec1<int, ivec1, ivec2, ivec3, ivec4>		sivec1;
-typedef stvec1<uint, uvec1, uvec2, uvec3, uvec4>	suvec1;
-typedef stvec1<float, vec1, vec2, vec3, vec4>		svec1;
-typedef stvec1<double, dvec1, dvec2, dvec3, dvec4>	sdvec1;
-typedef stvec2<bool, ivec1, ivec2, ivec3, ivec4>	sbvec2;
-typedef stvec2<int, ivec1, ivec2, ivec3, ivec4>		sivec2;
-typedef stvec2<uint, uvec1, uvec2, uvec3, uvec4>	suvec2;
-typedef stvec2<float, vec1, vec2, vec3, vec4>		svec2;
-typedef stvec2<double, dvec1, dvec2, dvec3, dvec4>	sdvec2;
-typedef stvec3<bool, ivec1, ivec2, ivec3, ivec4>	sbvec3;
-typedef stvec3<int, ivec1, ivec2, ivec3, ivec4>		sivec3;
-typedef stvec3<uint, uvec1, uvec2, uvec3, uvec4>	suvec3;
-typedef stvec3<float, vec1, vec2, vec3, vec4>		svec3;
-typedef stvec3<double, dvec1, dvec2, dvec3, dvec4>	sdvec3;
-typedef stvec4<bool, ivec1, ivec2, ivec3, ivec4>	sbvec4;
-typedef stvec4<int, ivec1, ivec2, ivec3, ivec4>		sivec4;
-typedef stvec4<uint, uvec1, uvec2, uvec3, uvec4>	suvec4;
-typedef stvec4<float, vec1, vec2, vec3, vec4>		svec4;
-typedef stvec4<double, dvec1, dvec2, dvec3, dvec4>	sdvec4;
-
-
-#pragma endregion
-// IJK_SWIZZLE_MACRO_DECL
-
-
-//-----------------------------------------------------------------------------
-
 extern "C" {
 #else	// !__cplusplus
 typedef union bvec2	bvec2;
@@ -295,12 +49,6 @@ typedef union vec4	vec4;
 typedef union dvec2	dvec2;
 typedef union dvec3	dvec3;
 typedef union dvec4	dvec4;
-
-#define bool		ibool
-#define int			i32
-#define uint		ui32
-#define float		flt
-#define double		dbl
 #endif	// __cplusplus
 
 
@@ -345,28 +93,6 @@ typedef double const* doublekv;	// Generic constant double-precision array-based
 
 //-----------------------------------------------------------------------------
 
-// Vector definition shortcuts (in lieu of templates in C).
-///
-#define IJK_VECS(t1,x,t2,y)				struct { t1 x; t2 y; }
-#define IJK_VEC2(t1,t2,t3,t4,x,y,z,w)	t2 x##y; IJK_VECS(t1,x,t1,y)
-#define IJK_VEC3(t1,t2,t3,t4,x,y,z,w)	t3 x##y##z; t2 x##y; IJK_VECS(t1,x,union,{ IJK_VEC2(t1,t2,,,y,z,,); })
-#define IJK_VEC4(t1,t2,t3,t4,x,y,z,w)	t4 x##y##z##w; t3 x##y##z; t2 x##y; IJK_VECS(t1,x,union,{ IJK_VEC3(t1,t2,t3,,y,z,w,); })
-#define IJK_VEC_DECL(decl,t1,t2,t3,t4)	decl(t1,t2,t3,t4,x,y,z,w); decl(t1,t2,t3,t4,r,g,b,a); decl(t1,t2,t3,t4,s,t,p,q)
-
-// IJK_VEC
-//	Implements union vector of specified type in target interface.
-//		param vecType: base type of vector (e.g. 'int' for integer vectors)
-//		param vecSize: number of elements in vector (e.g. '2' for a 2D vector)
-#define IJK_VEC_IMPL(vecType,vecSize)	IJK_VEC_DECL(IJK_VEC##vecSize,vecType,vecType##2,vecType##3,vecType##4)
-#define IJK_BVEC_IMPL(vecSize)			IJK_VEC_IMPL(bool,vecSize)
-#define IJK_IVEC_IMPL(vecSize)			IJK_VEC_IMPL(int,vecSize)
-#define IJK_UVEC_IMPL(vecSize)			IJK_VEC_IMPL(uint,vecSize)
-#define IJK_FVEC_IMPL(vecSize)			IJK_VEC_IMPL(float,vecSize)
-#define IJK_DVEC_IMPL(vecSize)			IJK_VEC_IMPL(double,vecSize)
-
-
-//-----------------------------------------------------------------------------
-
 // bvec2
 //	Data structure representing 2D boolean vector.
 //		members xy, rg, st: array of elements, used as pointer argument to vector functions
@@ -375,11 +101,11 @@ typedef double const* doublekv;	// Generic constant double-precision array-based
 //		members s, t: individual named elements representing a parametric coordinate
 union bvec2
 {
-	IJK_BVEC_IMPL(2);
-
 #ifdef __cplusplus
 	explicit bvec2(bool const& xy = false);			// Construct vector with all elements set to single scalar.
 	explicit bvec2(bool const& xc, bool const& yc);	// Construct vector with elements set individually.
+#else // !__cplusplus
+	IJK_BVEC_IMPL(2);
 #endif	// __cplusplus
 };
 
@@ -393,11 +119,11 @@ union bvec2
 //		members s, t, p: individual named elements representing a parametric coordinate
 union bvec3
 {
-	IJK_BVEC_IMPL(3);
-
 #ifdef __cplusplus
 	explicit bvec3(bool const& xyz = false);								// Construct vector with all elements set to single scalar.
 	explicit bvec3(bool const& xc, bool const& yc, bool const& zc = false);	// Construct vector with elements set individually.
+#else // !__cplusplus
+	IJK_BVEC_IMPL(3);
 #endif	// __cplusplus
 };
 
@@ -415,11 +141,11 @@ union bvec3
 //		members s, t, p, q: individual named elements representing a parametric coordinate
 union bvec4
 {
-	IJK_BVEC_IMPL(4);
-
 #ifdef __cplusplus
 	explicit bvec4(bool const& xyzw = false);														// Construct vector with all elements set to single scalar.
 	explicit bvec4(bool const& xc, bool const& yc, bool const& zc = false, bool const& wc = true);	// Construct vector with elements set individually.
+#else // !__cplusplus
+	IJK_BVEC_IMPL(4);
 #endif	// __cplusplus
 };
 
@@ -434,8 +160,6 @@ union bvec4
 //		members s, t: individual named elements representing a parametric coordinate
 union ivec2
 {
-	IJK_IVEC_IMPL(2);
-
 #ifdef __cplusplus
 	explicit ivec2(int const& xy = 0);				// Construct vector with all elements set to single scalar.
 	explicit ivec2(int const& xc, int const& yc);	// Construct vector with elements set individually.
@@ -528,6 +252,8 @@ union ivec2
 	operator i32* ();
 
 	IJK_SWIZZLE_ALL(IJK_SWIZZLE_DECL, IJK_SWIZZLE_DECL, ivec, sivec, ivec, 2);
+#else // !__cplusplus
+	IJK_IVEC_IMPL(2);
 #endif	// __cplusplus
 };
 
@@ -541,11 +267,11 @@ union ivec2
 //		members s, t, p: individual named elements representing a parametric coordinate
 union ivec3
 {
-	IJK_IVEC_IMPL(3);
-
 #ifdef __cplusplus
 	explicit ivec3(int const& xyz = 0);									// Construct vector with all elements set to single scalar.
 	explicit ivec3(int const& xc, int const& yc, int const& zc = 0);	// Construct vector with elements set individually.
+#else // !__cplusplus
+	IJK_IVEC_IMPL(3);
 #endif	// __cplusplus
 };
 
@@ -563,11 +289,11 @@ union ivec3
 //		members s, t, p, q: individual named elements representing a parametric coordinate
 union ivec4
 {
-	IJK_IVEC_IMPL(4);
-
 #ifdef __cplusplus
 	explicit ivec4(int const& xyzw = 0);												// Construct vector with all elements set to single scalar.
 	explicit ivec4(int const& xc, int const& yc, int const& zc = 0, int const& wc = 1);	// Construct vector with elements set individually.
+#else // !__cplusplus
+	IJK_IVEC_IMPL(4);
 #endif	// __cplusplus
 };
 
@@ -657,7 +383,11 @@ ijk_ext ivec4 const ivec4_w_n;		// (  0,  0,  0, -1 )
 //		members s, t: individual named elements representing a parametric coordinate
 union uvec2
 {
+#ifdef __cplusplus
+
+#else // !__cplusplus
 	IJK_UVEC_IMPL(2);
+#endif	// __cplusplus
 };
 
 // uvec3
@@ -670,7 +400,11 @@ union uvec2
 //		members s, t, p: individual named elements representing a parametric coordinate
 union uvec3
 {
+#ifdef __cplusplus
+
+#else // !__cplusplus
 	IJK_UVEC_IMPL(3);
+#endif	// __cplusplus
 };
 
 // uvec4
@@ -687,7 +421,11 @@ union uvec3
 //		members s, t, p, q: individual named elements representing a parametric coordinate
 union uvec4
 {
+#ifdef __cplusplus
+
+#else // !__cplusplus
 	IJK_UVEC_IMPL(4);
+#endif	// __cplusplus
 };
 
 
@@ -777,7 +515,11 @@ ijk_ext uvec4 const uvec4_w_n;		// (  0,  0,  0, -1 )
 //		members s, t: individual named elements representing a parametric coordinate
 union vec2
 {
+#ifdef __cplusplus
+
+#else // !__cplusplus
 	IJK_FVEC_IMPL(2);
+#endif	// __cplusplus
 };
 
 // vec3
@@ -790,7 +532,11 @@ union vec2
 //		members s, t, p: individual named elements representing a parametric coordinate
 union vec3
 {
+#ifdef __cplusplus
+
+#else // !__cplusplus
 	IJK_FVEC_IMPL(3);
+#endif	// __cplusplus
 };
 
 // vec4
@@ -807,7 +553,11 @@ union vec3
 //		members s, t, p, q: individual named elements representing a parametric coordinate
 union vec4
 {
+#ifdef __cplusplus
+
+#else // !__cplusplus
 	IJK_FVEC_IMPL(4);
+#endif	// __cplusplus
 };
 
 
@@ -896,7 +646,11 @@ ijk_ext vec4 const vec4_w_n;		// (  0,  0,  0, -1 )
 //		members s, t: individual named elements representing a parametric coordinate
 union dvec2
 {
+#ifdef __cplusplus
+
+#else // !__cplusplus
 	IJK_DVEC_IMPL(2);
+#endif	// __cplusplus
 };
 
 // dvec3
@@ -909,7 +663,11 @@ union dvec2
 //		members s, t, p: individual named elements representing a parametric coordinate
 union dvec3
 {
+#ifdef __cplusplus
+
+#else // !__cplusplus
 	IJK_DVEC_IMPL(3);
+#endif	// __cplusplus
 };
 
 // dvec4
@@ -926,7 +684,11 @@ union dvec3
 //		members s, t, p, q: individual named elements representing a parametric coordinate
 union dvec4
 {
+#ifdef __cplusplus
+
+#else // !__cplusplus
 	IJK_DVEC_IMPL(4);
+#endif	// __cplusplus
 };
 
 
@@ -1007,6 +769,12 @@ ijk_ext dvec4 const dvec4_w_n;			// (  0,  0,  0, -1 )
 
 //-----------------------------------------------------------------------------
 
+// Alternative names for float vector.
+///
+typedef vec2 fvec2;
+typedef vec3 fvec3;
+typedef vec4 fvec4;
+
 // Select real vector types.
 ///
 typedef real
@@ -1014,7 +782,6 @@ typedef real
 	real3[3],					// 3D real-type array-based vector, always passed by pointer.
 	real4[4],					// 4D real-type array-based vector, always passed by pointer.
 	* realv;					// Generic real-type array-based vector, represented by pointer, used as vector return type since returning sized array is not allowed.
-
 typedef real const* realkv;		// Generic constant real-type array-based vector, represented by pointer, used as constant vector return type since returning sized array is not allowed.
 
 #ifdef IJK_REAL_DBL

@@ -19,7 +19,7 @@
 		c-based rendering framework
 	By Daniel S. Buckstein
 
-	ijkVector_c.cpp
+	ijkVectorSwizzle.cpp
 	C++ testing source definitions for vector types.
 */
 
@@ -29,10 +29,10 @@
 //-----------------------------------------------------------------------------
 
 extern "C" {
-	void ijkVectorTestCPP_swizzle();
+	void ijkMathTestVectorSwizzle();
 }
 
-void ijkVectorTestCPP_swizzle()
+void ijkMathTestVectorSwizzle()
 {
 	ivec2 test_ivec2(7, 13);
 	ivec2 test_isvec2 = ivec2(42, 9001).yx;	// ivec2 ctor -> call swiz -> isvec2 ctor -> ivec2 ctor: test_isvec2 = (9001, 42)
