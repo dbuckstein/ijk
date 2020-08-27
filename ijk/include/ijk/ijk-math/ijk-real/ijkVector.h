@@ -358,6 +358,11 @@ typedef double const* doublekv;	// Generic constant double-precision array-based
 //		param vecType: base type of vector (e.g. 'int' for integer vectors)
 //		param vecSize: number of elements in vector (e.g. '2' for a 2D vector)
 #define IJK_VEC_IMPL(vecType,vecSize)	IJK_VEC_DECL(IJK_VEC##vecSize,vecType,vecType##2,vecType##3,vecType##4)
+#define IJK_BVEC_IMPL(vecSize)			IJK_VEC_IMPL(bool,vecSize)
+#define IJK_IVEC_IMPL(vecSize)			IJK_VEC_IMPL(int,vecSize)
+#define IJK_UVEC_IMPL(vecSize)			IJK_VEC_IMPL(uint,vecSize)
+#define IJK_FVEC_IMPL(vecSize)			IJK_VEC_IMPL(float,vecSize)
+#define IJK_DVEC_IMPL(vecSize)			IJK_VEC_IMPL(double,vecSize)
 
 
 //-----------------------------------------------------------------------------
@@ -370,7 +375,7 @@ typedef double const* doublekv;	// Generic constant double-precision array-based
 //		members s, t: individual named elements representing a parametric coordinate
 union bvec2
 {
-	IJK_VEC_IMPL(bool, 2);
+	IJK_BVEC_IMPL(2);
 
 #ifdef __cplusplus
 	explicit bvec2(bool const& xy = false);			// Construct vector with all elements set to single scalar.
@@ -388,7 +393,7 @@ union bvec2
 //		members s, t, p: individual named elements representing a parametric coordinate
 union bvec3
 {
-	IJK_VEC_IMPL(bool, 3);
+	IJK_BVEC_IMPL(3);
 
 #ifdef __cplusplus
 	explicit bvec3(bool const& xyz = false);								// Construct vector with all elements set to single scalar.
@@ -410,7 +415,7 @@ union bvec3
 //		members s, t, p, q: individual named elements representing a parametric coordinate
 union bvec4
 {
-	IJK_VEC_IMPL(bool, 4);
+	IJK_BVEC_IMPL(4);
 
 #ifdef __cplusplus
 	explicit bvec4(bool const& xyzw = false);														// Construct vector with all elements set to single scalar.
@@ -429,9 +434,7 @@ union bvec4
 //		members s, t: individual named elements representing a parametric coordinate
 union ivec2
 {
-	int2 xy; struct { int x, y; };
-	int2 rg; struct { int r, g; };
-	int2 st; struct { int s, t; };
+	IJK_IVEC_IMPL(2);
 
 #ifdef __cplusplus
 	explicit ivec2(int const& xy = 0);				// Construct vector with all elements set to single scalar.
@@ -538,9 +541,7 @@ union ivec2
 //		members s, t, p: individual named elements representing a parametric coordinate
 union ivec3
 {
-	int3 xyz; int2 xy; struct { int x; union { int2 yz; struct { int y, z; }; }; };
-	int3 rgb; int2 rg; struct { int r; union { int2 gb; struct { int g, b; }; }; };
-	int3 stp; int2 st; struct { int s; union { int2 tp; struct { int t, p; }; }; };
+	IJK_IVEC_IMPL(3);
 
 #ifdef __cplusplus
 	explicit ivec3(int const& xyz = 0);									// Construct vector with all elements set to single scalar.
@@ -562,9 +563,7 @@ union ivec3
 //		members s, t, p, q: individual named elements representing a parametric coordinate
 union ivec4
 {
-	int4 xyzw; int3 xyz; int2 xy; struct { int x; union { int3 yzw; int2 yz; struct { int y; union { int2 zw; struct { int z, w; }; }; }; }; };
-	int4 rgba; int3 rgb; int2 rg; struct { int r; union { int3 gba; int2 gb; struct { int g; union { int2 ba; struct { int b, a; }; }; }; }; };
-	int4 stpq; int3 stp; int2 st; struct { int s; union { int3 tpq; int2 tp; struct { int t; union { int2 pq; struct { int p, q; }; }; }; }; };
+	IJK_IVEC_IMPL(4);
 
 #ifdef __cplusplus
 	explicit ivec4(int const& xyzw = 0);												// Construct vector with all elements set to single scalar.
@@ -658,9 +657,7 @@ ijk_ext ivec4 const ivec4_w_n;		// (  0,  0,  0, -1 )
 //		members s, t: individual named elements representing a parametric coordinate
 union uvec2
 {
-	uint2 xy; struct { uint x, y; };
-	uint2 rg; struct { uint r, g; };
-	uint2 st; struct { uint s, t; };
+	IJK_UVEC_IMPL(2);
 };
 
 // uvec3
@@ -673,9 +670,7 @@ union uvec2
 //		members s, t, p: individual named elements representing a parametric coordinate
 union uvec3
 {
-	uint3 xyz; uint2 xy; struct { uint x; union { uint2 yz; struct { uint y, z; }; }; };
-	uint3 rgb; uint2 rg; struct { uint r; union { uint2 gb; struct { uint g, b; }; }; };
-	uint3 stp; uint2 st; struct { uint s; union { uint2 tp; struct { uint t, p; }; }; };
+	IJK_UVEC_IMPL(3);
 };
 
 // uvec4
@@ -692,9 +687,7 @@ union uvec3
 //		members s, t, p, q: individual named elements representing a parametric coordinate
 union uvec4
 {
-	uint4 xyzw; uint3 xyz; uint2 xy; struct { uint x; union { uint3 yzw; uint2 yz; struct { uint y; union { uint2 zw; struct { uint z, w; }; }; }; }; };
-	uint4 rgba; uint3 rgb; uint2 rg; struct { uint r; union { uint3 gba; uint2 gb; struct { uint g; union { uint2 ba; struct { uint b, a; }; }; }; }; };
-	uint4 stpq; uint3 stp; uint2 st; struct { uint s; union { uint3 tpq; uint2 tp; struct { uint t; union { uint2 pq; struct { uint p, q; }; }; }; }; };
+	IJK_UVEC_IMPL(4);
 };
 
 
@@ -784,9 +777,7 @@ ijk_ext uvec4 const uvec4_w_n;		// (  0,  0,  0, -1 )
 //		members s, t: individual named elements representing a parametric coordinate
 union vec2
 {
-	float2 xy; struct { float x, y; };
-	float2 rg; struct { float r, g; };
-	float2 st; struct { float s, t; };
+	IJK_FVEC_IMPL(2);
 };
 
 // vec3
@@ -799,9 +790,7 @@ union vec2
 //		members s, t, p: individual named elements representing a parametric coordinate
 union vec3
 {
-	float3 xyz; float2 xy; struct { float x; union { float2 yz; struct { float y, z; }; }; };
-	float3 rgb; float2 rg; struct { float r; union { float2 gb; struct { float g, b; }; }; };
-	float3 stp; float2 st; struct { float s; union { float2 tp; struct { float t, p; }; }; };
+	IJK_FVEC_IMPL(3);
 };
 
 // vec4
@@ -818,9 +807,7 @@ union vec3
 //		members s, t, p, q: individual named elements representing a parametric coordinate
 union vec4
 {
-	float4 xyzw; float3 xyz; float2 xy; struct { float x; union { float3 yzw; float2 yz; struct { float y; union { float2 zw; struct { float z, w; }; }; }; }; };
-	float4 rgba; float3 rgb; float2 rg; struct { float r; union { float3 gba; float2 gb; struct { float g; union { float2 ba; struct { float b, a; }; }; }; }; };
-	float4 stpq; float3 stp; float2 st; struct { float s; union { float3 tpq; float2 tp; struct { float t; union { float2 pq; struct { float p, q; }; }; }; }; };
+	IJK_FVEC_IMPL(4);
 };
 
 
@@ -909,9 +896,7 @@ ijk_ext vec4 const vec4_w_n;		// (  0,  0,  0, -1 )
 //		members s, t: individual named elements representing a parametric coordinate
 union dvec2
 {
-	double2 xy; struct { double x, y; };
-	double2 rg; struct { double r, g; };
-	double2 st; struct { double s, t; };
+	IJK_DVEC_IMPL(2);
 };
 
 // dvec3
@@ -924,9 +909,7 @@ union dvec2
 //		members s, t, p: individual named elements representing a parametric coordinate
 union dvec3
 {
-	double3 xyz; double2 xy; struct { double x; union { double2 yz; struct { double y, z; }; }; };
-	double3 rgb; double2 rg; struct { double r; union { double2 gb; struct { double g, b; }; }; };
-	double3 stp; double2 st; struct { double s; union { double2 tp; struct { double t, p; }; }; };
+	IJK_DVEC_IMPL(3);
 };
 
 // dvec4
@@ -943,9 +926,7 @@ union dvec3
 //		members s, t, p, q: individual named elements representing a parametric coordinate
 union dvec4
 {
-	double4 xyzw; double3 xyz; double2 xy; struct { double x; union { double3 yzw; double2 yz; struct { double y; union { double2 zw; struct { double z, w; }; }; }; }; };
-	double4 rgba; double3 rgb; double2 rg; struct { double r; union { double3 gba; double2 gb; struct { double g; union { double2 ba; struct { double b, a; }; }; }; }; };
-	double4 stpq; double3 stp; double2 st; struct { double s; union { double3 tpq; double2 tp; struct { double t; union { double2 pq; struct { double p, q; }; }; }; }; };
+	IJK_DVEC_IMPL(4);
 };
 
 
