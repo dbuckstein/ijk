@@ -61,6 +61,24 @@
 
 //-----------------------------------------------------------------------------
 
+bool2 const bool2_true = __v2_one;
+bool2 const bool2_false = __v2_zero;
+bool2 const bool2_x = __v2_x;
+bool2 const bool2_y = __v2_y;
+
+bool3 const bool3_true = __v3_one;
+bool3 const bool3_false = __v3_zero;
+bool3 const bool3_x = __v3_x;
+bool3 const bool3_y = __v3_y;
+bool3 const bool3_z = __v3_z;
+
+bool4 const bool4_true = __v4_one;
+bool4 const bool4_false = __v4_zero;
+bool4 const bool4_x = __v4_x;
+bool4 const bool4_y = __v4_y;
+bool4 const bool4_z = __v4_z;
+bool4 const bool4_w = __v4_w;
+
 int2 const int2_one = __v2_one;
 int2 const int2_zero = __v2_zero;
 int2 const int2_one_n = __v2_one_n;
@@ -91,68 +109,116 @@ int4 const int4_y_n = __v4_y_n;
 int4 const int4_z_n = __v4_z_n;
 int4 const int4_w_n = __v4_w_n;
 
-flt2 const flt2_one = __v2_one;
-flt2 const flt2_zero = __v2_zero;
-flt2 const flt2_one_n = __v2_one_n;
-flt2 const flt2_x = __v2_x;
-flt2 const flt2_y = __v2_y;
-flt2 const flt2_x_n = __v2_x_n;
-flt2 const flt2_y_n = __v2_y_n;
+uint2 const uint2_one = __v2_one;
+uint2 const uint2_zero = __v2_zero;
+uint2 const uint2_one_n = __v2_one_n;
+uint2 const uint2_x = __v2_x;
+uint2 const uint2_y = __v2_y;
+uint2 const uint2_x_n = __v2_x_n;
+uint2 const uint2_y_n = __v2_y_n;
 
-flt3 const flt3_one = __v3_one;
-flt3 const flt3_zero = __v3_zero;
-flt3 const flt3_one_n = __v3_one_n;
-flt3 const flt3_x = __v3_x;
-flt3 const flt3_y = __v3_y;
-flt3 const flt3_z = __v3_z;
-flt3 const flt3_x_n = __v3_x_n;
-flt3 const flt3_y_n = __v3_y_n;
-flt3 const flt3_z_n = __v3_z_n;
+uint3 const uint3_one = __v3_one;
+uint3 const uint3_zero = __v3_zero;
+uint3 const uint3_one_n = __v3_one_n;
+uint3 const uint3_x = __v3_x;
+uint3 const uint3_y = __v3_y;
+uint3 const uint3_z = __v3_z;
+uint3 const uint3_x_n = __v3_x_n;
+uint3 const uint3_y_n = __v3_y_n;
+uint3 const uint3_z_n = __v3_z_n;
 
-flt4 const flt4_one = __v4_one;
-flt4 const flt4_zero = __v4_zero;
-flt4 const flt4_one_n = __v4_one_n;
-flt4 const flt4_x = __v4_x;
-flt4 const flt4_y = __v4_y;
-flt4 const flt4_z = __v4_z;
-flt4 const flt4_w = __v4_w;
-flt4 const flt4_x_n = __v4_x_n;
-flt4 const flt4_y_n = __v4_y_n;
-flt4 const flt4_z_n = __v4_z_n;
-flt4 const flt4_w_n = __v4_w_n;
+uint4 const uint4_one = __v4_one;
+uint4 const uint4_zero = __v4_zero;
+uint4 const uint4_one_n = __v4_one_n;
+uint4 const uint4_x = __v4_x;
+uint4 const uint4_y = __v4_y;
+uint4 const uint4_z = __v4_z;
+uint4 const uint4_w = __v4_w;
+uint4 const uint4_x_n = __v4_x_n;
+uint4 const uint4_y_n = __v4_y_n;
+uint4 const uint4_z_n = __v4_z_n;
+uint4 const uint4_w_n = __v4_w_n;
 
-dbl2 const dbl2_one = __v2_one;
-dbl2 const dbl2_zero = __v2_zero;
-dbl2 const dbl2_one_n = __v2_one_n;
-dbl2 const dbl2_x = __v2_x;
-dbl2 const dbl2_y = __v2_y;
-dbl2 const dbl2_x_n = __v2_x_n;
-dbl2 const dbl2_y_n = __v2_y_n;
+float2 const float2_one = __v2_one;
+float2 const float2_zero = __v2_zero;
+float2 const float2_one_n = __v2_one_n;
+float2 const float2_x = __v2_x;
+float2 const float2_y = __v2_y;
+float2 const float2_x_n = __v2_x_n;
+float2 const float2_y_n = __v2_y_n;
 
-dbl3 const dbl3_one = __v3_one;
-dbl3 const dbl3_zero = __v3_zero;
-dbl3 const dbl3_one_n = __v3_one_n;
-dbl3 const dbl3_x = __v3_x;
-dbl3 const dbl3_y = __v3_y;
-dbl3 const dbl3_z = __v3_z;
-dbl3 const dbl3_x_n = __v3_x_n;
-dbl3 const dbl3_y_n = __v3_y_n;
-dbl3 const dbl3_z_n = __v3_z_n;
+float3 const float3_one = __v3_one;
+float3 const float3_zero = __v3_zero;
+float3 const float3_one_n = __v3_one_n;
+float3 const float3_x = __v3_x;
+float3 const float3_y = __v3_y;
+float3 const float3_z = __v3_z;
+float3 const float3_x_n = __v3_x_n;
+float3 const float3_y_n = __v3_y_n;
+float3 const float3_z_n = __v3_z_n;
 
-dbl4 const dbl4_one = __v4_one;
-dbl4 const dbl4_zero = __v4_zero;
-dbl4 const dbl4_one_n = __v4_one_n;
-dbl4 const dbl4_x = __v4_x;
-dbl4 const dbl4_y = __v4_y;
-dbl4 const dbl4_z = __v4_z;
-dbl4 const dbl4_w = __v4_w;
-dbl4 const dbl4_x_n = __v4_x_n;
-dbl4 const dbl4_y_n = __v4_y_n;
-dbl4 const dbl4_z_n = __v4_z_n;
-dbl4 const dbl4_w_n = __v4_w_n;
+float4 const float4_one = __v4_one;
+float4 const float4_zero = __v4_zero;
+float4 const float4_one_n = __v4_one_n;
+float4 const float4_x = __v4_x;
+float4 const float4_y = __v4_y;
+float4 const float4_z = __v4_z;
+float4 const float4_w = __v4_w;
+float4 const float4_x_n = __v4_x_n;
+float4 const float4_y_n = __v4_y_n;
+float4 const float4_z_n = __v4_z_n;
+float4 const float4_w_n = __v4_w_n;
+
+double2 const double2_one = __v2_one;
+double2 const double2_zero = __v2_zero;
+double2 const double2_one_n = __v2_one_n;
+double2 const double2_x = __v2_x;
+double2 const double2_y = __v2_y;
+double2 const double2_x_n = __v2_x_n;
+double2 const double2_y_n = __v2_y_n;
+
+double3 const double3_one = __v3_one;
+double3 const double3_zero = __v3_zero;
+double3 const double3_one_n = __v3_one_n;
+double3 const double3_x = __v3_x;
+double3 const double3_y = __v3_y;
+double3 const double3_z = __v3_z;
+double3 const double3_x_n = __v3_x_n;
+double3 const double3_y_n = __v3_y_n;
+double3 const double3_z_n = __v3_z_n;
+
+double4 const double4_one = __v4_one;
+double4 const double4_zero = __v4_zero;
+double4 const double4_one_n = __v4_one_n;
+double4 const double4_x = __v4_x;
+double4 const double4_y = __v4_y;
+double4 const double4_z = __v4_z;
+double4 const double4_w = __v4_w;
+double4 const double4_x_n = __v4_x_n;
+double4 const double4_y_n = __v4_y_n;
+double4 const double4_z_n = __v4_z_n;
+double4 const double4_w_n = __v4_w_n;
 
 
 //-----------------------------------------------------------------------------
+
+bvec2 const bvec2_true = __v2_one;
+bvec2 const bvec2_false = __v2_zero;
+bvec2 const bvec2_x = __v2_x;
+bvec2 const bvec2_y = __v2_y;
+
+bvec3 const bvec3_true = __v3_one;
+bvec3 const bvec3_false = __v3_zero;
+bvec3 const bvec3_x = __v3_x;
+bvec3 const bvec3_y = __v3_y;
+bvec3 const bvec3_z = __v3_z;
+
+bvec4 const bvec4_true = __v4_one;
+bvec4 const bvec4_false = __v4_zero;
+bvec4 const bvec4_x = __v4_x;
+bvec4 const bvec4_y = __v4_y;
+bvec4 const bvec4_z = __v4_z;
+bvec4 const bvec4_w = __v4_w;
 
 ivec2 const ivec2_one = __v2_one;
 ivec2 const ivec2_zero = __v2_zero;
@@ -184,35 +250,65 @@ ivec4 const ivec4_y_n = __v4_y_n;
 ivec4 const ivec4_z_n = __v4_z_n;
 ivec4 const ivec4_w_n = __v4_w_n;
 
-fvec2 const fvec2_one = __v2_one;
-fvec2 const fvec2_zero = __v2_zero;
-fvec2 const fvec2_one_n = __v2_one_n;
-fvec2 const fvec2_x = __v2_x;
-fvec2 const fvec2_y = __v2_y;
-fvec2 const fvec2_x_n = __v2_x_n;
-fvec2 const fvec2_y_n = __v2_y_n;
+uvec2 const uvec2_one = __v2_one;
+uvec2 const uvec2_zero = __v2_zero;
+uvec2 const uvec2_one_n = __v2_one_n;
+uvec2 const uvec2_x = __v2_x;
+uvec2 const uvec2_y = __v2_y;
+uvec2 const uvec2_x_n = __v2_x_n;
+uvec2 const uvec2_y_n = __v2_y_n;
 
-fvec3 const fvec3_one = __v3_one;
-fvec3 const fvec3_zero = __v3_zero;
-fvec3 const fvec3_one_n = __v3_one_n;
-fvec3 const fvec3_x = __v3_x;
-fvec3 const fvec3_y = __v3_y;
-fvec3 const fvec3_z = __v3_z;
-fvec3 const fvec3_x_n = __v3_x_n;
-fvec3 const fvec3_y_n = __v3_y_n;
-fvec3 const fvec3_z_n = __v3_z_n;
+uvec3 const uvec3_one = __v3_one;
+uvec3 const uvec3_zero = __v3_zero;
+uvec3 const uvec3_one_n = __v3_one_n;
+uvec3 const uvec3_x = __v3_x;
+uvec3 const uvec3_y = __v3_y;
+uvec3 const uvec3_z = __v3_z;
+uvec3 const uvec3_x_n = __v3_x_n;
+uvec3 const uvec3_y_n = __v3_y_n;
+uvec3 const uvec3_z_n = __v3_z_n;
 
-fvec4 const fvec4_one = __v4_one;
-fvec4 const fvec4_zero = __v4_zero;
-fvec4 const fvec4_one_n = __v4_one_n;
-fvec4 const fvec4_x = __v4_x;
-fvec4 const fvec4_y = __v4_y;
-fvec4 const fvec4_z = __v4_z;
-fvec4 const fvec4_w = __v4_w;
-fvec4 const fvec4_x_n = __v4_x_n;
-fvec4 const fvec4_y_n = __v4_y_n;
-fvec4 const fvec4_z_n = __v4_z_n;
-fvec4 const fvec4_w_n = __v4_w_n;
+uvec4 const uvec4_one = __v4_one;
+uvec4 const uvec4_zero = __v4_zero;
+uvec4 const uvec4_one_n = __v4_one_n;
+uvec4 const uvec4_x = __v4_x;
+uvec4 const uvec4_y = __v4_y;
+uvec4 const uvec4_z = __v4_z;
+uvec4 const uvec4_w = __v4_w;
+uvec4 const uvec4_x_n = __v4_x_n;
+uvec4 const uvec4_y_n = __v4_y_n;
+uvec4 const uvec4_z_n = __v4_z_n;
+uvec4 const uvec4_w_n = __v4_w_n;
+
+vec2 const vec2_one = __v2_one;
+vec2 const vec2_zero = __v2_zero;
+vec2 const vec2_one_n = __v2_one_n;
+vec2 const vec2_x = __v2_x;
+vec2 const vec2_y = __v2_y;
+vec2 const vec2_x_n = __v2_x_n;
+vec2 const vec2_y_n = __v2_y_n;
+
+vec3 const vec3_one = __v3_one;
+vec3 const vec3_zero = __v3_zero;
+vec3 const vec3_one_n = __v3_one_n;
+vec3 const vec3_x = __v3_x;
+vec3 const vec3_y = __v3_y;
+vec3 const vec3_z = __v3_z;
+vec3 const vec3_x_n = __v3_x_n;
+vec3 const vec3_y_n = __v3_y_n;
+vec3 const vec3_z_n = __v3_z_n;
+
+vec4 const vec4_one = __v4_one;
+vec4 const vec4_zero = __v4_zero;
+vec4 const vec4_one_n = __v4_one_n;
+vec4 const vec4_x = __v4_x;
+vec4 const vec4_y = __v4_y;
+vec4 const vec4_z = __v4_z;
+vec4 const vec4_w = __v4_w;
+vec4 const vec4_x_n = __v4_x_n;
+vec4 const vec4_y_n = __v4_y_n;
+vec4 const vec4_z_n = __v4_z_n;
+vec4 const vec4_w_n = __v4_w_n;
 
 dvec2 const dvec2_one = __v2_one;
 dvec2 const dvec2_zero = __v2_zero;

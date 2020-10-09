@@ -814,6 +814,18 @@ void ijkMathTestTrigonometry()
 }
 
 
+void ijkMathTestVector()
+{
+#ifdef IJK_CPP_ENABLED
+	if (IJK_CPP_ENABLED)
+	{
+		void ijkMathTestVectorSwizzle();
+		ijkMathTestVectorSwizzle();
+	}
+#endif	// IJK_CPP_ENABLED
+}
+
+
 //-----------------------------------------------------------------------------
 
 void ijkMathTest()
@@ -824,6 +836,7 @@ void ijkMathTest()
 	ijkMathTestRandom();
 	ijkMathTestInterpolation();
 	ijkMathTestTrigonometry();
+	ijkMathTestVector();
 }
 
 
