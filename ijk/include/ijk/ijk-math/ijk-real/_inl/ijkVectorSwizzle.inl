@@ -931,6 +931,507 @@ inline ttvec3<type>::operator type* ()
 
 //-----------------------------------------------------------------------------
 
+template <typename type>
+inline ttvec4<type>::ttvec4(type const& xyzw)
+	: x(xyzw), y(xyzw), z(xyzw), w(xyzw)
+{
+}
+template <typename type>
+inline ttvec4<type>::ttvec4(type const& xc, type const& yc, type const& zc, type const& wc)
+	: x(xc), y(yc), z(zc), w(wc)
+{
+}
+template <typename type>
+inline ttvec4<type>::ttvec4(int const* xyzw)
+	: x((type)xyzw[0]), y((type)xyzw[1]), z((type)xyzw[2]), w((type)xyzw[3])
+{
+}
+template <typename type>
+inline ttvec4<type>::ttvec4(uint const* xyzw)
+	: x((type)xyzw[0]), y((type)xyzw[1]), z((type)xyzw[2]), w((type)xyzw[3])
+{
+}
+template <typename type>
+inline ttvec4<type>::ttvec4(float const* xyzw)
+	: x((type)xyzw[0]), y((type)xyzw[1]), z((type)xyzw[2]), w((type)xyzw[3])
+{
+}
+template <typename type>
+inline ttvec4<type>::ttvec4(double const* xyzw)
+	: x((type)xyzw[0]), y((type)xyzw[1]), z((type)xyzw[2]), w((type)xyzw[3])
+{
+}
+template <typename type>
+inline ttvec4<type>::ttvec4(ttvec2<type> const& xy, type const& zc, type const& wc)
+	: x(xy.x), y(xy.y), z(zc), w(wc)
+{
+}
+template <typename type>
+inline ttvec4<type>::ttvec4(type const& xc, ttvec2<type> const& yz, type const& wc)
+	: x(xc), y(yz.x), z(yz.y), w(wc)
+{
+}
+template <typename type>
+inline ttvec4<type>::ttvec4(type const& xc, type const& yc, ttvec2<type> const& zw)
+	: x(xc), y(yc), z(zw.x), w(zw.y)
+{
+}
+template <typename type>
+inline ttvec4<type>::ttvec4(ttvec2<type> const& xy, ttvec2<type> const& zw)
+	: x(xy.x), y(xy.y), z(zw.x), w(zw.y)
+{
+}
+template <typename type>
+inline ttvec4<type>::ttvec4(ttvec3<type> const& xyz, type const& wc)
+	: x(xyz.x), y(xyz.y), z(xyz.z), w(wc)
+{
+}
+template <typename type>
+inline ttvec4<type>::ttvec4(type const& xc, ttvec3<type> const& yzw)
+	: x(xc), y(yzw.x), z(yzw.y), w(yzw.z)
+{
+}
+template <typename type>
+inline ttvec4<type>::ttvec4(ttvec4 const& xyzw)
+	: x(xyzw.x), y(xyzw.y), z(xyzw.z), w(xyzw.w)
+{
+}
+template <typename type>
+inline ttvec4<type>::ttvec4(stvec2<type> const& xy, type const& zc, type const& wc)
+	: x(xy.x), y(xy.y), z(zc), w(wc)
+{
+}
+template <typename type>
+inline ttvec4<type>::ttvec4(type const& xc, stvec2<type> const& yz, type const& wc)
+	: x(xc), y(yz.x), z(yz.y), w(wc)
+{
+}
+template <typename type>
+inline ttvec4<type>::ttvec4(type const& xc, type const& yc, stvec2<type> const& zw)
+	: x(xc), y(yc), z(zw.x), w(zw.y)
+{
+}
+template <typename type>
+inline ttvec4<type>::ttvec4(stvec2<type> const& xy, stvec2<type> const& zw)
+	: x(xy.x), y(xy.y), z(zw.x), w(zw.y)
+{
+}
+template <typename type>
+inline ttvec4<type>::ttvec4(stvec3<type> const& xyz, type const& wc)
+	: x(xyz.x), y(xyz.y), z(xyz.z), w(wc)
+{
+}
+template <typename type>
+inline ttvec4<type>::ttvec4(type const& xc, stvec3<type> const& yzw)
+	: x(xc), y(yzw.x), z(yzw.y), w(yzw.z)
+{
+}
+template <typename type>
+inline ttvec4<type>::ttvec4(stvec4<type> const& xyzw)
+	: x(xyzw.x), y(xyzw.y), z(xyzw.z), w(xyzw.w)
+{
+}
+
+template <typename type>
+inline ttvec4<type>& ttvec4<type>::operator =(ttvec4 const& v_rh)
+{
+	x = v_rh.x;
+	y = v_rh.y;
+	z = v_rh.z;
+	w = v_rh.w;
+	return *this;
+}
+template <typename type>
+inline ttvec4<type>& ttvec4<type>::operator =(stvec4<type> const& v_rh)
+{
+	x = v_rh.x;
+	y = v_rh.y;
+	z = v_rh.z;
+	w = v_rh.w;
+	return *this;
+}
+
+template <typename type>
+inline ttvec4<type> ttvec4<type>::operator +() const
+{
+	return *this;
+}
+template <typename type>
+inline ttvec4<type> ttvec4<type>::operator -() const
+{
+	return ttvec4(-x, -y, -z, -w);
+}
+template <typename type>
+inline ttvec4<type> ttvec4<type>::operator ~() const
+{
+	return ttvec4(~x, ~y, ~z, ~w);
+}
+template <typename type>
+inline ttvec4<bool> ttvec4<type>::operator !() const
+{
+	return ttvec4<bool>(!x, !y, !z, !w);
+}
+template <typename type>
+inline ttvec4<type> ttvec4<type>::operator +(ttvec4 const& v_rh) const
+{
+	return ttvec4(x + v_rh.x, y + v_rh.y, z + v_rh.z, w + v_rh.w);
+}
+template <typename type>
+inline ttvec4<type> ttvec4<type>::operator -(ttvec4 const& v_rh) const
+{
+	return ttvec4(x - v_rh.x, y - v_rh.y, z - v_rh.z, w - v_rh.w);
+}
+template <typename type>
+inline ttvec4<type> ttvec4<type>::operator *(ttvec4 const& v_rh) const
+{
+	return ttvec4(x * v_rh.x, y * v_rh.y, z * v_rh.z, w * v_rh.w);
+}
+template <typename type>
+inline ttvec4<type> ttvec4<type>::operator /(ttvec4 const& v_rh) const
+{
+	return ttvec4(x / v_rh.x, y / v_rh.y, z / v_rh.z, w / v_rh.w);
+}
+template <typename type>
+inline ttvec4<type> ttvec4<type>::operator %(ttvec4 const& v_rh) const
+{
+	return ttvec4(x % v_rh.x, y % v_rh.y, z % v_rh.z, w % v_rh.w);
+}
+template <typename type>
+inline ttvec4<type> ttvec4<type>::operator &(ttvec4 const& v_rh) const
+{
+	return ttvec4(x & v_rh.x, y & v_rh.y, z & v_rh.z, w & v_rh.w);
+}
+template <typename type>
+inline ttvec4<type> ttvec4<type>::operator |(ttvec4 const& v_rh) const
+{
+	return ttvec4(x | v_rh.x, y | v_rh.y, z | v_rh.z, w | v_rh.w);
+}
+template <typename type>
+inline ttvec4<type> ttvec4<type>::operator ^(ttvec4 const& v_rh) const
+{
+	return ttvec4(x ^ v_rh.x, y ^ v_rh.y, z ^ v_rh.z, w ^ v_rh.w);
+}
+template <typename type>
+inline ttvec4<type> ttvec4<type>::operator <<(ttvec4 const& v_rh) const
+{
+	return ttvec4(x << v_rh.x, y << v_rh.y, z << v_rh.z, w << v_rh.w);
+}
+template <typename type>
+inline ttvec4<type> ttvec4<type>::operator >>(ttvec4 const& v_rh) const
+{
+	return ttvec4(x >> v_rh.x, y >> v_rh.y, z >> v_rh.z, w >> v_rh.w);
+}
+template <typename type>
+inline ttvec4<bool> ttvec4<type>::operator ==(ttvec4 const& v_rh) const
+{
+	return ttvec4<bool>(x == v_rh.x, y == v_rh.y, z == v_rh.z, w == v_rh.w);
+}
+template <typename type>
+inline ttvec4<bool> ttvec4<type>::operator !=(ttvec4 const& v_rh) const
+{
+	return ttvec4<bool>(x != v_rh.x, y != v_rh.y, z != v_rh.z, w != v_rh.w);
+}
+template <typename type>
+inline ttvec4<bool> ttvec4<type>::operator <=(ttvec4 const& v_rh) const
+{
+	return ttvec4<bool>(x <= v_rh.x, y <= v_rh.y, z <= v_rh.z, w <= v_rh.w);
+}
+template <typename type>
+inline ttvec4<bool> ttvec4<type>::operator >=(ttvec4 const& v_rh) const
+{
+	return ttvec4<bool>(x >= v_rh.x, y >= v_rh.y, z >= v_rh.z, w >= v_rh.w);
+}
+template <typename type>
+inline ttvec4<bool> ttvec4<type>::operator <(ttvec4 const& v_rh) const
+{
+	return ttvec4<bool>(x < v_rh.x, y < v_rh.y, z < v_rh.z, w < v_rh.w);
+}
+template <typename type>
+inline ttvec4<bool> ttvec4<type>::operator >(ttvec4 const& v_rh) const
+{
+	return ttvec4<bool>(x > v_rh.x, y > v_rh.y, z > v_rh.z, w > v_rh.w);
+}
+template <typename type>
+inline ttvec4<type> ttvec4<type>::operator +(type const& s_rh) const
+{
+	return ttvec4(x + s_rh, y + s_rh, z + s_rh, w + s_rh);
+}
+template <typename type>
+inline ttvec4<type> ttvec4<type>::operator -(type const& s_rh) const
+{
+	return ttvec4(x - s_rh, y - s_rh, z - s_rh, w - s_rh);
+}
+template <typename type>
+inline ttvec4<type> ttvec4<type>::operator *(type const& s_rh) const
+{
+	return ttvec4(x * s_rh, y * s_rh, z * s_rh, w * s_rh);
+}
+template <typename type>
+inline ttvec4<type> ttvec4<type>::operator /(type const& s_rh) const
+{
+	return ttvec4(x / s_rh, y / s_rh, z / s_rh, w / s_rh);
+}
+template <typename type>
+inline ttvec4<type> ttvec4<type>::operator %(type const& s_rh) const
+{
+	return ttvec4(x % s_rh, y % s_rh, z % s_rh, w % s_rh);
+}
+template <typename type>
+inline ttvec4<type> ttvec4<type>::operator &(type const& s_rh) const
+{
+	return ttvec4(x & s_rh, y & s_rh, z & s_rh, w & s_rh);
+}
+template <typename type>
+inline ttvec4<type> ttvec4<type>::operator |(type const& s_rh) const
+{
+	return ttvec4(x | s_rh, y | s_rh, z | s_rh, w | s_rh);
+}
+template <typename type>
+inline ttvec4<type> ttvec4<type>::operator ^(type const& s_rh) const
+{
+	return ttvec4(x ^ s_rh, y ^ s_rh, z ^ s_rh, w ^ s_rh);
+}
+template <typename type>
+inline ttvec4<type> ttvec4<type>::operator <<(type const& s_rh) const
+{
+	return ttvec4(x << s_rh, y << s_rh, z << s_rh, w << s_rh);
+}
+template <typename type>
+inline ttvec4<type> ttvec4<type>::operator >>(type const& s_rh) const
+{
+	return ttvec4(x >> s_rh, y >> s_rh, z >> s_rh, w >> s_rh);
+}
+template <typename type>
+inline ttvec4<bool> ttvec4<type>::operator ==(type const& s_rh) const
+{
+	return ttvec4<bool>(x == s_rh, y == s_rh, z == s_rh, w == s_rh);
+}
+template <typename type>
+inline ttvec4<bool> ttvec4<type>::operator !=(type const& s_rh) const
+{
+	return ttvec4<bool>(x != s_rh, y != s_rh, z != s_rh, w != s_rh);
+}
+template <typename type>
+inline ttvec4<bool> ttvec4<type>::operator <=(type const& s_rh) const
+{
+	return ttvec4<bool>(x <= s_rh, y <= s_rh, z <= s_rh, w <= s_rh);
+}
+template <typename type>
+inline ttvec4<bool> ttvec4<type>::operator >=(type const& s_rh) const
+{
+	return ttvec4<bool>(x >= s_rh, y >= s_rh, z >= s_rh, w >= s_rh);
+}
+template <typename type>
+inline ttvec4<bool> ttvec4<type>::operator <(type const& s_rh) const
+{
+	return ttvec4<bool>(x < s_rh, y < s_rh, z < s_rh, w < s_rh);
+}
+template <typename type>
+inline ttvec4<bool> ttvec4<type>::operator >(type const& s_rh) const
+{
+	return ttvec4<bool>(x > s_rh, y > s_rh, z > s_rh, w > s_rh);
+}
+template <typename type>
+inline type ttvec4<type>::operator [](index const i) const
+{
+	return xyzw[i];
+}
+template <typename type>
+inline ttvec4<type>::operator type const* () const
+{
+	return xyzw;
+}
+
+template <typename type>
+inline ttvec4<type>& ttvec4<type>::operator +=(ttvec4 const& v_rh)
+{
+	x += v_rh.x;
+	y += v_rh.y;
+	z += v_rh.z;
+	w += v_rh.w;
+	return *this;
+}
+template <typename type>
+inline ttvec4<type>& ttvec4<type>::operator -=(ttvec4 const& v_rh)
+{
+	x -= v_rh.x;
+	y -= v_rh.y;
+	z -= v_rh.z;
+	w -= v_rh.w;
+	return *this;
+}
+template <typename type>
+inline ttvec4<type>& ttvec4<type>::operator *=(ttvec4 const& v_rh)
+{
+	x *= v_rh.x;
+	y *= v_rh.y;
+	z *= v_rh.z;
+	w *= v_rh.w;
+	return *this;
+}
+template <typename type>
+inline ttvec4<type>& ttvec4<type>::operator /=(ttvec4 const& v_rh)
+{
+	x /= v_rh.x;
+	y /= v_rh.y;
+	z /= v_rh.z;
+	w /= v_rh.w;
+	return *this;
+}
+template <typename type>
+inline ttvec4<type>& ttvec4<type>::operator %=(ttvec4 const& v_rh)
+{
+	x %= v_rh.x;
+	y %= v_rh.y;
+	z %= v_rh.z;
+	w %= v_rh.w;
+	return *this;
+}
+template <typename type>
+inline ttvec4<type>& ttvec4<type>::operator &=(ttvec4 const& v_rh)
+{
+	x &= v_rh.x;
+	y &= v_rh.y;
+	z &= v_rh.z;
+	w &= v_rh.w;
+	return *this;
+}
+template <typename type>
+inline ttvec4<type>& ttvec4<type>::operator |=(ttvec4 const& v_rh)
+{
+	x |= v_rh.x;
+	y |= v_rh.y;
+	z |= v_rh.z;
+	w |= v_rh.w;
+	return *this;
+}
+template <typename type>
+inline ttvec4<type>& ttvec4<type>::operator ^=(ttvec4 const& v_rh)
+{
+	x ^= v_rh.x;
+	y ^= v_rh.y;
+	z ^= v_rh.z;
+	w ^= v_rh.w;
+	return *this;
+}
+template <typename type>
+inline ttvec4<type>& ttvec4<type>::operator <<=(ttvec4 const& v_rh)
+{
+	x <<= v_rh.x;
+	y <<= v_rh.y;
+	z <<= v_rh.z;
+	w <<= v_rh.w;
+	return *this;
+}
+template <typename type>
+inline ttvec4<type>& ttvec4<type>::operator >>=(ttvec4 const& v_rh)
+{
+	x >>= v_rh.x;
+	y >>= v_rh.y;
+	z >>= v_rh.z;
+	w >>= v_rh.w;
+	return *this;
+}
+template <typename type>
+inline ttvec4<type>& ttvec4<type>::operator +=(type const& s_rh)
+{
+	x += s_rh;
+	y += s_rh;
+	z += s_rh;
+	w += s_rh;
+	return *this;
+}
+template <typename type>
+inline ttvec4<type>& ttvec4<type>::operator -=(type const& s_rh)
+{
+	x -= s_rh;
+	y -= s_rh;
+	z -= s_rh;
+	w -= s_rh;
+	return *this;
+}
+template <typename type>
+inline ttvec4<type>& ttvec4<type>::operator *=(type const& s_rh)
+{
+	x *= s_rh;
+	y *= s_rh;
+	z *= s_rh;
+	w *= s_rh;
+	return *this;
+}
+template <typename type>
+inline ttvec4<type>& ttvec4<type>::operator /=(type const& s_rh)
+{
+	x /= s_rh;
+	y /= s_rh;
+	z /= s_rh;
+	w /= s_rh;
+	return *this;
+}
+template <typename type>
+inline ttvec4<type>& ttvec4<type>::operator %=(type const& s_rh)
+{
+	x %= s_rh;
+	y %= s_rh;
+	z %= s_rh;
+	w %= s_rh;
+	return *this;
+}
+template <typename type>
+inline ttvec4<type>& ttvec4<type>::operator &=(type const& s_rh)
+{
+	x &= s_rh;
+	y &= s_rh;
+	z &= s_rh;
+	w &= s_rh;
+	return *this;
+}
+template <typename type>
+inline ttvec4<type>& ttvec4<type>::operator |=(type const& s_rh)
+{
+	x |= s_rh;
+	y |= s_rh;
+	z |= s_rh;
+	w |= s_rh;
+	return *this;
+}
+template <typename type>
+inline ttvec4<type>& ttvec4<type>::operator ^=(type const& s_rh)
+{
+	x ^= s_rh;
+	y ^= s_rh;
+	z ^= s_rh;
+	w ^= s_rh;
+	return *this;
+}
+template <typename type>
+inline ttvec4<type>& ttvec4<type>::operator <<=(type const& s_rh)
+{
+	x <<= s_rh;
+	y <<= s_rh;
+	z <<= s_rh;
+	w <<= s_rh;
+	return *this;
+}
+template <typename type>
+inline ttvec4<type>& ttvec4<type>::operator >>=(type const& s_rh)
+{
+	x >>= s_rh;
+	y >>= s_rh;
+	z >>= s_rh;
+	w >>= s_rh;
+	return *this;
+}
+template <typename type>
+inline type& ttvec4<type>::operator [](index const i)
+{
+	return xyzw[i];
+}
+template <typename type>
+inline ttvec4<type>::operator type* ()
+{
+	return xyzw;
+}
 
 
 //-----------------------------------------------------------------------------
@@ -1012,7 +1513,7 @@ inline stvec4<type>::stvec4(type& xr, type& yr, type& zr, type& wr)
 IJK_SWIZZLE_ALL(IJK_SWIZZLE_IMPL_RTEMP, IJK_SWIZZLE_IMPL_RTEMP, ttvec, stvec, ttvec, 1, inline);
 IJK_SWIZZLE_ALL(IJK_SWIZZLE_IMPL_RTEMP, IJK_SWIZZLE_IMPL_RTEMP, ttvec, stvec, ttvec, 2, inline);
 IJK_SWIZZLE_ALL(IJK_SWIZZLE_IMPL_RTEMP, IJK_SWIZZLE_IMPL_RTEMP, ttvec, stvec, ttvec, 3, inline);
-//IJK_SWIZZLE_ALL(IJK_SWIZZLE_IMPL_RTEMP, IJK_SWIZZLE_IMPL_RTEMP, ttvec, stvec, ttvec, 4, inline);
+IJK_SWIZZLE_ALL(IJK_SWIZZLE_IMPL_RTEMP, IJK_SWIZZLE_IMPL_RTEMP, ttvec, stvec, ttvec, 4, inline);
 
 IJK_SWIZZLE_ALL(IJK_SWIZZLE_IMPL_RTEMP, IJK_SWIZZLE_IMPL_RTEMP, ttvec, stvec, stvec, 1, inline);
 IJK_SWIZZLE_ALL(IJK_SWIZZLE_IMPL_RTEMP, IJK_SWIZZLE_IMPL_RTEMP, ttvec, stvec, stvec, 2, inline);
