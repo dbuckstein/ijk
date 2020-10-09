@@ -187,10 +187,10 @@ union ttvec2
 	explicit ttvec2(type const& xy = 0);							// Construct vector with all elements set to single scalar.
 	explicit ttvec2(type const& xc, type const& yc);				// Construct vector with elements set individually.
 	explicit ttvec2(bool const* xy);								// Construct vector given boolean array-based vector.
-	explicit ttvec2(int const* xy);									// Construct vector given signed integer array-based vector.
+	explicit ttvec2(i32 const* xy);									// Construct vector given signed integer array-based vector.
 	explicit ttvec2(uint const* xy);								// Construct vector given unsigned integer array-based vector.
-	explicit ttvec2(float const* xy);								// Construct vector given float array-based vector.
-	explicit ttvec2(double const* xy);								// Construct vector given double array-based vector.
+	explicit ttvec2(flt const* xy);									// Construct vector given float array-based vector.
+	explicit ttvec2(dbl const* xy);									// Construct vector given double array-based vector.
 	ttvec2(ttvec2 const& xy);										// Construct vector given another 2D vector.
 	explicit ttvec2(ttvec3<type> const& xy);						// Construct vector given the first two elements of a 3D vector.
 	explicit ttvec2(ttvec4<type> const& xy);						// Construct vector given the first two elements of a 4D vector.
@@ -276,10 +276,10 @@ union ttvec3
 	explicit ttvec3(type const& xyz = 0);									// Construct vector with all elements set to single scalar.
 	explicit ttvec3(type const& xc, type const& yc, type const& zc = 0);	// Construct vector with elements set individually.
 	explicit ttvec3(bool const* xyz);										// Construct vector given boolean array-based vector.
-	explicit ttvec3(int const* xyz);										// Construct vector given signed integer array-based vector.
+	explicit ttvec3(i32 const* xyz);										// Construct vector given signed integer array-based vector.
 	explicit ttvec3(uint const* xyz);										// Construct vector given unsigned integer array-based vector.
-	explicit ttvec3(float const* xyz);										// Construct vector given float array-based vector.
-	explicit ttvec3(double const* xyz);										// Construct vector given double array-based vector.
+	explicit ttvec3(flt const* xyz);										// Construct vector given float array-based vector.
+	explicit ttvec3(dbl const* xyz);										// Construct vector given double array-based vector.
 	explicit ttvec3(ttvec2<type> const& xy, type const& zc = 0);			// Construct vector given 2D vector and one scalar.
 	explicit ttvec3(type const& xc, ttvec2<type> const& yz);				// Construct vector given 2D vector and one scalar.
 	ttvec3(ttvec3 const& xyz);												// Construct vector given another 3D vector.
@@ -367,10 +367,10 @@ union ttvec4
 	explicit ttvec4(type const& xyzw = 0);														// Construct vector with all elements set to single scalar.
 	explicit ttvec4(type const& xc, type const& yc, type const& zc = 0, type const& wc = 0);	// Construct vector with elements set individually.
 	explicit ttvec4(bool const* xyzw);															// Construct vector given boolean array-based vector.
-	explicit ttvec4(int const* xyzw);															// Construct vector given signed integer array-based vector.
+	explicit ttvec4(i32 const* xyzw);															// Construct vector given signed integer array-based vector.
 	explicit ttvec4(uint const* xyzw);															// Construct vector given unsigned integer array-based vector.
-	explicit ttvec4(float const* xyzw);															// Construct vector given float array-based vector.
-	explicit ttvec4(double const* xyzw);														// Construct vector given double array-based vector.
+	explicit ttvec4(flt const* xyzw);															// Construct vector given float array-based vector.
+	explicit ttvec4(dbl const* xyzw);															// Construct vector given double array-based vector.
 	explicit ttvec4(ttvec2<type> const& xy, type const& zc = 0, type const& wc = 0);			// Construct vector given 2D vector and two scalars.
 	explicit ttvec4(type const& xc, ttvec2<type> const& yz, type const& wc = 0);				// Construct vector given 2D vector and two scalars.
 	explicit ttvec4(type const& xc, type const& yc, ttvec2<type> const& zw);					// Construct vector given 2D vector and two scalars.
@@ -529,6 +529,83 @@ private:
 	friend ttvec4<type>;
 };
 
+
+//-----------------------------------------------------------------------------
+
+template<typename type> ttvec2<type> const operator +(type const& s_lh, ttvec2<type> const& v_rh);
+template<typename type> ttvec2<type> const operator -(type const& s_lh, ttvec2<type> const& v_rh);
+template<typename type> ttvec2<type> const operator *(type const& s_lh, ttvec2<type> const& v_rh);
+template<typename type> ttvec2<type> const operator /(type const& s_lh, ttvec2<type> const& v_rh);
+template<typename type> ttvec2<type> const operator %(type const& s_lh, ttvec2<type> const& v_rh);
+template<typename type> ttvec2<type> const operator &(type const& s_lh, ttvec2<type> const& v_rh);
+template<typename type> ttvec2<type> const operator |(type const& s_lh, ttvec2<type> const& v_rh);
+template<typename type> ttvec2<type> const operator ^(type const& s_lh, ttvec2<type> const& v_rh);
+template<typename type> ttvec2<type> const operator <<(type const& s_lh, ttvec2<type> const& v_rh);
+template<typename type> ttvec2<type> const operator >>(type const& s_lh, ttvec2<type> const& v_rh);
+template<typename type> ttvec2<bool> const operator ==(type const& s_lh, ttvec2<type> const& v_rh);
+template<typename type> ttvec2<bool> const operator !=(type const& s_lh, ttvec2<type> const& v_rh);
+template<typename type> ttvec2<bool> const operator <=(type const& s_lh, ttvec2<type> const& v_rh);
+template<typename type> ttvec2<bool> const operator >=(type const& s_lh, ttvec2<type> const& v_rh);
+template<typename type> ttvec2<bool> const operator <(type const& s_lh, ttvec2<type> const& v_rh);
+template<typename type> ttvec2<bool> const operator >(type const& s_lh, ttvec2<type> const& v_rh);
+
+template<typename type> ttvec3<type> const operator +(type const& s_lh, ttvec3<type> const& v_rh);
+template<typename type> ttvec3<type> const operator -(type const& s_lh, ttvec3<type> const& v_rh);
+template<typename type> ttvec3<type> const operator *(type const& s_lh, ttvec3<type> const& v_rh);
+template<typename type> ttvec3<type> const operator /(type const& s_lh, ttvec3<type> const& v_rh);
+template<typename type> ttvec3<type> const operator %(type const& s_lh, ttvec3<type> const& v_rh);
+template<typename type> ttvec3<type> const operator &(type const& s_lh, ttvec3<type> const& v_rh);
+template<typename type> ttvec3<type> const operator |(type const& s_lh, ttvec3<type> const& v_rh);
+template<typename type> ttvec3<type> const operator ^(type const& s_lh, ttvec3<type> const& v_rh);
+template<typename type> ttvec3<type> const operator <<(type const& s_lh, ttvec3<type> const& v_rh);
+template<typename type> ttvec3<type> const operator >>(type const& s_lh, ttvec3<type> const& v_rh);
+template<typename type> ttvec3<bool> const operator ==(type const& s_lh, ttvec3<type> const& v_rh);
+template<typename type> ttvec3<bool> const operator !=(type const& s_lh, ttvec3<type> const& v_rh);
+template<typename type> ttvec3<bool> const operator <=(type const& s_lh, ttvec3<type> const& v_rh);
+template<typename type> ttvec3<bool> const operator >=(type const& s_lh, ttvec3<type> const& v_rh);
+template<typename type> ttvec3<bool> const operator <(type const& s_lh, ttvec3<type> const& v_rh);
+template<typename type> ttvec3<bool> const operator >(type const& s_lh, ttvec3<type> const& v_rh);
+
+template<typename type> ttvec4<type> const operator +(type const& s_lh, ttvec4<type> const& v_rh);
+template<typename type> ttvec4<type> const operator -(type const& s_lh, ttvec4<type> const& v_rh);
+template<typename type> ttvec4<type> const operator *(type const& s_lh, ttvec4<type> const& v_rh);
+template<typename type> ttvec4<type> const operator /(type const& s_lh, ttvec4<type> const& v_rh);
+template<typename type> ttvec4<type> const operator %(type const& s_lh, ttvec4<type> const& v_rh);
+template<typename type> ttvec4<type> const operator &(type const& s_lh, ttvec4<type> const& v_rh);
+template<typename type> ttvec4<type> const operator |(type const& s_lh, ttvec4<type> const& v_rh);
+template<typename type> ttvec4<type> const operator ^(type const& s_lh, ttvec4<type> const& v_rh);
+template<typename type> ttvec4<type> const operator <<(type const& s_lh, ttvec4<type> const& v_rh);
+template<typename type> ttvec4<type> const operator >>(type const& s_lh, ttvec4<type> const& v_rh);
+template<typename type> ttvec4<bool> const operator ==(type const& s_lh, ttvec4<type> const& v_rh);
+template<typename type> ttvec4<bool> const operator !=(type const& s_lh, ttvec4<type> const& v_rh);
+template<typename type> ttvec4<bool> const operator <=(type const& s_lh, ttvec4<type> const& v_rh);
+template<typename type> ttvec4<bool> const operator >=(type const& s_lh, ttvec4<type> const& v_rh);
+template<typename type> ttvec4<bool> const operator <(type const& s_lh, ttvec4<type> const& v_rh);
+template<typename type> ttvec4<bool> const operator >(type const& s_lh, ttvec4<type> const& v_rh);
+
+
+//-----------------------------------------------------------------------------
+
+template<typename type> ttvec2<type>& unitSet(ttvec2<type>& v);
+template<typename type> ttvec2<type>& projSet(ttvec2<type> const& v_base, ttvec2<type>& v);
+
+template<typename type> ttvec3<type>& unitSet(ttvec3<type>& v);
+template<typename type> ttvec3<type>& projSet(ttvec3<type> const& v_base, ttvec3<type>& v);
+
+template<typename type> ttvec4<type>& unitSet(ttvec4<type>& v);
+template<typename type> ttvec4<type>& projSet(ttvec4<type> const& v_base, ttvec4<type>& v);
+/*
+i32 dot(ivec2 const v_lh, ivec2 const v_rh);
+i32 lengthSq(ivec2 const v);
+i32 length(ivec2 const v);
+i32 lengthSqInv(ivec2 const v);
+i32 lengthInv(ivec2 const v);
+i32 cross(ivec2 const v_lh, ivec2 const v_rh);
+i32 crossSgn(ivec2 const v_lh, ivec2 const v_rh);
+
+ivec2 const unit(ivec2 const v);
+ivec2 const proj(ivec2 const v_base, ivec2 const v);
+*/
 
 #endif	// __cplusplus
 

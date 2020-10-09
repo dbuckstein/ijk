@@ -95,7 +95,7 @@ inline ttvec2<type>::ttvec2(bool const* xy)
 {
 }
 template <typename type>
-inline ttvec2<type>::ttvec2(int const* xy)
+inline ttvec2<type>::ttvec2(i32 const* xy)
 	: x((type)xy[0]), y((type)xy[1])
 {
 }
@@ -105,12 +105,12 @@ inline ttvec2<type>::ttvec2(uint const* xy)
 {
 }
 template <typename type>
-inline ttvec2<type>::ttvec2(float const* xy)
+inline ttvec2<type>::ttvec2(flt const* xy)
 	: x((type)xy[0]), y((type)xy[1])
 {
 }
 template <typename type>
-inline ttvec2<type>::ttvec2(double const* xy)
+inline ttvec2<type>::ttvec2(dbl const* xy)
 	: x((type)xy[0]), y((type)xy[1])
 {
 }
@@ -520,7 +520,7 @@ inline ttvec3<type>::ttvec3(bool const* xyz)
 {
 }
 template <typename type>
-inline ttvec3<type>::ttvec3(int const* xyz)
+inline ttvec3<type>::ttvec3(i32 const* xyz)
 	: x((type)xyz[0]), y((type)xyz[1]), z((type)xyz[2])
 {
 }
@@ -530,12 +530,12 @@ inline ttvec3<type>::ttvec3(uint const* xyz)
 {
 }
 template <typename type>
-inline ttvec3<type>::ttvec3(float const* xyz)
+inline ttvec3<type>::ttvec3(flt const* xyz)
 	: x((type)xyz[0]), y((type)xyz[1]), z((type)xyz[2])
 {
 }
 template <typename type>
-inline ttvec3<type>::ttvec3(double const* xyz)
+inline ttvec3<type>::ttvec3(dbl const* xyz)
 	: x((type)xyz[0]), y((type)xyz[1]), z((type)xyz[2])
 {
 }
@@ -977,7 +977,7 @@ inline ttvec4<type>::ttvec4(bool const* xyzw)
 {
 }
 template <typename type>
-inline ttvec4<type>::ttvec4(int const* xyzw)
+inline ttvec4<type>::ttvec4(i32 const* xyzw)
 	: x((type)xyzw[0]), y((type)xyzw[1]), z((type)xyzw[2]), w((type)xyzw[3])
 {
 }
@@ -987,12 +987,12 @@ inline ttvec4<type>::ttvec4(uint const* xyzw)
 {
 }
 template <typename type>
-inline ttvec4<type>::ttvec4(float const* xyzw)
+inline ttvec4<type>::ttvec4(flt const* xyzw)
 	: x((type)xyzw[0]), y((type)xyzw[1]), z((type)xyzw[2]), w((type)xyzw[3])
 {
 }
 template <typename type>
-inline ttvec4<type>::ttvec4(double const* xyzw)
+inline ttvec4<type>::ttvec4(dbl const* xyzw)
 	: x((type)xyzw[0]), y((type)xyzw[1]), z((type)xyzw[2]), w((type)xyzw[3])
 {
 }
