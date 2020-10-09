@@ -33,6 +33,15 @@
 
 #ifdef __cplusplus
 extern "C" {
+
+// Built-in type overrides.
+///
+#define bool		bvec1
+#define int			ivec1
+#define uint		uvec1
+#define float		vec1
+#define double		dvec1
+
 #else	// !__cplusplus
 typedef union bvec2	bvec2;
 typedef union bvec3	bvec3;

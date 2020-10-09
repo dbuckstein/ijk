@@ -23,7 +23,6 @@
 	Vector swizzling types and functions (built for C++).
 */
 
-#if (defined _IJK_VECTOR_H_ && !defined _IJK_VECTOR_INL_)
 #ifndef _IJK_VECTORSWIZZLE_H_
 #define _IJK_VECTORSWIZZLE_H_
 
@@ -165,7 +164,7 @@ union ttvec1
 	ttvec1& operator =(type const& xc);
 	ttvec1& operator =(ttvec1 const& xc);
 	ttvec1& operator =(stvec1<type> const& xc);
-	operator type () const;
+	operator type const () const;
 	operator type& ();
 	IJK_SWIZZLE_ALL(IJK_SWIZZLE_DECL_RTEMP, IJK_SWIZZLE_DECL_RTEMP, ttvec, stvec, ttvec, 1);
 private:
@@ -465,6 +464,7 @@ struct stvec1
 {
 	ttvec1<type> operator =(ttvec1<type> const v);
 	ttvec1<type> operator =(stvec1 const& v);
+	ttvec1<type> operator =(type const& xc);
 	IJK_SWIZZLE_ALL(IJK_SWIZZLE_DECL_RTEMP, IJK_SWIZZLE_DECL_RTEMP, ttvec, stvec, stvec, 1);
 private:
 	type& x;
@@ -484,6 +484,7 @@ struct stvec2
 {
 	ttvec2<type> operator =(ttvec2<type> const v);
 	ttvec2<type> operator =(stvec2 const& v);
+	ttvec2<type> operator =(type const& xy);
 	IJK_SWIZZLE_ALL(IJK_SWIZZLE_DECL_RTEMP, IJK_SWIZZLE_DECL_RTEMP, ttvec, stvec, stvec, 2);
 private:
 	type& x, & y;
@@ -502,6 +503,7 @@ struct stvec3
 {
 	ttvec3<type> operator =(ttvec3<type> const v);
 	ttvec3<type> operator =(stvec3 const& v);
+	ttvec3<type> operator =(type const& xyz);
 	IJK_SWIZZLE_ALL(IJK_SWIZZLE_DECL_RTEMP, IJK_SWIZZLE_DECL_RTEMP, ttvec, stvec, stvec, 3);
 private:
 	type& x, & y, & z;
@@ -519,6 +521,7 @@ struct stvec4
 {
 	ttvec4<type> operator =(ttvec4<type> const v);
 	ttvec4<type> operator =(stvec4 const& v);
+	ttvec4<type> operator =(type const& xyzw);
 	IJK_SWIZZLE_ALL(IJK_SWIZZLE_DECL_RTEMP, IJK_SWIZZLE_DECL_RTEMP, ttvec, stvec, stvec, 4);
 private:
 	type& x, & y, & z, & w;
@@ -607,10 +610,12 @@ ivec2 const unit(ivec2 const v);
 ivec2 const proj(ivec2 const v_base, ivec2 const v);
 */
 
+//-----------------------------------------------------------------------------
+
 #endif	// __cplusplus
 
-//-----------------------------------------------------------------------------
+
+#include "_inl/ijkVectorSwizzle.inl"
 
 
 #endif	// !_IJK_VECTORSWIZZLE_H_
-#endif	// _IJK_VECTOR_H_ && !_IJK_VECTOR_INL_
