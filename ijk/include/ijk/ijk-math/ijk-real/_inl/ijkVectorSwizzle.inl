@@ -103,11 +103,6 @@ inline ttvec2<type>::ttvec2(ttvec4<type> const& xy)
 {
 }
 template <typename type>
-inline ttvec2<type>::ttvec2(stvec1<type> const& xy)
-	: x(xy.x)
-{
-}
-template <typename type>
 inline ttvec2<type>::ttvec2(stvec2<type> const& xy)
 	: x(xy.x), y(xy.y)
 {
@@ -246,47 +241,47 @@ inline ttvec2<type> ttvec2<type>::operator +(type const& s_rh) const
 template <typename type>
 inline ttvec2<type> ttvec2<type>::operator -(type const& s_rh) const
 {
-	return ttvec2(x + s_rh, y + s_rh);
+	return ttvec2(x - s_rh, y - s_rh);
 }
 template <typename type>
 inline ttvec2<type> ttvec2<type>::operator *(type const& s_rh) const
 {
-	return ttvec2(x + s_rh, y + s_rh);
+	return ttvec2(x * s_rh, y * s_rh);
 }
 template <typename type>
 inline ttvec2<type> ttvec2<type>::operator /(type const& s_rh) const
 {
-	return ttvec2(x + s_rh, y + s_rh);
+	return ttvec2(x / s_rh, y / s_rh);
 }
 template <typename type>
 inline ttvec2<type> ttvec2<type>::operator %(type const& s_rh) const
 {
-	return ttvec2(x + s_rh, y + s_rh);
+	return ttvec2(x % s_rh, y % s_rh);
 }
 template <typename type>
 inline ttvec2<type> ttvec2<type>::operator &(type const& s_rh) const
 {
-	return ttvec2(x + s_rh, y + s_rh);
+	return ttvec2(x & s_rh, y & s_rh);
 }
 template <typename type>
 inline ttvec2<type> ttvec2<type>::operator |(type const& s_rh) const
 {
-	return ttvec2(x + s_rh, y + s_rh);
+	return ttvec2(x | s_rh, y | s_rh);
 }
 template <typename type>
 inline ttvec2<type> ttvec2<type>::operator ^(type const& s_rh) const
 {
-	return ttvec2(x + s_rh, y + s_rh);
+	return ttvec2(x ^ s_rh, y ^ s_rh);
 }
 template <typename type>
 inline ttvec2<type> ttvec2<type>::operator <<(type const& s_rh) const
 {
-	return ttvec2(x + s_rh, y + s_rh);
+	return ttvec2(x << s_rh, y << s_rh);
 }
 template <typename type>
 inline ttvec2<type> ttvec2<type>::operator >>(type const& s_rh) const
 {
-	return ttvec2(x + s_rh, y + s_rh);
+	return ttvec2(x >> s_rh, y >> s_rh);
 }
 template <typename type>
 inline ttvec2<bool> ttvec2<type>::operator ==(type const& s_rh) const

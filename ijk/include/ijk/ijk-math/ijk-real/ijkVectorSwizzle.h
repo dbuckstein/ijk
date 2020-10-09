@@ -228,7 +228,6 @@ union ttvec2
 {
 	explicit ttvec2(type const& xy = 0);							// Construct vector with all elements set to single scalar.
 	explicit ttvec2(type const& xc, type const& yc);				// Construct vector with elements set individually.
-	//explicit ttvec2(bool const* xy);								// Construct vector given boolean array-based vector.
 	explicit ttvec2(int const* xy);									// Construct vector given signed integer array-based vector.
 	explicit ttvec2(uint const* xy);								// Construct vector given unsigned integer array-based vector.
 	explicit ttvec2(float const* xy);								// Construct vector given float array-based vector.
@@ -236,7 +235,6 @@ union ttvec2
 	ttvec2(ttvec2 const& xy);										// Construct vector given another 2D vector.
 	explicit ttvec2(ttvec3<type> const& xy);						// Construct vector given the first two elements of a 3D vector.
 	explicit ttvec2(ttvec4<type> const& xy);						// Construct vector given the first two elements of a 4D vector.
-	explicit ttvec2(stvec1<type> const& xy);						// Construct vector given swizzle scalar.
 	ttvec2(stvec2<type> const& xy);									// Construct vector given 2D swizzle vector.
 	explicit ttvec2(stvec3<type> const& xy);						// Construct vector given 3D swizzle vector.
 	explicit ttvec2(stvec4<type> const& xy);						// Construct vector given 4D swizzle vector.
@@ -310,6 +308,194 @@ union ttvec2
 private:
 	type xy[2];
 	struct { type x, y; };
+};
+
+
+// Template 3D vector type.
+template<typename type>
+union ttvec3
+{
+	explicit ttvec3(type const& xyz = 0);									// Construct vector with all elements set to single scalar.
+	explicit ttvec3(type const& xc, type const& yc, type const& zc = 0);	// Construct vector with elements set individually.
+	explicit ttvec3(int const* xyz);										// Construct vector given signed integer array-based vector.
+	explicit ttvec3(uint const* xyz);										// Construct vector given unsigned integer array-based vector.
+	explicit ttvec3(float const* xyz);										// Construct vector given float array-based vector.
+	explicit ttvec3(double const* xyz);										// Construct vector given double array-based vector.
+	explicit ttvec3(ttvec2<type> const& xy, type const& zc = 0);			// Construct vector given 2D vector and one scalar.
+	explicit ttvec3(type const& xc, ttvec2<type> const& yz);				// Construct vector given 2D vector and one scalar.
+	ttvec3(ttvec3 const& xyz);												// Construct vector given another 3D vector.
+	explicit ttvec3(ttvec4<type> const& xyz);								// Construct vector given the first three elements of a 4D vector.
+	explicit ttvec3(stvec2<type> const& xy, type const& zc = 0);			// Construct vector given 2D swizzle vector and one scalar.
+	explicit ttvec3(type const& xc, stvec2<type> const& yz);				// Construct vector given 2D swizzle vector and one scalar.
+	ttvec3(stvec3<type> const& xyz);										// Construct vector given 3D swizzle vector.
+	explicit ttvec3(stvec4<type> const& xyz);								// Construct vector given 4D swizzle vector.
+
+	ttvec3& operator =(ttvec3 const& v_rh);
+	ttvec3& operator =(stvec3<type> const& v_rh);
+
+	ttvec3 operator +() const;
+	ttvec3 operator -() const;
+	ttvec3 operator ~() const;
+	ttvec3<bool> operator !() const;
+	ttvec3 operator +(ttvec3 const& v_rh) const;
+	ttvec3 operator -(ttvec3 const& v_rh) const;
+	ttvec3 operator *(ttvec3 const& v_rh) const;
+	ttvec3 operator /(ttvec3 const& v_rh) const;
+	ttvec3 operator %(ttvec3 const& v_rh) const;
+	ttvec3 operator &(ttvec3 const& v_rh) const;
+	ttvec3 operator |(ttvec3 const& v_rh) const;
+	ttvec3 operator ^(ttvec3 const& v_rh) const;
+	ttvec3 operator <<(ttvec3 const& v_rh) const;
+	ttvec3 operator >>(ttvec3 const& v_rh) const;
+	ttvec3<bool> operator ==(ttvec3 const& v_rh) const;
+	ttvec3<bool> operator !=(ttvec3 const& v_rh) const;
+	ttvec3<bool> operator <=(ttvec3 const& v_rh) const;
+	ttvec3<bool> operator >=(ttvec3 const& v_rh) const;
+	ttvec3<bool> operator <(ttvec3 const& v_rh) const;
+	ttvec3<bool> operator >(ttvec3 const& v_rh) const;
+	ttvec3 operator +(type const& s_rh) const;
+	ttvec3 operator -(type const& s_rh) const;
+	ttvec3 operator *(type const& s_rh) const;
+	ttvec3 operator /(type const& s_rh) const;
+	ttvec3 operator %(type const& s_rh) const;
+	ttvec3 operator &(type const& s_rh) const;
+	ttvec3 operator |(type const& s_rh) const;
+	ttvec3 operator ^(type const& s_rh) const;
+	ttvec3 operator <<(type const& s_rh) const;
+	ttvec3 operator >>(type const& s_rh) const;
+	ttvec3<bool> operator ==(type const& s_rh) const;
+	ttvec3<bool> operator !=(type const& s_rh) const;
+	ttvec3<bool> operator <=(type const& s_rh) const;
+	ttvec3<bool> operator >=(type const& s_rh) const;
+	ttvec3<bool> operator <(type const& s_rh) const;
+	ttvec3<bool> operator >(type const& s_rh) const;
+	type operator [](index const i) const;
+	operator type const* () const;
+
+	ttvec3& operator +=(ttvec3 const& v_rh);
+	ttvec3& operator -=(ttvec3 const& v_rh);
+	ttvec3& operator *=(ttvec3 const& v_rh);
+	ttvec3& operator /=(ttvec3 const& v_rh);
+	ttvec3& operator %=(ttvec3 const& v_rh);
+	ttvec3& operator &=(ttvec3 const& v_rh);
+	ttvec3& operator |=(ttvec3 const& v_rh);
+	ttvec3& operator ^=(ttvec3 const& v_rh);
+	ttvec3& operator <<=(ttvec3 const& v_rh);
+	ttvec3& operator >>=(ttvec3 const& v_rh);
+	ttvec3& operator +=(type const& s_rh);
+	ttvec3& operator -=(type const& s_rh);
+	ttvec3& operator *=(type const& s_rh);
+	ttvec3& operator /=(type const& s_rh);
+	ttvec3& operator %=(type const& s_rh);
+	ttvec3& operator &=(type const& s_rh);
+	ttvec3& operator |=(type const& s_rh);
+	ttvec3& operator ^=(type const& s_rh);
+	ttvec3& operator <<=(type const& s_rh);
+	ttvec3& operator >>=(type const& s_rh);
+	type& operator [](index const i);
+	operator type* ();
+
+	IJK_SWIZZLE_ALL(IJK_SWIZZLE_DECL_RTEMP, IJK_SWIZZLE_DECL_RTEMP, ttvec, stvec, ttvec, 3);
+private:
+	type xyz[3];
+	struct { type x, y, z; };
+};
+
+
+// Template 4D vector type.
+template<typename type>
+union ttvec4
+{
+	explicit ttvec4(type const& xyzw = 0);														// Construct vector with all elements set to single scalar.
+	explicit ttvec4(type const& xc, type const& yc, type const& zc = 0, type const& wc = 0);	// Construct vector with elements set individually.
+	explicit ttvec4(int const* xyzw);															// Construct vector given signed integer array-based vector.
+	explicit ttvec4(uint const* xyzw);															// Construct vector given unsigned integer array-based vector.
+	explicit ttvec4(float const* xyzw);															// Construct vector given float array-based vector.
+	explicit ttvec4(double const* xyzw);														// Construct vector given double array-based vector.
+	explicit ttvec4(ttvec2<type> const& xy, type const& zc = 0, type const& wc = 0);			// Construct vector given 2D vector and two scalars.
+	explicit ttvec4(type const& xc, ttvec2<type> const& yz, type const& wc = 0);				// Construct vector given 2D vector and two scalars.
+	explicit ttvec4(type const& xc, type const& yc, ttvec2<type> const& zw);					// Construct vector given 2D vector and two scalars.
+	explicit ttvec4(ttvec2<type> const& xy, ttvec2<type> const& zw);							// Construct vector given 2D vector and two scalars.
+	explicit ttvec4(ttvec3<type> const& xyz, type const& wc = 0);								// Construct vector given 3D vector and one scalar.
+	explicit ttvec4(type const& xc, ttvec3<type> const& yzw);									// Construct vector given 3D vector and one scalar.
+	ttvec4(ttvec4 const& xyzw);																	// Construct vector given another 4D vector.
+	explicit ttvec4(stvec2<type> const& xy, type const& zc = 0, type const& wc = 0);			// Construct vector given 2D swizzle vector and two scalars.
+	explicit ttvec4(type const& xc, stvec2<type> const& yz, type const& wc = 0);				// Construct vector given 2D swizzle vector and two scalars.
+	explicit ttvec4(type const& xc, type const& yc, stvec2<type> const& zw);					// Construct vector given 2D swizzle vector and two scalars.
+	explicit ttvec4(stvec2<type> const& xy, stvec2<type> const& zw);							// Construct vector given 2D swizzle vector and two scalars.
+	explicit ttvec4(stvec3<type> const& xyz, type const& wc = 0);								// Construct vector given 3D swizzle vector and one scalar.
+	explicit ttvec4(type const& xc, stvec3<type> const& yzw);									// Construct vector given 3D swizzle vector and one scalar.
+	ttvec4(stvec4<type> const& xyzw);															// Construct vector given 4D swizzle vector.
+
+	ttvec4& operator =(ttvec4 const& v_rh);
+	ttvec4& operator =(stvec4<type> const& v_rh);
+
+	ttvec4 operator +() const;
+	ttvec4 operator -() const;
+	ttvec4 operator ~() const;
+	ttvec4<bool> operator !() const;
+	ttvec4 operator +(ttvec4 const& v_rh) const;
+	ttvec4 operator -(ttvec4 const& v_rh) const;
+	ttvec4 operator *(ttvec4 const& v_rh) const;
+	ttvec4 operator /(ttvec4 const& v_rh) const;
+	ttvec4 operator %(ttvec4 const& v_rh) const;
+	ttvec4 operator &(ttvec4 const& v_rh) const;
+	ttvec4 operator |(ttvec4 const& v_rh) const;
+	ttvec4 operator ^(ttvec4 const& v_rh) const;
+	ttvec4 operator <<(ttvec4 const& v_rh) const;
+	ttvec4 operator >>(ttvec4 const& v_rh) const;
+	ttvec4<bool> operator ==(ttvec4 const& v_rh) const;
+	ttvec4<bool> operator !=(ttvec4 const& v_rh) const;
+	ttvec4<bool> operator <=(ttvec4 const& v_rh) const;
+	ttvec4<bool> operator >=(ttvec4 const& v_rh) const;
+	ttvec4<bool> operator <(ttvec4 const& v_rh) const;
+	ttvec4<bool> operator >(ttvec4 const& v_rh) const;
+	ttvec4 operator +(type const& s_rh) const;
+	ttvec4 operator -(type const& s_rh) const;
+	ttvec4 operator *(type const& s_rh) const;
+	ttvec4 operator /(type const& s_rh) const;
+	ttvec4 operator %(type const& s_rh) const;
+	ttvec4 operator &(type const& s_rh) const;
+	ttvec4 operator |(type const& s_rh) const;
+	ttvec4 operator ^(type const& s_rh) const;
+	ttvec4 operator <<(type const& s_rh) const;
+	ttvec4 operator >>(type const& s_rh) const;
+	ttvec4<bool> operator ==(type const& s_rh) const;
+	ttvec4<bool> operator !=(type const& s_rh) const;
+	ttvec4<bool> operator <=(type const& s_rh) const;
+	ttvec4<bool> operator >=(type const& s_rh) const;
+	ttvec4<bool> operator <(type const& s_rh) const;
+	ttvec4<bool> operator >(type const& s_rh) const;
+	type operator [](index const i) const;
+	operator type const* () const;
+
+	ttvec4& operator +=(ttvec4 const& v_rh);
+	ttvec4& operator -=(ttvec4 const& v_rh);
+	ttvec4& operator *=(ttvec4 const& v_rh);
+	ttvec4& operator /=(ttvec4 const& v_rh);
+	ttvec4& operator %=(ttvec4 const& v_rh);
+	ttvec4& operator &=(ttvec4 const& v_rh);
+	ttvec4& operator |=(ttvec4 const& v_rh);
+	ttvec4& operator ^=(ttvec4 const& v_rh);
+	ttvec4& operator <<=(ttvec4 const& v_rh);
+	ttvec4& operator >>=(ttvec4 const& v_rh);
+	ttvec4& operator +=(type const& s_rh);
+	ttvec4& operator -=(type const& s_rh);
+	ttvec4& operator *=(type const& s_rh);
+	ttvec4& operator /=(type const& s_rh);
+	ttvec4& operator %=(type const& s_rh);
+	ttvec4& operator &=(type const& s_rh);
+	ttvec4& operator |=(type const& s_rh);
+	ttvec4& operator ^=(type const& s_rh);
+	ttvec4& operator <<=(type const& s_rh);
+	ttvec4& operator >>=(type const& s_rh);
+	type& operator [](index const i);
+	operator type* ();
+
+	IJK_SWIZZLE_ALL(IJK_SWIZZLE_DECL_RTEMP, IJK_SWIZZLE_DECL_RTEMP, ttvec, stvec, ttvec, 4);
+private:
+	type xyzw[4];
+	struct { type x, y, z, w; };
 };
 
 

@@ -61,6 +61,24 @@
 
 //-----------------------------------------------------------------------------
 
+bool2 const bool2_true = __v2_one;
+bool2 const bool2_false = __v2_zero;
+bool2 const bool2_x = __v2_x;
+bool2 const bool2_y = __v2_y;
+
+bool3 const bool3_true = __v3_one;
+bool3 const bool3_false = __v3_zero;
+bool3 const bool3_x = __v3_x;
+bool3 const bool3_y = __v3_y;
+bool3 const bool3_z = __v3_z;
+
+bool4 const bool4_true = __v4_one;
+bool4 const bool4_false = __v4_zero;
+bool4 const bool4_x = __v4_x;
+bool4 const bool4_y = __v4_y;
+bool4 const bool4_z = __v4_z;
+bool4 const bool4_w = __v4_w;
+
 int2 const int2_one = __v2_one;
 int2 const int2_zero = __v2_zero;
 int2 const int2_one_n = __v2_one_n;
@@ -183,6 +201,24 @@ double4 const double4_w_n = __v4_w_n;
 
 
 //-----------------------------------------------------------------------------
+
+bvec2 const bvec2_true = __v2_one;
+bvec2 const bvec2_false = __v2_zero;
+bvec2 const bvec2_x = __v2_x;
+bvec2 const bvec2_y = __v2_y;
+
+bvec3 const bvec3_true = __v3_one;
+bvec3 const bvec3_false = __v3_zero;
+bvec3 const bvec3_x = __v3_x;
+bvec3 const bvec3_y = __v3_y;
+bvec3 const bvec3_z = __v3_z;
+
+bvec4 const bvec4_true = __v4_one;
+bvec4 const bvec4_false = __v4_zero;
+bvec4 const bvec4_x = __v4_x;
+bvec4 const bvec4_y = __v4_y;
+bvec4 const bvec4_z = __v4_z;
+bvec4 const bvec4_w = __v4_w;
 
 ivec2 const ivec2_one = __v2_one;
 ivec2 const ivec2_zero = __v2_zero;
