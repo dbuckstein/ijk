@@ -87,47 +87,47 @@
 //	IJK_SWIZZLE_ALL to declare swizzling functions within target interface.
 //	Requires paired use of IJK_SWIZZLE_IMPL_TEMP, IJK_SWIZZLE_IMPL_RTEMP or
 //	IJK_SWIZZLE_IMPL outside of target interface.
-#define IJK_SWIZZLE_DECL(inl,cf,ot,rtb,rts,x,y,z,w,...)										inl rtb##rts _##x##y##z##w() cf
+#define IJK_SWIZZLE_DECL(inl,cf,ot,rtb,rts,x,y,z,w,...)										inl cf rtb##rts _##x##y##z##w() cf
 
 // IJK_SWIZZLE_DECL_IMPL
 //	Pass as 'swizzleFormat' to IJK_SWIZZLE_READONLY, IJK_SWIZZLE_READONLY or
 //	IJK_SWIZZLE_ALL to declare and implement swizzling functions within
 //	target interface.
-#define IJK_SWIZZLE_DECL_IMPL(inl,cf,ot,rtb,rts,x,y,z,w,...)								inl rtb##rts _##x##y##z##w() cf { return rtb##rts(__VA_ARGS__); }
+#define IJK_SWIZZLE_DECL_IMPL(inl,cf,ot,rtb,rts,x,y,z,w,...)								inl cf rtb##rts _##x##y##z##w() cf { return rtb##rts(__VA_ARGS__); }
 
 // IJK_SWIZZLE_IMPL
 //	Pass as 'swizzleFormat' to IJK_SWIZZLE_READONLY, IJK_SWIZZLE_READONLY or
 //	IJK_SWIZZLE_ALL to implement swizzling functions outside of target
 //	interface. Requires prior paired use of IJK_SWIZZLE_DECL within target
 //	interface.
-#define IJK_SWIZZLE_IMPL(inl,cf,ot,rtb,rts,x,y,z,w,...)										inl rtb##rts ot::_##x##y##z##w() cf { return rtb##rts(__VA_ARGS__); }
+#define IJK_SWIZZLE_IMPL(inl,cf,ot,rtb,rts,x,y,z,w,...)										inl cf rtb##rts ot::_##x##y##z##w() cf { return rtb##rts(__VA_ARGS__); }
 
 // IJK_SWIZZLE_DECL_RTEMP
 //	Pass as 'swizzleFormat' to IJK_SWIZZLE_READONLY, IJK_SWIZZLE_READONLY or
 //	IJK_SWIZZLE_ALL to declare swizzling functions within target interface
 //	using template return types. Requires paired use of IJK_SWIZZLE_IMPL_RTEMP
 //	outside of target interface.
-#define IJK_SWIZZLE_DECL_RTEMP(inl,cf,ot,rtb,rts,x,y,z,w,...)								inl rtb##rts<type> _##x##y##z##w() cf
+#define IJK_SWIZZLE_DECL_RTEMP(inl,cf,ot,rtb,rts,x,y,z,w,...)								inl cf rtb##rts<type> _##x##y##z##w() cf
 
 // IJK_SWIZZLE_DECL_IMPL_RTEMP
 //	Pass as 'swizzleFormat' to IJK_SWIZZLE_READONLY, IJK_SWIZZLE_READONLY or
 //	IJK_SWIZZLE_ALL to declare and implement swizzling functions within target
 //	template interface using template return types.
-#define IJK_SWIZZLE_DECL_IMPL_RTEMP(inl,cf,ot,rtb,rts,x,y,z,w,...)							inl rtb##rts<type> _##x##y##z##w() cf { return rtb##rts<type>(__VA_ARGS__); }
+#define IJK_SWIZZLE_DECL_IMPL_RTEMP(inl,cf,ot,rtb,rts,x,y,z,w,...)							inl cf rtb##rts<type> _##x##y##z##w() cf { return rtb##rts<type>(__VA_ARGS__); }
 
 // IJK_SWIZZLE_IMPL_TEMP
 //	Pass as 'swizzleFormat' to IJK_SWIZZLE_READONLY, IJK_SWIZZLE_READONLY or
 //	IJK_SWIZZLE_ALL to implement swizzling functions outside of target template
 //	interface. Requires prior paired use of IJK_SWIZZLE_DECL within target
 //	interface.
-#define IJK_SWIZZLE_IMPL_TEMP(inl,cf,ot,rtb,rts,x,y,z,w,...)								template<typename type> inl rtb##rts ot<type>::_##x##y##z##w() cf { return rtb##rts(__VA_ARGS__); }
+#define IJK_SWIZZLE_IMPL_TEMP(inl,cf,ot,rtb,rts,x,y,z,w,...)								template<typename type> inl cf rtb##rts ot<type>::_##x##y##z##w() cf { return rtb##rts(__VA_ARGS__); }
 
 // IJK_SWIZZLE_IMPL_RTEMP
 //	Pass as 'swizzleFormat' to IJK_SWIZZLE_READONLY, IJK_SWIZZLE_READONLY or
 //	IJK_SWIZZLE_ALL to implement swizzling functions outside of target template
 //	interface using template return types. Requires prior IJK_SWIZZLE_DECL or
 //	IJK_SWIZZLE_DECL_RTEMP within target interface.
-#define IJK_SWIZZLE_IMPL_RTEMP(inl,cf,ot,rtb,rts,x,y,z,w,...)								template<typename type> inl rtb##rts<type> ot<type>::_##x##y##z##w() cf { return rtb##rts<type>(__VA_ARGS__); }
+#define IJK_SWIZZLE_IMPL_RTEMP(inl,cf,ot,rtb,rts,x,y,z,w,...)								template<typename type> inl cf rtb##rts<type> ot<type>::_##x##y##z##w() cf { return rtb##rts<type>(__VA_ARGS__); }
 
 #pragma endregion
 // IJK_SWIZZLE_MACRO_DECL
@@ -160,67 +160,25 @@ template<typename type>
 union ttvec1
 {
 	ttvec1(type const& xc = 0);
+	ttvec1(ttvec1 const& xc);
+	ttvec1(stvec1<type> const& xc);
 	ttvec1& operator =(type const& xc);
+	ttvec1& operator =(ttvec1 const& xc);
+	ttvec1& operator =(stvec1<type> const& xc);
 	operator type () const;
 	operator type& ();
 	IJK_SWIZZLE_ALL(IJK_SWIZZLE_DECL_RTEMP, IJK_SWIZZLE_DECL_RTEMP, ttvec, stvec, ttvec, 1);
 private:
 	type x;
 };
-typedef ttvec1<ibool>	bvec1;	// bvec = ivec
-typedef ttvec1<i32>		ivec1;	// bvec = ivec
-typedef ttvec1<ui32>	uvec1;
+typedef ttvec1<bool>	bvec1;
+typedef ttvec1<i32>		ivec1;
+typedef ttvec1<uint>	uvec1;
 typedef ttvec1<flt>		vec1;
 typedef ttvec1<dbl>		dvec1;
 
 
 //-----------------------------------------------------------------------------
-
-// Built-in type overrides.
-///
-#define bool										bvec1
-#define int											ivec1
-#define uint										uvec1
-#define float										vec1
-#define double										dvec1
-
-#else	// !__cplusplus
-
-// Vector definition shortcuts (in lieu of templates in C).
-///
-#define IJK_VECS(t1,x,t2,y)				struct { t1 x; t2 y; }
-#define IJK_VEC2(t1,t2,t3,t4,x,y,z,w)	t2 x##y; IJK_VECS(t1,x,t1,y)
-#define IJK_VEC3(t1,t2,t3,t4,x,y,z,w)	t3 x##y##z; t2 x##y; IJK_VECS(t1,x,union,{ IJK_VEC2(t1,t2,,,y,z,,); })
-#define IJK_VEC4(t1,t2,t3,t4,x,y,z,w)	t4 x##y##z##w; t3 x##y##z; t2 x##y; IJK_VECS(t1,x,union,{ IJK_VEC3(t1,t2,t3,,y,z,w,); })
-#define IJK_VEC_DECL(decl,t1,t2,t3,t4)	decl(t1,t2,t3,t4,x,y,z,w); decl(t1,t2,t3,t4,r,g,b,a); decl(t1,t2,t3,t4,s,t,p,q)
-
-// IJK_VEC
-//	Implements union vector of specified type in target interface.
-//		param vecType: base type of vector (e.g. 'int' for integer vectors)
-//		param vecSize: number of elements in vector (e.g. '2' for a 2D vector)
-#define IJK_VEC_IMPL(vecType,vecSize)	IJK_VEC_DECL(IJK_VEC##vecSize,vecType,vecType##2,vecType##3,vecType##4)
-#define IJK_BVEC_IMPL(vecSize)			IJK_VEC_IMPL(bool,vecSize)
-#define IJK_IVEC_IMPL(vecSize)			IJK_VEC_IMPL(int,vecSize)
-#define IJK_UVEC_IMPL(vecSize)			IJK_VEC_IMPL(uint,vecSize)
-#define IJK_FVEC_IMPL(vecSize)			IJK_VEC_IMPL(float,vecSize)
-#define IJK_DVEC_IMPL(vecSize)			IJK_VEC_IMPL(double,vecSize)
-
-
-//-----------------------------------------------------------------------------
-
-// Built-in type overrides.
-///
-#define bool		ibool
-#define int			i32
-#define uint		ui32
-#define float		flt
-#define double		dbl
-
-#endif	// __cplusplus
-
-//-----------------------------------------------------------------------------
-
-#ifdef __cplusplus
 
 // Template 2D vector type.
 template<typename type>
@@ -228,6 +186,7 @@ union ttvec2
 {
 	explicit ttvec2(type const& xy = 0);							// Construct vector with all elements set to single scalar.
 	explicit ttvec2(type const& xc, type const& yc);				// Construct vector with elements set individually.
+	explicit ttvec2(bool const* xy);								// Construct vector given boolean array-based vector.
 	explicit ttvec2(int const* xy);									// Construct vector given signed integer array-based vector.
 	explicit ttvec2(uint const* xy);								// Construct vector given unsigned integer array-based vector.
 	explicit ttvec2(float const* xy);								// Construct vector given float array-based vector.
@@ -239,48 +198,47 @@ union ttvec2
 	explicit ttvec2(stvec3<type> const& xy);						// Construct vector given 3D swizzle vector.
 	explicit ttvec2(stvec4<type> const& xy);						// Construct vector given 4D swizzle vector.
 
-	ttvec2& operator =(ttvec2 const& v_rh);
-	ttvec2& operator =(stvec2<type> const& v_rh);
-
-	ttvec2 operator +() const;
-	ttvec2 operator -() const;
-	ttvec2 operator ~() const;
-	ttvec2<bool> operator !() const;
-	ttvec2 operator +(ttvec2 const& v_rh) const;
-	ttvec2 operator -(ttvec2 const& v_rh) const;
-	ttvec2 operator *(ttvec2 const& v_rh) const;
-	ttvec2 operator /(ttvec2 const& v_rh) const;
-	ttvec2 operator %(ttvec2 const& v_rh) const;
-	ttvec2 operator &(ttvec2 const& v_rh) const;
-	ttvec2 operator |(ttvec2 const& v_rh) const;
-	ttvec2 operator ^(ttvec2 const& v_rh) const;
-	ttvec2 operator <<(ttvec2 const& v_rh) const;
-	ttvec2 operator >>(ttvec2 const& v_rh) const;
-	ttvec2<bool> operator ==(ttvec2 const& v_rh) const;
-	ttvec2<bool> operator !=(ttvec2 const& v_rh) const;
-	ttvec2<bool> operator <=(ttvec2 const& v_rh) const;
-	ttvec2<bool> operator >=(ttvec2 const& v_rh) const;
-	ttvec2<bool> operator <(ttvec2 const& v_rh) const;
-	ttvec2<bool> operator >(ttvec2 const& v_rh) const;
-	ttvec2 operator +(type const& s_rh) const;
-	ttvec2 operator -(type const& s_rh) const;
-	ttvec2 operator *(type const& s_rh) const;
-	ttvec2 operator /(type const& s_rh) const;
-	ttvec2 operator %(type const& s_rh) const;
-	ttvec2 operator &(type const& s_rh) const;
-	ttvec2 operator |(type const& s_rh) const;
-	ttvec2 operator ^(type const& s_rh) const;
-	ttvec2 operator <<(type const& s_rh) const;
-	ttvec2 operator >>(type const& s_rh) const;
-	ttvec2<bool> operator ==(type const& s_rh) const;
-	ttvec2<bool> operator !=(type const& s_rh) const;
-	ttvec2<bool> operator <=(type const& s_rh) const;
-	ttvec2<bool> operator >=(type const& s_rh) const;
-	ttvec2<bool> operator <(type const& s_rh) const;
-	ttvec2<bool> operator >(type const& s_rh) const;
-	type operator [](index const i) const;
+	ttvec2 const operator +() const;
+	ttvec2 const operator -() const;
+	ttvec2 const operator ~() const;
+	ttvec2 const operator +(ttvec2 const& v_rh) const;
+	ttvec2 const operator -(ttvec2 const& v_rh) const;
+	ttvec2 const operator *(ttvec2 const& v_rh) const;
+	ttvec2 const operator /(ttvec2 const& v_rh) const;
+	ttvec2 const operator %(ttvec2 const& v_rh) const;
+	ttvec2 const operator &(ttvec2 const& v_rh) const;
+	ttvec2 const operator |(ttvec2 const& v_rh) const;
+	ttvec2 const operator ^(ttvec2 const& v_rh) const;
+	ttvec2 const operator <<(ttvec2 const& v_rh) const;
+	ttvec2 const operator >>(ttvec2 const& v_rh) const;
+	ttvec2 const operator +(type const& s_rh) const;
+	ttvec2 const operator -(type const& s_rh) const;
+	ttvec2 const operator *(type const& s_rh) const;
+	ttvec2 const operator /(type const& s_rh) const;
+	ttvec2 const operator %(type const& s_rh) const;
+	ttvec2 const operator &(type const& s_rh) const;
+	ttvec2 const operator |(type const& s_rh) const;
+	ttvec2 const operator ^(type const& s_rh) const;
+	ttvec2 const operator <<(type const& s_rh) const;
+	ttvec2 const operator >>(type const& s_rh) const;
+	ttvec2<bool> const operator !() const;
+	ttvec2<bool> const operator ==(ttvec2 const& v_rh) const;
+	ttvec2<bool> const operator !=(ttvec2 const& v_rh) const;
+	ttvec2<bool> const operator <=(ttvec2 const& v_rh) const;
+	ttvec2<bool> const operator >=(ttvec2 const& v_rh) const;
+	ttvec2<bool> const operator <(ttvec2 const& v_rh) const;
+	ttvec2<bool> const operator >(ttvec2 const& v_rh) const;
+	ttvec2<bool> const operator ==(type const& s_rh) const;
+	ttvec2<bool> const operator !=(type const& s_rh) const;
+	ttvec2<bool> const operator <=(type const& s_rh) const;
+	ttvec2<bool> const operator >=(type const& s_rh) const;
+	ttvec2<bool> const operator <(type const& s_rh) const;
+	ttvec2<bool> const operator >(type const& s_rh) const;
+	type const operator [](index const i) const;
 	operator type const* () const;
 
+	ttvec2& operator =(ttvec2 const& v_rh);
+	ttvec2& operator =(stvec2<type> const& v_rh);
 	ttvec2& operator +=(ttvec2 const& v_rh);
 	ttvec2& operator -=(ttvec2 const& v_rh);
 	ttvec2& operator *=(ttvec2 const& v_rh);
@@ -317,6 +275,7 @@ union ttvec3
 {
 	explicit ttvec3(type const& xyz = 0);									// Construct vector with all elements set to single scalar.
 	explicit ttvec3(type const& xc, type const& yc, type const& zc = 0);	// Construct vector with elements set individually.
+	explicit ttvec3(bool const* xyz);										// Construct vector given boolean array-based vector.
 	explicit ttvec3(int const* xyz);										// Construct vector given signed integer array-based vector.
 	explicit ttvec3(uint const* xyz);										// Construct vector given unsigned integer array-based vector.
 	explicit ttvec3(float const* xyz);										// Construct vector given float array-based vector.
@@ -330,48 +289,47 @@ union ttvec3
 	ttvec3(stvec3<type> const& xyz);										// Construct vector given 3D swizzle vector.
 	explicit ttvec3(stvec4<type> const& xyz);								// Construct vector given 4D swizzle vector.
 
+	ttvec3 const operator +() const;
+	ttvec3 const operator -() const;
+	ttvec3 const operator ~() const;
+	ttvec3 const operator +(ttvec3 const& v_rh) const;
+	ttvec3 const operator -(ttvec3 const& v_rh) const;
+	ttvec3 const operator *(ttvec3 const& v_rh) const;
+	ttvec3 const operator /(ttvec3 const& v_rh) const;
+	ttvec3 const operator %(ttvec3 const& v_rh) const;
+	ttvec3 const operator &(ttvec3 const& v_rh) const;
+	ttvec3 const operator |(ttvec3 const& v_rh) const;
+	ttvec3 const operator ^(ttvec3 const& v_rh) const;
+	ttvec3 const operator <<(ttvec3 const& v_rh) const;
+	ttvec3 const operator >>(ttvec3 const& v_rh) const;
+	ttvec3 const operator +(type const& s_rh) const;
+	ttvec3 const operator -(type const& s_rh) const;
+	ttvec3 const operator *(type const& s_rh) const;
+	ttvec3 const operator /(type const& s_rh) const;
+	ttvec3 const operator %(type const& s_rh) const;
+	ttvec3 const operator &(type const& s_rh) const;
+	ttvec3 const operator |(type const& s_rh) const;
+	ttvec3 const operator ^(type const& s_rh) const;
+	ttvec3 const operator <<(type const& s_rh) const;
+	ttvec3 const operator >>(type const& s_rh) const;
+	ttvec3<bool> const operator !() const;
+	ttvec3<bool> const operator ==(ttvec3 const& v_rh) const;
+	ttvec3<bool> const operator !=(ttvec3 const& v_rh) const;
+	ttvec3<bool> const operator <=(ttvec3 const& v_rh) const;
+	ttvec3<bool> const operator >=(ttvec3 const& v_rh) const;
+	ttvec3<bool> const operator <(ttvec3 const& v_rh) const;
+	ttvec3<bool> const operator >(ttvec3 const& v_rh) const;
+	ttvec3<bool> const operator ==(type const& s_rh) const;
+	ttvec3<bool> const operator !=(type const& s_rh) const;
+	ttvec3<bool> const operator <=(type const& s_rh) const;
+	ttvec3<bool> const operator >=(type const& s_rh) const;
+	ttvec3<bool> const operator <(type const& s_rh) const;
+	ttvec3<bool> const operator >(type const& s_rh) const;
+	type const operator [](index const i) const;
+	operator type const* () const;
+	
 	ttvec3& operator =(ttvec3 const& v_rh);
 	ttvec3& operator =(stvec3<type> const& v_rh);
-
-	ttvec3 operator +() const;
-	ttvec3 operator -() const;
-	ttvec3 operator ~() const;
-	ttvec3<bool> operator !() const;
-	ttvec3 operator +(ttvec3 const& v_rh) const;
-	ttvec3 operator -(ttvec3 const& v_rh) const;
-	ttvec3 operator *(ttvec3 const& v_rh) const;
-	ttvec3 operator /(ttvec3 const& v_rh) const;
-	ttvec3 operator %(ttvec3 const& v_rh) const;
-	ttvec3 operator &(ttvec3 const& v_rh) const;
-	ttvec3 operator |(ttvec3 const& v_rh) const;
-	ttvec3 operator ^(ttvec3 const& v_rh) const;
-	ttvec3 operator <<(ttvec3 const& v_rh) const;
-	ttvec3 operator >>(ttvec3 const& v_rh) const;
-	ttvec3<bool> operator ==(ttvec3 const& v_rh) const;
-	ttvec3<bool> operator !=(ttvec3 const& v_rh) const;
-	ttvec3<bool> operator <=(ttvec3 const& v_rh) const;
-	ttvec3<bool> operator >=(ttvec3 const& v_rh) const;
-	ttvec3<bool> operator <(ttvec3 const& v_rh) const;
-	ttvec3<bool> operator >(ttvec3 const& v_rh) const;
-	ttvec3 operator +(type const& s_rh) const;
-	ttvec3 operator -(type const& s_rh) const;
-	ttvec3 operator *(type const& s_rh) const;
-	ttvec3 operator /(type const& s_rh) const;
-	ttvec3 operator %(type const& s_rh) const;
-	ttvec3 operator &(type const& s_rh) const;
-	ttvec3 operator |(type const& s_rh) const;
-	ttvec3 operator ^(type const& s_rh) const;
-	ttvec3 operator <<(type const& s_rh) const;
-	ttvec3 operator >>(type const& s_rh) const;
-	ttvec3<bool> operator ==(type const& s_rh) const;
-	ttvec3<bool> operator !=(type const& s_rh) const;
-	ttvec3<bool> operator <=(type const& s_rh) const;
-	ttvec3<bool> operator >=(type const& s_rh) const;
-	ttvec3<bool> operator <(type const& s_rh) const;
-	ttvec3<bool> operator >(type const& s_rh) const;
-	type operator [](index const i) const;
-	operator type const* () const;
-
 	ttvec3& operator +=(ttvec3 const& v_rh);
 	ttvec3& operator -=(ttvec3 const& v_rh);
 	ttvec3& operator *=(ttvec3 const& v_rh);
@@ -408,6 +366,7 @@ union ttvec4
 {
 	explicit ttvec4(type const& xyzw = 0);														// Construct vector with all elements set to single scalar.
 	explicit ttvec4(type const& xc, type const& yc, type const& zc = 0, type const& wc = 0);	// Construct vector with elements set individually.
+	explicit ttvec4(bool const* xyzw);															// Construct vector given boolean array-based vector.
 	explicit ttvec4(int const* xyzw);															// Construct vector given signed integer array-based vector.
 	explicit ttvec4(uint const* xyzw);															// Construct vector given unsigned integer array-based vector.
 	explicit ttvec4(float const* xyzw);															// Construct vector given float array-based vector.
@@ -427,48 +386,47 @@ union ttvec4
 	explicit ttvec4(type const& xc, stvec3<type> const& yzw);									// Construct vector given 3D swizzle vector and one scalar.
 	ttvec4(stvec4<type> const& xyzw);															// Construct vector given 4D swizzle vector.
 
-	ttvec4& operator =(ttvec4 const& v_rh);
-	ttvec4& operator =(stvec4<type> const& v_rh);
-
-	ttvec4 operator +() const;
-	ttvec4 operator -() const;
-	ttvec4 operator ~() const;
-	ttvec4<bool> operator !() const;
-	ttvec4 operator +(ttvec4 const& v_rh) const;
-	ttvec4 operator -(ttvec4 const& v_rh) const;
-	ttvec4 operator *(ttvec4 const& v_rh) const;
-	ttvec4 operator /(ttvec4 const& v_rh) const;
-	ttvec4 operator %(ttvec4 const& v_rh) const;
-	ttvec4 operator &(ttvec4 const& v_rh) const;
-	ttvec4 operator |(ttvec4 const& v_rh) const;
-	ttvec4 operator ^(ttvec4 const& v_rh) const;
-	ttvec4 operator <<(ttvec4 const& v_rh) const;
-	ttvec4 operator >>(ttvec4 const& v_rh) const;
-	ttvec4<bool> operator ==(ttvec4 const& v_rh) const;
-	ttvec4<bool> operator !=(ttvec4 const& v_rh) const;
-	ttvec4<bool> operator <=(ttvec4 const& v_rh) const;
-	ttvec4<bool> operator >=(ttvec4 const& v_rh) const;
-	ttvec4<bool> operator <(ttvec4 const& v_rh) const;
-	ttvec4<bool> operator >(ttvec4 const& v_rh) const;
-	ttvec4 operator +(type const& s_rh) const;
-	ttvec4 operator -(type const& s_rh) const;
-	ttvec4 operator *(type const& s_rh) const;
-	ttvec4 operator /(type const& s_rh) const;
-	ttvec4 operator %(type const& s_rh) const;
-	ttvec4 operator &(type const& s_rh) const;
-	ttvec4 operator |(type const& s_rh) const;
-	ttvec4 operator ^(type const& s_rh) const;
-	ttvec4 operator <<(type const& s_rh) const;
-	ttvec4 operator >>(type const& s_rh) const;
-	ttvec4<bool> operator ==(type const& s_rh) const;
-	ttvec4<bool> operator !=(type const& s_rh) const;
-	ttvec4<bool> operator <=(type const& s_rh) const;
-	ttvec4<bool> operator >=(type const& s_rh) const;
-	ttvec4<bool> operator <(type const& s_rh) const;
-	ttvec4<bool> operator >(type const& s_rh) const;
-	type operator [](index const i) const;
+	ttvec4 const operator +() const;
+	ttvec4 const operator -() const;
+	ttvec4 const operator ~() const;
+	ttvec4 const operator +(ttvec4 const& v_rh) const;
+	ttvec4 const operator -(ttvec4 const& v_rh) const;
+	ttvec4 const operator *(ttvec4 const& v_rh) const;
+	ttvec4 const operator /(ttvec4 const& v_rh) const;
+	ttvec4 const operator %(ttvec4 const& v_rh) const;
+	ttvec4 const operator &(ttvec4 const& v_rh) const;
+	ttvec4 const operator |(ttvec4 const& v_rh) const;
+	ttvec4 const operator ^(ttvec4 const& v_rh) const;
+	ttvec4 const operator <<(ttvec4 const& v_rh) const;
+	ttvec4 const operator >>(ttvec4 const& v_rh) const;
+	ttvec4 const operator +(type const& s_rh) const;
+	ttvec4 const operator -(type const& s_rh) const;
+	ttvec4 const operator *(type const& s_rh) const;
+	ttvec4 const operator /(type const& s_rh) const;
+	ttvec4 const operator %(type const& s_rh) const;
+	ttvec4 const operator &(type const& s_rh) const;
+	ttvec4 const operator |(type const& s_rh) const;
+	ttvec4 const operator ^(type const& s_rh) const;
+	ttvec4 const operator <<(type const& s_rh) const;
+	ttvec4 const operator >>(type const& s_rh) const;
+	ttvec4<bool> const operator !() const;
+	ttvec4<bool> const operator ==(ttvec4 const& v_rh) const;
+	ttvec4<bool> const operator !=(ttvec4 const& v_rh) const;
+	ttvec4<bool> const operator <=(ttvec4 const& v_rh) const;
+	ttvec4<bool> const operator >=(ttvec4 const& v_rh) const;
+	ttvec4<bool> const operator <(ttvec4 const& v_rh) const;
+	ttvec4<bool> const operator >(ttvec4 const& v_rh) const;
+	ttvec4<bool> const operator ==(type const& s_rh) const;
+	ttvec4<bool> const operator !=(type const& s_rh) const;
+	ttvec4<bool> const operator <=(type const& s_rh) const;
+	ttvec4<bool> const operator >=(type const& s_rh) const;
+	ttvec4<bool> const operator <(type const& s_rh) const;
+	ttvec4<bool> const operator >(type const& s_rh) const;
+	type const operator [](index const i) const;
 	operator type const* () const;
 
+	ttvec4& operator =(ttvec4 const& v_rh);
+	ttvec4& operator =(stvec4<type> const& v_rh);
 	ttvec4& operator +=(ttvec4 const& v_rh);
 	ttvec4& operator -=(ttvec4 const& v_rh);
 	ttvec4& operator *=(ttvec4 const& v_rh);

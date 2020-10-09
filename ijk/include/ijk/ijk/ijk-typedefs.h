@@ -38,9 +38,9 @@ typedef	  signed	long					i32, iret, ibool, istate;
 typedef	  signed	long long				i64;
 typedef	unsigned	char					ui8, byte, ubyte, keycode;
 typedef	unsigned	short					ui16, word;
-typedef	unsigned	long					ui32, dword;
+typedef	unsigned	long					ui32, dword, uint;
 typedef	unsigned	long long				ui64, qword;
-typedef				float					f32, flt;
+typedef				float					f32, flt, single;
 typedef				double					f64, dbl;
 
 

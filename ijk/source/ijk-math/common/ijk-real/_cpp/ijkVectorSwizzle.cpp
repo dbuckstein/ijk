@@ -34,19 +34,19 @@ extern "C" {
 
 void ijkMathTestVectorSwizzle()
 {
-/*	ivec2 test_ivec2(7, 13);
+	ivec2 test_ivec2(7, 13);
 	ivec2 test_isvec2 = ivec2(42, 9001).yx;	// ivec2 ctor -> call swiz -> isvec2 ctor -> ivec2 ctor: test_isvec2 = (9001, 42)
 	ivec2 const test_ivec2k = test_isvec2.yx;	// call swiz -> isvec2 ctor -> ivec2 ctor: test_ivec2k = (42, 9001)
 
-
 	ivec1 test_ivec1 = 4;
 	ivec1 test_ivec1r = test_ivec1;
-*/
-/*	ivec3 test_ivec3;
+
+	ivec3 test_ivec3;
 	ivec4 test_ivec4;
 
-	uvec3 test_ivec3;
-	uvec4 test_ivec4;
+	uvec2 test_uvec2;
+	uvec3 test_uvec3;
+	uvec4 test_uvec4;
 
 	vec2 test_vec2;
 	vec3 test_vec3;
@@ -55,8 +55,11 @@ void ijkMathTestVectorSwizzle()
 	dvec2 test_dvec2;
 	dvec3 test_dvec3;
 	dvec4 test_dvec4;
-*/
-/*	test_isvec2 = test_ivec2.xx;	// call swiz -> ivec2 ctor -> ivec2 assign ivec2: test_isvec2 = (7, 7)
+
+	//(test_ivec2 + 7).x = 1;		// error: lhs is const
+	test_ivec2.x = 1;				// call swiz -> assign
+
+	test_isvec2 = test_ivec2.xx;	// call swiz -> ivec2 ctor -> ivec2 assign ivec2: test_isvec2 = (7, 7)
 	test_isvec2 = test_ivec2.xy;	// call swiz -> isvec2 ctor -> ivec2 assign isvec2: test_isvec2 = (7, 13)
 	test_isvec2 = test_ivec2.yx;	// call swiz -> isvec2 ctor -> ivec2 assign isvec2: test_isvec2 = (13, 7)
 	test_isvec2 = test_ivec2.yy;	// call swiz -> ivec2 ctor -> ivec2 assign ivec2: test_isvec2 = (13, 13)
@@ -107,8 +110,8 @@ void ijkMathTestVectorSwizzle()
 	test_ivec2.yyxy;
 	test_ivec2.yyyx;
 	test_ivec2.yyyy;
-*/
-/*	test_ivec3.xx;
+
+	test_ivec3.xx;
 	test_ivec3.xy;
 	test_ivec3.xz;
 	test_ivec3.yx;
@@ -2010,7 +2013,6 @@ void ijkMathTestVectorSwizzle()
 	test_dvec4.wwwy;
 	test_dvec4.wwwz;
 	test_dvec4.wwww;
-*/
 }
 
 
