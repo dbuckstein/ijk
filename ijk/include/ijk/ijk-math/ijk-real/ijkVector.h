@@ -951,7 +951,161 @@ typedef vec4		rvec4;		// Real 4D vector data structure type is 4D float vector.
 //-----------------------------------------------------------------------------
 
 // isEqual2bv
-//	Equality comparison for boolean vector.
+//	Equality comparison for 2D boolean vector.
+//		param v_out: output vector holding boolean result of comparison
+//		param v_lh: left-hand vector
+//		param v_rh: right-hand vector
+//		return: v_out
+boolv isEqual2bv(bool2 v_out, bool2 const v_lh, bool2 const v_rh);
+
+// isInequal2bv
+//	Inequality comparison for 2D boolean vector.
+//		param v_out: output vector holding boolean result of comparison
+//		param v_lh: left-hand vector
+//		param v_rh: right-hand vector
+//		return: v_out
+boolv isInequal2bv(bool2 v_out, bool2 const v_lh, bool2 const v_rh);
+
+// isEqual2bvs
+//	Equality comparison for 2D boolean vector vs condition.
+//		param v_out: output vector holding boolean result of comparison
+//		param v_lh: left-hand vector
+//		param s_rh: right-hand condition
+//		return: v_out
+boolv isEqual2bvs(bool2 v_out, bool2 const v_lh, ibool const s_rh);
+
+// isInequal2bvs
+//	Inequality comparison for 2D boolean vector vs condition.
+//		param v_out: output vector holding boolean result of comparison
+//		param v_lh: left-hand vector
+//		param s_rh: right-hand condition
+//		return: v_out
+boolv isInequal2bvs(bool2 v_out, bool2 const v_lh, ibool const s_rh);
+
+// isEqual2bsv
+//	Equality comparison for 2D boolean vector vs condition.
+//		param v_out: output vector holding boolean result of comparison
+//		param s_lh: left-hand condition
+//		param v_rh: right-hand vector
+//		return: v_out
+boolv isEqual2bsv(bool2 v_out, ibool const s_lh, bool2 const v_rh);
+
+// isInequal2bsv
+//	Inequality comparison for 2D boolean vector vs condition.
+//		param v_out: output vector holding boolean result of comparison
+//		param s_lh: left-hand condition
+//		param v_rh: right-hand vector
+//		return: v_out
+boolv isInequal2bsv(bool2 v_out, ibool const s_lh, bool2 const v_rh);
+
+
+//-----------------------------------------------------------------------------
+
+// isEqual3bv
+//	Equality comparison for 3D boolean vector.
+//		param v_out: output vector holding boolean result of comparison
+//		param v_lh: left-hand vector
+//		param v_rh: right-hand vector
+//		return: v_out
+boolv isEqual3bv(bool3 v_out, bool3 const v_lh, bool3 const v_rh);
+
+// isInequal3bv
+//	Inequality comparison for 3D boolean vector.
+//		param v_out: output vector holding boolean result of comparison
+//		param v_lh: left-hand vector
+//		param v_rh: right-hand vector
+//		return: v_out
+boolv isInequal3bv(bool3 v_out, bool3 const v_lh, bool3 const v_rh);
+
+// isEqual3bvs
+//	Equality comparison for 3D boolean vector vs condition.
+//		param v_out: output vector holding boolean result of comparison
+//		param v_lh: left-hand vector
+//		param s_rh: right-hand condition
+//		return: v_out
+boolv isEqual3bvs(bool3 v_out, bool3 const v_lh, ibool const s_rh);
+
+// isInequal3bvs
+//	Inequality comparison for 3D boolean vector vs condition.
+//		param v_out: output vector holding boolean result of comparison
+//		param v_lh: left-hand vector
+//		param s_rh: right-hand condition
+//		return: v_out
+boolv isInequal3bvs(bool3 v_out, bool3 const v_lh, ibool const s_rh);
+
+// isEqual3bsv
+//	Equality comparison for 3D boolean vector vs condition.
+//		param v_out: output vector holding boolean result of comparison
+//		param s_lh: left-hand condition
+//		param v_rh: right-hand vector
+//		return: v_out
+boolv isEqual3bsv(bool3 v_out, ibool const s_lh, bool3 const v_rh);
+
+// isInequal3bsv
+//	Inequality comparison for 3D boolean vector vs condition.
+//		param v_out: output vector holding boolean result of comparison
+//		param s_lh: left-hand condition
+//		param v_rh: right-hand vector
+//		return: v_out
+boolv isInequal3bsv(bool3 v_out, ibool const s_lh, bool3 const v_rh);
+
+
+//-----------------------------------------------------------------------------
+
+// isEqual4bv
+//	Equality comparison for 4D boolean vector.
+//		param v_out: output vector holding boolean result of comparison
+//		param v_lh: left-hand vector
+//		param v_rh: right-hand vector
+//		return: v_out
+boolv isEqual4bv(bool4 v_out, bool4 const v_lh, bool4 const v_rh);
+
+// isInequal4bv
+//	Inequality comparison for 4D boolean vector.
+//		param v_out: output vector holding boolean result of comparison
+//		param v_lh: left-hand vector
+//		param v_rh: right-hand vector
+//		return: v_out
+boolv isInequal4bv(bool4 v_out, bool4 const v_lh, bool4 const v_rh);
+
+// isEqual4bvs
+//	Equality comparison for 4D boolean vector vs condition.
+//		param v_out: output vector holding boolean result of comparison
+//		param v_lh: left-hand vector
+//		param s_rh: right-hand condition
+//		return: v_out
+boolv isEqual4bvs(bool4 v_out, bool4 const v_lh, ibool const s_rh);
+
+// isInequal4bvs
+//	Inequality comparison for 4D boolean vector vs condition.
+//		param v_out: output vector holding boolean result of comparison
+//		param v_lh: left-hand vector
+//		param s_rh: right-hand condition
+//		return: v_out
+boolv isInequal4bvs(bool4 v_out, bool4 const v_lh, ibool const s_rh);
+
+// isEqual4bsv
+//	Equality comparison for 4D boolean vector vs condition.
+//		param v_out: output vector holding boolean result of comparison
+//		param s_lh: left-hand condition
+//		param v_rh: right-hand vector
+//		return: v_out
+boolv isEqual4bsv(bool4 v_out, ibool const s_lh, bool4 const v_rh);
+
+// isInequal4bsv
+//	Inequality comparison for 4D boolean vector vs condition.
+//		param v_out: output vector holding boolean result of comparison
+//		param s_lh: left-hand condition
+//		param v_rh: right-hand vector
+//		return: v_out
+boolv isInequal4bsv(bool4 v_out, ibool const s_lh, bool4 const v_rh);
+
+
+//-----------------------------------------------------------------------------
+
+//i32 dot3iv(int3 const v_lh, int3 const v_rh);
+
+//intv cross3iv(int3 v_out, int3 const v_lh, int3 const v_rh);
 
 
 //-----------------------------------------------------------------------------
@@ -965,19 +1119,143 @@ typedef vec4		rvec4;		// Real 4D vector data structure type is 4D float vector.
 //-----------------------------------------------------------------------------
 
 // isEqual2b
-//	Equality comparison for boolean vector.
+//	Equality comparison for 2D boolean vector.
+//		param v_lh: left-hand vector
+//		param v_rh: right-hand vector
+//		return: output vector holding boolean result of comparison
+bvec2 isEqual2b(bvec2 const v_lh, bvec2 const v_rh);
+
+// isInequal2b
+//	Inequality comparison for 2D boolean vector.
+//		param v_lh: left-hand vector
+//		param v_rh: right-hand vector
+//		return: output vector holding boolean result of comparison
+bvec2 isInequal2b(bvec2 const v_lh, bvec2 const v_rh);
+
+// isEqual2bvs
+//	Equality comparison for 2D boolean vector vs condition.
+//		param v_lh: left-hand vector
+//		param s_rh: right-hand condition
+//		return: output vector holding boolean result of comparison
+bvec2 isEqual2bs(bvec2 const v_lh, bool const s_rh);
+
+// isInequal2bvs
+//	Inequality comparison for 2D boolean vector vs condition.
+//		param v_lh: left-hand vector
+//		param s_rh: right-hand condition
+//		return: output vector holding boolean result of comparison
+bvec2 isInequal2bs(bvec2 const v_lh, bool const s_rh);
+
+// isEqual2bsv
+//	Equality comparison for 2D boolean vector vs condition.
+//		param s_lh: left-hand condition
+//		param v_rh: right-hand vector
+//		return: output vector holding boolean result of comparison
+bvec2 isEqual2sb(bool const s_lh, bvec2 const v_rh);
+
+// isInequal2bsv
+//	Inequality comparison for 2D boolean vector vs condition.
+//		param s_lh: left-hand condition
+//		param v_rh: right-hand vector
+//		return: output vector holding boolean result of comparison
+bvec2 isInequal2sb(bool const s_lh, bvec2 const v_rh);
 
 
 //-----------------------------------------------------------------------------
 
+// isEqual3b
+//	Equality comparison for 3D boolean vector.
+//		param v_lh: left-hand vector
+//		param v_rh: right-hand vector
+//		return: output vector holding boolean result of comparison
+bvec3 isEqual3b(bvec3 const v_lh, bvec3 const v_rh);
 
-int dot3iv(int3 const v_lh, int3 const v_rh);
+// isInequal3b
+//	Inequality comparison for 3D boolean vector.
+//		param v_lh: left-hand vector
+//		param v_rh: right-hand vector
+//		return: output vector holding boolean result of comparison
+bvec3 isInequal3b(bvec3 const v_lh, bvec3 const v_rh);
 
-intv cross3iv(int3 v_out, int3 const v_lh, int3 const v_rh);
+// isEqual3bvs
+//	Equality comparison for 3D boolean vector vs condition.
+//		param v_lh: left-hand vector
+//		param s_rh: right-hand condition
+//		return: output vector holding boolean result of comparison
+bvec3 isEqual3bs(bvec3 const v_lh, bool const s_rh);
 
-int dot3i(ivec3 const v_lh, ivec3 const v_rh);
+// isInequal3bvs
+//	Inequality comparison for 3D boolean vector vs condition.
+//		param v_lh: left-hand vector
+//		param s_rh: right-hand condition
+//		return: output vector holding boolean result of comparison
+bvec3 isInequal3bs(bvec3 const v_lh, bool const s_rh);
 
-ivec3 cross3i(ivec3 const v_lh, ivec3 const v_rh);
+// isEqual3bsv
+//	Equality comparison for 3D boolean vector vs condition.
+//		param s_lh: left-hand condition
+//		param v_rh: right-hand vector
+//		return: output vector holding boolean result of comparison
+bvec3 isEqual3sb(bool const s_lh, bvec3 const v_rh);
+
+// isInequal3bsv
+//	Inequality comparison for 3D boolean vector vs condition.
+//		param s_lh: left-hand condition
+//		param v_rh: right-hand vector
+//		return: output vector holding boolean result of comparison
+bvec3 isInequal3sb(bool const s_lh, bvec3 const v_rh);
+
+
+//-----------------------------------------------------------------------------
+
+// isEqual4b
+//	Equality comparison for 4D boolean vector.
+//		param v_lh: left-hand vector
+//		param v_rh: right-hand vector
+//		return: output vector holding boolean result of comparison
+bvec4 isEqual4b(bvec4 const v_lh, bvec4 const v_rh);
+
+// isInequal4b
+//	Inequality comparison for 4D boolean vector.
+//		param v_lh: left-hand vector
+//		param v_rh: right-hand vector
+//		return: output vector holding boolean result of comparison
+bvec4 isInequal4b(bvec4 const v_lh, bvec4 const v_rh);
+
+// isEqual4bvs
+//	Equality comparison for 4D boolean vector vs condition.
+//		param v_lh: left-hand vector
+//		param s_rh: right-hand condition
+//		return: output vector holding boolean result of comparison
+bvec4 isEqual4bs(bvec4 const v_lh, bool const s_rh);
+
+// isInequal4bvs
+//	Inequality comparison for 4D boolean vector vs condition.
+//		param v_lh: left-hand vector
+//		param s_rh: right-hand condition
+//		return: output vector holding boolean result of comparison
+bvec4 isInequal4bs(bvec4 const v_lh, bool const s_rh);
+
+// isEqual4bsv
+//	Equality comparison for 4D boolean vector vs condition.
+//		param s_lh: left-hand condition
+//		param v_rh: right-hand vector
+//		return: output vector holding boolean result of comparison
+bvec4 isEqual4sb(bool const s_lh, bvec4 const v_rh);
+
+// isInequal4bsv
+//	Inequality comparison for 4D boolean vector vs condition.
+//		param s_lh: left-hand condition
+//		param v_rh: right-hand vector
+//		return: output vector holding boolean result of comparison
+bvec4 isInequal4sb(bool const s_lh, bvec4 const v_rh);
+
+
+//-----------------------------------------------------------------------------
+
+//int dot3i(ivec3 const v_lh, ivec3 const v_rh);
+
+//ivec3 cross3i(ivec3 const v_lh, ivec3 const v_rh);
 
 
 //-----------------------------------------------------------------------------

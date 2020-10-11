@@ -98,6 +98,9 @@
     <ClInclude Include="..\..\..\include\ijk\ijk-math\ijk-real\ijkVectorSwizzle.h">
       <Filter>Header Files\ijk-math\ijk-real</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\include\ijk\ijk-math\ijk-real\ijkVectorFunc.h">
+      <Filter>Header Files\ijk-math\ijk-real</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\include\ijk\ijk-math\ijk-real\_inl\ijkRandom.inl">
@@ -119,6 +122,9 @@
       <Filter>Header Files\ijk-math\ijk-real\_inl</Filter>
     </None>
     <None Include="..\..\..\include\ijk\ijk-math\ijk-real\_inl\ijkVectorSwizzle.inl">
+      <Filter>Header Files\ijk-math\ijk-real\_inl</Filter>
+    </None>
+    <None Include="..\..\..\include\ijk\ijk-math\ijk-real\_inl\ijkVectorFunc.inl">
       <Filter>Header Files\ijk-math\ijk-real\_inl</Filter>
     </None>
   </ItemGroup>

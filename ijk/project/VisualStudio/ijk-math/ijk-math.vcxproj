@@ -184,6 +184,7 @@
     <ClInclude Include="..\..\..\include\ijk\ijk-math\ijk-real\ijkStats.h" />
     <ClInclude Include="..\..\..\include\ijk\ijk-math\ijk-real\ijkTrigonometry.h" />
     <ClInclude Include="..\..\..\include\ijk\ijk-math\ijk-real\ijkVector.h" />
+    <ClInclude Include="..\..\..\include\ijk\ijk-math\ijk-real\ijkVectorFunc.h" />
     <ClInclude Include="..\..\..\include\ijk\ijk-math\ijk-real\ijkVectorSwizzle.h" />
   </ItemGroup>
   <ItemGroup>
@@ -196,6 +197,7 @@
     </MASM>
     <None Include="..\..\..\include\ijk\ijk-math\ijk-real\_inl\ijkTrigonometry.inl" />
     <None Include="..\..\..\include\ijk\ijk-math\ijk-real\_inl\ijkVector.inl" />
+    <None Include="..\..\..\include\ijk\ijk-math\ijk-real\_inl\ijkVectorFunc.inl" />
     <None Include="..\..\..\include\ijk\ijk-math\ijk-real\_inl\ijkVectorSwizzle.inl" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
