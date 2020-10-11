@@ -30,81 +30,256 @@
 
 //-----------------------------------------------------------------------------
 
+ijk_inl boolv bool2init(bool2 v_out, ibool const x, ibool const y)
+{
+
+	return v_out;
+}
+
+ijk_inl boolv isEqual2bv(bool2 v_out, bool2 const v_lh, bool2 const v_rh)
+{
+
+	return v_out;
+}
+
+ijk_inl boolv isInequal2bv(bool2 v_out, bool2 const v_lh, bool2 const v_rh)
+{
+
+	return v_out;
+}
+
+ijk_inl boolv isEqual2bvs(bool2 v_out, bool2 const v_lh, ibool const s_rh)
+{
+
+	return v_out;
+}
+
+ijk_inl boolv isInequal2bvs(bool2 v_out, bool2 const v_lh, ibool const s_rh)
+{
+
+	return v_out;
+}
+
+ijk_inl boolv isEqual2bsv(bool2 v_out, ibool const s_lh, bool2 const v_rh)
+{
+
+	return v_out;
+}
+
+ijk_inl boolv isInequal2bsv(bool2 v_out, ibool const s_lh, bool2 const v_rh)
+{
+
+	return v_out;
+}
 
 
 //-----------------------------------------------------------------------------
 
+ijk_inl boolv bool3init(bool3 v_out, ibool const x, ibool const y, ibool const z)
+{
+
+	return v_out;
+}
+
+ijk_inl boolv isEqual3bv(bool3 v_out, bool3 const v_lh, bool3 const v_rh)
+{
+
+	return v_out;
+}
+
+ijk_inl boolv isInequal3bv(bool3 v_out, bool3 const v_lh, bool3 const v_rh)
+{
+
+	return v_out;
+}
+
+ijk_inl boolv isEqual3bvs(bool3 v_out, bool3 const v_lh, ibool const s_rh)
+{
+
+	return v_out;
+}
+
+ijk_inl boolv isInequal3bvs(bool3 v_out, bool3 const v_lh, ibool const s_rh)
+{
+
+	return v_out;
+}
+
+ijk_inl boolv isEqual3bsv(bool3 v_out, ibool const s_lh, bool3 const v_rh)
+{
+
+	return v_out;
+}
+
+ijk_inl boolv isInequal3bsv(bool3 v_out, ibool const s_lh, bool3 const v_rh)
+{
+
+	return v_out;
+}
 
 
 //-----------------------------------------------------------------------------
 
+ijk_inl boolv bool4init(bool3 v_out, ibool const x, ibool const y, ibool const z, ibool const w)
+{
+
+	return v_out;
+}
+
+ijk_inl boolv isEqual4bv(bool4 v_out, bool4 const v_lh, bool4 const v_rh)
+{
+
+	return v_out;
+}
+
+ijk_inl boolv isInequal4bv(bool4 v_out, bool4 const v_lh, bool4 const v_rh)
+{
+
+	return v_out;
+}
+
+ijk_inl boolv isEqual4bvs(bool4 v_out, bool4 const v_lh, ibool const s_rh)
+{
+
+	return v_out;
+}
+
+ijk_inl boolv isInequal4bvs(bool4 v_out, bool4 const v_lh, ibool const s_rh)
+{
+
+	return v_out;
+}
+
+ijk_inl boolv isEqual4bsv(bool4 v_out, ibool const s_lh, bool4 const v_rh)
+{
+
+	return v_out;
+}
+
+ijk_inl boolv isInequal4bsv(bool4 v_out, ibool const s_lh, bool4 const v_rh)
+{
+
+	return v_out;
+}
 
 
 //-----------------------------------------------------------------------------
 
+ijk_inl bvec2 bvec2new(bool const x, bool const y)
+{
+
+}
+
+ijk_inl bvec2 isEqual2b(bvec2 const v_lh, bvec2 const v_rh)
+{
+
+}
+
+ijk_inl bvec2 isInequal2b(bvec2 const v_lh, bvec2 const v_rh)
+{
+
+}
+
+ijk_inl bvec2 isEqual2bs(bvec2 const v_lh, bool const s_rh)
+{
+
+}
+
+ijk_inl bvec2 isInequal2bs(bvec2 const v_lh, bool const s_rh)
+{
+
+}
+
+ijk_inl bvec2 isEqual2sb(bool const s_lh, bvec2 const v_rh)
+{
+
+}
+
+ijk_inl bvec2 isInequal2sb(bool const s_lh, bvec2 const v_rh)
+{
+
+}
 
 
 //-----------------------------------------------------------------------------
 
+ijk_inl bvec3 bvec3new(bool const x, bool const y, bool const z)
+{
+
+}
+
+ijk_inl bvec3 isEqual3b(bvec3 const v_lh, bvec3 const v_rh)
+{
+
+}
+
+ijk_inl bvec3 isInequal3b(bvec3 const v_lh, bvec3 const v_rh)
+{
+
+}
+
+ijk_inl bvec3 isEqual3bs(bvec3 const v_lh, bool const s_rh)
+{
+
+}
+
+ijk_inl bvec3 isInequal3bs(bvec3 const v_lh, bool const s_rh)
+{
+
+}
+
+ijk_inl bvec3 isEqual3sb(bool const s_lh, bvec3 const v_rh)
+{
+
+}
+
+ijk_inl bvec3 isInequal3sb(bool const s_lh, bvec3 const v_rh)
+{
+
+}
 
 
 //-----------------------------------------------------------------------------
 
+ijk_inl bvec4 bvec4new(bool const x, bool const y, bool const z, bool const w)
+{
+
+}
+
+ijk_inl bvec4 isEqual4b(bvec4 const v_lh, bvec4 const v_rh)
+{
+
+}
+
+ijk_inl bvec4 isInequal4b(bvec4 const v_lh, bvec4 const v_rh)
+{
+
+}
+
+ijk_inl bvec4 isEqual4bs(bvec4 const v_lh, bool const s_rh)
+{
+
+}
+
+ijk_inl bvec4 isInequal4bs(bvec4 const v_lh, bool const s_rh)
+{
+
+}
+
+ijk_inl bvec4 isEqual4sb(bool const s_lh, bvec4 const v_rh)
+{
+
+}
+
+ijk_inl bvec4 isInequal4sb(bool const s_lh, bvec4 const v_rh)
+{
+
+}
 
 
 //-----------------------------------------------------------------------------
-
-
-
-//-----------------------------------------------------------------------------
-
-
-
-//-----------------------------------------------------------------------------
-
-
-
-//-----------------------------------------------------------------------------
-
 
 #ifdef __cplusplus
-
-//-----------------------------------------------------------------------------
-
-
-
-//-----------------------------------------------------------------------------
-
-
-
-//-----------------------------------------------------------------------------
-
-
-
-//-----------------------------------------------------------------------------
-
-
-
-//-----------------------------------------------------------------------------
-
-
-
-//-----------------------------------------------------------------------------
-
-
-
-//-----------------------------------------------------------------------------
-
-
-
-//-----------------------------------------------------------------------------
-
-
-
-//-----------------------------------------------------------------------------
-
-
-//-----------------------------------------------------------------------------
 
 // IJK_SWIZZLE_MACRO_IMPL
 #pragma region IJK_SWIZZLE_MACRO_IMPL

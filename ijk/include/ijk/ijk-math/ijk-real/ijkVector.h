@@ -950,6 +950,13 @@ typedef vec4		rvec4;		// Real 4D vector data structure type is 4D float vector.
 
 //-----------------------------------------------------------------------------
 
+// bool2init
+//	Initialize 2D boolean vector.
+//		param v_out: output vector
+//		params x, y: initialization values
+//		return: v_out
+boolv bool2init(bool2 v_out, ibool const x, ibool const y);
+
 // isEqual2bv
 //	Equality comparison for 2D boolean vector.
 //		param v_out: output vector holding boolean result of comparison
@@ -1000,6 +1007,13 @@ boolv isInequal2bsv(bool2 v_out, ibool const s_lh, bool2 const v_rh);
 
 
 //-----------------------------------------------------------------------------
+
+// bool3init
+//	Initialize 3D boolean vector.
+//		param v_out: output vector
+//		params x, y, z: initialization values
+//		return: v_out
+boolv bool3init(bool3 v_out, ibool const x, ibool const y, ibool const z);
 
 // isEqual3bv
 //	Equality comparison for 3D boolean vector.
@@ -1052,6 +1066,13 @@ boolv isInequal3bsv(bool3 v_out, ibool const s_lh, bool3 const v_rh);
 
 //-----------------------------------------------------------------------------
 
+// bool4init
+//	Initialize 4D boolean vector.
+//		param v_out: output vector
+//		params x, y, z, w: initialization values
+//		return: v_out
+boolv bool4init(bool3 v_out, ibool const x, ibool const y, ibool const z, ibool const w);
+
 // isEqual4bv
 //	Equality comparison for 4D boolean vector.
 //		param v_out: output vector holding boolean result of comparison
@@ -1103,13 +1124,6 @@ boolv isInequal4bsv(bool4 v_out, ibool const s_lh, bool4 const v_rh);
 
 //-----------------------------------------------------------------------------
 
-//i32 dot3iv(int3 const v_lh, int3 const v_rh);
-
-//intv cross3iv(int3 v_out, int3 const v_lh, int3 const v_rh);
-
-
-//-----------------------------------------------------------------------------
-
 
 #ifdef __cplusplus
 }
@@ -1117,6 +1131,12 @@ boolv isInequal4bsv(bool4 v_out, ibool const s_lh, bool4 const v_rh);
 
 
 //-----------------------------------------------------------------------------
+
+// bvec2new
+//	Construct new 2D boolean vector.
+//		params x, y: initialization values
+//		return: output vector
+bvec2 bvec2new(bool const x, bool const y);
 
 // isEqual2b
 //	Equality comparison for 2D boolean vector.
@@ -1163,6 +1183,12 @@ bvec2 isInequal2sb(bool const s_lh, bvec2 const v_rh);
 
 //-----------------------------------------------------------------------------
 
+// bvec3new
+//	Construct new 3D boolean vector.
+//		params x, y, z: initialization values
+//		return: output vector
+bvec3 bvec3new(bool const x, bool const y, bool const z);
+
 // isEqual3b
 //	Equality comparison for 3D boolean vector.
 //		param v_lh: left-hand vector
@@ -1207,6 +1233,12 @@ bvec3 isInequal3sb(bool const s_lh, bvec3 const v_rh);
 
 
 //-----------------------------------------------------------------------------
+
+// bvec4new
+//	Construct new 4D boolean vector.
+//		params x, y, z, w: initialization values
+//		return: output vector
+bvec4 bvec4new(bool const x, bool const y, bool const z, bool const w);
 
 // isEqual4b
 //	Equality comparison for 4D boolean vector.
@@ -1253,9 +1285,6 @@ bvec4 isInequal4sb(bool const s_lh, bvec4 const v_rh);
 
 //-----------------------------------------------------------------------------
 
-//int dot3i(ivec3 const v_lh, ivec3 const v_rh);
-
-//ivec3 cross3i(ivec3 const v_lh, ivec3 const v_rh);
 
 
 //-----------------------------------------------------------------------------

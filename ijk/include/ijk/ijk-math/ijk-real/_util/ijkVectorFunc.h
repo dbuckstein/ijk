@@ -29,5 +29,33 @@
 #define _IJK_VECTORFUNC_H_
 
 
+#ifdef __cplusplus
+extern "C" {
+#endif	// __cplusplus
+
+//-----------------------------------------------------------------------------
+
+//i32 dot3iv(int3 const v_lh, int3 const v_rh);
+
+//intv cross3iv(int3 v_out, int3 const v_lh, int3 const v_rh);
+
+
+//-----------------------------------------------------------------------------
+
+
+#ifdef __cplusplus
+}
+#endif	// __cplusplus
+
+
+//-----------------------------------------------------------------------------
+
+//int dot3i(ivec3 const v_lh, ivec3 const v_rh);
+
+//ivec3 cross3i(ivec3 const v_lh, ivec3 const v_rh);
+
+
+//-----------------------------------------------------------------------------
+
 
 #endif	// !_IJK_VECTORFUNC_H_
