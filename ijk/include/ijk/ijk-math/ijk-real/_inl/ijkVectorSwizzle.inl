@@ -1829,6 +1829,138 @@ inline ttvec4<bool> const operator >(type const& s_lh, ttvec4<type> const& v_rh)
 
 //-----------------------------------------------------------------------------
 
+template<typename type>
+inline type const dot(ttvec1<type> const& v_lh, ttvec1<type> const& v_rh)
+{
+	return (v_lh.x * v_rh.x);
+}
+template<typename type>
+inline type const lengthSq(ttvec1<type> const& v)
+{
+	return (v.x * v.x);
+	//return dot<type>(v, v); // for consistency
+}
+template<typename type>
+inline type const length(ttvec1<type> const& v)
+{
+	return ijk_abs(v.x);
+	//return (type)ijkSqrt((real)lengthSq<type>(v)); // for consistency
+}
+template<typename type>
+inline type const lengthSqInv(ttvec1<type> const& v)
+{
+	type const lenSq = lengthSq<type>(v);
+	return (type)ijk_recip((real)lenSq);
+}
+template<typename type>
+inline type const lengthInv(ttvec1<type> const& v)
+{
+	type const len = length<type>(v);
+	return (type)ijk_recip((real)len);
+	//type const lenSq = lengthSq<type>(v); // for consistency
+	//return (type)ijkSqrtInv((real)lenSq); // for consistency
+}
+template<typename type>
+inline ttvec1<type> const normalize(ttvec1<type> const& v)
+{
+	return ijk_sgn(v.x);
+	//return (v * (type)ijkSqrtInv((real)lengthSq<type>(v))); // for consistency
+}
+template<typename type>
+inline ttvec1<type>& normalizeSet(ttvec1<type>& v)
+{
+	return (v.x = ijk_sgn(v.x));
+	//return (v *= (type)ijkSqrtInv((real)lengthSq<type>(v))); // for consistency
+}
+template<typename type>
+inline ttvec1<type> const lerp(ttvec1<type> const& v0, ttvec1<type> const& v1, type const u)
+{
+	return ttvec1<type>(ijk_lerp(v0.x, v1.x, u));
+}
+template<typename type>
+inline ttvec1<type> const unlerp(ttvec1<type> const& v0, ttvec1<type> const& v1, ttvec1<type> const& v)
+{
+	return ttvec1<type>(ijk_unlerp(v0.x, v1.x, v.x));
+}
+
+
+template<typename type>
+inline type const dot(ttvec2<type> const& v_lh, ttvec2<type> const& v_rh)
+{
+	return (v_lh.x * v_rh.x + v_lh.y * v_rh.y);
+}
+template<typename type>
+inline type const lengthSq(ttvec2<type> const& v)
+{
+	return dot<type>(v, v);
+}
+template<typename type>
+inline type const length(ttvec2<type> const& v)
+{
+	return (type)ijkSqrt((real)lengthSq<type>(v));
+}
+template<typename type>
+inline type const lengthSqInv(ttvec2<type> const& v)
+{
+	type const lenSq = lengthSq<type>(v);
+	return (type)ijk_recip((real)lenSq);
+}
+template<typename type>
+inline type const lengthInv(ttvec2<type> const& v)
+{
+	type const lenSq = lengthSq<type>(v);
+	return (type)ijkSqrtInv((real)lenSq);
+}
+template<typename type>
+inline ttvec2<type> const normalize(ttvec2<type> const& v)
+{
+	return (v * (type)ijkSqrtInv((real)lengthSq<type>(v)));
+}
+template<typename type>
+inline ttvec2<type>& normalizeSet(ttvec2<type>& v)
+{
+	return (v *= (type)ijkSqrtInv((real)lengthSq<type>(v)));
+}
+template<typename type>
+inline ttvec2<type> const lerp(ttvec2<type> const& v0, ttvec2<type> const& v1, type const u)
+{
+	return ttvec2<type>(ijk_lerp(v0.x, v1.x, u), ijk_lerp(v0.y, v1.y, u));
+}
+template<typename type>
+inline ttvec2<type> const unlerp(ttvec2<type> const& v0, ttvec2<type> const& v1, ttvec2<type> const& v)
+{
+	return ttvec2<type>(ijk_unlerp(v0.x, v1.x, v.x), ijk_unlerp(v0.y, v1.y, v.x));
+}
+template<typename type>
+inline type const cross(ttvec2<type> const& v_lh, ttvec2<type> const& v_rh)
+{
+
+}
+template<typename type>
+inline type const crossNormalize(ttvec2<type> const& v_lh, ttvec2<type> const& v_rh)
+{
+
+}
+template<typename type>
+inline ttvec2<type> const project(ttvec2<type> const& v_base, ttvec2<type> const& v)
+{
+
+}
+template<typename type>
+inline ttvec2<type>& projectSet(ttvec2<type> const& v_base, ttvec2<type>& v)
+{
+
+}
+template<typename type>
+inline ttvec2<type> const projectOrtho(ttvec2<type> const& v_base, ttvec2<type> const& v)
+{
+
+}
+template<typename type>
+inline ttvec2<type>& projectOrthoSet(ttvec2<type> const& v_base, ttvec2<type>& v)
+{
+
+}
 
 
 //-----------------------------------------------------------------------------

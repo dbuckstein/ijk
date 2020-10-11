@@ -34,38 +34,58 @@
 #ifdef __cplusplus
 extern "C" {
 
+typedef ttvec2<bool>	bvec2;		// 2D boolean vector
+typedef ttvec3<bool>	bvec3;		// 3D boolean vector
+typedef ttvec4<bool>	bvec4;		// 4D boolean vector
+
+typedef ttvec2<i32>		ivec2;		// 2D signed integer vector
+typedef ttvec3<i32>		ivec3;		// 3D signed integer vector
+typedef ttvec4<i32>		ivec4;		// 4D signed integer vector
+
+typedef ttvec2<uint>	uvec2;		// 2D unsigned integer vector
+typedef ttvec3<uint>	uvec3;		// 3D unsigned integer vector
+typedef ttvec4<uint>	uvec4;		// 4D unsigned integer vector
+
+typedef ttvec2<flt>		vec2;		// 2D single-precision floating point vector
+typedef ttvec3<flt>		vec3;		// 3D single-precision floating point vector
+typedef ttvec4<flt>		vec4;		// 4D single-precision floating point vector
+
+typedef ttvec2<dbl>		dvec2;		// 2D double-precision floating point vector
+typedef ttvec3<dbl>		dvec3;		// 3D double-precision floating point vector
+typedef ttvec4<dbl>		dvec4;		// 4D double-precision floating point vector
+
 // Built-in type overrides.
 ///
-#define bool		bvec1
-#define int			ivec1
-#define uint		uvec1
-#define float		vec1
-#define double		dvec1
+#define bool			ttvec1<bool>
+#define int				ttvec1<i32>
+#define uint			ttvec1<uint>
+#define float			ttvec1<flt>
+#define double			ttvec1<dbl>
 
 #else	// !__cplusplus
-typedef union bvec2	bvec2;
-typedef union bvec3	bvec3;
-typedef union bvec4	bvec4;
-typedef union ivec2	ivec2;
-typedef union ivec3	ivec3;
-typedef union ivec4	ivec4;
-typedef union uvec2	uvec2;
-typedef union uvec3	uvec3;
-typedef union uvec4	uvec4;
-typedef union vec2	vec2;
-typedef union vec3	vec3;
-typedef union vec4	vec4;
-typedef union dvec2	dvec2;
-typedef union dvec3	dvec3;
-typedef union dvec4	dvec4;
+typedef union bvec2		bvec2;
+typedef union bvec3		bvec3;
+typedef union bvec4		bvec4;
+typedef union ivec2		ivec2;
+typedef union ivec3		ivec3;
+typedef union ivec4		ivec4;
+typedef union uvec2		uvec2;
+typedef union uvec3		uvec3;
+typedef union uvec4		uvec4;
+typedef union vec2		vec2;
+typedef union vec3		vec3;
+typedef union vec4		vec4;
+typedef union dvec2		dvec2;
+typedef union dvec3		dvec3;
+typedef union dvec4		dvec4;
 
 // Built-in type overrides.
 ///
-#define bool		byte
-#define int			i32
-#define uint		ui32
-#define float		flt
-#define double		dbl
+#define bool			byte
+#define int				i32
+#define uint			ui32
+#define float			flt
+#define double			dbl
 
 // Vector definition shortcuts (in lieu of templates in C).
 ///
@@ -126,26 +146,6 @@ typedef double			* doublev,	// Generic double-precision array-based vector, repr
 //-----------------------------------------------------------------------------
 
 #ifdef __cplusplus
-
-typedef ttvec2<bool>	bvec2;		// 2D boolean vector
-typedef ttvec3<bool>	bvec3;		// 3D boolean vector
-typedef ttvec4<bool>	bvec4;		// 4D boolean vector
-
-typedef ttvec2<int>		ivec2;		// 2D signed integer vector
-typedef ttvec3<int>		ivec3;		// 3D signed integer vector
-typedef ttvec4<int>		ivec4;		// 4D signed integer vector
-
-typedef ttvec2<uint>	uvec2;		// 2D unsigned integer vector
-typedef ttvec3<uint>	uvec3;		// 3D unsigned integer vector
-typedef ttvec4<uint>	uvec4;		// 4D unsigned integer vector
-
-typedef ttvec2<float>	vec2;		// 2D single-precision floating point vector
-typedef ttvec3<float>	vec3;		// 3D single-precision floating point vector
-typedef ttvec4<float>	vec4;		// 4D single-precision floating point vector
-
-typedef ttvec2<double>	dvec2;		// 2D double-precision floating point vector
-typedef ttvec3<double>	dvec3;		// 3D double-precision floating point vector
-typedef ttvec4<double>	dvec4;		// 4D double-precision floating point vector
 
 #else // !__cplusplus
 
@@ -704,11 +704,11 @@ typedef fvec4	rvec4;		// Real 4D vector data structure type is 4D float vector.
 
 //-----------------------------------------------------------------------------
 
-i32 dot3v(int3 const v_lh, int3 const v_rh);
+i32 dot3iv(int3 const v_lh, int3 const v_rh);
 
-intv cross3v(int3 v_out, int3 const v_lh, int3 const v_rh);
+intv cross3iv(int3 v_out, int3 const v_lh, int3 const v_rh);
 
-i32 dot3(ivec3 const v_lh, ivec3 const v_rh);
+i32 dot3i(ivec3 const v_lh, ivec3 const v_rh);
 
 
 //-----------------------------------------------------------------------------
@@ -744,7 +744,7 @@ i32 dot3(ivec3 const v_lh, ivec3 const v_rh);
 
 //-----------------------------------------------------------------------------
 
-ivec3 cross3(ivec3 const v_lh, ivec3 const v_rh);
+ivec3 cross3i(ivec3 const v_lh, ivec3 const v_rh);
 
 
 //-----------------------------------------------------------------------------

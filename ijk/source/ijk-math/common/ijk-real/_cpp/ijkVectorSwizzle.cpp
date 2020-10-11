@@ -39,8 +39,8 @@ void ijkMathTestVectorSwizzle()
 	ivec2 test_isvec2 = ivec2(42, 9001).yx;	// ivec2 ctor -> call swiz -> isvec2 ctor -> ivec2 ctor: test_isvec2 = (9001, 42)
 	ivec2 const test_ivec2k = test_isvec2.yx;	// call swiz -> isvec2 ctor -> ivec2 ctor: test_ivec2k = (42, 9001)
 
-	ivec1 test_ivec1 = 4;
-	ivec1 test_ivec1r = test_ivec1;
+	int test_ivec1 = 4;
+	int test_ivec1r = test_ivec1;
 
 	ivec3 test_ivec3;
 	ivec4 test_ivec4;
