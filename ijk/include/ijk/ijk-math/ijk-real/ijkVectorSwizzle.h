@@ -183,7 +183,7 @@ typedef ttvec1<dbl>		dvec1;
 template<typename type>
 union ttvec2
 {
-	explicit ttvec2(type const& xy = 0);							// Construct vector with all elements set to single scalar.
+	ttvec2(type const& xy = 0);										// Construct vector with all elements set to single scalar.
 	explicit ttvec2(type const& xc, type const& yc);				// Construct vector with elements set individually.
 	explicit ttvec2(bool const* xy);								// Construct vector given boolean array-based vector.
 	explicit ttvec2(i32 const* xy);									// Construct vector given signed integer array-based vector.
@@ -248,6 +248,7 @@ union ttvec2
 	ttvec2& operator ^=(ttvec2 const& v_rh);
 	ttvec2& operator <<=(ttvec2 const& v_rh);
 	ttvec2& operator >>=(ttvec2 const& v_rh);
+	ttvec2& operator =(type const& s_rh);
 	ttvec2& operator +=(type const& s_rh);
 	ttvec2& operator -=(type const& s_rh);
 	ttvec2& operator *=(type const& s_rh);
@@ -272,7 +273,7 @@ private:
 template<typename type>
 union ttvec3
 {
-	explicit ttvec3(type const& xyz = 0);									// Construct vector with all elements set to single scalar.
+	ttvec3(type const& xyz = 0);											// Construct vector with all elements set to single scalar.
 	explicit ttvec3(type const& xc, type const& yc, type const& zc = 0);	// Construct vector with elements set individually.
 	explicit ttvec3(bool const* xyz);										// Construct vector given boolean array-based vector.
 	explicit ttvec3(i32 const* xyz);										// Construct vector given signed integer array-based vector.
@@ -339,6 +340,7 @@ union ttvec3
 	ttvec3& operator ^=(ttvec3 const& v_rh);
 	ttvec3& operator <<=(ttvec3 const& v_rh);
 	ttvec3& operator >>=(ttvec3 const& v_rh);
+	ttvec3& operator =(type const& s_rh);
 	ttvec3& operator +=(type const& s_rh);
 	ttvec3& operator -=(type const& s_rh);
 	ttvec3& operator *=(type const& s_rh);
@@ -363,7 +365,7 @@ private:
 template<typename type>
 union ttvec4
 {
-	explicit ttvec4(type const& xyzw = 0);														// Construct vector with all elements set to single scalar.
+	ttvec4(type const& xyzw = 0);																// Construct vector with all elements set to single scalar.
 	explicit ttvec4(type const& xc, type const& yc, type const& zc = 0, type const& wc = 0);	// Construct vector with elements set individually.
 	explicit ttvec4(bool const* xyzw);															// Construct vector given boolean array-based vector.
 	explicit ttvec4(i32 const* xyzw);															// Construct vector given signed integer array-based vector.
@@ -436,6 +438,7 @@ union ttvec4
 	ttvec4& operator ^=(ttvec4 const& v_rh);
 	ttvec4& operator <<=(ttvec4 const& v_rh);
 	ttvec4& operator >>=(ttvec4 const& v_rh);
+	ttvec4& operator =(type const& s_rh);
 	ttvec4& operator +=(type const& s_rh);
 	ttvec4& operator -=(type const& s_rh);
 	ttvec4& operator *=(type const& s_rh);

@@ -23,6 +23,7 @@
 	C++ testing source definitions for vector types.
 */
 
+#define IJK_VECTOR_SWIZZLE
 #include "ijk/ijk-math/ijk-real/ijkVector.h"
 
 
