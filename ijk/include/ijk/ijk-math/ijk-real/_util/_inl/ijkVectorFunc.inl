@@ -30,6 +30,42 @@
 #define _IJK_VECTORFUNC_INL_ ijk_tokencat(IJK_VECTORFUNC_PREFIX, IJK_VECTORFUNC_INL)
 
 
+//-----------------------------------------------------------------------------
+
+ijk_inl type typeFunc(dot3, v, type3 const v_lh, type3 const v_rh)
+{
+	return (v_lh[0] * v_rh[0] + v_lh[1] * v_rh[1] + v_lh[2] * v_rh[2]);
+}
+
+ijk_inl typev typeFunc(cross3, v, type3 v_out, type3 const v_lh, type3 const v_rh)
+{
+	v_out[0] = (v_lh[1] * v_rh[2] - v_lh[2] * v_rh[1]);
+	v_out[1] = (v_lh[2] * v_rh[0] - v_lh[0] * v_rh[2]);
+	v_out[2] = (v_lh[0] * v_rh[1] - v_lh[1] * v_rh[0]);
+	return v_out;
+}
+
+
+//-----------------------------------------------------------------------------
+
+ijk_inl tvec tvecFunc(dot3, tvec3 const v_lh, tvec3 const v_rh)
+{
+	return (v_lh.x * v_rh.x + v_lh.y * v_rh.y + v_lh.z * v_rh.z);
+}
+
+ijk_inl tvec3 tvecFunc(cross3, tvec3 const v_lh, tvec3 const v_rh)
+{
+	tvec3 const result = { 
+		(v_lh.y * v_rh.z - v_lh.z * v_rh.y),
+		(v_lh.z * v_rh.x - v_lh.x * v_rh.z),
+		(v_lh.x * v_rh.y - v_lh.y * v_rh.x)
+	};
+	return result;
+}
+
+
+//-----------------------------------------------------------------------------
+
 
 #undef _IJK_VECTORFUNC_INL_
 #endif	// !_IJK_VECTORFUNC_INL_
