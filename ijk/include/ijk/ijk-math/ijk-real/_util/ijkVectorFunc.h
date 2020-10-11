@@ -25,8 +25,9 @@
 		function, one per type, of which there are many.
 */
 
+#if (defined IJK_VECTORFUNC_PREFIX && defined IJK_VECTORFUNC_TYPE)
 #ifndef _IJK_VECTORFUNC_H_
-#define _IJK_VECTORFUNC_H_
+#define _IJK_VECTORFUNC_H_ ijk_tokencat(IJK_VECTORFUNC_PREFIX, IJK_VECTORFUNC_H)
 
 
 #ifdef __cplusplus
@@ -58,4 +59,9 @@ extern "C" {
 //-----------------------------------------------------------------------------
 
 
+#include "_inl/ijkVectorFunc.inl"
+
+
+#undef _IJK_VECTORFUNC_H_
 #endif	// !_IJK_VECTORFUNC_H_
+#endif	// (defined IJK_VECTORFUNC_PREFIX && defined IJK_VECTORFUNC_TYPE)

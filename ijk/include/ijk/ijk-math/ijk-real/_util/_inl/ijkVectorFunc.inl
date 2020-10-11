@@ -25,11 +25,12 @@
 		function, one per type, of which there are many.
 */
 
-#ifdef _IJK_VECTORFUNC_H_
+#if (_IJK_VECTORFUNC_H_ == ijk_tokencat(IJK_VECTORFUNC_PREFIX, IJK_VECTORFUNC_H))
 #ifndef _IJK_VECTORFUNC_INL_
-#define _IJK_VECTORFUNC_INL_
+#define _IJK_VECTORFUNC_INL_ ijk_tokencat(IJK_VECTORFUNC_PREFIX, IJK_VECTORFUNC_INL)
 
 
 
+#undef _IJK_VECTORFUNC_INL_
 #endif	// !_IJK_VECTORFUNC_INL_
-#endif	// _IJK_VECTORFUNC_H_
+#endif	// (_IJK_VECTORFUNC_H_ == ijk_tokencat(IJK_VECTORFUNC_PREFIX, IJK_VECTORFUNC_H))

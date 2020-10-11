@@ -1285,6 +1285,41 @@ bvec4 isInequal4sb(bool const s_lh, bvec4 const v_rh);
 
 //-----------------------------------------------------------------------------
 
+#define IJK_VECTORFUNC_PREFIX	i
+#define IJK_VECTORFUNC_TYPE		int
+#include "_util/ijkVectorFunc.h"
+#undef IJK_VECTORFUNC_PREFIX
+#undef IJK_VECTORFUNC_TYPE
+
+#define IJK_VECTORFUNC_PREFIX	il
+#define IJK_VECTORFUNC_TYPE		intl
+#include "_util/ijkVectorFunc.h"
+#undef IJK_VECTORFUNC_PREFIX
+#undef IJK_VECTORFUNC_TYPE
+
+#define IJK_VECTORFUNC_PREFIX	u
+#define IJK_VECTORFUNC_TYPE		uint
+#include "_util/ijkVectorFunc.h"
+#undef IJK_VECTORFUNC_PREFIX
+#undef IJK_VECTORFUNC_TYPE
+
+#define IJK_VECTORFUNC_PREFIX	ul
+#define IJK_VECTORFUNC_TYPE		uintl
+#include "_util/ijkVectorFunc.h"
+#undef IJK_VECTORFUNC_PREFIX
+#undef IJK_VECTORFUNC_TYPE
+
+#define IJK_VECTORFUNC_PREFIX	f
+#define IJK_VECTORFUNC_TYPE		float
+#include "_util/ijkVectorFunc.h"
+#undef IJK_VECTORFUNC_PREFIX
+#undef IJK_VECTORFUNC_TYPE
+
+#define IJK_VECTORFUNC_PREFIX	d
+#define IJK_VECTORFUNC_TYPE		double
+#include "_util/ijkVectorFunc.h"
+#undef IJK_VECTORFUNC_PREFIX
+#undef IJK_VECTORFUNC_TYPE
 
 
 //-----------------------------------------------------------------------------
