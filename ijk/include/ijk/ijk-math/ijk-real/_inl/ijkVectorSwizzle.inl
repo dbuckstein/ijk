@@ -2157,7 +2157,9 @@ IJK_SWIZZLE_ALL(IJK_SWIZZLE_IMPL_RTEMP, IJK_SWIZZLE_IMPL_RTEMP, ttvec, stvec, st
 IJK_SWIZZLE_ALL(IJK_SWIZZLE_IMPL_RTEMP, IJK_SWIZZLE_IMPL_RTEMP, ttvec, stvec, stvec, 4, inline);
 #endif	// IJK_VECTOR_SWIZZLE
 
+
 //-----------------------------------------------------------------------------
+
 
 #endif	// __cplusplus
 

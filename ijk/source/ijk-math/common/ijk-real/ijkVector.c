@@ -109,6 +109,36 @@ int4 const int4_y_n = __v4_y_n;
 int4 const int4_z_n = __v4_z_n;
 int4 const int4_w_n = __v4_w_n;
 
+int2 const intl2_one = __v2_one;
+int2 const intl2_zero = __v2_zero;
+int2 const intl2_one_n = __v2_one_n;
+int2 const intl2_x = __v2_x;
+int2 const intl2_y = __v2_y;
+int2 const intl2_x_n = __v2_x_n;
+int2 const intl2_y_n = __v2_y_n;
+
+int3 const intl3_one = __v3_one;
+int3 const intl3_zero = __v3_zero;
+int3 const intl3_one_n = __v3_one_n;
+int3 const intl3_x = __v3_x;
+int3 const intl3_y = __v3_y;
+int3 const intl3_z = __v3_z;
+int3 const intl3_x_n = __v3_x_n;
+int3 const intl3_y_n = __v3_y_n;
+int3 const intl3_z_n = __v3_z_n;
+
+int4 const intl4_one = __v4_one;
+int4 const intl4_zero = __v4_zero;
+int4 const intl4_one_n = __v4_one_n;
+int4 const intl4_x = __v4_x;
+int4 const intl4_y = __v4_y;
+int4 const intl4_z = __v4_z;
+int4 const intl4_w = __v4_w;
+int4 const intl4_x_n = __v4_x_n;
+int4 const intl4_y_n = __v4_y_n;
+int4 const intl4_z_n = __v4_z_n;
+int4 const intl4_w_n = __v4_w_n;
+
 uint2 const uint2_one = __v2_one;
 uint2 const uint2_zero = __v2_zero;
 uint2 const uint2_one_n = __v2_one_n;
@@ -138,6 +168,36 @@ uint4 const uint4_x_n = __v4_x_n;
 uint4 const uint4_y_n = __v4_y_n;
 uint4 const uint4_z_n = __v4_z_n;
 uint4 const uint4_w_n = __v4_w_n;
+
+uint2 const uintl2_one = __v2_one;
+uint2 const uintl2_zero = __v2_zero;
+uint2 const uintl2_one_n = __v2_one_n;
+uint2 const uintl2_x = __v2_x;
+uint2 const uintl2_y = __v2_y;
+uint2 const uintl2_x_n = __v2_x_n;
+uint2 const uintl2_y_n = __v2_y_n;
+
+uint3 const uintl3_one = __v3_one;
+uint3 const uintl3_zero = __v3_zero;
+uint3 const uintl3_one_n = __v3_one_n;
+uint3 const uintl3_x = __v3_x;
+uint3 const uintl3_y = __v3_y;
+uint3 const uintl3_z = __v3_z;
+uint3 const uintl3_x_n = __v3_x_n;
+uint3 const uintl3_y_n = __v3_y_n;
+uint3 const uintl3_z_n = __v3_z_n;
+
+uint4 const uintl4_one = __v4_one;
+uint4 const uintl4_zero = __v4_zero;
+uint4 const uintl4_one_n = __v4_one_n;
+uint4 const uintl4_x = __v4_x;
+uint4 const uintl4_y = __v4_y;
+uint4 const uintl4_z = __v4_z;
+uint4 const uintl4_w = __v4_w;
+uint4 const uintl4_x_n = __v4_x_n;
+uint4 const uintl4_y_n = __v4_y_n;
+uint4 const uintl4_z_n = __v4_z_n;
+uint4 const uintl4_w_n = __v4_w_n;
 
 float2 const float2_one = __v2_one;
 float2 const float2_zero = __v2_zero;
@@ -250,6 +310,36 @@ ivec4 const ivec4_y_n = __v4_y_n;
 ivec4 const ivec4_z_n = __v4_z_n;
 ivec4 const ivec4_w_n = __v4_w_n;
 
+ivec2 const ivecl2_one = __v2_one;
+ivec2 const ivecl2_zero = __v2_zero;
+ivec2 const ivecl2_one_n = __v2_one_n;
+ivec2 const ivecl2_x = __v2_x;
+ivec2 const ivecl2_y = __v2_y;
+ivec2 const ivecl2_x_n = __v2_x_n;
+ivec2 const ivecl2_y_n = __v2_y_n;
+
+ivec3 const ivecl3_one = __v3_one;
+ivec3 const ivecl3_zero = __v3_zero;
+ivec3 const ivecl3_one_n = __v3_one_n;
+ivec3 const ivecl3_x = __v3_x;
+ivec3 const ivecl3_y = __v3_y;
+ivec3 const ivecl3_z = __v3_z;
+ivec3 const ivecl3_x_n = __v3_x_n;
+ivec3 const ivecl3_y_n = __v3_y_n;
+ivec3 const ivecl3_z_n = __v3_z_n;
+
+ivec4 const ivecl4_one = __v4_one;
+ivec4 const ivecl4_zero = __v4_zero;
+ivec4 const ivecl4_one_n = __v4_one_n;
+ivec4 const ivecl4_x = __v4_x;
+ivec4 const ivecl4_y = __v4_y;
+ivec4 const ivecl4_z = __v4_z;
+ivec4 const ivecl4_w = __v4_w;
+ivec4 const ivecl4_x_n = __v4_x_n;
+ivec4 const ivecl4_y_n = __v4_y_n;
+ivec4 const ivecl4_z_n = __v4_z_n;
+ivec4 const ivecl4_w_n = __v4_w_n;
+
 uvec2 const uvec2_one = __v2_one;
 uvec2 const uvec2_zero = __v2_zero;
 uvec2 const uvec2_one_n = __v2_one_n;
@@ -279,6 +369,36 @@ uvec4 const uvec4_x_n = __v4_x_n;
 uvec4 const uvec4_y_n = __v4_y_n;
 uvec4 const uvec4_z_n = __v4_z_n;
 uvec4 const uvec4_w_n = __v4_w_n;
+
+uvec2 const uvecl2_one = __v2_one;
+uvec2 const uvecl2_zero = __v2_zero;
+uvec2 const uvecl2_one_n = __v2_one_n;
+uvec2 const uvecl2_x = __v2_x;
+uvec2 const uvecl2_y = __v2_y;
+uvec2 const uvecl2_x_n = __v2_x_n;
+uvec2 const uvecl2_y_n = __v2_y_n;
+
+uvec3 const uvecl3_one = __v3_one;
+uvec3 const uvecl3_zero = __v3_zero;
+uvec3 const uvecl3_one_n = __v3_one_n;
+uvec3 const uvecl3_x = __v3_x;
+uvec3 const uvecl3_y = __v3_y;
+uvec3 const uvecl3_z = __v3_z;
+uvec3 const uvecl3_x_n = __v3_x_n;
+uvec3 const uvecl3_y_n = __v3_y_n;
+uvec3 const uvecl3_z_n = __v3_z_n;
+
+uvec4 const uvecl4_one = __v4_one;
+uvec4 const uvecl4_zero = __v4_zero;
+uvec4 const uvecl4_one_n = __v4_one_n;
+uvec4 const uvecl4_x = __v4_x;
+uvec4 const uvecl4_y = __v4_y;
+uvec4 const uvecl4_z = __v4_z;
+uvec4 const uvecl4_w = __v4_w;
+uvec4 const uvecl4_x_n = __v4_x_n;
+uvec4 const uvecl4_y_n = __v4_y_n;
+uvec4 const uvecl4_z_n = __v4_z_n;
+uvec4 const uvecl4_w_n = __v4_w_n;
 
 vec2 const vec2_one = __v2_one;
 vec2 const vec2_zero = __v2_zero;
