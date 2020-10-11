@@ -32,44 +32,47 @@
 
 ijk_inl boolv bool2init(bool2 v_out, ibool const x, ibool const y)
 {
-
+	v_out[0] = ijk_istrue(x);
+	v_out[1] = ijk_istrue(y);
 	return v_out;
 }
 
 ijk_inl boolv isEqual2bv(bool2 v_out, bool2 const v_lh, bool2 const v_rh)
 {
-
+	v_out[0] = (v_lh[0] == v_rh[0]);
+	v_out[1] = (v_lh[1] == v_rh[1]);
 	return v_out;
 }
 
 ijk_inl boolv isInequal2bv(bool2 v_out, bool2 const v_lh, bool2 const v_rh)
 {
-
+	v_out[0] = (v_lh[0] != v_rh[0]);
+	v_out[1] = (v_lh[1] != v_rh[1]);
 	return v_out;
 }
 
 ijk_inl boolv isEqual2bvs(bool2 v_out, bool2 const v_lh, ibool const s_rh)
 {
-
+	v_out[0] = (v_lh[0] == (bool)s_rh);
+	v_out[1] = (v_lh[1] == (bool)s_rh);
 	return v_out;
 }
 
 ijk_inl boolv isInequal2bvs(bool2 v_out, bool2 const v_lh, ibool const s_rh)
 {
-
+	v_out[0] = (v_lh[0] != (bool)s_rh);
+	v_out[1] = (v_lh[1] != (bool)s_rh);
 	return v_out;
 }
 
 ijk_inl boolv isEqual2bsv(bool2 v_out, ibool const s_lh, bool2 const v_rh)
 {
-
-	return v_out;
+	return isEqual2bvs(v_out, v_rh, s_lh);
 }
 
 ijk_inl boolv isInequal2bsv(bool2 v_out, ibool const s_lh, bool2 const v_rh)
 {
-
-	return v_out;
+	return isInequal2bvs(v_out, v_rh, s_lh);
 }
 
 
@@ -77,44 +80,52 @@ ijk_inl boolv isInequal2bsv(bool2 v_out, ibool const s_lh, bool2 const v_rh)
 
 ijk_inl boolv bool3init(bool3 v_out, ibool const x, ibool const y, ibool const z)
 {
-
+	v_out[0] = ijk_istrue(x);
+	v_out[1] = ijk_istrue(y);
+	v_out[2] = ijk_istrue(z);
 	return v_out;
 }
 
 ijk_inl boolv isEqual3bv(bool3 v_out, bool3 const v_lh, bool3 const v_rh)
 {
-
+	v_out[0] = (v_lh[0] == v_rh[0]);
+	v_out[1] = (v_lh[1] == v_rh[1]);
+	v_out[2] = (v_lh[2] == v_rh[2]);
 	return v_out;
 }
 
 ijk_inl boolv isInequal3bv(bool3 v_out, bool3 const v_lh, bool3 const v_rh)
 {
-
+	v_out[0] = (v_lh[0] != v_rh[0]);
+	v_out[1] = (v_lh[1] != v_rh[1]);
+	v_out[2] = (v_lh[2] != v_rh[2]);
 	return v_out;
 }
 
 ijk_inl boolv isEqual3bvs(bool3 v_out, bool3 const v_lh, ibool const s_rh)
 {
-
+	v_out[0] = (v_lh[0] == (bool)s_rh);
+	v_out[1] = (v_lh[1] == (bool)s_rh);
+	v_out[2] = (v_lh[2] == (bool)s_rh);
 	return v_out;
 }
 
 ijk_inl boolv isInequal3bvs(bool3 v_out, bool3 const v_lh, ibool const s_rh)
 {
-
+	v_out[0] = (v_lh[0] != (bool)s_rh);
+	v_out[1] = (v_lh[1] != (bool)s_rh);
+	v_out[2] = (v_lh[2] != (bool)s_rh);
 	return v_out;
 }
 
 ijk_inl boolv isEqual3bsv(bool3 v_out, ibool const s_lh, bool3 const v_rh)
 {
-
-	return v_out;
+	return isEqual3bvs(v_out, v_rh, s_lh);
 }
 
 ijk_inl boolv isInequal3bsv(bool3 v_out, ibool const s_lh, bool3 const v_rh)
 {
-
-	return v_out;
+	return isInequal3bvs(v_out, v_rh, s_lh);
 }
 
 
@@ -122,44 +133,57 @@ ijk_inl boolv isInequal3bsv(bool3 v_out, ibool const s_lh, bool3 const v_rh)
 
 ijk_inl boolv bool4init(bool3 v_out, ibool const x, ibool const y, ibool const z, ibool const w)
 {
-
+	v_out[0] = ijk_istrue(x);
+	v_out[1] = ijk_istrue(y);
+	v_out[2] = ijk_istrue(z);
+	v_out[3] = ijk_istrue(w);
 	return v_out;
 }
 
 ijk_inl boolv isEqual4bv(bool4 v_out, bool4 const v_lh, bool4 const v_rh)
 {
-
+	v_out[0] = (v_lh[0] == v_rh[0]);
+	v_out[1] = (v_lh[1] == v_rh[1]);
+	v_out[2] = (v_lh[2] == v_rh[2]);
+	v_out[3] = (v_lh[3] == v_rh[3]);
 	return v_out;
 }
 
 ijk_inl boolv isInequal4bv(bool4 v_out, bool4 const v_lh, bool4 const v_rh)
 {
-
+	v_out[0] = (v_lh[0] != v_rh[0]);
+	v_out[1] = (v_lh[1] != v_rh[1]);
+	v_out[2] = (v_lh[2] != v_rh[2]);
+	v_out[3] = (v_lh[3] != v_rh[3]);
 	return v_out;
 }
 
 ijk_inl boolv isEqual4bvs(bool4 v_out, bool4 const v_lh, ibool const s_rh)
 {
-
+	v_out[0] = (v_lh[0] == (bool)s_rh);
+	v_out[1] = (v_lh[1] == (bool)s_rh);
+	v_out[2] = (v_lh[2] == (bool)s_rh);
+	v_out[3] = (v_lh[3] == (bool)s_rh);
 	return v_out;
 }
 
 ijk_inl boolv isInequal4bvs(bool4 v_out, bool4 const v_lh, ibool const s_rh)
 {
-
+	v_out[0] = (v_lh[0] != (bool)s_rh);
+	v_out[1] = (v_lh[1] != (bool)s_rh);
+	v_out[2] = (v_lh[2] != (bool)s_rh);
+	v_out[3] = (v_lh[3] != (bool)s_rh);
 	return v_out;
 }
 
 ijk_inl boolv isEqual4bsv(bool4 v_out, ibool const s_lh, bool4 const v_rh)
 {
-
-	return v_out;
+	return isEqual4bvs(v_out, v_rh, s_lh);
 }
 
 ijk_inl boolv isInequal4bsv(bool4 v_out, ibool const s_lh, bool4 const v_rh)
 {
-
-	return v_out;
+	return isInequal4bvs(v_out, v_rh, s_lh);
 }
 
 
@@ -167,37 +191,42 @@ ijk_inl boolv isInequal4bsv(bool4 v_out, ibool const s_lh, bool4 const v_rh)
 
 ijk_inl bvec2 bvec2new(bool const x, bool const y)
 {
-
+	bvec2 const v = { x, y };
+	return v;
 }
 
 ijk_inl bvec2 isEqual2b(bvec2 const v_lh, bvec2 const v_rh)
 {
-
+	bvec2 const v = { (v_lh.x == v_rh.x), (v_lh.y == v_rh.y) };
+	return v;
 }
 
 ijk_inl bvec2 isInequal2b(bvec2 const v_lh, bvec2 const v_rh)
 {
-
+	bvec2 const v = { (v_lh.x != v_rh.x), (v_lh.y != v_rh.y) };
+	return v;
 }
 
 ijk_inl bvec2 isEqual2bs(bvec2 const v_lh, bool const s_rh)
 {
-
+	bvec2 const v = { (v_lh.x == s_rh), (v_lh.y == s_rh) };
+	return v;
 }
 
 ijk_inl bvec2 isInequal2bs(bvec2 const v_lh, bool const s_rh)
 {
-
+	bvec2 const v = { (v_lh.x != s_rh), (v_lh.y != s_rh) };
+	return v;
 }
 
 ijk_inl bvec2 isEqual2sb(bool const s_lh, bvec2 const v_rh)
 {
-
+	return isEqual2bs(v_rh, s_lh);
 }
 
 ijk_inl bvec2 isInequal2sb(bool const s_lh, bvec2 const v_rh)
 {
-
+	return isInequal2bs(v_rh, s_lh);
 }
 
 
@@ -205,37 +234,42 @@ ijk_inl bvec2 isInequal2sb(bool const s_lh, bvec2 const v_rh)
 
 ijk_inl bvec3 bvec3new(bool const x, bool const y, bool const z)
 {
-
+	bvec3 const v = { x, y, z };
+	return v;
 }
 
 ijk_inl bvec3 isEqual3b(bvec3 const v_lh, bvec3 const v_rh)
 {
-
+	bvec3 const v = { (v_lh.x == v_rh.x), (v_lh.y == v_rh.y), (v_lh.z == v_rh.z) };
+	return v;
 }
 
 ijk_inl bvec3 isInequal3b(bvec3 const v_lh, bvec3 const v_rh)
 {
-
+	bvec3 const v = { (v_lh.x != v_rh.x), (v_lh.y != v_rh.y), (v_lh.z != v_rh.z) };
+	return v;
 }
 
 ijk_inl bvec3 isEqual3bs(bvec3 const v_lh, bool const s_rh)
 {
-
+	bvec3 const v = { (v_lh.x == s_rh), (v_lh.y == s_rh), (v_lh.z == s_rh) };
+	return v;
 }
 
 ijk_inl bvec3 isInequal3bs(bvec3 const v_lh, bool const s_rh)
 {
-
+	bvec3 const v = { (v_lh.x != s_rh), (v_lh.y != s_rh), (v_lh.z != s_rh) };
+	return v;
 }
 
 ijk_inl bvec3 isEqual3sb(bool const s_lh, bvec3 const v_rh)
 {
-
+	return isEqual3bs(v_rh, s_lh);
 }
 
 ijk_inl bvec3 isInequal3sb(bool const s_lh, bvec3 const v_rh)
 {
-
+	return isInequal3bs(v_rh, s_lh);
 }
 
 
@@ -243,37 +277,42 @@ ijk_inl bvec3 isInequal3sb(bool const s_lh, bvec3 const v_rh)
 
 ijk_inl bvec4 bvec4new(bool const x, bool const y, bool const z, bool const w)
 {
-
+	bvec4 const v = { x, y, z, w };
+	return v;
 }
 
 ijk_inl bvec4 isEqual4b(bvec4 const v_lh, bvec4 const v_rh)
 {
-
+	bvec4 const v = { (v_lh.x == v_rh.x), (v_lh.y == v_rh.y), (v_lh.z == v_rh.z), (v_lh.w == v_rh.w) };
+	return v;
 }
 
 ijk_inl bvec4 isInequal4b(bvec4 const v_lh, bvec4 const v_rh)
 {
-
+	bvec4 const v = { (v_lh.x != v_rh.x), (v_lh.y != v_rh.y), (v_lh.z != v_rh.z), (v_lh.w != v_rh.w) };
+	return v;
 }
 
 ijk_inl bvec4 isEqual4bs(bvec4 const v_lh, bool const s_rh)
 {
-
+	bvec4 const v = { (v_lh.x == s_rh), (v_lh.y == s_rh), (v_lh.z == s_rh), (v_lh.w == s_rh) };
+	return v;
 }
 
 ijk_inl bvec4 isInequal4bs(bvec4 const v_lh, bool const s_rh)
 {
-
+	bvec4 const v = { (v_lh.x != s_rh), (v_lh.y != s_rh), (v_lh.z != s_rh), (v_lh.w != s_rh) };
+	return v;
 }
 
 ijk_inl bvec4 isEqual4sb(bool const s_lh, bvec4 const v_rh)
 {
-
+	return isEqual4bs(v_rh, s_lh);
 }
 
 ijk_inl bvec4 isInequal4sb(bool const s_lh, bvec4 const v_rh)
 {
-
+	return isInequal4bs(v_rh, s_lh);
 }
 
 

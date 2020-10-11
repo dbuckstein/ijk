@@ -166,8 +166,8 @@ union ttvec1
 	ttvec1& operator =(stvec1<type> const& xc);
 	operator type const () const;
 	operator type& ();
+
 	IJK_SWIZZLE_ALL(IJK_SWIZZLE_DECL_RTEMP, IJK_SWIZZLE_DECL_RTEMP, ttvec, stvec, ttvec, 1);
-private:
 	type x;
 };
 
@@ -177,7 +177,7 @@ template<typename type>
 union ttvec2
 {
 	ttvec2(type const& xy = 0);										// Construct vector with all elements set to single scalar.
-	explicit ttvec2(type const& xc, type const& yc);				// Construct vector with elements set individually.
+	ttvec2(type const& xc, type const& yc);							// Construct vector with elements set individually.
 	explicit ttvec2(bool const* xy);								// Construct vector given boolean array-based vector.
 	explicit ttvec2(i32 const* xy);									// Construct vector given signed 32-bit integer array-based vector.
 	explicit ttvec2(i64 const* xy);									// Construct vector given signed 64-bit integer array-based vector.
@@ -258,7 +258,6 @@ union ttvec2
 	operator type* ();
 
 	IJK_SWIZZLE_ALL(IJK_SWIZZLE_DECL_RTEMP, IJK_SWIZZLE_DECL_RTEMP, ttvec, stvec, ttvec, 2);
-private:
 	type xy[2];
 	struct { type x, y; };
 };
@@ -269,7 +268,7 @@ template<typename type>
 union ttvec3
 {
 	ttvec3(type const& xyz = 0);											// Construct vector with all elements set to single scalar.
-	explicit ttvec3(type const& xc, type const& yc, type const& zc = 0);	// Construct vector with elements set individually.
+	ttvec3(type const& xc, type const& yc, type const& zc = 0);				// Construct vector with elements set individually.
 	explicit ttvec3(bool const* xyz);										// Construct vector given boolean array-based vector.
 	explicit ttvec3(i32 const* xyz);										// Construct vector given 32-bit signed integer array-based vector.
 	explicit ttvec3(i64 const* xyz);										// Construct vector given 64-bit signed integer array-based vector.
@@ -352,7 +351,6 @@ union ttvec3
 	operator type* ();
 
 	IJK_SWIZZLE_ALL(IJK_SWIZZLE_DECL_RTEMP, IJK_SWIZZLE_DECL_RTEMP, ttvec, stvec, ttvec, 3);
-private:
 	type xyz[3];
 	struct { type x, y, z; };
 };
@@ -363,7 +361,7 @@ template<typename type>
 union ttvec4
 {
 	ttvec4(type const& xyzw = 0);																// Construct vector with all elements set to single scalar.
-	explicit ttvec4(type const& xc, type const& yc, type const& zc = 0, type const& wc = 0);	// Construct vector with elements set individually.
+	ttvec4(type const& xc, type const& yc, type const& zc = 0, type const& wc = 0);				// Construct vector with elements set individually.
 	explicit ttvec4(bool const* xyzw);															// Construct vector given boolean array-based vector.
 	explicit ttvec4(i32 const* xyzw);															// Construct vector given signed 32-bit integer array-based vector.
 	explicit ttvec4(i64 const* xyzw);															// Construct vector given signed 64-bit integer array-based vector.
@@ -452,7 +450,6 @@ union ttvec4
 	operator type* ();
 
 	IJK_SWIZZLE_ALL(IJK_SWIZZLE_DECL_RTEMP, IJK_SWIZZLE_DECL_RTEMP, ttvec, stvec, ttvec, 4);
-private:
 	type xyzw[4];
 	struct { type x, y, z, w; };
 };
