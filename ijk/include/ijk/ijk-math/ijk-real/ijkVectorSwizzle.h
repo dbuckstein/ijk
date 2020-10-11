@@ -606,6 +606,7 @@ template<typename type> ttvec2<type> const lerp(ttvec2<type> const& v0, ttvec2<t
 template<typename type> ttvec2<type> const unlerp(ttvec2<type> const& v0, ttvec2<type> const& v1, ttvec2<type> const& v);
 template<typename type> type const cross(ttvec2<type> const& v_lh, ttvec2<type> const& v_rh);
 template<typename type> type const crossNormalize(ttvec2<type> const& v_lh, ttvec2<type> const& v_rh);
+template<typename type> type const projectRatio(ttvec2<type> const& v_base, ttvec2<type> const& v);
 template<typename type> ttvec2<type> const project(ttvec2<type> const& v_base, ttvec2<type> const& v);
 template<typename type> ttvec2<type>& projectSet(ttvec2<type> const& v_base, ttvec2<type>& v);
 template<typename type> ttvec2<type> const projectOrtho(ttvec2<type> const& v_base, ttvec2<type> const& v);
@@ -622,6 +623,7 @@ template<typename type> ttvec3<type> const lerp(ttvec3<type> const& v0, ttvec3<t
 template<typename type> ttvec3<type> const unlerp(ttvec3<type> const& v0, ttvec3<type> const& v1, ttvec3<type> const& v);
 template<typename type> ttvec3<type> const cross(ttvec3<type> const& v_lh, ttvec3<type> const& v_rh);
 template<typename type> ttvec3<type> const crossNormalize(ttvec3<type> const& v_lh, ttvec3<type> const& v_rh);
+template<typename type> type const projectRatio(ttvec3<type> const& v_base, ttvec3<type> const& v);
 template<typename type> ttvec3<type> const project(ttvec3<type> const& v_base, ttvec3<type> const& v);
 template<typename type> ttvec3<type>& projectSet(ttvec3<type> const& v_base, ttvec3<type>& v);
 template<typename type> ttvec3<type> const projectOrtho(ttvec3<type> const& v_base, ttvec3<type> const& v);
@@ -638,6 +640,7 @@ template<typename type> ttvec4<type> const lerp(ttvec4<type> const& v0, ttvec4<t
 template<typename type> ttvec4<type> const unlerp(ttvec4<type> const& v0, ttvec4<type> const& v1, ttvec4<type> const& v);
 template<typename type> ttvec4<type> const cross(ttvec4<type> const& v_lh, ttvec4<type> const& v_rh);
 template<typename type> ttvec4<type> const crossNormalize(ttvec4<type> const& v_lh, ttvec4<type> const& v_rh);
+template<typename type> type const projectRatio(ttvec4<type> const& v_base, ttvec4<type> const& v);
 template<typename type> ttvec4<type> const project(ttvec4<type> const& v_base, ttvec4<type> const& v);
 template<typename type> ttvec4<type>& projectSet(ttvec4<type> const& v_base, ttvec4<type>& v);
 template<typename type> ttvec4<type> const projectOrtho(ttvec4<type> const& v_base, ttvec4<type> const& v);
