@@ -43,6 +43,12 @@
     <Filter Include="Source Files\common\ijk-real\_cpp">
       <UniqueIdentifier>{d39a2a6b-d0b5-435f-9f07-3dcd12d65deb}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\ijk-math\ijk-real\_util">
+      <UniqueIdentifier>{f343483e-0e25-4c42-b783-8ef5c9c8ef7c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\ijk-math\ijk-real\_util\_inl">
+      <UniqueIdentifier>{0fc15d88-9e2e-467d-8a35-e958b38c367c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\source\ijk-math\common\ijk-math.c">
@@ -95,11 +101,11 @@
     <ClInclude Include="..\..\..\include\ijk\ijk-math\ijk-real\ijkTrigonometry.h">
       <Filter>Header Files\ijk-math\ijk-real</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\include\ijk\ijk-math\ijk-real\ijkVectorSwizzle.h">
-      <Filter>Header Files\ijk-math\ijk-real</Filter>
+    <ClInclude Include="..\..\..\include\ijk\ijk-math\ijk-real\_util\ijkVectorFunc.h">
+      <Filter>Header Files\ijk-math\ijk-real\_util</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\include\ijk\ijk-math\ijk-real\ijkVectorFunc.h">
-      <Filter>Header Files\ijk-math\ijk-real</Filter>
+    <ClInclude Include="..\..\..\include\ijk\ijk-math\ijk-real\_util\ijkVectorSwizzle.h">
+      <Filter>Header Files\ijk-math\ijk-real\_util</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -121,11 +127,11 @@
     <None Include="..\..\..\include\ijk\ijk-math\ijk-real\_inl\ijkVector.inl">
       <Filter>Header Files\ijk-math\ijk-real\_inl</Filter>
     </None>
-    <None Include="..\..\..\include\ijk\ijk-math\ijk-real\_inl\ijkVectorSwizzle.inl">
-      <Filter>Header Files\ijk-math\ijk-real\_inl</Filter>
+    <None Include="..\..\..\include\ijk\ijk-math\ijk-real\_util\_inl\ijkVectorFunc.inl">
+      <Filter>Header Files\ijk-math\ijk-real\_util\_inl</Filter>
     </None>
-    <None Include="..\..\..\include\ijk\ijk-math\ijk-real\_inl\ijkVectorFunc.inl">
-      <Filter>Header Files\ijk-math\ijk-real\_inl</Filter>
+    <None Include="..\..\..\include\ijk\ijk-math\ijk-real\_util\_inl\ijkVectorSwizzle.inl">
+      <Filter>Header Files\ijk-math\ijk-real\_util\_inl</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>

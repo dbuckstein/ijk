@@ -27,7 +27,7 @@
 #define _IJK_VECTOR_H_
 
 
-#include "ijkVectorSwizzle.h"
+#include "_util/ijkVectorSwizzle.h"
 #include "ijkTrigonometry.h"
 
 
