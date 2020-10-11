@@ -25,9 +25,20 @@
 		function, one per type, of which there are many.
 */
 
-#if (defined IJK_VECTORFUNC_PREFIX && defined IJK_VECTORFUNC_TYPE)
+#if (defined IJK_VECTORFUNC_PREFIX && defined IJK_VECTORFUNC_TYPE && defined IJK_VECTORFUNC_TVEC)
 #ifndef _IJK_VECTORFUNC_H_
 #define _IJK_VECTORFUNC_H_ ijk_tokencat(IJK_VECTORFUNC_PREFIX, IJK_VECTORFUNC_H)
+
+
+#define t		IJK_VECTORFUNC_PREFIX
+#define type	IJK_VECTORFUNC_TYPE
+#define tvec	IJK_VECTORFUNC_TVEC
+#define type2	__ijk_cfg_tokencat(tvec, 2)
+#define type3	__ijk_cfg_tokencat(tvec, 3)
+#define type4	__ijk_cfg_tokencat(tvec, 4)
+#define tvec2	ijk_tokencat(IJK_VECTORFUNC_PREFIX, vec##2)
+#define tvec3	ijk_tokencat(IJK_VECTORFUNC_PREFIX, vec##3)
+#define tvec4	ijk_tokencat(IJK_VECTORFUNC_PREFIX, vec##4)
 
 
 #ifdef __cplusplus
@@ -35,6 +46,21 @@ extern "C" {
 #endif	// __cplusplus
 
 //-----------------------------------------------------------------------------
+
+// dot3iv
+//	Dot product of two signed 32-bit integer 3D vectors.
+//		param v_lh: left-hand vector
+//		param v_rh: right-hand vector
+//		return: dot product
+type ijk_tokencat(dot3, ijk_tokencat(t, v)) (type3 const v_lh, type3 const v_rh);
+
+// cross3iv
+//	Cross product of two signed 32-bit integer 3D vectors.
+//		param v_out: output vector to hold cross product
+//		param v_lh: left-hand vector
+//		param v_rh: right-hand vector
+//		return: v_out
+type3 ijk_tokencat(cross3, ijk_tokencat(t, v)) (type3 v_out, type3 const v_lh, type3 const v_rh);
 
 //i32 dot3iv(int3 const v_lh, int3 const v_rh);
 
@@ -62,6 +88,15 @@ extern "C" {
 #include "_inl/ijkVectorFunc.inl"
 
 
+#undef t
+#undef base
+#undef type
+#undef type2
+#undef type3
+#undef type4
+#undef tvec2
+#undef tvec3
+#undef tvec4
 #undef _IJK_VECTORFUNC_H_
 #endif	// !_IJK_VECTORFUNC_H_
-#endif	// (defined IJK_VECTORFUNC_PREFIX && defined IJK_VECTORFUNC_TYPE)
+#endif	// (defined IJK_VECTORFUNC_PREFIX && defined IJK_VECTORFUNC_TYPE && defined IJK_VECTORFUNC_TVEC)
