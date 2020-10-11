@@ -23,6 +23,7 @@
 	Inline definitions for vector types.
 */
 
+#ifdef _IJK_VECTORSWIZZLE_H_
 #ifndef _IJK_VECTORSWIZZLE_INL_
 #define _IJK_VECTORSWIZZLE_INL_
 
@@ -99,7 +100,17 @@ inline ttvec2<type>::ttvec2(i32 const* xy)
 {
 }
 template <typename type>
-inline ttvec2<type>::ttvec2(uint const* xy)
+inline ttvec2<type>::ttvec2(i64 const* xy)
+	: x((type)xy[0]), y((type)xy[1])
+{
+}
+template <typename type>
+inline ttvec2<type>::ttvec2(ui32 const* xy)
+	: x((type)xy[0]), y((type)xy[1])
+{
+}
+template <typename type>
+inline ttvec2<type>::ttvec2(ui64 const* xy)
 	: x((type)xy[0]), y((type)xy[1])
 {
 }
@@ -530,7 +541,17 @@ inline ttvec3<type>::ttvec3(i32 const* xyz)
 {
 }
 template <typename type>
-inline ttvec3<type>::ttvec3(uint const* xyz)
+inline ttvec3<type>::ttvec3(i64 const* xyz)
+	: x((type)xyz[0]), y((type)xyz[1]), z((type)xyz[2])
+{
+}
+template <typename type>
+inline ttvec3<type>::ttvec3(ui32 const* xyz)
+	: x((type)xyz[0]), y((type)xyz[1]), z((type)xyz[2])
+{
+}
+template <typename type>
+inline ttvec3<type>::ttvec3(ui64 const* xyz)
 	: x((type)xyz[0]), y((type)xyz[1]), z((type)xyz[2])
 {
 }
@@ -993,7 +1014,17 @@ inline ttvec4<type>::ttvec4(i32 const* xyzw)
 {
 }
 template <typename type>
-inline ttvec4<type>::ttvec4(uint const* xyzw)
+inline ttvec4<type>::ttvec4(i64 const* xyzw)
+	: x((type)xyzw[0]), y((type)xyzw[1]), z((type)xyzw[2]), w((type)xyzw[3])
+{
+}
+template <typename type>
+inline ttvec4<type>::ttvec4(ui32 const* xyzw)
+	: x((type)xyzw[0]), y((type)xyzw[1]), z((type)xyzw[2]), w((type)xyzw[3])
+{
+}
+template <typename type>
+inline ttvec4<type>::ttvec4(ui64 const* xyzw)
 	: x((type)xyzw[0]), y((type)xyzw[1]), z((type)xyzw[2]), w((type)xyzw[3])
 {
 }
@@ -2165,3 +2196,4 @@ IJK_SWIZZLE_ALL(IJK_SWIZZLE_IMPL_RTEMP, IJK_SWIZZLE_IMPL_RTEMP, ttvec, stvec, st
 
 
 #endif	// !_IJK_VECTORSWIZZLE_INL_
+#endif	// _IJK_VECTORSWIZZLE_H_
