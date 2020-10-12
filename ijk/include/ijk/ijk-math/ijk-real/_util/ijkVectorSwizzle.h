@@ -477,8 +477,11 @@ struct stvec2
 	ttvec2<type> const operator =(stvec2 const& v);
 	ttvec2<type> const operator =(type const& xy);
 	IJK_SWIZZLE_ALL(IJK_SWIZZLE_DECL_RTEMP, IJK_SWIZZLE_DECL_RTEMP, ttvec, stvec, stvec, 2);
+	inline operator ttvec1<type> const* () const { return xy; }
+	inline operator ttvec1<type>* () { return xy; }
 private:
 	type& x, & y;
+	ttvec1<type> xy[2];
 	stvec2(type& xr, type& yr);
 	friend stvec3<type>;
 	friend stvec4<type>;
@@ -496,8 +499,11 @@ struct stvec3
 	ttvec3<type> const operator =(stvec3 const& v);
 	ttvec3<type> const operator =(type const& xyz);
 	IJK_SWIZZLE_ALL(IJK_SWIZZLE_DECL_RTEMP, IJK_SWIZZLE_DECL_RTEMP, ttvec, stvec, stvec, 3);
+	inline operator ttvec1<type> const* () const { return xyz; }
+	inline operator ttvec1<type>* () { return xyz; }
 private:
 	type& x, & y, & z;
+	ttvec1<type> xyz[3];
 	stvec3(type& xr, type& yr, type& zr);
 	friend stvec4<type>;
 	friend ttvec1<type>;
@@ -514,8 +520,11 @@ struct stvec4
 	ttvec4<type> const operator =(stvec4 const& v);
 	ttvec4<type> const operator =(type const& xyzw);
 	IJK_SWIZZLE_ALL(IJK_SWIZZLE_DECL_RTEMP, IJK_SWIZZLE_DECL_RTEMP, ttvec, stvec, stvec, 4);
+	inline operator ttvec1<type> const* () const { return xyzw; }
+	inline operator ttvec1<type>* () { return xyzw; }
 private:
 	type& x, & y, & z, & w;
+	ttvec1<type> xyzw[4];
 	stvec4(type& xr, type& yr, type& zr, type& wr);
 	friend ttvec1<type>;
 	friend ttvec2<type>;

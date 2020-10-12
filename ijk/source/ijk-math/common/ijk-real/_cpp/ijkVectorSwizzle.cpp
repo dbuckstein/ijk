@@ -60,8 +60,10 @@ void ijkMathTestVectorSwizzle()
 	dvec4 test_dvec4;
 
 	i32 test_dot3iv = dot3iv(test_ivec3x.xyz, test_ivec3y.xyz);
+	//i32 test_dot3iv = dot3iv(test_ivec3x.xyz, test_ivec3y.yxz);
 	int test_dot3i = dot3i(test_ivec3x, test_ivec3y);
 	intv test_cross3iv = cross3iv(test_ivec3x.xyz, test_ivec3x.xyz, test_ivec3y.xyz);
+	//intv test_cross3iv = cross3iv(test_ivec3x.zyx, test_ivec3x.xyz, test_ivec3y.xyz);
 	ivec3 test_cross3i = cross3i(test_ivec3x, test_ivec3y);
 
 	//(test_ivec2 + 7).x = 1;		// error: lhs is const

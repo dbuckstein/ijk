@@ -38,29 +38,29 @@ typedef ttvec2<bool>	bvec2;		// 2D boolean/byte vector
 typedef ttvec3<bool>	bvec3;		// 3D boolean/byte vector
 typedef ttvec4<bool>	bvec4;		// 4D boolean/byte vector
 
-typedef ttvec2<int>		ivec2;		// 2D signed 32-bit integer vector
-typedef ttvec3<int>		ivec3;		// 3D signed 32-bit integer vector
-typedef ttvec4<int>		ivec4;		// 4D signed 32-bit integer vector
+typedef ttvec2<i32>		ivec2;		// 2D signed 32-bit integer vector
+typedef ttvec3<i32>		ivec3;		// 3D signed 32-bit integer vector
+typedef ttvec4<i32>		ivec4;		// 4D signed 32-bit integer vector
 
-typedef ttvec2<intl>	ilvec2;		// 2D signed 64-bit integer vector
-typedef ttvec3<intl>	ilvec3;		// 3D signed 64-bit integer vector
-typedef ttvec4<intl>	ilvec4;		// 4D signed 64-bit integer vector
+typedef ttvec2<i64>		ilvec2;		// 2D signed 64-bit integer vector
+typedef ttvec3<i64>		ilvec3;		// 3D signed 64-bit integer vector
+typedef ttvec4<i64>		ilvec4;		// 4D signed 64-bit integer vector
 
-typedef ttvec2<uint>	uvec2;		// 2D unsigned 32-bit integer vector
-typedef ttvec3<uint>	uvec3;		// 3D unsigned 32-bit integer vector
-typedef ttvec4<uint>	uvec4;		// 4D unsigned 32-bit integer vector
+typedef ttvec2<ui32>	uvec2;		// 2D unsigned 32-bit integer vector
+typedef ttvec3<ui32>	uvec3;		// 3D unsigned 32-bit integer vector
+typedef ttvec4<ui32>	uvec4;		// 4D unsigned 32-bit integer vector
 
-typedef ttvec2<uintl>	ulvec2;		// 2D unsigned 64-bit integer vector
-typedef ttvec3<uintl>	ulvec3;		// 3D unsigned 64-bit integer vector
-typedef ttvec4<uintl>	ulvec4;		// 4D unsigned 64-bit integer vector
+typedef ttvec2<ui64>	ulvec2;		// 2D unsigned 64-bit integer vector
+typedef ttvec3<ui64>	ulvec3;		// 3D unsigned 64-bit integer vector
+typedef ttvec4<ui64>	ulvec4;		// 4D unsigned 64-bit integer vector
 
-typedef ttvec2<float>	vec2;		// 2D single-precision floating point vector
-typedef ttvec3<float>	vec3;		// 3D single-precision floating point vector
-typedef ttvec4<float>	vec4;		// 4D single-precision floating point vector
+typedef ttvec2<f32>		vec2;		// 2D single-precision floating point vector
+typedef ttvec3<f32>		vec3;		// 3D single-precision floating point vector
+typedef ttvec4<f32>		vec4;		// 4D single-precision floating point vector
 
-typedef ttvec2<double>	dvec2;		// 2D double-precision floating point vector
-typedef ttvec3<double>	dvec3;		// 3D double-precision floating point vector
-typedef ttvec4<double>	dvec4;		// 4D double-precision floating point vector
+typedef ttvec2<f64>		dvec2;		// 2D double-precision floating point vector
+typedef ttvec3<f64>		dvec3;		// 3D double-precision floating point vector
+typedef ttvec4<f64>		dvec4;		// 4D double-precision floating point vector
 
 // Built-in type overrides.
 ///

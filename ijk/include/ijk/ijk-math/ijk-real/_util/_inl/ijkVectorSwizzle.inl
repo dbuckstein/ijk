@@ -1544,6 +1544,8 @@ inline stvec1<type>::stvec1(type& xr)
 template<typename type>
 inline ttvec2<type> const stvec2<type>::operator =(ttvec2<type> const v)
 {
+	xy[0] = v.x;
+	xy[1] = v.y;
 	// pass-by-value is deliberate; need copy in case 'v' is the swizzle target
 	return ttvec2<type>(*this);
 }
@@ -1559,7 +1561,7 @@ inline ttvec2<type> const stvec2<type>::operator =(type const& xy)
 }
 template<typename type>
 inline stvec2<type>::stvec2(type& xr, type& yr)
-	: x(xr), y(yr)
+	: x(xr), y(yr), xy{ xr, yr }
 {
 }
 
@@ -1567,6 +1569,9 @@ inline stvec2<type>::stvec2(type& xr, type& yr)
 template<typename type>
 inline ttvec3<type> const stvec3<type>::operator =(ttvec3<type> const v)
 {
+	xyz[0] = v.x;
+	xyz[1] = v.y;
+	xyz[2] = v.z;
 	// pass-by-value is deliberate; need copy in case 'v' is the swizzle target
 	return ttvec3<type>(*this);
 }
@@ -1582,7 +1587,7 @@ inline ttvec3<type> const stvec3<type>::operator =(type const& xyz)
 }
 template<typename type>
 inline stvec3<type>::stvec3(type& xr, type& yr, type& zr)
-	: x(xr), y(yr), z(zr)
+	: x(xr), y(yr), z(zr), xyz{ xr, yr, zr }
 {
 }
 
@@ -1590,6 +1595,10 @@ inline stvec3<type>::stvec3(type& xr, type& yr, type& zr)
 template<typename type>
 inline ttvec4<type> const stvec4<type>::operator =(ttvec4<type> const v)
 {
+	xyzw[0] = v.x;
+	xyzw[1] = v.y;
+	xyzw[2] = v.z;
+	xyzw[3] = v.w;
 	// pass-by-value is deliberate; need copy in case 'v' is the swizzle target
 	return ttvec4<type>(*this);
 }
@@ -1605,7 +1614,7 @@ inline ttvec4<type> const stvec4<type>::operator =(type const& xyzw)
 }
 template<typename type>
 inline stvec4<type>::stvec4(type& xr, type& yr, type& zr, type& wr)
-	: x(xr), y(yr), z(zr), w(wr)
+	: x(xr), y(yr), z(zr), w(wr), xyzw{ xr, yr, zr, wr }
 {
 }
 
