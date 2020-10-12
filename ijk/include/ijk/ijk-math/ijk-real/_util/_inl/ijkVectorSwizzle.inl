@@ -1564,6 +1564,13 @@ inline stvec2<type>::stvec2(type& xr, type& yr)
 	: x(xr), y(yr), xy{ xr, yr }
 {
 }
+template<typename type>
+inline stvec2<type>::~stvec2()
+{
+	// assign final state
+	x = xy[0];
+	y = xy[1];
+}
 
 
 template<typename type>
@@ -1589,6 +1596,14 @@ template<typename type>
 inline stvec3<type>::stvec3(type& xr, type& yr, type& zr)
 	: x(xr), y(yr), z(zr), xyz{ xr, yr, zr }
 {
+}
+template<typename type>
+inline stvec3<type>::~stvec3()
+{
+	// assign final state
+	x = xyz[0];
+	y = xyz[1];
+	z = xyz[2];
 }
 
 
@@ -1616,6 +1631,15 @@ template<typename type>
 inline stvec4<type>::stvec4(type& xr, type& yr, type& zr, type& wr)
 	: x(xr), y(yr), z(zr), w(wr), xyzw{ xr, yr, zr, wr }
 {
+}
+template<typename type>
+inline stvec4<type>::~stvec4()
+{
+	// assign final state
+	x = xyzw[0];
+	y = xyzw[1];
+	z = xyzw[2];
+	w = xyzw[3];
 }
 
 

@@ -477,6 +477,7 @@ struct stvec2
 	ttvec2<type> const operator =(stvec2 const& v);
 	ttvec2<type> const operator =(type const& xy);
 	IJK_SWIZZLE_ALL(IJK_SWIZZLE_DECL_RTEMP, IJK_SWIZZLE_DECL_RTEMP, ttvec, stvec, stvec, 2);
+	~stvec2();
 	inline operator ttvec1<type> const* () const { return xy; }
 	inline operator ttvec1<type>* () { return xy; }
 private:
@@ -499,6 +500,7 @@ struct stvec3
 	ttvec3<type> const operator =(stvec3 const& v);
 	ttvec3<type> const operator =(type const& xyz);
 	IJK_SWIZZLE_ALL(IJK_SWIZZLE_DECL_RTEMP, IJK_SWIZZLE_DECL_RTEMP, ttvec, stvec, stvec, 3);
+	~stvec3();
 	inline operator ttvec1<type> const* () const { return xyz; }
 	inline operator ttvec1<type>* () { return xyz; }
 private:
@@ -520,6 +522,7 @@ struct stvec4
 	ttvec4<type> const operator =(stvec4 const& v);
 	ttvec4<type> const operator =(type const& xyzw);
 	IJK_SWIZZLE_ALL(IJK_SWIZZLE_DECL_RTEMP, IJK_SWIZZLE_DECL_RTEMP, ttvec, stvec, stvec, 4);
+	~stvec4();
 	inline operator ttvec1<type> const* () const { return xyzw; }
 	inline operator ttvec1<type>* () { return xyzw; }
 private:
