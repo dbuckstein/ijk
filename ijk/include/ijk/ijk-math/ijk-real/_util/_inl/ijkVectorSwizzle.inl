@@ -95,32 +95,32 @@ inline ttvec2<type>::ttvec2(bool const* xy)
 {
 }
 template <typename type>
-inline ttvec2<type>::ttvec2(i32 const* xy)
+inline ttvec2<type>::ttvec2(int const* xy)
 	: x((type)xy[0]), y((type)xy[1])
 {
 }
 template <typename type>
-inline ttvec2<type>::ttvec2(i64 const* xy)
+inline ttvec2<type>::ttvec2(intl const* xy)
 	: x((type)xy[0]), y((type)xy[1])
 {
 }
 template <typename type>
-inline ttvec2<type>::ttvec2(ui32 const* xy)
+inline ttvec2<type>::ttvec2(uint const* xy)
 	: x((type)xy[0]), y((type)xy[1])
 {
 }
 template <typename type>
-inline ttvec2<type>::ttvec2(ui64 const* xy)
+inline ttvec2<type>::ttvec2(uintl const* xy)
 	: x((type)xy[0]), y((type)xy[1])
 {
 }
 template <typename type>
-inline ttvec2<type>::ttvec2(flt const* xy)
+inline ttvec2<type>::ttvec2(float const* xy)
 	: x((type)xy[0]), y((type)xy[1])
 {
 }
 template <typename type>
-inline ttvec2<type>::ttvec2(dbl const* xy)
+inline ttvec2<type>::ttvec2(double const* xy)
 	: x((type)xy[0]), y((type)xy[1])
 {
 }
@@ -536,32 +536,32 @@ inline ttvec3<type>::ttvec3(bool const* xyz)
 {
 }
 template <typename type>
-inline ttvec3<type>::ttvec3(i32 const* xyz)
+inline ttvec3<type>::ttvec3(int const* xyz)
 	: x((type)xyz[0]), y((type)xyz[1]), z((type)xyz[2])
 {
 }
 template <typename type>
-inline ttvec3<type>::ttvec3(i64 const* xyz)
+inline ttvec3<type>::ttvec3(intl const* xyz)
 	: x((type)xyz[0]), y((type)xyz[1]), z((type)xyz[2])
 {
 }
 template <typename type>
-inline ttvec3<type>::ttvec3(ui32 const* xyz)
+inline ttvec3<type>::ttvec3(uint const* xyz)
 	: x((type)xyz[0]), y((type)xyz[1]), z((type)xyz[2])
 {
 }
 template <typename type>
-inline ttvec3<type>::ttvec3(ui64 const* xyz)
+inline ttvec3<type>::ttvec3(uintl const* xyz)
 	: x((type)xyz[0]), y((type)xyz[1]), z((type)xyz[2])
 {
 }
 template <typename type>
-inline ttvec3<type>::ttvec3(flt const* xyz)
+inline ttvec3<type>::ttvec3(float const* xyz)
 	: x((type)xyz[0]), y((type)xyz[1]), z((type)xyz[2])
 {
 }
 template <typename type>
-inline ttvec3<type>::ttvec3(dbl const* xyz)
+inline ttvec3<type>::ttvec3(double const* xyz)
 	: x((type)xyz[0]), y((type)xyz[1]), z((type)xyz[2])
 {
 }
@@ -1009,32 +1009,32 @@ inline ttvec4<type>::ttvec4(bool const* xyzw)
 {
 }
 template <typename type>
-inline ttvec4<type>::ttvec4(i32 const* xyzw)
+inline ttvec4<type>::ttvec4(int const* xyzw)
 	: x((type)xyzw[0]), y((type)xyzw[1]), z((type)xyzw[2]), w((type)xyzw[3])
 {
 }
 template <typename type>
-inline ttvec4<type>::ttvec4(i64 const* xyzw)
+inline ttvec4<type>::ttvec4(intl const* xyzw)
 	: x((type)xyzw[0]), y((type)xyzw[1]), z((type)xyzw[2]), w((type)xyzw[3])
 {
 }
 template <typename type>
-inline ttvec4<type>::ttvec4(ui32 const* xyzw)
+inline ttvec4<type>::ttvec4(uint const* xyzw)
 	: x((type)xyzw[0]), y((type)xyzw[1]), z((type)xyzw[2]), w((type)xyzw[3])
 {
 }
 template <typename type>
-inline ttvec4<type>::ttvec4(ui64 const* xyzw)
+inline ttvec4<type>::ttvec4(uintl const* xyzw)
 	: x((type)xyzw[0]), y((type)xyzw[1]), z((type)xyzw[2]), w((type)xyzw[3])
 {
 }
 template <typename type>
-inline ttvec4<type>::ttvec4(flt const* xyzw)
+inline ttvec4<type>::ttvec4(float const* xyzw)
 	: x((type)xyzw[0]), y((type)xyzw[1]), z((type)xyzw[2]), w((type)xyzw[3])
 {
 }
 template <typename type>
-inline ttvec4<type>::ttvec4(dbl const* xyzw)
+inline ttvec4<type>::ttvec4(double const* xyzw)
 	: x((type)xyzw[0]), y((type)xyzw[1]), z((type)xyzw[2]), w((type)xyzw[3])
 {
 }
@@ -1519,18 +1519,18 @@ inline ttvec4<type>::operator type* ()
 //-----------------------------------------------------------------------------
 
 template<typename type>
-inline ttvec1<type> stvec1<type>::operator =(ttvec1<type> const v)
+inline ttvec1<type> const stvec1<type>::operator =(ttvec1<type> const v)
 {
 	// pass-by-value is deliberate; need copy in case 'v' is the swizzle target
 	return ttvec1<type>(*this);
 }
 template<typename type>
-inline ttvec1<type> stvec1<type>::operator =(stvec1 const& v)
+inline ttvec1<type> const stvec1<type>::operator =(stvec1 const& v)
 {
 	return (*this = ttvec1<type>(v));
 }
 template<typename type>
-inline ttvec1<type> stvec1<type>::operator =(type const& xc)
+inline ttvec1<type> const stvec1<type>::operator =(type const& xc)
 {
 	return (*this = ttvec1<type>(xc));
 }
@@ -1542,18 +1542,18 @@ inline stvec1<type>::stvec1(type& xr)
 
 
 template<typename type>
-inline ttvec2<type> stvec2<type>::operator =(ttvec2<type> const v)
+inline ttvec2<type> const stvec2<type>::operator =(ttvec2<type> const v)
 {
 	// pass-by-value is deliberate; need copy in case 'v' is the swizzle target
 	return ttvec2<type>(*this);
 }
 template<typename type>
-inline ttvec2<type> stvec2<type>::operator =(stvec2 const& v)
+inline ttvec2<type> const stvec2<type>::operator =(stvec2 const& v)
 {
 	return (*this = ttvec2<type>(v));
 }
 template<typename type>
-inline ttvec2<type> stvec2<type>::operator =(type const& xy)
+inline ttvec2<type> const stvec2<type>::operator =(type const& xy)
 {
 	return (*this = ttvec2<type>(xy));
 }
@@ -1565,18 +1565,18 @@ inline stvec2<type>::stvec2(type& xr, type& yr)
 
 
 template<typename type>
-inline ttvec3<type> stvec3<type>::operator =(ttvec3<type> const v)
+inline ttvec3<type> const stvec3<type>::operator =(ttvec3<type> const v)
 {
 	// pass-by-value is deliberate; need copy in case 'v' is the swizzle target
 	return ttvec3<type>(*this);
 }
 template<typename type>
-inline ttvec3<type> stvec3<type>::operator =(stvec3 const& v)
+inline ttvec3<type> const stvec3<type>::operator =(stvec3 const& v)
 {
 	return (*this = ttvec3<type>(v));
 }
 template<typename type>
-inline ttvec3<type> stvec3<type>::operator =(type const& xyz)
+inline ttvec3<type> const stvec3<type>::operator =(type const& xyz)
 {
 	return (*this = ttvec3<type>(xyz));
 }
@@ -1588,18 +1588,18 @@ inline stvec3<type>::stvec3(type& xr, type& yr, type& zr)
 
 
 template<typename type>
-inline ttvec4<type> stvec4<type>::operator =(ttvec4<type> const v)
+inline ttvec4<type> const stvec4<type>::operator =(ttvec4<type> const v)
 {
 	// pass-by-value is deliberate; need copy in case 'v' is the swizzle target
 	return ttvec4<type>(*this);
 }
 template<typename type>
-inline ttvec4<type> stvec4<type>::operator =(stvec4 const& v)
+inline ttvec4<type> const stvec4<type>::operator =(stvec4 const& v)
 {
 	return (*this = ttvec4<type>(v));
 }
 template<typename type>
-inline ttvec4<type> stvec4<type>::operator =(type const& xyzw)
+inline ttvec4<type> const stvec4<type>::operator =(type const& xyzw)
 {
 	return (*this = ttvec4<type>(xyzw));
 }

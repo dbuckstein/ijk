@@ -35,11 +35,11 @@
 typedef	  signed	char					i8, sbyte, asciicode;
 typedef	  signed	short					i16;
 typedef	  signed	long					i32, iret, ibool, istate;
-typedef	  signed	long long				i64;
+typedef	  signed	long long				i64, intl;
 typedef	unsigned	char					ui8, byte, ubyte, keycode;
 typedef	unsigned	short					ui16, word;
-typedef	unsigned	long					ui32, dword;
-typedef	unsigned	long long				ui64, qword;
+typedef	unsigned	long					ui32, dword, uint;
+typedef	unsigned	long long				ui64, qword, uintl;
 typedef				float					f32, flt, single;
 typedef				double					f64, dbl;
 
@@ -112,6 +112,13 @@ typedef				word					dwtag[szdtag];
 #define ijk_copyc(dst, src, offset)			(*((chomp*)(dst) + (offset)) = *((chomp const*)(src) + (offset)))
 #define ijk_copytag(dst, src)				ijk_copyqw(dst,src,0);ijk_copyqw(dst,src,1);ijk_copyqw(dst,src,2);ijk_copyqw(dst,src,3)
 #define ijk_copywtag(dst, src)				ijk_copytag((ptag)(dst),(kptag)(src));ijk_copytag((ptag)(dst)+sztag,(kptag)(src)+sztag)
+
+
+#ifndef __cplusplus
+// missing C type for boolean
+///
+typedef byte bool;
+#endif	// !__cplusplus
 
 
 #endif	// !_IJK_TYPEDEFS_H_

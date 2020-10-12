@@ -27,7 +27,7 @@
 #define _IJK_VECTORSWIZZLE_H_
 
 
-#include "ijkSqrt.h"
+#include "../ijkSqrt.h"
 
 
 #ifdef __cplusplus
@@ -133,23 +133,15 @@
 
 //-----------------------------------------------------------------------------
 
-template<typename type>
-union ttvec1;
-template<typename type>
-union ttvec2;
-template<typename type>
-union ttvec3;
-template<typename type>
-union ttvec4;
+template<typename type> union ttvec1;
+template<typename type> union ttvec2;
+template<typename type> union ttvec3;
+template<typename type> union ttvec4;
 
-template<typename type>
-struct stvec1;
-template<typename type>
-struct stvec2;
-template<typename type>
-struct stvec3;
-template<typename type>
-struct stvec4;
+template<typename type> struct stvec1;
+template<typename type> struct stvec2;
+template<typename type> struct stvec3;
+template<typename type> struct stvec4;
 
 
 //-----------------------------------------------------------------------------
@@ -179,12 +171,12 @@ union ttvec2
 	ttvec2(type const& xy = 0);										// Construct vector with all elements set to single scalar.
 	ttvec2(type const& xc, type const& yc);							// Construct vector with elements set individually.
 	explicit ttvec2(bool const* xy);								// Construct vector given boolean array-based vector.
-	explicit ttvec2(i32 const* xy);									// Construct vector given signed 32-bit integer array-based vector.
-	explicit ttvec2(i64 const* xy);									// Construct vector given signed 64-bit integer array-based vector.
-	explicit ttvec2(ui32 const* xy);								// Construct vector given unsigned 32-bit integer array-based vector.
-	explicit ttvec2(ui64 const* xy);								// Construct vector given unsigned 64-bit integer array-based vector.
-	explicit ttvec2(flt const* xy);									// Construct vector given float array-based vector.
-	explicit ttvec2(dbl const* xy);									// Construct vector given double array-based vector.
+	explicit ttvec2(int const* xy);									// Construct vector given signed 32-bit integer array-based vector.
+	explicit ttvec2(intl const* xy);								// Construct vector given signed 64-bit integer array-based vector.
+	explicit ttvec2(uint const* xy);								// Construct vector given unsigned 32-bit integer array-based vector.
+	explicit ttvec2(uintl const* xy);								// Construct vector given unsigned 64-bit integer array-based vector.
+	explicit ttvec2(float const* xy);								// Construct vector given float array-based vector.
+	explicit ttvec2(double const* xy);								// Construct vector given double array-based vector.
 	ttvec2(ttvec2 const& xy);										// Construct vector given another 2D vector.
 	explicit ttvec2(ttvec3<type> const& xy);						// Construct vector given the first two elements of a 3D vector.
 	explicit ttvec2(ttvec4<type> const& xy);						// Construct vector given the first two elements of a 4D vector.
@@ -270,12 +262,12 @@ union ttvec3
 	ttvec3(type const& xyz = 0);											// Construct vector with all elements set to single scalar.
 	ttvec3(type const& xc, type const& yc, type const& zc = 0);				// Construct vector with elements set individually.
 	explicit ttvec3(bool const* xyz);										// Construct vector given boolean array-based vector.
-	explicit ttvec3(i32 const* xyz);										// Construct vector given 32-bit signed integer array-based vector.
-	explicit ttvec3(i64 const* xyz);										// Construct vector given 64-bit signed integer array-based vector.
-	explicit ttvec3(ui32 const* xyz);										// Construct vector given unsigned 32-bit integer array-based vector.
-	explicit ttvec3(ui64 const* xyz);										// Construct vector given unsigned 64-bit integer array-based vector.
-	explicit ttvec3(flt const* xyz);										// Construct vector given float array-based vector.
-	explicit ttvec3(dbl const* xyz);										// Construct vector given double array-based vector.
+	explicit ttvec3(int const* xyz);										// Construct vector given 32-bit signed integer array-based vector.
+	explicit ttvec3(intl const* xyz);										// Construct vector given 64-bit signed integer array-based vector.
+	explicit ttvec3(uint const* xyz);										// Construct vector given unsigned 32-bit integer array-based vector.
+	explicit ttvec3(uintl const* xyz);										// Construct vector given unsigned 64-bit integer array-based vector.
+	explicit ttvec3(float const* xyz);										// Construct vector given float array-based vector.
+	explicit ttvec3(double const* xyz);										// Construct vector given double array-based vector.
 	explicit ttvec3(ttvec2<type> const& xy, type const& zc = 0);			// Construct vector given 2D vector and one scalar.
 	explicit ttvec3(type const& xc, ttvec2<type> const& yz);				// Construct vector given 2D vector and one scalar.
 	ttvec3(ttvec3 const& xyz);												// Construct vector given another 3D vector.
@@ -363,12 +355,12 @@ union ttvec4
 	ttvec4(type const& xyzw = 0);																// Construct vector with all elements set to single scalar.
 	ttvec4(type const& xc, type const& yc, type const& zc = 0, type const& wc = 0);				// Construct vector with elements set individually.
 	explicit ttvec4(bool const* xyzw);															// Construct vector given boolean array-based vector.
-	explicit ttvec4(i32 const* xyzw);															// Construct vector given signed 32-bit integer array-based vector.
-	explicit ttvec4(i64 const* xyzw);															// Construct vector given signed 64-bit integer array-based vector.
-	explicit ttvec4(ui32 const* xyzw);															// Construct vector given unsigned 32-bit integer array-based vector.
-	explicit ttvec4(ui64 const* xyzw);															// Construct vector given unsigned 64-bit integer array-based vector.
-	explicit ttvec4(flt const* xyzw);															// Construct vector given float array-based vector.
-	explicit ttvec4(dbl const* xyzw);															// Construct vector given double array-based vector.
+	explicit ttvec4(int const* xyzw);															// Construct vector given signed 32-bit integer array-based vector.
+	explicit ttvec4(intl const* xyzw);															// Construct vector given signed 64-bit integer array-based vector.
+	explicit ttvec4(uint const* xyzw);															// Construct vector given unsigned 32-bit integer array-based vector.
+	explicit ttvec4(uintl const* xyzw);															// Construct vector given unsigned 64-bit integer array-based vector.
+	explicit ttvec4(float const* xyzw);															// Construct vector given float array-based vector.
+	explicit ttvec4(double const* xyzw);														// Construct vector given double array-based vector.
 	explicit ttvec4(ttvec2<type> const& xy, type const& zc = 0, type const& wc = 0);			// Construct vector given 2D vector and two scalars.
 	explicit ttvec4(type const& xc, ttvec2<type> const& yz, type const& wc = 0);				// Construct vector given 2D vector and two scalars.
 	explicit ttvec4(type const& xc, type const& yc, ttvec2<type> const& zw);					// Construct vector given 2D vector and two scalars.
@@ -461,9 +453,9 @@ union ttvec4
 template<typename type>
 struct stvec1
 {
-	ttvec1<type> operator =(ttvec1<type> const v);
-	ttvec1<type> operator =(stvec1 const& v);
-	ttvec1<type> operator =(type const& xc);
+	ttvec1<type> const operator =(ttvec1<type> const v);
+	ttvec1<type> const operator =(stvec1 const& v);
+	ttvec1<type> const operator =(type const& xc);
 	IJK_SWIZZLE_ALL(IJK_SWIZZLE_DECL_RTEMP, IJK_SWIZZLE_DECL_RTEMP, ttvec, stvec, stvec, 1);
 private:
 	type& x;
@@ -481,9 +473,9 @@ private:
 template<typename type>
 struct stvec2
 {
-	ttvec2<type> operator =(ttvec2<type> const v);
-	ttvec2<type> operator =(stvec2 const& v);
-	ttvec2<type> operator =(type const& xy);
+	ttvec2<type> const operator =(ttvec2<type> const v);
+	ttvec2<type> const operator =(stvec2 const& v);
+	ttvec2<type> const operator =(type const& xy);
 	IJK_SWIZZLE_ALL(IJK_SWIZZLE_DECL_RTEMP, IJK_SWIZZLE_DECL_RTEMP, ttvec, stvec, stvec, 2);
 private:
 	type& x, & y;
@@ -500,9 +492,9 @@ private:
 template<typename type>
 struct stvec3
 {
-	ttvec3<type> operator =(ttvec3<type> const v);
-	ttvec3<type> operator =(stvec3 const& v);
-	ttvec3<type> operator =(type const& xyz);
+	ttvec3<type> const operator =(ttvec3<type> const v);
+	ttvec3<type> const operator =(stvec3 const& v);
+	ttvec3<type> const operator =(type const& xyz);
 	IJK_SWIZZLE_ALL(IJK_SWIZZLE_DECL_RTEMP, IJK_SWIZZLE_DECL_RTEMP, ttvec, stvec, stvec, 3);
 private:
 	type& x, & y, & z;
@@ -518,9 +510,9 @@ private:
 template<typename type>
 struct stvec4
 {
-	ttvec4<type> operator =(ttvec4<type> const v);
-	ttvec4<type> operator =(stvec4 const& v);
-	ttvec4<type> operator =(type const& xyzw);
+	ttvec4<type> const operator =(ttvec4<type> const v);
+	ttvec4<type> const operator =(stvec4 const& v);
+	ttvec4<type> const operator =(type const& xyzw);
 	IJK_SWIZZLE_ALL(IJK_SWIZZLE_DECL_RTEMP, IJK_SWIZZLE_DECL_RTEMP, ttvec, stvec, stvec, 4);
 private:
 	type& x, & y, & z, & w;
@@ -648,6 +640,11 @@ template<typename type> ttvec4<type> const project(ttvec4<type> const& v_base, t
 template<typename type> ttvec4<type>& projectSet(ttvec4<type> const& v_base, ttvec4<type>& v);
 template<typename type> ttvec4<type> const projectOrtho(ttvec4<type> const& v_base, ttvec4<type> const& v);
 template<typename type> ttvec4<type>& projectOrthoSet(ttvec4<type> const& v_base, ttvec4<type>& v);
+
+
+//-----------------------------------------------------------------------------
+
+#else	// !__cplusplus
 
 
 //-----------------------------------------------------------------------------
