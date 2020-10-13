@@ -54,9 +54,9 @@ typedef ttvec2<ui64>	ulvec2;		// 2D unsigned 64-bit integer vector
 typedef ttvec3<ui64>	ulvec3;		// 3D unsigned 64-bit integer vector
 typedef ttvec4<ui64>	ulvec4;		// 4D unsigned 64-bit integer vector
 
-typedef ttvec2<f32>		vec2;		// 2D single-precision floating point vector
-typedef ttvec3<f32>		vec3;		// 3D single-precision floating point vector
-typedef ttvec4<f32>		vec4;		// 4D single-precision floating point vector
+typedef ttvec2<f32>		fvec2;		// 2D single-precision floating point vector
+typedef ttvec3<f32>		fvec3;		// 3D single-precision floating point vector
+typedef ttvec4<f32>		fvec4;		// 4D single-precision floating point vector
 
 typedef ttvec2<f64>		dvec2;		// 2D double-precision floating point vector
 typedef ttvec3<f64>		dvec3;		// 3D double-precision floating point vector
@@ -88,9 +88,9 @@ typedef union uvec4		uvec4;
 typedef union ulvec2	ulvec2;
 typedef union ulvec3	ulvec3;
 typedef union ulvec4	ulvec4;
-typedef union vec2		vec2;
-typedef union vec3		vec3;
-typedef union vec4		vec4;
+typedef union fvec2		fvec2;
+typedef union fvec3		fvec3;
+typedef union fvec4		fvec4;
 typedef union dvec2		dvec2;
 typedef union dvec3		dvec3;
 typedef union dvec4		dvec4;
@@ -400,18 +400,18 @@ union ulvec4
 
 //-----------------------------------------------------------------------------
 
-// vec2
+// fvec2
 //	Data structure representing 2D single-precision (float) vector.
 //		members xy, rg, st: array of elements, used as pointer argument to vector functions
 //		members x, y: individual named elements representing a spatial coordinate
 //		members r, g: individual named elements representing a color
 //		members s, t: individual named elements representing a parametric coordinate
-union vec2
+union fvec2
 {
 	IJK_FVEC_IMPL(2);
 };
 
-// vec3
+// fvec3
 //	Data structure representing 3D single-precision (float) vector.
 //		members xyz, rgb, stp: array of elements, used as pointer argument to vector functions
 //		members xy, rg, st: partial swizzle of first two elements, used in same fashion as above
@@ -419,12 +419,12 @@ union vec2
 //		members x, y, z: individual named elements representing a spatial coordinate
 //		members r, g, b: individual named elements representing a color
 //		members s, t, p: individual named elements representing a parametric coordinate
-union vec3
+union fvec3
 {
 	IJK_FVEC_IMPL(3);
 };
 
-// vec4
+// fvec4
 //	Data structure representing 4D single-precision (float) vector.
 //		members xyzw, rgba, stpq: array of elements, used as pointer argument to vector functions
 //		members xyz, rgb, stp: partial swizzle of first three elements, used in same fashion as above
@@ -436,7 +436,7 @@ union vec3
 //			note: vectors have w = 0, while points have w = 1
 //		members r, g, b, a: individual named elements representing a color
 //		members s, t, p, q: individual named elements representing a parametric coordinate
-union vec4
+union fvec4
 {
 	IJK_FVEC_IMPL(4);
 };
@@ -486,6 +486,33 @@ union dvec4
 };
 
 #endif	// __cplusplus
+
+
+//-----------------------------------------------------------------------------
+
+// Alternative names for float vector.
+///
+typedef fvec2		vec2;
+typedef fvec3		vec3;
+typedef fvec4		vec4;
+
+// Select real vector types.
+///
+typedef real const	* realkv;	// Generic constant real-type array-based vector, represented by pointer, used as constant vector return type since returning sized array is not allowed.
+typedef real		* realv,	// Generic real-type array-based vector, represented by pointer, used as vector return type since returning sized array is not allowed.
+					real2[2],	// 2D real-type array-based vector, always passed by pointer.
+					real3[3],	// 3D real-type array-based vector, always passed by pointer.
+					real4[4];	// 4D real-type array-based vector, always passed by pointer.
+
+#ifdef IJK_REAL_DBL
+typedef dvec2		rvec2;		// Real 2D vector data structure type is 2D double vector.
+typedef dvec3		rvec3;		// Real 3D vector data structure type is 3D double vector.
+typedef dvec4		rvec4;		// Real 4D vector data structure type is 4D double vector.
+#else	// !IJK_REAL_DBL
+typedef fvec2		rvec2;		// Real 2D vector data structure type is 2D float vector.
+typedef fvec3		rvec3;		// Real 3D vector data structure type is 3D float vector.
+typedef fvec4		rvec4;		// Real 4D vector data structure type is 4D float vector.
+#endif	// IJK_REAL_DBL
 
 
 //-----------------------------------------------------------------------------
@@ -825,6 +852,36 @@ ijk_ext float4 const float4_y_n;	// (  0, -1,  0,  0 )
 ijk_ext float4 const float4_z_n;	// (  0,  0, -1,  0 )
 ijk_ext float4 const float4_w_n;	// (  0,  0,  0, -1 )
 
+ijk_ext fvec2 const fvec2_one;		// ( +1, +1 )
+ijk_ext fvec2 const fvec2_zero;		// (  0,  0 )
+ijk_ext fvec2 const fvec2_one_n;	// ( -1, -1 )
+ijk_ext fvec2 const fvec2_x;		// ( +1,  0 )
+ijk_ext fvec2 const fvec2_y;		// (  0, +1 )
+ijk_ext fvec2 const fvec2_x_n;		// ( -1,  0 )
+ijk_ext fvec2 const fvec2_y_n;		// (  0, -1 )
+
+ijk_ext fvec3 const fvec3_one;		// ( +1, +1, +1 )
+ijk_ext fvec3 const fvec3_zero;		// (  0,  0,  0 )
+ijk_ext fvec3 const fvec3_one_n;	// ( -1, -1, -1 )
+ijk_ext fvec3 const fvec3_x;		// ( +1,  0,  0 )
+ijk_ext fvec3 const fvec3_y;		// (  0, +1,  0 )
+ijk_ext fvec3 const fvec3_z;		// (  0,  0, +1 )
+ijk_ext fvec3 const fvec3_x_n;		// ( -1,  0,  0 )
+ijk_ext fvec3 const fvec3_y_n;		// (  0, -1,  0 )
+ijk_ext fvec3 const fvec3_z_n;		// (  0,  0, -1 )
+
+ijk_ext fvec4 const fvec4_one;		// ( +1, +1, +1, +1 )
+ijk_ext fvec4 const fvec4_zero;		// (  0,  0,  0,  0 )
+ijk_ext fvec4 const fvec4_one_n;	// ( -1, -1, -1, -1 )
+ijk_ext fvec4 const fvec4_x;		// ( +1,  0,  0,  0 )
+ijk_ext fvec4 const fvec4_y;		// (  0, +1,  0,  0 )
+ijk_ext fvec4 const fvec4_z;		// (  0,  0, +1,  0 )
+ijk_ext fvec4 const fvec4_w;		// (  0,  0,  0, +1 )
+ijk_ext fvec4 const fvec4_x_n;		// ( -1,  0,  0,  0 )
+ijk_ext fvec4 const fvec4_y_n;		// (  0, -1,  0,  0 )
+ijk_ext fvec4 const fvec4_z_n;		// (  0,  0, -1,  0 )
+ijk_ext fvec4 const fvec4_w_n;		// (  0,  0,  0, -1 )
+
 ijk_ext vec2 const vec2_one;		// ( +1, +1 )
 ijk_ext vec2 const vec2_zero;		// (  0,  0 )
 ijk_ext vec2 const vec2_one_n;		// ( -1, -1 )
@@ -919,33 +976,6 @@ ijk_ext dvec4 const dvec4_x_n;			// ( -1,  0,  0,  0 )
 ijk_ext dvec4 const dvec4_y_n;			// (  0, -1,  0,  0 )
 ijk_ext dvec4 const dvec4_z_n;			// (  0,  0, -1,  0 )
 ijk_ext dvec4 const dvec4_w_n;			// (  0,  0,  0, -1 )
-
-
-//-----------------------------------------------------------------------------
-
-// Alternative names for float vector.
-///
-typedef vec2		fvec2;
-typedef vec3		fvec3;
-typedef vec4		fvec4;
-
-// Select real vector types.
-///
-typedef real const	* realkv;	// Generic constant real-type array-based vector, represented by pointer, used as constant vector return type since returning sized array is not allowed.
-typedef real		* realv,	// Generic real-type array-based vector, represented by pointer, used as vector return type since returning sized array is not allowed.
-					real2[2],	// 2D real-type array-based vector, always passed by pointer.
-					real3[3],	// 3D real-type array-based vector, always passed by pointer.
-					real4[4];	// 4D real-type array-based vector, always passed by pointer.
-
-#ifdef IJK_REAL_DBL
-typedef dvec2		rvec2;		// Real 2D vector data structure type is 2D double vector.
-typedef dvec3		rvec3;		// Real 3D vector data structure type is 3D double vector.
-typedef dvec4		rvec4;		// Real 4D vector data structure type is 4D double vector.
-#else	// !IJK_REAL_DBL
-typedef vec2		rvec2;		// Real 2D vector data structure type is 2D float vector.
-typedef vec3		rvec3;		// Real 3D vector data structure type is 3D float vector.
-typedef vec4		rvec4;		// Real 4D vector data structure type is 4D float vector.
-#endif	// IJK_REAL_DBL
 
 
 //-----------------------------------------------------------------------------
@@ -1293,6 +1323,56 @@ bvec4 isInequal4sb(bool const s_lh, bvec4 const v_rh);
 #define IJK_VECTORFUNC_TYPE2	int2
 #define IJK_VECTORFUNC_TYPE3	int3
 #define IJK_VECTORFUNC_TYPE4	int4
+#include "_util/ijkVectorFunc.h"
+
+#define IJK_VECTORFUNC_PREFIX	il
+#define IJK_VECTORFUNC_TYPE		i64
+#define IJK_VECTORFUNC_TVEC		intl
+#define IJK_VECTORFUNC_TYPEKV	intlkv
+#define IJK_VECTORFUNC_TYPEV	intlv
+#define IJK_VECTORFUNC_TYPE2	intl2
+#define IJK_VECTORFUNC_TYPE3	intl3
+#define IJK_VECTORFUNC_TYPE4	intl4
+#include "_util/ijkVectorFunc.h"
+
+#define IJK_VECTORFUNC_PREFIX	u
+#define IJK_VECTORFUNC_TYPE		ui32
+#define IJK_VECTORFUNC_TVEC		uint
+#define IJK_VECTORFUNC_TYPEKV	uintkv
+#define IJK_VECTORFUNC_TYPEV	uintv
+#define IJK_VECTORFUNC_TYPE2	uint2
+#define IJK_VECTORFUNC_TYPE3	uint3
+#define IJK_VECTORFUNC_TYPE4	uint4
+#include "_util/ijkVectorFunc.h"
+
+#define IJK_VECTORFUNC_PREFIX	ul
+#define IJK_VECTORFUNC_TYPE		ui64
+#define IJK_VECTORFUNC_TVEC		uintl
+#define IJK_VECTORFUNC_TYPEKV	uintlkv
+#define IJK_VECTORFUNC_TYPEV	uintlv
+#define IJK_VECTORFUNC_TYPE2	uintl2
+#define IJK_VECTORFUNC_TYPE3	uintl3
+#define IJK_VECTORFUNC_TYPE4	uintl4
+#include "_util/ijkVectorFunc.h"
+
+#define IJK_VECTORFUNC_PREFIX	f
+#define IJK_VECTORFUNC_TYPE		f32
+#define IJK_VECTORFUNC_TVEC		float
+#define IJK_VECTORFUNC_TYPEKV	floatkv
+#define IJK_VECTORFUNC_TYPEV	floatv
+#define IJK_VECTORFUNC_TYPE2	float2
+#define IJK_VECTORFUNC_TYPE3	float3
+#define IJK_VECTORFUNC_TYPE4	float4
+#include "_util/ijkVectorFunc.h"
+
+#define IJK_VECTORFUNC_PREFIX	d
+#define IJK_VECTORFUNC_TYPE		f64
+#define IJK_VECTORFUNC_TVEC		double
+#define IJK_VECTORFUNC_TYPEKV	doublekv
+#define IJK_VECTORFUNC_TYPEV	doublev
+#define IJK_VECTORFUNC_TYPE2	double2
+#define IJK_VECTORFUNC_TYPE3	double3
+#define IJK_VECTORFUNC_TYPE4	double4
 #include "_util/ijkVectorFunc.h"
 
 

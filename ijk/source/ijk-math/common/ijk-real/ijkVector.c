@@ -400,6 +400,36 @@ uvec4 const uvecl4_y_n = __v4_y_n;
 uvec4 const uvecl4_z_n = __v4_z_n;
 uvec4 const uvecl4_w_n = __v4_w_n;
 
+fvec2 const fvec2_one = __v2_one;
+fvec2 const fvec2_zero = __v2_zero;
+fvec2 const fvec2_one_n = __v2_one_n;
+fvec2 const fvec2_x = __v2_x;
+fvec2 const fvec2_y = __v2_y;
+fvec2 const fvec2_x_n = __v2_x_n;
+fvec2 const fvec2_y_n = __v2_y_n;
+
+fvec3 const fvec3_one = __v3_one;
+fvec3 const fvec3_zero = __v3_zero;
+fvec3 const fvec3_one_n = __v3_one_n;
+fvec3 const fvec3_x = __v3_x;
+fvec3 const fvec3_y = __v3_y;
+fvec3 const fvec3_z = __v3_z;
+fvec3 const fvec3_x_n = __v3_x_n;
+fvec3 const fvec3_y_n = __v3_y_n;
+fvec3 const fvec3_z_n = __v3_z_n;
+
+fvec4 const fvec4_one = __v4_one;
+fvec4 const fvec4_zero = __v4_zero;
+fvec4 const fvec4_one_n = __v4_one_n;
+fvec4 const fvec4_x = __v4_x;
+fvec4 const fvec4_y = __v4_y;
+fvec4 const fvec4_z = __v4_z;
+fvec4 const fvec4_w = __v4_w;
+fvec4 const fvec4_x_n = __v4_x_n;
+fvec4 const fvec4_y_n = __v4_y_n;
+fvec4 const fvec4_z_n = __v4_z_n;
+fvec4 const fvec4_w_n = __v4_w_n;
+
 vec2 const vec2_one = __v2_one;
 vec2 const vec2_zero = __v2_zero;
 vec2 const vec2_one_n = __v2_one_n;
