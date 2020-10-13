@@ -133,10 +133,10 @@
 
 //-----------------------------------------------------------------------------
 
-template<typename type> union ttvec1;
-template<typename type> union ttvec2;
-template<typename type> union ttvec3;
-template<typename type> union ttvec4;
+template<typename type> struct ttvec1;
+template<typename type> struct ttvec2;
+template<typename type> struct ttvec3;
+template<typename type> struct ttvec4;
 
 template<typename type> struct stvec1;
 template<typename type> struct stvec2;
@@ -148,7 +148,7 @@ template<typename type> struct stvec4;
 
 // Template scalar type.
 template<typename type>
-union ttvec1
+struct ttvec1
 {
 	ttvec1(type const& xc = 0);
 	ttvec1(ttvec1 const& xc);
@@ -224,7 +224,7 @@ union ttvec1
 
 // Template 2D vector type.
 template<typename type>
-union ttvec2
+struct ttvec2
 {
 	ttvec2(type const& xy = 0);										// Construct vector with all elements set to single scalar.
 	ttvec2(type const& xc, type const& yc);							// Construct vector with elements set individually.
@@ -308,14 +308,15 @@ union ttvec2
 	operator type* ();
 
 	IJK_SWIZZLE_ALL(IJK_SWIZZLE_DECL_RTEMP, IJK_SWIZZLE_DECL_RTEMP, ttvec, stvec, ttvec, 2);
-	type xy[2];
-	struct { type x, y; };
+	union { type xy[2]; struct { type x, y; }; };
+	inline operator ttvec1<type> const* () const { return (ttvec1<type>*)xy; }
+	inline operator ttvec1<type>* () { return (ttvec1<type>*)xy; }
 };
 
 
 // Template 3D vector type.
 template<typename type>
-union ttvec3
+struct ttvec3
 {
 	ttvec3(type const& xyz = 0);											// Construct vector with all elements set to single scalar.
 	ttvec3(type const& xc, type const& yc, type const& zc = 0);				// Construct vector with elements set individually.
@@ -401,14 +402,15 @@ union ttvec3
 	operator type* ();
 
 	IJK_SWIZZLE_ALL(IJK_SWIZZLE_DECL_RTEMP, IJK_SWIZZLE_DECL_RTEMP, ttvec, stvec, ttvec, 3);
-	type xyz[3];
-	struct { type x, y, z; };
+	union { type xyz[3]; struct { type x, y, z; }; };
+	inline operator ttvec1<type> const* () const { return (ttvec1<type>*)xyz; }
+	inline operator ttvec1<type>* () { return (ttvec1<type>*)xyz; }
 };
 
 
 // Template 4D vector type.
 template<typename type>
-union ttvec4
+struct ttvec4
 {
 	ttvec4(type const& xyzw = 0);																// Construct vector with all elements set to single scalar.
 	ttvec4(type const& xc, type const& yc, type const& zc = 0, type const& wc = 0);				// Construct vector with elements set individually.
@@ -500,8 +502,9 @@ union ttvec4
 	operator type* ();
 
 	IJK_SWIZZLE_ALL(IJK_SWIZZLE_DECL_RTEMP, IJK_SWIZZLE_DECL_RTEMP, ttvec, stvec, ttvec, 4);
-	type xyzw[4];
-	struct { type x, y, z, w; };
+	union { type xyzw[4]; struct { type x, y, z, w; }; };
+	inline operator ttvec1<type> const* () const { return (ttvec1<type>*)xyzw; }
+	inline operator ttvec1<type>* () { return (ttvec1<type>*)xyzw; }
 };
 
 
@@ -509,14 +512,14 @@ union ttvec4
 
 // Swizzle scalar type.
 template<typename type>
-struct stvec1
+struct stvec1 : ttvec1<type>
 {
 	ttvec1<type> const operator =(ttvec1<type> const v);
 	ttvec1<type> const operator =(stvec1 const& v);
 	ttvec1<type> const operator =(type const& xc);
-	IJK_SWIZZLE_ALL(IJK_SWIZZLE_DECL_RTEMP, IJK_SWIZZLE_DECL_RTEMP, ttvec, stvec, stvec, 1);
+	~stvec1();
 private:
-	type& x;
+	type& xr;
 	stvec1(type& xr);
 	friend stvec2<type>;
 	friend stvec3<type>;
@@ -529,18 +532,14 @@ private:
 
 // Swizzle 2D vector type.
 template<typename type>
-struct stvec2
+struct stvec2 : ttvec2<type>
 {
 	ttvec2<type> const operator =(ttvec2<type> const v);
 	ttvec2<type> const operator =(stvec2 const& v);
 	ttvec2<type> const operator =(type const& xy);
-	IJK_SWIZZLE_ALL(IJK_SWIZZLE_DECL_RTEMP, IJK_SWIZZLE_DECL_RTEMP, ttvec, stvec, stvec, 2);
 	~stvec2();
-	inline operator ttvec1<type> const* () const { return xy; }
-	inline operator ttvec1<type>* () { return xy; }
 private:
-	type& x, & y;
-	ttvec1<type> xy[2];
+	type& xr, & yr;
 	stvec2(type& xr, type& yr);
 	friend stvec3<type>;
 	friend stvec4<type>;
@@ -552,18 +551,14 @@ private:
 
 // Swizzle 3D vector type.
 template<typename type>
-struct stvec3
+struct stvec3 : ttvec3<type>
 {
 	ttvec3<type> const operator =(ttvec3<type> const v);
 	ttvec3<type> const operator =(stvec3 const& v);
 	ttvec3<type> const operator =(type const& xyz);
-	IJK_SWIZZLE_ALL(IJK_SWIZZLE_DECL_RTEMP, IJK_SWIZZLE_DECL_RTEMP, ttvec, stvec, stvec, 3);
 	~stvec3();
-	inline operator ttvec1<type> const* () const { return xyz; }
-	inline operator ttvec1<type>* () { return xyz; }
 private:
-	type& x, & y, & z;
-	ttvec1<type> xyz[3];
+	type& xr, & yr, & zr;
 	stvec3(type& xr, type& yr, type& zr);
 	friend stvec4<type>;
 	friend ttvec1<type>;
@@ -574,18 +569,14 @@ private:
 
 // Swizzle 4D vector type.
 template<typename type>
-struct stvec4
+struct stvec4 : ttvec4<type>
 {
 	ttvec4<type> const operator =(ttvec4<type> const v);
 	ttvec4<type> const operator =(stvec4 const& v);
 	ttvec4<type> const operator =(type const& xyzw);
-	IJK_SWIZZLE_ALL(IJK_SWIZZLE_DECL_RTEMP, IJK_SWIZZLE_DECL_RTEMP, ttvec, stvec, stvec, 4);
 	~stvec4();
-	inline operator ttvec1<type> const* () const { return xyzw; }
-	inline operator ttvec1<type>* () { return xyzw; }
 private:
-	type& x, & y, & z, & w;
-	ttvec1<type> xyzw[4];
+	type& xr, & yr, & zr, & wr;
 	stvec4(type& xr, type& yr, type& zr, type& wr);
 	friend ttvec1<type>;
 	friend ttvec2<type>;

@@ -1824,6 +1824,7 @@ template<typename type>
 inline ttvec1<type> const stvec1<type>::operator =(ttvec1<type> const v)
 {
 	// pass-by-value is deliberate; need copy in case 'v' is the swizzle target
+	this->x = v.x;
 	return ttvec1<type>(*this);
 }
 template<typename type>
@@ -1838,17 +1839,23 @@ inline ttvec1<type> const stvec1<type>::operator =(type const& xc)
 }
 template<typename type>
 inline stvec1<type>::stvec1(type& xr)
-	: x(xr)
+	: ttvec1<type>(xr), xr(xr)
 {
+}
+template<typename type>
+inline stvec1<type>::~stvec1()
+{
+	// assign final state
+	xr = this->x;
 }
 
 
 template<typename type>
 inline ttvec2<type> const stvec2<type>::operator =(ttvec2<type> const v)
 {
-	xy[0] = v.x;
-	xy[1] = v.y;
 	// pass-by-value is deliberate; need copy in case 'v' is the swizzle target
+	this->x = v.x;
+	this->y = v.y;
 	return ttvec2<type>(*this);
 }
 template<typename type>
@@ -1863,25 +1870,25 @@ inline ttvec2<type> const stvec2<type>::operator =(type const& xy)
 }
 template<typename type>
 inline stvec2<type>::stvec2(type& xr, type& yr)
-	: x(xr), y(yr), xy{ xr, yr }
+	: ttvec2<type>(xr, yr), xr(xr), yr(yr)
 {
 }
 template<typename type>
 inline stvec2<type>::~stvec2()
 {
 	// assign final state
-	x = xy[0];
-	y = xy[1];
+	xr = this->x;
+	yr = this->y;
 }
 
 
 template<typename type>
 inline ttvec3<type> const stvec3<type>::operator =(ttvec3<type> const v)
 {
-	xyz[0] = v.x;
-	xyz[1] = v.y;
-	xyz[2] = v.z;
 	// pass-by-value is deliberate; need copy in case 'v' is the swizzle target
+	this->x = v.x;
+	this->y = v.y;
+	this->z = v.z;
 	return ttvec3<type>(*this);
 }
 template<typename type>
@@ -1896,27 +1903,27 @@ inline ttvec3<type> const stvec3<type>::operator =(type const& xyz)
 }
 template<typename type>
 inline stvec3<type>::stvec3(type& xr, type& yr, type& zr)
-	: x(xr), y(yr), z(zr), xyz{ xr, yr, zr }
+	: ttvec3<type>(xr, yr, zr), xr(xr), yr(yr), zr(zr)
 {
 }
 template<typename type>
 inline stvec3<type>::~stvec3()
 {
 	// assign final state
-	x = xyz[0];
-	y = xyz[1];
-	z = xyz[2];
+	xr = this->x;
+	yr = this->y;
+	zr = this->z;
 }
 
 
 template<typename type>
 inline ttvec4<type> const stvec4<type>::operator =(ttvec4<type> const v)
 {
-	xyzw[0] = v.x;
-	xyzw[1] = v.y;
-	xyzw[2] = v.z;
-	xyzw[3] = v.w;
 	// pass-by-value is deliberate; need copy in case 'v' is the swizzle target
+	this->x = v.x;
+	this->y = v.y;
+	this->z = v.z;
+	this->w = v.w;
 	return ttvec4<type>(*this);
 }
 template<typename type>
@@ -1931,17 +1938,17 @@ inline ttvec4<type> const stvec4<type>::operator =(type const& xyzw)
 }
 template<typename type>
 inline stvec4<type>::stvec4(type& xr, type& yr, type& zr, type& wr)
-	: x(xr), y(yr), z(zr), w(wr), xyzw{ xr, yr, zr, wr }
+	: ttvec4<type>(xr, yr, zr, wr), xr(xr), yr(yr), zr(zr), wr(wr)
 {
 }
 template<typename type>
 inline stvec4<type>::~stvec4()
 {
 	// assign final state
-	x = xyzw[0];
-	y = xyzw[1];
-	z = xyzw[2];
-	w = xyzw[3];
+	xr = this->x;
+	yr = this->y;
+	zr = this->z;
+	wr = this->w;
 }
 
 
@@ -2517,10 +2524,14 @@ IJK_SWIZZLE_ALL(IJK_SWIZZLE_IMPL_RTEMP, IJK_SWIZZLE_IMPL_RTEMP, ttvec, stvec, tt
 IJK_SWIZZLE_ALL(IJK_SWIZZLE_IMPL_RTEMP, IJK_SWIZZLE_IMPL_RTEMP, ttvec, stvec, ttvec, 3, inline);
 IJK_SWIZZLE_ALL(IJK_SWIZZLE_IMPL_RTEMP, IJK_SWIZZLE_IMPL_RTEMP, ttvec, stvec, ttvec, 4, inline);
 
-IJK_SWIZZLE_ALL(IJK_SWIZZLE_IMPL_RTEMP, IJK_SWIZZLE_IMPL_RTEMP, ttvec, stvec, stvec, 1, inline);
-IJK_SWIZZLE_ALL(IJK_SWIZZLE_IMPL_RTEMP, IJK_SWIZZLE_IMPL_RTEMP, ttvec, stvec, stvec, 2, inline);
-IJK_SWIZZLE_ALL(IJK_SWIZZLE_IMPL_RTEMP, IJK_SWIZZLE_IMPL_RTEMP, ttvec, stvec, stvec, 3, inline);
-IJK_SWIZZLE_ALL(IJK_SWIZZLE_IMPL_RTEMP, IJK_SWIZZLE_IMPL_RTEMP, ttvec, stvec, stvec, 4, inline);
+//IJK_SWIZZLE_ALL(IJK_SWIZZLE_DECL_RTEMP, IJK_SWIZZLE_DECL_RTEMP, ttvec, stvec, stvec, 1);
+//IJK_SWIZZLE_ALL(IJK_SWIZZLE_IMPL_RTEMP, IJK_SWIZZLE_IMPL_RTEMP, ttvec, stvec, stvec, 1, inline);
+//IJK_SWIZZLE_ALL(IJK_SWIZZLE_DECL_RTEMP, IJK_SWIZZLE_DECL_RTEMP, ttvec, stvec, stvec, 2);
+//IJK_SWIZZLE_ALL(IJK_SWIZZLE_IMPL_RTEMP, IJK_SWIZZLE_IMPL_RTEMP, ttvec, stvec, stvec, 2, inline);
+//IJK_SWIZZLE_ALL(IJK_SWIZZLE_DECL_RTEMP, IJK_SWIZZLE_DECL_RTEMP, ttvec, stvec, stvec, 3);
+//IJK_SWIZZLE_ALL(IJK_SWIZZLE_IMPL_RTEMP, IJK_SWIZZLE_IMPL_RTEMP, ttvec, stvec, stvec, 3, inline);
+//IJK_SWIZZLE_ALL(IJK_SWIZZLE_DECL_RTEMP, IJK_SWIZZLE_DECL_RTEMP, ttvec, stvec, stvec, 4);
+//IJK_SWIZZLE_ALL(IJK_SWIZZLE_IMPL_RTEMP, IJK_SWIZZLE_IMPL_RTEMP, ttvec, stvec, stvec, 4, inline);
 #endif	// IJK_VECTOR_SWIZZLE
 
 
