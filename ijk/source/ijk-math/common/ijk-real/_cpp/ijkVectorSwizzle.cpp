@@ -66,7 +66,8 @@ void ijkMathTestVectorSwizzle()
 	intv test_cross3iv = cross3iv(test_ivec3.zyx, test_ivec3x.xyz, test_ivec3y.xyz);
 	ivec3 test_cross3i = cross3i(test_ivec3x, test_ivec3y);
 
-	//test_ivec3.zyx += 1;
+	test_ivec3.x += 1;
+	test_ivec3.xyz += 1;
 
 	//(test_ivec2 + 7).x = 1;		// error: lhs is const
 	test_ivec2.x = 1;				// call swiz -> assign
