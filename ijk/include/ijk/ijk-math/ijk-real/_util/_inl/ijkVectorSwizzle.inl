@@ -47,28 +47,330 @@ inline ttvec1<type>::ttvec1(stvec1<type> const& xc)
 	: x(xc.x)
 {
 }
+
 template<typename type>
-inline ttvec1<type>& ttvec1<type>::operator =(type const& xc)
+inline ttvec1<type> const ttvec1<type>::operator +() const
 {
-	x = xc;
 	return *this;
 }
 template<typename type>
-inline ttvec1<type>& ttvec1<type>::operator =(ttvec1 const& xc)
+inline ttvec1<type> const ttvec1<type>::operator -() const
 {
-	x = xc.x;
-	return *this;
+	return ttvec1<type>(-x);
 }
 template<typename type>
-inline ttvec1<type>& ttvec1<type>::operator =(stvec1<type> const& xc)
+inline ttvec1<type> const ttvec1<type>::operator ~() const
 {
-	x = xc.x;
-	return *this;
+	return ttvec1<type>(~x);
+}
+template<typename type>
+inline ttvec1<type> const ttvec1<type>::operator +(ttvec1 const& v_rh) const
+{
+	return ttvec1<type>(x + v_rh.x);
+}
+template<typename type>
+inline ttvec1<type> const ttvec1<type>::operator -(ttvec1 const& v_rh) const
+{
+	return ttvec1<type>(x - v_rh.x);
+}
+template<typename type>
+inline ttvec1<type> const ttvec1<type>::operator *(ttvec1 const& v_rh) const
+{
+	return ttvec1<type>(x * v_rh.x);
+}
+template<typename type>
+inline ttvec1<type> const ttvec1<type>::operator /(ttvec1 const& v_rh) const
+{
+	return ttvec1<type>(x / v_rh.x);
+}
+template<typename type>
+inline ttvec1<type> const ttvec1<type>::operator %(ttvec1 const& v_rh) const
+{
+	return ttvec1<type>(x % v_rh.x);
+}
+template<typename type>
+inline ttvec1<type> const ttvec1<type>::operator &(ttvec1 const& v_rh) const
+{
+	return ttvec1<type>(x & v_rh.x);
+}
+template<typename type>
+inline ttvec1<type> const ttvec1<type>::operator |(ttvec1 const& v_rh) const
+{
+	return ttvec1<type>(x | v_rh.x);
+}
+template<typename type>
+inline ttvec1<type> const ttvec1<type>::operator ^(ttvec1 const& v_rh) const
+{
+	return ttvec1<type>(x ^ v_rh.x);
+}
+template<typename type>
+inline ttvec1<type> const ttvec1<type>::operator <<(ttvec1 const& v_rh) const
+{
+	return ttvec1<type>(x << v_rh.x);
+}
+template<typename type>
+inline ttvec1<type> const ttvec1<type>::operator >>(ttvec1 const& v_rh) const
+{
+	return ttvec1<type>(x >> v_rh.x);
+}
+template<typename type>
+inline ttvec1<type> const ttvec1<type>::operator +(type const& s_rh) const
+{
+	return ttvec1<type>(x + s_rh);
+}
+template<typename type>
+inline ttvec1<type> const ttvec1<type>::operator -(type const& s_rh) const
+{
+	return ttvec1<type>(x - s_rh);
+}
+template<typename type>
+inline ttvec1<type> const ttvec1<type>::operator *(type const& s_rh) const
+{
+	return ttvec1<type>(x * s_rh);
+}
+template<typename type>
+inline ttvec1<type> const ttvec1<type>::operator /(type const& s_rh) const
+{
+	return ttvec1<type>(x / s_rh);
+}
+template<typename type>
+inline ttvec1<type> const ttvec1<type>::operator %(type const& s_rh) const
+{
+	return ttvec1<type>(x % s_rh);
+}
+template<typename type>
+inline ttvec1<type> const ttvec1<type>::operator &(type const& s_rh) const
+{
+	return ttvec1<type>(x & s_rh);
+}
+template<typename type>
+inline ttvec1<type> const ttvec1<type>::operator |(type const& s_rh) const
+{
+	return ttvec1<type>(x | s_rh);
+}
+template<typename type>
+inline ttvec1<type> const ttvec1<type>::operator ^(type const& s_rh) const
+{
+	return ttvec1<type>(x ^ s_rh);
+}
+template<typename type>
+inline ttvec1<type> const ttvec1<type>::operator <<(type const& s_rh) const
+{
+	return ttvec1<type>(x << s_rh);
+}
+template<typename type>
+inline ttvec1<type> const ttvec1<type>::operator >>(type const& s_rh) const
+{
+	return ttvec1<type>(x >> s_rh);
+}
+template<typename type>
+inline ttvec1<bool> const ttvec1<type>::operator !() const
+{
+	return ttvec1<bool>(!x);
+}
+template<typename type>
+inline ttvec1<bool> const ttvec1<type>::operator ==(ttvec1 const& v_rh) const
+{
+	return ttvec1<bool>(x == v_rh.x);
+}
+template<typename type>
+inline ttvec1<bool> const ttvec1<type>::operator !=(ttvec1 const& v_rh) const
+{
+	return ttvec1<bool>(x != v_rh.x);
+}
+template<typename type>
+inline ttvec1<bool> const ttvec1<type>::operator <=(ttvec1 const& v_rh) const
+{
+	return ttvec1<bool>(x <= v_rh.x);
+}
+template<typename type>
+inline ttvec1<bool> const ttvec1<type>::operator >=(ttvec1 const& v_rh) const
+{
+	return ttvec1<bool>(x >= v_rh.x);
+}
+template<typename type>
+inline ttvec1<bool> const ttvec1<type>::operator <(ttvec1 const& v_rh) const
+{
+	return ttvec1<bool>(x < v_rh.x);
+}
+template<typename type>
+inline ttvec1<bool> const ttvec1<type>::operator >(ttvec1 const& v_rh) const
+{
+	return ttvec1<bool>(x > v_rh.x);
+}
+template<typename type>
+inline ttvec1<bool> const ttvec1<type>::operator ==(type const& s_rh) const
+{
+	return ttvec1<bool>(x == s_rh);
+}
+template<typename type>
+inline ttvec1<bool> const ttvec1<type>::operator !=(type const& s_rh) const
+{
+	return ttvec1<bool>(x != s_rh);
+}
+template<typename type>
+inline ttvec1<bool> const ttvec1<type>::operator <=(type const& s_rh) const
+{
+	return ttvec1<bool>(x <= s_rh);
+}
+template<typename type>
+inline ttvec1<bool> const ttvec1<type>::operator >=(type const& s_rh) const
+{
+	return ttvec1<bool>(x >= s_rh);
+}
+template<typename type>
+inline ttvec1<bool> const ttvec1<type>::operator <(type const& s_rh) const
+{
+	return ttvec1<bool>(x < s_rh);
+}
+template<typename type>
+inline ttvec1<bool> const ttvec1<type>::operator >(type const& s_rh) const
+{
+	return ttvec1<bool>(x > s_rh);
 }
 template<typename type>
 inline ttvec1<type>::operator type const () const
 {
 	return x;
+}
+
+template<typename type>
+inline ttvec1<type>& ttvec1<type>::operator =(ttvec1 const& v_rh)
+{
+	x = v_rh.x;
+	return *this;
+}
+template<typename type>
+inline ttvec1<type>& ttvec1<type>::operator =(stvec1<type> const& v_rh)
+{
+	x = v_rh.x;
+	return *this;
+}
+template<typename type>
+inline ttvec1<type>& ttvec1<type>::operator +=(ttvec1 const& v_rh)
+{
+	x += v_rh.x;
+	return *this;
+}
+template<typename type>
+inline ttvec1<type>& ttvec1<type>::operator -=(ttvec1 const& v_rh)
+{
+	x -= v_rh.x;
+	return *this;
+}
+template<typename type>
+inline ttvec1<type>& ttvec1<type>::operator *=(ttvec1 const& v_rh)
+{
+	x *= v_rh.x;
+	return *this;
+}
+template<typename type>
+inline ttvec1<type>& ttvec1<type>::operator /=(ttvec1 const& v_rh)
+{
+	x /= v_rh.x;
+	return *this;
+}
+template<typename type>
+inline ttvec1<type>& ttvec1<type>::operator %=(ttvec1 const& v_rh)
+{
+	x %= v_rh.x;
+	return *this;
+}
+template<typename type>
+inline ttvec1<type>& ttvec1<type>::operator &=(ttvec1 const& v_rh)
+{
+	x &= v_rh.x;
+	return *this;
+}
+template<typename type>
+inline ttvec1<type>& ttvec1<type>::operator |=(ttvec1 const& v_rh)
+{
+	x |= v_rh.x;
+	return *this;
+}
+template<typename type>
+inline ttvec1<type>& ttvec1<type>::operator ^=(ttvec1 const& v_rh)
+{
+	x ^= v_rh.x;
+	return *this;
+}
+template<typename type>
+inline ttvec1<type>& ttvec1<type>::operator <<=(ttvec1 const& v_rh)
+{
+	x <<= v_rh.x;
+	return *this;
+}
+template<typename type>
+inline ttvec1<type>& ttvec1<type>::operator >>=(ttvec1 const& v_rh)
+{
+	x >>= v_rh.x;
+	return *this;
+}
+template<typename type>
+inline ttvec1<type>& ttvec1<type>::operator =(type const& s_rh)
+{
+	x = s_rh;
+	return *this;
+}
+template<typename type>
+inline ttvec1<type>& ttvec1<type>::operator +=(type const& s_rh)
+{
+	x += s_rh;
+	return *this;
+}
+template<typename type>
+inline ttvec1<type>& ttvec1<type>::operator -=(type const& s_rh)
+{
+	x -= s_rh;
+	return *this;
+}
+template<typename type>
+inline ttvec1<type>& ttvec1<type>::operator *=(type const& s_rh)
+{
+	x *= s_rh;
+	return *this;
+}
+template<typename type>
+inline ttvec1<type>& ttvec1<type>::operator /=(type const& s_rh)
+{
+	x /= s_rh;
+	return *this;
+}
+template<typename type>
+inline ttvec1<type>& ttvec1<type>::operator %=(type const& s_rh)
+{
+	x %= s_rh;
+	return *this;
+}
+template<typename type>
+inline ttvec1<type>& ttvec1<type>::operator &=(type const& s_rh)
+{
+	x &= s_rh;
+	return *this;
+}
+template<typename type>
+inline ttvec1<type>& ttvec1<type>::operator |=(type const& s_rh)
+{
+	x |= s_rh;
+	return *this;
+}
+template<typename type>
+inline ttvec1<type>& ttvec1<type>::operator ^=(type const& s_rh)
+{
+	x ^= s_rh;
+	return *this;
+}
+template<typename type>
+inline ttvec1<type>& ttvec1<type>::operator <<=(type const& s_rh)
+{
+	x <<= s_rh;
+	return *this;
+}
+template<typename type>
+inline ttvec1<type>& ttvec1<type>::operator >>=(type const& s_rh)
+{
+	x >>= s_rh;
+	return *this;
 }
 template<typename type>
 inline ttvec1<type>::operator type& ()
