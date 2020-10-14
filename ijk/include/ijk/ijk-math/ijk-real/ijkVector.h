@@ -120,44 +120,44 @@ typedef union dvec4		dvec4;
 
 //-----------------------------------------------------------------------------
 
-typedef bool const		* boolkv;	// Generic constant boolean/byte array-based vector, represented by pointer, used as constant vector return type since returning sized array is not allowed.
-typedef bool			* boolv,	// Generic boolean/byte array-based vector, represented by pointer, used as vector return type since returning sized array is not allowed.
+typedef byte const		* boolkv;	// Generic constant boolean/byte array-based vector, represented by pointer, used as constant vector return type since returning sized array is not allowed.
+typedef byte			* boolv,	// Generic boolean/byte array-based vector, represented by pointer, used as vector return type since returning sized array is not allowed.
 						bool2[2],	// 2D boolean array-based vector, always passed by pointer.
 						bool3[3],	// 3D boolean array-based vector, always passed by pointer.
 						bool4[4];	// 4D boolean array-based vector, always passed by pointer.
 
-typedef int const		* intkv;	// Generic constant signed 32-bit integer array-based vector, represented by pointer, used as constant vector return type since returning sized array is not allowed.
-typedef int				* intv,		// Generic signed 32-bit integer array-based vector, represented by pointer, used as vector return type since returning sized array is not allowed.
+typedef i32 const		* intkv;	// Generic constant signed 32-bit integer array-based vector, represented by pointer, used as constant vector return type since returning sized array is not allowed.
+typedef i32				* intv,		// Generic signed 32-bit integer array-based vector, represented by pointer, used as vector return type since returning sized array is not allowed.
 						int2[2],	// 2D signed integer array-based vector, always passed by pointer.
 						int3[3],	// 3D signed integer array-based vector, always passed by pointer.
 						int4[4];	// 4D signed integer array-based vector, always passed by pointer.
 
-typedef intl const		* intlkv;	// Generic constant signed 64-bit integer array-based vector, represented by pointer, used as constant vector return type since returning sized array is not allowed.
-typedef intl			* intlv,	// Generic signed 64-bit integer array-based vector, represented by pointer, used as vector return type since returning sized array is not allowed.
+typedef i64 const		* intlkv;	// Generic constant signed 64-bit integer array-based vector, represented by pointer, used as constant vector return type since returning sized array is not allowed.
+typedef i64				* intlv,	// Generic signed 64-bit integer array-based vector, represented by pointer, used as vector return type since returning sized array is not allowed.
 						intl2[2],	// 2D signed integer array-based vector, always passed by pointer.
 						intl3[3],	// 3D signed integer array-based vector, always passed by pointer.
 						intl4[4];	// 4D signed integer array-based vector, always passed by pointer.
 
-typedef uint const		* uintkv;	// Generic constant unsigned 32-bit integer array-based vector, represented by pointer, used as constant vector return type since returning sized array is not allowed.
-typedef uint			* uintv,	// Generic unsigned 32-bit integer array-based vector, represented by pointer, used as vector return type since returning sized array is not allowed.
+typedef ui32 const		* uintkv;	// Generic constant unsigned 32-bit integer array-based vector, represented by pointer, used as constant vector return type since returning sized array is not allowed.
+typedef ui32			* uintv,	// Generic unsigned 32-bit integer array-based vector, represented by pointer, used as vector return type since returning sized array is not allowed.
 						uint2[2],	// 2D unsigned integer array-based vector, always passed by pointer.
 						uint3[3],	// 3D unsigned integer array-based vector, always passed by pointer.
 						uint4[4];	// 4D unsigned integer array-based vector, always passed by pointer.
 
-typedef uintl const		* uintlkv;	// Generic constant unsigned 64-bit integer array-based vector, represented by pointer, used as constant vector return type since returning sized array is not allowed.
-typedef uintl			* uintlv,	// Generic unsigned 64-bit integer array-based vector, represented by pointer, used as vector return type since returning sized array is not allowed.
+typedef ui64 const		* uintlkv;	// Generic constant unsigned 64-bit integer array-based vector, represented by pointer, used as constant vector return type since returning sized array is not allowed.
+typedef ui64			* uintlv,	// Generic unsigned 64-bit integer array-based vector, represented by pointer, used as vector return type since returning sized array is not allowed.
 						uintl2[2],	// 2D unsigned integer array-based vector, always passed by pointer.
 						uintl3[3],	// 3D unsigned integer array-based vector, always passed by pointer.
 						uintl4[4];	// 4D unsigned integer array-based vector, always passed by pointer.
 
-typedef float const		* floatkv;	// Generic constant single-precision array-based vector, represented by pointer, used as constant vector return type since returning sized array is not allowed.
-typedef float			* floatv,	// Generic float single-precision-based vector, represented by pointer, used as vector return type since returning sized array is not allowed.
+typedef f32 const		* floatkv;	// Generic constant single-precision array-based vector, represented by pointer, used as constant vector return type since returning sized array is not allowed.
+typedef f32				* floatv,	// Generic float single-precision-based vector, represented by pointer, used as vector return type since returning sized array is not allowed.
 						float2[2],	// 2D single-precision array-based vector, always passed by pointer.
 						float3[3],	// 3D single-precision array-based vector, always passed by pointer.
 						float4[4];	// 4D single-precision array-based vector, always passed by pointer.
 
-typedef double const	* doublekv;	// Generic constant double-precision array-based vector, represented by pointer, used as constant vector return type since returning sized array is not allowed.
-typedef double			* doublev,	// Generic double-precision array-based vector, represented by pointer, used as vector return type since returning sized array is not allowed.
+typedef f64 const		* doublekv;	// Generic constant double-precision array-based vector, represented by pointer, used as constant vector return type since returning sized array is not allowed.
+typedef f64				* doublev,	// Generic double-precision array-based vector, represented by pointer, used as vector return type since returning sized array is not allowed.
 						double2[2],	// 2D double-precision array-based vector, always passed by pointer.
 						double3[3],	// 3D double-precision array-based vector, always passed by pointer.
 						double4[4];	// 4D double-precision array-based vector, always passed by pointer.
@@ -974,7 +974,7 @@ ijk_ext dvec4 const dvec4_w_n;			// (  0,  0,  0, -1 )
 //		param v_out: output vector
 //		params x, y: initialization values
 //		return: v_out
-boolv bool2init(bool2 v_out, ibool const x, ibool const y);
+boolv bool2init(bool2 v_out, bool const x, bool const y);
 
 // isEqual2bv
 //	Equality comparison for 2D boolean vector.
@@ -998,7 +998,7 @@ boolv isInequal2bv(bool2 v_out, bool2 const v_lh, bool2 const v_rh);
 //		param v_lh: left-hand vector
 //		param s_rh: right-hand condition
 //		return: v_out
-boolv isEqual2bvs(bool2 v_out, bool2 const v_lh, ibool const s_rh);
+boolv isEqual2bvs(bool2 v_out, bool2 const v_lh, bool const s_rh);
 
 // isInequal2bvs
 //	Inequality comparison for 2D boolean vector vs condition.
@@ -1006,7 +1006,7 @@ boolv isEqual2bvs(bool2 v_out, bool2 const v_lh, ibool const s_rh);
 //		param v_lh: left-hand vector
 //		param s_rh: right-hand condition
 //		return: v_out
-boolv isInequal2bvs(bool2 v_out, bool2 const v_lh, ibool const s_rh);
+boolv isInequal2bvs(bool2 v_out, bool2 const v_lh, bool const s_rh);
 
 // isEqual2bsv
 //	Equality comparison for 2D boolean vector vs condition.
@@ -1014,7 +1014,7 @@ boolv isInequal2bvs(bool2 v_out, bool2 const v_lh, ibool const s_rh);
 //		param s_lh: left-hand condition
 //		param v_rh: right-hand vector
 //		return: v_out
-boolv isEqual2bsv(bool2 v_out, ibool const s_lh, bool2 const v_rh);
+boolv isEqual2bsv(bool2 v_out, bool const s_lh, bool2 const v_rh);
 
 // isInequal2bsv
 //	Inequality comparison for 2D boolean vector vs condition.
@@ -1022,7 +1022,7 @@ boolv isEqual2bsv(bool2 v_out, ibool const s_lh, bool2 const v_rh);
 //		param s_lh: left-hand condition
 //		param v_rh: right-hand vector
 //		return: v_out
-boolv isInequal2bsv(bool2 v_out, ibool const s_lh, bool2 const v_rh);
+boolv isInequal2bsv(bool2 v_out, bool const s_lh, bool2 const v_rh);
 
 
 //-----------------------------------------------------------------------------
@@ -1032,7 +1032,7 @@ boolv isInequal2bsv(bool2 v_out, ibool const s_lh, bool2 const v_rh);
 //		param v_out: output vector
 //		params x, y, z: initialization values
 //		return: v_out
-boolv bool3init(bool3 v_out, ibool const x, ibool const y, ibool const z);
+boolv bool3init(bool3 v_out, bool const x, bool const y, bool const z);
 
 // isEqual3bv
 //	Equality comparison for 3D boolean vector.
@@ -1056,7 +1056,7 @@ boolv isInequal3bv(bool3 v_out, bool3 const v_lh, bool3 const v_rh);
 //		param v_lh: left-hand vector
 //		param s_rh: right-hand condition
 //		return: v_out
-boolv isEqual3bvs(bool3 v_out, bool3 const v_lh, ibool const s_rh);
+boolv isEqual3bvs(bool3 v_out, bool3 const v_lh, bool const s_rh);
 
 // isInequal3bvs
 //	Inequality comparison for 3D boolean vector vs condition.
@@ -1064,7 +1064,7 @@ boolv isEqual3bvs(bool3 v_out, bool3 const v_lh, ibool const s_rh);
 //		param v_lh: left-hand vector
 //		param s_rh: right-hand condition
 //		return: v_out
-boolv isInequal3bvs(bool3 v_out, bool3 const v_lh, ibool const s_rh);
+boolv isInequal3bvs(bool3 v_out, bool3 const v_lh, bool const s_rh);
 
 // isEqual3bsv
 //	Equality comparison for 3D boolean vector vs condition.
@@ -1072,7 +1072,7 @@ boolv isInequal3bvs(bool3 v_out, bool3 const v_lh, ibool const s_rh);
 //		param s_lh: left-hand condition
 //		param v_rh: right-hand vector
 //		return: v_out
-boolv isEqual3bsv(bool3 v_out, ibool const s_lh, bool3 const v_rh);
+boolv isEqual3bsv(bool3 v_out, bool const s_lh, bool3 const v_rh);
 
 // isInequal3bsv
 //	Inequality comparison for 3D boolean vector vs condition.
@@ -1080,7 +1080,7 @@ boolv isEqual3bsv(bool3 v_out, ibool const s_lh, bool3 const v_rh);
 //		param s_lh: left-hand condition
 //		param v_rh: right-hand vector
 //		return: v_out
-boolv isInequal3bsv(bool3 v_out, ibool const s_lh, bool3 const v_rh);
+boolv isInequal3bsv(bool3 v_out, bool const s_lh, bool3 const v_rh);
 
 
 //-----------------------------------------------------------------------------
@@ -1090,7 +1090,7 @@ boolv isInequal3bsv(bool3 v_out, ibool const s_lh, bool3 const v_rh);
 //		param v_out: output vector
 //		params x, y, z, w: initialization values
 //		return: v_out
-boolv bool4init(bool3 v_out, ibool const x, ibool const y, ibool const z, ibool const w);
+boolv bool4init(bool3 v_out, bool const x, bool const y, bool const z, bool const w);
 
 // isEqual4bv
 //	Equality comparison for 4D boolean vector.
@@ -1114,7 +1114,7 @@ boolv isInequal4bv(bool4 v_out, bool4 const v_lh, bool4 const v_rh);
 //		param v_lh: left-hand vector
 //		param s_rh: right-hand condition
 //		return: v_out
-boolv isEqual4bvs(bool4 v_out, bool4 const v_lh, ibool const s_rh);
+boolv isEqual4bvs(bool4 v_out, bool4 const v_lh, bool const s_rh);
 
 // isInequal4bvs
 //	Inequality comparison for 4D boolean vector vs condition.
@@ -1122,7 +1122,7 @@ boolv isEqual4bvs(bool4 v_out, bool4 const v_lh, ibool const s_rh);
 //		param v_lh: left-hand vector
 //		param s_rh: right-hand condition
 //		return: v_out
-boolv isInequal4bvs(bool4 v_out, bool4 const v_lh, ibool const s_rh);
+boolv isInequal4bvs(bool4 v_out, bool4 const v_lh, bool const s_rh);
 
 // isEqual4bsv
 //	Equality comparison for 4D boolean vector vs condition.
@@ -1130,7 +1130,7 @@ boolv isInequal4bvs(bool4 v_out, bool4 const v_lh, ibool const s_rh);
 //		param s_lh: left-hand condition
 //		param v_rh: right-hand vector
 //		return: v_out
-boolv isEqual4bsv(bool4 v_out, ibool const s_lh, bool4 const v_rh);
+boolv isEqual4bsv(bool4 v_out, bool const s_lh, bool4 const v_rh);
 
 // isInequal4bsv
 //	Inequality comparison for 4D boolean vector vs condition.
@@ -1138,7 +1138,7 @@ boolv isEqual4bsv(bool4 v_out, ibool const s_lh, bool4 const v_rh);
 //		param s_lh: left-hand condition
 //		param v_rh: right-hand vector
 //		return: v_out
-boolv isInequal4bsv(bool4 v_out, ibool const s_lh, bool4 const v_rh);
+boolv isInequal4bsv(bool4 v_out, bool const s_lh, bool4 const v_rh);
 
 
 //-----------------------------------------------------------------------------

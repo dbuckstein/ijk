@@ -487,72 +487,72 @@ inline ttvec2<type>::ttvec2(stvec4<type> const& xy)
 }
 
 template <typename type>
-inline ttvec2<type>::ttvec2(bool const xy[])
+inline ttvec2<type>::ttvec2(bool const xy[2])
 	: x((type)xy[0]), y((type)xy[1])
 {
 }
 template <typename type>
-inline ttvec2<type>::ttvec2(i32 const xy[])
+inline ttvec2<type>::ttvec2(i32 const xy[2])
 	: x((type)xy[0]), y((type)xy[1])
 {
 }
 template <typename type>
-inline ttvec2<type>::ttvec2(i64 const xy[])
+inline ttvec2<type>::ttvec2(i64 const xy[2])
 	: x((type)xy[0]), y((type)xy[1])
 {
 }
 template <typename type>
-inline ttvec2<type>::ttvec2(ui32 const xy[])
+inline ttvec2<type>::ttvec2(ui32 const xy[2])
 	: x((type)xy[0]), y((type)xy[1])
 {
 }
 template <typename type>
-inline ttvec2<type>::ttvec2(ui64 const xy[])
+inline ttvec2<type>::ttvec2(ui64 const xy[2])
 	: x((type)xy[0]), y((type)xy[1])
 {
 }
 template <typename type>
-inline ttvec2<type>::ttvec2(f32 const xy[])
+inline ttvec2<type>::ttvec2(f32 const xy[2])
 	: x((type)xy[0]), y((type)xy[1])
 {
 }
 template <typename type>
-inline ttvec2<type>::ttvec2(f64 const xy[])
+inline ttvec2<type>::ttvec2(f64 const xy[2])
 	: x((type)xy[0]), y((type)xy[1])
 {
 }
 template <typename type>
-inline ttvec2<type>::ttvec2(ttvec1<bool> const xy[])
+inline ttvec2<type>::ttvec2(ttvec1<bool> const xy[2])
 	: x((type)xy[0]), y((type)xy[1])
 {
 }
 template <typename type>
-inline ttvec2<type>::ttvec2(ttvec1<i32> const xy[])
+inline ttvec2<type>::ttvec2(ttvec1<i32> const xy[2])
 	: x((type)xy[0]), y((type)xy[1])
 {
 }
 template <typename type>
-inline ttvec2<type>::ttvec2(ttvec1<i64> const xy[])
+inline ttvec2<type>::ttvec2(ttvec1<i64> const xy[2])
 	: x((type)xy[0]), y((type)xy[1])
 {
 }
 template <typename type>
-inline ttvec2<type>::ttvec2(ttvec1<ui32> const xy[])
+inline ttvec2<type>::ttvec2(ttvec1<ui32> const xy[2])
 	: x((type)xy[0]), y((type)xy[1])
 {
 }
 template <typename type>
-inline ttvec2<type>::ttvec2(ttvec1<ui64> const xy[])
+inline ttvec2<type>::ttvec2(ttvec1<ui64> const xy[2])
 	: x((type)xy[0]), y((type)xy[1])
 {
 }
 template <typename type>
-inline ttvec2<type>::ttvec2(ttvec1<f32> const xy[])
+inline ttvec2<type>::ttvec2(ttvec1<f32> const xy[2])
 	: x((type)xy[0]), y((type)xy[1])
 {
 }
 template <typename type>
-inline ttvec2<type>::ttvec2(ttvec1<f64> const xy[])
+inline ttvec2<type>::ttvec2(ttvec1<f64> const xy[2])
 	: x((type)xy[0]), y((type)xy[1])
 {
 }
@@ -974,72 +974,72 @@ inline ttvec3<type>::ttvec3(stvec4<type> const& xyz)
 }
 
 template <typename type>
-inline ttvec3<type>::ttvec3(bool const xyz[])
+inline ttvec3<type>::ttvec3(bool const xyz[3])
 	: x((type)xyz[0]), y((type)xyz[1]), z((type)xyz[2])
 {
 }
 template <typename type>
-inline ttvec3<type>::ttvec3(i32 const xyz[])
+inline ttvec3<type>::ttvec3(i32 const xyz[3])
 	: x((type)xyz[0]), y((type)xyz[1]), z((type)xyz[2])
 {
 }
 template <typename type>
-inline ttvec3<type>::ttvec3(i64 const xyz[])
+inline ttvec3<type>::ttvec3(i64 const xyz[3])
 	: x((type)xyz[0]), y((type)xyz[1]), z((type)xyz[2])
 {
 }
 template <typename type>
-inline ttvec3<type>::ttvec3(ui32 const xyz[])
+inline ttvec3<type>::ttvec3(ui32 const xyz[3])
 	: x((type)xyz[0]), y((type)xyz[1]), z((type)xyz[2])
 {
 }
 template <typename type>
-inline ttvec3<type>::ttvec3(ui64 const xyz[])
+inline ttvec3<type>::ttvec3(ui64 const xyz[3])
 	: x((type)xyz[0]), y((type)xyz[1]), z((type)xyz[2])
 {
 }
 template <typename type>
-inline ttvec3<type>::ttvec3(f32 const xyz[])
+inline ttvec3<type>::ttvec3(f32 const xyz[3])
 	: x((type)xyz[0]), y((type)xyz[1]), z((type)xyz[2])
 {
 }
 template <typename type>
-inline ttvec3<type>::ttvec3(f64 const xyz[])
+inline ttvec3<type>::ttvec3(f64 const xyz[3])
 	: x((type)xyz[0]), y((type)xyz[1]), z((type)xyz[2])
 {
 }
 template <typename type>
-inline ttvec3<type>::ttvec3(ttvec1<bool> const xyz[])
+inline ttvec3<type>::ttvec3(ttvec1<bool> const xyz[3])
 	: x((type)xyz[0]), y((type)xyz[1]), z((type)xyz[2])
 {
 }
 template <typename type>
-inline ttvec3<type>::ttvec3(ttvec1<i32> const xyz[])
+inline ttvec3<type>::ttvec3(ttvec1<i32> const xyz[3])
 	: x((type)xyz[0]), y((type)xyz[1]), z((type)xyz[2])
 {
 }
 template <typename type>
-inline ttvec3<type>::ttvec3(ttvec1<i64> const xyz[])
+inline ttvec3<type>::ttvec3(ttvec1<i64> const xyz[3])
 	: x((type)xyz[0]), y((type)xyz[1]), z((type)xyz[2])
 {
 }
 template <typename type>
-inline ttvec3<type>::ttvec3(ttvec1<ui32> const xyz[])
+inline ttvec3<type>::ttvec3(ttvec1<ui32> const xyz[3])
 	: x((type)xyz[0]), y((type)xyz[1]), z((type)xyz[2])
 {
 }
 template <typename type>
-inline ttvec3<type>::ttvec3(ttvec1<ui64> const xyz[])
+inline ttvec3<type>::ttvec3(ttvec1<ui64> const xyz[3])
 	: x((type)xyz[0]), y((type)xyz[1]), z((type)xyz[2])
 {
 }
 template <typename type>
-inline ttvec3<type>::ttvec3(ttvec1<f32> const xyz[])
+inline ttvec3<type>::ttvec3(ttvec1<f32> const xyz[3])
 	: x((type)xyz[0]), y((type)xyz[1]), z((type)xyz[2])
 {
 }
 template <typename type>
-inline ttvec3<type>::ttvec3(ttvec1<f64> const xyz[])
+inline ttvec3<type>::ttvec3(ttvec1<f64> const xyz[3])
 	: x((type)xyz[0]), y((type)xyz[1]), z((type)xyz[2])
 {
 }
@@ -1513,72 +1513,72 @@ inline ttvec4<type>::ttvec4(stvec4<type> const& xyzw)
 }
 
 template <typename type>
-inline ttvec4<type>::ttvec4(bool const xyzw[])
+inline ttvec4<type>::ttvec4(bool const xyzw[4])
 	: x((type)xyzw[0]), y((type)xyzw[1]), z((type)xyzw[2]), w((type)xyzw[3])
 {
 }
 template <typename type>
-inline ttvec4<type>::ttvec4(i32 const xyzw[])
+inline ttvec4<type>::ttvec4(i32 const xyzw[4])
 	: x((type)xyzw[0]), y((type)xyzw[1]), z((type)xyzw[2]), w((type)xyzw[3])
 {
 }
 template <typename type>
-inline ttvec4<type>::ttvec4(i64 const xyzw[])
+inline ttvec4<type>::ttvec4(i64 const xyzw[4])
 	: x((type)xyzw[0]), y((type)xyzw[1]), z((type)xyzw[2]), w((type)xyzw[3])
 {
 }
 template <typename type>
-inline ttvec4<type>::ttvec4(ui32 const xyzw[])
+inline ttvec4<type>::ttvec4(ui32 const xyzw[4])
 	: x((type)xyzw[0]), y((type)xyzw[1]), z((type)xyzw[2]), w((type)xyzw[3])
 {
 }
 template <typename type>
-inline ttvec4<type>::ttvec4(ui64 const xyzw[])
+inline ttvec4<type>::ttvec4(ui64 const xyzw[4])
 	: x((type)xyzw[0]), y((type)xyzw[1]), z((type)xyzw[2]), w((type)xyzw[3])
 {
 }
 template <typename type>
-inline ttvec4<type>::ttvec4(f32 const xyzw[])
+inline ttvec4<type>::ttvec4(f32 const xyzw[4])
 	: x((type)xyzw[0]), y((type)xyzw[1]), z((type)xyzw[2]), w((type)xyzw[3])
 {
 }
 template <typename type>
-inline ttvec4<type>::ttvec4(f64 const xyzw[])
+inline ttvec4<type>::ttvec4(f64 const xyzw[4])
 	: x((type)xyzw[0]), y((type)xyzw[1]), z((type)xyzw[2]), w((type)xyzw[3])
 {
 }
 template <typename type>
-inline ttvec4<type>::ttvec4(ttvec1<bool> const xyzw[])
+inline ttvec4<type>::ttvec4(ttvec1<bool> const xyzw[4])
 	: x((type)xyzw[0]), y((type)xyzw[1]), z((type)xyzw[2]), w((type)xyzw[3])
 {
 }
 template <typename type>
-inline ttvec4<type>::ttvec4(ttvec1<i32> const xyzw[])
+inline ttvec4<type>::ttvec4(ttvec1<i32> const xyzw[4])
 	: x((type)xyzw[0]), y((type)xyzw[1]), z((type)xyzw[2]), w((type)xyzw[3])
 {
 }
 template <typename type>
-inline ttvec4<type>::ttvec4(ttvec1<i64> const xyzw[])
+inline ttvec4<type>::ttvec4(ttvec1<i64> const xyzw[4])
 	: x((type)xyzw[0]), y((type)xyzw[1]), z((type)xyzw[2]), w((type)xyzw[3])
 {
 }
 template <typename type>
-inline ttvec4<type>::ttvec4(ttvec1<ui32> const xyzw[])
+inline ttvec4<type>::ttvec4(ttvec1<ui32> const xyzw[4])
 	: x((type)xyzw[0]), y((type)xyzw[1]), z((type)xyzw[2]), w((type)xyzw[3])
 {
 }
 template <typename type>
-inline ttvec4<type>::ttvec4(ttvec1<ui64> const xyzw[])
+inline ttvec4<type>::ttvec4(ttvec1<ui64> const xyzw[4])
 	: x((type)xyzw[0]), y((type)xyzw[1]), z((type)xyzw[2]), w((type)xyzw[3])
 {
 }
 template <typename type>
-inline ttvec4<type>::ttvec4(ttvec1<f32> const xyzw[])
+inline ttvec4<type>::ttvec4(ttvec1<f32> const xyzw[4])
 	: x((type)xyzw[0]), y((type)xyzw[1]), z((type)xyzw[2]), w((type)xyzw[3])
 {
 }
 template <typename type>
-inline ttvec4<type>::ttvec4(ttvec1<f64> const xyzw[])
+inline ttvec4<type>::ttvec4(ttvec1<f64> const xyzw[4])
 	: x((type)xyzw[0]), y((type)xyzw[1]), z((type)xyzw[2]), w((type)xyzw[3])
 {
 }

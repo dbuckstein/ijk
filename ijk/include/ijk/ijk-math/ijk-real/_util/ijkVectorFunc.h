@@ -41,10 +41,10 @@
 #define tvec3	ijk_tokencat(IJK_VECTORFUNC_PREFIX, vec##3)
 #define tvec4	ijk_tokencat(IJK_VECTORFUNC_PREFIX, vec##4)
 
-#define typeFunc(func, suffix, ...)		ijk_tokencat(func, ijk_tokencat(IJK_VECTORFUNC_PREFIX, suffix))(__VA_ARGS__)
-#define tvecFunc(func, ...)				ijk_tokencat(func, IJK_VECTORFUNC_PREFIX)(__VA_ARGS__)
-#define tvecFuncS(func, suffix, ...)	ijk_tokencat(func, ijk_tokencat(IJK_VECTORFUNC_PREFIX, suffix))(__VA_ARGS__)
-#define tvecFuncP(func, prefix, ...)	ijk_tokencat(func, ijk_tokencat(prefix, IJK_VECTORFUNC_PREFIX))(__VA_ARGS__)
+#define tfunc(func, ...)					ijk_tokencat(func, IJK_VECTORFUNC_PREFIX)(__VA_ARGS__)
+#define tfuncs(func, suffix, ...)			ijk_tokencat(func, ijk_tokencat(IJK_VECTORFUNC_PREFIX, suffix))(__VA_ARGS__)
+#define tfuncp(func, prefix, ...)			ijk_tokencat(func, ijk_tokencat(prefix, IJK_VECTORFUNC_PREFIX))(__VA_ARGS__)
+#define tfuncps(func, prefix, suffix, ...)	ijk_tokencat(func, ijk_tokencat(ijk_tokencat(prefix, IJK_VECTORFUNC_PREFIX), suffix))(__VA_ARGS__)
 
 
 #ifdef __cplusplus
@@ -58,7 +58,7 @@ extern "C" {
 //		param s_lh: left-hand scalar
 //		param s_rh: right-hand scalar
 //		return: product
-type typeFunc(dot1, s, type const s_lh, type const s_rh);
+type tfuncs(dot1, s, type const s_lh, type const s_rh);
 
 
 //-----------------------------------------------------------------------------
@@ -68,14 +68,14 @@ type typeFunc(dot1, s, type const s_lh, type const s_rh);
 //		param v_lh: left-hand vector
 //		param v_rh: right-hand vector
 //		return: dot product
-type typeFunc(dot2, v, type2 const v_lh, type2 const v_rh);
+type tfuncs(dot2, v, type2 const v_lh, type2 const v_rh);
 
 // cross2*v
 //	Cross product scalar of 2D array-based vectors.
 //		param v_lh: left-hand vector
 //		param v_rh: right-hand vector
 //		return: scalar quantity of imaginary perpendicular axis
-type typeFunc(cross2, v, type2 const v_lh, type2 const v_rh);
+type tfuncs(cross2, v, type2 const v_lh, type2 const v_rh);
 
 
 //-----------------------------------------------------------------------------
@@ -85,7 +85,7 @@ type typeFunc(cross2, v, type2 const v_lh, type2 const v_rh);
 //		param v_lh: left-hand vector
 //		param v_rh: right-hand vector
 //		return: dot product
-type typeFunc(dot3, v, type3 const v_lh, type3 const v_rh);
+type tfuncs(dot3, v, type3 const v_lh, type3 const v_rh);
 
 // cross3*v
 //	Cross product of 3D array-based vectors.
@@ -93,7 +93,7 @@ type typeFunc(dot3, v, type3 const v_lh, type3 const v_rh);
 //		param v_lh: left-hand vector
 //		param v_rh: right-hand vector
 //		return: v_out
-typev typeFunc(cross3, v, type3 v_out, type3 const v_lh, type3 const v_rh);
+typev tfuncs(cross3, v, type3 v_out, type3 const v_lh, type3 const v_rh);
 
 
 //-----------------------------------------------------------------------------
@@ -103,7 +103,7 @@ typev typeFunc(cross3, v, type3 v_out, type3 const v_lh, type3 const v_rh);
 //		param v_lh: left-hand vector
 //		param v_rh: right-hand vector
 //		return: dot product
-type typeFunc(dot4, v, type4 const v_lh, type4 const v_rh);
+type tfuncs(dot4, v, type4 const v_lh, type4 const v_rh);
 
 // cross4*v
 //	Cross product of 4D array-based vectors.
@@ -111,7 +111,7 @@ type typeFunc(dot4, v, type4 const v_lh, type4 const v_rh);
 //		param v_lh: left-hand vector
 //		param v_rh: right-hand vector
 //		return: v_out (fourth element is zero)
-typev typeFunc(cross4, v, type4 v_out, type4 const v_lh, type4 const v_rh);
+typev tfuncs(cross4, v, type4 v_out, type4 const v_lh, type4 const v_rh);
 
 
 //-----------------------------------------------------------------------------
@@ -129,7 +129,7 @@ typev typeFunc(cross4, v, type4 v_out, type4 const v_lh, type4 const v_rh);
 //		param s_lh: left-hand scalar
 //		param s_rh: right-hand scalar
 //		return: product
-tvec tvecFunc(dot1, tvec const s_lh, tvec const s_rh);
+tvec tfunc(dot1, tvec const s_lh, tvec const s_rh);
 
 
 //-----------------------------------------------------------------------------
@@ -139,14 +139,14 @@ tvec tvecFunc(dot1, tvec const s_lh, tvec const s_rh);
 //		param v_lh: left-hand vector
 //		param v_rh: right-hand vector
 //		return: dot product
-tvec tvecFunc(dot2, tvec2 const v_lh, tvec2 const v_rh);
+tvec tfunc(dot2, tvec2 const v_lh, tvec2 const v_rh);
 
 // cross2*
 //	Cross product scalar of 2D vectors.
 //		param v_lh: left-hand vector
 //		param v_rh: right-hand vector
 //		return: scalar quantity of imaginary perpendicular axis
-tvec tvecFunc(cross2, tvec2 const v_lh, tvec2 const v_rh);
+tvec tfunc(cross2, tvec2 const v_lh, tvec2 const v_rh);
 
 
 //-----------------------------------------------------------------------------
@@ -156,14 +156,14 @@ tvec tvecFunc(cross2, tvec2 const v_lh, tvec2 const v_rh);
 //		param v_lh: left-hand vector
 //		param v_rh: right-hand vector
 //		return: dot product
-tvec tvecFunc(dot3, tvec3 const v_lh, tvec3 const v_rh);
+tvec tfunc(dot3, tvec3 const v_lh, tvec3 const v_rh);
 
 // cross3*
 //	Cross product of 3D vectors.
 //		param v_lh: left-hand vector
 //		param v_rh: right-hand vector
 //		return: cross product
-tvec3 tvecFunc(cross3, tvec3 const v_lh, tvec3 const v_rh);
+tvec3 tfunc(cross3, tvec3 const v_lh, tvec3 const v_rh);
 
 
 //-----------------------------------------------------------------------------
@@ -173,14 +173,14 @@ tvec3 tvecFunc(cross3, tvec3 const v_lh, tvec3 const v_rh);
 //		param v_lh: left-hand vector
 //		param v_rh: right-hand vector
 //		return: dot product
-tvec tvecFunc(dot4, tvec4 const v_lh, tvec4 const v_rh);
+tvec tfunc(dot4, tvec4 const v_lh, tvec4 const v_rh);
 
 // cross4*
 //	Cross product of 4D vectors.
 //		param v_lh: left-hand vector
 //		param v_rh: right-hand vector
 //		return: cross product (fourth component is zero)
-tvec4 tvecFunc(cross4, tvec4 const v_lh, tvec4 const v_rh);
+tvec4 tfunc(cross4, tvec4 const v_lh, tvec4 const v_rh);
 
 
 //-----------------------------------------------------------------------------
@@ -189,10 +189,10 @@ tvec4 tvecFunc(cross4, tvec4 const v_lh, tvec4 const v_rh);
 #include "_inl/ijkVectorFunc.inl"
 
 
-#undef typeFunc
-#undef tvecFunc
-#undef tvecFuncP
-#undef tvecFuncS
+#undef tfunc
+#undef tfuncs
+#undef tfuncp
+#undef tfuncps
 
 #undef type
 #undef tvec
