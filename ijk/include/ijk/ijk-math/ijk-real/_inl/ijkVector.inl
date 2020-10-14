@@ -319,6 +319,7 @@ ijk_inl bvec4 isInequal4sb(bool const s_lh, bvec4 const v_rh)
 //-----------------------------------------------------------------------------
 
 #ifdef __cplusplus
+#ifdef IJK_VECTOR_SWIZZLE
 
 // IJK_SWIZZLE_MACRO_IMPL
 #pragma region IJK_SWIZZLE_MACRO_IMPL
@@ -1354,7 +1355,7 @@ ijk_inl bvec4 isInequal4sb(bool const s_lh, bvec4 const v_rh)
 #pragma endregion
 // IJK_SWIZZLE_MACRO_IMPL
 
-
+#endif	// IJK_VECTOR_SWIZZLE
 #endif	// __cplusplus
 
 

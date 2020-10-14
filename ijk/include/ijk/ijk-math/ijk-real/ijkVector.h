@@ -105,19 +105,8 @@ typedef union dvec4		dvec4;
 #define float			f32
 #define double			f64
 
-// Vector definition shortcuts (in lieu of templates in C).
+// Convenience macros for declaring vector types.
 ///
-#define IJK_VECS(t1,x,t2,y)				struct { t1 x; t2 y; }
-#define IJK_VEC2(t1,t2,t3,t4,x,y,z,w)	t2 x##y; IJK_VECS(t1,x,t1,y)
-#define IJK_VEC3(t1,t2,t3,t4,x,y,z,w)	t3 x##y##z; t2 x##y; IJK_VECS(t1,x,union,{ IJK_VEC2(t1,t2,,,y,z,,); })
-#define IJK_VEC4(t1,t2,t3,t4,x,y,z,w)	t4 x##y##z##w; t3 x##y##z; t2 x##y; IJK_VECS(t1,x,union,{ IJK_VEC3(t1,t2,t3,,y,z,w,); })
-#define IJK_VEC_DECL(decl,t1,t2,t3,t4)	decl(t1,t2,t3,t4,x,y,z,w); decl(t1,t2,t3,t4,r,g,b,a); decl(t1,t2,t3,t4,s,t,p,q)
-
-// IJK_VEC
-//	Implements union vector of specified type in target interface.
-//		param vecType: base type of vector (e.g. 'int' for integer vectors)
-//		param vecSize: number of elements in vector (e.g. '2' for a 2D vector)
-#define IJK_VEC_IMPL(vecType,vecSize)	IJK_VEC_DECL(IJK_VEC##vecSize,vecType,vecType##2,vecType##3,vecType##4)
 #define IJK_BVEC_IMPL(vecSize)			IJK_VEC_IMPL(bool,vecSize)
 #define IJK_IVEC_IMPL(vecSize)			IJK_VEC_IMPL(int,vecSize)
 #define IJK_ILVEC_IMPL(vecSize)			IJK_VEC_IMPL(intl,vecSize)

@@ -30,6 +30,27 @@
 #include "../ijkSqrt.h"
 
 
+// IJK_SWIZZLE_VECTOR_DECL
+#pragma region IJK_SWIZZLE_VECTOR_DECL
+
+// Vector definition shortcuts (in lieu of templates in C).
+///
+#define IJK_VECS(t1,x,t2,y)				struct { t1 x; t2 y; }
+#define IJK_VEC2(t1,t2,t3,t4,x,y,z,w)	t2 x##y; IJK_VECS(t1,x,t1,y)
+#define IJK_VEC3(t1,t2,t3,t4,x,y,z,w)	t3 x##y##z; t2 x##y; IJK_VECS(t1,x,union,{ IJK_VEC2(t1,t2,,,y,z,,); })
+#define IJK_VEC4(t1,t2,t3,t4,x,y,z,w)	t4 x##y##z##w; t3 x##y##z; t2 x##y; IJK_VECS(t1,x,union,{ IJK_VEC3(t1,t2,t3,,y,z,w,); })
+#define IJK_VEC_DECL(decl,t1,t2,t3,t4)	decl(t1,t2,t3,t4,x,y,z,w); decl(t1,t2,t3,t4,r,g,b,a); decl(t1,t2,t3,t4,s,t,p,q)
+
+// IJK_VEC
+//	Implements union vector of specified type in target interface.
+//		param vecType: base type of vector (e.g. 'int' for integer vectors)
+//		param vecSize: number of elements in vector (e.g. '2' for a 2D vector)
+#define IJK_VEC_IMPL(vecType,vecSize)	IJK_VEC_DECL(IJK_VEC##vecSize,vecType,vecType##2,vecType##3,vecType##4)
+
+#pragma endregion
+// IJK_SWIZZLE_VECTOR_DECL
+
+
 #ifdef __cplusplus
 
 // IJK_SWIZZLE_MACRO_DECL
@@ -133,15 +154,15 @@
 
 //-----------------------------------------------------------------------------
 
-template<typename type> struct ttvec1;
-template<typename type> struct ttvec2;
-template<typename type> struct ttvec3;
-template<typename type> struct ttvec4;
+template<typename type> struct ttvec1;	// Swizzle scalar base type
+template<typename type> struct ttvec2;	// Swizzle 2D vector base type
+template<typename type> struct ttvec3;	// Swizzle 3D vector base type
+template<typename type> struct ttvec4;	// Swizzle 4D vector base type
 
-template<typename type> struct stvec1;
-template<typename type> struct stvec2;
-template<typename type> struct stvec3;
-template<typename type> struct stvec4;
+template<typename type> struct stvec1;	// Swizzle scalar utility type
+template<typename type> struct stvec2;	// Swizzle 2D vector utility type
+template<typename type> struct stvec3;	// Swizzle 2D vector utility type
+template<typename type> struct stvec4;	// Swizzle 2D vector utility type
 
 
 //-----------------------------------------------------------------------------
@@ -161,7 +182,9 @@ struct ttvec1
 	operator type const () const;
 	operator type& ();
 
+#ifdef IJK_VECTOR_SWIZZLE
 	IJK_SWIZZLE_ALL(IJK_SWIZZLE_DECL_RTEMP, IJK_SWIZZLE_DECL_RTEMP, ttvec, stvec, ttvec, 1);
+#endif	// IJK_VECTOR_SWIZZLE
 	type x;
 };
 
@@ -259,8 +282,13 @@ struct ttvec2
 	type& operator [](index const i);
 	operator type* ();
 
+#ifdef IJK_VECTOR_SWIZZLE
 	IJK_SWIZZLE_ALL(IJK_SWIZZLE_DECL_RTEMP, IJK_SWIZZLE_DECL_RTEMP, ttvec, stvec, ttvec, 2);
-	union { type xy[2]; struct { type x, y; }; };
+#endif	// IJK_VECTOR_SWIZZLE
+	typedef type type2[2];
+	union {
+		IJK_VEC_IMPL(type, 2);
+	};
 	inline operator ttvec1<type> const* () const { return (ttvec1<type>*)xy; }
 	inline operator ttvec1<type>* () { return (ttvec1<type>*)xy; }
 };
@@ -361,8 +389,14 @@ struct ttvec3
 	type& operator [](index const i);
 	operator type* ();
 
+#ifdef IJK_VECTOR_SWIZZLE
 	IJK_SWIZZLE_ALL(IJK_SWIZZLE_DECL_RTEMP, IJK_SWIZZLE_DECL_RTEMP, ttvec, stvec, ttvec, 3);
-	union { type xyz[3]; struct { type x, y, z; }; };
+#endif	// IJK_VECTOR_SWIZZLE
+	typedef type type2[2];
+	typedef type type3[3];
+	union {
+		IJK_VEC_IMPL(type, 3);
+	};
 	inline operator ttvec1<type> const* () const { return (ttvec1<type>*)xyz; }
 	inline operator ttvec1<type>* () { return (ttvec1<type>*)xyz; }
 };
@@ -469,8 +503,15 @@ struct ttvec4
 	type& operator [](index const i);
 	operator type* ();
 
+#ifdef IJK_VECTOR_SWIZZLE
 	IJK_SWIZZLE_ALL(IJK_SWIZZLE_DECL_RTEMP, IJK_SWIZZLE_DECL_RTEMP, ttvec, stvec, ttvec, 4);
-	union { type xyzw[4]; struct { type x, y, z, w; }; };
+#endif	// IJK_VECTOR_SWIZZLE
+	typedef type type2[2];
+	typedef type type3[3];
+	typedef type type4[4];
+	union {
+		IJK_VEC_IMPL(type, 4);
+	};
 	inline operator ttvec1<type> const* () const { return (ttvec1<type>*)xyzw; }
 	inline operator ttvec1<type>* () { return (ttvec1<type>*)xyzw; }
 };
