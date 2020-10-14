@@ -53,6 +53,33 @@ extern "C" {
 
 //-----------------------------------------------------------------------------
 
+// dot1*s
+//	Dot product of scalars, which is just their product.
+//		param s_lh: left-hand scalar
+//		param s_rh: right-hand scalar
+//		return: product
+type typeFunc(dot1, s, type const s_lh, type const s_rh);
+
+
+//-----------------------------------------------------------------------------
+
+// dot2*v
+//	Dot product of 2D array-based vectors.
+//		param v_lh: left-hand vector
+//		param v_rh: right-hand vector
+//		return: dot product
+type typeFunc(dot2, v, type2 const v_lh, type2 const v_rh);
+
+// cross2*v
+//	Cross product scalar of 2D array-based vectors.
+//		param v_lh: left-hand vector
+//		param v_rh: right-hand vector
+//		return: scalar quantity of imaginary perpendicular axis
+type typeFunc(cross2, v, type2 const v_lh, type2 const v_rh);
+
+
+//-----------------------------------------------------------------------------
+
 // dot3*v
 //	Dot product of 3D array-based vectors.
 //		param v_lh: left-hand vector
@@ -71,10 +98,55 @@ typev typeFunc(cross3, v, type3 v_out, type3 const v_lh, type3 const v_rh);
 
 //-----------------------------------------------------------------------------
 
+// dot4*v
+//	Dot product of 4D array-based vectors.
+//		param v_lh: left-hand vector
+//		param v_rh: right-hand vector
+//		return: dot product
+type typeFunc(dot4, v, type4 const v_lh, type4 const v_rh);
+
+// cross4*v
+//	Cross product of 4D array-based vectors.
+//		param v_out: output vector to hold cross product
+//		param v_lh: left-hand vector
+//		param v_rh: right-hand vector
+//		return: v_out (fourth element is zero)
+typev typeFunc(cross4, v, type4 v_out, type4 const v_lh, type4 const v_rh);
+
+
+//-----------------------------------------------------------------------------
+
 
 #ifdef __cplusplus
 }
 #endif	// __cplusplus
+
+
+//-----------------------------------------------------------------------------
+
+// dot1*
+//	Dot product of scalars, which is just their product.
+//		param s_lh: left-hand scalar
+//		param s_rh: right-hand scalar
+//		return: product
+tvec tvecFunc(dot1, tvec const s_lh, tvec const s_rh);
+
+
+//-----------------------------------------------------------------------------
+
+// dot2*
+//	Dot product of 2D vectors.
+//		param v_lh: left-hand vector
+//		param v_rh: right-hand vector
+//		return: dot product
+tvec tvecFunc(dot2, tvec2 const v_lh, tvec2 const v_rh);
+
+// cross2*
+//	Cross product scalar of 2D vectors.
+//		param v_lh: left-hand vector
+//		param v_rh: right-hand vector
+//		return: scalar quantity of imaginary perpendicular axis
+tvec tvecFunc(cross2, tvec2 const v_lh, tvec2 const v_rh);
 
 
 //-----------------------------------------------------------------------------
@@ -96,9 +168,31 @@ tvec3 tvecFunc(cross3, tvec3 const v_lh, tvec3 const v_rh);
 
 //-----------------------------------------------------------------------------
 
+// dot4*
+//	Dot product of 4D vectors.
+//		param v_lh: left-hand vector
+//		param v_rh: right-hand vector
+//		return: dot product
+tvec tvecFunc(dot4, tvec4 const v_lh, tvec4 const v_rh);
+
+// cross4*
+//	Cross product of 4D vectors.
+//		param v_lh: left-hand vector
+//		param v_rh: right-hand vector
+//		return: cross product (fourth component is zero)
+tvec4 tvecFunc(cross4, tvec4 const v_lh, tvec4 const v_rh);
+
+
+//-----------------------------------------------------------------------------
+
 
 #include "_inl/ijkVectorFunc.inl"
 
+
+#undef typeFunc
+#undef tvecFunc
+#undef tvecFuncP
+#undef tvecFuncS
 
 #undef type
 #undef tvec
@@ -110,6 +204,7 @@ tvec3 tvecFunc(cross3, tvec3 const v_lh, tvec3 const v_rh);
 #undef tvec2
 #undef tvec3
 #undef tvec4
+
 #undef IJK_VECTORFUNC_PREFIX
 #undef IJK_VECTORFUNC_TYPE
 #undef IJK_VECTORFUNC_TVEC
@@ -118,6 +213,7 @@ tvec3 tvecFunc(cross3, tvec3 const v_lh, tvec3 const v_rh);
 #undef IJK_VECTORFUNC_TYPE2
 #undef IJK_VECTORFUNC_TYPE3
 #undef IJK_VECTORFUNC_TYPE4
+
 #undef _IJK_VECTORFUNC_H_
 #endif	// !_IJK_VECTORFUNC_H_
 #endif	// (defined IJK_VECTORFUNC_PREFIX && defined IJK_VECTORFUNC_TYPE && defined IJK_VECTORFUNC_TVEC && defined IJK_VECTORFUNC_TYPEKV && defined IJK_VECTORFUNC_TYPEV && defined IJK_VECTORFUNC_TYPE2 && defined IJK_VECTORFUNC_TYPE3 && defined IJK_VECTORFUNC_TYPE4)

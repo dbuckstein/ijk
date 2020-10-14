@@ -81,6 +81,7 @@
 
 // simple global logical operations
 ///
+#define ijk_squared(x)						((x) * (x))
 #define ijk_minimum(x,y)					((x) <= (y) ? (x) : (y))
 #define ijk_maximum(x,y)					((x) >= (y) ? (x) : (y))
 #define ijk_isclamp(x_min,x_max,x)			(((x) >= (x_min)) && ((x) <= (x_max)))

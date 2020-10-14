@@ -32,11 +32,58 @@
 
 //-----------------------------------------------------------------------------
 
+// dot1*s
+//	Dot product of scalars, which is just their product.
+//		param s_lh: left-hand scalar
+//		param s_rh: right-hand scalar
+//		return: product
+ijk_inl type typeFunc(dot1, s, type const s_lh, type const s_rh)
+{
+	return (s_lh * s_rh);
+}
+
+
+//-----------------------------------------------------------------------------
+
+// dot2*v
+//	Dot product of 2D array-based vectors.
+//		param v_lh: left-hand vector
+//		param v_rh: right-hand vector
+//		return: dot product
+ijk_inl type typeFunc(dot2, v, type2 const v_lh, type2 const v_rh)
+{
+	return (v_lh[0] * v_rh[0] + v_lh[1] * v_rh[1]);
+}
+
+// cross2*v
+//	Cross product scalar of 2D array-based vectors.
+//		param v_lh: left-hand vector
+//		param v_rh: right-hand vector
+//		return: scalar quantity of imaginary perpendicular axis
+ijk_inl type typeFunc(cross2, v, type2 const v_lh, type2 const v_rh)
+{
+	return (v_lh[0] * v_rh[1] - v_lh[1] * v_rh[0]);
+}
+
+
+//-----------------------------------------------------------------------------
+
+// dot3*v
+//	Dot product of 3D array-based vectors.
+//		param v_lh: left-hand vector
+//		param v_rh: right-hand vector
+//		return: dot product
 ijk_inl type typeFunc(dot3, v, type3 const v_lh, type3 const v_rh)
 {
 	return (v_lh[0] * v_rh[0] + v_lh[1] * v_rh[1] + v_lh[2] * v_rh[2]);
 }
 
+// cross3*v
+//	Cross product of 3D array-based vectors.
+//		param v_out: output vector to hold cross product
+//		param v_lh: left-hand vector
+//		param v_rh: right-hand vector
+//		return: v_out
 ijk_inl typev typeFunc(cross3, v, type3 v_out, type3 const v_lh, type3 const v_rh)
 {
 	v_out[0] = (v_lh[1] * v_rh[2] - v_lh[2] * v_rh[1]);
@@ -48,11 +95,81 @@ ijk_inl typev typeFunc(cross3, v, type3 v_out, type3 const v_lh, type3 const v_r
 
 //-----------------------------------------------------------------------------
 
+// dot4*v
+//	Dot product of 4D array-based vectors.
+//		param v_lh: left-hand vector
+//		param v_rh: right-hand vector
+//		return: dot product
+ijk_inl type typeFunc(dot4, v, type4 const v_lh, type4 const v_rh)
+{
+
+}
+
+// cross4*v
+//	Cross product of 4D array-based vectors.
+//		param v_out: output vector to hold cross product
+//		param v_lh: left-hand vector
+//		param v_rh: right-hand vector
+//		return: v_out (fourth element is zero)
+ijk_inl typev typeFunc(cross4, v, type4 v_out, type4 const v_lh, type4 const v_rh)
+{
+
+}
+
+
+//-----------------------------------------------------------------------------
+
+// dot1*
+//	Dot product of scalars, which is just their product.
+//		param s_lh: left-hand scalar
+//		param s_rh: right-hand scalar
+//		return: product
+ijk_inl tvec tvecFunc(dot1, tvec const s_lh, tvec const s_rh)
+{
+	//return (s_lh.x * s_rh.x);
+}
+
+
+//-----------------------------------------------------------------------------
+
+// dot2*
+//	Dot product of 2D vectors.
+//		param v_lh: left-hand vector
+//		param v_rh: right-hand vector
+//		return: dot product
+ijk_inl tvec tvecFunc(dot2, tvec2 const v_lh, tvec2 const v_rh)
+{
+
+}
+
+// cross2*
+//	Cross product scalar of 2D vectors.
+//		param v_lh: left-hand vector
+//		param v_rh: right-hand vector
+//		return: scalar quantity of imaginary perpendicular axis
+ijk_inl tvec tvecFunc(cross2, tvec2 const v_lh, tvec2 const v_rh)
+{
+
+}
+
+
+//-----------------------------------------------------------------------------
+
+// dot3*
+//	Dot product of 3D vectors.
+//		param v_lh: left-hand vector
+//		param v_rh: right-hand vector
+//		return: dot product
 ijk_inl tvec tvecFunc(dot3, tvec3 const v_lh, tvec3 const v_rh)
 {
 	return (v_lh.x * v_rh.x + v_lh.y * v_rh.y + v_lh.z * v_rh.z);
 }
 
+// cross3*
+//	Cross product of 3D vectors.
+//		param v_lh: left-hand vector
+//		param v_rh: right-hand vector
+//		return: cross product
 ijk_inl tvec3 tvecFunc(cross3, tvec3 const v_lh, tvec3 const v_rh)
 {
 	tvec3 const result = { 
@@ -61,6 +178,29 @@ ijk_inl tvec3 tvecFunc(cross3, tvec3 const v_lh, tvec3 const v_rh)
 		(v_lh.x * v_rh.y - v_lh.y * v_rh.x)
 	};
 	return result;
+}
+
+
+//-----------------------------------------------------------------------------
+
+// dot4*
+//	Dot product of 4D vectors.
+//		param v_lh: left-hand vector
+//		param v_rh: right-hand vector
+//		return: dot product
+ijk_inl tvec tvecFunc(dot4, tvec4 const v_lh, tvec4 const v_rh)
+{
+
+}
+
+// cross4*
+//	Cross product of 4D vectors.
+//		param v_lh: left-hand vector
+//		param v_rh: right-hand vector
+//		return: cross product (fourth component is zero)
+ijk_inl tvec4 tvecFunc(cross4, tvec4 const v_lh, tvec4 const v_rh)
+{
+
 }
 
 

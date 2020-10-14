@@ -115,9 +115,9 @@ typedef				word					dwtag[szdtag];
 
 
 #ifndef __cplusplus
-// missing C type for boolean
-///
-typedef byte bool;
+typedef byte	bool;		// Boolean type for C.
+#define true	ijk_true	// Boolean true for C.
+#define false	ijk_false	// Boolean false for C.
 #endif	// !__cplusplus
 
 
