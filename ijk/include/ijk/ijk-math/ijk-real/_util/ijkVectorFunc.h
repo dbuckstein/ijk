@@ -247,6 +247,13 @@ typev tfuncs(ijkVecInitElems2, v, type2 v_out, type const x, type const y);
 //		return: v_out
 typev tfuncs(ijkVecCopy2, v, type2 v_out, type2 const v_in);
 
+// ijkVecNegate2*v
+//	Initialize 2D vector as negative of another vector.
+//		param v_out: output vector
+//		param v_in: input vector
+//		return: v_out
+typev tfuncs(ijkVecNegate2, v, type2 v_out, type2 const v_in);
+
 // ijkVecDot2*v
 //	Dot product of 2D array-based vectors.
 //		param v_lh: left-hand vector
