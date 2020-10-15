@@ -145,123 +145,157 @@ extern "C" {
 
 //-----------------------------------------------------------------------------
 
-// abs1*s
+// ijkVecAbs1*s
 //	Absolute value of scalar: (s >= 0 ? +s : -s).
 //		param s: scalar
 //		return: absolute value
-type tfuncs(abs1, s, type const s);
+type tfuncs(ijkVecAbs1, s, type const s);
 
-// sgn1*s
+// ijkVecSgn1*s
 //	Sign of scalar: (s != 0 ? s > 0 ? +1 : -1).
 //		param s: scalar
 //		return: sign
-type tfuncs(sgn1, s, type const s);
+type tfuncs(ijkVecSgn1, s, type const s);
 
-// dot1*s
+// ijkVecDot1*s
 //	Dot product of scalars, which is just their product.
 //		param s_lh: left-hand scalar
 //		param s_rh: right-hand scalar
 //		return: product
-type tfuncs(dot1, s, type const s_lh, type const s_rh);
+type tfuncs(ijkVecDot1, s, type const s_lh, type const s_rh);
 
-// lengthSq1*s
+// ijkVecLengthSq1*s
 //	Squared length of scalar.
 //		param s: scalar
 //		return: squared length
-type tfuncs(lengthSq1, s, type const s);
+type tfuncs(ijkVecLengthSq1, s, type const s);
 
-// length1*s
+// ijkVecLength1*s
 //	Length of scalar.
 //		param s: scalar
 //		return: length
-type tfuncs(length1, s, type const s);
+type tfuncs(ijkVecLength1, s, type const s);
 
-// lengthSqInv1*s
+// ijkVecLengthSqInv1*s
 //	Inverse squared length of scalar.
 //		param s: scalar
 //		return: inverse squared length
-type tfuncs(lengthSqInv1, s, type const s);
+type tfuncs(ijkVecLengthSqInv1, s, type const s);
 
-// lengthSqInv1*s
+// ijkVecLengthSqInv1*s
 //	Inverse length of scalar.
 //		param s: scalar
 //		return: inverse length
-type tfuncs(lengthInv1, s, type const s);
+type tfuncs(ijkVecLengthInv1, s, type const s);
 
-// normalize1*s
+// ijkVecNormalize1*s
 //	Calculate unit scalar in same direction as input (sign).
 //		param s: scalar
 //		return: unit scalar (sign)
-type tfuncs(normalize1, s, type const s);
+type tfuncs(ijkVecNormalize1, s, type const s);
 
-// normalizeGetLength1*s
+// ijkVecNormalizeGetLength1*s
 //	Calculate unit scalar in same direction as input (sign).
 //	Also calculate and store the length (absolute value).
 //		param s: scalar
 //		param length_out: pointer to length storage
 //		return: unit scalar (sign)
-type tfuncs(normalizeGetLength1, s, type const s, type* const length_out);
+type tfuncs(ijkVecNormalizeGetLength1, s, type const s, type* const length_out);
 
-// normalizeGetLengthInv1*s
+// ijkVecNormalizeGetLengthInv1*s
 //	Calculate unit scalar in same direction as input (sign).
 //	Also calculate and store the inverse length length (absolute value).
 //		param s: scalar
 //		param lengthInv_out: pointer to length storage
 //		return: unit scalar (sign)
-type tfuncs(normalizeGetLengthInv1, s, type const s, type* const lengthInv_out);
+type tfuncs(ijkVecNormalizeGetLengthInv1, s, type const s, type* const lengthInv_out);
 
 
 //-----------------------------------------------------------------------------
 
-// dot2*v
+// ijkVec2*v
+//	Pass-thru vector (do nothing).
+//		param v: vector
+//		return: v
+typev tfuncs(ijkVecInit2, v, type2 v);
+
+// ijkVecInit2*v
+//	Initialize 2D vector to default value (zero vector).
+//		param v_out: output vector
+//		return: v_out
+typev tfuncs(ijkVecInit2, v, type2 v_out);
+
+// ijkVecInitValue2*v
+//	Initialize 2D vector to the same specified value for all elements.
+//		param v_out: output vector
+//		param xy: value to be assigned to all elements
+//		return: v_out
+typev tfuncs(ijkVecInitValue2, v, type2 v_out, type const xy);
+
+// ijkVecInitElems2*v
+//	Initialize 2D vector to specified individual elements.
+//		param v_out: output vector
+//		param x: first element
+//		param y: second element
+//		return: v_out
+typev tfuncs(ijkVecInitElems2, v, type2 v_out, type const x, type const y);
+
+// ijkVecCopy2*v
+//	Initialize 2D vector from first elements of another vector.
+//		param v_out: output vector
+//		param v_in: input vector
+//		return: v_out
+typev tfuncs(ijkVecCopy2, v, type2 v_out, type2 const v_in);
+
+// ijkVecDot2*v
 //	Dot product of 2D array-based vectors.
 //		param v_lh: left-hand vector
 //		param v_rh: right-hand vector
 //		return: dot product
-type tfuncs(dot2, v, type2 const v_lh, type2 const v_rh);
+type tfuncs(ijkVecDot2, v, type2 const v_lh, type2 const v_rh);
 
-// cross2*v
+// ijkVecCross2*v
 //	Cross product scalar of 2D array-based vectors.
 //		param v_lh: left-hand vector
 //		param v_rh: right-hand vector
 //		return: scalar quantity of imaginary perpendicular axis
-type tfuncs(cross2, v, type2 const v_lh, type2 const v_rh);
+type tfuncs(ijkVecCross2, v, type2 const v_lh, type2 const v_rh);
 
 
 //-----------------------------------------------------------------------------
 
-// dot3*v
+// ijkVecDot3*v
 //	Dot product of 3D array-based vectors.
 //		param v_lh: left-hand vector
 //		param v_rh: right-hand vector
 //		return: dot product
-type tfuncs(dot3, v, type3 const v_lh, type3 const v_rh);
+type tfuncs(ijkVecDot3, v, type3 const v_lh, type3 const v_rh);
 
-// cross3*v
+// ijkVecCross3*v
 //	Cross product of 3D array-based vectors.
 //		param v_out: output vector to hold cross product
 //		param v_lh: left-hand vector
 //		param v_rh: right-hand vector
 //		return: v_out
-typev tfuncs(cross3, v, type3 v_out, type3 const v_lh, type3 const v_rh);
+typev tfuncs(ijkVecCross3, v, type3 v_out, type3 const v_lh, type3 const v_rh);
 
 
 //-----------------------------------------------------------------------------
 
-// dot4*v
+// ijkVecDot4*v
 //	Dot product of 4D array-based vectors.
 //		param v_lh: left-hand vector
 //		param v_rh: right-hand vector
 //		return: dot product
-type tfuncs(dot4, v, type4 const v_lh, type4 const v_rh);
+type tfuncs(ijkVecDot4, v, type4 const v_lh, type4 const v_rh);
 
-// cross4*v
+// ijkVecCross4*v
 //	Cross product of 4D array-based vectors.
 //		param v_out: output vector to hold cross product
 //		param v_lh: left-hand vector
 //		param v_rh: right-hand vector
 //		return: v_out (fourth element is zero)
-typev tfuncs(cross4, v, type4 v_out, type4 const v_lh, type4 const v_rh);
+typev tfuncs(ijkVecCross4, v, type4 v_out, type4 const v_lh, type4 const v_rh);
 
 
 //-----------------------------------------------------------------------------
@@ -274,121 +308,121 @@ typev tfuncs(cross4, v, type4 v_out, type4 const v_lh, type4 const v_rh);
 
 //-----------------------------------------------------------------------------
 
-// abs1*
+// ijkVecAbs1*
 //	Absolute value of scalar: (s >= 0 ? +s : -s).
 //		param s: scalar
 //		return: absolute value
-type tfunc(abs1, type const s);
+type tfunc(ijkVecAbs1, type const s);
 
-// sgn1*
+// ijkVecSgn1*
 //	Sign of scalar: (s != 0 ? s > 0 ? +1 : -1).
 //		param s: scalar
 //		return: sign
-type tfunc(sgn1, type const s);
+type tfunc(ijkVecSgn1, type const s);
 
-// dot1*
+// ijkVecDot1*
 //	Dot product of scalars, which is just their product.
 //		param s_lh: left-hand scalar
 //		param s_rh: right-hand scalar
 //		return: product
-tvec tfunc(dot1, tvec const s_lh, tvec const s_rh);
+tvec tfunc(ijkVecDot1, tvec const s_lh, tvec const s_rh);
 
-// lengthSq1*
+// ijkVecLengthSq1*
 //	Squared length of scalar.
 //		param s: scalar
 //		return: squared length
-tvec tfunc(lengthSq1, tvec const s);
+tvec tfunc(ijkVecLengthSq1, tvec const s);
 
-// length1*
+// ijkVecLength1*
 //	Length of scalar.
 //		param s: scalar
 //		return: length
-tvec tfunc(length1, tvec const s);
+tvec tfunc(ijkVecLength1, tvec const s);
 
-// lengthSqInv1*
+// ijkVecLengthSqInv1*
 //	Inverse squared length of scalar.
 //		param s: scalar
 //		return: inverse squared length
-tvec tfunc(lengthSqInv1, tvec const s);
+tvec tfunc(ijkVecLengthSqInv1, tvec const s);
 
-// lengthSqInv1*
+// ijkVecLengthSqInv1*
 //	Inverse length of scalar.
 //		param s: scalar
 //		return: inverse length
-tvec tfunc(lengthInv1, tvec const s);
+tvec tfunc(ijkVecLengthInv1, tvec const s);
 
-// normalize1*
+// ijkVecNormalize1*
 //	Calculate unit scalar in same direction as input (sign).
 //		param s: scalar
 //		return: unit scalar (sign)
-tvec tfunc(normalize1, tvec const s);
+tvec tfunc(ijkVecNormalize1, tvec const s);
 
-// normalizeGetLength1*
+// ijkVecNormalizeGetLength1*
 //	Calculate unit scalar in same direction as input (sign).
 //	Also calculate and store the length (absolute value).
 //		param s: scalar
 //		param length_out: pointer to length storage
 //		return: unit scalar (sign)
-tvec tfunc(normalizeGetLength1, tvec const s, tvec* const length_out);
+tvec tfunc(ijkVecNormalizeGetLength1, tvec const s, tvec* const length_out);
 
-// normalizeGetLengthInv1*
+// ijkVecNormalizeGetLengthInv1*
 //	Calculate unit scalar in same direction as input (sign).
 //	Also calculate and store the inverse length length (absolute value).
 //		param s: scalar
 //		param lengthInv_out: pointer to length storage
 //		return: unit scalar (sign)
-tvec tfunc(normalizeGetLengthInv1, tvec const s, tvec* const lengthInv_out);
+tvec tfunc(ijkVecNormalizeGetLengthInv1, tvec const s, tvec* const lengthInv_out);
 
 
 //-----------------------------------------------------------------------------
 
-// dot2*
+// ijkVecDot2*
 //	Dot product of 2D vectors.
 //		param v_lh: left-hand vector
 //		param v_rh: right-hand vector
 //		return: dot product
-tvec tfunc(dot2, tvec2 const v_lh, tvec2 const v_rh);
+tvec tfunc(ijkVecDot2, tvec2 const v_lh, tvec2 const v_rh);
 
-// cross2*
+// ijkVecCross2*
 //	Cross product scalar of 2D vectors.
 //		param v_lh: left-hand vector
 //		param v_rh: right-hand vector
 //		return: scalar quantity of imaginary perpendicular axis
-tvec tfunc(cross2, tvec2 const v_lh, tvec2 const v_rh);
+tvec tfunc(ijkVecCross2, tvec2 const v_lh, tvec2 const v_rh);
 
 
 //-----------------------------------------------------------------------------
 
-// dot3*
+// ijkVecDot3*
 //	Dot product of 3D vectors.
 //		param v_lh: left-hand vector
 //		param v_rh: right-hand vector
 //		return: dot product
-tvec tfunc(dot3, tvec3 const v_lh, tvec3 const v_rh);
+tvec tfunc(ijkVecDot3, tvec3 const v_lh, tvec3 const v_rh);
 
-// cross3*
+// ijkVecCross3*
 //	Cross product of 3D vectors.
 //		param v_lh: left-hand vector
 //		param v_rh: right-hand vector
 //		return: cross product
-tvec3 tfunc(cross3, tvec3 const v_lh, tvec3 const v_rh);
+tvec3 tfunc(ijkVecCross3, tvec3 const v_lh, tvec3 const v_rh);
 
 
 //-----------------------------------------------------------------------------
 
-// dot4*
+// ijkVecDot4*
 //	Dot product of 4D vectors.
 //		param v_lh: left-hand vector
 //		param v_rh: right-hand vector
 //		return: dot product
-tvec tfunc(dot4, tvec4 const v_lh, tvec4 const v_rh);
+tvec tfunc(ijkVecDot4, tvec4 const v_lh, tvec4 const v_rh);
 
-// cross4*
+// ijkVecCross4*
 //	Cross product of 4D vectors.
 //		param v_lh: left-hand vector
 //		param v_rh: right-hand vector
 //		return: cross product (fourth component is zero)
-tvec4 tfunc(cross4, tvec4 const v_lh, tvec4 const v_rh);
+tvec4 tfunc(ijkVecCross4, tvec4 const v_lh, tvec4 const v_rh);
 
 
 //-----------------------------------------------------------------------------

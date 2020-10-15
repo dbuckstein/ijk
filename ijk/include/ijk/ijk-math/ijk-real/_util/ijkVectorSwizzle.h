@@ -553,7 +553,6 @@ private:
 	stvec2(type& xr, type& yr);
 	friend stvec3<type>;
 	friend stvec4<type>;
-	friend ttvec1<type>;
 	friend ttvec2<type>;
 	friend ttvec3<type>;
 	friend ttvec4<type>;
@@ -571,8 +570,6 @@ private:
 	type& xr, & yr, & zr;
 	stvec3(type& xr, type& yr, type& zr);
 	friend stvec4<type>;
-	friend ttvec1<type>;
-	friend ttvec2<type>;
 	friend ttvec3<type>;
 	friend ttvec4<type>;
 };
@@ -588,9 +585,6 @@ struct stvec4 : ttvec4<type>
 private:
 	type& xr, & yr, & zr, & wr;
 	stvec4(type& xr, type& yr, type& zr, type& wr);
-	friend ttvec1<type>;
-	friend ttvec2<type>;
-	friend ttvec3<type>;
 	friend ttvec4<type>;
 };
 
