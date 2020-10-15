@@ -241,18 +241,121 @@ typev tfuncs(ijkVecInitValue2, v, type2 v_out, type const xy);
 typev tfuncs(ijkVecInitElems2, v, type2 v_out, type const x, type const y);
 
 // ijkVecCopy2*v
-//	Initialize 2D vector from first elements of another vector.
-//		param v_out: output vector
+//	Copy 2D vector from first elements of another vector.
+//		param v_out: output vector to hold copy
 //		param v_in: input vector
 //		return: v_out
 typev tfuncs(ijkVecCopy2, v, type2 v_out, type2 const v_in);
 
 // ijkVecNegate2*v
-//	Initialize 2D vector as negative of another vector.
-//		param v_out: output vector
+//	Negate 2D vector.
+//		param v_out: output vector to hold negated
 //		param v_in: input vector
 //		return: v_out
 typev tfuncs(ijkVecNegate2, v, type2 v_out, type2 const v_in);
+
+// ijkVecBitNot2*v
+//	Calculate component-wise bitwise 'not' of 2D vector.
+//		param v_out: output vector to hold component-wise bitwise 'not'
+//		param v_in: input vector
+//		return: v_out
+typev tfuncs(ijkVecBitNot2, v, type2 v_out, type2 const v_in);
+
+// ijkVecAdd2*v
+//	Calculate sum of 2D vectors.
+//		param v_out: output vector to hold sum
+//		param v_lh: left-hand vector
+//		param v_rh: right-hand vector
+//		return: v_out
+typev tfuncs(ijkVecAdd2, v, type2 v_out, type2 const v_lh, type2 const v_rh);
+
+// ijkVecSub2*v
+//	Calculate difference of 2D vectors.
+//		param v_out: output vector to hold difference
+//		param v_lh: left-hand vector
+//		param v_rh: right-hand vector
+//		return: v_out
+typev tfuncs(ijkVecSub2, v, type2 v_out, type2 const v_lh, type2 const v_rh);
+
+// ijkVecMul2*v
+//	Calculate component-wise product of 2D vectors.
+//		param v_out: output vector to hold component-wise product
+//		param v_lh: left-hand vector
+//		param v_rh: right-hand vector
+//		return: v_out
+typev tfuncs(ijkVecMul2, v, type2 v_out, type2 const v_lh, type2 const v_rh);
+
+// ijkVecDiv2*v
+//	Calculate component-wise quotient of 2D vectors.
+//		param v_out: output vector to hold component-wise quotient
+//		param v_lh: left-hand vector
+//		param v_rh: right-hand vector
+//		return: v_out
+typev tfuncs(ijkVecDiv2, v, type2 v_out, type2 const v_lh, type2 const v_rh);
+
+// ijkVecDivSafe2*v
+//	Calculate component-wise quotient of 2D vectors, division-by-zero safe.
+//		param v_out: output vector to hold component-wise quotient
+//		param v_lh: left-hand vector
+//		param v_rh: right-hand vector
+//		return: v_out
+typev tfuncs(ijkVecDivSafe2, v, type2 v_out, type2 const v_lh, type2 const v_rh);
+
+// ijkVecMod2*v
+//	Calculate component-wise modulo of 2D vectors.
+//		param v_out: output vector to hold component-wise modulo
+//		param v_lh: left-hand vector
+//		param v_rh: right-hand vector
+//		return: v_out
+typev tfuncs(ijkVecMod2, v, type2 v_out, type2 const v_lh, type2 const v_rh);
+
+// ijkVecModSafe2*v
+//	Calculate component-wise modulo of 2D vectors, division-by-zero safe.
+//		param v_out: output vector to hold component-wise modulo
+//		param v_lh: left-hand vector
+//		param v_rh: right-hand vector
+//		return: v_out
+typev tfuncs(ijkVecModSafe2, v, type2 v_out, type2 const v_lh, type2 const v_rh);
+
+// ijkVecBitAnd2*v
+//	Calculate component-wise bitwise 'and' of 2D vectors.
+//		param v_out: output vector to hold component-wise bitwise 'and'
+//		param v_lh: left-hand vector
+//		param v_rh: right-hand vector
+//		return: v_out
+typev tfuncs(ijkVecBitAnd2, v, type2 v_out, type2 const v_lh, type2 const v_rh);
+
+// ijkVecBitOr2*v
+//	Calculate component-wise bitwise 'or' of 2D vectors.
+//		param v_out: output vector to hold component-wise bitwise 'or'
+//		param v_lh: left-hand vector
+//		param v_rh: right-hand vector
+//		return: v_out
+typev tfuncs(ijkVecBitOr2, v, type2 v_out, type2 const v_lh, type2 const v_rh);
+
+// ijkVecBitXor2*v
+//	Calculate component-wise bitwise 'exclusive or' of 2D vectors.
+//		param v_out: output vector to hold component-wise bitwise 'xor'
+//		param v_lh: left-hand vector
+//		param v_rh: right-hand vector
+//		return: v_out
+typev tfuncs(ijkVecBitXor2, v, type2 v_out, type2 const v_lh, type2 const v_rh);
+
+// ijkVecBitShiftL2*v
+//	Calculate component-wise bit shift left of 2D vectors.
+//		param v_out: output vector to hold component-wise bit shift
+//		param v_lh: left-hand vector
+//		param v_rh: right-hand vector
+//		return: v_out
+typev tfuncs(ijkVecBitShiftL2, v, type2 v_out, type2 const v_lh, type2 const v_rh);
+
+// ijkVecBitShiftR2*v
+//	Calculate component-wise bit shift right of 2D vectors.
+//		param v_out: output vector to hold component-wise bit shift
+//		param v_lh: left-hand vector
+//		param v_rh: right-hand vector
+//		return: v_out
+typev tfuncs(ijkVecBitShiftR2, v, type2 v_out, type2 const v_lh, type2 const v_rh);
 
 // ijkVecDot2*v
 //	Dot product of 2D array-based vectors.
