@@ -25,26 +25,118 @@
 		function, one per type, of which there are many.
 */
 
-#if (defined IJK_VECTORFUNC_PREFIX && defined IJK_VECTORFUNC_TYPE && defined IJK_VECTORFUNC_TVEC && defined IJK_VECTORFUNC_TYPEKV && defined IJK_VECTORFUNC_TYPEV && defined IJK_VECTORFUNC_TYPE2 && defined IJK_VECTORFUNC_TYPE3 && defined IJK_VECTORFUNC_TYPE4)
+#ifdef IJK_VECTORFUNC_PREFIX
 #ifndef _IJK_VECTORFUNC_H_
 #define _IJK_VECTORFUNC_H_ ijk_tokencat(IJK_VECTORFUNC_PREFIX, IJK_VECTORFUNC_H)
 
+// IJK_VECTORFUNC_SETUP
+#pragma region IJK_VECTORFUNC_SETUP
 
-#define type	IJK_VECTORFUNC_TYPE
-#define tvec	IJK_VECTORFUNC_TVEC
-#define typekv	IJK_VECTORFUNC_TYPEKV
-#define typev	IJK_VECTORFUNC_TYPEV
-#define type2	IJK_VECTORFUNC_TYPE2
-#define type3	IJK_VECTORFUNC_TYPE3
-#define type4	IJK_VECTORFUNC_TYPE4
-#define tvec2	ijk_tokencat(IJK_VECTORFUNC_PREFIX, vec##2)
-#define tvec3	ijk_tokencat(IJK_VECTORFUNC_PREFIX, vec##3)
-#define tvec4	ijk_tokencat(IJK_VECTORFUNC_PREFIX, vec##4)
+#if (IJK_VECTORFUNC_PREFIX == i)
+#define type	i32
+#define tvec	int
+#define typekv	intkv
+#define typev	intv
+#define type2	int2
+#define type3	int3
+#define type4	int4
+#define tvec2	ivec2
+#define tvec3	ivec3
+#define tvec4	ivec4
+#define tabs(x)		ijk_abs_int(x)
+#define tsgn(x)		ijk_sgn_int(x)
+#define trecip(x)	(0)
+#define tsqrt(x)	(0)
+#define tsqrtinv(x)	(0)
+#elif (IJK_VECTORFUNC_PREFIX == il)
+#define type	i64
+#define tvec	intl
+#define typekv	intlkv
+#define typev	intlv
+#define type2	intl2
+#define type3	intl3
+#define type4	intl4
+#define tvec2	ilvec2
+#define tvec3	ilvec3
+#define tvec4	ilvec4
+#define tabs(x)		ijk_abs_int(x)
+#define tsgn(x)		ijk_sgn_int(x)
+#define trecip(x)	(0)
+#define tsqrt(x)	(0)
+#define tsqrtinv(x)	(0)
+#elif (IJK_VECTORFUNC_PREFIX == u)
+#define type	ui32
+#define tvec	uint
+#define typekv	uintkv
+#define typev	uintv
+#define type2	uint2
+#define type3	uint3
+#define type4	uint4
+#define tvec2	uvec2
+#define tvec3	uvec3
+#define tvec4	uvec4
+#define tabs(x)		ijk_abs_int(x)
+#define tsgn(x)		ijk_sgn_int(x)
+#define trecip(x)	(0)
+#define tsqrt(x)	(0)
+#define tsqrtinv(x)	(0)
+#elif (IJK_VECTORFUNC_PREFIX == ul)
+#define type	ui64
+#define tvec	uintl
+#define typekv	uintlkv
+#define typev	uintlv
+#define type2	uintl2
+#define type3	uintl3
+#define type4	uintl4
+#define tvec2	ulvec2
+#define tvec3	ulvec3
+#define tvec4	ulvec4
+#define tabs(x)		ijk_abs_int(x)
+#define tsgn(x)		ijk_sgn_int(x)
+#define trecip(x)	(0)
+#define tsqrt(x)	(0)
+#define tsqrtinv(x)	(0)
+#elif (IJK_VECTORFUNC_PREFIX == d)
+#define type	f64
+#define tvec	double
+#define typekv	doublekv
+#define typev	doublev
+#define type2	double2
+#define type3	double3
+#define type4	double4
+#define tvec2	dvec2
+#define tvec3	dvec3
+#define tvec4	dvec4
+#define tabs(x)		ijk_abs_dbl(x)
+#define tsgn(x)		ijk_sgn_dbl(x)
+#define trecip(x)	ijk_recip_safe_dbl(x)
+#define tsqrt(x)	ijkSqrt_dbl(x)
+#define tsqrtinv(x)	ijkSqrtInv_dbl(x)
+#else // (IJK_VECTORFUNC_PREFIX == f || IJK_VECTORFUNC_PREFIX == ?)
+#define type	f32
+#define tvec	float
+#define typekv	floatkv
+#define typev	floatv
+#define type2	float2
+#define type3	float3
+#define type4	float4
+#define tvec2	fvec2
+#define tvec3	fvec3
+#define tvec4	fvec4
+#define tabs(x)		ijk_abs_flt(x)
+#define tsgn(x)		ijk_sgn_flt(x)
+#define trecip(x)	ijk_recip_safe_flt(x)
+#define tsqrt(x)	ijkSqrt_flt(x)
+#define tsqrtinv(x)	ijkSqrtInv_flt(x)
+#endif	// IJK_VECTORFUNC_PREFIX
 
 #define tfunc(func, ...)					ijk_tokencat(func, IJK_VECTORFUNC_PREFIX)(__VA_ARGS__)
 #define tfuncs(func, suffix, ...)			ijk_tokencat(func, ijk_tokencat(IJK_VECTORFUNC_PREFIX, suffix))(__VA_ARGS__)
 #define tfuncp(func, prefix, ...)			ijk_tokencat(func, ijk_tokencat(prefix, IJK_VECTORFUNC_PREFIX))(__VA_ARGS__)
 #define tfuncps(func, prefix, suffix, ...)	ijk_tokencat(func, ijk_tokencat(ijk_tokencat(prefix, IJK_VECTORFUNC_PREFIX), suffix))(__VA_ARGS__)
+
+#pragma endregion
+// IJK_VECTORFUNC_SETUP
 
 
 #ifdef __cplusplus
@@ -53,12 +145,70 @@ extern "C" {
 
 //-----------------------------------------------------------------------------
 
+// abs1*s
+//	Absolute value of scalar: (s >= 0 ? +s : -s).
+//		param s: scalar
+//		return: absolute value
+type tfuncs(abs1, s, type const s);
+
+// sgn1*s
+//	Sign of scalar: (s != 0 ? s > 0 ? +1 : -1).
+//		param s: scalar
+//		return: sign
+type tfuncs(sgn1, s, type const s);
+
 // dot1*s
 //	Dot product of scalars, which is just their product.
 //		param s_lh: left-hand scalar
 //		param s_rh: right-hand scalar
 //		return: product
 type tfuncs(dot1, s, type const s_lh, type const s_rh);
+
+// lengthSq1*s
+//	Squared length of scalar.
+//		param s: scalar
+//		return: squared length
+type tfuncs(lengthSq1, s, type const s);
+
+// length1*s
+//	Length of scalar.
+//		param s: scalar
+//		return: length
+type tfuncs(length1, s, type const s);
+
+// lengthSqInv1*s
+//	Inverse squared length of scalar.
+//		param s: scalar
+//		return: inverse squared length
+type tfuncs(lengthSqInv1, s, type const s);
+
+// lengthSqInv1*s
+//	Inverse length of scalar.
+//		param s: scalar
+//		return: inverse length
+type tfuncs(lengthInv1, s, type const s);
+
+// normalize1*s
+//	Calculate unit scalar in same direction as input (sign).
+//		param s: scalar
+//		return: unit scalar (sign)
+type tfuncs(normalize1, s, type const s);
+
+// normalizeGetLength1*s
+//	Calculate unit scalar in same direction as input (sign).
+//	Also calculate and store the length (absolute value).
+//		param s: scalar
+//		param length_out: pointer to length storage
+//		return: unit scalar (sign)
+type tfuncs(normalizeGetLength1, s, type const s, type* const length_out);
+
+// normalizeGetLengthInv1*s
+//	Calculate unit scalar in same direction as input (sign).
+//	Also calculate and store the inverse length length (absolute value).
+//		param s: scalar
+//		param lengthInv_out: pointer to length storage
+//		return: unit scalar (sign)
+type tfuncs(normalizeGetLengthInv1, s, type const s, type* const lengthInv_out);
 
 
 //-----------------------------------------------------------------------------
@@ -124,12 +274,70 @@ typev tfuncs(cross4, v, type4 v_out, type4 const v_lh, type4 const v_rh);
 
 //-----------------------------------------------------------------------------
 
+// abs1*
+//	Absolute value of scalar: (s >= 0 ? +s : -s).
+//		param s: scalar
+//		return: absolute value
+type tfunc(abs1, type const s);
+
+// sgn1*
+//	Sign of scalar: (s != 0 ? s > 0 ? +1 : -1).
+//		param s: scalar
+//		return: sign
+type tfunc(sgn1, type const s);
+
 // dot1*
 //	Dot product of scalars, which is just their product.
 //		param s_lh: left-hand scalar
 //		param s_rh: right-hand scalar
 //		return: product
 tvec tfunc(dot1, tvec const s_lh, tvec const s_rh);
+
+// lengthSq1*
+//	Squared length of scalar.
+//		param s: scalar
+//		return: squared length
+tvec tfunc(lengthSq1, tvec const s);
+
+// length1*
+//	Length of scalar.
+//		param s: scalar
+//		return: length
+tvec tfunc(length1, tvec const s);
+
+// lengthSqInv1*
+//	Inverse squared length of scalar.
+//		param s: scalar
+//		return: inverse squared length
+tvec tfunc(lengthSqInv1, tvec const s);
+
+// lengthSqInv1*
+//	Inverse length of scalar.
+//		param s: scalar
+//		return: inverse length
+tvec tfunc(lengthInv1, tvec const s);
+
+// normalize1*
+//	Calculate unit scalar in same direction as input (sign).
+//		param s: scalar
+//		return: unit scalar (sign)
+tvec tfunc(normalize1, tvec const s);
+
+// normalizeGetLength1*
+//	Calculate unit scalar in same direction as input (sign).
+//	Also calculate and store the length (absolute value).
+//		param s: scalar
+//		param length_out: pointer to length storage
+//		return: unit scalar (sign)
+tvec tfunc(normalizeGetLength1, tvec const s, tvec* const length_out);
+
+// normalizeGetLengthInv1*
+//	Calculate unit scalar in same direction as input (sign).
+//	Also calculate and store the inverse length length (absolute value).
+//		param s: scalar
+//		param lengthInv_out: pointer to length storage
+//		return: unit scalar (sign)
+tvec tfunc(normalizeGetLengthInv1, tvec const s, tvec* const lengthInv_out);
 
 
 //-----------------------------------------------------------------------------
@@ -204,16 +412,14 @@ tvec4 tfunc(cross4, tvec4 const v_lh, tvec4 const v_rh);
 #undef tvec2
 #undef tvec3
 #undef tvec4
+#undef tabs
+#undef tsgn
+#undef trecip
+#undef tsqrt
+#undef tsqrtinv
 
 #undef IJK_VECTORFUNC_PREFIX
-#undef IJK_VECTORFUNC_TYPE
-#undef IJK_VECTORFUNC_TVEC
-#undef IJK_VECTORFUNC_TYPEKV
-#undef IJK_VECTORFUNC_TYPEV
-#undef IJK_VECTORFUNC_TYPE2
-#undef IJK_VECTORFUNC_TYPE3
-#undef IJK_VECTORFUNC_TYPE4
 
 #undef _IJK_VECTORFUNC_H_
 #endif	// !_IJK_VECTORFUNC_H_
-#endif	// (defined IJK_VECTORFUNC_PREFIX && defined IJK_VECTORFUNC_TYPE && defined IJK_VECTORFUNC_TVEC && defined IJK_VECTORFUNC_TYPEKV && defined IJK_VECTORFUNC_TYPEV && defined IJK_VECTORFUNC_TYPE2 && defined IJK_VECTORFUNC_TYPE3 && defined IJK_VECTORFUNC_TYPE4)
+#endif	// IJK_VECTORFUNC_PREFIX

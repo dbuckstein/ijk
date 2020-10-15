@@ -130,7 +130,7 @@ typedef ijk_real					real;
 
 // Macros for integers.
 ///
-#define ijk_sgn_int(x)				((x) > ijk_zero ? +ijk_one : (x) < ijk_zero ? -ijk_one : ijk_zero)	// sgn(x) = x > 0 ? +1 : x < 0 ? -1 : 0
+#define ijk_sgn_int(x)				((x) != ijk_zero ? (x) > ijk_zero ? +ijk_one : -ijk_one : ijk_zero)	// sgn(x) = x > 0 ? +1 : x < 0 ? -1 : 0
 #define ijk_abs_int(x)				((x) >= ijk_zero ? +(x) : -(x))										// abs(x) = x >= 0 ? +x : -x
 #define ijk_nrm2sym_int(x)			(((x) << ijk_one) - ijk_one)										// nrm2sym(x) = 2x - 1
 #define ijk_sym2nrm_int(x)			(((x) + ijk_one) >> ijk_one)										// sym2nrm(x) = (x + 1)/2
@@ -208,7 +208,7 @@ ijk_ext flt const flt_rad2deg;									   // 180/pi (approx 57.29578) as float.
 
 // Macros for floats.
 ///
-#define ijk_sgn_flt(x)				((x) > flt_zero ? +flt_one : (x) < flt_zero ? -flt_one : flt_zero)	// sgn(x) = x > 0 ? +1 : x < 0 ? -1 : 0
+#define ijk_sgn_flt(x)				((x) != flt_zero ? (x) > flt_zero ? +flt_one : -flt_one : flt_zero)	// sgn(x) = x > 0 ? +1 : x < 0 ? -1 : 0
 #define ijk_abs_flt(x)				((x) >= flt_zero ? +(x) : -(x))										// abs(x) = x >= 0 ? +x : -x
 #define ijk_nrm2sym_flt(x)			((x) * flt_two - flt_one)											// nrm2sym(x) = 2x - 1
 #define ijk_sym2nrm_flt(x)			((x) * flt_half + flt_half)											// sym2nrm(x) = (x + 1)/2
@@ -290,7 +290,7 @@ ijk_ext dbl const dbl_rad2deg;									   // 180/pi (approx 57.29578) as double.
 
 // Macros for doubles.
 ///
-#define ijk_sgn_dbl(x)				((x) > dbl_zero ? +dbl_one : (x) < dbl_zero ? -dbl_one : dbl_zero)	// sgn(x) = x > 0 ? +1 : x < 0 ? -1 : 0
+#define ijk_sgn_dbl(x)				((x) != dbl_zero ? (x) > dbl_zero ? +dbl_one : -dbl_one : dbl_zero)	// sgn(x) = x > 0 ? +1 : x < 0 ? -1 : 0
 #define ijk_abs_dbl(x)				((x) >= dbl_zero ? +(x) : -(x))										// abs(x) = x >= 0 ? +x : -x
 #define ijk_nrm2sym_dbl(x)			((x) * dbl_two - dbl_one)											// nrm2sym(x) = 2x - 1
 #define ijk_sym2nrm_dbl(x)			((x) * dbl_half + dbl_half)											// sym2nrm(x) = (x + 1)/2

@@ -1305,63 +1305,21 @@ bvec4 isInequal4sb(bool const s_lh, bvec4 const v_rh);
 //-----------------------------------------------------------------------------
 
 #define IJK_VECTORFUNC_PREFIX	i
-#define IJK_VECTORFUNC_TYPE		i32
-#define IJK_VECTORFUNC_TVEC		int
-#define IJK_VECTORFUNC_TYPEKV	intkv
-#define IJK_VECTORFUNC_TYPEV	intv
-#define IJK_VECTORFUNC_TYPE2	int2
-#define IJK_VECTORFUNC_TYPE3	int3
-#define IJK_VECTORFUNC_TYPE4	int4
 #include "_util/ijkVectorFunc.h"
 
 #define IJK_VECTORFUNC_PREFIX	il
-#define IJK_VECTORFUNC_TYPE		i64
-#define IJK_VECTORFUNC_TVEC		intl
-#define IJK_VECTORFUNC_TYPEKV	intlkv
-#define IJK_VECTORFUNC_TYPEV	intlv
-#define IJK_VECTORFUNC_TYPE2	intl2
-#define IJK_VECTORFUNC_TYPE3	intl3
-#define IJK_VECTORFUNC_TYPE4	intl4
 #include "_util/ijkVectorFunc.h"
 
 #define IJK_VECTORFUNC_PREFIX	u
-#define IJK_VECTORFUNC_TYPE		ui32
-#define IJK_VECTORFUNC_TVEC		uint
-#define IJK_VECTORFUNC_TYPEKV	uintkv
-#define IJK_VECTORFUNC_TYPEV	uintv
-#define IJK_VECTORFUNC_TYPE2	uint2
-#define IJK_VECTORFUNC_TYPE3	uint3
-#define IJK_VECTORFUNC_TYPE4	uint4
 #include "_util/ijkVectorFunc.h"
 
 #define IJK_VECTORFUNC_PREFIX	ul
-#define IJK_VECTORFUNC_TYPE		ui64
-#define IJK_VECTORFUNC_TVEC		uintl
-#define IJK_VECTORFUNC_TYPEKV	uintlkv
-#define IJK_VECTORFUNC_TYPEV	uintlv
-#define IJK_VECTORFUNC_TYPE2	uintl2
-#define IJK_VECTORFUNC_TYPE3	uintl3
-#define IJK_VECTORFUNC_TYPE4	uintl4
 #include "_util/ijkVectorFunc.h"
 
 #define IJK_VECTORFUNC_PREFIX	f
-#define IJK_VECTORFUNC_TYPE		f32
-#define IJK_VECTORFUNC_TVEC		float
-#define IJK_VECTORFUNC_TYPEKV	floatkv
-#define IJK_VECTORFUNC_TYPEV	floatv
-#define IJK_VECTORFUNC_TYPE2	float2
-#define IJK_VECTORFUNC_TYPE3	float3
-#define IJK_VECTORFUNC_TYPE4	float4
 #include "_util/ijkVectorFunc.h"
 
 #define IJK_VECTORFUNC_PREFIX	d
-#define IJK_VECTORFUNC_TYPE		f64
-#define IJK_VECTORFUNC_TVEC		double
-#define IJK_VECTORFUNC_TYPEKV	doublekv
-#define IJK_VECTORFUNC_TYPEV	doublev
-#define IJK_VECTORFUNC_TYPE2	double2
-#define IJK_VECTORFUNC_TYPE3	double3
-#define IJK_VECTORFUNC_TYPE4	double4
 #include "_util/ijkVectorFunc.h"
 
 

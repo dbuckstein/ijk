@@ -32,6 +32,24 @@
 
 //-----------------------------------------------------------------------------
 
+// abs1*s
+//	Absolute value of scalar: (s >= 0 ? +s : -s).
+//		param s: scalar
+//		return: absolute value
+ijk_inl type tfuncs(abs1, s, type const s)
+{
+	return tabs(s);
+}
+
+// sgn1*s
+//	Sign of scalar: (s != 0 ? s > 0 ? +1 : -1).
+//		param s: scalar
+//		return: sign
+ijk_inl type tfuncs(sgn1, s, type const s)
+{
+	return tsgn(s);
+}
+
 // dot1*s
 //	Dot product of scalars, which is just their product.
 //		param s_lh: left-hand scalar
@@ -40,6 +58,77 @@
 ijk_inl type tfuncs(dot1, s, type const s_lh, type const s_rh)
 {
 	return (s_lh * s_rh);
+}
+
+// lengthSq1*s
+//	Squared length of scalar.
+//		param s: scalar
+//		return: squared length
+ijk_inl type tfuncs(lengthSq1, s, type const s)
+{
+	return (s * s);
+}
+
+// length1*s
+//	Length of scalar.
+//		param s: scalar
+//		return: length
+ijk_inl type tfuncs(length1, s, type const s)
+{
+	return tabs(s);
+}
+
+// lengthSqInv1*s
+//	Inverse squared length of scalar.
+//		param s: scalar
+//		return: inverse squared length
+ijk_inl type tfuncs(lengthSqInv1, s, type const s)
+{
+	type const lengthSq = (s * s);
+	return trecip(lengthSq);
+}
+
+// lengthSqInv1*s
+//	Inverse length of scalar.
+//		param s: scalar
+//		return: inverse length
+ijk_inl type tfuncs(lengthInv1, s, type const s)
+{
+	type const length = tabs(s);
+	return trecip(length);
+}
+
+// normalize1*s
+//	Calculate unit scalar in same direction as input (sign).
+//		param s: scalar
+//		return: unit scalar (sign)
+ijk_inl type tfuncs(normalize1, s, type const s)
+{
+	return tsgn(s);
+}
+
+// normalizeGetLength1*s
+//	Calculate unit scalar in same direction as input (sign).
+//	Also calculate and store the length (absolute value).
+//		param s: scalar
+//		param length_out: pointer to length storage
+//		return: unit scalar (sign)
+ijk_inl type tfuncs(normalizeGetLength1, s, type const s, type* const length_out)
+{
+	type const length = *length_out = tabs(s);
+	return (s * trecip(length));
+}
+
+// normalizeGetLengthInv1*s
+//	Calculate unit scalar in same direction as input (sign).
+//	Also calculate and store the inverse length length (absolute value).
+//		param s: scalar
+//		param lengthInv_out: pointer to length storage
+//		return: unit scalar (sign)
+ijk_inl type tfuncs(normalizeGetLengthInv1, s, type const s, type* const lengthInv_out)
+{
+	type const length = tabs(s);
+	return (s * (*lengthInv_out = trecip(length)));
 }
 
 
@@ -120,6 +209,24 @@ ijk_inl typev tfuncs(cross4, v, type4 v_out, type4 const v_lh, type4 const v_rh)
 
 //-----------------------------------------------------------------------------
 
+// abs1*
+//	Absolute value of scalar: (s >= 0 ? +s : -s).
+//		param s: scalar
+//		return: absolute value
+ijk_inl type tfunc(abs1, type const s)
+{
+	return tfuncs(abs1, s, s);
+}
+
+// sgn1*
+//	Sign of scalar: (s != 0 ? s > 0 ? +1 : -1).
+//		param s: scalar
+//		return: sign
+ijk_inl type tfunc(sgn1, type const s)
+{
+	return tfuncs(sgn1, s, s);
+}
+
 // dot1*
 //	Dot product of scalars, which is just their product.
 //		param s_lh: left-hand scalar
@@ -128,6 +235,73 @@ ijk_inl typev tfuncs(cross4, v, type4 v_out, type4 const v_lh, type4 const v_rh)
 ijk_inl tvec tfunc(dot1, tvec const s_lh, tvec const s_rh)
 {
 	return tfuncs(dot1, s, s_lh, s_rh);
+}
+
+// lengthSq1*
+//	Squared length of scalar.
+//		param s: scalar
+//		return: squared length
+ijk_inl tvec tfunc(lengthSq1, tvec const s)
+{
+	return tfuncs(lengthSq1, s, s);
+}
+
+// length1*
+//	Length of scalar.
+//		param s: scalar
+//		return: length
+ijk_inl tvec tfunc(length1, tvec const s)
+{
+	return tfuncs(length1, s, s);
+}
+
+// lengthSqInv1*
+//	Inverse squared length of scalar.
+//		param s: scalar
+//		return: inverse squared length
+ijk_inl tvec tfunc(lengthSqInv1, tvec const s)
+{
+	return tfuncs(lengthSqInv1, s, s);
+}
+
+// lengthSqInv1*
+//	Inverse length of scalar.
+//		param s: scalar
+//		return: inverse length
+ijk_inl tvec tfunc(lengthInv1, tvec const s)
+{
+	return tfuncs(lengthInv1, s, s);
+}
+
+// normalize1*
+//	Calculate unit scalar in same direction as input (sign).
+//		param s: scalar
+//		return: unit scalar (sign)
+ijk_inl tvec tfunc(normalize1, tvec const s)
+{
+	return tfuncs(normalize1, s, s);
+}
+
+// normalizeGetLength1*
+//	Calculate unit scalar in same direction as input (sign).
+//	Also calculate and store the length (absolute value).
+//		param s: scalar
+//		param length_out: pointer to length storage
+//		return: unit scalar (sign)
+ijk_inl tvec tfunc(normalizeGetLength1, tvec const s, tvec* const length_out)
+{
+	return tfuncs(normalizeGetLength1, s, s, (type*)length_out);
+}
+
+// normalizeGetLengthInv1*
+//	Calculate unit scalar in same direction as input (sign).
+//	Also calculate and store the inverse length length (absolute value).
+//		param s: scalar
+//		param lengthInv_out: pointer to length storage
+//		return: unit scalar (sign)
+ijk_inl tvec tfunc(normalizeGetLengthInv1, tvec const s, tvec* const lengthInv_out)
+{
+	return tfuncs(normalizeGetLength1, s, s, (type*)lengthInv_out);
 }
 
 
