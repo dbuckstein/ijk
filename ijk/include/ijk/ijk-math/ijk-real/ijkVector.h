@@ -549,130 +549,130 @@ ijk_ext bvec4 const bvec4_w;		// ( false, false, false,  true )
 
 // Global constants for signed 32-bit integer array-based vectors and data structures.
 ///
-ijk_ext int2 const int2_one;		// ( +1, +1 )
-ijk_ext int2 const int2_zero;		// (  0,  0 )
-ijk_ext int2 const int2_one_n;		// ( -1, -1 )
+ijk_ext int2 const int2_1;			// ( +1, +1 )
+ijk_ext int2 const int2_0;			// (  0,  0 )
+ijk_ext int2 const int2_1n;			// ( -1, -1 )
 ijk_ext int2 const int2_x;			// ( +1,  0 )
 ijk_ext int2 const int2_y;			// (  0, +1 )
-ijk_ext int2 const int2_x_n;		// ( -1,  0 )
-ijk_ext int2 const int2_y_n;		// (  0, -1 )
+ijk_ext int2 const int2_xn;			// ( -1,  0 )
+ijk_ext int2 const int2_yn;			// (  0, -1 )
 
-ijk_ext int3 const int3_one;		// ( +1, +1, +1 )
-ijk_ext int3 const int3_zero;		// (  0,  0,  0 )
-ijk_ext int3 const int3_one_n;		// ( -1, -1, -1 )
+ijk_ext int3 const int3_1;			// ( +1, +1, +1 )
+ijk_ext int3 const int3_0;			// (  0,  0,  0 )
+ijk_ext int3 const int3_1n;			// ( -1, -1, -1 )
 ijk_ext int3 const int3_x;			// ( +1,  0,  0 )
 ijk_ext int3 const int3_y;			// (  0, +1,  0 )
 ijk_ext int3 const int3_z;			// (  0,  0, +1 )
-ijk_ext int3 const int3_x_n;		// ( -1,  0,  0 )
-ijk_ext int3 const int3_y_n;		// (  0, -1,  0 )
-ijk_ext int3 const int3_z_n;		// (  0,  0, -1 )
+ijk_ext int3 const int3_xn;			// ( -1,  0,  0 )
+ijk_ext int3 const int3_yn;			// (  0, -1,  0 )
+ijk_ext int3 const int3_zn;			// (  0,  0, -1 )
 
-ijk_ext int4 const int4_one;		// ( +1, +1, +1, +1 )
-ijk_ext int4 const int4_zero;		// (  0,  0,  0,  0 )
-ijk_ext int4 const int4_one_n;		// ( -1, -1, -1, -1 )
+ijk_ext int4 const int4_1;			// ( +1, +1, +1, +1 )
+ijk_ext int4 const int4_0;			// (  0,  0,  0,  0 )
+ijk_ext int4 const int4_1n;			// ( -1, -1, -1, -1 )
 ijk_ext int4 const int4_x;			// ( +1,  0,  0,  0 )
 ijk_ext int4 const int4_y;			// (  0, +1,  0,  0 )
 ijk_ext int4 const int4_z;			// (  0,  0, +1,  0 )
 ijk_ext int4 const int4_w;			// (  0,  0,  0, +1 )
-ijk_ext int4 const int4_x_n;		// ( -1,  0,  0,  0 )
-ijk_ext int4 const int4_y_n;		// (  0, -1,  0,  0 )
-ijk_ext int4 const int4_z_n;		// (  0,  0, -1,  0 )
-ijk_ext int4 const int4_w_n;		// (  0,  0,  0, -1 )
+ijk_ext int4 const int4_xn;			// ( -1,  0,  0,  0 )
+ijk_ext int4 const int4_yn;			// (  0, -1,  0,  0 )
+ijk_ext int4 const int4_zn;			// (  0,  0, -1,  0 )
+ijk_ext int4 const int4_wn;			// (  0,  0,  0, -1 )
 
-ijk_ext ivec2 const ivec2_one;		// ( +1, +1 )
-ijk_ext ivec2 const ivec2_zero;		// (  0,  0 )
-ijk_ext ivec2 const ivec2_one_n;	// ( -1, -1 )
+ijk_ext ivec2 const ivec2_1;		// ( +1, +1 )
+ijk_ext ivec2 const ivec2_0;		// (  0,  0 )
+ijk_ext ivec2 const ivec2_1n;		// ( -1, -1 )
 ijk_ext ivec2 const ivec2_x;		// ( +1,  0 )
 ijk_ext ivec2 const ivec2_y;		// (  0, +1 )
-ijk_ext ivec2 const ivec2_x_n;		// ( -1,  0 )
-ijk_ext ivec2 const ivec2_y_n;		// (  0, -1 )
+ijk_ext ivec2 const ivec2_xn;		// ( -1,  0 )
+ijk_ext ivec2 const ivec2_yn;		// (  0, -1 )
 
-ijk_ext ivec3 const ivec3_one;		// ( +1, +1, +1 )
-ijk_ext ivec3 const ivec3_zero;		// (  0,  0,  0 )
-ijk_ext ivec3 const ivec3_one_n;	// ( -1, -1, -1 )
+ijk_ext ivec3 const ivec3_1;		// ( +1, +1, +1 )
+ijk_ext ivec3 const ivec3_0;		// (  0,  0,  0 )
+ijk_ext ivec3 const ivec3_1n;		// ( -1, -1, -1 )
 ijk_ext ivec3 const ivec3_x;		// ( +1,  0,  0 )
 ijk_ext ivec3 const ivec3_y;		// (  0, +1,  0 )
 ijk_ext ivec3 const ivec3_z;		// (  0,  0, +1 )
-ijk_ext ivec3 const ivec3_x_n;		// ( -1,  0,  0 )
-ijk_ext ivec3 const ivec3_y_n;		// (  0, -1,  0 )
-ijk_ext ivec3 const ivec3_z_n;		// (  0,  0, -1 )
+ijk_ext ivec3 const ivec3_xn;		// ( -1,  0,  0 )
+ijk_ext ivec3 const ivec3_yn;		// (  0, -1,  0 )
+ijk_ext ivec3 const ivec3_zn;		// (  0,  0, -1 )
 
-ijk_ext ivec4 const ivec4_one;		// ( +1, +1, +1, +1 )
-ijk_ext ivec4 const ivec4_zero;		// (  0,  0,  0,  0 )
-ijk_ext ivec4 const ivec4_one_n;	// ( -1, -1, -1, -1 )
+ijk_ext ivec4 const ivec4_1;		// ( +1, +1, +1, +1 )
+ijk_ext ivec4 const ivec4_0;		// (  0,  0,  0,  0 )
+ijk_ext ivec4 const ivec4_1n;		// ( -1, -1, -1, -1 )
 ijk_ext ivec4 const ivec4_x;		// ( +1,  0,  0,  0 )
 ijk_ext ivec4 const ivec4_y;		// (  0, +1,  0,  0 )
 ijk_ext ivec4 const ivec4_z;		// (  0,  0, +1,  0 )
 ijk_ext ivec4 const ivec4_w;		// (  0,  0,  0, +1 )
-ijk_ext ivec4 const ivec4_x_n;		// ( -1,  0,  0,  0 )
-ijk_ext ivec4 const ivec4_y_n;		// (  0, -1,  0,  0 )
-ijk_ext ivec4 const ivec4_z_n;		// (  0,  0, -1,  0 )
-ijk_ext ivec4 const ivec4_w_n;		// (  0,  0,  0, -1 )
+ijk_ext ivec4 const ivec4_xn;		// ( -1,  0,  0,  0 )
+ijk_ext ivec4 const ivec4_yn;		// (  0, -1,  0,  0 )
+ijk_ext ivec4 const ivec4_zn;		// (  0,  0, -1,  0 )
+ijk_ext ivec4 const ivec4_wn;		// (  0,  0,  0, -1 )
 
 
 //-----------------------------------------------------------------------------
 
 // Global constants for signed 64-bit integer array-based vectors and data structures.
 ///
-ijk_ext int2 const intl2_one;		// ( +1, +1 )
-ijk_ext int2 const intl2_zero;		// (  0,  0 )
-ijk_ext int2 const intl2_one_n;		// ( -1, -1 )
-ijk_ext int2 const intl2_x;			// ( +1,  0 )
-ijk_ext int2 const intl2_y;			// (  0, +1 )
-ijk_ext int2 const intl2_x_n;		// ( -1,  0 )
-ijk_ext int2 const intl2_y_n;		// (  0, -1 )
+ijk_ext intl2 const intl2_1;		// ( +1, +1 )
+ijk_ext intl2 const intl2_0;		// (  0,  0 )
+ijk_ext intl2 const intl2_1n;		// ( -1, -1 )
+ijk_ext intl2 const intl2_x;		// ( +1,  0 )
+ijk_ext intl2 const intl2_y;		// (  0, +1 )
+ijk_ext intl2 const intl2_xn;		// ( -1,  0 )
+ijk_ext intl2 const intl2_yn;		// (  0, -1 )
 
-ijk_ext int3 const intl3_one;		// ( +1, +1, +1 )
-ijk_ext int3 const intl3_zero;		// (  0,  0,  0 )
-ijk_ext int3 const intl3_one_n;		// ( -1, -1, -1 )
-ijk_ext int3 const intl3_x;			// ( +1,  0,  0 )
-ijk_ext int3 const intl3_y;			// (  0, +1,  0 )
-ijk_ext int3 const intl3_z;			// (  0,  0, +1 )
-ijk_ext int3 const intl3_x_n;		// ( -1,  0,  0 )
-ijk_ext int3 const intl3_y_n;		// (  0, -1,  0 )
-ijk_ext int3 const intl3_z_n;		// (  0,  0, -1 )
+ijk_ext intl3 const intl3_1;		// ( +1, +1, +1 )
+ijk_ext intl3 const intl3_0;		// (  0,  0,  0 )
+ijk_ext intl3 const intl3_1n;		// ( -1, -1, -1 )
+ijk_ext intl3 const intl3_x;		// ( +1,  0,  0 )
+ijk_ext intl3 const intl3_y;		// (  0, +1,  0 )
+ijk_ext intl3 const intl3_z;		// (  0,  0, +1 )
+ijk_ext intl3 const intl3_xn;		// ( -1,  0,  0 )
+ijk_ext intl3 const intl3_yn;		// (  0, -1,  0 )
+ijk_ext intl3 const intl3_zn;		// (  0,  0, -1 )
 
-ijk_ext int4 const intl4_one;		// ( +1, +1, +1, +1 )
-ijk_ext int4 const intl4_zero;		// (  0,  0,  0,  0 )
-ijk_ext int4 const intl4_one_n;		// ( -1, -1, -1, -1 )
-ijk_ext int4 const intl4_x;			// ( +1,  0,  0,  0 )
-ijk_ext int4 const intl4_y;			// (  0, +1,  0,  0 )
-ijk_ext int4 const intl4_z;			// (  0,  0, +1,  0 )
-ijk_ext int4 const intl4_w;			// (  0,  0,  0, +1 )
-ijk_ext int4 const intl4_x_n;		// ( -1,  0,  0,  0 )
-ijk_ext int4 const intl4_y_n;		// (  0, -1,  0,  0 )
-ijk_ext int4 const intl4_z_n;		// (  0,  0, -1,  0 )
-ijk_ext int4 const intl4_w_n;		// (  0,  0,  0, -1 )
+ijk_ext intl4 const intl4_1;		// ( +1, +1, +1, +1 )
+ijk_ext intl4 const intl4_0;		// (  0,  0,  0,  0 )
+ijk_ext intl4 const intl4_1n;		// ( -1, -1, -1, -1 )
+ijk_ext intl4 const intl4_x;		// ( +1,  0,  0,  0 )
+ijk_ext intl4 const intl4_y;		// (  0, +1,  0,  0 )
+ijk_ext intl4 const intl4_z;		// (  0,  0, +1,  0 )
+ijk_ext intl4 const intl4_w;		// (  0,  0,  0, +1 )
+ijk_ext intl4 const intl4_xn;		// ( -1,  0,  0,  0 )
+ijk_ext intl4 const intl4_yn;		// (  0, -1,  0,  0 )
+ijk_ext intl4 const intl4_zn;		// (  0,  0, -1,  0 )
+ijk_ext intl4 const intl4_wn;		// (  0,  0,  0, -1 )
 
-ijk_ext ivec2 const ivecl2_one;		// ( +1, +1 )
-ijk_ext ivec2 const ivecl2_zero;	// (  0,  0 )
-ijk_ext ivec2 const ivecl2_one_n;	// ( -1, -1 )
-ijk_ext ivec2 const ivecl2_x;		// ( +1,  0 )
-ijk_ext ivec2 const ivecl2_y;		// (  0, +1 )
-ijk_ext ivec2 const ivecl2_x_n;		// ( -1,  0 )
-ijk_ext ivec2 const ivecl2_y_n;		// (  0, -1 )
+ijk_ext ilvec2 const ilvec2_1;		// ( +1, +1 )
+ijk_ext ilvec2 const ilvec2_0;		// (  0,  0 )
+ijk_ext ilvec2 const ilvec2_1n;		// ( -1, -1 )
+ijk_ext ilvec2 const ilvec2_x;		// ( +1,  0 )
+ijk_ext ilvec2 const ilvec2_y;		// (  0, +1 )
+ijk_ext ilvec2 const ilvec2_xn;		// ( -1,  0 )
+ijk_ext ilvec2 const ilvec2_yn;		// (  0, -1 )
 
-ijk_ext ivec3 const ivecl3_one;		// ( +1, +1, +1 )
-ijk_ext ivec3 const ivecl3_zero;	// (  0,  0,  0 )
-ijk_ext ivec3 const ivecl3_one_n;	// ( -1, -1, -1 )
-ijk_ext ivec3 const ivecl3_x;		// ( +1,  0,  0 )
-ijk_ext ivec3 const ivecl3_y;		// (  0, +1,  0 )
-ijk_ext ivec3 const ivecl3_z;		// (  0,  0, +1 )
-ijk_ext ivec3 const ivecl3_x_n;		// ( -1,  0,  0 )
-ijk_ext ivec3 const ivecl3_y_n;		// (  0, -1,  0 )
-ijk_ext ivec3 const ivecl3_z_n;		// (  0,  0, -1 )
+ijk_ext ilvec3 const ilvec3_1;		// ( +1, +1, +1 )
+ijk_ext ilvec3 const ilvec3_0;		// (  0,  0,  0 )
+ijk_ext ilvec3 const ilvec3_1n;		// ( -1, -1, -1 )
+ijk_ext ilvec3 const ilvec3_x;		// ( +1,  0,  0 )
+ijk_ext ilvec3 const ilvec3_y;		// (  0, +1,  0 )
+ijk_ext ilvec3 const ilvec3_z;		// (  0,  0, +1 )
+ijk_ext ilvec3 const ilvec3_xn;		// ( -1,  0,  0 )
+ijk_ext ilvec3 const ilvec3_yn;		// (  0, -1,  0 )
+ijk_ext ilvec3 const ilvec3_zn;		// (  0,  0, -1 )
 
-ijk_ext ivec4 const ivecl4_one;		// ( +1, +1, +1, +1 )
-ijk_ext ivec4 const ivecl4_zero;	// (  0,  0,  0,  0 )
-ijk_ext ivec4 const ivecl4_one_n;	// ( -1, -1, -1, -1 )
-ijk_ext ivec4 const ivecl4_x;		// ( +1,  0,  0,  0 )
-ijk_ext ivec4 const ivecl4_y;		// (  0, +1,  0,  0 )
-ijk_ext ivec4 const ivecl4_z;		// (  0,  0, +1,  0 )
-ijk_ext ivec4 const ivecl4_w;		// (  0,  0,  0, +1 )
-ijk_ext ivec4 const ivecl4_x_n;		// ( -1,  0,  0,  0 )
-ijk_ext ivec4 const ivecl4_y_n;		// (  0, -1,  0,  0 )
-ijk_ext ivec4 const ivecl4_z_n;		// (  0,  0, -1,  0 )
-ijk_ext ivec4 const ivecl4_w_n;		// (  0,  0,  0, -1 )
+ijk_ext ilvec4 const ilvec4_1;		// ( +1, +1, +1, +1 )
+ijk_ext ilvec4 const ilvec4_0;		// (  0,  0,  0,  0 )
+ijk_ext ilvec4 const ilvec4_1n;		// ( -1, -1, -1, -1 )
+ijk_ext ilvec4 const ilvec4_x;		// ( +1,  0,  0,  0 )
+ijk_ext ilvec4 const ilvec4_y;		// (  0, +1,  0,  0 )
+ijk_ext ilvec4 const ilvec4_z;		// (  0,  0, +1,  0 )
+ijk_ext ilvec4 const ilvec4_w;		// (  0,  0,  0, +1 )
+ijk_ext ilvec4 const ilvec4_xn;		// ( -1,  0,  0,  0 )
+ijk_ext ilvec4 const ilvec4_yn;		// (  0, -1,  0,  0 )
+ijk_ext ilvec4 const ilvec4_zn;		// (  0,  0, -1,  0 )
+ijk_ext ilvec4 const ilvec4_wn;		// (  0,  0,  0, -1 )
 
 
 //-----------------------------------------------------------------------------
@@ -680,65 +680,65 @@ ijk_ext ivec4 const ivecl4_w_n;		// (  0,  0,  0, -1 )
 // Global constants for unsigned 32-bit integer array-based vectors and data structures.
 // Note: negatives are represented as maximum unsigned value.
 ///
-ijk_ext uint2 const uint2_one;		// ( +1, +1 )
-ijk_ext uint2 const uint2_zero;		// (  0,  0 )
-ijk_ext uint2 const uint2_one_n;	// ( -1, -1 )
+ijk_ext uint2 const uint2_1;		// ( +1, +1 )
+ijk_ext uint2 const uint2_0;		// (  0,  0 )
+ijk_ext uint2 const uint2_1n;		// ( -1, -1 )
 ijk_ext uint2 const uint2_x;		// ( +1,  0 )
 ijk_ext uint2 const uint2_y;		// (  0, +1 )
-ijk_ext uint2 const uint2_x_n;		// ( -1,  0 )
-ijk_ext uint2 const uint2_y_n;		// (  0, -1 )
+ijk_ext uint2 const uint2_xn;		// ( -1,  0 )
+ijk_ext uint2 const uint2_yn;		// (  0, -1 )
 
-ijk_ext uint3 const uint3_one;		// ( +1, +1, +1 )
-ijk_ext uint3 const uint3_zero;		// (  0,  0,  0 )
-ijk_ext uint3 const uint3_one_n;	// ( -1, -1, -1 )
+ijk_ext uint3 const uint3_1;		// ( +1, +1, +1 )
+ijk_ext uint3 const uint3_0;		// (  0,  0,  0 )
+ijk_ext uint3 const uint3_1n;		// ( -1, -1, -1 )
 ijk_ext uint3 const uint3_x;		// ( +1,  0,  0 )
 ijk_ext uint3 const uint3_y;		// (  0, +1,  0 )
 ijk_ext uint3 const uint3_z;		// (  0,  0, +1 )
-ijk_ext uint3 const uint3_x_n;		// ( -1,  0,  0 )
-ijk_ext uint3 const uint3_y_n;		// (  0, -1,  0 )
-ijk_ext uint3 const uint3_z_n;		// (  0,  0, -1 )
+ijk_ext uint3 const uint3_xn;		// ( -1,  0,  0 )
+ijk_ext uint3 const uint3_yn;		// (  0, -1,  0 )
+ijk_ext uint3 const uint3_zn;		// (  0,  0, -1 )
 
-ijk_ext uint4 const uint4_one;		// ( +1, +1, +1, +1 )
-ijk_ext uint4 const uint4_zero;		// (  0,  0,  0,  0 )
-ijk_ext uint4 const uint4_one_n;	// ( -1, -1, -1, -1 )
+ijk_ext uint4 const uint4_1;		// ( +1, +1, +1, +1 )
+ijk_ext uint4 const uint4_0;		// (  0,  0,  0,  0 )
+ijk_ext uint4 const uint4_1n;		// ( -1, -1, -1, -1 )
 ijk_ext uint4 const uint4_x;		// ( +1,  0,  0,  0 )
 ijk_ext uint4 const uint4_y;		// (  0, +1,  0,  0 )
 ijk_ext uint4 const uint4_z;		// (  0,  0, +1,  0 )
 ijk_ext uint4 const uint4_w;		// (  0,  0,  0, +1 )
-ijk_ext uint4 const uint4_x_n;		// ( -1,  0,  0,  0 )
-ijk_ext uint4 const uint4_y_n;		// (  0, -1,  0,  0 )
-ijk_ext uint4 const uint4_z_n;		// (  0,  0, -1,  0 )
-ijk_ext uint4 const uint4_w_n;		// (  0,  0,  0, -1 )
+ijk_ext uint4 const uint4_xn;		// ( -1,  0,  0,  0 )
+ijk_ext uint4 const uint4_yn;		// (  0, -1,  0,  0 )
+ijk_ext uint4 const uint4_zn;		// (  0,  0, -1,  0 )
+ijk_ext uint4 const uint4_wn;		// (  0,  0,  0, -1 )
 
-ijk_ext uvec2 const uvec2_one;		// ( +1, +1 )
-ijk_ext uvec2 const uvec2_zero;		// (  0,  0 )
-ijk_ext uvec2 const uvec2_one_n;	// ( -1, -1 )
+ijk_ext uvec2 const uvec2_1;		// ( +1, +1 )
+ijk_ext uvec2 const uvec2_0;		// (  0,  0 )
+ijk_ext uvec2 const uvec2_1n;		// ( -1, -1 )
 ijk_ext uvec2 const uvec2_x;		// ( +1,  0 )
 ijk_ext uvec2 const uvec2_y;		// (  0, +1 )
-ijk_ext uvec2 const uvec2_x_n;		// ( -1,  0 )
-ijk_ext uvec2 const uvec2_y_n;		// (  0, -1 )
+ijk_ext uvec2 const uvec2_xn;		// ( -1,  0 )
+ijk_ext uvec2 const uvec2_yn;		// (  0, -1 )
 
-ijk_ext uvec3 const uvec3_one;		// ( +1, +1, +1 )
-ijk_ext uvec3 const uvec3_zero;		// (  0,  0,  0 )
-ijk_ext uvec3 const uvec3_one_n;	// ( -1, -1, -1 )
+ijk_ext uvec3 const uvec3_1;		// ( +1, +1, +1 )
+ijk_ext uvec3 const uvec3_0;		// (  0,  0,  0 )
+ijk_ext uvec3 const uvec3_1n;		// ( -1, -1, -1 )
 ijk_ext uvec3 const uvec3_x;		// ( +1,  0,  0 )
 ijk_ext uvec3 const uvec3_y;		// (  0, +1,  0 )
 ijk_ext uvec3 const uvec3_z;		// (  0,  0, +1 )
-ijk_ext uvec3 const uvec3_x_n;		// ( -1,  0,  0 )
-ijk_ext uvec3 const uvec3_y_n;		// (  0, -1,  0 )
-ijk_ext uvec3 const uvec3_z_n;		// (  0,  0, -1 )
+ijk_ext uvec3 const uvec3_xn;		// ( -1,  0,  0 )
+ijk_ext uvec3 const uvec3_yn;		// (  0, -1,  0 )
+ijk_ext uvec3 const uvec3_zn;		// (  0,  0, -1 )
 
-ijk_ext uvec4 const uvec4_one;		// ( +1, +1, +1, +1 )
-ijk_ext uvec4 const uvec4_zero;		// (  0,  0,  0,  0 )
-ijk_ext uvec4 const uvec4_one_n;	// ( -1, -1, -1, -1 )
+ijk_ext uvec4 const uvec4_1;		// ( +1, +1, +1, +1 )
+ijk_ext uvec4 const uvec4_0;		// (  0,  0,  0,  0 )
+ijk_ext uvec4 const uvec4_1n;		// ( -1, -1, -1, -1 )
 ijk_ext uvec4 const uvec4_x;		// ( +1,  0,  0,  0 )
 ijk_ext uvec4 const uvec4_y;		// (  0, +1,  0,  0 )
 ijk_ext uvec4 const uvec4_z;		// (  0,  0, +1,  0 )
 ijk_ext uvec4 const uvec4_w;		// (  0,  0,  0, +1 )
-ijk_ext uvec4 const uvec4_x_n;		// ( -1,  0,  0,  0 )
-ijk_ext uvec4 const uvec4_y_n;		// (  0, -1,  0,  0 )
-ijk_ext uvec4 const uvec4_z_n;		// (  0,  0, -1,  0 )
-ijk_ext uvec4 const uvec4_w_n;		// (  0,  0,  0, -1 )
+ijk_ext uvec4 const uvec4_xn;		// ( -1,  0,  0,  0 )
+ijk_ext uvec4 const uvec4_yn;		// (  0, -1,  0,  0 )
+ijk_ext uvec4 const uvec4_zn;		// (  0,  0, -1,  0 )
+ijk_ext uvec4 const uvec4_wn;		// (  0,  0,  0, -1 )
 
 
 //-----------------------------------------------------------------------------
@@ -746,403 +746,228 @@ ijk_ext uvec4 const uvec4_w_n;		// (  0,  0,  0, -1 )
 // Global constants for unsigned 64-bit integer array-based vectors and data structures.
 // Note: negatives are represented as maximum unsigned value.
 ///
-ijk_ext uint2 const uintl2_one;		// ( +1, +1 )
-ijk_ext uint2 const uintl2_zero;	// (  0,  0 )
-ijk_ext uint2 const uintl2_one_n;	// ( -1, -1 )
-ijk_ext uint2 const uintl2_x;		// ( +1,  0 )
-ijk_ext uint2 const uintl2_y;		// (  0, +1 )
-ijk_ext uint2 const uintl2_x_n;		// ( -1,  0 )
-ijk_ext uint2 const uintl2_y_n;		// (  0, -1 )
+ijk_ext uintl2 const uintl2_1;		// ( +1, +1 )
+ijk_ext uintl2 const uintl2_0;		// (  0,  0 )
+ijk_ext uintl2 const uintl2_1n;		// ( -1, -1 )
+ijk_ext uintl2 const uintl2_x;		// ( +1,  0 )
+ijk_ext uintl2 const uintl2_y;		// (  0, +1 )
+ijk_ext uintl2 const uintl2_xn;		// ( -1,  0 )
+ijk_ext uintl2 const uintl2_yn;		// (  0, -1 )
 
-ijk_ext uint3 const uintl3_one;		// ( +1, +1, +1 )
-ijk_ext uint3 const uintl3_zero;	// (  0,  0,  0 )
-ijk_ext uint3 const uintl3_one_n;	// ( -1, -1, -1 )
-ijk_ext uint3 const uintl3_x;		// ( +1,  0,  0 )
-ijk_ext uint3 const uintl3_y;		// (  0, +1,  0 )
-ijk_ext uint3 const uintl3_z;		// (  0,  0, +1 )
-ijk_ext uint3 const uintl3_x_n;		// ( -1,  0,  0 )
-ijk_ext uint3 const uintl3_y_n;		// (  0, -1,  0 )
-ijk_ext uint3 const uintl3_z_n;		// (  0,  0, -1 )
+ijk_ext uintl3 const uintl3_1;		// ( +1, +1, +1 )
+ijk_ext uintl3 const uintl3_0;		// (  0,  0,  0 )
+ijk_ext uintl3 const uintl3_1n;		// ( -1, -1, -1 )
+ijk_ext uintl3 const uintl3_x;		// ( +1,  0,  0 )
+ijk_ext uintl3 const uintl3_y;		// (  0, +1,  0 )
+ijk_ext uintl3 const uintl3_z;		// (  0,  0, +1 )
+ijk_ext uintl3 const uintl3_xn;		// ( -1,  0,  0 )
+ijk_ext uintl3 const uintl3_yn;		// (  0, -1,  0 )
+ijk_ext uintl3 const uintl3_zn;		// (  0,  0, -1 )
 
-ijk_ext uint4 const uintl4_one;		// ( +1, +1, +1, +1 )
-ijk_ext uint4 const uintl4_zero;	// (  0,  0,  0,  0 )
-ijk_ext uint4 const uintl4_one_n;	// ( -1, -1, -1, -1 )
-ijk_ext uint4 const uintl4_x;		// ( +1,  0,  0,  0 )
-ijk_ext uint4 const uintl4_y;		// (  0, +1,  0,  0 )
-ijk_ext uint4 const uintl4_z;		// (  0,  0, +1,  0 )
-ijk_ext uint4 const uintl4_w;		// (  0,  0,  0, +1 )
-ijk_ext uint4 const uintl4_x_n;		// ( -1,  0,  0,  0 )
-ijk_ext uint4 const uintl4_y_n;		// (  0, -1,  0,  0 )
-ijk_ext uint4 const uintl4_z_n;		// (  0,  0, -1,  0 )
-ijk_ext uint4 const uintl4_w_n;		// (  0,  0,  0, -1 )
+ijk_ext uintl4 const uintl4_1;		// ( +1, +1, +1, +1 )
+ijk_ext uintl4 const uintl4_0;		// (  0,  0,  0,  0 )
+ijk_ext uintl4 const uintl4_1n;		// ( -1, -1, -1, -1 )
+ijk_ext uintl4 const uintl4_x;		// ( +1,  0,  0,  0 )
+ijk_ext uintl4 const uintl4_y;		// (  0, +1,  0,  0 )
+ijk_ext uintl4 const uintl4_z;		// (  0,  0, +1,  0 )
+ijk_ext uintl4 const uintl4_w;		// (  0,  0,  0, +1 )
+ijk_ext uintl4 const uintl4_xn;		// ( -1,  0,  0,  0 )
+ijk_ext uintl4 const uintl4_yn;		// (  0, -1,  0,  0 )
+ijk_ext uintl4 const uintl4_zn;		// (  0,  0, -1,  0 )
+ijk_ext uintl4 const uintl4_wn;		// (  0,  0,  0, -1 )
 
-ijk_ext uvec2 const uvecl2_one;		// ( +1, +1 )
-ijk_ext uvec2 const uvecl2_zero;	// (  0,  0 )
-ijk_ext uvec2 const uvecl2_one_n;	// ( -1, -1 )
-ijk_ext uvec2 const uvecl2_x;		// ( +1,  0 )
-ijk_ext uvec2 const uvecl2_y;		// (  0, +1 )
-ijk_ext uvec2 const uvecl2_x_n;		// ( -1,  0 )
-ijk_ext uvec2 const uvecl2_y_n;		// (  0, -1 )
+ijk_ext ulvec2 const ulvec2_1;		// ( +1, +1 )
+ijk_ext ulvec2 const ulvec2_0;		// (  0,  0 )
+ijk_ext ulvec2 const ulvec2_1n;		// ( -1, -1 )
+ijk_ext ulvec2 const ulvec2_x;		// ( +1,  0 )
+ijk_ext ulvec2 const ulvec2_y;		// (  0, +1 )
+ijk_ext ulvec2 const ulvec2_xn;		// ( -1,  0 )
+ijk_ext ulvec2 const ulvec2_yn;		// (  0, -1 )
 
-ijk_ext uvec3 const uvecl3_one;		// ( +1, +1, +1 )
-ijk_ext uvec3 const uvecl3_zero;	// (  0,  0,  0 )
-ijk_ext uvec3 const uvecl3_one_n;	// ( -1, -1, -1 )
-ijk_ext uvec3 const uvecl3_x;		// ( +1,  0,  0 )
-ijk_ext uvec3 const uvecl3_y;		// (  0, +1,  0 )
-ijk_ext uvec3 const uvecl3_z;		// (  0,  0, +1 )
-ijk_ext uvec3 const uvecl3_x_n;		// ( -1,  0,  0 )
-ijk_ext uvec3 const uvecl3_y_n;		// (  0, -1,  0 )
-ijk_ext uvec3 const uvecl3_z_n;		// (  0,  0, -1 )
+ijk_ext ulvec3 const ulvec3_1;		// ( +1, +1, +1 )
+ijk_ext ulvec3 const ulvec3_0;		// (  0,  0,  0 )
+ijk_ext ulvec3 const ulvec3_1n;		// ( -1, -1, -1 )
+ijk_ext ulvec3 const ulvec3_x;		// ( +1,  0,  0 )
+ijk_ext ulvec3 const ulvec3_y;		// (  0, +1,  0 )
+ijk_ext ulvec3 const ulvec3_z;		// (  0,  0, +1 )
+ijk_ext ulvec3 const ulvec3_xn;		// ( -1,  0,  0 )
+ijk_ext ulvec3 const ulvec3_yn;		// (  0, -1,  0 )
+ijk_ext ulvec3 const ulvec3_zn;		// (  0,  0, -1 )
 
-ijk_ext uvec4 const uvecl4_one;		// ( +1, +1, +1, +1 )
-ijk_ext uvec4 const uvecl4_zero;	// (  0,  0,  0,  0 )
-ijk_ext uvec4 const uvecl4_one_n;	// ( -1, -1, -1, -1 )
-ijk_ext uvec4 const uvecl4_x;		// ( +1,  0,  0,  0 )
-ijk_ext uvec4 const uvecl4_y;		// (  0, +1,  0,  0 )
-ijk_ext uvec4 const uvecl4_z;		// (  0,  0, +1,  0 )
-ijk_ext uvec4 const uvecl4_w;		// (  0,  0,  0, +1 )
-ijk_ext uvec4 const uvecl4_x_n;		// ( -1,  0,  0,  0 )
-ijk_ext uvec4 const uvecl4_y_n;		// (  0, -1,  0,  0 )
-ijk_ext uvec4 const uvecl4_z_n;		// (  0,  0, -1,  0 )
-ijk_ext uvec4 const uvecl4_w_n;		// (  0,  0,  0, -1 )
+ijk_ext ulvec4 const ulvec4_1;		// ( +1, +1, +1, +1 )
+ijk_ext ulvec4 const ulvec4_0;		// (  0,  0,  0,  0 )
+ijk_ext ulvec4 const ulvec4_1n;		// ( -1, -1, -1, -1 )
+ijk_ext ulvec4 const ulvec4_x;		// ( +1,  0,  0,  0 )
+ijk_ext ulvec4 const ulvec4_y;		// (  0, +1,  0,  0 )
+ijk_ext ulvec4 const ulvec4_z;		// (  0,  0, +1,  0 )
+ijk_ext ulvec4 const ulvec4_w;		// (  0,  0,  0, +1 )
+ijk_ext ulvec4 const ulvec4_xn;		// ( -1,  0,  0,  0 )
+ijk_ext ulvec4 const ulvec4_yn;		// (  0, -1,  0,  0 )
+ijk_ext ulvec4 const ulvec4_zn;		// (  0,  0, -1,  0 )
+ijk_ext ulvec4 const ulvec4_wn;		// (  0,  0,  0, -1 )
 
 
 //-----------------------------------------------------------------------------
 
 // Global constants for float array-based vectors and data structures.
 ///
-ijk_ext float2 const float2_one;	// ( +1, +1 )
-ijk_ext float2 const float2_zero;	// (  0,  0 )
-ijk_ext float2 const float2_one_n;	// ( -1, -1 )
+ijk_ext float2 const float2_1;		// ( +1, +1 )
+ijk_ext float2 const float2_0;		// (  0,  0 )
+ijk_ext float2 const float2_1n;		// ( -1, -1 )
 ijk_ext float2 const float2_x;		// ( +1,  0 )
 ijk_ext float2 const float2_y;		// (  0, +1 )
-ijk_ext float2 const float2_x_n;	// ( -1,  0 )
-ijk_ext float2 const float2_y_n;	// (  0, -1 )
+ijk_ext float2 const float2_xn;		// ( -1,  0 )
+ijk_ext float2 const float2_yn;		// (  0, -1 )
 
-ijk_ext float3 const float3_one;	// ( +1, +1, +1 )
-ijk_ext float3 const float3_zero;	// (  0,  0,  0 )
-ijk_ext float3 const float3_one_n;	// ( -1, -1, -1 )
+ijk_ext float3 const float3_1;		// ( +1, +1, +1 )
+ijk_ext float3 const float3_0;		// (  0,  0,  0 )
+ijk_ext float3 const float3_1n;		// ( -1, -1, -1 )
 ijk_ext float3 const float3_x;		// ( +1,  0,  0 )
 ijk_ext float3 const float3_y;		// (  0, +1,  0 )
 ijk_ext float3 const float3_z;		// (  0,  0, +1 )
-ijk_ext float3 const float3_x_n;	// ( -1,  0,  0 )
-ijk_ext float3 const float3_y_n;	// (  0, -1,  0 )
-ijk_ext float3 const float3_z_n;	// (  0,  0, -1 )
+ijk_ext float3 const float3_xn;		// ( -1,  0,  0 )
+ijk_ext float3 const float3_yn;		// (  0, -1,  0 )
+ijk_ext float3 const float3_zn;		// (  0,  0, -1 )
 
-ijk_ext float4 const float4_one;	// ( +1, +1, +1, +1 )
-ijk_ext float4 const float4_zero;	// (  0,  0,  0,  0 )
-ijk_ext float4 const float4_one_n;	// ( -1, -1, -1, -1 )
+ijk_ext float4 const float4_1;		// ( +1, +1, +1, +1 )
+ijk_ext float4 const float4_0;		// (  0,  0,  0,  0 )
+ijk_ext float4 const float4_1n;		// ( -1, -1, -1, -1 )
 ijk_ext float4 const float4_x;		// ( +1,  0,  0,  0 )
 ijk_ext float4 const float4_y;		// (  0, +1,  0,  0 )
 ijk_ext float4 const float4_z;		// (  0,  0, +1,  0 )
 ijk_ext float4 const float4_w;		// (  0,  0,  0, +1 )
-ijk_ext float4 const float4_x_n;	// ( -1,  0,  0,  0 )
-ijk_ext float4 const float4_y_n;	// (  0, -1,  0,  0 )
-ijk_ext float4 const float4_z_n;	// (  0,  0, -1,  0 )
-ijk_ext float4 const float4_w_n;	// (  0,  0,  0, -1 )
+ijk_ext float4 const float4_xn;		// ( -1,  0,  0,  0 )
+ijk_ext float4 const float4_yn;		// (  0, -1,  0,  0 )
+ijk_ext float4 const float4_zn;		// (  0,  0, -1,  0 )
+ijk_ext float4 const float4_wn;		// (  0,  0,  0, -1 )
 
-ijk_ext fvec2 const fvec2_one;		// ( +1, +1 )
-ijk_ext fvec2 const fvec2_zero;		// (  0,  0 )
-ijk_ext fvec2 const fvec2_one_n;	// ( -1, -1 )
+ijk_ext fvec2 const fvec2_1;		// ( +1, +1 )
+ijk_ext fvec2 const fvec2_0;		// (  0,  0 )
+ijk_ext fvec2 const fvec2_1n;		// ( -1, -1 )
 ijk_ext fvec2 const fvec2_x;		// ( +1,  0 )
 ijk_ext fvec2 const fvec2_y;		// (  0, +1 )
-ijk_ext fvec2 const fvec2_x_n;		// ( -1,  0 )
-ijk_ext fvec2 const fvec2_y_n;		// (  0, -1 )
+ijk_ext fvec2 const fvec2_xn;		// ( -1,  0 )
+ijk_ext fvec2 const fvec2_yn;		// (  0, -1 )
 
-ijk_ext fvec3 const fvec3_one;		// ( +1, +1, +1 )
-ijk_ext fvec3 const fvec3_zero;		// (  0,  0,  0 )
-ijk_ext fvec3 const fvec3_one_n;	// ( -1, -1, -1 )
+ijk_ext fvec3 const fvec3_1;		// ( +1, +1, +1 )
+ijk_ext fvec3 const fvec3_0;		// (  0,  0,  0 )
+ijk_ext fvec3 const fvec3_1n;		// ( -1, -1, -1 )
 ijk_ext fvec3 const fvec3_x;		// ( +1,  0,  0 )
 ijk_ext fvec3 const fvec3_y;		// (  0, +1,  0 )
 ijk_ext fvec3 const fvec3_z;		// (  0,  0, +1 )
-ijk_ext fvec3 const fvec3_x_n;		// ( -1,  0,  0 )
-ijk_ext fvec3 const fvec3_y_n;		// (  0, -1,  0 )
-ijk_ext fvec3 const fvec3_z_n;		// (  0,  0, -1 )
+ijk_ext fvec3 const fvec3_xn;		// ( -1,  0,  0 )
+ijk_ext fvec3 const fvec3_yn;		// (  0, -1,  0 )
+ijk_ext fvec3 const fvec3_zn;		// (  0,  0, -1 )
 
-ijk_ext fvec4 const fvec4_one;		// ( +1, +1, +1, +1 )
-ijk_ext fvec4 const fvec4_zero;		// (  0,  0,  0,  0 )
-ijk_ext fvec4 const fvec4_one_n;	// ( -1, -1, -1, -1 )
+ijk_ext fvec4 const fvec4_1;		// ( +1, +1, +1, +1 )
+ijk_ext fvec4 const fvec4_0;		// (  0,  0,  0,  0 )
+ijk_ext fvec4 const fvec4_1n;		// ( -1, -1, -1, -1 )
 ijk_ext fvec4 const fvec4_x;		// ( +1,  0,  0,  0 )
 ijk_ext fvec4 const fvec4_y;		// (  0, +1,  0,  0 )
 ijk_ext fvec4 const fvec4_z;		// (  0,  0, +1,  0 )
 ijk_ext fvec4 const fvec4_w;		// (  0,  0,  0, +1 )
-ijk_ext fvec4 const fvec4_x_n;		// ( -1,  0,  0,  0 )
-ijk_ext fvec4 const fvec4_y_n;		// (  0, -1,  0,  0 )
-ijk_ext fvec4 const fvec4_z_n;		// (  0,  0, -1,  0 )
-ijk_ext fvec4 const fvec4_w_n;		// (  0,  0,  0, -1 )
+ijk_ext fvec4 const fvec4_xn;		// ( -1,  0,  0,  0 )
+ijk_ext fvec4 const fvec4_yn;		// (  0, -1,  0,  0 )
+ijk_ext fvec4 const fvec4_zn;		// (  0,  0, -1,  0 )
+ijk_ext fvec4 const fvec4_wn;		// (  0,  0,  0, -1 )
 
-ijk_ext vec2 const vec2_one;		// ( +1, +1 )
-ijk_ext vec2 const vec2_zero;		// (  0,  0 )
-ijk_ext vec2 const vec2_one_n;		// ( -1, -1 )
+ijk_ext vec2 const vec2_1;			// ( +1, +1 )
+ijk_ext vec2 const vec2_0;			// (  0,  0 )
+ijk_ext vec2 const vec2_1n;			// ( -1, -1 )
 ijk_ext vec2 const vec2_x;			// ( +1,  0 )
 ijk_ext vec2 const vec2_y;			// (  0, +1 )
-ijk_ext vec2 const vec2_x_n;		// ( -1,  0 )
-ijk_ext vec2 const vec2_y_n;		// (  0, -1 )
+ijk_ext vec2 const vec2_xn;			// ( -1,  0 )
+ijk_ext vec2 const vec2_yn;			// (  0, -1 )
 
-ijk_ext vec3 const vec3_one;		// ( +1, +1, +1 )
-ijk_ext vec3 const vec3_zero;		// (  0,  0,  0 )
-ijk_ext vec3 const vec3_one_n;		// ( -1, -1, -1 )
+ijk_ext vec3 const vec3_1;			// ( +1, +1, +1 )
+ijk_ext vec3 const vec3_0;			// (  0,  0,  0 )
+ijk_ext vec3 const vec3_1n;			// ( -1, -1, -1 )
 ijk_ext vec3 const vec3_x;			// ( +1,  0,  0 )
 ijk_ext vec3 const vec3_y;			// (  0, +1,  0 )
 ijk_ext vec3 const vec3_z;			// (  0,  0, +1 )
-ijk_ext vec3 const vec3_x_n;		// ( -1,  0,  0 )
-ijk_ext vec3 const vec3_y_n;		// (  0, -1,  0 )
-ijk_ext vec3 const vec3_z_n;		// (  0,  0, -1 )
+ijk_ext vec3 const vec3_xn;			// ( -1,  0,  0 )
+ijk_ext vec3 const vec3_yn;			// (  0, -1,  0 )
+ijk_ext vec3 const vec3_zn;			// (  0,  0, -1 )
 
-ijk_ext vec4 const vec4_one;		// ( +1, +1, +1, +1 )
-ijk_ext vec4 const vec4_zero;		// (  0,  0,  0,  0 )
-ijk_ext vec4 const vec4_one_n;		// ( -1, -1, -1, -1 )
+ijk_ext vec4 const vec4_1;			// ( +1, +1, +1, +1 )
+ijk_ext vec4 const vec4_0;			// (  0,  0,  0,  0 )
+ijk_ext vec4 const vec4_1n;			// ( -1, -1, -1, -1 )
 ijk_ext vec4 const vec4_x;			// ( +1,  0,  0,  0 )
 ijk_ext vec4 const vec4_y;			// (  0, +1,  0,  0 )
 ijk_ext vec4 const vec4_z;			// (  0,  0, +1,  0 )
 ijk_ext vec4 const vec4_w;			// (  0,  0,  0, +1 )
-ijk_ext vec4 const vec4_x_n;		// ( -1,  0,  0,  0 )
-ijk_ext vec4 const vec4_y_n;		// (  0, -1,  0,  0 )
-ijk_ext vec4 const vec4_z_n;		// (  0,  0, -1,  0 )
-ijk_ext vec4 const vec4_w_n;		// (  0,  0,  0, -1 )
+ijk_ext vec4 const vec4_xn;			// ( -1,  0,  0,  0 )
+ijk_ext vec4 const vec4_yn;			// (  0, -1,  0,  0 )
+ijk_ext vec4 const vec4_zn;			// (  0,  0, -1,  0 )
+ijk_ext vec4 const vec4_wn;			// (  0,  0,  0, -1 )
 
 
 //-----------------------------------------------------------------------------
 
 // Global constants for double array-based vectors and data structures.
 ///
-ijk_ext double2 const double2_one;		// ( +1, +1 )
-ijk_ext double2 const double2_zero;		// (  0,  0 )
-ijk_ext double2 const double2_one_n;	// ( -1, -1 )
-ijk_ext double2 const double2_x;		// ( +1,  0 )
-ijk_ext double2 const double2_y;		// (  0, +1 )
-ijk_ext double2 const double2_x_n;		// ( -1,  0 )
-ijk_ext double2 const double2_y_n;		// (  0, -1 )
+ijk_ext double2 const double2_1;	// ( +1, +1 )
+ijk_ext double2 const double2_0;	// (  0,  0 )
+ijk_ext double2 const double2_1n;	// ( -1, -1 )
+ijk_ext double2 const double2_x;	// ( +1,  0 )
+ijk_ext double2 const double2_y;	// (  0, +1 )
+ijk_ext double2 const double2_xn;	// ( -1,  0 )
+ijk_ext double2 const double2_yn;	// (  0, -1 )
 
-ijk_ext double3 const double3_one;		// ( +1, +1, +1 )
-ijk_ext double3 const double3_zero;		// (  0,  0,  0 )
-ijk_ext double3 const double3_one_n;	// ( -1, -1, -1 )
-ijk_ext double3 const double3_x;		// ( +1,  0,  0 )
-ijk_ext double3 const double3_y;		// (  0, +1,  0 )
-ijk_ext double3 const double3_z;		// (  0,  0, +1 )
-ijk_ext double3 const double3_x_n;		// ( -1,  0,  0 )
-ijk_ext double3 const double3_y_n;		// (  0, -1,  0 )
-ijk_ext double3 const double3_z_n;		// (  0,  0, -1 )
+ijk_ext double3 const double3_1;	// ( +1, +1, +1 )
+ijk_ext double3 const double3_0;	// (  0,  0,  0 )
+ijk_ext double3 const double3_1n;	// ( -1, -1, -1 )
+ijk_ext double3 const double3_x;	// ( +1,  0,  0 )
+ijk_ext double3 const double3_y;	// (  0, +1,  0 )
+ijk_ext double3 const double3_z;	// (  0,  0, +1 )
+ijk_ext double3 const double3_xn;	// ( -1,  0,  0 )
+ijk_ext double3 const double3_yn;	// (  0, -1,  0 )
+ijk_ext double3 const double3_zn;	// (  0,  0, -1 )
 
-ijk_ext double4 const double4_one;		// ( +1, +1, +1, +1 )
-ijk_ext double4 const double4_zero;		// (  0,  0,  0,  0 )
-ijk_ext double4 const double4_one_n;	// ( -1, -1, -1, -1 )
-ijk_ext double4 const double4_x;		// ( +1,  0,  0,  0 )
-ijk_ext double4 const double4_y;		// (  0, +1,  0,  0 )
-ijk_ext double4 const double4_z;		// (  0,  0, +1,  0 )
-ijk_ext double4 const double4_w;		// (  0,  0,  0, +1 )
-ijk_ext double4 const double4_x_n;		// ( -1,  0,  0,  0 )
-ijk_ext double4 const double4_y_n;		// (  0, -1,  0,  0 )
-ijk_ext double4 const double4_z_n;		// (  0,  0, -1,  0 )
-ijk_ext double4 const double4_w_n;		// (  0,  0,  0, -1 )
+ijk_ext double4 const double4_1;	// ( +1, +1, +1, +1 )
+ijk_ext double4 const double4_0;	// (  0,  0,  0,  0 )
+ijk_ext double4 const double4_1n;	// ( -1, -1, -1, -1 )
+ijk_ext double4 const double4_x;	// ( +1,  0,  0,  0 )
+ijk_ext double4 const double4_y;	// (  0, +1,  0,  0 )
+ijk_ext double4 const double4_z;	// (  0,  0, +1,  0 )
+ijk_ext double4 const double4_w;	// (  0,  0,  0, +1 )
+ijk_ext double4 const double4_xn;	// ( -1,  0,  0,  0 )
+ijk_ext double4 const double4_yn;	// (  0, -1,  0,  0 )
+ijk_ext double4 const double4_zn;	// (  0,  0, -1,  0 )
+ijk_ext double4 const double4_wn;	// (  0,  0,  0, -1 )
 
-ijk_ext dvec2 const dvec2_one;			// ( +1, +1 )
-ijk_ext dvec2 const dvec2_zero;			// (  0,  0 )
-ijk_ext dvec2 const dvec2_one_n;		// ( -1, -1 )
-ijk_ext dvec2 const dvec2_x;			// ( +1,  0 )
-ijk_ext dvec2 const dvec2_y;			// (  0, +1 )
-ijk_ext dvec2 const dvec2_x_n;			// ( -1,  0 )
-ijk_ext dvec2 const dvec2_y_n;			// (  0, -1 )
+ijk_ext dvec2 const dvec2_1;		// ( +1, +1 )
+ijk_ext dvec2 const dvec2_0;		// (  0,  0 )
+ijk_ext dvec2 const dvec2_1n;		// ( -1, -1 )
+ijk_ext dvec2 const dvec2_x;		// ( +1,  0 )
+ijk_ext dvec2 const dvec2_y;		// (  0, +1 )
+ijk_ext dvec2 const dvec2_xn;		// ( -1,  0 )
+ijk_ext dvec2 const dvec2_yn;		// (  0, -1 )
 
-ijk_ext dvec3 const dvec3_one;			// ( +1, +1, +1 )
-ijk_ext dvec3 const dvec3_zero;			// (  0,  0,  0 )
-ijk_ext dvec3 const dvec3_one_n;		// ( -1, -1, -1 )
-ijk_ext dvec3 const dvec3_x;			// ( +1,  0,  0 )
-ijk_ext dvec3 const dvec3_y;			// (  0, +1,  0 )
-ijk_ext dvec3 const dvec3_z;			// (  0,  0, +1 )
-ijk_ext dvec3 const dvec3_x_n;			// ( -1,  0,  0 )
-ijk_ext dvec3 const dvec3_y_n;			// (  0, -1,  0 )
-ijk_ext dvec3 const dvec3_z_n;			// (  0,  0, -1 )
+ijk_ext dvec3 const dvec3_1;		// ( +1, +1, +1 )
+ijk_ext dvec3 const dvec3_0;		// (  0,  0,  0 )
+ijk_ext dvec3 const dvec3_1n;		// ( -1, -1, -1 )
+ijk_ext dvec3 const dvec3_x;		// ( +1,  0,  0 )
+ijk_ext dvec3 const dvec3_y;		// (  0, +1,  0 )
+ijk_ext dvec3 const dvec3_z;		// (  0,  0, +1 )
+ijk_ext dvec3 const dvec3_xn;		// ( -1,  0,  0 )
+ijk_ext dvec3 const dvec3_yn;		// (  0, -1,  0 )
+ijk_ext dvec3 const dvec3_zn;		// (  0,  0, -1 )
 
-ijk_ext dvec4 const dvec4_one;			// ( +1, +1, +1, +1 )
-ijk_ext dvec4 const dvec4_zero;			// (  0,  0,  0,  0 )
-ijk_ext dvec4 const dvec4_one_n;		// ( -1, -1, -1, -1 )
-ijk_ext dvec4 const dvec4_x;			// ( +1,  0,  0,  0 )
-ijk_ext dvec4 const dvec4_y;			// (  0, +1,  0,  0 )
-ijk_ext dvec4 const dvec4_z;			// (  0,  0, +1,  0 )
-ijk_ext dvec4 const dvec4_w;			// (  0,  0,  0, +1 )
-ijk_ext dvec4 const dvec4_x_n;			// ( -1,  0,  0,  0 )
-ijk_ext dvec4 const dvec4_y_n;			// (  0, -1,  0,  0 )
-ijk_ext dvec4 const dvec4_z_n;			// (  0,  0, -1,  0 )
-ijk_ext dvec4 const dvec4_w_n;			// (  0,  0,  0, -1 )
-
-
-//-----------------------------------------------------------------------------
-
-// bool2init
-//	Initialize 2D boolean vector.
-//		param v_out: output vector
-//		params x, y: initialization values
-//		return: v_out
-boolv bool2init(bool2 v_out, bool const x, bool const y);
-
-// isEqual2bv
-//	Equality comparison for 2D boolean vector.
-//		param v_out: output vector holding boolean result of comparison
-//		param v_lh: left-hand vector
-//		param v_rh: right-hand vector
-//		return: v_out
-boolv isEqual2bv(bool2 v_out, bool2 const v_lh, bool2 const v_rh);
-
-// isInequal2bv
-//	Inequality comparison for 2D boolean vector.
-//		param v_out: output vector holding boolean result of comparison
-//		param v_lh: left-hand vector
-//		param v_rh: right-hand vector
-//		return: v_out
-boolv isInequal2bv(bool2 v_out, bool2 const v_lh, bool2 const v_rh);
-
-// isEqual2bvs
-//	Equality comparison for 2D boolean vector vs condition.
-//		param v_out: output vector holding boolean result of comparison
-//		param v_lh: left-hand vector
-//		param s_rh: right-hand condition
-//		return: v_out
-boolv isEqual2bvs(bool2 v_out, bool2 const v_lh, bool const s_rh);
-
-// isInequal2bvs
-//	Inequality comparison for 2D boolean vector vs condition.
-//		param v_out: output vector holding boolean result of comparison
-//		param v_lh: left-hand vector
-//		param s_rh: right-hand condition
-//		return: v_out
-boolv isInequal2bvs(bool2 v_out, bool2 const v_lh, bool const s_rh);
-
-// isEqual2bsv
-//	Equality comparison for 2D boolean vector vs condition.
-//		param v_out: output vector holding boolean result of comparison
-//		param s_lh: left-hand condition
-//		param v_rh: right-hand vector
-//		return: v_out
-boolv isEqual2bsv(bool2 v_out, bool const s_lh, bool2 const v_rh);
-
-// isInequal2bsv
-//	Inequality comparison for 2D boolean vector vs condition.
-//		param v_out: output vector holding boolean result of comparison
-//		param s_lh: left-hand condition
-//		param v_rh: right-hand vector
-//		return: v_out
-boolv isInequal2bsv(bool2 v_out, bool const s_lh, bool2 const v_rh);
+ijk_ext dvec4 const dvec4_1;		// ( +1, +1, +1, +1 )
+ijk_ext dvec4 const dvec4_0;		// (  0,  0,  0,  0 )
+ijk_ext dvec4 const dvec4_1n;		// ( -1, -1, -1, -1 )
+ijk_ext dvec4 const dvec4_x;		// ( +1,  0,  0,  0 )
+ijk_ext dvec4 const dvec4_y;		// (  0, +1,  0,  0 )
+ijk_ext dvec4 const dvec4_z;		// (  0,  0, +1,  0 )
+ijk_ext dvec4 const dvec4_w;		// (  0,  0,  0, +1 )
+ijk_ext dvec4 const dvec4_xn;		// ( -1,  0,  0,  0 )
+ijk_ext dvec4 const dvec4_yn;		// (  0, -1,  0,  0 )
+ijk_ext dvec4 const dvec4_zn;		// (  0,  0, -1,  0 )
+ijk_ext dvec4 const dvec4_wn;		// (  0,  0,  0, -1 )
 
 
 //-----------------------------------------------------------------------------
-
-// bool3init
-//	Initialize 3D boolean vector.
-//		param v_out: output vector
-//		params x, y, z: initialization values
-//		return: v_out
-boolv bool3init(bool3 v_out, bool const x, bool const y, bool const z);
-
-// isEqual3bv
-//	Equality comparison for 3D boolean vector.
-//		param v_out: output vector holding boolean result of comparison
-//		param v_lh: left-hand vector
-//		param v_rh: right-hand vector
-//		return: v_out
-boolv isEqual3bv(bool3 v_out, bool3 const v_lh, bool3 const v_rh);
-
-// isInequal3bv
-//	Inequality comparison for 3D boolean vector.
-//		param v_out: output vector holding boolean result of comparison
-//		param v_lh: left-hand vector
-//		param v_rh: right-hand vector
-//		return: v_out
-boolv isInequal3bv(bool3 v_out, bool3 const v_lh, bool3 const v_rh);
-
-// isEqual3bvs
-//	Equality comparison for 3D boolean vector vs condition.
-//		param v_out: output vector holding boolean result of comparison
-//		param v_lh: left-hand vector
-//		param s_rh: right-hand condition
-//		return: v_out
-boolv isEqual3bvs(bool3 v_out, bool3 const v_lh, bool const s_rh);
-
-// isInequal3bvs
-//	Inequality comparison for 3D boolean vector vs condition.
-//		param v_out: output vector holding boolean result of comparison
-//		param v_lh: left-hand vector
-//		param s_rh: right-hand condition
-//		return: v_out
-boolv isInequal3bvs(bool3 v_out, bool3 const v_lh, bool const s_rh);
-
-// isEqual3bsv
-//	Equality comparison for 3D boolean vector vs condition.
-//		param v_out: output vector holding boolean result of comparison
-//		param s_lh: left-hand condition
-//		param v_rh: right-hand vector
-//		return: v_out
-boolv isEqual3bsv(bool3 v_out, bool const s_lh, bool3 const v_rh);
-
-// isInequal3bsv
-//	Inequality comparison for 3D boolean vector vs condition.
-//		param v_out: output vector holding boolean result of comparison
-//		param s_lh: left-hand condition
-//		param v_rh: right-hand vector
-//		return: v_out
-boolv isInequal3bsv(bool3 v_out, bool const s_lh, bool3 const v_rh);
-
-
-//-----------------------------------------------------------------------------
-
-// bool4init
-//	Initialize 4D boolean vector.
-//		param v_out: output vector
-//		params x, y, z, w: initialization values
-//		return: v_out
-boolv bool4init(bool3 v_out, bool const x, bool const y, bool const z, bool const w);
-
-// isEqual4bv
-//	Equality comparison for 4D boolean vector.
-//		param v_out: output vector holding boolean result of comparison
-//		param v_lh: left-hand vector
-//		param v_rh: right-hand vector
-//		return: v_out
-boolv isEqual4bv(bool4 v_out, bool4 const v_lh, bool4 const v_rh);
-
-// isInequal4bv
-//	Inequality comparison for 4D boolean vector.
-//		param v_out: output vector holding boolean result of comparison
-//		param v_lh: left-hand vector
-//		param v_rh: right-hand vector
-//		return: v_out
-boolv isInequal4bv(bool4 v_out, bool4 const v_lh, bool4 const v_rh);
-
-// isEqual4bvs
-//	Equality comparison for 4D boolean vector vs condition.
-//		param v_out: output vector holding boolean result of comparison
-//		param v_lh: left-hand vector
-//		param s_rh: right-hand condition
-//		return: v_out
-boolv isEqual4bvs(bool4 v_out, bool4 const v_lh, bool const s_rh);
-
-// isInequal4bvs
-//	Inequality comparison for 4D boolean vector vs condition.
-//		param v_out: output vector holding boolean result of comparison
-//		param v_lh: left-hand vector
-//		param s_rh: right-hand condition
-//		return: v_out
-boolv isInequal4bvs(bool4 v_out, bool4 const v_lh, bool const s_rh);
-
-// isEqual4bsv
-//	Equality comparison for 4D boolean vector vs condition.
-//		param v_out: output vector holding boolean result of comparison
-//		param s_lh: left-hand condition
-//		param v_rh: right-hand vector
-//		return: v_out
-boolv isEqual4bsv(bool4 v_out, bool const s_lh, bool4 const v_rh);
-
-// isInequal4bsv
-//	Inequality comparison for 4D boolean vector vs condition.
-//		param v_out: output vector holding boolean result of comparison
-//		param s_lh: left-hand condition
-//		param v_rh: right-hand vector
-//		return: v_out
-boolv isInequal4bsv(bool4 v_out, bool const s_lh, bool4 const v_rh);
-
-
-//-----------------------------------------------------------------------------
-
 
 #ifdef __cplusplus
 }
@@ -1151,175 +976,25 @@ boolv isInequal4bsv(bool4 v_out, bool const s_lh, bool4 const v_rh);
 
 //-----------------------------------------------------------------------------
 
-// bvec2new
-//	Construct new 2D boolean vector.
-//		params x, y: initialization values
-//		return: output vector
-bvec2 bvec2new(bool const x, bool const y);
+//#define IJK_VECTORFUNC_TYPE	_BOOL
+//#include "_util/ijkVectorFunc.h"
 
-// isEqual2b
-//	Equality comparison for 2D boolean vector.
-//		param v_lh: left-hand vector
-//		param v_rh: right-hand vector
-//		return: output vector holding boolean result of comparison
-bvec2 isEqual2b(bvec2 const v_lh, bvec2 const v_rh);
-
-// isInequal2b
-//	Inequality comparison for 2D boolean vector.
-//		param v_lh: left-hand vector
-//		param v_rh: right-hand vector
-//		return: output vector holding boolean result of comparison
-bvec2 isInequal2b(bvec2 const v_lh, bvec2 const v_rh);
-
-// isEqual2bvs
-//	Equality comparison for 2D boolean vector vs condition.
-//		param v_lh: left-hand vector
-//		param s_rh: right-hand condition
-//		return: output vector holding boolean result of comparison
-bvec2 isEqual2bs(bvec2 const v_lh, bool const s_rh);
-
-// isInequal2bvs
-//	Inequality comparison for 2D boolean vector vs condition.
-//		param v_lh: left-hand vector
-//		param s_rh: right-hand condition
-//		return: output vector holding boolean result of comparison
-bvec2 isInequal2bs(bvec2 const v_lh, bool const s_rh);
-
-// isEqual2bsv
-//	Equality comparison for 2D boolean vector vs condition.
-//		param s_lh: left-hand condition
-//		param v_rh: right-hand vector
-//		return: output vector holding boolean result of comparison
-bvec2 isEqual2sb(bool const s_lh, bvec2 const v_rh);
-
-// isInequal2bsv
-//	Inequality comparison for 2D boolean vector vs condition.
-//		param s_lh: left-hand condition
-//		param v_rh: right-hand vector
-//		return: output vector holding boolean result of comparison
-bvec2 isInequal2sb(bool const s_lh, bvec2 const v_rh);
-
-
-//-----------------------------------------------------------------------------
-
-// bvec3new
-//	Construct new 3D boolean vector.
-//		params x, y, z: initialization values
-//		return: output vector
-bvec3 bvec3new(bool const x, bool const y, bool const z);
-
-// isEqual3b
-//	Equality comparison for 3D boolean vector.
-//		param v_lh: left-hand vector
-//		param v_rh: right-hand vector
-//		return: output vector holding boolean result of comparison
-bvec3 isEqual3b(bvec3 const v_lh, bvec3 const v_rh);
-
-// isInequal3b
-//	Inequality comparison for 3D boolean vector.
-//		param v_lh: left-hand vector
-//		param v_rh: right-hand vector
-//		return: output vector holding boolean result of comparison
-bvec3 isInequal3b(bvec3 const v_lh, bvec3 const v_rh);
-
-// isEqual3bvs
-//	Equality comparison for 3D boolean vector vs condition.
-//		param v_lh: left-hand vector
-//		param s_rh: right-hand condition
-//		return: output vector holding boolean result of comparison
-bvec3 isEqual3bs(bvec3 const v_lh, bool const s_rh);
-
-// isInequal3bvs
-//	Inequality comparison for 3D boolean vector vs condition.
-//		param v_lh: left-hand vector
-//		param s_rh: right-hand condition
-//		return: output vector holding boolean result of comparison
-bvec3 isInequal3bs(bvec3 const v_lh, bool const s_rh);
-
-// isEqual3bsv
-//	Equality comparison for 3D boolean vector vs condition.
-//		param s_lh: left-hand condition
-//		param v_rh: right-hand vector
-//		return: output vector holding boolean result of comparison
-bvec3 isEqual3sb(bool const s_lh, bvec3 const v_rh);
-
-// isInequal3bsv
-//	Inequality comparison for 3D boolean vector vs condition.
-//		param s_lh: left-hand condition
-//		param v_rh: right-hand vector
-//		return: output vector holding boolean result of comparison
-bvec3 isInequal3sb(bool const s_lh, bvec3 const v_rh);
-
-
-//-----------------------------------------------------------------------------
-
-// bvec4new
-//	Construct new 4D boolean vector.
-//		params x, y, z, w: initialization values
-//		return: output vector
-bvec4 bvec4new(bool const x, bool const y, bool const z, bool const w);
-
-// isEqual4b
-//	Equality comparison for 4D boolean vector.
-//		param v_lh: left-hand vector
-//		param v_rh: right-hand vector
-//		return: output vector holding boolean result of comparison
-bvec4 isEqual4b(bvec4 const v_lh, bvec4 const v_rh);
-
-// isInequal4b
-//	Inequality comparison for 4D boolean vector.
-//		param v_lh: left-hand vector
-//		param v_rh: right-hand vector
-//		return: output vector holding boolean result of comparison
-bvec4 isInequal4b(bvec4 const v_lh, bvec4 const v_rh);
-
-// isEqual4bvs
-//	Equality comparison for 4D boolean vector vs condition.
-//		param v_lh: left-hand vector
-//		param s_rh: right-hand condition
-//		return: output vector holding boolean result of comparison
-bvec4 isEqual4bs(bvec4 const v_lh, bool const s_rh);
-
-// isInequal4bvs
-//	Inequality comparison for 4D boolean vector vs condition.
-//		param v_lh: left-hand vector
-//		param s_rh: right-hand condition
-//		return: output vector holding boolean result of comparison
-bvec4 isInequal4bs(bvec4 const v_lh, bool const s_rh);
-
-// isEqual4bsv
-//	Equality comparison for 4D boolean vector vs condition.
-//		param s_lh: left-hand condition
-//		param v_rh: right-hand vector
-//		return: output vector holding boolean result of comparison
-bvec4 isEqual4sb(bool const s_lh, bvec4 const v_rh);
-
-// isInequal4bsv
-//	Inequality comparison for 4D boolean vector vs condition.
-//		param s_lh: left-hand condition
-//		param v_rh: right-hand vector
-//		return: output vector holding boolean result of comparison
-bvec4 isInequal4sb(bool const s_lh, bvec4 const v_rh);
-
-
-//-----------------------------------------------------------------------------
-
-#define IJK_VECTORFUNC_PREFIX	i
+#define IJK_VECTORFUNC_TYPE	_INT
 #include "_util/ijkVectorFunc.h"
 
-#define IJK_VECTORFUNC_PREFIX	il
+#define IJK_VECTORFUNC_TYPE	_INTL
 #include "_util/ijkVectorFunc.h"
 
-#define IJK_VECTORFUNC_PREFIX	u
+#define IJK_VECTORFUNC_TYPE	_UINT
 #include "_util/ijkVectorFunc.h"
 
-#define IJK_VECTORFUNC_PREFIX	ul
+#define IJK_VECTORFUNC_TYPE	_UINTL
 #include "_util/ijkVectorFunc.h"
 
-#define IJK_VECTORFUNC_PREFIX	f
+#define IJK_VECTORFUNC_TYPE	_FLOAT
 #include "_util/ijkVectorFunc.h"
 
-#define IJK_VECTORFUNC_PREFIX	d
+#define IJK_VECTORFUNC_TYPE	_DOUBLE
 #include "_util/ijkVectorFunc.h"
 
 

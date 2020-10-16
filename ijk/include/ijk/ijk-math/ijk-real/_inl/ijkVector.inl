@@ -29,291 +29,247 @@
 
 
 //-----------------------------------------------------------------------------
+/*
+// ijkVecInitElems2bv
+//	Initialize 2D boolean vector.
+//		param v_out: output vector
+//		params x, y: initialization values
+//		return: v_out
+boolv ijkVecInitElems2bv(bool2 v_out, bool const x, bool const y);
 
-ijk_inl boolv bool2init(bool2 v_out, bool const x, bool const y)
+// ijkVecNot2bv
+//	Logical 'not' for 2D boolean vector.
+//		param v_out: output vector holding boolean result of logical 'not'
+//		param v_in: input vector
+//		return: v_out
+boolv ijkVecNot2bv(bool2 v_out, bool2 const v_in);
+
+// ijkVecEqual2bv
+//	Equality comparison for 2D boolean vector.
+//		param v_out: output vector holding boolean result of comparison
+//		param v_lh: left-hand vector
+//		param v_rh: right-hand vector
+//		return: v_out
+boolv ijkVecEqual2bv(bool2 v_out, bool2 const v_lh, bool2 const v_rh);
+
+// ijkVecInequal2bv
+//	Inequality comparison for 2D boolean vector.
+//		param v_out: output vector holding boolean result of comparison
+//		param v_lh: left-hand vector
+//		param v_rh: right-hand vector
+//		return: v_out
+boolv ijkVecInequal2bv(bool2 v_out, bool2 const v_lh, bool2 const v_rh);
+
+// ijkVecEqual2bvs
+//	Equality comparison for 2D boolean vector vs condition.
+//		param v_out: output vector holding boolean result of comparison
+//		param v_lh: left-hand vector
+//		param s_rh: right-hand condition
+//		return: v_out
+boolv ijkVecEqual2bvs(bool2 v_out, bool2 const v_lh, bool const s_rh);
+
+// ijkVecInequal2bvs
+//	Inequality comparison for 2D boolean vector vs condition.
+//		param v_out: output vector holding boolean result of comparison
+//		param v_lh: left-hand vector
+//		param s_rh: right-hand condition
+//		return: v_out
+boolv ijkVecInequal2bvs(bool2 v_out, bool2 const v_lh, bool const s_rh);
+
+// ijkVecEqual2bsv
+//	Equality comparison for 2D boolean vector vs condition.
+//		param v_out: output vector holding boolean result of comparison
+//		param s_lh: left-hand condition
+//		param v_rh: right-hand vector
+//		return: v_out
+boolv ijkVecEqual2bsv(bool2 v_out, bool const s_lh, bool2 const v_rh);
+
+// ijkVecInequal2bsv
+//	Inequality comparison for 2D boolean vector vs condition.
+//		param v_out: output vector holding boolean result of comparison
+//		param s_lh: left-hand condition
+//		param v_rh: right-hand vector
+//		return: v_out
+boolv ijkVecInequal2bsv(bool2 v_out, bool const s_lh, bool2 const v_rh);
+
+
+//-----------------------------------------------------------------------------
+
+// ijkVecInitElems2b
+//	Initialize 2D boolean vector.
+//		params x, y: initialization values
+//		return: output vector
+bvec2 ijkVecInitElems2b(bool const x, bool const y);
+
+// ijkVecNot2b
+//	Logical 'not' for 2D boolean vector.
+//		param v_in: input vector
+//		return: vector logical 'not'
+bvec2 ijkVecNot2b(bvec2 const v_in);
+
+// ijkVecEqual2b
+//	Equality comparison for 2D boolean vector.
+//		param v_lh: left-hand vector
+//		param v_rh: right-hand vector
+//		return: vector comparison
+bvec2 ijkVecEqual2b(bvec2 const v_lh, bvec2 const v_rh);
+
+// ijkVecInequal2b
+//	Inequality comparison for 2D boolean vector.
+//		param v_lh: left-hand vector
+//		param v_rh: right-hand vector
+//		return: vector comparison
+bvec2 ijkVecInequal2b(bvec2 const v_lh, bvec2 const v_rh);
+
+// ijkVecEqual2sb
+//	Equality comparison for 2D boolean vector vs condition.
+//		param v_lh: left-hand vector
+//		param s_rh: right-hand condition
+//		return: vector comparison
+bvec2 ijkVecEqual2bs(bvec2 const v_lh, bool const s_rh);
+
+// ijkVecInequal2bs
+//	Inequality comparison for 2D boolean vector vs condition.
+//		param v_lh: left-hand vector
+//		param s_rh: right-hand condition
+//		return: vector comparison
+bvec2 ijkVecInequal2bs(bvec2 const v_lh, bool const s_rh);
+
+// ijkVecEqual2sb
+//	Equality comparison for 2D boolean vector vs condition.
+//		param s_lh: left-hand condition
+//		param v_rh: right-hand vector
+//		return: vector comparison
+bvec2 ijkVecEqual2sb(bool const s_lh, bvec2 const v_rh);
+
+// ijkVecInequal2sb
+//	Inequality comparison for 2D boolean vector vs condition.
+//		param s_lh: left-hand condition
+//		param v_rh: right-hand vector
+//		return: vector comparison
+bvec2 ijkVecInequal2sb(bool const s_lh, bvec2 const v_rh);
+
+
+//-----------------------------------------------------------------------------
+
+
+//-----------------------------------------------------------------------------
+
+
+//-----------------------------------------------------------------------------
+
+ijk_inl boolv ijkVecInitElems2bv(bool2 v_out, bool const x, bool const y)
 {
 	v_out[0] = ijk_istrue(x);
 	v_out[1] = ijk_istrue(y);
 	return v_out;
 }
 
-ijk_inl boolv isEqual2bv(bool2 v_out, bool2 const v_lh, bool2 const v_rh)
+ijk_inl boolv ijkVecNot2bv(bool2 v_out, bool2 const v_in)
+{
+	v_out[0] = ijk_isfalse(v_in[0]);
+	v_out[1] = ijk_isfalse(v_in[1]);
+	return v_out;
+}
+
+ijk_inl boolv ijkVecEqual2bv(bool2 v_out, bool2 const v_lh, bool2 const v_rh)
 {
 	v_out[0] = (v_lh[0] == v_rh[0]);
 	v_out[1] = (v_lh[1] == v_rh[1]);
 	return v_out;
 }
 
-ijk_inl boolv isInequal2bv(bool2 v_out, bool2 const v_lh, bool2 const v_rh)
+ijk_inl boolv ijkVecInequal2bv(bool2 v_out, bool2 const v_lh, bool2 const v_rh)
 {
 	v_out[0] = (v_lh[0] != v_rh[0]);
 	v_out[1] = (v_lh[1] != v_rh[1]);
 	return v_out;
 }
 
-ijk_inl boolv isEqual2bvs(bool2 v_out, bool2 const v_lh, bool const s_rh)
+ijk_inl boolv ijkVecEqual2bvs(bool2 v_out, bool2 const v_lh, bool const s_rh)
 {
 	v_out[0] = ((bool)v_lh[0] == s_rh);
 	v_out[1] = ((bool)v_lh[1] == s_rh);
 	return v_out;
 }
 
-ijk_inl boolv isInequal2bvs(bool2 v_out, bool2 const v_lh, bool const s_rh)
+ijk_inl boolv ijkVecInequal2bvs(bool2 v_out, bool2 const v_lh, bool const s_rh)
 {
 	v_out[0] = ((bool)v_lh[0] != s_rh);
 	v_out[1] = ((bool)v_lh[1] != s_rh);
 	return v_out;
 }
 
-ijk_inl boolv isEqual2bsv(bool2 v_out, bool const s_lh, bool2 const v_rh)
+ijk_inl boolv ijkVecEqual2bsv(bool2 v_out, bool const s_lh, bool2 const v_rh)
 {
-	return isEqual2bvs(v_out, v_rh, s_lh);
+	return ijkVecEqual2bvs(v_out, v_rh, s_lh);
 }
 
-ijk_inl boolv isInequal2bsv(bool2 v_out, bool const s_lh, bool2 const v_rh)
+ijk_inl boolv ijkVecInequal2bsv(bool2 v_out, bool const s_lh, bool2 const v_rh)
 {
-	return isInequal2bvs(v_out, v_rh, s_lh);
-}
-
-
-//-----------------------------------------------------------------------------
-
-ijk_inl boolv bool3init(bool3 v_out, bool const x, bool const y, bool const z)
-{
-	v_out[0] = ijk_istrue(x);
-	v_out[1] = ijk_istrue(y);
-	v_out[2] = ijk_istrue(z);
-	return v_out;
-}
-
-ijk_inl boolv isEqual3bv(bool3 v_out, bool3 const v_lh, bool3 const v_rh)
-{
-	v_out[0] = (v_lh[0] == v_rh[0]);
-	v_out[1] = (v_lh[1] == v_rh[1]);
-	v_out[2] = (v_lh[2] == v_rh[2]);
-	return v_out;
-}
-
-ijk_inl boolv isInequal3bv(bool3 v_out, bool3 const v_lh, bool3 const v_rh)
-{
-	v_out[0] = (v_lh[0] != v_rh[0]);
-	v_out[1] = (v_lh[1] != v_rh[1]);
-	v_out[2] = (v_lh[2] != v_rh[2]);
-	return v_out;
-}
-
-ijk_inl boolv isEqual3bvs(bool3 v_out, bool3 const v_lh, bool const s_rh)
-{
-	v_out[0] = ((bool)v_lh[0] == s_rh);
-	v_out[1] = ((bool)v_lh[1] == s_rh);
-	v_out[2] = ((bool)v_lh[2] == s_rh);
-	return v_out;
-}
-
-ijk_inl boolv isInequal3bvs(bool3 v_out, bool3 const v_lh, bool const s_rh)
-{
-	v_out[0] = ((bool)v_lh[0] != s_rh);
-	v_out[1] = ((bool)v_lh[1] != s_rh);
-	v_out[2] = ((bool)v_lh[2] != s_rh);
-	return v_out;
-}
-
-ijk_inl boolv isEqual3bsv(bool3 v_out, bool const s_lh, bool3 const v_rh)
-{
-	return isEqual3bvs(v_out, v_rh, s_lh);
-}
-
-ijk_inl boolv isInequal3bsv(bool3 v_out, bool const s_lh, bool3 const v_rh)
-{
-	return isInequal3bvs(v_out, v_rh, s_lh);
+	return ijkVecInequal2bvs(v_out, v_rh, s_lh);
 }
 
 
 //-----------------------------------------------------------------------------
 
-ijk_inl boolv bool4init(bool3 v_out, bool const x, bool const y, bool const z, bool const w)
-{
-	v_out[0] = ijk_istrue(x);
-	v_out[1] = ijk_istrue(y);
-	v_out[2] = ijk_istrue(z);
-	v_out[3] = ijk_istrue(w);
-	return v_out;
-}
 
-ijk_inl boolv isEqual4bv(bool4 v_out, bool4 const v_lh, bool4 const v_rh)
-{
-	v_out[0] = (v_lh[0] == v_rh[0]);
-	v_out[1] = (v_lh[1] == v_rh[1]);
-	v_out[2] = (v_lh[2] == v_rh[2]);
-	v_out[3] = (v_lh[3] == v_rh[3]);
-	return v_out;
-}
-
-ijk_inl boolv isInequal4bv(bool4 v_out, bool4 const v_lh, bool4 const v_rh)
-{
-	v_out[0] = (v_lh[0] != v_rh[0]);
-	v_out[1] = (v_lh[1] != v_rh[1]);
-	v_out[2] = (v_lh[2] != v_rh[2]);
-	v_out[3] = (v_lh[3] != v_rh[3]);
-	return v_out;
-}
-
-ijk_inl boolv isEqual4bvs(bool4 v_out, bool4 const v_lh, bool const s_rh)
-{
-	v_out[0] = ((bool)v_lh[0] == s_rh);
-	v_out[1] = ((bool)v_lh[1] == s_rh);
-	v_out[2] = ((bool)v_lh[2] == s_rh);
-	v_out[3] = ((bool)v_lh[3] == s_rh);
-	return v_out;
-}
-
-ijk_inl boolv isInequal4bvs(bool4 v_out, bool4 const v_lh, bool const s_rh)
-{
-	v_out[0] = ((bool)v_lh[0] != s_rh);
-	v_out[1] = ((bool)v_lh[1] != s_rh);
-	v_out[2] = ((bool)v_lh[2] != s_rh);
-	v_out[3] = ((bool)v_lh[3] != s_rh);
-	return v_out;
-}
-
-ijk_inl boolv isEqual4bsv(bool4 v_out, bool const s_lh, bool4 const v_rh)
-{
-	return isEqual4bvs(v_out, v_rh, s_lh);
-}
-
-ijk_inl boolv isInequal4bsv(bool4 v_out, bool const s_lh, bool4 const v_rh)
-{
-	return isInequal4bvs(v_out, v_rh, s_lh);
-}
+//-----------------------------------------------------------------------------
 
 
 //-----------------------------------------------------------------------------
 
-ijk_inl bvec2 bvec2new(bool const x, bool const y)
+ijk_inl bvec2 ijkVecInitElems2b(bool const x, bool const y)
 {
 	bvec2 const v = { x, y };
 	return v;
 }
 
-ijk_inl bvec2 isEqual2b(bvec2 const v_lh, bvec2 const v_rh)
+ijk_inl bvec2 ijkVecNot2b(bvec2 const v_in)
+{
+	bvec2 const v = { !(v_in.x), !(v_in.x) };
+	return v;
+}
+
+ijk_inl bvec2 ijkVecEqual2b(bvec2 const v_lh, bvec2 const v_rh)
 {
 	bvec2 const v = { (v_lh.x == v_rh.x), (v_lh.y == v_rh.y) };
 	return v;
 }
 
-ijk_inl bvec2 isInequal2b(bvec2 const v_lh, bvec2 const v_rh)
+ijk_inl bvec2 ijkVecInequal2b(bvec2 const v_lh, bvec2 const v_rh)
 {
 	bvec2 const v = { (v_lh.x != v_rh.x), (v_lh.y != v_rh.y) };
 	return v;
 }
 
-ijk_inl bvec2 isEqual2bs(bvec2 const v_lh, bool const s_rh)
+ijk_inl bvec2 ijkVecEqual2bs(bvec2 const v_lh, bool const s_rh)
 {
 	bvec2 const v = { (v_lh.x == s_rh), (v_lh.y == s_rh) };
 	return v;
 }
 
-ijk_inl bvec2 isInequal2bs(bvec2 const v_lh, bool const s_rh)
+ijk_inl bvec2 ijkVecInequal2bs(bvec2 const v_lh, bool const s_rh)
 {
 	bvec2 const v = { (v_lh.x != s_rh), (v_lh.y != s_rh) };
 	return v;
 }
 
-ijk_inl bvec2 isEqual2sb(bool const s_lh, bvec2 const v_rh)
+ijk_inl bvec2 ijkVecEqual2sb(bool const s_lh, bvec2 const v_rh)
 {
-	return isEqual2bs(v_rh, s_lh);
+	return ijkVecEqual2bs(v_rh, s_lh);
 }
 
-ijk_inl bvec2 isInequal2sb(bool const s_lh, bvec2 const v_rh)
+ijk_inl bvec2 ijkVecInequal2sb(bool const s_lh, bvec2 const v_rh)
 {
-	return isInequal2bs(v_rh, s_lh);
+	return ijkVecInequal2bs(v_rh, s_lh);
 }
-
+*/
 
 //-----------------------------------------------------------------------------
 
-ijk_inl bvec3 bvec3new(bool const x, bool const y, bool const z)
-{
-	bvec3 const v = { x, y, z };
-	return v;
-}
-
-ijk_inl bvec3 isEqual3b(bvec3 const v_lh, bvec3 const v_rh)
-{
-	bvec3 const v = { (v_lh.x == v_rh.x), (v_lh.y == v_rh.y), (v_lh.z == v_rh.z) };
-	return v;
-}
-
-ijk_inl bvec3 isInequal3b(bvec3 const v_lh, bvec3 const v_rh)
-{
-	bvec3 const v = { (v_lh.x != v_rh.x), (v_lh.y != v_rh.y), (v_lh.z != v_rh.z) };
-	return v;
-}
-
-ijk_inl bvec3 isEqual3bs(bvec3 const v_lh, bool const s_rh)
-{
-	bvec3 const v = { (v_lh.x == s_rh), (v_lh.y == s_rh), (v_lh.z == s_rh) };
-	return v;
-}
-
-ijk_inl bvec3 isInequal3bs(bvec3 const v_lh, bool const s_rh)
-{
-	bvec3 const v = { (v_lh.x != s_rh), (v_lh.y != s_rh), (v_lh.z != s_rh) };
-	return v;
-}
-
-ijk_inl bvec3 isEqual3sb(bool const s_lh, bvec3 const v_rh)
-{
-	return isEqual3bs(v_rh, s_lh);
-}
-
-ijk_inl bvec3 isInequal3sb(bool const s_lh, bvec3 const v_rh)
-{
-	return isInequal3bs(v_rh, s_lh);
-}
-
 
 //-----------------------------------------------------------------------------
-
-ijk_inl bvec4 bvec4new(bool const x, bool const y, bool const z, bool const w)
-{
-	bvec4 const v = { x, y, z, w };
-	return v;
-}
-
-ijk_inl bvec4 isEqual4b(bvec4 const v_lh, bvec4 const v_rh)
-{
-	bvec4 const v = { (v_lh.x == v_rh.x), (v_lh.y == v_rh.y), (v_lh.z == v_rh.z), (v_lh.w == v_rh.w) };
-	return v;
-}
-
-ijk_inl bvec4 isInequal4b(bvec4 const v_lh, bvec4 const v_rh)
-{
-	bvec4 const v = { (v_lh.x != v_rh.x), (v_lh.y != v_rh.y), (v_lh.z != v_rh.z), (v_lh.w != v_rh.w) };
-	return v;
-}
-
-ijk_inl bvec4 isEqual4bs(bvec4 const v_lh, bool const s_rh)
-{
-	bvec4 const v = { (v_lh.x == s_rh), (v_lh.y == s_rh), (v_lh.z == s_rh), (v_lh.w == s_rh) };
-	return v;
-}
-
-ijk_inl bvec4 isInequal4bs(bvec4 const v_lh, bool const s_rh)
-{
-	bvec4 const v = { (v_lh.x != s_rh), (v_lh.y != s_rh), (v_lh.z != s_rh), (v_lh.w != s_rh) };
-	return v;
-}
-
-ijk_inl bvec4 isEqual4sb(bool const s_lh, bvec4 const v_rh)
-{
-	return isEqual4bs(v_rh, s_lh);
-}
-
-ijk_inl bvec4 isInequal4sb(bool const s_lh, bvec4 const v_rh)
-{
-	return isInequal4bs(v_rh, s_lh);
-}
 
 
 //-----------------------------------------------------------------------------

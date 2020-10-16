@@ -25,9 +25,9 @@
 		function, one per type, of which there are many.
 */
 
-#if (_IJK_VECTORFUNC_H_ == ijk_tokencat(IJK_VECTORFUNC_PREFIX, IJK_VECTORFUNC_H))
+#if (_IJK_VECTORFUNC_H_ == IJK_VECTORFUNC_TYPE)
 #ifndef _IJK_VECTORFUNC_INL_
-#define _IJK_VECTORFUNC_INL_ ijk_tokencat(IJK_VECTORFUNC_PREFIX, IJK_VECTORFUNC_INL)
+#define _IJK_VECTORFUNC_INL_
 
 
 //-----------------------------------------------------------------------------
@@ -383,4 +383,4 @@ ijk_inl tvec4 tfunc(ijkVecCross4, tvec4 const v_lh, tvec4 const v_rh)
 
 #undef _IJK_VECTORFUNC_INL_
 #endif	// !_IJK_VECTORFUNC_INL_
-#endif	// (_IJK_VECTORFUNC_H_ == ijk_tokencat(IJK_VECTORFUNC_PREFIX, IJK_VECTORFUNC_H))
+#endif	// (_IJK_VECTORFUNC_H_ == IJK_VECTORFUNC_TYPE)

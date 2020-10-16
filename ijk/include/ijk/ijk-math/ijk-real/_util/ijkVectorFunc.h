@@ -25,14 +25,40 @@
 		function, one per type, of which there are many.
 */
 
-#ifdef IJK_VECTORFUNC_PREFIX
+#ifdef IJK_VECTORFUNC_TYPE
 #ifndef _IJK_VECTORFUNC_H_
-#define _IJK_VECTORFUNC_H_ ijk_tokencat(IJK_VECTORFUNC_PREFIX, IJK_VECTORFUNC_H)
+#define _IJK_VECTORFUNC_H_ IJK_VECTORFUNC_TYPE
 
 // IJK_VECTORFUNC_SETUP
 #pragma region IJK_VECTORFUNC_SETUP
 
-#if (IJK_VECTORFUNC_PREFIX == i)
+#define _BOOL	0
+#define _INT	1
+#define _INTL	2
+#define _UINT	3
+#define _UINTL	4
+#define _FLOAT	5
+#define _DOUBLE	6
+
+#if (IJK_VECTORFUNC_TYPE == _BOOL)
+#define tsfx	b
+#define type	byte
+#define tvec	bool
+#define typekv	boolkv
+#define typev	boolv
+#define type2	bool2
+#define type3	bool3
+#define type4	bool4
+#define tvec2	bvec2
+#define tvec3	bvec3
+#define tvec4	bvec4
+#define tabs(x)		(x)
+#define tsgn(x)		(x > 0)
+#define trecip(x)	(0)
+#define tsqrt(x)	(0)
+#define tsqrtinv(x)	(0)
+#elif (IJK_VECTORFUNC_TYPE == _INT)
+#define tsfx	i
 #define type	i32
 #define tvec	int
 #define typekv	intkv
@@ -48,7 +74,8 @@
 #define trecip(x)	(0)
 #define tsqrt(x)	(0)
 #define tsqrtinv(x)	(0)
-#elif (IJK_VECTORFUNC_PREFIX == il)
+#elif (IJK_VECTORFUNC_TYPE == _INTL)
+#define tsfx	il
 #define type	i64
 #define tvec	intl
 #define typekv	intlkv
@@ -64,7 +91,8 @@
 #define trecip(x)	(0)
 #define tsqrt(x)	(0)
 #define tsqrtinv(x)	(0)
-#elif (IJK_VECTORFUNC_PREFIX == u)
+#elif (IJK_VECTORFUNC_TYPE == _UINT)
+#define tsfx	u
 #define type	ui32
 #define tvec	uint
 #define typekv	uintkv
@@ -75,12 +103,13 @@
 #define tvec2	uvec2
 #define tvec3	uvec3
 #define tvec4	uvec4
-#define tabs(x)		ijk_abs_int(x)
-#define tsgn(x)		ijk_sgn_int(x)
+#define tabs(x)		(x)
+#define tsgn(x)		(x > 0)
 #define trecip(x)	(0)
 #define tsqrt(x)	(0)
 #define tsqrtinv(x)	(0)
-#elif (IJK_VECTORFUNC_PREFIX == ul)
+#elif (IJK_VECTORFUNC_TYPE == _UINTL)
+#define tsfx	ul
 #define type	ui64
 #define tvec	uintl
 #define typekv	uintlkv
@@ -91,12 +120,13 @@
 #define tvec2	ulvec2
 #define tvec3	ulvec3
 #define tvec4	ulvec4
-#define tabs(x)		ijk_abs_int(x)
-#define tsgn(x)		ijk_sgn_int(x)
+#define tabs(x)		(x)
+#define tsgn(x)		(x > 0)
 #define trecip(x)	(0)
 #define tsqrt(x)	(0)
 #define tsqrtinv(x)	(0)
-#elif (IJK_VECTORFUNC_PREFIX == d)
+#elif (IJK_VECTORFUNC_TYPE == _DOUBLE)
+#define tsfx	d
 #define type	f64
 #define tvec	double
 #define typekv	doublekv
@@ -112,7 +142,8 @@
 #define trecip(x)	ijk_recip_safe_dbl(x)
 #define tsqrt(x)	ijkSqrt_dbl(x)
 #define tsqrtinv(x)	ijkSqrtInv_dbl(x)
-#else // (IJK_VECTORFUNC_PREFIX == f || IJK_VECTORFUNC_PREFIX == ?)
+#else // (IJK_VECTORFUNC_TYPE == _FLOAT || IJK_VECTORFUNC_TYPE == ?)
+#define tsfx	f
 #define type	f32
 #define tvec	float
 #define typekv	floatkv
@@ -128,12 +159,20 @@
 #define trecip(x)	ijk_recip_safe_flt(x)
 #define tsqrt(x)	ijkSqrt_flt(x)
 #define tsqrtinv(x)	ijkSqrtInv_flt(x)
-#endif	// IJK_VECTORFUNC_PREFIX
+#endif	// IJK_VECTORFUNC_TYPE
 
-#define tfunc(func, ...)					ijk_tokencat(func, IJK_VECTORFUNC_PREFIX)(__VA_ARGS__)
-#define tfuncs(func, suffix, ...)			ijk_tokencat(func, ijk_tokencat(IJK_VECTORFUNC_PREFIX, suffix))(__VA_ARGS__)
-#define tfuncp(func, prefix, ...)			ijk_tokencat(func, ijk_tokencat(prefix, IJK_VECTORFUNC_PREFIX))(__VA_ARGS__)
-#define tfuncps(func, prefix, suffix, ...)	ijk_tokencat(func, ijk_tokencat(ijk_tokencat(prefix, IJK_VECTORFUNC_PREFIX), suffix))(__VA_ARGS__)
+#define tfunc(func, ...)					ijk_tokencat(func, tsfx)(__VA_ARGS__)
+#define tfuncs(func, suffix, ...)			ijk_tokencat(func, ijk_tokencat(tsfx, suffix))(__VA_ARGS__)
+#define tfuncp(func, prefix, ...)			ijk_tokencat(func, ijk_tokencat(prefix, tsfx))(__VA_ARGS__)
+#define tfuncps(func, prefix, suffix, ...)	ijk_tokencat(func, ijk_tokencat(ijk_tokencat(prefix, tsfx), suffix))(__VA_ARGS__)
+
+#undef _BOOL
+#undef _INT
+#undef _INTL
+#undef _UINT
+#undef _UINTL
+#undef _FLOAT
+#undef _DOUBLE
 
 #pragma endregion
 // IJK_VECTORFUNC_SETUP
@@ -213,24 +252,11 @@ type tfuncs(ijkVecNormalizeGetLengthInv1, s, type const s, type* const lengthInv
 
 //-----------------------------------------------------------------------------
 
-// ijkVec2*v
-//	Pass-thru vector (do nothing).
-//		param v: vector
-//		return: v
-typev tfuncs(ijkVecInit2, v, type2 v);
-
 // ijkVecInit2*v
 //	Initialize 2D vector to default value (zero vector).
 //		param v_out: output vector
 //		return: v_out
 typev tfuncs(ijkVecInit2, v, type2 v_out);
-
-// ijkVecInitValue2*v
-//	Initialize 2D vector to the same specified value for all elements.
-//		param v_out: output vector
-//		param xy: value to be assigned to all elements
-//		return: v_out
-typev tfuncs(ijkVecInitValue2, v, type2 v_out, type const xy);
 
 // ijkVecInitElems2*v
 //	Initialize 2D vector to specified individual elements.
@@ -387,6 +413,54 @@ typev tfuncs(ijkVecBitShiftLeft2, v, type2 v_out, type2 const v_lh, type2 const 
 //		param v_rh: right-hand vector
 //		return: v_out
 typev tfuncs(ijkVecBitShiftRight2, v, type2 v_out, type2 const v_lh, type2 const v_rh);
+
+// ijkVecEqual2*v
+//	Equality comparison for 2D vectors.
+//		param bv_out: output vector holding boolean results of comparisons
+//		param v_lh: left-hand vector
+//		param v_rh: right-hand vector
+//		return: bv_out
+boolv tfuncs(ijkVecEqual2, v, bool2 bv_out, type2 const v_lh, type2 const v_rh);
+
+// ijkVecInequal2*v
+//	Inequality comparison for 2D vectors.
+//		param bv_out: output vector holding boolean results of comparisons
+//		param v_lh: left-hand vector
+//		param v_rh: right-hand vector
+//		return: bv_out
+boolv tfuncs(ijkVecInequal2, v, bool2 bv_out, type2 const v_lh, type2 const v_rh);
+
+// ijkVecLessEqual2*v
+//	Less-than or equal comparison for 2D vectors.
+//		param bv_out: output vector holding boolean results of comparisons
+//		param v_lh: left-hand vector
+//		param v_rh: right-hand vector
+//		return: bv_out
+boolv tfuncs(ijkVecLessEqual2, v, bool2 bv_out, type2 const v_lh, type2 const v_rh);
+
+// ijkVecGreaterEqual2*v
+//	Greater-than or equal comparison for 2D vectors.
+//		param bv_out: output vector holding boolean results of comparisons
+//		param v_lh: left-hand vector
+//		param v_rh: right-hand vector
+//		return: bv_out
+boolv tfuncs(ijkVecGreaterEqual2, v, bool2 bv_out, type2 const v_lh, type2 const v_rh);
+
+// ijkVecLess2*v
+//	Less-than comparison for 2D vectors.
+//		param bv_out: output vector holding boolean results of comparisons
+//		param v_lh: left-hand vector
+//		param v_rh: right-hand vector
+//		return: bv_out
+boolv tfuncs(ijkVecLess2, v, bool2 bv_out, type2 const v_lh, type2 const v_rh);
+
+// ijkVecGreater2*v
+//	GreaterThan comparison for 2D vectors.
+//		param bv_out: output vector holding boolean results of comparisons
+//		param v_lh: left-hand vector
+//		param v_rh: right-hand vector
+//		return: bv_out
+boolv tfuncs(ijkVecGreater2, v, bool2 bv_out, type2 const v_lh, type2 const v_rh);
 
 // ijkVecDot2*v
 //	Dot product of 2D array-based vectors.
@@ -577,6 +651,7 @@ tvec4 tfunc(ijkVecCross4, tvec4 const v_lh, tvec4 const v_rh);
 #undef tfuncp
 #undef tfuncps
 
+#undef tsfx
 #undef type
 #undef tvec
 #undef typekv
@@ -593,8 +668,8 @@ tvec4 tfunc(ijkVecCross4, tvec4 const v_lh, tvec4 const v_rh);
 #undef tsqrt
 #undef tsqrtinv
 
-#undef IJK_VECTORFUNC_PREFIX
 
+#undef IJK_VECTORFUNC_TYPE
 #undef _IJK_VECTORFUNC_H_
 #endif	// !_IJK_VECTORFUNC_H_
-#endif	// IJK_VECTORFUNC_PREFIX
+#endif	// IJK_VECTORFUNC_TYPE
