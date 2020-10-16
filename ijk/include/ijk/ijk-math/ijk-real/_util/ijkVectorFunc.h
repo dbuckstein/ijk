@@ -261,6 +261,13 @@ typev tfuncs(ijkVecNegate2, v, type2 v_out, type2 const v_in);
 //		return: v_out
 typev tfuncs(ijkVecBitNot2, v, type2 v_out, type2 const v_in);
 
+// ijkVecNot2*v
+//	Calculate component-wise logical 'not' of 2D vector.
+//		param bv_out: boolean vector to hold component-wise logical 'not'
+//		param v_in: input vector
+//		return: bv_out
+boolv tfuncs(ijkVecNot2, v, bool2 bv_out, type2 const v_in);
+
 // ijkVecAdd2*v
 //	Calculate sum of 2D vectors.
 //		param v_out: output vector to hold sum
@@ -325,6 +332,14 @@ typev tfuncs(ijkVecModSafe2, v, type2 v_out, type2 const v_lh, type2 const v_rh)
 //		return: v_out
 typev tfuncs(ijkVecBitAnd2, v, type2 v_out, type2 const v_lh, type2 const v_rh);
 
+// ijkVecBitNand2*v
+//	Calculate component-wise bitwise 'not and' of 2D vectors.
+//		param v_out: output vector to hold component-wise bitwise 'nand'
+//		param v_lh: left-hand vector
+//		param v_rh: right-hand vector
+//		return: v_out
+typev tfuncs(ijkVecBitNand2, v, type2 v_out, type2 const v_lh, type2 const v_rh);
+
 // ijkVecBitOr2*v
 //	Calculate component-wise bitwise 'or' of 2D vectors.
 //		param v_out: output vector to hold component-wise bitwise 'or'
@@ -332,6 +347,14 @@ typev tfuncs(ijkVecBitAnd2, v, type2 v_out, type2 const v_lh, type2 const v_rh);
 //		param v_rh: right-hand vector
 //		return: v_out
 typev tfuncs(ijkVecBitOr2, v, type2 v_out, type2 const v_lh, type2 const v_rh);
+
+// ijkVecBitNor2*v
+//	Calculate component-wise bitwise 'not or' of 2D vectors.
+//		param v_out: output vector to hold component-wise bitwise 'nor'
+//		param v_lh: left-hand vector
+//		param v_rh: right-hand vector
+//		return: v_out
+typev tfuncs(ijkVecBitNor2, v, type2 v_out, type2 const v_lh, type2 const v_rh);
 
 // ijkVecBitXor2*v
 //	Calculate component-wise bitwise 'exclusive or' of 2D vectors.
@@ -341,21 +364,29 @@ typev tfuncs(ijkVecBitOr2, v, type2 v_out, type2 const v_lh, type2 const v_rh);
 //		return: v_out
 typev tfuncs(ijkVecBitXor2, v, type2 v_out, type2 const v_lh, type2 const v_rh);
 
-// ijkVecBitShiftL2*v
+// ijkVecBitNxor2*v
+//	Calculate component-wise bitwise 'not exclusive or' of 2D vectors.
+//		param v_out: output vector to hold component-wise bitwise 'nxor'
+//		param v_lh: left-hand vector
+//		param v_rh: right-hand vector
+//		return: v_out
+typev tfuncs(ijkVecBitNxor2, v, type2 v_out, type2 const v_lh, type2 const v_rh);
+
+// ijkVecBitShiftLeft2*v
 //	Calculate component-wise bit shift left of 2D vectors.
 //		param v_out: output vector to hold component-wise bit shift
 //		param v_lh: left-hand vector
 //		param v_rh: right-hand vector
 //		return: v_out
-typev tfuncs(ijkVecBitShiftL2, v, type2 v_out, type2 const v_lh, type2 const v_rh);
+typev tfuncs(ijkVecBitShiftLeft2, v, type2 v_out, type2 const v_lh, type2 const v_rh);
 
-// ijkVecBitShiftR2*v
+// ijkVecBitShiftRight2*v
 //	Calculate component-wise bit shift right of 2D vectors.
 //		param v_out: output vector to hold component-wise bit shift
 //		param v_lh: left-hand vector
 //		param v_rh: right-hand vector
 //		return: v_out
-typev tfuncs(ijkVecBitShiftR2, v, type2 v_out, type2 const v_lh, type2 const v_rh);
+typev tfuncs(ijkVecBitShiftRight2, v, type2 v_out, type2 const v_lh, type2 const v_rh);
 
 // ijkVecDot2*v
 //	Dot product of 2D array-based vectors.
