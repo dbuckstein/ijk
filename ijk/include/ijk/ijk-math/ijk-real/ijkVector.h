@@ -969,6 +969,77 @@ ijk_ext dvec4 const dvec4_wn;		// (  0,  0,  0, -1 )
 
 //-----------------------------------------------------------------------------
 
+// ijkVecInitElems2bv
+//	Initialize 2D boolean vector.
+//		param v_out: output vector
+//		params x, y: initialization values
+//		return: v_out
+boolv ijkVecInitElems2bv(bool2 v_out, bool const x, bool const y);
+
+// ijkVecNot2bv
+//	Logical 'not' for 2D boolean vector.
+//		param v_out: output vector holding boolean result of logical 'not'
+//		param v_in: input vector
+//		return: v_out
+boolv ijkVecNot2bv(bool2 v_out, bool2 const v_in);
+
+// ijkVecEqual2bv
+//	Equality comparison for 2D boolean vector.
+//		param v_out: output vector holding boolean result of comparison
+//		param v_lh: left-hand vector
+//		param v_rh: right-hand vector
+//		return: v_out
+boolv ijkVecEqual2bv(bool2 v_out, bool2 const v_lh, bool2 const v_rh);
+
+// ijkVecInequal2bv
+//	Inequality comparison for 2D boolean vector.
+//		param v_out: output vector holding boolean result of comparison
+//		param v_lh: left-hand vector
+//		param v_rh: right-hand vector
+//		return: v_out
+boolv ijkVecInequal2bv(bool2 v_out, bool2 const v_lh, bool2 const v_rh);
+
+// ijkVecEqual2bvs
+//	Equality comparison for 2D boolean vector vs condition.
+//		param v_out: output vector holding boolean result of comparison
+//		param v_lh: left-hand vector
+//		param s_rh: right-hand condition
+//		return: v_out
+boolv ijkVecEqual2bvs(bool2 v_out, bool2 const v_lh, bool const s_rh);
+
+// ijkVecInequal2bvs
+//	Inequality comparison for 2D boolean vector vs condition.
+//		param v_out: output vector holding boolean result of comparison
+//		param v_lh: left-hand vector
+//		param s_rh: right-hand condition
+//		return: v_out
+boolv ijkVecInequal2bvs(bool2 v_out, bool2 const v_lh, bool const s_rh);
+
+// ijkVecEqual2bsv
+//	Equality comparison for 2D boolean vector vs condition.
+//		param v_out: output vector holding boolean result of comparison
+//		param s_lh: left-hand condition
+//		param v_rh: right-hand vector
+//		return: v_out
+boolv ijkVecEqual2bsv(bool2 v_out, bool const s_lh, bool2 const v_rh);
+
+// ijkVecInequal2bsv
+//	Inequality comparison for 2D boolean vector vs condition.
+//		param v_out: output vector holding boolean result of comparison
+//		param s_lh: left-hand condition
+//		param v_rh: right-hand vector
+//		return: v_out
+boolv ijkVecInequal2bsv(bool2 v_out, bool const s_lh, bool2 const v_rh);
+
+
+//-----------------------------------------------------------------------------
+
+
+//-----------------------------------------------------------------------------
+
+
+//-----------------------------------------------------------------------------
+
 #ifdef __cplusplus
 }
 #endif	// __cplusplus
@@ -976,8 +1047,68 @@ ijk_ext dvec4 const dvec4_wn;		// (  0,  0,  0, -1 )
 
 //-----------------------------------------------------------------------------
 
-//#define IJK_VECTORFUNC_TYPE	_BOOL
-//#include "_util/ijkVectorFunc.h"
+// ijkVecInitElems2b
+//	Initialize 2D boolean vector.
+//		params x, y: initialization values
+//		return: output vector
+bvec2 ijkVecInitElems2b(bool const x, bool const y);
+
+// ijkVecNot2b
+//	Logical 'not' for 2D boolean vector.
+//		param v_in: input vector
+//		return: vector logical 'not'
+bvec2 ijkVecNot2b(bvec2 const v_in);
+
+// ijkVecEqual2b
+//	Equality comparison for 2D boolean vector.
+//		param v_lh: left-hand vector
+//		param v_rh: right-hand vector
+//		return: vector comparison
+bvec2 ijkVecEqual2b(bvec2 const v_lh, bvec2 const v_rh);
+
+// ijkVecInequal2b
+//	Inequality comparison for 2D boolean vector.
+//		param v_lh: left-hand vector
+//		param v_rh: right-hand vector
+//		return: vector comparison
+bvec2 ijkVecInequal2b(bvec2 const v_lh, bvec2 const v_rh);
+
+// ijkVecEqual2sb
+//	Equality comparison for 2D boolean vector vs condition.
+//		param v_lh: left-hand vector
+//		param s_rh: right-hand condition
+//		return: vector comparison
+bvec2 ijkVecEqual2bs(bvec2 const v_lh, bool const s_rh);
+
+// ijkVecInequal2bs
+//	Inequality comparison for 2D boolean vector vs condition.
+//		param v_lh: left-hand vector
+//		param s_rh: right-hand condition
+//		return: vector comparison
+bvec2 ijkVecInequal2bs(bvec2 const v_lh, bool const s_rh);
+
+// ijkVecEqual2sb
+//	Equality comparison for 2D boolean vector vs condition.
+//		param s_lh: left-hand condition
+//		param v_rh: right-hand vector
+//		return: vector comparison
+bvec2 ijkVecEqual2sb(bool const s_lh, bvec2 const v_rh);
+
+// ijkVecInequal2sb
+//	Inequality comparison for 2D boolean vector vs condition.
+//		param s_lh: left-hand condition
+//		param v_rh: right-hand vector
+//		return: vector comparison
+bvec2 ijkVecInequal2sb(bool const s_lh, bvec2 const v_rh);
+
+
+//-----------------------------------------------------------------------------
+
+
+//-----------------------------------------------------------------------------
+
+
+//-----------------------------------------------------------------------------
 
 #define IJK_VECTORFUNC_TYPE	_INT
 #include "_util/ijkVectorFunc.h"
