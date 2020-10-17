@@ -55,7 +55,7 @@
 #define tabs(x)		(x)
 #define tsgn(x)		(x > 0)
 #define trecip(x)	(0)
-#define tsqrt(x)	(0)
+#define tsqrt(x)	((type)ijkSqrt((real)x))
 #define tsqrtinv(x)	(0)
 #elif (IJK_VECTORFUNC_TYPE == _INT)
 #define tsfx	i
@@ -72,7 +72,7 @@
 #define tabs(x)		ijk_abs_int(x)
 #define tsgn(x)		ijk_sgn_int(x)
 #define trecip(x)	(0)
-#define tsqrt(x)	(0)
+#define tsqrt(x)	((type)ijkSqrt((real)x))
 #define tsqrtinv(x)	(0)
 #elif (IJK_VECTORFUNC_TYPE == _INTL)
 #define tsfx	il
@@ -89,7 +89,7 @@
 #define tabs(x)		ijk_abs_int(x)
 #define tsgn(x)		ijk_sgn_int(x)
 #define trecip(x)	(0)
-#define tsqrt(x)	(0)
+#define tsqrt(x)	((type)ijkSqrt((real)x))
 #define tsqrtinv(x)	(0)
 #elif (IJK_VECTORFUNC_TYPE == _UINT)
 #define tsfx	u
@@ -106,7 +106,7 @@
 #define tabs(x)		(x)
 #define tsgn(x)		(x > 0)
 #define trecip(x)	(0)
-#define tsqrt(x)	(0)
+#define tsqrt(x)	((type)ijkSqrt((real)x))
 #define tsqrtinv(x)	(0)
 #elif (IJK_VECTORFUNC_TYPE == _UINTL)
 #define tsfx	ul
@@ -123,7 +123,7 @@
 #define tabs(x)		(x)
 #define tsgn(x)		(x > 0)
 #define trecip(x)	(0)
-#define tsqrt(x)	(0)
+#define tsqrt(x)	((type)ijkSqrt((real)x))
 #define tsqrtinv(x)	(0)
 #elif (IJK_VECTORFUNC_TYPE == _DOUBLE)
 #define tsfx	d
@@ -479,6 +479,225 @@ type tfuncs(ijkVecCross2, v, type2 const v_lh, type2 const v_rh);
 
 //-----------------------------------------------------------------------------
 
+// ijkVecInit3*v
+//	Initialize 3D vector to default value (zero vector).
+//		param v_out: output vector
+//		return: v_out
+typev tfuncs(ijkVecInit3, v, type3 v_out);
+
+// ijkVecInitElems3*v
+//	Initialize 3D vector to specified individual elements.
+//		param v_out: output vector
+//		param x: first element
+//		param y: second element
+//		param z: third element
+//		return: v_out
+typev tfuncs(ijkVecInitElems3, v, type3 v_out, type const x, type const y, type const z);
+
+// ijkVecCopy3*vz
+//	Copy 3D vector from 2D vector and one scalar.
+//		param v_out: output vector to hold copy
+//		param v_in: input 2D vector
+//		param z: third element
+//		return: v_out
+typev tfuncs(ijkVecCopy3, vz, type3 v_out, type2 const v_in, type const z);
+
+// ijkVecCopy3*v
+//	Copy 3D vector from first elements of another vector.
+//		param v_out: output vector to hold copy
+//		param v_in: input vector
+//		return: v_out
+typev tfuncs(ijkVecCopy3, v, type3 v_out, type3 const v_in);
+
+// ijkVecNegate3*v
+//	Negate 3D vector.
+//		param v_out: output vector to hold negated
+//		param v_in: input vector
+//		return: v_out
+typev tfuncs(ijkVecNegate3, v, type3 v_out, type3 const v_in);
+
+// ijkVecBitNot3*v
+//	Calculate component-wise bitwise 'not' of 3D vector.
+//		param v_out: output vector to hold component-wise bitwise 'not'
+//		param v_in: input vector
+//		return: v_out
+typev tfuncs(ijkVecBitNot3, v, type3 v_out, type3 const v_in);
+
+// ijkVecNot3*v
+//	Calculate component-wise logical 'not' of 3D vector.
+//		param bv_out: boolean vector to hold component-wise logical 'not'
+//		param v_in: input vector
+//		return: bv_out
+boolv tfuncs(ijkVecNot3, v, bool3 bv_out, type3 const v_in);
+
+// ijkVecAdd3*v
+//	Calculate sum of 3D vectors.
+//		param v_out: output vector to hold sum
+//		param v_lh: left-hand vector
+//		param v_rh: right-hand vector
+//		return: v_out
+typev tfuncs(ijkVecAdd3, v, type3 v_out, type3 const v_lh, type3 const v_rh);
+
+// ijkVecSub3*v
+//	Calculate difference of 3D vectors.
+//		param v_out: output vector to hold difference
+//		param v_lh: left-hand vector
+//		param v_rh: right-hand vector
+//		return: v_out
+typev tfuncs(ijkVecSub3, v, type3 v_out, type3 const v_lh, type3 const v_rh);
+
+// ijkVecMul3*v
+//	Calculate component-wise product of 3D vectors.
+//		param v_out: output vector to hold component-wise product
+//		param v_lh: left-hand vector
+//		param v_rh: right-hand vector
+//		return: v_out
+typev tfuncs(ijkVecMul3, v, type3 v_out, type3 const v_lh, type3 const v_rh);
+
+// ijkVecDiv3*v
+//	Calculate component-wise quotient of 3D vectors.
+//		param v_out: output vector to hold component-wise quotient
+//		param v_lh: left-hand vector
+//		param v_rh: right-hand vector
+//		return: v_out
+typev tfuncs(ijkVecDiv3, v, type3 v_out, type3 const v_lh, type3 const v_rh);
+
+// ijkVecDivSafe3*v
+//	Calculate component-wise quotient of 3D vectors, division-by-zero safe.
+//		param v_out: output vector to hold component-wise quotient
+//		param v_lh: left-hand vector
+//		param v_rh: right-hand vector
+//		return: v_out
+typev tfuncs(ijkVecDivSafe3, v, type3 v_out, type3 const v_lh, type3 const v_rh);
+
+// ijkVecMod3*v
+//	Calculate component-wise modulo of 3D vectors.
+//		param v_out: output vector to hold component-wise modulo
+//		param v_lh: left-hand vector
+//		param v_rh: right-hand vector
+//		return: v_out
+typev tfuncs(ijkVecMod3, v, type3 v_out, type3 const v_lh, type3 const v_rh);
+
+// ijkVecModSafe3*v
+//	Calculate component-wise modulo of 3D vectors, division-by-zero safe.
+//		param v_out: output vector to hold component-wise modulo
+//		param v_lh: left-hand vector
+//		param v_rh: right-hand vector
+//		return: v_out
+typev tfuncs(ijkVecModSafe3, v, type3 v_out, type3 const v_lh, type3 const v_rh);
+
+// ijkVecBitAnd3*v
+//	Calculate component-wise bitwise 'and' of 3D vectors.
+//		param v_out: output vector to hold component-wise bitwise 'and'
+//		param v_lh: left-hand vector
+//		param v_rh: right-hand vector
+//		return: v_out
+typev tfuncs(ijkVecBitAnd3, v, type3 v_out, type3 const v_lh, type3 const v_rh);
+
+// ijkVecBitNand3*v
+//	Calculate component-wise bitwise 'not and' of 3D vectors.
+//		param v_out: output vector to hold component-wise bitwise 'nand'
+//		param v_lh: left-hand vector
+//		param v_rh: right-hand vector
+//		return: v_out
+typev tfuncs(ijkVecBitNand3, v, type3 v_out, type3 const v_lh, type3 const v_rh);
+
+// ijkVecBitOr3*v
+//	Calculate component-wise bitwise 'or' of 3D vectors.
+//		param v_out: output vector to hold component-wise bitwise 'or'
+//		param v_lh: left-hand vector
+//		param v_rh: right-hand vector
+//		return: v_out
+typev tfuncs(ijkVecBitOr3, v, type3 v_out, type3 const v_lh, type3 const v_rh);
+
+// ijkVecBitNor3*v
+//	Calculate component-wise bitwise 'not or' of 3D vectors.
+//		param v_out: output vector to hold component-wise bitwise 'nor'
+//		param v_lh: left-hand vector
+//		param v_rh: right-hand vector
+//		return: v_out
+typev tfuncs(ijkVecBitNor3, v, type3 v_out, type3 const v_lh, type3 const v_rh);
+
+// ijkVecBitXor3*v
+//	Calculate component-wise bitwise 'exclusive or' of 3D vectors.
+//		param v_out: output vector to hold component-wise bitwise 'xor'
+//		param v_lh: left-hand vector
+//		param v_rh: right-hand vector
+//		return: v_out
+typev tfuncs(ijkVecBitXor3, v, type3 v_out, type3 const v_lh, type3 const v_rh);
+
+// ijkVecBitNxor3*v
+//	Calculate component-wise bitwise 'not exclusive or' of 3D vectors.
+//		param v_out: output vector to hold component-wise bitwise 'nxor'
+//		param v_lh: left-hand vector
+//		param v_rh: right-hand vector
+//		return: v_out
+typev tfuncs(ijkVecBitNxor3, v, type3 v_out, type3 const v_lh, type3 const v_rh);
+
+// ijkVecBitShiftLeft3*v
+//	Calculate component-wise bit shift left of 3D vectors.
+//		param v_out: output vector to hold component-wise bit shift
+//		param v_lh: left-hand vector
+//		param v_rh: right-hand vector
+//		return: v_out
+typev tfuncs(ijkVecBitShiftLeft3, v, type3 v_out, type3 const v_lh, type3 const v_rh);
+
+// ijkVecBitShiftRight3*v
+//	Calculate component-wise bit shift right of 3D vectors.
+//		param v_out: output vector to hold component-wise bit shift
+//		param v_lh: left-hand vector
+//		param v_rh: right-hand vector
+//		return: v_out
+typev tfuncs(ijkVecBitShiftRight3, v, type3 v_out, type3 const v_lh, type3 const v_rh);
+
+// ijkVecEqual3*v
+//	Equality comparison for 3D vectors.
+//		param bv_out: output vector holding boolean results of comparisons
+//		param v_lh: left-hand vector
+//		param v_rh: right-hand vector
+//		return: bv_out
+boolv tfuncs(ijkVecEqual3, v, bool3 bv_out, type3 const v_lh, type3 const v_rh);
+
+// ijkVecInequal3*v
+//	Inequality comparison for 3D vectors.
+//		param bv_out: output vector holding boolean results of comparisons
+//		param v_lh: left-hand vector
+//		param v_rh: right-hand vector
+//		return: bv_out
+boolv tfuncs(ijkVecInequal3, v, bool3 bv_out, type3 const v_lh, type3 const v_rh);
+
+// ijkVecLessEqual3*v
+//	Less-than or equal comparison for 3D vectors.
+//		param bv_out: output vector holding boolean results of comparisons
+//		param v_lh: left-hand vector
+//		param v_rh: right-hand vector
+//		return: bv_out
+boolv tfuncs(ijkVecLessEqual3, v, bool3 bv_out, type3 const v_lh, type3 const v_rh);
+
+// ijkVecGreaterEqual3*v
+//	Greater-than or equal comparison for 3D vectors.
+//		param bv_out: output vector holding boolean results of comparisons
+//		param v_lh: left-hand vector
+//		param v_rh: right-hand vector
+//		return: bv_out
+boolv tfuncs(ijkVecGreaterEqual3, v, bool3 bv_out, type3 const v_lh, type3 const v_rh);
+
+// ijkVecLess3*v
+//	Less-than comparison for 3D vectors.
+//		param bv_out: output vector holding boolean results of comparisons
+//		param v_lh: left-hand vector
+//		param v_rh: right-hand vector
+//		return: bv_out
+boolv tfuncs(ijkVecLess3, v, bool3 bv_out, type3 const v_lh, type3 const v_rh);
+
+// ijkVecGreater3*v
+//	GreaterThan comparison for 3D vectors.
+//		param bv_out: output vector holding boolean results of comparisons
+//		param v_lh: left-hand vector
+//		param v_rh: right-hand vector
+//		return: bv_out
+boolv tfuncs(ijkVecGreater3, v, bool3 bv_out, type3 const v_lh, type3 const v_rh);
+
 // ijkVecDot3*v
 //	Dot product of 3D array-based vectors.
 //		param v_lh: left-hand vector
@@ -496,6 +715,252 @@ typev tfuncs(ijkVecCross3, v, type3 v_out, type3 const v_lh, type3 const v_rh);
 
 
 //-----------------------------------------------------------------------------
+
+// ijkVecInit4*v
+//	Initialize 4D vector to default value (zero vector).
+//		param v_out: output vector
+//		return: v_out
+typev tfuncs(ijkVecInit4, v, type4 v_out);
+
+// ijkVecInitElems4*v
+//	Initialize 4D vector to specified individual elements.
+//		param v_out: output vector
+//		param x: first element
+//		param y: second element
+//		param z: third element
+//		param w: fourth element (in space, set as 1 for point, 0 for vector)
+//		return: v_out
+typev tfuncs(ijkVecInitElems4, v, type4 v_out, type const x, type const y, type const z, type const w);
+
+// ijkVecCopy4*xvw
+//	Copy 4D vector from scalar, 2D vector and another scalar.
+//		param v_out: output vector to hold copy
+//		param x: first element
+//		param v_in: input 2D vector
+//		param w: fourth element (in space, set as 1 for point, 0 for vector)
+//		return: v_out
+typev tfuncs(ijkVecCopy4, zvw, type3 v_out, type const x, type2 const v_in, type const w);
+
+// ijkVecCopy4*v2
+//	Copy 4D vector from two 2D vectors.
+//		param v_out: output vector to hold copy
+//		param v_xy: input 2D vector holding xy components
+//		param v_zw: input 2D vector holding zw components
+//		return: v_out
+typev tfuncs(ijkVecCopy4, v2, type3 v_out, type2 const v_xy, type2 const v_zw);
+
+// ijkVecCopy4*vzw
+//	Copy 4D vector from 2D vector and two scalars.
+//		param v_out: output vector to hold copy
+//		param v_in: input 2D vector
+//		param z: third element
+//		param w: fourth element (in space, set as 1 for point, 0 for vector)
+//		return: v_out
+typev tfuncs(ijkVecCopy4, vzw, type3 v_out, type2 const v_in, type const z, type const w);
+
+// ijkVecCopy4*vw
+//	Copy 4D vector from 3D vector and one scalar.
+//		param v_out: output vector to hold copy
+//		param v_in: input 3D vector
+//		param w: fourth element (in space, set as 1 for point, 0 for vector)
+//		return: v_out
+typev tfuncs(ijkVecCopy4, vw, type3 v_out, type3 const v_in, type const w);
+
+// ijkVecCopy4*v
+//	Copy 4D vector from first elements of another vector.
+//		param v_out: output vector to hold copy
+//		param v_in: input vector
+//		return: v_out
+typev tfuncs(ijkVecCopy4, v, type4 v_out, type4 const v_in);
+
+// ijkVecNegate4*v
+//	Negate 4D vector.
+//		param v_out: output vector to hold negated
+//		param v_in: input vector
+//		return: v_out
+typev tfuncs(ijkVecNegate4, v, type4 v_out, type4 const v_in);
+
+// ijkVecBitNot4*v
+//	Calculate component-wise bitwise 'not' of 4D vector.
+//		param v_out: output vector to hold component-wise bitwise 'not'
+//		param v_in: input vector
+//		return: v_out
+typev tfuncs(ijkVecBitNot4, v, type4 v_out, type4 const v_in);
+
+// ijkVecNot4*v
+//	Calculate component-wise logical 'not' of 4D vector.
+//		param bv_out: boolean vector to hold component-wise logical 'not'
+//		param v_in: input vector
+//		return: bv_out
+boolv tfuncs(ijkVecNot4, v, bool4 bv_out, type4 const v_in);
+
+// ijkVecAdd4*v
+//	Calculate sum of 4D vectors.
+//		param v_out: output vector to hold sum
+//		param v_lh: left-hand vector
+//		param v_rh: right-hand vector
+//		return: v_out
+typev tfuncs(ijkVecAdd4, v, type4 v_out, type4 const v_lh, type4 const v_rh);
+
+// ijkVecSub4*v
+//	Calculate difference of 4D vectors.
+//		param v_out: output vector to hold difference
+//		param v_lh: left-hand vector
+//		param v_rh: right-hand vector
+//		return: v_out
+typev tfuncs(ijkVecSub4, v, type4 v_out, type4 const v_lh, type4 const v_rh);
+
+// ijkVecMul4*v
+//	Calculate component-wise product of 4D vectors.
+//		param v_out: output vector to hold component-wise product
+//		param v_lh: left-hand vector
+//		param v_rh: right-hand vector
+//		return: v_out
+typev tfuncs(ijkVecMul4, v, type4 v_out, type4 const v_lh, type4 const v_rh);
+
+// ijkVecDiv4*v
+//	Calculate component-wise quotient of 4D vectors.
+//		param v_out: output vector to hold component-wise quotient
+//		param v_lh: left-hand vector
+//		param v_rh: right-hand vector
+//		return: v_out
+typev tfuncs(ijkVecDiv4, v, type4 v_out, type4 const v_lh, type4 const v_rh);
+
+// ijkVecDivSafe4*v
+//	Calculate component-wise quotient of 4D vectors, division-by-zero safe.
+//		param v_out: output vector to hold component-wise quotient
+//		param v_lh: left-hand vector
+//		param v_rh: right-hand vector
+//		return: v_out
+typev tfuncs(ijkVecDivSafe4, v, type4 v_out, type4 const v_lh, type4 const v_rh);
+
+// ijkVecMod4*v
+//	Calculate component-wise modulo of 4D vectors.
+//		param v_out: output vector to hold component-wise modulo
+//		param v_lh: left-hand vector
+//		param v_rh: right-hand vector
+//		return: v_out
+typev tfuncs(ijkVecMod4, v, type4 v_out, type4 const v_lh, type4 const v_rh);
+
+// ijkVecModSafe4*v
+//	Calculate component-wise modulo of 4D vectors, division-by-zero safe.
+//		param v_out: output vector to hold component-wise modulo
+//		param v_lh: left-hand vector
+//		param v_rh: right-hand vector
+//		return: v_out
+typev tfuncs(ijkVecModSafe4, v, type4 v_out, type4 const v_lh, type4 const v_rh);
+
+// ijkVecBitAnd4*v
+//	Calculate component-wise bitwise 'and' of 4D vectors.
+//		param v_out: output vector to hold component-wise bitwise 'and'
+//		param v_lh: left-hand vector
+//		param v_rh: right-hand vector
+//		return: v_out
+typev tfuncs(ijkVecBitAnd4, v, type4 v_out, type4 const v_lh, type4 const v_rh);
+
+// ijkVecBitNand4*v
+//	Calculate component-wise bitwise 'not and' of 4D vectors.
+//		param v_out: output vector to hold component-wise bitwise 'nand'
+//		param v_lh: left-hand vector
+//		param v_rh: right-hand vector
+//		return: v_out
+typev tfuncs(ijkVecBitNand4, v, type4 v_out, type4 const v_lh, type4 const v_rh);
+
+// ijkVecBitOr4*v
+//	Calculate component-wise bitwise 'or' of 4D vectors.
+//		param v_out: output vector to hold component-wise bitwise 'or'
+//		param v_lh: left-hand vector
+//		param v_rh: right-hand vector
+//		return: v_out
+typev tfuncs(ijkVecBitOr4, v, type4 v_out, type4 const v_lh, type4 const v_rh);
+
+// ijkVecBitNor4*v
+//	Calculate component-wise bitwise 'not or' of 4D vectors.
+//		param v_out: output vector to hold component-wise bitwise 'nor'
+//		param v_lh: left-hand vector
+//		param v_rh: right-hand vector
+//		return: v_out
+typev tfuncs(ijkVecBitNor4, v, type4 v_out, type4 const v_lh, type4 const v_rh);
+
+// ijkVecBitXor4*v
+//	Calculate component-wise bitwise 'exclusive or' of 4D vectors.
+//		param v_out: output vector to hold component-wise bitwise 'xor'
+//		param v_lh: left-hand vector
+//		param v_rh: right-hand vector
+//		return: v_out
+typev tfuncs(ijkVecBitXor4, v, type4 v_out, type4 const v_lh, type4 const v_rh);
+
+// ijkVecBitNxor4*v
+//	Calculate component-wise bitwise 'not exclusive or' of 4D vectors.
+//		param v_out: output vector to hold component-wise bitwise 'nxor'
+//		param v_lh: left-hand vector
+//		param v_rh: right-hand vector
+//		return: v_out
+typev tfuncs(ijkVecBitNxor4, v, type4 v_out, type4 const v_lh, type4 const v_rh);
+
+// ijkVecBitShiftLeft4*v
+//	Calculate component-wise bit shift left of 4D vectors.
+//		param v_out: output vector to hold component-wise bit shift
+//		param v_lh: left-hand vector
+//		param v_rh: right-hand vector
+//		return: v_out
+typev tfuncs(ijkVecBitShiftLeft4, v, type4 v_out, type4 const v_lh, type4 const v_rh);
+
+// ijkVecBitShiftRight4*v
+//	Calculate component-wise bit shift right of 4D vectors.
+//		param v_out: output vector to hold component-wise bit shift
+//		param v_lh: left-hand vector
+//		param v_rh: right-hand vector
+//		return: v_out
+typev tfuncs(ijkVecBitShiftRight4, v, type4 v_out, type4 const v_lh, type4 const v_rh);
+
+// ijkVecEqual4*v
+//	Equality comparison for 4D vectors.
+//		param bv_out: output vector holding boolean results of comparisons
+//		param v_lh: left-hand vector
+//		param v_rh: right-hand vector
+//		return: bv_out
+boolv tfuncs(ijkVecEqual4, v, bool4 bv_out, type4 const v_lh, type4 const v_rh);
+
+// ijkVecInequal4*v
+//	Inequality comparison for 4D vectors.
+//		param bv_out: output vector holding boolean results of comparisons
+//		param v_lh: left-hand vector
+//		param v_rh: right-hand vector
+//		return: bv_out
+boolv tfuncs(ijkVecInequal4, v, bool4 bv_out, type4 const v_lh, type4 const v_rh);
+
+// ijkVecLessEqual4*v
+//	Less-than or equal comparison for 4D vectors.
+//		param bv_out: output vector holding boolean results of comparisons
+//		param v_lh: left-hand vector
+//		param v_rh: right-hand vector
+//		return: bv_out
+boolv tfuncs(ijkVecLessEqual4, v, bool4 bv_out, type4 const v_lh, type4 const v_rh);
+
+// ijkVecGreaterEqual4*v
+//	Greater-than or equal comparison for 4D vectors.
+//		param bv_out: output vector holding boolean results of comparisons
+//		param v_lh: left-hand vector
+//		param v_rh: right-hand vector
+//		return: bv_out
+boolv tfuncs(ijkVecGreaterEqual4, v, bool4 bv_out, type4 const v_lh, type4 const v_rh);
+
+// ijkVecLess4*v
+//	Less-than comparison for 4D vectors.
+//		param bv_out: output vector holding boolean results of comparisons
+//		param v_lh: left-hand vector
+//		param v_rh: right-hand vector
+//		return: bv_out
+boolv tfuncs(ijkVecLess4, v, bool4 bv_out, type4 const v_lh, type4 const v_rh);
+
+// ijkVecGreater4*v
+//	GreaterThan comparison for 4D vectors.
+//		param bv_out: output vector holding boolean results of comparisons
+//		param v_lh: left-hand vector
+//		param v_rh: right-hand vector
+//		return: bv_out
+boolv tfuncs(ijkVecGreater4, v, bool4 bv_out, type4 const v_lh, type4 const v_rh);
 
 // ijkVecDot4*v
 //	Dot product of 4D array-based vectors.

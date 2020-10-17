@@ -116,7 +116,7 @@ ijk_inl type tfuncs(ijkVecNormalize1, s, type const s)
 ijk_inl type tfuncs(ijkVecNormalizeGetLength1, s, type const s, type* const length_out)
 {
 	type const length = *length_out = tabs(s);
-	return (s * trecip(length));
+	return (s / length);
 }
 
 // ijkVecNormalizeGetLengthInv1*s
@@ -128,7 +128,8 @@ ijk_inl type tfuncs(ijkVecNormalizeGetLength1, s, type const s, type* const leng
 ijk_inl type tfuncs(ijkVecNormalizeGetLengthInv1, s, type const s, type* const lengthInv_out)
 {
 	type const length = tabs(s);
-	return (s * (*lengthInv_out = trecip(length)));
+	*lengthInv_out = trecip(length);
+	return tsgn(s);
 }
 
 
