@@ -135,6 +135,18 @@ ijk_inl type tfuncs(ijkVecNormalizeGetLengthInv1, s, type const s, type* const l
 
 //-----------------------------------------------------------------------------
 
+// ijkVecP*v
+//	Pass-thru array-based vector function (does nothing).
+//		param v_out: output vector
+//		return: v_out
+ijk_inl typev tfuncs(ijkVecP, v, typev v_out)
+{
+	return v_out;
+}
+
+
+//-----------------------------------------------------------------------------
+
 // ijkVecDot2*v
 //	Dot product of 2D array-based vectors.
 //		param v_lh: left-hand vector
