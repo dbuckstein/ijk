@@ -147,6 +147,872 @@ ijk_inl typev tfuncs(ijkVecP, v, typev v_out)
 
 //-----------------------------------------------------------------------------
 
+// ijkVecInit2*v
+//	Initialize 2D vector to default value (zero vector).
+//		param v_out: output vector
+//		return: v_out
+ijk_inl typev tfuncs(ijkVecInit2, v, type2 v_out)
+{
+
+	return v_out;
+}
+
+// ijkVecInitElems2*v
+//	Initialize 2D vector to specified individual elements.
+//		param v_out: output vector
+//		param x: first element
+//		param y: second element
+//		return: v_out
+ijk_inl typev tfuncs(ijkVecInitElems2, v, type2 v_out, type const x, type const y)
+{
+
+	return v_out;
+}
+
+// ijkVecCopy2*v
+//	Copy 2D vector from first elements of another vector.
+//		param v_out: output vector to hold copy
+//		param v_in: input vector
+//		return: v_out
+ijk_inl typev tfuncs(ijkVecCopy2, v, type2 v_out, type2 const v_in)
+{
+
+	return v_out;
+}
+
+// ijkVecNegate2*v
+//	Negate 2D vector.
+//		param v_out: output vector to hold negated
+//		param v_in: input vector
+//		return: v_out
+ijk_inl typev tfuncs(ijkVecNegate2, v, type2 v_out, type2 const v_in)
+{
+
+	return v_out;
+}
+
+// ijkVecBitNot2*v
+//	Calculate component-wise bitwise 'not' of 2D vector.
+//		param v_out: output vector to hold component-wise bitwise 'not'
+//		param v_in: input vector
+//		return: v_out
+ijk_inl typev tfuncs(ijkVecBitNot2, v, type2 v_out, type2 const v_in)
+{
+
+	return v_out;
+}
+
+// ijkVecNot2*v
+//	Calculate component-wise logical 'not' of 2D vector.
+//		param bv_out: boolean vector to hold component-wise logical 'not'
+//		param v_in: input vector
+//		return: bv_out
+ijk_inl boolv tfuncs(ijkVecNot2, v, bool2 bv_out, type2 const v_in)
+{
+
+	return bv_out;
+}
+
+// ijkVecAdd2*v
+//	Calculate sum of 2D vectors.
+//		param v_out: output vector to hold sum
+//		param v_lh: left-hand vector
+//		param v_rh: right-hand vector
+//		return: v_out
+ijk_inl typev tfuncs(ijkVecAdd2, v, type2 v_out, type2 const v_lh, type2 const v_rh)
+{
+
+	return v_out;
+}
+
+// ijkVecSub2*v
+//	Calculate difference of 2D vectors.
+//		param v_out: output vector to hold difference
+//		param v_lh: left-hand vector
+//		param v_rh: right-hand vector
+//		return: v_out
+ijk_inl typev tfuncs(ijkVecSub2, v, type2 v_out, type2 const v_lh, type2 const v_rh)
+{
+
+	return v_out;
+}
+
+// ijkVecMul2*v
+//	Calculate component-wise product of 2D vectors.
+//		param v_out: output vector to hold component-wise product
+//		param v_lh: left-hand vector
+//		param v_rh: right-hand vector
+//		return: v_out
+ijk_inl typev tfuncs(ijkVecMul2, v, type2 v_out, type2 const v_lh, type2 const v_rh)
+{
+
+	return v_out;
+}
+
+// ijkVecDiv2*v
+//	Calculate component-wise quotient of 2D vectors.
+//		param v_out: output vector to hold component-wise quotient
+//		param v_lh: left-hand vector
+//		param v_rh: right-hand vector
+//		return: v_out
+ijk_inl typev tfuncs(ijkVecDiv2, v, type2 v_out, type2 const v_lh, type2 const v_rh)
+{
+
+	return v_out;
+}
+
+// ijkVecDivSafe2*v
+//	Calculate component-wise quotient of 2D vectors, division-by-zero safe.
+//		param v_out: output vector to hold component-wise quotient
+//		param v_lh: left-hand vector
+//		param v_rh: right-hand vector
+//		return: v_out
+ijk_inl typev tfuncs(ijkVecDivSafe2, v, type2 v_out, type2 const v_lh, type2 const v_rh)
+{
+
+	return v_out;
+}
+
+// ijkVecMod2*v
+//	Calculate component-wise modulo of 2D vectors.
+//		param v_out: output vector to hold component-wise modulo
+//		param v_lh: left-hand vector
+//		param v_rh: right-hand vector
+//		return: v_out
+ijk_inl typev tfuncs(ijkVecMod2, v, type2 v_out, type2 const v_lh, type2 const v_rh)
+{
+
+	return v_out;
+}
+
+// ijkVecModSafe2*v
+//	Calculate component-wise modulo of 2D vectors, division-by-zero safe.
+//		param v_out: output vector to hold component-wise modulo
+//		param v_lh: left-hand vector
+//		param v_rh: right-hand vector
+//		return: v_out
+ijk_inl typev tfuncs(ijkVecModSafe2, v, type2 v_out, type2 const v_lh, type2 const v_rh)
+{
+
+	return v_out;
+}
+
+// ijkVecBitAnd2*v
+//	Calculate component-wise bitwise 'and' of 2D vectors.
+//		param v_out: output vector to hold component-wise bitwise 'and'
+//		param v_lh: left-hand vector
+//		param v_rh: right-hand vector
+//		return: v_out
+ijk_inl typev tfuncs(ijkVecBitAnd2, v, type2 v_out, type2 const v_lh, type2 const v_rh)
+{
+
+	return v_out;
+}
+
+// ijkVecBitNand2*v
+//	Calculate component-wise bitwise 'not and' of 2D vectors.
+//		param v_out: output vector to hold component-wise bitwise 'nand'
+//		param v_lh: left-hand vector
+//		param v_rh: right-hand vector
+//		return: v_out
+ijk_inl typev tfuncs(ijkVecBitNand2, v, type2 v_out, type2 const v_lh, type2 const v_rh)
+{
+
+	return v_out;
+}
+
+// ijkVecBitOr2*v
+//	Calculate component-wise bitwise 'or' of 2D vectors.
+//		param v_out: output vector to hold component-wise bitwise 'or'
+//		param v_lh: left-hand vector
+//		param v_rh: right-hand vector
+//		return: v_out
+ijk_inl typev tfuncs(ijkVecBitOr2, v, type2 v_out, type2 const v_lh, type2 const v_rh)
+{
+
+	return v_out;
+}
+
+// ijkVecBitNor2*v
+//	Calculate component-wise bitwise 'not or' of 2D vectors.
+//		param v_out: output vector to hold component-wise bitwise 'nor'
+//		param v_lh: left-hand vector
+//		param v_rh: right-hand vector
+//		return: v_out
+ijk_inl typev tfuncs(ijkVecBitNor2, v, type2 v_out, type2 const v_lh, type2 const v_rh)
+{
+
+	return v_out;
+}
+
+// ijkVecBitXor2*v
+//	Calculate component-wise bitwise 'exclusive or' of 2D vectors.
+//		param v_out: output vector to hold component-wise bitwise 'xor'
+//		param v_lh: left-hand vector
+//		param v_rh: right-hand vector
+//		return: v_out
+ijk_inl typev tfuncs(ijkVecBitXor2, v, type2 v_out, type2 const v_lh, type2 const v_rh)
+{
+
+	return v_out;
+}
+
+// ijkVecBitNxor2*v
+//	Calculate component-wise bitwise 'not exclusive or' of 2D vectors.
+//		param v_out: output vector to hold component-wise bitwise 'nxor'
+//		param v_lh: left-hand vector
+//		param v_rh: right-hand vector
+//		return: v_out
+ijk_inl typev tfuncs(ijkVecBitNxor2, v, type2 v_out, type2 const v_lh, type2 const v_rh)
+{
+
+	return v_out;
+}
+
+// ijkVecBitShiftLeft2*v
+//	Calculate component-wise bit shift left of 2D vectors.
+//		param v_out: output vector to hold component-wise bit shift
+//		param v_lh: left-hand vector
+//		param v_rh: right-hand vector
+//		return: v_out
+ijk_inl typev tfuncs(ijkVecBitShiftLeft2, v, type2 v_out, type2 const v_lh, type2 const v_rh)
+{
+
+	return v_out;
+}
+
+// ijkVecBitShiftRight2*v
+//	Calculate component-wise bit shift right of 2D vectors.
+//		param v_out: output vector to hold component-wise bit shift
+//		param v_lh: left-hand vector
+//		param v_rh: right-hand vector
+//		return: v_out
+ijk_inl typev tfuncs(ijkVecBitShiftRight2, v, type2 v_out, type2 const v_lh, type2 const v_rh)
+{
+
+	return v_out;
+}
+
+// ijkVecEqual2*v
+//	Equality comparison for 2D vectors.
+//		param bv_out: output vector holding boolean results of comparisons
+//		param v_lh: left-hand vector
+//		param v_rh: right-hand vector
+//		return: bv_out
+ijk_inl boolv tfuncs(ijkVecEqual2, v, bool2 bv_out, type2 const v_lh, type2 const v_rh)
+{
+
+	return bv_out;
+}
+
+// ijkVecInequal2*v
+//	Inequality comparison for 2D vectors.
+//		param bv_out: output vector holding boolean results of comparisons
+//		param v_lh: left-hand vector
+//		param v_rh: right-hand vector
+//		return: bv_out
+ijk_inl boolv tfuncs(ijkVecInequal2, v, bool2 bv_out, type2 const v_lh, type2 const v_rh)
+{
+
+	return bv_out;
+}
+
+// ijkVecLessEqual2*v
+//	Less-than or equal comparison for 2D vectors.
+//		param bv_out: output vector holding boolean results of comparisons
+//		param v_lh: left-hand vector
+//		param v_rh: right-hand vector
+//		return: bv_out
+ijk_inl boolv tfuncs(ijkVecLessEqual2, v, bool2 bv_out, type2 const v_lh, type2 const v_rh)
+{
+
+	return bv_out;
+}
+
+// ijkVecGreaterEqual2*v
+//	Greater-than or equal comparison for 2D vectors.
+//		param bv_out: output vector holding boolean results of comparisons
+//		param v_lh: left-hand vector
+//		param v_rh: right-hand vector
+//		return: bv_out
+ijk_inl boolv tfuncs(ijkVecGreaterEqual2, v, bool2 bv_out, type2 const v_lh, type2 const v_rh)
+{
+
+	return bv_out;
+}
+
+// ijkVecLess2*v
+//	Less-than comparison for 2D vectors.
+//		param bv_out: output vector holding boolean results of comparisons
+//		param v_lh: left-hand vector
+//		param v_rh: right-hand vector
+//		return: bv_out
+ijk_inl boolv tfuncs(ijkVecLess2, v, bool2 bv_out, type2 const v_lh, type2 const v_rh)
+{
+
+	return bv_out;
+}
+
+// ijkVecGreater2*v
+//	Greater-than comparison for 2D vectors.
+//		param bv_out: output vector holding boolean results of comparisons
+//		param v_lh: left-hand vector
+//		param v_rh: right-hand vector
+//		return: bv_out
+ijk_inl boolv tfuncs(ijkVecGreater2, v, bool2 bv_out, type2 const v_lh, type2 const v_rh)
+{
+
+	return bv_out;
+}
+
+// ijkVecCopy2*vs
+//	Copy 2D vector from scalar.
+//		param v_out: output vector to hold copy
+//		param s_in: input scalar
+//		return: v_out
+ijk_inl typev tfuncs(ijkVecCopy2, vs, type2 v_out, type const s_in)
+{
+
+	return v_out;
+}
+
+// ijkVecNegate2*vs
+//	Negate scalar to 2D vector.
+//		param v_out: output vector to hold negated
+//		param s_in: input scalar
+//		return: v_out
+ijk_inl typev tfuncs(ijkVecNegate2, vs, type2 v_out, type const s_in)
+{
+
+	return v_out;
+}
+
+// ijkVecBitNot2*vs
+//	Calculate bitwise 'not' of 2D vector.
+//		param v_out: output vector to hold bitwise 'not'
+//		param s_in: input scalar
+//		return: v_out
+ijk_inl typev tfuncs(ijkVecBitNot2, vs, type2 v_out, type const s_in)
+{
+
+	return v_out;
+}
+
+// ijkVecNot2*vs
+//	Calculate logical 'not' of scalar.
+//		param bv_out: boolean vector to hold logical 'not'
+//		param s_in: input scalar
+//		return: bv_out
+ijk_inl boolv tfuncs(ijkVecNot2, vs, bool2 bv_out, type const s_in)
+{
+
+	return bv_out;
+}
+
+// ijkVecAdd2*vs
+//	Calculate sum of 2D vector components and scalar.
+//		param v_out: output vector to hold sum
+//		param v_lh: left-hand vector
+//		param s_rh: right-hand scalar
+//		return: v_out
+ijk_inl typev tfuncs(ijkVecAdd2, vs, type2 v_out, type2 const v_lh, type const s_rh)
+{
+
+	return v_out;
+}
+
+// ijkVecSub2*vs
+//	Calculate difference of 2D vector components and scalar.
+//		param v_out: output vector to hold difference
+//		param v_lh: left-hand vector
+//		param s_rh: right-hand scalar
+//		return: v_out
+ijk_inl typev tfuncs(ijkVecSub2, vs, type2 v_out, type2 const v_lh, type const s_rh)
+{
+
+	return v_out;
+}
+
+// ijkVecMul2*vs
+//	Calculate product of 2D vector components by scalar.
+//		param v_out: output vector to hold product
+//		param v_lh: left-hand vector
+//		param s_rh: right-hand scalar
+//		return: v_out
+ijk_inl typev tfuncs(ijkVecMul2, vs, type2 v_out, type2 const v_lh, type const s_rh)
+{
+
+	return v_out;
+}
+
+// ijkVecDiv2*vs
+//	Calculate quotient of 2D vector components by scalar.
+//		param v_out: output vector to hold quotient
+//		param v_lh: left-hand vector
+//		param s_rh: right-hand scalar
+//		return: v_out
+ijk_inl typev tfuncs(ijkVecDiv2, vs, type2 v_out, type2 const v_lh, type const s_rh)
+{
+
+	return v_out;
+}
+
+// ijkVecDivSafe2*vs
+//	Calculate quotient of 2D vector components by scalar, division-by-zero safe.
+//		param v_out: output vector to hold quotient
+//		param v_lh: left-hand vector
+//		param s_rh: right-hand scalar
+//		return: v_out
+ijk_inl typev tfuncs(ijkVecDivSafe2, vs, type2 v_out, type2 const v_lh, type const s_rh)
+{
+
+	return v_out;
+}
+
+// ijkVecMod2*vs
+//	Calculate modulo of 2D vector components by scalar.
+//		param v_out: output vector to hold modulo
+//		param v_lh: left-hand vector
+//		param s_rh: right-hand scalar
+//		return: v_out
+ijk_inl typev tfuncs(ijkVecMod2, vs, type2 v_out, type2 const v_lh, type const s_rh)
+{
+
+	return v_out;
+}
+
+// ijkVecModSafe2*vs
+//	Calculate modulo of 2D vector components by scalar, division-by-zero safe.
+//		param v_out: output vector to hold modulo
+//		param v_lh: left-hand vector
+//		param s_rh: right-hand scalar
+//		return: v_out
+ijk_inl typev tfuncs(ijkVecModSafe2, vs, type2 v_out, type2 const v_lh, type const s_rh)
+{
+
+	return v_out;
+}
+
+// ijkVecBitAnd2*vs
+//	Calculate bitwise 'and' of 2D vector components and scalar.
+//		param v_out: output vector to hold bitwise 'and'
+//		param v_lh: left-hand vector
+//		param s_rh: right-hand scalar
+//		return: v_out
+ijk_inl typev tfuncs(ijkVecBitAnd2, vs, type2 v_out, type2 const v_lh, type const s_rh)
+{
+
+	return v_out;
+}
+
+// ijkVecBitNand2*vs
+//	Calculate bitwise 'not and' of 2D vector components and scalar.
+//		param v_out: output vector to hold bitwise 'nand'
+//		param v_lh: left-hand vector
+//		param s_rh: right-hand scalar
+//		return: v_out
+ijk_inl typev tfuncs(ijkVecBitNand2, vs, type2 v_out, type2 const v_lh, type const s_rh)
+{
+
+	return v_out;
+}
+
+// ijkVecBitOr2*vs
+//	Calculate bitwise 'or' of 2D vector components and scalar.
+//		param v_out: output vector to hold bitwise 'or'
+//		param v_lh: left-hand vector
+//		param s_rh: right-hand scalar
+//		return: v_out
+ijk_inl typev tfuncs(ijkVecBitOr2, vs, type2 v_out, type2 const v_lh, type const s_rh)
+{
+
+	return v_out;
+}
+
+// ijkVecBitNor2*vs
+//	Calculate bitwise 'not or' of 2D vector components and scalar.
+//		param v_out: output vector to hold bitwise 'nor'
+//		param v_lh: left-hand vector
+//		param s_rh: right-hand scalar
+//		return: v_out
+ijk_inl typev tfuncs(ijkVecBitNor2, vs, type2 v_out, type2 const v_lh, type const s_rh)
+{
+
+	return v_out;
+}
+
+// ijkVecBitXor2*vs
+//	Calculate bitwise 'exclusive or' of 2D vector components and scalar.
+//		param v_out: output vector to hold bitwise 'xor'
+//		param v_lh: left-hand vector
+//		param s_rh: right-hand scalar
+//		return: v_out
+ijk_inl typev tfuncs(ijkVecBitXor2, vs, type2 v_out, type2 const v_lh, type const s_rh)
+{
+
+	return v_out;
+}
+
+// ijkVecBitNxor2*vs
+//	Calculate bitwise 'not exclusive or' of 2D vector components and scalar.
+//		param v_out: output vector to hold bitwise 'nxor'
+//		param v_lh: left-hand vector
+//		param s_rh: right-hand scalar
+//		return: v_out
+ijk_inl typev tfuncs(ijkVecBitNxor2, vs, type2 v_out, type2 const v_lh, type const s_rh)
+{
+
+	return v_out;
+}
+
+// ijkVecBitShiftLeft2*vs
+//	Calculate bit shift left of 2D vector components and scalar.
+//		param v_out: output vector to hold bit shift
+//		param v_lh: left-hand vector
+//		param s_rh: right-hand scalar
+//		return: v_out
+ijk_inl typev tfuncs(ijkVecBitShiftLeft2, vs, type2 v_out, type2 const v_lh, type const s_rh)
+{
+
+	return v_out;
+}
+
+// ijkVecBitShiftRight2*vs
+//	Calculate bit shift right of 2D vector components and scalar.
+//		param v_out: output vector to hold bit shift
+//		param v_lh: left-hand vector
+//		param s_rh: right-hand scalar
+//		return: v_out
+ijk_inl typev tfuncs(ijkVecBitShiftRight2, vs, type2 v_out, type2 const v_lh, type const s_rh)
+{
+
+	return v_out;
+}
+
+// ijkVecEqual2*vs
+//	Equality comparison of 2D vector components and scalar.
+//		param bv_out: output vector holding boolean results of comparisons
+//		param v_lh: left-hand vector
+//		param s_rh: right-hand scalar
+//		return: bv_out
+ijk_inl boolv tfuncs(ijkVecEqual2, vs, bool2 bv_out, type2 const v_lh, type const s_rh)
+{
+
+	return bv_out;
+}
+
+// ijkVecInequal2*vs
+//	Inequality comparison of 2D vector components and scalar.
+//		param bv_out: output vector holding boolean results of comparisons
+//		param v_lh: left-hand vector
+//		param s_rh: right-hand scalar
+//		return: bv_out
+ijk_inl boolv tfuncs(ijkVecInequal2, vs, bool2 bv_out, type2 const v_lh, type const s_rh)
+{
+
+	return bv_out;
+}
+
+// ijkVecLessEqual2*vs
+//	Less-than or equal comparison of 2D vector components and scalar.
+//		param bv_out: output vector holding boolean results of comparisons
+//		param v_lh: left-hand vector
+//		param s_rh: right-hand scalar
+//		return: bv_out
+ijk_inl boolv tfuncs(ijkVecLessEqual2, vs, bool2 bv_out, type2 const v_lh, type const s_rh)
+{
+
+	return bv_out;
+}
+
+// ijkVecGreaterEqual2*vs
+//	Greater-than or equal comparison of 2D vector components and scalar.
+//		param bv_out: output vector holding boolean results of comparisons
+//		param v_lh: left-hand vector
+//		param s_rh: right-hand scalar
+//		return: bv_out
+ijk_inl boolv tfuncs(ijkVecGreaterEqual2, vs, bool2 bv_out, type2 const v_lh, type const s_rh)
+{
+
+	return bv_out;
+}
+
+// ijkVecLess2*vs
+//	Less-than comparison of 2D vector components and scalar.
+//		param bv_out: output vector holding boolean results of comparisons
+//		param v_lh: left-hand vector
+//		param s_rh: right-hand scalar
+//		return: bv_out
+ijk_inl boolv tfuncs(ijkVecLess2, vs, bool2 bv_out, type2 const v_lh, type const s_rh)
+{
+
+	return bv_out;
+}
+
+// ijkVecGreater2*vs
+//	Greater-than comparison of 2D vector components and scalar.
+//		param bv_out: output vector holding boolean results of comparisons
+//		param v_lh: left-hand vector
+//		param s_rh: right-hand scalar
+//		return: bv_out
+ijk_inl boolv tfuncs(ijkVecGreater2, vs, bool2 bv_out, type2 const v_lh, type const s_rh)
+{
+
+	return bv_out;
+}
+
+// ijkVecAdd2*sv
+//	Calculate sum of scalar and 2D vector components.
+//		param v_out: output vector to hold sum
+//		param s_lh: left-hand scalar
+//		param v_rh: right-hand vector
+//		return: v_out
+ijk_inl typev tfuncs(ijkVecAdd2, sv, type2 v_out, type const s_lh, type2 const v_rh)
+{
+
+	return v_out;
+}
+
+// ijkVecSub2*sv
+//	Calculate difference of scalar and 2D vector components.
+//		param v_out: output vector to hold difference
+//		param s_lh: left-hand scalar
+//		param v_rh: right-hand vector
+//		return: v_out
+ijk_inl typev tfuncs(ijkVecSub2, sv, type2 v_out, type const s_lh, type2 const v_rh)
+{
+
+	return v_out;
+}
+
+// ijkVecMul2*sv
+//	Calculate product of scalar by 2D vector components.
+//		param v_out: output vector to hold product
+//		param s_lh: left-hand scalar
+//		param v_rh: right-hand vector
+//		return: v_out
+ijk_inl typev tfuncs(ijkVecMul2, sv, type2 v_out, type const s_lh, type2 const v_rh)
+{
+
+	return v_out;
+}
+
+// ijkVecDiv2*sv
+//	Calculate quotient of scalar by 2D vector components.
+//		param v_out: output vector to hold quotient
+//		param s_lh: left-hand scalar
+//		param v_rh: right-hand vector
+//		return: v_out
+ijk_inl typev tfuncs(ijkVecDiv2, sv, type2 v_out, type const s_lh, type2 const v_rh)
+{
+
+	return v_out;
+}
+
+// ijkVecDivSafe2*sv
+//	Calculate quotient of scalar by 2D vector components, division-by-zero safe.
+//		param v_out: output vector to hold quotient
+//		param s_lh: left-hand scalar
+//		param v_rh: right-hand vector
+//		return: v_out
+ijk_inl typev tfuncs(ijkVecDivSafe2, sv, type2 v_out, type const s_lh, type2 const v_rh)
+{
+
+	return v_out;
+}
+
+// ijkVecMod2*sv
+//	Calculate modulo of scalar by 2D vector components.
+//		param v_out: output vector to hold modulo
+//		param s_lh: left-hand scalar
+//		param v_rh: right-hand vector
+//		return: v_out
+ijk_inl typev tfuncs(ijkVecMod2, sv, type2 v_out, type const s_lh, type2 const v_rh)
+{
+
+	return v_out;
+}
+
+// ijkVecModSafe2*sv
+//	Calculate modulo of scalar by 2D vector components, division-by-zero safe.
+//		param v_out: output vector to hold modulo
+//		param s_lh: left-hand scalar
+//		param v_rh: right-hand vector
+//		return: v_out
+ijk_inl typev tfuncs(ijkVecModSafe2, sv, type2 v_out, type const s_lh, type2 const v_rh)
+{
+
+	return v_out;
+}
+
+// ijkVecBitAnd2*sv
+//	Calculate bitwise 'and' of scalar and 2D vector components.
+//		param v_out: output vector to hold bitwise 'and'
+//		param s_lh: left-hand scalar
+//		param v_rh: right-hand vector
+//		return: v_out
+ijk_inl typev tfuncs(ijkVecBitAnd2, sv, type2 v_out, type const s_lh, type2 const v_rh)
+{
+
+	return v_out;
+}
+
+// ijkVecBitNand2*sv
+//	Calculate bitwise 'not and' of scalar and 2D vector components.
+//		param v_out: output vector to hold bitwise 'nand'
+//		param s_lh: left-hand scalar
+//		param v_rh: right-hand vector
+//		return: v_out
+ijk_inl typev tfuncs(ijkVecBitNand2, sv, type2 v_out, type const s_lh, type2 const v_rh)
+{
+
+	return v_out;
+}
+
+// ijkVecBitOr2*sv
+//	Calculate bitwise 'or' of scalar and 2D vector components.
+//		param v_out: output vector to hold bitwise 'or'
+//		param s_lh: left-hand scalar
+//		param v_rh: right-hand vector
+//		return: v_out
+ijk_inl typev tfuncs(ijkVecBitOr2, sv, type2 v_out, type const s_lh, type2 const v_rh)
+{
+
+	return v_out;
+}
+
+// ijkVecBitNor2*sv
+//	Calculate bitwise 'not or' of scalar and 2D vector components.
+//		param v_out: output vector to hold bitwise 'nor'
+//		param s_lh: left-hand scalar
+//		param v_rh: right-hand vector
+//		return: v_out
+ijk_inl typev tfuncs(ijkVecBitNor2, sv, type2 v_out, type const s_lh, type2 const v_rh)
+{
+
+	return v_out;
+}
+
+// ijkVecBitXor2*sv
+//	Calculate bitwise 'exclusive or' of scalar and 2D vector components.
+//		param v_out: output vector to hold bitwise 'xor'
+//		param s_lh: left-hand scalar
+//		param v_rh: right-hand vector
+//		return: v_out
+ijk_inl typev tfuncs(ijkVecBitXor2, sv, type2 v_out, type const s_lh, type2 const v_rh)
+{
+
+	return v_out;
+}
+
+// ijkVecBitNxor2*sv
+//	Calculate bitwise 'not exclusive or' of scalar and 2D vector components.
+//		param v_out: output vector to hold bitwise 'nxor'
+//		param s_lh: left-hand scalar
+//		param v_rh: right-hand vector
+//		return: v_out
+ijk_inl typev tfuncs(ijkVecBitNxor2, sv, type2 v_out, type const s_lh, type2 const v_rh)
+{
+
+	return v_out;
+}
+
+// ijkVecBitShiftLeft2*sv
+//	Calculate bit shift left of scalar by 2D vector components.
+//		param v_out: output vector to hold bit shift
+//		param s_lh: left-hand scalar
+//		param v_rh: right-hand vector
+//		return: v_out
+ijk_inl typev tfuncs(ijkVecBitShiftLeft2, sv, type2 v_out, type const s_lh, type2 const v_rh)
+{
+
+	return v_out;
+}
+
+// ijkVecBitShiftRight2*sv
+//	Calculate bit shift right of scalar by 2D vector components.
+//		param v_out: output vector to hold bit shift
+//		param s_lh: left-hand scalar
+//		param v_rh: right-hand vector
+//		return: v_out
+ijk_inl typev tfuncs(ijkVecBitShiftRight2, sv, type2 v_out, type const s_lh, type2 const v_rh)
+{
+
+	return v_out;
+}
+
+// ijkVecEqual2*sv
+//	Equality comparison of scalar and 2D vector components.
+//		param bv_out: output vector holding boolean results of comparisons
+//		param s_lh: left-hand scalar
+//		param v_rh: right-hand vector
+//		return: bv_out
+ijk_inl boolv tfuncs(ijkVecEqual2, sv, bool2 bv_out, type const s_lh, type2 const v_rh)
+{
+
+	return bv_out;
+}
+
+// ijkVecInequal2*sv
+//	Inequality comparison of scalar and 2D vector components.
+//		param bv_out: output vector holding boolean results of comparisons
+//		param s_lh: left-hand scalar
+//		param v_rh: right-hand vector
+//		return: bv_out
+ijk_inl boolv tfuncs(ijkVecInequal2, sv, bool2 bv_out, type const s_lh, type2 const v_rh)
+{
+
+	return bv_out;
+}
+
+// ijkVecLessEqual2*sv
+//	Less-than or equal comparison of scalar and 2D vector components.
+//		param bv_out: output vector holding boolean results of comparisons
+//		param s_lh: left-hand scalar
+//		param v_rh: right-hand vector
+//		return: bv_out
+ijk_inl boolv tfuncs(ijkVecLessEqual2, sv, bool2 bv_out, type const s_lh, type2 const v_rh)
+{
+
+	return bv_out;
+}
+
+// ijkVecGreaterEqual2*sv
+//	Greater-than or equal comparison of scalar and 2D vector components.
+//		param bv_out: output vector holding boolean results of comparisons
+//		param s_lh: left-hand scalar
+//		param v_rh: right-hand vector
+//		return: bv_out
+ijk_inl boolv tfuncs(ijkVecGreaterEqual2, sv, bool2 bv_out, type const s_lh, type2 const v_rh)
+{
+
+	return bv_out;
+}
+
+// ijkVecLess2*sv
+//	Less-than comparison of scalar and 2D vector components.
+//		param bv_out: output vector holding boolean results of comparisons
+//		param s_lh: left-hand scalar
+//		param v_rh: right-hand vector
+//		return: bv_out
+ijk_inl boolv tfuncs(ijkVecLess2, sv, bool2 bv_out, type const s_lh, type2 const v_rh)
+{
+
+	return bv_out;
+}
+
+// ijkVecGreater2*sv
+//	Greater-than comparison of scalar and 2D vector components.
+//		param bv_out: output vector holding boolean results of comparisons
+//		param s_lh: left-hand scalar
+//		param v_rh: right-hand vector
+//		return: bv_out
+ijk_inl boolv tfuncs(ijkVecGreater2, sv, bool2 bv_out, type const s_lh, type2 const v_rh)
+{
+
+	return bv_out;
+}
+
 // ijkVecDot2*v
 //	Dot product of 2D array-based vectors.
 //		param v_lh: left-hand vector
