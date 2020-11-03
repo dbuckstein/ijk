@@ -35,11 +35,11 @@ extern "C" {
 
 void ijkMathTestVectorSwizzle()
 {
-	typedef ui64 base, * basev;
-	typedef uintl type;
-	typedef ulvec2 tvec2;
-	typedef ulvec3 tvec3;
-	typedef ulvec4 tvec4;
+	typedef i32 base, * basev;
+	typedef int type;
+	typedef ivec2 tvec2;
+	typedef ivec3 tvec3;
+	typedef ivec4 tvec4;
 
 	tvec2 test_vec2(7, 13);
 	tvec2 test_svec2 = tvec2(42, 9001).yx;	// ivec2 ctor -> call swiz -> isvec2 ctor -> ivec2 ctor: test_isvec2 = (9001, 42)
@@ -48,17 +48,17 @@ void ijkMathTestVectorSwizzle()
 	type test_vec1 = 4;
 	type test_vec1r = test_vec1;
 
-	tvec3 test_vec3x = ulvec3_x, test_vec3y = ulvec3_y;
+	tvec3 test_vec3x = ivec3_x, test_vec3y = ivec3_y;
 
 	tvec3 test_vec3;
 	tvec4 test_vec4;
 
-	base test_dot3v = ijkVecDot3ulv(test_vec3x.xyz, test_vec3y.xyz);
-	//base test_dot3v = ijkVecDot3uv(test_vec3x.xyz, test_vec3y.yxz);
-	type test_dot3 = ijkVecDot3ul(test_vec3x, test_vec3y);
-	//basev test_cross3v = ijkVecCross3ulv(test_vec3.xyz, test_vec3x.xyz, test_vec3y.xyz);
-	basev test_cross3v = ijkVecCross3ulv(test_vec3.zyx, test_vec3x.xyz, test_vec3y.xyz);
-	tvec3 test_cross3 = ijkVecCross3ul(test_vec3x, test_vec3y);
+	base test_dot3v = ijkVecDot3iv(test_vec3x.xyz, test_vec3y.xyz);
+	//base test_dot3v = ijkVecDot3iv(test_vec3x.xyz, test_vec3y.yxz);
+	type test_dot3 = ijkVecDot3i(test_vec3x, test_vec3y);
+	//basev test_cross3v = ijkVecCross3iv(test_vec3.xyz, test_vec3x.xyz, test_vec3y.xyz);
+	basev test_cross3v = ijkVecCross3iv(test_vec3.zyx, test_vec3x.xyz, test_vec3y.xyz);
+	tvec3 test_cross3 = ijkVecCross3i(test_vec3x, test_vec3y);
 
 	test_vec3.x += 1;
 	test_vec3.xyz += 1;

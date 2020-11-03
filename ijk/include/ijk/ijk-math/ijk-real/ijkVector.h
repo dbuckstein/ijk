@@ -1342,23 +1342,7 @@ bvec4 ijkVecInequal4sb(bool const s_lh, bvec4 const v_rh);
 
 //-----------------------------------------------------------------------------
 
-#define IJK_VECTORFUNC_TYPE	_INT
-#include "_util/ijkVectorFunc.h"
-
-#define IJK_VECTORFUNC_TYPE	_INTL
-#include "_util/ijkVectorFunc.h"
-
-#define IJK_VECTORFUNC_TYPE	_UINT
-#include "_util/ijkVectorFunc.h"
-
-#define IJK_VECTORFUNC_TYPE	_UINTL
-#include "_util/ijkVectorFunc.h"
-
-#define IJK_VECTORFUNC_TYPE	_FLOAT
-#include "_util/ijkVectorFunc.h"
-
-#define IJK_VECTORFUNC_TYPE	_DOUBLE
-#include "_util/ijkVectorFunc.h"
+#include "_util/ijkVector_int.h"
 
 
 //-----------------------------------------------------------------------------
