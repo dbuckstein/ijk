@@ -253,13 +253,13 @@ intv ijkVecBitNor2iv(int2 v_out, int2 const v_lh, int2 const v_rh);
 //		return: v_out
 intv ijkVecBitXor2iv(int2 v_out, int2 const v_lh, int2 const v_rh);
 
-// ijkVecBitNxor2*v
+// ijkVecBitXnor2*v
 //	Calculate component-wise bitwise 'not exclusive or' of 2D vectors.
 //		param v_out: output vector to hold component-wise bitwise 'nxor'
 //		param v_lh: left-hand vector
 //		param v_rh: right-hand vector
 //		return: v_out
-intv ijkVecBitNxor2iv(int2 v_out, int2 const v_lh, int2 const v_rh);
+intv ijkVecBitXnor2iv(int2 v_out, int2 const v_lh, int2 const v_rh);
 
 // ijkVecBitShiftLeft2*v
 //	Calculate component-wise bit shift left of 2D vectors.
@@ -455,13 +455,13 @@ intv ijkVecBitNor2ivs(int2 v_out, int2 const v_lh, i32 const s_rh);
 //		return: v_out
 intv ijkVecBitXor2ivs(int2 v_out, int2 const v_lh, i32 const s_rh);
 
-// ijkVecBitNxor2*vs
+// ijkVecBitXnor2*vs
 //	Calculate bitwise 'not exclusive or' of 2D vector components and scalar.
 //		param v_out: output vector to hold bitwise 'nxor'
 //		param v_lh: left-hand vector
 //		param s_rh: right-hand scalar
 //		return: v_out
-intv ijkVecBitNxor2ivs(int2 v_out, int2 const v_lh, i32 const s_rh);
+intv ijkVecBitXnor2ivs(int2 v_out, int2 const v_lh, i32 const s_rh);
 
 // ijkVecBitShiftLeft2*vs
 //	Calculate bit shift left of 2D vector components and scalar.
@@ -625,13 +625,13 @@ intv ijkVecBitNor2isv(int2 v_out, i32 const s_lh, int2 const v_rh);
 //		return: v_out
 intv ijkVecBitXor2isv(int2 v_out, i32 const s_lh, int2 const v_rh);
 
-// ijkVecBitNxor2*sv
+// ijkVecBitXnor2*sv
 //	Calculate bitwise 'not exclusive or' of scalar and 2D vector components.
 //		param v_out: output vector to hold bitwise 'nxor'
 //		param s_lh: left-hand scalar
 //		param v_rh: right-hand vector
 //		return: v_out
-intv ijkVecBitNxor2isv(int2 v_out, i32 const s_lh, int2 const v_rh);
+intv ijkVecBitXnor2isv(int2 v_out, i32 const s_lh, int2 const v_rh);
 
 // ijkVecBitShiftLeft2*sv
 //	Calculate bit shift left of scalar by 2D vector components.
@@ -859,13 +859,13 @@ intv ijkVecBitNor3iv(int3 v_out, int3 const v_lh, int3 const v_rh);
 //		return: v_out
 intv ijkVecBitXor3iv(int3 v_out, int3 const v_lh, int3 const v_rh);
 
-// ijkVecBitNxor3*v
+// ijkVecBitXnor3*v
 //	Calculate component-wise bitwise 'not exclusive or' of 3D vectors.
 //		param v_out: output vector to hold component-wise bitwise 'nxor'
 //		param v_lh: left-hand vector
 //		param v_rh: right-hand vector
 //		return: v_out
-intv ijkVecBitNxor3iv(int3 v_out, int3 const v_lh, int3 const v_rh);
+intv ijkVecBitXnor3iv(int3 v_out, int3 const v_lh, int3 const v_rh);
 
 // ijkVecBitShiftLeft3*v
 //	Calculate component-wise bit shift left of 3D vectors.
@@ -1069,13 +1069,13 @@ intv ijkVecBitNor3ivs(int3 v_out, int3 const v_lh, i32 const s_rh);
 //		return: v_out
 intv ijkVecBitXor3ivs(int3 v_out, int3 const v_lh, i32 const s_rh);
 
-// ijkVecBitNxor3*vs
+// ijkVecBitXnor3*vs
 //	Calculate bitwise 'not exclusive or' of 3D vector components and scalar.
 //		param v_out: output vector to hold bitwise 'nxor'
 //		param v_lh: left-hand vector
 //		param s_rh: right-hand scalar
 //		return: v_out
-intv ijkVecBitNxor3ivs(int3 v_out, int3 const v_lh, i32 const s_rh);
+intv ijkVecBitXnor3ivs(int3 v_out, int3 const v_lh, i32 const s_rh);
 
 // ijkVecBitShiftLeft3*vs
 //	Calculate bit shift left of 3D vector components and scalar.
@@ -1247,13 +1247,13 @@ intv ijkVecBitNor3isv(int3 v_out, i32 const s_lh, int3 const v_rh);
 //		return: v_out
 intv ijkVecBitXor3isv(int3 v_out, i32 const s_lh, int3 const v_rh);
 
-// ijkVecBitNxor3*sv
+// ijkVecBitXnor3*sv
 //	Calculate bitwise 'not exclusive or' of scalar and 3D vector components.
 //		param v_out: output vector to hold bitwise 'nxor'
 //		param s_lh: left-hand scalar
 //		param v_rh: right-hand vector
 //		return: v_out
-intv ijkVecBitNxor3isv(int3 v_out, i32 const s_lh, int3 const v_rh);
+intv ijkVecBitXnor3isv(int3 v_out, i32 const s_lh, int3 const v_rh);
 
 // ijkVecBitShiftLeft3*sv
 //	Calculate bit shift left of scalar by 3D vector components.
@@ -1500,13 +1500,13 @@ intv ijkVecBitNor4iv(int4 v_out, int4 const v_lh, int4 const v_rh);
 //		return: v_out
 intv ijkVecBitXor4iv(int4 v_out, int4 const v_lh, int4 const v_rh);
 
-// ijkVecBitNxor4*v
+// ijkVecBitXnor4*v
 //	Calculate component-wise bitwise 'not exclusive or' of 4D vectors.
 //		param v_out: output vector to hold component-wise bitwise 'nxor'
 //		param v_lh: left-hand vector
 //		param v_rh: right-hand vector
 //		return: v_out
-intv ijkVecBitNxor4iv(int4 v_out, int4 const v_lh, int4 const v_rh);
+intv ijkVecBitXnor4iv(int4 v_out, int4 const v_lh, int4 const v_rh);
 
 // ijkVecBitShiftLeft4*v
 //	Calculate component-wise bit shift left of 4D vectors.
@@ -1719,13 +1719,13 @@ intv ijkVecBitNor4ivs(int4 v_out, int4 const v_lh, i32 const s_rh);
 //		return: v_out
 intv ijkVecBitXor4ivs(int4 v_out, int4 const v_lh, i32 const s_rh);
 
-// ijkVecBitNxor4*vs
+// ijkVecBitXnor4*vs
 //	Calculate bitwise 'not exclusive or' of 4D vector components and scalar.
 //		param v_out: output vector to hold bitwise 'nxor'
 //		param v_lh: left-hand vector
 //		param s_rh: right-hand scalar
 //		return: v_out
-intv ijkVecBitNxor4ivs(int4 v_out, int4 const v_lh, i32 const s_rh);
+intv ijkVecBitXnor4ivs(int4 v_out, int4 const v_lh, i32 const s_rh);
 
 // ijkVecBitShiftLeft4*vs
 //	Calculate bit shift left of 4D vector components and scalar.
@@ -1906,13 +1906,13 @@ intv ijkVecBitNor4isv(int4 v_out, i32 const s_lh, int4 const v_rh);
 //		return: v_out
 intv ijkVecBitXor4isv(int4 v_out, i32 const s_lh, int4 const v_rh);
 
-// ijkVecBitNxor4*sv
+// ijkVecBitXnor4*sv
 //	Calculate bitwise 'not exclusive or' of scalar and 4D vector components.
 //		param v_out: output vector to hold bitwise 'nxor'
 //		param s_lh: left-hand scalar
 //		param v_rh: right-hand vector
 //		return: v_out
-intv ijkVecBitNxor4isv(int4 v_out, i32 const s_lh, int4 const v_rh);
+intv ijkVecBitXnor4isv(int4 v_out, i32 const s_lh, int4 const v_rh);
 
 // ijkVecBitShiftLeft4*sv
 //	Calculate bit shift left of scalar by 4D vector components.
@@ -2198,12 +2198,12 @@ ivec2 ijkVecBitNor2i(ivec2 const v_lh, ivec2 const v_rh);
 //		return: result vector
 ivec2 ijkVecBitXor2i(ivec2 const v_lh, ivec2 const v_rh);
 
-// ijkVecBitNxor2*
+// ijkVecBitXnor2*
 //	Calculate component-wise bitwise 'not exclusive or' of 2D vectors.
 //		param v_lh: left-hand vector
 //		param v_rh: right-hand vector
 //		return: result vector
-ivec2 ijkVecBitNxor2i(ivec2 const v_lh, ivec2 const v_rh);
+ivec2 ijkVecBitXnor2i(ivec2 const v_lh, ivec2 const v_rh);
 
 // ijkVecBitShiftLeft2*
 //	Calculate component-wise bit shift left of 2D vectors.
@@ -2375,12 +2375,12 @@ ivec2 ijkVecBitNor2is(ivec2 const v_lh, int const s_rh);
 //		return: result vector
 ivec2 ijkVecBitXor2is(ivec2 const v_lh, int const s_rh);
 
-// ijkVecBitNxor2*s
+// ijkVecBitXnor2*s
 //	Calculate bitwise 'not exclusive or' of 2D vector components and scalar.
 //		param v_lh: left-hand vector
 //		param s_rh: right-hand scalar
 //		return: result vector
-ivec2 ijkVecBitNxor2is(ivec2 const v_lh, int const s_rh);
+ivec2 ijkVecBitXnor2is(ivec2 const v_lh, int const s_rh);
 
 // ijkVecBitShiftLeft2*s
 //	Calculate bit shift left of 2D vector components and scalar.
@@ -2524,12 +2524,12 @@ ivec2 ijkVecBitNor2si(int const s_lh, ivec2 const v_rh);
 //		return: result vector
 ivec2 ijkVecBitXor2si(int const s_lh, ivec2 const v_rh);
 
-// ijkVecBitNxor2s*
+// ijkVecBitXnor2s*
 //	Calculate bitwise 'not exclusive or' of scalar and 2D vector components.
 //		param s_lh: left-hand scalar
 //		param v_rh: right-hand vector
 //		return: result vector
-ivec2 ijkVecBitNxor2si(int const s_lh, ivec2 const v_rh);
+ivec2 ijkVecBitXnor2si(int const s_lh, ivec2 const v_rh);
 
 // ijkVecBitShiftLeft2s*
 //	Calculate bit shift left of scalar by 2D vector components.
@@ -2731,12 +2731,12 @@ ivec3 ijkVecBitNor3i(ivec3 const v_lh, ivec3 const v_rh);
 //		return: result vector
 ivec3 ijkVecBitXor3i(ivec3 const v_lh, ivec3 const v_rh);
 
-// ijkVecBitNxor3*
+// ijkVecBitXnor3*
 //	Calculate component-wise bitwise 'not exclusive or' of 3D vectors.
 //		param v_lh: left-hand vector
 //		param v_rh: right-hand vector
 //		return: result vector
-ivec3 ijkVecBitNxor3i(ivec3 const v_lh, ivec3 const v_rh);
+ivec3 ijkVecBitXnor3i(ivec3 const v_lh, ivec3 const v_rh);
 
 // ijkVecBitShiftLeft3*
 //	Calculate component-wise bit shift left of 3D vectors.
@@ -2915,12 +2915,12 @@ ivec3 ijkVecBitNor3is(ivec3 const v_lh, int const s_rh);
 //		return: result vector
 ivec3 ijkVecBitXor3is(ivec3 const v_lh, int const s_rh);
 
-// ijkVecBitNxor3*s
+// ijkVecBitXnor3*s
 //	Calculate bitwise 'not exclusive or' of 3D vector components and scalar.
 //		param v_lh: left-hand vector
 //		param s_rh: right-hand scalar
 //		return: result vector
-ivec3 ijkVecBitNxor3is(ivec3 const v_lh, int const s_rh);
+ivec3 ijkVecBitXnor3is(ivec3 const v_lh, int const s_rh);
 
 // ijkVecBitShiftLeft3*s
 //	Calculate bit shift left of 3D vector components and scalar.
@@ -3071,12 +3071,12 @@ ivec3 ijkVecBitNor3si(int const s_lh, ivec3 const v_rh);
 //		return: result vector
 ivec3 ijkVecBitXor3si(int const s_lh, ivec3 const v_rh);
 
-// ijkVecBitNxor3s*
+// ijkVecBitXnor3s*
 //	Calculate bitwise 'not exclusive or' of scalar and 3D vector components.
 //		param s_lh: left-hand scalar
 //		param v_rh: right-hand vector
 //		return: result vector
-ivec3 ijkVecBitNxor3si(int const s_lh, ivec3 const v_rh);
+ivec3 ijkVecBitXnor3si(int const s_lh, ivec3 const v_rh);
 
 // ijkVecBitShiftLeft3s*
 //	Calculate bit shift left of scalar by 3D vector components.
@@ -3294,12 +3294,12 @@ ivec4 ijkVecBitNor4i(ivec4 const v_lh, ivec4 const v_rh);
 //		return: result vector
 ivec4 ijkVecBitXor4i(ivec4 const v_lh, ivec4 const v_rh);
 
-// ijkVecBitNxor4*
+// ijkVecBitXnor4*
 //	Calculate component-wise bitwise 'not exclusive or' of 4D vectors.
 //		param v_lh: left-hand vector
 //		param v_rh: right-hand vector
 //		return: result vector
-ivec4 ijkVecBitNxor4i(ivec4 const v_lh, ivec4 const v_rh);
+ivec4 ijkVecBitXnor4i(ivec4 const v_lh, ivec4 const v_rh);
 
 // ijkVecBitShiftLeft4*
 //	Calculate component-wise bit shift left of 4D vectors.
@@ -3486,12 +3486,12 @@ ivec4 ijkVecBitNor4is(ivec4 const v_lh, int const s_rh);
 //		return: result vector
 ivec4 ijkVecBitXor4is(ivec4 const v_lh, int const s_rh);
 
-// ijkVecBitNxor4*s
+// ijkVecBitXnor4*s
 //	Calculate bitwise 'not exclusive or' of 4D vector components and scalar.
 //		param v_lh: left-hand vector
 //		param s_rh: right-hand scalar
 //		return: result vector
-ivec4 ijkVecBitNxor4is(ivec4 const v_lh, int const s_rh);
+ivec4 ijkVecBitXnor4is(ivec4 const v_lh, int const s_rh);
 
 // ijkVecBitShiftLeft4*s
 //	Calculate bit shift left of 4D vector components and scalar.
@@ -3650,12 +3650,12 @@ ivec4 ijkVecBitNor4si(int const s_lh, ivec4 const v_rh);
 //		return: result vector
 ivec4 ijkVecBitXor4si(int const s_lh, ivec4 const v_rh);
 
-// ijkVecBitNxor4s*
+// ijkVecBitXnor4s*
 //	Calculate bitwise 'not exclusive or' of scalar and 4D vector components.
 //		param s_lh: left-hand scalar
 //		param v_rh: right-hand vector
 //		return: result vector
-ivec4 ijkVecBitNxor4si(int const s_lh, ivec4 const v_rh);
+ivec4 ijkVecBitXnor4si(int const s_lh, ivec4 const v_rh);
 
 // ijkVecBitShiftLeft4s*
 //	Calculate bit shift left of scalar by 4D vector components.

@@ -100,26 +100,30 @@ ijk_inl intv ijkVecPiv(intv v_out)
 
 ijk_inl intv ijkVecInit2iv(int2 v_out)
 {
-
+	v_out[0] = 0;
+	v_out[1] = 0;
 	return v_out;
 }
 
 ijk_inl intv ijkVecInitElems2iv(int2 v_out, i32 const x, i32 const y)
 {
-
+	v_out[0] = x;
+	v_out[1] = y;
 	return v_out;
 }
 
 ijk_inl intv ijkVecCopy2iv(int2 v_out, int2 const v_in)
 {
-
+	v_out[0] = +v_in[0];
+	v_out[1] = +v_in[1];
 	return v_out;
 }
 
 #if TSIGNED
 ijk_inl intv ijkVecNegate2iv(int2 v_out, int2 const v_in)
 {
-
+	v_out[0] = -v_in[0];
+	v_out[1] = -v_in[1];
 	return v_out;
 }
 #endif	// TSIGNED
@@ -127,155 +131,180 @@ ijk_inl intv ijkVecNegate2iv(int2 v_out, int2 const v_in)
 #if TINTEGER
 ijk_inl intv ijkVecBitNot2iv(int2 v_out, int2 const v_in)
 {
-
+	v_out[0] = ~v_in[0];
+	v_out[1] = ~v_in[1];
 	return v_out;
 }
 #endif	// TINTEGER
 
 ijk_inl boolv ijkVecNot2iv(bool2 bv_out, int2 const v_in)
 {
-
+	bv_out[0] = !v_in[0];
+	bv_out[1] = !v_in[1];
 	return bv_out;
 }
 
 ijk_inl intv ijkVecAdd2iv(int2 v_out, int2 const v_lh, int2 const v_rh)
 {
-
+	v_out[0] = v_lh[0] + v_rh[0];
+	v_out[1] = v_lh[1] + v_rh[1];
 	return v_out;
 }
 
 ijk_inl intv ijkVecSub2iv(int2 v_out, int2 const v_lh, int2 const v_rh)
 {
-
+	v_out[0] = v_lh[0] - v_rh[0];
+	v_out[1] = v_lh[1] - v_rh[1];
 	return v_out;
 }
 
 ijk_inl intv ijkVecMul2iv(int2 v_out, int2 const v_lh, int2 const v_rh)
 {
-
+	v_out[0] = v_lh[0] * v_rh[0];
+	v_out[1] = v_lh[1] * v_rh[1];
 	return v_out;
 }
 
 ijk_inl intv ijkVecDiv2iv(int2 v_out, int2 const v_lh, int2 const v_rh)
 {
-
+	v_out[0] = v_lh[0] / v_rh[0];
+	v_out[1] = v_lh[1] / v_rh[1];
 	return v_out;
 }
 
 ijk_inl intv ijkVecDivSafe2iv(int2 v_out, int2 const v_lh, int2 const v_rh)
 {
-
+	v_out[0] = ijk_divide_safe_int(v_lh[0], v_rh[0]);
+	v_out[1] = ijk_divide_safe_int(v_lh[1], v_rh[1]);
 	return v_out;
 }
 
 ijk_inl intv ijkVecMod2iv(int2 v_out, int2 const v_lh, int2 const v_rh)
 {
-
+	v_out[0] = v_lh[0] % v_rh[0];
+	v_out[1] = v_lh[1] % v_rh[1];
 	return v_out;
 }
 
 ijk_inl intv ijkVecModSafe2iv(int2 v_out, int2 const v_lh, int2 const v_rh)
 {
-
+	v_out[0] = ijk_modulo_safe_int(v_lh[0], v_rh[0]);
+	v_out[1] = ijk_modulo_safe_int(v_lh[1], v_rh[1]);
 	return v_out;
 }
 
 #if TINTEGER
 ijk_inl intv ijkVecBitAnd2iv(int2 v_out, int2 const v_lh, int2 const v_rh)
 {
-
+	v_out[0] = (v_lh[0] & v_rh[0]);
+	v_out[1] = (v_lh[1] & v_rh[1]);
 	return v_out;
 }
 
 ijk_inl intv ijkVecBitNand2iv(int2 v_out, int2 const v_lh, int2 const v_rh)
 {
-
+	v_out[0] = ~(v_lh[0] & v_rh[0]);
+	v_out[1] = ~(v_lh[1] & v_rh[1]);
 	return v_out;
 }
 
 ijk_inl intv ijkVecBitOr2iv(int2 v_out, int2 const v_lh, int2 const v_rh)
 {
-
+	v_out[0] = (v_lh[0] | v_rh[0]);
+	v_out[1] = (v_lh[1] | v_rh[1]);
 	return v_out;
 }
 
 ijk_inl intv ijkVecBitNor2iv(int2 v_out, int2 const v_lh, int2 const v_rh)
 {
-
+	v_out[0] = ~(v_lh[0] | v_rh[0]);
+	v_out[1] = ~(v_lh[1] | v_rh[1]);
 	return v_out;
 }
 
 ijk_inl intv ijkVecBitXor2iv(int2 v_out, int2 const v_lh, int2 const v_rh)
 {
-
+	v_out[0] = (v_lh[0] ^ v_rh[0]);
+	v_out[1] = (v_lh[1] ^ v_rh[1]);
 	return v_out;
 }
 
-ijk_inl intv ijkVecBitNxor2iv(int2 v_out, int2 const v_lh, int2 const v_rh)
+ijk_inl intv ijkVecBitXnor2iv(int2 v_out, int2 const v_lh, int2 const v_rh)
 {
-
+	v_out[0] = ~(v_lh[0] ^ v_rh[0]);
+	v_out[1] = ~(v_lh[1] ^ v_rh[1]);
 	return v_out;
 }
 
 ijk_inl intv ijkVecBitShiftLeft2iv(int2 v_out, int2 const v_lh, int2 const v_rh)
 {
-
+	v_out[0] = (v_lh[0] << v_rh[0]);
+	v_out[1] = (v_lh[1] << v_rh[1]);
 	return v_out;
 }
 
 ijk_inl intv ijkVecBitShiftRight2iv(int2 v_out, int2 const v_lh, int2 const v_rh)
 {
-
+	v_out[0] = (v_lh[0] >> v_rh[0]);
+	v_out[1] = (v_lh[1] >> v_rh[1]);
 	return v_out;
 }
 #endif	// TINTEGER
 
 ijk_inl boolv ijkVecEqual2iv(bool2 bv_out, int2 const v_lh, int2 const v_rh)
 {
-
+	bv_out[0] = (v_lh[0] == v_rh[0]);
+	bv_out[1] = (v_lh[1] == v_rh[1]);
 	return bv_out;
 }
 
 ijk_inl boolv ijkVecInequal2iv(bool2 bv_out, int2 const v_lh, int2 const v_rh)
 {
-
+	bv_out[0] = (v_lh[0] != v_rh[0]);
+	bv_out[1] = (v_lh[1] != v_rh[1]);
 	return bv_out;
 }
 
 ijk_inl boolv ijkVecLessEqual2iv(bool2 bv_out, int2 const v_lh, int2 const v_rh)
 {
-
+	bv_out[0] = (v_lh[0] <= v_rh[0]);
+	bv_out[1] = (v_lh[1] <= v_rh[1]);
 	return bv_out;
 }
 
 ijk_inl boolv ijkVecGreaterEqual2iv(bool2 bv_out, int2 const v_lh, int2 const v_rh)
 {
-
+	bv_out[0] = (v_lh[0] >= v_rh[0]);
+	bv_out[1] = (v_lh[1] >= v_rh[1]);
 	return bv_out;
 }
 
 ijk_inl boolv ijkVecLess2iv(bool2 bv_out, int2 const v_lh, int2 const v_rh)
 {
-
+	bv_out[0] = (v_lh[0] < v_rh[0]);
+	bv_out[1] = (v_lh[1] < v_rh[1]);
 	return bv_out;
 }
 
 ijk_inl boolv ijkVecGreater2iv(bool2 bv_out, int2 const v_lh, int2 const v_rh)
 {
-
+	bv_out[0] = (v_lh[0] > v_rh[0]);
+	bv_out[1] = (v_lh[1] > v_rh[1]);
 	return bv_out;
 }
 
 ijk_inl intv ijkVecCopy2ivs(int2 v_out, i32 const s_in)
 {
-
+	v_out[0] = +s_in;
+	v_out[1] = +s_in;
 	return v_out;
 }
 
 #if TSIGNED
 ijk_inl intv ijkVecNegate2ivs(int2 v_out, i32 const s_in)
 {
-
+	v_out[0] = -s_in;
+	v_out[1] = -s_in;
 	return v_out;
 }
 #endif	// TSIGNED
@@ -283,142 +312,181 @@ ijk_inl intv ijkVecNegate2ivs(int2 v_out, i32 const s_in)
 #if TINTEGER
 ijk_inl intv ijkVecBitNot2ivs(int2 v_out, i32 const s_in)
 {
-
+	v_out[0] = ~s_in;
+	v_out[1] = ~s_in;
 	return v_out;
 }
 #endif	// TINTEGER
 
 ijk_inl boolv ijkVecNot2ivs(bool2 bv_out, i32 const s_in)
 {
-
+	bv_out[0] = !s_in;
+	bv_out[1] = !s_in;
 	return bv_out;
 }
 
 ijk_inl intv ijkVecAdd2ivs(int2 v_out, int2 const v_lh, i32 const s_rh)
 {
-
+	v_out[0] = v_lh[0] + s_rh;
+	v_out[1] = v_lh[1] + s_rh;
 	return v_out;
 }
 
 ijk_inl intv ijkVecSub2ivs(int2 v_out, int2 const v_lh, i32 const s_rh)
 {
-
+	v_out[0] = v_lh[0] - s_rh;
+	v_out[1] = v_lh[1] - s_rh;
 	return v_out;
 }
 
 ijk_inl intv ijkVecMul2ivs(int2 v_out, int2 const v_lh, i32 const s_rh)
 {
-
+	v_out[0] = v_lh[0] * s_rh;
+	v_out[1] = v_lh[1] * s_rh;
 	return v_out;
 }
 
 ijk_inl intv ijkVecDiv2ivs(int2 v_out, int2 const v_lh, i32 const s_rh)
 {
-
+	v_out[0] = v_lh[0] / s_rh;
+	v_out[1] = v_lh[1] / s_rh;
 	return v_out;
 }
 
 ijk_inl intv ijkVecDivSafe2ivs(int2 v_out, int2 const v_lh, i32 const s_rh)
 {
-
+	if (s_rh)
+	{
+		v_out[0] = v_lh[0] / s_rh;
+		v_out[1] = v_lh[1] / s_rh;
+	}
+	else
+	{
+		v_out[0] = 0;
+		v_out[1] = 0;
+	}
 	return v_out;
 }
 
 ijk_inl intv ijkVecMod2ivs(int2 v_out, int2 const v_lh, i32 const s_rh)
 {
-
+	v_out[0] = v_lh[0] % s_rh;
+	v_out[1] = v_lh[1] % s_rh;
 	return v_out;
 }
 
 ijk_inl intv ijkVecModSafe2ivs(int2 v_out, int2 const v_lh, i32 const s_rh)
 {
-
+	if (s_rh)
+	{
+		v_out[0] = v_lh[0] % s_rh;
+		v_out[1] = v_lh[1] % s_rh;
+	}
+	else
+	{
+		v_out[0] = 0;
+		v_out[1] = 0;
+	}
 	return v_out;
 }
 
 #if TINTEGER
 ijk_inl intv ijkVecBitAnd2ivs(int2 v_out, int2 const v_lh, i32 const s_rh)
 {
-
+	v_out[0] = (v_lh[0] & s_rh);
+	v_out[1] = (v_lh[1] & s_rh);
 	return v_out;
 }
 
 ijk_inl intv ijkVecBitNand2ivs(int2 v_out, int2 const v_lh, i32 const s_rh)
 {
-
+	v_out[0] = ~(v_lh[0] & s_rh);
+	v_out[1] = ~(v_lh[1] & s_rh);
 	return v_out;
 }
 
 ijk_inl intv ijkVecBitOr2ivs(int2 v_out, int2 const v_lh, i32 const s_rh)
 {
-
+	v_out[0] = (v_lh[0] | s_rh);
+	v_out[1] = (v_lh[1] | s_rh);
 	return v_out;
 }
 
 ijk_inl intv ijkVecBitNor2ivs(int2 v_out, int2 const v_lh, i32 const s_rh)
 {
-
+	v_out[0] = ~(v_lh[0] | s_rh);
+	v_out[1] = ~(v_lh[1] | s_rh);
 	return v_out;
 }
 
 ijk_inl intv ijkVecBitXor2ivs(int2 v_out, int2 const v_lh, i32 const s_rh)
 {
-
+	v_out[0] = (v_lh[0] ^ s_rh);
+	v_out[1] = (v_lh[1] ^ s_rh);
 	return v_out;
 }
 
-ijk_inl intv ijkVecBitNxor2ivs(int2 v_out, int2 const v_lh, i32 const s_rh)
+ijk_inl intv ijkVecBitXnor2ivs(int2 v_out, int2 const v_lh, i32 const s_rh)
 {
-
+	v_out[0] = ~(v_lh[0] ^ s_rh);
+	v_out[1] = ~(v_lh[1] ^ s_rh);
 	return v_out;
 }
 
 ijk_inl intv ijkVecBitShiftLeft2ivs(int2 v_out, int2 const v_lh, i32 const s_rh)
 {
-
+	v_out[0] = (v_lh[0] << s_rh);
+	v_out[1] = (v_lh[1] << s_rh);
 	return v_out;
 }
 
 ijk_inl intv ijkVecBitShiftRight2ivs(int2 v_out, int2 const v_lh, i32 const s_rh)
 {
-
+	v_out[0] = (v_lh[0] >> s_rh);
+	v_out[1] = (v_lh[1] >> s_rh);
 	return v_out;
 }
 #endif	// TINTEGER
 
 ijk_inl boolv ijkVecEqual2ivs(bool2 bv_out, int2 const v_lh, i32 const s_rh)
 {
-
+	bv_out[0] = (v_lh[0] == s_rh);
+	bv_out[1] = (v_lh[1] == s_rh);
 	return bv_out;
 }
 
 ijk_inl boolv ijkVecInequal2ivs(bool2 bv_out, int2 const v_lh, i32 const s_rh)
 {
-
+	bv_out[0] = (v_lh[0] != s_rh);
+	bv_out[1] = (v_lh[1] != s_rh);
 	return bv_out;
 }
 
 ijk_inl boolv ijkVecLessEqual2ivs(bool2 bv_out, int2 const v_lh, i32 const s_rh)
 {
-
+	bv_out[0] = (v_lh[0] <= s_rh);
+	bv_out[1] = (v_lh[1] <= s_rh);
 	return bv_out;
 }
 
 ijk_inl boolv ijkVecGreaterEqual2ivs(bool2 bv_out, int2 const v_lh, i32 const s_rh)
 {
-
+	bv_out[0] = (v_lh[0] >= s_rh);
+	bv_out[1] = (v_lh[1] >= s_rh);
 	return bv_out;
 }
 
 ijk_inl boolv ijkVecLess2ivs(bool2 bv_out, int2 const v_lh, i32 const s_rh)
 {
-
+	bv_out[0] = (v_lh[0] < s_rh);
+	bv_out[1] = (v_lh[1] < s_rh);
 	return bv_out;
 }
 
 ijk_inl boolv ijkVecGreater2ivs(bool2 bv_out, int2 const v_lh, i32 const s_rh)
 {
-
+	bv_out[0] = (v_lh[0] > s_rh);
+	bv_out[1] = (v_lh[1] > s_rh);
 	return bv_out;
 }
 
@@ -495,7 +563,7 @@ ijk_inl intv ijkVecBitXor2isv(int2 v_out, i32 const s_lh, int2 const v_rh)
 	return v_out;
 }
 
-ijk_inl intv ijkVecBitNxor2isv(int2 v_out, i32 const s_lh, int2 const v_rh)
+ijk_inl intv ijkVecBitXnor2isv(int2 v_out, i32 const s_lh, int2 const v_rh)
 {
 
 	return v_out;
@@ -648,7 +716,7 @@ ijk_inl int ijkVecNormalizeGetLengthInv1i(int const s, int* const lengthInv_out)
 
 ijk_inl ivec2 ijkVecInit2i()
 {
-	return ijk_tokencat(ivec2, _0);
+	return ivec2_0;
 }
 
 ijk_inl ivec2 ijkVecInitElems2i(int const x, int const y)
@@ -758,7 +826,7 @@ ijk_inl ivec2 ijkVecBitXor2i(ivec2 const v_lh, ivec2 const v_rh)
 	return v_out;
 }
 
-ijk_inl ivec2 ijkVecBitNxor2i(ivec2 const v_lh, ivec2 const v_rh)
+ijk_inl ivec2 ijkVecBitXnor2i(ivec2 const v_lh, ivec2 const v_rh)
 {
 	ivec2 const v_out;
 	return v_out;
@@ -920,7 +988,7 @@ ijk_inl ivec2 ijkVecBitXor2is(ivec2 const v_lh, int const s_rh)
 	return v_out;
 }
 
-ijk_inl ivec2 ijkVecBitNxor2is(ivec2 const v_lh, int const s_rh)
+ijk_inl ivec2 ijkVecBitXnor2is(ivec2 const v_lh, int const s_rh)
 {
 	ivec2 const v_out;
 	return v_out;
@@ -1054,7 +1122,7 @@ ijk_inl ivec2 ijkVecBitXor2si(int const s_lh, ivec2 const v_rh)
 	return v_out;
 }
 
-ijk_inl ivec2 ijkVecBitNxor2si(int const s_lh, ivec2 const v_rh)
+ijk_inl ivec2 ijkVecBitXnor2si(int const s_lh, ivec2 const v_rh)
 {
 	ivec2 const v_out;
 	return v_out;
