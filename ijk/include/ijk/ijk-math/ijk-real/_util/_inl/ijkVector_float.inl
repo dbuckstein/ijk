@@ -2340,7 +2340,7 @@ ijk_inl int ijkVecNormalizeGetLength1i(int const s, int* const length_out)
 
 ijk_inl int ijkVecNormalizeGetLengthInv1i(int const s, int* const lengthInv_out)
 {
-	return ijkVecNormalizeGetLength1is(s, (i32*)lengthInv_out);
+	return ijkVecNormalizeGetLengthInv1is(s, (i32*)lengthInv_out);
 }
 
 

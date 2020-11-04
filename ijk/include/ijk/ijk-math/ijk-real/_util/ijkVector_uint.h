@@ -69,13 +69,13 @@ ui32 ijkVecLength1us(ui32 const s);
 //	Inverse squared length of scalar.
 //		param s: scalar
 //		return: inverse squared length
-ui32 ijkVecLengthSqInv1us(ui32 const s);
+f32 ijkVecLengthSqInv1us(ui32 const s);
 
 // ijkVecLengthSqInv1*s
 //	Inverse length of scalar.
 //		param s: scalar
 //		return: inverse length
-ui32 ijkVecLengthInv1us(ui32 const s);
+f32 ijkVecLengthInv1us(ui32 const s);
 
 // ijkVecNormalize1*s
 //	Calculate unit scalar in same direction as input (sign).
@@ -97,7 +97,7 @@ ui32 ijkVecNormalizeGetLength1us(ui32 const s, ui32* const length_out);
 //		param s: scalar
 //		param lengthInv_out: pointer to length storage
 //		return: unit scalar (sign)
-ui32 ijkVecNormalizeGetLengthInv1us(ui32 const s, ui32* const lengthInv_out);
+ui32 ijkVecNormalizeGetLengthInv1us(ui32 const s, f32* const lengthInv_out);
 
 
 //-----------------------------------------------------------------------------
@@ -2329,13 +2329,13 @@ uint ijkVecLength1u(uint const s);
 //	Inverse squared length of scalar.
 //		param s: scalar
 //		return: inverse squared length
-uint ijkVecLengthSqInv1u(uint const s);
+float ijkVecLengthSqInv1u(uint const s);
 
 // ijkVecLengthSqInv1*
 //	Inverse length of scalar.
 //		param s: scalar
 //		return: inverse length
-uint ijkVecLengthInv1u(uint const s);
+float ijkVecLengthInv1u(uint const s);
 
 // ijkVecNormalize1*
 //	Calculate unit scalar in same direction as input (sign).
@@ -2357,7 +2357,7 @@ uint ijkVecNormalizeGetLength1u(uint const s, uint* const length_out);
 //		param s: scalar
 //		param lengthInv_out: pointer to length storage
 //		return: unit scalar (sign)
-uint ijkVecNormalizeGetLengthInv1u(uint const s, uint* const lengthInv_out);
+uint ijkVecNormalizeGetLengthInv1u(uint const s, float* const lengthInv_out);
 
 
 //-----------------------------------------------------------------------------

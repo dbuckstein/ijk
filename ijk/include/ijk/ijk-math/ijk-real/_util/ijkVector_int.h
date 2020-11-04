@@ -69,13 +69,13 @@ i32 ijkVecLength1is(i32 const s);
 //	Inverse squared length of scalar.
 //		param s: scalar
 //		return: inverse squared length
-i32 ijkVecLengthSqInv1is(i32 const s);
+f32 ijkVecLengthSqInv1is(i32 const s);
 
 // ijkVecLengthSqInv1*s
 //	Inverse length of scalar.
 //		param s: scalar
 //		return: inverse length
-i32 ijkVecLengthInv1is(i32 const s);
+f32 ijkVecLengthInv1is(i32 const s);
 
 // ijkVecNormalize1*s
 //	Calculate unit scalar in same direction as input (sign).
@@ -97,7 +97,7 @@ i32 ijkVecNormalizeGetLength1is(i32 const s, i32* const length_out);
 //		param s: scalar
 //		param lengthInv_out: pointer to length storage
 //		return: unit scalar (sign)
-i32 ijkVecNormalizeGetLengthInv1is(i32 const s, i32* const lengthInv_out);
+i32 ijkVecNormalizeGetLengthInv1is(i32 const s, f32* const lengthInv_out);
 
 
 //-----------------------------------------------------------------------------
@@ -137,9 +137,7 @@ intv ijkVecCopy2iv(int2 v_out, int2 const v_in);
 //		param v_out: output vector to hold negated
 //		param v_in: input vector
 //		return: v_out
-#if TSIGNED
 intv ijkVecNegate2iv(int2 v_out, int2 const v_in);
-#endif	// TSIGNED
 
 // ijkVecBitNot2*v
 //	Calculate component-wise bitwise 'not' of 2D vector.
@@ -371,9 +369,7 @@ intv ijkVecCopy2ivs(int2 v_out, i32 const s_in);
 //		param v_out: output vector to hold negated
 //		param s_in: input scalar
 //		return: v_out
-#if TSIGNED
 intv ijkVecNegate2ivs(int2 v_out, i32 const s_in);
-#endif	// TSIGNED
 
 // ijkVecBitNot2*vs
 //	Calculate bitwise 'not' of 2D vector.
@@ -839,9 +835,7 @@ intv ijkVecCopy3iv(int3 v_out, int3 const v_in);
 //		param v_out: output vector to hold negated
 //		param v_in: input vector
 //		return: v_out
-#if TSIGNED
 intv ijkVecNegate3iv(int3 v_out, int3 const v_in);
-#endif	// TSIGNED
 
 // ijkVecBitNot3*v
 //	Calculate component-wise bitwise 'not' of 3D vector.
@@ -1081,9 +1075,7 @@ intv ijkVecCopy3ivs(int3 v_out, i32 const s_in);
 //		param v_out: output vector to hold negated
 //		param s_in: input scalar
 //		return: v_out
-#if TSIGNED
 intv ijkVecNegate3ivs(int3 v_out, i32 const s_in);
-#endif	// TSIGNED
 
 // ijkVecBitNot3*vs
 //	Calculate bitwise 'not' of 3D vector.
@@ -1576,9 +1568,7 @@ intv ijkVecCopy4iv(int4 v_out, int4 const v_in);
 //		param v_out: output vector to hold negated
 //		param v_in: input vector
 //		return: v_out
-#if TSIGNED
 intv ijkVecNegate4iv(int4 v_out, int4 const v_in);
-#endif	// TSIGNED
 
 // ijkVecBitNot4*v
 //	Calculate component-wise bitwise 'not' of 4D vector.
@@ -1827,9 +1817,7 @@ intv ijkVecCopy4ivs(int4 v_out, i32 const s_in);
 //		param v_out: output vector to hold negated
 //		param s_in: input scalar
 //		return: v_out
-#if TSIGNED
 intv ijkVecNegate4ivs(int4 v_out, i32 const s_in);
-#endif	// TSIGNED
 
 // ijkVecBitNot4*vs
 //	Calculate bitwise 'not' of 4D vector.
@@ -2329,13 +2317,13 @@ int ijkVecLength1i(int const s);
 //	Inverse squared length of scalar.
 //		param s: scalar
 //		return: inverse squared length
-int ijkVecLengthSqInv1i(int const s);
+float ijkVecLengthSqInv1i(int const s);
 
 // ijkVecLengthSqInv1*
 //	Inverse length of scalar.
 //		param s: scalar
 //		return: inverse length
-int ijkVecLengthInv1i(int const s);
+float ijkVecLengthInv1i(int const s);
 
 // ijkVecNormalize1*
 //	Calculate unit scalar in same direction as input (sign).
@@ -2357,7 +2345,7 @@ int ijkVecNormalizeGetLength1i(int const s, int* const length_out);
 //		param s: scalar
 //		param lengthInv_out: pointer to length storage
 //		return: unit scalar (sign)
-int ijkVecNormalizeGetLengthInv1i(int const s, int* const lengthInv_out);
+int ijkVecNormalizeGetLengthInv1i(int const s, float* const lengthInv_out);
 
 
 //-----------------------------------------------------------------------------
@@ -2384,9 +2372,7 @@ ivec2 ijkVecCopy2i(ivec2 const v_in);
 //	Negate 2D vector.
 //		param v_in: input vector
 //		return: result vector
-#if TSIGNED
 ivec2 ijkVecNegate2i(ivec2 const v_in);
-#endif	// TSIGNED
 
 // ijkVecBitNot2*
 //	Calculate component-wise bitwise 'not' of 2D vector.
@@ -2589,9 +2575,7 @@ ivec2 ijkVecCopy2is(int const s_in);
 //	Negate scalar to 2D vector.
 //		param s_in: input scalar
 //		return: result vector
-#if TSIGNED
 ivec2 ijkVecNegate2is(int const s_in);
-#endif	// TSIGNED
 
 // ijkVecBitNot2*s
 //	Calculate bitwise 'not' of 2D vector.
@@ -3001,9 +2985,7 @@ ivec3 ijkVecCopy3i(ivec3 const v_in);
 //	Negate 3D vector.
 //		param v_in: input vector
 //		return: result vector
-#if TSIGNED
 ivec3 ijkVecNegate3i(ivec3 const v_in);
-#endif	// TSIGNED
 
 // ijkVecBitNot3*
 //	Calculate component-wise bitwise 'not' of 3D vector.
@@ -3213,9 +3195,7 @@ ivec3 ijkVecCopy3is(int const s_in);
 //	Negate scalar to 3D vector.
 //		param s_in: input scalar
 //		return: result vector
-#if TSIGNED
 ivec3 ijkVecNegate3is(int const s_in);
-#endif	// TSIGNED
 
 // ijkVecBitNot3*s
 //	Calculate bitwise 'not' of 3D vector.
@@ -3648,9 +3628,7 @@ ivec4 ijkVecCopy4i(ivec4 const v_in);
 //	Negate 4D vector.
 //		param v_in: input vector
 //		return: result vector
-#if TSIGNED
 ivec4 ijkVecNegate4i(ivec4 const v_in);
-#endif	// TSIGNED
 
 // ijkVecBitNot4*
 //	Calculate component-wise bitwise 'not' of 4D vector.
@@ -3868,9 +3846,7 @@ ivec4 ijkVecCopy4is(int const s_in);
 //	Negate scalar to 4D vector.
 //		param s_in: input scalar
 //		return: result vector
-#if TSIGNED
 ivec4 ijkVecNegate4is(int const s_in);
-#endif	// TSIGNED
 
 // ijkVecBitNot4*s
 //	Calculate bitwise 'not' of 4D vector.

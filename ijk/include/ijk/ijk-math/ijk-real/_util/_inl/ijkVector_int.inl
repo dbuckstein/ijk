@@ -55,18 +55,16 @@ ijk_inl i32 ijkVecLength1is(i32 const s)
 	return ijk_abs_int(s);
 }
 
-ijk_inl i32 ijkVecLengthSqInv1is(i32 const s)
+ijk_inl f32 ijkVecLengthSqInv1is(i32 const s)
 {
 	i32 const lengthSq = (s * s);
-	//return trecip(lengthSq);
-	return 0;
+	return ijk_recip_safe_flt(lengthSq);
 }
 
-ijk_inl i32 ijkVecLengthInv1is(i32 const s)
+ijk_inl f32 ijkVecLengthInv1is(i32 const s)
 {
 	i32 const length = ijk_abs_int(s);
-	//return trecip(length);
-	return 0;
+	return ijk_recip_safe_flt(length);
 }
 
 ijk_inl i32 ijkVecNormalize1is(i32 const s)
@@ -77,13 +75,13 @@ ijk_inl i32 ijkVecNormalize1is(i32 const s)
 ijk_inl i32 ijkVecNormalizeGetLength1is(i32 const s, i32* const length_out)
 {
 	i32 const length = *length_out = ijk_abs_int(s);
-	return (s / length);
+	return ijk_sgn_int(s);
 }
 
-ijk_inl i32 ijkVecNormalizeGetLengthInv1is(i32 const s, i32* const lengthInv_out)
+ijk_inl i32 ijkVecNormalizeGetLengthInv1is(i32 const s, f32* const lengthInv_out)
 {
 	i32 const length = ijk_abs_int(s);
-	//*lengthInv_out = trecip(length);
+	*lengthInv_out = ijk_recip_safe_flt(length);
 	return ijk_sgn_int(s);
 }
 
@@ -118,14 +116,12 @@ ijk_inl intv ijkVecCopy2iv(int2 v_out, int2 const v_in)
 	return v_out;
 }
 
-#if TSIGNED
 ijk_inl intv ijkVecNegate2iv(int2 v_out, int2 const v_in)
 {
 	v_out[0] = -v_in[0];
 	v_out[1] = -v_in[1];
 	return v_out;
 }
-#endif	// TSIGNED
 
 #if TINTEGER
 ijk_inl intv ijkVecBitNot2iv(int2 v_out, int2 const v_in)
@@ -326,13 +322,11 @@ ijk_inl intv ijkVecCopy2ivs(int2 v_out, i32 const s_in)
 	return v_out;
 }
 
-#if TSIGNED
 ijk_inl intv ijkVecNegate2ivs(int2 v_out, i32 const s_in)
 {
 	v_out[0] = v_out[1] = -s_in;
 	return v_out;
 }
-#endif	// TSIGNED
 
 #if TINTEGER
 ijk_inl intv ijkVecBitNot2ivs(int2 v_out, i32 const s_in)
@@ -747,7 +741,6 @@ ijk_inl intv ijkVecCopy3iv(int3 v_out, int3 const v_in)
 	return v_out;
 }
 
-#if TSIGNED
 ijk_inl intv ijkVecNegate3iv(int3 v_out, int3 const v_in)
 {
 	v_out[0] = -v_in[0];
@@ -755,7 +748,6 @@ ijk_inl intv ijkVecNegate3iv(int3 v_out, int3 const v_in)
 	v_out[2] = -v_in[2];
 	return v_out;
 }
-#endif	// TSIGNED
 
 #if TINTEGER
 ijk_inl intv ijkVecBitNot3iv(int3 v_out, int3 const v_in)
@@ -991,13 +983,11 @@ ijk_inl intv ijkVecCopy3ivs(int3 v_out, i32 const s_in)
 	return v_out;
 }
 
-#if TSIGNED
 ijk_inl intv ijkVecNegate3ivs(int3 v_out, i32 const s_in)
 {
 	v_out[0] = v_out[1] = v_out[2] = -s_in;
 	return v_out;
 }
-#endif	// TSIGNED
 
 #if TINTEGER
 ijk_inl intv ijkVecBitNot3ivs(int3 v_out, i32 const s_in)
@@ -1493,7 +1483,6 @@ ijk_inl intv ijkVecCopy4iv(int4 v_out, int4 const v_in)
 	return v_out;
 }
 
-#if TSIGNED
 ijk_inl intv ijkVecNegate4iv(int4 v_out, int4 const v_in)
 {
 	v_out[0] = -v_in[0];
@@ -1502,7 +1491,6 @@ ijk_inl intv ijkVecNegate4iv(int4 v_out, int4 const v_in)
 	v_out[3] = -v_in[3];
 	return v_out;
 }
-#endif	// TSIGNED
 
 #if TINTEGER
 ijk_inl intv ijkVecBitNot4iv(int4 v_out, int4 const v_in)
@@ -1775,13 +1763,11 @@ ijk_inl intv ijkVecCopy4ivs(int4 v_out, i32 const s_in)
 	return v_out;
 }
 
-#if TSIGNED
 ijk_inl intv ijkVecNegate4ivs(int4 v_out, i32 const s_in)
 {
 	v_out[0] = v_out[1] = v_out[2] = v_out[3] = -s_in;
 	return v_out;
 }
-#endif	// TSIGNED
 
 #if TINTEGER
 ijk_inl intv ijkVecBitNot4ivs(int4 v_out, i32 const s_in)
@@ -2318,12 +2304,12 @@ ijk_inl int ijkVecLength1i(int const s)
 	return ijkVecLength1is(s);
 }
 
-ijk_inl int ijkVecLengthSqInv1i(int const s)
+ijk_inl float ijkVecLengthSqInv1i(int const s)
 {
 	return ijkVecLengthSqInv1is(s);
 }
 
-ijk_inl int ijkVecLengthInv1i(int const s)
+ijk_inl float ijkVecLengthInv1i(int const s)
 {
 	return ijkVecLengthInv1is(s);
 }
@@ -2338,9 +2324,9 @@ ijk_inl int ijkVecNormalizeGetLength1i(int const s, int* const length_out)
 	return ijkVecNormalizeGetLength1is(s, (i32*)length_out);
 }
 
-ijk_inl int ijkVecNormalizeGetLengthInv1i(int const s, int* const lengthInv_out)
+ijk_inl int ijkVecNormalizeGetLengthInv1i(int const s, float* const lengthInv_out)
 {
-	return ijkVecNormalizeGetLength1is(s, (i32*)lengthInv_out);
+	return ijkVecNormalizeGetLengthInv1is(s, (f32*)lengthInv_out);
 }
 
 
@@ -2364,13 +2350,11 @@ ijk_inl ivec2 ijkVecCopy2i(ivec2 const v_in)
 	return v_out;
 }
 
-#if TSIGNED
 ijk_inl ivec2 ijkVecNegate2i(ivec2 const v_in)
 {
 	ivec2 const v_out = { -v_in.x, -v_in.y };
 	return v_out;
 }
-#endif	// TSIGNED
 
 #if TINTEGER
 ijk_inl ivec2 ijkVecBitNot2i(ivec2 const v_in)
@@ -2619,14 +2603,12 @@ ijk_inl ivec2 ijkVecCopy2is(int const s_in)
 	return v_out;
 }
 
-#if TSIGNED
 ijk_inl ivec2 ijkVecNegate2is(int const s_in)
 {
 	int const s = -s_in;
 	ivec2 const v_out = { s, s };
 	return v_out;
 }
-#endif	// TSIGNED
 
 #if TINTEGER
 ijk_inl ivec2 ijkVecBitNot2is(int const s_in)
@@ -3145,13 +3127,11 @@ ijk_inl ivec3 ijkVecCopy3i(ivec3 const v_in)
 	return v_out;
 }
 
-#if TSIGNED
 ijk_inl ivec3 ijkVecNegate3i(ivec3 const v_in)
 {
 	ivec3 const v_out = { -v_in.x, -v_in.y, -v_in.z };
 	return v_out;
 }
-#endif	// TSIGNED
 
 #if TINTEGER
 ijk_inl ivec3 ijkVecBitNot3i(ivec3 const v_in)
@@ -3431,14 +3411,12 @@ ijk_inl ivec3 ijkVecCopy3is(int const s_in)
 	return v_out;
 }
 
-#if TSIGNED
 ijk_inl ivec3 ijkVecNegate3is(int const s_in)
 {
 	int const s = -s_in;
 	ivec3 const v_out = { s, s, s };
 	return v_out;
 }
-#endif	// TSIGNED
 
 #if TINTEGER
 ijk_inl ivec3 ijkVecBitNot3is(int const s_in)
@@ -4027,13 +4005,11 @@ ijk_inl ivec4 ijkVecCopy4i(ivec4 const v_in)
 	return v_out;
 }
 
-#if TSIGNED
 ijk_inl ivec4 ijkVecNegate4i(ivec4 const v_in)
 {
 	ivec4 const v_out = { -v_in.x, -v_in.y, -v_in.z, -v_in.w };
 	return v_out;
 }
-#endif	// TSIGNED
 
 #if TINTEGER
 ijk_inl ivec4 ijkVecBitNot4i(ivec4 const v_in)
@@ -4344,14 +4320,12 @@ ijk_inl ivec4 ijkVecCopy4is(int const s_in)
 	return v_out;
 }
 
-#if TSIGNED
 ijk_inl ivec4 ijkVecNegate4is(int const s_in)
 {
 	int const s = -s_in;
 	ivec4 const v_out = { s, s, s, s };
 	return v_out;
 }
-#endif	// TSIGNED
 
 #if TINTEGER
 ijk_inl ivec4 ijkVecBitNot4is(int const s_in)

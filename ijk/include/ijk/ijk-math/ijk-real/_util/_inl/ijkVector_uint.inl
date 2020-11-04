@@ -32,12 +32,12 @@
 
 ijk_inl ui32 ijkVecAbs1us(ui32 const s)
 {
-	return ijk_abs_int(s);
+	return (s);
 }
 
 ijk_inl ui32 ijkVecSgn1us(ui32 const s)
 {
-	return ijk_sgn_int(s);
+	return ijk_one;
 }
 
 ijk_inl ui32 ijkVecDot1us(ui32 const s_lh, ui32 const s_rh)
@@ -52,21 +52,19 @@ ijk_inl ui32 ijkVecLengthSq1us(ui32 const s)
 
 ijk_inl ui32 ijkVecLength1us(ui32 const s)
 {
-	return ijk_abs_int(s);
+	return (s);
 }
 
-ijk_inl ui32 ijkVecLengthSqInv1us(ui32 const s)
+ijk_inl f32 ijkVecLengthSqInv1us(ui32 const s)
 {
 	ui32 const lengthSq = (s * s);
-	//return trecip(lengthSq);
-	return 0;
+	return ijk_recip_safe_flt(lengthSq);
 }
 
-ijk_inl ui32 ijkVecLengthInv1us(ui32 const s)
+ijk_inl f32 ijkVecLengthInv1us(ui32 const s)
 {
-	ui32 const length = ijk_abs_int(s);
-	//return trecip(length);
-	return 0;
+	ui32 const length = (s);
+	return ijk_recip_safe_flt(length);
 }
 
 ijk_inl ui32 ijkVecNormalize1us(ui32 const s)
@@ -76,15 +74,15 @@ ijk_inl ui32 ijkVecNormalize1us(ui32 const s)
 
 ijk_inl ui32 ijkVecNormalizeGetLength1us(ui32 const s, ui32* const length_out)
 {
-	ui32 const length = *length_out = ijk_abs_int(s);
-	return (s / length);
+	ui32 const length = *length_out = (s);
+	return ijk_one;
 }
 
-ijk_inl ui32 ijkVecNormalizeGetLengthInv1us(ui32 const s, ui32* const lengthInv_out)
+ijk_inl ui32 ijkVecNormalizeGetLengthInv1us(ui32 const s, f32* const lengthInv_out)
 {
-	ui32 const length = ijk_abs_int(s);
-	//*lengthInv_out = trecip(length);
-	return ijk_sgn_int(s);
+	ui32 const length = (s);
+	*lengthInv_out = ijk_recip_safe_flt(length);
+	return ijk_one;
 }
 
 
@@ -2318,12 +2316,12 @@ ijk_inl uint ijkVecLength1u(uint const s)
 	return ijkVecLength1us(s);
 }
 
-ijk_inl uint ijkVecLengthSqInv1u(uint const s)
+ijk_inl float ijkVecLengthSqInv1u(uint const s)
 {
 	return ijkVecLengthSqInv1us(s);
 }
 
-ijk_inl uint ijkVecLengthInv1u(uint const s)
+ijk_inl float ijkVecLengthInv1u(uint const s)
 {
 	return ijkVecLengthInv1us(s);
 }
@@ -2338,9 +2336,9 @@ ijk_inl uint ijkVecNormalizeGetLength1u(uint const s, uint* const length_out)
 	return ijkVecNormalizeGetLength1us(s, (ui32*)length_out);
 }
 
-ijk_inl uint ijkVecNormalizeGetLengthInv1u(uint const s, uint* const lengthInv_out)
+ijk_inl uint ijkVecNormalizeGetLengthInv1u(uint const s, float* const lengthInv_out)
 {
-	return ijkVecNormalizeGetLength1us(s, (ui32*)lengthInv_out);
+	return ijkVecNormalizeGetLengthInv1us(s, (f32*)lengthInv_out);
 }
 
 
