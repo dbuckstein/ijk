@@ -19,76 +19,76 @@
 		c-based rendering framework
 	By Daniel S. Buckstein
 
-	ijkVector_uint.inl
-	Inline definitions for unsigned 32-bit integer vector functions.
+	ijkVector_intl.inl
+	Inline definitions for signed 64-bit integer vector functions.
 */
 
-#ifdef _IJK_VECTOR_UINT_H_
-#ifndef _IJK_VECTOR_UINT_INL_
-#define _IJK_VECTOR_UINT_INL_
+#ifdef _IJK_VECTOR_INTL_H_
+#ifndef _IJK_VECTOR_INTL_INL_
+#define _IJK_VECTOR_INTL_INL_
 
 
 //-----------------------------------------------------------------------------
 
-ijk_inl ui32 ijkVecAbs1us(ui32 const s)
+ijk_inl i64 ijkVecAbs1ils(i64 const s)
 {
-	return (s);
+	return ijk_abs_int(s);
 }
 
-ijk_inl ui32 ijkVecSgn1us(ui32 const s)
-{
-	return ijk_one;
-}
-
-ijk_inl ui32 ijkVecDot1us(ui32 const s_lh, ui32 const s_rh)
-{
-	return (s_lh * s_rh);
-}
-
-ijk_inl ui32 ijkVecLengthSq1us(ui32 const s)
-{
-	return (s * s);
-}
-
-ijk_inl ui32 ijkVecLength1us(ui32 const s)
-{
-	return (s);
-}
-
-ijk_inl f32 ijkVecLengthSqInv1us(ui32 const s)
-{
-	ui32 const lengthSq = (s * s);
-	return ijk_recip_safe_flt(lengthSq);
-}
-
-ijk_inl f32 ijkVecLengthInv1us(ui32 const s)
-{
-	ui32 const length = (s);
-	return ijk_recip_safe_flt(length);
-}
-
-ijk_inl ui32 ijkVecNormalize1us(ui32 const s)
+ijk_inl i64 ijkVecSgn1ils(i64 const s)
 {
 	return ijk_sgn_int(s);
 }
 
-ijk_inl ui32 ijkVecNormalizeGetLength1us(ui32 const s, ui32* const length_out)
+ijk_inl i64 ijkVecDot1ils(i64 const s_lh, i64 const s_rh)
 {
-	ui32 const length = *length_out = (s);
-	return ijk_one;
+	return (s_lh * s_rh);
 }
 
-ijk_inl ui32 ijkVecNormalizeGetLengthInv1us(ui32 const s, f32* const lengthInv_out)
+ijk_inl i64 ijkVecLengthSq1ils(i64 const s)
 {
-	ui32 const length = (s);
-	*lengthInv_out = ijk_recip_safe_flt(length);
-	return ijk_one;
+	return (s * s);
+}
+
+ijk_inl i64 ijkVecLength1ils(i64 const s)
+{
+	return ijk_abs_int(s);
+}
+
+ijk_inl f64 ijkVecLengthSqInv1ils(i64 const s)
+{
+	i64 const lengthSq = (s * s);
+	return ijk_recip_safe_dbl(lengthSq);
+}
+
+ijk_inl f64 ijkVecLengthInv1ils(i64 const s)
+{
+	i64 const length = ijk_abs_int(s);
+	return ijk_recip_safe_dbl(length);
+}
+
+ijk_inl i64 ijkVecNormalize1ils(i64 const s)
+{
+	return ijk_sgn_int(s);
+}
+
+ijk_inl i64 ijkVecNormalizeGetLength1ils(i64 const s, i64* const length_out)
+{
+	i64 const length = *length_out = ijk_abs_int(s);
+	return ijk_sgn_int(s);
+}
+
+ijk_inl i64 ijkVecNormalizeGetLengthInv1ils(i64 const s, f64* const lengthInv_out)
+{
+	i64 const length = ijk_abs_int(s);
+	*lengthInv_out = ijk_recip_safe_dbl(length);
+	return ijk_sgn_int(s);
 }
 
 
 //-----------------------------------------------------------------------------
 
-ijk_inl uintv ijkVecPuv(uintv v_out)
+ijk_inl intlv ijkVecPiv(intlv v_out)
 {
 	return v_out;
 }
@@ -96,275 +96,275 @@ ijk_inl uintv ijkVecPuv(uintv v_out)
 
 //-----------------------------------------------------------------------------
 
-ijk_inl uintv ijkVecInit2uv(uint2 v_out)
+ijk_inl intlv ijkVecInit2ilv(intl2 v_out)
 {
 	v_out[0] = v_out[1] = 0;
 	return v_out;
 }
 
-ijk_inl uintv ijkVecInitElems2uv(uint2 v_out, ui32 const x, ui32 const y)
+ijk_inl intlv ijkVecInitElems2ilv(intl2 v_out, i64 const x, i64 const y)
 {
 	v_out[0] = x;
 	v_out[1] = y;
 	return v_out;
 }
 
-ijk_inl uintv ijkVecCopy2uv(uint2 v_out, uint2 const v_in)
+ijk_inl intlv ijkVecCopy2ilv(intl2 v_out, intl2 const v_in)
 {
 	v_out[0] = +v_in[0];
 	v_out[1] = +v_in[1];
 	return v_out;
 }
 
-ijk_inl intv ijkVecNegate2uv(int2 v_out, uint2 const v_in)
+ijk_inl intlv ijkVecNegate2ilv(intl2 v_out, intl2 const v_in)
 {
-	v_out[0] = -(i32)v_in[0];
-	v_out[1] = -(i32)v_in[1];
+	v_out[0] = -v_in[0];
+	v_out[1] = -v_in[1];
 	return v_out;
 }
 
-ijk_inl uintv ijkVecBitNot2uv(uint2 v_out, uint2 const v_in)
+ijk_inl intlv ijkVecBitNot2ilv(intl2 v_out, intl2 const v_in)
 {
 	v_out[0] = ~v_in[0];
 	v_out[1] = ~v_in[1];
 	return v_out;
 }
 
-ijk_inl boolv ijkVecNot2uv(bool2 bv_out, uint2 const v_in)
+ijk_inl boolv ijkVecNot2ilv(bool2 bv_out, intl2 const v_in)
 {
 	bv_out[0] = !v_in[0];
 	bv_out[1] = !v_in[1];
 	return bv_out;
 }
 
-ijk_inl uintv ijkVecAdd2uv(uint2 v_out, uint2 const v_lh, uint2 const v_rh)
+ijk_inl intlv ijkVecAdd2ilv(intl2 v_out, intl2 const v_lh, intl2 const v_rh)
 {
 	v_out[0] = v_lh[0] + v_rh[0];
 	v_out[1] = v_lh[1] + v_rh[1];
 	return v_out;
 }
 
-ijk_inl uintv ijkVecSub2uv(uint2 v_out, uint2 const v_lh, uint2 const v_rh)
+ijk_inl intlv ijkVecSub2ilv(intl2 v_out, intl2 const v_lh, intl2 const v_rh)
 {
 	v_out[0] = v_lh[0] - v_rh[0];
 	v_out[1] = v_lh[1] - v_rh[1];
 	return v_out;
 }
 
-ijk_inl uintv ijkVecMul2uv(uint2 v_out, uint2 const v_lh, uint2 const v_rh)
+ijk_inl intlv ijkVecMul2ilv(intl2 v_out, intl2 const v_lh, intl2 const v_rh)
 {
 	v_out[0] = v_lh[0] * v_rh[0];
 	v_out[1] = v_lh[1] * v_rh[1];
 	return v_out;
 }
 
-ijk_inl uintv ijkVecDiv2uv(uint2 v_out, uint2 const v_lh, uint2 const v_rh)
+ijk_inl intlv ijkVecDiv2ilv(intl2 v_out, intl2 const v_lh, intl2 const v_rh)
 {
 	v_out[0] = v_lh[0] / v_rh[0];
 	v_out[1] = v_lh[1] / v_rh[1];
 	return v_out;
 }
 
-ijk_inl uintv ijkVecDivSafe2uv(uint2 v_out, uint2 const v_lh, uint2 const v_rh)
+ijk_inl intlv ijkVecDivSafe2ilv(intl2 v_out, intl2 const v_lh, intl2 const v_rh)
 {
 	v_out[0] = ijk_divide_safe_int(v_lh[0], v_rh[0]);
 	v_out[1] = ijk_divide_safe_int(v_lh[1], v_rh[1]);
 	return v_out;
 }
 
-ijk_inl uintv ijkVecMod2uv(uint2 v_out, uint2 const v_lh, uint2 const v_rh)
+ijk_inl intlv ijkVecMod2ilv(intl2 v_out, intl2 const v_lh, intl2 const v_rh)
 {
 	v_out[0] = v_lh[0] % v_rh[0];
 	v_out[1] = v_lh[1] % v_rh[1];
 	return v_out;
 }
 
-ijk_inl uintv ijkVecModSafe2uv(uint2 v_out, uint2 const v_lh, uint2 const v_rh)
+ijk_inl intlv ijkVecModSafe2ilv(intl2 v_out, intl2 const v_lh, intl2 const v_rh)
 {
 	v_out[0] = ijk_modulo_safe_int(v_lh[0], v_rh[0]);
 	v_out[1] = ijk_modulo_safe_int(v_lh[1], v_rh[1]);
 	return v_out;
 }
 
-ijk_inl uintv ijkVecBitAnd2uv(uint2 v_out, uint2 const v_lh, uint2 const v_rh)
+ijk_inl intlv ijkVecBitAnd2ilv(intl2 v_out, intl2 const v_lh, intl2 const v_rh)
 {
 	v_out[0] = (v_lh[0] & v_rh[0]);
 	v_out[1] = (v_lh[1] & v_rh[1]);
 	return v_out;
 }
 
-ijk_inl uintv ijkVecBitNand2uv(uint2 v_out, uint2 const v_lh, uint2 const v_rh)
+ijk_inl intlv ijkVecBitNand2ilv(intl2 v_out, intl2 const v_lh, intl2 const v_rh)
 {
 	v_out[0] = ~(v_lh[0] & v_rh[0]);
 	v_out[1] = ~(v_lh[1] & v_rh[1]);
 	return v_out;
 }
 
-ijk_inl uintv ijkVecBitOr2uv(uint2 v_out, uint2 const v_lh, uint2 const v_rh)
+ijk_inl intlv ijkVecBitOr2ilv(intl2 v_out, intl2 const v_lh, intl2 const v_rh)
 {
 	v_out[0] = (v_lh[0] | v_rh[0]);
 	v_out[1] = (v_lh[1] | v_rh[1]);
 	return v_out;
 }
 
-ijk_inl uintv ijkVecBitNor2uv(uint2 v_out, uint2 const v_lh, uint2 const v_rh)
+ijk_inl intlv ijkVecBitNor2ilv(intl2 v_out, intl2 const v_lh, intl2 const v_rh)
 {
 	v_out[0] = ~(v_lh[0] | v_rh[0]);
 	v_out[1] = ~(v_lh[1] | v_rh[1]);
 	return v_out;
 }
 
-ijk_inl uintv ijkVecBitXor2uv(uint2 v_out, uint2 const v_lh, uint2 const v_rh)
+ijk_inl intlv ijkVecBitXor2ilv(intl2 v_out, intl2 const v_lh, intl2 const v_rh)
 {
 	v_out[0] = (v_lh[0] ^ v_rh[0]);
 	v_out[1] = (v_lh[1] ^ v_rh[1]);
 	return v_out;
 }
 
-ijk_inl uintv ijkVecBitXnor2uv(uint2 v_out, uint2 const v_lh, uint2 const v_rh)
+ijk_inl intlv ijkVecBitXnor2ilv(intl2 v_out, intl2 const v_lh, intl2 const v_rh)
 {
 	v_out[0] = ~(v_lh[0] ^ v_rh[0]);
 	v_out[1] = ~(v_lh[1] ^ v_rh[1]);
 	return v_out;
 }
 
-ijk_inl uintv ijkVecBitShiftLeft2uv(uint2 v_out, uint2 const v_lh, uint2 const v_rh)
+ijk_inl intlv ijkVecBitShiftLeft2ilv(intl2 v_out, intl2 const v_lh, intl2 const v_rh)
 {
 	v_out[0] = (v_lh[0] << v_rh[0]);
 	v_out[1] = (v_lh[1] << v_rh[1]);
 	return v_out;
 }
 
-ijk_inl uintv ijkVecBitShiftRight2uv(uint2 v_out, uint2 const v_lh, uint2 const v_rh)
+ijk_inl intlv ijkVecBitShiftRight2ilv(intl2 v_out, intl2 const v_lh, intl2 const v_rh)
 {
 	v_out[0] = (v_lh[0] >> v_rh[0]);
 	v_out[1] = (v_lh[1] >> v_rh[1]);
 	return v_out;
 }
 
-ijk_inl boolv ijkVecEqual2uv(bool2 bv_out, uint2 const v_lh, uint2 const v_rh)
+ijk_inl boolv ijkVecEqual2ilv(bool2 bv_out, intl2 const v_lh, intl2 const v_rh)
 {
 	bv_out[0] = (v_lh[0] == v_rh[0]);
 	bv_out[1] = (v_lh[1] == v_rh[1]);
 	return bv_out;
 }
 
-ijk_inl boolv ijkVecInequal2uv(bool2 bv_out, uint2 const v_lh, uint2 const v_rh)
+ijk_inl boolv ijkVecInequal2ilv(bool2 bv_out, intl2 const v_lh, intl2 const v_rh)
 {
 	bv_out[0] = (v_lh[0] != v_rh[0]);
 	bv_out[1] = (v_lh[1] != v_rh[1]);
 	return bv_out;
 }
 
-ijk_inl boolv ijkVecLessEqual2uv(bool2 bv_out, uint2 const v_lh, uint2 const v_rh)
+ijk_inl boolv ijkVecLessEqual2ilv(bool2 bv_out, intl2 const v_lh, intl2 const v_rh)
 {
 	bv_out[0] = (v_lh[0] <= v_rh[0]);
 	bv_out[1] = (v_lh[1] <= v_rh[1]);
 	return bv_out;
 }
 
-ijk_inl boolv ijkVecGreaterEqual2uv(bool2 bv_out, uint2 const v_lh, uint2 const v_rh)
+ijk_inl boolv ijkVecGreaterEqual2ilv(bool2 bv_out, intl2 const v_lh, intl2 const v_rh)
 {
 	bv_out[0] = (v_lh[0] >= v_rh[0]);
 	bv_out[1] = (v_lh[1] >= v_rh[1]);
 	return bv_out;
 }
 
-ijk_inl boolv ijkVecLess2uv(bool2 bv_out, uint2 const v_lh, uint2 const v_rh)
+ijk_inl boolv ijkVecLess2ilv(bool2 bv_out, intl2 const v_lh, intl2 const v_rh)
 {
 	bv_out[0] = (v_lh[0] < v_rh[0]);
 	bv_out[1] = (v_lh[1] < v_rh[1]);
 	return bv_out;
 }
 
-ijk_inl boolv ijkVecGreater2uv(bool2 bv_out, uint2 const v_lh, uint2 const v_rh)
+ijk_inl boolv ijkVecGreater2ilv(bool2 bv_out, intl2 const v_lh, intl2 const v_rh)
 {
 	bv_out[0] = (v_lh[0] > v_rh[0]);
 	bv_out[1] = (v_lh[1] > v_rh[1]);
 	return bv_out;
 }
 
-ijk_inl boolv ijkVecAnd2uv(bool2 bv_out, uint2 const v_lh, uint2 const v_rh)
+ijk_inl boolv ijkVecAnd2ilv(bool2 bv_out, intl2 const v_lh, intl2 const v_rh)
 {
 	bv_out[0] = (v_lh[0] && v_rh[0]);
 	bv_out[1] = (v_lh[1] && v_rh[1]);
 	return bv_out;
 }
 
-ijk_inl boolv ijkVecNand2uv(bool2 bv_out, uint2 const v_lh, uint2 const v_rh)
+ijk_inl boolv ijkVecNand2ilv(bool2 bv_out, intl2 const v_lh, intl2 const v_rh)
 {
 	bv_out[0] = !(v_lh[0] && v_rh[0]);
 	bv_out[1] = !(v_lh[1] && v_rh[1]);
 	return bv_out;
 }
 
-ijk_inl boolv ijkVecOr2uv(bool2 bv_out, uint2 const v_lh, uint2 const v_rh)
+ijk_inl boolv ijkVecOr2ilv(bool2 bv_out, intl2 const v_lh, intl2 const v_rh)
 {
 	bv_out[0] = (v_lh[0] || v_rh[0]);
 	bv_out[1] = (v_lh[1] || v_rh[1]);
 	return bv_out;
 }
 
-ijk_inl boolv ijkVecNor2uv(bool2 bv_out, uint2 const v_lh, uint2 const v_rh)
+ijk_inl boolv ijkVecNor2ilv(bool2 bv_out, intl2 const v_lh, intl2 const v_rh)
 {
 	bv_out[0] = !(v_lh[0] || v_rh[0]);
 	bv_out[1] = !(v_lh[1] || v_rh[1]);
 	return bv_out;
 }
 
-ijk_inl uintv ijkVecCopy2uvs(uint2 v_out, ui32 const s_in)
+ijk_inl intlv ijkVecCopy2ilvs(intl2 v_out, i64 const s_in)
 {
 	v_out[0] = v_out[1] = +s_in;
 	return v_out;
 }
 
-ijk_inl intv ijkVecNegate2uvs(int2 v_out, ui32 const s_in)
+ijk_inl intlv ijkVecNegate2ilvs(intl2 v_out, i64 const s_in)
 {
-	v_out[0] = v_out[1] = -(i32)s_in;
+	v_out[0] = v_out[1] = -s_in;
 	return v_out;
 }
 
-ijk_inl uintv ijkVecBitNot2uvs(uint2 v_out, ui32 const s_in)
+ijk_inl intlv ijkVecBitNot2ilvs(intl2 v_out, i64 const s_in)
 {
 	v_out[0] = v_out[1] = ~s_in;
 	return v_out;
 }
 
-ijk_inl boolv ijkVecNot2uvs(bool2 bv_out, ui32 const s_in)
+ijk_inl boolv ijkVecNot2ilvs(bool2 bv_out, i64 const s_in)
 {
 	bv_out[0] = bv_out[1] = !s_in;
 	return bv_out;
 }
 
-ijk_inl uintv ijkVecAdd2uvs(uint2 v_out, uint2 const v_lh, ui32 const s_rh)
+ijk_inl intlv ijkVecAdd2ilvs(intl2 v_out, intl2 const v_lh, i64 const s_rh)
 {
 	v_out[0] = v_lh[0] + s_rh;
 	v_out[1] = v_lh[1] + s_rh;
 	return v_out;
 }
 
-ijk_inl uintv ijkVecSub2uvs(uint2 v_out, uint2 const v_lh, ui32 const s_rh)
+ijk_inl intlv ijkVecSub2ilvs(intl2 v_out, intl2 const v_lh, i64 const s_rh)
 {
 	v_out[0] = v_lh[0] - s_rh;
 	v_out[1] = v_lh[1] - s_rh;
 	return v_out;
 }
 
-ijk_inl uintv ijkVecMul2uvs(uint2 v_out, uint2 const v_lh, ui32 const s_rh)
+ijk_inl intlv ijkVecMul2ilvs(intl2 v_out, intl2 const v_lh, i64 const s_rh)
 {
 	v_out[0] = v_lh[0] * s_rh;
 	v_out[1] = v_lh[1] * s_rh;
 	return v_out;
 }
 
-ijk_inl uintv ijkVecDiv2uvs(uint2 v_out, uint2 const v_lh, ui32 const s_rh)
+ijk_inl intlv ijkVecDiv2ilvs(intl2 v_out, intl2 const v_lh, i64 const s_rh)
 {
 	v_out[0] = v_lh[0] / s_rh;
 	v_out[1] = v_lh[1] / s_rh;
 	return v_out;
 }
 
-ijk_inl uintv ijkVecDivSafe2uvs(uint2 v_out, uint2 const v_lh, ui32 const s_rh)
+ijk_inl intlv ijkVecDivSafe2ilvs(intl2 v_out, intl2 const v_lh, i64 const s_rh)
 {
 	if (s_rh)
 	{
@@ -376,14 +376,14 @@ ijk_inl uintv ijkVecDivSafe2uvs(uint2 v_out, uint2 const v_lh, ui32 const s_rh)
 	return v_out;
 }
 
-ijk_inl uintv ijkVecMod2uvs(uint2 v_out, uint2 const v_lh, ui32 const s_rh)
+ijk_inl intlv ijkVecMod2ilvs(intl2 v_out, intl2 const v_lh, i64 const s_rh)
 {
 	v_out[0] = v_lh[0] % s_rh;
 	v_out[1] = v_lh[1] % s_rh;
 	return v_out;
 }
 
-ijk_inl uintv ijkVecModSafe2uvs(uint2 v_out, uint2 const v_lh, ui32 const s_rh)
+ijk_inl intlv ijkVecModSafe2ilvs(intl2 v_out, intl2 const v_lh, i64 const s_rh)
 {
 	if (s_rh)
 	{
@@ -391,316 +391,316 @@ ijk_inl uintv ijkVecModSafe2uvs(uint2 v_out, uint2 const v_lh, ui32 const s_rh)
 		v_out[1] = v_lh[1] % s_rh;
 		return v_out;
 	}
-	return ijkVecCopy2uv(v_out, v_lh);
+	return ijkVecCopy2ilv(v_out, v_lh);
 }
 
-ijk_inl uintv ijkVecBitAnd2uvs(uint2 v_out, uint2 const v_lh, ui32 const s_rh)
+ijk_inl intlv ijkVecBitAnd2ilvs(intl2 v_out, intl2 const v_lh, i64 const s_rh)
 {
 	v_out[0] = (v_lh[0] & s_rh);
 	v_out[1] = (v_lh[1] & s_rh);
 	return v_out;
 }
 
-ijk_inl uintv ijkVecBitNand2uvs(uint2 v_out, uint2 const v_lh, ui32 const s_rh)
+ijk_inl intlv ijkVecBitNand2ilvs(intl2 v_out, intl2 const v_lh, i64 const s_rh)
 {
 	v_out[0] = ~(v_lh[0] & s_rh);
 	v_out[1] = ~(v_lh[1] & s_rh);
 	return v_out;
 }
 
-ijk_inl uintv ijkVecBitOr2uvs(uint2 v_out, uint2 const v_lh, ui32 const s_rh)
+ijk_inl intlv ijkVecBitOr2ilvs(intl2 v_out, intl2 const v_lh, i64 const s_rh)
 {
 	v_out[0] = (v_lh[0] | s_rh);
 	v_out[1] = (v_lh[1] | s_rh);
 	return v_out;
 }
 
-ijk_inl uintv ijkVecBitNor2uvs(uint2 v_out, uint2 const v_lh, ui32 const s_rh)
+ijk_inl intlv ijkVecBitNor2ilvs(intl2 v_out, intl2 const v_lh, i64 const s_rh)
 {
 	v_out[0] = ~(v_lh[0] | s_rh);
 	v_out[1] = ~(v_lh[1] | s_rh);
 	return v_out;
 }
 
-ijk_inl uintv ijkVecBitXor2uvs(uint2 v_out, uint2 const v_lh, ui32 const s_rh)
+ijk_inl intlv ijkVecBitXor2ilvs(intl2 v_out, intl2 const v_lh, i64 const s_rh)
 {
 	v_out[0] = (v_lh[0] ^ s_rh);
 	v_out[1] = (v_lh[1] ^ s_rh);
 	return v_out;
 }
 
-ijk_inl uintv ijkVecBitXnor2uvs(uint2 v_out, uint2 const v_lh, ui32 const s_rh)
+ijk_inl intlv ijkVecBitXnor2ilvs(intl2 v_out, intl2 const v_lh, i64 const s_rh)
 {
 	v_out[0] = ~(v_lh[0] ^ s_rh);
 	v_out[1] = ~(v_lh[1] ^ s_rh);
 	return v_out;
 }
 
-ijk_inl uintv ijkVecBitShiftLeft2uvs(uint2 v_out, uint2 const v_lh, ui32 const s_rh)
+ijk_inl intlv ijkVecBitShiftLeft2ilvs(intl2 v_out, intl2 const v_lh, i64 const s_rh)
 {
 	v_out[0] = (v_lh[0] << s_rh);
 	v_out[1] = (v_lh[1] << s_rh);
 	return v_out;
 }
 
-ijk_inl uintv ijkVecBitShiftRight2uvs(uint2 v_out, uint2 const v_lh, ui32 const s_rh)
+ijk_inl intlv ijkVecBitShiftRight2ilvs(intl2 v_out, intl2 const v_lh, i64 const s_rh)
 {
 	v_out[0] = (v_lh[0] >> s_rh);
 	v_out[1] = (v_lh[1] >> s_rh);
 	return v_out;
 }
 
-ijk_inl boolv ijkVecEqual2uvs(bool2 bv_out, uint2 const v_lh, ui32 const s_rh)
+ijk_inl boolv ijkVecEqual2ilvs(bool2 bv_out, intl2 const v_lh, i64 const s_rh)
 {
 	bv_out[0] = (v_lh[0] == s_rh);
 	bv_out[1] = (v_lh[1] == s_rh);
 	return bv_out;
 }
 
-ijk_inl boolv ijkVecInequal2uvs(bool2 bv_out, uint2 const v_lh, ui32 const s_rh)
+ijk_inl boolv ijkVecInequal2ilvs(bool2 bv_out, intl2 const v_lh, i64 const s_rh)
 {
 	bv_out[0] = (v_lh[0] != s_rh);
 	bv_out[1] = (v_lh[1] != s_rh);
 	return bv_out;
 }
 
-ijk_inl boolv ijkVecLessEqual2uvs(bool2 bv_out, uint2 const v_lh, ui32 const s_rh)
+ijk_inl boolv ijkVecLessEqual2ilvs(bool2 bv_out, intl2 const v_lh, i64 const s_rh)
 {
 	bv_out[0] = (v_lh[0] <= s_rh);
 	bv_out[1] = (v_lh[1] <= s_rh);
 	return bv_out;
 }
 
-ijk_inl boolv ijkVecGreaterEqual2uvs(bool2 bv_out, uint2 const v_lh, ui32 const s_rh)
+ijk_inl boolv ijkVecGreaterEqual2ilvs(bool2 bv_out, intl2 const v_lh, i64 const s_rh)
 {
 	bv_out[0] = (v_lh[0] >= s_rh);
 	bv_out[1] = (v_lh[1] >= s_rh);
 	return bv_out;
 }
 
-ijk_inl boolv ijkVecLess2uvs(bool2 bv_out, uint2 const v_lh, ui32 const s_rh)
+ijk_inl boolv ijkVecLess2ilvs(bool2 bv_out, intl2 const v_lh, i64 const s_rh)
 {
 	bv_out[0] = (v_lh[0] < s_rh);
 	bv_out[1] = (v_lh[1] < s_rh);
 	return bv_out;
 }
 
-ijk_inl boolv ijkVecGreater2uvs(bool2 bv_out, uint2 const v_lh, ui32 const s_rh)
+ijk_inl boolv ijkVecGreater2ilvs(bool2 bv_out, intl2 const v_lh, i64 const s_rh)
 {
 	bv_out[0] = (v_lh[0] > s_rh);
 	bv_out[1] = (v_lh[1] > s_rh);
 	return bv_out;
 }
 
-ijk_inl boolv ijkVecAnd2uvs(bool2 bv_out, uint2 const v_lh, ui32 const s_rh)
+ijk_inl boolv ijkVecAnd2ilvs(bool2 bv_out, intl2 const v_lh, i64 const s_rh)
 {
 	bv_out[0] = (v_lh[0] && s_rh);
 	bv_out[1] = (v_lh[1] && s_rh);
 	return bv_out;
 }
 
-ijk_inl boolv ijkVecNand2uvs(bool2 bv_out, uint2 const v_lh, ui32 const s_rh)
+ijk_inl boolv ijkVecNand2ilvs(bool2 bv_out, intl2 const v_lh, i64 const s_rh)
 {
 	bv_out[0] = !(v_lh[0] && s_rh);
 	bv_out[1] = !(v_lh[1] && s_rh);
 	return bv_out;
 }
 
-ijk_inl boolv ijkVecOr2uvs(bool2 bv_out, uint2 const v_lh, ui32 const s_rh)
+ijk_inl boolv ijkVecOr2ilvs(bool2 bv_out, intl2 const v_lh, i64 const s_rh)
 {
 	bv_out[0] = (v_lh[0] || s_rh);
 	bv_out[1] = (v_lh[1] || s_rh);
 	return bv_out;
 }
 
-ijk_inl boolv ijkVecNor2uvs(bool2 bv_out, uint2 const v_lh, ui32 const s_rh)
+ijk_inl boolv ijkVecNor2ilvs(bool2 bv_out, intl2 const v_lh, i64 const s_rh)
 {
 	bv_out[0] = !(v_lh[0] || s_rh);
 	bv_out[1] = !(v_lh[1] || s_rh);
 	return bv_out;
 }
 
-ijk_inl uintv ijkVecAdd2usv(uint2 v_out, ui32 const s_lh, uint2 const v_rh)
+ijk_inl intlv ijkVecAdd2ilsv(intl2 v_out, i64 const s_lh, intl2 const v_rh)
 {
 	v_out[0] = s_lh + v_rh[0];
 	v_out[1] = s_lh + v_rh[1];
 	return v_out;
 }
 
-ijk_inl uintv ijkVecSub2usv(uint2 v_out, ui32 const s_lh, uint2 const v_rh)
+ijk_inl intlv ijkVecSub2ilsv(intl2 v_out, i64 const s_lh, intl2 const v_rh)
 {
 	v_out[0] = s_lh - v_rh[0];
 	v_out[1] = s_lh - v_rh[1];
 	return v_out;
 }
 
-ijk_inl uintv ijkVecMul2usv(uint2 v_out, ui32 const s_lh, uint2 const v_rh)
+ijk_inl intlv ijkVecMul2ilsv(intl2 v_out, i64 const s_lh, intl2 const v_rh)
 {
 	v_out[0] = s_lh * v_rh[0];
 	v_out[1] = s_lh * v_rh[1];
 	return v_out;
 }
 
-ijk_inl uintv ijkVecDiv2usv(uint2 v_out, ui32 const s_lh, uint2 const v_rh)
+ijk_inl intlv ijkVecDiv2ilsv(intl2 v_out, i64 const s_lh, intl2 const v_rh)
 {
 	v_out[0] = s_lh / v_rh[0];
 	v_out[1] = s_lh / v_rh[1];
 	return v_out;
 }
 
-ijk_inl uintv ijkVecDivSafe2usv(uint2 v_out, ui32 const s_lh, uint2 const v_rh)
+ijk_inl intlv ijkVecDivSafe2ilsv(intl2 v_out, i64 const s_lh, intl2 const v_rh)
 {
 	v_out[0] = ijk_divide_safe_int(s_lh, v_rh[0]);
 	v_out[1] = ijk_divide_safe_int(s_lh, v_rh[1]);
 	return v_out;
 }
 
-ijk_inl uintv ijkVecMod2usv(uint2 v_out, ui32 const s_lh, uint2 const v_rh)
+ijk_inl intlv ijkVecMod2ilsv(intl2 v_out, i64 const s_lh, intl2 const v_rh)
 {
 	v_out[0] = s_lh % v_rh[0];
 	v_out[1] = s_lh % v_rh[1];
 	return v_out;
 }
 
-ijk_inl uintv ijkVecModSafe2usv(uint2 v_out, ui32 const s_lh, uint2 const v_rh)
+ijk_inl intlv ijkVecModSafe2ilsv(intl2 v_out, i64 const s_lh, intl2 const v_rh)
 {
 	v_out[0] = ijk_modulo_safe_int(s_lh, v_rh[0]);
 	v_out[1] = ijk_modulo_safe_int(s_lh, v_rh[1]);
 	return v_out;
 }
 
-ijk_inl uintv ijkVecBitAnd2usv(uint2 v_out, ui32 const s_lh, uint2 const v_rh)
+ijk_inl intlv ijkVecBitAnd2ilsv(intl2 v_out, i64 const s_lh, intl2 const v_rh)
 {
 	v_out[0] = (s_lh & v_rh[0]);
 	v_out[1] = (s_lh & v_rh[1]);
 	return v_out;
 }
 
-ijk_inl uintv ijkVecBitNand2usv(uint2 v_out, ui32 const s_lh, uint2 const v_rh)
+ijk_inl intlv ijkVecBitNand2ilsv(intl2 v_out, i64 const s_lh, intl2 const v_rh)
 {
 	v_out[0] = ~(s_lh & v_rh[0]);
 	v_out[1] = ~(s_lh & v_rh[1]);
 	return v_out;
 }
 
-ijk_inl uintv ijkVecBitOr2usv(uint2 v_out, ui32 const s_lh, uint2 const v_rh)
+ijk_inl intlv ijkVecBitOr2ilsv(intl2 v_out, i64 const s_lh, intl2 const v_rh)
 {
 	v_out[0] = (s_lh | v_rh[0]);
 	v_out[1] = (s_lh | v_rh[1]);
 	return v_out;
 }
 
-ijk_inl uintv ijkVecBitNor2usv(uint2 v_out, ui32 const s_lh, uint2 const v_rh)
+ijk_inl intlv ijkVecBitNor2ilsv(intl2 v_out, i64 const s_lh, intl2 const v_rh)
 {
 	v_out[0] = ~(s_lh | v_rh[0]);
 	v_out[1] = ~(s_lh | v_rh[1]);
 	return v_out;
 }
 
-ijk_inl uintv ijkVecBitXor2usv(uint2 v_out, ui32 const s_lh, uint2 const v_rh)
+ijk_inl intlv ijkVecBitXor2ilsv(intl2 v_out, i64 const s_lh, intl2 const v_rh)
 {
 	v_out[0] = (s_lh ^ v_rh[0]);
 	v_out[1] = (s_lh ^ v_rh[1]);
 	return v_out;
 }
 
-ijk_inl uintv ijkVecBitXnor2usv(uint2 v_out, ui32 const s_lh, uint2 const v_rh)
+ijk_inl intlv ijkVecBitXnor2ilsv(intl2 v_out, i64 const s_lh, intl2 const v_rh)
 {
 	v_out[0] = ~(s_lh ^ v_rh[0]);
 	v_out[1] = ~(s_lh ^ v_rh[1]);
 	return v_out;
 }
 
-ijk_inl uintv ijkVecBitShiftLeft2usv(uint2 v_out, ui32 const s_lh, uint2 const v_rh)
+ijk_inl intlv ijkVecBitShiftLeft2ilsv(intl2 v_out, i64 const s_lh, intl2 const v_rh)
 {
 	v_out[0] = (s_lh << v_rh[0]);
 	v_out[1] = (s_lh << v_rh[1]);
 	return v_out;
 }
 
-ijk_inl uintv ijkVecBitShiftRight2usv(uint2 v_out, ui32 const s_lh, uint2 const v_rh)
+ijk_inl intlv ijkVecBitShiftRight2ilsv(intl2 v_out, i64 const s_lh, intl2 const v_rh)
 {
 	v_out[0] = (s_lh >> v_rh[0]);
 	v_out[1] = (s_lh >> v_rh[1]);
 	return v_out;
 }
 
-ijk_inl boolv ijkVecEqual2usv(bool2 bv_out, ui32 const s_lh, uint2 const v_rh)
+ijk_inl boolv ijkVecEqual2ilsv(bool2 bv_out, i64 const s_lh, intl2 const v_rh)
 {
 	bv_out[0] = (s_lh == v_rh[0]);
 	bv_out[1] = (s_lh == v_rh[1]);
 	return bv_out;
 }
 
-ijk_inl boolv ijkVecInequal2usv(bool2 bv_out, ui32 const s_lh, uint2 const v_rh)
+ijk_inl boolv ijkVecInequal2ilsv(bool2 bv_out, i64 const s_lh, intl2 const v_rh)
 {
 	bv_out[0] = (s_lh != v_rh[0]);
 	bv_out[1] = (s_lh != v_rh[1]);
 	return bv_out;
 }
 
-ijk_inl boolv ijkVecLessEqual2usv(bool2 bv_out, ui32 const s_lh, uint2 const v_rh)
+ijk_inl boolv ijkVecLessEqual2ilsv(bool2 bv_out, i64 const s_lh, intl2 const v_rh)
 {
 	bv_out[0] = (s_lh <= v_rh[0]);
 	bv_out[1] = (s_lh <= v_rh[1]);
 	return bv_out;
 }
 
-ijk_inl boolv ijkVecGreaterEqual2usv(bool2 bv_out, ui32 const s_lh, uint2 const v_rh)
+ijk_inl boolv ijkVecGreaterEqual2ilsv(bool2 bv_out, i64 const s_lh, intl2 const v_rh)
 {
 	bv_out[0] = (s_lh >= v_rh[0]);
 	bv_out[1] = (s_lh >= v_rh[1]);
 	return bv_out;
 }
 
-ijk_inl boolv ijkVecLess2usv(bool2 bv_out, ui32 const s_lh, uint2 const v_rh)
+ijk_inl boolv ijkVecLess2ilsv(bool2 bv_out, i64 const s_lh, intl2 const v_rh)
 {
 	bv_out[0] = (s_lh < v_rh[0]);
 	bv_out[1] = (s_lh < v_rh[1]);
 	return bv_out;
 }
 
-ijk_inl boolv ijkVecGreater2usv(bool2 bv_out, ui32 const s_lh, uint2 const v_rh)
+ijk_inl boolv ijkVecGreater2ilsv(bool2 bv_out, i64 const s_lh, intl2 const v_rh)
 {
 	bv_out[0] = (s_lh > v_rh[0]);
 	bv_out[1] = (s_lh > v_rh[1]);
 	return bv_out;
 }
 
-ijk_inl boolv ijkVecAnd2usv(bool2 bv_out, ui32 const s_lh, uint2 const v_rh)
+ijk_inl boolv ijkVecAnd2ilsv(bool2 bv_out, i64 const s_lh, intl2 const v_rh)
 {
 	bv_out[0] = (s_lh && v_rh[0]);
 	bv_out[1] = (s_lh && v_rh[1]);
 	return bv_out;
 }
 
-ijk_inl boolv ijkVecNand2usv(bool2 bv_out, ui32 const s_lh, uint2 const v_rh)
+ijk_inl boolv ijkVecNand2ilsv(bool2 bv_out, i64 const s_lh, intl2 const v_rh)
 {
 	bv_out[0] = !(s_lh && v_rh[0]);
 	bv_out[1] = !(s_lh && v_rh[1]);
 	return bv_out;
 }
 
-ijk_inl boolv ijkVecOr2usv(bool2 bv_out, ui32 const s_lh, uint2 const v_rh)
+ijk_inl boolv ijkVecOr2ilsv(bool2 bv_out, i64 const s_lh, intl2 const v_rh)
 {
 	bv_out[0] = (s_lh || v_rh[0]);
 	bv_out[1] = (s_lh || v_rh[1]);
 	return bv_out;
 }
 
-ijk_inl boolv ijkVecNor2usv(bool2 bv_out, ui32 const s_lh, uint2 const v_rh)
+ijk_inl boolv ijkVecNor2ilsv(bool2 bv_out, i64 const s_lh, intl2 const v_rh)
 {
 	bv_out[0] = !(s_lh || v_rh[0]);
 	bv_out[1] = !(s_lh || v_rh[1]);
 	return bv_out;
 }
 
-ijk_inl ui32 ijkVecDot2uv(uint2 const v_lh, uint2 const v_rh)
+ijk_inl i64 ijkVecDot2ilv(intl2 const v_lh, intl2 const v_rh)
 {
 	return (v_lh[0] * v_rh[0] + v_lh[1] * v_rh[1]);
 }
 
-ijk_inl ui32 ijkVecCross2uv(uint2 const v_lh, uint2 const v_rh)
+ijk_inl i64 ijkVecCross2ilv(intl2 const v_lh, intl2 const v_rh)
 {
 	return (v_lh[0] * v_rh[1] - v_lh[1] * v_rh[0]);
 }
@@ -708,13 +708,13 @@ ijk_inl ui32 ijkVecCross2uv(uint2 const v_lh, uint2 const v_rh)
 
 //-----------------------------------------------------------------------------
 
-ijk_inl uintv ijkVecInit3uv(uint3 v_out)
+ijk_inl intlv ijkVecInit3ilv(intl3 v_out)
 {
 	v_out[0] = v_out[1] = v_out[2] = 0;
 	return v_out;
 }
 
-ijk_inl uintv ijkVecInitElems3uv(uint3 v_out, ui32 const x, ui32 const y, ui32 const z)
+ijk_inl intlv ijkVecInitElems3ilv(intl3 v_out, i64 const x, i64 const y, i64 const z)
 {
 	v_out[0] = x;
 	v_out[1] = y;
@@ -722,7 +722,7 @@ ijk_inl uintv ijkVecInitElems3uv(uint3 v_out, ui32 const x, ui32 const y, ui32 c
 	return v_out;
 }
 
-ijk_inl uintv ijkVecCopy3uv(uint3 v_out, uint3 const v_in)
+ijk_inl intlv ijkVecCopy3ilv(intl3 v_out, intl3 const v_in)
 {
 	v_out[0] = +v_in[0];
 	v_out[1] = +v_in[1];
@@ -730,15 +730,15 @@ ijk_inl uintv ijkVecCopy3uv(uint3 v_out, uint3 const v_in)
 	return v_out;
 }
 
-ijk_inl intv ijkVecNegate3uv(int3 v_out, uint3 const v_in)
+ijk_inl intlv ijkVecNegate3ilv(intl3 v_out, intl3 const v_in)
 {
-	v_out[0] = -(i32)v_in[0];
-	v_out[1] = -(i32)v_in[1];
-	v_out[2] = -(i32)v_in[2];
+	v_out[0] = -v_in[0];
+	v_out[1] = -v_in[1];
+	v_out[2] = -v_in[2];
 	return v_out;
 }
 
-ijk_inl uintv ijkVecBitNot3uv(uint3 v_out, uint3 const v_in)
+ijk_inl intlv ijkVecBitNot3ilv(intl3 v_out, intl3 const v_in)
 {
 	v_out[0] = ~v_in[0];
 	v_out[1] = ~v_in[1];
@@ -746,7 +746,7 @@ ijk_inl uintv ijkVecBitNot3uv(uint3 v_out, uint3 const v_in)
 	return v_out;
 }
 
-ijk_inl boolv ijkVecNot3uv(bool3 bv_out, uint3 const v_in)
+ijk_inl boolv ijkVecNot3ilv(bool3 bv_out, intl3 const v_in)
 {
 	bv_out[0] = !v_in[0];
 	bv_out[1] = !v_in[1];
@@ -754,7 +754,7 @@ ijk_inl boolv ijkVecNot3uv(bool3 bv_out, uint3 const v_in)
 	return bv_out;
 }
 
-ijk_inl uintv ijkVecAdd3uv(uint3 v_out, uint3 const v_lh, uint3 const v_rh)
+ijk_inl intlv ijkVecAdd3ilv(intl3 v_out, intl3 const v_lh, intl3 const v_rh)
 {
 	v_out[0] = v_lh[0] + v_rh[0];
 	v_out[1] = v_lh[1] + v_rh[1];
@@ -762,7 +762,7 @@ ijk_inl uintv ijkVecAdd3uv(uint3 v_out, uint3 const v_lh, uint3 const v_rh)
 	return v_out;
 }
 
-ijk_inl uintv ijkVecSub3uv(uint3 v_out, uint3 const v_lh, uint3 const v_rh)
+ijk_inl intlv ijkVecSub3ilv(intl3 v_out, intl3 const v_lh, intl3 const v_rh)
 {
 	v_out[0] = v_lh[0] - v_rh[0];
 	v_out[1] = v_lh[1] - v_rh[1];
@@ -770,7 +770,7 @@ ijk_inl uintv ijkVecSub3uv(uint3 v_out, uint3 const v_lh, uint3 const v_rh)
 	return v_out;
 }
 
-ijk_inl uintv ijkVecMul3uv(uint3 v_out, uint3 const v_lh, uint3 const v_rh)
+ijk_inl intlv ijkVecMul3ilv(intl3 v_out, intl3 const v_lh, intl3 const v_rh)
 {
 	v_out[0] = v_lh[0] * v_rh[0];
 	v_out[1] = v_lh[1] * v_rh[1];
@@ -778,7 +778,7 @@ ijk_inl uintv ijkVecMul3uv(uint3 v_out, uint3 const v_lh, uint3 const v_rh)
 	return v_out;
 }
 
-ijk_inl uintv ijkVecDiv3uv(uint3 v_out, uint3 const v_lh, uint3 const v_rh)
+ijk_inl intlv ijkVecDiv3ilv(intl3 v_out, intl3 const v_lh, intl3 const v_rh)
 {
 	v_out[0] = v_lh[0] / v_rh[0];
 	v_out[1] = v_lh[1] / v_rh[1];
@@ -786,7 +786,7 @@ ijk_inl uintv ijkVecDiv3uv(uint3 v_out, uint3 const v_lh, uint3 const v_rh)
 	return v_out;
 }
 
-ijk_inl uintv ijkVecDivSafe3uv(uint3 v_out, uint3 const v_lh, uint3 const v_rh)
+ijk_inl intlv ijkVecDivSafe3ilv(intl3 v_out, intl3 const v_lh, intl3 const v_rh)
 {
 	v_out[0] = ijk_divide_safe_int(v_lh[0], v_rh[0]);
 	v_out[1] = ijk_divide_safe_int(v_lh[1], v_rh[1]);
@@ -794,7 +794,7 @@ ijk_inl uintv ijkVecDivSafe3uv(uint3 v_out, uint3 const v_lh, uint3 const v_rh)
 	return v_out;
 }
 
-ijk_inl uintv ijkVecMod3uv(uint3 v_out, uint3 const v_lh, uint3 const v_rh)
+ijk_inl intlv ijkVecMod3ilv(intl3 v_out, intl3 const v_lh, intl3 const v_rh)
 {
 	v_out[0] = v_lh[0] % v_rh[0];
 	v_out[1] = v_lh[1] % v_rh[1];
@@ -802,7 +802,7 @@ ijk_inl uintv ijkVecMod3uv(uint3 v_out, uint3 const v_lh, uint3 const v_rh)
 	return v_out;
 }
 
-ijk_inl uintv ijkVecModSafe3uv(uint3 v_out, uint3 const v_lh, uint3 const v_rh)
+ijk_inl intlv ijkVecModSafe3ilv(intl3 v_out, intl3 const v_lh, intl3 const v_rh)
 {
 	v_out[0] = ijk_modulo_safe_int(v_lh[0], v_rh[0]);
 	v_out[1] = ijk_modulo_safe_int(v_lh[1], v_rh[1]);
@@ -810,7 +810,7 @@ ijk_inl uintv ijkVecModSafe3uv(uint3 v_out, uint3 const v_lh, uint3 const v_rh)
 	return v_out;
 }
 
-ijk_inl uintv ijkVecBitAnd3uv(uint3 v_out, uint3 const v_lh, uint3 const v_rh)
+ijk_inl intlv ijkVecBitAnd3ilv(intl3 v_out, intl3 const v_lh, intl3 const v_rh)
 {
 	v_out[0] = (v_lh[0] & v_rh[0]);
 	v_out[1] = (v_lh[1] & v_rh[1]);
@@ -818,7 +818,7 @@ ijk_inl uintv ijkVecBitAnd3uv(uint3 v_out, uint3 const v_lh, uint3 const v_rh)
 	return v_out;
 }
 
-ijk_inl uintv ijkVecBitNand3uv(uint3 v_out, uint3 const v_lh, uint3 const v_rh)
+ijk_inl intlv ijkVecBitNand3ilv(intl3 v_out, intl3 const v_lh, intl3 const v_rh)
 {
 	v_out[0] = ~(v_lh[0] & v_rh[0]);
 	v_out[1] = ~(v_lh[1] & v_rh[1]);
@@ -826,7 +826,7 @@ ijk_inl uintv ijkVecBitNand3uv(uint3 v_out, uint3 const v_lh, uint3 const v_rh)
 	return v_out;
 }
 
-ijk_inl uintv ijkVecBitOr3uv(uint3 v_out, uint3 const v_lh, uint3 const v_rh)
+ijk_inl intlv ijkVecBitOr3ilv(intl3 v_out, intl3 const v_lh, intl3 const v_rh)
 {
 	v_out[0] = (v_lh[0] | v_rh[0]);
 	v_out[1] = (v_lh[1] | v_rh[1]);
@@ -834,7 +834,7 @@ ijk_inl uintv ijkVecBitOr3uv(uint3 v_out, uint3 const v_lh, uint3 const v_rh)
 	return v_out;
 }
 
-ijk_inl uintv ijkVecBitNor3uv(uint3 v_out, uint3 const v_lh, uint3 const v_rh)
+ijk_inl intlv ijkVecBitNor3ilv(intl3 v_out, intl3 const v_lh, intl3 const v_rh)
 {
 	v_out[0] = ~(v_lh[0] | v_rh[0]);
 	v_out[1] = ~(v_lh[1] | v_rh[1]);
@@ -842,7 +842,7 @@ ijk_inl uintv ijkVecBitNor3uv(uint3 v_out, uint3 const v_lh, uint3 const v_rh)
 	return v_out;
 }
 
-ijk_inl uintv ijkVecBitXor3uv(uint3 v_out, uint3 const v_lh, uint3 const v_rh)
+ijk_inl intlv ijkVecBitXor3ilv(intl3 v_out, intl3 const v_lh, intl3 const v_rh)
 {
 	v_out[0] = (v_lh[0] ^ v_rh[0]);
 	v_out[1] = (v_lh[1] ^ v_rh[1]);
@@ -850,7 +850,7 @@ ijk_inl uintv ijkVecBitXor3uv(uint3 v_out, uint3 const v_lh, uint3 const v_rh)
 	return v_out;
 }
 
-ijk_inl uintv ijkVecBitXnor3uv(uint3 v_out, uint3 const v_lh, uint3 const v_rh)
+ijk_inl intlv ijkVecBitXnor3ilv(intl3 v_out, intl3 const v_lh, intl3 const v_rh)
 {
 	v_out[0] = ~(v_lh[0] ^ v_rh[0]);
 	v_out[1] = ~(v_lh[1] ^ v_rh[1]);
@@ -858,7 +858,7 @@ ijk_inl uintv ijkVecBitXnor3uv(uint3 v_out, uint3 const v_lh, uint3 const v_rh)
 	return v_out;
 }
 
-ijk_inl uintv ijkVecBitShiftLeft3uv(uint3 v_out, uint3 const v_lh, uint3 const v_rh)
+ijk_inl intlv ijkVecBitShiftLeft3ilv(intl3 v_out, intl3 const v_lh, intl3 const v_rh)
 {
 	v_out[0] = (v_lh[0] << v_rh[0]);
 	v_out[1] = (v_lh[1] << v_rh[1]);
@@ -866,7 +866,7 @@ ijk_inl uintv ijkVecBitShiftLeft3uv(uint3 v_out, uint3 const v_lh, uint3 const v
 	return v_out;
 }
 
-ijk_inl uintv ijkVecBitShiftRight3uv(uint3 v_out, uint3 const v_lh, uint3 const v_rh)
+ijk_inl intlv ijkVecBitShiftRight3ilv(intl3 v_out, intl3 const v_lh, intl3 const v_rh)
 {
 	v_out[0] = (v_lh[0] >> v_rh[0]);
 	v_out[1] = (v_lh[1] >> v_rh[1]);
@@ -874,7 +874,7 @@ ijk_inl uintv ijkVecBitShiftRight3uv(uint3 v_out, uint3 const v_lh, uint3 const 
 	return v_out;
 }
 
-ijk_inl boolv ijkVecEqual3uv(bool3 bv_out, uint3 const v_lh, uint3 const v_rh)
+ijk_inl boolv ijkVecEqual3ilv(bool3 bv_out, intl3 const v_lh, intl3 const v_rh)
 {
 	bv_out[0] = (v_lh[0] == v_rh[0]);
 	bv_out[1] = (v_lh[1] == v_rh[1]);
@@ -882,7 +882,7 @@ ijk_inl boolv ijkVecEqual3uv(bool3 bv_out, uint3 const v_lh, uint3 const v_rh)
 	return bv_out;
 }
 
-ijk_inl boolv ijkVecInequal3uv(bool3 bv_out, uint3 const v_lh, uint3 const v_rh)
+ijk_inl boolv ijkVecInequal3ilv(bool3 bv_out, intl3 const v_lh, intl3 const v_rh)
 {
 	bv_out[0] = (v_lh[0] != v_rh[0]);
 	bv_out[1] = (v_lh[1] != v_rh[1]);
@@ -890,7 +890,7 @@ ijk_inl boolv ijkVecInequal3uv(bool3 bv_out, uint3 const v_lh, uint3 const v_rh)
 	return bv_out;
 }
 
-ijk_inl boolv ijkVecLessEqual3uv(bool3 bv_out, uint3 const v_lh, uint3 const v_rh)
+ijk_inl boolv ijkVecLessEqual3ilv(bool3 bv_out, intl3 const v_lh, intl3 const v_rh)
 {
 	bv_out[0] = (v_lh[0] <= v_rh[0]);
 	bv_out[1] = (v_lh[1] <= v_rh[1]);
@@ -898,7 +898,7 @@ ijk_inl boolv ijkVecLessEqual3uv(bool3 bv_out, uint3 const v_lh, uint3 const v_r
 	return bv_out;
 }
 
-ijk_inl boolv ijkVecGreaterEqual3uv(bool3 bv_out, uint3 const v_lh, uint3 const v_rh)
+ijk_inl boolv ijkVecGreaterEqual3ilv(bool3 bv_out, intl3 const v_lh, intl3 const v_rh)
 {
 	bv_out[0] = (v_lh[0] >= v_rh[0]);
 	bv_out[1] = (v_lh[1] >= v_rh[1]);
@@ -906,7 +906,7 @@ ijk_inl boolv ijkVecGreaterEqual3uv(bool3 bv_out, uint3 const v_lh, uint3 const 
 	return bv_out;
 }
 
-ijk_inl boolv ijkVecLess3uv(bool3 bv_out, uint3 const v_lh, uint3 const v_rh)
+ijk_inl boolv ijkVecLess3ilv(bool3 bv_out, intl3 const v_lh, intl3 const v_rh)
 {
 	bv_out[0] = (v_lh[0] < v_rh[0]);
 	bv_out[1] = (v_lh[1] < v_rh[1]);
@@ -914,7 +914,7 @@ ijk_inl boolv ijkVecLess3uv(bool3 bv_out, uint3 const v_lh, uint3 const v_rh)
 	return bv_out;
 }
 
-ijk_inl boolv ijkVecGreater3uv(bool3 bv_out, uint3 const v_lh, uint3 const v_rh)
+ijk_inl boolv ijkVecGreater3ilv(bool3 bv_out, intl3 const v_lh, intl3 const v_rh)
 {
 	bv_out[0] = (v_lh[0] > v_rh[0]);
 	bv_out[1] = (v_lh[1] > v_rh[1]);
@@ -922,7 +922,7 @@ ijk_inl boolv ijkVecGreater3uv(bool3 bv_out, uint3 const v_lh, uint3 const v_rh)
 	return bv_out;
 }
 
-ijk_inl boolv ijkVecAnd3uv(bool3 bv_out, uint3 const v_lh, uint3 const v_rh)
+ijk_inl boolv ijkVecAnd3ilv(bool3 bv_out, intl3 const v_lh, intl3 const v_rh)
 {
 	bv_out[0] = (v_lh[0] && v_rh[0]);
 	bv_out[1] = (v_lh[1] && v_rh[1]);
@@ -930,7 +930,7 @@ ijk_inl boolv ijkVecAnd3uv(bool3 bv_out, uint3 const v_lh, uint3 const v_rh)
 	return bv_out;
 }
 
-ijk_inl boolv ijkVecNand3uv(bool3 bv_out, uint3 const v_lh, uint3 const v_rh)
+ijk_inl boolv ijkVecNand3ilv(bool3 bv_out, intl3 const v_lh, intl3 const v_rh)
 {
 	bv_out[0] = !(v_lh[0] && v_rh[0]);
 	bv_out[1] = !(v_lh[1] && v_rh[1]);
@@ -938,7 +938,7 @@ ijk_inl boolv ijkVecNand3uv(bool3 bv_out, uint3 const v_lh, uint3 const v_rh)
 	return bv_out;
 }
 
-ijk_inl boolv ijkVecOr3uv(bool3 bv_out, uint3 const v_lh, uint3 const v_rh)
+ijk_inl boolv ijkVecOr3ilv(bool3 bv_out, intl3 const v_lh, intl3 const v_rh)
 {
 	bv_out[0] = (v_lh[0] || v_rh[0]);
 	bv_out[1] = (v_lh[1] || v_rh[1]);
@@ -946,7 +946,7 @@ ijk_inl boolv ijkVecOr3uv(bool3 bv_out, uint3 const v_lh, uint3 const v_rh)
 	return bv_out;
 }
 
-ijk_inl boolv ijkVecNor3uv(bool3 bv_out, uint3 const v_lh, uint3 const v_rh)
+ijk_inl boolv ijkVecNor3ilv(bool3 bv_out, intl3 const v_lh, intl3 const v_rh)
 {
 	bv_out[0] = !(v_lh[0] || v_rh[0]);
 	bv_out[1] = !(v_lh[1] || v_rh[1]);
@@ -954,7 +954,7 @@ ijk_inl boolv ijkVecNor3uv(bool3 bv_out, uint3 const v_lh, uint3 const v_rh)
 	return bv_out;
 }
 
-ijk_inl uintv ijkVecCopy3uvz(uint3 v_out, uint2 const v_xy, ui32 const z)
+ijk_inl intlv ijkVecCopy3ilvz(intl3 v_out, intl2 const v_xy, i64 const z)
 {
 	v_out[0] = v_xy[0];
 	v_out[1] = v_xy[1];
@@ -962,31 +962,31 @@ ijk_inl uintv ijkVecCopy3uvz(uint3 v_out, uint2 const v_xy, ui32 const z)
 	return v_out;
 }
 
-ijk_inl uintv ijkVecCopy3uvs(uint3 v_out, ui32 const s_in)
+ijk_inl intlv ijkVecCopy3ilvs(intl3 v_out, i64 const s_in)
 {
 	v_out[0] = v_out[1] = v_out[2] = +s_in;
 	return v_out;
 }
 
-ijk_inl intv ijkVecNegate3uvs(int3 v_out, ui32 const s_in)
+ijk_inl intlv ijkVecNegate3ilvs(intl3 v_out, i64 const s_in)
 {
-	v_out[0] = v_out[1] = v_out[2] = -(i32)s_in;
+	v_out[0] = v_out[1] = v_out[2] = -s_in;
 	return v_out;
 }
 
-ijk_inl uintv ijkVecBitNot3uvs(uint3 v_out, ui32 const s_in)
+ijk_inl intlv ijkVecBitNot3ilvs(intl3 v_out, i64 const s_in)
 {
 	v_out[0] = v_out[1] = v_out[2] = ~s_in;
 	return v_out;
 }
 
-ijk_inl boolv ijkVecNot3uvs(bool3 bv_out, ui32 const s_in)
+ijk_inl boolv ijkVecNot3ilvs(bool3 bv_out, i64 const s_in)
 {
 	bv_out[0] = bv_out[1] = bv_out[2] = !s_in;
 	return bv_out;
 }
 
-ijk_inl uintv ijkVecAdd3uvs(uint3 v_out, uint3 const v_lh, ui32 const s_rh)
+ijk_inl intlv ijkVecAdd3ilvs(intl3 v_out, intl3 const v_lh, i64 const s_rh)
 {
 	v_out[0] = v_lh[0] + s_rh;
 	v_out[1] = v_lh[1] + s_rh;
@@ -994,7 +994,7 @@ ijk_inl uintv ijkVecAdd3uvs(uint3 v_out, uint3 const v_lh, ui32 const s_rh)
 	return v_out;
 }
 
-ijk_inl uintv ijkVecSub3uvs(uint3 v_out, uint3 const v_lh, ui32 const s_rh)
+ijk_inl intlv ijkVecSub3ilvs(intl3 v_out, intl3 const v_lh, i64 const s_rh)
 {
 	v_out[0] = v_lh[0] - s_rh;
 	v_out[1] = v_lh[1] - s_rh;
@@ -1002,7 +1002,7 @@ ijk_inl uintv ijkVecSub3uvs(uint3 v_out, uint3 const v_lh, ui32 const s_rh)
 	return v_out;
 }
 
-ijk_inl uintv ijkVecMul3uvs(uint3 v_out, uint3 const v_lh, ui32 const s_rh)
+ijk_inl intlv ijkVecMul3ilvs(intl3 v_out, intl3 const v_lh, i64 const s_rh)
 {
 	v_out[0] = v_lh[0] * s_rh;
 	v_out[1] = v_lh[1] * s_rh;
@@ -1010,7 +1010,7 @@ ijk_inl uintv ijkVecMul3uvs(uint3 v_out, uint3 const v_lh, ui32 const s_rh)
 	return v_out;
 }
 
-ijk_inl uintv ijkVecDiv3uvs(uint3 v_out, uint3 const v_lh, ui32 const s_rh)
+ijk_inl intlv ijkVecDiv3ilvs(intl3 v_out, intl3 const v_lh, i64 const s_rh)
 {
 	v_out[0] = v_lh[0] / s_rh;
 	v_out[1] = v_lh[1] / s_rh;
@@ -1018,7 +1018,7 @@ ijk_inl uintv ijkVecDiv3uvs(uint3 v_out, uint3 const v_lh, ui32 const s_rh)
 	return v_out;
 }
 
-ijk_inl uintv ijkVecDivSafe3uvs(uint3 v_out, uint3 const v_lh, ui32 const s_rh)
+ijk_inl intlv ijkVecDivSafe3ilvs(intl3 v_out, intl3 const v_lh, i64 const s_rh)
 {
 	if (s_rh)
 	{
@@ -1031,7 +1031,7 @@ ijk_inl uintv ijkVecDivSafe3uvs(uint3 v_out, uint3 const v_lh, ui32 const s_rh)
 	return v_out;
 }
 
-ijk_inl uintv ijkVecMod3uvs(uint3 v_out, uint3 const v_lh, ui32 const s_rh)
+ijk_inl intlv ijkVecMod3ilvs(intl3 v_out, intl3 const v_lh, i64 const s_rh)
 {
 	v_out[0] = v_lh[0] % s_rh;
 	v_out[1] = v_lh[1] % s_rh;
@@ -1039,7 +1039,7 @@ ijk_inl uintv ijkVecMod3uvs(uint3 v_out, uint3 const v_lh, ui32 const s_rh)
 	return v_out;
 }
 
-ijk_inl uintv ijkVecModSafe3uvs(uint3 v_out, uint3 const v_lh, ui32 const s_rh)
+ijk_inl intlv ijkVecModSafe3ilvs(intl3 v_out, intl3 const v_lh, i64 const s_rh)
 {
 	if (s_rh)
 	{
@@ -1048,10 +1048,10 @@ ijk_inl uintv ijkVecModSafe3uvs(uint3 v_out, uint3 const v_lh, ui32 const s_rh)
 		v_out[2] = v_lh[2] % s_rh;
 		return v_out;
 	}
-	return ijkVecCopy3uv(v_out, v_lh);
+	return ijkVecCopy3ilv(v_out, v_lh);
 }
 
-ijk_inl uintv ijkVecBitAnd3uvs(uint3 v_out, uint3 const v_lh, ui32 const s_rh)
+ijk_inl intlv ijkVecBitAnd3ilvs(intl3 v_out, intl3 const v_lh, i64 const s_rh)
 {
 	v_out[0] = (v_lh[0] & s_rh);
 	v_out[1] = (v_lh[1] & s_rh);
@@ -1059,7 +1059,7 @@ ijk_inl uintv ijkVecBitAnd3uvs(uint3 v_out, uint3 const v_lh, ui32 const s_rh)
 	return v_out;
 }
 
-ijk_inl uintv ijkVecBitNand3uvs(uint3 v_out, uint3 const v_lh, ui32 const s_rh)
+ijk_inl intlv ijkVecBitNand3ilvs(intl3 v_out, intl3 const v_lh, i64 const s_rh)
 {
 	v_out[0] = ~(v_lh[0] & s_rh);
 	v_out[1] = ~(v_lh[1] & s_rh);
@@ -1067,7 +1067,7 @@ ijk_inl uintv ijkVecBitNand3uvs(uint3 v_out, uint3 const v_lh, ui32 const s_rh)
 	return v_out;
 }
 
-ijk_inl uintv ijkVecBitOr3uvs(uint3 v_out, uint3 const v_lh, ui32 const s_rh)
+ijk_inl intlv ijkVecBitOr3ilvs(intl3 v_out, intl3 const v_lh, i64 const s_rh)
 {
 	v_out[0] = (v_lh[0] | s_rh);
 	v_out[1] = (v_lh[1] | s_rh);
@@ -1075,7 +1075,7 @@ ijk_inl uintv ijkVecBitOr3uvs(uint3 v_out, uint3 const v_lh, ui32 const s_rh)
 	return v_out;
 }
 
-ijk_inl uintv ijkVecBitNor3uvs(uint3 v_out, uint3 const v_lh, ui32 const s_rh)
+ijk_inl intlv ijkVecBitNor3ilvs(intl3 v_out, intl3 const v_lh, i64 const s_rh)
 {
 	v_out[0] = ~(v_lh[0] | s_rh);
 	v_out[1] = ~(v_lh[1] | s_rh);
@@ -1083,7 +1083,7 @@ ijk_inl uintv ijkVecBitNor3uvs(uint3 v_out, uint3 const v_lh, ui32 const s_rh)
 	return v_out;
 }
 
-ijk_inl uintv ijkVecBitXor3uvs(uint3 v_out, uint3 const v_lh, ui32 const s_rh)
+ijk_inl intlv ijkVecBitXor3ilvs(intl3 v_out, intl3 const v_lh, i64 const s_rh)
 {
 	v_out[0] = (v_lh[0] ^ s_rh);
 	v_out[1] = (v_lh[1] ^ s_rh);
@@ -1091,7 +1091,7 @@ ijk_inl uintv ijkVecBitXor3uvs(uint3 v_out, uint3 const v_lh, ui32 const s_rh)
 	return v_out;
 }
 
-ijk_inl uintv ijkVecBitXnor3uvs(uint3 v_out, uint3 const v_lh, ui32 const s_rh)
+ijk_inl intlv ijkVecBitXnor3ilvs(intl3 v_out, intl3 const v_lh, i64 const s_rh)
 {
 	v_out[0] = ~(v_lh[0] ^ s_rh);
 	v_out[1] = ~(v_lh[1] ^ s_rh);
@@ -1099,7 +1099,7 @@ ijk_inl uintv ijkVecBitXnor3uvs(uint3 v_out, uint3 const v_lh, ui32 const s_rh)
 	return v_out;
 }
 
-ijk_inl uintv ijkVecBitShiftLeft3uvs(uint3 v_out, uint3 const v_lh, ui32 const s_rh)
+ijk_inl intlv ijkVecBitShiftLeft3ilvs(intl3 v_out, intl3 const v_lh, i64 const s_rh)
 {
 	v_out[0] = (v_lh[0] << s_rh);
 	v_out[1] = (v_lh[1] << s_rh);
@@ -1107,7 +1107,7 @@ ijk_inl uintv ijkVecBitShiftLeft3uvs(uint3 v_out, uint3 const v_lh, ui32 const s
 	return v_out;
 }
 
-ijk_inl uintv ijkVecBitShiftRight3uvs(uint3 v_out, uint3 const v_lh, ui32 const s_rh)
+ijk_inl intlv ijkVecBitShiftRight3ilvs(intl3 v_out, intl3 const v_lh, i64 const s_rh)
 {
 	v_out[0] = (v_lh[0] >> s_rh);
 	v_out[1] = (v_lh[1] >> s_rh);
@@ -1115,7 +1115,7 @@ ijk_inl uintv ijkVecBitShiftRight3uvs(uint3 v_out, uint3 const v_lh, ui32 const 
 	return v_out;
 }
 
-ijk_inl boolv ijkVecEqual3uvs(bool3 bv_out, uint3 const v_lh, ui32 const s_rh)
+ijk_inl boolv ijkVecEqual3ilvs(bool3 bv_out, intl3 const v_lh, i64 const s_rh)
 {
 	bv_out[0] = (v_lh[0] == s_rh);
 	bv_out[1] = (v_lh[1] == s_rh);
@@ -1123,7 +1123,7 @@ ijk_inl boolv ijkVecEqual3uvs(bool3 bv_out, uint3 const v_lh, ui32 const s_rh)
 	return bv_out;
 }
 
-ijk_inl boolv ijkVecInequal3uvs(bool3 bv_out, uint3 const v_lh, ui32 const s_rh)
+ijk_inl boolv ijkVecInequal3ilvs(bool3 bv_out, intl3 const v_lh, i64 const s_rh)
 {
 	bv_out[0] = (v_lh[0] != s_rh);
 	bv_out[1] = (v_lh[1] != s_rh);
@@ -1131,7 +1131,7 @@ ijk_inl boolv ijkVecInequal3uvs(bool3 bv_out, uint3 const v_lh, ui32 const s_rh)
 	return bv_out;
 }
 
-ijk_inl boolv ijkVecLessEqual3uvs(bool3 bv_out, uint3 const v_lh, ui32 const s_rh)
+ijk_inl boolv ijkVecLessEqual3ilvs(bool3 bv_out, intl3 const v_lh, i64 const s_rh)
 {
 	bv_out[0] = (v_lh[0] <= s_rh);
 	bv_out[1] = (v_lh[1] <= s_rh);
@@ -1139,7 +1139,7 @@ ijk_inl boolv ijkVecLessEqual3uvs(bool3 bv_out, uint3 const v_lh, ui32 const s_r
 	return bv_out;
 }
 
-ijk_inl boolv ijkVecGreaterEqual3uvs(bool3 bv_out, uint3 const v_lh, ui32 const s_rh)
+ijk_inl boolv ijkVecGreaterEqual3ilvs(bool3 bv_out, intl3 const v_lh, i64 const s_rh)
 {
 	bv_out[0] = (v_lh[0] >= s_rh);
 	bv_out[1] = (v_lh[1] >= s_rh);
@@ -1147,7 +1147,7 @@ ijk_inl boolv ijkVecGreaterEqual3uvs(bool3 bv_out, uint3 const v_lh, ui32 const 
 	return bv_out;
 }
 
-ijk_inl boolv ijkVecLess3uvs(bool3 bv_out, uint3 const v_lh, ui32 const s_rh)
+ijk_inl boolv ijkVecLess3ilvs(bool3 bv_out, intl3 const v_lh, i64 const s_rh)
 {
 	bv_out[0] = (v_lh[0] < s_rh);
 	bv_out[1] = (v_lh[1] < s_rh);
@@ -1155,7 +1155,7 @@ ijk_inl boolv ijkVecLess3uvs(bool3 bv_out, uint3 const v_lh, ui32 const s_rh)
 	return bv_out;
 }
 
-ijk_inl boolv ijkVecGreater3uvs(bool3 bv_out, uint3 const v_lh, ui32 const s_rh)
+ijk_inl boolv ijkVecGreater3ilvs(bool3 bv_out, intl3 const v_lh, i64 const s_rh)
 {
 	bv_out[0] = (v_lh[0] > s_rh);
 	bv_out[1] = (v_lh[1] > s_rh);
@@ -1163,7 +1163,7 @@ ijk_inl boolv ijkVecGreater3uvs(bool3 bv_out, uint3 const v_lh, ui32 const s_rh)
 	return bv_out;
 }
 
-ijk_inl boolv ijkVecAnd3uvs(bool3 bv_out, uint3 const v_lh, ui32 const s_rh)
+ijk_inl boolv ijkVecAnd3ilvs(bool3 bv_out, intl3 const v_lh, i64 const s_rh)
 {
 	bv_out[0] = (v_lh[0] && s_rh);
 	bv_out[1] = (v_lh[1] && s_rh);
@@ -1171,7 +1171,7 @@ ijk_inl boolv ijkVecAnd3uvs(bool3 bv_out, uint3 const v_lh, ui32 const s_rh)
 	return bv_out;
 }
 
-ijk_inl boolv ijkVecNand3uvs(bool3 bv_out, uint3 const v_lh, ui32 const s_rh)
+ijk_inl boolv ijkVecNand3ilvs(bool3 bv_out, intl3 const v_lh, i64 const s_rh)
 {
 	bv_out[0] = !(v_lh[0] && s_rh);
 	bv_out[1] = !(v_lh[1] && s_rh);
@@ -1179,7 +1179,7 @@ ijk_inl boolv ijkVecNand3uvs(bool3 bv_out, uint3 const v_lh, ui32 const s_rh)
 	return bv_out;
 }
 
-ijk_inl boolv ijkVecOr3uvs(bool3 bv_out, uint3 const v_lh, ui32 const s_rh)
+ijk_inl boolv ijkVecOr3ilvs(bool3 bv_out, intl3 const v_lh, i64 const s_rh)
 {
 	bv_out[0] = (v_lh[0] || s_rh);
 	bv_out[1] = (v_lh[1] || s_rh);
@@ -1187,7 +1187,7 @@ ijk_inl boolv ijkVecOr3uvs(bool3 bv_out, uint3 const v_lh, ui32 const s_rh)
 	return bv_out;
 }
 
-ijk_inl boolv ijkVecNor3uvs(bool3 bv_out, uint3 const v_lh, ui32 const s_rh)
+ijk_inl boolv ijkVecNor3ilvs(bool3 bv_out, intl3 const v_lh, i64 const s_rh)
 {
 	bv_out[0] = !(v_lh[0] || s_rh);
 	bv_out[1] = !(v_lh[1] || s_rh);
@@ -1195,7 +1195,7 @@ ijk_inl boolv ijkVecNor3uvs(bool3 bv_out, uint3 const v_lh, ui32 const s_rh)
 	return bv_out;
 }
 
-ijk_inl uintv ijkVecCopy3uxv(uint3 v_out, ui32 const x, uint2 const v_yz)
+ijk_inl intlv ijkVecCopy3ilxv(intl3 v_out, i64 const x, intl2 const v_yz)
 {
 	v_out[0] = x;
 	v_out[1] = v_yz[0];
@@ -1203,7 +1203,7 @@ ijk_inl uintv ijkVecCopy3uxv(uint3 v_out, ui32 const x, uint2 const v_yz)
 	return v_out;
 }
 
-ijk_inl uintv ijkVecAdd3usv(uint3 v_out, ui32 const s_lh, uint3 const v_rh)
+ijk_inl intlv ijkVecAdd3ilsv(intl3 v_out, i64 const s_lh, intl3 const v_rh)
 {
 	v_out[0] = s_lh + v_rh[0];
 	v_out[1] = s_lh + v_rh[1];
@@ -1211,7 +1211,7 @@ ijk_inl uintv ijkVecAdd3usv(uint3 v_out, ui32 const s_lh, uint3 const v_rh)
 	return v_out;
 }
 
-ijk_inl uintv ijkVecSub3usv(uint3 v_out, ui32 const s_lh, uint3 const v_rh)
+ijk_inl intlv ijkVecSub3ilsv(intl3 v_out, i64 const s_lh, intl3 const v_rh)
 {
 	v_out[0] = s_lh - v_rh[0];
 	v_out[1] = s_lh - v_rh[1];
@@ -1219,7 +1219,7 @@ ijk_inl uintv ijkVecSub3usv(uint3 v_out, ui32 const s_lh, uint3 const v_rh)
 	return v_out;
 }
 
-ijk_inl uintv ijkVecMul3usv(uint3 v_out, ui32 const s_lh, uint3 const v_rh)
+ijk_inl intlv ijkVecMul3ilsv(intl3 v_out, i64 const s_lh, intl3 const v_rh)
 {
 	v_out[0] = s_lh * v_rh[0];
 	v_out[1] = s_lh * v_rh[1];
@@ -1227,7 +1227,7 @@ ijk_inl uintv ijkVecMul3usv(uint3 v_out, ui32 const s_lh, uint3 const v_rh)
 	return v_out;
 }
 
-ijk_inl uintv ijkVecDiv3usv(uint3 v_out, ui32 const s_lh, uint3 const v_rh)
+ijk_inl intlv ijkVecDiv3ilsv(intl3 v_out, i64 const s_lh, intl3 const v_rh)
 {
 	v_out[0] = s_lh / v_rh[0];
 	v_out[1] = s_lh / v_rh[1];
@@ -1235,7 +1235,7 @@ ijk_inl uintv ijkVecDiv3usv(uint3 v_out, ui32 const s_lh, uint3 const v_rh)
 	return v_out;
 }
 
-ijk_inl uintv ijkVecDivSafe3usv(uint3 v_out, ui32 const s_lh, uint3 const v_rh)
+ijk_inl intlv ijkVecDivSafe3ilsv(intl3 v_out, i64 const s_lh, intl3 const v_rh)
 {
 	v_out[0] = ijk_divide_safe_int(s_lh, v_rh[0]);
 	v_out[1] = ijk_divide_safe_int(s_lh, v_rh[1]);
@@ -1243,7 +1243,7 @@ ijk_inl uintv ijkVecDivSafe3usv(uint3 v_out, ui32 const s_lh, uint3 const v_rh)
 	return v_out;
 }
 
-ijk_inl uintv ijkVecMod3usv(uint3 v_out, ui32 const s_lh, uint3 const v_rh)
+ijk_inl intlv ijkVecMod3ilsv(intl3 v_out, i64 const s_lh, intl3 const v_rh)
 {
 	v_out[0] = s_lh % v_rh[0];
 	v_out[1] = s_lh % v_rh[1];
@@ -1251,7 +1251,7 @@ ijk_inl uintv ijkVecMod3usv(uint3 v_out, ui32 const s_lh, uint3 const v_rh)
 	return v_out;
 }
 
-ijk_inl uintv ijkVecModSafe3usv(uint3 v_out, ui32 const s_lh, uint3 const v_rh)
+ijk_inl intlv ijkVecModSafe3ilsv(intl3 v_out, i64 const s_lh, intl3 const v_rh)
 {
 	v_out[0] = ijk_modulo_safe_int(s_lh, v_rh[0]);
 	v_out[1] = ijk_modulo_safe_int(s_lh, v_rh[1]);
@@ -1259,7 +1259,7 @@ ijk_inl uintv ijkVecModSafe3usv(uint3 v_out, ui32 const s_lh, uint3 const v_rh)
 	return v_out;
 }
 
-ijk_inl uintv ijkVecBitAnd3usv(uint3 v_out, ui32 const s_lh, uint3 const v_rh)
+ijk_inl intlv ijkVecBitAnd3ilsv(intl3 v_out, i64 const s_lh, intl3 const v_rh)
 {
 	v_out[0] = (s_lh & v_rh[0]);
 	v_out[1] = (s_lh & v_rh[1]);
@@ -1267,7 +1267,7 @@ ijk_inl uintv ijkVecBitAnd3usv(uint3 v_out, ui32 const s_lh, uint3 const v_rh)
 	return v_out;
 }
 
-ijk_inl uintv ijkVecBitNand3usv(uint3 v_out, ui32 const s_lh, uint3 const v_rh)
+ijk_inl intlv ijkVecBitNand3ilsv(intl3 v_out, i64 const s_lh, intl3 const v_rh)
 {
 	v_out[0] = ~(s_lh & v_rh[0]);
 	v_out[1] = ~(s_lh & v_rh[1]);
@@ -1275,7 +1275,7 @@ ijk_inl uintv ijkVecBitNand3usv(uint3 v_out, ui32 const s_lh, uint3 const v_rh)
 	return v_out;
 }
 
-ijk_inl uintv ijkVecBitOr3usv(uint3 v_out, ui32 const s_lh, uint3 const v_rh)
+ijk_inl intlv ijkVecBitOr3ilsv(intl3 v_out, i64 const s_lh, intl3 const v_rh)
 {
 	v_out[0] = (s_lh | v_rh[0]);
 	v_out[1] = (s_lh | v_rh[1]);
@@ -1283,7 +1283,7 @@ ijk_inl uintv ijkVecBitOr3usv(uint3 v_out, ui32 const s_lh, uint3 const v_rh)
 	return v_out;
 }
 
-ijk_inl uintv ijkVecBitNor3usv(uint3 v_out, ui32 const s_lh, uint3 const v_rh)
+ijk_inl intlv ijkVecBitNor3ilsv(intl3 v_out, i64 const s_lh, intl3 const v_rh)
 {
 	v_out[0] = ~(s_lh | v_rh[0]);
 	v_out[1] = ~(s_lh | v_rh[1]);
@@ -1291,7 +1291,7 @@ ijk_inl uintv ijkVecBitNor3usv(uint3 v_out, ui32 const s_lh, uint3 const v_rh)
 	return v_out;
 }
 
-ijk_inl uintv ijkVecBitXor3usv(uint3 v_out, ui32 const s_lh, uint3 const v_rh)
+ijk_inl intlv ijkVecBitXor3ilsv(intl3 v_out, i64 const s_lh, intl3 const v_rh)
 {
 	v_out[0] = (s_lh ^ v_rh[0]);
 	v_out[1] = (s_lh ^ v_rh[1]);
@@ -1299,7 +1299,7 @@ ijk_inl uintv ijkVecBitXor3usv(uint3 v_out, ui32 const s_lh, uint3 const v_rh)
 	return v_out;
 }
 
-ijk_inl uintv ijkVecBitXnor3usv(uint3 v_out, ui32 const s_lh, uint3 const v_rh)
+ijk_inl intlv ijkVecBitXnor3ilsv(intl3 v_out, i64 const s_lh, intl3 const v_rh)
 {
 	v_out[0] = ~(s_lh ^ v_rh[0]);
 	v_out[1] = ~(s_lh ^ v_rh[1]);
@@ -1307,7 +1307,7 @@ ijk_inl uintv ijkVecBitXnor3usv(uint3 v_out, ui32 const s_lh, uint3 const v_rh)
 	return v_out;
 }
 
-ijk_inl uintv ijkVecBitShiftLeft3usv(uint3 v_out, ui32 const s_lh, uint3 const v_rh)
+ijk_inl intlv ijkVecBitShiftLeft3ilsv(intl3 v_out, i64 const s_lh, intl3 const v_rh)
 {
 	v_out[0] = (s_lh << v_rh[0]);
 	v_out[1] = (s_lh << v_rh[1]);
@@ -1315,7 +1315,7 @@ ijk_inl uintv ijkVecBitShiftLeft3usv(uint3 v_out, ui32 const s_lh, uint3 const v
 	return v_out;
 }
 
-ijk_inl uintv ijkVecBitShiftRight3usv(uint3 v_out, ui32 const s_lh, uint3 const v_rh)
+ijk_inl intlv ijkVecBitShiftRight3ilsv(intl3 v_out, i64 const s_lh, intl3 const v_rh)
 {
 	v_out[0] = (s_lh >> v_rh[0]);
 	v_out[1] = (s_lh >> v_rh[1]);
@@ -1323,7 +1323,7 @@ ijk_inl uintv ijkVecBitShiftRight3usv(uint3 v_out, ui32 const s_lh, uint3 const 
 	return v_out;
 }
 
-ijk_inl boolv ijkVecEqual3usv(bool3 bv_out, ui32 const s_lh, uint3 const v_rh)
+ijk_inl boolv ijkVecEqual3ilsv(bool3 bv_out, i64 const s_lh, intl3 const v_rh)
 {
 	bv_out[0] = (s_lh == v_rh[0]);
 	bv_out[1] = (s_lh == v_rh[1]);
@@ -1331,7 +1331,7 @@ ijk_inl boolv ijkVecEqual3usv(bool3 bv_out, ui32 const s_lh, uint3 const v_rh)
 	return bv_out;
 }
 
-ijk_inl boolv ijkVecInequal3usv(bool3 bv_out, ui32 const s_lh, uint3 const v_rh)
+ijk_inl boolv ijkVecInequal3ilsv(bool3 bv_out, i64 const s_lh, intl3 const v_rh)
 {
 	bv_out[0] = (s_lh != v_rh[0]);
 	bv_out[1] = (s_lh != v_rh[1]);
@@ -1339,7 +1339,7 @@ ijk_inl boolv ijkVecInequal3usv(bool3 bv_out, ui32 const s_lh, uint3 const v_rh)
 	return bv_out;
 }
 
-ijk_inl boolv ijkVecLessEqual3usv(bool3 bv_out, ui32 const s_lh, uint3 const v_rh)
+ijk_inl boolv ijkVecLessEqual3ilsv(bool3 bv_out, i64 const s_lh, intl3 const v_rh)
 {
 	bv_out[0] = (s_lh <= v_rh[0]);
 	bv_out[1] = (s_lh <= v_rh[1]);
@@ -1347,7 +1347,7 @@ ijk_inl boolv ijkVecLessEqual3usv(bool3 bv_out, ui32 const s_lh, uint3 const v_r
 	return bv_out;
 }
 
-ijk_inl boolv ijkVecGreaterEqual3usv(bool3 bv_out, ui32 const s_lh, uint3 const v_rh)
+ijk_inl boolv ijkVecGreaterEqual3ilsv(bool3 bv_out, i64 const s_lh, intl3 const v_rh)
 {
 	bv_out[0] = (s_lh >= v_rh[0]);
 	bv_out[1] = (s_lh >= v_rh[1]);
@@ -1355,7 +1355,7 @@ ijk_inl boolv ijkVecGreaterEqual3usv(bool3 bv_out, ui32 const s_lh, uint3 const 
 	return bv_out;
 }
 
-ijk_inl boolv ijkVecLess3usv(bool3 bv_out, ui32 const s_lh, uint3 const v_rh)
+ijk_inl boolv ijkVecLess3ilsv(bool3 bv_out, i64 const s_lh, intl3 const v_rh)
 {
 	bv_out[0] = (s_lh < v_rh[0]);
 	bv_out[1] = (s_lh < v_rh[1]);
@@ -1363,7 +1363,7 @@ ijk_inl boolv ijkVecLess3usv(bool3 bv_out, ui32 const s_lh, uint3 const v_rh)
 	return bv_out;
 }
 
-ijk_inl boolv ijkVecGreater3usv(bool3 bv_out, ui32 const s_lh, uint3 const v_rh)
+ijk_inl boolv ijkVecGreater3ilsv(bool3 bv_out, i64 const s_lh, intl3 const v_rh)
 {
 	bv_out[0] = (s_lh > v_rh[0]);
 	bv_out[1] = (s_lh > v_rh[1]);
@@ -1371,7 +1371,7 @@ ijk_inl boolv ijkVecGreater3usv(bool3 bv_out, ui32 const s_lh, uint3 const v_rh)
 	return bv_out;
 }
 
-ijk_inl boolv ijkVecAnd3usv(bool3 bv_out, ui32 const s_lh, uint3 const v_rh)
+ijk_inl boolv ijkVecAnd3ilsv(bool3 bv_out, i64 const s_lh, intl3 const v_rh)
 {
 	bv_out[0] = (s_lh && v_rh[0]);
 	bv_out[1] = (s_lh && v_rh[1]);
@@ -1379,7 +1379,7 @@ ijk_inl boolv ijkVecAnd3usv(bool3 bv_out, ui32 const s_lh, uint3 const v_rh)
 	return bv_out;
 }
 
-ijk_inl boolv ijkVecNand3usv(bool3 bv_out, ui32 const s_lh, uint3 const v_rh)
+ijk_inl boolv ijkVecNand3ilsv(bool3 bv_out, i64 const s_lh, intl3 const v_rh)
 {
 	bv_out[0] = !(s_lh && v_rh[0]);
 	bv_out[1] = !(s_lh && v_rh[1]);
@@ -1387,7 +1387,7 @@ ijk_inl boolv ijkVecNand3usv(bool3 bv_out, ui32 const s_lh, uint3 const v_rh)
 	return bv_out;
 }
 
-ijk_inl boolv ijkVecOr3usv(bool3 bv_out, ui32 const s_lh, uint3 const v_rh)
+ijk_inl boolv ijkVecOr3ilsv(bool3 bv_out, i64 const s_lh, intl3 const v_rh)
 {
 	bv_out[0] = (s_lh || v_rh[0]);
 	bv_out[1] = (s_lh || v_rh[1]);
@@ -1395,7 +1395,7 @@ ijk_inl boolv ijkVecOr3usv(bool3 bv_out, ui32 const s_lh, uint3 const v_rh)
 	return bv_out;
 }
 
-ijk_inl boolv ijkVecNor3usv(bool3 bv_out, ui32 const s_lh, uint3 const v_rh)
+ijk_inl boolv ijkVecNor3ilsv(bool3 bv_out, i64 const s_lh, intl3 const v_rh)
 {
 	bv_out[0] = !(s_lh || v_rh[0]);
 	bv_out[1] = !(s_lh || v_rh[1]);
@@ -1403,12 +1403,12 @@ ijk_inl boolv ijkVecNor3usv(bool3 bv_out, ui32 const s_lh, uint3 const v_rh)
 	return bv_out;
 }
 
-ijk_inl ui32 ijkVecDot3uv(uint3 const v_lh, uint3 const v_rh)
+ijk_inl i64 ijkVecDot3ilv(intl3 const v_lh, intl3 const v_rh)
 {
 	return (v_lh[0] * v_rh[0] + v_lh[1] * v_rh[1] + v_lh[2] * v_rh[2]);
 }
 
-ijk_inl uintv ijkVecCross3uv(uint3 v_out, uint3 const v_lh, uint3 const v_rh)
+ijk_inl intlv ijkVecCross3ilv(intl3 v_out, intl3 const v_lh, intl3 const v_rh)
 {
 	v_out[0] = (v_lh[1] * v_rh[2] - v_lh[2] * v_rh[1]);
 	v_out[1] = (v_lh[2] * v_rh[0] - v_lh[0] * v_rh[2]);
@@ -1419,13 +1419,13 @@ ijk_inl uintv ijkVecCross3uv(uint3 v_out, uint3 const v_lh, uint3 const v_rh)
 
 //-----------------------------------------------------------------------------
 
-ijk_inl uintv ijkVecInit4uv(uint4 v_out)
+ijk_inl intlv ijkVecInit4ilv(intl4 v_out)
 {
 	v_out[0] = v_out[1] = v_out[2] = v_out[3] = 0;
 	return v_out;
 }
 
-ijk_inl uintv ijkVecInitElems4uv(uint4 v_out, ui32 const x, ui32 const y, ui32 const z, ui32 const w)
+ijk_inl intlv ijkVecInitElems4ilv(intl4 v_out, i64 const x, i64 const y, i64 const z, i64 const w)
 {
 	v_out[0] = x;
 	v_out[1] = y;
@@ -1434,7 +1434,7 @@ ijk_inl uintv ijkVecInitElems4uv(uint4 v_out, ui32 const x, ui32 const y, ui32 c
 	return v_out;
 }
 
-ijk_inl uintv ijkVecCopy4uxvw(uint4 v_out, ui32 const x, uint2 const v_yz, ui32 const w)
+ijk_inl intlv ijkVecCopy4ilxvw(intl4 v_out, i64 const x, intl2 const v_yz, i64 const w)
 {
 	v_out[0] = x;
 	v_out[1] = v_yz[0];
@@ -1443,7 +1443,7 @@ ijk_inl uintv ijkVecCopy4uxvw(uint4 v_out, ui32 const x, uint2 const v_yz, ui32 
 	return v_out;
 }
 
-ijk_inl uintv ijkVecCopy4uv2(uint4 v_out, uint2 const v_xy, uint2 const v_zw)
+ijk_inl intlv ijkVecCopy4ilv2(intl4 v_out, intl2 const v_xy, intl2 const v_zw)
 {
 	v_out[0] = v_xy[0];
 	v_out[1] = v_xy[1];
@@ -1452,7 +1452,7 @@ ijk_inl uintv ijkVecCopy4uv2(uint4 v_out, uint2 const v_xy, uint2 const v_zw)
 	return v_out;
 }
 
-ijk_inl uintv ijkVecCopy4uv(uint4 v_out, uint4 const v_in)
+ijk_inl intlv ijkVecCopy4ilv(intl4 v_out, intl4 const v_in)
 {
 	v_out[0] = +v_in[0];
 	v_out[1] = +v_in[1];
@@ -1461,16 +1461,16 @@ ijk_inl uintv ijkVecCopy4uv(uint4 v_out, uint4 const v_in)
 	return v_out;
 }
 
-ijk_inl intv ijkVecNegate4uv(int4 v_out, uint4 const v_in)
+ijk_inl intlv ijkVecNegate4ilv(intl4 v_out, intl4 const v_in)
 {
-	v_out[0] = -(i32)v_in[0];
-	v_out[1] = -(i32)v_in[1];
-	v_out[2] = -(i32)v_in[2];
-	v_out[3] = -(i32)v_in[3];
+	v_out[0] = -v_in[0];
+	v_out[1] = -v_in[1];
+	v_out[2] = -v_in[2];
+	v_out[3] = -v_in[3];
 	return v_out;
 }
 
-ijk_inl uintv ijkVecBitNot4uv(uint4 v_out, uint4 const v_in)
+ijk_inl intlv ijkVecBitNot4ilv(intl4 v_out, intl4 const v_in)
 {
 	v_out[0] = ~v_in[0];
 	v_out[1] = ~v_in[1];
@@ -1479,7 +1479,7 @@ ijk_inl uintv ijkVecBitNot4uv(uint4 v_out, uint4 const v_in)
 	return v_out;
 }
 
-ijk_inl boolv ijkVecNot4uv(bool4 bv_out, uint4 const v_in)
+ijk_inl boolv ijkVecNot4ilv(bool4 bv_out, intl4 const v_in)
 {
 	bv_out[0] = !v_in[0];
 	bv_out[1] = !v_in[1];
@@ -1488,7 +1488,7 @@ ijk_inl boolv ijkVecNot4uv(bool4 bv_out, uint4 const v_in)
 	return bv_out;
 }
 
-ijk_inl uintv ijkVecAdd4uv(uint4 v_out, uint4 const v_lh, uint4 const v_rh)
+ijk_inl intlv ijkVecAdd4ilv(intl4 v_out, intl4 const v_lh, intl4 const v_rh)
 {
 	v_out[0] = v_lh[0] + v_rh[0];
 	v_out[1] = v_lh[1] + v_rh[1];
@@ -1497,7 +1497,7 @@ ijk_inl uintv ijkVecAdd4uv(uint4 v_out, uint4 const v_lh, uint4 const v_rh)
 	return v_out;
 }
 
-ijk_inl uintv ijkVecSub4uv(uint4 v_out, uint4 const v_lh, uint4 const v_rh)
+ijk_inl intlv ijkVecSub4ilv(intl4 v_out, intl4 const v_lh, intl4 const v_rh)
 {
 	v_out[0] = v_lh[0] - v_rh[0];
 	v_out[1] = v_lh[1] - v_rh[1];
@@ -1506,7 +1506,7 @@ ijk_inl uintv ijkVecSub4uv(uint4 v_out, uint4 const v_lh, uint4 const v_rh)
 	return v_out;
 }
 
-ijk_inl uintv ijkVecMul4uv(uint4 v_out, uint4 const v_lh, uint4 const v_rh)
+ijk_inl intlv ijkVecMul4ilv(intl4 v_out, intl4 const v_lh, intl4 const v_rh)
 {
 	v_out[0] = v_lh[0] * v_rh[0];
 	v_out[1] = v_lh[1] * v_rh[1];
@@ -1515,7 +1515,7 @@ ijk_inl uintv ijkVecMul4uv(uint4 v_out, uint4 const v_lh, uint4 const v_rh)
 	return v_out;
 }
 
-ijk_inl uintv ijkVecDiv4uv(uint4 v_out, uint4 const v_lh, uint4 const v_rh)
+ijk_inl intlv ijkVecDiv4ilv(intl4 v_out, intl4 const v_lh, intl4 const v_rh)
 {
 	v_out[0] = v_lh[0] / v_rh[0];
 	v_out[1] = v_lh[1] / v_rh[1];
@@ -1524,7 +1524,7 @@ ijk_inl uintv ijkVecDiv4uv(uint4 v_out, uint4 const v_lh, uint4 const v_rh)
 	return v_out;
 }
 
-ijk_inl uintv ijkVecDivSafe4uv(uint4 v_out, uint4 const v_lh, uint4 const v_rh)
+ijk_inl intlv ijkVecDivSafe4ilv(intl4 v_out, intl4 const v_lh, intl4 const v_rh)
 {
 	v_out[0] = ijk_divide_safe_int(v_lh[0], v_rh[0]);
 	v_out[1] = ijk_divide_safe_int(v_lh[1], v_rh[1]);
@@ -1533,7 +1533,7 @@ ijk_inl uintv ijkVecDivSafe4uv(uint4 v_out, uint4 const v_lh, uint4 const v_rh)
 	return v_out;
 }
 
-ijk_inl uintv ijkVecMod4uv(uint4 v_out, uint4 const v_lh, uint4 const v_rh)
+ijk_inl intlv ijkVecMod4ilv(intl4 v_out, intl4 const v_lh, intl4 const v_rh)
 {
 	v_out[0] = v_lh[0] % v_rh[0];
 	v_out[1] = v_lh[1] % v_rh[1];
@@ -1542,7 +1542,7 @@ ijk_inl uintv ijkVecMod4uv(uint4 v_out, uint4 const v_lh, uint4 const v_rh)
 	return v_out;
 }
 
-ijk_inl uintv ijkVecModSafe4uv(uint4 v_out, uint4 const v_lh, uint4 const v_rh)
+ijk_inl intlv ijkVecModSafe4ilv(intl4 v_out, intl4 const v_lh, intl4 const v_rh)
 {
 	v_out[0] = ijk_modulo_safe_int(v_lh[0], v_rh[0]);
 	v_out[1] = ijk_modulo_safe_int(v_lh[1], v_rh[1]);
@@ -1551,7 +1551,7 @@ ijk_inl uintv ijkVecModSafe4uv(uint4 v_out, uint4 const v_lh, uint4 const v_rh)
 	return v_out;
 }
 
-ijk_inl uintv ijkVecBitAnd4uv(uint4 v_out, uint4 const v_lh, uint4 const v_rh)
+ijk_inl intlv ijkVecBitAnd4ilv(intl4 v_out, intl4 const v_lh, intl4 const v_rh)
 {
 	v_out[0] = (v_lh[0] & v_rh[0]);
 	v_out[1] = (v_lh[1] & v_rh[1]);
@@ -1560,7 +1560,7 @@ ijk_inl uintv ijkVecBitAnd4uv(uint4 v_out, uint4 const v_lh, uint4 const v_rh)
 	return v_out;
 }
 
-ijk_inl uintv ijkVecBitNand4uv(uint4 v_out, uint4 const v_lh, uint4 const v_rh)
+ijk_inl intlv ijkVecBitNand4ilv(intl4 v_out, intl4 const v_lh, intl4 const v_rh)
 {
 	v_out[0] = ~(v_lh[0] & v_rh[0]);
 	v_out[1] = ~(v_lh[1] & v_rh[1]);
@@ -1569,7 +1569,7 @@ ijk_inl uintv ijkVecBitNand4uv(uint4 v_out, uint4 const v_lh, uint4 const v_rh)
 	return v_out;
 }
 
-ijk_inl uintv ijkVecBitOr4uv(uint4 v_out, uint4 const v_lh, uint4 const v_rh)
+ijk_inl intlv ijkVecBitOr4ilv(intl4 v_out, intl4 const v_lh, intl4 const v_rh)
 {
 	v_out[0] = (v_lh[0] | v_rh[0]);
 	v_out[1] = (v_lh[1] | v_rh[1]);
@@ -1578,7 +1578,7 @@ ijk_inl uintv ijkVecBitOr4uv(uint4 v_out, uint4 const v_lh, uint4 const v_rh)
 	return v_out;
 }
 
-ijk_inl uintv ijkVecBitNor4uv(uint4 v_out, uint4 const v_lh, uint4 const v_rh)
+ijk_inl intlv ijkVecBitNor4ilv(intl4 v_out, intl4 const v_lh, intl4 const v_rh)
 {
 	v_out[0] = ~(v_lh[0] | v_rh[0]);
 	v_out[1] = ~(v_lh[1] | v_rh[1]);
@@ -1587,7 +1587,7 @@ ijk_inl uintv ijkVecBitNor4uv(uint4 v_out, uint4 const v_lh, uint4 const v_rh)
 	return v_out;
 }
 
-ijk_inl uintv ijkVecBitXor4uv(uint4 v_out, uint4 const v_lh, uint4 const v_rh)
+ijk_inl intlv ijkVecBitXor4ilv(intl4 v_out, intl4 const v_lh, intl4 const v_rh)
 {
 	v_out[0] = (v_lh[0] ^ v_rh[0]);
 	v_out[1] = (v_lh[1] ^ v_rh[1]);
@@ -1596,7 +1596,7 @@ ijk_inl uintv ijkVecBitXor4uv(uint4 v_out, uint4 const v_lh, uint4 const v_rh)
 	return v_out;
 }
 
-ijk_inl uintv ijkVecBitXnor4uv(uint4 v_out, uint4 const v_lh, uint4 const v_rh)
+ijk_inl intlv ijkVecBitXnor4ilv(intl4 v_out, intl4 const v_lh, intl4 const v_rh)
 {
 	v_out[0] = ~(v_lh[0] ^ v_rh[0]);
 	v_out[1] = ~(v_lh[1] ^ v_rh[1]);
@@ -1605,7 +1605,7 @@ ijk_inl uintv ijkVecBitXnor4uv(uint4 v_out, uint4 const v_lh, uint4 const v_rh)
 	return v_out;
 }
 
-ijk_inl uintv ijkVecBitShiftLeft4uv(uint4 v_out, uint4 const v_lh, uint4 const v_rh)
+ijk_inl intlv ijkVecBitShiftLeft4ilv(intl4 v_out, intl4 const v_lh, intl4 const v_rh)
 {
 	v_out[0] = (v_lh[0] << v_rh[0]);
 	v_out[1] = (v_lh[1] << v_rh[1]);
@@ -1614,7 +1614,7 @@ ijk_inl uintv ijkVecBitShiftLeft4uv(uint4 v_out, uint4 const v_lh, uint4 const v
 	return v_out;
 }
 
-ijk_inl uintv ijkVecBitShiftRight4uv(uint4 v_out, uint4 const v_lh, uint4 const v_rh)
+ijk_inl intlv ijkVecBitShiftRight4ilv(intl4 v_out, intl4 const v_lh, intl4 const v_rh)
 {
 	v_out[0] = (v_lh[0] >> v_rh[0]);
 	v_out[1] = (v_lh[1] >> v_rh[1]);
@@ -1623,7 +1623,7 @@ ijk_inl uintv ijkVecBitShiftRight4uv(uint4 v_out, uint4 const v_lh, uint4 const 
 	return v_out;
 }
 
-ijk_inl boolv ijkVecEqual4uv(bool4 bv_out, uint4 const v_lh, uint4 const v_rh)
+ijk_inl boolv ijkVecEqual4ilv(bool4 bv_out, intl4 const v_lh, intl4 const v_rh)
 {
 	bv_out[0] = (v_lh[0] == v_rh[0]);
 	bv_out[1] = (v_lh[1] == v_rh[1]);
@@ -1632,7 +1632,7 @@ ijk_inl boolv ijkVecEqual4uv(bool4 bv_out, uint4 const v_lh, uint4 const v_rh)
 	return bv_out;
 }
 
-ijk_inl boolv ijkVecInequal4uv(bool4 bv_out, uint4 const v_lh, uint4 const v_rh)
+ijk_inl boolv ijkVecInequal4ilv(bool4 bv_out, intl4 const v_lh, intl4 const v_rh)
 {
 	bv_out[0] = (v_lh[0] != v_rh[0]);
 	bv_out[1] = (v_lh[1] != v_rh[1]);
@@ -1641,7 +1641,7 @@ ijk_inl boolv ijkVecInequal4uv(bool4 bv_out, uint4 const v_lh, uint4 const v_rh)
 	return bv_out;
 }
 
-ijk_inl boolv ijkVecLessEqual4uv(bool4 bv_out, uint4 const v_lh, uint4 const v_rh)
+ijk_inl boolv ijkVecLessEqual4ilv(bool4 bv_out, intl4 const v_lh, intl4 const v_rh)
 {
 	bv_out[0] = (v_lh[0] <= v_rh[0]);
 	bv_out[1] = (v_lh[1] <= v_rh[1]);
@@ -1650,7 +1650,7 @@ ijk_inl boolv ijkVecLessEqual4uv(bool4 bv_out, uint4 const v_lh, uint4 const v_r
 	return bv_out;
 }
 
-ijk_inl boolv ijkVecGreaterEqual4uv(bool4 bv_out, uint4 const v_lh, uint4 const v_rh)
+ijk_inl boolv ijkVecGreaterEqual4ilv(bool4 bv_out, intl4 const v_lh, intl4 const v_rh)
 {
 	bv_out[0] = (v_lh[0] >= v_rh[0]);
 	bv_out[1] = (v_lh[1] >= v_rh[1]);
@@ -1659,7 +1659,7 @@ ijk_inl boolv ijkVecGreaterEqual4uv(bool4 bv_out, uint4 const v_lh, uint4 const 
 	return bv_out;
 }
 
-ijk_inl boolv ijkVecLess4uv(bool4 bv_out, uint4 const v_lh, uint4 const v_rh)
+ijk_inl boolv ijkVecLess4ilv(bool4 bv_out, intl4 const v_lh, intl4 const v_rh)
 {
 	bv_out[0] = (v_lh[0] < v_rh[0]);
 	bv_out[1] = (v_lh[1] < v_rh[1]);
@@ -1668,7 +1668,7 @@ ijk_inl boolv ijkVecLess4uv(bool4 bv_out, uint4 const v_lh, uint4 const v_rh)
 	return bv_out;
 }
 
-ijk_inl boolv ijkVecGreater4uv(bool4 bv_out, uint4 const v_lh, uint4 const v_rh)
+ijk_inl boolv ijkVecGreater4ilv(bool4 bv_out, intl4 const v_lh, intl4 const v_rh)
 {
 	bv_out[0] = (v_lh[0] > v_rh[0]);
 	bv_out[1] = (v_lh[1] > v_rh[1]);
@@ -1677,7 +1677,7 @@ ijk_inl boolv ijkVecGreater4uv(bool4 bv_out, uint4 const v_lh, uint4 const v_rh)
 	return bv_out;
 }
 
-ijk_inl boolv ijkVecAnd4uv(bool4 bv_out, uint4 const v_lh, uint4 const v_rh)
+ijk_inl boolv ijkVecAnd4ilv(bool4 bv_out, intl4 const v_lh, intl4 const v_rh)
 {
 	bv_out[0] = (v_lh[0] && v_rh[0]);
 	bv_out[1] = (v_lh[1] && v_rh[1]);
@@ -1686,7 +1686,7 @@ ijk_inl boolv ijkVecAnd4uv(bool4 bv_out, uint4 const v_lh, uint4 const v_rh)
 	return bv_out;
 }
 
-ijk_inl boolv ijkVecNand4uv(bool4 bv_out, uint4 const v_lh, uint4 const v_rh)
+ijk_inl boolv ijkVecNand4ilv(bool4 bv_out, intl4 const v_lh, intl4 const v_rh)
 {
 	bv_out[0] = !(v_lh[0] && v_rh[0]);
 	bv_out[1] = !(v_lh[1] && v_rh[1]);
@@ -1695,7 +1695,7 @@ ijk_inl boolv ijkVecNand4uv(bool4 bv_out, uint4 const v_lh, uint4 const v_rh)
 	return bv_out;
 }
 
-ijk_inl boolv ijkVecOr4uv(bool4 bv_out, uint4 const v_lh, uint4 const v_rh)
+ijk_inl boolv ijkVecOr4ilv(bool4 bv_out, intl4 const v_lh, intl4 const v_rh)
 {
 	bv_out[0] = (v_lh[0] || v_rh[0]);
 	bv_out[1] = (v_lh[1] || v_rh[1]);
@@ -1704,7 +1704,7 @@ ijk_inl boolv ijkVecOr4uv(bool4 bv_out, uint4 const v_lh, uint4 const v_rh)
 	return bv_out;
 }
 
-ijk_inl boolv ijkVecNor4uv(bool4 bv_out, uint4 const v_lh, uint4 const v_rh)
+ijk_inl boolv ijkVecNor4ilv(bool4 bv_out, intl4 const v_lh, intl4 const v_rh)
 {
 	bv_out[0] = !(v_lh[0] || v_rh[0]);
 	bv_out[1] = !(v_lh[1] || v_rh[1]);
@@ -1713,7 +1713,7 @@ ijk_inl boolv ijkVecNor4uv(bool4 bv_out, uint4 const v_lh, uint4 const v_rh)
 	return bv_out;
 }
 
-ijk_inl uintv ijkVecCopy4uvzw(uint4 v_out, uint2 const v_xy, ui32 const z, ui32 const w)
+ijk_inl intlv ijkVecCopy4ilvzw(intl4 v_out, intl2 const v_xy, i64 const z, i64 const w)
 {
 	v_out[0] = v_xy[0];
 	v_out[1] = v_xy[1];
@@ -1722,7 +1722,7 @@ ijk_inl uintv ijkVecCopy4uvzw(uint4 v_out, uint2 const v_xy, ui32 const z, ui32 
 	return v_out;
 }
 
-ijk_inl uintv ijkVecCopy4uvw(uint4 v_out, uint3 const v_xyz, ui32 const w)
+ijk_inl intlv ijkVecCopy4ilvw(intl4 v_out, intl3 const v_xyz, i64 const w)
 {
 	v_out[0] = v_xyz[0];
 	v_out[1] = v_xyz[1];
@@ -1731,31 +1731,31 @@ ijk_inl uintv ijkVecCopy4uvw(uint4 v_out, uint3 const v_xyz, ui32 const w)
 	return v_out;
 }
 
-ijk_inl uintv ijkVecCopy4uvs(uint4 v_out, ui32 const s_in)
+ijk_inl intlv ijkVecCopy4ilvs(intl4 v_out, i64 const s_in)
 {
 	v_out[0] = v_out[1] = v_out[2] = v_out[3] = +s_in;
 	return v_out;
 }
 
-ijk_inl intv ijkVecNegate4uvs(int4 v_out, ui32 const s_in)
+ijk_inl intlv ijkVecNegate4ilvs(intl4 v_out, i64 const s_in)
 {
-	v_out[0] = v_out[1] = v_out[2] = v_out[3] = -(i32)s_in;
+	v_out[0] = v_out[1] = v_out[2] = v_out[3] = -s_in;
 	return v_out;
 }
 
-ijk_inl uintv ijkVecBitNot4uvs(uint4 v_out, ui32 const s_in)
+ijk_inl intlv ijkVecBitNot4ilvs(intl4 v_out, i64 const s_in)
 {
 	v_out[0] = v_out[1] = v_out[2] = v_out[3] = ~s_in;
 	return v_out;
 }
 
-ijk_inl boolv ijkVecNot4uvs(bool4 bv_out, ui32 const s_in)
+ijk_inl boolv ijkVecNot4ilvs(bool4 bv_out, i64 const s_in)
 {
 	bv_out[0] = bv_out[1] = bv_out[2] = bv_out[3] = !s_in;
 	return bv_out;
 }
 
-ijk_inl uintv ijkVecAdd4uvs(uint4 v_out, uint4 const v_lh, ui32 const s_rh)
+ijk_inl intlv ijkVecAdd4ilvs(intl4 v_out, intl4 const v_lh, i64 const s_rh)
 {
 	v_out[0] = v_lh[0] + s_rh;
 	v_out[1] = v_lh[1] + s_rh;
@@ -1764,7 +1764,7 @@ ijk_inl uintv ijkVecAdd4uvs(uint4 v_out, uint4 const v_lh, ui32 const s_rh)
 	return v_out;
 }
 
-ijk_inl uintv ijkVecSub4uvs(uint4 v_out, uint4 const v_lh, ui32 const s_rh)
+ijk_inl intlv ijkVecSub4ilvs(intl4 v_out, intl4 const v_lh, i64 const s_rh)
 {
 	v_out[0] = v_lh[0] - s_rh;
 	v_out[1] = v_lh[1] - s_rh;
@@ -1773,7 +1773,7 @@ ijk_inl uintv ijkVecSub4uvs(uint4 v_out, uint4 const v_lh, ui32 const s_rh)
 	return v_out;
 }
 
-ijk_inl uintv ijkVecMul4uvs(uint4 v_out, uint4 const v_lh, ui32 const s_rh)
+ijk_inl intlv ijkVecMul4ilvs(intl4 v_out, intl4 const v_lh, i64 const s_rh)
 {
 	v_out[0] = v_lh[0] * s_rh;
 	v_out[1] = v_lh[1] * s_rh;
@@ -1782,7 +1782,7 @@ ijk_inl uintv ijkVecMul4uvs(uint4 v_out, uint4 const v_lh, ui32 const s_rh)
 	return v_out;
 }
 
-ijk_inl uintv ijkVecDiv4uvs(uint4 v_out, uint4 const v_lh, ui32 const s_rh)
+ijk_inl intlv ijkVecDiv4ilvs(intl4 v_out, intl4 const v_lh, i64 const s_rh)
 {
 	v_out[0] = v_lh[0] / s_rh;
 	v_out[1] = v_lh[1] / s_rh;
@@ -1791,7 +1791,7 @@ ijk_inl uintv ijkVecDiv4uvs(uint4 v_out, uint4 const v_lh, ui32 const s_rh)
 	return v_out;
 }
 
-ijk_inl uintv ijkVecDivSafe4uvs(uint4 v_out, uint4 const v_lh, ui32 const s_rh)
+ijk_inl intlv ijkVecDivSafe4ilvs(intl4 v_out, intl4 const v_lh, i64 const s_rh)
 {
 	if (s_rh)
 	{
@@ -1805,7 +1805,7 @@ ijk_inl uintv ijkVecDivSafe4uvs(uint4 v_out, uint4 const v_lh, ui32 const s_rh)
 	return v_out;
 }
 
-ijk_inl uintv ijkVecMod4uvs(uint4 v_out, uint4 const v_lh, ui32 const s_rh)
+ijk_inl intlv ijkVecMod4ilvs(intl4 v_out, intl4 const v_lh, i64 const s_rh)
 {
 	v_out[0] = v_lh[0] % s_rh;
 	v_out[1] = v_lh[1] % s_rh;
@@ -1814,7 +1814,7 @@ ijk_inl uintv ijkVecMod4uvs(uint4 v_out, uint4 const v_lh, ui32 const s_rh)
 	return v_out;
 }
 
-ijk_inl uintv ijkVecModSafe4uvs(uint4 v_out, uint4 const v_lh, ui32 const s_rh)
+ijk_inl intlv ijkVecModSafe4ilvs(intl4 v_out, intl4 const v_lh, i64 const s_rh)
 {
 	if (s_rh)
 	{
@@ -1824,10 +1824,10 @@ ijk_inl uintv ijkVecModSafe4uvs(uint4 v_out, uint4 const v_lh, ui32 const s_rh)
 		v_out[3] = v_lh[3] % s_rh;
 		return v_out;
 	}
-	return ijkVecCopy4uv(v_out, v_lh);
+	return ijkVecCopy4ilv(v_out, v_lh);
 }
 
-ijk_inl uintv ijkVecBitAnd4uvs(uint4 v_out, uint4 const v_lh, ui32 const s_rh)
+ijk_inl intlv ijkVecBitAnd4ilvs(intl4 v_out, intl4 const v_lh, i64 const s_rh)
 {
 	v_out[0] = (v_lh[0] & s_rh);
 	v_out[1] = (v_lh[1] & s_rh);
@@ -1836,7 +1836,7 @@ ijk_inl uintv ijkVecBitAnd4uvs(uint4 v_out, uint4 const v_lh, ui32 const s_rh)
 	return v_out;
 }
 
-ijk_inl uintv ijkVecBitNand4uvs(uint4 v_out, uint4 const v_lh, ui32 const s_rh)
+ijk_inl intlv ijkVecBitNand4ilvs(intl4 v_out, intl4 const v_lh, i64 const s_rh)
 {
 	v_out[0] = ~(v_lh[0] & s_rh);
 	v_out[1] = ~(v_lh[1] & s_rh);
@@ -1845,7 +1845,7 @@ ijk_inl uintv ijkVecBitNand4uvs(uint4 v_out, uint4 const v_lh, ui32 const s_rh)
 	return v_out;
 }
 
-ijk_inl uintv ijkVecBitOr4uvs(uint4 v_out, uint4 const v_lh, ui32 const s_rh)
+ijk_inl intlv ijkVecBitOr4ilvs(intl4 v_out, intl4 const v_lh, i64 const s_rh)
 {
 	v_out[0] = (v_lh[0] | s_rh);
 	v_out[1] = (v_lh[1] | s_rh);
@@ -1854,7 +1854,7 @@ ijk_inl uintv ijkVecBitOr4uvs(uint4 v_out, uint4 const v_lh, ui32 const s_rh)
 	return v_out;
 }
 
-ijk_inl uintv ijkVecBitNor4uvs(uint4 v_out, uint4 const v_lh, ui32 const s_rh)
+ijk_inl intlv ijkVecBitNor4ilvs(intl4 v_out, intl4 const v_lh, i64 const s_rh)
 {
 	v_out[0] = ~(v_lh[0] | s_rh);
 	v_out[1] = ~(v_lh[1] | s_rh);
@@ -1863,7 +1863,7 @@ ijk_inl uintv ijkVecBitNor4uvs(uint4 v_out, uint4 const v_lh, ui32 const s_rh)
 	return v_out;
 }
 
-ijk_inl uintv ijkVecBitXor4uvs(uint4 v_out, uint4 const v_lh, ui32 const s_rh)
+ijk_inl intlv ijkVecBitXor4ilvs(intl4 v_out, intl4 const v_lh, i64 const s_rh)
 {
 	v_out[0] = (v_lh[0] ^ s_rh);
 	v_out[1] = (v_lh[1] ^ s_rh);
@@ -1872,7 +1872,7 @@ ijk_inl uintv ijkVecBitXor4uvs(uint4 v_out, uint4 const v_lh, ui32 const s_rh)
 	return v_out;
 }
 
-ijk_inl uintv ijkVecBitXnor4uvs(uint4 v_out, uint4 const v_lh, ui32 const s_rh)
+ijk_inl intlv ijkVecBitXnor4ilvs(intl4 v_out, intl4 const v_lh, i64 const s_rh)
 {
 	v_out[0] = ~(v_lh[0] ^ s_rh);
 	v_out[1] = ~(v_lh[1] ^ s_rh);
@@ -1881,7 +1881,7 @@ ijk_inl uintv ijkVecBitXnor4uvs(uint4 v_out, uint4 const v_lh, ui32 const s_rh)
 	return v_out;
 }
 
-ijk_inl uintv ijkVecBitShiftLeft4uvs(uint4 v_out, uint4 const v_lh, ui32 const s_rh)
+ijk_inl intlv ijkVecBitShiftLeft4ilvs(intl4 v_out, intl4 const v_lh, i64 const s_rh)
 {
 	v_out[0] = (v_lh[0] << s_rh);
 	v_out[1] = (v_lh[1] << s_rh);
@@ -1890,7 +1890,7 @@ ijk_inl uintv ijkVecBitShiftLeft4uvs(uint4 v_out, uint4 const v_lh, ui32 const s
 	return v_out;
 }
 
-ijk_inl uintv ijkVecBitShiftRight4uvs(uint4 v_out, uint4 const v_lh, ui32 const s_rh)
+ijk_inl intlv ijkVecBitShiftRight4ilvs(intl4 v_out, intl4 const v_lh, i64 const s_rh)
 {
 	v_out[0] = (v_lh[0] >> s_rh);
 	v_out[1] = (v_lh[1] >> s_rh);
@@ -1899,7 +1899,7 @@ ijk_inl uintv ijkVecBitShiftRight4uvs(uint4 v_out, uint4 const v_lh, ui32 const 
 	return v_out;
 }
 
-ijk_inl boolv ijkVecEqual4uvs(bool4 bv_out, uint4 const v_lh, ui32 const s_rh)
+ijk_inl boolv ijkVecEqual4ilvs(bool4 bv_out, intl4 const v_lh, i64 const s_rh)
 {
 	bv_out[0] = (v_lh[0] == s_rh);
 	bv_out[1] = (v_lh[1] == s_rh);
@@ -1908,7 +1908,7 @@ ijk_inl boolv ijkVecEqual4uvs(bool4 bv_out, uint4 const v_lh, ui32 const s_rh)
 	return bv_out;
 }
 
-ijk_inl boolv ijkVecInequal4uvs(bool4 bv_out, uint4 const v_lh, ui32 const s_rh)
+ijk_inl boolv ijkVecInequal4ilvs(bool4 bv_out, intl4 const v_lh, i64 const s_rh)
 {
 	bv_out[0] = (v_lh[0] != s_rh);
 	bv_out[1] = (v_lh[1] != s_rh);
@@ -1917,7 +1917,7 @@ ijk_inl boolv ijkVecInequal4uvs(bool4 bv_out, uint4 const v_lh, ui32 const s_rh)
 	return bv_out;
 }
 
-ijk_inl boolv ijkVecLessEqual4uvs(bool4 bv_out, uint4 const v_lh, ui32 const s_rh)
+ijk_inl boolv ijkVecLessEqual4ilvs(bool4 bv_out, intl4 const v_lh, i64 const s_rh)
 {
 	bv_out[0] = (v_lh[0] <= s_rh);
 	bv_out[1] = (v_lh[1] <= s_rh);
@@ -1926,7 +1926,7 @@ ijk_inl boolv ijkVecLessEqual4uvs(bool4 bv_out, uint4 const v_lh, ui32 const s_r
 	return bv_out;
 }
 
-ijk_inl boolv ijkVecGreaterEqual4uvs(bool4 bv_out, uint4 const v_lh, ui32 const s_rh)
+ijk_inl boolv ijkVecGreaterEqual4ilvs(bool4 bv_out, intl4 const v_lh, i64 const s_rh)
 {
 	bv_out[0] = (v_lh[0] >= s_rh);
 	bv_out[1] = (v_lh[1] >= s_rh);
@@ -1935,7 +1935,7 @@ ijk_inl boolv ijkVecGreaterEqual4uvs(bool4 bv_out, uint4 const v_lh, ui32 const 
 	return bv_out;
 }
 
-ijk_inl boolv ijkVecLess4uvs(bool4 bv_out, uint4 const v_lh, ui32 const s_rh)
+ijk_inl boolv ijkVecLess4ilvs(bool4 bv_out, intl4 const v_lh, i64 const s_rh)
 {
 	bv_out[0] = (v_lh[0] < s_rh);
 	bv_out[1] = (v_lh[1] < s_rh);
@@ -1944,7 +1944,7 @@ ijk_inl boolv ijkVecLess4uvs(bool4 bv_out, uint4 const v_lh, ui32 const s_rh)
 	return bv_out;
 }
 
-ijk_inl boolv ijkVecGreater4uvs(bool4 bv_out, uint4 const v_lh, ui32 const s_rh)
+ijk_inl boolv ijkVecGreater4ilvs(bool4 bv_out, intl4 const v_lh, i64 const s_rh)
 {
 	bv_out[0] = (v_lh[0] > s_rh);
 	bv_out[1] = (v_lh[1] > s_rh);
@@ -1953,7 +1953,7 @@ ijk_inl boolv ijkVecGreater4uvs(bool4 bv_out, uint4 const v_lh, ui32 const s_rh)
 	return bv_out;
 }
 
-ijk_inl boolv ijkVecAnd4uvs(bool4 bv_out, uint4 const v_lh, ui32 const s_rh)
+ijk_inl boolv ijkVecAnd4ilvs(bool4 bv_out, intl4 const v_lh, i64 const s_rh)
 {
 	bv_out[0] = (v_lh[0] && s_rh);
 	bv_out[1] = (v_lh[1] && s_rh);
@@ -1962,7 +1962,7 @@ ijk_inl boolv ijkVecAnd4uvs(bool4 bv_out, uint4 const v_lh, ui32 const s_rh)
 	return bv_out;
 }
 
-ijk_inl boolv ijkVecNand4uvs(bool4 bv_out, uint4 const v_lh, ui32 const s_rh)
+ijk_inl boolv ijkVecNand4ilvs(bool4 bv_out, intl4 const v_lh, i64 const s_rh)
 {
 	bv_out[0] = !(v_lh[0] && s_rh);
 	bv_out[1] = !(v_lh[1] && s_rh);
@@ -1971,7 +1971,7 @@ ijk_inl boolv ijkVecNand4uvs(bool4 bv_out, uint4 const v_lh, ui32 const s_rh)
 	return bv_out;
 }
 
-ijk_inl boolv ijkVecOr4uvs(bool4 bv_out, uint4 const v_lh, ui32 const s_rh)
+ijk_inl boolv ijkVecOr4ilvs(bool4 bv_out, intl4 const v_lh, i64 const s_rh)
 {
 	bv_out[0] = (v_lh[0] || s_rh);
 	bv_out[1] = (v_lh[1] || s_rh);
@@ -1980,7 +1980,7 @@ ijk_inl boolv ijkVecOr4uvs(bool4 bv_out, uint4 const v_lh, ui32 const s_rh)
 	return bv_out;
 }
 
-ijk_inl boolv ijkVecNor4uvs(bool4 bv_out, uint4 const v_lh, ui32 const s_rh)
+ijk_inl boolv ijkVecNor4ilvs(bool4 bv_out, intl4 const v_lh, i64 const s_rh)
 {
 	bv_out[0] = !(v_lh[0] || s_rh);
 	bv_out[1] = !(v_lh[1] || s_rh);
@@ -1989,7 +1989,7 @@ ijk_inl boolv ijkVecNor4uvs(bool4 bv_out, uint4 const v_lh, ui32 const s_rh)
 	return bv_out;
 }
 
-ijk_inl uintv ijkVecCopy4uxyv(uint4 v_out, ui32 const x, ui32 const y, uint2 const v_zw)
+ijk_inl intlv ijkVecCopy4ilxyv(intl4 v_out, i64 const x, i64 const y, intl2 const v_zw)
 {
 	v_out[0] = x;
 	v_out[1] = y;
@@ -1998,7 +1998,7 @@ ijk_inl uintv ijkVecCopy4uxyv(uint4 v_out, ui32 const x, ui32 const y, uint2 con
 	return v_out;
 }
 
-ijk_inl uintv ijkVecCopy4uxv(uint4 v_out, ui32 const x, uint3 const v_yzw)
+ijk_inl intlv ijkVecCopy4ilxv(intl4 v_out, i64 const x, intl3 const v_yzw)
 {
 	v_out[0] = x;
 	v_out[1] = v_yzw[0];
@@ -2007,7 +2007,7 @@ ijk_inl uintv ijkVecCopy4uxv(uint4 v_out, ui32 const x, uint3 const v_yzw)
 	return v_out;
 }
 
-ijk_inl uintv ijkVecAdd4usv(uint4 v_out, ui32 const s_lh, uint4 const v_rh)
+ijk_inl intlv ijkVecAdd4ilsv(intl4 v_out, i64 const s_lh, intl4 const v_rh)
 {
 	v_out[0] = s_lh + v_rh[0];
 	v_out[1] = s_lh + v_rh[1];
@@ -2016,7 +2016,7 @@ ijk_inl uintv ijkVecAdd4usv(uint4 v_out, ui32 const s_lh, uint4 const v_rh)
 	return v_out;
 }
 
-ijk_inl uintv ijkVecSub4usv(uint4 v_out, ui32 const s_lh, uint4 const v_rh)
+ijk_inl intlv ijkVecSub4ilsv(intl4 v_out, i64 const s_lh, intl4 const v_rh)
 {
 	v_out[0] = s_lh - v_rh[0];
 	v_out[1] = s_lh - v_rh[1];
@@ -2025,7 +2025,7 @@ ijk_inl uintv ijkVecSub4usv(uint4 v_out, ui32 const s_lh, uint4 const v_rh)
 	return v_out;
 }
 
-ijk_inl uintv ijkVecMul4usv(uint4 v_out, ui32 const s_lh, uint4 const v_rh)
+ijk_inl intlv ijkVecMul4ilsv(intl4 v_out, i64 const s_lh, intl4 const v_rh)
 {
 	v_out[0] = s_lh * v_rh[0];
 	v_out[1] = s_lh * v_rh[1];
@@ -2034,7 +2034,7 @@ ijk_inl uintv ijkVecMul4usv(uint4 v_out, ui32 const s_lh, uint4 const v_rh)
 	return v_out;
 }
 
-ijk_inl uintv ijkVecDiv4usv(uint4 v_out, ui32 const s_lh, uint4 const v_rh)
+ijk_inl intlv ijkVecDiv4ilsv(intl4 v_out, i64 const s_lh, intl4 const v_rh)
 {
 	v_out[0] = s_lh / v_rh[0];
 	v_out[1] = s_lh / v_rh[1];
@@ -2043,7 +2043,7 @@ ijk_inl uintv ijkVecDiv4usv(uint4 v_out, ui32 const s_lh, uint4 const v_rh)
 	return v_out;
 }
 
-ijk_inl uintv ijkVecDivSafe4usv(uint4 v_out, ui32 const s_lh, uint4 const v_rh)
+ijk_inl intlv ijkVecDivSafe4ilsv(intl4 v_out, i64 const s_lh, intl4 const v_rh)
 {
 	v_out[0] = ijk_divide_safe_int(s_lh, v_rh[0]);
 	v_out[1] = ijk_divide_safe_int(s_lh, v_rh[1]);
@@ -2052,7 +2052,7 @@ ijk_inl uintv ijkVecDivSafe4usv(uint4 v_out, ui32 const s_lh, uint4 const v_rh)
 	return v_out;
 }
 
-ijk_inl uintv ijkVecMod4usv(uint4 v_out, ui32 const s_lh, uint4 const v_rh)
+ijk_inl intlv ijkVecMod4ilsv(intl4 v_out, i64 const s_lh, intl4 const v_rh)
 {
 	v_out[0] = s_lh % v_rh[0];
 	v_out[1] = s_lh % v_rh[1];
@@ -2061,7 +2061,7 @@ ijk_inl uintv ijkVecMod4usv(uint4 v_out, ui32 const s_lh, uint4 const v_rh)
 	return v_out;
 }
 
-ijk_inl uintv ijkVecModSafe4usv(uint4 v_out, ui32 const s_lh, uint4 const v_rh)
+ijk_inl intlv ijkVecModSafe4ilsv(intl4 v_out, i64 const s_lh, intl4 const v_rh)
 {
 	v_out[0] = ijk_modulo_safe_int(s_lh, v_rh[0]);
 	v_out[1] = ijk_modulo_safe_int(s_lh, v_rh[1]);
@@ -2070,7 +2070,7 @@ ijk_inl uintv ijkVecModSafe4usv(uint4 v_out, ui32 const s_lh, uint4 const v_rh)
 	return v_out;
 }
 
-ijk_inl uintv ijkVecBitAnd4usv(uint4 v_out, ui32 const s_lh, uint4 const v_rh)
+ijk_inl intlv ijkVecBitAnd4ilsv(intl4 v_out, i64 const s_lh, intl4 const v_rh)
 {
 	v_out[0] = (s_lh & v_rh[0]);
 	v_out[1] = (s_lh & v_rh[1]);
@@ -2079,7 +2079,7 @@ ijk_inl uintv ijkVecBitAnd4usv(uint4 v_out, ui32 const s_lh, uint4 const v_rh)
 	return v_out;
 }
 
-ijk_inl uintv ijkVecBitNand4usv(uint4 v_out, ui32 const s_lh, uint4 const v_rh)
+ijk_inl intlv ijkVecBitNand4ilsv(intl4 v_out, i64 const s_lh, intl4 const v_rh)
 {
 	v_out[0] = ~(s_lh & v_rh[0]);
 	v_out[1] = ~(s_lh & v_rh[1]);
@@ -2088,7 +2088,7 @@ ijk_inl uintv ijkVecBitNand4usv(uint4 v_out, ui32 const s_lh, uint4 const v_rh)
 	return v_out;
 }
 
-ijk_inl uintv ijkVecBitOr4usv(uint4 v_out, ui32 const s_lh, uint4 const v_rh)
+ijk_inl intlv ijkVecBitOr4ilsv(intl4 v_out, i64 const s_lh, intl4 const v_rh)
 {
 	v_out[0] = (s_lh | v_rh[0]);
 	v_out[1] = (s_lh | v_rh[1]);
@@ -2097,7 +2097,7 @@ ijk_inl uintv ijkVecBitOr4usv(uint4 v_out, ui32 const s_lh, uint4 const v_rh)
 	return v_out;
 }
 
-ijk_inl uintv ijkVecBitNor4usv(uint4 v_out, ui32 const s_lh, uint4 const v_rh)
+ijk_inl intlv ijkVecBitNor4ilsv(intl4 v_out, i64 const s_lh, intl4 const v_rh)
 {
 	v_out[0] = ~(s_lh | v_rh[0]);
 	v_out[1] = ~(s_lh | v_rh[1]);
@@ -2106,7 +2106,7 @@ ijk_inl uintv ijkVecBitNor4usv(uint4 v_out, ui32 const s_lh, uint4 const v_rh)
 	return v_out;
 }
 
-ijk_inl uintv ijkVecBitXor4usv(uint4 v_out, ui32 const s_lh, uint4 const v_rh)
+ijk_inl intlv ijkVecBitXor4ilsv(intl4 v_out, i64 const s_lh, intl4 const v_rh)
 {
 	v_out[0] = (s_lh ^ v_rh[0]);
 	v_out[1] = (s_lh ^ v_rh[1]);
@@ -2115,7 +2115,7 @@ ijk_inl uintv ijkVecBitXor4usv(uint4 v_out, ui32 const s_lh, uint4 const v_rh)
 	return v_out;
 }
 
-ijk_inl uintv ijkVecBitXnor4usv(uint4 v_out, ui32 const s_lh, uint4 const v_rh)
+ijk_inl intlv ijkVecBitXnor4ilsv(intl4 v_out, i64 const s_lh, intl4 const v_rh)
 {
 	v_out[0] = ~(s_lh ^ v_rh[0]);
 	v_out[1] = ~(s_lh ^ v_rh[1]);
@@ -2124,7 +2124,7 @@ ijk_inl uintv ijkVecBitXnor4usv(uint4 v_out, ui32 const s_lh, uint4 const v_rh)
 	return v_out;
 }
 
-ijk_inl uintv ijkVecBitShiftLeft4usv(uint4 v_out, ui32 const s_lh, uint4 const v_rh)
+ijk_inl intlv ijkVecBitShiftLeft4ilsv(intl4 v_out, i64 const s_lh, intl4 const v_rh)
 {
 	v_out[0] = (s_lh << v_rh[0]);
 	v_out[1] = (s_lh << v_rh[1]);
@@ -2133,7 +2133,7 @@ ijk_inl uintv ijkVecBitShiftLeft4usv(uint4 v_out, ui32 const s_lh, uint4 const v
 	return v_out;
 }
 
-ijk_inl uintv ijkVecBitShiftRight4usv(uint4 v_out, ui32 const s_lh, uint4 const v_rh)
+ijk_inl intlv ijkVecBitShiftRight4ilsv(intl4 v_out, i64 const s_lh, intl4 const v_rh)
 {
 	v_out[0] = (s_lh >> v_rh[0]);
 	v_out[1] = (s_lh >> v_rh[1]);
@@ -2142,7 +2142,7 @@ ijk_inl uintv ijkVecBitShiftRight4usv(uint4 v_out, ui32 const s_lh, uint4 const 
 	return v_out;
 }
 
-ijk_inl boolv ijkVecEqual4usv(bool4 bv_out, ui32 const s_lh, uint4 const v_rh)
+ijk_inl boolv ijkVecEqual4ilsv(bool4 bv_out, i64 const s_lh, intl4 const v_rh)
 {
 	bv_out[0] = (s_lh == v_rh[0]);
 	bv_out[1] = (s_lh == v_rh[1]);
@@ -2151,7 +2151,7 @@ ijk_inl boolv ijkVecEqual4usv(bool4 bv_out, ui32 const s_lh, uint4 const v_rh)
 	return bv_out;
 }
 
-ijk_inl boolv ijkVecInequal4usv(bool4 bv_out, ui32 const s_lh, uint4 const v_rh)
+ijk_inl boolv ijkVecInequal4ilsv(bool4 bv_out, i64 const s_lh, intl4 const v_rh)
 {
 	bv_out[0] = (s_lh != v_rh[0]);
 	bv_out[1] = (s_lh != v_rh[1]);
@@ -2160,7 +2160,7 @@ ijk_inl boolv ijkVecInequal4usv(bool4 bv_out, ui32 const s_lh, uint4 const v_rh)
 	return bv_out;
 }
 
-ijk_inl boolv ijkVecLessEqual4usv(bool4 bv_out, ui32 const s_lh, uint4 const v_rh)
+ijk_inl boolv ijkVecLessEqual4ilsv(bool4 bv_out, i64 const s_lh, intl4 const v_rh)
 {
 	bv_out[0] = (s_lh <= v_rh[0]);
 	bv_out[1] = (s_lh <= v_rh[1]);
@@ -2169,7 +2169,7 @@ ijk_inl boolv ijkVecLessEqual4usv(bool4 bv_out, ui32 const s_lh, uint4 const v_r
 	return bv_out;
 }
 
-ijk_inl boolv ijkVecGreaterEqual4usv(bool4 bv_out, ui32 const s_lh, uint4 const v_rh)
+ijk_inl boolv ijkVecGreaterEqual4ilsv(bool4 bv_out, i64 const s_lh, intl4 const v_rh)
 {
 	bv_out[0] = (s_lh >= v_rh[0]);
 	bv_out[1] = (s_lh >= v_rh[1]);
@@ -2178,7 +2178,7 @@ ijk_inl boolv ijkVecGreaterEqual4usv(bool4 bv_out, ui32 const s_lh, uint4 const 
 	return bv_out;
 }
 
-ijk_inl boolv ijkVecLess4usv(bool4 bv_out, ui32 const s_lh, uint4 const v_rh)
+ijk_inl boolv ijkVecLess4ilsv(bool4 bv_out, i64 const s_lh, intl4 const v_rh)
 {
 	bv_out[0] = (s_lh < v_rh[0]);
 	bv_out[1] = (s_lh < v_rh[1]);
@@ -2187,7 +2187,7 @@ ijk_inl boolv ijkVecLess4usv(bool4 bv_out, ui32 const s_lh, uint4 const v_rh)
 	return bv_out;
 }
 
-ijk_inl boolv ijkVecGreater4usv(bool4 bv_out, ui32 const s_lh, uint4 const v_rh)
+ijk_inl boolv ijkVecGreater4ilsv(bool4 bv_out, i64 const s_lh, intl4 const v_rh)
 {
 	bv_out[0] = (s_lh > v_rh[0]);
 	bv_out[1] = (s_lh > v_rh[1]);
@@ -2196,7 +2196,7 @@ ijk_inl boolv ijkVecGreater4usv(bool4 bv_out, ui32 const s_lh, uint4 const v_rh)
 	return bv_out;
 }
 
-ijk_inl boolv ijkVecAnd4usv(bool4 bv_out, ui32 const s_lh, uint4 const v_rh)
+ijk_inl boolv ijkVecAnd4ilsv(bool4 bv_out, i64 const s_lh, intl4 const v_rh)
 {
 	bv_out[0] = (s_lh && v_rh[0]);
 	bv_out[1] = (s_lh && v_rh[1]);
@@ -2205,7 +2205,7 @@ ijk_inl boolv ijkVecAnd4usv(bool4 bv_out, ui32 const s_lh, uint4 const v_rh)
 	return bv_out;
 }
 
-ijk_inl boolv ijkVecNand4usv(bool4 bv_out, ui32 const s_lh, uint4 const v_rh)
+ijk_inl boolv ijkVecNand4ilsv(bool4 bv_out, i64 const s_lh, intl4 const v_rh)
 {
 	bv_out[0] = !(s_lh && v_rh[0]);
 	bv_out[1] = !(s_lh && v_rh[1]);
@@ -2214,7 +2214,7 @@ ijk_inl boolv ijkVecNand4usv(bool4 bv_out, ui32 const s_lh, uint4 const v_rh)
 	return bv_out;
 }
 
-ijk_inl boolv ijkVecOr4usv(bool4 bv_out, ui32 const s_lh, uint4 const v_rh)
+ijk_inl boolv ijkVecOr4ilsv(bool4 bv_out, i64 const s_lh, intl4 const v_rh)
 {
 	bv_out[0] = (s_lh || v_rh[0]);
 	bv_out[1] = (s_lh || v_rh[1]);
@@ -2223,7 +2223,7 @@ ijk_inl boolv ijkVecOr4usv(bool4 bv_out, ui32 const s_lh, uint4 const v_rh)
 	return bv_out;
 }
 
-ijk_inl boolv ijkVecNor4usv(bool4 bv_out, ui32 const s_lh, uint4 const v_rh)
+ijk_inl boolv ijkVecNor4ilsv(bool4 bv_out, i64 const s_lh, intl4 const v_rh)
 {
 	bv_out[0] = !(s_lh || v_rh[0]);
 	bv_out[1] = !(s_lh || v_rh[1]);
@@ -2232,245 +2232,245 @@ ijk_inl boolv ijkVecNor4usv(bool4 bv_out, ui32 const s_lh, uint4 const v_rh)
 	return bv_out;
 }
 
-ijk_inl ui32 ijkVecDot4uv(uint4 const v_lh, uint4 const v_rh)
+ijk_inl i64 ijkVecDot4ilv(intl4 const v_lh, intl4 const v_rh)
 {
 	return (v_lh[0] * v_rh[0] + v_lh[1] * v_rh[1] + v_lh[2] * v_rh[2] + v_lh[3] * v_rh[3]);
 }
 
-ijk_inl uintv ijkVecCross4uv(uint4 v_out, uint4 const v_lh, uint4 const v_rh)
+ijk_inl intlv ijkVecCross4ilv(intl4 v_out, intl4 const v_lh, intl4 const v_rh)
 {
 	v_out[3] = 0;
-	return ijkVecCross3uv(v_out, v_lh, v_rh);
+	return ijkVecCross3ilv(v_out, v_lh, v_rh);
 }
 
 
 //-----------------------------------------------------------------------------
 
-ijk_inl uint ijkVecAbs1u(uint const s)
+ijk_inl int ijkVecAbs1il(int const s)
 {
-	return ijkVecAbs1us(s);
+	return ijkVecAbs1ils(s);
 }
 
-ijk_inl uint ijkVecSgn1u(uint const s)
+ijk_inl int ijkVecSgn1il(int const s)
 {
-	return ijkVecSgn1us(s);
+	return ijkVecSgn1ils(s);
 }
 
-ijk_inl uint ijkVecDot1u(uint const s_lh, uint const s_rh)
+ijk_inl int ijkVecDot1il(int const s_lh, int const s_rh)
 {
-	return ijkVecDot1us(s_lh, s_rh);
+	return ijkVecDot1ils(s_lh, s_rh);
 }
 
-ijk_inl uint ijkVecLengthSq1u(uint const s)
+ijk_inl int ijkVecLengthSq1il(int const s)
 {
-	return ijkVecLengthSq1us(s);
+	return ijkVecLengthSq1ils(s);
 }
 
-ijk_inl uint ijkVecLength1u(uint const s)
+ijk_inl int ijkVecLength1il(int const s)
 {
-	return ijkVecLength1us(s);
+	return ijkVecLength1ils(s);
 }
 
-ijk_inl float ijkVecLengthSqInv1u(uint const s)
+ijk_inl float ijkVecLengthSqInv1il(int const s)
 {
-	return ijkVecLengthSqInv1us(s);
+	return ijkVecLengthSqInv1ils(s);
 }
 
-ijk_inl float ijkVecLengthInv1u(uint const s)
+ijk_inl float ijkVecLengthInv1il(int const s)
 {
-	return ijkVecLengthInv1us(s);
+	return ijkVecLengthInv1ils(s);
 }
 
-ijk_inl uint ijkVecNormalize1u(uint const s)
+ijk_inl int ijkVecNormalize1il(int const s)
 {
-	return ijkVecNormalize1us(s);
+	return ijkVecNormalize1ils(s);
 }
 
-ijk_inl uint ijkVecNormalizeGetLength1u(uint const s, uint* const length_out)
+ijk_inl int ijkVecNormalizeGetLength1il(int const s, int* const length_out)
 {
-	return ijkVecNormalizeGetLength1us(s, (ui32*)length_out);
+	return ijkVecNormalizeGetLength1ils(s, (i64*)length_out);
 }
 
-ijk_inl uint ijkVecNormalizeGetLengthInv1u(uint const s, float* const lengthInv_out)
+ijk_inl int ijkVecNormalizeGetLengthInv1il(int const s, float* const lengthInv_out)
 {
-	return ijkVecNormalizeGetLengthInv1us(s, (f32*)lengthInv_out);
+	return ijkVecNormalizeGetLengthInv1ils(s, (f64*)lengthInv_out);
 }
 
 
 //-----------------------------------------------------------------------------
 
-ijk_inl uvec2 ijkVecInit2u()
+ijk_inl ilvec2 ijkVecInit2il()
 {
-	uvec2 const v_out = { 0, 0 };
+	ilvec2 const v_out = { 0, 0 };
 	return v_out;
 }
 
-ijk_inl uvec2 ijkVecInitElems2u(uint const x, uint const y)
+ijk_inl ilvec2 ijkVecInitElems2il(int const x, int const y)
 {
-	uvec2 const v_out = { x, y };
+	ilvec2 const v_out = { x, y };
 	return v_out;
 }
 
-ijk_inl uvec2 ijkVecCopy2u(uvec2 const v_in)
+ijk_inl ilvec2 ijkVecCopy2il(ilvec2 const v_in)
 {
-	uvec2 const v_out = { +v_in.x, +v_in.y };
+	ilvec2 const v_out = { +v_in.x, +v_in.y };
 	return v_out;
 }
 
-ijk_inl ivec2 ijkVecNegate2u(uvec2 const v_in)
+ijk_inl ilvec2 ijkVecNegate2il(ilvec2 const v_in)
 {
-	ivec2 const v_out = { -(i32)v_in.x, -(i32)v_in.y };
+	ilvec2 const v_out = { -v_in.x, -v_in.y };
 	return v_out;
 }
 
-ijk_inl uvec2 ijkVecBitNot2u(uvec2 const v_in)
+ijk_inl ilvec2 ijkVecBitNot2il(ilvec2 const v_in)
 {
-	uvec2 const v_out = { ~v_in.x, ~v_in.y };
+	ilvec2 const v_out = { ~v_in.x, ~v_in.y };
 	return v_out;
 }
 
-ijk_inl bvec2 ijkVecNot2u(uvec2 const v_in)
+ijk_inl bvec2 ijkVecNot2il(ilvec2 const v_in)
 {
 	bvec2 const bv_out = { !v_in.x, !v_in.y };
 	return bv_out;
 }
 
-ijk_inl uvec2 ijkVecAdd2u(uvec2 const v_lh, uvec2 const v_rh)
+ijk_inl ilvec2 ijkVecAdd2il(ilvec2 const v_lh, ilvec2 const v_rh)
 {
-	uvec2 const v_out = {
+	ilvec2 const v_out = {
 		v_lh.x + v_rh.x,
 		v_lh.y + v_rh.y,
 	};
 	return v_out;
 }
 
-ijk_inl uvec2 ijkVecSub2u(uvec2 const v_lh, uvec2 const v_rh)
+ijk_inl ilvec2 ijkVecSub2il(ilvec2 const v_lh, ilvec2 const v_rh)
 {
-	uvec2 const v_out = {
+	ilvec2 const v_out = {
 		v_lh.x - v_rh.x,
 		v_lh.y - v_rh.y,
 	};
 	return v_out;
 }
 
-ijk_inl uvec2 ijkVecMul2u(uvec2 const v_lh, uvec2 const v_rh)
+ijk_inl ilvec2 ijkVecMul2il(ilvec2 const v_lh, ilvec2 const v_rh)
 {
-	uvec2 const v_out = {
+	ilvec2 const v_out = {
 		v_lh.x * v_rh.x,
 		v_lh.y * v_rh.y,
 	};
 	return v_out;
 }
 
-ijk_inl uvec2 ijkVecDiv2u(uvec2 const v_lh, uvec2 const v_rh)
+ijk_inl ilvec2 ijkVecDiv2il(ilvec2 const v_lh, ilvec2 const v_rh)
 {
-	uvec2 const v_out = {
+	ilvec2 const v_out = {
 		v_lh.x / v_rh.x,
 		v_lh.y / v_rh.y,
 	};
 	return v_out;
 }
 
-ijk_inl uvec2 ijkVecDivSafe2u(uvec2 const v_lh, uvec2 const v_rh)
+ijk_inl ilvec2 ijkVecDivSafe2il(ilvec2 const v_lh, ilvec2 const v_rh)
 {
-	uvec2 const v_out = {
+	ilvec2 const v_out = {
 		ijk_divide_safe_int(v_lh.x, v_rh.x),
 		ijk_divide_safe_int(v_lh.y, v_rh.y),
 	};
 	return v_out;
 }
 
-ijk_inl uvec2 ijkVecMod2u(uvec2 const v_lh, uvec2 const v_rh)
+ijk_inl ilvec2 ijkVecMod2il(ilvec2 const v_lh, ilvec2 const v_rh)
 {
-	uvec2 const v_out = {
+	ilvec2 const v_out = {
 		v_lh.x % v_rh.x,
 		v_lh.y % v_rh.y,
 	};
 	return v_out;
 }
 
-ijk_inl uvec2 ijkVecModSafe2u(uvec2 const v_lh, uvec2 const v_rh)
+ijk_inl ilvec2 ijkVecModSafe2il(ilvec2 const v_lh, ilvec2 const v_rh)
 {
-	uvec2 const v_out = {
+	ilvec2 const v_out = {
 		ijk_modulo_safe_int(v_lh.x, v_rh.x),
 		ijk_modulo_safe_int(v_lh.y, v_rh.y),
 	};
 	return v_out;
 }
 
-ijk_inl uvec2 ijkVecBitAnd2u(uvec2 const v_lh, uvec2 const v_rh)
+ijk_inl ilvec2 ijkVecBitAnd2il(ilvec2 const v_lh, ilvec2 const v_rh)
 {
-	uvec2 const v_out = {
+	ilvec2 const v_out = {
 		(v_lh.x & v_rh.x),
 		(v_lh.y & v_rh.y),
 	};
 	return v_out;
 }
 
-ijk_inl uvec2 ijkVecBitNand2u(uvec2 const v_lh, uvec2 const v_rh)
+ijk_inl ilvec2 ijkVecBitNand2il(ilvec2 const v_lh, ilvec2 const v_rh)
 {
-	uvec2 const v_out = {
+	ilvec2 const v_out = {
 		~(v_lh.x & v_rh.x),
 		~(v_lh.y & v_rh.y),
 	};
 	return v_out;
 }
 
-ijk_inl uvec2 ijkVecBitOr2u(uvec2 const v_lh, uvec2 const v_rh)
+ijk_inl ilvec2 ijkVecBitOr2il(ilvec2 const v_lh, ilvec2 const v_rh)
 {
-	uvec2 const v_out = {
+	ilvec2 const v_out = {
 		(v_lh.x | v_rh.x),
 		(v_lh.y | v_rh.y),
 	};
 	return v_out;
 }
 
-ijk_inl uvec2 ijkVecBitNor2u(uvec2 const v_lh, uvec2 const v_rh)
+ijk_inl ilvec2 ijkVecBitNor2il(ilvec2 const v_lh, ilvec2 const v_rh)
 {
-	uvec2 const v_out = {
+	ilvec2 const v_out = {
 		~(v_lh.x | v_rh.x),
 		~(v_lh.y | v_rh.y),
 	};
 	return v_out;
 }
 
-ijk_inl uvec2 ijkVecBitXor2u(uvec2 const v_lh, uvec2 const v_rh)
+ijk_inl ilvec2 ijkVecBitXor2il(ilvec2 const v_lh, ilvec2 const v_rh)
 {
-	uvec2 const v_out = {
+	ilvec2 const v_out = {
 		(v_lh.x ^ v_rh.x),
 		(v_lh.y ^ v_rh.y),
 	};
 	return v_out;
 }
 
-ijk_inl uvec2 ijkVecBitXnor2u(uvec2 const v_lh, uvec2 const v_rh)
+ijk_inl ilvec2 ijkVecBitXnor2il(ilvec2 const v_lh, ilvec2 const v_rh)
 {
-	uvec2 const v_out = {
+	ilvec2 const v_out = {
 		~(v_lh.x ^ v_rh.x),
 		~(v_lh.y ^ v_rh.y),
 	};
 	return v_out;
 }
 
-ijk_inl uvec2 ijkVecBitShiftLeft2u(uvec2 const v_lh, uvec2 const v_rh)
+ijk_inl ilvec2 ijkVecBitShiftLeft2il(ilvec2 const v_lh, ilvec2 const v_rh)
 {
-	uvec2 const v_out = {
+	ilvec2 const v_out = {
 		(v_lh.x << v_rh.x),
 		(v_lh.y << v_rh.y),
 	};
 	return v_out;
 }
 
-ijk_inl uvec2 ijkVecBitShiftRight2u(uvec2 const v_lh, uvec2 const v_rh)
+ijk_inl ilvec2 ijkVecBitShiftRight2il(ilvec2 const v_lh, ilvec2 const v_rh)
 {
-	uvec2 const v_out = {
+	ilvec2 const v_out = {
 		(v_lh.x >> v_rh.x),
 		(v_lh.y >> v_rh.y),
 	};
 	return v_out;
 }
 
-ijk_inl bvec2 ijkVecEqual2u(uvec2 const v_lh, uvec2 const v_rh)
+ijk_inl bvec2 ijkVecEqual2il(ilvec2 const v_lh, ilvec2 const v_rh)
 {
 	bvec2 const bv_out = {
 		(v_lh.x == v_rh.x),
@@ -2479,7 +2479,7 @@ ijk_inl bvec2 ijkVecEqual2u(uvec2 const v_lh, uvec2 const v_rh)
 	return bv_out;
 }
 
-ijk_inl bvec2 ijkVecInequal2u(uvec2 const v_lh, uvec2 const v_rh)
+ijk_inl bvec2 ijkVecInequal2il(ilvec2 const v_lh, ilvec2 const v_rh)
 {
 	bvec2 const bv_out = {
 		(v_lh.x != v_rh.x),
@@ -2488,7 +2488,7 @@ ijk_inl bvec2 ijkVecInequal2u(uvec2 const v_lh, uvec2 const v_rh)
 	return bv_out;
 }
 
-ijk_inl bvec2 ijkVecLessEqual2u(uvec2 const v_lh, uvec2 const v_rh)
+ijk_inl bvec2 ijkVecLessEqual2il(ilvec2 const v_lh, ilvec2 const v_rh)
 {
 	bvec2 const bv_out = {
 		(v_lh.x <= v_rh.x),
@@ -2497,7 +2497,7 @@ ijk_inl bvec2 ijkVecLessEqual2u(uvec2 const v_lh, uvec2 const v_rh)
 	return bv_out;
 }
 
-ijk_inl bvec2 ijkVecGreaterEqual2u(uvec2 const v_lh, uvec2 const v_rh)
+ijk_inl bvec2 ijkVecGreaterEqual2il(ilvec2 const v_lh, ilvec2 const v_rh)
 {
 	bvec2 const bv_out = {
 		(v_lh.x >= v_rh.x),
@@ -2506,7 +2506,7 @@ ijk_inl bvec2 ijkVecGreaterEqual2u(uvec2 const v_lh, uvec2 const v_rh)
 	return bv_out;
 }
 
-ijk_inl bvec2 ijkVecLess2u(uvec2 const v_lh, uvec2 const v_rh)
+ijk_inl bvec2 ijkVecLess2il(ilvec2 const v_lh, ilvec2 const v_rh)
 {
 	bvec2 const bv_out = {
 		(v_lh.x < v_rh.x),
@@ -2515,7 +2515,7 @@ ijk_inl bvec2 ijkVecLess2u(uvec2 const v_lh, uvec2 const v_rh)
 	return bv_out;
 }
 
-ijk_inl bvec2 ijkVecGreater2u(uvec2 const v_lh, uvec2 const v_rh)
+ijk_inl bvec2 ijkVecGreater2il(ilvec2 const v_lh, ilvec2 const v_rh)
 {
 	bvec2 const bv_out = {
 		(v_lh.x > v_rh.x),
@@ -2524,7 +2524,7 @@ ijk_inl bvec2 ijkVecGreater2u(uvec2 const v_lh, uvec2 const v_rh)
 	return bv_out;
 }
 
-ijk_inl bvec2 ijkVecAnd2u(uvec2 const v_lh, uvec2 const v_rh)
+ijk_inl bvec2 ijkVecAnd2il(ilvec2 const v_lh, ilvec2 const v_rh)
 {
 	bvec2 const bv_out = {
 		(v_lh.x && v_rh.x),
@@ -2533,7 +2533,7 @@ ijk_inl bvec2 ijkVecAnd2u(uvec2 const v_lh, uvec2 const v_rh)
 	return bv_out;
 }
 
-ijk_inl bvec2 ijkVecNand2u(uvec2 const v_lh, uvec2 const v_rh)
+ijk_inl bvec2 ijkVecNand2il(ilvec2 const v_lh, ilvec2 const v_rh)
 {
 	bvec2 const bv_out = {
 		!(v_lh.x && v_rh.x),
@@ -2542,7 +2542,7 @@ ijk_inl bvec2 ijkVecNand2u(uvec2 const v_lh, uvec2 const v_rh)
 	return bv_out;
 }
 
-ijk_inl bvec2 ijkVecOr2u(uvec2 const v_lh, uvec2 const v_rh)
+ijk_inl bvec2 ijkVecOr2il(ilvec2 const v_lh, ilvec2 const v_rh)
 {
 	bvec2 const bv_out = {
 		(v_lh.x || v_rh.x),
@@ -2551,7 +2551,7 @@ ijk_inl bvec2 ijkVecOr2u(uvec2 const v_lh, uvec2 const v_rh)
 	return bv_out;
 }
 
-ijk_inl bvec2 ijkVecNor2u(uvec2 const v_lh, uvec2 const v_rh)
+ijk_inl bvec2 ijkVecNor2il(ilvec2 const v_lh, ilvec2 const v_rh)
 {
 	bvec2 const bv_out = {
 		!(v_lh.x || v_rh.x),
@@ -2560,74 +2560,74 @@ ijk_inl bvec2 ijkVecNor2u(uvec2 const v_lh, uvec2 const v_rh)
 	return bv_out;
 }
 
-ijk_inl uvec2 ijkVecCopy2us(uint const s_in)
+ijk_inl ilvec2 ijkVecCopy2ils(int const s_in)
 {
-	uvec2 const v_out = { s_in, s_in };
+	ilvec2 const v_out = { s_in, s_in };
 	return v_out;
 }
 
-ijk_inl ivec2 ijkVecNegate2us(uint const s_in)
+ijk_inl ilvec2 ijkVecNegate2ils(int const s_in)
 {
-	int const s = -(i32)s_in;
-	ivec2 const v_out = { s, s };
+	int const s = -s_in;
+	ilvec2 const v_out = { s, s };
 	return v_out;
 }
 
-ijk_inl uvec2 ijkVecBitNot2us(uint const s_in)
+ijk_inl ilvec2 ijkVecBitNot2ils(int const s_in)
 {
-	uint const s = ~s_in;
-	uvec2 const v_out = { s, s };
+	int const s = ~s_in;
+	ilvec2 const v_out = { s, s };
 	return v_out;
 }
 
-ijk_inl bvec2 ijkVecNot2us(uint const s_in)
+ijk_inl bvec2 ijkVecNot2ils(int const s_in)
 {
 	bool const s = !s_in;
 	bvec2 const bv_out = { s, s };
 	return bv_out;
 }
 
-ijk_inl uvec2 ijkVecAdd2us(uvec2 const v_lh, uint const s_rh)
+ijk_inl ilvec2 ijkVecAdd2ils(ilvec2 const v_lh, int const s_rh)
 {
-	uvec2 const v_out = {
+	ilvec2 const v_out = {
 		v_lh.x + s_rh,
 		v_lh.y + s_rh,
 	};
 	return v_out;
 }
 
-ijk_inl uvec2 ijkVecSub2us(uvec2 const v_lh, uint const s_rh)
+ijk_inl ilvec2 ijkVecSub2ils(ilvec2 const v_lh, int const s_rh)
 {
-	uvec2 const v_out = {
+	ilvec2 const v_out = {
 		v_lh.x - s_rh,
 		v_lh.y - s_rh,
 	};
 	return v_out;
 }
 
-ijk_inl uvec2 ijkVecMul2us(uvec2 const v_lh, uint const s_rh)
+ijk_inl ilvec2 ijkVecMul2ils(ilvec2 const v_lh, int const s_rh)
 {
-	uvec2 const v_out = {
+	ilvec2 const v_out = {
 		v_lh.x * s_rh,
 		v_lh.y * s_rh,
 	};
 	return v_out;
 }
 
-ijk_inl uvec2 ijkVecDiv2us(uvec2 const v_lh, uint const s_rh)
+ijk_inl ilvec2 ijkVecDiv2ils(ilvec2 const v_lh, int const s_rh)
 {
-	uvec2 const v_out = {
+	ilvec2 const v_out = {
 		v_lh.x / s_rh,
 		v_lh.y / s_rh,
 	};
 	return v_out;
 }
 
-ijk_inl uvec2 ijkVecDivSafe2us(uvec2 const v_lh, uint const s_rh)
+ijk_inl ilvec2 ijkVecDivSafe2ils(ilvec2 const v_lh, int const s_rh)
 {
 	if (s_rh)
 	{
-		uvec2 const v_out = {
+		ilvec2 const v_out = {
 			v_lh.x / s_rh,
 			v_lh.y / s_rh,
 		};
@@ -2635,25 +2635,25 @@ ijk_inl uvec2 ijkVecDivSafe2us(uvec2 const v_lh, uint const s_rh)
 	}
 	else
 	{
-		uvec2 const v_out = { 0, 0 };
+		ilvec2 const v_out = { 0, 0 };
 		return v_out;
 	}
 }
 
-ijk_inl uvec2 ijkVecMod2us(uvec2 const v_lh, uint const s_rh)
+ijk_inl ilvec2 ijkVecMod2ils(ilvec2 const v_lh, int const s_rh)
 {
-	uvec2 const v_out = {
+	ilvec2 const v_out = {
 		v_lh.x % s_rh,
 		v_lh.y % s_rh,
 	};
 	return v_out;
 }
 
-ijk_inl uvec2 ijkVecModSafe2us(uvec2 const v_lh, uint const s_rh)
+ijk_inl ilvec2 ijkVecModSafe2ils(ilvec2 const v_lh, int const s_rh)
 {
 	if (s_rh)
 	{
-		uvec2 const v_out = {
+		ilvec2 const v_out = {
 			v_lh.x % s_rh,
 			v_lh.y % s_rh,
 		};
@@ -2662,79 +2662,79 @@ ijk_inl uvec2 ijkVecModSafe2us(uvec2 const v_lh, uint const s_rh)
 	return v_lh;
 }
 
-ijk_inl uvec2 ijkVecBitAnd2us(uvec2 const v_lh, uint const s_rh)
+ijk_inl ilvec2 ijkVecBitAnd2ils(ilvec2 const v_lh, int const s_rh)
 {
-	uvec2 const v_out = {
+	ilvec2 const v_out = {
 		(v_lh.x & s_rh),
 		(v_lh.y & s_rh),
 	};
 	return v_out;
 }
 
-ijk_inl uvec2 ijkVecBitNand2us(uvec2 const v_lh, uint const s_rh)
+ijk_inl ilvec2 ijkVecBitNand2ils(ilvec2 const v_lh, int const s_rh)
 {
-	uvec2 const v_out = {
+	ilvec2 const v_out = {
 		~(v_lh.x & s_rh),
 		~(v_lh.y & s_rh),
 	};
 	return v_out;
 }
 
-ijk_inl uvec2 ijkVecBitOr2us(uvec2 const v_lh, uint const s_rh)
+ijk_inl ilvec2 ijkVecBitOr2ils(ilvec2 const v_lh, int const s_rh)
 {
-	uvec2 const v_out = {
+	ilvec2 const v_out = {
 		(v_lh.x | s_rh),
 		(v_lh.y | s_rh),
 	};
 	return v_out;
 }
 
-ijk_inl uvec2 ijkVecBitNor2us(uvec2 const v_lh, uint const s_rh)
+ijk_inl ilvec2 ijkVecBitNor2ils(ilvec2 const v_lh, int const s_rh)
 {
-	uvec2 const v_out = {
+	ilvec2 const v_out = {
 		~(v_lh.x | s_rh),
 		~(v_lh.y | s_rh),
 	};
 	return v_out;
 }
 
-ijk_inl uvec2 ijkVecBitXor2us(uvec2 const v_lh, uint const s_rh)
+ijk_inl ilvec2 ijkVecBitXor2ils(ilvec2 const v_lh, int const s_rh)
 {
-	uvec2 const v_out = {
+	ilvec2 const v_out = {
 		(v_lh.x ^ s_rh),
 		(v_lh.y ^ s_rh),
 	};
 	return v_out;
 }
 
-ijk_inl uvec2 ijkVecBitXnor2us(uvec2 const v_lh, uint const s_rh)
+ijk_inl ilvec2 ijkVecBitXnor2ils(ilvec2 const v_lh, int const s_rh)
 {
-	uvec2 const v_out = {
+	ilvec2 const v_out = {
 		~(v_lh.x ^ s_rh),
 		~(v_lh.y ^ s_rh),
 	};
 	return v_out;
 }
 
-ijk_inl uvec2 ijkVecBitShiftLeft2us(uvec2 const v_lh, uint const s_rh)
+ijk_inl ilvec2 ijkVecBitShiftLeft2ils(ilvec2 const v_lh, int const s_rh)
 {
-	uvec2 const v_out = {
+	ilvec2 const v_out = {
 		(v_lh.x << s_rh),
 		(v_lh.y << s_rh),
 	};
 	return v_out;
 }
 
-ijk_inl uvec2 ijkVecBitShiftRight2us(uvec2 const v_lh, uint const s_rh)
+ijk_inl ilvec2 ijkVecBitShiftRight2ils(ilvec2 const v_lh, int const s_rh)
 {
-	uvec2 const v_out = {
+	ilvec2 const v_out = {
 		(v_lh.x >> s_rh),
 		(v_lh.y >> s_rh),
 	};
 	return v_out;
 }
 
-ijk_inl bvec2 ijkVecEqual2us(uvec2 const v_lh, uint const s_rh)
+ijk_inl bvec2 ijkVecEqual2ils(ilvec2 const v_lh, int const s_rh)
 {
 	bvec2 const bv_out = {
 		(v_lh.x == s_rh),
@@ -2743,7 +2743,7 @@ ijk_inl bvec2 ijkVecEqual2us(uvec2 const v_lh, uint const s_rh)
 	return bv_out;
 }
 
-ijk_inl bvec2 ijkVecInequal2us(uvec2 const v_lh, uint const s_rh)
+ijk_inl bvec2 ijkVecInequal2ils(ilvec2 const v_lh, int const s_rh)
 {
 	bvec2 const bv_out = {
 		(v_lh.x != s_rh),
@@ -2752,7 +2752,7 @@ ijk_inl bvec2 ijkVecInequal2us(uvec2 const v_lh, uint const s_rh)
 	return bv_out;
 }
 
-ijk_inl bvec2 ijkVecLessEqual2us(uvec2 const v_lh, uint const s_rh)
+ijk_inl bvec2 ijkVecLessEqual2ils(ilvec2 const v_lh, int const s_rh)
 {
 	bvec2 const bv_out = {
 		(v_lh.x <= s_rh),
@@ -2761,7 +2761,7 @@ ijk_inl bvec2 ijkVecLessEqual2us(uvec2 const v_lh, uint const s_rh)
 	return bv_out;
 }
 
-ijk_inl bvec2 ijkVecGreaterEqual2us(uvec2 const v_lh, uint const s_rh)
+ijk_inl bvec2 ijkVecGreaterEqual2ils(ilvec2 const v_lh, int const s_rh)
 {
 	bvec2 const bv_out = {
 		(v_lh.x >= s_rh),
@@ -2770,7 +2770,7 @@ ijk_inl bvec2 ijkVecGreaterEqual2us(uvec2 const v_lh, uint const s_rh)
 	return bv_out;
 }
 
-ijk_inl bvec2 ijkVecLess2us(uvec2 const v_lh, uint const s_rh)
+ijk_inl bvec2 ijkVecLess2ils(ilvec2 const v_lh, int const s_rh)
 {
 	bvec2 const bv_out = {
 		(v_lh.x < s_rh),
@@ -2779,7 +2779,7 @@ ijk_inl bvec2 ijkVecLess2us(uvec2 const v_lh, uint const s_rh)
 	return bv_out;
 }
 
-ijk_inl bvec2 ijkVecGreater2us(uvec2 const v_lh, uint const s_rh)
+ijk_inl bvec2 ijkVecGreater2ils(ilvec2 const v_lh, int const s_rh)
 {
 	bvec2 const bv_out = {
 		(v_lh.x > s_rh),
@@ -2788,7 +2788,7 @@ ijk_inl bvec2 ijkVecGreater2us(uvec2 const v_lh, uint const s_rh)
 	return bv_out;
 }
 
-ijk_inl bvec2 ijkVecAnd2us(uvec2 const v_lh, uint const s_rh)
+ijk_inl bvec2 ijkVecAnd2ils(ilvec2 const v_lh, int const s_rh)
 {
 	bvec2 const bv_out = {
 		(v_lh.x && s_rh),
@@ -2797,7 +2797,7 @@ ijk_inl bvec2 ijkVecAnd2us(uvec2 const v_lh, uint const s_rh)
 	return bv_out;
 }
 
-ijk_inl bvec2 ijkVecNand2us(uvec2 const v_lh, uint const s_rh)
+ijk_inl bvec2 ijkVecNand2ils(ilvec2 const v_lh, int const s_rh)
 {
 	bvec2 const bv_out = {
 		!(v_lh.x && s_rh),
@@ -2806,7 +2806,7 @@ ijk_inl bvec2 ijkVecNand2us(uvec2 const v_lh, uint const s_rh)
 	return bv_out;
 }
 
-ijk_inl bvec2 ijkVecOr2us(uvec2 const v_lh, uint const s_rh)
+ijk_inl bvec2 ijkVecOr2ils(ilvec2 const v_lh, int const s_rh)
 {
 	bvec2 const bv_out = {
 		(v_lh.x || s_rh),
@@ -2815,7 +2815,7 @@ ijk_inl bvec2 ijkVecOr2us(uvec2 const v_lh, uint const s_rh)
 	return bv_out;
 }
 
-ijk_inl bvec2 ijkVecNor2us(uvec2 const v_lh, uint const s_rh)
+ijk_inl bvec2 ijkVecNor2ils(ilvec2 const v_lh, int const s_rh)
 {
 	bvec2 const bv_out = {
 		!(v_lh.x || s_rh),
@@ -2824,142 +2824,142 @@ ijk_inl bvec2 ijkVecNor2us(uvec2 const v_lh, uint const s_rh)
 	return bv_out;
 }
 
-ijk_inl uvec2 ijkVecAdd2su(uint const s_lh, uvec2 const v_rh)
+ijk_inl ilvec2 ijkVecAdd2sil(int const s_lh, ilvec2 const v_rh)
 {
-	uvec2 const v_out = {
+	ilvec2 const v_out = {
 		s_lh + v_rh.x,
 		s_lh + v_rh.y,
 	};
 	return v_out;
 }
 
-ijk_inl uvec2 ijkVecSub2su(uint const s_lh, uvec2 const v_rh)
+ijk_inl ilvec2 ijkVecSub2sil(int const s_lh, ilvec2 const v_rh)
 {
-	uvec2 const v_out = {
+	ilvec2 const v_out = {
 		s_lh - v_rh.x,
 		s_lh - v_rh.y,
 	};
 	return v_out;
 }
 
-ijk_inl uvec2 ijkVecMul2su(uint const s_lh, uvec2 const v_rh)
+ijk_inl ilvec2 ijkVecMul2sil(int const s_lh, ilvec2 const v_rh)
 {
-	uvec2 const v_out = {
+	ilvec2 const v_out = {
 		s_lh * v_rh.x,
 		s_lh * v_rh.y,
 	};
 	return v_out;
 }
 
-ijk_inl uvec2 ijkVecDiv2su(uint const s_lh, uvec2 const v_rh)
+ijk_inl ilvec2 ijkVecDiv2sil(int const s_lh, ilvec2 const v_rh)
 {
-	uvec2 const v_out = {
+	ilvec2 const v_out = {
 		s_lh / v_rh.x,
 		s_lh / v_rh.y,
 	};
 	return v_out;
 }
 
-ijk_inl uvec2 ijkVecDivSafe2su(uint const s_lh, uvec2 const v_rh)
+ijk_inl ilvec2 ijkVecDivSafe2sil(int const s_lh, ilvec2 const v_rh)
 {
-	uvec2 const v_out = {
+	ilvec2 const v_out = {
 		ijk_divide_safe_int(s_lh, v_rh.x),
 		ijk_divide_safe_int(s_lh, v_rh.y),
 	};
 	return v_out;
 }
 
-ijk_inl uvec2 ijkVecMod2su(uint const s_lh, uvec2 const v_rh)
+ijk_inl ilvec2 ijkVecMod2sil(int const s_lh, ilvec2 const v_rh)
 {
-	uvec2 const v_out = {
+	ilvec2 const v_out = {
 		s_lh % v_rh.x,
 		s_lh % v_rh.y,
 	};
 	return v_out;
 }
 
-ijk_inl uvec2 ijkVecModSafe2su(uint const s_lh, uvec2 const v_rh)
+ijk_inl ilvec2 ijkVecModSafe2sil(int const s_lh, ilvec2 const v_rh)
 {
-	uvec2 const v_out = {
-		ijk_modulo_safe_int((ui32)s_lh, v_rh.x),
-		ijk_modulo_safe_int((ui32)s_lh, v_rh.y),
+	ilvec2 const v_out = {
+		ijk_modulo_safe_int((i64)s_lh, v_rh.x),
+		ijk_modulo_safe_int((i64)s_lh, v_rh.y),
 	};
 	return v_out;
 }
 
-ijk_inl uvec2 ijkVecBitAnd2su(uint const s_lh, uvec2 const v_rh)
+ijk_inl ilvec2 ijkVecBitAnd2sil(int const s_lh, ilvec2 const v_rh)
 {
-	uvec2 const v_out = {
+	ilvec2 const v_out = {
 		(s_lh & v_rh.x),
 		(s_lh & v_rh.y),
 	};
 	return v_out;
 }
 
-ijk_inl uvec2 ijkVecBitNand2su(uint const s_lh, uvec2 const v_rh)
+ijk_inl ilvec2 ijkVecBitNand2sil(int const s_lh, ilvec2 const v_rh)
 {
-	uvec2 const v_out = {
+	ilvec2 const v_out = {
 		~(s_lh & v_rh.x),
 		~(s_lh & v_rh.y),
 	};
 	return v_out;
 }
 
-ijk_inl uvec2 ijkVecBitOr2su(uint const s_lh, uvec2 const v_rh)
+ijk_inl ilvec2 ijkVecBitOr2sil(int const s_lh, ilvec2 const v_rh)
 {
-	uvec2 const v_out = {
+	ilvec2 const v_out = {
 		(s_lh | v_rh.x),
 		(s_lh | v_rh.y),
 	};
 	return v_out;
 }
 
-ijk_inl uvec2 ijkVecBitNor2su(uint const s_lh, uvec2 const v_rh)
+ijk_inl ilvec2 ijkVecBitNor2sil(int const s_lh, ilvec2 const v_rh)
 {
-	uvec2 const v_out = {
+	ilvec2 const v_out = {
 		~(s_lh | v_rh.x),
 		~(s_lh | v_rh.y),
 	};
 	return v_out;
 }
 
-ijk_inl uvec2 ijkVecBitXor2su(uint const s_lh, uvec2 const v_rh)
+ijk_inl ilvec2 ijkVecBitXor2sil(int const s_lh, ilvec2 const v_rh)
 {
-	uvec2 const v_out = {
+	ilvec2 const v_out = {
 		(s_lh ^ v_rh.x),
 		(s_lh ^ v_rh.y),
 	};
 	return v_out;
 }
 
-ijk_inl uvec2 ijkVecBitXnor2su(uint const s_lh, uvec2 const v_rh)
+ijk_inl ilvec2 ijkVecBitXnor2sil(int const s_lh, ilvec2 const v_rh)
 {
-	uvec2 const v_out = {
+	ilvec2 const v_out = {
 		~(s_lh ^ v_rh.x),
 		~(s_lh ^ v_rh.y),
 	};
 	return v_out;
 }
 
-ijk_inl uvec2 ijkVecBitShiftLeft2su(uint const s_lh, uvec2 const v_rh)
+ijk_inl ilvec2 ijkVecBitShiftLeft2sil(int const s_lh, ilvec2 const v_rh)
 {
-	uvec2 const v_out = {
+	ilvec2 const v_out = {
 		(s_lh << v_rh.x),
 		(s_lh << v_rh.y),
 	};
 	return v_out;
 }
 
-ijk_inl uvec2 ijkVecBitShiftRight2su(uint const s_lh, uvec2 const v_rh)
+ijk_inl ilvec2 ijkVecBitShiftRight2sil(int const s_lh, ilvec2 const v_rh)
 {
-	uvec2 const v_out = {
+	ilvec2 const v_out = {
 		(s_lh >> v_rh.x),
 		(s_lh >> v_rh.y),
 	};
 	return v_out;
 }
 
-ijk_inl bvec2 ijkVecEqual2su(uint const s_lh, uvec2 const v_rh)
+ijk_inl bvec2 ijkVecEqual2sil(int const s_lh, ilvec2 const v_rh)
 {
 	bvec2 const bv_out = {
 		(s_lh == v_rh.x),
@@ -2968,7 +2968,7 @@ ijk_inl bvec2 ijkVecEqual2su(uint const s_lh, uvec2 const v_rh)
 	return bv_out;
 }
 
-ijk_inl bvec2 ijkVecInequal2su(uint const s_lh, uvec2 const v_rh)
+ijk_inl bvec2 ijkVecInequal2sil(int const s_lh, ilvec2 const v_rh)
 {
 	bvec2 const bv_out = {
 		(s_lh != v_rh.x),
@@ -2977,7 +2977,7 @@ ijk_inl bvec2 ijkVecInequal2su(uint const s_lh, uvec2 const v_rh)
 	return bv_out;
 }
 
-ijk_inl bvec2 ijkVecLessEqual2su(uint const s_lh, uvec2 const v_rh)
+ijk_inl bvec2 ijkVecLessEqual2sil(int const s_lh, ilvec2 const v_rh)
 {
 	bvec2 const bv_out = {
 		(s_lh <= v_rh.x),
@@ -2986,7 +2986,7 @@ ijk_inl bvec2 ijkVecLessEqual2su(uint const s_lh, uvec2 const v_rh)
 	return bv_out;
 }
 
-ijk_inl bvec2 ijkVecGreaterEqual2su(uint const s_lh, uvec2 const v_rh)
+ijk_inl bvec2 ijkVecGreaterEqual2sil(int const s_lh, ilvec2 const v_rh)
 {
 	bvec2 const bv_out = {
 		(s_lh >= v_rh.x),
@@ -2995,7 +2995,7 @@ ijk_inl bvec2 ijkVecGreaterEqual2su(uint const s_lh, uvec2 const v_rh)
 	return bv_out;
 }
 
-ijk_inl bvec2 ijkVecLess2su(uint const s_lh, uvec2 const v_rh)
+ijk_inl bvec2 ijkVecLess2sil(int const s_lh, ilvec2 const v_rh)
 {
 	bvec2 const bv_out = {
 		(s_lh < v_rh.x),
@@ -3004,7 +3004,7 @@ ijk_inl bvec2 ijkVecLess2su(uint const s_lh, uvec2 const v_rh)
 	return bv_out;
 }
 
-ijk_inl bvec2 ijkVecGreater2su(uint const s_lh, uvec2 const v_rh)
+ijk_inl bvec2 ijkVecGreater2sil(int const s_lh, ilvec2 const v_rh)
 {
 	bvec2 const bv_out = {
 		(s_lh > v_rh.x),
@@ -3013,7 +3013,7 @@ ijk_inl bvec2 ijkVecGreater2su(uint const s_lh, uvec2 const v_rh)
 	return bv_out;
 }
 
-ijk_inl bvec2 ijkVecAnd2su(uint const s_lh, uvec2 const v_rh)
+ijk_inl bvec2 ijkVecAnd2sil(int const s_lh, ilvec2 const v_rh)
 {
 	bvec2 const bv_out = {
 		(s_lh && v_rh.x),
@@ -3022,7 +3022,7 @@ ijk_inl bvec2 ijkVecAnd2su(uint const s_lh, uvec2 const v_rh)
 	return bv_out;
 }
 
-ijk_inl bvec2 ijkVecNand2su(uint const s_lh, uvec2 const v_rh)
+ijk_inl bvec2 ijkVecNand2sil(int const s_lh, ilvec2 const v_rh)
 {
 	bvec2 const bv_out = {
 		!(s_lh && v_rh.x),
@@ -3031,7 +3031,7 @@ ijk_inl bvec2 ijkVecNand2su(uint const s_lh, uvec2 const v_rh)
 	return bv_out;
 }
 
-ijk_inl bvec2 ijkVecOr2su(uint const s_lh, uvec2 const v_rh)
+ijk_inl bvec2 ijkVecOr2sil(int const s_lh, ilvec2 const v_rh)
 {
 	bvec2 const bv_out = {
 		(s_lh || v_rh.x),
@@ -3040,7 +3040,7 @@ ijk_inl bvec2 ijkVecOr2su(uint const s_lh, uvec2 const v_rh)
 	return bv_out;
 }
 
-ijk_inl bvec2 ijkVecNor2su(uint const s_lh, uvec2 const v_rh)
+ijk_inl bvec2 ijkVecNor2sil(int const s_lh, ilvec2 const v_rh)
 {
 	bvec2 const bv_out = {
 		!(s_lh || v_rh.x),
@@ -3049,58 +3049,58 @@ ijk_inl bvec2 ijkVecNor2su(uint const s_lh, uvec2 const v_rh)
 	return bv_out;
 }
 
-ijk_inl uint ijkVecDot2u(uvec2 const v_lh, uvec2 const v_rh)
+ijk_inl int ijkVecDot2il(ilvec2 const v_lh, ilvec2 const v_rh)
 {
-	return ijkVecDot2uv(v_lh.xy, v_rh.xy);
+	return ijkVecDot2ilv(v_lh.xy, v_rh.xy);
 }
 
-ijk_inl uint ijkVecCross2u(uvec2 const v_lh, uvec2 const v_rh)
+ijk_inl int ijkVecCross2il(ilvec2 const v_lh, ilvec2 const v_rh)
 {
-	return ijkVecCross2uv(v_lh.xy, v_rh.xy);
+	return ijkVecCross2ilv(v_lh.xy, v_rh.xy);
 }
 
 
 //-----------------------------------------------------------------------------
 
-ijk_inl uvec3 ijkVecInit3u()
+ijk_inl ilvec3 ijkVecInit3il()
 {
-	uvec3 const v_out = { 0, 0, 0 };
+	ilvec3 const v_out = { 0, 0, 0 };
 	return v_out;
 }
 
-ijk_inl uvec3 ijkVecInitElems3u(uint const x, uint const y, uint const z)
+ijk_inl ilvec3 ijkVecInitElems3il(int const x, int const y, int const z)
 {
-	uvec3 const v_out = { x, y, z };
+	ilvec3 const v_out = { x, y, z };
 	return v_out;
 }
 
-ijk_inl uvec3 ijkVecCopy3u(uvec3 const v_in)
+ijk_inl ilvec3 ijkVecCopy3il(ilvec3 const v_in)
 {
-	uvec3 const v_out = { +v_in.x, +v_in.y, +v_in.z };
+	ilvec3 const v_out = { +v_in.x, +v_in.y, +v_in.z };
 	return v_out;
 }
 
-ijk_inl ivec3 ijkVecNegate3u(uvec3 const v_in)
+ijk_inl ilvec3 ijkVecNegate3il(ilvec3 const v_in)
 {
-	ivec3 const v_out = { -(i32)v_in.x, -(i32)v_in.y, -(i32)v_in.z };
+	ilvec3 const v_out = { -v_in.x, -v_in.y, -v_in.z };
 	return v_out;
 }
 
-ijk_inl uvec3 ijkVecBitNot3u(uvec3 const v_in)
+ijk_inl ilvec3 ijkVecBitNot3il(ilvec3 const v_in)
 {
-	uvec3 const v_out = { ~v_in.x, ~v_in.y, ~v_in.z };
+	ilvec3 const v_out = { ~v_in.x, ~v_in.y, ~v_in.z };
 	return v_out;
 }
 
-ijk_inl bvec3 ijkVecNot3u(uvec3 const v_in)
+ijk_inl bvec3 ijkVecNot3il(ilvec3 const v_in)
 {
 	bvec3 const bv_out = { !v_in.x, !v_in.y, !v_in.z };
 	return bv_out;
 }
 
-ijk_inl uvec3 ijkVecAdd3u(uvec3 const v_lh, uvec3 const v_rh)
+ijk_inl ilvec3 ijkVecAdd3il(ilvec3 const v_lh, ilvec3 const v_rh)
 {
-	uvec3 const v_out = {
+	ilvec3 const v_out = {
 		v_lh.x + v_rh.x,
 		v_lh.y + v_rh.y,
 		v_lh.z + v_rh.z,
@@ -3108,9 +3108,9 @@ ijk_inl uvec3 ijkVecAdd3u(uvec3 const v_lh, uvec3 const v_rh)
 	return v_out;
 }
 
-ijk_inl uvec3 ijkVecSub3u(uvec3 const v_lh, uvec3 const v_rh)
+ijk_inl ilvec3 ijkVecSub3il(ilvec3 const v_lh, ilvec3 const v_rh)
 {
-	uvec3 const v_out = {
+	ilvec3 const v_out = {
 		v_lh.x - v_rh.x,
 		v_lh.y - v_rh.y,
 		v_lh.z - v_rh.z,
@@ -3118,9 +3118,9 @@ ijk_inl uvec3 ijkVecSub3u(uvec3 const v_lh, uvec3 const v_rh)
 	return v_out;
 }
 
-ijk_inl uvec3 ijkVecMul3u(uvec3 const v_lh, uvec3 const v_rh)
+ijk_inl ilvec3 ijkVecMul3il(ilvec3 const v_lh, ilvec3 const v_rh)
 {
-	uvec3 const v_out = {
+	ilvec3 const v_out = {
 		v_lh.x * v_rh.x,
 		v_lh.y * v_rh.y,
 		v_lh.z * v_rh.z,
@@ -3128,9 +3128,9 @@ ijk_inl uvec3 ijkVecMul3u(uvec3 const v_lh, uvec3 const v_rh)
 	return v_out;
 }
 
-ijk_inl uvec3 ijkVecDiv3u(uvec3 const v_lh, uvec3 const v_rh)
+ijk_inl ilvec3 ijkVecDiv3il(ilvec3 const v_lh, ilvec3 const v_rh)
 {
-	uvec3 const v_out = {
+	ilvec3 const v_out = {
 		v_lh.x / v_rh.x,
 		v_lh.y / v_rh.y,
 		v_lh.z / v_rh.z,
@@ -3138,9 +3138,9 @@ ijk_inl uvec3 ijkVecDiv3u(uvec3 const v_lh, uvec3 const v_rh)
 	return v_out;
 }
 
-ijk_inl uvec3 ijkVecDivSafe3u(uvec3 const v_lh, uvec3 const v_rh)
+ijk_inl ilvec3 ijkVecDivSafe3il(ilvec3 const v_lh, ilvec3 const v_rh)
 {
-	uvec3 const v_out = {
+	ilvec3 const v_out = {
 		ijk_divide_safe_int(v_lh.x, v_rh.x),
 		ijk_divide_safe_int(v_lh.y, v_rh.y),
 		ijk_divide_safe_int(v_lh.z, v_rh.z),
@@ -3148,9 +3148,9 @@ ijk_inl uvec3 ijkVecDivSafe3u(uvec3 const v_lh, uvec3 const v_rh)
 	return v_out;
 }
 
-ijk_inl uvec3 ijkVecMod3u(uvec3 const v_lh, uvec3 const v_rh)
+ijk_inl ilvec3 ijkVecMod3il(ilvec3 const v_lh, ilvec3 const v_rh)
 {
-	uvec3 const v_out = {
+	ilvec3 const v_out = {
 		v_lh.x % v_rh.x,
 		v_lh.y % v_rh.y,
 		v_lh.z % v_rh.z,
@@ -3158,9 +3158,9 @@ ijk_inl uvec3 ijkVecMod3u(uvec3 const v_lh, uvec3 const v_rh)
 	return v_out;
 }
 
-ijk_inl uvec3 ijkVecModSafe3u(uvec3 const v_lh, uvec3 const v_rh)
+ijk_inl ilvec3 ijkVecModSafe3il(ilvec3 const v_lh, ilvec3 const v_rh)
 {
-	uvec3 const v_out = {
+	ilvec3 const v_out = {
 		ijk_modulo_safe_int(v_lh.x, v_rh.x),
 		ijk_modulo_safe_int(v_lh.y, v_rh.y),
 		ijk_modulo_safe_int(v_lh.z, v_rh.z),
@@ -3168,9 +3168,9 @@ ijk_inl uvec3 ijkVecModSafe3u(uvec3 const v_lh, uvec3 const v_rh)
 	return v_out;
 }
 
-ijk_inl uvec3 ijkVecBitAnd3u(uvec3 const v_lh, uvec3 const v_rh)
+ijk_inl ilvec3 ijkVecBitAnd3il(ilvec3 const v_lh, ilvec3 const v_rh)
 {
-	uvec3 const v_out = {
+	ilvec3 const v_out = {
 		(v_lh.x & v_rh.x),
 		(v_lh.y & v_rh.y),
 		(v_lh.z & v_rh.z),
@@ -3178,9 +3178,9 @@ ijk_inl uvec3 ijkVecBitAnd3u(uvec3 const v_lh, uvec3 const v_rh)
 	return v_out;
 }
 
-ijk_inl uvec3 ijkVecBitNand3u(uvec3 const v_lh, uvec3 const v_rh)
+ijk_inl ilvec3 ijkVecBitNand3il(ilvec3 const v_lh, ilvec3 const v_rh)
 {
-	uvec3 const v_out = {
+	ilvec3 const v_out = {
 		~(v_lh.x & v_rh.x),
 		~(v_lh.y & v_rh.y),
 		~(v_lh.z & v_rh.z),
@@ -3188,9 +3188,9 @@ ijk_inl uvec3 ijkVecBitNand3u(uvec3 const v_lh, uvec3 const v_rh)
 	return v_out;
 }
 
-ijk_inl uvec3 ijkVecBitOr3u(uvec3 const v_lh, uvec3 const v_rh)
+ijk_inl ilvec3 ijkVecBitOr3il(ilvec3 const v_lh, ilvec3 const v_rh)
 {
-	uvec3 const v_out = {
+	ilvec3 const v_out = {
 		(v_lh.x | v_rh.x),
 		(v_lh.y | v_rh.y),
 		(v_lh.z | v_rh.z),
@@ -3198,9 +3198,9 @@ ijk_inl uvec3 ijkVecBitOr3u(uvec3 const v_lh, uvec3 const v_rh)
 	return v_out;
 }
 
-ijk_inl uvec3 ijkVecBitNor3u(uvec3 const v_lh, uvec3 const v_rh)
+ijk_inl ilvec3 ijkVecBitNor3il(ilvec3 const v_lh, ilvec3 const v_rh)
 {
-	uvec3 const v_out = {
+	ilvec3 const v_out = {
 		~(v_lh.x | v_rh.x),
 		~(v_lh.y | v_rh.y),
 		~(v_lh.z | v_rh.z),
@@ -3208,9 +3208,9 @@ ijk_inl uvec3 ijkVecBitNor3u(uvec3 const v_lh, uvec3 const v_rh)
 	return v_out;
 }
 
-ijk_inl uvec3 ijkVecBitXor3u(uvec3 const v_lh, uvec3 const v_rh)
+ijk_inl ilvec3 ijkVecBitXor3il(ilvec3 const v_lh, ilvec3 const v_rh)
 {
-	uvec3 const v_out = {
+	ilvec3 const v_out = {
 		(v_lh.x ^ v_rh.x),
 		(v_lh.y ^ v_rh.y),
 		(v_lh.z ^ v_rh.z),
@@ -3218,9 +3218,9 @@ ijk_inl uvec3 ijkVecBitXor3u(uvec3 const v_lh, uvec3 const v_rh)
 	return v_out;
 }
 
-ijk_inl uvec3 ijkVecBitXnor3u(uvec3 const v_lh, uvec3 const v_rh)
+ijk_inl ilvec3 ijkVecBitXnor3il(ilvec3 const v_lh, ilvec3 const v_rh)
 {
-	uvec3 const v_out = {
+	ilvec3 const v_out = {
 		~(v_lh.x ^ v_rh.x),
 		~(v_lh.y ^ v_rh.y),
 		~(v_lh.z ^ v_rh.z),
@@ -3228,9 +3228,9 @@ ijk_inl uvec3 ijkVecBitXnor3u(uvec3 const v_lh, uvec3 const v_rh)
 	return v_out;
 }
 
-ijk_inl uvec3 ijkVecBitShiftLeft3u(uvec3 const v_lh, uvec3 const v_rh)
+ijk_inl ilvec3 ijkVecBitShiftLeft3il(ilvec3 const v_lh, ilvec3 const v_rh)
 {
-	uvec3 const v_out = {
+	ilvec3 const v_out = {
 		(v_lh.x << v_rh.x),
 		(v_lh.y << v_rh.y),
 		(v_lh.z << v_rh.z),
@@ -3238,9 +3238,9 @@ ijk_inl uvec3 ijkVecBitShiftLeft3u(uvec3 const v_lh, uvec3 const v_rh)
 	return v_out;
 }
 
-ijk_inl uvec3 ijkVecBitShiftRight3u(uvec3 const v_lh, uvec3 const v_rh)
+ijk_inl ilvec3 ijkVecBitShiftRight3il(ilvec3 const v_lh, ilvec3 const v_rh)
 {
-	uvec3 const v_out = {
+	ilvec3 const v_out = {
 		(v_lh.x >> v_rh.x),
 		(v_lh.y >> v_rh.y),
 		(v_lh.z >> v_rh.z),
@@ -3248,7 +3248,7 @@ ijk_inl uvec3 ijkVecBitShiftRight3u(uvec3 const v_lh, uvec3 const v_rh)
 	return v_out;
 }
 
-ijk_inl bvec3 ijkVecEqual3u(uvec3 const v_lh, uvec3 const v_rh)
+ijk_inl bvec3 ijkVecEqual3il(ilvec3 const v_lh, ilvec3 const v_rh)
 {
 	bvec3 const bv_out = {
 		(v_lh.x == v_rh.x),
@@ -3258,7 +3258,7 @@ ijk_inl bvec3 ijkVecEqual3u(uvec3 const v_lh, uvec3 const v_rh)
 	return bv_out;
 }
 
-ijk_inl bvec3 ijkVecInequal3u(uvec3 const v_lh, uvec3 const v_rh)
+ijk_inl bvec3 ijkVecInequal3il(ilvec3 const v_lh, ilvec3 const v_rh)
 {
 	bvec3 const bv_out = {
 		(v_lh.x != v_rh.x),
@@ -3268,7 +3268,7 @@ ijk_inl bvec3 ijkVecInequal3u(uvec3 const v_lh, uvec3 const v_rh)
 	return bv_out;
 }
 
-ijk_inl bvec3 ijkVecLessEqual3u(uvec3 const v_lh, uvec3 const v_rh)
+ijk_inl bvec3 ijkVecLessEqual3il(ilvec3 const v_lh, ilvec3 const v_rh)
 {
 	bvec3 const bv_out = {
 		(v_lh.x <= v_rh.x),
@@ -3278,7 +3278,7 @@ ijk_inl bvec3 ijkVecLessEqual3u(uvec3 const v_lh, uvec3 const v_rh)
 	return bv_out;
 }
 
-ijk_inl bvec3 ijkVecGreaterEqual3u(uvec3 const v_lh, uvec3 const v_rh)
+ijk_inl bvec3 ijkVecGreaterEqual3il(ilvec3 const v_lh, ilvec3 const v_rh)
 {
 	bvec3 const bv_out = {
 		(v_lh.x >= v_rh.x),
@@ -3288,7 +3288,7 @@ ijk_inl bvec3 ijkVecGreaterEqual3u(uvec3 const v_lh, uvec3 const v_rh)
 	return bv_out;
 }
 
-ijk_inl bvec3 ijkVecLess3u(uvec3 const v_lh, uvec3 const v_rh)
+ijk_inl bvec3 ijkVecLess3il(ilvec3 const v_lh, ilvec3 const v_rh)
 {
 	bvec3 const bv_out = {
 		(v_lh.x < v_rh.x),
@@ -3298,7 +3298,7 @@ ijk_inl bvec3 ijkVecLess3u(uvec3 const v_lh, uvec3 const v_rh)
 	return bv_out;
 }
 
-ijk_inl bvec3 ijkVecGreater3u(uvec3 const v_lh, uvec3 const v_rh)
+ijk_inl bvec3 ijkVecGreater3il(ilvec3 const v_lh, ilvec3 const v_rh)
 {
 	bvec3 const bv_out = {
 		(v_lh.x > v_rh.x),
@@ -3308,7 +3308,7 @@ ijk_inl bvec3 ijkVecGreater3u(uvec3 const v_lh, uvec3 const v_rh)
 	return bv_out;
 }
 
-ijk_inl bvec3 ijkVecAnd3u(uvec3 const v_lh, uvec3 const v_rh)
+ijk_inl bvec3 ijkVecAnd3il(ilvec3 const v_lh, ilvec3 const v_rh)
 {
 	bvec3 const bv_out = {
 		(v_lh.x && v_rh.x),
@@ -3318,7 +3318,7 @@ ijk_inl bvec3 ijkVecAnd3u(uvec3 const v_lh, uvec3 const v_rh)
 	return bv_out;
 }
 
-ijk_inl bvec3 ijkVecNand3u(uvec3 const v_lh, uvec3 const v_rh)
+ijk_inl bvec3 ijkVecNand3il(ilvec3 const v_lh, ilvec3 const v_rh)
 {
 	bvec3 const bv_out = {
 		!(v_lh.x && v_rh.x),
@@ -3328,7 +3328,7 @@ ijk_inl bvec3 ijkVecNand3u(uvec3 const v_lh, uvec3 const v_rh)
 	return bv_out;
 }
 
-ijk_inl bvec3 ijkVecOr3u(uvec3 const v_lh, uvec3 const v_rh)
+ijk_inl bvec3 ijkVecOr3il(ilvec3 const v_lh, ilvec3 const v_rh)
 {
 	bvec3 const bv_out = {
 		(v_lh.x || v_rh.x),
@@ -3338,7 +3338,7 @@ ijk_inl bvec3 ijkVecOr3u(uvec3 const v_lh, uvec3 const v_rh)
 	return bv_out;
 }
 
-ijk_inl bvec3 ijkVecNor3u(uvec3 const v_lh, uvec3 const v_rh)
+ijk_inl bvec3 ijkVecNor3il(ilvec3 const v_lh, ilvec3 const v_rh)
 {
 	bvec3 const bv_out = {
 		!(v_lh.x || v_rh.x),
@@ -3348,42 +3348,42 @@ ijk_inl bvec3 ijkVecNor3u(uvec3 const v_lh, uvec3 const v_rh)
 	return bv_out;
 }
 
-ijk_inl uvec3 ijkVecCopy3uz(uvec2 const v_xy, uint const z)
+ijk_inl ilvec3 ijkVecCopy3ilz(ilvec2 const v_xy, int const z)
 {
-	uvec3 const v_out = { v_xy.x, v_xy.y, z };
+	ilvec3 const v_out = { v_xy.x, v_xy.y, z };
 	return v_out;
 }
 
-ijk_inl uvec3 ijkVecCopy3us(uint const s_in)
+ijk_inl ilvec3 ijkVecCopy3ils(int const s_in)
 {
-	uvec3 const v_out = { s_in, s_in, s_in };
+	ilvec3 const v_out = { s_in, s_in, s_in };
 	return v_out;
 }
 
-ijk_inl ivec3 ijkVecNegate3us(uint const s_in)
+ijk_inl ilvec3 ijkVecNegate3ils(int const s_in)
 {
-	int const s = -(i32)s_in;
-	ivec3 const v_out = { s, s, s };
+	int const s = -s_in;
+	ilvec3 const v_out = { s, s, s };
 	return v_out;
 }
 
-ijk_inl uvec3 ijkVecBitNot3us(uint const s_in)
+ijk_inl ilvec3 ijkVecBitNot3ils(int const s_in)
 {
-	uint const s = ~s_in;
-	uvec3 const v_out = { s, s, s };
+	int const s = ~s_in;
+	ilvec3 const v_out = { s, s, s };
 	return v_out;
 }
 
-ijk_inl bvec3 ijkVecNot3us(uint const s_in)
+ijk_inl bvec3 ijkVecNot3ils(int const s_in)
 {
 	bool const s = !s_in;
 	bvec3 const bv_out = { s, s, s };
 	return bv_out;
 }
 
-ijk_inl uvec3 ijkVecAdd3us(uvec3 const v_lh, uint const s_rh)
+ijk_inl ilvec3 ijkVecAdd3ils(ilvec3 const v_lh, int const s_rh)
 {
-	uvec3 const v_out = {
+	ilvec3 const v_out = {
 		v_lh.x + s_rh,
 		v_lh.y + s_rh,
 		v_lh.z + s_rh,
@@ -3391,9 +3391,9 @@ ijk_inl uvec3 ijkVecAdd3us(uvec3 const v_lh, uint const s_rh)
 	return v_out;
 }
 
-ijk_inl uvec3 ijkVecSub3us(uvec3 const v_lh, uint const s_rh)
+ijk_inl ilvec3 ijkVecSub3ils(ilvec3 const v_lh, int const s_rh)
 {
-	uvec3 const v_out = {
+	ilvec3 const v_out = {
 		v_lh.x - s_rh,
 		v_lh.y - s_rh,
 		v_lh.z - s_rh,
@@ -3401,9 +3401,9 @@ ijk_inl uvec3 ijkVecSub3us(uvec3 const v_lh, uint const s_rh)
 	return v_out;
 }
 
-ijk_inl uvec3 ijkVecMul3us(uvec3 const v_lh, uint const s_rh)
+ijk_inl ilvec3 ijkVecMul3ils(ilvec3 const v_lh, int const s_rh)
 {
-	uvec3 const v_out = {
+	ilvec3 const v_out = {
 		v_lh.x * s_rh,
 		v_lh.y * s_rh,
 		v_lh.z * s_rh,
@@ -3411,9 +3411,9 @@ ijk_inl uvec3 ijkVecMul3us(uvec3 const v_lh, uint const s_rh)
 	return v_out;
 }
 
-ijk_inl uvec3 ijkVecDiv3us(uvec3 const v_lh, uint const s_rh)
+ijk_inl ilvec3 ijkVecDiv3ils(ilvec3 const v_lh, int const s_rh)
 {
-	uvec3 const v_out = {
+	ilvec3 const v_out = {
 		v_lh.x / s_rh,
 		v_lh.y / s_rh,
 		v_lh.z / s_rh,
@@ -3421,11 +3421,11 @@ ijk_inl uvec3 ijkVecDiv3us(uvec3 const v_lh, uint const s_rh)
 	return v_out;
 }
 
-ijk_inl uvec3 ijkVecDivSafe3us(uvec3 const v_lh, uint const s_rh)
+ijk_inl ilvec3 ijkVecDivSafe3ils(ilvec3 const v_lh, int const s_rh)
 {
 	if (s_rh)
 	{
-		uvec3 const v_out = {
+		ilvec3 const v_out = {
 			v_lh.x / s_rh,
 			v_lh.y / s_rh,
 			v_lh.z / s_rh,
@@ -3434,14 +3434,14 @@ ijk_inl uvec3 ijkVecDivSafe3us(uvec3 const v_lh, uint const s_rh)
 	}
 	else
 	{
-		uvec3 const v_out = { 0, 0, 0 };
+		ilvec3 const v_out = { 0, 0, 0 };
 		return v_out;
 	}
 }
 
-ijk_inl uvec3 ijkVecMod3us(uvec3 const v_lh, uint const s_rh)
+ijk_inl ilvec3 ijkVecMod3ils(ilvec3 const v_lh, int const s_rh)
 {
-	uvec3 const v_out = {
+	ilvec3 const v_out = {
 		v_lh.x % s_rh,
 		v_lh.y % s_rh,
 		v_lh.z % s_rh,
@@ -3449,11 +3449,11 @@ ijk_inl uvec3 ijkVecMod3us(uvec3 const v_lh, uint const s_rh)
 	return v_out;
 }
 
-ijk_inl uvec3 ijkVecModSafe3us(uvec3 const v_lh, uint const s_rh)
+ijk_inl ilvec3 ijkVecModSafe3ils(ilvec3 const v_lh, int const s_rh)
 {
 	if (s_rh)
 	{
-		uvec3 const v_out = {
+		ilvec3 const v_out = {
 			v_lh.x % s_rh,
 			v_lh.y % s_rh,
 			v_lh.z % s_rh,
@@ -3463,9 +3463,9 @@ ijk_inl uvec3 ijkVecModSafe3us(uvec3 const v_lh, uint const s_rh)
 	return v_lh;
 }
 
-ijk_inl uvec3 ijkVecBitAnd3us(uvec3 const v_lh, uint const s_rh)
+ijk_inl ilvec3 ijkVecBitAnd3ils(ilvec3 const v_lh, int const s_rh)
 {
-	uvec3 const v_out = {
+	ilvec3 const v_out = {
 		(v_lh.x & s_rh),
 		(v_lh.y & s_rh),
 		(v_lh.z & s_rh),
@@ -3473,9 +3473,9 @@ ijk_inl uvec3 ijkVecBitAnd3us(uvec3 const v_lh, uint const s_rh)
 	return v_out;
 }
 
-ijk_inl uvec3 ijkVecBitNand3us(uvec3 const v_lh, uint const s_rh)
+ijk_inl ilvec3 ijkVecBitNand3ils(ilvec3 const v_lh, int const s_rh)
 {
-	uvec3 const v_out = {
+	ilvec3 const v_out = {
 		~(v_lh.x & s_rh),
 		~(v_lh.y & s_rh),
 		~(v_lh.z & s_rh),
@@ -3483,9 +3483,9 @@ ijk_inl uvec3 ijkVecBitNand3us(uvec3 const v_lh, uint const s_rh)
 	return v_out;
 }
 
-ijk_inl uvec3 ijkVecBitOr3us(uvec3 const v_lh, uint const s_rh)
+ijk_inl ilvec3 ijkVecBitOr3ils(ilvec3 const v_lh, int const s_rh)
 {
-	uvec3 const v_out = {
+	ilvec3 const v_out = {
 		(v_lh.x | s_rh),
 		(v_lh.y | s_rh),
 		(v_lh.z | s_rh),
@@ -3493,9 +3493,9 @@ ijk_inl uvec3 ijkVecBitOr3us(uvec3 const v_lh, uint const s_rh)
 	return v_out;
 }
 
-ijk_inl uvec3 ijkVecBitNor3us(uvec3 const v_lh, uint const s_rh)
+ijk_inl ilvec3 ijkVecBitNor3ils(ilvec3 const v_lh, int const s_rh)
 {
-	uvec3 const v_out = {
+	ilvec3 const v_out = {
 		~(v_lh.x | s_rh),
 		~(v_lh.y | s_rh),
 		~(v_lh.z | s_rh),
@@ -3503,9 +3503,9 @@ ijk_inl uvec3 ijkVecBitNor3us(uvec3 const v_lh, uint const s_rh)
 	return v_out;
 }
 
-ijk_inl uvec3 ijkVecBitXor3us(uvec3 const v_lh, uint const s_rh)
+ijk_inl ilvec3 ijkVecBitXor3ils(ilvec3 const v_lh, int const s_rh)
 {
-	uvec3 const v_out = {
+	ilvec3 const v_out = {
 		(v_lh.x ^ s_rh),
 		(v_lh.y ^ s_rh),
 		(v_lh.z ^ s_rh),
@@ -3513,9 +3513,9 @@ ijk_inl uvec3 ijkVecBitXor3us(uvec3 const v_lh, uint const s_rh)
 	return v_out;
 }
 
-ijk_inl uvec3 ijkVecBitXnor3us(uvec3 const v_lh, uint const s_rh)
+ijk_inl ilvec3 ijkVecBitXnor3ils(ilvec3 const v_lh, int const s_rh)
 {
-	uvec3 const v_out = {
+	ilvec3 const v_out = {
 		~(v_lh.x ^ s_rh),
 		~(v_lh.y ^ s_rh),
 		~(v_lh.z ^ s_rh),
@@ -3523,9 +3523,9 @@ ijk_inl uvec3 ijkVecBitXnor3us(uvec3 const v_lh, uint const s_rh)
 	return v_out;
 }
 
-ijk_inl uvec3 ijkVecBitShiftLeft3us(uvec3 const v_lh, uint const s_rh)
+ijk_inl ilvec3 ijkVecBitShiftLeft3ils(ilvec3 const v_lh, int const s_rh)
 {
-	uvec3 const v_out = {
+	ilvec3 const v_out = {
 		(v_lh.x << s_rh),
 		(v_lh.y << s_rh),
 		(v_lh.z << s_rh),
@@ -3533,9 +3533,9 @@ ijk_inl uvec3 ijkVecBitShiftLeft3us(uvec3 const v_lh, uint const s_rh)
 	return v_out;
 }
 
-ijk_inl uvec3 ijkVecBitShiftRight3us(uvec3 const v_lh, uint const s_rh)
+ijk_inl ilvec3 ijkVecBitShiftRight3ils(ilvec3 const v_lh, int const s_rh)
 {
-	uvec3 const v_out = {
+	ilvec3 const v_out = {
 		(v_lh.x >> s_rh),
 		(v_lh.y >> s_rh),
 		(v_lh.z >> s_rh),
@@ -3543,7 +3543,7 @@ ijk_inl uvec3 ijkVecBitShiftRight3us(uvec3 const v_lh, uint const s_rh)
 	return v_out;
 }
 
-ijk_inl bvec3 ijkVecEqual3us(uvec3 const v_lh, uint const s_rh)
+ijk_inl bvec3 ijkVecEqual3ils(ilvec3 const v_lh, int const s_rh)
 {
 	bvec3 const bv_out = {
 		(v_lh.x == s_rh),
@@ -3553,7 +3553,7 @@ ijk_inl bvec3 ijkVecEqual3us(uvec3 const v_lh, uint const s_rh)
 	return bv_out;
 }
 
-ijk_inl bvec3 ijkVecInequal3us(uvec3 const v_lh, uint const s_rh)
+ijk_inl bvec3 ijkVecInequal3ils(ilvec3 const v_lh, int const s_rh)
 {
 	bvec3 const bv_out = {
 		(v_lh.x != s_rh),
@@ -3563,7 +3563,7 @@ ijk_inl bvec3 ijkVecInequal3us(uvec3 const v_lh, uint const s_rh)
 	return bv_out;
 }
 
-ijk_inl bvec3 ijkVecLessEqual3us(uvec3 const v_lh, uint const s_rh)
+ijk_inl bvec3 ijkVecLessEqual3ils(ilvec3 const v_lh, int const s_rh)
 {
 	bvec3 const bv_out = {
 		(v_lh.x <= s_rh),
@@ -3573,7 +3573,7 @@ ijk_inl bvec3 ijkVecLessEqual3us(uvec3 const v_lh, uint const s_rh)
 	return bv_out;
 }
 
-ijk_inl bvec3 ijkVecGreaterEqual3us(uvec3 const v_lh, uint const s_rh)
+ijk_inl bvec3 ijkVecGreaterEqual3ils(ilvec3 const v_lh, int const s_rh)
 {
 	bvec3 const bv_out = {
 		(v_lh.x >= s_rh),
@@ -3583,7 +3583,7 @@ ijk_inl bvec3 ijkVecGreaterEqual3us(uvec3 const v_lh, uint const s_rh)
 	return bv_out;
 }
 
-ijk_inl bvec3 ijkVecLess3us(uvec3 const v_lh, uint const s_rh)
+ijk_inl bvec3 ijkVecLess3ils(ilvec3 const v_lh, int const s_rh)
 {
 	bvec3 const bv_out = {
 		(v_lh.x < s_rh),
@@ -3593,7 +3593,7 @@ ijk_inl bvec3 ijkVecLess3us(uvec3 const v_lh, uint const s_rh)
 	return bv_out;
 }
 
-ijk_inl bvec3 ijkVecGreater3us(uvec3 const v_lh, uint const s_rh)
+ijk_inl bvec3 ijkVecGreater3ils(ilvec3 const v_lh, int const s_rh)
 {
 	bvec3 const bv_out = {
 		(v_lh.x > s_rh),
@@ -3603,7 +3603,7 @@ ijk_inl bvec3 ijkVecGreater3us(uvec3 const v_lh, uint const s_rh)
 	return bv_out;
 }
 
-ijk_inl bvec3 ijkVecAnd3us(uvec3 const v_lh, uint const s_rh)
+ijk_inl bvec3 ijkVecAnd3ils(ilvec3 const v_lh, int const s_rh)
 {
 	bvec3 const bv_out = {
 		(v_lh.x && s_rh),
@@ -3613,7 +3613,7 @@ ijk_inl bvec3 ijkVecAnd3us(uvec3 const v_lh, uint const s_rh)
 	return bv_out;
 }
 
-ijk_inl bvec3 ijkVecNand3us(uvec3 const v_lh, uint const s_rh)
+ijk_inl bvec3 ijkVecNand3ils(ilvec3 const v_lh, int const s_rh)
 {
 	bvec3 const bv_out = {
 		!(v_lh.x && s_rh),
@@ -3623,7 +3623,7 @@ ijk_inl bvec3 ijkVecNand3us(uvec3 const v_lh, uint const s_rh)
 	return bv_out;
 }
 
-ijk_inl bvec3 ijkVecOr3us(uvec3 const v_lh, uint const s_rh)
+ijk_inl bvec3 ijkVecOr3ils(ilvec3 const v_lh, int const s_rh)
 {
 	bvec3 const bv_out = {
 		(v_lh.x || s_rh),
@@ -3633,7 +3633,7 @@ ijk_inl bvec3 ijkVecOr3us(uvec3 const v_lh, uint const s_rh)
 	return bv_out;
 }
 
-ijk_inl bvec3 ijkVecNor3us(uvec3 const v_lh, uint const s_rh)
+ijk_inl bvec3 ijkVecNor3ils(ilvec3 const v_lh, int const s_rh)
 {
 	bvec3 const bv_out = {
 		!(v_lh.x || s_rh),
@@ -3643,15 +3643,15 @@ ijk_inl bvec3 ijkVecNor3us(uvec3 const v_lh, uint const s_rh)
 	return bv_out;
 }
 
-ijk_inl uvec3 ijkVecCopy3xu(uint const x, uvec2 const v_yz)
+ijk_inl ilvec3 ijkVecCopy3xi(int const x, ilvec2 const v_yz)
 {
-	uvec3 const v_out = { x, v_yz.x, v_yz.y };
+	ilvec3 const v_out = { x, v_yz.x, v_yz.y };
 	return v_out;
 }
 
-ijk_inl uvec3 ijkVecAdd3su(uint const s_lh, uvec3 const v_rh)
+ijk_inl ilvec3 ijkVecAdd3sil(int const s_lh, ilvec3 const v_rh)
 {
-	uvec3 const v_out = {
+	ilvec3 const v_out = {
 		s_lh + v_rh.x,
 		s_lh + v_rh.y,
 		s_lh + v_rh.z,
@@ -3659,9 +3659,9 @@ ijk_inl uvec3 ijkVecAdd3su(uint const s_lh, uvec3 const v_rh)
 	return v_out;
 }
 
-ijk_inl uvec3 ijkVecSub3su(uint const s_lh, uvec3 const v_rh)
+ijk_inl ilvec3 ijkVecSub3sil(int const s_lh, ilvec3 const v_rh)
 {
-	uvec3 const v_out = {
+	ilvec3 const v_out = {
 		s_lh - v_rh.x,
 		s_lh - v_rh.y,
 		s_lh - v_rh.z,
@@ -3669,9 +3669,9 @@ ijk_inl uvec3 ijkVecSub3su(uint const s_lh, uvec3 const v_rh)
 	return v_out;
 }
 
-ijk_inl uvec3 ijkVecMul3su(uint const s_lh, uvec3 const v_rh)
+ijk_inl ilvec3 ijkVecMul3sil(int const s_lh, ilvec3 const v_rh)
 {
-	uvec3 const v_out = {
+	ilvec3 const v_out = {
 		s_lh * v_rh.x,
 		s_lh * v_rh.y,
 		s_lh * v_rh.z,
@@ -3679,9 +3679,9 @@ ijk_inl uvec3 ijkVecMul3su(uint const s_lh, uvec3 const v_rh)
 	return v_out;
 }
 
-ijk_inl uvec3 ijkVecDiv3su(uint const s_lh, uvec3 const v_rh)
+ijk_inl ilvec3 ijkVecDiv3sil(int const s_lh, ilvec3 const v_rh)
 {
-	uvec3 const v_out = {
+	ilvec3 const v_out = {
 		s_lh / v_rh.x,
 		s_lh / v_rh.y,
 		s_lh / v_rh.z,
@@ -3689,9 +3689,9 @@ ijk_inl uvec3 ijkVecDiv3su(uint const s_lh, uvec3 const v_rh)
 	return v_out;
 }
 
-ijk_inl uvec3 ijkVecDivSafe3su(uint const s_lh, uvec3 const v_rh)
+ijk_inl ilvec3 ijkVecDivSafe3sil(int const s_lh, ilvec3 const v_rh)
 {
-	uvec3 const v_out = {
+	ilvec3 const v_out = {
 		ijk_divide_safe_int(s_lh, v_rh.x),
 		ijk_divide_safe_int(s_lh, v_rh.y),
 		ijk_divide_safe_int(s_lh, v_rh.z),
@@ -3699,9 +3699,9 @@ ijk_inl uvec3 ijkVecDivSafe3su(uint const s_lh, uvec3 const v_rh)
 	return v_out;
 }
 
-ijk_inl uvec3 ijkVecMod3su(uint const s_lh, uvec3 const v_rh)
+ijk_inl ilvec3 ijkVecMod3sil(int const s_lh, ilvec3 const v_rh)
 {
-	uvec3 const v_out = {
+	ilvec3 const v_out = {
 		s_lh % v_rh.x,
 		s_lh % v_rh.y,
 		s_lh % v_rh.z,
@@ -3709,19 +3709,19 @@ ijk_inl uvec3 ijkVecMod3su(uint const s_lh, uvec3 const v_rh)
 	return v_out;
 }
 
-ijk_inl uvec3 ijkVecModSafe3su(uint const s_lh, uvec3 const v_rh)
+ijk_inl ilvec3 ijkVecModSafe3sil(int const s_lh, ilvec3 const v_rh)
 {
-	uvec3 const v_out = {
-		ijk_modulo_safe_int((ui32)s_lh, v_rh.x),
-		ijk_modulo_safe_int((ui32)s_lh, v_rh.y),
-		ijk_modulo_safe_int((ui32)s_lh, v_rh.z),
+	ilvec3 const v_out = {
+		ijk_modulo_safe_int((i64)s_lh, v_rh.x),
+		ijk_modulo_safe_int((i64)s_lh, v_rh.y),
+		ijk_modulo_safe_int((i64)s_lh, v_rh.z),
 	};
 	return v_out;
 }
 
-ijk_inl uvec3 ijkVecBitAnd3su(uint const s_lh, uvec3 const v_rh)
+ijk_inl ilvec3 ijkVecBitAnd3sil(int const s_lh, ilvec3 const v_rh)
 {
-	uvec3 const v_out = {
+	ilvec3 const v_out = {
 		(s_lh & v_rh.x),
 		(s_lh & v_rh.y),
 		(s_lh & v_rh.z),
@@ -3729,9 +3729,9 @@ ijk_inl uvec3 ijkVecBitAnd3su(uint const s_lh, uvec3 const v_rh)
 	return v_out;
 }
 
-ijk_inl uvec3 ijkVecBitNand3su(uint const s_lh, uvec3 const v_rh)
+ijk_inl ilvec3 ijkVecBitNand3sil(int const s_lh, ilvec3 const v_rh)
 {
-	uvec3 const v_out = {
+	ilvec3 const v_out = {
 		~(s_lh & v_rh.x),
 		~(s_lh & v_rh.y),
 		~(s_lh & v_rh.z),
@@ -3739,9 +3739,9 @@ ijk_inl uvec3 ijkVecBitNand3su(uint const s_lh, uvec3 const v_rh)
 	return v_out;
 }
 
-ijk_inl uvec3 ijkVecBitOr3su(uint const s_lh, uvec3 const v_rh)
+ijk_inl ilvec3 ijkVecBitOr3sil(int const s_lh, ilvec3 const v_rh)
 {
-	uvec3 const v_out = {
+	ilvec3 const v_out = {
 		(s_lh | v_rh.x),
 		(s_lh | v_rh.y),
 		(s_lh | v_rh.z),
@@ -3749,9 +3749,9 @@ ijk_inl uvec3 ijkVecBitOr3su(uint const s_lh, uvec3 const v_rh)
 	return v_out;
 }
 
-ijk_inl uvec3 ijkVecBitNor3su(uint const s_lh, uvec3 const v_rh)
+ijk_inl ilvec3 ijkVecBitNor3sil(int const s_lh, ilvec3 const v_rh)
 {
-	uvec3 const v_out = {
+	ilvec3 const v_out = {
 		~(s_lh | v_rh.x),
 		~(s_lh | v_rh.y),
 		~(s_lh | v_rh.z),
@@ -3759,9 +3759,9 @@ ijk_inl uvec3 ijkVecBitNor3su(uint const s_lh, uvec3 const v_rh)
 	return v_out;
 }
 
-ijk_inl uvec3 ijkVecBitXor3su(uint const s_lh, uvec3 const v_rh)
+ijk_inl ilvec3 ijkVecBitXor3sil(int const s_lh, ilvec3 const v_rh)
 {
-	uvec3 const v_out = {
+	ilvec3 const v_out = {
 		(s_lh ^ v_rh.x),
 		(s_lh ^ v_rh.y),
 		(s_lh ^ v_rh.z),
@@ -3769,9 +3769,9 @@ ijk_inl uvec3 ijkVecBitXor3su(uint const s_lh, uvec3 const v_rh)
 	return v_out;
 }
 
-ijk_inl uvec3 ijkVecBitXnor3su(uint const s_lh, uvec3 const v_rh)
+ijk_inl ilvec3 ijkVecBitXnor3sil(int const s_lh, ilvec3 const v_rh)
 {
-	uvec3 const v_out = {
+	ilvec3 const v_out = {
 		~(s_lh ^ v_rh.x),
 		~(s_lh ^ v_rh.y),
 		~(s_lh ^ v_rh.z),
@@ -3779,9 +3779,9 @@ ijk_inl uvec3 ijkVecBitXnor3su(uint const s_lh, uvec3 const v_rh)
 	return v_out;
 }
 
-ijk_inl uvec3 ijkVecBitShiftLeft3su(uint const s_lh, uvec3 const v_rh)
+ijk_inl ilvec3 ijkVecBitShiftLeft3sil(int const s_lh, ilvec3 const v_rh)
 {
-	uvec3 const v_out = {
+	ilvec3 const v_out = {
 		(s_lh << v_rh.x),
 		(s_lh << v_rh.y),
 		(s_lh << v_rh.z),
@@ -3789,9 +3789,9 @@ ijk_inl uvec3 ijkVecBitShiftLeft3su(uint const s_lh, uvec3 const v_rh)
 	return v_out;
 }
 
-ijk_inl uvec3 ijkVecBitShiftRight3su(uint const s_lh, uvec3 const v_rh)
+ijk_inl ilvec3 ijkVecBitShiftRight3sil(int const s_lh, ilvec3 const v_rh)
 {
-	uvec3 const v_out = {
+	ilvec3 const v_out = {
 		(s_lh >> v_rh.x),
 		(s_lh >> v_rh.y),
 		(s_lh >> v_rh.z),
@@ -3799,7 +3799,7 @@ ijk_inl uvec3 ijkVecBitShiftRight3su(uint const s_lh, uvec3 const v_rh)
 	return v_out;
 }
 
-ijk_inl bvec3 ijkVecEqual3su(uint const s_lh, uvec3 const v_rh)
+ijk_inl bvec3 ijkVecEqual3sil(int const s_lh, ilvec3 const v_rh)
 {
 	bvec3 const bv_out = {
 		(s_lh == v_rh.x),
@@ -3809,7 +3809,7 @@ ijk_inl bvec3 ijkVecEqual3su(uint const s_lh, uvec3 const v_rh)
 	return bv_out;
 }
 
-ijk_inl bvec3 ijkVecInequal3su(uint const s_lh, uvec3 const v_rh)
+ijk_inl bvec3 ijkVecInequal3sil(int const s_lh, ilvec3 const v_rh)
 {
 	bvec3 const bv_out = {
 		(s_lh != v_rh.x),
@@ -3819,7 +3819,7 @@ ijk_inl bvec3 ijkVecInequal3su(uint const s_lh, uvec3 const v_rh)
 	return bv_out;
 }
 
-ijk_inl bvec3 ijkVecLessEqual3su(uint const s_lh, uvec3 const v_rh)
+ijk_inl bvec3 ijkVecLessEqual3sil(int const s_lh, ilvec3 const v_rh)
 {
 	bvec3 const bv_out = {
 		(s_lh <= v_rh.x),
@@ -3829,7 +3829,7 @@ ijk_inl bvec3 ijkVecLessEqual3su(uint const s_lh, uvec3 const v_rh)
 	return bv_out;
 }
 
-ijk_inl bvec3 ijkVecGreaterEqual3su(uint const s_lh, uvec3 const v_rh)
+ijk_inl bvec3 ijkVecGreaterEqual3sil(int const s_lh, ilvec3 const v_rh)
 {
 	bvec3 const bv_out = {
 		(s_lh >= v_rh.x),
@@ -3839,7 +3839,7 @@ ijk_inl bvec3 ijkVecGreaterEqual3su(uint const s_lh, uvec3 const v_rh)
 	return bv_out;
 }
 
-ijk_inl bvec3 ijkVecLess3su(uint const s_lh, uvec3 const v_rh)
+ijk_inl bvec3 ijkVecLess3sil(int const s_lh, ilvec3 const v_rh)
 {
 	bvec3 const bv_out = {
 		(s_lh < v_rh.x),
@@ -3849,7 +3849,7 @@ ijk_inl bvec3 ijkVecLess3su(uint const s_lh, uvec3 const v_rh)
 	return bv_out;
 }
 
-ijk_inl bvec3 ijkVecGreater3su(uint const s_lh, uvec3 const v_rh)
+ijk_inl bvec3 ijkVecGreater3sil(int const s_lh, ilvec3 const v_rh)
 {
 	bvec3 const bv_out = {
 		(s_lh > v_rh.x),
@@ -3859,7 +3859,7 @@ ijk_inl bvec3 ijkVecGreater3su(uint const s_lh, uvec3 const v_rh)
 	return bv_out;
 }
 
-ijk_inl bvec3 ijkVecAnd3su(uint const s_lh, uvec3 const v_rh)
+ijk_inl bvec3 ijkVecAnd3sil(int const s_lh, ilvec3 const v_rh)
 {
 	bvec3 const bv_out = {
 		(s_lh && v_rh.x),
@@ -3869,7 +3869,7 @@ ijk_inl bvec3 ijkVecAnd3su(uint const s_lh, uvec3 const v_rh)
 	return bv_out;
 }
 
-ijk_inl bvec3 ijkVecNand3su(uint const s_lh, uvec3 const v_rh)
+ijk_inl bvec3 ijkVecNand3sil(int const s_lh, ilvec3 const v_rh)
 {
 	bvec3 const bv_out = {
 		!(s_lh && v_rh.x),
@@ -3879,7 +3879,7 @@ ijk_inl bvec3 ijkVecNand3su(uint const s_lh, uvec3 const v_rh)
 	return bv_out;
 }
 
-ijk_inl bvec3 ijkVecOr3su(uint const s_lh, uvec3 const v_rh)
+ijk_inl bvec3 ijkVecOr3sil(int const s_lh, ilvec3 const v_rh)
 {
 	bvec3 const bv_out = {
 		(s_lh || v_rh.x),
@@ -3889,7 +3889,7 @@ ijk_inl bvec3 ijkVecOr3su(uint const s_lh, uvec3 const v_rh)
 	return bv_out;
 }
 
-ijk_inl bvec3 ijkVecNor3su(uint const s_lh, uvec3 const v_rh)
+ijk_inl bvec3 ijkVecNor3sil(int const s_lh, ilvec3 const v_rh)
 {
 	bvec3 const bv_out = {
 		!(s_lh || v_rh.x),
@@ -3899,72 +3899,72 @@ ijk_inl bvec3 ijkVecNor3su(uint const s_lh, uvec3 const v_rh)
 	return bv_out;
 }
 
-ijk_inl uint ijkVecDot3u(uvec3 const v_lh, uvec3 const v_rh)
+ijk_inl int ijkVecDot3il(ilvec3 const v_lh, ilvec3 const v_rh)
 {
-	return ijkVecDot3uv(v_lh.xyz, v_rh.xyz);
+	return ijkVecDot3ilv(v_lh.xyz, v_rh.xyz);
 }
 
-ijk_inl uvec3 ijkVecCross3u(uvec3 const v_lh, uvec3 const v_rh)
+ijk_inl ilvec3 ijkVecCross3il(ilvec3 const v_lh, ilvec3 const v_rh)
 {
-	uvec3 v_out;
-	ijkVecCross3uv(v_out.xyz, v_lh.xyz, v_rh.xyz);
+	ilvec3 v_out;
+	ijkVecCross3ilv(v_out.xyz, v_lh.xyz, v_rh.xyz);
 	return v_out;
 }
 
 
 //-----------------------------------------------------------------------------
 
-ijk_inl uvec4 ijkVecInit4u()
+ijk_inl ilvec4 ijkVecInit4il()
 {
-	uvec4 const v_out = { 0, 0, 0, 0 };
+	ilvec4 const v_out = { 0, 0, 0, 0 };
 	return v_out;
 }
 
-ijk_inl uvec4 ijkVecInitElems4u(uint const x, uint const y, uint const z, uint const w)
+ijk_inl ilvec4 ijkVecInitElems4il(int const x, int const y, int const z, int const w)
 {
-	uvec4 const v_out = { x, y, z, w };
+	ilvec4 const v_out = { x, y, z, w };
 	return v_out;
 }
 
-ijk_inl uvec4 ijkVecCopy4xuw(uint const x, uvec2 const v_yz, uint const w)
+ijk_inl ilvec4 ijkVecCopy4xiw(int const x, ilvec2 const v_yz, int const w)
 {
-	uvec4 const v_out = { x, v_yz.x, v_yz.y, w };
+	ilvec4 const v_out = { x, v_yz.x, v_yz.y, w };
 	return v_out;
 }
 
-ijk_inl uvec4 ijkVecCopy4u2(uvec2 const v_xy, uvec2 const v_zw)
+ijk_inl ilvec4 ijkVecCopy4il2(ilvec2 const v_xy, ilvec2 const v_zw)
 {
-	uvec4 const v_out = { v_xy.x, v_xy.y, v_zw.x, v_zw.y };
+	ilvec4 const v_out = { v_xy.x, v_xy.y, v_zw.x, v_zw.y };
 	return v_out;
 }
 
-ijk_inl uvec4 ijkVecCopy4u(uvec4 const v_in)
+ijk_inl ilvec4 ijkVecCopy4il(ilvec4 const v_in)
 {
-	uvec4 const v_out = { +v_in.x, +v_in.y, +v_in.z, +v_in.w };
+	ilvec4 const v_out = { +v_in.x, +v_in.y, +v_in.z, +v_in.w };
 	return v_out;
 }
 
-ijk_inl ivec4 ijkVecNegate4u(uvec4 const v_in)
+ijk_inl ilvec4 ijkVecNegate4il(ilvec4 const v_in)
 {
-	ivec4 const v_out = { -(i32)v_in.x, -(i32)v_in.y, -(i32)v_in.z, -(i32)v_in.w };
+	ilvec4 const v_out = { -v_in.x, -v_in.y, -v_in.z, -v_in.w };
 	return v_out;
 }
 
-ijk_inl uvec4 ijkVecBitNot4u(uvec4 const v_in)
+ijk_inl ilvec4 ijkVecBitNot4il(ilvec4 const v_in)
 {
-	uvec4 const v_out = { ~v_in.x, ~v_in.y, ~v_in.z, ~v_in.w };
+	ilvec4 const v_out = { ~v_in.x, ~v_in.y, ~v_in.z, ~v_in.w };
 	return v_out;
 }
 
-ijk_inl bvec4 ijkVecNot4u(uvec4 const v_in)
+ijk_inl bvec4 ijkVecNot4il(ilvec4 const v_in)
 {
 	bvec4 const bv_out = { !v_in.x, !v_in.y, !v_in.z, !v_in.w };
 	return bv_out;
 }
 
-ijk_inl uvec4 ijkVecAdd4u(uvec4 const v_lh, uvec4 const v_rh)
+ijk_inl ilvec4 ijkVecAdd4il(ilvec4 const v_lh, ilvec4 const v_rh)
 {
-	uvec4 const v_out = {
+	ilvec4 const v_out = {
 		v_lh.x + v_rh.x,
 		v_lh.y + v_rh.y,
 		v_lh.z + v_rh.z,
@@ -3973,9 +3973,9 @@ ijk_inl uvec4 ijkVecAdd4u(uvec4 const v_lh, uvec4 const v_rh)
 	return v_out;
 }
 
-ijk_inl uvec4 ijkVecSub4u(uvec4 const v_lh, uvec4 const v_rh)
+ijk_inl ilvec4 ijkVecSub4il(ilvec4 const v_lh, ilvec4 const v_rh)
 {
-	uvec4 const v_out = {
+	ilvec4 const v_out = {
 		v_lh.x - v_rh.x,
 		v_lh.y - v_rh.y,
 		v_lh.z - v_rh.z,
@@ -3984,9 +3984,9 @@ ijk_inl uvec4 ijkVecSub4u(uvec4 const v_lh, uvec4 const v_rh)
 	return v_out;
 }
 
-ijk_inl uvec4 ijkVecMul4u(uvec4 const v_lh, uvec4 const v_rh)
+ijk_inl ilvec4 ijkVecMul4il(ilvec4 const v_lh, ilvec4 const v_rh)
 {
-	uvec4 const v_out = {
+	ilvec4 const v_out = {
 		v_lh.x * v_rh.x,
 		v_lh.y * v_rh.y,
 		v_lh.z * v_rh.z,
@@ -3995,9 +3995,9 @@ ijk_inl uvec4 ijkVecMul4u(uvec4 const v_lh, uvec4 const v_rh)
 	return v_out;
 }
 
-ijk_inl uvec4 ijkVecDiv4u(uvec4 const v_lh, uvec4 const v_rh)
+ijk_inl ilvec4 ijkVecDiv4il(ilvec4 const v_lh, ilvec4 const v_rh)
 {
-	uvec4 const v_out = {
+	ilvec4 const v_out = {
 		v_lh.x / v_rh.x,
 		v_lh.y / v_rh.y,
 		v_lh.z / v_rh.z,
@@ -4006,9 +4006,9 @@ ijk_inl uvec4 ijkVecDiv4u(uvec4 const v_lh, uvec4 const v_rh)
 	return v_out;
 }
 
-ijk_inl uvec4 ijkVecDivSafe4u(uvec4 const v_lh, uvec4 const v_rh)
+ijk_inl ilvec4 ijkVecDivSafe4il(ilvec4 const v_lh, ilvec4 const v_rh)
 {
-	uvec4 const v_out = {
+	ilvec4 const v_out = {
 		ijk_divide_safe_int(v_lh.x, v_rh.x),
 		ijk_divide_safe_int(v_lh.y, v_rh.y),
 		ijk_divide_safe_int(v_lh.z, v_rh.z),
@@ -4017,9 +4017,9 @@ ijk_inl uvec4 ijkVecDivSafe4u(uvec4 const v_lh, uvec4 const v_rh)
 	return v_out;
 }
 
-ijk_inl uvec4 ijkVecMod4u(uvec4 const v_lh, uvec4 const v_rh)
+ijk_inl ilvec4 ijkVecMod4il(ilvec4 const v_lh, ilvec4 const v_rh)
 {
-	uvec4 const v_out = {
+	ilvec4 const v_out = {
 		v_lh.x % v_rh.x,
 		v_lh.y % v_rh.y,
 		v_lh.z % v_rh.z,
@@ -4028,9 +4028,9 @@ ijk_inl uvec4 ijkVecMod4u(uvec4 const v_lh, uvec4 const v_rh)
 	return v_out;
 }
 
-ijk_inl uvec4 ijkVecModSafe4u(uvec4 const v_lh, uvec4 const v_rh)
+ijk_inl ilvec4 ijkVecModSafe4il(ilvec4 const v_lh, ilvec4 const v_rh)
 {
-	uvec4 const v_out = {
+	ilvec4 const v_out = {
 		ijk_modulo_safe_int(v_lh.x, v_rh.x),
 		ijk_modulo_safe_int(v_lh.y, v_rh.y),
 		ijk_modulo_safe_int(v_lh.z, v_rh.z),
@@ -4039,9 +4039,9 @@ ijk_inl uvec4 ijkVecModSafe4u(uvec4 const v_lh, uvec4 const v_rh)
 	return v_out;
 }
 
-ijk_inl uvec4 ijkVecBitAnd4u(uvec4 const v_lh, uvec4 const v_rh)
+ijk_inl ilvec4 ijkVecBitAnd4il(ilvec4 const v_lh, ilvec4 const v_rh)
 {
-	uvec4 const v_out = {
+	ilvec4 const v_out = {
 		(v_lh.x & v_rh.x),
 		(v_lh.y & v_rh.y),
 		(v_lh.z & v_rh.z),
@@ -4050,9 +4050,9 @@ ijk_inl uvec4 ijkVecBitAnd4u(uvec4 const v_lh, uvec4 const v_rh)
 	return v_out;
 }
 
-ijk_inl uvec4 ijkVecBitNand4u(uvec4 const v_lh, uvec4 const v_rh)
+ijk_inl ilvec4 ijkVecBitNand4il(ilvec4 const v_lh, ilvec4 const v_rh)
 {
-	uvec4 const v_out = {
+	ilvec4 const v_out = {
 		~(v_lh.x & v_rh.x),
 		~(v_lh.y & v_rh.y),
 		~(v_lh.z & v_rh.z),
@@ -4061,9 +4061,9 @@ ijk_inl uvec4 ijkVecBitNand4u(uvec4 const v_lh, uvec4 const v_rh)
 	return v_out;
 }
 
-ijk_inl uvec4 ijkVecBitOr4u(uvec4 const v_lh, uvec4 const v_rh)
+ijk_inl ilvec4 ijkVecBitOr4il(ilvec4 const v_lh, ilvec4 const v_rh)
 {
-	uvec4 const v_out = {
+	ilvec4 const v_out = {
 		(v_lh.x | v_rh.x),
 		(v_lh.y | v_rh.y),
 		(v_lh.z | v_rh.z),
@@ -4072,9 +4072,9 @@ ijk_inl uvec4 ijkVecBitOr4u(uvec4 const v_lh, uvec4 const v_rh)
 	return v_out;
 }
 
-ijk_inl uvec4 ijkVecBitNor4u(uvec4 const v_lh, uvec4 const v_rh)
+ijk_inl ilvec4 ijkVecBitNor4il(ilvec4 const v_lh, ilvec4 const v_rh)
 {
-	uvec4 const v_out = {
+	ilvec4 const v_out = {
 		~(v_lh.x | v_rh.x),
 		~(v_lh.y | v_rh.y),
 		~(v_lh.z | v_rh.z),
@@ -4083,9 +4083,9 @@ ijk_inl uvec4 ijkVecBitNor4u(uvec4 const v_lh, uvec4 const v_rh)
 	return v_out;
 }
 
-ijk_inl uvec4 ijkVecBitXor4u(uvec4 const v_lh, uvec4 const v_rh)
+ijk_inl ilvec4 ijkVecBitXor4il(ilvec4 const v_lh, ilvec4 const v_rh)
 {
-	uvec4 const v_out = {
+	ilvec4 const v_out = {
 		(v_lh.x ^ v_rh.x),
 		(v_lh.y ^ v_rh.y),
 		(v_lh.z ^ v_rh.z),
@@ -4094,9 +4094,9 @@ ijk_inl uvec4 ijkVecBitXor4u(uvec4 const v_lh, uvec4 const v_rh)
 	return v_out;
 }
 
-ijk_inl uvec4 ijkVecBitXnor4u(uvec4 const v_lh, uvec4 const v_rh)
+ijk_inl ilvec4 ijkVecBitXnor4il(ilvec4 const v_lh, ilvec4 const v_rh)
 {
-	uvec4 const v_out = {
+	ilvec4 const v_out = {
 		~(v_lh.x ^ v_rh.x),
 		~(v_lh.y ^ v_rh.y),
 		~(v_lh.z ^ v_rh.z),
@@ -4105,9 +4105,9 @@ ijk_inl uvec4 ijkVecBitXnor4u(uvec4 const v_lh, uvec4 const v_rh)
 	return v_out;
 }
 
-ijk_inl uvec4 ijkVecBitShiftLeft4u(uvec4 const v_lh, uvec4 const v_rh)
+ijk_inl ilvec4 ijkVecBitShiftLeft4il(ilvec4 const v_lh, ilvec4 const v_rh)
 {
-	uvec4 const v_out = {
+	ilvec4 const v_out = {
 		(v_lh.x << v_rh.x),
 		(v_lh.y << v_rh.y),
 		(v_lh.z << v_rh.z),
@@ -4116,9 +4116,9 @@ ijk_inl uvec4 ijkVecBitShiftLeft4u(uvec4 const v_lh, uvec4 const v_rh)
 	return v_out;
 }
 
-ijk_inl uvec4 ijkVecBitShiftRight4u(uvec4 const v_lh, uvec4 const v_rh)
+ijk_inl ilvec4 ijkVecBitShiftRight4il(ilvec4 const v_lh, ilvec4 const v_rh)
 {
-	uvec4 const v_out = {
+	ilvec4 const v_out = {
 		(v_lh.x >> v_rh.x),
 		(v_lh.y >> v_rh.y),
 		(v_lh.z >> v_rh.z),
@@ -4127,7 +4127,7 @@ ijk_inl uvec4 ijkVecBitShiftRight4u(uvec4 const v_lh, uvec4 const v_rh)
 	return v_out;
 }
 
-ijk_inl bvec4 ijkVecEqual4u(uvec4 const v_lh, uvec4 const v_rh)
+ijk_inl bvec4 ijkVecEqual4il(ilvec4 const v_lh, ilvec4 const v_rh)
 {
 	bvec4 const bv_out = {
 		(v_lh.x == v_rh.x),
@@ -4138,7 +4138,7 @@ ijk_inl bvec4 ijkVecEqual4u(uvec4 const v_lh, uvec4 const v_rh)
 	return bv_out;
 }
 
-ijk_inl bvec4 ijkVecInequal4u(uvec4 const v_lh, uvec4 const v_rh)
+ijk_inl bvec4 ijkVecInequal4il(ilvec4 const v_lh, ilvec4 const v_rh)
 {
 	bvec4 const bv_out = {
 		(v_lh.x != v_rh.x),
@@ -4149,7 +4149,7 @@ ijk_inl bvec4 ijkVecInequal4u(uvec4 const v_lh, uvec4 const v_rh)
 	return bv_out;
 }
 
-ijk_inl bvec4 ijkVecLessEqual4u(uvec4 const v_lh, uvec4 const v_rh)
+ijk_inl bvec4 ijkVecLessEqual4il(ilvec4 const v_lh, ilvec4 const v_rh)
 {
 	bvec4 const bv_out = {
 		(v_lh.x <= v_rh.x),
@@ -4160,7 +4160,7 @@ ijk_inl bvec4 ijkVecLessEqual4u(uvec4 const v_lh, uvec4 const v_rh)
 	return bv_out;
 }
 
-ijk_inl bvec4 ijkVecGreaterEqual4u(uvec4 const v_lh, uvec4 const v_rh)
+ijk_inl bvec4 ijkVecGreaterEqual4il(ilvec4 const v_lh, ilvec4 const v_rh)
 {
 	bvec4 const bv_out = {
 		(v_lh.x >= v_rh.x),
@@ -4171,7 +4171,7 @@ ijk_inl bvec4 ijkVecGreaterEqual4u(uvec4 const v_lh, uvec4 const v_rh)
 	return bv_out;
 }
 
-ijk_inl bvec4 ijkVecLess4u(uvec4 const v_lh, uvec4 const v_rh)
+ijk_inl bvec4 ijkVecLess4il(ilvec4 const v_lh, ilvec4 const v_rh)
 {
 	bvec4 const bv_out = {
 		(v_lh.x < v_rh.x),
@@ -4182,7 +4182,7 @@ ijk_inl bvec4 ijkVecLess4u(uvec4 const v_lh, uvec4 const v_rh)
 	return bv_out;
 }
 
-ijk_inl bvec4 ijkVecGreater4u(uvec4 const v_lh, uvec4 const v_rh)
+ijk_inl bvec4 ijkVecGreater4il(ilvec4 const v_lh, ilvec4 const v_rh)
 {
 	bvec4 const bv_out = {
 		(v_lh.x > v_rh.x),
@@ -4193,7 +4193,7 @@ ijk_inl bvec4 ijkVecGreater4u(uvec4 const v_lh, uvec4 const v_rh)
 	return bv_out;
 }
 
-ijk_inl bvec4 ijkVecAnd4u(uvec4 const v_lh, uvec4 const v_rh)
+ijk_inl bvec4 ijkVecAnd4il(ilvec4 const v_lh, ilvec4 const v_rh)
 {
 	bvec4 const bv_out = {
 		(v_lh.x && v_rh.x),
@@ -4204,7 +4204,7 @@ ijk_inl bvec4 ijkVecAnd4u(uvec4 const v_lh, uvec4 const v_rh)
 	return bv_out;
 }
 
-ijk_inl bvec4 ijkVecNand4u(uvec4 const v_lh, uvec4 const v_rh)
+ijk_inl bvec4 ijkVecNand4il(ilvec4 const v_lh, ilvec4 const v_rh)
 {
 	bvec4 const bv_out = {
 		!(v_lh.x && v_rh.x),
@@ -4215,7 +4215,7 @@ ijk_inl bvec4 ijkVecNand4u(uvec4 const v_lh, uvec4 const v_rh)
 	return bv_out;
 }
 
-ijk_inl bvec4 ijkVecOr4u(uvec4 const v_lh, uvec4 const v_rh)
+ijk_inl bvec4 ijkVecOr4il(ilvec4 const v_lh, ilvec4 const v_rh)
 {
 	bvec4 const bv_out = {
 		(v_lh.x || v_rh.x),
@@ -4226,7 +4226,7 @@ ijk_inl bvec4 ijkVecOr4u(uvec4 const v_lh, uvec4 const v_rh)
 	return bv_out;
 }
 
-ijk_inl bvec4 ijkVecNor4u(uvec4 const v_lh, uvec4 const v_rh)
+ijk_inl bvec4 ijkVecNor4il(ilvec4 const v_lh, ilvec4 const v_rh)
 {
 	bvec4 const bv_out = {
 		!(v_lh.x || v_rh.x),
@@ -4237,48 +4237,48 @@ ijk_inl bvec4 ijkVecNor4u(uvec4 const v_lh, uvec4 const v_rh)
 	return bv_out;
 }
 
-ijk_inl uvec4 ijkVecCopy4uzw(uvec2 const v_xy, uint const z, uint const w)
+ijk_inl ilvec4 ijkVecCopy4ilzw(ilvec2 const v_xy, int const z, int const w)
 {
-	uvec4 const v_out = { v_xy.x, v_xy.y, z, w };
+	ilvec4 const v_out = { v_xy.x, v_xy.y, z, w };
 	return v_out;
 }
 
-ijk_inl uvec4 ijkVecCopy4uw(uvec3 const v_xyz, uint const w)
+ijk_inl ilvec4 ijkVecCopy4ilw(ilvec3 const v_xyz, int const w)
 {
-	uvec4 const v_out = { v_xyz.x, v_xyz.y, v_xyz.z, w };
+	ilvec4 const v_out = { v_xyz.x, v_xyz.y, v_xyz.z, w };
 	return v_out;
 }
 
-ijk_inl uvec4 ijkVecCopy4us(uint const s_in)
+ijk_inl ilvec4 ijkVecCopy4ils(int const s_in)
 {
-	uvec4 const v_out = { s_in, s_in, s_in, s_in };
+	ilvec4 const v_out = { s_in, s_in, s_in, s_in };
 	return v_out;
 }
 
-ijk_inl ivec4 ijkVecNegate4us(uint const s_in)
+ijk_inl ilvec4 ijkVecNegate4ils(int const s_in)
 {
-	int const s = -(i32)s_in;
-	ivec4 const v_out = { s, s, s, s };
+	int const s = -s_in;
+	ilvec4 const v_out = { s, s, s, s };
 	return v_out;
 }
 
-ijk_inl uvec4 ijkVecBitNot4us(uint const s_in)
+ijk_inl ilvec4 ijkVecBitNot4ils(int const s_in)
 {
-	uint const s = ~s_in;
-	uvec4 const v_out = { s, s, s, s };
+	int const s = ~s_in;
+	ilvec4 const v_out = { s, s, s, s };
 	return v_out;
 }
 
-ijk_inl bvec4 ijkVecNot4us(uint const s_in)
+ijk_inl bvec4 ijkVecNot4ils(int const s_in)
 {
 	bool const s = !s_in;
 	bvec4 const bv_out = { s, s, s, s };
 	return bv_out;
 }
 
-ijk_inl uvec4 ijkVecAdd4us(uvec4 const v_lh, uint const s_rh)
+ijk_inl ilvec4 ijkVecAdd4ils(ilvec4 const v_lh, int const s_rh)
 {
-	uvec4 const v_out = {
+	ilvec4 const v_out = {
 		v_lh.x + s_rh,
 		v_lh.y + s_rh,
 		v_lh.z + s_rh,
@@ -4287,9 +4287,9 @@ ijk_inl uvec4 ijkVecAdd4us(uvec4 const v_lh, uint const s_rh)
 	return v_out;
 }
 
-ijk_inl uvec4 ijkVecSub4us(uvec4 const v_lh, uint const s_rh)
+ijk_inl ilvec4 ijkVecSub4ils(ilvec4 const v_lh, int const s_rh)
 {
-	uvec4 const v_out = {
+	ilvec4 const v_out = {
 		v_lh.x - s_rh,
 		v_lh.y - s_rh,
 		v_lh.z - s_rh,
@@ -4298,9 +4298,9 @@ ijk_inl uvec4 ijkVecSub4us(uvec4 const v_lh, uint const s_rh)
 	return v_out;
 }
 
-ijk_inl uvec4 ijkVecMul4us(uvec4 const v_lh, uint const s_rh)
+ijk_inl ilvec4 ijkVecMul4ils(ilvec4 const v_lh, int const s_rh)
 {
-	uvec4 const v_out = {
+	ilvec4 const v_out = {
 		v_lh.x * s_rh,
 		v_lh.y * s_rh,
 		v_lh.z * s_rh,
@@ -4309,9 +4309,9 @@ ijk_inl uvec4 ijkVecMul4us(uvec4 const v_lh, uint const s_rh)
 	return v_out;
 }
 
-ijk_inl uvec4 ijkVecDiv4us(uvec4 const v_lh, uint const s_rh)
+ijk_inl ilvec4 ijkVecDiv4ils(ilvec4 const v_lh, int const s_rh)
 {
-	uvec4 const v_out = {
+	ilvec4 const v_out = {
 		v_lh.x / s_rh,
 		v_lh.y / s_rh,
 		v_lh.z / s_rh,
@@ -4320,11 +4320,11 @@ ijk_inl uvec4 ijkVecDiv4us(uvec4 const v_lh, uint const s_rh)
 	return v_out;
 }
 
-ijk_inl uvec4 ijkVecDivSafe4us(uvec4 const v_lh, uint const s_rh)
+ijk_inl ilvec4 ijkVecDivSafe4ils(ilvec4 const v_lh, int const s_rh)
 {
 	if (s_rh)
 	{
-		uvec4 const v_out = {
+		ilvec4 const v_out = {
 			v_lh.x / s_rh,
 			v_lh.y / s_rh,
 			v_lh.z / s_rh,
@@ -4334,14 +4334,14 @@ ijk_inl uvec4 ijkVecDivSafe4us(uvec4 const v_lh, uint const s_rh)
 	}
 	else
 	{
-		uvec4 const v_out = { 0, 0, 0, 0 };
+		ilvec4 const v_out = { 0, 0, 0, 0 };
 		return v_out;
 	}
 }
 
-ijk_inl uvec4 ijkVecMod4us(uvec4 const v_lh, uint const s_rh)
+ijk_inl ilvec4 ijkVecMod4ils(ilvec4 const v_lh, int const s_rh)
 {
-	uvec4 const v_out = {
+	ilvec4 const v_out = {
 		v_lh.x % s_rh,
 		v_lh.y % s_rh,
 		v_lh.z % s_rh,
@@ -4350,11 +4350,11 @@ ijk_inl uvec4 ijkVecMod4us(uvec4 const v_lh, uint const s_rh)
 	return v_out;
 }
 
-ijk_inl uvec4 ijkVecModSafe4us(uvec4 const v_lh, uint const s_rh)
+ijk_inl ilvec4 ijkVecModSafe4ils(ilvec4 const v_lh, int const s_rh)
 {
 	if (s_rh)
 	{
-		uvec4 const v_out = {
+		ilvec4 const v_out = {
 			v_lh.x % s_rh,
 			v_lh.y % s_rh,
 			v_lh.z % s_rh,
@@ -4365,9 +4365,9 @@ ijk_inl uvec4 ijkVecModSafe4us(uvec4 const v_lh, uint const s_rh)
 	return v_lh;
 }
 
-ijk_inl uvec4 ijkVecBitAnd4us(uvec4 const v_lh, uint const s_rh)
+ijk_inl ilvec4 ijkVecBitAnd4ils(ilvec4 const v_lh, int const s_rh)
 {
-	uvec4 const v_out = {
+	ilvec4 const v_out = {
 		(v_lh.x & s_rh),
 		(v_lh.y & s_rh),
 		(v_lh.z & s_rh),
@@ -4376,9 +4376,9 @@ ijk_inl uvec4 ijkVecBitAnd4us(uvec4 const v_lh, uint const s_rh)
 	return v_out;
 }
 
-ijk_inl uvec4 ijkVecBitNand4us(uvec4 const v_lh, uint const s_rh)
+ijk_inl ilvec4 ijkVecBitNand4ils(ilvec4 const v_lh, int const s_rh)
 {
-	uvec4 const v_out = {
+	ilvec4 const v_out = {
 		~(v_lh.x & s_rh),
 		~(v_lh.y & s_rh),
 		~(v_lh.z & s_rh),
@@ -4387,9 +4387,9 @@ ijk_inl uvec4 ijkVecBitNand4us(uvec4 const v_lh, uint const s_rh)
 	return v_out;
 }
 
-ijk_inl uvec4 ijkVecBitOr4us(uvec4 const v_lh, uint const s_rh)
+ijk_inl ilvec4 ijkVecBitOr4ils(ilvec4 const v_lh, int const s_rh)
 {
-	uvec4 const v_out = {
+	ilvec4 const v_out = {
 		(v_lh.x | s_rh),
 		(v_lh.y | s_rh),
 		(v_lh.z | s_rh),
@@ -4398,9 +4398,9 @@ ijk_inl uvec4 ijkVecBitOr4us(uvec4 const v_lh, uint const s_rh)
 	return v_out;
 }
 
-ijk_inl uvec4 ijkVecBitNor4us(uvec4 const v_lh, uint const s_rh)
+ijk_inl ilvec4 ijkVecBitNor4ils(ilvec4 const v_lh, int const s_rh)
 {
-	uvec4 const v_out = {
+	ilvec4 const v_out = {
 		~(v_lh.x | s_rh),
 		~(v_lh.y | s_rh),
 		~(v_lh.z | s_rh),
@@ -4409,9 +4409,9 @@ ijk_inl uvec4 ijkVecBitNor4us(uvec4 const v_lh, uint const s_rh)
 	return v_out;
 }
 
-ijk_inl uvec4 ijkVecBitXor4us(uvec4 const v_lh, uint const s_rh)
+ijk_inl ilvec4 ijkVecBitXor4ils(ilvec4 const v_lh, int const s_rh)
 {
-	uvec4 const v_out = {
+	ilvec4 const v_out = {
 		(v_lh.x ^ s_rh),
 		(v_lh.y ^ s_rh),
 		(v_lh.z ^ s_rh),
@@ -4420,9 +4420,9 @@ ijk_inl uvec4 ijkVecBitXor4us(uvec4 const v_lh, uint const s_rh)
 	return v_out;
 }
 
-ijk_inl uvec4 ijkVecBitXnor4us(uvec4 const v_lh, uint const s_rh)
+ijk_inl ilvec4 ijkVecBitXnor4ils(ilvec4 const v_lh, int const s_rh)
 {
-	uvec4 const v_out = {
+	ilvec4 const v_out = {
 		~(v_lh.x ^ s_rh),
 		~(v_lh.y ^ s_rh),
 		~(v_lh.z ^ s_rh),
@@ -4431,9 +4431,9 @@ ijk_inl uvec4 ijkVecBitXnor4us(uvec4 const v_lh, uint const s_rh)
 	return v_out;
 }
 
-ijk_inl uvec4 ijkVecBitShiftLeft4us(uvec4 const v_lh, uint const s_rh)
+ijk_inl ilvec4 ijkVecBitShiftLeft4ils(ilvec4 const v_lh, int const s_rh)
 {
-	uvec4 const v_out = {
+	ilvec4 const v_out = {
 		(v_lh.x << s_rh),
 		(v_lh.y << s_rh),
 		(v_lh.z << s_rh),
@@ -4442,9 +4442,9 @@ ijk_inl uvec4 ijkVecBitShiftLeft4us(uvec4 const v_lh, uint const s_rh)
 	return v_out;
 }
 
-ijk_inl uvec4 ijkVecBitShiftRight4us(uvec4 const v_lh, uint const s_rh)
+ijk_inl ilvec4 ijkVecBitShiftRight4ils(ilvec4 const v_lh, int const s_rh)
 {
-	uvec4 const v_out = {
+	ilvec4 const v_out = {
 		(v_lh.x >> s_rh),
 		(v_lh.y >> s_rh),
 		(v_lh.z >> s_rh),
@@ -4453,7 +4453,7 @@ ijk_inl uvec4 ijkVecBitShiftRight4us(uvec4 const v_lh, uint const s_rh)
 	return v_out;
 }
 
-ijk_inl bvec4 ijkVecEqual4us(uvec4 const v_lh, uint const s_rh)
+ijk_inl bvec4 ijkVecEqual4ils(ilvec4 const v_lh, int const s_rh)
 {
 	bvec4 const bv_out = {
 		(v_lh.x == s_rh),
@@ -4464,7 +4464,7 @@ ijk_inl bvec4 ijkVecEqual4us(uvec4 const v_lh, uint const s_rh)
 	return bv_out;
 }
 
-ijk_inl bvec4 ijkVecInequal4us(uvec4 const v_lh, uint const s_rh)
+ijk_inl bvec4 ijkVecInequal4ils(ilvec4 const v_lh, int const s_rh)
 {
 	bvec4 const bv_out = {
 		(v_lh.x != s_rh),
@@ -4475,7 +4475,7 @@ ijk_inl bvec4 ijkVecInequal4us(uvec4 const v_lh, uint const s_rh)
 	return bv_out;
 }
 
-ijk_inl bvec4 ijkVecLessEqual4us(uvec4 const v_lh, uint const s_rh)
+ijk_inl bvec4 ijkVecLessEqual4ils(ilvec4 const v_lh, int const s_rh)
 {
 	bvec4 const bv_out = {
 		(v_lh.x <= s_rh),
@@ -4486,7 +4486,7 @@ ijk_inl bvec4 ijkVecLessEqual4us(uvec4 const v_lh, uint const s_rh)
 	return bv_out;
 }
 
-ijk_inl bvec4 ijkVecGreaterEqual4us(uvec4 const v_lh, uint const s_rh)
+ijk_inl bvec4 ijkVecGreaterEqual4ils(ilvec4 const v_lh, int const s_rh)
 {
 	bvec4 const bv_out = {
 		(v_lh.x >= s_rh),
@@ -4497,7 +4497,7 @@ ijk_inl bvec4 ijkVecGreaterEqual4us(uvec4 const v_lh, uint const s_rh)
 	return bv_out;
 }
 
-ijk_inl bvec4 ijkVecLess4us(uvec4 const v_lh, uint const s_rh)
+ijk_inl bvec4 ijkVecLess4ils(ilvec4 const v_lh, int const s_rh)
 {
 	bvec4 const bv_out = {
 		(v_lh.x < s_rh),
@@ -4508,7 +4508,7 @@ ijk_inl bvec4 ijkVecLess4us(uvec4 const v_lh, uint const s_rh)
 	return bv_out;
 }
 
-ijk_inl bvec4 ijkVecGreater4us(uvec4 const v_lh, uint const s_rh)
+ijk_inl bvec4 ijkVecGreater4ils(ilvec4 const v_lh, int const s_rh)
 {
 	bvec4 const bv_out = {
 		(v_lh.x > s_rh),
@@ -4519,7 +4519,7 @@ ijk_inl bvec4 ijkVecGreater4us(uvec4 const v_lh, uint const s_rh)
 	return bv_out;
 }
 
-ijk_inl bvec4 ijkVecAnd4us(uvec4 const v_lh, uint const s_rh)
+ijk_inl bvec4 ijkVecAnd4ils(ilvec4 const v_lh, int const s_rh)
 {
 	bvec4 const bv_out = {
 		(v_lh.x && s_rh),
@@ -4530,7 +4530,7 @@ ijk_inl bvec4 ijkVecAnd4us(uvec4 const v_lh, uint const s_rh)
 	return bv_out;
 }
 
-ijk_inl bvec4 ijkVecNand4us(uvec4 const v_lh, uint const s_rh)
+ijk_inl bvec4 ijkVecNand4ils(ilvec4 const v_lh, int const s_rh)
 {
 	bvec4 const bv_out = {
 		!(v_lh.x && s_rh),
@@ -4541,7 +4541,7 @@ ijk_inl bvec4 ijkVecNand4us(uvec4 const v_lh, uint const s_rh)
 	return bv_out;
 }
 
-ijk_inl bvec4 ijkVecOr4us(uvec4 const v_lh, uint const s_rh)
+ijk_inl bvec4 ijkVecOr4ils(ilvec4 const v_lh, int const s_rh)
 {
 	bvec4 const bv_out = {
 		(v_lh.x || s_rh),
@@ -4552,7 +4552,7 @@ ijk_inl bvec4 ijkVecOr4us(uvec4 const v_lh, uint const s_rh)
 	return bv_out;
 }
 
-ijk_inl bvec4 ijkVecNor4us(uvec4 const v_lh, uint const s_rh)
+ijk_inl bvec4 ijkVecNor4ils(ilvec4 const v_lh, int const s_rh)
 {
 	bvec4 const bv_out = {
 		!(v_lh.x || s_rh),
@@ -4563,21 +4563,21 @@ ijk_inl bvec4 ijkVecNor4us(uvec4 const v_lh, uint const s_rh)
 	return bv_out;
 }
 
-ijk_inl uvec4 ijkVecCopy4xyu(uint const x, uint const y, uvec2 const v_zw)
+ijk_inl ilvec4 ijkVecCopy4xyi(int const x, int const y, ilvec2 const v_zw)
 {
-	uvec4 const v_out = { x, y, v_zw.x, v_zw.y };
+	ilvec4 const v_out = { x, y, v_zw.x, v_zw.y };
 	return v_out;
 }
 
-ijk_inl uvec4 ijkVecCopy4xu(uint const x, uvec3 const v_yzw)
+ijk_inl ilvec4 ijkVecCopy4xi(int const x, ilvec3 const v_yzw)
 {
-	uvec4 const v_out = { x, v_yzw.x, v_yzw.y, v_yzw.z };
+	ilvec4 const v_out = { x, v_yzw.x, v_yzw.y, v_yzw.z };
 	return v_out;
 }
 
-ijk_inl uvec4 ijkVecAdd4su(uint const s_lh, uvec4 const v_rh)
+ijk_inl ilvec4 ijkVecAdd4sil(int const s_lh, ilvec4 const v_rh)
 {
-	uvec4 const v_out = {
+	ilvec4 const v_out = {
 		s_lh + v_rh.x,
 		s_lh + v_rh.y,
 		s_lh + v_rh.z,
@@ -4586,9 +4586,9 @@ ijk_inl uvec4 ijkVecAdd4su(uint const s_lh, uvec4 const v_rh)
 	return v_out;
 }
 
-ijk_inl uvec4 ijkVecSub4su(uint const s_lh, uvec4 const v_rh)
+ijk_inl ilvec4 ijkVecSub4sil(int const s_lh, ilvec4 const v_rh)
 {
-	uvec4 const v_out = {
+	ilvec4 const v_out = {
 		s_lh - v_rh.x,
 		s_lh - v_rh.y,
 		s_lh - v_rh.z,
@@ -4597,9 +4597,9 @@ ijk_inl uvec4 ijkVecSub4su(uint const s_lh, uvec4 const v_rh)
 	return v_out;
 }
 
-ijk_inl uvec4 ijkVecMul4su(uint const s_lh, uvec4 const v_rh)
+ijk_inl ilvec4 ijkVecMul4sil(int const s_lh, ilvec4 const v_rh)
 {
-	uvec4 const v_out = {
+	ilvec4 const v_out = {
 		s_lh * v_rh.x,
 		s_lh * v_rh.y,
 		s_lh * v_rh.z,
@@ -4608,9 +4608,9 @@ ijk_inl uvec4 ijkVecMul4su(uint const s_lh, uvec4 const v_rh)
 	return v_out;
 }
 
-ijk_inl uvec4 ijkVecDiv4su(uint const s_lh, uvec4 const v_rh)
+ijk_inl ilvec4 ijkVecDiv4sil(int const s_lh, ilvec4 const v_rh)
 {
-	uvec4 const v_out = {
+	ilvec4 const v_out = {
 		s_lh / v_rh.x,
 		s_lh / v_rh.y,
 		s_lh / v_rh.z,
@@ -4619,9 +4619,9 @@ ijk_inl uvec4 ijkVecDiv4su(uint const s_lh, uvec4 const v_rh)
 	return v_out;
 }
 
-ijk_inl uvec4 ijkVecDivSafe4su(uint const s_lh, uvec4 const v_rh)
+ijk_inl ilvec4 ijkVecDivSafe4sil(int const s_lh, ilvec4 const v_rh)
 {
-	uvec4 const v_out = {
+	ilvec4 const v_out = {
 		ijk_divide_safe_int(s_lh, v_rh.x),
 		ijk_divide_safe_int(s_lh, v_rh.y),
 		ijk_divide_safe_int(s_lh, v_rh.z),
@@ -4630,9 +4630,9 @@ ijk_inl uvec4 ijkVecDivSafe4su(uint const s_lh, uvec4 const v_rh)
 	return v_out;
 }
 
-ijk_inl uvec4 ijkVecMod4su(uint const s_lh, uvec4 const v_rh)
+ijk_inl ilvec4 ijkVecMod4sil(int const s_lh, ilvec4 const v_rh)
 {
-	uvec4 const v_out = {
+	ilvec4 const v_out = {
 		s_lh % v_rh.x,
 		s_lh % v_rh.y,
 		s_lh % v_rh.z,
@@ -4641,20 +4641,20 @@ ijk_inl uvec4 ijkVecMod4su(uint const s_lh, uvec4 const v_rh)
 	return v_out;
 }
 
-ijk_inl uvec4 ijkVecModSafe4su(uint const s_lh, uvec4 const v_rh)
+ijk_inl ilvec4 ijkVecModSafe4sil(int const s_lh, ilvec4 const v_rh)
 {
-	uvec4 const v_out = {
-		ijk_modulo_safe_int((ui32)s_lh, v_rh.x),
-		ijk_modulo_safe_int((ui32)s_lh, v_rh.y),
-		ijk_modulo_safe_int((ui32)s_lh, v_rh.z),
-		ijk_modulo_safe_int((ui32)s_lh, v_rh.w),
+	ilvec4 const v_out = {
+		ijk_modulo_safe_int((i64)s_lh, v_rh.x),
+		ijk_modulo_safe_int((i64)s_lh, v_rh.y),
+		ijk_modulo_safe_int((i64)s_lh, v_rh.z),
+		ijk_modulo_safe_int((i64)s_lh, v_rh.w),
 	};
 	return v_out;
 }
 
-ijk_inl uvec4 ijkVecBitAnd4su(uint const s_lh, uvec4 const v_rh)
+ijk_inl ilvec4 ijkVecBitAnd4sil(int const s_lh, ilvec4 const v_rh)
 {
-	uvec4 const v_out = {
+	ilvec4 const v_out = {
 		(s_lh & v_rh.x),
 		(s_lh & v_rh.y),
 		(s_lh & v_rh.z),
@@ -4663,9 +4663,9 @@ ijk_inl uvec4 ijkVecBitAnd4su(uint const s_lh, uvec4 const v_rh)
 	return v_out;
 }
 
-ijk_inl uvec4 ijkVecBitNand4su(uint const s_lh, uvec4 const v_rh)
+ijk_inl ilvec4 ijkVecBitNand4sil(int const s_lh, ilvec4 const v_rh)
 {
-	uvec4 const v_out = {
+	ilvec4 const v_out = {
 		~(s_lh & v_rh.x),
 		~(s_lh & v_rh.y),
 		~(s_lh & v_rh.z),
@@ -4674,9 +4674,9 @@ ijk_inl uvec4 ijkVecBitNand4su(uint const s_lh, uvec4 const v_rh)
 	return v_out;
 }
 
-ijk_inl uvec4 ijkVecBitOr4su(uint const s_lh, uvec4 const v_rh)
+ijk_inl ilvec4 ijkVecBitOr4sil(int const s_lh, ilvec4 const v_rh)
 {
-	uvec4 const v_out = {
+	ilvec4 const v_out = {
 		(s_lh | v_rh.x),
 		(s_lh | v_rh.y),
 		(s_lh | v_rh.z),
@@ -4685,9 +4685,9 @@ ijk_inl uvec4 ijkVecBitOr4su(uint const s_lh, uvec4 const v_rh)
 	return v_out;
 }
 
-ijk_inl uvec4 ijkVecBitNor4su(uint const s_lh, uvec4 const v_rh)
+ijk_inl ilvec4 ijkVecBitNor4sil(int const s_lh, ilvec4 const v_rh)
 {
-	uvec4 const v_out = {
+	ilvec4 const v_out = {
 		~(s_lh | v_rh.x),
 		~(s_lh | v_rh.y),
 		~(s_lh | v_rh.z),
@@ -4696,9 +4696,9 @@ ijk_inl uvec4 ijkVecBitNor4su(uint const s_lh, uvec4 const v_rh)
 	return v_out;
 }
 
-ijk_inl uvec4 ijkVecBitXor4su(uint const s_lh, uvec4 const v_rh)
+ijk_inl ilvec4 ijkVecBitXor4sil(int const s_lh, ilvec4 const v_rh)
 {
-	uvec4 const v_out = {
+	ilvec4 const v_out = {
 		(s_lh ^ v_rh.x),
 		(s_lh ^ v_rh.y),
 		(s_lh ^ v_rh.z),
@@ -4707,9 +4707,9 @@ ijk_inl uvec4 ijkVecBitXor4su(uint const s_lh, uvec4 const v_rh)
 	return v_out;
 }
 
-ijk_inl uvec4 ijkVecBitXnor4su(uint const s_lh, uvec4 const v_rh)
+ijk_inl ilvec4 ijkVecBitXnor4sil(int const s_lh, ilvec4 const v_rh)
 {
-	uvec4 const v_out = {
+	ilvec4 const v_out = {
 		~(s_lh ^ v_rh.x),
 		~(s_lh ^ v_rh.y),
 		~(s_lh ^ v_rh.z),
@@ -4718,9 +4718,9 @@ ijk_inl uvec4 ijkVecBitXnor4su(uint const s_lh, uvec4 const v_rh)
 	return v_out;
 }
 
-ijk_inl uvec4 ijkVecBitShiftLeft4su(uint const s_lh, uvec4 const v_rh)
+ijk_inl ilvec4 ijkVecBitShiftLeft4sil(int const s_lh, ilvec4 const v_rh)
 {
-	uvec4 const v_out = {
+	ilvec4 const v_out = {
 		(s_lh << v_rh.x),
 		(s_lh << v_rh.y),
 		(s_lh << v_rh.z),
@@ -4729,9 +4729,9 @@ ijk_inl uvec4 ijkVecBitShiftLeft4su(uint const s_lh, uvec4 const v_rh)
 	return v_out;
 }
 
-ijk_inl uvec4 ijkVecBitShiftRight4su(uint const s_lh, uvec4 const v_rh)
+ijk_inl ilvec4 ijkVecBitShiftRight4sil(int const s_lh, ilvec4 const v_rh)
 {
-	uvec4 const v_out = {
+	ilvec4 const v_out = {
 		(s_lh >> v_rh.x),
 		(s_lh >> v_rh.y),
 		(s_lh >> v_rh.z),
@@ -4740,7 +4740,7 @@ ijk_inl uvec4 ijkVecBitShiftRight4su(uint const s_lh, uvec4 const v_rh)
 	return v_out;
 }
 
-ijk_inl bvec4 ijkVecEqual4su(uint const s_lh, uvec4 const v_rh)
+ijk_inl bvec4 ijkVecEqual4sil(int const s_lh, ilvec4 const v_rh)
 {
 	bvec4 const bv_out = {
 		(s_lh == v_rh.x),
@@ -4751,7 +4751,7 @@ ijk_inl bvec4 ijkVecEqual4su(uint const s_lh, uvec4 const v_rh)
 	return bv_out;
 }
 
-ijk_inl bvec4 ijkVecInequal4su(uint const s_lh, uvec4 const v_rh)
+ijk_inl bvec4 ijkVecInequal4sil(int const s_lh, ilvec4 const v_rh)
 {
 	bvec4 const bv_out = {
 		(s_lh != v_rh.x),
@@ -4762,7 +4762,7 @@ ijk_inl bvec4 ijkVecInequal4su(uint const s_lh, uvec4 const v_rh)
 	return bv_out;
 }
 
-ijk_inl bvec4 ijkVecLessEqual4su(uint const s_lh, uvec4 const v_rh)
+ijk_inl bvec4 ijkVecLessEqual4sil(int const s_lh, ilvec4 const v_rh)
 {
 	bvec4 const bv_out = {
 		(s_lh <= v_rh.x),
@@ -4773,7 +4773,7 @@ ijk_inl bvec4 ijkVecLessEqual4su(uint const s_lh, uvec4 const v_rh)
 	return bv_out;
 }
 
-ijk_inl bvec4 ijkVecGreaterEqual4su(uint const s_lh, uvec4 const v_rh)
+ijk_inl bvec4 ijkVecGreaterEqual4sil(int const s_lh, ilvec4 const v_rh)
 {
 	bvec4 const bv_out = {
 		(s_lh >= v_rh.x),
@@ -4784,7 +4784,7 @@ ijk_inl bvec4 ijkVecGreaterEqual4su(uint const s_lh, uvec4 const v_rh)
 	return bv_out;
 }
 
-ijk_inl bvec4 ijkVecLess4su(uint const s_lh, uvec4 const v_rh)
+ijk_inl bvec4 ijkVecLess4sil(int const s_lh, ilvec4 const v_rh)
 {
 	bvec4 const bv_out = {
 		(s_lh < v_rh.x),
@@ -4795,7 +4795,7 @@ ijk_inl bvec4 ijkVecLess4su(uint const s_lh, uvec4 const v_rh)
 	return bv_out;
 }
 
-ijk_inl bvec4 ijkVecGreater4su(uint const s_lh, uvec4 const v_rh)
+ijk_inl bvec4 ijkVecGreater4sil(int const s_lh, ilvec4 const v_rh)
 {
 	bvec4 const bv_out = {
 		(s_lh > v_rh.x),
@@ -4806,7 +4806,7 @@ ijk_inl bvec4 ijkVecGreater4su(uint const s_lh, uvec4 const v_rh)
 	return bv_out;
 }
 
-ijk_inl bvec4 ijkVecAnd4su(uint const s_lh, uvec4 const v_rh)
+ijk_inl bvec4 ijkVecAnd4sil(int const s_lh, ilvec4 const v_rh)
 {
 	bvec4 const bv_out = {
 		(s_lh && v_rh.x),
@@ -4817,7 +4817,7 @@ ijk_inl bvec4 ijkVecAnd4su(uint const s_lh, uvec4 const v_rh)
 	return bv_out;
 }
 
-ijk_inl bvec4 ijkVecNand4su(uint const s_lh, uvec4 const v_rh)
+ijk_inl bvec4 ijkVecNand4sil(int const s_lh, ilvec4 const v_rh)
 {
 	bvec4 const bv_out = {
 		!(s_lh && v_rh.x),
@@ -4828,7 +4828,7 @@ ijk_inl bvec4 ijkVecNand4su(uint const s_lh, uvec4 const v_rh)
 	return bv_out;
 }
 
-ijk_inl bvec4 ijkVecOr4su(uint const s_lh, uvec4 const v_rh)
+ijk_inl bvec4 ijkVecOr4sil(int const s_lh, ilvec4 const v_rh)
 {
 	bvec4 const bv_out = {
 		(s_lh || v_rh.x),
@@ -4839,7 +4839,7 @@ ijk_inl bvec4 ijkVecOr4su(uint const s_lh, uvec4 const v_rh)
 	return bv_out;
 }
 
-ijk_inl bvec4 ijkVecNor4su(uint const s_lh, uvec4 const v_rh)
+ijk_inl bvec4 ijkVecNor4sil(int const s_lh, ilvec4 const v_rh)
 {
 	bvec4 const bv_out = {
 		!(s_lh || v_rh.x),
@@ -4850,15 +4850,15 @@ ijk_inl bvec4 ijkVecNor4su(uint const s_lh, uvec4 const v_rh)
 	return bv_out;
 }
 
-ijk_inl uint ijkVecDot4u(uvec4 const v_lh, uvec4 const v_rh)
+ijk_inl int ijkVecDot4il(ilvec4 const v_lh, ilvec4 const v_rh)
 {
-	return ijkVecDot4uv(v_lh.xyzw, v_rh.xyzw);
+	return ijkVecDot4ilv(v_lh.xyzw, v_rh.xyzw);
 }
 
-ijk_inl uvec4 ijkVecCross4u(uvec4 const v_lh, uvec4 const v_rh)
+ijk_inl ilvec4 ijkVecCross4il(ilvec4 const v_lh, ilvec4 const v_rh)
 {
-	uvec4 v_out;
-	ijkVecCross4uv(v_out.xyzw, v_lh.xyzw, v_rh.xyzw);
+	ilvec4 v_out;
+	ijkVecCross4ilv(v_out.xyzw, v_lh.xyzw, v_rh.xyzw);
 	return v_out;
 }
 
@@ -4866,5 +4866,5 @@ ijk_inl uvec4 ijkVecCross4u(uvec4 const v_lh, uvec4 const v_rh)
 //-----------------------------------------------------------------------------
 
 
-#endif	// !_IJK_VECTOR_UINT_INL_
-#endif	// _IJK_VECTOR_UINT_H_
+#endif	// !_IJK_VECTOR_INTL_INL_
+#endif	// _IJK_VECTOR_INTL_H_
