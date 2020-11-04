@@ -116,23 +116,12 @@ ijk_inl floatv ijkVecCopy2fv(float2 v_out, float2 const v_in)
 	return v_out;
 }
 
-#if TSIGNED
 ijk_inl floatv ijkVecNegate2fv(float2 v_out, float2 const v_in)
 {
 	v_out[0] = -v_in[0];
 	v_out[1] = -v_in[1];
 	return v_out;
 }
-#endif	// TSIGNED
-
-#if TfloatEGER
-ijk_inl floatv ijkVecBitNot2fv(float2 v_out, float2 const v_in)
-{
-	v_out[0] = ~v_in[0];
-	v_out[1] = ~v_in[1];
-	return v_out;
-}
-#endif	// TfloatEGER
 
 ijk_inl boolv ijkVecNot2fv(bool2 bv_out, float2 const v_in)
 {
@@ -189,64 +178,6 @@ ijk_inl floatv ijkVecModSafe2fv(float2 v_out, float2 const v_lh, float2 const v_
 	v_out[1] = ijk_modulo_safe_flt(v_lh[1], v_rh[1]);
 	return v_out;
 }
-
-#if TfloatEGER
-ijk_inl floatv ijkVecBitAnd2fv(float2 v_out, float2 const v_lh, float2 const v_rh)
-{
-	v_out[0] = (v_lh[0] & v_rh[0]);
-	v_out[1] = (v_lh[1] & v_rh[1]);
-	return v_out;
-}
-
-ijk_inl floatv ijkVecBitNand2fv(float2 v_out, float2 const v_lh, float2 const v_rh)
-{
-	v_out[0] = ~(v_lh[0] & v_rh[0]);
-	v_out[1] = ~(v_lh[1] & v_rh[1]);
-	return v_out;
-}
-
-ijk_inl floatv ijkVecBitOr2fv(float2 v_out, float2 const v_lh, float2 const v_rh)
-{
-	v_out[0] = (v_lh[0] | v_rh[0]);
-	v_out[1] = (v_lh[1] | v_rh[1]);
-	return v_out;
-}
-
-ijk_inl floatv ijkVecBitNor2fv(float2 v_out, float2 const v_lh, float2 const v_rh)
-{
-	v_out[0] = ~(v_lh[0] | v_rh[0]);
-	v_out[1] = ~(v_lh[1] | v_rh[1]);
-	return v_out;
-}
-
-ijk_inl floatv ijkVecBitXor2fv(float2 v_out, float2 const v_lh, float2 const v_rh)
-{
-	v_out[0] = (v_lh[0] ^ v_rh[0]);
-	v_out[1] = (v_lh[1] ^ v_rh[1]);
-	return v_out;
-}
-
-ijk_inl floatv ijkVecBitXnor2fv(float2 v_out, float2 const v_lh, float2 const v_rh)
-{
-	v_out[0] = ~(v_lh[0] ^ v_rh[0]);
-	v_out[1] = ~(v_lh[1] ^ v_rh[1]);
-	return v_out;
-}
-
-ijk_inl floatv ijkVecBitShiftLeft2fv(float2 v_out, float2 const v_lh, float2 const v_rh)
-{
-	v_out[0] = (v_lh[0] << v_rh[0]);
-	v_out[1] = (v_lh[1] << v_rh[1]);
-	return v_out;
-}
-
-ijk_inl floatv ijkVecBitShiftRight2fv(float2 v_out, float2 const v_lh, float2 const v_rh)
-{
-	v_out[0] = (v_lh[0] >> v_rh[0]);
-	v_out[1] = (v_lh[1] >> v_rh[1]);
-	return v_out;
-}
-#endif	// TfloatEGER
 
 ijk_inl boolv ijkVecEqual2fv(bool2 bv_out, float2 const v_lh, float2 const v_rh)
 {
@@ -324,21 +255,11 @@ ijk_inl floatv ijkVecCopy2fvs(float2 v_out, f32 const s_in)
 	return v_out;
 }
 
-#if TSIGNED
 ijk_inl floatv ijkVecNegate2fvs(float2 v_out, f32 const s_in)
 {
 	v_out[0] = v_out[1] = -s_in;
 	return v_out;
 }
-#endif	// TSIGNED
-
-#if TfloatEGER
-ijk_inl floatv ijkVecBitNot2fvs(float2 v_out, f32 const s_in)
-{
-	v_out[0] = v_out[1] = ~s_in;
-	return v_out;
-}
-#endif	// TfloatEGER
 
 ijk_inl boolv ijkVecNot2fvs(bool2 bv_out, f32 const s_in)
 {
@@ -404,64 +325,6 @@ ijk_inl floatv ijkVecModSafe2fvs(float2 v_out, float2 const v_lh, f32 const s_rh
 		v_out[0] = v_out[1] = 0;
 	return v_out;
 }
-
-#if TfloatEGER
-ijk_inl floatv ijkVecBitAnd2fvs(float2 v_out, float2 const v_lh, f32 const s_rh)
-{
-	v_out[0] = (v_lh[0] & s_rh);
-	v_out[1] = (v_lh[1] & s_rh);
-	return v_out;
-}
-
-ijk_inl floatv ijkVecBitNand2fvs(float2 v_out, float2 const v_lh, f32 const s_rh)
-{
-	v_out[0] = ~(v_lh[0] & s_rh);
-	v_out[1] = ~(v_lh[1] & s_rh);
-	return v_out;
-}
-
-ijk_inl floatv ijkVecBitOr2fvs(float2 v_out, float2 const v_lh, f32 const s_rh)
-{
-	v_out[0] = (v_lh[0] | s_rh);
-	v_out[1] = (v_lh[1] | s_rh);
-	return v_out;
-}
-
-ijk_inl floatv ijkVecBitNor2fvs(float2 v_out, float2 const v_lh, f32 const s_rh)
-{
-	v_out[0] = ~(v_lh[0] | s_rh);
-	v_out[1] = ~(v_lh[1] | s_rh);
-	return v_out;
-}
-
-ijk_inl floatv ijkVecBitXor2fvs(float2 v_out, float2 const v_lh, f32 const s_rh)
-{
-	v_out[0] = (v_lh[0] ^ s_rh);
-	v_out[1] = (v_lh[1] ^ s_rh);
-	return v_out;
-}
-
-ijk_inl floatv ijkVecBitXnor2fvs(float2 v_out, float2 const v_lh, f32 const s_rh)
-{
-	v_out[0] = ~(v_lh[0] ^ s_rh);
-	v_out[1] = ~(v_lh[1] ^ s_rh);
-	return v_out;
-}
-
-ijk_inl floatv ijkVecBitShiftLeft2fvs(float2 v_out, float2 const v_lh, f32 const s_rh)
-{
-	v_out[0] = (v_lh[0] << s_rh);
-	v_out[1] = (v_lh[1] << s_rh);
-	return v_out;
-}
-
-ijk_inl floatv ijkVecBitShiftRight2fvs(float2 v_out, float2 const v_lh, f32 const s_rh)
-{
-	v_out[0] = (v_lh[0] >> s_rh);
-	v_out[1] = (v_lh[1] >> s_rh);
-	return v_out;
-}
-#endif	// TfloatEGER
 
 ijk_inl boolv ijkVecEqual2fvs(bool2 bv_out, float2 const v_lh, f32 const s_rh)
 {
@@ -582,64 +445,6 @@ ijk_inl floatv ijkVecModSafe2fsv(float2 v_out, f32 const s_lh, float2 const v_rh
 	return v_out;
 }
 
-#if TfloatEGER
-ijk_inl floatv ijkVecBitAnd2fsv(float2 v_out, f32 const s_lh, float2 const v_rh)
-{
-	v_out[0] = (s_lh & v_rh[0]);
-	v_out[1] = (s_lh & v_rh[1]);
-	return v_out;
-}
-
-ijk_inl floatv ijkVecBitNand2fsv(float2 v_out, f32 const s_lh, float2 const v_rh)
-{
-	v_out[0] = ~(s_lh & v_rh[0]);
-	v_out[1] = ~(s_lh & v_rh[1]);
-	return v_out;
-}
-
-ijk_inl floatv ijkVecBitOr2fsv(float2 v_out, f32 const s_lh, float2 const v_rh)
-{
-	v_out[0] = (s_lh | v_rh[0]);
-	v_out[1] = (s_lh | v_rh[1]);
-	return v_out;
-}
-
-ijk_inl floatv ijkVecBitNor2fsv(float2 v_out, f32 const s_lh, float2 const v_rh)
-{
-	v_out[0] = ~(s_lh | v_rh[0]);
-	v_out[1] = ~(s_lh | v_rh[1]);
-	return v_out;
-}
-
-ijk_inl floatv ijkVecBitXor2fsv(float2 v_out, f32 const s_lh, float2 const v_rh)
-{
-	v_out[0] = (s_lh ^ v_rh[0]);
-	v_out[1] = (s_lh ^ v_rh[1]);
-	return v_out;
-}
-
-ijk_inl floatv ijkVecBitXnor2fsv(float2 v_out, f32 const s_lh, float2 const v_rh)
-{
-	v_out[0] = ~(s_lh ^ v_rh[0]);
-	v_out[1] = ~(s_lh ^ v_rh[1]);
-	return v_out;
-}
-
-ijk_inl floatv ijkVecBitShiftLeft2fsv(float2 v_out, f32 const s_lh, float2 const v_rh)
-{
-	v_out[0] = (s_lh << v_rh[0]);
-	v_out[1] = (s_lh << v_rh[1]);
-	return v_out;
-}
-
-ijk_inl floatv ijkVecBitShiftRight2fsv(float2 v_out, f32 const s_lh, float2 const v_rh)
-{
-	v_out[0] = (s_lh >> v_rh[0]);
-	v_out[1] = (s_lh >> v_rh[1]);
-	return v_out;
-}
-#endif	// TfloatEGER
-
 ijk_inl boolv ijkVecEqual2fsv(bool2 bv_out, f32 const s_lh, float2 const v_rh)
 {
 	bv_out[0] = (s_lh == v_rh[0]);
@@ -745,7 +550,6 @@ ijk_inl floatv ijkVecCopy3fv(float3 v_out, float3 const v_in)
 	return v_out;
 }
 
-#if TSIGNED
 ijk_inl floatv ijkVecNegate3fv(float3 v_out, float3 const v_in)
 {
 	v_out[0] = -v_in[0];
@@ -753,17 +557,6 @@ ijk_inl floatv ijkVecNegate3fv(float3 v_out, float3 const v_in)
 	v_out[2] = -v_in[2];
 	return v_out;
 }
-#endif	// TSIGNED
-
-#if TfloatEGER
-ijk_inl floatv ijkVecBitNot3fv(float3 v_out, float3 const v_in)
-{
-	v_out[0] = ~v_in[0];
-	v_out[1] = ~v_in[1];
-	v_out[2] = ~v_in[2];
-	return v_out;
-}
-#endif	// TfloatEGER
 
 ijk_inl boolv ijkVecNot3fv(bool3 bv_out, float3 const v_in)
 {
@@ -828,72 +621,6 @@ ijk_inl floatv ijkVecModSafe3fv(float3 v_out, float3 const v_lh, float3 const v_
 	v_out[2] = ijk_modulo_safe_flt(v_lh[2], v_rh[2]);
 	return v_out;
 }
-
-#if TfloatEGER
-ijk_inl floatv ijkVecBitAnd3fv(float3 v_out, float3 const v_lh, float3 const v_rh)
-{
-	v_out[0] = (v_lh[0] & v_rh[0]);
-	v_out[1] = (v_lh[1] & v_rh[1]);
-	v_out[2] = (v_lh[2] & v_rh[2]);
-	return v_out;
-}
-
-ijk_inl floatv ijkVecBitNand3fv(float3 v_out, float3 const v_lh, float3 const v_rh)
-{
-	v_out[0] = ~(v_lh[0] & v_rh[0]);
-	v_out[1] = ~(v_lh[1] & v_rh[1]);
-	v_out[2] = ~(v_lh[2] & v_rh[2]);
-	return v_out;
-}
-
-ijk_inl floatv ijkVecBitOr3fv(float3 v_out, float3 const v_lh, float3 const v_rh)
-{
-	v_out[0] = (v_lh[0] | v_rh[0]);
-	v_out[1] = (v_lh[1] | v_rh[1]);
-	v_out[2] = (v_lh[2] | v_rh[2]);
-	return v_out;
-}
-
-ijk_inl floatv ijkVecBitNor3fv(float3 v_out, float3 const v_lh, float3 const v_rh)
-{
-	v_out[0] = ~(v_lh[0] | v_rh[0]);
-	v_out[1] = ~(v_lh[1] | v_rh[1]);
-	v_out[2] = ~(v_lh[2] | v_rh[2]);
-	return v_out;
-}
-
-ijk_inl floatv ijkVecBitXor3fv(float3 v_out, float3 const v_lh, float3 const v_rh)
-{
-	v_out[0] = (v_lh[0] ^ v_rh[0]);
-	v_out[1] = (v_lh[1] ^ v_rh[1]);
-	v_out[2] = (v_lh[2] ^ v_rh[2]);
-	return v_out;
-}
-
-ijk_inl floatv ijkVecBitXnor3fv(float3 v_out, float3 const v_lh, float3 const v_rh)
-{
-	v_out[0] = ~(v_lh[0] ^ v_rh[0]);
-	v_out[1] = ~(v_lh[1] ^ v_rh[1]);
-	v_out[2] = ~(v_lh[2] ^ v_rh[2]);
-	return v_out;
-}
-
-ijk_inl floatv ijkVecBitShiftLeft3fv(float3 v_out, float3 const v_lh, float3 const v_rh)
-{
-	v_out[0] = (v_lh[0] << v_rh[0]);
-	v_out[1] = (v_lh[1] << v_rh[1]);
-	v_out[2] = (v_lh[2] << v_rh[2]);
-	return v_out;
-}
-
-ijk_inl floatv ijkVecBitShiftRight3fv(float3 v_out, float3 const v_lh, float3 const v_rh)
-{
-	v_out[0] = (v_lh[0] >> v_rh[0]);
-	v_out[1] = (v_lh[1] >> v_rh[1]);
-	v_out[2] = (v_lh[2] >> v_rh[2]);
-	return v_out;
-}
-#endif	// TfloatEGER
 
 ijk_inl boolv ijkVecEqual3fv(bool3 bv_out, float3 const v_lh, float3 const v_rh)
 {
@@ -989,21 +716,11 @@ ijk_inl floatv ijkVecCopy3fvs(float3 v_out, f32 const s_in)
 	return v_out;
 }
 
-#if TSIGNED
 ijk_inl floatv ijkVecNegate3fvs(float3 v_out, f32 const s_in)
 {
 	v_out[0] = v_out[1] = v_out[2] = -s_in;
 	return v_out;
 }
-#endif	// TSIGNED
-
-#if TfloatEGER
-ijk_inl floatv ijkVecBitNot3fvs(float3 v_out, f32 const s_in)
-{
-	v_out[0] = v_out[1] = v_out[2] = ~s_in;
-	return v_out;
-}
-#endif	// TfloatEGER
 
 ijk_inl boolv ijkVecNot3fvs(bool3 bv_out, f32 const s_in)
 {
@@ -1076,72 +793,6 @@ ijk_inl floatv ijkVecModSafe3fvs(float3 v_out, float3 const v_lh, f32 const s_rh
 		v_out[0] = v_out[1] = v_out[2] = 0;
 	return v_out;
 }
-
-#if TfloatEGER
-ijk_inl floatv ijkVecBitAnd3fvs(float3 v_out, float3 const v_lh, f32 const s_rh)
-{
-	v_out[0] = (v_lh[0] & s_rh);
-	v_out[1] = (v_lh[1] & s_rh);
-	v_out[2] = (v_lh[2] & s_rh);
-	return v_out;
-}
-
-ijk_inl floatv ijkVecBitNand3fvs(float3 v_out, float3 const v_lh, f32 const s_rh)
-{
-	v_out[0] = ~(v_lh[0] & s_rh);
-	v_out[1] = ~(v_lh[1] & s_rh);
-	v_out[2] = ~(v_lh[2] & s_rh);
-	return v_out;
-}
-
-ijk_inl floatv ijkVecBitOr3fvs(float3 v_out, float3 const v_lh, f32 const s_rh)
-{
-	v_out[0] = (v_lh[0] | s_rh);
-	v_out[1] = (v_lh[1] | s_rh);
-	v_out[2] = (v_lh[2] | s_rh);
-	return v_out;
-}
-
-ijk_inl floatv ijkVecBitNor3fvs(float3 v_out, float3 const v_lh, f32 const s_rh)
-{
-	v_out[0] = ~(v_lh[0] | s_rh);
-	v_out[1] = ~(v_lh[1] | s_rh);
-	v_out[2] = ~(v_lh[2] | s_rh);
-	return v_out;
-}
-
-ijk_inl floatv ijkVecBitXor3fvs(float3 v_out, float3 const v_lh, f32 const s_rh)
-{
-	v_out[0] = (v_lh[0] ^ s_rh);
-	v_out[1] = (v_lh[1] ^ s_rh);
-	v_out[2] = (v_lh[2] ^ s_rh);
-	return v_out;
-}
-
-ijk_inl floatv ijkVecBitXnor3fvs(float3 v_out, float3 const v_lh, f32 const s_rh)
-{
-	v_out[0] = ~(v_lh[0] ^ s_rh);
-	v_out[1] = ~(v_lh[1] ^ s_rh);
-	v_out[2] = ~(v_lh[2] ^ s_rh);
-	return v_out;
-}
-
-ijk_inl floatv ijkVecBitShiftLeft3fvs(float3 v_out, float3 const v_lh, f32 const s_rh)
-{
-	v_out[0] = (v_lh[0] << s_rh);
-	v_out[1] = (v_lh[1] << s_rh);
-	v_out[2] = (v_lh[2] << s_rh);
-	return v_out;
-}
-
-ijk_inl floatv ijkVecBitShiftRight3fvs(float3 v_out, float3 const v_lh, f32 const s_rh)
-{
-	v_out[0] = (v_lh[0] >> s_rh);
-	v_out[1] = (v_lh[1] >> s_rh);
-	v_out[2] = (v_lh[2] >> s_rh);
-	return v_out;
-}
-#endif	// TfloatEGER
 
 ijk_inl boolv ijkVecEqual3fvs(bool3 bv_out, float3 const v_lh, f32 const s_rh)
 {
@@ -1287,72 +938,6 @@ ijk_inl floatv ijkVecModSafe3fsv(float3 v_out, f32 const s_lh, float3 const v_rh
 	return v_out;
 }
 
-#if TfloatEGER
-ijk_inl floatv ijkVecBitAnd3fsv(float3 v_out, f32 const s_lh, float3 const v_rh)
-{
-	v_out[0] = (s_lh & v_rh[0]);
-	v_out[1] = (s_lh & v_rh[1]);
-	v_out[2] = (s_lh & v_rh[2]);
-	return v_out;
-}
-
-ijk_inl floatv ijkVecBitNand3fsv(float3 v_out, f32 const s_lh, float3 const v_rh)
-{
-	v_out[0] = ~(s_lh & v_rh[0]);
-	v_out[1] = ~(s_lh & v_rh[1]);
-	v_out[2] = ~(s_lh & v_rh[2]);
-	return v_out;
-}
-
-ijk_inl floatv ijkVecBitOr3fsv(float3 v_out, f32 const s_lh, float3 const v_rh)
-{
-	v_out[0] = (s_lh | v_rh[0]);
-	v_out[1] = (s_lh | v_rh[1]);
-	v_out[2] = (s_lh | v_rh[2]);
-	return v_out;
-}
-
-ijk_inl floatv ijkVecBitNor3fsv(float3 v_out, f32 const s_lh, float3 const v_rh)
-{
-	v_out[0] = ~(s_lh | v_rh[0]);
-	v_out[1] = ~(s_lh | v_rh[1]);
-	v_out[2] = ~(s_lh | v_rh[2]);
-	return v_out;
-}
-
-ijk_inl floatv ijkVecBitXor3fsv(float3 v_out, f32 const s_lh, float3 const v_rh)
-{
-	v_out[0] = (s_lh ^ v_rh[0]);
-	v_out[1] = (s_lh ^ v_rh[1]);
-	v_out[2] = (s_lh ^ v_rh[2]);
-	return v_out;
-}
-
-ijk_inl floatv ijkVecBitXnor3fsv(float3 v_out, f32 const s_lh, float3 const v_rh)
-{
-	v_out[0] = ~(s_lh ^ v_rh[0]);
-	v_out[1] = ~(s_lh ^ v_rh[1]);
-	v_out[2] = ~(s_lh ^ v_rh[2]);
-	return v_out;
-}
-
-ijk_inl floatv ijkVecBitShiftLeft3fsv(float3 v_out, f32 const s_lh, float3 const v_rh)
-{
-	v_out[0] = (s_lh << v_rh[0]);
-	v_out[1] = (s_lh << v_rh[1]);
-	v_out[2] = (s_lh << v_rh[2]);
-	return v_out;
-}
-
-ijk_inl floatv ijkVecBitShiftRight3fsv(float3 v_out, f32 const s_lh, float3 const v_rh)
-{
-	v_out[0] = (s_lh >> v_rh[0]);
-	v_out[1] = (s_lh >> v_rh[1]);
-	v_out[2] = (s_lh >> v_rh[2]);
-	return v_out;
-}
-#endif	// TfloatEGER
-
 ijk_inl boolv ijkVecEqual3fsv(bool3 bv_out, f32 const s_lh, float3 const v_rh)
 {
 	bv_out[0] = (s_lh == v_rh[0]);
@@ -1491,7 +1076,6 @@ ijk_inl floatv ijkVecCopy4fv(float4 v_out, float4 const v_in)
 	return v_out;
 }
 
-#if TSIGNED
 ijk_inl floatv ijkVecNegate4fv(float4 v_out, float4 const v_in)
 {
 	v_out[0] = -v_in[0];
@@ -1500,18 +1084,6 @@ ijk_inl floatv ijkVecNegate4fv(float4 v_out, float4 const v_in)
 	v_out[3] = -v_in[3];
 	return v_out;
 }
-#endif	// TSIGNED
-
-#if TfloatEGER
-ijk_inl floatv ijkVecBitNot4fv(float4 v_out, float4 const v_in)
-{
-	v_out[0] = ~v_in[0];
-	v_out[1] = ~v_in[1];
-	v_out[2] = ~v_in[2];
-	v_out[3] = ~v_in[3];
-	return v_out;
-}
-#endif	// TfloatEGER
 
 ijk_inl boolv ijkVecNot4fv(bool4 bv_out, float4 const v_in)
 {
@@ -1584,80 +1156,6 @@ ijk_inl floatv ijkVecModSafe4fv(float4 v_out, float4 const v_lh, float4 const v_
 	v_out[3] = ijk_modulo_safe_flt(v_lh[3], v_rh[3]);
 	return v_out;
 }
-
-#if TfloatEGER
-ijk_inl floatv ijkVecBitAnd4fv(float4 v_out, float4 const v_lh, float4 const v_rh)
-{
-	v_out[0] = (v_lh[0] & v_rh[0]);
-	v_out[1] = (v_lh[1] & v_rh[1]);
-	v_out[2] = (v_lh[2] & v_rh[2]);
-	v_out[3] = (v_lh[3] & v_rh[3]);
-	return v_out;
-}
-
-ijk_inl floatv ijkVecBitNand4fv(float4 v_out, float4 const v_lh, float4 const v_rh)
-{
-	v_out[0] = ~(v_lh[0] & v_rh[0]);
-	v_out[1] = ~(v_lh[1] & v_rh[1]);
-	v_out[2] = ~(v_lh[2] & v_rh[2]);
-	v_out[3] = ~(v_lh[3] & v_rh[3]);
-	return v_out;
-}
-
-ijk_inl floatv ijkVecBitOr4fv(float4 v_out, float4 const v_lh, float4 const v_rh)
-{
-	v_out[0] = (v_lh[0] | v_rh[0]);
-	v_out[1] = (v_lh[1] | v_rh[1]);
-	v_out[2] = (v_lh[2] | v_rh[2]);
-	v_out[3] = (v_lh[3] | v_rh[3]);
-	return v_out;
-}
-
-ijk_inl floatv ijkVecBitNor4fv(float4 v_out, float4 const v_lh, float4 const v_rh)
-{
-	v_out[0] = ~(v_lh[0] | v_rh[0]);
-	v_out[1] = ~(v_lh[1] | v_rh[1]);
-	v_out[2] = ~(v_lh[2] | v_rh[2]);
-	v_out[3] = ~(v_lh[3] | v_rh[3]);
-	return v_out;
-}
-
-ijk_inl floatv ijkVecBitXor4fv(float4 v_out, float4 const v_lh, float4 const v_rh)
-{
-	v_out[0] = (v_lh[0] ^ v_rh[0]);
-	v_out[1] = (v_lh[1] ^ v_rh[1]);
-	v_out[2] = (v_lh[2] ^ v_rh[2]);
-	v_out[3] = (v_lh[3] ^ v_rh[3]);
-	return v_out;
-}
-
-ijk_inl floatv ijkVecBitXnor4fv(float4 v_out, float4 const v_lh, float4 const v_rh)
-{
-	v_out[0] = ~(v_lh[0] ^ v_rh[0]);
-	v_out[1] = ~(v_lh[1] ^ v_rh[1]);
-	v_out[2] = ~(v_lh[2] ^ v_rh[2]);
-	v_out[3] = ~(v_lh[3] ^ v_rh[3]);
-	return v_out;
-}
-
-ijk_inl floatv ijkVecBitShiftLeft4fv(float4 v_out, float4 const v_lh, float4 const v_rh)
-{
-	v_out[0] = (v_lh[0] << v_rh[0]);
-	v_out[1] = (v_lh[1] << v_rh[1]);
-	v_out[2] = (v_lh[2] << v_rh[2]);
-	v_out[3] = (v_lh[3] << v_rh[3]);
-	return v_out;
-}
-
-ijk_inl floatv ijkVecBitShiftRight4fv(float4 v_out, float4 const v_lh, float4 const v_rh)
-{
-	v_out[0] = (v_lh[0] >> v_rh[0]);
-	v_out[1] = (v_lh[1] >> v_rh[1]);
-	v_out[2] = (v_lh[2] >> v_rh[2]);
-	v_out[3] = (v_lh[3] >> v_rh[3]);
-	return v_out;
-}
-#endif	// TfloatEGER
 
 ijk_inl boolv ijkVecEqual4fv(bool4 bv_out, float4 const v_lh, float4 const v_rh)
 {
@@ -1773,21 +1271,11 @@ ijk_inl floatv ijkVecCopy4fvs(float4 v_out, f32 const s_in)
 	return v_out;
 }
 
-#if TSIGNED
 ijk_inl floatv ijkVecNegate4fvs(float4 v_out, f32 const s_in)
 {
 	v_out[0] = v_out[1] = v_out[2] = v_out[3] = -s_in;
 	return v_out;
 }
-#endif	// TSIGNED
-
-#if TfloatEGER
-ijk_inl floatv ijkVecBitNot4fvs(float4 v_out, f32 const s_in)
-{
-	v_out[0] = v_out[1] = v_out[2] = v_out[3] = ~s_in;
-	return v_out;
-}
-#endif	// TfloatEGER
 
 ijk_inl boolv ijkVecNot4fvs(bool4 bv_out, f32 const s_in)
 {
@@ -1867,80 +1355,6 @@ ijk_inl floatv ijkVecModSafe4fvs(float4 v_out, float4 const v_lh, f32 const s_rh
 		v_out[0] = v_out[1] = v_out[2] = v_out[3] = 0;
 	return v_out;
 }
-
-#if TfloatEGER
-ijk_inl floatv ijkVecBitAnd4fvs(float4 v_out, float4 const v_lh, f32 const s_rh)
-{
-	v_out[0] = (v_lh[0] & s_rh);
-	v_out[1] = (v_lh[1] & s_rh);
-	v_out[2] = (v_lh[2] & s_rh);
-	v_out[3] = (v_lh[3] & s_rh);
-	return v_out;
-}
-
-ijk_inl floatv ijkVecBitNand4fvs(float4 v_out, float4 const v_lh, f32 const s_rh)
-{
-	v_out[0] = ~(v_lh[0] & s_rh);
-	v_out[1] = ~(v_lh[1] & s_rh);
-	v_out[2] = ~(v_lh[2] & s_rh);
-	v_out[3] = ~(v_lh[3] & s_rh);
-	return v_out;
-}
-
-ijk_inl floatv ijkVecBitOr4fvs(float4 v_out, float4 const v_lh, f32 const s_rh)
-{
-	v_out[0] = (v_lh[0] | s_rh);
-	v_out[1] = (v_lh[1] | s_rh);
-	v_out[2] = (v_lh[2] | s_rh);
-	v_out[3] = (v_lh[3] | s_rh);
-	return v_out;
-}
-
-ijk_inl floatv ijkVecBitNor4fvs(float4 v_out, float4 const v_lh, f32 const s_rh)
-{
-	v_out[0] = ~(v_lh[0] | s_rh);
-	v_out[1] = ~(v_lh[1] | s_rh);
-	v_out[2] = ~(v_lh[2] | s_rh);
-	v_out[3] = ~(v_lh[3] | s_rh);
-	return v_out;
-}
-
-ijk_inl floatv ijkVecBitXor4fvs(float4 v_out, float4 const v_lh, f32 const s_rh)
-{
-	v_out[0] = (v_lh[0] ^ s_rh);
-	v_out[1] = (v_lh[1] ^ s_rh);
-	v_out[2] = (v_lh[2] ^ s_rh);
-	v_out[3] = (v_lh[3] ^ s_rh);
-	return v_out;
-}
-
-ijk_inl floatv ijkVecBitXnor4fvs(float4 v_out, float4 const v_lh, f32 const s_rh)
-{
-	v_out[0] = ~(v_lh[0] ^ s_rh);
-	v_out[1] = ~(v_lh[1] ^ s_rh);
-	v_out[2] = ~(v_lh[2] ^ s_rh);
-	v_out[3] = ~(v_lh[3] ^ s_rh);
-	return v_out;
-}
-
-ijk_inl floatv ijkVecBitShiftLeft4fvs(float4 v_out, float4 const v_lh, f32 const s_rh)
-{
-	v_out[0] = (v_lh[0] << s_rh);
-	v_out[1] = (v_lh[1] << s_rh);
-	v_out[2] = (v_lh[2] << s_rh);
-	v_out[3] = (v_lh[3] << s_rh);
-	return v_out;
-}
-
-ijk_inl floatv ijkVecBitShiftRight4fvs(float4 v_out, float4 const v_lh, f32 const s_rh)
-{
-	v_out[0] = (v_lh[0] >> s_rh);
-	v_out[1] = (v_lh[1] >> s_rh);
-	v_out[2] = (v_lh[2] >> s_rh);
-	v_out[3] = (v_lh[3] >> s_rh);
-	return v_out;
-}
-#endif	// TfloatEGER
 
 ijk_inl boolv ijkVecEqual4fvs(bool4 bv_out, float4 const v_lh, f32 const s_rh)
 {
@@ -2112,80 +1526,6 @@ ijk_inl floatv ijkVecModSafe4fsv(float4 v_out, f32 const s_lh, float4 const v_rh
 	v_out[3] = ijk_modulo_safe_flt(s_lh, v_rh[3]);
 	return v_out;
 }
-
-#if TfloatEGER
-ijk_inl floatv ijkVecBitAnd4fsv(float4 v_out, f32 const s_lh, float4 const v_rh)
-{
-	v_out[0] = (s_lh & v_rh[0]);
-	v_out[1] = (s_lh & v_rh[1]);
-	v_out[2] = (s_lh & v_rh[2]);
-	v_out[3] = (s_lh & v_rh[3]);
-	return v_out;
-}
-
-ijk_inl floatv ijkVecBitNand4fsv(float4 v_out, f32 const s_lh, float4 const v_rh)
-{
-	v_out[0] = ~(s_lh & v_rh[0]);
-	v_out[1] = ~(s_lh & v_rh[1]);
-	v_out[2] = ~(s_lh & v_rh[2]);
-	v_out[3] = ~(s_lh & v_rh[3]);
-	return v_out;
-}
-
-ijk_inl floatv ijkVecBitOr4fsv(float4 v_out, f32 const s_lh, float4 const v_rh)
-{
-	v_out[0] = (s_lh | v_rh[0]);
-	v_out[1] = (s_lh | v_rh[1]);
-	v_out[2] = (s_lh | v_rh[2]);
-	v_out[3] = (s_lh | v_rh[3]);
-	return v_out;
-}
-
-ijk_inl floatv ijkVecBitNor4fsv(float4 v_out, f32 const s_lh, float4 const v_rh)
-{
-	v_out[0] = ~(s_lh | v_rh[0]);
-	v_out[1] = ~(s_lh | v_rh[1]);
-	v_out[2] = ~(s_lh | v_rh[2]);
-	v_out[3] = ~(s_lh | v_rh[3]);
-	return v_out;
-}
-
-ijk_inl floatv ijkVecBitXor4fsv(float4 v_out, f32 const s_lh, float4 const v_rh)
-{
-	v_out[0] = (s_lh ^ v_rh[0]);
-	v_out[1] = (s_lh ^ v_rh[1]);
-	v_out[2] = (s_lh ^ v_rh[2]);
-	v_out[3] = (s_lh ^ v_rh[3]);
-	return v_out;
-}
-
-ijk_inl floatv ijkVecBitXnor4fsv(float4 v_out, f32 const s_lh, float4 const v_rh)
-{
-	v_out[0] = ~(s_lh ^ v_rh[0]);
-	v_out[1] = ~(s_lh ^ v_rh[1]);
-	v_out[2] = ~(s_lh ^ v_rh[2]);
-	v_out[3] = ~(s_lh ^ v_rh[3]);
-	return v_out;
-}
-
-ijk_inl floatv ijkVecBitShiftLeft4fsv(float4 v_out, f32 const s_lh, float4 const v_rh)
-{
-	v_out[0] = (s_lh << v_rh[0]);
-	v_out[1] = (s_lh << v_rh[1]);
-	v_out[2] = (s_lh << v_rh[2]);
-	v_out[3] = (s_lh << v_rh[3]);
-	return v_out;
-}
-
-ijk_inl floatv ijkVecBitShiftRight4fsv(float4 v_out, f32 const s_lh, float4 const v_rh)
-{
-	v_out[0] = (s_lh >> v_rh[0]);
-	v_out[1] = (s_lh >> v_rh[1]);
-	v_out[2] = (s_lh >> v_rh[2]);
-	v_out[3] = (s_lh >> v_rh[3]);
-	return v_out;
-}
-#endif	// TfloatEGER
 
 ijk_inl boolv ijkVecEqual4fsv(bool4 bv_out, f32 const s_lh, float4 const v_rh)
 {
@@ -2362,21 +1702,11 @@ ijk_inl fvec2 ijkVecCopy2f(fvec2 const v_in)
 	return v_out;
 }
 
-#if TSIGNED
 ijk_inl fvec2 ijkVecNegate2f(fvec2 const v_in)
 {
 	fvec2 const v_out = { -v_in.x, -v_in.y };
 	return v_out;
 }
-#endif	// TSIGNED
-
-#if TfloatEGER
-ijk_inl fvec2 ijkVecBitNot2f(fvec2 const v_in)
-{
-	fvec2 const v_out = { ~v_in.x, ~v_in.y };
-	return v_out;
-}
-#endif	// TfloatEGER
 
 ijk_inl bvec2 ijkVecNot2f(fvec2 const v_in)
 {
@@ -2446,80 +1776,6 @@ ijk_inl fvec2 ijkVecModSafe2f(fvec2 const v_lh, fvec2 const v_rh)
 	};
 	return v_out;
 }
-
-#if TfloatEGER
-ijk_inl fvec2 ijkVecBitAnd2f(fvec2 const v_lh, fvec2 const v_rh)
-{
-	fvec2 const v_out = {
-		(v_lh.x & v_rh.x),
-		(v_lh.y & v_rh.y),
-	};
-	return v_out;
-}
-
-ijk_inl fvec2 ijkVecBitNand2f(fvec2 const v_lh, fvec2 const v_rh)
-{
-	fvec2 const v_out = {
-		~(v_lh.x & v_rh.x),
-		~(v_lh.y & v_rh.y),
-	};
-	return v_out;
-}
-
-ijk_inl fvec2 ijkVecBitOr2f(fvec2 const v_lh, fvec2 const v_rh)
-{
-	fvec2 const v_out = {
-		(v_lh.x | v_rh.x),
-		(v_lh.y | v_rh.y),
-	};
-	return v_out;
-}
-
-ijk_inl fvec2 ijkVecBitNor2f(fvec2 const v_lh, fvec2 const v_rh)
-{
-	fvec2 const v_out = {
-		~(v_lh.x | v_rh.x),
-		~(v_lh.y | v_rh.y),
-	};
-	return v_out;
-}
-
-ijk_inl fvec2 ijkVecBitXor2f(fvec2 const v_lh, fvec2 const v_rh)
-{
-	fvec2 const v_out = {
-		(v_lh.x ^ v_rh.x),
-		(v_lh.y ^ v_rh.y),
-	};
-	return v_out;
-}
-
-ijk_inl fvec2 ijkVecBitXnor2f(fvec2 const v_lh, fvec2 const v_rh)
-{
-	fvec2 const v_out = {
-		~(v_lh.x ^ v_rh.x),
-		~(v_lh.y ^ v_rh.y),
-	};
-	return v_out;
-}
-
-ijk_inl fvec2 ijkVecBitShiftLeft2f(fvec2 const v_lh, fvec2 const v_rh)
-{
-	fvec2 const v_out = {
-		(v_lh.x << v_rh.x),
-		(v_lh.y << v_rh.y),
-	};
-	return v_out;
-}
-
-ijk_inl fvec2 ijkVecBitShiftRight2f(fvec2 const v_lh, fvec2 const v_rh)
-{
-	fvec2 const v_out = {
-		(v_lh.x >> v_rh.x),
-		(v_lh.y >> v_rh.y),
-	};
-	return v_out;
-}
-#endif	// TfloatEGER
 
 ijk_inl bvec2 ijkVecEqual2f(fvec2 const v_lh, fvec2 const v_rh)
 {
@@ -2617,23 +1873,12 @@ ijk_inl fvec2 ijkVecCopy2fs(float const s_in)
 	return v_out;
 }
 
-#if TSIGNED
 ijk_inl fvec2 ijkVecNegate2fs(float const s_in)
 {
 	float const s = -s_in;
 	fvec2 const v_out = { s, s };
 	return v_out;
 }
-#endif	// TSIGNED
-
-#if TfloatEGER
-ijk_inl fvec2 ijkVecBitNot2fs(float const s_in)
-{
-	float const s = ~s_in;
-	fvec2 const v_out = { s, s };
-	return v_out;
-}
-#endif	// TfloatEGER
 
 ijk_inl bvec2 ijkVecNot2fs(float const s_in)
 {
@@ -2720,80 +1965,6 @@ ijk_inl fvec2 ijkVecModSafe2fs(fvec2 const v_lh, float const s_rh)
 		return v_out;
 	}
 }
-
-#if TfloatEGER
-ijk_inl fvec2 ijkVecBitAnd2fs(fvec2 const v_lh, float const s_rh)
-{
-	fvec2 const v_out = {
-		(v_lh.x & s_rh),
-		(v_lh.y & s_rh),
-	};
-	return v_out;
-}
-
-ijk_inl fvec2 ijkVecBitNand2fs(fvec2 const v_lh, float const s_rh)
-{
-	fvec2 const v_out = {
-		~(v_lh.x & s_rh),
-		~(v_lh.y & s_rh),
-	};
-	return v_out;
-}
-
-ijk_inl fvec2 ijkVecBitOr2fs(fvec2 const v_lh, float const s_rh)
-{
-	fvec2 const v_out = {
-		(v_lh.x | s_rh),
-		(v_lh.y | s_rh),
-	};
-	return v_out;
-}
-
-ijk_inl fvec2 ijkVecBitNor2fs(fvec2 const v_lh, float const s_rh)
-{
-	fvec2 const v_out = {
-		~(v_lh.x | s_rh),
-		~(v_lh.y | s_rh),
-	};
-	return v_out;
-}
-
-ijk_inl fvec2 ijkVecBitXor2fs(fvec2 const v_lh, float const s_rh)
-{
-	fvec2 const v_out = {
-		(v_lh.x ^ s_rh),
-		(v_lh.y ^ s_rh),
-	};
-	return v_out;
-}
-
-ijk_inl fvec2 ijkVecBitXnor2fs(fvec2 const v_lh, float const s_rh)
-{
-	fvec2 const v_out = {
-		~(v_lh.x ^ s_rh),
-		~(v_lh.y ^ s_rh),
-	};
-	return v_out;
-}
-
-ijk_inl fvec2 ijkVecBitShiftLeft2fs(fvec2 const v_lh, float const s_rh)
-{
-	fvec2 const v_out = {
-		(v_lh.x << s_rh),
-		(v_lh.y << s_rh),
-	};
-	return v_out;
-}
-
-ijk_inl fvec2 ijkVecBitShiftRight2fs(fvec2 const v_lh, float const s_rh)
-{
-	fvec2 const v_out = {
-		(v_lh.x >> s_rh),
-		(v_lh.y >> s_rh),
-	};
-	return v_out;
-}
-#endif	// TfloatEGER
 
 ijk_inl bvec2 ijkVecEqual2fs(fvec2 const v_lh, float const s_rh)
 {
@@ -2948,80 +2119,6 @@ ijk_inl fvec2 ijkVecModSafe2sf(float const s_lh, fvec2 const v_rh)
 	return v_out;
 }
 
-#if TfloatEGER
-ijk_inl fvec2 ijkVecBitAnd2sf(float const s_lh, fvec2 const v_rh)
-{
-	fvec2 const v_out = {
-		(s_lh & v_rh.x),
-		(s_lh & v_rh.y),
-	};
-	return v_out;
-}
-
-ijk_inl fvec2 ijkVecBitNand2sf(float const s_lh, fvec2 const v_rh)
-{
-	fvec2 const v_out = {
-		~(s_lh & v_rh.x),
-		~(s_lh & v_rh.y),
-	};
-	return v_out;
-}
-
-ijk_inl fvec2 ijkVecBitOr2sf(float const s_lh, fvec2 const v_rh)
-{
-	fvec2 const v_out = {
-		(s_lh | v_rh.x),
-		(s_lh | v_rh.y),
-	};
-	return v_out;
-}
-
-ijk_inl fvec2 ijkVecBitNor2sf(float const s_lh, fvec2 const v_rh)
-{
-	fvec2 const v_out = {
-		~(s_lh | v_rh.x),
-		~(s_lh | v_rh.y),
-	};
-	return v_out;
-}
-
-ijk_inl fvec2 ijkVecBitXor2sf(float const s_lh, fvec2 const v_rh)
-{
-	fvec2 const v_out = {
-		(s_lh ^ v_rh.x),
-		(s_lh ^ v_rh.y),
-	};
-	return v_out;
-}
-
-ijk_inl fvec2 ijkVecBitXnor2sf(float const s_lh, fvec2 const v_rh)
-{
-	fvec2 const v_out = {
-		~(s_lh ^ v_rh.x),
-		~(s_lh ^ v_rh.y),
-	};
-	return v_out;
-}
-
-ijk_inl fvec2 ijkVecBitShiftLeft2sf(float const s_lh, fvec2 const v_rh)
-{
-	fvec2 const v_out = {
-		(s_lh << v_rh.x),
-		(s_lh << v_rh.y),
-	};
-	return v_out;
-}
-
-ijk_inl fvec2 ijkVecBitShiftRight2sf(float const s_lh, fvec2 const v_rh)
-{
-	fvec2 const v_out = {
-		(s_lh >> v_rh.x),
-		(s_lh >> v_rh.y),
-	};
-	return v_out;
-}
-#endif	// TfloatEGER
-
 ijk_inl bvec2 ijkVecEqual2sf(float const s_lh, fvec2 const v_rh)
 {
 	bvec2 const bv_out = {
@@ -3143,21 +2240,11 @@ ijk_inl fvec3 ijkVecCopy3f(fvec3 const v_in)
 	return v_out;
 }
 
-#if TSIGNED
 ijk_inl fvec3 ijkVecNegate3f(fvec3 const v_in)
 {
 	fvec3 const v_out = { -v_in.x, -v_in.y, -v_in.z };
 	return v_out;
 }
-#endif	// TSIGNED
-
-#if TfloatEGER
-ijk_inl fvec3 ijkVecBitNot3f(fvec3 const v_in)
-{
-	fvec3 const v_out = { ~v_in.x, ~v_in.y, ~v_in.z };
-	return v_out;
-}
-#endif	// TfloatEGER
 
 ijk_inl bvec3 ijkVecNot3f(fvec3 const v_in)
 {
@@ -3234,88 +2321,6 @@ ijk_inl fvec3 ijkVecModSafe3f(fvec3 const v_lh, fvec3 const v_rh)
 	};
 	return v_out;
 }
-
-#if TfloatEGER
-ijk_inl fvec3 ijkVecBitAnd3f(fvec3 const v_lh, fvec3 const v_rh)
-{
-	fvec3 const v_out = {
-		(v_lh.x & v_rh.x),
-		(v_lh.y & v_rh.y),
-		(v_lh.z & v_rh.z),
-	};
-	return v_out;
-}
-
-ijk_inl fvec3 ijkVecBitNand3f(fvec3 const v_lh, fvec3 const v_rh)
-{
-	fvec3 const v_out = {
-		~(v_lh.x & v_rh.x),
-		~(v_lh.y & v_rh.y),
-		~(v_lh.z & v_rh.z),
-	};
-	return v_out;
-}
-
-ijk_inl fvec3 ijkVecBitOr3f(fvec3 const v_lh, fvec3 const v_rh)
-{
-	fvec3 const v_out = {
-		(v_lh.x | v_rh.x),
-		(v_lh.y | v_rh.y),
-		(v_lh.z | v_rh.z),
-	};
-	return v_out;
-}
-
-ijk_inl fvec3 ijkVecBitNor3f(fvec3 const v_lh, fvec3 const v_rh)
-{
-	fvec3 const v_out = {
-		~(v_lh.x | v_rh.x),
-		~(v_lh.y | v_rh.y),
-		~(v_lh.z | v_rh.z),
-	};
-	return v_out;
-}
-
-ijk_inl fvec3 ijkVecBitXor3f(fvec3 const v_lh, fvec3 const v_rh)
-{
-	fvec3 const v_out = {
-		(v_lh.x ^ v_rh.x),
-		(v_lh.y ^ v_rh.y),
-		(v_lh.z ^ v_rh.z),
-	};
-	return v_out;
-}
-
-ijk_inl fvec3 ijkVecBitXnor3f(fvec3 const v_lh, fvec3 const v_rh)
-{
-	fvec3 const v_out = {
-		~(v_lh.x ^ v_rh.x),
-		~(v_lh.y ^ v_rh.y),
-		~(v_lh.z ^ v_rh.z),
-	};
-	return v_out;
-}
-
-ijk_inl fvec3 ijkVecBitShiftLeft3f(fvec3 const v_lh, fvec3 const v_rh)
-{
-	fvec3 const v_out = {
-		(v_lh.x << v_rh.x),
-		(v_lh.y << v_rh.y),
-		(v_lh.z << v_rh.z),
-	};
-	return v_out;
-}
-
-ijk_inl fvec3 ijkVecBitShiftRight3f(fvec3 const v_lh, fvec3 const v_rh)
-{
-	fvec3 const v_out = {
-		(v_lh.x >> v_rh.x),
-		(v_lh.y >> v_rh.y),
-		(v_lh.z >> v_rh.z),
-	};
-	return v_out;
-}
-#endif	// TfloatEGER
 
 ijk_inl bvec3 ijkVecEqual3f(fvec3 const v_lh, fvec3 const v_rh)
 {
@@ -3429,23 +2434,12 @@ ijk_inl fvec3 ijkVecCopy3fs(float const s_in)
 	return v_out;
 }
 
-#if TSIGNED
 ijk_inl fvec3 ijkVecNegate3fs(float const s_in)
 {
 	float const s = -s_in;
 	fvec3 const v_out = { s, s, s };
 	return v_out;
 }
-#endif	// TSIGNED
-
-#if TfloatEGER
-ijk_inl fvec3 ijkVecBitNot3fs(float const s_in)
-{
-	float const s = ~s_in;
-	fvec3 const v_out = { s, s, s };
-	return v_out;
-}
-#endif	// TfloatEGER
 
 ijk_inl bvec3 ijkVecNot3fs(float const s_in)
 {
@@ -3539,88 +2533,6 @@ ijk_inl fvec3 ijkVecModSafe3fs(fvec3 const v_lh, float const s_rh)
 		return v_out;
 	}
 }
-
-#if TfloatEGER
-ijk_inl fvec3 ijkVecBitAnd3fs(fvec3 const v_lh, float const s_rh)
-{
-	fvec3 const v_out = {
-		(v_lh.x & s_rh),
-		(v_lh.y & s_rh),
-		(v_lh.z & s_rh),
-	};
-	return v_out;
-}
-
-ijk_inl fvec3 ijkVecBitNand3fs(fvec3 const v_lh, float const s_rh)
-{
-	fvec3 const v_out = {
-		~(v_lh.x & s_rh),
-		~(v_lh.y & s_rh),
-		~(v_lh.z & s_rh),
-	};
-	return v_out;
-}
-
-ijk_inl fvec3 ijkVecBitOr3fs(fvec3 const v_lh, float const s_rh)
-{
-	fvec3 const v_out = {
-		(v_lh.x | s_rh),
-		(v_lh.y | s_rh),
-		(v_lh.z | s_rh),
-	};
-	return v_out;
-}
-
-ijk_inl fvec3 ijkVecBitNor3fs(fvec3 const v_lh, float const s_rh)
-{
-	fvec3 const v_out = {
-		~(v_lh.x | s_rh),
-		~(v_lh.y | s_rh),
-		~(v_lh.z | s_rh),
-	};
-	return v_out;
-}
-
-ijk_inl fvec3 ijkVecBitXor3fs(fvec3 const v_lh, float const s_rh)
-{
-	fvec3 const v_out = {
-		(v_lh.x ^ s_rh),
-		(v_lh.y ^ s_rh),
-		(v_lh.z ^ s_rh),
-	};
-	return v_out;
-}
-
-ijk_inl fvec3 ijkVecBitXnor3fs(fvec3 const v_lh, float const s_rh)
-{
-	fvec3 const v_out = {
-		~(v_lh.x ^ s_rh),
-		~(v_lh.y ^ s_rh),
-		~(v_lh.z ^ s_rh),
-	};
-	return v_out;
-}
-
-ijk_inl fvec3 ijkVecBitShiftLeft3fs(fvec3 const v_lh, float const s_rh)
-{
-	fvec3 const v_out = {
-		(v_lh.x << s_rh),
-		(v_lh.y << s_rh),
-		(v_lh.z << s_rh),
-	};
-	return v_out;
-}
-
-ijk_inl fvec3 ijkVecBitShiftRight3fs(fvec3 const v_lh, float const s_rh)
-{
-	fvec3 const v_out = {
-		(v_lh.x >> s_rh),
-		(v_lh.y >> s_rh),
-		(v_lh.z >> s_rh),
-	};
-	return v_out;
-}
-#endif	// TfloatEGER
 
 ijk_inl bvec3 ijkVecEqual3fs(fvec3 const v_lh, float const s_rh)
 {
@@ -3798,88 +2710,6 @@ ijk_inl fvec3 ijkVecModSafe3sf(float const s_lh, fvec3 const v_rh)
 	return v_out;
 }
 
-#if TfloatEGER
-ijk_inl fvec3 ijkVecBitAnd3sf(float const s_lh, fvec3 const v_rh)
-{
-	fvec3 const v_out = {
-		(s_lh & v_rh.x),
-		(s_lh & v_rh.y),
-		(s_lh & v_rh.z),
-	};
-	return v_out;
-}
-
-ijk_inl fvec3 ijkVecBitNand3sf(float const s_lh, fvec3 const v_rh)
-{
-	fvec3 const v_out = {
-		~(s_lh & v_rh.x),
-		~(s_lh & v_rh.y),
-		~(s_lh & v_rh.z),
-	};
-	return v_out;
-}
-
-ijk_inl fvec3 ijkVecBitOr3sf(float const s_lh, fvec3 const v_rh)
-{
-	fvec3 const v_out = {
-		(s_lh | v_rh.x),
-		(s_lh | v_rh.y),
-		(s_lh | v_rh.z),
-	};
-	return v_out;
-}
-
-ijk_inl fvec3 ijkVecBitNor3sf(float const s_lh, fvec3 const v_rh)
-{
-	fvec3 const v_out = {
-		~(s_lh | v_rh.x),
-		~(s_lh | v_rh.y),
-		~(s_lh | v_rh.z),
-	};
-	return v_out;
-}
-
-ijk_inl fvec3 ijkVecBitXor3sf(float const s_lh, fvec3 const v_rh)
-{
-	fvec3 const v_out = {
-		(s_lh ^ v_rh.x),
-		(s_lh ^ v_rh.y),
-		(s_lh ^ v_rh.z),
-	};
-	return v_out;
-}
-
-ijk_inl fvec3 ijkVecBitXnor3sf(float const s_lh, fvec3 const v_rh)
-{
-	fvec3 const v_out = {
-		~(s_lh ^ v_rh.x),
-		~(s_lh ^ v_rh.y),
-		~(s_lh ^ v_rh.z),
-	};
-	return v_out;
-}
-
-ijk_inl fvec3 ijkVecBitShiftLeft3sf(float const s_lh, fvec3 const v_rh)
-{
-	fvec3 const v_out = {
-		(s_lh << v_rh.x),
-		(s_lh << v_rh.y),
-		(s_lh << v_rh.z),
-	};
-	return v_out;
-}
-
-ijk_inl fvec3 ijkVecBitShiftRight3sf(float const s_lh, fvec3 const v_rh)
-{
-	fvec3 const v_out = {
-		(s_lh >> v_rh.x),
-		(s_lh >> v_rh.y),
-		(s_lh >> v_rh.z),
-	};
-	return v_out;
-}
-#endif	// TfloatEGER
-
 ijk_inl bvec3 ijkVecEqual3sf(float const s_lh, fvec3 const v_rh)
 {
 	bvec3 const bv_out = {
@@ -4025,21 +2855,11 @@ ijk_inl fvec4 ijkVecCopy4f(fvec4 const v_in)
 	return v_out;
 }
 
-#if TSIGNED
 ijk_inl fvec4 ijkVecNegate4f(fvec4 const v_in)
 {
 	fvec4 const v_out = { -v_in.x, -v_in.y, -v_in.z, -v_in.w };
 	return v_out;
 }
-#endif	// TSIGNED
-
-#if TfloatEGER
-ijk_inl fvec4 ijkVecBitNot4f(fvec4 const v_in)
-{
-	fvec4 const v_out = { ~v_in.x, ~v_in.y, ~v_in.z, ~v_in.w };
-	return v_out;
-}
-#endif	// TfloatEGER
 
 ijk_inl bvec4 ijkVecNot4f(fvec4 const v_in)
 {
@@ -4123,96 +2943,6 @@ ijk_inl fvec4 ijkVecModSafe4f(fvec4 const v_lh, fvec4 const v_rh)
 	};
 	return v_out;
 }
-
-#if TfloatEGER
-ijk_inl fvec4 ijkVecBitAnd4f(fvec4 const v_lh, fvec4 const v_rh)
-{
-	fvec4 const v_out = {
-		(v_lh.x & v_rh.x),
-		(v_lh.y & v_rh.y),
-		(v_lh.z & v_rh.z),
-		(v_lh.w & v_rh.w),
-	};
-	return v_out;
-}
-
-ijk_inl fvec4 ijkVecBitNand4f(fvec4 const v_lh, fvec4 const v_rh)
-{
-	fvec4 const v_out = {
-		~(v_lh.x & v_rh.x),
-		~(v_lh.y & v_rh.y),
-		~(v_lh.z & v_rh.z),
-		~(v_lh.w & v_rh.w),
-	};
-	return v_out;
-}
-
-ijk_inl fvec4 ijkVecBitOr4f(fvec4 const v_lh, fvec4 const v_rh)
-{
-	fvec4 const v_out = {
-		(v_lh.x | v_rh.x),
-		(v_lh.y | v_rh.y),
-		(v_lh.z | v_rh.z),
-		(v_lh.w | v_rh.w),
-	};
-	return v_out;
-}
-
-ijk_inl fvec4 ijkVecBitNor4f(fvec4 const v_lh, fvec4 const v_rh)
-{
-	fvec4 const v_out = {
-		~(v_lh.x | v_rh.x),
-		~(v_lh.y | v_rh.y),
-		~(v_lh.z | v_rh.z),
-		~(v_lh.w | v_rh.w),
-	};
-	return v_out;
-}
-
-ijk_inl fvec4 ijkVecBitXor4f(fvec4 const v_lh, fvec4 const v_rh)
-{
-	fvec4 const v_out = {
-		(v_lh.x ^ v_rh.x),
-		(v_lh.y ^ v_rh.y),
-		(v_lh.z ^ v_rh.z),
-		(v_lh.w ^ v_rh.w),
-	};
-	return v_out;
-}
-
-ijk_inl fvec4 ijkVecBitXnor4f(fvec4 const v_lh, fvec4 const v_rh)
-{
-	fvec4 const v_out = {
-		~(v_lh.x ^ v_rh.x),
-		~(v_lh.y ^ v_rh.y),
-		~(v_lh.z ^ v_rh.z),
-		~(v_lh.w ^ v_rh.w),
-	};
-	return v_out;
-}
-
-ijk_inl fvec4 ijkVecBitShiftLeft4f(fvec4 const v_lh, fvec4 const v_rh)
-{
-	fvec4 const v_out = {
-		(v_lh.x << v_rh.x),
-		(v_lh.y << v_rh.y),
-		(v_lh.z << v_rh.z),
-		(v_lh.w << v_rh.w),
-	};
-	return v_out;
-}
-
-ijk_inl fvec4 ijkVecBitShiftRight4f(fvec4 const v_lh, fvec4 const v_rh)
-{
-	fvec4 const v_out = {
-		(v_lh.x >> v_rh.x),
-		(v_lh.y >> v_rh.y),
-		(v_lh.z >> v_rh.z),
-		(v_lh.w >> v_rh.w),
-	};
-	return v_out;
-}
-#endif	// TfloatEGER
 
 ijk_inl bvec4 ijkVecEqual4f(fvec4 const v_lh, fvec4 const v_rh)
 {
@@ -4342,23 +3072,12 @@ ijk_inl fvec4 ijkVecCopy4fs(float const s_in)
 	return v_out;
 }
 
-#if TSIGNED
 ijk_inl fvec4 ijkVecNegate4fs(float const s_in)
 {
 	float const s = -s_in;
 	fvec4 const v_out = { s, s, s, s };
 	return v_out;
 }
-#endif	// TSIGNED
-
-#if TfloatEGER
-ijk_inl fvec4 ijkVecBitNot4fs(float const s_in)
-{
-	float const s = ~s_in;
-	fvec4 const v_out = { s, s, s, s };
-	return v_out;
-}
-#endif	// TfloatEGER
 
 ijk_inl bvec4 ijkVecNot4fs(float const s_in)
 {
@@ -4459,96 +3178,6 @@ ijk_inl fvec4 ijkVecModSafe4fs(fvec4 const v_lh, float const s_rh)
 		return v_out;
 	}
 }
-
-#if TfloatEGER
-ijk_inl fvec4 ijkVecBitAnd4fs(fvec4 const v_lh, float const s_rh)
-{
-	fvec4 const v_out = {
-		(v_lh.x & s_rh),
-		(v_lh.y & s_rh),
-		(v_lh.z & s_rh),
-		(v_lh.w & s_rh),
-	};
-	return v_out;
-}
-
-ijk_inl fvec4 ijkVecBitNand4fs(fvec4 const v_lh, float const s_rh)
-{
-	fvec4 const v_out = {
-		~(v_lh.x & s_rh),
-		~(v_lh.y & s_rh),
-		~(v_lh.z & s_rh),
-		~(v_lh.w & s_rh),
-	};
-	return v_out;
-}
-
-ijk_inl fvec4 ijkVecBitOr4fs(fvec4 const v_lh, float const s_rh)
-{
-	fvec4 const v_out = {
-		(v_lh.x | s_rh),
-		(v_lh.y | s_rh),
-		(v_lh.z | s_rh),
-		(v_lh.w | s_rh),
-	};
-	return v_out;
-}
-
-ijk_inl fvec4 ijkVecBitNor4fs(fvec4 const v_lh, float const s_rh)
-{
-	fvec4 const v_out = {
-		~(v_lh.x | s_rh),
-		~(v_lh.y | s_rh),
-		~(v_lh.z | s_rh),
-		~(v_lh.w | s_rh),
-	};
-	return v_out;
-}
-
-ijk_inl fvec4 ijkVecBitXor4fs(fvec4 const v_lh, float const s_rh)
-{
-	fvec4 const v_out = {
-		(v_lh.x ^ s_rh),
-		(v_lh.y ^ s_rh),
-		(v_lh.z ^ s_rh),
-		(v_lh.w ^ s_rh),
-	};
-	return v_out;
-}
-
-ijk_inl fvec4 ijkVecBitXnor4fs(fvec4 const v_lh, float const s_rh)
-{
-	fvec4 const v_out = {
-		~(v_lh.x ^ s_rh),
-		~(v_lh.y ^ s_rh),
-		~(v_lh.z ^ s_rh),
-		~(v_lh.w ^ s_rh),
-	};
-	return v_out;
-}
-
-ijk_inl fvec4 ijkVecBitShiftLeft4fs(fvec4 const v_lh, float const s_rh)
-{
-	fvec4 const v_out = {
-		(v_lh.x << s_rh),
-		(v_lh.y << s_rh),
-		(v_lh.z << s_rh),
-		(v_lh.w << s_rh),
-	};
-	return v_out;
-}
-
-ijk_inl fvec4 ijkVecBitShiftRight4fs(fvec4 const v_lh, float const s_rh)
-{
-	fvec4 const v_out = {
-		(v_lh.x >> s_rh),
-		(v_lh.y >> s_rh),
-		(v_lh.z >> s_rh),
-		(v_lh.w >> s_rh),
-	};
-	return v_out;
-}
-#endif	// TfloatEGER
 
 ijk_inl bvec4 ijkVecEqual4fs(fvec4 const v_lh, float const s_rh)
 {
@@ -4748,96 +3377,6 @@ ijk_inl fvec4 ijkVecModSafe4sf(float const s_lh, fvec4 const v_rh)
 	};
 	return v_out;
 }
-
-#if TfloatEGER
-ijk_inl fvec4 ijkVecBitAnd4sf(float const s_lh, fvec4 const v_rh)
-{
-	fvec4 const v_out = {
-		(s_lh & v_rh.x),
-		(s_lh & v_rh.y),
-		(s_lh & v_rh.z),
-		(s_lh & v_rh.w),
-	};
-	return v_out;
-}
-
-ijk_inl fvec4 ijkVecBitNand4sf(float const s_lh, fvec4 const v_rh)
-{
-	fvec4 const v_out = {
-		~(s_lh & v_rh.x),
-		~(s_lh & v_rh.y),
-		~(s_lh & v_rh.z),
-		~(s_lh & v_rh.w),
-	};
-	return v_out;
-}
-
-ijk_inl fvec4 ijkVecBitOr4sf(float const s_lh, fvec4 const v_rh)
-{
-	fvec4 const v_out = {
-		(s_lh | v_rh.x),
-		(s_lh | v_rh.y),
-		(s_lh | v_rh.z),
-		(s_lh | v_rh.w),
-	};
-	return v_out;
-}
-
-ijk_inl fvec4 ijkVecBitNor4sf(float const s_lh, fvec4 const v_rh)
-{
-	fvec4 const v_out = {
-		~(s_lh | v_rh.x),
-		~(s_lh | v_rh.y),
-		~(s_lh | v_rh.z),
-		~(s_lh | v_rh.w),
-	};
-	return v_out;
-}
-
-ijk_inl fvec4 ijkVecBitXor4sf(float const s_lh, fvec4 const v_rh)
-{
-	fvec4 const v_out = {
-		(s_lh ^ v_rh.x),
-		(s_lh ^ v_rh.y),
-		(s_lh ^ v_rh.z),
-		(s_lh ^ v_rh.w),
-	};
-	return v_out;
-}
-
-ijk_inl fvec4 ijkVecBitXnor4sf(float const s_lh, fvec4 const v_rh)
-{
-	fvec4 const v_out = {
-		~(s_lh ^ v_rh.x),
-		~(s_lh ^ v_rh.y),
-		~(s_lh ^ v_rh.z),
-		~(s_lh ^ v_rh.w),
-	};
-	return v_out;
-}
-
-ijk_inl fvec4 ijkVecBitShiftLeft4sf(float const s_lh, fvec4 const v_rh)
-{
-	fvec4 const v_out = {
-		(s_lh << v_rh.x),
-		(s_lh << v_rh.y),
-		(s_lh << v_rh.z),
-		(s_lh << v_rh.w),
-	};
-	return v_out;
-}
-
-ijk_inl fvec4 ijkVecBitShiftRight4sf(float const s_lh, fvec4 const v_rh)
-{
-	fvec4 const v_out = {
-		(s_lh >> v_rh.x),
-		(s_lh >> v_rh.y),
-		(s_lh >> v_rh.z),
-		(s_lh >> v_rh.w),
-	};
-	return v_out;
-}
-#endif	// TfloatEGER
 
 ijk_inl bvec4 ijkVecEqual4sf(float const s_lh, fvec4 const v_rh)
 {

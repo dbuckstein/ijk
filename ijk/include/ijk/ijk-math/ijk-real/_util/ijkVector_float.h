@@ -137,18 +137,7 @@ floatv ijkVecCopy2fv(float2 v_out, float2 const v_in);
 //		param v_out: output vector to hold negated
 //		param v_in: input vector
 //		return: v_out
-#if TSIGNED
 floatv ijkVecNegate2fv(float2 v_out, float2 const v_in);
-#endif	// TSIGNED
-
-// ijkVecBitNot2*v
-//	Calculate component-wise bitwise 'not' of 2D vector.
-//		param v_out: output vector to hold component-wise bitwise 'not'
-//		param v_in: input vector
-//		return: v_out
-#if TfloatEGER
-floatv ijkVecBitNot2fv(float2 v_out, float2 const v_in);
-#endif	// TfloatEGER
 
 // ijkVecNot2*v
 //	Calculate component-wise logical 'not' of 2D vector.
@@ -212,72 +201,6 @@ floatv ijkVecMod2fv(float2 v_out, float2 const v_lh, float2 const v_rh);
 //		param v_rh: right-hand vector
 //		return: v_out
 floatv ijkVecModSafe2fv(float2 v_out, float2 const v_lh, float2 const v_rh);
-
-#if TfloatEGER
-// ijkVecBitAnd2*v
-//	Calculate component-wise bitwise 'and' of 2D vectors.
-//		param v_out: output vector to hold component-wise bitwise 'and'
-//		param v_lh: left-hand vector
-//		param v_rh: right-hand vector
-//		return: v_out
-floatv ijkVecBitAnd2fv(float2 v_out, float2 const v_lh, float2 const v_rh);
-
-// ijkVecBitNand2*v
-//	Calculate component-wise bitwise 'not and' of 2D vectors.
-//		param v_out: output vector to hold component-wise bitwise 'nand'
-//		param v_lh: left-hand vector
-//		param v_rh: right-hand vector
-//		return: v_out
-floatv ijkVecBitNand2fv(float2 v_out, float2 const v_lh, float2 const v_rh);
-
-// ijkVecBitOr2*v
-//	Calculate component-wise bitwise 'or' of 2D vectors.
-//		param v_out: output vector to hold component-wise bitwise 'or'
-//		param v_lh: left-hand vector
-//		param v_rh: right-hand vector
-//		return: v_out
-floatv ijkVecBitOr2fv(float2 v_out, float2 const v_lh, float2 const v_rh);
-
-// ijkVecBitNor2*v
-//	Calculate component-wise bitwise 'not or' of 2D vectors.
-//		param v_out: output vector to hold component-wise bitwise 'nor'
-//		param v_lh: left-hand vector
-//		param v_rh: right-hand vector
-//		return: v_out
-floatv ijkVecBitNor2fv(float2 v_out, float2 const v_lh, float2 const v_rh);
-
-// ijkVecBitXor2*v
-//	Calculate component-wise bitwise 'exclusive or' of 2D vectors.
-//		param v_out: output vector to hold component-wise bitwise 'xor'
-//		param v_lh: left-hand vector
-//		param v_rh: right-hand vector
-//		return: v_out
-floatv ijkVecBitXor2fv(float2 v_out, float2 const v_lh, float2 const v_rh);
-
-// ijkVecBitXnor2*v
-//	Calculate component-wise bitwise 'not exclusive or' of 2D vectors.
-//		param v_out: output vector to hold component-wise bitwise 'nxor'
-//		param v_lh: left-hand vector
-//		param v_rh: right-hand vector
-//		return: v_out
-floatv ijkVecBitXnor2fv(float2 v_out, float2 const v_lh, float2 const v_rh);
-
-// ijkVecBitShiftLeft2*v
-//	Calculate component-wise bit shift left of 2D vectors.
-//		param v_out: output vector to hold component-wise bit shift
-//		param v_lh: left-hand vector
-//		param v_rh: right-hand vector
-//		return: v_out
-floatv ijkVecBitShiftLeft2fv(float2 v_out, float2 const v_lh, float2 const v_rh);
-
-// ijkVecBitShiftRight2*v
-//	Calculate component-wise bit shift right of 2D vectors.
-//		param v_out: output vector to hold component-wise bit shift
-//		param v_lh: left-hand vector
-//		param v_rh: right-hand vector
-//		return: v_out
-floatv ijkVecBitShiftRight2fv(float2 v_out, float2 const v_lh, float2 const v_rh);
-#endif	// TfloatEGER
 
 // ijkVecEqual2*v
 //	Equality comparison for 2D vectors.
@@ -371,18 +294,7 @@ floatv ijkVecCopy2fvs(float2 v_out, f32 const s_in);
 //		param v_out: output vector to hold negated
 //		param s_in: input scalar
 //		return: v_out
-#if TSIGNED
 floatv ijkVecNegate2fvs(float2 v_out, f32 const s_in);
-#endif	// TSIGNED
-
-// ijkVecBitNot2*vs
-//	Calculate bitwise 'not' of 2D vector.
-//		param v_out: output vector to hold bitwise 'not'
-//		param s_in: input scalar
-//		return: v_out
-#if TfloatEGER
-floatv ijkVecBitNot2fvs(float2 v_out, f32 const s_in);
-#endif	// TfloatEGER
 
 // ijkVecNot2*vs
 //	Calculate logical 'not' of scalar.
@@ -446,72 +358,6 @@ floatv ijkVecMod2fvs(float2 v_out, float2 const v_lh, f32 const s_rh);
 //		param s_rh: right-hand scalar
 //		return: v_out
 floatv ijkVecModSafe2fvs(float2 v_out, float2 const v_lh, f32 const s_rh);
-
-#if TfloatEGER
-// ijkVecBitAnd2*vs
-//	Calculate bitwise 'and' of 2D vector components and scalar.
-//		param v_out: output vector to hold bitwise 'and'
-//		param v_lh: left-hand vector
-//		param s_rh: right-hand scalar
-//		return: v_out
-floatv ijkVecBitAnd2fvs(float2 v_out, float2 const v_lh, f32 const s_rh);
-
-// ijkVecBitNand2*vs
-//	Calculate bitwise 'not and' of 2D vector components and scalar.
-//		param v_out: output vector to hold bitwise 'nand'
-//		param v_lh: left-hand vector
-//		param s_rh: right-hand scalar
-//		return: v_out
-floatv ijkVecBitNand2fvs(float2 v_out, float2 const v_lh, f32 const s_rh);
-
-// ijkVecBitOr2*vs
-//	Calculate bitwise 'or' of 2D vector components and scalar.
-//		param v_out: output vector to hold bitwise 'or'
-//		param v_lh: left-hand vector
-//		param s_rh: right-hand scalar
-//		return: v_out
-floatv ijkVecBitOr2fvs(float2 v_out, float2 const v_lh, f32 const s_rh);
-
-// ijkVecBitNor2*vs
-//	Calculate bitwise 'not or' of 2D vector components and scalar.
-//		param v_out: output vector to hold bitwise 'nor'
-//		param v_lh: left-hand vector
-//		param s_rh: right-hand scalar
-//		return: v_out
-floatv ijkVecBitNor2fvs(float2 v_out, float2 const v_lh, f32 const s_rh);
-
-// ijkVecBitXor2*vs
-//	Calculate bitwise 'exclusive or' of 2D vector components and scalar.
-//		param v_out: output vector to hold bitwise 'xor'
-//		param v_lh: left-hand vector
-//		param s_rh: right-hand scalar
-//		return: v_out
-floatv ijkVecBitXor2fvs(float2 v_out, float2 const v_lh, f32 const s_rh);
-
-// ijkVecBitXnor2*vs
-//	Calculate bitwise 'not exclusive or' of 2D vector components and scalar.
-//		param v_out: output vector to hold bitwise 'nxor'
-//		param v_lh: left-hand vector
-//		param s_rh: right-hand scalar
-//		return: v_out
-floatv ijkVecBitXnor2fvs(float2 v_out, float2 const v_lh, f32 const s_rh);
-
-// ijkVecBitShiftLeft2*vs
-//	Calculate bit shift left of 2D vector components and scalar.
-//		param v_out: output vector to hold bit shift
-//		param v_lh: left-hand vector
-//		param s_rh: right-hand scalar
-//		return: v_out
-floatv ijkVecBitShiftLeft2fvs(float2 v_out, float2 const v_lh, f32 const s_rh);
-
-// ijkVecBitShiftRight2*vs
-//	Calculate bit shift right of 2D vector components and scalar.
-//		param v_out: output vector to hold bit shift
-//		param v_lh: left-hand vector
-//		param s_rh: right-hand scalar
-//		return: v_out
-floatv ijkVecBitShiftRight2fvs(float2 v_out, float2 const v_lh, f32 const s_rh);
-#endif	// TfloatEGER
 
 // ijkVecEqual2*vs
 //	Equality comparison of 2D vector components and scalar.
@@ -649,72 +495,6 @@ floatv ijkVecMod2fsv(float2 v_out, f32 const s_lh, float2 const v_rh);
 //		return: v_out
 floatv ijkVecModSafe2fsv(float2 v_out, f32 const s_lh, float2 const v_rh);
 
-#if TfloatEGER
-// ijkVecBitAnd2*sv
-//	Calculate bitwise 'and' of scalar and 2D vector components.
-//		param v_out: output vector to hold bitwise 'and'
-//		param s_lh: left-hand scalar
-//		param v_rh: right-hand vector
-//		return: v_out
-floatv ijkVecBitAnd2fsv(float2 v_out, f32 const s_lh, float2 const v_rh);
-
-// ijkVecBitNand2*sv
-//	Calculate bitwise 'not and' of scalar and 2D vector components.
-//		param v_out: output vector to hold bitwise 'nand'
-//		param s_lh: left-hand scalar
-//		param v_rh: right-hand vector
-//		return: v_out
-floatv ijkVecBitNand2fsv(float2 v_out, f32 const s_lh, float2 const v_rh);
-
-// ijkVecBitOr2*sv
-//	Calculate bitwise 'or' of scalar and 2D vector components.
-//		param v_out: output vector to hold bitwise 'or'
-//		param s_lh: left-hand scalar
-//		param v_rh: right-hand vector
-//		return: v_out
-floatv ijkVecBitOr2fsv(float2 v_out, f32 const s_lh, float2 const v_rh);
-
-// ijkVecBitNor2*sv
-//	Calculate bitwise 'not or' of scalar and 2D vector components.
-//		param v_out: output vector to hold bitwise 'nor'
-//		param s_lh: left-hand scalar
-//		param v_rh: right-hand vector
-//		return: v_out
-floatv ijkVecBitNor2fsv(float2 v_out, f32 const s_lh, float2 const v_rh);
-
-// ijkVecBitXor2*sv
-//	Calculate bitwise 'exclusive or' of scalar and 2D vector components.
-//		param v_out: output vector to hold bitwise 'xor'
-//		param s_lh: left-hand scalar
-//		param v_rh: right-hand vector
-//		return: v_out
-floatv ijkVecBitXor2fsv(float2 v_out, f32 const s_lh, float2 const v_rh);
-
-// ijkVecBitXnor2*sv
-//	Calculate bitwise 'not exclusive or' of scalar and 2D vector components.
-//		param v_out: output vector to hold bitwise 'nxor'
-//		param s_lh: left-hand scalar
-//		param v_rh: right-hand vector
-//		return: v_out
-floatv ijkVecBitXnor2fsv(float2 v_out, f32 const s_lh, float2 const v_rh);
-
-// ijkVecBitShiftLeft2*sv
-//	Calculate bit shift left of scalar by 2D vector components.
-//		param v_out: output vector to hold bit shift
-//		param s_lh: left-hand scalar
-//		param v_rh: right-hand vector
-//		return: v_out
-floatv ijkVecBitShiftLeft2fsv(float2 v_out, f32 const s_lh, float2 const v_rh);
-
-// ijkVecBitShiftRight2*sv
-//	Calculate bit shift right of scalar by 2D vector components.
-//		param v_out: output vector to hold bit shift
-//		param s_lh: left-hand scalar
-//		param v_rh: right-hand vector
-//		return: v_out
-floatv ijkVecBitShiftRight2fsv(float2 v_out, f32 const s_lh, float2 const v_rh);
-#endif	// TfloatEGER
-
 // ijkVecEqual2*sv
 //	Equality comparison of scalar and 2D vector components.
 //		param bv_out: output vector holding boolean results of comparisons
@@ -839,18 +619,7 @@ floatv ijkVecCopy3fv(float3 v_out, float3 const v_in);
 //		param v_out: output vector to hold negated
 //		param v_in: input vector
 //		return: v_out
-#if TSIGNED
 floatv ijkVecNegate3fv(float3 v_out, float3 const v_in);
-#endif	// TSIGNED
-
-// ijkVecBitNot3*v
-//	Calculate component-wise bitwise 'not' of 3D vector.
-//		param v_out: output vector to hold component-wise bitwise 'not'
-//		param v_in: input vector
-//		return: v_out
-#if TfloatEGER
-floatv ijkVecBitNot3fv(float3 v_out, float3 const v_in);
-#endif	// TfloatEGER
 
 // ijkVecNot3*v
 //	Calculate component-wise logical 'not' of 3D vector.
@@ -914,72 +683,6 @@ floatv ijkVecMod3fv(float3 v_out, float3 const v_lh, float3 const v_rh);
 //		param v_rh: right-hand vector
 //		return: v_out
 floatv ijkVecModSafe3fv(float3 v_out, float3 const v_lh, float3 const v_rh);
-
-#if TfloatEGER
-// ijkVecBitAnd3*v
-//	Calculate component-wise bitwise 'and' of 3D vectors.
-//		param v_out: output vector to hold component-wise bitwise 'and'
-//		param v_lh: left-hand vector
-//		param v_rh: right-hand vector
-//		return: v_out
-floatv ijkVecBitAnd3fv(float3 v_out, float3 const v_lh, float3 const v_rh);
-
-// ijkVecBitNand3*v
-//	Calculate component-wise bitwise 'not and' of 3D vectors.
-//		param v_out: output vector to hold component-wise bitwise 'nand'
-//		param v_lh: left-hand vector
-//		param v_rh: right-hand vector
-//		return: v_out
-floatv ijkVecBitNand3fv(float3 v_out, float3 const v_lh, float3 const v_rh);
-
-// ijkVecBitOr3*v
-//	Calculate component-wise bitwise 'or' of 3D vectors.
-//		param v_out: output vector to hold component-wise bitwise 'or'
-//		param v_lh: left-hand vector
-//		param v_rh: right-hand vector
-//		return: v_out
-floatv ijkVecBitOr3fv(float3 v_out, float3 const v_lh, float3 const v_rh);
-
-// ijkVecBitNor3*v
-//	Calculate component-wise bitwise 'not or' of 3D vectors.
-//		param v_out: output vector to hold component-wise bitwise 'nor'
-//		param v_lh: left-hand vector
-//		param v_rh: right-hand vector
-//		return: v_out
-floatv ijkVecBitNor3fv(float3 v_out, float3 const v_lh, float3 const v_rh);
-
-// ijkVecBitXor3*v
-//	Calculate component-wise bitwise 'exclusive or' of 3D vectors.
-//		param v_out: output vector to hold component-wise bitwise 'xor'
-//		param v_lh: left-hand vector
-//		param v_rh: right-hand vector
-//		return: v_out
-floatv ijkVecBitXor3fv(float3 v_out, float3 const v_lh, float3 const v_rh);
-
-// ijkVecBitXnor3*v
-//	Calculate component-wise bitwise 'not exclusive or' of 3D vectors.
-//		param v_out: output vector to hold component-wise bitwise 'nxor'
-//		param v_lh: left-hand vector
-//		param v_rh: right-hand vector
-//		return: v_out
-floatv ijkVecBitXnor3fv(float3 v_out, float3 const v_lh, float3 const v_rh);
-
-// ijkVecBitShiftLeft3*v
-//	Calculate component-wise bit shift left of 3D vectors.
-//		param v_out: output vector to hold component-wise bit shift
-//		param v_lh: left-hand vector
-//		param v_rh: right-hand vector
-//		return: v_out
-floatv ijkVecBitShiftLeft3fv(float3 v_out, float3 const v_lh, float3 const v_rh);
-
-// ijkVecBitShiftRight3*v
-//	Calculate component-wise bit shift right of 3D vectors.
-//		param v_out: output vector to hold component-wise bit shift
-//		param v_lh: left-hand vector
-//		param v_rh: right-hand vector
-//		return: v_out
-floatv ijkVecBitShiftRight3fv(float3 v_out, float3 const v_lh, float3 const v_rh);
-#endif	// TfloatEGER
 
 // ijkVecEqual3*v
 //	Equality comparison for 3D vectors.
@@ -1081,18 +784,7 @@ floatv ijkVecCopy3fvs(float3 v_out, f32 const s_in);
 //		param v_out: output vector to hold negated
 //		param s_in: input scalar
 //		return: v_out
-#if TSIGNED
 floatv ijkVecNegate3fvs(float3 v_out, f32 const s_in);
-#endif	// TSIGNED
-
-// ijkVecBitNot3*vs
-//	Calculate bitwise 'not' of 3D vector.
-//		param v_out: output vector to hold bitwise 'not'
-//		param s_in: input scalar
-//		return: v_out
-#if TfloatEGER
-floatv ijkVecBitNot3fvs(float3 v_out, f32 const s_in);
-#endif	// TfloatEGER
 
 // ijkVecNot3*vs
 //	Calculate logical 'not' of scalar.
@@ -1156,72 +848,6 @@ floatv ijkVecMod3fvs(float3 v_out, float3 const v_lh, f32 const s_rh);
 //		param s_rh: right-hand scalar
 //		return: v_out
 floatv ijkVecModSafe3fvs(float3 v_out, float3 const v_lh, f32 const s_rh);
-
-#if TfloatEGER
-// ijkVecBitAnd3*vs
-//	Calculate bitwise 'and' of 3D vector components and scalar.
-//		param v_out: output vector to hold bitwise 'and'
-//		param v_lh: left-hand vector
-//		param s_rh: right-hand scalar
-//		return: v_out
-floatv ijkVecBitAnd3fvs(float3 v_out, float3 const v_lh, f32 const s_rh);
-
-// ijkVecBitNand3*vs
-//	Calculate bitwise 'not and' of 3D vector components and scalar.
-//		param v_out: output vector to hold bitwise 'nand'
-//		param v_lh: left-hand vector
-//		param s_rh: right-hand scalar
-//		return: v_out
-floatv ijkVecBitNand3fvs(float3 v_out, float3 const v_lh, f32 const s_rh);
-
-// ijkVecBitOr3*vs
-//	Calculate bitwise 'or' of 3D vector components and scalar.
-//		param v_out: output vector to hold bitwise 'or'
-//		param v_lh: left-hand vector
-//		param s_rh: right-hand scalar
-//		return: v_out
-floatv ijkVecBitOr3fvs(float3 v_out, float3 const v_lh, f32 const s_rh);
-
-// ijkVecBitNor3*vs
-//	Calculate bitwise 'not or' of 3D vector components and scalar.
-//		param v_out: output vector to hold bitwise 'nor'
-//		param v_lh: left-hand vector
-//		param s_rh: right-hand scalar
-//		return: v_out
-floatv ijkVecBitNor3fvs(float3 v_out, float3 const v_lh, f32 const s_rh);
-
-// ijkVecBitXor3*vs
-//	Calculate bitwise 'exclusive or' of 3D vector components and scalar.
-//		param v_out: output vector to hold bitwise 'xor'
-//		param v_lh: left-hand vector
-//		param s_rh: right-hand scalar
-//		return: v_out
-floatv ijkVecBitXor3fvs(float3 v_out, float3 const v_lh, f32 const s_rh);
-
-// ijkVecBitXnor3*vs
-//	Calculate bitwise 'not exclusive or' of 3D vector components and scalar.
-//		param v_out: output vector to hold bitwise 'nxor'
-//		param v_lh: left-hand vector
-//		param s_rh: right-hand scalar
-//		return: v_out
-floatv ijkVecBitXnor3fvs(float3 v_out, float3 const v_lh, f32 const s_rh);
-
-// ijkVecBitShiftLeft3*vs
-//	Calculate bit shift left of 3D vector components and scalar.
-//		param v_out: output vector to hold bit shift
-//		param v_lh: left-hand vector
-//		param s_rh: right-hand scalar
-//		return: v_out
-floatv ijkVecBitShiftLeft3fvs(float3 v_out, float3 const v_lh, f32 const s_rh);
-
-// ijkVecBitShiftRight3*vs
-//	Calculate bit shift right of 3D vector components and scalar.
-//		param v_out: output vector to hold bit shift
-//		param v_lh: left-hand vector
-//		param s_rh: right-hand scalar
-//		return: v_out
-floatv ijkVecBitShiftRight3fvs(float3 v_out, float3 const v_lh, f32 const s_rh);
-#endif	// TfloatEGER
 
 // ijkVecEqual3*vs
 //	Equality comparison of 3D vector components and scalar.
@@ -1367,72 +993,6 @@ floatv ijkVecMod3fsv(float3 v_out, f32 const s_lh, float3 const v_rh);
 //		return: v_out
 floatv ijkVecModSafe3fsv(float3 v_out, f32 const s_lh, float3 const v_rh);
 
-#if TfloatEGER
-// ijkVecBitAnd3*sv
-//	Calculate bitwise 'and' of scalar and 3D vector components.
-//		param v_out: output vector to hold bitwise 'and'
-//		param s_lh: left-hand scalar
-//		param v_rh: right-hand vector
-//		return: v_out
-floatv ijkVecBitAnd3fsv(float3 v_out, f32 const s_lh, float3 const v_rh);
-
-// ijkVecBitNand3*sv
-//	Calculate bitwise 'not and' of scalar and 3D vector components.
-//		param v_out: output vector to hold bitwise 'nand'
-//		param s_lh: left-hand scalar
-//		param v_rh: right-hand vector
-//		return: v_out
-floatv ijkVecBitNand3fsv(float3 v_out, f32 const s_lh, float3 const v_rh);
-
-// ijkVecBitOr3*sv
-//	Calculate bitwise 'or' of scalar and 3D vector components.
-//		param v_out: output vector to hold bitwise 'or'
-//		param s_lh: left-hand scalar
-//		param v_rh: right-hand vector
-//		return: v_out
-floatv ijkVecBitOr3fsv(float3 v_out, f32 const s_lh, float3 const v_rh);
-
-// ijkVecBitNor3*sv
-//	Calculate bitwise 'not or' of scalar and 3D vector components.
-//		param v_out: output vector to hold bitwise 'nor'
-//		param s_lh: left-hand scalar
-//		param v_rh: right-hand vector
-//		return: v_out
-floatv ijkVecBitNor3fsv(float3 v_out, f32 const s_lh, float3 const v_rh);
-
-// ijkVecBitXor3*sv
-//	Calculate bitwise 'exclusive or' of scalar and 3D vector components.
-//		param v_out: output vector to hold bitwise 'xor'
-//		param s_lh: left-hand scalar
-//		param v_rh: right-hand vector
-//		return: v_out
-floatv ijkVecBitXor3fsv(float3 v_out, f32 const s_lh, float3 const v_rh);
-
-// ijkVecBitXnor3*sv
-//	Calculate bitwise 'not exclusive or' of scalar and 3D vector components.
-//		param v_out: output vector to hold bitwise 'nxor'
-//		param s_lh: left-hand scalar
-//		param v_rh: right-hand vector
-//		return: v_out
-floatv ijkVecBitXnor3fsv(float3 v_out, f32 const s_lh, float3 const v_rh);
-
-// ijkVecBitShiftLeft3*sv
-//	Calculate bit shift left of scalar by 3D vector components.
-//		param v_out: output vector to hold bit shift
-//		param s_lh: left-hand scalar
-//		param v_rh: right-hand vector
-//		return: v_out
-floatv ijkVecBitShiftLeft3fsv(float3 v_out, f32 const s_lh, float3 const v_rh);
-
-// ijkVecBitShiftRight3*sv
-//	Calculate bit shift right of scalar by 3D vector components.
-//		param v_out: output vector to hold bit shift
-//		param s_lh: left-hand scalar
-//		param v_rh: right-hand vector
-//		return: v_out
-floatv ijkVecBitShiftRight3fsv(float3 v_out, f32 const s_lh, float3 const v_rh);
-#endif	// TfloatEGER
-
 // ijkVecEqual3*sv
 //	Equality comparison of scalar and 3D vector components.
 //		param bv_out: output vector holding boolean results of comparisons
@@ -1576,18 +1136,7 @@ floatv ijkVecCopy4fv(float4 v_out, float4 const v_in);
 //		param v_out: output vector to hold negated
 //		param v_in: input vector
 //		return: v_out
-#if TSIGNED
 floatv ijkVecNegate4fv(float4 v_out, float4 const v_in);
-#endif	// TSIGNED
-
-// ijkVecBitNot4*v
-//	Calculate component-wise bitwise 'not' of 4D vector.
-//		param v_out: output vector to hold component-wise bitwise 'not'
-//		param v_in: input vector
-//		return: v_out
-#if TfloatEGER
-floatv ijkVecBitNot4fv(float4 v_out, float4 const v_in);
-#endif	// TfloatEGER
 
 // ijkVecNot4*v
 //	Calculate component-wise logical 'not' of 4D vector.
@@ -1651,72 +1200,6 @@ floatv ijkVecMod4fv(float4 v_out, float4 const v_lh, float4 const v_rh);
 //		param v_rh: right-hand vector
 //		return: v_out
 floatv ijkVecModSafe4fv(float4 v_out, float4 const v_lh, float4 const v_rh);
-
-#if TfloatEGER
-// ijkVecBitAnd4*v
-//	Calculate component-wise bitwise 'and' of 4D vectors.
-//		param v_out: output vector to hold component-wise bitwise 'and'
-//		param v_lh: left-hand vector
-//		param v_rh: right-hand vector
-//		return: v_out
-floatv ijkVecBitAnd4fv(float4 v_out, float4 const v_lh, float4 const v_rh);
-
-// ijkVecBitNand4*v
-//	Calculate component-wise bitwise 'not and' of 4D vectors.
-//		param v_out: output vector to hold component-wise bitwise 'nand'
-//		param v_lh: left-hand vector
-//		param v_rh: right-hand vector
-//		return: v_out
-floatv ijkVecBitNand4fv(float4 v_out, float4 const v_lh, float4 const v_rh);
-
-// ijkVecBitOr4*v
-//	Calculate component-wise bitwise 'or' of 4D vectors.
-//		param v_out: output vector to hold component-wise bitwise 'or'
-//		param v_lh: left-hand vector
-//		param v_rh: right-hand vector
-//		return: v_out
-floatv ijkVecBitOr4fv(float4 v_out, float4 const v_lh, float4 const v_rh);
-
-// ijkVecBitNor4*v
-//	Calculate component-wise bitwise 'not or' of 4D vectors.
-//		param v_out: output vector to hold component-wise bitwise 'nor'
-//		param v_lh: left-hand vector
-//		param v_rh: right-hand vector
-//		return: v_out
-floatv ijkVecBitNor4fv(float4 v_out, float4 const v_lh, float4 const v_rh);
-
-// ijkVecBitXor4*v
-//	Calculate component-wise bitwise 'exclusive or' of 4D vectors.
-//		param v_out: output vector to hold component-wise bitwise 'xor'
-//		param v_lh: left-hand vector
-//		param v_rh: right-hand vector
-//		return: v_out
-floatv ijkVecBitXor4fv(float4 v_out, float4 const v_lh, float4 const v_rh);
-
-// ijkVecBitXnor4*v
-//	Calculate component-wise bitwise 'not exclusive or' of 4D vectors.
-//		param v_out: output vector to hold component-wise bitwise 'nxor'
-//		param v_lh: left-hand vector
-//		param v_rh: right-hand vector
-//		return: v_out
-floatv ijkVecBitXnor4fv(float4 v_out, float4 const v_lh, float4 const v_rh);
-
-// ijkVecBitShiftLeft4*v
-//	Calculate component-wise bit shift left of 4D vectors.
-//		param v_out: output vector to hold component-wise bit shift
-//		param v_lh: left-hand vector
-//		param v_rh: right-hand vector
-//		return: v_out
-floatv ijkVecBitShiftLeft4fv(float4 v_out, float4 const v_lh, float4 const v_rh);
-
-// ijkVecBitShiftRight4*v
-//	Calculate component-wise bit shift right of 4D vectors.
-//		param v_out: output vector to hold component-wise bit shift
-//		param v_lh: left-hand vector
-//		param v_rh: right-hand vector
-//		return: v_out
-floatv ijkVecBitShiftRight4fv(float4 v_out, float4 const v_lh, float4 const v_rh);
-#endif	// TfloatEGER
 
 // ijkVecEqual4*v
 //	Equality comparison for 4D vectors.
@@ -1827,18 +1310,7 @@ floatv ijkVecCopy4fvs(float4 v_out, f32 const s_in);
 //		param v_out: output vector to hold negated
 //		param s_in: input scalar
 //		return: v_out
-#if TSIGNED
 floatv ijkVecNegate4fvs(float4 v_out, f32 const s_in);
-#endif	// TSIGNED
-
-// ijkVecBitNot4*vs
-//	Calculate bitwise 'not' of 4D vector.
-//		param v_out: output vector to hold bitwise 'not'
-//		param s_in: input scalar
-//		return: v_out
-#if TfloatEGER
-floatv ijkVecBitNot4fvs(float4 v_out, f32 const s_in);
-#endif	// TfloatEGER
 
 // ijkVecNot4*vs
 //	Calculate logical 'not' of scalar.
@@ -1902,72 +1374,6 @@ floatv ijkVecMod4fvs(float4 v_out, float4 const v_lh, f32 const s_rh);
 //		param s_rh: right-hand scalar
 //		return: v_out
 floatv ijkVecModSafe4fvs(float4 v_out, float4 const v_lh, f32 const s_rh);
-
-#if TfloatEGER
-// ijkVecBitAnd4*vs
-//	Calculate bitwise 'and' of 4D vector components and scalar.
-//		param v_out: output vector to hold bitwise 'and'
-//		param v_lh: left-hand vector
-//		param s_rh: right-hand scalar
-//		return: v_out
-floatv ijkVecBitAnd4fvs(float4 v_out, float4 const v_lh, f32 const s_rh);
-
-// ijkVecBitNand4*vs
-//	Calculate bitwise 'not and' of 4D vector components and scalar.
-//		param v_out: output vector to hold bitwise 'nand'
-//		param v_lh: left-hand vector
-//		param s_rh: right-hand scalar
-//		return: v_out
-floatv ijkVecBitNand4fvs(float4 v_out, float4 const v_lh, f32 const s_rh);
-
-// ijkVecBitOr4*vs
-//	Calculate bitwise 'or' of 4D vector components and scalar.
-//		param v_out: output vector to hold bitwise 'or'
-//		param v_lh: left-hand vector
-//		param s_rh: right-hand scalar
-//		return: v_out
-floatv ijkVecBitOr4fvs(float4 v_out, float4 const v_lh, f32 const s_rh);
-
-// ijkVecBitNor4*vs
-//	Calculate bitwise 'not or' of 4D vector components and scalar.
-//		param v_out: output vector to hold bitwise 'nor'
-//		param v_lh: left-hand vector
-//		param s_rh: right-hand scalar
-//		return: v_out
-floatv ijkVecBitNor4fvs(float4 v_out, float4 const v_lh, f32 const s_rh);
-
-// ijkVecBitXor4*vs
-//	Calculate bitwise 'exclusive or' of 4D vector components and scalar.
-//		param v_out: output vector to hold bitwise 'xor'
-//		param v_lh: left-hand vector
-//		param s_rh: right-hand scalar
-//		return: v_out
-floatv ijkVecBitXor4fvs(float4 v_out, float4 const v_lh, f32 const s_rh);
-
-// ijkVecBitXnor4*vs
-//	Calculate bitwise 'not exclusive or' of 4D vector components and scalar.
-//		param v_out: output vector to hold bitwise 'nxor'
-//		param v_lh: left-hand vector
-//		param s_rh: right-hand scalar
-//		return: v_out
-floatv ijkVecBitXnor4fvs(float4 v_out, float4 const v_lh, f32 const s_rh);
-
-// ijkVecBitShiftLeft4*vs
-//	Calculate bit shift left of 4D vector components and scalar.
-//		param v_out: output vector to hold bit shift
-//		param v_lh: left-hand vector
-//		param s_rh: right-hand scalar
-//		return: v_out
-floatv ijkVecBitShiftLeft4fvs(float4 v_out, float4 const v_lh, f32 const s_rh);
-
-// ijkVecBitShiftRight4*vs
-//	Calculate bit shift right of 4D vector components and scalar.
-//		param v_out: output vector to hold bit shift
-//		param v_lh: left-hand vector
-//		param s_rh: right-hand scalar
-//		return: v_out
-floatv ijkVecBitShiftRight4fvs(float4 v_out, float4 const v_lh, f32 const s_rh);
-#endif	// TfloatEGER
 
 // ijkVecEqual4*vs
 //	Equality comparison of 4D vector components and scalar.
@@ -2121,72 +1527,6 @@ floatv ijkVecMod4fsv(float4 v_out, f32 const s_lh, float4 const v_rh);
 //		param v_rh: right-hand vector
 //		return: v_out
 floatv ijkVecModSafe4fsv(float4 v_out, f32 const s_lh, float4 const v_rh);
-
-#if TfloatEGER
-// ijkVecBitAnd4*sv
-//	Calculate bitwise 'and' of scalar and 4D vector components.
-//		param v_out: output vector to hold bitwise 'and'
-//		param s_lh: left-hand scalar
-//		param v_rh: right-hand vector
-//		return: v_out
-floatv ijkVecBitAnd4fsv(float4 v_out, f32 const s_lh, float4 const v_rh);
-
-// ijkVecBitNand4*sv
-//	Calculate bitwise 'not and' of scalar and 4D vector components.
-//		param v_out: output vector to hold bitwise 'nand'
-//		param s_lh: left-hand scalar
-//		param v_rh: right-hand vector
-//		return: v_out
-floatv ijkVecBitNand4fsv(float4 v_out, f32 const s_lh, float4 const v_rh);
-
-// ijkVecBitOr4*sv
-//	Calculate bitwise 'or' of scalar and 4D vector components.
-//		param v_out: output vector to hold bitwise 'or'
-//		param s_lh: left-hand scalar
-//		param v_rh: right-hand vector
-//		return: v_out
-floatv ijkVecBitOr4fsv(float4 v_out, f32 const s_lh, float4 const v_rh);
-
-// ijkVecBitNor4*sv
-//	Calculate bitwise 'not or' of scalar and 4D vector components.
-//		param v_out: output vector to hold bitwise 'nor'
-//		param s_lh: left-hand scalar
-//		param v_rh: right-hand vector
-//		return: v_out
-floatv ijkVecBitNor4fsv(float4 v_out, f32 const s_lh, float4 const v_rh);
-
-// ijkVecBitXor4*sv
-//	Calculate bitwise 'exclusive or' of scalar and 4D vector components.
-//		param v_out: output vector to hold bitwise 'xor'
-//		param s_lh: left-hand scalar
-//		param v_rh: right-hand vector
-//		return: v_out
-floatv ijkVecBitXor4fsv(float4 v_out, f32 const s_lh, float4 const v_rh);
-
-// ijkVecBitXnor4*sv
-//	Calculate bitwise 'not exclusive or' of scalar and 4D vector components.
-//		param v_out: output vector to hold bitwise 'nxor'
-//		param s_lh: left-hand scalar
-//		param v_rh: right-hand vector
-//		return: v_out
-floatv ijkVecBitXnor4fsv(float4 v_out, f32 const s_lh, float4 const v_rh);
-
-// ijkVecBitShiftLeft4*sv
-//	Calculate bit shift left of scalar by 4D vector components.
-//		param v_out: output vector to hold bit shift
-//		param s_lh: left-hand scalar
-//		param v_rh: right-hand vector
-//		return: v_out
-floatv ijkVecBitShiftLeft4fsv(float4 v_out, f32 const s_lh, float4 const v_rh);
-
-// ijkVecBitShiftRight4*sv
-//	Calculate bit shift right of scalar by 4D vector components.
-//		param v_out: output vector to hold bit shift
-//		param s_lh: left-hand scalar
-//		param v_rh: right-hand vector
-//		return: v_out
-floatv ijkVecBitShiftRight4fsv(float4 v_out, f32 const s_lh, float4 const v_rh);
-#endif	// TfloatEGER
 
 // ijkVecEqual4*sv
 //	Equality comparison of scalar and 4D vector components.
@@ -2384,17 +1724,7 @@ fvec2 ijkVecCopy2f(fvec2 const v_in);
 //	Negate 2D vector.
 //		param v_in: input vector
 //		return: result vector
-#if TSIGNED
 fvec2 ijkVecNegate2f(fvec2 const v_in);
-#endif	// TSIGNED
-
-// ijkVecBitNot2*
-//	Calculate component-wise bitwise 'not' of 2D vector.
-//		param v_in: input vector
-//		return: result vector
-#if TfloatEGER
-fvec2 ijkVecBitNot2f(fvec2 const v_in);
-#endif	// TfloatEGER
 
 // ijkVecNot2*
 //	Calculate component-wise logical 'not' of 2D vector.
@@ -2450,64 +1780,6 @@ fvec2 ijkVecMod2f(fvec2 const v_lh, fvec2 const v_rh);
 //		param v_rh: right-hand vector
 //		return: result vector
 fvec2 ijkVecModSafe2f(fvec2 const v_lh, fvec2 const v_rh);
-
-#if TfloatEGER
-// ijkVecBitAnd2*
-//	Calculate component-wise bitwise 'and' of 2D vectors.
-//		param v_lh: left-hand vector
-//		param v_rh: right-hand vector
-//		return: result vector
-fvec2 ijkVecBitAnd2f(fvec2 const v_lh, fvec2 const v_rh);
-
-// ijkVecBitNand2*
-//	Calculate component-wise bitwise 'not and' of 2D vectors.
-//		param v_lh: left-hand vector
-//		param v_rh: right-hand vector
-//		return: result vector
-fvec2 ijkVecBitNand2f(fvec2 const v_lh, fvec2 const v_rh);
-
-// ijkVecBitOr2*
-//	Calculate component-wise bitwise 'or' of 2D vectors.
-//		param v_lh: left-hand vector
-//		param v_rh: right-hand vector
-//		return: result vector
-fvec2 ijkVecBitOr2f(fvec2 const v_lh, fvec2 const v_rh);
-
-// ijkVecBitNor2*
-//	Calculate component-wise bitwise 'not or' of 2D vectors.
-//		param v_lh: left-hand vector
-//		param v_rh: right-hand vector
-//		return: result vector
-fvec2 ijkVecBitNor2f(fvec2 const v_lh, fvec2 const v_rh);
-
-// ijkVecBitXor2*
-//	Calculate component-wise bitwise 'exclusive or' of 2D vectors.
-//		param v_lh: left-hand vector
-//		param v_rh: right-hand vector
-//		return: result vector
-fvec2 ijkVecBitXor2f(fvec2 const v_lh, fvec2 const v_rh);
-
-// ijkVecBitXnor2*
-//	Calculate component-wise bitwise 'not exclusive or' of 2D vectors.
-//		param v_lh: left-hand vector
-//		param v_rh: right-hand vector
-//		return: result vector
-fvec2 ijkVecBitXnor2f(fvec2 const v_lh, fvec2 const v_rh);
-
-// ijkVecBitShiftLeft2*
-//	Calculate component-wise bit shift left of 2D vectors.
-//		param v_lh: left-hand vector
-//		param v_rh: right-hand vector
-//		return: result vector
-fvec2 ijkVecBitShiftLeft2f(fvec2 const v_lh, fvec2 const v_rh);
-
-// ijkVecBitShiftRight2*
-//	Calculate component-wise bit shift right of 2D vectors.
-//		param v_lh: left-hand vector
-//		param v_rh: right-hand vector
-//		return: result vector
-fvec2 ijkVecBitShiftRight2f(fvec2 const v_lh, fvec2 const v_rh);
-#endif	// TfloatEGER
 
 // ijkVecEqual2*
 //	Equality comparison for 2D vectors.
@@ -2589,17 +1861,7 @@ fvec2 ijkVecCopy2fs(float const s_in);
 //	Negate scalar to 2D vector.
 //		param s_in: input scalar
 //		return: result vector
-#if TSIGNED
 fvec2 ijkVecNegate2fs(float const s_in);
-#endif	// TSIGNED
-
-// ijkVecBitNot2*s
-//	Calculate bitwise 'not' of 2D vector.
-//		param s_in: input scalar
-//		return: result vector
-#if TfloatEGER
-fvec2 ijkVecBitNot2fs(float const s_in);
-#endif	// TfloatEGER
 
 // ijkVecNot2*s
 //	Calculate logical 'not' of scalar.
@@ -2655,64 +1917,6 @@ fvec2 ijkVecMod2fs(fvec2 const v_lh, float const s_rh);
 //		param s_rh: right-hand scalar
 //		return: result vector
 fvec2 ijkVecModSafe2fs(fvec2 const v_lh, float const s_rh);
-
-#if TfloatEGER
-// ijkVecBitAnd2*s
-//	Calculate bitwise 'and' of 2D vector components and scalar.
-//		param v_lh: left-hand vector
-//		param s_rh: right-hand scalar
-//		return: result vector
-fvec2 ijkVecBitAnd2fs(fvec2 const v_lh, float const s_rh);
-
-// ijkVecBitNand2*s
-//	Calculate bitwise 'not and' of 2D vector components and scalar.
-//		param v_lh: left-hand vector
-//		param s_rh: right-hand scalar
-//		return: result vector
-fvec2 ijkVecBitNand2fs(fvec2 const v_lh, float const s_rh);
-
-// ijkVecBitOr2*s
-//	Calculate bitwise 'or' of 2D vector components and scalar.
-//		param v_lh: left-hand vector
-//		param s_rh: right-hand scalar
-//		return: result vector
-fvec2 ijkVecBitOr2fs(fvec2 const v_lh, float const s_rh);
-
-// ijkVecBitNor2*s
-//	Calculate bitwise 'not or' of 2D vector components and scalar.
-//		param v_lh: left-hand vector
-//		param s_rh: right-hand scalar
-//		return: result vector
-fvec2 ijkVecBitNor2fs(fvec2 const v_lh, float const s_rh);
-
-// ijkVecBitXor2*s
-//	Calculate bitwise 'exclusive or' of 2D vector components and scalar.
-//		param v_lh: left-hand vector
-//		param s_rh: right-hand scalar
-//		return: result vector
-fvec2 ijkVecBitXor2fs(fvec2 const v_lh, float const s_rh);
-
-// ijkVecBitXnor2*s
-//	Calculate bitwise 'not exclusive or' of 2D vector components and scalar.
-//		param v_lh: left-hand vector
-//		param s_rh: right-hand scalar
-//		return: result vector
-fvec2 ijkVecBitXnor2fs(fvec2 const v_lh, float const s_rh);
-
-// ijkVecBitShiftLeft2*s
-//	Calculate bit shift left of 2D vector components and scalar.
-//		param v_lh: left-hand vector
-//		param s_rh: right-hand scalar
-//		return: result vector
-fvec2 ijkVecBitShiftLeft2fs(fvec2 const v_lh, float const s_rh);
-
-// ijkVecBitShiftRight2*s
-//	Calculate bit shift right of 2D vector components and scalar.
-//		param v_lh: left-hand vector
-//		param s_rh: right-hand scalar
-//		return: result vector
-fvec2 ijkVecBitShiftRight2fs(fvec2 const v_lh, float const s_rh);
-#endif	// TfloatEGER
 
 // ijkVecEqual2*s
 //	Equality comparison of 2D vector components and scalar.
@@ -2833,64 +2037,6 @@ fvec2 ijkVecMod2sf(float const s_lh, fvec2 const v_rh);
 //		return: result vector
 fvec2 ijkVecModSafe2sf(float const s_lh, fvec2 const v_rh);
 
-#if TfloatEGER
-// ijkVecBitAnd2s*
-//	Calculate bitwise 'and' of scalar and 2D vector components.
-//		param s_lh: left-hand scalar
-//		param v_rh: right-hand vector
-//		return: result vector
-fvec2 ijkVecBitAnd2sf(float const s_lh, fvec2 const v_rh);
-
-// ijkVecBitNand2s*
-//	Calculate bitwise 'not and' of scalar and 2D vector components.
-//		param s_lh: left-hand scalar
-//		param v_rh: right-hand vector
-//		return: result vector
-fvec2 ijkVecBitNand2sf(float const s_lh, fvec2 const v_rh);
-
-// ijkVecBitOr2s*
-//	Calculate bitwise 'or' of scalar and 2D vector components.
-//		param s_lh: left-hand scalar
-//		param v_rh: right-hand vector
-//		return: result vector
-fvec2 ijkVecBitOr2sf(float const s_lh, fvec2 const v_rh);
-
-// ijkVecBitNor2s*
-//	Calculate bitwise 'not or' of scalar and 2D vector components.
-//		param s_lh: left-hand scalar
-//		param v_rh: right-hand vector
-//		return: result vector
-fvec2 ijkVecBitNor2sf(float const s_lh, fvec2 const v_rh);
-
-// ijkVecBitXor2s*
-//	Calculate bitwise 'exclusive or' of scalar and 2D vector components.
-//		param s_lh: left-hand scalar
-//		param v_rh: right-hand vector
-//		return: result vector
-fvec2 ijkVecBitXor2sf(float const s_lh, fvec2 const v_rh);
-
-// ijkVecBitXnor2s*
-//	Calculate bitwise 'not exclusive or' of scalar and 2D vector components.
-//		param s_lh: left-hand scalar
-//		param v_rh: right-hand vector
-//		return: result vector
-fvec2 ijkVecBitXnor2sf(float const s_lh, fvec2 const v_rh);
-
-// ijkVecBitShiftLeft2s*
-//	Calculate bit shift left of scalar by 2D vector components.
-//		param s_lh: left-hand scalar
-//		param v_rh: right-hand vector
-//		return: result vector
-fvec2 ijkVecBitShiftLeft2sf(float const s_lh, fvec2 const v_rh);
-
-// ijkVecBitShiftRight2s*
-//	Calculate bit shift right of scalar by 2D vector components.
-//		param s_lh: left-hand scalar
-//		param v_rh: right-hand vector
-//		return: result vector
-fvec2 ijkVecBitShiftRight2sf(float const s_lh, fvec2 const v_rh);
-#endif	// TfloatEGER
-
 // ijkVecEqual2s*
 //	Equality comparison of scalar and 2D vector components.
 //		param s_lh: left-hand scalar
@@ -3001,17 +2147,7 @@ fvec3 ijkVecCopy3f(fvec3 const v_in);
 //	Negate 3D vector.
 //		param v_in: input vector
 //		return: result vector
-#if TSIGNED
 fvec3 ijkVecNegate3f(fvec3 const v_in);
-#endif	// TSIGNED
-
-// ijkVecBitNot3*
-//	Calculate component-wise bitwise 'not' of 3D vector.
-//		param v_in: input vector
-//		return: result vector
-#if TfloatEGER
-fvec3 ijkVecBitNot3f(fvec3 const v_in);
-#endif	// TfloatEGER
 
 // ijkVecNot3*
 //	Calculate component-wise logical 'not' of 3D vector.
@@ -3067,64 +2203,6 @@ fvec3 ijkVecMod3f(fvec3 const v_lh, fvec3 const v_rh);
 //		param v_rh: right-hand vector
 //		return: result vector
 fvec3 ijkVecModSafe3f(fvec3 const v_lh, fvec3 const v_rh);
-
-#if TfloatEGER
-// ijkVecBitAnd3*
-//	Calculate component-wise bitwise 'and' of 3D vectors.
-//		param v_lh: left-hand vector
-//		param v_rh: right-hand vector
-//		return: result vector
-fvec3 ijkVecBitAnd3f(fvec3 const v_lh, fvec3 const v_rh);
-
-// ijkVecBitNand3*
-//	Calculate component-wise bitwise 'not and' of 3D vectors.
-//		param v_lh: left-hand vector
-//		param v_rh: right-hand vector
-//		return: result vector
-fvec3 ijkVecBitNand3f(fvec3 const v_lh, fvec3 const v_rh);
-
-// ijkVecBitOr3*
-//	Calculate component-wise bitwise 'or' of 3D vectors.
-//		param v_lh: left-hand vector
-//		param v_rh: right-hand vector
-//		return: result vector
-fvec3 ijkVecBitOr3f(fvec3 const v_lh, fvec3 const v_rh);
-
-// ijkVecBitNor3*
-//	Calculate component-wise bitwise 'not or' of 3D vectors.
-//		param v_lh: left-hand vector
-//		param v_rh: right-hand vector
-//		return: result vector
-fvec3 ijkVecBitNor3f(fvec3 const v_lh, fvec3 const v_rh);
-
-// ijkVecBitXor3*
-//	Calculate component-wise bitwise 'exclusive or' of 3D vectors.
-//		param v_lh: left-hand vector
-//		param v_rh: right-hand vector
-//		return: result vector
-fvec3 ijkVecBitXor3f(fvec3 const v_lh, fvec3 const v_rh);
-
-// ijkVecBitXnor3*
-//	Calculate component-wise bitwise 'not exclusive or' of 3D vectors.
-//		param v_lh: left-hand vector
-//		param v_rh: right-hand vector
-//		return: result vector
-fvec3 ijkVecBitXnor3f(fvec3 const v_lh, fvec3 const v_rh);
-
-// ijkVecBitShiftLeft3*
-//	Calculate component-wise bit shift left of 3D vectors.
-//		param v_lh: left-hand vector
-//		param v_rh: right-hand vector
-//		return: result vector
-fvec3 ijkVecBitShiftLeft3f(fvec3 const v_lh, fvec3 const v_rh);
-
-// ijkVecBitShiftRight3*
-//	Calculate component-wise bit shift right of 3D vectors.
-//		param v_lh: left-hand vector
-//		param v_rh: right-hand vector
-//		return: result vector
-fvec3 ijkVecBitShiftRight3f(fvec3 const v_lh, fvec3 const v_rh);
-#endif	// TfloatEGER
 
 // ijkVecEqual3*
 //	Equality comparison for 3D vectors.
@@ -3213,17 +2291,7 @@ fvec3 ijkVecCopy3fs(float const s_in);
 //	Negate scalar to 3D vector.
 //		param s_in: input scalar
 //		return: result vector
-#if TSIGNED
 fvec3 ijkVecNegate3fs(float const s_in);
-#endif	// TSIGNED
-
-// ijkVecBitNot3*s
-//	Calculate bitwise 'not' of 3D vector.
-//		param s_in: input scalar
-//		return: result vector
-#if TfloatEGER
-fvec3 ijkVecBitNot3fs(float const s_in);
-#endif	// TfloatEGER
 
 // ijkVecNot3*s
 //	Calculate logical 'not' of scalar.
@@ -3279,64 +2347,6 @@ fvec3 ijkVecMod3fs(fvec3 const v_lh, float const s_rh);
 //		param s_rh: right-hand scalar
 //		return: result vector
 fvec3 ijkVecModSafe3fs(fvec3 const v_lh, float const s_rh);
-
-#if TfloatEGER
-// ijkVecBitAnd3*s
-//	Calculate bitwise 'and' of 3D vector components and scalar.
-//		param v_lh: left-hand vector
-//		param s_rh: right-hand scalar
-//		return: result vector
-fvec3 ijkVecBitAnd3fs(fvec3 const v_lh, float const s_rh);
-
-// ijkVecBitNand3*s
-//	Calculate bitwise 'not and' of 3D vector components and scalar.
-//		param v_lh: left-hand vector
-//		param s_rh: right-hand scalar
-//		return: result vector
-fvec3 ijkVecBitNand3fs(fvec3 const v_lh, float const s_rh);
-
-// ijkVecBitOr3*s
-//	Calculate bitwise 'or' of 3D vector components and scalar.
-//		param v_lh: left-hand vector
-//		param s_rh: right-hand scalar
-//		return: result vector
-fvec3 ijkVecBitOr3fs(fvec3 const v_lh, float const s_rh);
-
-// ijkVecBitNor3*s
-//	Calculate bitwise 'not or' of 3D vector components and scalar.
-//		param v_lh: left-hand vector
-//		param s_rh: right-hand scalar
-//		return: result vector
-fvec3 ijkVecBitNor3fs(fvec3 const v_lh, float const s_rh);
-
-// ijkVecBitXor3*s
-//	Calculate bitwise 'exclusive or' of 3D vector components and scalar.
-//		param v_lh: left-hand vector
-//		param s_rh: right-hand scalar
-//		return: result vector
-fvec3 ijkVecBitXor3fs(fvec3 const v_lh, float const s_rh);
-
-// ijkVecBitXnor3*s
-//	Calculate bitwise 'not exclusive or' of 3D vector components and scalar.
-//		param v_lh: left-hand vector
-//		param s_rh: right-hand scalar
-//		return: result vector
-fvec3 ijkVecBitXnor3fs(fvec3 const v_lh, float const s_rh);
-
-// ijkVecBitShiftLeft3*s
-//	Calculate bit shift left of 3D vector components and scalar.
-//		param v_lh: left-hand vector
-//		param s_rh: right-hand scalar
-//		return: result vector
-fvec3 ijkVecBitShiftLeft3fs(fvec3 const v_lh, float const s_rh);
-
-// ijkVecBitShiftRight3*s
-//	Calculate bit shift right of 3D vector components and scalar.
-//		param v_lh: left-hand vector
-//		param s_rh: right-hand scalar
-//		return: result vector
-fvec3 ijkVecBitShiftRight3fs(fvec3 const v_lh, float const s_rh);
-#endif	// TfloatEGER
 
 // ijkVecEqual3*s
 //	Equality comparison of 3D vector components and scalar.
@@ -3464,64 +2474,6 @@ fvec3 ijkVecMod3sf(float const s_lh, fvec3 const v_rh);
 //		return: result vector
 fvec3 ijkVecModSafe3sf(float const s_lh, fvec3 const v_rh);
 
-#if TfloatEGER
-// ijkVecBitAnd3s*
-//	Calculate bitwise 'and' of scalar and 3D vector components.
-//		param s_lh: left-hand scalar
-//		param v_rh: right-hand vector
-//		return: result vector
-fvec3 ijkVecBitAnd3sf(float const s_lh, fvec3 const v_rh);
-
-// ijkVecBitNand3s*
-//	Calculate bitwise 'not and' of scalar and 3D vector components.
-//		param s_lh: left-hand scalar
-//		param v_rh: right-hand vector
-//		return: result vector
-fvec3 ijkVecBitNand3sf(float const s_lh, fvec3 const v_rh);
-
-// ijkVecBitOr3s*
-//	Calculate bitwise 'or' of scalar and 3D vector components.
-//		param s_lh: left-hand scalar
-//		param v_rh: right-hand vector
-//		return: result vector
-fvec3 ijkVecBitOr3sf(float const s_lh, fvec3 const v_rh);
-
-// ijkVecBitNor3s*
-//	Calculate bitwise 'not or' of scalar and 3D vector components.
-//		param s_lh: left-hand scalar
-//		param v_rh: right-hand vector
-//		return: result vector
-fvec3 ijkVecBitNor3sf(float const s_lh, fvec3 const v_rh);
-
-// ijkVecBitXor3s*
-//	Calculate bitwise 'exclusive or' of scalar and 3D vector components.
-//		param s_lh: left-hand scalar
-//		param v_rh: right-hand vector
-//		return: result vector
-fvec3 ijkVecBitXor3sf(float const s_lh, fvec3 const v_rh);
-
-// ijkVecBitXnor3s*
-//	Calculate bitwise 'not exclusive or' of scalar and 3D vector components.
-//		param s_lh: left-hand scalar
-//		param v_rh: right-hand vector
-//		return: result vector
-fvec3 ijkVecBitXnor3sf(float const s_lh, fvec3 const v_rh);
-
-// ijkVecBitShiftLeft3s*
-//	Calculate bit shift left of scalar by 3D vector components.
-//		param s_lh: left-hand scalar
-//		param v_rh: right-hand vector
-//		return: result vector
-fvec3 ijkVecBitShiftLeft3sf(float const s_lh, fvec3 const v_rh);
-
-// ijkVecBitShiftRight3s*
-//	Calculate bit shift right of scalar by 3D vector components.
-//		param s_lh: left-hand scalar
-//		param v_rh: right-hand vector
-//		return: result vector
-fvec3 ijkVecBitShiftRight3sf(float const s_lh, fvec3 const v_rh);
-#endif	// TfloatEGER
-
 // ijkVecEqual3s*
 //	Equality comparison of scalar and 3D vector components.
 //		param s_lh: left-hand scalar
@@ -3648,17 +2600,7 @@ fvec4 ijkVecCopy4f(fvec4 const v_in);
 //	Negate 4D vector.
 //		param v_in: input vector
 //		return: result vector
-#if TSIGNED
 fvec4 ijkVecNegate4f(fvec4 const v_in);
-#endif	// TSIGNED
-
-// ijkVecBitNot4*
-//	Calculate component-wise bitwise 'not' of 4D vector.
-//		param v_in: input vector
-//		return: result vector
-#if TfloatEGER
-fvec4 ijkVecBitNot4f(fvec4 const v_in);
-#endif	// TfloatEGER
 
 // ijkVecNot4*
 //	Calculate component-wise logical 'not' of 4D vector.
@@ -3714,64 +2656,6 @@ fvec4 ijkVecMod4f(fvec4 const v_lh, fvec4 const v_rh);
 //		param v_rh: right-hand vector
 //		return: result vector
 fvec4 ijkVecModSafe4f(fvec4 const v_lh, fvec4 const v_rh);
-
-#if TfloatEGER
-// ijkVecBitAnd4*
-//	Calculate component-wise bitwise 'and' of 4D vectors.
-//		param v_lh: left-hand vector
-//		param v_rh: right-hand vector
-//		return: result vector
-fvec4 ijkVecBitAnd4f(fvec4 const v_lh, fvec4 const v_rh);
-
-// ijkVecBitNand4*
-//	Calculate component-wise bitwise 'not and' of 4D vectors.
-//		param v_lh: left-hand vector
-//		param v_rh: right-hand vector
-//		return: result vector
-fvec4 ijkVecBitNand4f(fvec4 const v_lh, fvec4 const v_rh);
-
-// ijkVecBitOr4*
-//	Calculate component-wise bitwise 'or' of 4D vectors.
-//		param v_lh: left-hand vector
-//		param v_rh: right-hand vector
-//		return: result vector
-fvec4 ijkVecBitOr4f(fvec4 const v_lh, fvec4 const v_rh);
-
-// ijkVecBitNor4*
-//	Calculate component-wise bitwise 'not or' of 4D vectors.
-//		param v_lh: left-hand vector
-//		param v_rh: right-hand vector
-//		return: result vector
-fvec4 ijkVecBitNor4f(fvec4 const v_lh, fvec4 const v_rh);
-
-// ijkVecBitXor4*
-//	Calculate component-wise bitwise 'exclusive or' of 4D vectors.
-//		param v_lh: left-hand vector
-//		param v_rh: right-hand vector
-//		return: result vector
-fvec4 ijkVecBitXor4f(fvec4 const v_lh, fvec4 const v_rh);
-
-// ijkVecBitXnor4*
-//	Calculate component-wise bitwise 'not exclusive or' of 4D vectors.
-//		param v_lh: left-hand vector
-//		param v_rh: right-hand vector
-//		return: result vector
-fvec4 ijkVecBitXnor4f(fvec4 const v_lh, fvec4 const v_rh);
-
-// ijkVecBitShiftLeft4*
-//	Calculate component-wise bit shift left of 4D vectors.
-//		param v_lh: left-hand vector
-//		param v_rh: right-hand vector
-//		return: result vector
-fvec4 ijkVecBitShiftLeft4f(fvec4 const v_lh, fvec4 const v_rh);
-
-// ijkVecBitShiftRight4*
-//	Calculate component-wise bit shift right of 4D vectors.
-//		param v_lh: left-hand vector
-//		param v_rh: right-hand vector
-//		return: result vector
-fvec4 ijkVecBitShiftRight4f(fvec4 const v_lh, fvec4 const v_rh);
-#endif	// TfloatEGER
 
 // ijkVecEqual4*
 //	Equality comparison for 4D vectors.
@@ -3868,17 +2752,7 @@ fvec4 ijkVecCopy4fs(float const s_in);
 //	Negate scalar to 4D vector.
 //		param s_in: input scalar
 //		return: result vector
-#if TSIGNED
 fvec4 ijkVecNegate4fs(float const s_in);
-#endif	// TSIGNED
-
-// ijkVecBitNot4*s
-//	Calculate bitwise 'not' of 4D vector.
-//		param s_in: input scalar
-//		return: result vector
-#if TfloatEGER
-fvec4 ijkVecBitNot4fs(float const s_in);
-#endif	// TfloatEGER
 
 // ijkVecNot4*s
 //	Calculate logical 'not' of scalar.
@@ -3934,64 +2808,6 @@ fvec4 ijkVecMod4fs(fvec4 const v_lh, float const s_rh);
 //		param s_rh: right-hand scalar
 //		return: result vector
 fvec4 ijkVecModSafe4fs(fvec4 const v_lh, float const s_rh);
-
-#if TfloatEGER
-// ijkVecBitAnd4*s
-//	Calculate bitwise 'and' of 4D vector components and scalar.
-//		param v_lh: left-hand vector
-//		param s_rh: right-hand scalar
-//		return: result vector
-fvec4 ijkVecBitAnd4fs(fvec4 const v_lh, float const s_rh);
-
-// ijkVecBitNand4*s
-//	Calculate bitwise 'not and' of 4D vector components and scalar.
-//		param v_lh: left-hand vector
-//		param s_rh: right-hand scalar
-//		return: result vector
-fvec4 ijkVecBitNand4fs(fvec4 const v_lh, float const s_rh);
-
-// ijkVecBitOr4*s
-//	Calculate bitwise 'or' of 4D vector components and scalar.
-//		param v_lh: left-hand vector
-//		param s_rh: right-hand scalar
-//		return: result vector
-fvec4 ijkVecBitOr4fs(fvec4 const v_lh, float const s_rh);
-
-// ijkVecBitNor4*s
-//	Calculate bitwise 'not or' of 4D vector components and scalar.
-//		param v_lh: left-hand vector
-//		param s_rh: right-hand scalar
-//		return: result vector
-fvec4 ijkVecBitNor4fs(fvec4 const v_lh, float const s_rh);
-
-// ijkVecBitXor4*s
-//	Calculate bitwise 'exclusive or' of 4D vector components and scalar.
-//		param v_lh: left-hand vector
-//		param s_rh: right-hand scalar
-//		return: result vector
-fvec4 ijkVecBitXor4fs(fvec4 const v_lh, float const s_rh);
-
-// ijkVecBitXnor4*s
-//	Calculate bitwise 'not exclusive or' of 4D vector components and scalar.
-//		param v_lh: left-hand vector
-//		param s_rh: right-hand scalar
-//		return: result vector
-fvec4 ijkVecBitXnor4fs(fvec4 const v_lh, float const s_rh);
-
-// ijkVecBitShiftLeft4*s
-//	Calculate bit shift left of 4D vector components and scalar.
-//		param v_lh: left-hand vector
-//		param s_rh: right-hand scalar
-//		return: result vector
-fvec4 ijkVecBitShiftLeft4fs(fvec4 const v_lh, float const s_rh);
-
-// ijkVecBitShiftRight4*s
-//	Calculate bit shift right of 4D vector components and scalar.
-//		param v_lh: left-hand vector
-//		param s_rh: right-hand scalar
-//		return: result vector
-fvec4 ijkVecBitShiftRight4fs(fvec4 const v_lh, float const s_rh);
-#endif	// TfloatEGER
 
 // ijkVecEqual4*s
 //	Equality comparison of 4D vector components and scalar.
@@ -4126,64 +2942,6 @@ fvec4 ijkVecMod4sf(float const s_lh, fvec4 const v_rh);
 //		param v_rh: right-hand vector
 //		return: result vector
 fvec4 ijkVecModSafe4sf(float const s_lh, fvec4 const v_rh);
-
-#if TfloatEGER
-// ijkVecBitAnd4s*
-//	Calculate bitwise 'and' of scalar and 4D vector components.
-//		param s_lh: left-hand scalar
-//		param v_rh: right-hand vector
-//		return: result vector
-fvec4 ijkVecBitAnd4sf(float const s_lh, fvec4 const v_rh);
-
-// ijkVecBitNand4s*
-//	Calculate bitwise 'not and' of scalar and 4D vector components.
-//		param s_lh: left-hand scalar
-//		param v_rh: right-hand vector
-//		return: result vector
-fvec4 ijkVecBitNand4sf(float const s_lh, fvec4 const v_rh);
-
-// ijkVecBitOr4s*
-//	Calculate bitwise 'or' of scalar and 4D vector components.
-//		param s_lh: left-hand scalar
-//		param v_rh: right-hand vector
-//		return: result vector
-fvec4 ijkVecBitOr4sf(float const s_lh, fvec4 const v_rh);
-
-// ijkVecBitNor4s*
-//	Calculate bitwise 'not or' of scalar and 4D vector components.
-//		param s_lh: left-hand scalar
-//		param v_rh: right-hand vector
-//		return: result vector
-fvec4 ijkVecBitNor4sf(float const s_lh, fvec4 const v_rh);
-
-// ijkVecBitXor4s*
-//	Calculate bitwise 'exclusive or' of scalar and 4D vector components.
-//		param s_lh: left-hand scalar
-//		param v_rh: right-hand vector
-//		return: result vector
-fvec4 ijkVecBitXor4sf(float const s_lh, fvec4 const v_rh);
-
-// ijkVecBitXnor4s*
-//	Calculate bitwise 'not exclusive or' of scalar and 4D vector components.
-//		param s_lh: left-hand scalar
-//		param v_rh: right-hand vector
-//		return: result vector
-fvec4 ijkVecBitXnor4sf(float const s_lh, fvec4 const v_rh);
-
-// ijkVecBitShiftLeft4s*
-//	Calculate bit shift left of scalar by 4D vector components.
-//		param s_lh: left-hand scalar
-//		param v_rh: right-hand vector
-//		return: result vector
-fvec4 ijkVecBitShiftLeft4sf(float const s_lh, fvec4 const v_rh);
-
-// ijkVecBitShiftRight4s*
-//	Calculate bit shift right of scalar by 4D vector components.
-//		param s_lh: left-hand scalar
-//		param v_rh: right-hand vector
-//		return: result vector
-fvec4 ijkVecBitShiftRight4sf(float const s_lh, fvec4 const v_rh);
-#endif	// TfloatEGER
 
 // ijkVecEqual4s*
 //	Equality comparison of scalar and 4D vector components.
