@@ -23,45 +23,9 @@
 	Vector swizzling types and functions (built for C++).
 */
 
+#ifdef _IJK_VECTOR_H_
 #ifndef _IJK_VECTORSWIZZLE_H_
 #define _IJK_VECTORSWIZZLE_H_
-
-
-#include "../ijkSqrt.h"
-
-
-// IJK_SWIZZLE_VECTOR_DECL
-#pragma region IJK_SWIZZLE_VECTOR_DECL
-
-// Vector definition shortcuts (in lieu of templates in C).
-///
-#define IJK_VECS(t1,x,t2,y)				struct { t1 x; t2 y; }
-#define IJK_VEC2(t1,t2,t3,t4,x,y,z,w)	t2 x##y; IJK_VECS(t1,x,t1,y)
-#define IJK_VEC3(t1,t2,t3,t4,x,y,z,w)	t3 x##y##z; t2 x##y; IJK_VECS(t1,x,union,{ IJK_VEC2(t1,t2,,,y,z,,); })
-#define IJK_VEC4(t1,t2,t3,t4,x,y,z,w)	t4 x##y##z##w; t3 x##y##z; t2 x##y; IJK_VECS(t1,x,union,{ IJK_VEC3(t1,t2,t3,,y,z,w,); })
-#define IJK_VEC_DECL(decl,t1,t2,t3,t4)	decl(t1,t2,t3,t4,x,y,z,w); decl(t1,t2,t3,t4,r,g,b,a); decl(t1,t2,t3,t4,s,t,p,q)
-
-// Vector definition shortcuts (in lieu of templates in C) using arrays.
-///
-#define IJK_VECA2(t0,x,y,z,w)			t0 x##y[2]; IJK_VECS(t0,x,t0,y)
-#define IJK_VECA3(t0,x,y,z,w)			t0 x##y##z[3]; t0 x##y[2]; IJK_VECS(t0,x,union,{ IJK_VECA2(t0,y,z,,); })
-#define IJK_VECA4(t0,x,y,z,w)			t0 x##y##z##w[4]; t0 x##y##z[3]; t0 x##y[2]; IJK_VECS(t0,x,union,{ IJK_VECA3(t0,y,z,w,); })
-#define IJK_VECA_DECL(decl,t0)			decl(t0,x,y,z,w); decl(t0,r,g,b,a); decl(t0,s,t,p,q)
-
-// IJK_VEC_IMPL
-//	Implements union vector of specified type in target interface.
-//		param vecType: base type of vector (e.g. 'int' for integer vectors)
-//		param vecSize: number of elements in vector (e.g. '2' for a 2D vector)
-#define IJK_VEC_IMPL(vecType,vecSize)	IJK_VEC_DECL(IJK_VEC##vecSize,vecType,vecType##2,vecType##3,vecType##4)
-
-// IJK_VECA_IMPL
-//	Implements union vector of specified type in target interface using arrays.
-//		param vecType: base type of vector (e.g. 'int' for integer vectors)
-//		param vecSize: number of elements in vector (e.g. '2' for a 2D vector)
-#define IJK_VECA_IMPL(vecType,vecSize)	IJK_VECA_DECL(IJK_VECA##vecSize,vecType)
-
-#pragma endregion
-// IJK_SWIZZLE_VECTOR_DECL
 
 
 #ifdef __cplusplus
@@ -161,6 +125,10 @@
 //	interface using template return types. Requires prior IJK_SWIZZLE_DECL or
 //	IJK_SWIZZLE_DECL_RTEMP within target interface.
 #define IJK_SWIZZLE_IMPL_RTEMP(inl,cf,ot,rtb,rts,x,y,z,w,...)								template<typename type> inl cf rtb##rts<type> ot<type>::_##x##y##z##w() cf { return rtb##rts<type>(__VA_ARGS__); }
+
+// Convenience macros for declaring template vector types.
+///
+#define IJK_TVEC_IMPL(vecSize)			IJK_VECA_IMPL(type,vecSize)
 
 #pragma endregion
 // IJK_SWIZZLE_MACRO_DECL
@@ -300,7 +268,7 @@ struct ttvec2
 #ifdef IJK_VECTOR_SWIZZLE
 	IJK_SWIZZLE_ALL(IJK_SWIZZLE_DECL_RTEMP, IJK_SWIZZLE_DECL_RTEMP, ttvec, stvec, ttvec, 2);
 #endif	// IJK_VECTOR_SWIZZLE
-	union { IJK_VECA_IMPL(type, 2); };
+	union { IJK_TVEC_IMPL(2); };
 	inline operator ttvec1<type> const* () const { return (ttvec1<type>*)xy; }
 	inline operator ttvec1<type>* () { return (ttvec1<type>*)xy; }
 };
@@ -423,7 +391,7 @@ struct ttvec3
 #ifdef IJK_VECTOR_SWIZZLE
 	IJK_SWIZZLE_ALL(IJK_SWIZZLE_DECL_RTEMP, IJK_SWIZZLE_DECL_RTEMP, ttvec, stvec, ttvec, 3);
 #endif	// IJK_VECTOR_SWIZZLE
-	union { IJK_VECA_IMPL(type, 3); };
+	union { IJK_TVEC_IMPL(3); };
 	inline operator ttvec1<type> const* () const { return (ttvec1<type>*)xyz; }
 	inline operator ttvec1<type>* () { return (ttvec1<type>*)xyz; }
 };
@@ -552,7 +520,7 @@ struct ttvec4
 #ifdef IJK_VECTOR_SWIZZLE
 	IJK_SWIZZLE_ALL(IJK_SWIZZLE_DECL_RTEMP, IJK_SWIZZLE_DECL_RTEMP, ttvec, stvec, ttvec, 4);
 #endif	// IJK_VECTOR_SWIZZLE
-	union { IJK_VECA_IMPL(type, 4); };
+	union { IJK_TVEC_IMPL(4); };
 	inline operator ttvec1<type> const* () const { return (ttvec1<type>*)xyzw; }
 	inline operator ttvec1<type>* () { return (ttvec1<type>*)xyzw; }
 };
@@ -648,7 +616,53 @@ private:
 
 //-----------------------------------------------------------------------------
 
-#else	// !__cplusplus
+#endif	// __cplusplus
+
+
+#include "_inl/ijkVectorSwizzle.inl"
+
+
+#ifdef __cplusplus
+
+//-----------------------------------------------------------------------------
+
+typedef ttvec2<bool>	bvec2;		// 2D boolean/byte vector
+typedef ttvec3<bool>	bvec3;		// 3D boolean/byte vector
+typedef ttvec4<bool>	bvec4;		// 4D boolean/byte vector
+
+typedef ttvec2<i32>		ivec2;		// 2D signed 32-bit integer vector
+typedef ttvec3<i32>		ivec3;		// 3D signed 32-bit integer vector
+typedef ttvec4<i32>		ivec4;		// 4D signed 32-bit integer vector
+
+typedef ttvec2<i64>		ilvec2;		// 2D signed 64-bit integer vector
+typedef ttvec3<i64>		ilvec3;		// 3D signed 64-bit integer vector
+typedef ttvec4<i64>		ilvec4;		// 4D signed 64-bit integer vector
+
+typedef ttvec2<ui32>	uvec2;		// 2D unsigned 32-bit integer vector
+typedef ttvec3<ui32>	uvec3;		// 3D unsigned 32-bit integer vector
+typedef ttvec4<ui32>	uvec4;		// 4D unsigned 32-bit integer vector
+
+typedef ttvec2<ui64>	ulvec2;		// 2D unsigned 64-bit integer vector
+typedef ttvec3<ui64>	ulvec3;		// 3D unsigned 64-bit integer vector
+typedef ttvec4<ui64>	ulvec4;		// 4D unsigned 64-bit integer vector
+
+typedef ttvec2<f32>		fvec2;		// 2D single-precision floating point vector
+typedef ttvec3<f32>		fvec3;		// 3D single-precision floating point vector
+typedef ttvec4<f32>		fvec4;		// 4D single-precision floating point vector
+
+typedef ttvec2<f64>		dvec2;		// 2D double-precision floating point vector
+typedef ttvec3<f64>		dvec3;		// 3D double-precision floating point vector
+typedef ttvec4<f64>		dvec4;		// 4D double-precision floating point vector
+
+// Built-in type overrides.
+///
+#define bool			ttvec1<bool>	// sizeof(bool) = 1; does not align with GLSL
+#define int				ttvec1<i32>
+#define intl			ttvec1<i64>		// sizeof(intl) = 8; does not align with GLSL
+#define uint			ttvec1<ui32>
+#define uintl			ttvec1<ui64>	// sizeof(uintl) = 8; does not align with GLSL
+#define float			ttvec1<f32>
+#define double			ttvec1<f64>
 
 
 //-----------------------------------------------------------------------------
@@ -656,7 +670,5 @@ private:
 #endif	// __cplusplus
 
 
-#include "_inl/ijkVectorSwizzle.inl"
-
-
 #endif	// !_IJK_VECTORSWIZZLE_H_
+#endif	// _IJK_VECTOR_H_

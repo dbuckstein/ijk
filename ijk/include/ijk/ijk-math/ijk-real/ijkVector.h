@@ -27,51 +27,46 @@
 #define _IJK_VECTOR_H_
 
 
-#include "_util/ijkVectorSwizzle.h"
 #include "ijkTrigonometry.h"
+#include "ijkSqrt.h"
+
+
+// IJK_SWIZZLE_VECTOR_DECL
+#pragma region IJK_SWIZZLE_VECTOR_DECL
+
+// Vector definition shortcuts (in lieu of templates in C).
+///
+#define IJK_VECS(t1,x,t2,y)				struct { t1 x; t2 y; }
+#define IJK_VEC2(t1,t2,t3,t4,x,y,z,w)	t2 x##y; IJK_VECS(t1,x,t1,y)
+#define IJK_VEC3(t1,t2,t3,t4,x,y,z,w)	t3 x##y##z; t2 x##y; IJK_VECS(t1,x,union,{ IJK_VEC2(t1,t2,,,y,z,,); })
+#define IJK_VEC4(t1,t2,t3,t4,x,y,z,w)	t4 x##y##z##w; t3 x##y##z; t2 x##y; IJK_VECS(t1,x,union,{ IJK_VEC3(t1,t2,t3,,y,z,w,); })
+#define IJK_VEC_DECL(decl,t1,t2,t3,t4)	decl(t1,t2,t3,t4,x,y,z,w); decl(t1,t2,t3,t4,r,g,b,a); decl(t1,t2,t3,t4,s,t,p,q)
+
+// Vector definition shortcuts (in lieu of templates in C) using arrays.
+///
+#define IJK_VECA2(t0,x,y,z,w)			t0 x##y[2]; IJK_VECS(t0,x,t0,y)
+#define IJK_VECA3(t0,x,y,z,w)			t0 x##y##z[3]; t0 x##y[2]; IJK_VECS(t0,x,union,{ IJK_VECA2(t0,y,z,,); })
+#define IJK_VECA4(t0,x,y,z,w)			t0 x##y##z##w[4]; t0 x##y##z[3]; t0 x##y[2]; IJK_VECS(t0,x,union,{ IJK_VECA3(t0,y,z,w,); })
+#define IJK_VECA_DECL(decl,t0)			decl(t0,x,y,z,w); decl(t0,r,g,b,a); decl(t0,s,t,p,q)
+
+// IJK_VEC_IMPL
+//	Implements union vector of specified type in target interface.
+//		param vecType: base type of vector (e.g. 'int' for integer vectors)
+//		param vecSize: number of elements in vector (e.g. '2' for a 2D vector)
+#define IJK_VEC_IMPL(vecType,vecSize)	IJK_VEC_DECL(IJK_VEC##vecSize,vecType,vecType##2,vecType##3,vecType##4)
+
+// IJK_VECA_IMPL
+//	Implements union vector of specified type in target interface using arrays.
+//		param vecType: base type of vector (e.g. 'int' for integer vectors)
+//		param vecSize: number of elements in vector (e.g. '2' for a 2D vector)
+#define IJK_VECA_IMPL(vecType,vecSize)	IJK_VECA_DECL(IJK_VECA##vecSize,vecType)
+
+#pragma endregion
+// IJK_SWIZZLE_VECTOR_DECL
 
 
 #ifdef __cplusplus
 extern "C" {
-
-typedef ttvec2<bool>	bvec2;		// 2D boolean/byte vector
-typedef ttvec3<bool>	bvec3;		// 3D boolean/byte vector
-typedef ttvec4<bool>	bvec4;		// 4D boolean/byte vector
-
-typedef ttvec2<i32>		ivec2;		// 2D signed 32-bit integer vector
-typedef ttvec3<i32>		ivec3;		// 3D signed 32-bit integer vector
-typedef ttvec4<i32>		ivec4;		// 4D signed 32-bit integer vector
-
-typedef ttvec2<i64>		ilvec2;		// 2D signed 64-bit integer vector
-typedef ttvec3<i64>		ilvec3;		// 3D signed 64-bit integer vector
-typedef ttvec4<i64>		ilvec4;		// 4D signed 64-bit integer vector
-
-typedef ttvec2<ui32>	uvec2;		// 2D unsigned 32-bit integer vector
-typedef ttvec3<ui32>	uvec3;		// 3D unsigned 32-bit integer vector
-typedef ttvec4<ui32>	uvec4;		// 4D unsigned 32-bit integer vector
-
-typedef ttvec2<ui64>	ulvec2;		// 2D unsigned 64-bit integer vector
-typedef ttvec3<ui64>	ulvec3;		// 3D unsigned 64-bit integer vector
-typedef ttvec4<ui64>	ulvec4;		// 4D unsigned 64-bit integer vector
-
-typedef ttvec2<f32>		fvec2;		// 2D single-precision floating point vector
-typedef ttvec3<f32>		fvec3;		// 3D single-precision floating point vector
-typedef ttvec4<f32>		fvec4;		// 4D single-precision floating point vector
-
-typedef ttvec2<f64>		dvec2;		// 2D double-precision floating point vector
-typedef ttvec3<f64>		dvec3;		// 3D double-precision floating point vector
-typedef ttvec4<f64>		dvec4;		// 4D double-precision floating point vector
-
-// Built-in type overrides.
-///
-#define bool			ttvec1<bool>	// sizeof(bool) = 1; does not align with GLSL
-#define int				ttvec1<i32>
-#define intl			ttvec1<i64>		// sizeof(intl) = 8; does not align with GLSL
-#define uint			ttvec1<ui32>
-#define uintl			ttvec1<ui64>	// sizeof(uintl) = 8; does not align with GLSL
-#define float			ttvec1<f32>
-#define double			ttvec1<f64>
-
 #else	// !__cplusplus
 typedef union bvec2		bvec2;
 typedef union bvec3		bvec3;
@@ -476,6 +471,23 @@ union dvec4
 
 #endif	// __cplusplus
 
+
+//-----------------------------------------------------------------------------
+
+#ifdef __cplusplus
+}
+#endif	// __cplusplus
+
+
+#include "_util/ijkVectorSwizzle.h"
+#include "_util/ijkVector_bool.h"
+#include "_util/ijkVector_int.h"
+#include "_util/ijkVectorSwizzle_macro.h"
+
+
+#ifdef __cplusplus
+extern "C" {
+#endif	// __cplusplus
 
 //-----------------------------------------------------------------------------
 
@@ -969,383 +981,9 @@ ijk_ext dvec4 const dvec4_wn;		// (  0,  0,  0, -1 )
 
 //-----------------------------------------------------------------------------
 
-// ijkVecInitElems2bv
-//	Initialize 2D boolean vector.
-//		param v_out: output vector
-//		params x, y: initialization values
-//		return: v_out
-boolv ijkVecInitElems2bv(bool2 v_out, bool const x, bool const y);
-
-// ijkVecNot2bv
-//	Logical 'not' for 2D boolean vector.
-//		param v_out: output vector holding boolean result of logical 'not'
-//		param v_in: input vector
-//		return: v_out
-boolv ijkVecNot2bv(bool2 v_out, bool2 const v_in);
-
-// ijkVecEqual2bv
-//	Equality comparison for 2D boolean vector.
-//		param v_out: output vector holding boolean result of comparison
-//		param v_lh: left-hand vector
-//		param v_rh: right-hand vector
-//		return: v_out
-boolv ijkVecEqual2bv(bool2 v_out, bool2 const v_lh, bool2 const v_rh);
-
-// ijkVecInequal2bv
-//	Inequality comparison for 2D boolean vector.
-//		param v_out: output vector holding boolean result of comparison
-//		param v_lh: left-hand vector
-//		param v_rh: right-hand vector
-//		return: v_out
-boolv ijkVecInequal2bv(bool2 v_out, bool2 const v_lh, bool2 const v_rh);
-
-// ijkVecEqual2bvs
-//	Equality comparison for 2D boolean vector vs condition.
-//		param v_out: output vector holding boolean result of comparison
-//		param v_lh: left-hand vector
-//		param s_rh: right-hand condition
-//		return: v_out
-boolv ijkVecEqual2bvs(bool2 v_out, bool2 const v_lh, bool const s_rh);
-
-// ijkVecInequal2bvs
-//	Inequality comparison for 2D boolean vector vs condition.
-//		param v_out: output vector holding boolean result of comparison
-//		param v_lh: left-hand vector
-//		param s_rh: right-hand condition
-//		return: v_out
-boolv ijkVecInequal2bvs(bool2 v_out, bool2 const v_lh, bool const s_rh);
-
-// ijkVecEqual2bsv
-//	Equality comparison for 2D boolean vector vs condition.
-//		param v_out: output vector holding boolean result of comparison
-//		param s_lh: left-hand condition
-//		param v_rh: right-hand vector
-//		return: v_out
-boolv ijkVecEqual2bsv(bool2 v_out, bool const s_lh, bool2 const v_rh);
-
-// ijkVecInequal2bsv
-//	Inequality comparison for 2D boolean vector vs condition.
-//		param v_out: output vector holding boolean result of comparison
-//		param s_lh: left-hand condition
-//		param v_rh: right-hand vector
-//		return: v_out
-boolv ijkVecInequal2bsv(bool2 v_out, bool const s_lh, bool2 const v_rh);
-
-
-//-----------------------------------------------------------------------------
-
-// ijkVecInitElems3bv
-//	Initialize 3D boolean vector.
-//		param v_out: output vector
-//		params x, y, z: initialization values
-//		return: v_out
-boolv ijkVecInitElems3bv(bool3 v_out, bool const x, bool const y, bool const z);
-
-// ijkVecNot3bv
-//	Logical 'not' for 3D boolean vector.
-//		param v_out: output vector holding boolean result of logical 'not'
-//		param v_in: input vector
-//		return: v_out
-boolv ijkVecNot3bv(bool3 v_out, bool3 const v_in);
-
-// ijkVecEqual3bv
-//	Equality comparison for 3D boolean vector.
-//		param v_out: output vector holding boolean result of comparison
-//		param v_lh: left-hand vector
-//		param v_rh: right-hand vector
-//		return: v_out
-boolv ijkVecEqual3bv(bool3 v_out, bool3 const v_lh, bool3 const v_rh);
-
-// ijkVecInequal3bv
-//	Inequality comparison for 3D boolean vector.
-//		param v_out: output vector holding boolean result of comparison
-//		param v_lh: left-hand vector
-//		param v_rh: right-hand vector
-//		return: v_out
-boolv ijkVecInequal3bv(bool3 v_out, bool3 const v_lh, bool3 const v_rh);
-
-// ijkVecEqual3bvs
-//	Equality comparison for 3D boolean vector vs condition.
-//		param v_out: output vector holding boolean result of comparison
-//		param v_lh: left-hand vector
-//		param s_rh: right-hand condition
-//		return: v_out
-boolv ijkVecEqual3bvs(bool3 v_out, bool3 const v_lh, bool const s_rh);
-
-// ijkVecInequal3bvs
-//	Inequality comparison for 3D boolean vector vs condition.
-//		param v_out: output vector holding boolean result of comparison
-//		param v_lh: left-hand vector
-//		param s_rh: right-hand condition
-//		return: v_out
-boolv ijkVecInequal3bvs(bool3 v_out, bool3 const v_lh, bool const s_rh);
-
-// ijkVecEqual3bsv
-//	Equality comparison for 3D boolean vector vs condition.
-//		param v_out: output vector holding boolean result of comparison
-//		param s_lh: left-hand condition
-//		param v_rh: right-hand vector
-//		return: v_out
-boolv ijkVecEqual3bsv(bool3 v_out, bool const s_lh, bool3 const v_rh);
-
-// ijkVecInequal3bsv
-//	Inequality comparison for 3D boolean vector vs condition.
-//		param v_out: output vector holding boolean result of comparison
-//		param s_lh: left-hand condition
-//		param v_rh: right-hand vector
-//		return: v_out
-boolv ijkVecInequal3bsv(bool3 v_out, bool const s_lh, bool3 const v_rh);
-
-
-//-----------------------------------------------------------------------------
-
-// ijkVecInitElems4bv
-//	Initialize 4D boolean vector.
-//		param v_out: output vector
-//		params x, y, z, w: initialization values
-//		return: v_out
-boolv ijkVecInitElems4bv(bool4 v_out, bool const x, bool const y, bool const z, bool const w);
-
-// ijkVecNot4bv
-//	Logical 'not' for 4D boolean vector.
-//		param v_out: output vector holding boolean result of logical 'not'
-//		param v_in: input vector
-//		return: v_out
-boolv ijkVecNot4bv(bool4 v_out, bool4 const v_in);
-
-// ijkVecEqual4bv
-//	Equality comparison for 4D boolean vector.
-//		param v_out: output vector holding boolean result of comparison
-//		param v_lh: left-hand vector
-//		param v_rh: right-hand vector
-//		return: v_out
-boolv ijkVecEqual4bv(bool4 v_out, bool4 const v_lh, bool4 const v_rh);
-
-// ijkVecInequal4bv
-//	Inequality comparison for 4D boolean vector.
-//		param v_out: output vector holding boolean result of comparison
-//		param v_lh: left-hand vector
-//		param v_rh: right-hand vector
-//		return: v_out
-boolv ijkVecInequal4bv(bool4 v_out, bool4 const v_lh, bool4 const v_rh);
-
-// ijkVecEqual4bvs
-//	Equality comparison for 4D boolean vector vs condition.
-//		param v_out: output vector holding boolean result of comparison
-//		param v_lh: left-hand vector
-//		param s_rh: right-hand condition
-//		return: v_out
-boolv ijkVecEqual4bvs(bool4 v_out, bool4 const v_lh, bool const s_rh);
-
-// ijkVecInequal4bvs
-//	Inequality comparison for 4D boolean vector vs condition.
-//		param v_out: output vector holding boolean result of comparison
-//		param v_lh: left-hand vector
-//		param s_rh: right-hand condition
-//		return: v_out
-boolv ijkVecInequal4bvs(bool4 v_out, bool4 const v_lh, bool const s_rh);
-
-// ijkVecEqual4bsv
-//	Equality comparison for 4D boolean vector vs condition.
-//		param v_out: output vector holding boolean result of comparison
-//		param s_lh: left-hand condition
-//		param v_rh: right-hand vector
-//		return: v_out
-boolv ijkVecEqual4bsv(bool4 v_out, bool const s_lh, bool4 const v_rh);
-
-// ijkVecInequal4bsv
-//	Inequality comparison for 4D boolean vector vs condition.
-//		param v_out: output vector holding boolean result of comparison
-//		param s_lh: left-hand condition
-//		param v_rh: right-hand vector
-//		return: v_out
-boolv ijkVecInequal4bsv(bool4 v_out, bool const s_lh, bool4 const v_rh);
-
-
-//-----------------------------------------------------------------------------
-
 #ifdef __cplusplus
 }
 #endif	// __cplusplus
-
-
-//-----------------------------------------------------------------------------
-
-// ijkVecInitElems2b
-//	Initialize 2D boolean vector.
-//		params x, y: initialization values
-//		return: output vector
-bvec2 ijkVecInitElems2b(bool const x, bool const y);
-
-// ijkVecNot2b
-//	Logical 'not' for 2D boolean vector.
-//		param v_in: input vector
-//		return: vector logical 'not'
-bvec2 ijkVecNot2b(bvec2 const v_in);
-
-// ijkVecEqual2b
-//	Equality comparison for 2D boolean vector.
-//		param v_lh: left-hand vector
-//		param v_rh: right-hand vector
-//		return: vector comparison
-bvec2 ijkVecEqual2b(bvec2 const v_lh, bvec2 const v_rh);
-
-// ijkVecInequal2b
-//	Inequality comparison for 2D boolean vector.
-//		param v_lh: left-hand vector
-//		param v_rh: right-hand vector
-//		return: vector comparison
-bvec2 ijkVecInequal2b(bvec2 const v_lh, bvec2 const v_rh);
-
-// ijkVecEqual2sb
-//	Equality comparison for 2D boolean vector vs condition.
-//		param v_lh: left-hand vector
-//		param s_rh: right-hand condition
-//		return: vector comparison
-bvec2 ijkVecEqual2bs(bvec2 const v_lh, bool const s_rh);
-
-// ijkVecInequal2bs
-//	Inequality comparison for 2D boolean vector vs condition.
-//		param v_lh: left-hand vector
-//		param s_rh: right-hand condition
-//		return: vector comparison
-bvec2 ijkVecInequal2bs(bvec2 const v_lh, bool const s_rh);
-
-// ijkVecEqual2sb
-//	Equality comparison for 2D boolean vector vs condition.
-//		param s_lh: left-hand condition
-//		param v_rh: right-hand vector
-//		return: vector comparison
-bvec2 ijkVecEqual2sb(bool const s_lh, bvec2 const v_rh);
-
-// ijkVecInequal2sb
-//	Inequality comparison for 2D boolean vector vs condition.
-//		param s_lh: left-hand condition
-//		param v_rh: right-hand vector
-//		return: vector comparison
-bvec2 ijkVecInequal2sb(bool const s_lh, bvec2 const v_rh);
-
-
-//-----------------------------------------------------------------------------
-
-// ijkVecInitElems3b
-//	Initialize 3D boolean vector.
-//		params x, y, z: initialization values
-//		return: output vector
-bvec3 ijkVecInitElems3b(bool const x, bool const y, bool const z);
-
-// ijkVecNot3b
-//	Logical 'not' for 3D boolean vector.
-//		param v_in: input vector
-//		return: vector logical 'not'
-bvec3 ijkVecNot3b(bvec3 const v_in);
-
-// ijkVecEqual3b
-//	Equality comparison for 3D boolean vector.
-//		param v_lh: left-hand vector
-//		param v_rh: right-hand vector
-//		return: vector comparison
-bvec3 ijkVecEqual3b(bvec3 const v_lh, bvec3 const v_rh);
-
-// ijkVecInequal3b
-//	Inequality comparison for 3D boolean vector.
-//		param v_lh: left-hand vector
-//		param v_rh: right-hand vector
-//		return: vector comparison
-bvec3 ijkVecInequal3b(bvec3 const v_lh, bvec3 const v_rh);
-
-// ijkVecEqual3sb
-//	Equality comparison for 3D boolean vector vs condition.
-//		param v_lh: left-hand vector
-//		param s_rh: right-hand condition
-//		return: vector comparison
-bvec3 ijkVecEqual3bs(bvec3 const v_lh, bool const s_rh);
-
-// ijkVecInequal3bs
-//	Inequality comparison for 3D boolean vector vs condition.
-//		param v_lh: left-hand vector
-//		param s_rh: right-hand condition
-//		return: vector comparison
-bvec3 ijkVecInequal3bs(bvec3 const v_lh, bool const s_rh);
-
-// ijkVecEqual3sb
-//	Equality comparison for 3D boolean vector vs condition.
-//		param s_lh: left-hand condition
-//		param v_rh: right-hand vector
-//		return: vector comparison
-bvec3 ijkVecEqual3sb(bool const s_lh, bvec3 const v_rh);
-
-// ijkVecInequal3sb
-//	Inequality comparison for 3D boolean vector vs condition.
-//		param s_lh: left-hand condition
-//		param v_rh: right-hand vector
-//		return: vector comparison
-bvec3 ijkVecInequal3sb(bool const s_lh, bvec3 const v_rh);
-
-
-//-----------------------------------------------------------------------------
-
-// ijkVecInitElems4b
-//	Initialize 4D boolean vector.
-//		params x, y, z, w: initialization values
-//		return: output vector
-bvec4 ijkVecInitElems4b(bool const x, bool const y, bool const z, bool const w);
-
-// ijkVecNot4b
-//	Logical 'not' for 4D boolean vector.
-//		param v_in: input vector
-//		return: vector logical 'not'
-bvec4 ijkVecNot4b(bvec4 const v_in);
-
-// ijkVecEqual4b
-//	Equality comparison for 4D boolean vector.
-//		param v_lh: left-hand vector
-//		param v_rh: right-hand vector
-//		return: vector comparison
-bvec4 ijkVecEqual4b(bvec4 const v_lh, bvec4 const v_rh);
-
-// ijkVecInequal4b
-//	Inequality comparison for 4D boolean vector.
-//		param v_lh: left-hand vector
-//		param v_rh: right-hand vector
-//		return: vector comparison
-bvec4 ijkVecInequal4b(bvec4 const v_lh, bvec4 const v_rh);
-
-// ijkVecEqual4sb
-//	Equality comparison for 4D boolean vector vs condition.
-//		param v_lh: left-hand vector
-//		param s_rh: right-hand condition
-//		return: vector comparison
-bvec4 ijkVecEqual4bs(bvec4 const v_lh, bool const s_rh);
-
-// ijkVecInequal4bs
-//	Inequality comparison for 4D boolean vector vs condition.
-//		param v_lh: left-hand vector
-//		param s_rh: right-hand condition
-//		return: vector comparison
-bvec4 ijkVecInequal4bs(bvec4 const v_lh, bool const s_rh);
-
-// ijkVecEqual4sb
-//	Equality comparison for 4D boolean vector vs condition.
-//		param s_lh: left-hand condition
-//		param v_rh: right-hand vector
-//		return: vector comparison
-bvec4 ijkVecEqual4sb(bool const s_lh, bvec4 const v_rh);
-
-// ijkVecInequal4sb
-//	Inequality comparison for 4D boolean vector vs condition.
-//		param s_lh: left-hand condition
-//		param v_rh: right-hand vector
-//		return: vector comparison
-bvec4 ijkVecInequal4sb(bool const s_lh, bvec4 const v_rh);
-
-
-//-----------------------------------------------------------------------------
-
-#include "_util/ijkVector_int.h"
-
-
-//-----------------------------------------------------------------------------
 
 
 #include "_inl/ijkVector.inl"

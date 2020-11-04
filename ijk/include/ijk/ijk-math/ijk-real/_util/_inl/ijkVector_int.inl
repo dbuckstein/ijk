@@ -816,7 +816,8 @@ ijk_inl int ijkVecNormalizeGetLengthInv1i(int const s, int* const lengthInv_out)
 
 ijk_inl ivec2 ijkVecInit2i()
 {
-	return ivec2_0;
+	ivec2 const v_out = { 0, 0 };
+	return v_out;
 }
 
 ijk_inl ivec2 ijkVecInitElems2i(int const x, int const y)

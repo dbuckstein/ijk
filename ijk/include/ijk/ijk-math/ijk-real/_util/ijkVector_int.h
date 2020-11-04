@@ -23,6 +23,7 @@
 	Declarations for signed 32-bit integer vector functions.
 */
 
+#ifdef _IJK_VECTOR_H_
 #ifndef _IJK_VECTOR_INT_H_
 #define _IJK_VECTOR_INT_H_
 
@@ -4276,4 +4277,5 @@ ivec4 ijkVecCross4i(ivec4 const v_lh, ivec4 const v_rh);
 #include "_inl/ijkVector_int.inl"
 
 
-#endif	// _IJK_VECTOR_INT_H_
+#endif	// !_IJK_VECTOR_INT_H_
+#endif	// _IJK_VECTOR_H_
