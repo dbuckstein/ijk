@@ -41,6 +41,13 @@ extern "C" {
 //		return: v_out
 boolv ijkVecInitElems2bv(bool2 v_out, bool const x, bool const y);
 
+// ijkVecCopy2bv
+//	Initialize 2D boolean vector.
+//		param v_out: output vector
+//		params v_in: input vector
+//		return: v_out
+boolv ijkVecCopy2bv(bool2 v_out, bool2 const v_in);
+
 // ijkVecNot2bv
 //	Logical 'not' for 2D boolean vector.
 //		param v_out: output vector holding boolean result of logical 'not'
@@ -64,6 +71,52 @@ boolv ijkVecEqual2bv(bool2 v_out, bool2 const v_lh, bool2 const v_rh);
 //		return: v_out
 boolv ijkVecInequal2bv(bool2 v_out, bool2 const v_lh, bool2 const v_rh);
 
+// ijkVecAnd2bv
+//	Component-wise logical 'and' comparison for 2D boolean vector.
+//		param v_out: output vector holding boolean result of comparison
+//		param v_lh: left-hand vector
+//		param v_rh: right-hand vector
+//		return: v_out
+boolv ijkVecAnd2bv(bool2 v_out, bool2 const v_lh, bool2 const v_rh);
+
+// ijkVecNand2bv
+//	Component-wise logical 'nand' comparison for 2D boolean vector.
+//		param v_out: output vector holding boolean result of comparison
+//		param v_lh: left-hand vector
+//		param v_rh: right-hand vector
+//		return: v_out
+boolv ijkVecNand2bv(bool2 v_out, bool2 const v_lh, bool2 const v_rh);
+
+// ijkVecOr2bv
+//	Component-wise logical 'and' comparison for 2D boolean vector.
+//		param v_out: output vector holding boolean result of comparison
+//		param v_lh: left-hand vector
+//		param v_rh: right-hand vector
+//		return: v_out
+boolv ijkVecOr2bv(bool2 v_out, bool2 const v_lh, bool2 const v_rh);
+
+// ijkVecNor2bv
+//	Component-wise logical 'and' comparison for 2D boolean vector.
+//		param v_out: output vector holding boolean result of comparison
+//		param v_lh: left-hand vector
+//		param v_rh: right-hand vector
+//		return: v_out
+boolv ijkVecNor2bv(bool2 v_out, bool2 const v_lh, bool2 const v_rh);
+
+// ijkVecCopy2bvs
+//	Initialize 2D boolean vector.
+//		param v_out: output vector
+//		params s_in: input scalar
+//		return: v_out
+boolv ijkVecCopy2bvs(bool2 v_out, bool const s_in);
+
+// ijkVecNot2bvs
+//	Logical 'not' for 2D boolean vector.
+//		param v_out: output vector holding boolean result of logical 'not'
+//		param s_in: input scalar
+//		return: v_out
+boolv ijkVecNot2bvs(bool2 v_out, bool const s_in);
+
 // ijkVecEqual2bvs
 //	Equality comparison for 2D boolean vector vs condition.
 //		param v_out: output vector holding boolean result of comparison
@@ -80,6 +133,38 @@ boolv ijkVecEqual2bvs(bool2 v_out, bool2 const v_lh, bool const s_rh);
 //		return: v_out
 boolv ijkVecInequal2bvs(bool2 v_out, bool2 const v_lh, bool const s_rh);
 
+// ijkVecAnd2bvs
+//	Component-wise logical 'and' comparison for 2D boolean vector.
+//		param v_out: output vector holding boolean result of comparison
+//		param v_lh: left-hand vector
+//		param s_rh: right-hand scalar
+//		return: v_out
+boolv ijkVecAnd2bvs(bool2 v_out, bool2 const v_lh, bool const s_rh);
+
+// ijkVecNand2bvs
+//	Component-wise logical 'nand' comparison for 2D boolean vector.
+//		param v_out: output vector holding boolean result of comparison
+//		param v_lh: left-hand vector
+//		param s_rh: right-hand scalar
+//		return: v_out
+boolv ijkVecNand2bvs(bool2 v_out, bool2 const v_lh, bool const s_rh);
+
+// ijkVecOr2bvs
+//	Component-wise logical 'and' comparison for 2D boolean vector.
+//		param v_out: output vector holding boolean result of comparison
+//		param v_lh: left-hand vector
+//		param s_rh: right-hand scalar
+//		return: v_out
+boolv ijkVecOr2bvs(bool2 v_out, bool2 const v_lh, bool const s_rh);
+
+// ijkVecNor2bvs
+//	Component-wise logical 'and' comparison for 2D boolean vector.
+//		param v_out: output vector holding boolean result of comparison
+//		param v_lh: left-hand vector
+//		param s_rh: right-hand scalar
+//		return: v_out
+boolv ijkVecNor2bvs(bool2 v_out, bool2 const v_lh, bool const s_rh);
+
 // ijkVecEqual2bsv
 //	Equality comparison for 2D boolean vector vs condition.
 //		param v_out: output vector holding boolean result of comparison
@@ -95,6 +180,38 @@ boolv ijkVecEqual2bsv(bool2 v_out, bool const s_lh, bool2 const v_rh);
 //		param v_rh: right-hand vector
 //		return: v_out
 boolv ijkVecInequal2bsv(bool2 v_out, bool const s_lh, bool2 const v_rh);
+
+// ijkVecAnd2bsv
+//	Component-wise logical 'and' comparison for 2D boolean vector.
+//		param v_out: output vector holding boolean result of comparison
+//		param s_lh: left-hand scalar
+//		param v_rh: right-hand vector
+//		return: v_out
+boolv ijkVecAnd2bsv(bool2 v_out, bool const s_lh, bool2 const v_rh);
+
+// ijkVecNand2bsv
+//	Component-wise logical 'nand' comparison for 2D boolean vector.
+//		param v_out: output vector holding boolean result of comparison
+//		param s_lh: left-hand scalar
+//		param v_rh: right-hand vector
+//		return: v_out
+boolv ijkVecNand2bsv(bool2 v_out, bool const s_lh, bool2 const v_rh);
+
+// ijkVecOr2bsv
+//	Component-wise logical 'and' comparison for 2D boolean vector.
+//		param v_out: output vector holding boolean result of comparison
+//		param s_lh: left-hand scalar
+//		param v_rh: right-hand vector
+//		return: v_out
+boolv ijkVecOr2bsv(bool2 v_out, bool const s_lh, bool2 const v_rh);
+
+// ijkVecNor2bsv
+//	Component-wise logical 'and' comparison for 2D boolean vector.
+//		param v_out: output vector holding boolean result of comparison
+//		param s_lh: left-hand scalar
+//		param v_rh: right-hand vector
+//		return: v_out
+boolv ijkVecNor2bsv(bool2 v_out, bool const s_lh, bool2 const v_rh);
 
 
 //-----------------------------------------------------------------------------

@@ -37,6 +37,13 @@ ijk_inl boolv ijkVecInitElems2bv(bool2 v_out, bool const x, bool const y)
 	return v_out;
 }
 
+ijk_inl boolv ijkVecCopy2bv(bool2 v_out, bool2 const v_in)
+{
+	v_out[0] = ijk_istrue(v_in[0]);
+	v_out[1] = ijk_istrue(v_in[1]);
+	return v_out;
+}
+
 ijk_inl boolv ijkVecNot2bv(bool2 v_out, bool2 const v_in)
 {
 	v_out[0] = ijk_isfalse(v_in[0]);
@@ -58,6 +65,46 @@ ijk_inl boolv ijkVecInequal2bv(bool2 v_out, bool2 const v_lh, bool2 const v_rh)
 	return v_out;
 }
 
+ijk_inl boolv ijkVecAnd2bv(bool2 v_out, bool2 const v_lh, bool2 const v_rh)
+{
+	v_out[0] = (v_lh[0] && v_rh[0]);
+	v_out[1] = (v_lh[1] && v_rh[1]);
+	return v_out;
+}
+
+ijk_inl boolv ijkVecNand2bv(bool2 v_out, bool2 const v_lh, bool2 const v_rh)
+{
+	v_out[0] = !(v_lh[0] && v_rh[0]);
+	v_out[1] = !(v_lh[1] && v_rh[1]);
+	return v_out;
+}
+
+ijk_inl boolv ijkVecOr2bv(bool2 v_out, bool2 const v_lh, bool2 const v_rh)
+{
+	v_out[0] = (v_lh[0] || v_rh[0]);
+	v_out[1] = (v_lh[1] || v_rh[1]);
+	return v_out;
+}
+
+ijk_inl boolv ijkVecNor2bv(bool2 v_out, bool2 const v_lh, bool2 const v_rh)
+{
+	v_out[0] = !(v_lh[0] || v_rh[0]);
+	v_out[1] = !(v_lh[1] || v_rh[1]);
+	return v_out;
+}
+
+ijk_inl boolv ijkVecCopy2bvs(bool2 v_out, bool const s_in)
+{
+	v_out[0] = v_out[1] = ijk_istrue(s_in);
+	return v_out;
+}
+
+ijk_inl boolv ijkVecNot2bvs(bool2 v_out, bool const s_in)
+{
+	v_out[0] = v_out[1] = ijk_isfalse(s_in);
+	return v_out;
+}
+
 ijk_inl boolv ijkVecEqual2bvs(bool2 v_out, bool2 const v_lh, bool const s_rh)
 {
 	v_out[0] = ((bool)v_lh[0] == s_rh);
@@ -72,14 +119,74 @@ ijk_inl boolv ijkVecInequal2bvs(bool2 v_out, bool2 const v_lh, bool const s_rh)
 	return v_out;
 }
 
+ijk_inl boolv ijkVecAnd2bvs(bool2 v_out, bool2 const v_lh, bool const s_rh)
+{
+	v_out[0] = (v_lh[0] && s_rh);
+	v_out[1] = (v_lh[1] && s_rh);
+	return v_out;
+}
+
+ijk_inl boolv ijkVecNand2bvs(bool2 v_out, bool2 const v_lh, bool const s_rh)
+{
+	v_out[0] = !(v_lh[0] && s_rh);
+	v_out[1] = !(v_lh[1] && s_rh);
+	return v_out;
+}
+
+ijk_inl boolv ijkVecOr2bvs(bool2 v_out, bool2 const v_lh, bool const s_rh)
+{
+	v_out[0] = (v_lh[0] || s_rh);
+	v_out[1] = (v_lh[1] || s_rh);
+	return v_out;
+}
+
+ijk_inl boolv ijkVecNor2bvs(bool2 v_out, bool2 const v_lh, bool const s_rh)
+{
+	v_out[0] = !(v_lh[0] || s_rh);
+	v_out[1] = !(v_lh[1] || s_rh);
+	return v_out;
+}
+
 ijk_inl boolv ijkVecEqual2bsv(bool2 v_out, bool const s_lh, bool2 const v_rh)
 {
-	return ijkVecEqual2bvs(v_out, v_rh, s_lh);
+	v_out[0] = (s_lh == (bool)v_rh[0]);
+	v_out[1] = (s_lh == (bool)v_rh[1]);
+	return v_out;
 }
 
 ijk_inl boolv ijkVecInequal2bsv(bool2 v_out, bool const s_lh, bool2 const v_rh)
 {
-	return ijkVecInequal2bvs(v_out, v_rh, s_lh);
+	v_out[0] = (s_lh != (bool)v_rh[0]);
+	v_out[1] = (s_lh != (bool)v_rh[1]);
+	return v_out;
+}
+
+ijk_inl boolv ijkVecAnd2bsv(bool2 v_out, bool const s_lh, bool2 const v_rh)
+{
+	v_out[0] = (s_lh && (bool)v_rh[0]);
+	v_out[1] = (s_lh && (bool)v_rh[1]);
+	return v_out;
+}
+
+ijk_inl boolv ijkVecNand2bsv(bool2 v_out, bool const s_lh, bool2 const v_rh)
+{
+	v_out[0] = !(s_lh && (bool)v_rh[0]);
+	v_out[1] = !(s_lh && (bool)v_rh[1]);
+	return v_out;
+}
+
+ijk_inl boolv ijkVecOr2bsv(bool2 v_out, bool const s_lh, bool2 const v_rh)
+{
+	v_out[0] = (s_lh || (bool)v_rh[0]);
+	v_out[1] = (s_lh || (bool)v_rh[1]);
+	return v_out;
+}
+
+ijk_inl boolv ijkVecNor2bsv(bool2 v_out, bool const s_lh, bool2 const v_rh)
+{
+	v_out[0] = !(s_lh || (bool)v_rh[0]);
+	v_out[1] = !(s_lh || (bool)v_rh[1]);
+	return v_out;
 }
 
 
