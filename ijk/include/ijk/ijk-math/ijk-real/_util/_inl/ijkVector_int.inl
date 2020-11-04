@@ -389,10 +389,9 @@ ijk_inl intv ijkVecModSafe2ivs(int2 v_out, int2 const v_lh, i32 const s_rh)
 	{
 		v_out[0] = v_lh[0] % s_rh;
 		v_out[1] = v_lh[1] % s_rh;
+		return v_out;
 	}
-	else
-		v_out[0] = v_out[1] = 0;
-	return v_out;
+	return ijkVecCopy2iv(v_out, v_lh);
 }
 
 ijk_inl intv ijkVecBitAnd2ivs(int2 v_out, int2 const v_lh, i32 const s_rh)
@@ -1047,10 +1046,9 @@ ijk_inl intv ijkVecModSafe3ivs(int3 v_out, int3 const v_lh, i32 const s_rh)
 		v_out[0] = v_lh[0] % s_rh;
 		v_out[1] = v_lh[1] % s_rh;
 		v_out[2] = v_lh[2] % s_rh;
+		return v_out;
 	}
-	else
-		v_out[0] = v_out[1] = v_out[2] = 0;
-	return v_out;
+	return ijkVecCopy3iv(v_out, v_lh);
 }
 
 ijk_inl intv ijkVecBitAnd3ivs(int3 v_out, int3 const v_lh, i32 const s_rh)
@@ -1824,10 +1822,9 @@ ijk_inl intv ijkVecModSafe4ivs(int4 v_out, int4 const v_lh, i32 const s_rh)
 		v_out[1] = v_lh[1] % s_rh;
 		v_out[2] = v_lh[2] % s_rh;
 		v_out[3] = v_lh[3] % s_rh;
+		return v_out;
 	}
-	else
-		v_out[0] = v_out[1] = v_out[2] = v_out[3] = 0;
-	return v_out;
+	return ijkVecCopy4iv(v_out, v_lh);
 }
 
 ijk_inl intv ijkVecBitAnd4ivs(int4 v_out, int4 const v_lh, i32 const s_rh)
@@ -2662,11 +2659,7 @@ ijk_inl ivec2 ijkVecModSafe2is(ivec2 const v_lh, int const s_rh)
 		};
 		return v_out;
 	}
-	else
-	{
-		ivec2 const v_out = { 0, 0 };
-		return v_out;
-	}
+	return v_lh;
 }
 
 ijk_inl ivec2 ijkVecBitAnd2is(ivec2 const v_lh, int const s_rh)
@@ -2888,8 +2881,8 @@ ijk_inl ivec2 ijkVecMod2si(int const s_lh, ivec2 const v_rh)
 ijk_inl ivec2 ijkVecModSafe2si(int const s_lh, ivec2 const v_rh)
 {
 	ivec2 const v_out = {
-		ijk_modulo_safe_int(s_lh, v_rh.x),
-		ijk_modulo_safe_int(s_lh, v_rh.y),
+		ijk_modulo_safe_int((i32)s_lh, v_rh.x),
+		ijk_modulo_safe_int((i32)s_lh, v_rh.y),
 	};
 	return v_out;
 }
@@ -3467,11 +3460,7 @@ ijk_inl ivec3 ijkVecModSafe3is(ivec3 const v_lh, int const s_rh)
 		};
 		return v_out;
 	}
-	else
-	{
-		ivec3 const v_out = { 0, 0, 0 };
-		return v_out;
-	}
+	return v_lh;
 }
 
 ijk_inl ivec3 ijkVecBitAnd3is(ivec3 const v_lh, int const s_rh)
@@ -3723,9 +3712,9 @@ ijk_inl ivec3 ijkVecMod3si(int const s_lh, ivec3 const v_rh)
 ijk_inl ivec3 ijkVecModSafe3si(int const s_lh, ivec3 const v_rh)
 {
 	ivec3 const v_out = {
-		ijk_modulo_safe_int(s_lh, v_rh.x),
-		ijk_modulo_safe_int(s_lh, v_rh.y),
-		ijk_modulo_safe_int(s_lh, v_rh.z),
+		ijk_modulo_safe_int((i32)s_lh, v_rh.x),
+		ijk_modulo_safe_int((i32)s_lh, v_rh.y),
+		ijk_modulo_safe_int((i32)s_lh, v_rh.z),
 	};
 	return v_out;
 }
@@ -4373,11 +4362,7 @@ ijk_inl ivec4 ijkVecModSafe4is(ivec4 const v_lh, int const s_rh)
 		};
 		return v_out;
 	}
-	else
-	{
-		ivec4 const v_out = { 0, 0, 0, 0 };
-		return v_out;
-	}
+	return v_lh;
 }
 
 ijk_inl ivec4 ijkVecBitAnd4is(ivec4 const v_lh, int const s_rh)
@@ -4659,10 +4644,10 @@ ijk_inl ivec4 ijkVecMod4si(int const s_lh, ivec4 const v_rh)
 ijk_inl ivec4 ijkVecModSafe4si(int const s_lh, ivec4 const v_rh)
 {
 	ivec4 const v_out = {
-		ijk_modulo_safe_int(s_lh, v_rh.x),
-		ijk_modulo_safe_int(s_lh, v_rh.y),
-		ijk_modulo_safe_int(s_lh, v_rh.z),
-		ijk_modulo_safe_int(s_lh, v_rh.w),
+		ijk_modulo_safe_int((i32)s_lh, v_rh.x),
+		ijk_modulo_safe_int((i32)s_lh, v_rh.y),
+		ijk_modulo_safe_int((i32)s_lh, v_rh.z),
+		ijk_modulo_safe_int((i32)s_lh, v_rh.w),
 	};
 	return v_out;
 }

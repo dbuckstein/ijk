@@ -125,13 +125,6 @@ typedef ijk_real					real;
 //		result: quotient of (n/d)
 #define ijk_divide(n,d)				((n) / (d))
 
-// ijk_divide
-//	Calculate remainder.
-//		param n: numerator (top)
-//		param d: denominator (bottom)
-//		result: remainder of (n/d)
-#define ijk_modulo(n,d)				((n) % (d))
-
 
 //-----------------------------------------------------------------------------
 
@@ -148,7 +141,8 @@ typedef ijk_real					real;
 #define ijk_iszero_int(x)			((x) == ijk_zero)													// iszero(x) = -eps <= x <= +eps
 #define ijk_isnzero_int(x)			((x) != ijk_zero)													// isnzero(x) = !iszero(x)
 #define ijk_divide_safe_int(n,d)	((d) != ijk_zero ? ijk_divide(n,d) : ijk_zero)						// divide_safe(n,d) = n/d, d != 0
-#define ijk_modulo_safe_int(n,d)	((d) != ijk_zero ? ijk_modulo(n,d) : ijk_zero)						// modulo_safe(n,d) = n%d, d != 0
+#define ijk_modulo_int(n,d)			((n) % (d))															// modulo(n,d) = n%d
+#define ijk_modulo_safe_int(n,d)	((d) != ijk_zero ? ijk_modulo_int(n,d) : (n))						// modulo_safe(n,d) = d != 0 ? n%d : n
 
 
 //-----------------------------------------------------------------------------
@@ -226,8 +220,10 @@ ijk_ext flt const flt_rad2deg;									   // 180/pi (approx 57.29578) as float.
 #define ijk_isnsym_flt(x)			ijk_isnclamp(-flt_one,+flt_one,x)									// isnsym(x) = !issym(x)
 #define ijk_iszero_flt(x)			ijk_isclamp(-flt_eps,+flt_eps,x)									// iszero(x) = -eps <= x <= +eps
 #define ijk_isnzero_flt(x)			ijk_isnclamp(-flt_eps,+flt_eps,x)									// isnzero(x) = !iszero(x)
+#define ijk_trunc_flt(x)			((f32)((i32)(x)))													// trunc(x) = int(x)
 #define ijk_divide_safe_flt(n,d)	((d) != flt_zero ? ijk_divide(n,d) : flt_zero)						// divide_safe(n,d) = n/d, d != 0
-#define ijk_modulo_safe_flt(n,d)	((d) != flt_zero ? ijk_modulo(n,d) : flt_zero)						// modulo_safe(n,d) = n%d, d != 0
+#define ijk_modulo_flt(n,d)			((n) - (d)*ijk_trunc_flt(ijk_divide(n,d)))							// modulo(n,d) = n - d*trunc(n/d)
+#define ijk_modulo_safe_flt(n,d)	((d) != flt_zero ? ijk_modulo_flt(n,d) : (n))						// modulo_safe(n,d) = d != 0 ? modulo(n,d) : n
 #define ijk_recip_flt(x)			(flt_one / (x))														// recip(x) = 1/x
 #define ijk_recip_safe_flt(x)		((x != flt_zero) ? ijk_recip_flt(x) : flt_zero)						// recip_safe(x) = 1/x, x != 0
 #define ijk_deg2rad_flt(x)			((x) * flt_deg2rad)													// deg2rad(x) = x * pi/180
@@ -309,8 +305,10 @@ ijk_ext dbl const dbl_rad2deg;									   // 180/pi (approx 57.29578) as double.
 #define ijk_isnsym_dbl(x)			ijk_isnclamp(-dbl_one,+dbl_one,x)									// isnsym(x) = !issym(x)
 #define ijk_iszero_dbl(x)			ijk_isclamp(-dbl_eps,+dbl_eps,x)									// iszero(x) = -eps <= x <= +eps
 #define ijk_isnzero_dbl(x)			ijk_isnclamp(-dbl_eps,+dbl_eps,x)									// isnzero(x) = !iszero(x)
+#define ijk_trunc_dbl(x)			((f64)((i64)(x)))													// trunc(x) = int(x)
 #define ijk_divide_safe_dbl(n,d)	((d) != dbl_zero ? ijk_divide(n,d) : dbl_zero)						// divide_safe(n,d) = n/d, d != 0
-#define ijk_modulo_safe_dbl(n,d)	((d) != dbl_zero ? ijk_modulo(n,d) : dbl_zero)						// modulo_safe(n,d) = n%d, d != 0
+#define ijk_modulo_dbl(n,d)			((n) - (d)*ijk_trunc_dbl(ijk_divide(n,d)))							// modulo(n,d) = n - d*trunc(n/d)
+#define ijk_modulo_safe_dbl(n,d)	((d) != dbl_zero ? ijk_modulo_dbl(n,d) : (n))						// modulo_safe(n,d) = d != 0 ? modulo(n,d) : n
 #define ijk_recip_dbl(x)			(dbl_one / (x))														// recip(x) = 1/x
 #define ijk_recip_safe_dbl(x)		((x != dbl_zero) ? ijk_recip_dbl(x) : dbl_zero)						// recip_safe(x) = 1/x, x != 0
 #define ijk_deg2rad_dbl(x)			((x) * dbl_deg2rad)													// deg2rad(x) = x * pi/180
@@ -382,22 +380,24 @@ ijk_ext dbl const dbl_rad2deg;									   // 180/pi (approx 57.29578) as double.
 
 // Macros for real type.
 ///
-#define ijk_sgn						ijk_declrealf(ijk_sgn)												 // sgn(x) = x > 0 ? +1 : x < 0 ? -1 : 0
-#define ijk_abs						ijk_declrealf(ijk_abs)												 // abs(x) = x >= 0 ? +x : -x
-#define ijk_nrm2sym					ijk_declrealf(ijk_nrm2sym)											 // nrm2sym(x) = 2x - 1
-#define ijk_sym2nrm					ijk_declrealf(ijk_sym2nrm)											 // sym2nrm(x) = (x + 1)/2
-#define ijk_isnrm					ijk_declrealf(ijk_isnrm)											 // isnrm(x) = 0 <= x <= 1
-#define ijk_isnnrm					ijk_declrealf(ijk_isnnrm)											 // isnnrm(x) = !isnrm(x)
-#define ijk_issym					ijk_declrealf(ijk_issym)											 // issym(x) = -1 <= x <= +1
-#define ijk_isnsym					ijk_declrealf(ijk_isnsym)											 // isnsym(x) = !issym(x)
-#define ijk_iszero					ijk_declrealf(ijk_iszero)											 // iszero(x) = -eps <= x <= +eps
-#define ijk_isnzero					ijk_declrealf(ijk_isnzero)											 // isnzero(x) = !iszero(x)
-#define ijk_divide_safe				ijk_declrealf(ijk_divide_safe)										 // divide_safe(n,d) = n/d, d != 0
-#define ijk_modulo_safe				ijk_declrealf(ijk_modulo_safe)										 // modulo_safe(n,d) = n%d, d != 0
-#define ijk_recip					ijk_declrealf(ijk_recip)											 // recip(x) = 1/x
-#define ijk_recip_safe				ijk_declrealf(ijk_recip_safe)										 // recip_safe(x) = 1/x, x != 0
-#define ijk_deg2rad					ijk_declrealf(ijk_deg2rad)											 // deg2rad(x) = x * pi/180
-#define ijk_rad2deg					ijk_declrealf(ijk_rad2deg)											 // rad2deg(x) = x * 180/pi
+#define ijk_sgn						ijk_declrealf(ijk_sgn)												// sgn(x) = x > 0 ? +1 : x < 0 ? -1 : 0
+#define ijk_abs						ijk_declrealf(ijk_abs)												// abs(x) = x >= 0 ? +x : -x
+#define ijk_nrm2sym					ijk_declrealf(ijk_nrm2sym)											// nrm2sym(x) = 2x - 1
+#define ijk_sym2nrm					ijk_declrealf(ijk_sym2nrm)											// sym2nrm(x) = (x + 1)/2
+#define ijk_isnrm					ijk_declrealf(ijk_isnrm)											// isnrm(x) = 0 <= x <= 1
+#define ijk_isnnrm					ijk_declrealf(ijk_isnnrm)											// isnnrm(x) = !isnrm(x)
+#define ijk_issym					ijk_declrealf(ijk_issym)											// issym(x) = -1 <= x <= +1
+#define ijk_isnsym					ijk_declrealf(ijk_isnsym)											// isnsym(x) = !issym(x)
+#define ijk_iszero					ijk_declrealf(ijk_iszero)											// iszero(x) = -eps <= x <= +eps
+#define ijk_isnzero					ijk_declrealf(ijk_isnzero)											// isnzero(x) = !iszero(x)
+#define ijk_trunc					ijk_declrealf(ijk_trunc)											// trunc(x) = int(x)
+#define ijk_divide_safe				ijk_declrealf(ijk_divide_safe)										// divide_safe(n,d) = n/d, d != 0
+#define ijk_modulo					ijk_declrealf(ijk_modulo)											// modulo(n,d) = n - d*trunc(n/d)
+#define ijk_modulo_safe				ijk_declrealf(ijk_modulo_safe)										// modulo_safe(n,d) = d != 0 ? modulo(n,d) : n
+#define ijk_recip					ijk_declrealf(ijk_recip)											// recip(x) = 1/x
+#define ijk_recip_safe				ijk_declrealf(ijk_recip_safe)										// recip_safe(x) = 1/x, x != 0
+#define ijk_deg2rad					ijk_declrealf(ijk_deg2rad)											// deg2rad(x) = x * pi/180
+#define ijk_rad2deg					ijk_declrealf(ijk_rad2deg)											// rad2deg(x) = x * 180/pi
 
 
 //-----------------------------------------------------------------------------

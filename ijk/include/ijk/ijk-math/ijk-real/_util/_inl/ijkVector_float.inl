@@ -167,8 +167,8 @@ ijk_inl floatv ijkVecDivSafe2fv(float2 v_out, float2 const v_lh, float2 const v_
 
 ijk_inl floatv ijkVecMod2fv(float2 v_out, float2 const v_lh, float2 const v_rh)
 {
-	v_out[0] = v_lh[0] % v_rh[0];
-	v_out[1] = v_lh[1] % v_rh[1];
+	v_out[0] = ijk_modulo_flt(v_lh[0], v_rh[0]);
+	v_out[1] = ijk_modulo_flt(v_lh[1], v_rh[1]);
 	return v_out;
 }
 
@@ -309,8 +309,8 @@ ijk_inl floatv ijkVecDivSafe2fvs(float2 v_out, float2 const v_lh, f32 const s_rh
 
 ijk_inl floatv ijkVecMod2fvs(float2 v_out, float2 const v_lh, f32 const s_rh)
 {
-	v_out[0] = v_lh[0] % s_rh;
-	v_out[1] = v_lh[1] % s_rh;
+	v_out[0] = ijk_modulo_flt(v_lh[0], s_rh);
+	v_out[1] = ijk_modulo_flt(v_lh[1], s_rh);
 	return v_out;
 }
 
@@ -318,12 +318,11 @@ ijk_inl floatv ijkVecModSafe2fvs(float2 v_out, float2 const v_lh, f32 const s_rh
 {
 	if (s_rh)
 	{
-		v_out[0] = v_lh[0] % s_rh;
-		v_out[1] = v_lh[1] % s_rh;
+		v_out[0] = ijk_modulo_flt(v_lh[0], s_rh);
+		v_out[1] = ijk_modulo_flt(v_lh[1], s_rh);
+		return v_out;
 	}
-	else
-		v_out[0] = v_out[1] = 0;
-	return v_out;
+	return ijkVecCopy2fv(v_out, v_lh);
 }
 
 ijk_inl boolv ijkVecEqual2fvs(bool2 bv_out, float2 const v_lh, f32 const s_rh)
@@ -433,8 +432,8 @@ ijk_inl floatv ijkVecDivSafe2fsv(float2 v_out, f32 const s_lh, float2 const v_rh
 
 ijk_inl floatv ijkVecMod2fsv(float2 v_out, f32 const s_lh, float2 const v_rh)
 {
-	v_out[0] = s_lh % v_rh[0];
-	v_out[1] = s_lh % v_rh[1];
+	v_out[0] = ijk_modulo_flt(s_lh, v_rh[0]);
+	v_out[1] = ijk_modulo_flt(s_lh, v_rh[1]);
 	return v_out;
 }
 
@@ -608,9 +607,9 @@ ijk_inl floatv ijkVecDivSafe3fv(float3 v_out, float3 const v_lh, float3 const v_
 
 ijk_inl floatv ijkVecMod3fv(float3 v_out, float3 const v_lh, float3 const v_rh)
 {
-	v_out[0] = v_lh[0] % v_rh[0];
-	v_out[1] = v_lh[1] % v_rh[1];
-	v_out[2] = v_lh[2] % v_rh[2];
+	v_out[0] = ijk_modulo_flt(v_lh[0], v_rh[0]);
+	v_out[1] = ijk_modulo_flt(v_lh[1], v_rh[1]);
+	v_out[2] = ijk_modulo_flt(v_lh[2], v_rh[2]);
 	return v_out;
 }
 
@@ -775,9 +774,9 @@ ijk_inl floatv ijkVecDivSafe3fvs(float3 v_out, float3 const v_lh, f32 const s_rh
 
 ijk_inl floatv ijkVecMod3fvs(float3 v_out, float3 const v_lh, f32 const s_rh)
 {
-	v_out[0] = v_lh[0] % s_rh;
-	v_out[1] = v_lh[1] % s_rh;
-	v_out[2] = v_lh[2] % s_rh;
+	v_out[0] = ijk_modulo_flt(v_lh[0], s_rh);
+	v_out[1] = ijk_modulo_flt(v_lh[1], s_rh);
+	v_out[2] = ijk_modulo_flt(v_lh[2], s_rh);
 	return v_out;
 }
 
@@ -785,13 +784,12 @@ ijk_inl floatv ijkVecModSafe3fvs(float3 v_out, float3 const v_lh, f32 const s_rh
 {
 	if (s_rh)
 	{
-		v_out[0] = v_lh[0] % s_rh;
-		v_out[1] = v_lh[1] % s_rh;
-		v_out[2] = v_lh[2] % s_rh;
+		v_out[0] = ijk_modulo_flt(v_lh[0], s_rh);
+		v_out[1] = ijk_modulo_flt(v_lh[1], s_rh);
+		v_out[2] = ijk_modulo_flt(v_lh[2], s_rh);
+		return v_out;
 	}
-	else
-		v_out[0] = v_out[1] = v_out[2] = 0;
-	return v_out;
+	return ijkVecCopy3fv(v_out, v_lh);
 }
 
 ijk_inl boolv ijkVecEqual3fvs(bool3 bv_out, float3 const v_lh, f32 const s_rh)
@@ -924,9 +922,9 @@ ijk_inl floatv ijkVecDivSafe3fsv(float3 v_out, f32 const s_lh, float3 const v_rh
 
 ijk_inl floatv ijkVecMod3fsv(float3 v_out, f32 const s_lh, float3 const v_rh)
 {
-	v_out[0] = s_lh % v_rh[0];
-	v_out[1] = s_lh % v_rh[1];
-	v_out[2] = s_lh % v_rh[2];
+	v_out[0] = ijk_modulo_flt(s_lh, v_rh[0]);
+	v_out[1] = ijk_modulo_flt(s_lh, v_rh[1]);
+	v_out[2] = ijk_modulo_flt(s_lh, v_rh[2]);
 	return v_out;
 }
 
@@ -1141,10 +1139,10 @@ ijk_inl floatv ijkVecDivSafe4fv(float4 v_out, float4 const v_lh, float4 const v_
 
 ijk_inl floatv ijkVecMod4fv(float4 v_out, float4 const v_lh, float4 const v_rh)
 {
-	v_out[0] = v_lh[0] % v_rh[0];
-	v_out[1] = v_lh[1] % v_rh[1];
-	v_out[2] = v_lh[2] % v_rh[2];
-	v_out[3] = v_lh[3] % v_rh[3];
+	v_out[0] = ijk_modulo_flt(v_lh[0], v_rh[0]);
+	v_out[1] = ijk_modulo_flt(v_lh[1], v_rh[1]);
+	v_out[2] = ijk_modulo_flt(v_lh[2], v_rh[2]);
+	v_out[3] = ijk_modulo_flt(v_lh[3], v_rh[3]);
 	return v_out;
 }
 
@@ -1335,10 +1333,10 @@ ijk_inl floatv ijkVecDivSafe4fvs(float4 v_out, float4 const v_lh, f32 const s_rh
 
 ijk_inl floatv ijkVecMod4fvs(float4 v_out, float4 const v_lh, f32 const s_rh)
 {
-	v_out[0] = v_lh[0] % s_rh;
-	v_out[1] = v_lh[1] % s_rh;
-	v_out[2] = v_lh[2] % s_rh;
-	v_out[3] = v_lh[3] % s_rh;
+	v_out[0] = ijk_modulo_flt(v_lh[0], s_rh);
+	v_out[1] = ijk_modulo_flt(v_lh[1], s_rh);
+	v_out[2] = ijk_modulo_flt(v_lh[2], s_rh);
+	v_out[3] = ijk_modulo_flt(v_lh[3], s_rh);
 	return v_out;
 }
 
@@ -1346,14 +1344,13 @@ ijk_inl floatv ijkVecModSafe4fvs(float4 v_out, float4 const v_lh, f32 const s_rh
 {
 	if (s_rh)
 	{
-		v_out[0] = v_lh[0] % s_rh;
-		v_out[1] = v_lh[1] % s_rh;
-		v_out[2] = v_lh[2] % s_rh;
-		v_out[3] = v_lh[3] % s_rh;
+		v_out[0] = ijk_modulo_flt(v_lh[0], s_rh);
+		v_out[1] = ijk_modulo_flt(v_lh[1], s_rh);
+		v_out[2] = ijk_modulo_flt(v_lh[2], s_rh);
+		v_out[3] = ijk_modulo_flt(v_lh[3], s_rh);
+		return v_out;
 	}
-	else
-		v_out[0] = v_out[1] = v_out[2] = v_out[3] = 0;
-	return v_out;
+	return ijkVecCopy4fv(v_out, v_lh);
 }
 
 ijk_inl boolv ijkVecEqual4fvs(bool4 bv_out, float4 const v_lh, f32 const s_rh)
@@ -1511,10 +1508,10 @@ ijk_inl floatv ijkVecDivSafe4fsv(float4 v_out, f32 const s_lh, float4 const v_rh
 
 ijk_inl floatv ijkVecMod4fsv(float4 v_out, f32 const s_lh, float4 const v_rh)
 {
-	v_out[0] = s_lh % v_rh[0];
-	v_out[1] = s_lh % v_rh[1];
-	v_out[2] = s_lh % v_rh[2];
-	v_out[3] = s_lh % v_rh[3];
+	v_out[0] = ijk_modulo_flt(s_lh, v_rh[0]);
+	v_out[1] = ijk_modulo_flt(s_lh, v_rh[1]);
+	v_out[2] = ijk_modulo_flt(s_lh, v_rh[2]);
+	v_out[3] = ijk_modulo_flt(s_lh, v_rh[3]);
 	return v_out;
 }
 
@@ -1762,8 +1759,8 @@ ijk_inl fvec2 ijkVecDivSafe2f(fvec2 const v_lh, fvec2 const v_rh)
 ijk_inl fvec2 ijkVecMod2f(fvec2 const v_lh, fvec2 const v_rh)
 {
 	fvec2 const v_out = {
-		v_lh.x % v_rh.x,
-		v_lh.y % v_rh.y,
+		ijk_modulo_flt(v_lh.x, v_rh.x),
+		ijk_modulo_flt(v_lh.y, v_rh.y),
 	};
 	return v_out;
 }
@@ -1943,8 +1940,8 @@ ijk_inl fvec2 ijkVecDivSafe2fs(fvec2 const v_lh, float const s_rh)
 ijk_inl fvec2 ijkVecMod2fs(fvec2 const v_lh, float const s_rh)
 {
 	fvec2 const v_out = {
-		v_lh.x % s_rh,
-		v_lh.y % s_rh,
+		ijk_modulo_flt(v_lh.x, s_rh),
+		ijk_modulo_flt(v_lh.y, s_rh),
 	};
 	return v_out;
 }
@@ -1954,16 +1951,12 @@ ijk_inl fvec2 ijkVecModSafe2fs(fvec2 const v_lh, float const s_rh)
 	if (s_rh)
 	{
 		fvec2 const v_out = {
-			v_lh.x % s_rh,
-			v_lh.y % s_rh,
+			ijk_modulo_flt(v_lh.x, s_rh),
+			ijk_modulo_flt(v_lh.y, s_rh),
 		};
 		return v_out;
 	}
-	else
-	{
-		fvec2 const v_out = { 0, 0 };
-		return v_out;
-	}
+	return v_lh;
 }
 
 ijk_inl bvec2 ijkVecEqual2fs(fvec2 const v_lh, float const s_rh)
@@ -2104,8 +2097,8 @@ ijk_inl fvec2 ijkVecDivSafe2sf(float const s_lh, fvec2 const v_rh)
 ijk_inl fvec2 ijkVecMod2sf(float const s_lh, fvec2 const v_rh)
 {
 	fvec2 const v_out = {
-		s_lh % v_rh.x,
-		s_lh % v_rh.y,
+		ijk_modulo_flt(s_lh, v_rh.x),
+		ijk_modulo_flt(s_lh, v_rh.y),
 	};
 	return v_out;
 }
@@ -2113,8 +2106,8 @@ ijk_inl fvec2 ijkVecMod2sf(float const s_lh, fvec2 const v_rh)
 ijk_inl fvec2 ijkVecModSafe2sf(float const s_lh, fvec2 const v_rh)
 {
 	fvec2 const v_out = {
-		ijk_modulo_safe_flt(s_lh, v_rh.x),
-		ijk_modulo_safe_flt(s_lh, v_rh.y),
+		ijk_modulo_safe_flt((f32)s_lh, v_rh.x),
+		ijk_modulo_safe_flt((f32)s_lh, v_rh.y),
 	};
 	return v_out;
 }
@@ -2305,9 +2298,9 @@ ijk_inl fvec3 ijkVecDivSafe3f(fvec3 const v_lh, fvec3 const v_rh)
 ijk_inl fvec3 ijkVecMod3f(fvec3 const v_lh, fvec3 const v_rh)
 {
 	fvec3 const v_out = {
-		v_lh.x % v_rh.x,
-		v_lh.y % v_rh.y,
-		v_lh.z % v_rh.z,
+		ijk_modulo_flt(v_lh.x, v_rh.x),
+		ijk_modulo_flt(v_lh.y, v_rh.y),
+		ijk_modulo_flt(v_lh.z, v_rh.z),
 	};
 	return v_out;
 }
@@ -2509,9 +2502,9 @@ ijk_inl fvec3 ijkVecDivSafe3fs(fvec3 const v_lh, float const s_rh)
 ijk_inl fvec3 ijkVecMod3fs(fvec3 const v_lh, float const s_rh)
 {
 	fvec3 const v_out = {
-		v_lh.x % s_rh,
-		v_lh.y % s_rh,
-		v_lh.z % s_rh,
+		ijk_modulo_flt(v_lh.x, s_rh),
+		ijk_modulo_flt(v_lh.y, s_rh),
+		ijk_modulo_flt(v_lh.z, s_rh),
 	};
 	return v_out;
 }
@@ -2521,17 +2514,13 @@ ijk_inl fvec3 ijkVecModSafe3fs(fvec3 const v_lh, float const s_rh)
 	if (s_rh)
 	{
 		fvec3 const v_out = {
-			v_lh.x % s_rh,
-			v_lh.y % s_rh,
-			v_lh.z % s_rh,
+			ijk_modulo_flt(v_lh.x, s_rh),
+			ijk_modulo_flt(v_lh.y, s_rh),
+			ijk_modulo_flt(v_lh.z, s_rh),
 		};
 		return v_out;
 	}
-	else
-	{
-		fvec3 const v_out = { 0, 0, 0 };
-		return v_out;
-	}
+	return v_lh;
 }
 
 ijk_inl bvec3 ijkVecEqual3fs(fvec3 const v_lh, float const s_rh)
@@ -2693,9 +2682,9 @@ ijk_inl fvec3 ijkVecDivSafe3sf(float const s_lh, fvec3 const v_rh)
 ijk_inl fvec3 ijkVecMod3sf(float const s_lh, fvec3 const v_rh)
 {
 	fvec3 const v_out = {
-		s_lh % v_rh.x,
-		s_lh % v_rh.y,
-		s_lh % v_rh.z,
+		ijk_modulo_flt(s_lh, v_rh.x),
+		ijk_modulo_flt(s_lh, v_rh.y),
+		ijk_modulo_flt(s_lh, v_rh.z),
 	};
 	return v_out;
 }
@@ -2703,9 +2692,9 @@ ijk_inl fvec3 ijkVecMod3sf(float const s_lh, fvec3 const v_rh)
 ijk_inl fvec3 ijkVecModSafe3sf(float const s_lh, fvec3 const v_rh)
 {
 	fvec3 const v_out = {
-		ijk_modulo_safe_flt(s_lh, v_rh.x),
-		ijk_modulo_safe_flt(s_lh, v_rh.y),
-		ijk_modulo_safe_flt(s_lh, v_rh.z),
+		ijk_modulo_safe_flt((f32)s_lh, v_rh.x),
+		ijk_modulo_safe_flt((f32)s_lh, v_rh.y),
+		ijk_modulo_safe_flt((f32)s_lh, v_rh.z),
 	};
 	return v_out;
 }
@@ -2925,10 +2914,10 @@ ijk_inl fvec4 ijkVecDivSafe4f(fvec4 const v_lh, fvec4 const v_rh)
 ijk_inl fvec4 ijkVecMod4f(fvec4 const v_lh, fvec4 const v_rh)
 {
 	fvec4 const v_out = {
-		v_lh.x % v_rh.x,
-		v_lh.y % v_rh.y,
-		v_lh.z % v_rh.z,
-		v_lh.w % v_rh.w,
+		ijk_modulo_flt(v_lh.x, v_rh.x),
+		ijk_modulo_flt(v_lh.y, v_rh.y),
+		ijk_modulo_flt(v_lh.z, v_rh.z),
+		ijk_modulo_flt(v_lh.w, v_rh.w),
 	};
 	return v_out;
 }
@@ -3152,10 +3141,10 @@ ijk_inl fvec4 ijkVecDivSafe4fs(fvec4 const v_lh, float const s_rh)
 ijk_inl fvec4 ijkVecMod4fs(fvec4 const v_lh, float const s_rh)
 {
 	fvec4 const v_out = {
-		v_lh.x % s_rh,
-		v_lh.y % s_rh,
-		v_lh.z % s_rh,
-		v_lh.w % s_rh,
+		ijk_modulo_flt(v_lh.x, s_rh),
+		ijk_modulo_flt(v_lh.y, s_rh),
+		ijk_modulo_flt(v_lh.z, s_rh),
+		ijk_modulo_flt(v_lh.w, s_rh),
 	};
 	return v_out;
 }
@@ -3165,18 +3154,14 @@ ijk_inl fvec4 ijkVecModSafe4fs(fvec4 const v_lh, float const s_rh)
 	if (s_rh)
 	{
 		fvec4 const v_out = {
-			v_lh.x % s_rh,
-			v_lh.y % s_rh,
-			v_lh.z % s_rh,
-			v_lh.w % s_rh,
+			ijk_modulo_flt(v_lh.x, s_rh),
+			ijk_modulo_flt(v_lh.y, s_rh),
+			ijk_modulo_flt(v_lh.z, s_rh),
+			ijk_modulo_flt(v_lh.w, s_rh),
 		};
 		return v_out;
 	}
-	else
-	{
-		fvec4 const v_out = { 0, 0, 0, 0 };
-		return v_out;
-	}
+	return v_lh;
 }
 
 ijk_inl bvec4 ijkVecEqual4fs(fvec4 const v_lh, float const s_rh)
@@ -3359,10 +3344,10 @@ ijk_inl fvec4 ijkVecDivSafe4sf(float const s_lh, fvec4 const v_rh)
 ijk_inl fvec4 ijkVecMod4sf(float const s_lh, fvec4 const v_rh)
 {
 	fvec4 const v_out = {
-		s_lh % v_rh.x,
-		s_lh % v_rh.y,
-		s_lh % v_rh.z,
-		s_lh % v_rh.w,
+		ijk_modulo_flt(s_lh, v_rh.x),
+		ijk_modulo_flt(s_lh, v_rh.y),
+		ijk_modulo_flt(s_lh, v_rh.z),
+		ijk_modulo_flt(s_lh, v_rh.w),
 	};
 	return v_out;
 }
@@ -3370,10 +3355,10 @@ ijk_inl fvec4 ijkVecMod4sf(float const s_lh, fvec4 const v_rh)
 ijk_inl fvec4 ijkVecModSafe4sf(float const s_lh, fvec4 const v_rh)
 {
 	fvec4 const v_out = {
-		ijk_modulo_safe_flt(s_lh, v_rh.x),
-		ijk_modulo_safe_flt(s_lh, v_rh.y),
-		ijk_modulo_safe_flt(s_lh, v_rh.z),
-		ijk_modulo_safe_flt(s_lh, v_rh.w),
+		ijk_modulo_safe_flt((f32)s_lh, v_rh.x),
+		ijk_modulo_safe_flt((f32)s_lh, v_rh.y),
+		ijk_modulo_safe_flt((f32)s_lh, v_rh.z),
+		ijk_modulo_safe_flt((f32)s_lh, v_rh.w),
 	};
 	return v_out;
 }
