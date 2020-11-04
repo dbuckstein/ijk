@@ -137,18 +137,14 @@ uintv ijkVecCopy2uv(uint2 v_out, uint2 const v_in);
 //		param v_out: output vector to hold negated
 //		param v_in: input vector
 //		return: v_out
-#if TSIGNED
-uintv ijkVecNegate2uv(uint2 v_out, uint2 const v_in);
-#endif	// TSIGNED
+intv ijkVecNegate2uv(int2 v_out, uint2 const v_in);
 
 // ijkVecBitNot2*v
 //	Calculate component-wise bitwise 'not' of 2D vector.
 //		param v_out: output vector to hold component-wise bitwise 'not'
 //		param v_in: input vector
 //		return: v_out
-#if TINTEGER
 uintv ijkVecBitNot2uv(uint2 v_out, uint2 const v_in);
-#endif	// TINTEGER
 
 // ijkVecNot2*v
 //	Calculate component-wise logical 'not' of 2D vector.
@@ -213,7 +209,6 @@ uintv ijkVecMod2uv(uint2 v_out, uint2 const v_lh, uint2 const v_rh);
 //		return: v_out
 uintv ijkVecModSafe2uv(uint2 v_out, uint2 const v_lh, uint2 const v_rh);
 
-#if TINTEGER
 // ijkVecBitAnd2*v
 //	Calculate component-wise bitwise 'and' of 2D vectors.
 //		param v_out: output vector to hold component-wise bitwise 'and'
@@ -277,7 +272,6 @@ uintv ijkVecBitShiftLeft2uv(uint2 v_out, uint2 const v_lh, uint2 const v_rh);
 //		param v_rh: right-hand vector
 //		return: v_out
 uintv ijkVecBitShiftRight2uv(uint2 v_out, uint2 const v_lh, uint2 const v_rh);
-#endif	// TINTEGER
 
 // ijkVecEqual2*v
 //	Equality comparison for 2D vectors.
@@ -371,18 +365,14 @@ uintv ijkVecCopy2uvs(uint2 v_out, ui32 const s_in);
 //		param v_out: output vector to hold negated
 //		param s_in: input scalar
 //		return: v_out
-#if TSIGNED
-uintv ijkVecNegate2uvs(uint2 v_out, ui32 const s_in);
-#endif	// TSIGNED
+intv ijkVecNegate2uvs(int2 v_out, ui32 const s_in);
 
 // ijkVecBitNot2*vs
 //	Calculate bitwise 'not' of 2D vector.
 //		param v_out: output vector to hold bitwise 'not'
 //		param s_in: input scalar
 //		return: v_out
-#if TINTEGER
 uintv ijkVecBitNot2uvs(uint2 v_out, ui32 const s_in);
-#endif	// TINTEGER
 
 // ijkVecNot2*vs
 //	Calculate logical 'not' of scalar.
@@ -447,7 +437,6 @@ uintv ijkVecMod2uvs(uint2 v_out, uint2 const v_lh, ui32 const s_rh);
 //		return: v_out
 uintv ijkVecModSafe2uvs(uint2 v_out, uint2 const v_lh, ui32 const s_rh);
 
-#if TINTEGER
 // ijkVecBitAnd2*vs
 //	Calculate bitwise 'and' of 2D vector components and scalar.
 //		param v_out: output vector to hold bitwise 'and'
@@ -511,7 +500,6 @@ uintv ijkVecBitShiftLeft2uvs(uint2 v_out, uint2 const v_lh, ui32 const s_rh);
 //		param s_rh: right-hand scalar
 //		return: v_out
 uintv ijkVecBitShiftRight2uvs(uint2 v_out, uint2 const v_lh, ui32 const s_rh);
-#endif	// TINTEGER
 
 // ijkVecEqual2*vs
 //	Equality comparison of 2D vector components and scalar.
@@ -649,7 +637,6 @@ uintv ijkVecMod2usv(uint2 v_out, ui32 const s_lh, uint2 const v_rh);
 //		return: v_out
 uintv ijkVecModSafe2usv(uint2 v_out, ui32 const s_lh, uint2 const v_rh);
 
-#if TINTEGER
 // ijkVecBitAnd2*sv
 //	Calculate bitwise 'and' of scalar and 2D vector components.
 //		param v_out: output vector to hold bitwise 'and'
@@ -713,7 +700,6 @@ uintv ijkVecBitShiftLeft2usv(uint2 v_out, ui32 const s_lh, uint2 const v_rh);
 //		param v_rh: right-hand vector
 //		return: v_out
 uintv ijkVecBitShiftRight2usv(uint2 v_out, ui32 const s_lh, uint2 const v_rh);
-#endif	// TINTEGER
 
 // ijkVecEqual2*sv
 //	Equality comparison of scalar and 2D vector components.
@@ -839,18 +825,14 @@ uintv ijkVecCopy3uv(uint3 v_out, uint3 const v_in);
 //		param v_out: output vector to hold negated
 //		param v_in: input vector
 //		return: v_out
-#if TSIGNED
-uintv ijkVecNegate3uv(uint3 v_out, uint3 const v_in);
-#endif	// TSIGNED
+intv ijkVecNegate3uv(int3 v_out, uint3 const v_in);
 
 // ijkVecBitNot3*v
 //	Calculate component-wise bitwise 'not' of 3D vector.
 //		param v_out: output vector to hold component-wise bitwise 'not'
 //		param v_in: input vector
 //		return: v_out
-#if TINTEGER
 uintv ijkVecBitNot3uv(uint3 v_out, uint3 const v_in);
-#endif	// TINTEGER
 
 // ijkVecNot3*v
 //	Calculate component-wise logical 'not' of 3D vector.
@@ -915,7 +897,6 @@ uintv ijkVecMod3uv(uint3 v_out, uint3 const v_lh, uint3 const v_rh);
 //		return: v_out
 uintv ijkVecModSafe3uv(uint3 v_out, uint3 const v_lh, uint3 const v_rh);
 
-#if TINTEGER
 // ijkVecBitAnd3*v
 //	Calculate component-wise bitwise 'and' of 3D vectors.
 //		param v_out: output vector to hold component-wise bitwise 'and'
@@ -979,7 +960,6 @@ uintv ijkVecBitShiftLeft3uv(uint3 v_out, uint3 const v_lh, uint3 const v_rh);
 //		param v_rh: right-hand vector
 //		return: v_out
 uintv ijkVecBitShiftRight3uv(uint3 v_out, uint3 const v_lh, uint3 const v_rh);
-#endif	// TINTEGER
 
 // ijkVecEqual3*v
 //	Equality comparison for 3D vectors.
@@ -1081,18 +1061,14 @@ uintv ijkVecCopy3uvs(uint3 v_out, ui32 const s_in);
 //		param v_out: output vector to hold negated
 //		param s_in: input scalar
 //		return: v_out
-#if TSIGNED
-uintv ijkVecNegate3uvs(uint3 v_out, ui32 const s_in);
-#endif	// TSIGNED
+intv ijkVecNegate3uvs(int3 v_out, ui32 const s_in);
 
 // ijkVecBitNot3*vs
 //	Calculate bitwise 'not' of 3D vector.
 //		param v_out: output vector to hold bitwise 'not'
 //		param s_in: input scalar
 //		return: v_out
-#if TINTEGER
 uintv ijkVecBitNot3uvs(uint3 v_out, ui32 const s_in);
-#endif	// TINTEGER
 
 // ijkVecNot3*vs
 //	Calculate logical 'not' of scalar.
@@ -1157,7 +1133,6 @@ uintv ijkVecMod3uvs(uint3 v_out, uint3 const v_lh, ui32 const s_rh);
 //		return: v_out
 uintv ijkVecModSafe3uvs(uint3 v_out, uint3 const v_lh, ui32 const s_rh);
 
-#if TINTEGER
 // ijkVecBitAnd3*vs
 //	Calculate bitwise 'and' of 3D vector components and scalar.
 //		param v_out: output vector to hold bitwise 'and'
@@ -1221,7 +1196,6 @@ uintv ijkVecBitShiftLeft3uvs(uint3 v_out, uint3 const v_lh, ui32 const s_rh);
 //		param s_rh: right-hand scalar
 //		return: v_out
 uintv ijkVecBitShiftRight3uvs(uint3 v_out, uint3 const v_lh, ui32 const s_rh);
-#endif	// TINTEGER
 
 // ijkVecEqual3*vs
 //	Equality comparison of 3D vector components and scalar.
@@ -1367,7 +1341,6 @@ uintv ijkVecMod3usv(uint3 v_out, ui32 const s_lh, uint3 const v_rh);
 //		return: v_out
 uintv ijkVecModSafe3usv(uint3 v_out, ui32 const s_lh, uint3 const v_rh);
 
-#if TINTEGER
 // ijkVecBitAnd3*sv
 //	Calculate bitwise 'and' of scalar and 3D vector components.
 //		param v_out: output vector to hold bitwise 'and'
@@ -1431,7 +1404,6 @@ uintv ijkVecBitShiftLeft3usv(uint3 v_out, ui32 const s_lh, uint3 const v_rh);
 //		param v_rh: right-hand vector
 //		return: v_out
 uintv ijkVecBitShiftRight3usv(uint3 v_out, ui32 const s_lh, uint3 const v_rh);
-#endif	// TINTEGER
 
 // ijkVecEqual3*sv
 //	Equality comparison of scalar and 3D vector components.
@@ -1576,18 +1548,14 @@ uintv ijkVecCopy4uv(uint4 v_out, uint4 const v_in);
 //		param v_out: output vector to hold negated
 //		param v_in: input vector
 //		return: v_out
-#if TSIGNED
-uintv ijkVecNegate4uv(uint4 v_out, uint4 const v_in);
-#endif	// TSIGNED
+intv ijkVecNegate4uv(int4 v_out, uint4 const v_in);
 
 // ijkVecBitNot4*v
 //	Calculate component-wise bitwise 'not' of 4D vector.
 //		param v_out: output vector to hold component-wise bitwise 'not'
 //		param v_in: input vector
 //		return: v_out
-#if TINTEGER
 uintv ijkVecBitNot4uv(uint4 v_out, uint4 const v_in);
-#endif	// TINTEGER
 
 // ijkVecNot4*v
 //	Calculate component-wise logical 'not' of 4D vector.
@@ -1652,7 +1620,6 @@ uintv ijkVecMod4uv(uint4 v_out, uint4 const v_lh, uint4 const v_rh);
 //		return: v_out
 uintv ijkVecModSafe4uv(uint4 v_out, uint4 const v_lh, uint4 const v_rh);
 
-#if TINTEGER
 // ijkVecBitAnd4*v
 //	Calculate component-wise bitwise 'and' of 4D vectors.
 //		param v_out: output vector to hold component-wise bitwise 'and'
@@ -1716,7 +1683,6 @@ uintv ijkVecBitShiftLeft4uv(uint4 v_out, uint4 const v_lh, uint4 const v_rh);
 //		param v_rh: right-hand vector
 //		return: v_out
 uintv ijkVecBitShiftRight4uv(uint4 v_out, uint4 const v_lh, uint4 const v_rh);
-#endif	// TINTEGER
 
 // ijkVecEqual4*v
 //	Equality comparison for 4D vectors.
@@ -1827,18 +1793,14 @@ uintv ijkVecCopy4uvs(uint4 v_out, ui32 const s_in);
 //		param v_out: output vector to hold negated
 //		param s_in: input scalar
 //		return: v_out
-#if TSIGNED
-uintv ijkVecNegate4uvs(uint4 v_out, ui32 const s_in);
-#endif	// TSIGNED
+intv ijkVecNegate4uvs(int4 v_out, ui32 const s_in);
 
 // ijkVecBitNot4*vs
 //	Calculate bitwise 'not' of 4D vector.
 //		param v_out: output vector to hold bitwise 'not'
 //		param s_in: input scalar
 //		return: v_out
-#if TINTEGER
 uintv ijkVecBitNot4uvs(uint4 v_out, ui32 const s_in);
-#endif	// TINTEGER
 
 // ijkVecNot4*vs
 //	Calculate logical 'not' of scalar.
@@ -1903,7 +1865,6 @@ uintv ijkVecMod4uvs(uint4 v_out, uint4 const v_lh, ui32 const s_rh);
 //		return: v_out
 uintv ijkVecModSafe4uvs(uint4 v_out, uint4 const v_lh, ui32 const s_rh);
 
-#if TINTEGER
 // ijkVecBitAnd4*vs
 //	Calculate bitwise 'and' of 4D vector components and scalar.
 //		param v_out: output vector to hold bitwise 'and'
@@ -1967,7 +1928,6 @@ uintv ijkVecBitShiftLeft4uvs(uint4 v_out, uint4 const v_lh, ui32 const s_rh);
 //		param s_rh: right-hand scalar
 //		return: v_out
 uintv ijkVecBitShiftRight4uvs(uint4 v_out, uint4 const v_lh, ui32 const s_rh);
-#endif	// TINTEGER
 
 // ijkVecEqual4*vs
 //	Equality comparison of 4D vector components and scalar.
@@ -2122,7 +2082,6 @@ uintv ijkVecMod4usv(uint4 v_out, ui32 const s_lh, uint4 const v_rh);
 //		return: v_out
 uintv ijkVecModSafe4usv(uint4 v_out, ui32 const s_lh, uint4 const v_rh);
 
-#if TINTEGER
 // ijkVecBitAnd4*sv
 //	Calculate bitwise 'and' of scalar and 4D vector components.
 //		param v_out: output vector to hold bitwise 'and'
@@ -2186,7 +2145,6 @@ uintv ijkVecBitShiftLeft4usv(uint4 v_out, ui32 const s_lh, uint4 const v_rh);
 //		param v_rh: right-hand vector
 //		return: v_out
 uintv ijkVecBitShiftRight4usv(uint4 v_out, ui32 const s_lh, uint4 const v_rh);
-#endif	// TINTEGER
 
 // ijkVecEqual4*sv
 //	Equality comparison of scalar and 4D vector components.
@@ -2384,17 +2342,13 @@ uvec2 ijkVecCopy2u(uvec2 const v_in);
 //	Negate 2D vector.
 //		param v_in: input vector
 //		return: result vector
-#if TSIGNED
-uvec2 ijkVecNegate2u(uvec2 const v_in);
-#endif	// TSIGNED
+ivec2 ijkVecNegate2u(uvec2 const v_in);
 
 // ijkVecBitNot2*
 //	Calculate component-wise bitwise 'not' of 2D vector.
 //		param v_in: input vector
 //		return: result vector
-#if TINTEGER
 uvec2 ijkVecBitNot2u(uvec2 const v_in);
-#endif	// TINTEGER
 
 // ijkVecNot2*
 //	Calculate component-wise logical 'not' of 2D vector.
@@ -2451,7 +2405,6 @@ uvec2 ijkVecMod2u(uvec2 const v_lh, uvec2 const v_rh);
 //		return: result vector
 uvec2 ijkVecModSafe2u(uvec2 const v_lh, uvec2 const v_rh);
 
-#if TINTEGER
 // ijkVecBitAnd2*
 //	Calculate component-wise bitwise 'and' of 2D vectors.
 //		param v_lh: left-hand vector
@@ -2507,7 +2460,6 @@ uvec2 ijkVecBitShiftLeft2u(uvec2 const v_lh, uvec2 const v_rh);
 //		param v_rh: right-hand vector
 //		return: result vector
 uvec2 ijkVecBitShiftRight2u(uvec2 const v_lh, uvec2 const v_rh);
-#endif	// TINTEGER
 
 // ijkVecEqual2*
 //	Equality comparison for 2D vectors.
@@ -2589,17 +2541,13 @@ uvec2 ijkVecCopy2us(uint const s_in);
 //	Negate scalar to 2D vector.
 //		param s_in: input scalar
 //		return: result vector
-#if TSIGNED
-uvec2 ijkVecNegate2us(uint const s_in);
-#endif	// TSIGNED
+ivec2 ijkVecNegate2us(uint const s_in);
 
 // ijkVecBitNot2*s
 //	Calculate bitwise 'not' of 2D vector.
 //		param s_in: input scalar
 //		return: result vector
-#if TINTEGER
 uvec2 ijkVecBitNot2us(uint const s_in);
-#endif	// TINTEGER
 
 // ijkVecNot2*s
 //	Calculate logical 'not' of scalar.
@@ -2656,7 +2604,6 @@ uvec2 ijkVecMod2us(uvec2 const v_lh, uint const s_rh);
 //		return: result vector
 uvec2 ijkVecModSafe2us(uvec2 const v_lh, uint const s_rh);
 
-#if TINTEGER
 // ijkVecBitAnd2*s
 //	Calculate bitwise 'and' of 2D vector components and scalar.
 //		param v_lh: left-hand vector
@@ -2712,7 +2659,6 @@ uvec2 ijkVecBitShiftLeft2us(uvec2 const v_lh, uint const s_rh);
 //		param s_rh: right-hand scalar
 //		return: result vector
 uvec2 ijkVecBitShiftRight2us(uvec2 const v_lh, uint const s_rh);
-#endif	// TINTEGER
 
 // ijkVecEqual2*s
 //	Equality comparison of 2D vector components and scalar.
@@ -2833,7 +2779,6 @@ uvec2 ijkVecMod2su(uint const s_lh, uvec2 const v_rh);
 //		return: result vector
 uvec2 ijkVecModSafe2su(uint const s_lh, uvec2 const v_rh);
 
-#if TINTEGER
 // ijkVecBitAnd2s*
 //	Calculate bitwise 'and' of scalar and 2D vector components.
 //		param s_lh: left-hand scalar
@@ -2889,7 +2834,6 @@ uvec2 ijkVecBitShiftLeft2su(uint const s_lh, uvec2 const v_rh);
 //		param v_rh: right-hand vector
 //		return: result vector
 uvec2 ijkVecBitShiftRight2su(uint const s_lh, uvec2 const v_rh);
-#endif	// TINTEGER
 
 // ijkVecEqual2s*
 //	Equality comparison of scalar and 2D vector components.
@@ -3001,17 +2945,13 @@ uvec3 ijkVecCopy3u(uvec3 const v_in);
 //	Negate 3D vector.
 //		param v_in: input vector
 //		return: result vector
-#if TSIGNED
-uvec3 ijkVecNegate3u(uvec3 const v_in);
-#endif	// TSIGNED
+ivec3 ijkVecNegate3u(uvec3 const v_in);
 
 // ijkVecBitNot3*
 //	Calculate component-wise bitwise 'not' of 3D vector.
 //		param v_in: input vector
 //		return: result vector
-#if TINTEGER
 uvec3 ijkVecBitNot3u(uvec3 const v_in);
-#endif	// TINTEGER
 
 // ijkVecNot3*
 //	Calculate component-wise logical 'not' of 3D vector.
@@ -3068,7 +3008,6 @@ uvec3 ijkVecMod3u(uvec3 const v_lh, uvec3 const v_rh);
 //		return: result vector
 uvec3 ijkVecModSafe3u(uvec3 const v_lh, uvec3 const v_rh);
 
-#if TINTEGER
 // ijkVecBitAnd3*
 //	Calculate component-wise bitwise 'and' of 3D vectors.
 //		param v_lh: left-hand vector
@@ -3124,7 +3063,6 @@ uvec3 ijkVecBitShiftLeft3u(uvec3 const v_lh, uvec3 const v_rh);
 //		param v_rh: right-hand vector
 //		return: result vector
 uvec3 ijkVecBitShiftRight3u(uvec3 const v_lh, uvec3 const v_rh);
-#endif	// TINTEGER
 
 // ijkVecEqual3*
 //	Equality comparison for 3D vectors.
@@ -3213,17 +3151,13 @@ uvec3 ijkVecCopy3us(uint const s_in);
 //	Negate scalar to 3D vector.
 //		param s_in: input scalar
 //		return: result vector
-#if TSIGNED
-uvec3 ijkVecNegate3us(uint const s_in);
-#endif	// TSIGNED
+ivec3 ijkVecNegate3us(uint const s_in);
 
 // ijkVecBitNot3*s
 //	Calculate bitwise 'not' of 3D vector.
 //		param s_in: input scalar
 //		return: result vector
-#if TINTEGER
 uvec3 ijkVecBitNot3us(uint const s_in);
-#endif	// TINTEGER
 
 // ijkVecNot3*s
 //	Calculate logical 'not' of scalar.
@@ -3280,7 +3214,6 @@ uvec3 ijkVecMod3us(uvec3 const v_lh, uint const s_rh);
 //		return: result vector
 uvec3 ijkVecModSafe3us(uvec3 const v_lh, uint const s_rh);
 
-#if TINTEGER
 // ijkVecBitAnd3*s
 //	Calculate bitwise 'and' of 3D vector components and scalar.
 //		param v_lh: left-hand vector
@@ -3336,7 +3269,6 @@ uvec3 ijkVecBitShiftLeft3us(uvec3 const v_lh, uint const s_rh);
 //		param s_rh: right-hand scalar
 //		return: result vector
 uvec3 ijkVecBitShiftRight3us(uvec3 const v_lh, uint const s_rh);
-#endif	// TINTEGER
 
 // ijkVecEqual3*s
 //	Equality comparison of 3D vector components and scalar.
@@ -3464,7 +3396,6 @@ uvec3 ijkVecMod3su(uint const s_lh, uvec3 const v_rh);
 //		return: result vector
 uvec3 ijkVecModSafe3su(uint const s_lh, uvec3 const v_rh);
 
-#if TINTEGER
 // ijkVecBitAnd3s*
 //	Calculate bitwise 'and' of scalar and 3D vector components.
 //		param s_lh: left-hand scalar
@@ -3520,7 +3451,6 @@ uvec3 ijkVecBitShiftLeft3su(uint const s_lh, uvec3 const v_rh);
 //		param v_rh: right-hand vector
 //		return: result vector
 uvec3 ijkVecBitShiftRight3su(uint const s_lh, uvec3 const v_rh);
-#endif	// TINTEGER
 
 // ijkVecEqual3s*
 //	Equality comparison of scalar and 3D vector components.
@@ -3648,17 +3578,13 @@ uvec4 ijkVecCopy4u(uvec4 const v_in);
 //	Negate 4D vector.
 //		param v_in: input vector
 //		return: result vector
-#if TSIGNED
-uvec4 ijkVecNegate4u(uvec4 const v_in);
-#endif	// TSIGNED
+ivec4 ijkVecNegate4u(uvec4 const v_in);
 
 // ijkVecBitNot4*
 //	Calculate component-wise bitwise 'not' of 4D vector.
 //		param v_in: input vector
 //		return: result vector
-#if TINTEGER
 uvec4 ijkVecBitNot4u(uvec4 const v_in);
-#endif	// TINTEGER
 
 // ijkVecNot4*
 //	Calculate component-wise logical 'not' of 4D vector.
@@ -3715,7 +3641,6 @@ uvec4 ijkVecMod4u(uvec4 const v_lh, uvec4 const v_rh);
 //		return: result vector
 uvec4 ijkVecModSafe4u(uvec4 const v_lh, uvec4 const v_rh);
 
-#if TINTEGER
 // ijkVecBitAnd4*
 //	Calculate component-wise bitwise 'and' of 4D vectors.
 //		param v_lh: left-hand vector
@@ -3771,7 +3696,6 @@ uvec4 ijkVecBitShiftLeft4u(uvec4 const v_lh, uvec4 const v_rh);
 //		param v_rh: right-hand vector
 //		return: result vector
 uvec4 ijkVecBitShiftRight4u(uvec4 const v_lh, uvec4 const v_rh);
-#endif	// TINTEGER
 
 // ijkVecEqual4*
 //	Equality comparison for 4D vectors.
@@ -3868,17 +3792,13 @@ uvec4 ijkVecCopy4us(uint const s_in);
 //	Negate scalar to 4D vector.
 //		param s_in: input scalar
 //		return: result vector
-#if TSIGNED
-uvec4 ijkVecNegate4us(uint const s_in);
-#endif	// TSIGNED
+ivec4 ijkVecNegate4us(uint const s_in);
 
 // ijkVecBitNot4*s
 //	Calculate bitwise 'not' of 4D vector.
 //		param s_in: input scalar
 //		return: result vector
-#if TINTEGER
 uvec4 ijkVecBitNot4us(uint const s_in);
-#endif	// TINTEGER
 
 // ijkVecNot4*s
 //	Calculate logical 'not' of scalar.
@@ -3935,7 +3855,6 @@ uvec4 ijkVecMod4us(uvec4 const v_lh, uint const s_rh);
 //		return: result vector
 uvec4 ijkVecModSafe4us(uvec4 const v_lh, uint const s_rh);
 
-#if TINTEGER
 // ijkVecBitAnd4*s
 //	Calculate bitwise 'and' of 4D vector components and scalar.
 //		param v_lh: left-hand vector
@@ -3991,7 +3910,6 @@ uvec4 ijkVecBitShiftLeft4us(uvec4 const v_lh, uint const s_rh);
 //		param s_rh: right-hand scalar
 //		return: result vector
 uvec4 ijkVecBitShiftRight4us(uvec4 const v_lh, uint const s_rh);
-#endif	// TINTEGER
 
 // ijkVecEqual4*s
 //	Equality comparison of 4D vector components and scalar.
@@ -4127,7 +4045,6 @@ uvec4 ijkVecMod4su(uint const s_lh, uvec4 const v_rh);
 //		return: result vector
 uvec4 ijkVecModSafe4su(uint const s_lh, uvec4 const v_rh);
 
-#if TINTEGER
 // ijkVecBitAnd4s*
 //	Calculate bitwise 'and' of scalar and 4D vector components.
 //		param s_lh: left-hand scalar
@@ -4183,7 +4100,6 @@ uvec4 ijkVecBitShiftLeft4su(uint const s_lh, uvec4 const v_rh);
 //		param v_rh: right-hand vector
 //		return: result vector
 uvec4 ijkVecBitShiftRight4su(uint const s_lh, uvec4 const v_rh);
-#endif	// TINTEGER
 
 // ijkVecEqual4s*
 //	Equality comparison of scalar and 4D vector components.
