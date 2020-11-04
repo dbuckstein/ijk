@@ -38,50 +38,50 @@ extern "C" {
 //	Absolute value of scalar: (s >= 0 ? +s : -s).
 //		param s: scalar
 //		return: absolute value
-i32 ijkVecAbs1is(i32 const s);
+f32 ijkVecAbs1fs(f32 const s);
 
 // ijkVecSgn1*s
 //	Sign of scalar: (s != 0 ? s > 0 ? +1 : -1).
 //		param s: scalar
 //		return: sign
-i32 ijkVecSgn1is(i32 const s);
+f32 ijkVecSgn1fs(f32 const s);
 
 // ijkVecDot1*s
 //	Dot product of scalars, which is just their product.
 //		param s_lh: left-hand scalar
 //		param s_rh: right-hand scalar
 //		return: product
-i32 ijkVecDot1is(i32 const s_lh, i32 const s_rh);
+f32 ijkVecDot1fs(f32 const s_lh, f32 const s_rh);
 
 // ijkVecLengthSq1*s
 //	Squared length of scalar.
 //		param s: scalar
 //		return: squared length
-i32 ijkVecLengthSq1is(i32 const s);
+f32 ijkVecLengthSq1fs(f32 const s);
 
 // ijkVecLength1*s
 //	Length of scalar.
 //		param s: scalar
 //		return: length
-i32 ijkVecLength1is(i32 const s);
+f32 ijkVecLength1fs(f32 const s);
 
 // ijkVecLengthSqInv1*s
 //	Inverse squared length of scalar.
 //		param s: scalar
 //		return: inverse squared length
-i32 ijkVecLengthSqInv1is(i32 const s);
+f32 ijkVecLengthSqInv1fs(f32 const s);
 
 // ijkVecLengthSqInv1*s
 //	Inverse length of scalar.
 //		param s: scalar
 //		return: inverse length
-i32 ijkVecLengthInv1is(i32 const s);
+f32 ijkVecLengthInv1fs(f32 const s);
 
 // ijkVecNormalize1*s
 //	Calculate unit scalar in same direction as input (sign).
 //		param s: scalar
 //		return: unit scalar (sign)
-i32 ijkVecNormalize1is(i32 const s);
+f32 ijkVecNormalize1fs(f32 const s);
 
 // ijkVecNormalizeGetLength1*s
 //	Calculate unit scalar in same direction as input (sign).
@@ -89,7 +89,7 @@ i32 ijkVecNormalize1is(i32 const s);
 //		param s: scalar
 //		param length_out: pointer to length storage
 //		return: unit scalar (sign)
-i32 ijkVecNormalizeGetLength1is(i32 const s, i32* const length_out);
+f32 ijkVecNormalizeGetLength1fs(f32 const s, f32* const length_out);
 
 // ijkVecNormalizeGetLengthInv1*s
 //	Calculate unit scalar in same direction as input (sign).
@@ -97,7 +97,7 @@ i32 ijkVecNormalizeGetLength1is(i32 const s, i32* const length_out);
 //		param s: scalar
 //		param lengthInv_out: pointer to length storage
 //		return: unit scalar (sign)
-i32 ijkVecNormalizeGetLengthInv1is(i32 const s, i32* const lengthInv_out);
+f32 ijkVecNormalizeGetLengthInv1fs(f32 const s, f32* const lengthInv_out);
 
 
 //-----------------------------------------------------------------------------
@@ -106,7 +106,7 @@ i32 ijkVecNormalizeGetLengthInv1is(i32 const s, i32* const lengthInv_out);
 //	Pass-thru array-based vector function (does nothing).
 //		param v_out: output vector
 //		return: v_out
-intv ijkVecPiv(intv v_out);
+floatv ijkVecPfv(floatv v_out);
 
 
 //-----------------------------------------------------------------------------
@@ -115,7 +115,7 @@ intv ijkVecPiv(intv v_out);
 //	Initialize 2D vector to default value (zero vector).
 //		param v_out: output vector
 //		return: v_out
-intv ijkVecInit2iv(int2 v_out);
+floatv ijkVecInit2fv(float2 v_out);
 
 // ijkVecInitElems2*v
 //	Initialize 2D vector to specified individual elements.
@@ -123,14 +123,14 @@ intv ijkVecInit2iv(int2 v_out);
 //		param x: first element
 //		param y: second element
 //		return: v_out
-intv ijkVecInitElems2iv(int2 v_out, i32 const x, i32 const y);
+floatv ijkVecInitElems2fv(float2 v_out, f32 const x, f32 const y);
 
 // ijkVecCopy2*v
 //	Copy 2D vector from first elements of another vector.
 //		param v_out: output vector to hold copy
 //		param v_in: input vector
 //		return: v_out
-intv ijkVecCopy2iv(int2 v_out, int2 const v_in);
+floatv ijkVecCopy2fv(float2 v_out, float2 const v_in);
 
 // ijkVecNegate2*v
 //	Negate 2D vector.
@@ -138,7 +138,7 @@ intv ijkVecCopy2iv(int2 v_out, int2 const v_in);
 //		param v_in: input vector
 //		return: v_out
 #if TSIGNED
-intv ijkVecNegate2iv(int2 v_out, int2 const v_in);
+floatv ijkVecNegate2fv(float2 v_out, float2 const v_in);
 #endif	// TSIGNED
 
 // ijkVecBitNot2*v
@@ -146,16 +146,16 @@ intv ijkVecNegate2iv(int2 v_out, int2 const v_in);
 //		param v_out: output vector to hold component-wise bitwise 'not'
 //		param v_in: input vector
 //		return: v_out
-#if TINTEGER
-intv ijkVecBitNot2iv(int2 v_out, int2 const v_in);
-#endif	// TINTEGER
+#if TfloatEGER
+floatv ijkVecBitNot2fv(float2 v_out, float2 const v_in);
+#endif	// TfloatEGER
 
 // ijkVecNot2*v
 //	Calculate component-wise logical 'not' of 2D vector.
 //		param bv_out: boolean vector to hold component-wise logical 'not'
 //		param v_in: input vector
 //		return: bv_out
-boolv ijkVecNot2iv(bool2 bv_out, int2 const v_in);
+boolv ijkVecNot2fv(bool2 bv_out, float2 const v_in);
 
 // ijkVecAdd2*v
 //	Calculate sum of 2D vectors.
@@ -163,7 +163,7 @@ boolv ijkVecNot2iv(bool2 bv_out, int2 const v_in);
 //		param v_lh: left-hand vector
 //		param v_rh: right-hand vector
 //		return: v_out
-intv ijkVecAdd2iv(int2 v_out, int2 const v_lh, int2 const v_rh);
+floatv ijkVecAdd2fv(float2 v_out, float2 const v_lh, float2 const v_rh);
 
 // ijkVecSub2*v
 //	Calculate difference of 2D vectors.
@@ -171,7 +171,7 @@ intv ijkVecAdd2iv(int2 v_out, int2 const v_lh, int2 const v_rh);
 //		param v_lh: left-hand vector
 //		param v_rh: right-hand vector
 //		return: v_out
-intv ijkVecSub2iv(int2 v_out, int2 const v_lh, int2 const v_rh);
+floatv ijkVecSub2fv(float2 v_out, float2 const v_lh, float2 const v_rh);
 
 // ijkVecMul2*v
 //	Calculate component-wise product of 2D vectors.
@@ -179,7 +179,7 @@ intv ijkVecSub2iv(int2 v_out, int2 const v_lh, int2 const v_rh);
 //		param v_lh: left-hand vector
 //		param v_rh: right-hand vector
 //		return: v_out
-intv ijkVecMul2iv(int2 v_out, int2 const v_lh, int2 const v_rh);
+floatv ijkVecMul2fv(float2 v_out, float2 const v_lh, float2 const v_rh);
 
 // ijkVecDiv2*v
 //	Calculate component-wise quotient of 2D vectors.
@@ -187,7 +187,7 @@ intv ijkVecMul2iv(int2 v_out, int2 const v_lh, int2 const v_rh);
 //		param v_lh: left-hand vector
 //		param v_rh: right-hand vector
 //		return: v_out
-intv ijkVecDiv2iv(int2 v_out, int2 const v_lh, int2 const v_rh);
+floatv ijkVecDiv2fv(float2 v_out, float2 const v_lh, float2 const v_rh);
 
 // ijkVecDivSafe2*v
 //	Calculate component-wise quotient of 2D vectors, division-by-zero safe.
@@ -195,7 +195,7 @@ intv ijkVecDiv2iv(int2 v_out, int2 const v_lh, int2 const v_rh);
 //		param v_lh: left-hand vector
 //		param v_rh: right-hand vector
 //		return: v_out
-intv ijkVecDivSafe2iv(int2 v_out, int2 const v_lh, int2 const v_rh);
+floatv ijkVecDivSafe2fv(float2 v_out, float2 const v_lh, float2 const v_rh);
 
 // ijkVecMod2*v
 //	Calculate component-wise remainder of 2D vectors.
@@ -203,7 +203,7 @@ intv ijkVecDivSafe2iv(int2 v_out, int2 const v_lh, int2 const v_rh);
 //		param v_lh: left-hand vector
 //		param v_rh: right-hand vector
 //		return: v_out
-intv ijkVecMod2iv(int2 v_out, int2 const v_lh, int2 const v_rh);
+floatv ijkVecMod2fv(float2 v_out, float2 const v_lh, float2 const v_rh);
 
 // ijkVecModSafe2*v
 //	Calculate component-wise remainder of 2D vectors, division-by-zero safe.
@@ -211,16 +211,16 @@ intv ijkVecMod2iv(int2 v_out, int2 const v_lh, int2 const v_rh);
 //		param v_lh: left-hand vector
 //		param v_rh: right-hand vector
 //		return: v_out
-intv ijkVecModSafe2iv(int2 v_out, int2 const v_lh, int2 const v_rh);
+floatv ijkVecModSafe2fv(float2 v_out, float2 const v_lh, float2 const v_rh);
 
-#if TINTEGER
+#if TfloatEGER
 // ijkVecBitAnd2*v
 //	Calculate component-wise bitwise 'and' of 2D vectors.
 //		param v_out: output vector to hold component-wise bitwise 'and'
 //		param v_lh: left-hand vector
 //		param v_rh: right-hand vector
 //		return: v_out
-intv ijkVecBitAnd2iv(int2 v_out, int2 const v_lh, int2 const v_rh);
+floatv ijkVecBitAnd2fv(float2 v_out, float2 const v_lh, float2 const v_rh);
 
 // ijkVecBitNand2*v
 //	Calculate component-wise bitwise 'not and' of 2D vectors.
@@ -228,7 +228,7 @@ intv ijkVecBitAnd2iv(int2 v_out, int2 const v_lh, int2 const v_rh);
 //		param v_lh: left-hand vector
 //		param v_rh: right-hand vector
 //		return: v_out
-intv ijkVecBitNand2iv(int2 v_out, int2 const v_lh, int2 const v_rh);
+floatv ijkVecBitNand2fv(float2 v_out, float2 const v_lh, float2 const v_rh);
 
 // ijkVecBitOr2*v
 //	Calculate component-wise bitwise 'or' of 2D vectors.
@@ -236,7 +236,7 @@ intv ijkVecBitNand2iv(int2 v_out, int2 const v_lh, int2 const v_rh);
 //		param v_lh: left-hand vector
 //		param v_rh: right-hand vector
 //		return: v_out
-intv ijkVecBitOr2iv(int2 v_out, int2 const v_lh, int2 const v_rh);
+floatv ijkVecBitOr2fv(float2 v_out, float2 const v_lh, float2 const v_rh);
 
 // ijkVecBitNor2*v
 //	Calculate component-wise bitwise 'not or' of 2D vectors.
@@ -244,7 +244,7 @@ intv ijkVecBitOr2iv(int2 v_out, int2 const v_lh, int2 const v_rh);
 //		param v_lh: left-hand vector
 //		param v_rh: right-hand vector
 //		return: v_out
-intv ijkVecBitNor2iv(int2 v_out, int2 const v_lh, int2 const v_rh);
+floatv ijkVecBitNor2fv(float2 v_out, float2 const v_lh, float2 const v_rh);
 
 // ijkVecBitXor2*v
 //	Calculate component-wise bitwise 'exclusive or' of 2D vectors.
@@ -252,7 +252,7 @@ intv ijkVecBitNor2iv(int2 v_out, int2 const v_lh, int2 const v_rh);
 //		param v_lh: left-hand vector
 //		param v_rh: right-hand vector
 //		return: v_out
-intv ijkVecBitXor2iv(int2 v_out, int2 const v_lh, int2 const v_rh);
+floatv ijkVecBitXor2fv(float2 v_out, float2 const v_lh, float2 const v_rh);
 
 // ijkVecBitXnor2*v
 //	Calculate component-wise bitwise 'not exclusive or' of 2D vectors.
@@ -260,7 +260,7 @@ intv ijkVecBitXor2iv(int2 v_out, int2 const v_lh, int2 const v_rh);
 //		param v_lh: left-hand vector
 //		param v_rh: right-hand vector
 //		return: v_out
-intv ijkVecBitXnor2iv(int2 v_out, int2 const v_lh, int2 const v_rh);
+floatv ijkVecBitXnor2fv(float2 v_out, float2 const v_lh, float2 const v_rh);
 
 // ijkVecBitShiftLeft2*v
 //	Calculate component-wise bit shift left of 2D vectors.
@@ -268,7 +268,7 @@ intv ijkVecBitXnor2iv(int2 v_out, int2 const v_lh, int2 const v_rh);
 //		param v_lh: left-hand vector
 //		param v_rh: right-hand vector
 //		return: v_out
-intv ijkVecBitShiftLeft2iv(int2 v_out, int2 const v_lh, int2 const v_rh);
+floatv ijkVecBitShiftLeft2fv(float2 v_out, float2 const v_lh, float2 const v_rh);
 
 // ijkVecBitShiftRight2*v
 //	Calculate component-wise bit shift right of 2D vectors.
@@ -276,8 +276,8 @@ intv ijkVecBitShiftLeft2iv(int2 v_out, int2 const v_lh, int2 const v_rh);
 //		param v_lh: left-hand vector
 //		param v_rh: right-hand vector
 //		return: v_out
-intv ijkVecBitShiftRight2iv(int2 v_out, int2 const v_lh, int2 const v_rh);
-#endif	// TINTEGER
+floatv ijkVecBitShiftRight2fv(float2 v_out, float2 const v_lh, float2 const v_rh);
+#endif	// TfloatEGER
 
 // ijkVecEqual2*v
 //	Equality comparison for 2D vectors.
@@ -285,7 +285,7 @@ intv ijkVecBitShiftRight2iv(int2 v_out, int2 const v_lh, int2 const v_rh);
 //		param v_lh: left-hand vector
 //		param v_rh: right-hand vector
 //		return: bv_out
-boolv ijkVecEqual2iv(bool2 bv_out, int2 const v_lh, int2 const v_rh);
+boolv ijkVecEqual2fv(bool2 bv_out, float2 const v_lh, float2 const v_rh);
 
 // ijkVecInequal2*v
 //	Inequality comparison for 2D vectors.
@@ -293,7 +293,7 @@ boolv ijkVecEqual2iv(bool2 bv_out, int2 const v_lh, int2 const v_rh);
 //		param v_lh: left-hand vector
 //		param v_rh: right-hand vector
 //		return: bv_out
-boolv ijkVecInequal2iv(bool2 bv_out, int2 const v_lh, int2 const v_rh);
+boolv ijkVecInequal2fv(bool2 bv_out, float2 const v_lh, float2 const v_rh);
 
 // ijkVecLessEqual2*v
 //	Less-than or equal comparison for 2D vectors.
@@ -301,7 +301,7 @@ boolv ijkVecInequal2iv(bool2 bv_out, int2 const v_lh, int2 const v_rh);
 //		param v_lh: left-hand vector
 //		param v_rh: right-hand vector
 //		return: bv_out
-boolv ijkVecLessEqual2iv(bool2 bv_out, int2 const v_lh, int2 const v_rh);
+boolv ijkVecLessEqual2fv(bool2 bv_out, float2 const v_lh, float2 const v_rh);
 
 // ijkVecGreaterEqual2*v
 //	Greater-than or equal comparison for 2D vectors.
@@ -309,7 +309,7 @@ boolv ijkVecLessEqual2iv(bool2 bv_out, int2 const v_lh, int2 const v_rh);
 //		param v_lh: left-hand vector
 //		param v_rh: right-hand vector
 //		return: bv_out
-boolv ijkVecGreaterEqual2iv(bool2 bv_out, int2 const v_lh, int2 const v_rh);
+boolv ijkVecGreaterEqual2fv(bool2 bv_out, float2 const v_lh, float2 const v_rh);
 
 // ijkVecLess2*v
 //	Less-than comparison for 2D vectors.
@@ -317,7 +317,7 @@ boolv ijkVecGreaterEqual2iv(bool2 bv_out, int2 const v_lh, int2 const v_rh);
 //		param v_lh: left-hand vector
 //		param v_rh: right-hand vector
 //		return: bv_out
-boolv ijkVecLess2iv(bool2 bv_out, int2 const v_lh, int2 const v_rh);
+boolv ijkVecLess2fv(bool2 bv_out, float2 const v_lh, float2 const v_rh);
 
 // ijkVecGreater2*v
 //	Greater-than comparison for 2D vectors.
@@ -325,7 +325,7 @@ boolv ijkVecLess2iv(bool2 bv_out, int2 const v_lh, int2 const v_rh);
 //		param v_lh: left-hand vector
 //		param v_rh: right-hand vector
 //		return: bv_out
-boolv ijkVecGreater2iv(bool2 bv_out, int2 const v_lh, int2 const v_rh);
+boolv ijkVecGreater2fv(bool2 bv_out, float2 const v_lh, float2 const v_rh);
 
 // ijkVecAnd2*v
 //	Component-wise logical 'and' of 2D vectors.
@@ -333,7 +333,7 @@ boolv ijkVecGreater2iv(bool2 bv_out, int2 const v_lh, int2 const v_rh);
 //		param v_lh: left-hand vector
 //		param v_rh: right-hand vector
 //		return: bv_out
-boolv ijkVecAnd2iv(bool2 bv_out, int2 const v_lh, int2 const v_rh);
+boolv ijkVecAnd2fv(bool2 bv_out, float2 const v_lh, float2 const v_rh);
 
 // ijkVecNand2*v
 //	Component-wise logical 'nand' of 2D vectors.
@@ -341,7 +341,7 @@ boolv ijkVecAnd2iv(bool2 bv_out, int2 const v_lh, int2 const v_rh);
 //		param v_lh: left-hand vector
 //		param v_rh: right-hand vector
 //		return: bv_out
-boolv ijkVecNand2iv(bool2 bv_out, int2 const v_lh, int2 const v_rh);
+boolv ijkVecNand2fv(bool2 bv_out, float2 const v_lh, float2 const v_rh);
 
 // ijkVecOr2*v
 //	Component-wise logical 'or' of 2D vectors.
@@ -349,7 +349,7 @@ boolv ijkVecNand2iv(bool2 bv_out, int2 const v_lh, int2 const v_rh);
 //		param v_lh: left-hand vector
 //		param v_rh: right-hand vector
 //		return: bv_out
-boolv ijkVecOr2iv(bool2 bv_out, int2 const v_lh, int2 const v_rh);
+boolv ijkVecOr2fv(bool2 bv_out, float2 const v_lh, float2 const v_rh);
 
 // ijkVecNor2*v
 //	Component-wise logical 'nor' of 2D vectors.
@@ -357,14 +357,14 @@ boolv ijkVecOr2iv(bool2 bv_out, int2 const v_lh, int2 const v_rh);
 //		param v_lh: left-hand vector
 //		param v_rh: right-hand vector
 //		return: bv_out
-boolv ijkVecNor2iv(bool2 bv_out, int2 const v_lh, int2 const v_rh);
+boolv ijkVecNor2fv(bool2 bv_out, float2 const v_lh, float2 const v_rh);
 
 // ijkVecCopy2*vs
 //	Copy 2D vector from scalar.
 //		param v_out: output vector to hold copy
 //		param s_in: input scalar
 //		return: v_out
-intv ijkVecCopy2ivs(int2 v_out, i32 const s_in);
+floatv ijkVecCopy2fvs(float2 v_out, f32 const s_in);
 
 // ijkVecNegate2*vs
 //	Negate scalar to 2D vector.
@@ -372,7 +372,7 @@ intv ijkVecCopy2ivs(int2 v_out, i32 const s_in);
 //		param s_in: input scalar
 //		return: v_out
 #if TSIGNED
-intv ijkVecNegate2ivs(int2 v_out, i32 const s_in);
+floatv ijkVecNegate2fvs(float2 v_out, f32 const s_in);
 #endif	// TSIGNED
 
 // ijkVecBitNot2*vs
@@ -380,16 +380,16 @@ intv ijkVecNegate2ivs(int2 v_out, i32 const s_in);
 //		param v_out: output vector to hold bitwise 'not'
 //		param s_in: input scalar
 //		return: v_out
-#if TINTEGER
-intv ijkVecBitNot2ivs(int2 v_out, i32 const s_in);
-#endif	// TINTEGER
+#if TfloatEGER
+floatv ijkVecBitNot2fvs(float2 v_out, f32 const s_in);
+#endif	// TfloatEGER
 
 // ijkVecNot2*vs
 //	Calculate logical 'not' of scalar.
 //		param bv_out: boolean vector to hold logical 'not'
 //		param s_in: input scalar
 //		return: bv_out
-boolv ijkVecNot2ivs(bool2 bv_out, i32 const s_in);
+boolv ijkVecNot2fvs(bool2 bv_out, f32 const s_in);
 
 // ijkVecAdd2*vs
 //	Calculate sum of 2D vector components and scalar.
@@ -397,7 +397,7 @@ boolv ijkVecNot2ivs(bool2 bv_out, i32 const s_in);
 //		param v_lh: left-hand vector
 //		param s_rh: right-hand scalar
 //		return: v_out
-intv ijkVecAdd2ivs(int2 v_out, int2 const v_lh, i32 const s_rh);
+floatv ijkVecAdd2fvs(float2 v_out, float2 const v_lh, f32 const s_rh);
 
 // ijkVecSub2*vs
 //	Calculate difference of 2D vector components and scalar.
@@ -405,7 +405,7 @@ intv ijkVecAdd2ivs(int2 v_out, int2 const v_lh, i32 const s_rh);
 //		param v_lh: left-hand vector
 //		param s_rh: right-hand scalar
 //		return: v_out
-intv ijkVecSub2ivs(int2 v_out, int2 const v_lh, i32 const s_rh);
+floatv ijkVecSub2fvs(float2 v_out, float2 const v_lh, f32 const s_rh);
 
 // ijkVecMul2*vs
 //	Calculate product of 2D vector components by scalar.
@@ -413,7 +413,7 @@ intv ijkVecSub2ivs(int2 v_out, int2 const v_lh, i32 const s_rh);
 //		param v_lh: left-hand vector
 //		param s_rh: right-hand scalar
 //		return: v_out
-intv ijkVecMul2ivs(int2 v_out, int2 const v_lh, i32 const s_rh);
+floatv ijkVecMul2fvs(float2 v_out, float2 const v_lh, f32 const s_rh);
 
 // ijkVecDiv2*vs
 //	Calculate quotient of 2D vector components by scalar.
@@ -421,7 +421,7 @@ intv ijkVecMul2ivs(int2 v_out, int2 const v_lh, i32 const s_rh);
 //		param v_lh: left-hand vector
 //		param s_rh: right-hand scalar
 //		return: v_out
-intv ijkVecDiv2ivs(int2 v_out, int2 const v_lh, i32 const s_rh);
+floatv ijkVecDiv2fvs(float2 v_out, float2 const v_lh, f32 const s_rh);
 
 // ijkVecDivSafe2*vs
 //	Calculate quotient of 2D vector components by scalar, division-by-zero safe.
@@ -429,7 +429,7 @@ intv ijkVecDiv2ivs(int2 v_out, int2 const v_lh, i32 const s_rh);
 //		param v_lh: left-hand vector
 //		param s_rh: right-hand scalar
 //		return: v_out
-intv ijkVecDivSafe2ivs(int2 v_out, int2 const v_lh, i32 const s_rh);
+floatv ijkVecDivSafe2fvs(float2 v_out, float2 const v_lh, f32 const s_rh);
 
 // ijkVecMod2*vs
 //	Calculate remainder of 2D vector components by scalar.
@@ -437,7 +437,7 @@ intv ijkVecDivSafe2ivs(int2 v_out, int2 const v_lh, i32 const s_rh);
 //		param v_lh: left-hand vector
 //		param s_rh: right-hand scalar
 //		return: v_out
-intv ijkVecMod2ivs(int2 v_out, int2 const v_lh, i32 const s_rh);
+floatv ijkVecMod2fvs(float2 v_out, float2 const v_lh, f32 const s_rh);
 
 // ijkVecModSafe2*vs
 //	Calculate remainder of 2D vector components by scalar, division-by-zero safe.
@@ -445,16 +445,16 @@ intv ijkVecMod2ivs(int2 v_out, int2 const v_lh, i32 const s_rh);
 //		param v_lh: left-hand vector
 //		param s_rh: right-hand scalar
 //		return: v_out
-intv ijkVecModSafe2ivs(int2 v_out, int2 const v_lh, i32 const s_rh);
+floatv ijkVecModSafe2fvs(float2 v_out, float2 const v_lh, f32 const s_rh);
 
-#if TINTEGER
+#if TfloatEGER
 // ijkVecBitAnd2*vs
 //	Calculate bitwise 'and' of 2D vector components and scalar.
 //		param v_out: output vector to hold bitwise 'and'
 //		param v_lh: left-hand vector
 //		param s_rh: right-hand scalar
 //		return: v_out
-intv ijkVecBitAnd2ivs(int2 v_out, int2 const v_lh, i32 const s_rh);
+floatv ijkVecBitAnd2fvs(float2 v_out, float2 const v_lh, f32 const s_rh);
 
 // ijkVecBitNand2*vs
 //	Calculate bitwise 'not and' of 2D vector components and scalar.
@@ -462,7 +462,7 @@ intv ijkVecBitAnd2ivs(int2 v_out, int2 const v_lh, i32 const s_rh);
 //		param v_lh: left-hand vector
 //		param s_rh: right-hand scalar
 //		return: v_out
-intv ijkVecBitNand2ivs(int2 v_out, int2 const v_lh, i32 const s_rh);
+floatv ijkVecBitNand2fvs(float2 v_out, float2 const v_lh, f32 const s_rh);
 
 // ijkVecBitOr2*vs
 //	Calculate bitwise 'or' of 2D vector components and scalar.
@@ -470,7 +470,7 @@ intv ijkVecBitNand2ivs(int2 v_out, int2 const v_lh, i32 const s_rh);
 //		param v_lh: left-hand vector
 //		param s_rh: right-hand scalar
 //		return: v_out
-intv ijkVecBitOr2ivs(int2 v_out, int2 const v_lh, i32 const s_rh);
+floatv ijkVecBitOr2fvs(float2 v_out, float2 const v_lh, f32 const s_rh);
 
 // ijkVecBitNor2*vs
 //	Calculate bitwise 'not or' of 2D vector components and scalar.
@@ -478,7 +478,7 @@ intv ijkVecBitOr2ivs(int2 v_out, int2 const v_lh, i32 const s_rh);
 //		param v_lh: left-hand vector
 //		param s_rh: right-hand scalar
 //		return: v_out
-intv ijkVecBitNor2ivs(int2 v_out, int2 const v_lh, i32 const s_rh);
+floatv ijkVecBitNor2fvs(float2 v_out, float2 const v_lh, f32 const s_rh);
 
 // ijkVecBitXor2*vs
 //	Calculate bitwise 'exclusive or' of 2D vector components and scalar.
@@ -486,7 +486,7 @@ intv ijkVecBitNor2ivs(int2 v_out, int2 const v_lh, i32 const s_rh);
 //		param v_lh: left-hand vector
 //		param s_rh: right-hand scalar
 //		return: v_out
-intv ijkVecBitXor2ivs(int2 v_out, int2 const v_lh, i32 const s_rh);
+floatv ijkVecBitXor2fvs(float2 v_out, float2 const v_lh, f32 const s_rh);
 
 // ijkVecBitXnor2*vs
 //	Calculate bitwise 'not exclusive or' of 2D vector components and scalar.
@@ -494,7 +494,7 @@ intv ijkVecBitXor2ivs(int2 v_out, int2 const v_lh, i32 const s_rh);
 //		param v_lh: left-hand vector
 //		param s_rh: right-hand scalar
 //		return: v_out
-intv ijkVecBitXnor2ivs(int2 v_out, int2 const v_lh, i32 const s_rh);
+floatv ijkVecBitXnor2fvs(float2 v_out, float2 const v_lh, f32 const s_rh);
 
 // ijkVecBitShiftLeft2*vs
 //	Calculate bit shift left of 2D vector components and scalar.
@@ -502,7 +502,7 @@ intv ijkVecBitXnor2ivs(int2 v_out, int2 const v_lh, i32 const s_rh);
 //		param v_lh: left-hand vector
 //		param s_rh: right-hand scalar
 //		return: v_out
-intv ijkVecBitShiftLeft2ivs(int2 v_out, int2 const v_lh, i32 const s_rh);
+floatv ijkVecBitShiftLeft2fvs(float2 v_out, float2 const v_lh, f32 const s_rh);
 
 // ijkVecBitShiftRight2*vs
 //	Calculate bit shift right of 2D vector components and scalar.
@@ -510,8 +510,8 @@ intv ijkVecBitShiftLeft2ivs(int2 v_out, int2 const v_lh, i32 const s_rh);
 //		param v_lh: left-hand vector
 //		param s_rh: right-hand scalar
 //		return: v_out
-intv ijkVecBitShiftRight2ivs(int2 v_out, int2 const v_lh, i32 const s_rh);
-#endif	// TINTEGER
+floatv ijkVecBitShiftRight2fvs(float2 v_out, float2 const v_lh, f32 const s_rh);
+#endif	// TfloatEGER
 
 // ijkVecEqual2*vs
 //	Equality comparison of 2D vector components and scalar.
@@ -519,7 +519,7 @@ intv ijkVecBitShiftRight2ivs(int2 v_out, int2 const v_lh, i32 const s_rh);
 //		param v_lh: left-hand vector
 //		param s_rh: right-hand scalar
 //		return: bv_out
-boolv ijkVecEqual2ivs(bool2 bv_out, int2 const v_lh, i32 const s_rh);
+boolv ijkVecEqual2fvs(bool2 bv_out, float2 const v_lh, f32 const s_rh);
 
 // ijkVecInequal2*vs
 //	Inequality comparison of 2D vector components and scalar.
@@ -527,7 +527,7 @@ boolv ijkVecEqual2ivs(bool2 bv_out, int2 const v_lh, i32 const s_rh);
 //		param v_lh: left-hand vector
 //		param s_rh: right-hand scalar
 //		return: bv_out
-boolv ijkVecInequal2ivs(bool2 bv_out, int2 const v_lh, i32 const s_rh);
+boolv ijkVecInequal2fvs(bool2 bv_out, float2 const v_lh, f32 const s_rh);
 
 // ijkVecLessEqual2*vs
 //	Less-than or equal comparison of 2D vector components and scalar.
@@ -535,7 +535,7 @@ boolv ijkVecInequal2ivs(bool2 bv_out, int2 const v_lh, i32 const s_rh);
 //		param v_lh: left-hand vector
 //		param s_rh: right-hand scalar
 //		return: bv_out
-boolv ijkVecLessEqual2ivs(bool2 bv_out, int2 const v_lh, i32 const s_rh);
+boolv ijkVecLessEqual2fvs(bool2 bv_out, float2 const v_lh, f32 const s_rh);
 
 // ijkVecGreaterEqual2*vs
 //	Greater-than or equal comparison of 2D vector components and scalar.
@@ -543,7 +543,7 @@ boolv ijkVecLessEqual2ivs(bool2 bv_out, int2 const v_lh, i32 const s_rh);
 //		param v_lh: left-hand vector
 //		param s_rh: right-hand scalar
 //		return: bv_out
-boolv ijkVecGreaterEqual2ivs(bool2 bv_out, int2 const v_lh, i32 const s_rh);
+boolv ijkVecGreaterEqual2fvs(bool2 bv_out, float2 const v_lh, f32 const s_rh);
 
 // ijkVecLess2*vs
 //	Less-than comparison of 2D vector components and scalar.
@@ -551,7 +551,7 @@ boolv ijkVecGreaterEqual2ivs(bool2 bv_out, int2 const v_lh, i32 const s_rh);
 //		param v_lh: left-hand vector
 //		param s_rh: right-hand scalar
 //		return: bv_out
-boolv ijkVecLess2ivs(bool2 bv_out, int2 const v_lh, i32 const s_rh);
+boolv ijkVecLess2fvs(bool2 bv_out, float2 const v_lh, f32 const s_rh);
 
 // ijkVecGreater2*vs
 //	Greater-than comparison of 2D vector components and scalar.
@@ -559,7 +559,7 @@ boolv ijkVecLess2ivs(bool2 bv_out, int2 const v_lh, i32 const s_rh);
 //		param v_lh: left-hand vector
 //		param s_rh: right-hand scalar
 //		return: bv_out
-boolv ijkVecGreater2ivs(bool2 bv_out, int2 const v_lh, i32 const s_rh);
+boolv ijkVecGreater2fvs(bool2 bv_out, float2 const v_lh, f32 const s_rh);
 
 // ijkVecAnd2*vs
 //	Component-wise logical 'and' of 2D vector and scalar.
@@ -567,7 +567,7 @@ boolv ijkVecGreater2ivs(bool2 bv_out, int2 const v_lh, i32 const s_rh);
 //		param v_lh: left-hand vector
 //		param s_rh: right-hand scalar
 //		return: bv_out
-boolv ijkVecAnd2ivs(bool2 bv_out, int2 const v_lh, i32 const s_rh);
+boolv ijkVecAnd2fvs(bool2 bv_out, float2 const v_lh, f32 const s_rh);
 
 // ijkVecNand2*vs
 //	Component-wise logical 'nand' of 2D vector and scalar.
@@ -575,7 +575,7 @@ boolv ijkVecAnd2ivs(bool2 bv_out, int2 const v_lh, i32 const s_rh);
 //		param v_lh: left-hand vector
 //		param s_rh: right-hand scalar
 //		return: bv_out
-boolv ijkVecNand2ivs(bool2 bv_out, int2 const v_lh, i32 const s_rh);
+boolv ijkVecNand2fvs(bool2 bv_out, float2 const v_lh, f32 const s_rh);
 
 // ijkVecOr2*vs
 //	Component-wise logical 'or' of 2D vector and scalar.
@@ -583,7 +583,7 @@ boolv ijkVecNand2ivs(bool2 bv_out, int2 const v_lh, i32 const s_rh);
 //		param v_lh: left-hand vector
 //		param s_rh: right-hand scalar
 //		return: bv_out
-boolv ijkVecOr2ivs(bool2 bv_out, int2 const v_lh, i32 const s_rh);
+boolv ijkVecOr2fvs(bool2 bv_out, float2 const v_lh, f32 const s_rh);
 
 // ijkVecNor2*vs
 //	Component-wise logical 'nor' of 2D vector and scalar.
@@ -591,7 +591,7 @@ boolv ijkVecOr2ivs(bool2 bv_out, int2 const v_lh, i32 const s_rh);
 //		param v_lh: left-hand vector
 //		param s_rh: right-hand scalar
 //		return: bv_out
-boolv ijkVecNor2ivs(bool2 bv_out, int2 const v_lh, i32 const s_rh);
+boolv ijkVecNor2fvs(bool2 bv_out, float2 const v_lh, f32 const s_rh);
 
 // ijkVecAdd2*sv
 //	Calculate sum of scalar and 2D vector components.
@@ -599,7 +599,7 @@ boolv ijkVecNor2ivs(bool2 bv_out, int2 const v_lh, i32 const s_rh);
 //		param s_lh: left-hand scalar
 //		param v_rh: right-hand vector
 //		return: v_out
-intv ijkVecAdd2isv(int2 v_out, i32 const s_lh, int2 const v_rh);
+floatv ijkVecAdd2fsv(float2 v_out, f32 const s_lh, float2 const v_rh);
 
 // ijkVecSub2*sv
 //	Calculate difference of scalar and 2D vector components.
@@ -607,7 +607,7 @@ intv ijkVecAdd2isv(int2 v_out, i32 const s_lh, int2 const v_rh);
 //		param s_lh: left-hand scalar
 //		param v_rh: right-hand vector
 //		return: v_out
-intv ijkVecSub2isv(int2 v_out, i32 const s_lh, int2 const v_rh);
+floatv ijkVecSub2fsv(float2 v_out, f32 const s_lh, float2 const v_rh);
 
 // ijkVecMul2*sv
 //	Calculate product of scalar by 2D vector components.
@@ -615,7 +615,7 @@ intv ijkVecSub2isv(int2 v_out, i32 const s_lh, int2 const v_rh);
 //		param s_lh: left-hand scalar
 //		param v_rh: right-hand vector
 //		return: v_out
-intv ijkVecMul2isv(int2 v_out, i32 const s_lh, int2 const v_rh);
+floatv ijkVecMul2fsv(float2 v_out, f32 const s_lh, float2 const v_rh);
 
 // ijkVecDiv2*sv
 //	Calculate quotient of scalar by 2D vector components.
@@ -623,7 +623,7 @@ intv ijkVecMul2isv(int2 v_out, i32 const s_lh, int2 const v_rh);
 //		param s_lh: left-hand scalar
 //		param v_rh: right-hand vector
 //		return: v_out
-intv ijkVecDiv2isv(int2 v_out, i32 const s_lh, int2 const v_rh);
+floatv ijkVecDiv2fsv(float2 v_out, f32 const s_lh, float2 const v_rh);
 
 // ijkVecDivSafe2*sv
 //	Calculate quotient of scalar by 2D vector components, division-by-zero safe.
@@ -631,7 +631,7 @@ intv ijkVecDiv2isv(int2 v_out, i32 const s_lh, int2 const v_rh);
 //		param s_lh: left-hand scalar
 //		param v_rh: right-hand vector
 //		return: v_out
-intv ijkVecDivSafe2isv(int2 v_out, i32 const s_lh, int2 const v_rh);
+floatv ijkVecDivSafe2fsv(float2 v_out, f32 const s_lh, float2 const v_rh);
 
 // ijkVecMod2*sv
 //	Calculate remainder of scalar by 2D vector components.
@@ -639,7 +639,7 @@ intv ijkVecDivSafe2isv(int2 v_out, i32 const s_lh, int2 const v_rh);
 //		param s_lh: left-hand scalar
 //		param v_rh: right-hand vector
 //		return: v_out
-intv ijkVecMod2isv(int2 v_out, i32 const s_lh, int2 const v_rh);
+floatv ijkVecMod2fsv(float2 v_out, f32 const s_lh, float2 const v_rh);
 
 // ijkVecModSafe2*sv
 //	Calculate remainder of scalar by 2D vector components, division-by-zero safe.
@@ -647,16 +647,16 @@ intv ijkVecMod2isv(int2 v_out, i32 const s_lh, int2 const v_rh);
 //		param s_lh: left-hand scalar
 //		param v_rh: right-hand vector
 //		return: v_out
-intv ijkVecModSafe2isv(int2 v_out, i32 const s_lh, int2 const v_rh);
+floatv ijkVecModSafe2fsv(float2 v_out, f32 const s_lh, float2 const v_rh);
 
-#if TINTEGER
+#if TfloatEGER
 // ijkVecBitAnd2*sv
 //	Calculate bitwise 'and' of scalar and 2D vector components.
 //		param v_out: output vector to hold bitwise 'and'
 //		param s_lh: left-hand scalar
 //		param v_rh: right-hand vector
 //		return: v_out
-intv ijkVecBitAnd2isv(int2 v_out, i32 const s_lh, int2 const v_rh);
+floatv ijkVecBitAnd2fsv(float2 v_out, f32 const s_lh, float2 const v_rh);
 
 // ijkVecBitNand2*sv
 //	Calculate bitwise 'not and' of scalar and 2D vector components.
@@ -664,7 +664,7 @@ intv ijkVecBitAnd2isv(int2 v_out, i32 const s_lh, int2 const v_rh);
 //		param s_lh: left-hand scalar
 //		param v_rh: right-hand vector
 //		return: v_out
-intv ijkVecBitNand2isv(int2 v_out, i32 const s_lh, int2 const v_rh);
+floatv ijkVecBitNand2fsv(float2 v_out, f32 const s_lh, float2 const v_rh);
 
 // ijkVecBitOr2*sv
 //	Calculate bitwise 'or' of scalar and 2D vector components.
@@ -672,7 +672,7 @@ intv ijkVecBitNand2isv(int2 v_out, i32 const s_lh, int2 const v_rh);
 //		param s_lh: left-hand scalar
 //		param v_rh: right-hand vector
 //		return: v_out
-intv ijkVecBitOr2isv(int2 v_out, i32 const s_lh, int2 const v_rh);
+floatv ijkVecBitOr2fsv(float2 v_out, f32 const s_lh, float2 const v_rh);
 
 // ijkVecBitNor2*sv
 //	Calculate bitwise 'not or' of scalar and 2D vector components.
@@ -680,7 +680,7 @@ intv ijkVecBitOr2isv(int2 v_out, i32 const s_lh, int2 const v_rh);
 //		param s_lh: left-hand scalar
 //		param v_rh: right-hand vector
 //		return: v_out
-intv ijkVecBitNor2isv(int2 v_out, i32 const s_lh, int2 const v_rh);
+floatv ijkVecBitNor2fsv(float2 v_out, f32 const s_lh, float2 const v_rh);
 
 // ijkVecBitXor2*sv
 //	Calculate bitwise 'exclusive or' of scalar and 2D vector components.
@@ -688,7 +688,7 @@ intv ijkVecBitNor2isv(int2 v_out, i32 const s_lh, int2 const v_rh);
 //		param s_lh: left-hand scalar
 //		param v_rh: right-hand vector
 //		return: v_out
-intv ijkVecBitXor2isv(int2 v_out, i32 const s_lh, int2 const v_rh);
+floatv ijkVecBitXor2fsv(float2 v_out, f32 const s_lh, float2 const v_rh);
 
 // ijkVecBitXnor2*sv
 //	Calculate bitwise 'not exclusive or' of scalar and 2D vector components.
@@ -696,7 +696,7 @@ intv ijkVecBitXor2isv(int2 v_out, i32 const s_lh, int2 const v_rh);
 //		param s_lh: left-hand scalar
 //		param v_rh: right-hand vector
 //		return: v_out
-intv ijkVecBitXnor2isv(int2 v_out, i32 const s_lh, int2 const v_rh);
+floatv ijkVecBitXnor2fsv(float2 v_out, f32 const s_lh, float2 const v_rh);
 
 // ijkVecBitShiftLeft2*sv
 //	Calculate bit shift left of scalar by 2D vector components.
@@ -704,7 +704,7 @@ intv ijkVecBitXnor2isv(int2 v_out, i32 const s_lh, int2 const v_rh);
 //		param s_lh: left-hand scalar
 //		param v_rh: right-hand vector
 //		return: v_out
-intv ijkVecBitShiftLeft2isv(int2 v_out, i32 const s_lh, int2 const v_rh);
+floatv ijkVecBitShiftLeft2fsv(float2 v_out, f32 const s_lh, float2 const v_rh);
 
 // ijkVecBitShiftRight2*sv
 //	Calculate bit shift right of scalar by 2D vector components.
@@ -712,8 +712,8 @@ intv ijkVecBitShiftLeft2isv(int2 v_out, i32 const s_lh, int2 const v_rh);
 //		param s_lh: left-hand scalar
 //		param v_rh: right-hand vector
 //		return: v_out
-intv ijkVecBitShiftRight2isv(int2 v_out, i32 const s_lh, int2 const v_rh);
-#endif	// TINTEGER
+floatv ijkVecBitShiftRight2fsv(float2 v_out, f32 const s_lh, float2 const v_rh);
+#endif	// TfloatEGER
 
 // ijkVecEqual2*sv
 //	Equality comparison of scalar and 2D vector components.
@@ -721,7 +721,7 @@ intv ijkVecBitShiftRight2isv(int2 v_out, i32 const s_lh, int2 const v_rh);
 //		param s_lh: left-hand scalar
 //		param v_rh: right-hand vector
 //		return: bv_out
-boolv ijkVecEqual2isv(bool2 bv_out, i32 const s_lh, int2 const v_rh);
+boolv ijkVecEqual2fsv(bool2 bv_out, f32 const s_lh, float2 const v_rh);
 
 // ijkVecInequal2*sv
 //	Inequality comparison of scalar and 2D vector components.
@@ -729,7 +729,7 @@ boolv ijkVecEqual2isv(bool2 bv_out, i32 const s_lh, int2 const v_rh);
 //		param s_lh: left-hand scalar
 //		param v_rh: right-hand vector
 //		return: bv_out
-boolv ijkVecInequal2isv(bool2 bv_out, i32 const s_lh, int2 const v_rh);
+boolv ijkVecInequal2fsv(bool2 bv_out, f32 const s_lh, float2 const v_rh);
 
 // ijkVecLessEqual2*sv
 //	Less-than or equal comparison of scalar and 2D vector components.
@@ -737,7 +737,7 @@ boolv ijkVecInequal2isv(bool2 bv_out, i32 const s_lh, int2 const v_rh);
 //		param s_lh: left-hand scalar
 //		param v_rh: right-hand vector
 //		return: bv_out
-boolv ijkVecLessEqual2isv(bool2 bv_out, i32 const s_lh, int2 const v_rh);
+boolv ijkVecLessEqual2fsv(bool2 bv_out, f32 const s_lh, float2 const v_rh);
 
 // ijkVecGreaterEqual2*sv
 //	Greater-than or equal comparison of scalar and 2D vector components.
@@ -745,7 +745,7 @@ boolv ijkVecLessEqual2isv(bool2 bv_out, i32 const s_lh, int2 const v_rh);
 //		param s_lh: left-hand scalar
 //		param v_rh: right-hand vector
 //		return: bv_out
-boolv ijkVecGreaterEqual2isv(bool2 bv_out, i32 const s_lh, int2 const v_rh);
+boolv ijkVecGreaterEqual2fsv(bool2 bv_out, f32 const s_lh, float2 const v_rh);
 
 // ijkVecLess2*sv
 //	Less-than comparison of scalar and 2D vector components.
@@ -753,7 +753,7 @@ boolv ijkVecGreaterEqual2isv(bool2 bv_out, i32 const s_lh, int2 const v_rh);
 //		param s_lh: left-hand scalar
 //		param v_rh: right-hand vector
 //		return: bv_out
-boolv ijkVecLess2isv(bool2 bv_out, i32 const s_lh, int2 const v_rh);
+boolv ijkVecLess2fsv(bool2 bv_out, f32 const s_lh, float2 const v_rh);
 
 // ijkVecGreater2*sv
 //	Greater-than comparison of scalar and 2D vector components.
@@ -761,7 +761,7 @@ boolv ijkVecLess2isv(bool2 bv_out, i32 const s_lh, int2 const v_rh);
 //		param s_lh: left-hand scalar
 //		param v_rh: right-hand vector
 //		return: bv_out
-boolv ijkVecGreater2isv(bool2 bv_out, i32 const s_lh, int2 const v_rh);
+boolv ijkVecGreater2fsv(bool2 bv_out, f32 const s_lh, float2 const v_rh);
 
 // ijkVecAnd2*sv
 //	Component-wise logical 'and' of 2D vector and scalar.
@@ -769,7 +769,7 @@ boolv ijkVecGreater2isv(bool2 bv_out, i32 const s_lh, int2 const v_rh);
 //		param s_lh: left-hand scalar
 //		param v_rh: right-hand vector
 //		return: bv_out
-boolv ijkVecAnd2isv(bool2 bv_out, i32 const s_lh, int2 const v_rh);
+boolv ijkVecAnd2fsv(bool2 bv_out, f32 const s_lh, float2 const v_rh);
 
 // ijkVecNand2*sv
 //	Component-wise logical 'nand' of 2D vector and scalar.
@@ -777,7 +777,7 @@ boolv ijkVecAnd2isv(bool2 bv_out, i32 const s_lh, int2 const v_rh);
 //		param s_lh: left-hand scalar
 //		param v_rh: right-hand vector
 //		return: bv_out
-boolv ijkVecNand2isv(bool2 bv_out, i32 const s_lh, int2 const v_rh);
+boolv ijkVecNand2fsv(bool2 bv_out, f32 const s_lh, float2 const v_rh);
 
 // ijkVecOr2*sv
 //	Component-wise logical 'or' of 2D vector and scalar.
@@ -785,7 +785,7 @@ boolv ijkVecNand2isv(bool2 bv_out, i32 const s_lh, int2 const v_rh);
 //		param s_lh: left-hand scalar
 //		param v_rh: right-hand vector
 //		return: bv_out
-boolv ijkVecOr2isv(bool2 bv_out, i32 const s_lh, int2 const v_rh);
+boolv ijkVecOr2fsv(bool2 bv_out, f32 const s_lh, float2 const v_rh);
 
 // ijkVecNor2*sv
 //	Component-wise logical 'nor' of 2D vector and scalar.
@@ -793,21 +793,21 @@ boolv ijkVecOr2isv(bool2 bv_out, i32 const s_lh, int2 const v_rh);
 //		param s_lh: left-hand scalar
 //		param v_rh: right-hand vector
 //		return: bv_out
-boolv ijkVecNor2isv(bool2 bv_out, i32 const s_lh, int2 const v_rh);
+boolv ijkVecNor2fsv(bool2 bv_out, f32 const s_lh, float2 const v_rh);
 
 // ijkVecDot2*v
 //	Dot product of 2D array-based vectors.
 //		param v_lh: left-hand vector
 //		param v_rh: right-hand vector
 //		return: dot product
-i32 ijkVecDot2iv(int2 const v_lh, int2 const v_rh);
+f32 ijkVecDot2fv(float2 const v_lh, float2 const v_rh);
 
 // ijkVecCross2*v
 //	Cross product scalar of 2D array-based vectors.
 //		param v_lh: left-hand vector
 //		param v_rh: right-hand vector
 //		return: scalar quantity of imaginary perpendicular axis
-i32 ijkVecCross2iv(int2 const v_lh, int2 const v_rh);
+f32 ijkVecCross2fv(float2 const v_lh, float2 const v_rh);
 
 
 //-----------------------------------------------------------------------------
@@ -816,7 +816,7 @@ i32 ijkVecCross2iv(int2 const v_lh, int2 const v_rh);
 //	Initialize 3D vector to default value (zero vector).
 //		param v_out: output vector
 //		return: v_out
-intv ijkVecInit3iv(int3 v_out);
+floatv ijkVecInit3fv(float3 v_out);
 
 // ijkVecInitElems3*v
 //	Initialize 3D vector to specified individual elements.
@@ -825,14 +825,14 @@ intv ijkVecInit3iv(int3 v_out);
 //		param y: second element
 //		param z: third element
 //		return: v_out
-intv ijkVecInitElems3iv(int3 v_out, i32 const x, i32 const y, i32 const z);
+floatv ijkVecInitElems3fv(float3 v_out, f32 const x, f32 const y, f32 const z);
 
 // ijkVecCopy3*v
 //	Copy 3D vector from first elements of another vector.
 //		param v_out: output vector to hold copy
 //		param v_in: input vector
 //		return: v_out
-intv ijkVecCopy3iv(int3 v_out, int3 const v_in);
+floatv ijkVecCopy3fv(float3 v_out, float3 const v_in);
 
 // ijkVecNegate3*v
 //	Negate 3D vector.
@@ -840,7 +840,7 @@ intv ijkVecCopy3iv(int3 v_out, int3 const v_in);
 //		param v_in: input vector
 //		return: v_out
 #if TSIGNED
-intv ijkVecNegate3iv(int3 v_out, int3 const v_in);
+floatv ijkVecNegate3fv(float3 v_out, float3 const v_in);
 #endif	// TSIGNED
 
 // ijkVecBitNot3*v
@@ -848,16 +848,16 @@ intv ijkVecNegate3iv(int3 v_out, int3 const v_in);
 //		param v_out: output vector to hold component-wise bitwise 'not'
 //		param v_in: input vector
 //		return: v_out
-#if TINTEGER
-intv ijkVecBitNot3iv(int3 v_out, int3 const v_in);
-#endif	// TINTEGER
+#if TfloatEGER
+floatv ijkVecBitNot3fv(float3 v_out, float3 const v_in);
+#endif	// TfloatEGER
 
 // ijkVecNot3*v
 //	Calculate component-wise logical 'not' of 3D vector.
 //		param bv_out: boolean vector to hold component-wise logical 'not'
 //		param v_in: input vector
 //		return: bv_out
-boolv ijkVecNot3iv(bool3 bv_out, int3 const v_in);
+boolv ijkVecNot3fv(bool3 bv_out, float3 const v_in);
 
 // ijkVecAdd3*v
 //	Calculate sum of 3D vectors.
@@ -865,7 +865,7 @@ boolv ijkVecNot3iv(bool3 bv_out, int3 const v_in);
 //		param v_lh: left-hand vector
 //		param v_rh: right-hand vector
 //		return: v_out
-intv ijkVecAdd3iv(int3 v_out, int3 const v_lh, int3 const v_rh);
+floatv ijkVecAdd3fv(float3 v_out, float3 const v_lh, float3 const v_rh);
 
 // ijkVecSub3*v
 //	Calculate difference of 3D vectors.
@@ -873,7 +873,7 @@ intv ijkVecAdd3iv(int3 v_out, int3 const v_lh, int3 const v_rh);
 //		param v_lh: left-hand vector
 //		param v_rh: right-hand vector
 //		return: v_out
-intv ijkVecSub3iv(int3 v_out, int3 const v_lh, int3 const v_rh);
+floatv ijkVecSub3fv(float3 v_out, float3 const v_lh, float3 const v_rh);
 
 // ijkVecMul3*v
 //	Calculate component-wise product of 3D vectors.
@@ -881,7 +881,7 @@ intv ijkVecSub3iv(int3 v_out, int3 const v_lh, int3 const v_rh);
 //		param v_lh: left-hand vector
 //		param v_rh: right-hand vector
 //		return: v_out
-intv ijkVecMul3iv(int3 v_out, int3 const v_lh, int3 const v_rh);
+floatv ijkVecMul3fv(float3 v_out, float3 const v_lh, float3 const v_rh);
 
 // ijkVecDiv3*v
 //	Calculate component-wise quotient of 3D vectors.
@@ -889,7 +889,7 @@ intv ijkVecMul3iv(int3 v_out, int3 const v_lh, int3 const v_rh);
 //		param v_lh: left-hand vector
 //		param v_rh: right-hand vector
 //		return: v_out
-intv ijkVecDiv3iv(int3 v_out, int3 const v_lh, int3 const v_rh);
+floatv ijkVecDiv3fv(float3 v_out, float3 const v_lh, float3 const v_rh);
 
 // ijkVecDivSafe3*v
 //	Calculate component-wise quotient of 3D vectors, division-by-zero safe.
@@ -897,7 +897,7 @@ intv ijkVecDiv3iv(int3 v_out, int3 const v_lh, int3 const v_rh);
 //		param v_lh: left-hand vector
 //		param v_rh: right-hand vector
 //		return: v_out
-intv ijkVecDivSafe3iv(int3 v_out, int3 const v_lh, int3 const v_rh);
+floatv ijkVecDivSafe3fv(float3 v_out, float3 const v_lh, float3 const v_rh);
 
 // ijkVecMod3*v
 //	Calculate component-wise remainder of 3D vectors.
@@ -905,7 +905,7 @@ intv ijkVecDivSafe3iv(int3 v_out, int3 const v_lh, int3 const v_rh);
 //		param v_lh: left-hand vector
 //		param v_rh: right-hand vector
 //		return: v_out
-intv ijkVecMod3iv(int3 v_out, int3 const v_lh, int3 const v_rh);
+floatv ijkVecMod3fv(float3 v_out, float3 const v_lh, float3 const v_rh);
 
 // ijkVecModSafe3*v
 //	Calculate component-wise remainder of 3D vectors, division-by-zero safe.
@@ -913,16 +913,16 @@ intv ijkVecMod3iv(int3 v_out, int3 const v_lh, int3 const v_rh);
 //		param v_lh: left-hand vector
 //		param v_rh: right-hand vector
 //		return: v_out
-intv ijkVecModSafe3iv(int3 v_out, int3 const v_lh, int3 const v_rh);
+floatv ijkVecModSafe3fv(float3 v_out, float3 const v_lh, float3 const v_rh);
 
-#if TINTEGER
+#if TfloatEGER
 // ijkVecBitAnd3*v
 //	Calculate component-wise bitwise 'and' of 3D vectors.
 //		param v_out: output vector to hold component-wise bitwise 'and'
 //		param v_lh: left-hand vector
 //		param v_rh: right-hand vector
 //		return: v_out
-intv ijkVecBitAnd3iv(int3 v_out, int3 const v_lh, int3 const v_rh);
+floatv ijkVecBitAnd3fv(float3 v_out, float3 const v_lh, float3 const v_rh);
 
 // ijkVecBitNand3*v
 //	Calculate component-wise bitwise 'not and' of 3D vectors.
@@ -930,7 +930,7 @@ intv ijkVecBitAnd3iv(int3 v_out, int3 const v_lh, int3 const v_rh);
 //		param v_lh: left-hand vector
 //		param v_rh: right-hand vector
 //		return: v_out
-intv ijkVecBitNand3iv(int3 v_out, int3 const v_lh, int3 const v_rh);
+floatv ijkVecBitNand3fv(float3 v_out, float3 const v_lh, float3 const v_rh);
 
 // ijkVecBitOr3*v
 //	Calculate component-wise bitwise 'or' of 3D vectors.
@@ -938,7 +938,7 @@ intv ijkVecBitNand3iv(int3 v_out, int3 const v_lh, int3 const v_rh);
 //		param v_lh: left-hand vector
 //		param v_rh: right-hand vector
 //		return: v_out
-intv ijkVecBitOr3iv(int3 v_out, int3 const v_lh, int3 const v_rh);
+floatv ijkVecBitOr3fv(float3 v_out, float3 const v_lh, float3 const v_rh);
 
 // ijkVecBitNor3*v
 //	Calculate component-wise bitwise 'not or' of 3D vectors.
@@ -946,7 +946,7 @@ intv ijkVecBitOr3iv(int3 v_out, int3 const v_lh, int3 const v_rh);
 //		param v_lh: left-hand vector
 //		param v_rh: right-hand vector
 //		return: v_out
-intv ijkVecBitNor3iv(int3 v_out, int3 const v_lh, int3 const v_rh);
+floatv ijkVecBitNor3fv(float3 v_out, float3 const v_lh, float3 const v_rh);
 
 // ijkVecBitXor3*v
 //	Calculate component-wise bitwise 'exclusive or' of 3D vectors.
@@ -954,7 +954,7 @@ intv ijkVecBitNor3iv(int3 v_out, int3 const v_lh, int3 const v_rh);
 //		param v_lh: left-hand vector
 //		param v_rh: right-hand vector
 //		return: v_out
-intv ijkVecBitXor3iv(int3 v_out, int3 const v_lh, int3 const v_rh);
+floatv ijkVecBitXor3fv(float3 v_out, float3 const v_lh, float3 const v_rh);
 
 // ijkVecBitXnor3*v
 //	Calculate component-wise bitwise 'not exclusive or' of 3D vectors.
@@ -962,7 +962,7 @@ intv ijkVecBitXor3iv(int3 v_out, int3 const v_lh, int3 const v_rh);
 //		param v_lh: left-hand vector
 //		param v_rh: right-hand vector
 //		return: v_out
-intv ijkVecBitXnor3iv(int3 v_out, int3 const v_lh, int3 const v_rh);
+floatv ijkVecBitXnor3fv(float3 v_out, float3 const v_lh, float3 const v_rh);
 
 // ijkVecBitShiftLeft3*v
 //	Calculate component-wise bit shift left of 3D vectors.
@@ -970,7 +970,7 @@ intv ijkVecBitXnor3iv(int3 v_out, int3 const v_lh, int3 const v_rh);
 //		param v_lh: left-hand vector
 //		param v_rh: right-hand vector
 //		return: v_out
-intv ijkVecBitShiftLeft3iv(int3 v_out, int3 const v_lh, int3 const v_rh);
+floatv ijkVecBitShiftLeft3fv(float3 v_out, float3 const v_lh, float3 const v_rh);
 
 // ijkVecBitShiftRight3*v
 //	Calculate component-wise bit shift right of 3D vectors.
@@ -978,8 +978,8 @@ intv ijkVecBitShiftLeft3iv(int3 v_out, int3 const v_lh, int3 const v_rh);
 //		param v_lh: left-hand vector
 //		param v_rh: right-hand vector
 //		return: v_out
-intv ijkVecBitShiftRight3iv(int3 v_out, int3 const v_lh, int3 const v_rh);
-#endif	// TINTEGER
+floatv ijkVecBitShiftRight3fv(float3 v_out, float3 const v_lh, float3 const v_rh);
+#endif	// TfloatEGER
 
 // ijkVecEqual3*v
 //	Equality comparison for 3D vectors.
@@ -987,7 +987,7 @@ intv ijkVecBitShiftRight3iv(int3 v_out, int3 const v_lh, int3 const v_rh);
 //		param v_lh: left-hand vector
 //		param v_rh: right-hand vector
 //		return: bv_out
-boolv ijkVecEqual3iv(bool3 bv_out, int3 const v_lh, int3 const v_rh);
+boolv ijkVecEqual3fv(bool3 bv_out, float3 const v_lh, float3 const v_rh);
 
 // ijkVecInequal3*v
 //	Inequality comparison for 3D vectors.
@@ -995,7 +995,7 @@ boolv ijkVecEqual3iv(bool3 bv_out, int3 const v_lh, int3 const v_rh);
 //		param v_lh: left-hand vector
 //		param v_rh: right-hand vector
 //		return: bv_out
-boolv ijkVecInequal3iv(bool3 bv_out, int3 const v_lh, int3 const v_rh);
+boolv ijkVecInequal3fv(bool3 bv_out, float3 const v_lh, float3 const v_rh);
 
 // ijkVecLessEqual3*v
 //	Less-than or equal comparison for 3D vectors.
@@ -1003,7 +1003,7 @@ boolv ijkVecInequal3iv(bool3 bv_out, int3 const v_lh, int3 const v_rh);
 //		param v_lh: left-hand vector
 //		param v_rh: right-hand vector
 //		return: bv_out
-boolv ijkVecLessEqual3iv(bool3 bv_out, int3 const v_lh, int3 const v_rh);
+boolv ijkVecLessEqual3fv(bool3 bv_out, float3 const v_lh, float3 const v_rh);
 
 // ijkVecGreaterEqual3*v
 //	Greater-than or equal comparison for 3D vectors.
@@ -1011,7 +1011,7 @@ boolv ijkVecLessEqual3iv(bool3 bv_out, int3 const v_lh, int3 const v_rh);
 //		param v_lh: left-hand vector
 //		param v_rh: right-hand vector
 //		return: bv_out
-boolv ijkVecGreaterEqual3iv(bool3 bv_out, int3 const v_lh, int3 const v_rh);
+boolv ijkVecGreaterEqual3fv(bool3 bv_out, float3 const v_lh, float3 const v_rh);
 
 // ijkVecLess3*v
 //	Less-than comparison for 3D vectors.
@@ -1019,7 +1019,7 @@ boolv ijkVecGreaterEqual3iv(bool3 bv_out, int3 const v_lh, int3 const v_rh);
 //		param v_lh: left-hand vector
 //		param v_rh: right-hand vector
 //		return: bv_out
-boolv ijkVecLess3iv(bool3 bv_out, int3 const v_lh, int3 const v_rh);
+boolv ijkVecLess3fv(bool3 bv_out, float3 const v_lh, float3 const v_rh);
 
 // ijkVecGreater3*v
 //	Greater-than comparison for 3D vectors.
@@ -1027,7 +1027,7 @@ boolv ijkVecLess3iv(bool3 bv_out, int3 const v_lh, int3 const v_rh);
 //		param v_lh: left-hand vector
 //		param v_rh: right-hand vector
 //		return: bv_out
-boolv ijkVecGreater3iv(bool3 bv_out, int3 const v_lh, int3 const v_rh);
+boolv ijkVecGreater3fv(bool3 bv_out, float3 const v_lh, float3 const v_rh);
 
 // ijkVecAnd3*v
 //	Component-wise logical 'and' of 3D vectors.
@@ -1035,7 +1035,7 @@ boolv ijkVecGreater3iv(bool3 bv_out, int3 const v_lh, int3 const v_rh);
 //		param v_lh: left-hand vector
 //		param v_rh: right-hand vector
 //		return: bv_out
-boolv ijkVecAnd3iv(bool3 bv_out, int3 const v_lh, int3 const v_rh);
+boolv ijkVecAnd3fv(bool3 bv_out, float3 const v_lh, float3 const v_rh);
 
 // ijkVecNand3*v
 //	Component-wise logical 'nand' of 3D vectors.
@@ -1043,7 +1043,7 @@ boolv ijkVecAnd3iv(bool3 bv_out, int3 const v_lh, int3 const v_rh);
 //		param v_lh: left-hand vector
 //		param v_rh: right-hand vector
 //		return: bv_out
-boolv ijkVecNand3iv(bool3 bv_out, int3 const v_lh, int3 const v_rh);
+boolv ijkVecNand3fv(bool3 bv_out, float3 const v_lh, float3 const v_rh);
 
 // ijkVecOr3*v
 //	Component-wise logical 'or' of 3D vectors.
@@ -1051,7 +1051,7 @@ boolv ijkVecNand3iv(bool3 bv_out, int3 const v_lh, int3 const v_rh);
 //		param v_lh: left-hand vector
 //		param v_rh: right-hand vector
 //		return: bv_out
-boolv ijkVecOr3iv(bool3 bv_out, int3 const v_lh, int3 const v_rh);
+boolv ijkVecOr3fv(bool3 bv_out, float3 const v_lh, float3 const v_rh);
 
 // ijkVecNor3*v
 //	Component-wise logical 'nor' of 3D vectors.
@@ -1059,7 +1059,7 @@ boolv ijkVecOr3iv(bool3 bv_out, int3 const v_lh, int3 const v_rh);
 //		param v_lh: left-hand vector
 //		param v_rh: right-hand vector
 //		return: bv_out
-boolv ijkVecNor3iv(bool3 bv_out, int3 const v_lh, int3 const v_rh);
+boolv ijkVecNor3fv(bool3 bv_out, float3 const v_lh, float3 const v_rh);
 
 // ijkVecCopy3*vz
 //	Copy 3D vector from 2D vector and one scalar.
@@ -1067,14 +1067,14 @@ boolv ijkVecNor3iv(bool3 bv_out, int3 const v_lh, int3 const v_rh);
 //		param v_xy: input 2D vector holding first two components
 //		param z: third element
 //		return: v_out
-intv ijkVecCopy3ivz(int3 v_out, int2 const v_xy, i32 const z);
+floatv ijkVecCopy3fvz(float3 v_out, float2 const v_xy, f32 const z);
 
 // ijkVecCopy3*vs
 //	Copy 3D vector from scalar.
 //		param v_out: output vector to hold copy
 //		param s_in: input scalar
 //		return: v_out
-intv ijkVecCopy3ivs(int3 v_out, i32 const s_in);
+floatv ijkVecCopy3fvs(float3 v_out, f32 const s_in);
 
 // ijkVecNegate3*vs
 //	Negate scalar to 3D vector.
@@ -1082,7 +1082,7 @@ intv ijkVecCopy3ivs(int3 v_out, i32 const s_in);
 //		param s_in: input scalar
 //		return: v_out
 #if TSIGNED
-intv ijkVecNegate3ivs(int3 v_out, i32 const s_in);
+floatv ijkVecNegate3fvs(float3 v_out, f32 const s_in);
 #endif	// TSIGNED
 
 // ijkVecBitNot3*vs
@@ -1090,16 +1090,16 @@ intv ijkVecNegate3ivs(int3 v_out, i32 const s_in);
 //		param v_out: output vector to hold bitwise 'not'
 //		param s_in: input scalar
 //		return: v_out
-#if TINTEGER
-intv ijkVecBitNot3ivs(int3 v_out, i32 const s_in);
-#endif	// TINTEGER
+#if TfloatEGER
+floatv ijkVecBitNot3fvs(float3 v_out, f32 const s_in);
+#endif	// TfloatEGER
 
 // ijkVecNot3*vs
 //	Calculate logical 'not' of scalar.
 //		param bv_out: boolean vector to hold logical 'not'
 //		param s_in: input scalar
 //		return: bv_out
-boolv ijkVecNot3ivs(bool3 bv_out, i32 const s_in);
+boolv ijkVecNot3fvs(bool3 bv_out, f32 const s_in);
 
 // ijkVecAdd3*vs
 //	Calculate sum of 3D vector components and scalar.
@@ -1107,7 +1107,7 @@ boolv ijkVecNot3ivs(bool3 bv_out, i32 const s_in);
 //		param v_lh: left-hand vector
 //		param s_rh: right-hand scalar
 //		return: v_out
-intv ijkVecAdd3ivs(int3 v_out, int3 const v_lh, i32 const s_rh);
+floatv ijkVecAdd3fvs(float3 v_out, float3 const v_lh, f32 const s_rh);
 
 // ijkVecSub3*vs
 //	Calculate difference of 3D vector components and scalar.
@@ -1115,7 +1115,7 @@ intv ijkVecAdd3ivs(int3 v_out, int3 const v_lh, i32 const s_rh);
 //		param v_lh: left-hand vector
 //		param s_rh: right-hand scalar
 //		return: v_out
-intv ijkVecSub3ivs(int3 v_out, int3 const v_lh, i32 const s_rh);
+floatv ijkVecSub3fvs(float3 v_out, float3 const v_lh, f32 const s_rh);
 
 // ijkVecMul3*vs
 //	Calculate product of 3D vector components by scalar.
@@ -1123,7 +1123,7 @@ intv ijkVecSub3ivs(int3 v_out, int3 const v_lh, i32 const s_rh);
 //		param v_lh: left-hand vector
 //		param s_rh: right-hand scalar
 //		return: v_out
-intv ijkVecMul3ivs(int3 v_out, int3 const v_lh, i32 const s_rh);
+floatv ijkVecMul3fvs(float3 v_out, float3 const v_lh, f32 const s_rh);
 
 // ijkVecDiv3*vs
 //	Calculate quotient of 3D vector components by scalar.
@@ -1131,7 +1131,7 @@ intv ijkVecMul3ivs(int3 v_out, int3 const v_lh, i32 const s_rh);
 //		param v_lh: left-hand vector
 //		param s_rh: right-hand scalar
 //		return: v_out
-intv ijkVecDiv3ivs(int3 v_out, int3 const v_lh, i32 const s_rh);
+floatv ijkVecDiv3fvs(float3 v_out, float3 const v_lh, f32 const s_rh);
 
 // ijkVecDivSafe3*vs
 //	Calculate quotient of 3D vector components by scalar, division-by-zero safe.
@@ -1139,7 +1139,7 @@ intv ijkVecDiv3ivs(int3 v_out, int3 const v_lh, i32 const s_rh);
 //		param v_lh: left-hand vector
 //		param s_rh: right-hand scalar
 //		return: v_out
-intv ijkVecDivSafe3ivs(int3 v_out, int3 const v_lh, i32 const s_rh);
+floatv ijkVecDivSafe3fvs(float3 v_out, float3 const v_lh, f32 const s_rh);
 
 // ijkVecMod3*vs
 //	Calculate remainder of 3D vector components by scalar.
@@ -1147,7 +1147,7 @@ intv ijkVecDivSafe3ivs(int3 v_out, int3 const v_lh, i32 const s_rh);
 //		param v_lh: left-hand vector
 //		param s_rh: right-hand scalar
 //		return: v_out
-intv ijkVecMod3ivs(int3 v_out, int3 const v_lh, i32 const s_rh);
+floatv ijkVecMod3fvs(float3 v_out, float3 const v_lh, f32 const s_rh);
 
 // ijkVecModSafe3*vs
 //	Calculate remainder of 3D vector components by scalar, division-by-zero safe.
@@ -1155,16 +1155,16 @@ intv ijkVecMod3ivs(int3 v_out, int3 const v_lh, i32 const s_rh);
 //		param v_lh: left-hand vector
 //		param s_rh: right-hand scalar
 //		return: v_out
-intv ijkVecModSafe3ivs(int3 v_out, int3 const v_lh, i32 const s_rh);
+floatv ijkVecModSafe3fvs(float3 v_out, float3 const v_lh, f32 const s_rh);
 
-#if TINTEGER
+#if TfloatEGER
 // ijkVecBitAnd3*vs
 //	Calculate bitwise 'and' of 3D vector components and scalar.
 //		param v_out: output vector to hold bitwise 'and'
 //		param v_lh: left-hand vector
 //		param s_rh: right-hand scalar
 //		return: v_out
-intv ijkVecBitAnd3ivs(int3 v_out, int3 const v_lh, i32 const s_rh);
+floatv ijkVecBitAnd3fvs(float3 v_out, float3 const v_lh, f32 const s_rh);
 
 // ijkVecBitNand3*vs
 //	Calculate bitwise 'not and' of 3D vector components and scalar.
@@ -1172,7 +1172,7 @@ intv ijkVecBitAnd3ivs(int3 v_out, int3 const v_lh, i32 const s_rh);
 //		param v_lh: left-hand vector
 //		param s_rh: right-hand scalar
 //		return: v_out
-intv ijkVecBitNand3ivs(int3 v_out, int3 const v_lh, i32 const s_rh);
+floatv ijkVecBitNand3fvs(float3 v_out, float3 const v_lh, f32 const s_rh);
 
 // ijkVecBitOr3*vs
 //	Calculate bitwise 'or' of 3D vector components and scalar.
@@ -1180,7 +1180,7 @@ intv ijkVecBitNand3ivs(int3 v_out, int3 const v_lh, i32 const s_rh);
 //		param v_lh: left-hand vector
 //		param s_rh: right-hand scalar
 //		return: v_out
-intv ijkVecBitOr3ivs(int3 v_out, int3 const v_lh, i32 const s_rh);
+floatv ijkVecBitOr3fvs(float3 v_out, float3 const v_lh, f32 const s_rh);
 
 // ijkVecBitNor3*vs
 //	Calculate bitwise 'not or' of 3D vector components and scalar.
@@ -1188,7 +1188,7 @@ intv ijkVecBitOr3ivs(int3 v_out, int3 const v_lh, i32 const s_rh);
 //		param v_lh: left-hand vector
 //		param s_rh: right-hand scalar
 //		return: v_out
-intv ijkVecBitNor3ivs(int3 v_out, int3 const v_lh, i32 const s_rh);
+floatv ijkVecBitNor3fvs(float3 v_out, float3 const v_lh, f32 const s_rh);
 
 // ijkVecBitXor3*vs
 //	Calculate bitwise 'exclusive or' of 3D vector components and scalar.
@@ -1196,7 +1196,7 @@ intv ijkVecBitNor3ivs(int3 v_out, int3 const v_lh, i32 const s_rh);
 //		param v_lh: left-hand vector
 //		param s_rh: right-hand scalar
 //		return: v_out
-intv ijkVecBitXor3ivs(int3 v_out, int3 const v_lh, i32 const s_rh);
+floatv ijkVecBitXor3fvs(float3 v_out, float3 const v_lh, f32 const s_rh);
 
 // ijkVecBitXnor3*vs
 //	Calculate bitwise 'not exclusive or' of 3D vector components and scalar.
@@ -1204,7 +1204,7 @@ intv ijkVecBitXor3ivs(int3 v_out, int3 const v_lh, i32 const s_rh);
 //		param v_lh: left-hand vector
 //		param s_rh: right-hand scalar
 //		return: v_out
-intv ijkVecBitXnor3ivs(int3 v_out, int3 const v_lh, i32 const s_rh);
+floatv ijkVecBitXnor3fvs(float3 v_out, float3 const v_lh, f32 const s_rh);
 
 // ijkVecBitShiftLeft3*vs
 //	Calculate bit shift left of 3D vector components and scalar.
@@ -1212,7 +1212,7 @@ intv ijkVecBitXnor3ivs(int3 v_out, int3 const v_lh, i32 const s_rh);
 //		param v_lh: left-hand vector
 //		param s_rh: right-hand scalar
 //		return: v_out
-intv ijkVecBitShiftLeft3ivs(int3 v_out, int3 const v_lh, i32 const s_rh);
+floatv ijkVecBitShiftLeft3fvs(float3 v_out, float3 const v_lh, f32 const s_rh);
 
 // ijkVecBitShiftRight3*vs
 //	Calculate bit shift right of 3D vector components and scalar.
@@ -1220,8 +1220,8 @@ intv ijkVecBitShiftLeft3ivs(int3 v_out, int3 const v_lh, i32 const s_rh);
 //		param v_lh: left-hand vector
 //		param s_rh: right-hand scalar
 //		return: v_out
-intv ijkVecBitShiftRight3ivs(int3 v_out, int3 const v_lh, i32 const s_rh);
-#endif	// TINTEGER
+floatv ijkVecBitShiftRight3fvs(float3 v_out, float3 const v_lh, f32 const s_rh);
+#endif	// TfloatEGER
 
 // ijkVecEqual3*vs
 //	Equality comparison of 3D vector components and scalar.
@@ -1229,7 +1229,7 @@ intv ijkVecBitShiftRight3ivs(int3 v_out, int3 const v_lh, i32 const s_rh);
 //		param v_lh: left-hand vector
 //		param s_rh: right-hand scalar
 //		return: bv_out
-boolv ijkVecEqual3ivs(bool3 bv_out, int3 const v_lh, i32 const s_rh);
+boolv ijkVecEqual3fvs(bool3 bv_out, float3 const v_lh, f32 const s_rh);
 
 // ijkVecInequal3*vs
 //	Inequality comparison of 3D vector components and scalar.
@@ -1237,7 +1237,7 @@ boolv ijkVecEqual3ivs(bool3 bv_out, int3 const v_lh, i32 const s_rh);
 //		param v_lh: left-hand vector
 //		param s_rh: right-hand scalar
 //		return: bv_out
-boolv ijkVecInequal3ivs(bool3 bv_out, int3 const v_lh, i32 const s_rh);
+boolv ijkVecInequal3fvs(bool3 bv_out, float3 const v_lh, f32 const s_rh);
 
 // ijkVecLessEqual3*vs
 //	Less-than or equal comparison of 3D vector components and scalar.
@@ -1245,7 +1245,7 @@ boolv ijkVecInequal3ivs(bool3 bv_out, int3 const v_lh, i32 const s_rh);
 //		param v_lh: left-hand vector
 //		param s_rh: right-hand scalar
 //		return: bv_out
-boolv ijkVecLessEqual3ivs(bool3 bv_out, int3 const v_lh, i32 const s_rh);
+boolv ijkVecLessEqual3fvs(bool3 bv_out, float3 const v_lh, f32 const s_rh);
 
 // ijkVecGreaterEqual3*vs
 //	Greater-than or equal comparison of 3D vector components and scalar.
@@ -1253,7 +1253,7 @@ boolv ijkVecLessEqual3ivs(bool3 bv_out, int3 const v_lh, i32 const s_rh);
 //		param v_lh: left-hand vector
 //		param s_rh: right-hand scalar
 //		return: bv_out
-boolv ijkVecGreaterEqual3ivs(bool3 bv_out, int3 const v_lh, i32 const s_rh);
+boolv ijkVecGreaterEqual3fvs(bool3 bv_out, float3 const v_lh, f32 const s_rh);
 
 // ijkVecLess3*vs
 //	Less-than comparison of 3D vector components and scalar.
@@ -1261,7 +1261,7 @@ boolv ijkVecGreaterEqual3ivs(bool3 bv_out, int3 const v_lh, i32 const s_rh);
 //		param v_lh: left-hand vector
 //		param s_rh: right-hand scalar
 //		return: bv_out
-boolv ijkVecLess3ivs(bool3 bv_out, int3 const v_lh, i32 const s_rh);
+boolv ijkVecLess3fvs(bool3 bv_out, float3 const v_lh, f32 const s_rh);
 
 // ijkVecGreater3*vs
 //	Greater-than comparison of 3D vector components and scalar.
@@ -1269,7 +1269,7 @@ boolv ijkVecLess3ivs(bool3 bv_out, int3 const v_lh, i32 const s_rh);
 //		param v_lh: left-hand vector
 //		param s_rh: right-hand scalar
 //		return: bv_out
-boolv ijkVecGreater3ivs(bool3 bv_out, int3 const v_lh, i32 const s_rh);
+boolv ijkVecGreater3fvs(bool3 bv_out, float3 const v_lh, f32 const s_rh);
 
 // ijkVecAnd3*vs
 //	Component-wise logical 'and' of 3D vector and scalar.
@@ -1277,7 +1277,7 @@ boolv ijkVecGreater3ivs(bool3 bv_out, int3 const v_lh, i32 const s_rh);
 //		param v_lh: left-hand vector
 //		param s_rh: right-hand scalar
 //		return: bv_out
-boolv ijkVecAnd3ivs(bool3 bv_out, int3 const v_lh, i32 const s_rh);
+boolv ijkVecAnd3fvs(bool3 bv_out, float3 const v_lh, f32 const s_rh);
 
 // ijkVecNand3*vs
 //	Component-wise logical 'nand' of 3D vector and scalar.
@@ -1285,7 +1285,7 @@ boolv ijkVecAnd3ivs(bool3 bv_out, int3 const v_lh, i32 const s_rh);
 //		param v_lh: left-hand vector
 //		param s_rh: right-hand scalar
 //		return: bv_out
-boolv ijkVecNand3ivs(bool3 bv_out, int3 const v_lh, i32 const s_rh);
+boolv ijkVecNand3fvs(bool3 bv_out, float3 const v_lh, f32 const s_rh);
 
 // ijkVecOr3*vs
 //	Component-wise logical 'or' of 3D vector and scalar.
@@ -1293,7 +1293,7 @@ boolv ijkVecNand3ivs(bool3 bv_out, int3 const v_lh, i32 const s_rh);
 //		param v_lh: left-hand vector
 //		param s_rh: right-hand scalar
 //		return: bv_out
-boolv ijkVecOr3ivs(bool3 bv_out, int3 const v_lh, i32 const s_rh);
+boolv ijkVecOr3fvs(bool3 bv_out, float3 const v_lh, f32 const s_rh);
 
 // ijkVecNor3*vs
 //	Component-wise logical 'nor' of 3D vector and scalar.
@@ -1301,7 +1301,7 @@ boolv ijkVecOr3ivs(bool3 bv_out, int3 const v_lh, i32 const s_rh);
 //		param v_lh: left-hand vector
 //		param s_rh: right-hand scalar
 //		return: bv_out
-boolv ijkVecNor3ivs(bool3 bv_out, int3 const v_lh, i32 const s_rh);
+boolv ijkVecNor3fvs(bool3 bv_out, float3 const v_lh, f32 const s_rh);
 
 // ijkVecCopy3*xv
 //	Copy 3D vector from 2D vector and one scalar.
@@ -1309,7 +1309,7 @@ boolv ijkVecNor3ivs(bool3 bv_out, int3 const v_lh, i32 const s_rh);
 //		param x: first element
 //		param v_yz: input 2D vector holding last two components
 //		return: v_out
-intv ijkVecCopy3ixv(int3 v_out, i32 const x, int2 const v_yz);
+floatv ijkVecCopy3fxv(float3 v_out, f32 const x, float2 const v_yz);
 
 // ijkVecAdd3*sv
 //	Calculate sum of scalar and 3D vector components.
@@ -1317,7 +1317,7 @@ intv ijkVecCopy3ixv(int3 v_out, i32 const x, int2 const v_yz);
 //		param s_lh: left-hand scalar
 //		param v_rh: right-hand vector
 //		return: v_out
-intv ijkVecAdd3isv(int3 v_out, i32 const s_lh, int3 const v_rh);
+floatv ijkVecAdd3fsv(float3 v_out, f32 const s_lh, float3 const v_rh);
 
 // ijkVecSub3*sv
 //	Calculate difference of scalar and 3D vector components.
@@ -1325,7 +1325,7 @@ intv ijkVecAdd3isv(int3 v_out, i32 const s_lh, int3 const v_rh);
 //		param s_lh: left-hand scalar
 //		param v_rh: right-hand vector
 //		return: v_out
-intv ijkVecSub3isv(int3 v_out, i32 const s_lh, int3 const v_rh);
+floatv ijkVecSub3fsv(float3 v_out, f32 const s_lh, float3 const v_rh);
 
 // ijkVecMul3*sv
 //	Calculate product of scalar by 3D vector components.
@@ -1333,7 +1333,7 @@ intv ijkVecSub3isv(int3 v_out, i32 const s_lh, int3 const v_rh);
 //		param s_lh: left-hand scalar
 //		param v_rh: right-hand vector
 //		return: v_out
-intv ijkVecMul3isv(int3 v_out, i32 const s_lh, int3 const v_rh);
+floatv ijkVecMul3fsv(float3 v_out, f32 const s_lh, float3 const v_rh);
 
 // ijkVecDiv3*sv
 //	Calculate quotient of scalar by 3D vector components.
@@ -1341,7 +1341,7 @@ intv ijkVecMul3isv(int3 v_out, i32 const s_lh, int3 const v_rh);
 //		param s_lh: left-hand scalar
 //		param v_rh: right-hand vector
 //		return: v_out
-intv ijkVecDiv3isv(int3 v_out, i32 const s_lh, int3 const v_rh);
+floatv ijkVecDiv3fsv(float3 v_out, f32 const s_lh, float3 const v_rh);
 
 // ijkVecDivSafe3*sv
 //	Calculate quotient of scalar by 3D vector components, division-by-zero safe.
@@ -1349,7 +1349,7 @@ intv ijkVecDiv3isv(int3 v_out, i32 const s_lh, int3 const v_rh);
 //		param s_lh: left-hand scalar
 //		param v_rh: right-hand vector
 //		return: v_out
-intv ijkVecDivSafe3isv(int3 v_out, i32 const s_lh, int3 const v_rh);
+floatv ijkVecDivSafe3fsv(float3 v_out, f32 const s_lh, float3 const v_rh);
 
 // ijkVecMod3*sv
 //	Calculate remainder of scalar by 3D vector components.
@@ -1357,7 +1357,7 @@ intv ijkVecDivSafe3isv(int3 v_out, i32 const s_lh, int3 const v_rh);
 //		param s_lh: left-hand scalar
 //		param v_rh: right-hand vector
 //		return: v_out
-intv ijkVecMod3isv(int3 v_out, i32 const s_lh, int3 const v_rh);
+floatv ijkVecMod3fsv(float3 v_out, f32 const s_lh, float3 const v_rh);
 
 // ijkVecModSafe3*sv
 //	Calculate remainder of scalar by 3D vector components, division-by-zero safe.
@@ -1365,16 +1365,16 @@ intv ijkVecMod3isv(int3 v_out, i32 const s_lh, int3 const v_rh);
 //		param s_lh: left-hand scalar
 //		param v_rh: right-hand vector
 //		return: v_out
-intv ijkVecModSafe3isv(int3 v_out, i32 const s_lh, int3 const v_rh);
+floatv ijkVecModSafe3fsv(float3 v_out, f32 const s_lh, float3 const v_rh);
 
-#if TINTEGER
+#if TfloatEGER
 // ijkVecBitAnd3*sv
 //	Calculate bitwise 'and' of scalar and 3D vector components.
 //		param v_out: output vector to hold bitwise 'and'
 //		param s_lh: left-hand scalar
 //		param v_rh: right-hand vector
 //		return: v_out
-intv ijkVecBitAnd3isv(int3 v_out, i32 const s_lh, int3 const v_rh);
+floatv ijkVecBitAnd3fsv(float3 v_out, f32 const s_lh, float3 const v_rh);
 
 // ijkVecBitNand3*sv
 //	Calculate bitwise 'not and' of scalar and 3D vector components.
@@ -1382,7 +1382,7 @@ intv ijkVecBitAnd3isv(int3 v_out, i32 const s_lh, int3 const v_rh);
 //		param s_lh: left-hand scalar
 //		param v_rh: right-hand vector
 //		return: v_out
-intv ijkVecBitNand3isv(int3 v_out, i32 const s_lh, int3 const v_rh);
+floatv ijkVecBitNand3fsv(float3 v_out, f32 const s_lh, float3 const v_rh);
 
 // ijkVecBitOr3*sv
 //	Calculate bitwise 'or' of scalar and 3D vector components.
@@ -1390,7 +1390,7 @@ intv ijkVecBitNand3isv(int3 v_out, i32 const s_lh, int3 const v_rh);
 //		param s_lh: left-hand scalar
 //		param v_rh: right-hand vector
 //		return: v_out
-intv ijkVecBitOr3isv(int3 v_out, i32 const s_lh, int3 const v_rh);
+floatv ijkVecBitOr3fsv(float3 v_out, f32 const s_lh, float3 const v_rh);
 
 // ijkVecBitNor3*sv
 //	Calculate bitwise 'not or' of scalar and 3D vector components.
@@ -1398,7 +1398,7 @@ intv ijkVecBitOr3isv(int3 v_out, i32 const s_lh, int3 const v_rh);
 //		param s_lh: left-hand scalar
 //		param v_rh: right-hand vector
 //		return: v_out
-intv ijkVecBitNor3isv(int3 v_out, i32 const s_lh, int3 const v_rh);
+floatv ijkVecBitNor3fsv(float3 v_out, f32 const s_lh, float3 const v_rh);
 
 // ijkVecBitXor3*sv
 //	Calculate bitwise 'exclusive or' of scalar and 3D vector components.
@@ -1406,7 +1406,7 @@ intv ijkVecBitNor3isv(int3 v_out, i32 const s_lh, int3 const v_rh);
 //		param s_lh: left-hand scalar
 //		param v_rh: right-hand vector
 //		return: v_out
-intv ijkVecBitXor3isv(int3 v_out, i32 const s_lh, int3 const v_rh);
+floatv ijkVecBitXor3fsv(float3 v_out, f32 const s_lh, float3 const v_rh);
 
 // ijkVecBitXnor3*sv
 //	Calculate bitwise 'not exclusive or' of scalar and 3D vector components.
@@ -1414,7 +1414,7 @@ intv ijkVecBitXor3isv(int3 v_out, i32 const s_lh, int3 const v_rh);
 //		param s_lh: left-hand scalar
 //		param v_rh: right-hand vector
 //		return: v_out
-intv ijkVecBitXnor3isv(int3 v_out, i32 const s_lh, int3 const v_rh);
+floatv ijkVecBitXnor3fsv(float3 v_out, f32 const s_lh, float3 const v_rh);
 
 // ijkVecBitShiftLeft3*sv
 //	Calculate bit shift left of scalar by 3D vector components.
@@ -1422,7 +1422,7 @@ intv ijkVecBitXnor3isv(int3 v_out, i32 const s_lh, int3 const v_rh);
 //		param s_lh: left-hand scalar
 //		param v_rh: right-hand vector
 //		return: v_out
-intv ijkVecBitShiftLeft3isv(int3 v_out, i32 const s_lh, int3 const v_rh);
+floatv ijkVecBitShiftLeft3fsv(float3 v_out, f32 const s_lh, float3 const v_rh);
 
 // ijkVecBitShiftRight3*sv
 //	Calculate bit shift right of scalar by 3D vector components.
@@ -1430,8 +1430,8 @@ intv ijkVecBitShiftLeft3isv(int3 v_out, i32 const s_lh, int3 const v_rh);
 //		param s_lh: left-hand scalar
 //		param v_rh: right-hand vector
 //		return: v_out
-intv ijkVecBitShiftRight3isv(int3 v_out, i32 const s_lh, int3 const v_rh);
-#endif	// TINTEGER
+floatv ijkVecBitShiftRight3fsv(float3 v_out, f32 const s_lh, float3 const v_rh);
+#endif	// TfloatEGER
 
 // ijkVecEqual3*sv
 //	Equality comparison of scalar and 3D vector components.
@@ -1439,7 +1439,7 @@ intv ijkVecBitShiftRight3isv(int3 v_out, i32 const s_lh, int3 const v_rh);
 //		param s_lh: left-hand scalar
 //		param v_rh: right-hand vector
 //		return: bv_out
-boolv ijkVecEqual3isv(bool3 bv_out, i32 const s_lh, int3 const v_rh);
+boolv ijkVecEqual3fsv(bool3 bv_out, f32 const s_lh, float3 const v_rh);
 
 // ijkVecInequal3*sv
 //	Inequality comparison of scalar and 3D vector components.
@@ -1447,7 +1447,7 @@ boolv ijkVecEqual3isv(bool3 bv_out, i32 const s_lh, int3 const v_rh);
 //		param s_lh: left-hand scalar
 //		param v_rh: right-hand vector
 //		return: bv_out
-boolv ijkVecInequal3isv(bool3 bv_out, i32 const s_lh, int3 const v_rh);
+boolv ijkVecInequal3fsv(bool3 bv_out, f32 const s_lh, float3 const v_rh);
 
 // ijkVecLessEqual3*sv
 //	Less-than or equal comparison of scalar and 3D vector components.
@@ -1455,7 +1455,7 @@ boolv ijkVecInequal3isv(bool3 bv_out, i32 const s_lh, int3 const v_rh);
 //		param s_lh: left-hand scalar
 //		param v_rh: right-hand vector
 //		return: bv_out
-boolv ijkVecLessEqual3isv(bool3 bv_out, i32 const s_lh, int3 const v_rh);
+boolv ijkVecLessEqual3fsv(bool3 bv_out, f32 const s_lh, float3 const v_rh);
 
 // ijkVecGreaterEqual3*sv
 //	Greater-than or equal comparison of scalar and 3D vector components.
@@ -1463,7 +1463,7 @@ boolv ijkVecLessEqual3isv(bool3 bv_out, i32 const s_lh, int3 const v_rh);
 //		param s_lh: left-hand scalar
 //		param v_rh: right-hand vector
 //		return: bv_out
-boolv ijkVecGreaterEqual3isv(bool3 bv_out, i32 const s_lh, int3 const v_rh);
+boolv ijkVecGreaterEqual3fsv(bool3 bv_out, f32 const s_lh, float3 const v_rh);
 
 // ijkVecLess3*sv
 //	Less-than comparison of scalar and 3D vector components.
@@ -1471,7 +1471,7 @@ boolv ijkVecGreaterEqual3isv(bool3 bv_out, i32 const s_lh, int3 const v_rh);
 //		param s_lh: left-hand scalar
 //		param v_rh: right-hand vector
 //		return: bv_out
-boolv ijkVecLess3isv(bool3 bv_out, i32 const s_lh, int3 const v_rh);
+boolv ijkVecLess3fsv(bool3 bv_out, f32 const s_lh, float3 const v_rh);
 
 // ijkVecGreater3*sv
 //	Greater-than comparison of scalar and 3D vector components.
@@ -1479,7 +1479,7 @@ boolv ijkVecLess3isv(bool3 bv_out, i32 const s_lh, int3 const v_rh);
 //		param s_lh: left-hand scalar
 //		param v_rh: right-hand vector
 //		return: bv_out
-boolv ijkVecGreater3isv(bool3 bv_out, i32 const s_lh, int3 const v_rh);
+boolv ijkVecGreater3fsv(bool3 bv_out, f32 const s_lh, float3 const v_rh);
 
 // ijkVecAnd3*sv
 //	Component-wise logical 'and' of 3D vector and scalar.
@@ -1487,7 +1487,7 @@ boolv ijkVecGreater3isv(bool3 bv_out, i32 const s_lh, int3 const v_rh);
 //		param s_lh: left-hand scalar
 //		param v_rh: right-hand vector
 //		return: bv_out
-boolv ijkVecAnd3isv(bool3 bv_out, i32 const s_lh, int3 const v_rh);
+boolv ijkVecAnd3fsv(bool3 bv_out, f32 const s_lh, float3 const v_rh);
 
 // ijkVecNand3*sv
 //	Component-wise logical 'nand' of 3D vector and scalar.
@@ -1495,7 +1495,7 @@ boolv ijkVecAnd3isv(bool3 bv_out, i32 const s_lh, int3 const v_rh);
 //		param s_lh: left-hand scalar
 //		param v_rh: right-hand vector
 //		return: bv_out
-boolv ijkVecNand3isv(bool3 bv_out, i32 const s_lh, int3 const v_rh);
+boolv ijkVecNand3fsv(bool3 bv_out, f32 const s_lh, float3 const v_rh);
 
 // ijkVecOr3*sv
 //	Component-wise logical 'or' of 3D vector and scalar.
@@ -1503,7 +1503,7 @@ boolv ijkVecNand3isv(bool3 bv_out, i32 const s_lh, int3 const v_rh);
 //		param s_lh: left-hand scalar
 //		param v_rh: right-hand vector
 //		return: bv_out
-boolv ijkVecOr3isv(bool3 bv_out, i32 const s_lh, int3 const v_rh);
+boolv ijkVecOr3fsv(bool3 bv_out, f32 const s_lh, float3 const v_rh);
 
 // ijkVecNor3*sv
 //	Component-wise logical 'nor' of 3D vector and scalar.
@@ -1511,14 +1511,14 @@ boolv ijkVecOr3isv(bool3 bv_out, i32 const s_lh, int3 const v_rh);
 //		param s_lh: left-hand scalar
 //		param v_rh: right-hand vector
 //		return: bv_out
-boolv ijkVecNor3isv(bool3 bv_out, i32 const s_lh, int3 const v_rh);
+boolv ijkVecNor3fsv(bool3 bv_out, f32 const s_lh, float3 const v_rh);
 
 // ijkVecDot3*v
 //	Dot product of 3D array-based vectors.
 //		param v_lh: left-hand vector
 //		param v_rh: right-hand vector
 //		return: dot product
-i32 ijkVecDot3iv(int3 const v_lh, int3 const v_rh);
+f32 ijkVecDot3fv(float3 const v_lh, float3 const v_rh);
 
 // ijkVecCross3*v
 //	Cross product of 3D array-based vectors.
@@ -1526,7 +1526,7 @@ i32 ijkVecDot3iv(int3 const v_lh, int3 const v_rh);
 //		param v_lh: left-hand vector
 //		param v_rh: right-hand vector
 //		return: v_out
-intv ijkVecCross3iv(int3 v_out, int3 const v_lh, int3 const v_rh);
+floatv ijkVecCross3fv(float3 v_out, float3 const v_lh, float3 const v_rh);
 
 
 //-----------------------------------------------------------------------------
@@ -1535,7 +1535,7 @@ intv ijkVecCross3iv(int3 v_out, int3 const v_lh, int3 const v_rh);
 //	Initialize 4D vector to default value (zero vector).
 //		param v_out: output vector
 //		return: v_out
-intv ijkVecInit4iv(int4 v_out);
+floatv ijkVecInit4fv(float4 v_out);
 
 // ijkVecInitElems4*v
 //	Initialize 4D vector to specified individual elements.
@@ -1543,18 +1543,18 @@ intv ijkVecInit4iv(int4 v_out);
 //		param x: first element
 //		param y: second element
 //		param z: third element
-//		param w: fourth element (in space, set as 1 for point, 0 for vector)
+//		param w: fourth element (in space, set as 1 for pofloat, 0 for vector)
 //		return: v_out
-intv ijkVecInitElems4iv(int4 v_out, i32 const x, i32 const y, i32 const z, i32 const w);
+floatv ijkVecInitElems4fv(float4 v_out, f32 const x, f32 const y, f32 const z, f32 const w);
 
 // ijkVecCopy4*xvw
 //	Copy 4D vector from scalar, 2D vector and another scalar.
 //		param v_out: output vector to hold copy
 //		param x: first element
 //		param v_yz: input 2D vector holding middle two components
-//		param w: fourth element (in space, set as 1 for point, 0 for vector)
+//		param w: fourth element (in space, set as 1 for pofloat, 0 for vector)
 //		return: v_out
-intv ijkVecCopy4ixvw(int4 v_out, i32 const x, int2 const v_yz, i32 const w);
+floatv ijkVecCopy4fxvw(float4 v_out, f32 const x, float2 const v_yz, f32 const w);
 
 // ijkVecCopy4*v2
 //	Copy 4D vector from two 2D vectors.
@@ -1562,14 +1562,14 @@ intv ijkVecCopy4ixvw(int4 v_out, i32 const x, int2 const v_yz, i32 const w);
 //		param v_xy: input 2D vector holding first two components
 //		param v_zw: input 2D vector holding last two components
 //		return: v_out
-intv ijkVecCopy4iv2(int4 v_out, int2 const v_xy, int2 const v_zw);
+floatv ijkVecCopy4fv2(float4 v_out, float2 const v_xy, float2 const v_zw);
 
 // ijkVecCopy4*v
 //	Copy 4D vector from first elements of another vector.
 //		param v_out: output vector to hold copy
 //		param v_in: input vector
 //		return: v_out
-intv ijkVecCopy4iv(int4 v_out, int4 const v_in);
+floatv ijkVecCopy4fv(float4 v_out, float4 const v_in);
 
 // ijkVecNegate4*v
 //	Negate 4D vector.
@@ -1577,7 +1577,7 @@ intv ijkVecCopy4iv(int4 v_out, int4 const v_in);
 //		param v_in: input vector
 //		return: v_out
 #if TSIGNED
-intv ijkVecNegate4iv(int4 v_out, int4 const v_in);
+floatv ijkVecNegate4fv(float4 v_out, float4 const v_in);
 #endif	// TSIGNED
 
 // ijkVecBitNot4*v
@@ -1585,16 +1585,16 @@ intv ijkVecNegate4iv(int4 v_out, int4 const v_in);
 //		param v_out: output vector to hold component-wise bitwise 'not'
 //		param v_in: input vector
 //		return: v_out
-#if TINTEGER
-intv ijkVecBitNot4iv(int4 v_out, int4 const v_in);
-#endif	// TINTEGER
+#if TfloatEGER
+floatv ijkVecBitNot4fv(float4 v_out, float4 const v_in);
+#endif	// TfloatEGER
 
 // ijkVecNot4*v
 //	Calculate component-wise logical 'not' of 4D vector.
 //		param bv_out: boolean vector to hold component-wise logical 'not'
 //		param v_in: input vector
 //		return: bv_out
-boolv ijkVecNot4iv(bool4 bv_out, int4 const v_in);
+boolv ijkVecNot4fv(bool4 bv_out, float4 const v_in);
 
 // ijkVecAdd4*v
 //	Calculate sum of 4D vectors.
@@ -1602,7 +1602,7 @@ boolv ijkVecNot4iv(bool4 bv_out, int4 const v_in);
 //		param v_lh: left-hand vector
 //		param v_rh: right-hand vector
 //		return: v_out
-intv ijkVecAdd4iv(int4 v_out, int4 const v_lh, int4 const v_rh);
+floatv ijkVecAdd4fv(float4 v_out, float4 const v_lh, float4 const v_rh);
 
 // ijkVecSub4*v
 //	Calculate difference of 4D vectors.
@@ -1610,7 +1610,7 @@ intv ijkVecAdd4iv(int4 v_out, int4 const v_lh, int4 const v_rh);
 //		param v_lh: left-hand vector
 //		param v_rh: right-hand vector
 //		return: v_out
-intv ijkVecSub4iv(int4 v_out, int4 const v_lh, int4 const v_rh);
+floatv ijkVecSub4fv(float4 v_out, float4 const v_lh, float4 const v_rh);
 
 // ijkVecMul4*v
 //	Calculate component-wise product of 4D vectors.
@@ -1618,7 +1618,7 @@ intv ijkVecSub4iv(int4 v_out, int4 const v_lh, int4 const v_rh);
 //		param v_lh: left-hand vector
 //		param v_rh: right-hand vector
 //		return: v_out
-intv ijkVecMul4iv(int4 v_out, int4 const v_lh, int4 const v_rh);
+floatv ijkVecMul4fv(float4 v_out, float4 const v_lh, float4 const v_rh);
 
 // ijkVecDiv4*v
 //	Calculate component-wise quotient of 4D vectors.
@@ -1626,7 +1626,7 @@ intv ijkVecMul4iv(int4 v_out, int4 const v_lh, int4 const v_rh);
 //		param v_lh: left-hand vector
 //		param v_rh: right-hand vector
 //		return: v_out
-intv ijkVecDiv4iv(int4 v_out, int4 const v_lh, int4 const v_rh);
+floatv ijkVecDiv4fv(float4 v_out, float4 const v_lh, float4 const v_rh);
 
 // ijkVecDivSafe4*v
 //	Calculate component-wise quotient of 4D vectors, division-by-zero safe.
@@ -1634,7 +1634,7 @@ intv ijkVecDiv4iv(int4 v_out, int4 const v_lh, int4 const v_rh);
 //		param v_lh: left-hand vector
 //		param v_rh: right-hand vector
 //		return: v_out
-intv ijkVecDivSafe4iv(int4 v_out, int4 const v_lh, int4 const v_rh);
+floatv ijkVecDivSafe4fv(float4 v_out, float4 const v_lh, float4 const v_rh);
 
 // ijkVecMod4*v
 //	Calculate component-wise remainder of 4D vectors.
@@ -1642,7 +1642,7 @@ intv ijkVecDivSafe4iv(int4 v_out, int4 const v_lh, int4 const v_rh);
 //		param v_lh: left-hand vector
 //		param v_rh: right-hand vector
 //		return: v_out
-intv ijkVecMod4iv(int4 v_out, int4 const v_lh, int4 const v_rh);
+floatv ijkVecMod4fv(float4 v_out, float4 const v_lh, float4 const v_rh);
 
 // ijkVecModSafe4*v
 //	Calculate component-wise remainder of 4D vectors, division-by-zero safe.
@@ -1650,16 +1650,16 @@ intv ijkVecMod4iv(int4 v_out, int4 const v_lh, int4 const v_rh);
 //		param v_lh: left-hand vector
 //		param v_rh: right-hand vector
 //		return: v_out
-intv ijkVecModSafe4iv(int4 v_out, int4 const v_lh, int4 const v_rh);
+floatv ijkVecModSafe4fv(float4 v_out, float4 const v_lh, float4 const v_rh);
 
-#if TINTEGER
+#if TfloatEGER
 // ijkVecBitAnd4*v
 //	Calculate component-wise bitwise 'and' of 4D vectors.
 //		param v_out: output vector to hold component-wise bitwise 'and'
 //		param v_lh: left-hand vector
 //		param v_rh: right-hand vector
 //		return: v_out
-intv ijkVecBitAnd4iv(int4 v_out, int4 const v_lh, int4 const v_rh);
+floatv ijkVecBitAnd4fv(float4 v_out, float4 const v_lh, float4 const v_rh);
 
 // ijkVecBitNand4*v
 //	Calculate component-wise bitwise 'not and' of 4D vectors.
@@ -1667,7 +1667,7 @@ intv ijkVecBitAnd4iv(int4 v_out, int4 const v_lh, int4 const v_rh);
 //		param v_lh: left-hand vector
 //		param v_rh: right-hand vector
 //		return: v_out
-intv ijkVecBitNand4iv(int4 v_out, int4 const v_lh, int4 const v_rh);
+floatv ijkVecBitNand4fv(float4 v_out, float4 const v_lh, float4 const v_rh);
 
 // ijkVecBitOr4*v
 //	Calculate component-wise bitwise 'or' of 4D vectors.
@@ -1675,7 +1675,7 @@ intv ijkVecBitNand4iv(int4 v_out, int4 const v_lh, int4 const v_rh);
 //		param v_lh: left-hand vector
 //		param v_rh: right-hand vector
 //		return: v_out
-intv ijkVecBitOr4iv(int4 v_out, int4 const v_lh, int4 const v_rh);
+floatv ijkVecBitOr4fv(float4 v_out, float4 const v_lh, float4 const v_rh);
 
 // ijkVecBitNor4*v
 //	Calculate component-wise bitwise 'not or' of 4D vectors.
@@ -1683,7 +1683,7 @@ intv ijkVecBitOr4iv(int4 v_out, int4 const v_lh, int4 const v_rh);
 //		param v_lh: left-hand vector
 //		param v_rh: right-hand vector
 //		return: v_out
-intv ijkVecBitNor4iv(int4 v_out, int4 const v_lh, int4 const v_rh);
+floatv ijkVecBitNor4fv(float4 v_out, float4 const v_lh, float4 const v_rh);
 
 // ijkVecBitXor4*v
 //	Calculate component-wise bitwise 'exclusive or' of 4D vectors.
@@ -1691,7 +1691,7 @@ intv ijkVecBitNor4iv(int4 v_out, int4 const v_lh, int4 const v_rh);
 //		param v_lh: left-hand vector
 //		param v_rh: right-hand vector
 //		return: v_out
-intv ijkVecBitXor4iv(int4 v_out, int4 const v_lh, int4 const v_rh);
+floatv ijkVecBitXor4fv(float4 v_out, float4 const v_lh, float4 const v_rh);
 
 // ijkVecBitXnor4*v
 //	Calculate component-wise bitwise 'not exclusive or' of 4D vectors.
@@ -1699,7 +1699,7 @@ intv ijkVecBitXor4iv(int4 v_out, int4 const v_lh, int4 const v_rh);
 //		param v_lh: left-hand vector
 //		param v_rh: right-hand vector
 //		return: v_out
-intv ijkVecBitXnor4iv(int4 v_out, int4 const v_lh, int4 const v_rh);
+floatv ijkVecBitXnor4fv(float4 v_out, float4 const v_lh, float4 const v_rh);
 
 // ijkVecBitShiftLeft4*v
 //	Calculate component-wise bit shift left of 4D vectors.
@@ -1707,7 +1707,7 @@ intv ijkVecBitXnor4iv(int4 v_out, int4 const v_lh, int4 const v_rh);
 //		param v_lh: left-hand vector
 //		param v_rh: right-hand vector
 //		return: v_out
-intv ijkVecBitShiftLeft4iv(int4 v_out, int4 const v_lh, int4 const v_rh);
+floatv ijkVecBitShiftLeft4fv(float4 v_out, float4 const v_lh, float4 const v_rh);
 
 // ijkVecBitShiftRight4*v
 //	Calculate component-wise bit shift right of 4D vectors.
@@ -1715,8 +1715,8 @@ intv ijkVecBitShiftLeft4iv(int4 v_out, int4 const v_lh, int4 const v_rh);
 //		param v_lh: left-hand vector
 //		param v_rh: right-hand vector
 //		return: v_out
-intv ijkVecBitShiftRight4iv(int4 v_out, int4 const v_lh, int4 const v_rh);
-#endif	// TINTEGER
+floatv ijkVecBitShiftRight4fv(float4 v_out, float4 const v_lh, float4 const v_rh);
+#endif	// TfloatEGER
 
 // ijkVecEqual4*v
 //	Equality comparison for 4D vectors.
@@ -1724,7 +1724,7 @@ intv ijkVecBitShiftRight4iv(int4 v_out, int4 const v_lh, int4 const v_rh);
 //		param v_lh: left-hand vector
 //		param v_rh: right-hand vector
 //		return: bv_out
-boolv ijkVecEqual4iv(bool4 bv_out, int4 const v_lh, int4 const v_rh);
+boolv ijkVecEqual4fv(bool4 bv_out, float4 const v_lh, float4 const v_rh);
 
 // ijkVecInequal4*v
 //	Inequality comparison for 4D vectors.
@@ -1732,7 +1732,7 @@ boolv ijkVecEqual4iv(bool4 bv_out, int4 const v_lh, int4 const v_rh);
 //		param v_lh: left-hand vector
 //		param v_rh: right-hand vector
 //		return: bv_out
-boolv ijkVecInequal4iv(bool4 bv_out, int4 const v_lh, int4 const v_rh);
+boolv ijkVecInequal4fv(bool4 bv_out, float4 const v_lh, float4 const v_rh);
 
 // ijkVecLessEqual4*v
 //	Less-than or equal comparison for 4D vectors.
@@ -1740,7 +1740,7 @@ boolv ijkVecInequal4iv(bool4 bv_out, int4 const v_lh, int4 const v_rh);
 //		param v_lh: left-hand vector
 //		param v_rh: right-hand vector
 //		return: bv_out
-boolv ijkVecLessEqual4iv(bool4 bv_out, int4 const v_lh, int4 const v_rh);
+boolv ijkVecLessEqual4fv(bool4 bv_out, float4 const v_lh, float4 const v_rh);
 
 // ijkVecGreaterEqual4*v
 //	Greater-than or equal comparison for 4D vectors.
@@ -1748,7 +1748,7 @@ boolv ijkVecLessEqual4iv(bool4 bv_out, int4 const v_lh, int4 const v_rh);
 //		param v_lh: left-hand vector
 //		param v_rh: right-hand vector
 //		return: bv_out
-boolv ijkVecGreaterEqual4iv(bool4 bv_out, int4 const v_lh, int4 const v_rh);
+boolv ijkVecGreaterEqual4fv(bool4 bv_out, float4 const v_lh, float4 const v_rh);
 
 // ijkVecLess4*v
 //	Less-than comparison for 4D vectors.
@@ -1756,7 +1756,7 @@ boolv ijkVecGreaterEqual4iv(bool4 bv_out, int4 const v_lh, int4 const v_rh);
 //		param v_lh: left-hand vector
 //		param v_rh: right-hand vector
 //		return: bv_out
-boolv ijkVecLess4iv(bool4 bv_out, int4 const v_lh, int4 const v_rh);
+boolv ijkVecLess4fv(bool4 bv_out, float4 const v_lh, float4 const v_rh);
 
 // ijkVecGreater4*v
 //	Greater-than comparison for 4D vectors.
@@ -1764,7 +1764,7 @@ boolv ijkVecLess4iv(bool4 bv_out, int4 const v_lh, int4 const v_rh);
 //		param v_lh: left-hand vector
 //		param v_rh: right-hand vector
 //		return: bv_out
-boolv ijkVecGreater4iv(bool4 bv_out, int4 const v_lh, int4 const v_rh);
+boolv ijkVecGreater4fv(bool4 bv_out, float4 const v_lh, float4 const v_rh);
 
 // ijkVecAnd4*v
 //	Component-wise logical 'and' of 4D vectors.
@@ -1772,7 +1772,7 @@ boolv ijkVecGreater4iv(bool4 bv_out, int4 const v_lh, int4 const v_rh);
 //		param v_lh: left-hand vector
 //		param v_rh: right-hand vector
 //		return: bv_out
-boolv ijkVecAnd4iv(bool4 bv_out, int4 const v_lh, int4 const v_rh);
+boolv ijkVecAnd4fv(bool4 bv_out, float4 const v_lh, float4 const v_rh);
 
 // ijkVecNand4*v
 //	Component-wise logical 'nand' of 4D vectors.
@@ -1780,7 +1780,7 @@ boolv ijkVecAnd4iv(bool4 bv_out, int4 const v_lh, int4 const v_rh);
 //		param v_lh: left-hand vector
 //		param v_rh: right-hand vector
 //		return: bv_out
-boolv ijkVecNand4iv(bool4 bv_out, int4 const v_lh, int4 const v_rh);
+boolv ijkVecNand4fv(bool4 bv_out, float4 const v_lh, float4 const v_rh);
 
 // ijkVecOr4*v
 //	Component-wise logical 'or' of 4D vectors.
@@ -1788,7 +1788,7 @@ boolv ijkVecNand4iv(bool4 bv_out, int4 const v_lh, int4 const v_rh);
 //		param v_lh: left-hand vector
 //		param v_rh: right-hand vector
 //		return: bv_out
-boolv ijkVecOr4iv(bool4 bv_out, int4 const v_lh, int4 const v_rh);
+boolv ijkVecOr4fv(bool4 bv_out, float4 const v_lh, float4 const v_rh);
 
 // ijkVecNor4*v
 //	Component-wise logical 'nor' of 4D vectors.
@@ -1796,31 +1796,31 @@ boolv ijkVecOr4iv(bool4 bv_out, int4 const v_lh, int4 const v_rh);
 //		param v_lh: left-hand vector
 //		param v_rh: right-hand vector
 //		return: bv_out
-boolv ijkVecNor4iv(bool4 bv_out, int4 const v_lh, int4 const v_rh);
+boolv ijkVecNor4fv(bool4 bv_out, float4 const v_lh, float4 const v_rh);
 
 // ijkVecCopy4*vzw
 //	Copy 4D vector from 2D vector and two scalars.
 //		param v_out: output vector to hold copy
 //		param v_xy: input 2D vector holding first two components
 //		param z: third element
-//		param w: fourth element (in space, set as 1 for point, 0 for vector)
+//		param w: fourth element (in space, set as 1 for pofloat, 0 for vector)
 //		return: v_out
-intv ijkVecCopy4ivzw(int4 v_out, int2 const v_xy, i32 const z, i32 const w);
+floatv ijkVecCopy4fvzw(float4 v_out, float2 const v_xy, f32 const z, f32 const w);
 
 // ijkVecCopy4*vw
 //	Copy 4D vector from 3D vector and one scalar.
 //		param v_out: output vector to hold copy
 //		param v_xyz: input 3D vector holding first three components
-//		param w: fourth element (in space, set as 1 for point, 0 for vector)
+//		param w: fourth element (in space, set as 1 for pofloat, 0 for vector)
 //		return: v_out
-intv ijkVecCopy4ivw(int4 v_out, int3 const v_xyz, i32 const w);
+floatv ijkVecCopy4fvw(float4 v_out, float3 const v_xyz, f32 const w);
 
 // ijkVecCopy4*vs
 //	Copy 4D vector from scalar.
 //		param v_out: output vector to hold copy
 //		param s_in: input scalar
 //		return: v_out
-intv ijkVecCopy4ivs(int4 v_out, i32 const s_in);
+floatv ijkVecCopy4fvs(float4 v_out, f32 const s_in);
 
 // ijkVecNegate4*vs
 //	Negate scalar to 4D vector.
@@ -1828,7 +1828,7 @@ intv ijkVecCopy4ivs(int4 v_out, i32 const s_in);
 //		param s_in: input scalar
 //		return: v_out
 #if TSIGNED
-intv ijkVecNegate4ivs(int4 v_out, i32 const s_in);
+floatv ijkVecNegate4fvs(float4 v_out, f32 const s_in);
 #endif	// TSIGNED
 
 // ijkVecBitNot4*vs
@@ -1836,16 +1836,16 @@ intv ijkVecNegate4ivs(int4 v_out, i32 const s_in);
 //		param v_out: output vector to hold bitwise 'not'
 //		param s_in: input scalar
 //		return: v_out
-#if TINTEGER
-intv ijkVecBitNot4ivs(int4 v_out, i32 const s_in);
-#endif	// TINTEGER
+#if TfloatEGER
+floatv ijkVecBitNot4fvs(float4 v_out, f32 const s_in);
+#endif	// TfloatEGER
 
 // ijkVecNot4*vs
 //	Calculate logical 'not' of scalar.
 //		param bv_out: boolean vector to hold logical 'not'
 //		param s_in: input scalar
 //		return: bv_out
-boolv ijkVecNot4ivs(bool4 bv_out, i32 const s_in);
+boolv ijkVecNot4fvs(bool4 bv_out, f32 const s_in);
 
 // ijkVecAdd4*vs
 //	Calculate sum of 4D vector components and scalar.
@@ -1853,7 +1853,7 @@ boolv ijkVecNot4ivs(bool4 bv_out, i32 const s_in);
 //		param v_lh: left-hand vector
 //		param s_rh: right-hand scalar
 //		return: v_out
-intv ijkVecAdd4ivs(int4 v_out, int4 const v_lh, i32 const s_rh);
+floatv ijkVecAdd4fvs(float4 v_out, float4 const v_lh, f32 const s_rh);
 
 // ijkVecSub4*vs
 //	Calculate difference of 4D vector components and scalar.
@@ -1861,7 +1861,7 @@ intv ijkVecAdd4ivs(int4 v_out, int4 const v_lh, i32 const s_rh);
 //		param v_lh: left-hand vector
 //		param s_rh: right-hand scalar
 //		return: v_out
-intv ijkVecSub4ivs(int4 v_out, int4 const v_lh, i32 const s_rh);
+floatv ijkVecSub4fvs(float4 v_out, float4 const v_lh, f32 const s_rh);
 
 // ijkVecMul4*vs
 //	Calculate product of 4D vector components by scalar.
@@ -1869,7 +1869,7 @@ intv ijkVecSub4ivs(int4 v_out, int4 const v_lh, i32 const s_rh);
 //		param v_lh: left-hand vector
 //		param s_rh: right-hand scalar
 //		return: v_out
-intv ijkVecMul4ivs(int4 v_out, int4 const v_lh, i32 const s_rh);
+floatv ijkVecMul4fvs(float4 v_out, float4 const v_lh, f32 const s_rh);
 
 // ijkVecDiv4*vs
 //	Calculate quotient of 4D vector components by scalar.
@@ -1877,7 +1877,7 @@ intv ijkVecMul4ivs(int4 v_out, int4 const v_lh, i32 const s_rh);
 //		param v_lh: left-hand vector
 //		param s_rh: right-hand scalar
 //		return: v_out
-intv ijkVecDiv4ivs(int4 v_out, int4 const v_lh, i32 const s_rh);
+floatv ijkVecDiv4fvs(float4 v_out, float4 const v_lh, f32 const s_rh);
 
 // ijkVecDivSafe4*vs
 //	Calculate quotient of 4D vector components by scalar, division-by-zero safe.
@@ -1885,7 +1885,7 @@ intv ijkVecDiv4ivs(int4 v_out, int4 const v_lh, i32 const s_rh);
 //		param v_lh: left-hand vector
 //		param s_rh: right-hand scalar
 //		return: v_out
-intv ijkVecDivSafe4ivs(int4 v_out, int4 const v_lh, i32 const s_rh);
+floatv ijkVecDivSafe4fvs(float4 v_out, float4 const v_lh, f32 const s_rh);
 
 // ijkVecMod4*vs
 //	Calculate remainder of 4D vector components by scalar.
@@ -1893,7 +1893,7 @@ intv ijkVecDivSafe4ivs(int4 v_out, int4 const v_lh, i32 const s_rh);
 //		param v_lh: left-hand vector
 //		param s_rh: right-hand scalar
 //		return: v_out
-intv ijkVecMod4ivs(int4 v_out, int4 const v_lh, i32 const s_rh);
+floatv ijkVecMod4fvs(float4 v_out, float4 const v_lh, f32 const s_rh);
 
 // ijkVecModSafe4*vs
 //	Calculate remainder of 4D vector components by scalar, division-by-zero safe.
@@ -1901,16 +1901,16 @@ intv ijkVecMod4ivs(int4 v_out, int4 const v_lh, i32 const s_rh);
 //		param v_lh: left-hand vector
 //		param s_rh: right-hand scalar
 //		return: v_out
-intv ijkVecModSafe4ivs(int4 v_out, int4 const v_lh, i32 const s_rh);
+floatv ijkVecModSafe4fvs(float4 v_out, float4 const v_lh, f32 const s_rh);
 
-#if TINTEGER
+#if TfloatEGER
 // ijkVecBitAnd4*vs
 //	Calculate bitwise 'and' of 4D vector components and scalar.
 //		param v_out: output vector to hold bitwise 'and'
 //		param v_lh: left-hand vector
 //		param s_rh: right-hand scalar
 //		return: v_out
-intv ijkVecBitAnd4ivs(int4 v_out, int4 const v_lh, i32 const s_rh);
+floatv ijkVecBitAnd4fvs(float4 v_out, float4 const v_lh, f32 const s_rh);
 
 // ijkVecBitNand4*vs
 //	Calculate bitwise 'not and' of 4D vector components and scalar.
@@ -1918,7 +1918,7 @@ intv ijkVecBitAnd4ivs(int4 v_out, int4 const v_lh, i32 const s_rh);
 //		param v_lh: left-hand vector
 //		param s_rh: right-hand scalar
 //		return: v_out
-intv ijkVecBitNand4ivs(int4 v_out, int4 const v_lh, i32 const s_rh);
+floatv ijkVecBitNand4fvs(float4 v_out, float4 const v_lh, f32 const s_rh);
 
 // ijkVecBitOr4*vs
 //	Calculate bitwise 'or' of 4D vector components and scalar.
@@ -1926,7 +1926,7 @@ intv ijkVecBitNand4ivs(int4 v_out, int4 const v_lh, i32 const s_rh);
 //		param v_lh: left-hand vector
 //		param s_rh: right-hand scalar
 //		return: v_out
-intv ijkVecBitOr4ivs(int4 v_out, int4 const v_lh, i32 const s_rh);
+floatv ijkVecBitOr4fvs(float4 v_out, float4 const v_lh, f32 const s_rh);
 
 // ijkVecBitNor4*vs
 //	Calculate bitwise 'not or' of 4D vector components and scalar.
@@ -1934,7 +1934,7 @@ intv ijkVecBitOr4ivs(int4 v_out, int4 const v_lh, i32 const s_rh);
 //		param v_lh: left-hand vector
 //		param s_rh: right-hand scalar
 //		return: v_out
-intv ijkVecBitNor4ivs(int4 v_out, int4 const v_lh, i32 const s_rh);
+floatv ijkVecBitNor4fvs(float4 v_out, float4 const v_lh, f32 const s_rh);
 
 // ijkVecBitXor4*vs
 //	Calculate bitwise 'exclusive or' of 4D vector components and scalar.
@@ -1942,7 +1942,7 @@ intv ijkVecBitNor4ivs(int4 v_out, int4 const v_lh, i32 const s_rh);
 //		param v_lh: left-hand vector
 //		param s_rh: right-hand scalar
 //		return: v_out
-intv ijkVecBitXor4ivs(int4 v_out, int4 const v_lh, i32 const s_rh);
+floatv ijkVecBitXor4fvs(float4 v_out, float4 const v_lh, f32 const s_rh);
 
 // ijkVecBitXnor4*vs
 //	Calculate bitwise 'not exclusive or' of 4D vector components and scalar.
@@ -1950,7 +1950,7 @@ intv ijkVecBitXor4ivs(int4 v_out, int4 const v_lh, i32 const s_rh);
 //		param v_lh: left-hand vector
 //		param s_rh: right-hand scalar
 //		return: v_out
-intv ijkVecBitXnor4ivs(int4 v_out, int4 const v_lh, i32 const s_rh);
+floatv ijkVecBitXnor4fvs(float4 v_out, float4 const v_lh, f32 const s_rh);
 
 // ijkVecBitShiftLeft4*vs
 //	Calculate bit shift left of 4D vector components and scalar.
@@ -1958,7 +1958,7 @@ intv ijkVecBitXnor4ivs(int4 v_out, int4 const v_lh, i32 const s_rh);
 //		param v_lh: left-hand vector
 //		param s_rh: right-hand scalar
 //		return: v_out
-intv ijkVecBitShiftLeft4ivs(int4 v_out, int4 const v_lh, i32 const s_rh);
+floatv ijkVecBitShiftLeft4fvs(float4 v_out, float4 const v_lh, f32 const s_rh);
 
 // ijkVecBitShiftRight4*vs
 //	Calculate bit shift right of 4D vector components and scalar.
@@ -1966,8 +1966,8 @@ intv ijkVecBitShiftLeft4ivs(int4 v_out, int4 const v_lh, i32 const s_rh);
 //		param v_lh: left-hand vector
 //		param s_rh: right-hand scalar
 //		return: v_out
-intv ijkVecBitShiftRight4ivs(int4 v_out, int4 const v_lh, i32 const s_rh);
-#endif	// TINTEGER
+floatv ijkVecBitShiftRight4fvs(float4 v_out, float4 const v_lh, f32 const s_rh);
+#endif	// TfloatEGER
 
 // ijkVecEqual4*vs
 //	Equality comparison of 4D vector components and scalar.
@@ -1975,7 +1975,7 @@ intv ijkVecBitShiftRight4ivs(int4 v_out, int4 const v_lh, i32 const s_rh);
 //		param v_lh: left-hand vector
 //		param s_rh: right-hand scalar
 //		return: bv_out
-boolv ijkVecEqual4ivs(bool4 bv_out, int4 const v_lh, i32 const s_rh);
+boolv ijkVecEqual4fvs(bool4 bv_out, float4 const v_lh, f32 const s_rh);
 
 // ijkVecInequal4*vs
 //	Inequality comparison of 4D vector components and scalar.
@@ -1983,7 +1983,7 @@ boolv ijkVecEqual4ivs(bool4 bv_out, int4 const v_lh, i32 const s_rh);
 //		param v_lh: left-hand vector
 //		param s_rh: right-hand scalar
 //		return: bv_out
-boolv ijkVecInequal4ivs(bool4 bv_out, int4 const v_lh, i32 const s_rh);
+boolv ijkVecInequal4fvs(bool4 bv_out, float4 const v_lh, f32 const s_rh);
 
 // ijkVecLessEqual4*vs
 //	Less-than or equal comparison of 4D vector components and scalar.
@@ -1991,7 +1991,7 @@ boolv ijkVecInequal4ivs(bool4 bv_out, int4 const v_lh, i32 const s_rh);
 //		param v_lh: left-hand vector
 //		param s_rh: right-hand scalar
 //		return: bv_out
-boolv ijkVecLessEqual4ivs(bool4 bv_out, int4 const v_lh, i32 const s_rh);
+boolv ijkVecLessEqual4fvs(bool4 bv_out, float4 const v_lh, f32 const s_rh);
 
 // ijkVecGreaterEqual4*vs
 //	Greater-than or equal comparison of 4D vector components and scalar.
@@ -1999,7 +1999,7 @@ boolv ijkVecLessEqual4ivs(bool4 bv_out, int4 const v_lh, i32 const s_rh);
 //		param v_lh: left-hand vector
 //		param s_rh: right-hand scalar
 //		return: bv_out
-boolv ijkVecGreaterEqual4ivs(bool4 bv_out, int4 const v_lh, i32 const s_rh);
+boolv ijkVecGreaterEqual4fvs(bool4 bv_out, float4 const v_lh, f32 const s_rh);
 
 // ijkVecLess4*vs
 //	Less-than comparison of 4D vector components and scalar.
@@ -2007,7 +2007,7 @@ boolv ijkVecGreaterEqual4ivs(bool4 bv_out, int4 const v_lh, i32 const s_rh);
 //		param v_lh: left-hand vector
 //		param s_rh: right-hand scalar
 //		return: bv_out
-boolv ijkVecLess4ivs(bool4 bv_out, int4 const v_lh, i32 const s_rh);
+boolv ijkVecLess4fvs(bool4 bv_out, float4 const v_lh, f32 const s_rh);
 
 // ijkVecGreater4*vs
 //	Greater-than comparison of 4D vector components and scalar.
@@ -2015,7 +2015,7 @@ boolv ijkVecLess4ivs(bool4 bv_out, int4 const v_lh, i32 const s_rh);
 //		param v_lh: left-hand vector
 //		param s_rh: right-hand scalar
 //		return: bv_out
-boolv ijkVecGreater4ivs(bool4 bv_out, int4 const v_lh, i32 const s_rh);
+boolv ijkVecGreater4fvs(bool4 bv_out, float4 const v_lh, f32 const s_rh);
 
 // ijkVecAnd4*vs
 //	Component-wise logical 'and' of 4D vector and scalar.
@@ -2023,7 +2023,7 @@ boolv ijkVecGreater4ivs(bool4 bv_out, int4 const v_lh, i32 const s_rh);
 //		param v_lh: left-hand vector
 //		param s_rh: right-hand scalar
 //		return: bv_out
-boolv ijkVecAnd4ivs(bool4 bv_out, int4 const v_lh, i32 const s_rh);
+boolv ijkVecAnd4fvs(bool4 bv_out, float4 const v_lh, f32 const s_rh);
 
 // ijkVecNand4*vs
 //	Component-wise logical 'nand' of 4D vector and scalar.
@@ -2031,7 +2031,7 @@ boolv ijkVecAnd4ivs(bool4 bv_out, int4 const v_lh, i32 const s_rh);
 //		param v_lh: left-hand vector
 //		param s_rh: right-hand scalar
 //		return: bv_out
-boolv ijkVecNand4ivs(bool4 bv_out, int4 const v_lh, i32 const s_rh);
+boolv ijkVecNand4fvs(bool4 bv_out, float4 const v_lh, f32 const s_rh);
 
 // ijkVecOr4*vs
 //	Component-wise logical 'or' of 4D vector and scalar.
@@ -2039,7 +2039,7 @@ boolv ijkVecNand4ivs(bool4 bv_out, int4 const v_lh, i32 const s_rh);
 //		param v_lh: left-hand vector
 //		param s_rh: right-hand scalar
 //		return: bv_out
-boolv ijkVecOr4ivs(bool4 bv_out, int4 const v_lh, i32 const s_rh);
+boolv ijkVecOr4fvs(bool4 bv_out, float4 const v_lh, f32 const s_rh);
 
 // ijkVecNor4*vs
 //	Component-wise logical 'nor' of 4D vector and scalar.
@@ -2047,7 +2047,7 @@ boolv ijkVecOr4ivs(bool4 bv_out, int4 const v_lh, i32 const s_rh);
 //		param v_lh: left-hand vector
 //		param s_rh: right-hand scalar
 //		return: bv_out
-boolv ijkVecNor4ivs(bool4 bv_out, int4 const v_lh, i32 const s_rh);
+boolv ijkVecNor4fvs(bool4 bv_out, float4 const v_lh, f32 const s_rh);
 
 // ijkVecCopy4*xyv
 //	Copy 4D vector from two scalars and 2D vector.
@@ -2056,7 +2056,7 @@ boolv ijkVecNor4ivs(bool4 bv_out, int4 const v_lh, i32 const s_rh);
 //		param y: second element
 //		param v_zw: input 2D vector holding last two components
 //		return: v_out
-intv ijkVecCopy4ixyv(int4 v_out, i32 const x, i32 const y, int2 const v_zw);
+floatv ijkVecCopy4fxyv(float4 v_out, f32 const x, f32 const y, float2 const v_zw);
 
 // ijkVecCopy4*xv
 //	Copy 4D vector from one scalar and 3D vector.
@@ -2064,7 +2064,7 @@ intv ijkVecCopy4ixyv(int4 v_out, i32 const x, i32 const y, int2 const v_zw);
 //		param x: first element
 //		param v_yzw: input 3D vector holding last three components
 //		return: v_out
-intv ijkVecCopy4ixv(int4 v_out, i32 const x, int3 const v_yzw);
+floatv ijkVecCopy4fxv(float4 v_out, f32 const x, float3 const v_yzw);
 
 // ijkVecAdd4*sv
 //	Calculate sum of scalar and 4D vector components.
@@ -2072,7 +2072,7 @@ intv ijkVecCopy4ixv(int4 v_out, i32 const x, int3 const v_yzw);
 //		param s_lh: left-hand scalar
 //		param v_rh: right-hand vector
 //		return: v_out
-intv ijkVecAdd4isv(int4 v_out, i32 const s_lh, int4 const v_rh);
+floatv ijkVecAdd4fsv(float4 v_out, f32 const s_lh, float4 const v_rh);
 
 // ijkVecSub4*sv
 //	Calculate difference of scalar and 4D vector components.
@@ -2080,7 +2080,7 @@ intv ijkVecAdd4isv(int4 v_out, i32 const s_lh, int4 const v_rh);
 //		param s_lh: left-hand scalar
 //		param v_rh: right-hand vector
 //		return: v_out
-intv ijkVecSub4isv(int4 v_out, i32 const s_lh, int4 const v_rh);
+floatv ijkVecSub4fsv(float4 v_out, f32 const s_lh, float4 const v_rh);
 
 // ijkVecMul4*sv
 //	Calculate product of scalar by 4D vector components.
@@ -2088,7 +2088,7 @@ intv ijkVecSub4isv(int4 v_out, i32 const s_lh, int4 const v_rh);
 //		param s_lh: left-hand scalar
 //		param v_rh: right-hand vector
 //		return: v_out
-intv ijkVecMul4isv(int4 v_out, i32 const s_lh, int4 const v_rh);
+floatv ijkVecMul4fsv(float4 v_out, f32 const s_lh, float4 const v_rh);
 
 // ijkVecDiv4*sv
 //	Calculate quotient of scalar by 4D vector components.
@@ -2096,7 +2096,7 @@ intv ijkVecMul4isv(int4 v_out, i32 const s_lh, int4 const v_rh);
 //		param s_lh: left-hand scalar
 //		param v_rh: right-hand vector
 //		return: v_out
-intv ijkVecDiv4isv(int4 v_out, i32 const s_lh, int4 const v_rh);
+floatv ijkVecDiv4fsv(float4 v_out, f32 const s_lh, float4 const v_rh);
 
 // ijkVecDivSafe4*sv
 //	Calculate quotient of scalar by 4D vector components, division-by-zero safe.
@@ -2104,7 +2104,7 @@ intv ijkVecDiv4isv(int4 v_out, i32 const s_lh, int4 const v_rh);
 //		param s_lh: left-hand scalar
 //		param v_rh: right-hand vector
 //		return: v_out
-intv ijkVecDivSafe4isv(int4 v_out, i32 const s_lh, int4 const v_rh);
+floatv ijkVecDivSafe4fsv(float4 v_out, f32 const s_lh, float4 const v_rh);
 
 // ijkVecMod4*sv
 //	Calculate remainder of scalar by 4D vector components.
@@ -2112,7 +2112,7 @@ intv ijkVecDivSafe4isv(int4 v_out, i32 const s_lh, int4 const v_rh);
 //		param s_lh: left-hand scalar
 //		param v_rh: right-hand vector
 //		return: v_out
-intv ijkVecMod4isv(int4 v_out, i32 const s_lh, int4 const v_rh);
+floatv ijkVecMod4fsv(float4 v_out, f32 const s_lh, float4 const v_rh);
 
 // ijkVecModSafe4*sv
 //	Calculate remainder of scalar by 4D vector components, division-by-zero safe.
@@ -2120,16 +2120,16 @@ intv ijkVecMod4isv(int4 v_out, i32 const s_lh, int4 const v_rh);
 //		param s_lh: left-hand scalar
 //		param v_rh: right-hand vector
 //		return: v_out
-intv ijkVecModSafe4isv(int4 v_out, i32 const s_lh, int4 const v_rh);
+floatv ijkVecModSafe4fsv(float4 v_out, f32 const s_lh, float4 const v_rh);
 
-#if TINTEGER
+#if TfloatEGER
 // ijkVecBitAnd4*sv
 //	Calculate bitwise 'and' of scalar and 4D vector components.
 //		param v_out: output vector to hold bitwise 'and'
 //		param s_lh: left-hand scalar
 //		param v_rh: right-hand vector
 //		return: v_out
-intv ijkVecBitAnd4isv(int4 v_out, i32 const s_lh, int4 const v_rh);
+floatv ijkVecBitAnd4fsv(float4 v_out, f32 const s_lh, float4 const v_rh);
 
 // ijkVecBitNand4*sv
 //	Calculate bitwise 'not and' of scalar and 4D vector components.
@@ -2137,7 +2137,7 @@ intv ijkVecBitAnd4isv(int4 v_out, i32 const s_lh, int4 const v_rh);
 //		param s_lh: left-hand scalar
 //		param v_rh: right-hand vector
 //		return: v_out
-intv ijkVecBitNand4isv(int4 v_out, i32 const s_lh, int4 const v_rh);
+floatv ijkVecBitNand4fsv(float4 v_out, f32 const s_lh, float4 const v_rh);
 
 // ijkVecBitOr4*sv
 //	Calculate bitwise 'or' of scalar and 4D vector components.
@@ -2145,7 +2145,7 @@ intv ijkVecBitNand4isv(int4 v_out, i32 const s_lh, int4 const v_rh);
 //		param s_lh: left-hand scalar
 //		param v_rh: right-hand vector
 //		return: v_out
-intv ijkVecBitOr4isv(int4 v_out, i32 const s_lh, int4 const v_rh);
+floatv ijkVecBitOr4fsv(float4 v_out, f32 const s_lh, float4 const v_rh);
 
 // ijkVecBitNor4*sv
 //	Calculate bitwise 'not or' of scalar and 4D vector components.
@@ -2153,7 +2153,7 @@ intv ijkVecBitOr4isv(int4 v_out, i32 const s_lh, int4 const v_rh);
 //		param s_lh: left-hand scalar
 //		param v_rh: right-hand vector
 //		return: v_out
-intv ijkVecBitNor4isv(int4 v_out, i32 const s_lh, int4 const v_rh);
+floatv ijkVecBitNor4fsv(float4 v_out, f32 const s_lh, float4 const v_rh);
 
 // ijkVecBitXor4*sv
 //	Calculate bitwise 'exclusive or' of scalar and 4D vector components.
@@ -2161,7 +2161,7 @@ intv ijkVecBitNor4isv(int4 v_out, i32 const s_lh, int4 const v_rh);
 //		param s_lh: left-hand scalar
 //		param v_rh: right-hand vector
 //		return: v_out
-intv ijkVecBitXor4isv(int4 v_out, i32 const s_lh, int4 const v_rh);
+floatv ijkVecBitXor4fsv(float4 v_out, f32 const s_lh, float4 const v_rh);
 
 // ijkVecBitXnor4*sv
 //	Calculate bitwise 'not exclusive or' of scalar and 4D vector components.
@@ -2169,7 +2169,7 @@ intv ijkVecBitXor4isv(int4 v_out, i32 const s_lh, int4 const v_rh);
 //		param s_lh: left-hand scalar
 //		param v_rh: right-hand vector
 //		return: v_out
-intv ijkVecBitXnor4isv(int4 v_out, i32 const s_lh, int4 const v_rh);
+floatv ijkVecBitXnor4fsv(float4 v_out, f32 const s_lh, float4 const v_rh);
 
 // ijkVecBitShiftLeft4*sv
 //	Calculate bit shift left of scalar by 4D vector components.
@@ -2177,7 +2177,7 @@ intv ijkVecBitXnor4isv(int4 v_out, i32 const s_lh, int4 const v_rh);
 //		param s_lh: left-hand scalar
 //		param v_rh: right-hand vector
 //		return: v_out
-intv ijkVecBitShiftLeft4isv(int4 v_out, i32 const s_lh, int4 const v_rh);
+floatv ijkVecBitShiftLeft4fsv(float4 v_out, f32 const s_lh, float4 const v_rh);
 
 // ijkVecBitShiftRight4*sv
 //	Calculate bit shift right of scalar by 4D vector components.
@@ -2185,8 +2185,8 @@ intv ijkVecBitShiftLeft4isv(int4 v_out, i32 const s_lh, int4 const v_rh);
 //		param s_lh: left-hand scalar
 //		param v_rh: right-hand vector
 //		return: v_out
-intv ijkVecBitShiftRight4isv(int4 v_out, i32 const s_lh, int4 const v_rh);
-#endif	// TINTEGER
+floatv ijkVecBitShiftRight4fsv(float4 v_out, f32 const s_lh, float4 const v_rh);
+#endif	// TfloatEGER
 
 // ijkVecEqual4*sv
 //	Equality comparison of scalar and 4D vector components.
@@ -2194,7 +2194,7 @@ intv ijkVecBitShiftRight4isv(int4 v_out, i32 const s_lh, int4 const v_rh);
 //		param s_lh: left-hand scalar
 //		param v_rh: right-hand vector
 //		return: bv_out
-boolv ijkVecEqual4isv(bool4 bv_out, i32 const s_lh, int4 const v_rh);
+boolv ijkVecEqual4fsv(bool4 bv_out, f32 const s_lh, float4 const v_rh);
 
 // ijkVecInequal4*sv
 //	Inequality comparison of scalar and 4D vector components.
@@ -2202,7 +2202,7 @@ boolv ijkVecEqual4isv(bool4 bv_out, i32 const s_lh, int4 const v_rh);
 //		param s_lh: left-hand scalar
 //		param v_rh: right-hand vector
 //		return: bv_out
-boolv ijkVecInequal4isv(bool4 bv_out, i32 const s_lh, int4 const v_rh);
+boolv ijkVecInequal4fsv(bool4 bv_out, f32 const s_lh, float4 const v_rh);
 
 // ijkVecLessEqual4*sv
 //	Less-than or equal comparison of scalar and 4D vector components.
@@ -2210,7 +2210,7 @@ boolv ijkVecInequal4isv(bool4 bv_out, i32 const s_lh, int4 const v_rh);
 //		param s_lh: left-hand scalar
 //		param v_rh: right-hand vector
 //		return: bv_out
-boolv ijkVecLessEqual4isv(bool4 bv_out, i32 const s_lh, int4 const v_rh);
+boolv ijkVecLessEqual4fsv(bool4 bv_out, f32 const s_lh, float4 const v_rh);
 
 // ijkVecGreaterEqual4*sv
 //	Greater-than or equal comparison of scalar and 4D vector components.
@@ -2218,7 +2218,7 @@ boolv ijkVecLessEqual4isv(bool4 bv_out, i32 const s_lh, int4 const v_rh);
 //		param s_lh: left-hand scalar
 //		param v_rh: right-hand vector
 //		return: bv_out
-boolv ijkVecGreaterEqual4isv(bool4 bv_out, i32 const s_lh, int4 const v_rh);
+boolv ijkVecGreaterEqual4fsv(bool4 bv_out, f32 const s_lh, float4 const v_rh);
 
 // ijkVecLess4*sv
 //	Less-than comparison of scalar and 4D vector components.
@@ -2226,7 +2226,7 @@ boolv ijkVecGreaterEqual4isv(bool4 bv_out, i32 const s_lh, int4 const v_rh);
 //		param s_lh: left-hand scalar
 //		param v_rh: right-hand vector
 //		return: bv_out
-boolv ijkVecLess4isv(bool4 bv_out, i32 const s_lh, int4 const v_rh);
+boolv ijkVecLess4fsv(bool4 bv_out, f32 const s_lh, float4 const v_rh);
 
 // ijkVecGreater4*sv
 //	Greater-than comparison of scalar and 4D vector components.
@@ -2234,7 +2234,7 @@ boolv ijkVecLess4isv(bool4 bv_out, i32 const s_lh, int4 const v_rh);
 //		param s_lh: left-hand scalar
 //		param v_rh: right-hand vector
 //		return: bv_out
-boolv ijkVecGreater4isv(bool4 bv_out, i32 const s_lh, int4 const v_rh);
+boolv ijkVecGreater4fsv(bool4 bv_out, f32 const s_lh, float4 const v_rh);
 
 // ijkVecAnd4*sv
 //	Component-wise logical 'and' of 4D vector and scalar.
@@ -2242,7 +2242,7 @@ boolv ijkVecGreater4isv(bool4 bv_out, i32 const s_lh, int4 const v_rh);
 //		param s_lh: left-hand scalar
 //		param v_rh: right-hand vector
 //		return: bv_out
-boolv ijkVecAnd4isv(bool4 bv_out, i32 const s_lh, int4 const v_rh);
+boolv ijkVecAnd4fsv(bool4 bv_out, f32 const s_lh, float4 const v_rh);
 
 // ijkVecNand4*sv
 //	Component-wise logical 'nand' of 4D vector and scalar.
@@ -2250,7 +2250,7 @@ boolv ijkVecAnd4isv(bool4 bv_out, i32 const s_lh, int4 const v_rh);
 //		param s_lh: left-hand scalar
 //		param v_rh: right-hand vector
 //		return: bv_out
-boolv ijkVecNand4isv(bool4 bv_out, i32 const s_lh, int4 const v_rh);
+boolv ijkVecNand4fsv(bool4 bv_out, f32 const s_lh, float4 const v_rh);
 
 // ijkVecOr4*sv
 //	Component-wise logical 'or' of 4D vector and scalar.
@@ -2258,7 +2258,7 @@ boolv ijkVecNand4isv(bool4 bv_out, i32 const s_lh, int4 const v_rh);
 //		param s_lh: left-hand scalar
 //		param v_rh: right-hand vector
 //		return: bv_out
-boolv ijkVecOr4isv(bool4 bv_out, i32 const s_lh, int4 const v_rh);
+boolv ijkVecOr4fsv(bool4 bv_out, f32 const s_lh, float4 const v_rh);
 
 // ijkVecNor4*sv
 //	Component-wise logical 'nor' of 4D vector and scalar.
@@ -2266,14 +2266,14 @@ boolv ijkVecOr4isv(bool4 bv_out, i32 const s_lh, int4 const v_rh);
 //		param s_lh: left-hand scalar
 //		param v_rh: right-hand vector
 //		return: bv_out
-boolv ijkVecNor4isv(bool4 bv_out, i32 const s_lh, int4 const v_rh);
+boolv ijkVecNor4fsv(bool4 bv_out, f32 const s_lh, float4 const v_rh);
 
 // ijkVecDot4*v
 //	Dot product of 4D array-based vectors.
 //		param v_lh: left-hand vector
 //		param v_rh: right-hand vector
 //		return: dot product
-i32 ijkVecDot4iv(int4 const v_lh, int4 const v_rh);
+f32 ijkVecDot4fv(float4 const v_lh, float4 const v_rh);
 
 // ijkVecCross4*v
 //	Cross product of 4D array-based vectors.
@@ -2281,7 +2281,7 @@ i32 ijkVecDot4iv(int4 const v_lh, int4 const v_rh);
 //		param v_lh: left-hand vector
 //		param v_rh: right-hand vector
 //		return: v_out (fourth element is zero)
-intv ijkVecCross4iv(int4 v_out, int4 const v_lh, int4 const v_rh);
+floatv ijkVecCross4fv(float4 v_out, float4 const v_lh, float4 const v_rh);
 
 
 //-----------------------------------------------------------------------------
@@ -2298,50 +2298,50 @@ intv ijkVecCross4iv(int4 v_out, int4 const v_lh, int4 const v_rh);
 //	Absolute value of scalar: (s >= 0 ? +s : -s).
 //		param s: scalar
 //		return: absolute value
-int ijkVecAbs1i(int const s);
+float ijkVecAbs1f(float const s);
 
 // ijkVecSgn1*
 //	Sign of scalar: (s != 0 ? s > 0 ? +1 : -1).
 //		param s: scalar
 //		return: sign
-int ijkVecSgn1i(int const s);
+float ijkVecSgn1f(float const s);
 
 // ijkVecDot1*
 //	Dot product of scalars, which is just their product.
 //		param s_lh: left-hand scalar
 //		param s_rh: right-hand scalar
 //		return: product
-int ijkVecDot1i(int const s_lh, int const s_rh);
+float ijkVecDot1f(float const s_lh, float const s_rh);
 
 // ijkVecLengthSq1*
 //	Squared length of scalar.
 //		param s: scalar
 //		return: squared length
-int ijkVecLengthSq1i(int const s);
+float ijkVecLengthSq1f(float const s);
 
 // ijkVecLength1*
 //	Length of scalar.
 //		param s: scalar
 //		return: length
-int ijkVecLength1i(int const s);
+float ijkVecLength1f(float const s);
 
 // ijkVecLengthSqInv1*
 //	Inverse squared length of scalar.
 //		param s: scalar
 //		return: inverse squared length
-int ijkVecLengthSqInv1i(int const s);
+float ijkVecLengthSqInv1f(float const s);
 
 // ijkVecLengthSqInv1*
 //	Inverse length of scalar.
 //		param s: scalar
 //		return: inverse length
-int ijkVecLengthInv1i(int const s);
+float ijkVecLengthInv1f(float const s);
 
 // ijkVecNormalize1*
 //	Calculate unit scalar in same direction as input (sign).
 //		param s: scalar
 //		return: unit scalar (sign)
-int ijkVecNormalize1i(int const s);
+float ijkVecNormalize1f(float const s);
 
 // ijkVecNormalizeGetLength1*
 //	Calculate unit scalar in same direction as input (sign).
@@ -2349,7 +2349,7 @@ int ijkVecNormalize1i(int const s);
 //		param s: scalar
 //		param length_out: pointer to length storage
 //		return: unit scalar (sign)
-int ijkVecNormalizeGetLength1i(int const s, int* const length_out);
+float ijkVecNormalizeGetLength1f(float const s, float* const length_out);
 
 // ijkVecNormalizeGetLengthInv1*
 //	Calculate unit scalar in same direction as input (sign).
@@ -2357,7 +2357,7 @@ int ijkVecNormalizeGetLength1i(int const s, int* const length_out);
 //		param s: scalar
 //		param lengthInv_out: pointer to length storage
 //		return: unit scalar (sign)
-int ijkVecNormalizeGetLengthInv1i(int const s, int* const lengthInv_out);
+float ijkVecNormalizeGetLengthInv1f(float const s, float* const lengthInv_out);
 
 
 //-----------------------------------------------------------------------------
@@ -2365,615 +2365,615 @@ int ijkVecNormalizeGetLengthInv1i(int const s, int* const lengthInv_out);
 // ijkVecInit2*
 //	Initialize 2D vector to default value (zero vector).
 //		return: default vector
-ivec2 ijkVecInit2i();
+fvec2 ijkVecInit2f();
 
 // ijkVecInitElems2*
 //	Initialize 2D vector to specified individual elements.
 //		param x: first element
 //		param y: second element
 //		return: result vector
-ivec2 ijkVecInitElems2i(int const x, int const y);
+fvec2 ijkVecInitElems2f(float const x, float const y);
 
 // ijkVecCopy2*
 //	Copy 2D vector from first elements of another vector.
 //		param v_in: input vector
 //		return: result vector
-ivec2 ijkVecCopy2i(ivec2 const v_in);
+fvec2 ijkVecCopy2f(fvec2 const v_in);
 
 // ijkVecNegate2*
 //	Negate 2D vector.
 //		param v_in: input vector
 //		return: result vector
 #if TSIGNED
-ivec2 ijkVecNegate2i(ivec2 const v_in);
+fvec2 ijkVecNegate2f(fvec2 const v_in);
 #endif	// TSIGNED
 
 // ijkVecBitNot2*
 //	Calculate component-wise bitwise 'not' of 2D vector.
 //		param v_in: input vector
 //		return: result vector
-#if TINTEGER
-ivec2 ijkVecBitNot2i(ivec2 const v_in);
-#endif	// TINTEGER
+#if TfloatEGER
+fvec2 ijkVecBitNot2f(fvec2 const v_in);
+#endif	// TfloatEGER
 
 // ijkVecNot2*
 //	Calculate component-wise logical 'not' of 2D vector.
 //		param v_in: input vector
 //		return: comparison vector
-bvec2 ijkVecNot2i(ivec2 const v_in);
+bvec2 ijkVecNot2f(fvec2 const v_in);
 
 // ijkVecAdd2*
 //	Calculate sum of 2D vectors.
 //		param v_lh: left-hand vector
 //		param v_rh: right-hand vector
 //		return: result vector
-ivec2 ijkVecAdd2i(ivec2 const v_lh, ivec2 const v_rh);
+fvec2 ijkVecAdd2f(fvec2 const v_lh, fvec2 const v_rh);
 
 // ijkVecSub2*
 //	Calculate difference of 2D vectors.
 //		param v_lh: left-hand vector
 //		param v_rh: right-hand vector
 //		return: result vector
-ivec2 ijkVecSub2i(ivec2 const v_lh, ivec2 const v_rh);
+fvec2 ijkVecSub2f(fvec2 const v_lh, fvec2 const v_rh);
 
 // ijkVecMul2*
 //	Calculate component-wise product of 2D vectors.
 //		param v_lh: left-hand vector
 //		param v_rh: right-hand vector
 //		return: result vector
-ivec2 ijkVecMul2i(ivec2 const v_lh, ivec2 const v_rh);
+fvec2 ijkVecMul2f(fvec2 const v_lh, fvec2 const v_rh);
 
 // ijkVecDiv2*
 //	Calculate component-wise quotient of 2D vectors.
 //		param v_lh: left-hand vector
 //		param v_rh: right-hand vector
 //		return: result vector
-ivec2 ijkVecDiv2i(ivec2 const v_lh, ivec2 const v_rh);
+fvec2 ijkVecDiv2f(fvec2 const v_lh, fvec2 const v_rh);
 
 // ijkVecDivSafe2*
 //	Calculate component-wise quotient of 2D vectors, division-by-zero safe.
 //		param v_lh: left-hand vector
 //		param v_rh: right-hand vector
 //		return: result vector
-ivec2 ijkVecDivSafe2i(ivec2 const v_lh, ivec2 const v_rh);
+fvec2 ijkVecDivSafe2f(fvec2 const v_lh, fvec2 const v_rh);
 
 // ijkVecMod2*
 //	Calculate component-wise remainder of 2D vectors.
 //		param v_lh: left-hand vector
 //		param v_rh: right-hand vector
 //		return: result vector
-ivec2 ijkVecMod2i(ivec2 const v_lh, ivec2 const v_rh);
+fvec2 ijkVecMod2f(fvec2 const v_lh, fvec2 const v_rh);
 
 // ijkVecModSafe2*
 //	Calculate component-wise remainder of 2D vectors, division-by-zero safe.
 //		param v_lh: left-hand vector
 //		param v_rh: right-hand vector
 //		return: result vector
-ivec2 ijkVecModSafe2i(ivec2 const v_lh, ivec2 const v_rh);
+fvec2 ijkVecModSafe2f(fvec2 const v_lh, fvec2 const v_rh);
 
-#if TINTEGER
+#if TfloatEGER
 // ijkVecBitAnd2*
 //	Calculate component-wise bitwise 'and' of 2D vectors.
 //		param v_lh: left-hand vector
 //		param v_rh: right-hand vector
 //		return: result vector
-ivec2 ijkVecBitAnd2i(ivec2 const v_lh, ivec2 const v_rh);
+fvec2 ijkVecBitAnd2f(fvec2 const v_lh, fvec2 const v_rh);
 
 // ijkVecBitNand2*
 //	Calculate component-wise bitwise 'not and' of 2D vectors.
 //		param v_lh: left-hand vector
 //		param v_rh: right-hand vector
 //		return: result vector
-ivec2 ijkVecBitNand2i(ivec2 const v_lh, ivec2 const v_rh);
+fvec2 ijkVecBitNand2f(fvec2 const v_lh, fvec2 const v_rh);
 
 // ijkVecBitOr2*
 //	Calculate component-wise bitwise 'or' of 2D vectors.
 //		param v_lh: left-hand vector
 //		param v_rh: right-hand vector
 //		return: result vector
-ivec2 ijkVecBitOr2i(ivec2 const v_lh, ivec2 const v_rh);
+fvec2 ijkVecBitOr2f(fvec2 const v_lh, fvec2 const v_rh);
 
 // ijkVecBitNor2*
 //	Calculate component-wise bitwise 'not or' of 2D vectors.
 //		param v_lh: left-hand vector
 //		param v_rh: right-hand vector
 //		return: result vector
-ivec2 ijkVecBitNor2i(ivec2 const v_lh, ivec2 const v_rh);
+fvec2 ijkVecBitNor2f(fvec2 const v_lh, fvec2 const v_rh);
 
 // ijkVecBitXor2*
 //	Calculate component-wise bitwise 'exclusive or' of 2D vectors.
 //		param v_lh: left-hand vector
 //		param v_rh: right-hand vector
 //		return: result vector
-ivec2 ijkVecBitXor2i(ivec2 const v_lh, ivec2 const v_rh);
+fvec2 ijkVecBitXor2f(fvec2 const v_lh, fvec2 const v_rh);
 
 // ijkVecBitXnor2*
 //	Calculate component-wise bitwise 'not exclusive or' of 2D vectors.
 //		param v_lh: left-hand vector
 //		param v_rh: right-hand vector
 //		return: result vector
-ivec2 ijkVecBitXnor2i(ivec2 const v_lh, ivec2 const v_rh);
+fvec2 ijkVecBitXnor2f(fvec2 const v_lh, fvec2 const v_rh);
 
 // ijkVecBitShiftLeft2*
 //	Calculate component-wise bit shift left of 2D vectors.
 //		param v_lh: left-hand vector
 //		param v_rh: right-hand vector
 //		return: result vector
-ivec2 ijkVecBitShiftLeft2i(ivec2 const v_lh, ivec2 const v_rh);
+fvec2 ijkVecBitShiftLeft2f(fvec2 const v_lh, fvec2 const v_rh);
 
 // ijkVecBitShiftRight2*
 //	Calculate component-wise bit shift right of 2D vectors.
 //		param v_lh: left-hand vector
 //		param v_rh: right-hand vector
 //		return: result vector
-ivec2 ijkVecBitShiftRight2i(ivec2 const v_lh, ivec2 const v_rh);
-#endif	// TINTEGER
+fvec2 ijkVecBitShiftRight2f(fvec2 const v_lh, fvec2 const v_rh);
+#endif	// TfloatEGER
 
 // ijkVecEqual2*
 //	Equality comparison for 2D vectors.
 //		param v_lh: left-hand vector
 //		param v_rh: right-hand vector
 //		return: comparison vector
-bvec2 ijkVecEqual2i(ivec2 const v_lh, ivec2 const v_rh);
+bvec2 ijkVecEqual2f(fvec2 const v_lh, fvec2 const v_rh);
 
 // ijkVecInequal2*
 //	Inequality comparison for 2D vectors.
 //		param v_lh: left-hand vector
 //		param v_rh: right-hand vector
 //		return: comparison vector
-bvec2 ijkVecInequal2i(ivec2 const v_lh, ivec2 const v_rh);
+bvec2 ijkVecInequal2f(fvec2 const v_lh, fvec2 const v_rh);
 
 // ijkVecLessEqual2*
 //	Less-than or equal comparison for 2D vectors.
 //		param v_lh: left-hand vector
 //		param v_rh: right-hand vector
 //		return: comparison vector
-bvec2 ijkVecLessEqual2i(ivec2 const v_lh, ivec2 const v_rh);
+bvec2 ijkVecLessEqual2f(fvec2 const v_lh, fvec2 const v_rh);
 
 // ijkVecGreaterEqual2*
 //	Greater-than or equal comparison for 2D vectors.
 //		param v_lh: left-hand vector
 //		param v_rh: right-hand vector
 //		return: comparison vector
-bvec2 ijkVecGreaterEqual2i(ivec2 const v_lh, ivec2 const v_rh);
+bvec2 ijkVecGreaterEqual2f(fvec2 const v_lh, fvec2 const v_rh);
 
 // ijkVecLess2*
 //	Less-than comparison for 2D vectors.
 //		param v_lh: left-hand vector
 //		param v_rh: right-hand vector
 //		return: comparison vector
-bvec2 ijkVecLess2i(ivec2 const v_lh, ivec2 const v_rh);
+bvec2 ijkVecLess2f(fvec2 const v_lh, fvec2 const v_rh);
 
 // ijkVecGreater2*
 //	Greater-than comparison for 2D vectors.
 //		param v_lh: left-hand vector
 //		param v_rh: right-hand vector
 //		return: comparison vector
-bvec2 ijkVecGreater2i(ivec2 const v_lh, ivec2 const v_rh);
+bvec2 ijkVecGreater2f(fvec2 const v_lh, fvec2 const v_rh);
 
 // ijkVecAnd2*
 //	Component-wise logical 'and' comparison for 2D vectors.
 //		param v_lh: left-hand vector
 //		param v_rh: right-hand vector
 //		return: comparison vector
-bvec2 ijkVecAnd2i(ivec2 const v_lh, ivec2 const v_rh);
+bvec2 ijkVecAnd2f(fvec2 const v_lh, fvec2 const v_rh);
 
 // ijkVecNand2*
 //	Component-wise logical 'nand' comparison for 2D vectors.
 //		param v_lh: left-hand vector
 //		param v_rh: right-hand vector
 //		return: comparison vector
-bvec2 ijkVecNand2i(ivec2 const v_lh, ivec2 const v_rh);
+bvec2 ijkVecNand2f(fvec2 const v_lh, fvec2 const v_rh);
 
 // ijkVecOr2*
 //	Component-wise logical 'or' comparison for 2D vectors.
 //		param v_lh: left-hand vector
 //		param v_rh: right-hand vector
 //		return: comparison vector
-bvec2 ijkVecOr2i(ivec2 const v_lh, ivec2 const v_rh);
+bvec2 ijkVecOr2f(fvec2 const v_lh, fvec2 const v_rh);
 
 // ijkVecNor2*
 //	Component-wise logical 'nor' comparison for 2D vectors.
 //		param v_lh: left-hand vector
 //		param v_rh: right-hand vector
 //		return: comparison vector
-bvec2 ijkVecNor2i(ivec2 const v_lh, ivec2 const v_rh);
+bvec2 ijkVecNor2f(fvec2 const v_lh, fvec2 const v_rh);
 
 // ijkVecCopy2*s
 //	Copy 2D vector from scalar.
 //		param s_in: input scalar
 //		return: result vector
-ivec2 ijkVecCopy2is(int const s_in);
+fvec2 ijkVecCopy2fs(float const s_in);
 
 // ijkVecNegate2*s
 //	Negate scalar to 2D vector.
 //		param s_in: input scalar
 //		return: result vector
 #if TSIGNED
-ivec2 ijkVecNegate2is(int const s_in);
+fvec2 ijkVecNegate2fs(float const s_in);
 #endif	// TSIGNED
 
 // ijkVecBitNot2*s
 //	Calculate bitwise 'not' of 2D vector.
 //		param s_in: input scalar
 //		return: result vector
-#if TINTEGER
-ivec2 ijkVecBitNot2is(int const s_in);
-#endif	// TINTEGER
+#if TfloatEGER
+fvec2 ijkVecBitNot2fs(float const s_in);
+#endif	// TfloatEGER
 
 // ijkVecNot2*s
 //	Calculate logical 'not' of scalar.
 //		param s_in: input scalar
 //		return: comparison vector
-bvec2 ijkVecNot2is(int const s_in);
+bvec2 ijkVecNot2fs(float const s_in);
 
 // ijkVecAdd2*s
 //	Calculate sum of 2D vector components and scalar.
 //		param v_lh: left-hand vector
 //		param s_rh: right-hand scalar
 //		return: result vector
-ivec2 ijkVecAdd2is(ivec2 const v_lh, int const s_rh);
+fvec2 ijkVecAdd2fs(fvec2 const v_lh, float const s_rh);
 
 // ijkVecSub2*s
 //	Calculate difference of 2D vector components and scalar.
 //		param v_lh: left-hand vector
 //		param s_rh: right-hand scalar
 //		return: result vector
-ivec2 ijkVecSub2is(ivec2 const v_lh, int const s_rh);
+fvec2 ijkVecSub2fs(fvec2 const v_lh, float const s_rh);
 
 // ijkVecMul2*s
 //	Calculate product of 2D vector components by scalar.
 //		param v_lh: left-hand vector
 //		param s_rh: right-hand scalar
 //		return: result vector
-ivec2 ijkVecMul2is(ivec2 const v_lh, int const s_rh);
+fvec2 ijkVecMul2fs(fvec2 const v_lh, float const s_rh);
 
 // ijkVecDiv2*s
 //	Calculate quotient of 2D vector components by scalar.
 //		param v_lh: left-hand vector
 //		param s_rh: right-hand scalar
 //		return: result vector
-ivec2 ijkVecDiv2is(ivec2 const v_lh, int const s_rh);
+fvec2 ijkVecDiv2fs(fvec2 const v_lh, float const s_rh);
 
 // ijkVecDivSafe2*s
 //	Calculate quotient of 2D vector components by scalar, division-by-zero safe.
 //		param v_lh: left-hand vector
 //		param s_rh: right-hand scalar
 //		return: result vector
-ivec2 ijkVecDivSafe2is(ivec2 const v_lh, int const s_rh);
+fvec2 ijkVecDivSafe2fs(fvec2 const v_lh, float const s_rh);
 
 // ijkVecMod2*s
 //	Calculate remainder of 2D vector components by scalar.
 //		param v_lh: left-hand vector
 //		param s_rh: right-hand scalar
 //		return: result vector
-ivec2 ijkVecMod2is(ivec2 const v_lh, int const s_rh);
+fvec2 ijkVecMod2fs(fvec2 const v_lh, float const s_rh);
 
 // ijkVecModSafe2*s
 //	Calculate remainder of 2D vector components by scalar, division-by-zero safe.
 //		param v_lh: left-hand vector
 //		param s_rh: right-hand scalar
 //		return: result vector
-ivec2 ijkVecModSafe2is(ivec2 const v_lh, int const s_rh);
+fvec2 ijkVecModSafe2fs(fvec2 const v_lh, float const s_rh);
 
-#if TINTEGER
+#if TfloatEGER
 // ijkVecBitAnd2*s
 //	Calculate bitwise 'and' of 2D vector components and scalar.
 //		param v_lh: left-hand vector
 //		param s_rh: right-hand scalar
 //		return: result vector
-ivec2 ijkVecBitAnd2is(ivec2 const v_lh, int const s_rh);
+fvec2 ijkVecBitAnd2fs(fvec2 const v_lh, float const s_rh);
 
 // ijkVecBitNand2*s
 //	Calculate bitwise 'not and' of 2D vector components and scalar.
 //		param v_lh: left-hand vector
 //		param s_rh: right-hand scalar
 //		return: result vector
-ivec2 ijkVecBitNand2is(ivec2 const v_lh, int const s_rh);
+fvec2 ijkVecBitNand2fs(fvec2 const v_lh, float const s_rh);
 
 // ijkVecBitOr2*s
 //	Calculate bitwise 'or' of 2D vector components and scalar.
 //		param v_lh: left-hand vector
 //		param s_rh: right-hand scalar
 //		return: result vector
-ivec2 ijkVecBitOr2is(ivec2 const v_lh, int const s_rh);
+fvec2 ijkVecBitOr2fs(fvec2 const v_lh, float const s_rh);
 
 // ijkVecBitNor2*s
 //	Calculate bitwise 'not or' of 2D vector components and scalar.
 //		param v_lh: left-hand vector
 //		param s_rh: right-hand scalar
 //		return: result vector
-ivec2 ijkVecBitNor2is(ivec2 const v_lh, int const s_rh);
+fvec2 ijkVecBitNor2fs(fvec2 const v_lh, float const s_rh);
 
 // ijkVecBitXor2*s
 //	Calculate bitwise 'exclusive or' of 2D vector components and scalar.
 //		param v_lh: left-hand vector
 //		param s_rh: right-hand scalar
 //		return: result vector
-ivec2 ijkVecBitXor2is(ivec2 const v_lh, int const s_rh);
+fvec2 ijkVecBitXor2fs(fvec2 const v_lh, float const s_rh);
 
 // ijkVecBitXnor2*s
 //	Calculate bitwise 'not exclusive or' of 2D vector components and scalar.
 //		param v_lh: left-hand vector
 //		param s_rh: right-hand scalar
 //		return: result vector
-ivec2 ijkVecBitXnor2is(ivec2 const v_lh, int const s_rh);
+fvec2 ijkVecBitXnor2fs(fvec2 const v_lh, float const s_rh);
 
 // ijkVecBitShiftLeft2*s
 //	Calculate bit shift left of 2D vector components and scalar.
 //		param v_lh: left-hand vector
 //		param s_rh: right-hand scalar
 //		return: result vector
-ivec2 ijkVecBitShiftLeft2is(ivec2 const v_lh, int const s_rh);
+fvec2 ijkVecBitShiftLeft2fs(fvec2 const v_lh, float const s_rh);
 
 // ijkVecBitShiftRight2*s
 //	Calculate bit shift right of 2D vector components and scalar.
 //		param v_lh: left-hand vector
 //		param s_rh: right-hand scalar
 //		return: result vector
-ivec2 ijkVecBitShiftRight2is(ivec2 const v_lh, int const s_rh);
-#endif	// TINTEGER
+fvec2 ijkVecBitShiftRight2fs(fvec2 const v_lh, float const s_rh);
+#endif	// TfloatEGER
 
 // ijkVecEqual2*s
 //	Equality comparison of 2D vector components and scalar.
 //		param v_lh: left-hand vector
 //		param s_rh: right-hand scalar
 //		return: comparison vector
-bvec2 ijkVecEqual2is(ivec2 const v_lh, int const s_rh);
+bvec2 ijkVecEqual2fs(fvec2 const v_lh, float const s_rh);
 
 // ijkVecInequal2*s
 //	Inequality comparison of 2D vector components and scalar.
 //		param v_lh: left-hand vector
 //		param s_rh: right-hand scalar
 //		return: comparison vector
-bvec2 ijkVecInequal2is(ivec2 const v_lh, int const s_rh);
+bvec2 ijkVecInequal2fs(fvec2 const v_lh, float const s_rh);
 
 // ijkVecLessEqual2*s
 //	Less-than or equal comparison of 2D vector components and scalar.
 //		param v_lh: left-hand vector
 //		param s_rh: right-hand scalar
 //		return: comparison vector
-bvec2 ijkVecLessEqual2is(ivec2 const v_lh, int const s_rh);
+bvec2 ijkVecLessEqual2fs(fvec2 const v_lh, float const s_rh);
 
 // ijkVecGreaterEqual2*s
 //	Greater-than or equal comparison of 2D vector components and scalar.
 //		param v_lh: left-hand vector
 //		param s_rh: right-hand scalar
 //		return: comparison vector
-bvec2 ijkVecGreaterEqual2is(ivec2 const v_lh, int const s_rh);
+bvec2 ijkVecGreaterEqual2fs(fvec2 const v_lh, float const s_rh);
 
 // ijkVecLess2*s
 //	Less-than comparison of 2D vector components and scalar.
 //		param v_lh: left-hand vector
 //		param s_rh: right-hand scalar
 //		return: comparison vector
-bvec2 ijkVecLess2is(ivec2 const v_lh, int const s_rh);
+bvec2 ijkVecLess2fs(fvec2 const v_lh, float const s_rh);
 
 // ijkVecGreater2*s
 //	Greater-than comparison of 2D vector components and scalar.
 //		param v_lh: left-hand vector
 //		param s_rh: right-hand scalar
 //		return: comparison vector
-bvec2 ijkVecGreater2is(ivec2 const v_lh, int const s_rh);
+bvec2 ijkVecGreater2fs(fvec2 const v_lh, float const s_rh);
 
 // ijkVecAnd2*s
 //	Component-wise logical 'and' comparison of 2D vector and scalar.
 //		param v_lh: left-hand vector
 //		param s_rh: right-hand scalar
 //		return: comparison vector
-bvec2 ijkVecAnd2is(ivec2 const v_lh, int const s_rh);
+bvec2 ijkVecAnd2fs(fvec2 const v_lh, float const s_rh);
 
 // ijkVecNand2*s
 //	Component-wise logical 'nand' comparison of 2D vector and scalar.
 //		param v_lh: left-hand vector
 //		param s_rh: right-hand scalar
 //		return: comparison vector
-bvec2 ijkVecNand2is(ivec2 const v_lh, int const s_rh);
+bvec2 ijkVecNand2fs(fvec2 const v_lh, float const s_rh);
 
 // ijkVecOr2*s
 //	Component-wise logical 'or' comparison of 2D vector and scalar.
 //		param v_lh: left-hand vector
 //		param s_rh: right-hand scalar
 //		return: comparison vector
-bvec2 ijkVecOr2is(ivec2 const v_lh, int const s_rh);
+bvec2 ijkVecOr2fs(fvec2 const v_lh, float const s_rh);
 
 // ijkVecNor2*s
 //	Component-wise logical 'nor' comparison of 2D vector and scalar.
 //		param v_lh: left-hand vector
 //		param s_rh: right-hand scalar
 //		return: comparison vector
-bvec2 ijkVecNor2is(ivec2 const v_lh, int const s_rh);
+bvec2 ijkVecNor2fs(fvec2 const v_lh, float const s_rh);
 
 // ijkVecAdd2s*
 //	Calculate sum of scalar and 2D vector components.
 //		param s_lh: left-hand scalar
 //		param v_rh: right-hand vector
 //		return: result vector
-ivec2 ijkVecAdd2si(int const s_lh, ivec2 const v_rh);
+fvec2 ijkVecAdd2sf(float const s_lh, fvec2 const v_rh);
 
 // ijkVecSub2s*
 //	Calculate difference of scalar and 2D vector components.
 //		param s_lh: left-hand scalar
 //		param v_rh: right-hand vector
 //		return: result vector
-ivec2 ijkVecSub2si(int const s_lh, ivec2 const v_rh);
+fvec2 ijkVecSub2sf(float const s_lh, fvec2 const v_rh);
 
 // ijkVecMul2s*
 //	Calculate product of scalar by 2D vector components.
 //		param s_lh: left-hand scalar
 //		param v_rh: right-hand vector
 //		return: result vector
-ivec2 ijkVecMul2si(int const s_lh, ivec2 const v_rh);
+fvec2 ijkVecMul2sf(float const s_lh, fvec2 const v_rh);
 
 // ijkVecDiv2s*
 //	Calculate quotient of scalar by 2D vector components.
 //		param s_lh: left-hand scalar
 //		param v_rh: right-hand vector
 //		return: result vector
-ivec2 ijkVecDiv2si(int const s_lh, ivec2 const v_rh);
+fvec2 ijkVecDiv2sf(float const s_lh, fvec2 const v_rh);
 
 // ijkVecDivSafe2s*
 //	Calculate quotient of scalar by 2D vector components, division-by-zero safe.
 //		param s_lh: left-hand scalar
 //		param v_rh: right-hand vector
 //		return: result vector
-ivec2 ijkVecDivSafe2si(int const s_lh, ivec2 const v_rh);
+fvec2 ijkVecDivSafe2sf(float const s_lh, fvec2 const v_rh);
 
 // ijkVecMod2s*
 //	Calculate remainder of scalar by 2D vector components.
 //		param s_lh: left-hand scalar
 //		param v_rh: right-hand vector
 //		return: result vector
-ivec2 ijkVecMod2si(int const s_lh, ivec2 const v_rh);
+fvec2 ijkVecMod2sf(float const s_lh, fvec2 const v_rh);
 
 // ijkVecModSafe2s*
 //	Calculate remainder of scalar by 2D vector components, division-by-zero safe.
 //		param s_lh: left-hand scalar
 //		param v_rh: right-hand vector
 //		return: result vector
-ivec2 ijkVecModSafe2si(int const s_lh, ivec2 const v_rh);
+fvec2 ijkVecModSafe2sf(float const s_lh, fvec2 const v_rh);
 
-#if TINTEGER
+#if TfloatEGER
 // ijkVecBitAnd2s*
 //	Calculate bitwise 'and' of scalar and 2D vector components.
 //		param s_lh: left-hand scalar
 //		param v_rh: right-hand vector
 //		return: result vector
-ivec2 ijkVecBitAnd2si(int const s_lh, ivec2 const v_rh);
+fvec2 ijkVecBitAnd2sf(float const s_lh, fvec2 const v_rh);
 
 // ijkVecBitNand2s*
 //	Calculate bitwise 'not and' of scalar and 2D vector components.
 //		param s_lh: left-hand scalar
 //		param v_rh: right-hand vector
 //		return: result vector
-ivec2 ijkVecBitNand2si(int const s_lh, ivec2 const v_rh);
+fvec2 ijkVecBitNand2sf(float const s_lh, fvec2 const v_rh);
 
 // ijkVecBitOr2s*
 //	Calculate bitwise 'or' of scalar and 2D vector components.
 //		param s_lh: left-hand scalar
 //		param v_rh: right-hand vector
 //		return: result vector
-ivec2 ijkVecBitOr2si(int const s_lh, ivec2 const v_rh);
+fvec2 ijkVecBitOr2sf(float const s_lh, fvec2 const v_rh);
 
 // ijkVecBitNor2s*
 //	Calculate bitwise 'not or' of scalar and 2D vector components.
 //		param s_lh: left-hand scalar
 //		param v_rh: right-hand vector
 //		return: result vector
-ivec2 ijkVecBitNor2si(int const s_lh, ivec2 const v_rh);
+fvec2 ijkVecBitNor2sf(float const s_lh, fvec2 const v_rh);
 
 // ijkVecBitXor2s*
 //	Calculate bitwise 'exclusive or' of scalar and 2D vector components.
 //		param s_lh: left-hand scalar
 //		param v_rh: right-hand vector
 //		return: result vector
-ivec2 ijkVecBitXor2si(int const s_lh, ivec2 const v_rh);
+fvec2 ijkVecBitXor2sf(float const s_lh, fvec2 const v_rh);
 
 // ijkVecBitXnor2s*
 //	Calculate bitwise 'not exclusive or' of scalar and 2D vector components.
 //		param s_lh: left-hand scalar
 //		param v_rh: right-hand vector
 //		return: result vector
-ivec2 ijkVecBitXnor2si(int const s_lh, ivec2 const v_rh);
+fvec2 ijkVecBitXnor2sf(float const s_lh, fvec2 const v_rh);
 
 // ijkVecBitShiftLeft2s*
 //	Calculate bit shift left of scalar by 2D vector components.
 //		param s_lh: left-hand scalar
 //		param v_rh: right-hand vector
 //		return: result vector
-ivec2 ijkVecBitShiftLeft2si(int const s_lh, ivec2 const v_rh);
+fvec2 ijkVecBitShiftLeft2sf(float const s_lh, fvec2 const v_rh);
 
 // ijkVecBitShiftRight2s*
 //	Calculate bit shift right of scalar by 2D vector components.
 //		param s_lh: left-hand scalar
 //		param v_rh: right-hand vector
 //		return: result vector
-ivec2 ijkVecBitShiftRight2si(int const s_lh, ivec2 const v_rh);
-#endif	// TINTEGER
+fvec2 ijkVecBitShiftRight2sf(float const s_lh, fvec2 const v_rh);
+#endif	// TfloatEGER
 
 // ijkVecEqual2s*
 //	Equality comparison of scalar and 2D vector components.
 //		param s_lh: left-hand scalar
 //		param v_rh: right-hand vector
 //		return: comparison vector
-bvec2 ijkVecEqual2si(int const s_lh, ivec2 const v_rh);
+bvec2 ijkVecEqual2sf(float const s_lh, fvec2 const v_rh);
 
 // ijkVecInequal2s*
 //	Inequality comparison of scalar and 2D vector components.
 //		param s_lh: left-hand scalar
 //		param v_rh: right-hand vector
 //		return: comparison vector
-bvec2 ijkVecInequal2si(int const s_lh, ivec2 const v_rh);
+bvec2 ijkVecInequal2sf(float const s_lh, fvec2 const v_rh);
 
 // ijkVecLessEqual2s*
 //	Less-than or equal comparison of scalar and 2D vector components.
 //		param s_lh: left-hand scalar
 //		param v_rh: right-hand vector
 //		return: comparison vector
-bvec2 ijkVecLessEqual2si(int const s_lh, ivec2 const v_rh);
+bvec2 ijkVecLessEqual2sf(float const s_lh, fvec2 const v_rh);
 
 // ijkVecGreaterEqual2s*
 //	Greater-than or equal comparison of scalar and 2D vector components.
 //		param s_lh: left-hand scalar
 //		param v_rh: right-hand vector
 //		return: comparison vector
-bvec2 ijkVecGreaterEqual2si(int const s_lh, ivec2 const v_rh);
+bvec2 ijkVecGreaterEqual2sf(float const s_lh, fvec2 const v_rh);
 
 // ijkVecLess2s*
 //	Less-than comparison of scalar and 2D vector components.
 //		param s_lh: left-hand scalar
 //		param v_rh: right-hand vector
 //		return: comparison vector
-bvec2 ijkVecLess2si(int const s_lh, ivec2 const v_rh);
+bvec2 ijkVecLess2sf(float const s_lh, fvec2 const v_rh);
 
 // ijkVecGreater2s*
 //	Greater-than comparison of scalar and 2D vector components.
 //		param s_lh: left-hand scalar
 //		param v_rh: right-hand vector
 //		return: comparison vector
-bvec2 ijkVecGreater2si(int const s_lh, ivec2 const v_rh);
+bvec2 ijkVecGreater2sf(float const s_lh, fvec2 const v_rh);
 
 // ijkVecAnd2s*
 //	Component-wise logical 'and' comparison of 2D vector and scalar.
 //		param s_lh: left-hand scalar
 //		param v_rh: right-hand vector
 //		return: comparison vector
-bvec2 ijkVecAnd2si(int const s_lh, ivec2 const v_rh);
+bvec2 ijkVecAnd2sf(float const s_lh, fvec2 const v_rh);
 
 // ijkVecNand2s*
 //	Component-wise logical 'nand' comparison of 2D vector and scalar.
 //		param s_lh: left-hand scalar
 //		param v_rh: right-hand vector
 //		return: comparison vector
-bvec2 ijkVecNand2si(int const s_lh, ivec2 const v_rh);
+bvec2 ijkVecNand2sf(float const s_lh, fvec2 const v_rh);
 
 // ijkVecOr2s*
 //	Component-wise logical 'or' comparison of 2D vector and scalar.
 //		param s_lh: left-hand scalar
 //		param v_rh: right-hand vector
 //		return: comparison vector
-bvec2 ijkVecOr2si(int const s_lh, ivec2 const v_rh);
+bvec2 ijkVecOr2sf(float const s_lh, fvec2 const v_rh);
 
 // ijkVecNor2s*
 //	Component-wise logical 'nor' comparison of 2D vector and scalar.
 //		param s_lh: left-hand scalar
 //		param v_rh: right-hand vector
 //		return: comparison vector
-bvec2 ijkVecNor2si(int const s_lh, ivec2 const v_rh);
+bvec2 ijkVecNor2sf(float const s_lh, fvec2 const v_rh);
 
 // ijkVecDot2*
 //	Dot product of 2D vectors.
 //		param v_lh: left-hand vector
 //		param v_rh: right-hand vector
 //		return: dot product
-int ijkVecDot2i(ivec2 const v_lh, ivec2 const v_rh);
+float ijkVecDot2f(fvec2 const v_lh, fvec2 const v_rh);
 
 // ijkVecCross2*
 //	Cross product scalar of 2D vectors.
 //		param v_lh: left-hand vector
 //		param v_rh: right-hand vector
 //		return: scalar quantity of imaginary perpendicular axis
-int ijkVecCross2i(ivec2 const v_lh, ivec2 const v_rh);
+float ijkVecCross2f(fvec2 const v_lh, fvec2 const v_rh);
 
 
 //-----------------------------------------------------------------------------
@@ -2981,7 +2981,7 @@ int ijkVecCross2i(ivec2 const v_lh, ivec2 const v_rh);
 // ijkVecInit3*
 //	Initialize 3D vector to default value (zero vector).
 //		return: default vector
-ivec3 ijkVecInit3i();
+fvec3 ijkVecInit3f();
 
 // ijkVecInitElems3*
 //	Initialize 3D vector to specified individual elements.
@@ -2989,622 +2989,622 @@ ivec3 ijkVecInit3i();
 //		param y: second element
 //		param z: third element
 //		return: result vector
-ivec3 ijkVecInitElems3i(int const x, int const y, int const z);
+fvec3 ijkVecInitElems3f(float const x, float const y, float const z);
 
 // ijkVecCopy3*
 //	Copy 3D vector from first elements of another vector.
 //		param v_in: input vector
 //		return: result vector
-ivec3 ijkVecCopy3i(ivec3 const v_in);
+fvec3 ijkVecCopy3f(fvec3 const v_in);
 
 // ijkVecNegate3*
 //	Negate 3D vector.
 //		param v_in: input vector
 //		return: result vector
 #if TSIGNED
-ivec3 ijkVecNegate3i(ivec3 const v_in);
+fvec3 ijkVecNegate3f(fvec3 const v_in);
 #endif	// TSIGNED
 
 // ijkVecBitNot3*
 //	Calculate component-wise bitwise 'not' of 3D vector.
 //		param v_in: input vector
 //		return: result vector
-#if TINTEGER
-ivec3 ijkVecBitNot3i(ivec3 const v_in);
-#endif	// TINTEGER
+#if TfloatEGER
+fvec3 ijkVecBitNot3f(fvec3 const v_in);
+#endif	// TfloatEGER
 
 // ijkVecNot3*
 //	Calculate component-wise logical 'not' of 3D vector.
 //		param v_in: input vector
 //		return: comparison vector
-bvec3 ijkVecNot3i(ivec3 const v_in);
+bvec3 ijkVecNot3f(fvec3 const v_in);
 
 // ijkVecAdd3*
 //	Calculate sum of 3D vectors.
 //		param v_lh: left-hand vector
 //		param v_rh: right-hand vector
 //		return: result vector
-ivec3 ijkVecAdd3i(ivec3 const v_lh, ivec3 const v_rh);
+fvec3 ijkVecAdd3f(fvec3 const v_lh, fvec3 const v_rh);
 
 // ijkVecSub3*
 //	Calculate difference of 3D vectors.
 //		param v_lh: left-hand vector
 //		param v_rh: right-hand vector
 //		return: result vector
-ivec3 ijkVecSub3i(ivec3 const v_lh, ivec3 const v_rh);
+fvec3 ijkVecSub3f(fvec3 const v_lh, fvec3 const v_rh);
 
 // ijkVecMul3*
 //	Calculate component-wise product of 3D vectors.
 //		param v_lh: left-hand vector
 //		param v_rh: right-hand vector
 //		return: result vector
-ivec3 ijkVecMul3i(ivec3 const v_lh, ivec3 const v_rh);
+fvec3 ijkVecMul3f(fvec3 const v_lh, fvec3 const v_rh);
 
 // ijkVecDiv3*
 //	Calculate component-wise quotient of 3D vectors.
 //		param v_lh: left-hand vector
 //		param v_rh: right-hand vector
 //		return: result vector
-ivec3 ijkVecDiv3i(ivec3 const v_lh, ivec3 const v_rh);
+fvec3 ijkVecDiv3f(fvec3 const v_lh, fvec3 const v_rh);
 
 // ijkVecDivSafe3*
 //	Calculate component-wise quotient of 3D vectors, division-by-zero safe.
 //		param v_lh: left-hand vector
 //		param v_rh: right-hand vector
 //		return: result vector
-ivec3 ijkVecDivSafe3i(ivec3 const v_lh, ivec3 const v_rh);
+fvec3 ijkVecDivSafe3f(fvec3 const v_lh, fvec3 const v_rh);
 
 // ijkVecMod3*
 //	Calculate component-wise remainder of 3D vectors.
 //		param v_lh: left-hand vector
 //		param v_rh: right-hand vector
 //		return: result vector
-ivec3 ijkVecMod3i(ivec3 const v_lh, ivec3 const v_rh);
+fvec3 ijkVecMod3f(fvec3 const v_lh, fvec3 const v_rh);
 
 // ijkVecModSafe3*
 //	Calculate component-wise remainder of 3D vectors, division-by-zero safe.
 //		param v_lh: left-hand vector
 //		param v_rh: right-hand vector
 //		return: result vector
-ivec3 ijkVecModSafe3i(ivec3 const v_lh, ivec3 const v_rh);
+fvec3 ijkVecModSafe3f(fvec3 const v_lh, fvec3 const v_rh);
 
-#if TINTEGER
+#if TfloatEGER
 // ijkVecBitAnd3*
 //	Calculate component-wise bitwise 'and' of 3D vectors.
 //		param v_lh: left-hand vector
 //		param v_rh: right-hand vector
 //		return: result vector
-ivec3 ijkVecBitAnd3i(ivec3 const v_lh, ivec3 const v_rh);
+fvec3 ijkVecBitAnd3f(fvec3 const v_lh, fvec3 const v_rh);
 
 // ijkVecBitNand3*
 //	Calculate component-wise bitwise 'not and' of 3D vectors.
 //		param v_lh: left-hand vector
 //		param v_rh: right-hand vector
 //		return: result vector
-ivec3 ijkVecBitNand3i(ivec3 const v_lh, ivec3 const v_rh);
+fvec3 ijkVecBitNand3f(fvec3 const v_lh, fvec3 const v_rh);
 
 // ijkVecBitOr3*
 //	Calculate component-wise bitwise 'or' of 3D vectors.
 //		param v_lh: left-hand vector
 //		param v_rh: right-hand vector
 //		return: result vector
-ivec3 ijkVecBitOr3i(ivec3 const v_lh, ivec3 const v_rh);
+fvec3 ijkVecBitOr3f(fvec3 const v_lh, fvec3 const v_rh);
 
 // ijkVecBitNor3*
 //	Calculate component-wise bitwise 'not or' of 3D vectors.
 //		param v_lh: left-hand vector
 //		param v_rh: right-hand vector
 //		return: result vector
-ivec3 ijkVecBitNor3i(ivec3 const v_lh, ivec3 const v_rh);
+fvec3 ijkVecBitNor3f(fvec3 const v_lh, fvec3 const v_rh);
 
 // ijkVecBitXor3*
 //	Calculate component-wise bitwise 'exclusive or' of 3D vectors.
 //		param v_lh: left-hand vector
 //		param v_rh: right-hand vector
 //		return: result vector
-ivec3 ijkVecBitXor3i(ivec3 const v_lh, ivec3 const v_rh);
+fvec3 ijkVecBitXor3f(fvec3 const v_lh, fvec3 const v_rh);
 
 // ijkVecBitXnor3*
 //	Calculate component-wise bitwise 'not exclusive or' of 3D vectors.
 //		param v_lh: left-hand vector
 //		param v_rh: right-hand vector
 //		return: result vector
-ivec3 ijkVecBitXnor3i(ivec3 const v_lh, ivec3 const v_rh);
+fvec3 ijkVecBitXnor3f(fvec3 const v_lh, fvec3 const v_rh);
 
 // ijkVecBitShiftLeft3*
 //	Calculate component-wise bit shift left of 3D vectors.
 //		param v_lh: left-hand vector
 //		param v_rh: right-hand vector
 //		return: result vector
-ivec3 ijkVecBitShiftLeft3i(ivec3 const v_lh, ivec3 const v_rh);
+fvec3 ijkVecBitShiftLeft3f(fvec3 const v_lh, fvec3 const v_rh);
 
 // ijkVecBitShiftRight3*
 //	Calculate component-wise bit shift right of 3D vectors.
 //		param v_lh: left-hand vector
 //		param v_rh: right-hand vector
 //		return: result vector
-ivec3 ijkVecBitShiftRight3i(ivec3 const v_lh, ivec3 const v_rh);
-#endif	// TINTEGER
+fvec3 ijkVecBitShiftRight3f(fvec3 const v_lh, fvec3 const v_rh);
+#endif	// TfloatEGER
 
 // ijkVecEqual3*
 //	Equality comparison for 3D vectors.
 //		param v_lh: left-hand vector
 //		param v_rh: right-hand vector
 //		return: comparison vector
-bvec3 ijkVecEqual3i(ivec3 const v_lh, ivec3 const v_rh);
+bvec3 ijkVecEqual3f(fvec3 const v_lh, fvec3 const v_rh);
 
 // ijkVecInequal3*
 //	Inequality comparison for 3D vectors.
 //		param v_lh: left-hand vector
 //		param v_rh: right-hand vector
 //		return: comparison vector
-bvec3 ijkVecInequal3i(ivec3 const v_lh, ivec3 const v_rh);
+bvec3 ijkVecInequal3f(fvec3 const v_lh, fvec3 const v_rh);
 
 // ijkVecLessEqual3*
 //	Less-than or equal comparison for 3D vectors.
 //		param v_lh: left-hand vector
 //		param v_rh: right-hand vector
 //		return: comparison vector
-bvec3 ijkVecLessEqual3i(ivec3 const v_lh, ivec3 const v_rh);
+bvec3 ijkVecLessEqual3f(fvec3 const v_lh, fvec3 const v_rh);
 
 // ijkVecGreaterEqual3*
 //	Greater-than or equal comparison for 3D vectors.
 //		param v_lh: left-hand vector
 //		param v_rh: right-hand vector
 //		return: comparison vector
-bvec3 ijkVecGreaterEqual3i(ivec3 const v_lh, ivec3 const v_rh);
+bvec3 ijkVecGreaterEqual3f(fvec3 const v_lh, fvec3 const v_rh);
 
 // ijkVecLess3*
 //	Less-than comparison for 3D vectors.
 //		param v_lh: left-hand vector
 //		param v_rh: right-hand vector
 //		return: comparison vector
-bvec3 ijkVecLess3i(ivec3 const v_lh, ivec3 const v_rh);
+bvec3 ijkVecLess3f(fvec3 const v_lh, fvec3 const v_rh);
 
 // ijkVecGreater3*
 //	Greater-than comparison for 3D vectors.
 //		param v_lh: left-hand vector
 //		param v_rh: right-hand vector
 //		return: comparison vector
-bvec3 ijkVecGreater3i(ivec3 const v_lh, ivec3 const v_rh);
+bvec3 ijkVecGreater3f(fvec3 const v_lh, fvec3 const v_rh);
 
 // ijkVecAnd3*
 //	Component-wise logical 'and' comparison for 3D vectors.
 //		param v_lh: left-hand vector
 //		param v_rh: right-hand vector
 //		return: comparison vector
-bvec3 ijkVecAnd3i(ivec3 const v_lh, ivec3 const v_rh);
+bvec3 ijkVecAnd3f(fvec3 const v_lh, fvec3 const v_rh);
 
 // ijkVecNand3*
 //	Component-wise logical 'nand' comparison for 3D vectors.
 //		param v_lh: left-hand vector
 //		param v_rh: right-hand vector
 //		return: comparison vector
-bvec3 ijkVecNand3i(ivec3 const v_lh, ivec3 const v_rh);
+bvec3 ijkVecNand3f(fvec3 const v_lh, fvec3 const v_rh);
 
 // ijkVecOr3*
 //	Component-wise logical 'or' comparison for 3D vectors.
 //		param v_lh: left-hand vector
 //		param v_rh: right-hand vector
 //		return: comparison vector
-bvec3 ijkVecOr3i(ivec3 const v_lh, ivec3 const v_rh);
+bvec3 ijkVecOr3f(fvec3 const v_lh, fvec3 const v_rh);
 
 // ijkVecNor3*
 //	Component-wise logical 'nor' comparison for 3D vectors.
 //		param v_lh: left-hand vector
 //		param v_rh: right-hand vector
 //		return: comparison vector
-bvec3 ijkVecNor3i(ivec3 const v_lh, ivec3 const v_rh);
+bvec3 ijkVecNor3f(fvec3 const v_lh, fvec3 const v_rh);
 
 // ijkVecCopy3*z
 //	Copy 3D vector from 2D vector and one scalar.
 //		param v_xy: input 2D vector holding first two components
 //		param z: third element
 //		return: result vector
-ivec3 ijkVecCopy3iz(ivec2 const v_xy, int const z);
+fvec3 ijkVecCopy3fz(fvec2 const v_xy, float const z);
 
 // ijkVecCopy3*s
 //	Copy 3D vector from scalar.
 //		param s_in: input scalar
 //		return: result vector
-ivec3 ijkVecCopy3is(int const s_in);
+fvec3 ijkVecCopy3fs(float const s_in);
 
 // ijkVecNegate3*s
 //	Negate scalar to 3D vector.
 //		param s_in: input scalar
 //		return: result vector
 #if TSIGNED
-ivec3 ijkVecNegate3is(int const s_in);
+fvec3 ijkVecNegate3fs(float const s_in);
 #endif	// TSIGNED
 
 // ijkVecBitNot3*s
 //	Calculate bitwise 'not' of 3D vector.
 //		param s_in: input scalar
 //		return: result vector
-#if TINTEGER
-ivec3 ijkVecBitNot3is(int const s_in);
-#endif	// TINTEGER
+#if TfloatEGER
+fvec3 ijkVecBitNot3fs(float const s_in);
+#endif	// TfloatEGER
 
 // ijkVecNot3*s
 //	Calculate logical 'not' of scalar.
 //		param s_in: input scalar
 //		return: comparison vector
-bvec3 ijkVecNot3is(int const s_in);
+bvec3 ijkVecNot3fs(float const s_in);
 
 // ijkVecAdd3*s
 //	Calculate sum of 3D vector components and scalar.
 //		param v_lh: left-hand vector
 //		param s_rh: right-hand scalar
 //		return: result vector
-ivec3 ijkVecAdd3is(ivec3 const v_lh, int const s_rh);
+fvec3 ijkVecAdd3fs(fvec3 const v_lh, float const s_rh);
 
 // ijkVecSub3*s
 //	Calculate difference of 3D vector components and scalar.
 //		param v_lh: left-hand vector
 //		param s_rh: right-hand scalar
 //		return: result vector
-ivec3 ijkVecSub3is(ivec3 const v_lh, int const s_rh);
+fvec3 ijkVecSub3fs(fvec3 const v_lh, float const s_rh);
 
 // ijkVecMul3*s
 //	Calculate product of 3D vector components by scalar.
 //		param v_lh: left-hand vector
 //		param s_rh: right-hand scalar
 //		return: result vector
-ivec3 ijkVecMul3is(ivec3 const v_lh, int const s_rh);
+fvec3 ijkVecMul3fs(fvec3 const v_lh, float const s_rh);
 
 // ijkVecDiv3*s
 //	Calculate quotient of 3D vector components by scalar.
 //		param v_lh: left-hand vector
 //		param s_rh: right-hand scalar
 //		return: result vector
-ivec3 ijkVecDiv3is(ivec3 const v_lh, int const s_rh);
+fvec3 ijkVecDiv3fs(fvec3 const v_lh, float const s_rh);
 
 // ijkVecDivSafe3*s
 //	Calculate quotient of 3D vector components by scalar, division-by-zero safe.
 //		param v_lh: left-hand vector
 //		param s_rh: right-hand scalar
 //		return: result vector
-ivec3 ijkVecDivSafe3is(ivec3 const v_lh, int const s_rh);
+fvec3 ijkVecDivSafe3fs(fvec3 const v_lh, float const s_rh);
 
 // ijkVecMod3*s
 //	Calculate remainder of 3D vector components by scalar.
 //		param v_lh: left-hand vector
 //		param s_rh: right-hand scalar
 //		return: result vector
-ivec3 ijkVecMod3is(ivec3 const v_lh, int const s_rh);
+fvec3 ijkVecMod3fs(fvec3 const v_lh, float const s_rh);
 
 // ijkVecModSafe3*s
 //	Calculate remainder of 3D vector components by scalar, division-by-zero safe.
 //		param v_lh: left-hand vector
 //		param s_rh: right-hand scalar
 //		return: result vector
-ivec3 ijkVecModSafe3is(ivec3 const v_lh, int const s_rh);
+fvec3 ijkVecModSafe3fs(fvec3 const v_lh, float const s_rh);
 
-#if TINTEGER
+#if TfloatEGER
 // ijkVecBitAnd3*s
 //	Calculate bitwise 'and' of 3D vector components and scalar.
 //		param v_lh: left-hand vector
 //		param s_rh: right-hand scalar
 //		return: result vector
-ivec3 ijkVecBitAnd3is(ivec3 const v_lh, int const s_rh);
+fvec3 ijkVecBitAnd3fs(fvec3 const v_lh, float const s_rh);
 
 // ijkVecBitNand3*s
 //	Calculate bitwise 'not and' of 3D vector components and scalar.
 //		param v_lh: left-hand vector
 //		param s_rh: right-hand scalar
 //		return: result vector
-ivec3 ijkVecBitNand3is(ivec3 const v_lh, int const s_rh);
+fvec3 ijkVecBitNand3fs(fvec3 const v_lh, float const s_rh);
 
 // ijkVecBitOr3*s
 //	Calculate bitwise 'or' of 3D vector components and scalar.
 //		param v_lh: left-hand vector
 //		param s_rh: right-hand scalar
 //		return: result vector
-ivec3 ijkVecBitOr3is(ivec3 const v_lh, int const s_rh);
+fvec3 ijkVecBitOr3fs(fvec3 const v_lh, float const s_rh);
 
 // ijkVecBitNor3*s
 //	Calculate bitwise 'not or' of 3D vector components and scalar.
 //		param v_lh: left-hand vector
 //		param s_rh: right-hand scalar
 //		return: result vector
-ivec3 ijkVecBitNor3is(ivec3 const v_lh, int const s_rh);
+fvec3 ijkVecBitNor3fs(fvec3 const v_lh, float const s_rh);
 
 // ijkVecBitXor3*s
 //	Calculate bitwise 'exclusive or' of 3D vector components and scalar.
 //		param v_lh: left-hand vector
 //		param s_rh: right-hand scalar
 //		return: result vector
-ivec3 ijkVecBitXor3is(ivec3 const v_lh, int const s_rh);
+fvec3 ijkVecBitXor3fs(fvec3 const v_lh, float const s_rh);
 
 // ijkVecBitXnor3*s
 //	Calculate bitwise 'not exclusive or' of 3D vector components and scalar.
 //		param v_lh: left-hand vector
 //		param s_rh: right-hand scalar
 //		return: result vector
-ivec3 ijkVecBitXnor3is(ivec3 const v_lh, int const s_rh);
+fvec3 ijkVecBitXnor3fs(fvec3 const v_lh, float const s_rh);
 
 // ijkVecBitShiftLeft3*s
 //	Calculate bit shift left of 3D vector components and scalar.
 //		param v_lh: left-hand vector
 //		param s_rh: right-hand scalar
 //		return: result vector
-ivec3 ijkVecBitShiftLeft3is(ivec3 const v_lh, int const s_rh);
+fvec3 ijkVecBitShiftLeft3fs(fvec3 const v_lh, float const s_rh);
 
 // ijkVecBitShiftRight3*s
 //	Calculate bit shift right of 3D vector components and scalar.
 //		param v_lh: left-hand vector
 //		param s_rh: right-hand scalar
 //		return: result vector
-ivec3 ijkVecBitShiftRight3is(ivec3 const v_lh, int const s_rh);
-#endif	// TINTEGER
+fvec3 ijkVecBitShiftRight3fs(fvec3 const v_lh, float const s_rh);
+#endif	// TfloatEGER
 
 // ijkVecEqual3*s
 //	Equality comparison of 3D vector components and scalar.
 //		param v_lh: left-hand vector
 //		param s_rh: right-hand scalar
 //		return: comparison vector
-bvec3 ijkVecEqual3is(ivec3 const v_lh, int const s_rh);
+bvec3 ijkVecEqual3fs(fvec3 const v_lh, float const s_rh);
 
 // ijkVecInequal3*s
 //	Inequality comparison of 3D vector components and scalar.
 //		param v_lh: left-hand vector
 //		param s_rh: right-hand scalar
 //		return: comparison vector
-bvec3 ijkVecInequal3is(ivec3 const v_lh, int const s_rh);
+bvec3 ijkVecInequal3fs(fvec3 const v_lh, float const s_rh);
 
 // ijkVecLessEqual3*s
 //	Less-than or equal comparison of 3D vector components and scalar.
 //		param v_lh: left-hand vector
 //		param s_rh: right-hand scalar
 //		return: comparison vector
-bvec3 ijkVecLessEqual3is(ivec3 const v_lh, int const s_rh);
+bvec3 ijkVecLessEqual3fs(fvec3 const v_lh, float const s_rh);
 
 // ijkVecGreaterEqual3*s
 //	Greater-than or equal comparison of 3D vector components and scalar.
 //		param v_lh: left-hand vector
 //		param s_rh: right-hand scalar
 //		return: comparison vector
-bvec3 ijkVecGreaterEqual3is(ivec3 const v_lh, int const s_rh);
+bvec3 ijkVecGreaterEqual3fs(fvec3 const v_lh, float const s_rh);
 
 // ijkVecLess3*s
 //	Less-than comparison of 3D vector components and scalar.
 //		param v_lh: left-hand vector
 //		param s_rh: right-hand scalar
 //		return: comparison vector
-bvec3 ijkVecLess3is(ivec3 const v_lh, int const s_rh);
+bvec3 ijkVecLess3fs(fvec3 const v_lh, float const s_rh);
 
 // ijkVecGreater3*s
 //	Greater-than comparison of 3D vector components and scalar.
 //		param v_lh: left-hand vector
 //		param s_rh: right-hand scalar
 //		return: comparison vector
-bvec3 ijkVecGreater3is(ivec3 const v_lh, int const s_rh);
+bvec3 ijkVecGreater3fs(fvec3 const v_lh, float const s_rh);
 
 // ijkVecAnd3*s
 //	Component-wise logical 'and' comparison of 3D vector and scalar.
 //		param v_lh: left-hand vector
 //		param s_rh: right-hand scalar
 //		return: comparison vector
-bvec3 ijkVecAnd3is(ivec3 const v_lh, int const s_rh);
+bvec3 ijkVecAnd3fs(fvec3 const v_lh, float const s_rh);
 
 // ijkVecNand3*s
 //	Component-wise logical 'nand' comparison of 3D vector and scalar.
 //		param v_lh: left-hand vector
 //		param s_rh: right-hand scalar
 //		return: comparison vector
-bvec3 ijkVecNand3is(ivec3 const v_lh, int const s_rh);
+bvec3 ijkVecNand3fs(fvec3 const v_lh, float const s_rh);
 
 // ijkVecOr3*s
 //	Component-wise logical 'or' comparison of 3D vector and scalar.
 //		param v_lh: left-hand vector
 //		param s_rh: right-hand scalar
 //		return: comparison vector
-bvec3 ijkVecOr3is(ivec3 const v_lh, int const s_rh);
+bvec3 ijkVecOr3fs(fvec3 const v_lh, float const s_rh);
 
 // ijkVecNor3*s
 //	Component-wise logical 'nor' comparison of 3D vector and scalar.
 //		param v_lh: left-hand vector
 //		param s_rh: right-hand scalar
 //		return: comparison vector
-bvec3 ijkVecNor3is(ivec3 const v_lh, int const s_rh);
+bvec3 ijkVecNor3fs(fvec3 const v_lh, float const s_rh);
 
 // ijkVecCopy3x*
 //	Copy 3D vector from 2D vector and one scalar.
 //		param x: first element
 //		param v_yz: input 2D vector holding last two components
 //		return: result vector
-ivec3 ijkVecCopy3xi(int const x, ivec2 const v_yz);
+fvec3 ijkVecCopy3xf(float const x, fvec2 const v_yz);
 
 // ijkVecAdd3s*
 //	Calculate sum of scalar and 3D vector components.
 //		param s_lh: left-hand scalar
 //		param v_rh: right-hand vector
 //		return: result vector
-ivec3 ijkVecAdd3si(int const s_lh, ivec3 const v_rh);
+fvec3 ijkVecAdd3sf(float const s_lh, fvec3 const v_rh);
 
 // ijkVecSub3s*
 //	Calculate difference of scalar and 3D vector components.
 //		param s_lh: left-hand scalar
 //		param v_rh: right-hand vector
 //		return: result vector
-ivec3 ijkVecSub3si(int const s_lh, ivec3 const v_rh);
+fvec3 ijkVecSub3sf(float const s_lh, fvec3 const v_rh);
 
 // ijkVecMul3s*
 //	Calculate product of scalar by 3D vector components.
 //		param s_lh: left-hand scalar
 //		param v_rh: right-hand vector
 //		return: result vector
-ivec3 ijkVecMul3si(int const s_lh, ivec3 const v_rh);
+fvec3 ijkVecMul3sf(float const s_lh, fvec3 const v_rh);
 
 // ijkVecDiv3s*
 //	Calculate quotient of scalar by 3D vector components.
 //		param s_lh: left-hand scalar
 //		param v_rh: right-hand vector
 //		return: result vector
-ivec3 ijkVecDiv3si(int const s_lh, ivec3 const v_rh);
+fvec3 ijkVecDiv3sf(float const s_lh, fvec3 const v_rh);
 
 // ijkVecDivSafe3s*
 //	Calculate quotient of scalar by 3D vector components, division-by-zero safe.
 //		param s_lh: left-hand scalar
 //		param v_rh: right-hand vector
 //		return: result vector
-ivec3 ijkVecDivSafe3si(int const s_lh, ivec3 const v_rh);
+fvec3 ijkVecDivSafe3sf(float const s_lh, fvec3 const v_rh);
 
 // ijkVecMod3s*
 //	Calculate remainder of scalar by 3D vector components.
 //		param s_lh: left-hand scalar
 //		param v_rh: right-hand vector
 //		return: result vector
-ivec3 ijkVecMod3si(int const s_lh, ivec3 const v_rh);
+fvec3 ijkVecMod3sf(float const s_lh, fvec3 const v_rh);
 
 // ijkVecModSafe3s*
 //	Calculate remainder of scalar by 3D vector components, division-by-zero safe.
 //		param s_lh: left-hand scalar
 //		param v_rh: right-hand vector
 //		return: result vector
-ivec3 ijkVecModSafe3si(int const s_lh, ivec3 const v_rh);
+fvec3 ijkVecModSafe3sf(float const s_lh, fvec3 const v_rh);
 
-#if TINTEGER
+#if TfloatEGER
 // ijkVecBitAnd3s*
 //	Calculate bitwise 'and' of scalar and 3D vector components.
 //		param s_lh: left-hand scalar
 //		param v_rh: right-hand vector
 //		return: result vector
-ivec3 ijkVecBitAnd3si(int const s_lh, ivec3 const v_rh);
+fvec3 ijkVecBitAnd3sf(float const s_lh, fvec3 const v_rh);
 
 // ijkVecBitNand3s*
 //	Calculate bitwise 'not and' of scalar and 3D vector components.
 //		param s_lh: left-hand scalar
 //		param v_rh: right-hand vector
 //		return: result vector
-ivec3 ijkVecBitNand3si(int const s_lh, ivec3 const v_rh);
+fvec3 ijkVecBitNand3sf(float const s_lh, fvec3 const v_rh);
 
 // ijkVecBitOr3s*
 //	Calculate bitwise 'or' of scalar and 3D vector components.
 //		param s_lh: left-hand scalar
 //		param v_rh: right-hand vector
 //		return: result vector
-ivec3 ijkVecBitOr3si(int const s_lh, ivec3 const v_rh);
+fvec3 ijkVecBitOr3sf(float const s_lh, fvec3 const v_rh);
 
 // ijkVecBitNor3s*
 //	Calculate bitwise 'not or' of scalar and 3D vector components.
 //		param s_lh: left-hand scalar
 //		param v_rh: right-hand vector
 //		return: result vector
-ivec3 ijkVecBitNor3si(int const s_lh, ivec3 const v_rh);
+fvec3 ijkVecBitNor3sf(float const s_lh, fvec3 const v_rh);
 
 // ijkVecBitXor3s*
 //	Calculate bitwise 'exclusive or' of scalar and 3D vector components.
 //		param s_lh: left-hand scalar
 //		param v_rh: right-hand vector
 //		return: result vector
-ivec3 ijkVecBitXor3si(int const s_lh, ivec3 const v_rh);
+fvec3 ijkVecBitXor3sf(float const s_lh, fvec3 const v_rh);
 
 // ijkVecBitXnor3s*
 //	Calculate bitwise 'not exclusive or' of scalar and 3D vector components.
 //		param s_lh: left-hand scalar
 //		param v_rh: right-hand vector
 //		return: result vector
-ivec3 ijkVecBitXnor3si(int const s_lh, ivec3 const v_rh);
+fvec3 ijkVecBitXnor3sf(float const s_lh, fvec3 const v_rh);
 
 // ijkVecBitShiftLeft3s*
 //	Calculate bit shift left of scalar by 3D vector components.
 //		param s_lh: left-hand scalar
 //		param v_rh: right-hand vector
 //		return: result vector
-ivec3 ijkVecBitShiftLeft3si(int const s_lh, ivec3 const v_rh);
+fvec3 ijkVecBitShiftLeft3sf(float const s_lh, fvec3 const v_rh);
 
 // ijkVecBitShiftRight3s*
 //	Calculate bit shift right of scalar by 3D vector components.
 //		param s_lh: left-hand scalar
 //		param v_rh: right-hand vector
 //		return: result vector
-ivec3 ijkVecBitShiftRight3si(int const s_lh, ivec3 const v_rh);
-#endif	// TINTEGER
+fvec3 ijkVecBitShiftRight3sf(float const s_lh, fvec3 const v_rh);
+#endif	// TfloatEGER
 
 // ijkVecEqual3s*
 //	Equality comparison of scalar and 3D vector components.
 //		param s_lh: left-hand scalar
 //		param v_rh: right-hand vector
 //		return: comparison vector
-bvec3 ijkVecEqual3si(int const s_lh, ivec3 const v_rh);
+bvec3 ijkVecEqual3sf(float const s_lh, fvec3 const v_rh);
 
 // ijkVecInequal3s*
 //	Inequality comparison of scalar and 3D vector components.
 //		param s_lh: left-hand scalar
 //		param v_rh: right-hand vector
 //		return: comparison vector
-bvec3 ijkVecInequal3si(int const s_lh, ivec3 const v_rh);
+bvec3 ijkVecInequal3sf(float const s_lh, fvec3 const v_rh);
 
 // ijkVecLessEqual3s*
 //	Less-than or equal comparison of scalar and 3D vector components.
 //		param s_lh: left-hand scalar
 //		param v_rh: right-hand vector
 //		return: comparison vector
-bvec3 ijkVecLessEqual3si(int const s_lh, ivec3 const v_rh);
+bvec3 ijkVecLessEqual3sf(float const s_lh, fvec3 const v_rh);
 
 // ijkVecGreaterEqual3s*
 //	Greater-than or equal comparison of scalar and 3D vector components.
 //		param s_lh: left-hand scalar
 //		param v_rh: right-hand vector
 //		return: comparison vector
-bvec3 ijkVecGreaterEqual3si(int const s_lh, ivec3 const v_rh);
+bvec3 ijkVecGreaterEqual3sf(float const s_lh, fvec3 const v_rh);
 
 // ijkVecLess3s*
 //	Less-than comparison of scalar and 3D vector components.
 //		param s_lh: left-hand scalar
 //		param v_rh: right-hand vector
 //		return: comparison vector
-bvec3 ijkVecLess3si(int const s_lh, ivec3 const v_rh);
+bvec3 ijkVecLess3sf(float const s_lh, fvec3 const v_rh);
 
 // ijkVecGreater3s*
 //	Greater-than comparison of scalar and 3D vector components.
 //		param s_lh: left-hand scalar
 //		param v_rh: right-hand vector
 //		return: comparison vector
-bvec3 ijkVecGreater3si(int const s_lh, ivec3 const v_rh);
+bvec3 ijkVecGreater3sf(float const s_lh, fvec3 const v_rh);
 
 // ijkVecAnd3s*
 //	Component-wise logical 'and' comparison of 3D vector and scalar.
 //		param s_lh: left-hand scalar
 //		param v_rh: right-hand vector
 //		return: comparison vector
-bvec3 ijkVecAnd3si(int const s_lh, ivec3 const v_rh);
+bvec3 ijkVecAnd3sf(float const s_lh, fvec3 const v_rh);
 
 // ijkVecNand3s*
 //	Component-wise logical 'nand' comparison of 3D vector and scalar.
 //		param s_lh: left-hand scalar
 //		param v_rh: right-hand vector
 //		return: comparison vector
-bvec3 ijkVecNand3si(int const s_lh, ivec3 const v_rh);
+bvec3 ijkVecNand3sf(float const s_lh, fvec3 const v_rh);
 
 // ijkVecOr3s*
 //	Component-wise logical 'or' comparison of 3D vector and scalar.
 //		param s_lh: left-hand scalar
 //		param v_rh: right-hand vector
 //		return: comparison vector
-bvec3 ijkVecOr3si(int const s_lh, ivec3 const v_rh);
+bvec3 ijkVecOr3sf(float const s_lh, fvec3 const v_rh);
 
 // ijkVecNor3s*
 //	Component-wise logical 'nor' comparison of 3D vector and scalar.
 //		param s_lh: left-hand scalar
 //		param v_rh: right-hand vector
 //		return: comparison vector
-bvec3 ijkVecNor3si(int const s_lh, ivec3 const v_rh);
+bvec3 ijkVecNor3sf(float const s_lh, fvec3 const v_rh);
 
 // ijkVecDot3*
 //	Dot product of 3D vectors.
 //		param v_lh: left-hand vector
 //		param v_rh: right-hand vector
 //		return: dot product
-int ijkVecDot3i(ivec3 const v_lh, ivec3 const v_rh);
+float ijkVecDot3f(fvec3 const v_lh, fvec3 const v_rh);
 
 // ijkVecCross3*
 //	Cross product of 3D vectors.
 //		param v_lh: left-hand vector
 //		param v_rh: right-hand vector
 //		return: cross product
-ivec3 ijkVecCross3i(ivec3 const v_lh, ivec3 const v_rh);
+fvec3 ijkVecCross3f(fvec3 const v_lh, fvec3 const v_rh);
 
 
 //-----------------------------------------------------------------------------
@@ -3612,456 +3612,456 @@ ivec3 ijkVecCross3i(ivec3 const v_lh, ivec3 const v_rh);
 // ijkVecInit4*
 //	Initialize 4D vector to default value (zero vector).
 //		return: default vector
-ivec4 ijkVecInit4i();
+fvec4 ijkVecInit4f();
 
 // ijkVecInitElems4*
 //	Initialize 4D vector to specified individual elements.
 //		param x: first element
 //		param y: second element
 //		param z: third element
-//		param w: fourth element (in space, set as 1 for point, 0 for vector)
+//		param w: fourth element (in space, set as 1 for pofloat, 0 for vector)
 //		return: result vector
-ivec4 ijkVecInitElems4i(int const x, int const y, int const z, int const w);
+fvec4 ijkVecInitElems4f(float const x, float const y, float const z, float const w);
 
 // ijkVecCopy4x*w
 //	Copy 4D vector from scalar, 2D vector and another scalar.
 //		param x: first element
 //		param v_yz: input 2D vector holding middle two components
-//		param w: fourth element (in space, set as 1 for point, 0 for vector)
+//		param w: fourth element (in space, set as 1 for pofloat, 0 for vector)
 //		return: result vector
-ivec4 ijkVecCopy4xiw(int const x, ivec2 const v_yz, int const w);
+fvec4 ijkVecCopy4xfw(float const x, fvec2 const v_yz, float const w);
 
 // ijkVecCopy4*2
 //	Copy 4D vector from two 2D vectors.
 //		param v_xy: input 2D vector holding first two components
 //		param v_zw: input 2D vector holding last two components
 //		return: result vector
-ivec4 ijkVecCopy4i2(ivec2 const v_xy, ivec2 const v_zw);
+fvec4 ijkVecCopy4f2(fvec2 const v_xy, fvec2 const v_zw);
 
 // ijkVecCopy4*
 //	Copy 4D vector from first elements of another vector.
 //		param v_in: input vector
 //		return: result vector
-ivec4 ijkVecCopy4i(ivec4 const v_in);
+fvec4 ijkVecCopy4f(fvec4 const v_in);
 
 // ijkVecNegate4*
 //	Negate 4D vector.
 //		param v_in: input vector
 //		return: result vector
 #if TSIGNED
-ivec4 ijkVecNegate4i(ivec4 const v_in);
+fvec4 ijkVecNegate4f(fvec4 const v_in);
 #endif	// TSIGNED
 
 // ijkVecBitNot4*
 //	Calculate component-wise bitwise 'not' of 4D vector.
 //		param v_in: input vector
 //		return: result vector
-#if TINTEGER
-ivec4 ijkVecBitNot4i(ivec4 const v_in);
-#endif	// TINTEGER
+#if TfloatEGER
+fvec4 ijkVecBitNot4f(fvec4 const v_in);
+#endif	// TfloatEGER
 
 // ijkVecNot4*
 //	Calculate component-wise logical 'not' of 4D vector.
 //		param v_in: input vector
 //		return: comparison vector
-bvec4 ijkVecNot4i(ivec4 const v_in);
+bvec4 ijkVecNot4f(fvec4 const v_in);
 
 // ijkVecAdd4*
 //	Calculate sum of 4D vectors.
 //		param v_lh: left-hand vector
 //		param v_rh: right-hand vector
 //		return: result vector
-ivec4 ijkVecAdd4i(ivec4 const v_lh, ivec4 const v_rh);
+fvec4 ijkVecAdd4f(fvec4 const v_lh, fvec4 const v_rh);
 
 // ijkVecSub4*
 //	Calculate difference of 4D vectors.
 //		param v_lh: left-hand vector
 //		param v_rh: right-hand vector
 //		return: result vector
-ivec4 ijkVecSub4i(ivec4 const v_lh, ivec4 const v_rh);
+fvec4 ijkVecSub4f(fvec4 const v_lh, fvec4 const v_rh);
 
 // ijkVecMul4*
 //	Calculate component-wise product of 4D vectors.
 //		param v_lh: left-hand vector
 //		param v_rh: right-hand vector
 //		return: result vector
-ivec4 ijkVecMul4i(ivec4 const v_lh, ivec4 const v_rh);
+fvec4 ijkVecMul4f(fvec4 const v_lh, fvec4 const v_rh);
 
 // ijkVecDiv4*
 //	Calculate component-wise quotient of 4D vectors.
 //		param v_lh: left-hand vector
 //		param v_rh: right-hand vector
 //		return: result vector
-ivec4 ijkVecDiv4i(ivec4 const v_lh, ivec4 const v_rh);
+fvec4 ijkVecDiv4f(fvec4 const v_lh, fvec4 const v_rh);
 
 // ijkVecDivSafe4*
 //	Calculate component-wise quotient of 4D vectors, division-by-zero safe.
 //		param v_lh: left-hand vector
 //		param v_rh: right-hand vector
 //		return: result vector
-ivec4 ijkVecDivSafe4i(ivec4 const v_lh, ivec4 const v_rh);
+fvec4 ijkVecDivSafe4f(fvec4 const v_lh, fvec4 const v_rh);
 
 // ijkVecMod4*
 //	Calculate component-wise remainder of 4D vectors.
 //		param v_lh: left-hand vector
 //		param v_rh: right-hand vector
 //		return: result vector
-ivec4 ijkVecMod4i(ivec4 const v_lh, ivec4 const v_rh);
+fvec4 ijkVecMod4f(fvec4 const v_lh, fvec4 const v_rh);
 
 // ijkVecModSafe4*
 //	Calculate component-wise remainder of 4D vectors, division-by-zero safe.
 //		param v_lh: left-hand vector
 //		param v_rh: right-hand vector
 //		return: result vector
-ivec4 ijkVecModSafe4i(ivec4 const v_lh, ivec4 const v_rh);
+fvec4 ijkVecModSafe4f(fvec4 const v_lh, fvec4 const v_rh);
 
-#if TINTEGER
+#if TfloatEGER
 // ijkVecBitAnd4*
 //	Calculate component-wise bitwise 'and' of 4D vectors.
 //		param v_lh: left-hand vector
 //		param v_rh: right-hand vector
 //		return: result vector
-ivec4 ijkVecBitAnd4i(ivec4 const v_lh, ivec4 const v_rh);
+fvec4 ijkVecBitAnd4f(fvec4 const v_lh, fvec4 const v_rh);
 
 // ijkVecBitNand4*
 //	Calculate component-wise bitwise 'not and' of 4D vectors.
 //		param v_lh: left-hand vector
 //		param v_rh: right-hand vector
 //		return: result vector
-ivec4 ijkVecBitNand4i(ivec4 const v_lh, ivec4 const v_rh);
+fvec4 ijkVecBitNand4f(fvec4 const v_lh, fvec4 const v_rh);
 
 // ijkVecBitOr4*
 //	Calculate component-wise bitwise 'or' of 4D vectors.
 //		param v_lh: left-hand vector
 //		param v_rh: right-hand vector
 //		return: result vector
-ivec4 ijkVecBitOr4i(ivec4 const v_lh, ivec4 const v_rh);
+fvec4 ijkVecBitOr4f(fvec4 const v_lh, fvec4 const v_rh);
 
 // ijkVecBitNor4*
 //	Calculate component-wise bitwise 'not or' of 4D vectors.
 //		param v_lh: left-hand vector
 //		param v_rh: right-hand vector
 //		return: result vector
-ivec4 ijkVecBitNor4i(ivec4 const v_lh, ivec4 const v_rh);
+fvec4 ijkVecBitNor4f(fvec4 const v_lh, fvec4 const v_rh);
 
 // ijkVecBitXor4*
 //	Calculate component-wise bitwise 'exclusive or' of 4D vectors.
 //		param v_lh: left-hand vector
 //		param v_rh: right-hand vector
 //		return: result vector
-ivec4 ijkVecBitXor4i(ivec4 const v_lh, ivec4 const v_rh);
+fvec4 ijkVecBitXor4f(fvec4 const v_lh, fvec4 const v_rh);
 
 // ijkVecBitXnor4*
 //	Calculate component-wise bitwise 'not exclusive or' of 4D vectors.
 //		param v_lh: left-hand vector
 //		param v_rh: right-hand vector
 //		return: result vector
-ivec4 ijkVecBitXnor4i(ivec4 const v_lh, ivec4 const v_rh);
+fvec4 ijkVecBitXnor4f(fvec4 const v_lh, fvec4 const v_rh);
 
 // ijkVecBitShiftLeft4*
 //	Calculate component-wise bit shift left of 4D vectors.
 //		param v_lh: left-hand vector
 //		param v_rh: right-hand vector
 //		return: result vector
-ivec4 ijkVecBitShiftLeft4i(ivec4 const v_lh, ivec4 const v_rh);
+fvec4 ijkVecBitShiftLeft4f(fvec4 const v_lh, fvec4 const v_rh);
 
 // ijkVecBitShiftRight4*
 //	Calculate component-wise bit shift right of 4D vectors.
 //		param v_lh: left-hand vector
 //		param v_rh: right-hand vector
 //		return: result vector
-ivec4 ijkVecBitShiftRight4i(ivec4 const v_lh, ivec4 const v_rh);
-#endif	// TINTEGER
+fvec4 ijkVecBitShiftRight4f(fvec4 const v_lh, fvec4 const v_rh);
+#endif	// TfloatEGER
 
 // ijkVecEqual4*
 //	Equality comparison for 4D vectors.
 //		param v_lh: left-hand vector
 //		param v_rh: right-hand vector
 //		return: comparison vector
-bvec4 ijkVecEqual4i(ivec4 const v_lh, ivec4 const v_rh);
+bvec4 ijkVecEqual4f(fvec4 const v_lh, fvec4 const v_rh);
 
 // ijkVecInequal4*
 //	Inequality comparison for 4D vectors.
 //		param v_lh: left-hand vector
 //		param v_rh: right-hand vector
 //		return: comparison vector
-bvec4 ijkVecInequal4i(ivec4 const v_lh, ivec4 const v_rh);
+bvec4 ijkVecInequal4f(fvec4 const v_lh, fvec4 const v_rh);
 
 // ijkVecLessEqual4*
 //	Less-than or equal comparison for 4D vectors.
 //		param v_lh: left-hand vector
 //		param v_rh: right-hand vector
 //		return: comparison vector
-bvec4 ijkVecLessEqual4i(ivec4 const v_lh, ivec4 const v_rh);
+bvec4 ijkVecLessEqual4f(fvec4 const v_lh, fvec4 const v_rh);
 
 // ijkVecGreaterEqual4*
 //	Greater-than or equal comparison for 4D vectors.
 //		param v_lh: left-hand vector
 //		param v_rh: right-hand vector
 //		return: comparison vector
-bvec4 ijkVecGreaterEqual4i(ivec4 const v_lh, ivec4 const v_rh);
+bvec4 ijkVecGreaterEqual4f(fvec4 const v_lh, fvec4 const v_rh);
 
 // ijkVecLess4*
 //	Less-than comparison for 4D vectors.
 //		param v_lh: left-hand vector
 //		param v_rh: right-hand vector
 //		return: comparison vector
-bvec4 ijkVecLess4i(ivec4 const v_lh, ivec4 const v_rh);
+bvec4 ijkVecLess4f(fvec4 const v_lh, fvec4 const v_rh);
 
 // ijkVecGreater4*
 //	Greater-than comparison for 4D vectors.
 //		param v_lh: left-hand vector
 //		param v_rh: right-hand vector
 //		return: comparison vector
-bvec4 ijkVecGreater4i(ivec4 const v_lh, ivec4 const v_rh);
+bvec4 ijkVecGreater4f(fvec4 const v_lh, fvec4 const v_rh);
 
 // ijkVecAnd4*
 //	Component-wise logical 'and' comparison for 4D vectors.
 //		param v_lh: left-hand vector
 //		param v_rh: right-hand vector
 //		return: comparison vector
-bvec4 ijkVecAnd4i(ivec4 const v_lh, ivec4 const v_rh);
+bvec4 ijkVecAnd4f(fvec4 const v_lh, fvec4 const v_rh);
 
 // ijkVecNand4*
 //	Component-wise logical 'nand' comparison for 4D vectors.
 //		param v_lh: left-hand vector
 //		param v_rh: right-hand vector
 //		return: comparison vector
-bvec4 ijkVecNand4i(ivec4 const v_lh, ivec4 const v_rh);
+bvec4 ijkVecNand4f(fvec4 const v_lh, fvec4 const v_rh);
 
 // ijkVecOr4*
 //	Component-wise logical 'or' comparison for 4D vectors.
 //		param v_lh: left-hand vector
 //		param v_rh: right-hand vector
 //		return: comparison vector
-bvec4 ijkVecOr4i(ivec4 const v_lh, ivec4 const v_rh);
+bvec4 ijkVecOr4f(fvec4 const v_lh, fvec4 const v_rh);
 
 // ijkVecNor4*
 //	Component-wise logical 'nor' comparison for 4D vectors.
 //		param v_lh: left-hand vector
 //		param v_rh: right-hand vector
 //		return: comparison vector
-bvec4 ijkVecNor4i(ivec4 const v_lh, ivec4 const v_rh);
+bvec4 ijkVecNor4f(fvec4 const v_lh, fvec4 const v_rh);
 
 // ijkVecCopy4*zw
 //	Copy 4D vector from 2D vector and two scalars.
 //		param v_xy: input 2D vector holding first two components
 //		param z: third element
-//		param w: fourth element (in space, set as 1 for point, 0 for vector)
+//		param w: fourth element (in space, set as 1 for pofloat, 0 for vector)
 //		return: result vector
-ivec4 ijkVecCopy4izw(ivec2 const v_xy, int const z, int const w);
+fvec4 ijkVecCopy4fzw(fvec2 const v_xy, float const z, float const w);
 
 // ijkVecCopy4*w
 //	Copy 4D vector from 3D vector and one scalar.
 //		param v_xyz: input 3D vector holding first three components
-//		param w: fourth element (in space, set as 1 for point, 0 for vector)
+//		param w: fourth element (in space, set as 1 for pofloat, 0 for vector)
 //		return: result vector
-ivec4 ijkVecCopy4iw(ivec3 const v_xyz, int const w);
+fvec4 ijkVecCopy4fw(fvec3 const v_xyz, float const w);
 
 // ijkVecCopy4*s
 //	Copy 4D vector from scalar.
 //		param s_in: input scalar
 //		return: result vector
-ivec4 ijkVecCopy4is(int const s_in);
+fvec4 ijkVecCopy4fs(float const s_in);
 
 // ijkVecNegate4*s
 //	Negate scalar to 4D vector.
 //		param s_in: input scalar
 //		return: result vector
 #if TSIGNED
-ivec4 ijkVecNegate4is(int const s_in);
+fvec4 ijkVecNegate4fs(float const s_in);
 #endif	// TSIGNED
 
 // ijkVecBitNot4*s
 //	Calculate bitwise 'not' of 4D vector.
 //		param s_in: input scalar
 //		return: result vector
-#if TINTEGER
-ivec4 ijkVecBitNot4is(int const s_in);
-#endif	// TINTEGER
+#if TfloatEGER
+fvec4 ijkVecBitNot4fs(float const s_in);
+#endif	// TfloatEGER
 
 // ijkVecNot4*s
 //	Calculate logical 'not' of scalar.
 //		param s_in: input scalar
 //		return: comparison vector
-bvec4 ijkVecNot4is(int const s_in);
+bvec4 ijkVecNot4fs(float const s_in);
 
 // ijkVecAdd4*s
 //	Calculate sum of 4D vector components and scalar.
 //		param v_lh: left-hand vector
 //		param s_rh: right-hand scalar
 //		return: result vector
-ivec4 ijkVecAdd4is(ivec4 const v_lh, int const s_rh);
+fvec4 ijkVecAdd4fs(fvec4 const v_lh, float const s_rh);
 
 // ijkVecSub4*s
 //	Calculate difference of 4D vector components and scalar.
 //		param v_lh: left-hand vector
 //		param s_rh: right-hand scalar
 //		return: result vector
-ivec4 ijkVecSub4is(ivec4 const v_lh, int const s_rh);
+fvec4 ijkVecSub4fs(fvec4 const v_lh, float const s_rh);
 
 // ijkVecMul4*s
 //	Calculate product of 4D vector components by scalar.
 //		param v_lh: left-hand vector
 //		param s_rh: right-hand scalar
 //		return: result vector
-ivec4 ijkVecMul4is(ivec4 const v_lh, int const s_rh);
+fvec4 ijkVecMul4fs(fvec4 const v_lh, float const s_rh);
 
 // ijkVecDiv4*s
 //	Calculate quotient of 4D vector components by scalar.
 //		param v_lh: left-hand vector
 //		param s_rh: right-hand scalar
 //		return: result vector
-ivec4 ijkVecDiv4is(ivec4 const v_lh, int const s_rh);
+fvec4 ijkVecDiv4fs(fvec4 const v_lh, float const s_rh);
 
 // ijkVecDivSafe4*s
 //	Calculate quotient of 4D vector components by scalar, division-by-zero safe.
 //		param v_lh: left-hand vector
 //		param s_rh: right-hand scalar
 //		return: result vector
-ivec4 ijkVecDivSafe4is(ivec4 const v_lh, int const s_rh);
+fvec4 ijkVecDivSafe4fs(fvec4 const v_lh, float const s_rh);
 
 // ijkVecMod4*s
 //	Calculate remainder of 4D vector components by scalar.
 //		param v_lh: left-hand vector
 //		param s_rh: right-hand scalar
 //		return: result vector
-ivec4 ijkVecMod4is(ivec4 const v_lh, int const s_rh);
+fvec4 ijkVecMod4fs(fvec4 const v_lh, float const s_rh);
 
 // ijkVecModSafe4*s
 //	Calculate remainder of 4D vector components by scalar, division-by-zero safe.
 //		param v_lh: left-hand vector
 //		param s_rh: right-hand scalar
 //		return: result vector
-ivec4 ijkVecModSafe4is(ivec4 const v_lh, int const s_rh);
+fvec4 ijkVecModSafe4fs(fvec4 const v_lh, float const s_rh);
 
-#if TINTEGER
+#if TfloatEGER
 // ijkVecBitAnd4*s
 //	Calculate bitwise 'and' of 4D vector components and scalar.
 //		param v_lh: left-hand vector
 //		param s_rh: right-hand scalar
 //		return: result vector
-ivec4 ijkVecBitAnd4is(ivec4 const v_lh, int const s_rh);
+fvec4 ijkVecBitAnd4fs(fvec4 const v_lh, float const s_rh);
 
 // ijkVecBitNand4*s
 //	Calculate bitwise 'not and' of 4D vector components and scalar.
 //		param v_lh: left-hand vector
 //		param s_rh: right-hand scalar
 //		return: result vector
-ivec4 ijkVecBitNand4is(ivec4 const v_lh, int const s_rh);
+fvec4 ijkVecBitNand4fs(fvec4 const v_lh, float const s_rh);
 
 // ijkVecBitOr4*s
 //	Calculate bitwise 'or' of 4D vector components and scalar.
 //		param v_lh: left-hand vector
 //		param s_rh: right-hand scalar
 //		return: result vector
-ivec4 ijkVecBitOr4is(ivec4 const v_lh, int const s_rh);
+fvec4 ijkVecBitOr4fs(fvec4 const v_lh, float const s_rh);
 
 // ijkVecBitNor4*s
 //	Calculate bitwise 'not or' of 4D vector components and scalar.
 //		param v_lh: left-hand vector
 //		param s_rh: right-hand scalar
 //		return: result vector
-ivec4 ijkVecBitNor4is(ivec4 const v_lh, int const s_rh);
+fvec4 ijkVecBitNor4fs(fvec4 const v_lh, float const s_rh);
 
 // ijkVecBitXor4*s
 //	Calculate bitwise 'exclusive or' of 4D vector components and scalar.
 //		param v_lh: left-hand vector
 //		param s_rh: right-hand scalar
 //		return: result vector
-ivec4 ijkVecBitXor4is(ivec4 const v_lh, int const s_rh);
+fvec4 ijkVecBitXor4fs(fvec4 const v_lh, float const s_rh);
 
 // ijkVecBitXnor4*s
 //	Calculate bitwise 'not exclusive or' of 4D vector components and scalar.
 //		param v_lh: left-hand vector
 //		param s_rh: right-hand scalar
 //		return: result vector
-ivec4 ijkVecBitXnor4is(ivec4 const v_lh, int const s_rh);
+fvec4 ijkVecBitXnor4fs(fvec4 const v_lh, float const s_rh);
 
 // ijkVecBitShiftLeft4*s
 //	Calculate bit shift left of 4D vector components and scalar.
 //		param v_lh: left-hand vector
 //		param s_rh: right-hand scalar
 //		return: result vector
-ivec4 ijkVecBitShiftLeft4is(ivec4 const v_lh, int const s_rh);
+fvec4 ijkVecBitShiftLeft4fs(fvec4 const v_lh, float const s_rh);
 
 // ijkVecBitShiftRight4*s
 //	Calculate bit shift right of 4D vector components and scalar.
 //		param v_lh: left-hand vector
 //		param s_rh: right-hand scalar
 //		return: result vector
-ivec4 ijkVecBitShiftRight4is(ivec4 const v_lh, int const s_rh);
-#endif	// TINTEGER
+fvec4 ijkVecBitShiftRight4fs(fvec4 const v_lh, float const s_rh);
+#endif	// TfloatEGER
 
 // ijkVecEqual4*s
 //	Equality comparison of 4D vector components and scalar.
 //		param v_lh: left-hand vector
 //		param s_rh: right-hand scalar
 //		return: comparison vector
-bvec4 ijkVecEqual4is(ivec4 const v_lh, int const s_rh);
+bvec4 ijkVecEqual4fs(fvec4 const v_lh, float const s_rh);
 
 // ijkVecInequal4*s
 //	Inequality comparison of 4D vector components and scalar.
 //		param v_lh: left-hand vector
 //		param s_rh: right-hand scalar
 //		return: comparison vector
-bvec4 ijkVecInequal4is(ivec4 const v_lh, int const s_rh);
+bvec4 ijkVecInequal4fs(fvec4 const v_lh, float const s_rh);
 
 // ijkVecLessEqual4*s
 //	Less-than or equal comparison of 4D vector components and scalar.
 //		param v_lh: left-hand vector
 //		param s_rh: right-hand scalar
 //		return: comparison vector
-bvec4 ijkVecLessEqual4is(ivec4 const v_lh, int const s_rh);
+bvec4 ijkVecLessEqual4fs(fvec4 const v_lh, float const s_rh);
 
 // ijkVecGreaterEqual4*s
 //	Greater-than or equal comparison of 4D vector components and scalar.
 //		param v_lh: left-hand vector
 //		param s_rh: right-hand scalar
 //		return: comparison vector
-bvec4 ijkVecGreaterEqual4is(ivec4 const v_lh, int const s_rh);
+bvec4 ijkVecGreaterEqual4fs(fvec4 const v_lh, float const s_rh);
 
 // ijkVecLess4*s
 //	Less-than comparison of 4D vector components and scalar.
 //		param v_lh: left-hand vector
 //		param s_rh: right-hand scalar
 //		return: comparison vector
-bvec4 ijkVecLess4is(ivec4 const v_lh, int const s_rh);
+bvec4 ijkVecLess4fs(fvec4 const v_lh, float const s_rh);
 
 // ijkVecGreater4*s
 //	Greater-than comparison of 4D vector components and scalar.
 //		param v_lh: left-hand vector
 //		param s_rh: right-hand scalar
 //		return: comparison vector
-bvec4 ijkVecGreater4is(ivec4 const v_lh, int const s_rh);
+bvec4 ijkVecGreater4fs(fvec4 const v_lh, float const s_rh);
 
 // ijkVecAnd4*s
 //	Component-wise logical 'and' comparison of 4D vector and scalar.
 //		param v_lh: left-hand vector
 //		param s_rh: right-hand scalar
 //		return: comparison vector
-bvec4 ijkVecAnd4is(ivec4 const v_lh, int const s_rh);
+bvec4 ijkVecAnd4fs(fvec4 const v_lh, float const s_rh);
 
 // ijkVecNand4*s
 //	Component-wise logical 'nand' comparison of 4D vector and scalar.
 //		param v_lh: left-hand vector
 //		param s_rh: right-hand scalar
 //		return: comparison vector
-bvec4 ijkVecNand4is(ivec4 const v_lh, int const s_rh);
+bvec4 ijkVecNand4fs(fvec4 const v_lh, float const s_rh);
 
 // ijkVecOr4*s
 //	Component-wise logical 'or' comparison of 4D vector and scalar.
 //		param v_lh: left-hand vector
 //		param s_rh: right-hand scalar
 //		return: comparison vector
-bvec4 ijkVecOr4is(ivec4 const v_lh, int const s_rh);
+bvec4 ijkVecOr4fs(fvec4 const v_lh, float const s_rh);
 
 // ijkVecNor4*s
 //	Component-wise logical 'nor' comparison of 4D vector and scalar.
 //		param v_lh: left-hand vector
 //		param s_rh: right-hand scalar
 //		return: comparison vector
-bvec4 ijkVecNor4is(ivec4 const v_lh, int const s_rh);
+bvec4 ijkVecNor4fs(fvec4 const v_lh, float const s_rh);
 
 // ijkVecCopy4xy*
 //	Copy 4D vector from two scalars and 2D vector.
@@ -4069,205 +4069,205 @@ bvec4 ijkVecNor4is(ivec4 const v_lh, int const s_rh);
 //		param y: second element
 //		param v_zw: input 2D vector holding last two components
 //		return: result vector
-ivec4 ijkVecCopy4xyi(int const x, int const y, ivec2 const v_zw);
+fvec4 ijkVecCopy4xyf(float const x, float const y, fvec2 const v_zw);
 
 // ijkVecCopy4x*
 //	Copy 4D vector from one scalar and 3D vector.
 //		param x: first element
 //		param v_yzw: input 3D vector holding last three components
 //		return: result vector
-ivec4 ijkVecCopy4xi(int const x, ivec3 const v_yzw);
+fvec4 ijkVecCopy4xf(float const x, fvec3 const v_yzw);
 
 // ijkVecAdd4s*
 //	Calculate sum of scalar and 4D vector components.
 //		param s_lh: left-hand scalar
 //		param v_rh: right-hand vector
 //		return: result vector
-ivec4 ijkVecAdd4si(int const s_lh, ivec4 const v_rh);
+fvec4 ijkVecAdd4sf(float const s_lh, fvec4 const v_rh);
 
 // ijkVecSub4s*
 //	Calculate difference of scalar and 4D vector components.
 //		param s_lh: left-hand scalar
 //		param v_rh: right-hand vector
 //		return: result vector
-ivec4 ijkVecSub4si(int const s_lh, ivec4 const v_rh);
+fvec4 ijkVecSub4sf(float const s_lh, fvec4 const v_rh);
 
 // ijkVecMul4s*
 //	Calculate product of scalar by 4D vector components.
 //		param s_lh: left-hand scalar
 //		param v_rh: right-hand vector
 //		return: result vector
-ivec4 ijkVecMul4si(int const s_lh, ivec4 const v_rh);
+fvec4 ijkVecMul4sf(float const s_lh, fvec4 const v_rh);
 
 // ijkVecDiv4s*
 //	Calculate quotient of scalar by 4D vector components.
 //		param s_lh: left-hand scalar
 //		param v_rh: right-hand vector
 //		return: result vector
-ivec4 ijkVecDiv4si(int const s_lh, ivec4 const v_rh);
+fvec4 ijkVecDiv4sf(float const s_lh, fvec4 const v_rh);
 
 // ijkVecDivSafe4s*
 //	Calculate quotient of scalar by 4D vector components, division-by-zero safe.
 //		param s_lh: left-hand scalar
 //		param v_rh: right-hand vector
 //		return: result vector
-ivec4 ijkVecDivSafe4si(int const s_lh, ivec4 const v_rh);
+fvec4 ijkVecDivSafe4sf(float const s_lh, fvec4 const v_rh);
 
 // ijkVecMod4s*
 //	Calculate remainder of scalar by 4D vector components.
 //		param s_lh: left-hand scalar
 //		param v_rh: right-hand vector
 //		return: result vector
-ivec4 ijkVecMod4si(int const s_lh, ivec4 const v_rh);
+fvec4 ijkVecMod4sf(float const s_lh, fvec4 const v_rh);
 
 // ijkVecModSafe4s*
 //	Calculate remainder of scalar by 4D vector components, division-by-zero safe.
 //		param s_lh: left-hand scalar
 //		param v_rh: right-hand vector
 //		return: result vector
-ivec4 ijkVecModSafe4si(int const s_lh, ivec4 const v_rh);
+fvec4 ijkVecModSafe4sf(float const s_lh, fvec4 const v_rh);
 
-#if TINTEGER
+#if TfloatEGER
 // ijkVecBitAnd4s*
 //	Calculate bitwise 'and' of scalar and 4D vector components.
 //		param s_lh: left-hand scalar
 //		param v_rh: right-hand vector
 //		return: result vector
-ivec4 ijkVecBitAnd4si(int const s_lh, ivec4 const v_rh);
+fvec4 ijkVecBitAnd4sf(float const s_lh, fvec4 const v_rh);
 
 // ijkVecBitNand4s*
 //	Calculate bitwise 'not and' of scalar and 4D vector components.
 //		param s_lh: left-hand scalar
 //		param v_rh: right-hand vector
 //		return: result vector
-ivec4 ijkVecBitNand4si(int const s_lh, ivec4 const v_rh);
+fvec4 ijkVecBitNand4sf(float const s_lh, fvec4 const v_rh);
 
 // ijkVecBitOr4s*
 //	Calculate bitwise 'or' of scalar and 4D vector components.
 //		param s_lh: left-hand scalar
 //		param v_rh: right-hand vector
 //		return: result vector
-ivec4 ijkVecBitOr4si(int const s_lh, ivec4 const v_rh);
+fvec4 ijkVecBitOr4sf(float const s_lh, fvec4 const v_rh);
 
 // ijkVecBitNor4s*
 //	Calculate bitwise 'not or' of scalar and 4D vector components.
 //		param s_lh: left-hand scalar
 //		param v_rh: right-hand vector
 //		return: result vector
-ivec4 ijkVecBitNor4si(int const s_lh, ivec4 const v_rh);
+fvec4 ijkVecBitNor4sf(float const s_lh, fvec4 const v_rh);
 
 // ijkVecBitXor4s*
 //	Calculate bitwise 'exclusive or' of scalar and 4D vector components.
 //		param s_lh: left-hand scalar
 //		param v_rh: right-hand vector
 //		return: result vector
-ivec4 ijkVecBitXor4si(int const s_lh, ivec4 const v_rh);
+fvec4 ijkVecBitXor4sf(float const s_lh, fvec4 const v_rh);
 
 // ijkVecBitXnor4s*
 //	Calculate bitwise 'not exclusive or' of scalar and 4D vector components.
 //		param s_lh: left-hand scalar
 //		param v_rh: right-hand vector
 //		return: result vector
-ivec4 ijkVecBitXnor4si(int const s_lh, ivec4 const v_rh);
+fvec4 ijkVecBitXnor4sf(float const s_lh, fvec4 const v_rh);
 
 // ijkVecBitShiftLeft4s*
 //	Calculate bit shift left of scalar by 4D vector components.
 //		param s_lh: left-hand scalar
 //		param v_rh: right-hand vector
 //		return: result vector
-ivec4 ijkVecBitShiftLeft4si(int const s_lh, ivec4 const v_rh);
+fvec4 ijkVecBitShiftLeft4sf(float const s_lh, fvec4 const v_rh);
 
 // ijkVecBitShiftRight4s*
 //	Calculate bit shift right of scalar by 4D vector components.
 //		param s_lh: left-hand scalar
 //		param v_rh: right-hand vector
 //		return: result vector
-ivec4 ijkVecBitShiftRight4si(int const s_lh, ivec4 const v_rh);
-#endif	// TINTEGER
+fvec4 ijkVecBitShiftRight4sf(float const s_lh, fvec4 const v_rh);
+#endif	// TfloatEGER
 
 // ijkVecEqual4s*
 //	Equality comparison of scalar and 4D vector components.
 //		param s_lh: left-hand scalar
 //		param v_rh: right-hand vector
 //		return: comparison vector
-bvec4 ijkVecEqual4si(int const s_lh, ivec4 const v_rh);
+bvec4 ijkVecEqual4sf(float const s_lh, fvec4 const v_rh);
 
 // ijkVecInequal4s*
 //	Inequality comparison of scalar and 4D vector components.
 //		param s_lh: left-hand scalar
 //		param v_rh: right-hand vector
 //		return: comparison vector
-bvec4 ijkVecInequal4si(int const s_lh, ivec4 const v_rh);
+bvec4 ijkVecInequal4sf(float const s_lh, fvec4 const v_rh);
 
 // ijkVecLessEqual4s*
 //	Less-than or equal comparison of scalar and 4D vector components.
 //		param s_lh: left-hand scalar
 //		param v_rh: right-hand vector
 //		return: comparison vector
-bvec4 ijkVecLessEqual4si(int const s_lh, ivec4 const v_rh);
+bvec4 ijkVecLessEqual4sf(float const s_lh, fvec4 const v_rh);
 
 // ijkVecGreaterEqual4s*
 //	Greater-than or equal comparison of scalar and 4D vector components.
 //		param s_lh: left-hand scalar
 //		param v_rh: right-hand vector
 //		return: comparison vector
-bvec4 ijkVecGreaterEqual4si(int const s_lh, ivec4 const v_rh);
+bvec4 ijkVecGreaterEqual4sf(float const s_lh, fvec4 const v_rh);
 
 // ijkVecLess4s*
 //	Less-than comparison of scalar and 4D vector components.
 //		param s_lh: left-hand scalar
 //		param v_rh: right-hand vector
 //		return: comparison vector
-bvec4 ijkVecLess4si(int const s_lh, ivec4 const v_rh);
+bvec4 ijkVecLess4sf(float const s_lh, fvec4 const v_rh);
 
 // ijkVecGreater4s*
 //	Greater-than comparison of scalar and 4D vector components.
 //		param s_lh: left-hand scalar
 //		param v_rh: right-hand vector
 //		return: comparison vector
-bvec4 ijkVecGreater4si(int const s_lh, ivec4 const v_rh);
+bvec4 ijkVecGreater4sf(float const s_lh, fvec4 const v_rh);
 
 // ijkVecAnd4s*
 //	Component-wise logical 'and' comparison of 4D vector and scalar.
 //		param s_lh: left-hand scalar
 //		param v_rh: right-hand vector
 //		return: comparison vector
-bvec4 ijkVecAnd4si(int const s_lh, ivec4 const v_rh);
+bvec4 ijkVecAnd4sf(float const s_lh, fvec4 const v_rh);
 
 // ijkVecNand4s*
 //	Component-wise logical 'nand' comparison of 4D vector and scalar.
 //		param s_lh: left-hand scalar
 //		param v_rh: right-hand vector
 //		return: comparison vector
-bvec4 ijkVecNand4si(int const s_lh, ivec4 const v_rh);
+bvec4 ijkVecNand4sf(float const s_lh, fvec4 const v_rh);
 
 // ijkVecOr4s*
 //	Component-wise logical 'or' comparison of 4D vector and scalar.
 //		param s_lh: left-hand scalar
 //		param v_rh: right-hand vector
 //		return: comparison vector
-bvec4 ijkVecOr4si(int const s_lh, ivec4 const v_rh);
+bvec4 ijkVecOr4sf(float const s_lh, fvec4 const v_rh);
 
 // ijkVecNor4s*
 //	Component-wise logical 'nor' comparison of 4D vector and scalar.
 //		param s_lh: left-hand scalar
 //		param v_rh: right-hand vector
 //		return: comparison vector
-bvec4 ijkVecNor4si(int const s_lh, ivec4 const v_rh);
+bvec4 ijkVecNor4sf(float const s_lh, fvec4 const v_rh);
 
 // ijkVecDot4*
 //	Dot product of 4D vectors.
 //		param v_lh: left-hand vector
 //		param v_rh: right-hand vector
 //		return: dot product
-int ijkVecDot4i(ivec4 const v_lh, ivec4 const v_rh);
+float ijkVecDot4f(fvec4 const v_lh, fvec4 const v_rh);
 
 // ijkVecCross4*
 //	Cross product of 4D vectors.
 //		param v_lh: left-hand vector
 //		param v_rh: right-hand vector
 //		return: cross product (fourth component is zero)
-ivec4 ijkVecCross4i(ivec4 const v_lh, ivec4 const v_rh);
+fvec4 ijkVecCross4f(fvec4 const v_lh, fvec4 const v_rh);
 
 
 //-----------------------------------------------------------------------------
