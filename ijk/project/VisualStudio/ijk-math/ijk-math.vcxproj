@@ -185,9 +185,11 @@
     <ClInclude Include="..\..\..\include\ijk\ijk-math\ijk-real\ijkTrigonometry.h" />
     <ClInclude Include="..\..\..\include\ijk\ijk-math\ijk-real\ijkVector.h" />
     <ClInclude Include="..\..\..\include\ijk\ijk-math\ijk-real\_util\ijkVectorSwizzle.h" />
-    <ClInclude Include="..\..\..\include\ijk\ijk-math\ijk-real\_util\ijkVectorSwizzle_macro.h" />
+    <ClInclude Include="..\..\..\include\ijk\ijk-math\ijk-real\_util\ijkVectorSwizzle_macros.h" />
     <ClInclude Include="..\..\..\include\ijk\ijk-math\ijk-real\_util\ijkVector_bool.h" />
+    <ClInclude Include="..\..\..\include\ijk\ijk-math\ijk-real\_util\ijkVector_float.h" />
     <ClInclude Include="..\..\..\include\ijk\ijk-math\ijk-real\_util\ijkVector_int.h" />
+    <ClInclude Include="..\..\..\include\ijk\ijk-math\ijk-real\_util\ijkVector_uint.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\include\ijk\ijk-math\ijk-real\_inl\ijkInterpolation.inl" />
@@ -201,7 +203,9 @@
     <None Include="..\..\..\include\ijk\ijk-math\ijk-real\_inl\ijkVector.inl" />
     <None Include="..\..\..\include\ijk\ijk-math\ijk-real\_util\_inl\ijkVectorSwizzle.inl" />
     <None Include="..\..\..\include\ijk\ijk-math\ijk-real\_util\_inl\ijkVector_bool.inl" />
+    <None Include="..\..\..\include\ijk\ijk-math\ijk-real\_util\_inl\ijkVector_float.inl" />
     <None Include="..\..\..\include\ijk\ijk-math\ijk-real\_util\_inl\ijkVector_int.inl" />
+    <None Include="..\..\..\include\ijk\ijk-math\ijk-real\_util\_inl\ijkVector_uint.inl" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

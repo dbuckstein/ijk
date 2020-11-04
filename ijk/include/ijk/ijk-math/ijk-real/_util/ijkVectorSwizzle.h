@@ -84,47 +84,47 @@
 //	IJK_SWIZZLE_ALL to declare swizzling functions within target interface.
 //	Requires paired use of IJK_SWIZZLE_IMPL_TEMP, IJK_SWIZZLE_IMPL_RTEMP or
 //	IJK_SWIZZLE_IMPL outside of target interface.
-#define IJK_SWIZZLE_DECL(inl,cf,ot,rtb,rts,x,y,z,w,...)										inl cf rtb##rts _##x##y##z##w() cf
+#define IJK_SWIZZLE_DECL(inl,cf,ot,rtb,rts,x,y,z,w,...)										inl cf rtb##rts __swiz__##x##y##z##w() cf
 
 // IJK_SWIZZLE_DECL_IMPL
 //	Pass as 'swizzleFormat' to IJK_SWIZZLE_READONLY, IJK_SWIZZLE_READONLY or
 //	IJK_SWIZZLE_ALL to declare and implement swizzling functions within
 //	target interface.
-#define IJK_SWIZZLE_DECL_IMPL(inl,cf,ot,rtb,rts,x,y,z,w,...)								inl cf rtb##rts _##x##y##z##w() cf { return rtb##rts(__VA_ARGS__); }
+#define IJK_SWIZZLE_DECL_IMPL(inl,cf,ot,rtb,rts,x,y,z,w,...)								inl cf rtb##rts __swiz__##x##y##z##w() cf { return rtb##rts(__VA_ARGS__); }
 
 // IJK_SWIZZLE_IMPL
 //	Pass as 'swizzleFormat' to IJK_SWIZZLE_READONLY, IJK_SWIZZLE_READONLY or
 //	IJK_SWIZZLE_ALL to implement swizzling functions outside of target
 //	interface. Requires prior paired use of IJK_SWIZZLE_DECL within target
 //	interface.
-#define IJK_SWIZZLE_IMPL(inl,cf,ot,rtb,rts,x,y,z,w,...)										inl cf rtb##rts ot::_##x##y##z##w() cf { return rtb##rts(__VA_ARGS__); }
+#define IJK_SWIZZLE_IMPL(inl,cf,ot,rtb,rts,x,y,z,w,...)										inl cf rtb##rts ot::__swiz__##x##y##z##w() cf { return rtb##rts(__VA_ARGS__); }
 
 // IJK_SWIZZLE_DECL_RTEMP
 //	Pass as 'swizzleFormat' to IJK_SWIZZLE_READONLY, IJK_SWIZZLE_READONLY or
 //	IJK_SWIZZLE_ALL to declare swizzling functions within target interface
 //	using template return types. Requires paired use of IJK_SWIZZLE_IMPL_RTEMP
 //	outside of target interface.
-#define IJK_SWIZZLE_DECL_RTEMP(inl,cf,ot,rtb,rts,x,y,z,w,...)								inl cf rtb##rts<type> _##x##y##z##w() cf
+#define IJK_SWIZZLE_DECL_RTEMP(inl,cf,ot,rtb,rts,x,y,z,w,...)								inl cf rtb##rts<type> __swiz__##x##y##z##w() cf
 
 // IJK_SWIZZLE_DECL_IMPL_RTEMP
 //	Pass as 'swizzleFormat' to IJK_SWIZZLE_READONLY, IJK_SWIZZLE_READONLY or
 //	IJK_SWIZZLE_ALL to declare and implement swizzling functions within target
 //	template interface using template return types.
-#define IJK_SWIZZLE_DECL_IMPL_RTEMP(inl,cf,ot,rtb,rts,x,y,z,w,...)							inl cf rtb##rts<type> _##x##y##z##w() cf { return rtb##rts<type>(__VA_ARGS__); }
+#define IJK_SWIZZLE_DECL_IMPL_RTEMP(inl,cf,ot,rtb,rts,x,y,z,w,...)							inl cf rtb##rts<type> __swiz__##x##y##z##w() cf { return rtb##rts<type>(__VA_ARGS__); }
 
 // IJK_SWIZZLE_IMPL_TEMP
 //	Pass as 'swizzleFormat' to IJK_SWIZZLE_READONLY, IJK_SWIZZLE_READONLY or
 //	IJK_SWIZZLE_ALL to implement swizzling functions outside of target template
 //	interface. Requires prior paired use of IJK_SWIZZLE_DECL within target
 //	interface.
-#define IJK_SWIZZLE_IMPL_TEMP(inl,cf,ot,rtb,rts,x,y,z,w,...)								template<typename type> inl cf rtb##rts ot<type>::_##x##y##z##w() cf { return rtb##rts(__VA_ARGS__); }
+#define IJK_SWIZZLE_IMPL_TEMP(inl,cf,ot,rtb,rts,x,y,z,w,...)								template<typename type> inl cf rtb##rts ot<type>::__swiz__##x##y##z##w() cf { return rtb##rts(__VA_ARGS__); }
 
 // IJK_SWIZZLE_IMPL_RTEMP
 //	Pass as 'swizzleFormat' to IJK_SWIZZLE_READONLY, IJK_SWIZZLE_READONLY or
 //	IJK_SWIZZLE_ALL to implement swizzling functions outside of target template
 //	interface using template return types. Requires prior IJK_SWIZZLE_DECL or
 //	IJK_SWIZZLE_DECL_RTEMP within target interface.
-#define IJK_SWIZZLE_IMPL_RTEMP(inl,cf,ot,rtb,rts,x,y,z,w,...)								template<typename type> inl cf rtb##rts<type> ot<type>::_##x##y##z##w() cf { return rtb##rts<type>(__VA_ARGS__); }
+#define IJK_SWIZZLE_IMPL_RTEMP(inl,cf,ot,rtb,rts,x,y,z,w,...)								template<typename type> inl cf rtb##rts<type> ot<type>::__swiz__##x##y##z##w() cf { return rtb##rts<type>(__VA_ARGS__); }
 
 // Convenience macros for declaring template vector types.
 ///

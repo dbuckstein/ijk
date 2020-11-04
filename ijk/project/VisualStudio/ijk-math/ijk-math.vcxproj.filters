@@ -110,7 +110,13 @@
     <ClInclude Include="..\..\..\include\ijk\ijk-math\ijk-real\_util\ijkVector_bool.h">
       <Filter>Header Files\ijk-math\ijk-real\_util</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\include\ijk\ijk-math\ijk-real\_util\ijkVectorSwizzle_macro.h">
+    <ClInclude Include="..\..\..\include\ijk\ijk-math\ijk-real\_util\ijkVector_float.h">
+      <Filter>Header Files\ijk-math\ijk-real\_util</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\ijk\ijk-math\ijk-real\_util\ijkVector_uint.h">
+      <Filter>Header Files\ijk-math\ijk-real\_util</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\ijk\ijk-math\ijk-real\_util\ijkVectorSwizzle_macros.h">
       <Filter>Header Files\ijk-math\ijk-real\_util</Filter>
     </ClInclude>
   </ItemGroup>
@@ -140,6 +146,12 @@
       <Filter>Header Files\ijk-math\ijk-real\_util\_inl</Filter>
     </None>
     <None Include="..\..\..\include\ijk\ijk-math\ijk-real\_util\_inl\ijkVector_bool.inl">
+      <Filter>Header Files\ijk-math\ijk-real\_util\_inl</Filter>
+    </None>
+    <None Include="..\..\..\include\ijk\ijk-math\ijk-real\_util\_inl\ijkVector_float.inl">
+      <Filter>Header Files\ijk-math\ijk-real\_util\_inl</Filter>
+    </None>
+    <None Include="..\..\..\include\ijk\ijk-math\ijk-real\_util\_inl\ijkVector_uint.inl">
       <Filter>Header Files\ijk-math\ijk-real\_util\_inl</Filter>
     </None>
   </ItemGroup>
