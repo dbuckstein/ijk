@@ -1451,6 +1451,834 @@ ijk_inl intv ijkVecCross3iv(int3 v_out, int3 const v_lh, int3 const v_rh)
 
 //-----------------------------------------------------------------------------
 
+ijk_inl intv ijkVecInit4iv(int4 v_out)
+{
+	v_out[0] = v_out[1] = v_out[2] = v_out[3] = 0;
+	return v_out;
+}
+
+ijk_inl intv ijkVecInitElems4iv(int4 v_out, i32 const x, i32 const y, i32 const z, i32 const w)
+{
+	v_out[0] = x;
+	v_out[1] = y;
+	v_out[2] = z;
+	v_out[3] = w;
+	return v_out;
+}
+
+ijk_inl intv ijkVecCopy4ixvw(int4 v_out, i32 const x, int2 const v_yz, i32 const w)
+{
+	v_out[0] = x;
+	v_out[1] = v_yz[0];
+	v_out[2] = v_yz[1];
+	v_out[3] = w;
+	return v_out;
+}
+
+ijk_inl intv ijkVecCopy4iv2(int4 v_out, int2 const v_xy, int2 const v_zw)
+{
+	v_out[0] = v_xy[0];
+	v_out[1] = v_xy[1];
+	v_out[2] = v_zw[0];
+	v_out[3] = v_zw[1];
+	return v_out;
+}
+
+ijk_inl intv ijkVecCopy4iv(int4 v_out, int4 const v_in)
+{
+	v_out[0] = +v_in[0];
+	v_out[1] = +v_in[1];
+	v_out[2] = +v_in[2];
+	v_out[3] = +v_in[3];
+	return v_out;
+}
+
+#if TSIGNED
+ijk_inl intv ijkVecNegate4iv(int4 v_out, int4 const v_in)
+{
+	v_out[0] = -v_in[0];
+	v_out[1] = -v_in[1];
+	v_out[2] = -v_in[2];
+	v_out[3] = -v_in[3];
+	return v_out;
+}
+#endif	// TSIGNED
+
+#if TINTEGER
+ijk_inl intv ijkVecBitNot4iv(int4 v_out, int4 const v_in)
+{
+	v_out[0] = ~v_in[0];
+	v_out[1] = ~v_in[1];
+	v_out[2] = ~v_in[2];
+	v_out[3] = ~v_in[3];
+	return v_out;
+}
+#endif	// TINTEGER
+
+ijk_inl boolv ijkVecNot4iv(bool4 bv_out, int4 const v_in)
+{
+	bv_out[0] = !v_in[0];
+	bv_out[1] = !v_in[1];
+	bv_out[2] = !v_in[2];
+	bv_out[3] = !v_in[3];
+	return bv_out;
+}
+
+ijk_inl intv ijkVecAdd4iv(int4 v_out, int4 const v_lh, int4 const v_rh)
+{
+	v_out[0] = v_lh[0] + v_rh[0];
+	v_out[1] = v_lh[1] + v_rh[1];
+	v_out[2] = v_lh[2] + v_rh[2];
+	v_out[3] = v_lh[3] + v_rh[3];
+	return v_out;
+}
+
+ijk_inl intv ijkVecSub4iv(int4 v_out, int4 const v_lh, int4 const v_rh)
+{
+	v_out[0] = v_lh[0] - v_rh[0];
+	v_out[1] = v_lh[1] - v_rh[1];
+	v_out[2] = v_lh[2] - v_rh[2];
+	v_out[3] = v_lh[3] - v_rh[3];
+	return v_out;
+}
+
+ijk_inl intv ijkVecMul4iv(int4 v_out, int4 const v_lh, int4 const v_rh)
+{
+	v_out[0] = v_lh[0] * v_rh[0];
+	v_out[1] = v_lh[1] * v_rh[1];
+	v_out[2] = v_lh[2] * v_rh[2];
+	v_out[3] = v_lh[3] * v_rh[3];
+	return v_out;
+}
+
+ijk_inl intv ijkVecDiv4iv(int4 v_out, int4 const v_lh, int4 const v_rh)
+{
+	v_out[0] = v_lh[0] / v_rh[0];
+	v_out[1] = v_lh[1] / v_rh[1];
+	v_out[2] = v_lh[2] / v_rh[2];
+	v_out[3] = v_lh[3] / v_rh[3];
+	return v_out;
+}
+
+ijk_inl intv ijkVecDivSafe4iv(int4 v_out, int4 const v_lh, int4 const v_rh)
+{
+	v_out[0] = ijk_divide_safe_int(v_lh[0], v_rh[0]);
+	v_out[1] = ijk_divide_safe_int(v_lh[1], v_rh[1]);
+	v_out[2] = ijk_divide_safe_int(v_lh[2], v_rh[2]);
+	v_out[3] = ijk_divide_safe_int(v_lh[3], v_rh[3]);
+	return v_out;
+}
+
+ijk_inl intv ijkVecMod4iv(int4 v_out, int4 const v_lh, int4 const v_rh)
+{
+	v_out[0] = v_lh[0] % v_rh[0];
+	v_out[1] = v_lh[1] % v_rh[1];
+	v_out[2] = v_lh[2] % v_rh[2];
+	v_out[3] = v_lh[3] % v_rh[3];
+	return v_out;
+}
+
+ijk_inl intv ijkVecModSafe4iv(int4 v_out, int4 const v_lh, int4 const v_rh)
+{
+	v_out[0] = ijk_modulo_safe_int(v_lh[0], v_rh[0]);
+	v_out[1] = ijk_modulo_safe_int(v_lh[1], v_rh[1]);
+	v_out[2] = ijk_modulo_safe_int(v_lh[2], v_rh[2]);
+	v_out[3] = ijk_modulo_safe_int(v_lh[3], v_rh[3]);
+	return v_out;
+}
+
+#if TINTEGER
+ijk_inl intv ijkVecBitAnd4iv(int4 v_out, int4 const v_lh, int4 const v_rh)
+{
+	v_out[0] = (v_lh[0] & v_rh[0]);
+	v_out[1] = (v_lh[1] & v_rh[1]);
+	v_out[2] = (v_lh[2] & v_rh[2]);
+	v_out[3] = (v_lh[3] & v_rh[3]);
+	return v_out;
+}
+
+ijk_inl intv ijkVecBitNand4iv(int4 v_out, int4 const v_lh, int4 const v_rh)
+{
+	v_out[0] = ~(v_lh[0] & v_rh[0]);
+	v_out[1] = ~(v_lh[1] & v_rh[1]);
+	v_out[2] = ~(v_lh[2] & v_rh[2]);
+	v_out[3] = ~(v_lh[3] & v_rh[3]);
+	return v_out;
+}
+
+ijk_inl intv ijkVecBitOr4iv(int4 v_out, int4 const v_lh, int4 const v_rh)
+{
+	v_out[0] = (v_lh[0] | v_rh[0]);
+	v_out[1] = (v_lh[1] | v_rh[1]);
+	v_out[2] = (v_lh[2] | v_rh[2]);
+	v_out[3] = (v_lh[3] | v_rh[3]);
+	return v_out;
+}
+
+ijk_inl intv ijkVecBitNor4iv(int4 v_out, int4 const v_lh, int4 const v_rh)
+{
+	v_out[0] = ~(v_lh[0] | v_rh[0]);
+	v_out[1] = ~(v_lh[1] | v_rh[1]);
+	v_out[2] = ~(v_lh[2] | v_rh[2]);
+	v_out[3] = ~(v_lh[3] | v_rh[3]);
+	return v_out;
+}
+
+ijk_inl intv ijkVecBitXor4iv(int4 v_out, int4 const v_lh, int4 const v_rh)
+{
+	v_out[0] = (v_lh[0] ^ v_rh[0]);
+	v_out[1] = (v_lh[1] ^ v_rh[1]);
+	v_out[2] = (v_lh[2] ^ v_rh[2]);
+	v_out[3] = (v_lh[3] ^ v_rh[3]);
+	return v_out;
+}
+
+ijk_inl intv ijkVecBitXnor4iv(int4 v_out, int4 const v_lh, int4 const v_rh)
+{
+	v_out[0] = ~(v_lh[0] ^ v_rh[0]);
+	v_out[1] = ~(v_lh[1] ^ v_rh[1]);
+	v_out[2] = ~(v_lh[2] ^ v_rh[2]);
+	v_out[3] = ~(v_lh[3] ^ v_rh[3]);
+	return v_out;
+}
+
+ijk_inl intv ijkVecBitShiftLeft4iv(int4 v_out, int4 const v_lh, int4 const v_rh)
+{
+	v_out[0] = (v_lh[0] << v_rh[0]);
+	v_out[1] = (v_lh[1] << v_rh[1]);
+	v_out[2] = (v_lh[2] << v_rh[2]);
+	v_out[3] = (v_lh[3] << v_rh[3]);
+	return v_out;
+}
+
+ijk_inl intv ijkVecBitShiftRight4iv(int4 v_out, int4 const v_lh, int4 const v_rh)
+{
+	v_out[0] = (v_lh[0] >> v_rh[0]);
+	v_out[1] = (v_lh[1] >> v_rh[1]);
+	v_out[2] = (v_lh[2] >> v_rh[2]);
+	v_out[3] = (v_lh[3] >> v_rh[3]);
+	return v_out;
+}
+#endif	// TINTEGER
+
+ijk_inl boolv ijkVecEqual4iv(bool4 bv_out, int4 const v_lh, int4 const v_rh)
+{
+	bv_out[0] = (v_lh[0] == v_rh[0]);
+	bv_out[1] = (v_lh[1] == v_rh[1]);
+	bv_out[2] = (v_lh[2] == v_rh[2]);
+	bv_out[3] = (v_lh[3] == v_rh[3]);
+	return bv_out;
+}
+
+ijk_inl boolv ijkVecInequal4iv(bool4 bv_out, int4 const v_lh, int4 const v_rh)
+{
+	bv_out[0] = (v_lh[0] != v_rh[0]);
+	bv_out[1] = (v_lh[1] != v_rh[1]);
+	bv_out[2] = (v_lh[2] != v_rh[2]);
+	bv_out[3] = (v_lh[3] != v_rh[3]);
+	return bv_out;
+}
+
+ijk_inl boolv ijkVecLessEqual4iv(bool4 bv_out, int4 const v_lh, int4 const v_rh)
+{
+	bv_out[0] = (v_lh[0] <= v_rh[0]);
+	bv_out[1] = (v_lh[1] <= v_rh[1]);
+	bv_out[2] = (v_lh[2] <= v_rh[2]);
+	bv_out[3] = (v_lh[3] <= v_rh[3]);
+	return bv_out;
+}
+
+ijk_inl boolv ijkVecGreaterEqual4iv(bool4 bv_out, int4 const v_lh, int4 const v_rh)
+{
+	bv_out[0] = (v_lh[0] >= v_rh[0]);
+	bv_out[1] = (v_lh[1] >= v_rh[1]);
+	bv_out[2] = (v_lh[2] >= v_rh[2]);
+	bv_out[3] = (v_lh[3] >= v_rh[3]);
+	return bv_out;
+}
+
+ijk_inl boolv ijkVecLess4iv(bool4 bv_out, int4 const v_lh, int4 const v_rh)
+{
+	bv_out[0] = (v_lh[0] < v_rh[0]);
+	bv_out[1] = (v_lh[1] < v_rh[1]);
+	bv_out[2] = (v_lh[2] < v_rh[2]);
+	bv_out[3] = (v_lh[3] < v_rh[3]);
+	return bv_out;
+}
+
+ijk_inl boolv ijkVecGreater4iv(bool4 bv_out, int4 const v_lh, int4 const v_rh)
+{
+	bv_out[0] = (v_lh[0] > v_rh[0]);
+	bv_out[1] = (v_lh[1] > v_rh[1]);
+	bv_out[2] = (v_lh[2] > v_rh[2]);
+	bv_out[3] = (v_lh[3] > v_rh[3]);
+	return bv_out;
+}
+
+ijk_inl boolv ijkVecAnd4iv(bool4 bv_out, int4 const v_lh, int4 const v_rh)
+{
+	bv_out[0] = (v_lh[0] && v_rh[0]);
+	bv_out[1] = (v_lh[1] && v_rh[1]);
+	bv_out[2] = (v_lh[2] && v_rh[2]);
+	bv_out[3] = (v_lh[3] && v_rh[3]);
+	return bv_out;
+}
+
+ijk_inl boolv ijkVecNand4iv(bool4 bv_out, int4 const v_lh, int4 const v_rh)
+{
+	bv_out[0] = !(v_lh[0] && v_rh[0]);
+	bv_out[1] = !(v_lh[1] && v_rh[1]);
+	bv_out[2] = !(v_lh[2] && v_rh[2]);
+	bv_out[3] = !(v_lh[3] && v_rh[3]);
+	return bv_out;
+}
+
+ijk_inl boolv ijkVecOr4iv(bool4 bv_out, int4 const v_lh, int4 const v_rh)
+{
+	bv_out[0] = (v_lh[0] || v_rh[0]);
+	bv_out[1] = (v_lh[1] || v_rh[1]);
+	bv_out[2] = (v_lh[2] || v_rh[2]);
+	bv_out[3] = (v_lh[3] || v_rh[3]);
+	return bv_out;
+}
+
+ijk_inl boolv ijkVecNor4iv(bool4 bv_out, int4 const v_lh, int4 const v_rh)
+{
+	bv_out[0] = !(v_lh[0] || v_rh[0]);
+	bv_out[1] = !(v_lh[1] || v_rh[1]);
+	bv_out[2] = !(v_lh[2] || v_rh[2]);
+	bv_out[3] = !(v_lh[3] || v_rh[3]);
+	return bv_out;
+}
+
+ijk_inl intv ijkVecCopy4ivzw(int4 v_out, int2 const v_xy, i32 const z, i32 const w)
+{
+	v_out[0] = v_xy[0];
+	v_out[1] = v_xy[1];
+	v_out[2] = z;
+	v_out[3] = w;
+	return v_out;
+}
+
+ijk_inl intv ijkVecCopy4ivw(int4 v_out, int3 const v_xyz, i32 const w)
+{
+	v_out[0] = v_xyz[0];
+	v_out[1] = v_xyz[1];
+	v_out[2] = v_xyz[2];
+	v_out[3] = w;
+	return v_out;
+}
+
+ijk_inl intv ijkVecCopy4ivs(int4 v_out, i32 const s_in)
+{
+	v_out[0] = v_out[1] = v_out[2] = v_out[3] = +s_in;
+	return v_out;
+}
+
+#if TSIGNED
+ijk_inl intv ijkVecNegate4ivs(int4 v_out, i32 const s_in)
+{
+	v_out[0] = v_out[1] = v_out[2] = v_out[3] = -s_in;
+	return v_out;
+}
+#endif	// TSIGNED
+
+#if TINTEGER
+ijk_inl intv ijkVecBitNot4ivs(int4 v_out, i32 const s_in)
+{
+	v_out[0] = v_out[1] = v_out[2] = v_out[3] = ~s_in;
+	return v_out;
+}
+#endif	// TINTEGER
+
+ijk_inl boolv ijkVecNot4ivs(bool4 bv_out, i32 const s_in)
+{
+	bv_out[0] = bv_out[1] = bv_out[2] = bv_out[3] = !s_in;
+	return bv_out;
+}
+
+ijk_inl intv ijkVecAdd4ivs(int4 v_out, int4 const v_lh, i32 const s_rh)
+{
+	v_out[0] = v_lh[0] + s_rh;
+	v_out[1] = v_lh[1] + s_rh;
+	v_out[2] = v_lh[2] + s_rh;
+	v_out[3] = v_lh[3] + s_rh;
+	return v_out;
+}
+
+ijk_inl intv ijkVecSub4ivs(int4 v_out, int4 const v_lh, i32 const s_rh)
+{
+	v_out[0] = v_lh[0] - s_rh;
+	v_out[1] = v_lh[1] - s_rh;
+	v_out[2] = v_lh[2] - s_rh;
+	v_out[3] = v_lh[3] - s_rh;
+	return v_out;
+}
+
+ijk_inl intv ijkVecMul4ivs(int4 v_out, int4 const v_lh, i32 const s_rh)
+{
+	v_out[0] = v_lh[0] * s_rh;
+	v_out[1] = v_lh[1] * s_rh;
+	v_out[2] = v_lh[2] * s_rh;
+	v_out[3] = v_lh[3] * s_rh;
+	return v_out;
+}
+
+ijk_inl intv ijkVecDiv4ivs(int4 v_out, int4 const v_lh, i32 const s_rh)
+{
+	v_out[0] = v_lh[0] / s_rh;
+	v_out[1] = v_lh[1] / s_rh;
+	v_out[2] = v_lh[2] / s_rh;
+	v_out[3] = v_lh[3] / s_rh;
+	return v_out;
+}
+
+ijk_inl intv ijkVecDivSafe4ivs(int4 v_out, int4 const v_lh, i32 const s_rh)
+{
+	if (s_rh)
+	{
+		v_out[0] = v_lh[0] / s_rh;
+		v_out[1] = v_lh[1] / s_rh;
+		v_out[2] = v_lh[2] / s_rh;
+		v_out[3] = v_lh[3] / s_rh;
+	}
+	else
+		v_out[0] = v_out[1] = v_out[2] = v_out[3] = 0;
+	return v_out;
+}
+
+ijk_inl intv ijkVecMod4ivs(int4 v_out, int4 const v_lh, i32 const s_rh)
+{
+	v_out[0] = v_lh[0] % s_rh;
+	v_out[1] = v_lh[1] % s_rh;
+	v_out[2] = v_lh[2] % s_rh;
+	v_out[3] = v_lh[3] % s_rh;
+	return v_out;
+}
+
+ijk_inl intv ijkVecModSafe4ivs(int4 v_out, int4 const v_lh, i32 const s_rh)
+{
+	if (s_rh)
+	{
+		v_out[0] = v_lh[0] % s_rh;
+		v_out[1] = v_lh[1] % s_rh;
+		v_out[2] = v_lh[2] % s_rh;
+		v_out[3] = v_lh[3] % s_rh;
+	}
+	else
+		v_out[0] = v_out[1] = v_out[2] = v_out[3] = 0;
+	return v_out;
+}
+
+#if TINTEGER
+ijk_inl intv ijkVecBitAnd4ivs(int4 v_out, int4 const v_lh, i32 const s_rh)
+{
+	v_out[0] = (v_lh[0] & s_rh);
+	v_out[1] = (v_lh[1] & s_rh);
+	v_out[2] = (v_lh[2] & s_rh);
+	v_out[3] = (v_lh[3] & s_rh);
+	return v_out;
+}
+
+ijk_inl intv ijkVecBitNand4ivs(int4 v_out, int4 const v_lh, i32 const s_rh)
+{
+	v_out[0] = ~(v_lh[0] & s_rh);
+	v_out[1] = ~(v_lh[1] & s_rh);
+	v_out[2] = ~(v_lh[2] & s_rh);
+	v_out[3] = ~(v_lh[3] & s_rh);
+	return v_out;
+}
+
+ijk_inl intv ijkVecBitOr4ivs(int4 v_out, int4 const v_lh, i32 const s_rh)
+{
+	v_out[0] = (v_lh[0] | s_rh);
+	v_out[1] = (v_lh[1] | s_rh);
+	v_out[2] = (v_lh[2] | s_rh);
+	v_out[3] = (v_lh[3] | s_rh);
+	return v_out;
+}
+
+ijk_inl intv ijkVecBitNor4ivs(int4 v_out, int4 const v_lh, i32 const s_rh)
+{
+	v_out[0] = ~(v_lh[0] | s_rh);
+	v_out[1] = ~(v_lh[1] | s_rh);
+	v_out[2] = ~(v_lh[2] | s_rh);
+	v_out[3] = ~(v_lh[3] | s_rh);
+	return v_out;
+}
+
+ijk_inl intv ijkVecBitXor4ivs(int4 v_out, int4 const v_lh, i32 const s_rh)
+{
+	v_out[0] = (v_lh[0] ^ s_rh);
+	v_out[1] = (v_lh[1] ^ s_rh);
+	v_out[2] = (v_lh[2] ^ s_rh);
+	v_out[3] = (v_lh[3] ^ s_rh);
+	return v_out;
+}
+
+ijk_inl intv ijkVecBitXnor4ivs(int4 v_out, int4 const v_lh, i32 const s_rh)
+{
+	v_out[0] = ~(v_lh[0] ^ s_rh);
+	v_out[1] = ~(v_lh[1] ^ s_rh);
+	v_out[2] = ~(v_lh[2] ^ s_rh);
+	v_out[3] = ~(v_lh[3] ^ s_rh);
+	return v_out;
+}
+
+ijk_inl intv ijkVecBitShiftLeft4ivs(int4 v_out, int4 const v_lh, i32 const s_rh)
+{
+	v_out[0] = (v_lh[0] << s_rh);
+	v_out[1] = (v_lh[1] << s_rh);
+	v_out[2] = (v_lh[2] << s_rh);
+	v_out[3] = (v_lh[3] << s_rh);
+	return v_out;
+}
+
+ijk_inl intv ijkVecBitShiftRight4ivs(int4 v_out, int4 const v_lh, i32 const s_rh)
+{
+	v_out[0] = (v_lh[0] >> s_rh);
+	v_out[1] = (v_lh[1] >> s_rh);
+	v_out[2] = (v_lh[2] >> s_rh);
+	v_out[3] = (v_lh[3] >> s_rh);
+	return v_out;
+}
+#endif	// TINTEGER
+
+ijk_inl boolv ijkVecEqual4ivs(bool4 bv_out, int4 const v_lh, i32 const s_rh)
+{
+	bv_out[0] = (v_lh[0] == s_rh);
+	bv_out[1] = (v_lh[1] == s_rh);
+	bv_out[2] = (v_lh[2] == s_rh);
+	bv_out[3] = (v_lh[3] == s_rh);
+	return bv_out;
+}
+
+ijk_inl boolv ijkVecInequal4ivs(bool4 bv_out, int4 const v_lh, i32 const s_rh)
+{
+	bv_out[0] = (v_lh[0] != s_rh);
+	bv_out[1] = (v_lh[1] != s_rh);
+	bv_out[2] = (v_lh[2] != s_rh);
+	bv_out[3] = (v_lh[3] != s_rh);
+	return bv_out;
+}
+
+ijk_inl boolv ijkVecLessEqual4ivs(bool4 bv_out, int4 const v_lh, i32 const s_rh)
+{
+	bv_out[0] = (v_lh[0] <= s_rh);
+	bv_out[1] = (v_lh[1] <= s_rh);
+	bv_out[2] = (v_lh[2] <= s_rh);
+	bv_out[3] = (v_lh[3] <= s_rh);
+	return bv_out;
+}
+
+ijk_inl boolv ijkVecGreaterEqual4ivs(bool4 bv_out, int4 const v_lh, i32 const s_rh)
+{
+	bv_out[0] = (v_lh[0] >= s_rh);
+	bv_out[1] = (v_lh[1] >= s_rh);
+	bv_out[2] = (v_lh[2] >= s_rh);
+	bv_out[3] = (v_lh[3] >= s_rh);
+	return bv_out;
+}
+
+ijk_inl boolv ijkVecLess4ivs(bool4 bv_out, int4 const v_lh, i32 const s_rh)
+{
+	bv_out[0] = (v_lh[0] < s_rh);
+	bv_out[1] = (v_lh[1] < s_rh);
+	bv_out[2] = (v_lh[2] < s_rh);
+	bv_out[3] = (v_lh[3] < s_rh);
+	return bv_out;
+}
+
+ijk_inl boolv ijkVecGreater4ivs(bool4 bv_out, int4 const v_lh, i32 const s_rh)
+{
+	bv_out[0] = (v_lh[0] > s_rh);
+	bv_out[1] = (v_lh[1] > s_rh);
+	bv_out[2] = (v_lh[2] > s_rh);
+	bv_out[3] = (v_lh[3] > s_rh);
+	return bv_out;
+}
+
+ijk_inl boolv ijkVecAnd4ivs(bool4 bv_out, int4 const v_lh, i32 const s_rh)
+{
+	bv_out[0] = (v_lh[0] && s_rh);
+	bv_out[1] = (v_lh[1] && s_rh);
+	bv_out[2] = (v_lh[2] && s_rh);
+	bv_out[3] = (v_lh[3] && s_rh);
+	return bv_out;
+}
+
+ijk_inl boolv ijkVecNand4ivs(bool4 bv_out, int4 const v_lh, i32 const s_rh)
+{
+	bv_out[0] = !(v_lh[0] && s_rh);
+	bv_out[1] = !(v_lh[1] && s_rh);
+	bv_out[2] = !(v_lh[2] && s_rh);
+	bv_out[3] = !(v_lh[3] && s_rh);
+	return bv_out;
+}
+
+ijk_inl boolv ijkVecOr4ivs(bool4 bv_out, int4 const v_lh, i32 const s_rh)
+{
+	bv_out[0] = (v_lh[0] || s_rh);
+	bv_out[1] = (v_lh[1] || s_rh);
+	bv_out[2] = (v_lh[2] || s_rh);
+	bv_out[3] = (v_lh[3] || s_rh);
+	return bv_out;
+}
+
+ijk_inl boolv ijkVecNor4ivs(bool4 bv_out, int4 const v_lh, i32 const s_rh)
+{
+	bv_out[0] = !(v_lh[0] || s_rh);
+	bv_out[1] = !(v_lh[1] || s_rh);
+	bv_out[2] = !(v_lh[2] || s_rh);
+	bv_out[3] = !(v_lh[3] || s_rh);
+	return bv_out;
+}
+
+ijk_inl intv ijkVecCopy4ixyv(int4 v_out, i32 const x, i32 const y, int2 const v_zw)
+{
+	v_out[0] = x;
+	v_out[1] = y;
+	v_out[2] = v_zw[0];
+	v_out[3] = v_zw[1];
+	return v_out;
+}
+
+ijk_inl intv ijkVecCopy4ixv(int4 v_out, i32 const x, int3 const v_yzw)
+{
+	v_out[0] = x;
+	v_out[1] = v_yzw[0];
+	v_out[2] = v_yzw[1];
+	v_out[3] = v_yzw[2];
+	return v_out;
+}
+
+ijk_inl intv ijkVecAdd4isv(int4 v_out, i32 const s_lh, int4 const v_rh)
+{
+	v_out[0] = s_lh + v_rh[0];
+	v_out[1] = s_lh + v_rh[1];
+	v_out[2] = s_lh + v_rh[2];
+	v_out[3] = s_lh + v_rh[3];
+	return v_out;
+}
+
+ijk_inl intv ijkVecSub4isv(int4 v_out, i32 const s_lh, int4 const v_rh)
+{
+	v_out[0] = s_lh - v_rh[0];
+	v_out[1] = s_lh - v_rh[1];
+	v_out[2] = s_lh - v_rh[2];
+	v_out[3] = s_lh - v_rh[3];
+	return v_out;
+}
+
+ijk_inl intv ijkVecMul4isv(int4 v_out, i32 const s_lh, int4 const v_rh)
+{
+	v_out[0] = s_lh * v_rh[0];
+	v_out[1] = s_lh * v_rh[1];
+	v_out[2] = s_lh * v_rh[2];
+	v_out[3] = s_lh * v_rh[3];
+	return v_out;
+}
+
+ijk_inl intv ijkVecDiv4isv(int4 v_out, i32 const s_lh, int4 const v_rh)
+{
+	v_out[0] = s_lh / v_rh[0];
+	v_out[1] = s_lh / v_rh[1];
+	v_out[2] = s_lh / v_rh[2];
+	v_out[3] = s_lh / v_rh[3];
+	return v_out;
+}
+
+ijk_inl intv ijkVecDivSafe4isv(int4 v_out, i32 const s_lh, int4 const v_rh)
+{
+	v_out[0] = ijk_divide_safe_int(s_lh, v_rh[0]);
+	v_out[1] = ijk_divide_safe_int(s_lh, v_rh[1]);
+	v_out[2] = ijk_divide_safe_int(s_lh, v_rh[2]);
+	v_out[3] = ijk_divide_safe_int(s_lh, v_rh[3]);
+	return v_out;
+}
+
+ijk_inl intv ijkVecMod4isv(int4 v_out, i32 const s_lh, int4 const v_rh)
+{
+	v_out[0] = s_lh % v_rh[0];
+	v_out[1] = s_lh % v_rh[1];
+	v_out[2] = s_lh % v_rh[2];
+	v_out[3] = s_lh % v_rh[3];
+	return v_out;
+}
+
+ijk_inl intv ijkVecModSafe4isv(int4 v_out, i32 const s_lh, int4 const v_rh)
+{
+	v_out[0] = ijk_modulo_safe_int(s_lh, v_rh[0]);
+	v_out[1] = ijk_modulo_safe_int(s_lh, v_rh[1]);
+	v_out[2] = ijk_modulo_safe_int(s_lh, v_rh[2]);
+	v_out[3] = ijk_modulo_safe_int(s_lh, v_rh[3]);
+	return v_out;
+}
+
+#if TINTEGER
+ijk_inl intv ijkVecBitAnd4isv(int4 v_out, i32 const s_lh, int4 const v_rh)
+{
+	v_out[0] = (s_lh & v_rh[0]);
+	v_out[1] = (s_lh & v_rh[1]);
+	v_out[2] = (s_lh & v_rh[2]);
+	v_out[3] = (s_lh & v_rh[3]);
+	return v_out;
+}
+
+ijk_inl intv ijkVecBitNand4isv(int4 v_out, i32 const s_lh, int4 const v_rh)
+{
+	v_out[0] = ~(s_lh & v_rh[0]);
+	v_out[1] = ~(s_lh & v_rh[1]);
+	v_out[2] = ~(s_lh & v_rh[2]);
+	v_out[3] = ~(s_lh & v_rh[3]);
+	return v_out;
+}
+
+ijk_inl intv ijkVecBitOr4isv(int4 v_out, i32 const s_lh, int4 const v_rh)
+{
+	v_out[0] = (s_lh | v_rh[0]);
+	v_out[1] = (s_lh | v_rh[1]);
+	v_out[2] = (s_lh | v_rh[2]);
+	v_out[3] = (s_lh | v_rh[3]);
+	return v_out;
+}
+
+ijk_inl intv ijkVecBitNor4isv(int4 v_out, i32 const s_lh, int4 const v_rh)
+{
+	v_out[0] = ~(s_lh | v_rh[0]);
+	v_out[1] = ~(s_lh | v_rh[1]);
+	v_out[2] = ~(s_lh | v_rh[2]);
+	v_out[3] = ~(s_lh | v_rh[3]);
+	return v_out;
+}
+
+ijk_inl intv ijkVecBitXor4isv(int4 v_out, i32 const s_lh, int4 const v_rh)
+{
+	v_out[0] = (s_lh ^ v_rh[0]);
+	v_out[1] = (s_lh ^ v_rh[1]);
+	v_out[2] = (s_lh ^ v_rh[2]);
+	v_out[3] = (s_lh ^ v_rh[3]);
+	return v_out;
+}
+
+ijk_inl intv ijkVecBitXnor4isv(int4 v_out, i32 const s_lh, int4 const v_rh)
+{
+	v_out[0] = ~(s_lh ^ v_rh[0]);
+	v_out[1] = ~(s_lh ^ v_rh[1]);
+	v_out[2] = ~(s_lh ^ v_rh[2]);
+	v_out[3] = ~(s_lh ^ v_rh[3]);
+	return v_out;
+}
+
+ijk_inl intv ijkVecBitShiftLeft4isv(int4 v_out, i32 const s_lh, int4 const v_rh)
+{
+	v_out[0] = (s_lh << v_rh[0]);
+	v_out[1] = (s_lh << v_rh[1]);
+	v_out[2] = (s_lh << v_rh[2]);
+	v_out[3] = (s_lh << v_rh[3]);
+	return v_out;
+}
+
+ijk_inl intv ijkVecBitShiftRight4isv(int4 v_out, i32 const s_lh, int4 const v_rh)
+{
+	v_out[0] = (s_lh >> v_rh[0]);
+	v_out[1] = (s_lh >> v_rh[1]);
+	v_out[2] = (s_lh >> v_rh[2]);
+	v_out[3] = (s_lh >> v_rh[3]);
+	return v_out;
+}
+#endif	// TINTEGER
+
+ijk_inl boolv ijkVecEqual4isv(bool4 bv_out, i32 const s_lh, int4 const v_rh)
+{
+	bv_out[0] = (s_lh == v_rh[0]);
+	bv_out[1] = (s_lh == v_rh[1]);
+	bv_out[2] = (s_lh == v_rh[2]);
+	bv_out[3] = (s_lh == v_rh[3]);
+	return bv_out;
+}
+
+ijk_inl boolv ijkVecInequal4isv(bool4 bv_out, i32 const s_lh, int4 const v_rh)
+{
+	bv_out[0] = (s_lh != v_rh[0]);
+	bv_out[1] = (s_lh != v_rh[1]);
+	bv_out[2] = (s_lh != v_rh[2]);
+	bv_out[3] = (s_lh != v_rh[3]);
+	return bv_out;
+}
+
+ijk_inl boolv ijkVecLessEqual4isv(bool4 bv_out, i32 const s_lh, int4 const v_rh)
+{
+	bv_out[0] = (s_lh <= v_rh[0]);
+	bv_out[1] = (s_lh <= v_rh[1]);
+	bv_out[2] = (s_lh <= v_rh[2]);
+	bv_out[3] = (s_lh <= v_rh[3]);
+	return bv_out;
+}
+
+ijk_inl boolv ijkVecGreaterEqual4isv(bool4 bv_out, i32 const s_lh, int4 const v_rh)
+{
+	bv_out[0] = (s_lh >= v_rh[0]);
+	bv_out[1] = (s_lh >= v_rh[1]);
+	bv_out[2] = (s_lh >= v_rh[2]);
+	bv_out[3] = (s_lh >= v_rh[3]);
+	return bv_out;
+}
+
+ijk_inl boolv ijkVecLess4isv(bool4 bv_out, i32 const s_lh, int4 const v_rh)
+{
+	bv_out[0] = (s_lh < v_rh[0]);
+	bv_out[1] = (s_lh < v_rh[1]);
+	bv_out[2] = (s_lh < v_rh[2]);
+	bv_out[3] = (s_lh < v_rh[3]);
+	return bv_out;
+}
+
+ijk_inl boolv ijkVecGreater4isv(bool4 bv_out, i32 const s_lh, int4 const v_rh)
+{
+	bv_out[0] = (s_lh > v_rh[0]);
+	bv_out[1] = (s_lh > v_rh[1]);
+	bv_out[2] = (s_lh > v_rh[2]);
+	bv_out[3] = (s_lh > v_rh[3]);
+	return bv_out;
+}
+
+ijk_inl boolv ijkVecAnd4isv(bool4 bv_out, i32 const s_lh, int4 const v_rh)
+{
+	bv_out[0] = (s_lh && v_rh[0]);
+	bv_out[1] = (s_lh && v_rh[1]);
+	bv_out[2] = (s_lh && v_rh[2]);
+	bv_out[3] = (s_lh && v_rh[3]);
+	return bv_out;
+}
+
+ijk_inl boolv ijkVecNand4isv(bool4 bv_out, i32 const s_lh, int4 const v_rh)
+{
+	bv_out[0] = !(s_lh && v_rh[0]);
+	bv_out[1] = !(s_lh && v_rh[1]);
+	bv_out[2] = !(s_lh && v_rh[2]);
+	bv_out[3] = !(s_lh && v_rh[3]);
+	return bv_out;
+}
+
+ijk_inl boolv ijkVecOr4isv(bool4 bv_out, i32 const s_lh, int4 const v_rh)
+{
+	bv_out[0] = (s_lh || v_rh[0]);
+	bv_out[1] = (s_lh || v_rh[1]);
+	bv_out[2] = (s_lh || v_rh[2]);
+	bv_out[3] = (s_lh || v_rh[3]);
+	return bv_out;
+}
+
+ijk_inl boolv ijkVecNor4isv(bool4 bv_out, i32 const s_lh, int4 const v_rh)
+{
+	bv_out[0] = !(s_lh || v_rh[0]);
+	bv_out[1] = !(s_lh || v_rh[1]);
+	bv_out[2] = !(s_lh || v_rh[2]);
+	bv_out[3] = !(s_lh || v_rh[3]);
+	return bv_out;
+}
+
 ijk_inl i32 ijkVecDot4iv(int4 const v_lh, int4 const v_rh)
 {
 	return (v_lh[0] * v_rh[0] + v_lh[1] * v_rh[1] + v_lh[2] * v_rh[2] + v_lh[3] * v_rh[3]);
@@ -3168,6 +3996,960 @@ ijk_inl ivec3 ijkVecCross3i(ivec3 const v_lh, ivec3 const v_rh)
 
 
 //-----------------------------------------------------------------------------
+
+ijk_inl ivec4 ijkVecInit4i()
+{
+	ivec4 const v_out = { 0, 0, 0, 0 };
+	return v_out;
+}
+
+ijk_inl ivec4 ijkVecInitElems4i(int const x, int const y, int const z, int const w)
+{
+	ivec4 const v_out = { x, y, z, w };
+	return v_out;
+}
+
+ijk_inl ivec4 ijkVecCopy4xiw(int const x, ivec2 const v_yz, int const w)
+{
+	ivec4 const v_out = { x, v_yz.x, v_yz.y, w };
+	return v_out;
+}
+
+ijk_inl ivec4 ijkVecCopy4i2(ivec2 const v_xy, ivec2 const v_zw)
+{
+	ivec4 const v_out = { v_xy.x, v_xy.y, v_zw.x, v_zw.y };
+	return v_out;
+}
+
+ijk_inl ivec4 ijkVecCopy4i(ivec4 const v_in)
+{
+	ivec4 const v_out = { +v_in.x, +v_in.y, +v_in.z, +v_in.w };
+	return v_out;
+}
+
+#if TSIGNED
+ijk_inl ivec4 ijkVecNegate4i(ivec4 const v_in)
+{
+	ivec4 const v_out = { -v_in.x, -v_in.y, -v_in.z, -v_in.w };
+	return v_out;
+}
+#endif	// TSIGNED
+
+#if TINTEGER
+ijk_inl ivec4 ijkVecBitNot4i(ivec4 const v_in)
+{
+	ivec4 const v_out = { ~v_in.x, ~v_in.y, ~v_in.z, ~v_in.w };
+	return v_out;
+}
+#endif	// TINTEGER
+
+ijk_inl bvec4 ijkVecNot4i(ivec4 const v_in)
+{
+	bvec4 const bv_out = { !v_in.x, !v_in.y, !v_in.z, !v_in.w };
+	return bv_out;
+}
+
+ijk_inl ivec4 ijkVecAdd4i(ivec4 const v_lh, ivec4 const v_rh)
+{
+	ivec4 const v_out = {
+		v_lh.x + v_rh.x,
+		v_lh.y + v_rh.y,
+		v_lh.z + v_rh.z,
+		v_lh.w + v_rh.w,
+	};
+	return v_out;
+}
+
+ijk_inl ivec4 ijkVecSub4i(ivec4 const v_lh, ivec4 const v_rh)
+{
+	ivec4 const v_out = {
+		v_lh.x - v_rh.x,
+		v_lh.y - v_rh.y,
+		v_lh.z - v_rh.z,
+		v_lh.w - v_rh.w,
+	};
+	return v_out;
+}
+
+ijk_inl ivec4 ijkVecMul4i(ivec4 const v_lh, ivec4 const v_rh)
+{
+	ivec4 const v_out = {
+		v_lh.x * v_rh.x,
+		v_lh.y * v_rh.y,
+		v_lh.z * v_rh.z,
+		v_lh.w * v_rh.w,
+	};
+	return v_out;
+}
+
+ijk_inl ivec4 ijkVecDiv4i(ivec4 const v_lh, ivec4 const v_rh)
+{
+	ivec4 const v_out = {
+		v_lh.x / v_rh.x,
+		v_lh.y / v_rh.y,
+		v_lh.z / v_rh.z,
+		v_lh.w / v_rh.w,
+	};
+	return v_out;
+}
+
+ijk_inl ivec4 ijkVecDivSafe4i(ivec4 const v_lh, ivec4 const v_rh)
+{
+	ivec4 const v_out = {
+		ijk_divide_safe_int(v_lh.x, v_rh.x),
+		ijk_divide_safe_int(v_lh.y, v_rh.y),
+		ijk_divide_safe_int(v_lh.z, v_rh.z),
+		ijk_divide_safe_int(v_lh.w, v_rh.w),
+	};
+	return v_out;
+}
+
+ijk_inl ivec4 ijkVecMod4i(ivec4 const v_lh, ivec4 const v_rh)
+{
+	ivec4 const v_out = {
+		v_lh.x % v_rh.x,
+		v_lh.y % v_rh.y,
+		v_lh.z % v_rh.z,
+		v_lh.w % v_rh.w,
+	};
+	return v_out;
+}
+
+ijk_inl ivec4 ijkVecModSafe4i(ivec4 const v_lh, ivec4 const v_rh)
+{
+	ivec4 const v_out = {
+		ijk_modulo_safe_int(v_lh.x, v_rh.x),
+		ijk_modulo_safe_int(v_lh.y, v_rh.y),
+		ijk_modulo_safe_int(v_lh.z, v_rh.z),
+		ijk_modulo_safe_int(v_lh.w, v_rh.w),
+	};
+	return v_out;
+}
+
+#if TINTEGER
+ijk_inl ivec4 ijkVecBitAnd4i(ivec4 const v_lh, ivec4 const v_rh)
+{
+	ivec4 const v_out = {
+		(v_lh.x & v_rh.x),
+		(v_lh.y & v_rh.y),
+		(v_lh.z & v_rh.z),
+		(v_lh.w & v_rh.w),
+	};
+	return v_out;
+}
+
+ijk_inl ivec4 ijkVecBitNand4i(ivec4 const v_lh, ivec4 const v_rh)
+{
+	ivec4 const v_out = {
+		~(v_lh.x & v_rh.x),
+		~(v_lh.y & v_rh.y),
+		~(v_lh.z & v_rh.z),
+		~(v_lh.w & v_rh.w),
+	};
+	return v_out;
+}
+
+ijk_inl ivec4 ijkVecBitOr4i(ivec4 const v_lh, ivec4 const v_rh)
+{
+	ivec4 const v_out = {
+		(v_lh.x | v_rh.x),
+		(v_lh.y | v_rh.y),
+		(v_lh.z | v_rh.z),
+		(v_lh.w | v_rh.w),
+	};
+	return v_out;
+}
+
+ijk_inl ivec4 ijkVecBitNor4i(ivec4 const v_lh, ivec4 const v_rh)
+{
+	ivec4 const v_out = {
+		~(v_lh.x | v_rh.x),
+		~(v_lh.y | v_rh.y),
+		~(v_lh.z | v_rh.z),
+		~(v_lh.w | v_rh.w),
+	};
+	return v_out;
+}
+
+ijk_inl ivec4 ijkVecBitXor4i(ivec4 const v_lh, ivec4 const v_rh)
+{
+	ivec4 const v_out = {
+		(v_lh.x ^ v_rh.x),
+		(v_lh.y ^ v_rh.y),
+		(v_lh.z ^ v_rh.z),
+		(v_lh.w ^ v_rh.w),
+	};
+	return v_out;
+}
+
+ijk_inl ivec4 ijkVecBitXnor4i(ivec4 const v_lh, ivec4 const v_rh)
+{
+	ivec4 const v_out = {
+		~(v_lh.x ^ v_rh.x),
+		~(v_lh.y ^ v_rh.y),
+		~(v_lh.z ^ v_rh.z),
+		~(v_lh.w ^ v_rh.w),
+	};
+	return v_out;
+}
+
+ijk_inl ivec4 ijkVecBitShiftLeft4i(ivec4 const v_lh, ivec4 const v_rh)
+{
+	ivec4 const v_out = {
+		(v_lh.x << v_rh.x),
+		(v_lh.y << v_rh.y),
+		(v_lh.z << v_rh.z),
+		(v_lh.w << v_rh.w),
+	};
+	return v_out;
+}
+
+ijk_inl ivec4 ijkVecBitShiftRight4i(ivec4 const v_lh, ivec4 const v_rh)
+{
+	ivec4 const v_out = {
+		(v_lh.x >> v_rh.x),
+		(v_lh.y >> v_rh.y),
+		(v_lh.z >> v_rh.z),
+		(v_lh.w >> v_rh.w),
+	};
+	return v_out;
+}
+#endif	// TINTEGER
+
+ijk_inl bvec4 ijkVecEqual4i(ivec4 const v_lh, ivec4 const v_rh)
+{
+	bvec4 const bv_out = {
+		(v_lh.x == v_rh.x),
+		(v_lh.y == v_rh.y),
+		(v_lh.z == v_rh.z),
+		(v_lh.w == v_rh.w),
+	};
+	return bv_out;
+}
+
+ijk_inl bvec4 ijkVecInequal4i(ivec4 const v_lh, ivec4 const v_rh)
+{
+	bvec4 const bv_out = {
+		(v_lh.x != v_rh.x),
+		(v_lh.y != v_rh.y),
+		(v_lh.z != v_rh.z),
+		(v_lh.w != v_rh.w),
+	};
+	return bv_out;
+}
+
+ijk_inl bvec4 ijkVecLessEqual4i(ivec4 const v_lh, ivec4 const v_rh)
+{
+	bvec4 const bv_out = {
+		(v_lh.x <= v_rh.x),
+		(v_lh.y <= v_rh.y),
+		(v_lh.z <= v_rh.z),
+		(v_lh.w <= v_rh.w),
+	};
+	return bv_out;
+}
+
+ijk_inl bvec4 ijkVecGreaterEqual4i(ivec4 const v_lh, ivec4 const v_rh)
+{
+	bvec4 const bv_out = {
+		(v_lh.x >= v_rh.x),
+		(v_lh.y >= v_rh.y),
+		(v_lh.z >= v_rh.z),
+		(v_lh.w >= v_rh.w),
+	};
+	return bv_out;
+}
+
+ijk_inl bvec4 ijkVecLess4i(ivec4 const v_lh, ivec4 const v_rh)
+{
+	bvec4 const bv_out = {
+		(v_lh.x < v_rh.x),
+		(v_lh.y < v_rh.y),
+		(v_lh.z < v_rh.z),
+		(v_lh.w < v_rh.w),
+	};
+	return bv_out;
+}
+
+ijk_inl bvec4 ijkVecGreater4i(ivec4 const v_lh, ivec4 const v_rh)
+{
+	bvec4 const bv_out = {
+		(v_lh.x > v_rh.x),
+		(v_lh.y > v_rh.y),
+		(v_lh.z > v_rh.z),
+		(v_lh.w > v_rh.w),
+	};
+	return bv_out;
+}
+
+ijk_inl bvec4 ijkVecAnd4i(ivec4 const v_lh, ivec4 const v_rh)
+{
+	bvec4 const bv_out = {
+		(v_lh.x && v_rh.x),
+		(v_lh.y && v_rh.y),
+		(v_lh.z && v_rh.z),
+		(v_lh.w && v_rh.w),
+	};
+	return bv_out;
+}
+
+ijk_inl bvec4 ijkVecNand4i(ivec4 const v_lh, ivec4 const v_rh)
+{
+	bvec4 const bv_out = {
+		!(v_lh.x && v_rh.x),
+		!(v_lh.y && v_rh.y),
+		!(v_lh.z && v_rh.z),
+		!(v_lh.w && v_rh.w),
+	};
+	return bv_out;
+}
+
+ijk_inl bvec4 ijkVecOr4i(ivec4 const v_lh, ivec4 const v_rh)
+{
+	bvec4 const bv_out = {
+		(v_lh.x || v_rh.x),
+		(v_lh.y || v_rh.y),
+		(v_lh.z || v_rh.z),
+		(v_lh.w || v_rh.w),
+	};
+	return bv_out;
+}
+
+ijk_inl bvec4 ijkVecNor4i(ivec4 const v_lh, ivec4 const v_rh)
+{
+	bvec4 const bv_out = {
+		!(v_lh.x || v_rh.x),
+		!(v_lh.y || v_rh.y),
+		!(v_lh.z || v_rh.z),
+		!(v_lh.w || v_rh.w),
+	};
+	return bv_out;
+}
+
+ijk_inl ivec4 ijkVecCopy4izw(ivec2 const v_xy, int const z, int const w)
+{
+	ivec4 const v_out = { v_xy.x, v_xy.y, z, w };
+	return v_out;
+}
+
+ijk_inl ivec4 ijkVecCopy4iw(ivec3 const v_xyz, int const w)
+{
+	ivec4 const v_out = { v_xyz.x, v_xyz.y, v_xyz.z, w };
+	return v_out;
+}
+
+ijk_inl ivec4 ijkVecCopy4is(int const s_in)
+{
+	ivec4 const v_out = { s_in, s_in, s_in, s_in };
+	return v_out;
+}
+
+#if TSIGNED
+ijk_inl ivec4 ijkVecNegate4is(int const s_in)
+{
+	int const s = -s_in;
+	ivec4 const v_out = { s, s, s, s };
+	return v_out;
+}
+#endif	// TSIGNED
+
+#if TINTEGER
+ijk_inl ivec4 ijkVecBitNot4is(int const s_in)
+{
+	int const s = ~s_in;
+	ivec4 const v_out = { s, s, s, s };
+	return v_out;
+}
+#endif	// TINTEGER
+
+ijk_inl bvec4 ijkVecNot4is(int const s_in)
+{
+	bool const s = !s_in;
+	bvec4 const bv_out = { s, s, s, s };
+	return bv_out;
+}
+
+ijk_inl ivec4 ijkVecAdd4is(ivec4 const v_lh, int const s_rh)
+{
+	ivec4 const v_out = {
+		v_lh.x + s_rh,
+		v_lh.y + s_rh,
+		v_lh.z + s_rh,
+		v_lh.w + s_rh,
+	};
+	return v_out;
+}
+
+ijk_inl ivec4 ijkVecSub4is(ivec4 const v_lh, int const s_rh)
+{
+	ivec4 const v_out = {
+		v_lh.x - s_rh,
+		v_lh.y - s_rh,
+		v_lh.z - s_rh,
+		v_lh.w - s_rh,
+	};
+	return v_out;
+}
+
+ijk_inl ivec4 ijkVecMul4is(ivec4 const v_lh, int const s_rh)
+{
+	ivec4 const v_out = {
+		v_lh.x * s_rh,
+		v_lh.y * s_rh,
+		v_lh.z * s_rh,
+		v_lh.w * s_rh,
+	};
+	return v_out;
+}
+
+ijk_inl ivec4 ijkVecDiv4is(ivec4 const v_lh, int const s_rh)
+{
+	ivec4 const v_out = {
+		v_lh.x / s_rh,
+		v_lh.y / s_rh,
+		v_lh.z / s_rh,
+		v_lh.w / s_rh,
+	};
+	return v_out;
+}
+
+ijk_inl ivec4 ijkVecDivSafe4is(ivec4 const v_lh, int const s_rh)
+{
+	if (s_rh)
+	{
+		ivec4 const v_out = {
+			v_lh.x / s_rh,
+			v_lh.y / s_rh,
+			v_lh.z / s_rh,
+			v_lh.w / s_rh,
+		};
+		return v_out;
+	}
+	else
+	{
+		ivec4 const v_out = { 0, 0, 0, 0 };
+		return v_out;
+	}
+}
+
+ijk_inl ivec4 ijkVecMod4is(ivec4 const v_lh, int const s_rh)
+{
+	ivec4 const v_out = {
+		v_lh.x % s_rh,
+		v_lh.y % s_rh,
+		v_lh.z % s_rh,
+		v_lh.w % s_rh,
+	};
+	return v_out;
+}
+
+ijk_inl ivec4 ijkVecModSafe4is(ivec4 const v_lh, int const s_rh)
+{
+	if (s_rh)
+	{
+		ivec4 const v_out = {
+			v_lh.x % s_rh,
+			v_lh.y % s_rh,
+			v_lh.z % s_rh,
+			v_lh.w % s_rh,
+		};
+		return v_out;
+	}
+	else
+	{
+		ivec4 const v_out = { 0, 0, 0, 0 };
+		return v_out;
+	}
+}
+
+#if TINTEGER
+ijk_inl ivec4 ijkVecBitAnd4is(ivec4 const v_lh, int const s_rh)
+{
+	ivec4 const v_out = {
+		(v_lh.x & s_rh),
+		(v_lh.y & s_rh),
+		(v_lh.z & s_rh),
+		(v_lh.w & s_rh),
+	};
+	return v_out;
+}
+
+ijk_inl ivec4 ijkVecBitNand4is(ivec4 const v_lh, int const s_rh)
+{
+	ivec4 const v_out = {
+		~(v_lh.x & s_rh),
+		~(v_lh.y & s_rh),
+		~(v_lh.z & s_rh),
+		~(v_lh.w & s_rh),
+	};
+	return v_out;
+}
+
+ijk_inl ivec4 ijkVecBitOr4is(ivec4 const v_lh, int const s_rh)
+{
+	ivec4 const v_out = {
+		(v_lh.x | s_rh),
+		(v_lh.y | s_rh),
+		(v_lh.z | s_rh),
+		(v_lh.w | s_rh),
+	};
+	return v_out;
+}
+
+ijk_inl ivec4 ijkVecBitNor4is(ivec4 const v_lh, int const s_rh)
+{
+	ivec4 const v_out = {
+		~(v_lh.x | s_rh),
+		~(v_lh.y | s_rh),
+		~(v_lh.z | s_rh),
+		~(v_lh.w | s_rh),
+	};
+	return v_out;
+}
+
+ijk_inl ivec4 ijkVecBitXor4is(ivec4 const v_lh, int const s_rh)
+{
+	ivec4 const v_out = {
+		(v_lh.x ^ s_rh),
+		(v_lh.y ^ s_rh),
+		(v_lh.z ^ s_rh),
+		(v_lh.w ^ s_rh),
+	};
+	return v_out;
+}
+
+ijk_inl ivec4 ijkVecBitXnor4is(ivec4 const v_lh, int const s_rh)
+{
+	ivec4 const v_out = {
+		~(v_lh.x ^ s_rh),
+		~(v_lh.y ^ s_rh),
+		~(v_lh.z ^ s_rh),
+		~(v_lh.w ^ s_rh),
+	};
+	return v_out;
+}
+
+ijk_inl ivec4 ijkVecBitShiftLeft4is(ivec4 const v_lh, int const s_rh)
+{
+	ivec4 const v_out = {
+		(v_lh.x << s_rh),
+		(v_lh.y << s_rh),
+		(v_lh.z << s_rh),
+		(v_lh.w << s_rh),
+	};
+	return v_out;
+}
+
+ijk_inl ivec4 ijkVecBitShiftRight4is(ivec4 const v_lh, int const s_rh)
+{
+	ivec4 const v_out = {
+		(v_lh.x >> s_rh),
+		(v_lh.y >> s_rh),
+		(v_lh.z >> s_rh),
+		(v_lh.w >> s_rh),
+	};
+	return v_out;
+}
+#endif	// TINTEGER
+
+ijk_inl bvec4 ijkVecEqual4is(ivec4 const v_lh, int const s_rh)
+{
+	bvec4 const bv_out = {
+		(v_lh.x == s_rh),
+		(v_lh.y == s_rh),
+		(v_lh.z == s_rh),
+		(v_lh.w == s_rh),
+	};
+	return bv_out;
+}
+
+ijk_inl bvec4 ijkVecInequal4is(ivec4 const v_lh, int const s_rh)
+{
+	bvec4 const bv_out = {
+		(v_lh.x != s_rh),
+		(v_lh.y != s_rh),
+		(v_lh.z != s_rh),
+		(v_lh.w != s_rh),
+	};
+	return bv_out;
+}
+
+ijk_inl bvec4 ijkVecLessEqual4is(ivec4 const v_lh, int const s_rh)
+{
+	bvec4 const bv_out = {
+		(v_lh.x <= s_rh),
+		(v_lh.y <= s_rh),
+		(v_lh.z <= s_rh),
+		(v_lh.w <= s_rh),
+	};
+	return bv_out;
+}
+
+ijk_inl bvec4 ijkVecGreaterEqual4is(ivec4 const v_lh, int const s_rh)
+{
+	bvec4 const bv_out = {
+		(v_lh.x >= s_rh),
+		(v_lh.y >= s_rh),
+		(v_lh.z >= s_rh),
+		(v_lh.w >= s_rh),
+	};
+	return bv_out;
+}
+
+ijk_inl bvec4 ijkVecLess4is(ivec4 const v_lh, int const s_rh)
+{
+	bvec4 const bv_out = {
+		(v_lh.x < s_rh),
+		(v_lh.y < s_rh),
+		(v_lh.z < s_rh),
+		(v_lh.w < s_rh),
+	};
+	return bv_out;
+}
+
+ijk_inl bvec4 ijkVecGreater4is(ivec4 const v_lh, int const s_rh)
+{
+	bvec4 const bv_out = {
+		(v_lh.x > s_rh),
+		(v_lh.y > s_rh),
+		(v_lh.z > s_rh),
+		(v_lh.w > s_rh),
+	};
+	return bv_out;
+}
+
+ijk_inl bvec4 ijkVecAnd4is(ivec4 const v_lh, int const s_rh)
+{
+	bvec4 const bv_out = {
+		(v_lh.x && s_rh),
+		(v_lh.y && s_rh),
+		(v_lh.z && s_rh),
+		(v_lh.w && s_rh),
+	};
+	return bv_out;
+}
+
+ijk_inl bvec4 ijkVecNand4is(ivec4 const v_lh, int const s_rh)
+{
+	bvec4 const bv_out = {
+		!(v_lh.x && s_rh),
+		!(v_lh.y && s_rh),
+		!(v_lh.z && s_rh),
+		!(v_lh.w && s_rh),
+	};
+	return bv_out;
+}
+
+ijk_inl bvec4 ijkVecOr4is(ivec4 const v_lh, int const s_rh)
+{
+	bvec4 const bv_out = {
+		(v_lh.x || s_rh),
+		(v_lh.y || s_rh),
+		(v_lh.z || s_rh),
+		(v_lh.w || s_rh),
+	};
+	return bv_out;
+}
+
+ijk_inl bvec4 ijkVecNor4is(ivec4 const v_lh, int const s_rh)
+{
+	bvec4 const bv_out = {
+		!(v_lh.x || s_rh),
+		!(v_lh.y || s_rh),
+		!(v_lh.z || s_rh),
+		!(v_lh.w || s_rh),
+	};
+	return bv_out;
+}
+
+ijk_inl ivec4 ijkVecCopy4xyi(int const x, int const y, ivec2 const v_zw)
+{
+	ivec4 const v_out = { x, y, v_zw.x, v_zw.y };
+	return v_out;
+}
+
+ijk_inl ivec4 ijkVecCopy4xi(int const x, ivec3 const v_yzw)
+{
+	ivec4 const v_out = { x, v_yzw.x, v_yzw.y, v_yzw.z };
+	return v_out;
+}
+
+ijk_inl ivec4 ijkVecAdd4si(int const s_lh, ivec4 const v_rh)
+{
+	ivec4 const v_out = {
+		s_lh + v_rh.x,
+		s_lh + v_rh.y,
+		s_lh + v_rh.z,
+		s_lh + v_rh.w,
+	};
+	return v_out;
+}
+
+ijk_inl ivec4 ijkVecSub4si(int const s_lh, ivec4 const v_rh)
+{
+	ivec4 const v_out = {
+		s_lh - v_rh.x,
+		s_lh - v_rh.y,
+		s_lh - v_rh.z,
+		s_lh - v_rh.w,
+	};
+	return v_out;
+}
+
+ijk_inl ivec4 ijkVecMul4si(int const s_lh, ivec4 const v_rh)
+{
+	ivec4 const v_out = {
+		s_lh * v_rh.x,
+		s_lh * v_rh.y,
+		s_lh * v_rh.z,
+		s_lh * v_rh.w,
+	};
+	return v_out;
+}
+
+ijk_inl ivec4 ijkVecDiv4si(int const s_lh, ivec4 const v_rh)
+{
+	ivec4 const v_out = {
+		s_lh / v_rh.x,
+		s_lh / v_rh.y,
+		s_lh / v_rh.z,
+		s_lh / v_rh.w,
+	};
+	return v_out;
+}
+
+ijk_inl ivec4 ijkVecDivSafe4si(int const s_lh, ivec4 const v_rh)
+{
+	ivec4 const v_out = {
+		ijk_divide_safe_int(s_lh, v_rh.x),
+		ijk_divide_safe_int(s_lh, v_rh.y),
+		ijk_divide_safe_int(s_lh, v_rh.z),
+		ijk_divide_safe_int(s_lh, v_rh.w),
+	};
+	return v_out;
+}
+
+ijk_inl ivec4 ijkVecMod4si(int const s_lh, ivec4 const v_rh)
+{
+	ivec4 const v_out = {
+		s_lh % v_rh.x,
+		s_lh % v_rh.y,
+		s_lh % v_rh.z,
+		s_lh % v_rh.w,
+	};
+	return v_out;
+}
+
+ijk_inl ivec4 ijkVecModSafe4si(int const s_lh, ivec4 const v_rh)
+{
+	ivec4 const v_out = {
+		ijk_modulo_safe_int(s_lh, v_rh.x),
+		ijk_modulo_safe_int(s_lh, v_rh.y),
+		ijk_modulo_safe_int(s_lh, v_rh.z),
+		ijk_modulo_safe_int(s_lh, v_rh.w),
+	};
+	return v_out;
+}
+
+#if TINTEGER
+ijk_inl ivec4 ijkVecBitAnd4si(int const s_lh, ivec4 const v_rh)
+{
+	ivec4 const v_out = {
+		(s_lh & v_rh.x),
+		(s_lh & v_rh.y),
+		(s_lh & v_rh.z),
+		(s_lh & v_rh.w),
+	};
+	return v_out;
+}
+
+ijk_inl ivec4 ijkVecBitNand4si(int const s_lh, ivec4 const v_rh)
+{
+	ivec4 const v_out = {
+		~(s_lh & v_rh.x),
+		~(s_lh & v_rh.y),
+		~(s_lh & v_rh.z),
+		~(s_lh & v_rh.w),
+	};
+	return v_out;
+}
+
+ijk_inl ivec4 ijkVecBitOr4si(int const s_lh, ivec4 const v_rh)
+{
+	ivec4 const v_out = {
+		(s_lh | v_rh.x),
+		(s_lh | v_rh.y),
+		(s_lh | v_rh.z),
+		(s_lh | v_rh.w),
+	};
+	return v_out;
+}
+
+ijk_inl ivec4 ijkVecBitNor4si(int const s_lh, ivec4 const v_rh)
+{
+	ivec4 const v_out = {
+		~(s_lh | v_rh.x),
+		~(s_lh | v_rh.y),
+		~(s_lh | v_rh.z),
+		~(s_lh | v_rh.w),
+	};
+	return v_out;
+}
+
+ijk_inl ivec4 ijkVecBitXor4si(int const s_lh, ivec4 const v_rh)
+{
+	ivec4 const v_out = {
+		(s_lh ^ v_rh.x),
+		(s_lh ^ v_rh.y),
+		(s_lh ^ v_rh.z),
+		(s_lh ^ v_rh.w),
+	};
+	return v_out;
+}
+
+ijk_inl ivec4 ijkVecBitXnor4si(int const s_lh, ivec4 const v_rh)
+{
+	ivec4 const v_out = {
+		~(s_lh ^ v_rh.x),
+		~(s_lh ^ v_rh.y),
+		~(s_lh ^ v_rh.z),
+		~(s_lh ^ v_rh.w),
+	};
+	return v_out;
+}
+
+ijk_inl ivec4 ijkVecBitShiftLeft4si(int const s_lh, ivec4 const v_rh)
+{
+	ivec4 const v_out = {
+		(s_lh << v_rh.x),
+		(s_lh << v_rh.y),
+		(s_lh << v_rh.z),
+		(s_lh << v_rh.w),
+	};
+	return v_out;
+}
+
+ijk_inl ivec4 ijkVecBitShiftRight4si(int const s_lh, ivec4 const v_rh)
+{
+	ivec4 const v_out = {
+		(s_lh >> v_rh.x),
+		(s_lh >> v_rh.y),
+		(s_lh >> v_rh.z),
+		(s_lh >> v_rh.w),
+	};
+	return v_out;
+}
+#endif	// TINTEGER
+
+ijk_inl bvec4 ijkVecEqual4si(int const s_lh, ivec4 const v_rh)
+{
+	bvec4 const bv_out = {
+		(s_lh == v_rh.x),
+		(s_lh == v_rh.y),
+		(s_lh == v_rh.z),
+		(s_lh == v_rh.w),
+	};
+	return bv_out;
+}
+
+ijk_inl bvec4 ijkVecInequal4si(int const s_lh, ivec4 const v_rh)
+{
+	bvec4 const bv_out = {
+		(s_lh != v_rh.x),
+		(s_lh != v_rh.y),
+		(s_lh != v_rh.z),
+		(s_lh != v_rh.w),
+	};
+	return bv_out;
+}
+
+ijk_inl bvec4 ijkVecLessEqual4si(int const s_lh, ivec4 const v_rh)
+{
+	bvec4 const bv_out = {
+		(s_lh <= v_rh.x),
+		(s_lh <= v_rh.y),
+		(s_lh <= v_rh.z),
+		(s_lh <= v_rh.w),
+	};
+	return bv_out;
+}
+
+ijk_inl bvec4 ijkVecGreaterEqual4si(int const s_lh, ivec4 const v_rh)
+{
+	bvec4 const bv_out = {
+		(s_lh >= v_rh.x),
+		(s_lh >= v_rh.y),
+		(s_lh >= v_rh.z),
+		(s_lh >= v_rh.w),
+	};
+	return bv_out;
+}
+
+ijk_inl bvec4 ijkVecLess4si(int const s_lh, ivec4 const v_rh)
+{
+	bvec4 const bv_out = {
+		(s_lh < v_rh.x),
+		(s_lh < v_rh.y),
+		(s_lh < v_rh.z),
+		(s_lh < v_rh.w),
+	};
+	return bv_out;
+}
+
+ijk_inl bvec4 ijkVecGreater4si(int const s_lh, ivec4 const v_rh)
+{
+	bvec4 const bv_out = {
+		(s_lh > v_rh.x),
+		(s_lh > v_rh.y),
+		(s_lh > v_rh.z),
+		(s_lh > v_rh.w),
+	};
+	return bv_out;
+}
+
+ijk_inl bvec4 ijkVecAnd4si(int const s_lh, ivec4 const v_rh)
+{
+	bvec4 const bv_out = {
+		(s_lh && v_rh.x),
+		(s_lh && v_rh.y),
+		(s_lh && v_rh.z),
+		(s_lh && v_rh.w),
+	};
+	return bv_out;
+}
+
+ijk_inl bvec4 ijkVecNand4si(int const s_lh, ivec4 const v_rh)
+{
+	bvec4 const bv_out = {
+		!(s_lh && v_rh.x),
+		!(s_lh && v_rh.y),
+		!(s_lh && v_rh.z),
+		!(s_lh && v_rh.w),
+	};
+	return bv_out;
+}
+
+ijk_inl bvec4 ijkVecOr4si(int const s_lh, ivec4 const v_rh)
+{
+	bvec4 const bv_out = {
+		(s_lh || v_rh.x),
+		(s_lh || v_rh.y),
+		(s_lh || v_rh.z),
+		(s_lh || v_rh.w),
+	};
+	return bv_out;
+}
+
+ijk_inl bvec4 ijkVecNor4si(int const s_lh, ivec4 const v_rh)
+{
+	bvec4 const bv_out = {
+		!(s_lh || v_rh.x),
+		!(s_lh || v_rh.y),
+		!(s_lh || v_rh.z),
+		!(s_lh || v_rh.w),
+	};
+	return bv_out;
+}
 
 ijk_inl int ijkVecDot4i(ivec4 const v_lh, ivec4 const v_rh)
 {
