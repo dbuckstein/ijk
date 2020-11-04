@@ -3168,7 +3168,6 @@ bvec3 ijkVecLess3i(ivec3 const v_lh, ivec3 const v_rh);
 //		return: comparison vector
 bvec3 ijkVecGreater3i(ivec3 const v_lh, ivec3 const v_rh);
 
-
 // ijkVecAnd3*
 //	Component-wise logical 'and' comparison for 3D vectors.
 //		param v_lh: left-hand vector
