@@ -30,6 +30,14 @@
 
 //-----------------------------------------------------------------------------
 
+ijk_inl boolv ijkVecP2bv(boolv v_out)
+{
+	return v_out;
+}
+
+
+//-----------------------------------------------------------------------------
+
 ijk_inl boolv ijkVecInitElems2bv(bool2 v_out, bool const x, bool const y)
 {
 	v_out[0] = ijk_istrue(x);

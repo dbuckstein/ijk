@@ -486,7 +486,7 @@ union dvec4
 #include "_util/ijkVector_uint.h"
 #include "_util/ijkVector_uintl.h"
 #include "_util/ijkVector_float.h"
-//#include "_util/ijkVector_double.h"
+#include "_util/ijkVector_double.h"
 #include "_util/ijkVectorSwizzle_macros.h"
 
 

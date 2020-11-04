@@ -34,6 +34,15 @@ extern "C" {
 
 //-----------------------------------------------------------------------------
 
+// ijkVecPbv
+//	Pass-thru boolean vector.
+//		param v_out: output vector
+//		return: v_out
+boolv ijkVecP2bv(boolv v_out);
+
+
+//-----------------------------------------------------------------------------
+
 // ijkVecInitElems2bv
 //	Initialize 2D boolean vector.
 //		param v_out: output vector
