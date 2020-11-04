@@ -293,6 +293,34 @@ ijk_inl boolv ijkVecGreater2iv(bool2 bv_out, int2 const v_lh, int2 const v_rh)
 	return bv_out;
 }
 
+ijk_inl boolv ijkVecAnd2iv(bool2 bv_out, int2 const v_lh, int2 const v_rh)
+{
+	bv_out[0] = (v_lh[0] && v_rh[0]);
+	bv_out[1] = (v_lh[1] && v_rh[1]);
+	return bv_out;
+}
+
+ijk_inl boolv ijkVecNand2iv(bool2 bv_out, int2 const v_lh, int2 const v_rh)
+{
+	bv_out[0] = !(v_lh[0] && v_rh[0]);
+	bv_out[1] = !(v_lh[1] && v_rh[1]);
+	return bv_out;
+}
+
+ijk_inl boolv ijkVecOr2iv(bool2 bv_out, int2 const v_lh, int2 const v_rh)
+{
+	bv_out[0] = (v_lh[0] || v_rh[0]);
+	bv_out[1] = (v_lh[1] || v_rh[1]);
+	return bv_out;
+}
+
+ijk_inl boolv ijkVecNor2iv(bool2 bv_out, int2 const v_lh, int2 const v_rh)
+{
+	bv_out[0] = !(v_lh[0] || v_rh[0]);
+	bv_out[1] = !(v_lh[1] || v_rh[1]);
+	return bv_out;
+}
+
 ijk_inl intv ijkVecCopy2ivs(int2 v_out, i32 const s_in)
 {
 	v_out[0] = +s_in;
@@ -490,15 +518,45 @@ ijk_inl boolv ijkVecGreater2ivs(bool2 bv_out, int2 const v_lh, i32 const s_rh)
 	return bv_out;
 }
 
+ijk_inl boolv ijkVecAnd2ivs(bool2 bv_out, int2 const v_lh, i32 const s_rh)
+{
+	bv_out[0] = (v_lh[0] && s_rh);
+	bv_out[1] = (v_lh[1] && s_rh);
+	return bv_out;
+}
+
+ijk_inl boolv ijkVecNand2ivs(bool2 bv_out, int2 const v_lh, i32 const s_rh)
+{
+	bv_out[0] = !(v_lh[0] && s_rh);
+	bv_out[1] = !(v_lh[1] && s_rh);
+	return bv_out;
+}
+
+ijk_inl boolv ijkVecOr2ivs(bool2 bv_out, int2 const v_lh, i32 const s_rh)
+{
+	bv_out[0] = (v_lh[0] || s_rh);
+	bv_out[1] = (v_lh[1] || s_rh);
+	return bv_out;
+}
+
+ijk_inl boolv ijkVecNor2ivs(bool2 bv_out, int2 const v_lh, i32 const s_rh)
+{
+	bv_out[0] = !(v_lh[0] || s_rh);
+	bv_out[1] = !(v_lh[1] || s_rh);
+	return bv_out;
+}
+
 ijk_inl intv ijkVecAdd2isv(int2 v_out, i32 const s_lh, int2 const v_rh)
 {
-
+	v_out[0] = s_lh + v_rh[0];
+	v_out[1] = s_lh + v_rh[1];
 	return v_out;
 }
 
 ijk_inl intv ijkVecSub2isv(int2 v_out, i32 const s_lh, int2 const v_rh)
 {
-
+	v_out[0] = s_lh - v_rh[0];
+	v_out[1] = s_lh - v_rh[1];
 	return v_out;
 }
 
@@ -613,6 +671,30 @@ ijk_inl boolv ijkVecLess2isv(bool2 bv_out, i32 const s_lh, int2 const v_rh)
 }
 
 ijk_inl boolv ijkVecGreater2isv(bool2 bv_out, i32 const s_lh, int2 const v_rh)
+{
+
+	return bv_out;
+}
+
+ijk_inl boolv ijkVecAnd2isv(bool2 bv_out, i32 const s_lh, int2 const v_rh)
+{
+
+	return bv_out;
+}
+
+ijk_inl boolv ijkVecNand2isv(bool2 bv_out, i32 const s_lh, int2 const v_rh)
+{
+
+	return bv_out;
+}
+
+ijk_inl boolv ijkVecOr2isv(bool2 bv_out, i32 const s_lh, int2 const v_rh)
+{
+
+	return bv_out;
+}
+
+ijk_inl boolv ijkVecNor2isv(bool2 bv_out, i32 const s_lh, int2 const v_rh)
 {
 
 	return bv_out;
@@ -887,6 +969,34 @@ ijk_inl bvec2 ijkVecGreater2i(ivec2 const v_lh, ivec2 const v_rh)
 	return bv_out;
 }
 
+ijk_inl bvec2 ijkVecAnd2i(ivec2 const v_lh, ivec2 const v_rh)
+{
+	bvec2 bv_out;
+
+	return bv_out;
+}
+
+ijk_inl bvec2 ijkVecNand2i(ivec2 const v_lh, ivec2 const v_rh)
+{
+	bvec2 bv_out;
+
+	return bv_out;
+}
+
+ijk_inl bvec2 ijkVecOr2i(ivec2 const v_lh, ivec2 const v_rh)
+{
+	bvec2 bv_out;
+
+	return bv_out;
+}
+
+ijk_inl bvec2 ijkVecNor2i(ivec2 const v_lh, ivec2 const v_rh)
+{
+	bvec2 bv_out;
+
+	return bv_out;
+}
+
 ijk_inl ivec2 ijkVecCopy2is(int const s_in)
 {
 	ivec2 const v_out;
@@ -1049,6 +1159,34 @@ ijk_inl bvec2 ijkVecGreater2is(ivec2 const v_lh, int const s_rh)
 	return bv_out;
 }
 
+ijk_inl bvec2 ijkVecAnd2is(ivec2 const v_lh, int const s_rh)
+{
+	bvec2 bv_out;
+
+	return bv_out;
+}
+
+ijk_inl bvec2 ijkVecNand2is(ivec2 const v_lh, int const s_rh)
+{
+	bvec2 bv_out;
+
+	return bv_out;
+}
+
+ijk_inl bvec2 ijkVecOr2is(ivec2 const v_lh, int const s_rh)
+{
+	bvec2 bv_out;
+
+	return bv_out;
+}
+
+ijk_inl bvec2 ijkVecNor2is(ivec2 const v_lh, int const s_rh)
+{
+	bvec2 bv_out;
+
+	return bv_out;
+}
+
 ijk_inl ivec2 ijkVecAdd2si(int const s_lh, ivec2 const v_rh)
 {
 	ivec2 const v_out;
@@ -1177,6 +1315,34 @@ ijk_inl bvec2 ijkVecLess2si(int const s_lh, ivec2 const v_rh)
 }
 
 ijk_inl bvec2 ijkVecGreater2si(int const s_lh, ivec2 const v_rh)
+{
+	bvec2 bv_out;
+
+	return bv_out;
+}
+
+ijk_inl bvec2 ijkVecAnd2si(int const s_lh, ivec2 const v_rh)
+{
+	bvec2 bv_out;
+
+	return bv_out;
+}
+
+ijk_inl bvec2 ijkVecNand2si(int const s_lh, ivec2 const v_rh)
+{
+	bvec2 bv_out;
+
+	return bv_out;
+}
+
+ijk_inl bvec2 ijkVecOr2si(int const s_lh, ivec2 const v_rh)
+{
+	bvec2 bv_out;
+
+	return bv_out;
+}
+
+ijk_inl bvec2 ijkVecNor2si(int const s_lh, ivec2 const v_rh)
 {
 	bvec2 bv_out;
 

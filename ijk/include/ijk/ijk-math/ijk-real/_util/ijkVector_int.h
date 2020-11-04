@@ -326,6 +326,38 @@ boolv ijkVecLess2iv(bool2 bv_out, int2 const v_lh, int2 const v_rh);
 //		return: bv_out
 boolv ijkVecGreater2iv(bool2 bv_out, int2 const v_lh, int2 const v_rh);
 
+// ijkVecAnd2*v
+//	Component-wise logical 'and' of 2D vectors.
+//		param bv_out: output vector holding boolean results of comparisons
+//		param v_lh: left-hand vector
+//		param v_rh: right-hand vector
+//		return: bv_out
+boolv ijkVecAnd2iv(bool2 bv_out, int2 const v_lh, int2 const v_rh);
+
+// ijkVecNand2*v
+//	Component-wise logical 'nand' of 2D vectors.
+//		param bv_out: output vector holding boolean results of comparisons
+//		param v_lh: left-hand vector
+//		param v_rh: right-hand vector
+//		return: bv_out
+boolv ijkVecNand2iv(bool2 bv_out, int2 const v_lh, int2 const v_rh);
+
+// ijkVecOr2*v
+//	Component-wise logical 'or' of 2D vectors.
+//		param bv_out: output vector holding boolean results of comparisons
+//		param v_lh: left-hand vector
+//		param v_rh: right-hand vector
+//		return: bv_out
+boolv ijkVecOr2iv(bool2 bv_out, int2 const v_lh, int2 const v_rh);
+
+// ijkVecNor2*v
+//	Component-wise logical 'nor' of 2D vectors.
+//		param bv_out: output vector holding boolean results of comparisons
+//		param v_lh: left-hand vector
+//		param v_rh: right-hand vector
+//		return: bv_out
+boolv ijkVecNor2iv(bool2 bv_out, int2 const v_lh, int2 const v_rh);
+
 // ijkVecCopy2*vs
 //	Copy 2D vector from scalar.
 //		param v_out: output vector to hold copy
@@ -528,6 +560,38 @@ boolv ijkVecLess2ivs(bool2 bv_out, int2 const v_lh, i32 const s_rh);
 //		return: bv_out
 boolv ijkVecGreater2ivs(bool2 bv_out, int2 const v_lh, i32 const s_rh);
 
+// ijkVecAnd2*vs
+//	Component-wise logical 'and' of 2D vector and scalar.
+//		param bv_out: output vector holding boolean results of comparisons
+//		param v_lh: left-hand vector
+//		param s_rh: right-hand scalar
+//		return: bv_out
+boolv ijkVecAnd2ivs(bool2 bv_out, int2 const v_lh, i32 const s_rh);
+
+// ijkVecNand2*vs
+//	Component-wise logical 'nand' of 2D vector and scalar.
+//		param bv_out: output vector holding boolean results of comparisons
+//		param v_lh: left-hand vector
+//		param s_rh: right-hand scalar
+//		return: bv_out
+boolv ijkVecNand2ivs(bool2 bv_out, int2 const v_lh, i32 const s_rh);
+
+// ijkVecOr2*vs
+//	Component-wise logical 'or' of 2D vector and scalar.
+//		param bv_out: output vector holding boolean results of comparisons
+//		param v_lh: left-hand vector
+//		param s_rh: right-hand scalar
+//		return: bv_out
+boolv ijkVecOr2ivs(bool2 bv_out, int2 const v_lh, i32 const s_rh);
+
+// ijkVecNor2*vs
+//	Component-wise logical 'nor' of 2D vector and scalar.
+//		param bv_out: output vector holding boolean results of comparisons
+//		param v_lh: left-hand vector
+//		param s_rh: right-hand scalar
+//		return: bv_out
+boolv ijkVecNor2ivs(bool2 bv_out, int2 const v_lh, i32 const s_rh);
+
 // ijkVecAdd2*sv
 //	Calculate sum of scalar and 2D vector components.
 //		param v_out: output vector to hold sum
@@ -697,6 +761,38 @@ boolv ijkVecLess2isv(bool2 bv_out, i32 const s_lh, int2 const v_rh);
 //		param v_rh: right-hand vector
 //		return: bv_out
 boolv ijkVecGreater2isv(bool2 bv_out, i32 const s_lh, int2 const v_rh);
+
+// ijkVecAnd2*sv
+//	Component-wise logical 'and' of 2D vector and scalar.
+//		param bv_out: output vector holding boolean results of comparisons
+//		param s_lh: left-hand scalar
+//		param v_rh: right-hand vector
+//		return: bv_out
+boolv ijkVecAnd2isv(bool2 bv_out, i32 const s_lh, int2 const v_rh);
+
+// ijkVecNand2*sv
+//	Component-wise logical 'nand' of 2D vector and scalar.
+//		param bv_out: output vector holding boolean results of comparisons
+//		param s_lh: left-hand scalar
+//		param v_rh: right-hand vector
+//		return: bv_out
+boolv ijkVecNand2isv(bool2 bv_out, i32 const s_lh, int2 const v_rh);
+
+// ijkVecOr2*sv
+//	Component-wise logical 'or' of 2D vector and scalar.
+//		param bv_out: output vector holding boolean results of comparisons
+//		param s_lh: left-hand scalar
+//		param v_rh: right-hand vector
+//		return: bv_out
+boolv ijkVecOr2isv(bool2 bv_out, i32 const s_lh, int2 const v_rh);
+
+// ijkVecNor2*sv
+//	Component-wise logical 'nor' of 2D vector and scalar.
+//		param bv_out: output vector holding boolean results of comparisons
+//		param s_lh: left-hand scalar
+//		param v_rh: right-hand vector
+//		return: bv_out
+boolv ijkVecNor2isv(bool2 bv_out, i32 const s_lh, int2 const v_rh);
 
 // ijkVecDot2*v
 //	Dot product of 2D array-based vectors.
@@ -932,6 +1028,38 @@ boolv ijkVecLess3iv(bool3 bv_out, int3 const v_lh, int3 const v_rh);
 //		return: bv_out
 boolv ijkVecGreater3iv(bool3 bv_out, int3 const v_lh, int3 const v_rh);
 
+// ijkVecAnd3*v
+//	Component-wise logical 'and' of 3D vectors.
+//		param bv_out: output vector holding boolean results of comparisons
+//		param v_lh: left-hand vector
+//		param v_rh: right-hand vector
+//		return: bv_out
+boolv ijkVecAnd3iv(bool3 bv_out, int3 const v_lh, int3 const v_rh);
+
+// ijkVecNand3*v
+//	Component-wise logical 'nand' of 3D vectors.
+//		param bv_out: output vector holding boolean results of comparisons
+//		param v_lh: left-hand vector
+//		param v_rh: right-hand vector
+//		return: bv_out
+boolv ijkVecNand3iv(bool3 bv_out, int3 const v_lh, int3 const v_rh);
+
+// ijkVecOr3*v
+//	Component-wise logical 'or' of 3D vectors.
+//		param bv_out: output vector holding boolean results of comparisons
+//		param v_lh: left-hand vector
+//		param v_rh: right-hand vector
+//		return: bv_out
+boolv ijkVecOr3iv(bool3 bv_out, int3 const v_lh, int3 const v_rh);
+
+// ijkVecNor3*v
+//	Component-wise logical 'nor' of 3D vectors.
+//		param bv_out: output vector holding boolean results of comparisons
+//		param v_lh: left-hand vector
+//		param v_rh: right-hand vector
+//		return: bv_out
+boolv ijkVecNor3iv(bool3 bv_out, int3 const v_lh, int3 const v_rh);
+
 // ijkVecCopy3*vz
 //	Copy 3D vector from 2D vector and one scalar.
 //		param v_out: output vector to hold copy
@@ -1142,6 +1270,38 @@ boolv ijkVecLess3ivs(bool3 bv_out, int3 const v_lh, i32 const s_rh);
 //		return: bv_out
 boolv ijkVecGreater3ivs(bool3 bv_out, int3 const v_lh, i32 const s_rh);
 
+// ijkVecAnd3*vs
+//	Component-wise logical 'and' of 3D vector and scalar.
+//		param bv_out: output vector holding boolean results of comparisons
+//		param v_lh: left-hand vector
+//		param s_rh: right-hand scalar
+//		return: bv_out
+boolv ijkVecAnd3ivs(bool3 bv_out, int3 const v_lh, i32 const s_rh);
+
+// ijkVecNand3*vs
+//	Component-wise logical 'nand' of 3D vector and scalar.
+//		param bv_out: output vector holding boolean results of comparisons
+//		param v_lh: left-hand vector
+//		param s_rh: right-hand scalar
+//		return: bv_out
+boolv ijkVecNand3ivs(bool3 bv_out, int3 const v_lh, i32 const s_rh);
+
+// ijkVecOr3*vs
+//	Component-wise logical 'or' of 3D vector and scalar.
+//		param bv_out: output vector holding boolean results of comparisons
+//		param v_lh: left-hand vector
+//		param s_rh: right-hand scalar
+//		return: bv_out
+boolv ijkVecOr3ivs(bool3 bv_out, int3 const v_lh, i32 const s_rh);
+
+// ijkVecNor3*vs
+//	Component-wise logical 'nor' of 3D vector and scalar.
+//		param bv_out: output vector holding boolean results of comparisons
+//		param v_lh: left-hand vector
+//		param s_rh: right-hand scalar
+//		return: bv_out
+boolv ijkVecNor3ivs(bool3 bv_out, int3 const v_lh, i32 const s_rh);
+
 // ijkVecCopy3*xv
 //	Copy 3D vector from 2D vector and one scalar.
 //		param v_out: output vector to hold copy
@@ -1319,6 +1479,38 @@ boolv ijkVecLess3isv(bool3 bv_out, i32 const s_lh, int3 const v_rh);
 //		param v_rh: right-hand vector
 //		return: bv_out
 boolv ijkVecGreater3isv(bool3 bv_out, i32 const s_lh, int3 const v_rh);
+
+// ijkVecAnd3*sv
+//	Component-wise logical 'and' of 3D vector and scalar.
+//		param bv_out: output vector holding boolean results of comparisons
+//		param s_lh: left-hand scalar
+//		param v_rh: right-hand vector
+//		return: bv_out
+boolv ijkVecAnd3isv(bool3 bv_out, i32 const s_lh, int3 const v_rh);
+
+// ijkVecNand3*sv
+//	Component-wise logical 'nand' of 3D vector and scalar.
+//		param bv_out: output vector holding boolean results of comparisons
+//		param s_lh: left-hand scalar
+//		param v_rh: right-hand vector
+//		return: bv_out
+boolv ijkVecNand3isv(bool3 bv_out, i32 const s_lh, int3 const v_rh);
+
+// ijkVecOr3*sv
+//	Component-wise logical 'or' of 3D vector and scalar.
+//		param bv_out: output vector holding boolean results of comparisons
+//		param s_lh: left-hand scalar
+//		param v_rh: right-hand vector
+//		return: bv_out
+boolv ijkVecOr3isv(bool3 bv_out, i32 const s_lh, int3 const v_rh);
+
+// ijkVecNor3*sv
+//	Component-wise logical 'nor' of 3D vector and scalar.
+//		param bv_out: output vector holding boolean results of comparisons
+//		param s_lh: left-hand scalar
+//		param v_rh: right-hand vector
+//		return: bv_out
+boolv ijkVecNor3isv(bool3 bv_out, i32 const s_lh, int3 const v_rh);
 
 // ijkVecDot3*v
 //	Dot product of 3D array-based vectors.
@@ -1573,6 +1765,38 @@ boolv ijkVecLess4iv(bool4 bv_out, int4 const v_lh, int4 const v_rh);
 //		return: bv_out
 boolv ijkVecGreater4iv(bool4 bv_out, int4 const v_lh, int4 const v_rh);
 
+// ijkVecAnd4*v
+//	Component-wise logical 'and' of 4D vectors.
+//		param bv_out: output vector holding boolean results of comparisons
+//		param v_lh: left-hand vector
+//		param v_rh: right-hand vector
+//		return: bv_out
+boolv ijkVecAnd4iv(bool4 bv_out, int4 const v_lh, int4 const v_rh);
+
+// ijkVecNand4*v
+//	Component-wise logical 'nand' of 4D vectors.
+//		param bv_out: output vector holding boolean results of comparisons
+//		param v_lh: left-hand vector
+//		param v_rh: right-hand vector
+//		return: bv_out
+boolv ijkVecNand4iv(bool4 bv_out, int4 const v_lh, int4 const v_rh);
+
+// ijkVecOr4*v
+//	Component-wise logical 'or' of 4D vectors.
+//		param bv_out: output vector holding boolean results of comparisons
+//		param v_lh: left-hand vector
+//		param v_rh: right-hand vector
+//		return: bv_out
+boolv ijkVecOr4iv(bool4 bv_out, int4 const v_lh, int4 const v_rh);
+
+// ijkVecNor4*v
+//	Component-wise logical 'nor' of 4D vectors.
+//		param bv_out: output vector holding boolean results of comparisons
+//		param v_lh: left-hand vector
+//		param v_rh: right-hand vector
+//		return: bv_out
+boolv ijkVecNor4iv(bool4 bv_out, int4 const v_lh, int4 const v_rh);
+
 // ijkVecCopy4*vzw
 //	Copy 4D vector from 2D vector and two scalars.
 //		param v_out: output vector to hold copy
@@ -1792,6 +2016,38 @@ boolv ijkVecLess4ivs(bool4 bv_out, int4 const v_lh, i32 const s_rh);
 //		return: bv_out
 boolv ijkVecGreater4ivs(bool4 bv_out, int4 const v_lh, i32 const s_rh);
 
+// ijkVecAnd4*vs
+//	Component-wise logical 'and' of 4D vector and scalar.
+//		param bv_out: output vector holding boolean results of comparisons
+//		param v_lh: left-hand vector
+//		param s_rh: right-hand scalar
+//		return: bv_out
+boolv ijkVecAnd4ivs(bool4 bv_out, int4 const v_lh, i32 const s_rh);
+
+// ijkVecNand4*vs
+//	Component-wise logical 'nand' of 4D vector and scalar.
+//		param bv_out: output vector holding boolean results of comparisons
+//		param v_lh: left-hand vector
+//		param s_rh: right-hand scalar
+//		return: bv_out
+boolv ijkVecNand4ivs(bool4 bv_out, int4 const v_lh, i32 const s_rh);
+
+// ijkVecOr4*vs
+//	Component-wise logical 'or' of 4D vector and scalar.
+//		param bv_out: output vector holding boolean results of comparisons
+//		param v_lh: left-hand vector
+//		param s_rh: right-hand scalar
+//		return: bv_out
+boolv ijkVecOr4ivs(bool4 bv_out, int4 const v_lh, i32 const s_rh);
+
+// ijkVecNor4*vs
+//	Component-wise logical 'nor' of 4D vector and scalar.
+//		param bv_out: output vector holding boolean results of comparisons
+//		param v_lh: left-hand vector
+//		param s_rh: right-hand scalar
+//		return: bv_out
+boolv ijkVecNor4ivs(bool4 bv_out, int4 const v_lh, i32 const s_rh);
+
 // ijkVecCopy4*xyv
 //	Copy 4D vector from two scalars and 2D vector.
 //		param v_out: output vector to hold copy
@@ -1978,6 +2234,38 @@ boolv ijkVecLess4isv(bool4 bv_out, i32 const s_lh, int4 const v_rh);
 //		param v_rh: right-hand vector
 //		return: bv_out
 boolv ijkVecGreater4isv(bool4 bv_out, i32 const s_lh, int4 const v_rh);
+
+// ijkVecAnd4*sv
+//	Component-wise logical 'and' of 4D vector and scalar.
+//		param bv_out: output vector holding boolean results of comparisons
+//		param s_lh: left-hand scalar
+//		param v_rh: right-hand vector
+//		return: bv_out
+boolv ijkVecAnd4isv(bool4 bv_out, i32 const s_lh, int4 const v_rh);
+
+// ijkVecNand4*sv
+//	Component-wise logical 'nand' of 4D vector and scalar.
+//		param bv_out: output vector holding boolean results of comparisons
+//		param s_lh: left-hand scalar
+//		param v_rh: right-hand vector
+//		return: bv_out
+boolv ijkVecNand4isv(bool4 bv_out, i32 const s_lh, int4 const v_rh);
+
+// ijkVecOr4*sv
+//	Component-wise logical 'or' of 4D vector and scalar.
+//		param bv_out: output vector holding boolean results of comparisons
+//		param s_lh: left-hand scalar
+//		param v_rh: right-hand vector
+//		return: bv_out
+boolv ijkVecOr4isv(bool4 bv_out, i32 const s_lh, int4 const v_rh);
+
+// ijkVecNor4*sv
+//	Component-wise logical 'nor' of 4D vector and scalar.
+//		param bv_out: output vector holding boolean results of comparisons
+//		param s_lh: left-hand scalar
+//		param v_rh: right-hand vector
+//		return: bv_out
+boolv ijkVecNor4isv(bool4 bv_out, i32 const s_lh, int4 const v_rh);
 
 // ijkVecDot4*v
 //	Dot product of 4D array-based vectors.
@@ -2262,6 +2550,34 @@ bvec2 ijkVecLess2i(ivec2 const v_lh, ivec2 const v_rh);
 //		return: comparison vector
 bvec2 ijkVecGreater2i(ivec2 const v_lh, ivec2 const v_rh);
 
+// ijkVecAnd2*
+//	Component-wise logical 'and' comparison for 2D vectors.
+//		param v_lh: left-hand vector
+//		param v_rh: right-hand vector
+//		return: comparison vector
+bvec2 ijkVecAnd2i(ivec2 const v_lh, ivec2 const v_rh);
+
+// ijkVecNand2*
+//	Component-wise logical 'nand' comparison for 2D vectors.
+//		param v_lh: left-hand vector
+//		param v_rh: right-hand vector
+//		return: comparison vector
+bvec2 ijkVecNand2i(ivec2 const v_lh, ivec2 const v_rh);
+
+// ijkVecOr2*
+//	Component-wise logical 'or' comparison for 2D vectors.
+//		param v_lh: left-hand vector
+//		param v_rh: right-hand vector
+//		return: comparison vector
+bvec2 ijkVecOr2i(ivec2 const v_lh, ivec2 const v_rh);
+
+// ijkVecNor2*
+//	Component-wise logical 'nor' comparison for 2D vectors.
+//		param v_lh: left-hand vector
+//		param v_rh: right-hand vector
+//		return: comparison vector
+bvec2 ijkVecNor2i(ivec2 const v_lh, ivec2 const v_rh);
+
 // ijkVecCopy2*s
 //	Copy 2D vector from scalar.
 //		param s_in: input scalar
@@ -2439,6 +2755,34 @@ bvec2 ijkVecLess2is(ivec2 const v_lh, int const s_rh);
 //		return: comparison vector
 bvec2 ijkVecGreater2is(ivec2 const v_lh, int const s_rh);
 
+// ijkVecAnd2*s
+//	Component-wise logical 'and' comparison of 2D vector and scalar.
+//		param v_lh: left-hand vector
+//		param s_rh: right-hand scalar
+//		return: comparison vector
+bvec2 ijkVecAnd2is(ivec2 const v_lh, int const s_rh);
+
+// ijkVecNand2*s
+//	Component-wise logical 'nand' comparison of 2D vector and scalar.
+//		param v_lh: left-hand vector
+//		param s_rh: right-hand scalar
+//		return: comparison vector
+bvec2 ijkVecNand2is(ivec2 const v_lh, int const s_rh);
+
+// ijkVecOr2*s
+//	Component-wise logical 'or' comparison of 2D vector and scalar.
+//		param v_lh: left-hand vector
+//		param s_rh: right-hand scalar
+//		return: comparison vector
+bvec2 ijkVecOr2is(ivec2 const v_lh, int const s_rh);
+
+// ijkVecNor2*s
+//	Component-wise logical 'nor' comparison of 2D vector and scalar.
+//		param v_lh: left-hand vector
+//		param s_rh: right-hand scalar
+//		return: comparison vector
+bvec2 ijkVecNor2is(ivec2 const v_lh, int const s_rh);
+
 // ijkVecAdd2s*
 //	Calculate sum of scalar and 2D vector components.
 //		param s_lh: left-hand scalar
@@ -2587,6 +2931,34 @@ bvec2 ijkVecLess2si(int const s_lh, ivec2 const v_rh);
 //		param v_rh: right-hand vector
 //		return: comparison vector
 bvec2 ijkVecGreater2si(int const s_lh, ivec2 const v_rh);
+
+// ijkVecAnd2s*
+//	Component-wise logical 'and' comparison of 2D vector and scalar.
+//		param s_lh: left-hand scalar
+//		param v_rh: right-hand vector
+//		return: comparison vector
+bvec2 ijkVecAnd2si(int const s_lh, ivec2 const v_rh);
+
+// ijkVecNand2s*
+//	Component-wise logical 'nand' comparison of 2D vector and scalar.
+//		param s_lh: left-hand scalar
+//		param v_rh: right-hand vector
+//		return: comparison vector
+bvec2 ijkVecNand2si(int const s_lh, ivec2 const v_rh);
+
+// ijkVecOr2s*
+//	Component-wise logical 'or' comparison of 2D vector and scalar.
+//		param s_lh: left-hand scalar
+//		param v_rh: right-hand vector
+//		return: comparison vector
+bvec2 ijkVecOr2si(int const s_lh, ivec2 const v_rh);
+
+// ijkVecNor2s*
+//	Component-wise logical 'nor' comparison of 2D vector and scalar.
+//		param s_lh: left-hand scalar
+//		param v_rh: right-hand vector
+//		return: comparison vector
+bvec2 ijkVecNor2si(int const s_lh, ivec2 const v_rh);
 
 // ijkVecDot2*
 //	Dot product of 2D vectors.
@@ -2795,6 +3167,35 @@ bvec3 ijkVecLess3i(ivec3 const v_lh, ivec3 const v_rh);
 //		return: comparison vector
 bvec3 ijkVecGreater3i(ivec3 const v_lh, ivec3 const v_rh);
 
+
+// ijkVecAnd3*
+//	Component-wise logical 'and' comparison for 3D vectors.
+//		param v_lh: left-hand vector
+//		param v_rh: right-hand vector
+//		return: comparison vector
+bvec3 ijkVecAnd3i(ivec3 const v_lh, ivec3 const v_rh);
+
+// ijkVecNand3*
+//	Component-wise logical 'nand' comparison for 3D vectors.
+//		param v_lh: left-hand vector
+//		param v_rh: right-hand vector
+//		return: comparison vector
+bvec3 ijkVecNand3i(ivec3 const v_lh, ivec3 const v_rh);
+
+// ijkVecOr3*
+//	Component-wise logical 'or' comparison for 3D vectors.
+//		param v_lh: left-hand vector
+//		param v_rh: right-hand vector
+//		return: comparison vector
+bvec3 ijkVecOr3i(ivec3 const v_lh, ivec3 const v_rh);
+
+// ijkVecNor3*
+//	Component-wise logical 'nor' comparison for 3D vectors.
+//		param v_lh: left-hand vector
+//		param v_rh: right-hand vector
+//		return: comparison vector
+bvec3 ijkVecNor3i(ivec3 const v_lh, ivec3 const v_rh);
+
 // ijkVecCopy3*z
 //	Copy 3D vector from 2D vector and one scalar.
 //		param v_xy: input 2D vector holding first two components
@@ -2979,6 +3380,34 @@ bvec3 ijkVecLess3is(ivec3 const v_lh, int const s_rh);
 //		return: comparison vector
 bvec3 ijkVecGreater3is(ivec3 const v_lh, int const s_rh);
 
+// ijkVecAnd3*s
+//	Component-wise logical 'and' comparison of 3D vector and scalar.
+//		param v_lh: left-hand vector
+//		param s_rh: right-hand scalar
+//		return: comparison vector
+bvec3 ijkVecAnd3is(ivec3 const v_lh, int const s_rh);
+
+// ijkVecNand3*s
+//	Component-wise logical 'nand' comparison of 3D vector and scalar.
+//		param v_lh: left-hand vector
+//		param s_rh: right-hand scalar
+//		return: comparison vector
+bvec3 ijkVecNand3is(ivec3 const v_lh, int const s_rh);
+
+// ijkVecOr3*s
+//	Component-wise logical 'or' comparison of 3D vector and scalar.
+//		param v_lh: left-hand vector
+//		param s_rh: right-hand scalar
+//		return: comparison vector
+bvec3 ijkVecOr3is(ivec3 const v_lh, int const s_rh);
+
+// ijkVecNor3*s
+//	Component-wise logical 'nor' comparison of 3D vector and scalar.
+//		param v_lh: left-hand vector
+//		param s_rh: right-hand scalar
+//		return: comparison vector
+bvec3 ijkVecNor3is(ivec3 const v_lh, int const s_rh);
+
 // ijkVecCopy3x*
 //	Copy 3D vector from 2D vector and one scalar.
 //		param x: first element
@@ -3134,6 +3563,34 @@ bvec3 ijkVecLess3si(int const s_lh, ivec3 const v_rh);
 //		param v_rh: right-hand vector
 //		return: comparison vector
 bvec3 ijkVecGreater3si(int const s_lh, ivec3 const v_rh);
+
+// ijkVecAnd3s*
+//	Component-wise logical 'and' comparison of 3D vector and scalar.
+//		param s_lh: left-hand scalar
+//		param v_rh: right-hand vector
+//		return: comparison vector
+bvec3 ijkVecAnd3si(int const s_lh, ivec3 const v_rh);
+
+// ijkVecNand3s*
+//	Component-wise logical 'nand' comparison of 3D vector and scalar.
+//		param s_lh: left-hand scalar
+//		param v_rh: right-hand vector
+//		return: comparison vector
+bvec3 ijkVecNand3si(int const s_lh, ivec3 const v_rh);
+
+// ijkVecOr3s*
+//	Component-wise logical 'or' comparison of 3D vector and scalar.
+//		param s_lh: left-hand scalar
+//		param v_rh: right-hand vector
+//		return: comparison vector
+bvec3 ijkVecOr3si(int const s_lh, ivec3 const v_rh);
+
+// ijkVecNor3s*
+//	Component-wise logical 'nor' comparison of 3D vector and scalar.
+//		param s_lh: left-hand scalar
+//		param v_rh: right-hand vector
+//		return: comparison vector
+bvec3 ijkVecNor3si(int const s_lh, ivec3 const v_rh);
 
 // ijkVecDot3*
 //	Dot product of 3D vectors.
@@ -3358,6 +3815,34 @@ bvec4 ijkVecLess4i(ivec4 const v_lh, ivec4 const v_rh);
 //		return: comparison vector
 bvec4 ijkVecGreater4i(ivec4 const v_lh, ivec4 const v_rh);
 
+// ijkVecAnd4*
+//	Component-wise logical 'and' comparison for 4D vectors.
+//		param v_lh: left-hand vector
+//		param v_rh: right-hand vector
+//		return: comparison vector
+bvec4 ijkVecAnd4i(ivec4 const v_lh, ivec4 const v_rh);
+
+// ijkVecNand4*
+//	Component-wise logical 'nand' comparison for 4D vectors.
+//		param v_lh: left-hand vector
+//		param v_rh: right-hand vector
+//		return: comparison vector
+bvec4 ijkVecNand4i(ivec4 const v_lh, ivec4 const v_rh);
+
+// ijkVecOr4*
+//	Component-wise logical 'or' comparison for 4D vectors.
+//		param v_lh: left-hand vector
+//		param v_rh: right-hand vector
+//		return: comparison vector
+bvec4 ijkVecOr4i(ivec4 const v_lh, ivec4 const v_rh);
+
+// ijkVecNor4*
+//	Component-wise logical 'nor' comparison for 4D vectors.
+//		param v_lh: left-hand vector
+//		param v_rh: right-hand vector
+//		return: comparison vector
+bvec4 ijkVecNor4i(ivec4 const v_lh, ivec4 const v_rh);
+
 // ijkVecCopy4*zw
 //	Copy 4D vector from 2D vector and two scalars.
 //		param v_xy: input 2D vector holding first two components
@@ -3550,6 +4035,34 @@ bvec4 ijkVecLess4is(ivec4 const v_lh, int const s_rh);
 //		return: comparison vector
 bvec4 ijkVecGreater4is(ivec4 const v_lh, int const s_rh);
 
+// ijkVecAnd4*s
+//	Component-wise logical 'and' comparison of 4D vector and scalar.
+//		param v_lh: left-hand vector
+//		param s_rh: right-hand scalar
+//		return: comparison vector
+bvec4 ijkVecAnd4is(ivec4 const v_lh, int const s_rh);
+
+// ijkVecNand4*s
+//	Component-wise logical 'nand' comparison of 4D vector and scalar.
+//		param v_lh: left-hand vector
+//		param s_rh: right-hand scalar
+//		return: comparison vector
+bvec4 ijkVecNand4is(ivec4 const v_lh, int const s_rh);
+
+// ijkVecOr4*s
+//	Component-wise logical 'or' comparison of 4D vector and scalar.
+//		param v_lh: left-hand vector
+//		param s_rh: right-hand scalar
+//		return: comparison vector
+bvec4 ijkVecOr4is(ivec4 const v_lh, int const s_rh);
+
+// ijkVecNor4*s
+//	Component-wise logical 'nor' comparison of 4D vector and scalar.
+//		param v_lh: left-hand vector
+//		param s_rh: right-hand scalar
+//		return: comparison vector
+bvec4 ijkVecNor4is(ivec4 const v_lh, int const s_rh);
+
 // ijkVecCopy4xy*
 //	Copy 4D vector from two scalars and 2D vector.
 //		param x: first element
@@ -3713,6 +4226,34 @@ bvec4 ijkVecLess4si(int const s_lh, ivec4 const v_rh);
 //		param v_rh: right-hand vector
 //		return: comparison vector
 bvec4 ijkVecGreater4si(int const s_lh, ivec4 const v_rh);
+
+// ijkVecAnd4s*
+//	Component-wise logical 'and' comparison of 4D vector and scalar.
+//		param s_lh: left-hand scalar
+//		param v_rh: right-hand vector
+//		return: comparison vector
+bvec4 ijkVecAnd4si(int const s_lh, ivec4 const v_rh);
+
+// ijkVecNand4s*
+//	Component-wise logical 'nand' comparison of 4D vector and scalar.
+//		param s_lh: left-hand scalar
+//		param v_rh: right-hand vector
+//		return: comparison vector
+bvec4 ijkVecNand4si(int const s_lh, ivec4 const v_rh);
+
+// ijkVecOr4s*
+//	Component-wise logical 'or' comparison of 4D vector and scalar.
+//		param s_lh: left-hand scalar
+//		param v_rh: right-hand vector
+//		return: comparison vector
+bvec4 ijkVecOr4si(int const s_lh, ivec4 const v_rh);
+
+// ijkVecNor4s*
+//	Component-wise logical 'nor' comparison of 4D vector and scalar.
+//		param s_lh: left-hand scalar
+//		param v_rh: right-hand vector
+//		return: comparison vector
+bvec4 ijkVecNor4si(int const s_lh, ivec4 const v_rh);
 
 // ijkVecDot4*
 //	Dot product of 4D vectors.
