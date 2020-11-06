@@ -3030,6 +3030,182 @@ fvec4 ijkVecCross4f(fvec4 const v_lh, fvec4 const v_rh);
 
 //-----------------------------------------------------------------------------
 
+#ifdef __cplusplus
+extern "C" {
+#endif	// __cplusplus
+
+//-----------------------------------------------------------------------------
+
+// ijkVecLengthSq2*v
+//	Calculate the squared length of a vector.
+//		param v_in: input vector
+//		return: squared length
+f32 ijkVecLengthSq2fv(float2 const v_in);
+
+// ijkVecLength2*v
+//	Calculate the length of a vector.
+//		param v_in: input vector
+//		return: length
+f32 ijkVecLength2fv(float2 const v_in);
+
+// ijkVecLengthSqInv2*v
+//	Calculate the inverse squared length of a vector.
+//		param v_in: input vector
+//		return: inverse squared length
+f32 ijkVecLengthSqInv2fv(float2 const v_in);
+
+// ijkVecLengthInv2*v
+//	Calculate the inverse length of a vector.
+//		param v_in: input vector
+//		return: inverse length
+f32 ijkVecLengthInv2fv(float2 const v_in);
+
+// ijkVecNormalize2*v
+//	Calculate the unit-length direction of a vector.
+//		param v_out: output vector
+//		param v_in: input vector
+//		return: v_out
+floatv ijkVecNormalize2fv(float2 v_out, float2 const v_in);
+
+// ijkVecNormalizeGetLength2*v
+//	Calculate the unit-length direction of a vector; also capture the length 
+//	of the input vector.
+//		param v_out: output vector
+//		param v_in: input vector
+//		param length_out: pointer to length storage
+//		return: v_out
+floatv ijkVecNormalizeGetLength2fv(float2 v_out, float2 const v_in, f32* const length_out);
+
+// ijkVecNormalizeGetLengthInv2*v
+//	Calculate the unit-length direction of a vector; also capture the inverse 
+//	length of the input vector.
+//		param v_out: output vector
+//		param v_in: input vector
+//		param length_out: pointer to length storage
+//		return: v_out
+floatv ijkVecNormalizeGetLengthInv2fv(float2 v_out, float2 const v_in, f32* const lengthInv_out);
+
+// ijkVecCrossNormalize2*v
+//	Calculate unit-length result of cross product.
+//		param v_lh: left-hand vector
+//		param v_rh: right-hand vector
+//		return: scalar cross product sign
+f32 ijkVecCrossNormalize2fv(float2 const v_lh, float2 const v_rh);
+
+// ijkVecCrossNormalizeGetLength2*v
+//	Calculate unit-length result of cross product; also capture length.
+//		param v_lh: left-hand vector
+//		param v_rh: right-hand vector
+//		param length_out: pointer to length storage
+//		return: scalar cross product sign
+f32 ijkVecCrossNormalizeGetLength2fv(float2 const v_lh, float2 const v_rh, f32* const length_out);
+
+// ijkVecCrossNormalizeGetLengthInv2*v
+//	Calculate unit-length result of cross product; also capture inverse length.
+//		param v_lh: left-hand vector
+//		param v_rh: right-hand vector
+//		param lengthInv_out: pointer to length storage
+//		return: scalar cross product sign
+f32 ijkVecCrossNormalizeGetLengthInv2fv(float2 const v_lh, float2 const v_rh, f32* const lengthInv_out);
+
+// ijkVecLerp2*v
+//	Vector linear interpolation.
+//		param v_out: output vector, interpolated components
+//		param v0: input initial control vector, result when param is 0
+//		param v1: input terminal control vector, result when param is 1
+//		param u: interpolation parameter; values in domain [0,1] result in 
+//			interpolation in range [v0,v1], others result in extrapolation
+//		return: v_out
+floatv ijkVecLerp2fv(float2 v_out, float2 const v0, float2 const v1, f32 const u);
+
+// ijkVecLerpInv2*v
+//	Vector linear interpolation inverse to calculate parameters given control .
+//		param v_out: output vector, interpolation parameter for each component
+//		param v0: input initial control vector, result when param is 0
+//		param v1: input terminal control vector, result when param is 1
+//		param v_lerp: interpolated vector used to calculate parameters; params 
+//			in range [0,1] indicate interpolation, others for extrapolation
+//		return: v_out
+floatv ijkVecLerpInv2fv(float2 v_out, float2 const v0, float2 const v1, float2 const v_lerp);
+
+// ijkVecLerpRevInit2*v
+//	Vector linear interpolation reversal to calculate initial control.
+//		param v0_out: output initial control vector, result when param is 0
+//		param v_lerp: input interpolated vector
+//		param v1: input terminal control vector, result when param is 1
+//		param u: interpolation parameter; values in domain [0,1] result in 
+//			interpolation in range [v0,v1], others result in extrapolation
+//		return: v0_out
+floatv ijkVecLerpRevInit2fv(float2 v0_out, float2 const v_lerp, float2 const v1, f32 const u);
+
+// ijkVecLerpRevTerm2*v
+//	Vector linear interpolation reversal to calculate terminal control.
+//		param v1_out: output initial control vector, result when param is 0
+//		param v0: input initial control vector, result when param is 0
+//		param v_lerp: input interpolated vector
+//		param u: interpolation parameter; values in domain [0,1] result in 
+//			interpolation in range [v0,v1], others result in extrapolation
+//		return: v1_out
+floatv ijkVecLerpRevTerm2fv(float2 v1_out, float2 const v0, float2 const v_lerp, f32 const u);
+
+// ijkVecProjRatio2*v
+//	Calculate projection length ratio.
+//		param v_base: fixed base vector onto which input is projected
+//		param v_in: input vector to be projected
+//		return: length ratio of projected vector to base
+f32 ijkVecProjRatio2fv(float2 const v_base, float2 const v_in);
+
+// ijkVecProj2*v
+//	Vector projection.
+//		param v_out: output vector, projected input onto base
+//		param v_base: fixed base vector onto which input is projected
+//		param v_in: input vector to be projected
+//		return: v_out
+floatv ijkVecProj2fv(float2 v_out, float2 const v_base, float2 const v_in);
+
+// ijkVecOrtho2*v
+//	Vector orthogonalization using the Gram-Schmidt process.
+//		param v_out: output orthogonalized vector; difference between input 
+//			and its projection onto base vector
+//		param v_base: fixed base vector onto which input is projected
+//		param v_in: input vector to be orthogonalized
+//		return: v_out
+floatv ijkVecOrtho2fv(float2 v_out, float2 const v_base, float2 const v_in);
+
+// ijkVecOrthoList2*v
+//	Vector orthogonalization using the Gram-Schmidt process.
+//		param vl_out: output list of orthogonalized vectors
+//		param v_base: fixed base vector onto which inputs are projected
+//		param vl_in: input list of vectors to be orthogonalized
+//		param n: number of vectors to orthogonalize
+//		return: vl_out
+floatv* ijkVecOrthoList2fv(float2 vl_out[], float2 const v_base, float2 const vl_in[], size const n);
+
+
+//-----------------------------------------------------------------------------
+
+
+//-----------------------------------------------------------------------------
+
+
+//-----------------------------------------------------------------------------
+
+	
+#ifdef __cplusplus
+}
+#endif	// __cplusplus
+
+//-----------------------------------------------------------------------------
+
+
+//-----------------------------------------------------------------------------
+
+
+//-----------------------------------------------------------------------------
+
+
+//-----------------------------------------------------------------------------
+
 
 #include "_inl/ijkVector_float.inl"
 
