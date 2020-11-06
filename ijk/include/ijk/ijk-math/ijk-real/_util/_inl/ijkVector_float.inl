@@ -290,20 +290,17 @@ ijk_inl floatv ijkVecMul2fvs(float2 v_out, float2 const v_lh, f32 const s_rh)
 
 ijk_inl floatv ijkVecDiv2fvs(float2 v_out, float2 const v_lh, f32 const s_rh)
 {
-	v_out[0] = v_lh[0] / s_rh;
-	v_out[1] = v_lh[1] / s_rh;
+	f32 const s = ijk_recip_flt(s_rh);
+	v_out[0] = v_lh[0] * s;
+	v_out[1] = v_lh[1] * s;
 	return v_out;
 }
 
 ijk_inl floatv ijkVecDivSafe2fvs(float2 v_out, float2 const v_lh, f32 const s_rh)
 {
-	if (s_rh)
-	{
-		v_out[0] = v_lh[0] / s_rh;
-		v_out[1] = v_lh[1] / s_rh;
-	}
-	else
-		v_out[0] = v_out[1] = 0;
+	f32 const s = ijk_recip_safe_flt(s_rh);
+	v_out[0] = v_lh[0] * s;
+	v_out[1] = v_lh[1] * s;
 	return v_out;
 }
 
@@ -753,22 +750,19 @@ ijk_inl floatv ijkVecMul3fvs(float3 v_out, float3 const v_lh, f32 const s_rh)
 
 ijk_inl floatv ijkVecDiv3fvs(float3 v_out, float3 const v_lh, f32 const s_rh)
 {
-	v_out[0] = v_lh[0] / s_rh;
-	v_out[1] = v_lh[1] / s_rh;
-	v_out[2] = v_lh[2] / s_rh;
+	f32 const s = ijk_recip_flt(s_rh);
+	v_out[0] = v_lh[0] * s;
+	v_out[1] = v_lh[1] * s;
+	v_out[2] = v_lh[2] * s;
 	return v_out;
 }
 
 ijk_inl floatv ijkVecDivSafe3fvs(float3 v_out, float3 const v_lh, f32 const s_rh)
 {
-	if (s_rh)
-	{
-		v_out[0] = v_lh[0] / s_rh;
-		v_out[1] = v_lh[1] / s_rh;
-		v_out[2] = v_lh[2] / s_rh;
-	}
-	else
-		v_out[0] = v_out[1] = v_out[2] = 0;
+	f32 const s = ijk_recip_safe_flt(s_rh);
+	v_out[0] = v_lh[0] * s;
+	v_out[1] = v_lh[1] * s;
+	v_out[2] = v_lh[2] * s;
 	return v_out;
 }
 
@@ -1310,24 +1304,21 @@ ijk_inl floatv ijkVecMul4fvs(float4 v_out, float4 const v_lh, f32 const s_rh)
 
 ijk_inl floatv ijkVecDiv4fvs(float4 v_out, float4 const v_lh, f32 const s_rh)
 {
-	v_out[0] = v_lh[0] / s_rh;
-	v_out[1] = v_lh[1] / s_rh;
-	v_out[2] = v_lh[2] / s_rh;
-	v_out[3] = v_lh[3] / s_rh;
+	f32 const s = ijk_recip_flt(s_rh);
+	v_out[0] = v_lh[0] * s;
+	v_out[1] = v_lh[1] * s;
+	v_out[2] = v_lh[2] * s;
+	v_out[3] = v_lh[3] * s;
 	return v_out;
 }
 
 ijk_inl floatv ijkVecDivSafe4fvs(float4 v_out, float4 const v_lh, f32 const s_rh)
 {
-	if (s_rh)
-	{
-		v_out[0] = v_lh[0] / s_rh;
-		v_out[1] = v_lh[1] / s_rh;
-		v_out[2] = v_lh[2] / s_rh;
-		v_out[3] = v_lh[3] / s_rh;
-	}
-	else
-		v_out[0] = v_out[1] = v_out[2] = v_out[3] = 0;
+	f32 const s = ijk_recip_safe_flt(s_rh);
+	v_out[0] = v_lh[0] * s;
+	v_out[1] = v_lh[1] * s;
+	v_out[2] = v_lh[2] * s;
+	v_out[3] = v_lh[3] * s;
 	return v_out;
 }
 
@@ -1913,28 +1904,22 @@ ijk_inl fvec2 ijkVecMul2fs(fvec2 const v_lh, float const s_rh)
 
 ijk_inl fvec2 ijkVecDiv2fs(fvec2 const v_lh, float const s_rh)
 {
+	f32 const s = ijk_recip_flt(s_rh);
 	fvec2 const v_out = {
-		v_lh.x / s_rh,
-		v_lh.y / s_rh,
+		v_lh.x * s,
+		v_lh.y * s,
 	};
 	return v_out;
 }
 
 ijk_inl fvec2 ijkVecDivSafe2fs(fvec2 const v_lh, float const s_rh)
 {
-	if (s_rh)
-	{
-		fvec2 const v_out = {
-			v_lh.x / s_rh,
-			v_lh.y / s_rh,
-		};
-		return v_out;
-	}
-	else
-	{
-		fvec2 const v_out = { 0, 0 };
-		return v_out;
-	}
+	f32 const s = ijk_recip_safe_flt(s_rh);
+	fvec2 const v_out = {
+		v_lh.x * s,
+		v_lh.y * s,
+	};
+	return v_out;
 }
 
 ijk_inl fvec2 ijkVecMod2fs(fvec2 const v_lh, float const s_rh)
@@ -2473,30 +2458,24 @@ ijk_inl fvec3 ijkVecMul3fs(fvec3 const v_lh, float const s_rh)
 
 ijk_inl fvec3 ijkVecDiv3fs(fvec3 const v_lh, float const s_rh)
 {
+	f32 const s = ijk_recip_flt(s_rh);
 	fvec3 const v_out = {
-		v_lh.x / s_rh,
-		v_lh.y / s_rh,
-		v_lh.z / s_rh,
+		v_lh.x * s,
+		v_lh.y * s,
+		v_lh.z * s,
 	};
 	return v_out;
 }
 
 ijk_inl fvec3 ijkVecDivSafe3fs(fvec3 const v_lh, float const s_rh)
 {
-	if (s_rh)
-	{
-		fvec3 const v_out = {
-			v_lh.x / s_rh,
-			v_lh.y / s_rh,
-			v_lh.z / s_rh,
-		};
-		return v_out;
-	}
-	else
-	{
-		fvec3 const v_out = { 0, 0, 0 };
-		return v_out;
-	}
+	f32 const s = ijk_recip_safe_flt(s_rh);
+	fvec3 const v_out = {
+		v_lh.x * s,
+		v_lh.y * s,
+		v_lh.z * s,
+	};
+	return v_out;
 }
 
 ijk_inl fvec3 ijkVecMod3fs(fvec3 const v_lh, float const s_rh)
@@ -3110,32 +3089,26 @@ ijk_inl fvec4 ijkVecMul4fs(fvec4 const v_lh, float const s_rh)
 
 ijk_inl fvec4 ijkVecDiv4fs(fvec4 const v_lh, float const s_rh)
 {
+	f32 const s = ijk_recip_flt(s_rh);
 	fvec4 const v_out = {
-		v_lh.x / s_rh,
-		v_lh.y / s_rh,
-		v_lh.z / s_rh,
-		v_lh.w / s_rh,
+		v_lh.x * s,
+		v_lh.y * s,
+		v_lh.z * s,
+		v_lh.w * s,
 	};
 	return v_out;
 }
 
 ijk_inl fvec4 ijkVecDivSafe4fs(fvec4 const v_lh, float const s_rh)
 {
-	if (s_rh)
-	{
-		fvec4 const v_out = {
-			v_lh.x / s_rh,
-			v_lh.y / s_rh,
-			v_lh.z / s_rh,
-			v_lh.w / s_rh,
-		};
-		return v_out;
-	}
-	else
-	{
-		fvec4 const v_out = { 0, 0, 0, 0 };
-		return v_out;
-	}
+	f32 const s = ijk_recip_safe_flt(s_rh);
+	fvec4 const v_out = {
+		v_lh.x * s,
+		v_lh.y * s,
+		v_lh.z * s,
+		v_lh.w * s,
+	};
+	return v_out;
 }
 
 ijk_inl fvec4 ijkVecMod4fs(fvec4 const v_lh, float const s_rh)
@@ -3507,98 +3480,104 @@ ijk_inl f32 ijkVecLength2fv(float2 const v_in)
 
 ijk_inl f32 ijkVecLengthSqInv2fv(float2 const v_in)
 {
-
-	return flt_zero;
+	f32 const lengthSq = ijkVecLengthSq2fv(v_in);
+	return ijk_recip_flt(lengthSq);
 }
 
 ijk_inl f32 ijkVecLengthSqInvSafe2fv(float2 const v_in)
 {
-
-	return flt_zero;
+	f32 const lengthSq = ijkVecLengthSq2fv(v_in);
+	return ijk_recip_safe_flt(lengthSq);
 }
 
 ijk_inl f32 ijkVecLengthInv2fv(float2 const v_in)
 {
-
-	return flt_zero;
+	f32 const lengthSq = ijkVecLengthSq2fv(v_in);
+	return ijkSqrtInv_flt(lengthSq);
 }
 
 ijk_inl f32 ijkVecLengthInvSafe2fv(float2 const v_in)
 {
-
-	return flt_zero;
+	f32 const lengthSq = ijkVecLengthSq2fv(v_in);
+	return (lengthSq > flt_zero ? ijkSqrtInv_flt(lengthSq) : flt_zero);
 }
 
 ijk_inl floatv ijkVecNormalize2fv(float2 v_out, float2 const v_in)
 {
-
-	return v_out;
+	f32 const lengthInv = ijkVecLengthInv2fv(v_in);
+	return ijkVecMul2fvs(v_out, v_in, lengthInv);
 }
 
 ijk_inl floatv ijkVecNormalizeSafe2fv(float2 v_out, float2 const v_in)
 {
-
-	return v_out;
+	f32 const lengthInv = ijkVecLengthInvSafe2fv(v_in);
+	return ijkVecMul2fvs(v_out, v_in, lengthInv);
 }
 
 ijk_inl floatv ijkVecNormalizeGetLength2fv(float2 v_out, float2 const v_in, f32* const length_out)
 {
-
-	return v_out;
+	f32 const length = *length_out = ijkVecLength2fv(v_in);
+	return ijkVecDiv2fvs(v_out, v_in, length);
 }
 
 ijk_inl floatv ijkVecNormalizeSafeGetLength2fv(float2 v_out, float2 const v_in, f32* const length_out)
 {
-
-	return v_out;
+	f32 const length = *length_out = ijkVecLength2fv(v_in);
+	return ijkVecDivSafe2fvs(v_out, v_in, length);
 }
 
 ijk_inl floatv ijkVecNormalizeGetLengthInv2fv(float2 v_out, float2 const v_in, f32* const lengthInv_out)
 {
-
-	return v_out;
+	f32 const lengthInv = *lengthInv_out = ijkVecLengthInv2fv(v_in);
+	return ijkVecMul2fvs(v_out, v_in, lengthInv);
 }
 
 ijk_inl floatv ijkVecNormalizeSafeGetLengthInv2fv(float2 v_out, float2 const v_in, f32* const lengthInv_out)
 {
-
-	return v_out;
+	f32 const lengthInv = *lengthInv_out = ijkVecLengthInvSafe2fv(v_in);
+	return ijkVecMul2fvs(v_out, v_in, lengthInv);
 }
 
 ijk_inl f32 ijkVecCrossNormalize2fv(float2 const v_lh, float2 const v_rh)
 {
-
-	return flt_zero;
+	f32 const cross = ijkVecCross2fv(v_lh, v_rh);
+	return ijk_sgn_flt(cross);
 }
 
 ijk_inl f32 ijkVecCrossNormalizeSafe2fv(float2 const v_lh, float2 const v_rh)
 {
-
-	return flt_zero;
+	f32 const cross = ijkVecCross2fv(v_lh, v_rh);
+	return ijk_sgn_flt(cross);
 }
 
 ijk_inl f32 ijkVecCrossNormalizeGetLength2fv(float2 const v_lh, float2 const v_rh, f32* const length_out)
 {
-
-	return flt_zero;
+	f32 const cross = ijkVecCross2fv(v_lh, v_rh);
+	*length_out = ijk_abs_flt(cross);
+	return ijk_sgn_flt(cross);
 }
 
 ijk_inl f32 ijkVecCrossNormalizeSafeGetLength2fv(float2 const v_lh, float2 const v_rh, f32* const length_out)
 {
-
-	return flt_zero;
+	f32 const cross = ijkVecCross2fv(v_lh, v_rh);
+	*length_out = ijk_abs_flt(cross);
+	return ijk_sgn_flt(cross);
 }
 
 ijk_inl f32 ijkVecCrossNormalizeGetLengthInv2fv(float2 const v_lh, float2 const v_rh, f32* const lengthInv_out)
 {
-
-	return flt_zero;
+	f32 const cross = ijkVecCross2fv(v_lh, v_rh);
+	f32 const length = ijk_abs_flt(cross);
+	*lengthInv_out = ijk_recip_flt(length);
+	return ijk_sgn_flt(cross);
 }
 
 ijk_inl f32 ijkVecCrossNormalizeSafeGetLengthInv2fv(float2 const v_lh, float2 const v_rh, f32* const lengthInv_out)
 {
-
-	return flt_zero;
+	f32 const cross = ijkVecCross2fv(v_lh, v_rh);
+	f32 const length = ijk_abs_flt(cross);
+	*lengthInv_out = ijk_recip_safe_flt(length);
+	return ijk_sgn_flt(cross);
 }
 
 ijk_inl floatv ijkVecLerp2fv(float2 v_out, float2 const v0, float2 const v1, f32 const u)
