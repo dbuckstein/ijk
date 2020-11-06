@@ -3496,17 +3496,22 @@ extern "C" {
 
 ijk_inl f32 ijkVecLengthSq2fv(float2 const v_in)
 {
-
-	return flt_zero;
+	return ijkVecDot2fv(v_in, v_in);
 }
 
 ijk_inl f32 ijkVecLength2fv(float2 const v_in)
+{
+	f32 const lengthSq = ijkVecLengthSq2fv(v_in);
+	return ijkSqrt_flt(lengthSq);
+}
+
+ijk_inl f32 ijkVecLengthSqInv2fv(float2 const v_in)
 {
 
 	return flt_zero;
 }
 
-ijk_inl f32 ijkVecLengthSqInv2fv(float2 const v_in)
+ijk_inl f32 ijkVecLengthSqInvSafe2fv(float2 const v_in)
 {
 
 	return flt_zero;
@@ -3518,7 +3523,19 @@ ijk_inl f32 ijkVecLengthInv2fv(float2 const v_in)
 	return flt_zero;
 }
 
+ijk_inl f32 ijkVecLengthInvSafe2fv(float2 const v_in)
+{
+
+	return flt_zero;
+}
+
 ijk_inl floatv ijkVecNormalize2fv(float2 v_out, float2 const v_in)
+{
+
+	return v_out;
+}
+
+ijk_inl floatv ijkVecNormalizeSafe2fv(float2 v_out, float2 const v_in)
 {
 
 	return v_out;
@@ -3530,7 +3547,19 @@ ijk_inl floatv ijkVecNormalizeGetLength2fv(float2 v_out, float2 const v_in, f32*
 	return v_out;
 }
 
+ijk_inl floatv ijkVecNormalizeSafeGetLength2fv(float2 v_out, float2 const v_in, f32* const length_out)
+{
+
+	return v_out;
+}
+
 ijk_inl floatv ijkVecNormalizeGetLengthInv2fv(float2 v_out, float2 const v_in, f32* const lengthInv_out)
+{
+
+	return v_out;
+}
+
+ijk_inl floatv ijkVecNormalizeSafeGetLengthInv2fv(float2 v_out, float2 const v_in, f32* const lengthInv_out)
 {
 
 	return v_out;
@@ -3542,13 +3571,31 @@ ijk_inl f32 ijkVecCrossNormalize2fv(float2 const v_lh, float2 const v_rh)
 	return flt_zero;
 }
 
+ijk_inl f32 ijkVecCrossNormalizeSafe2fv(float2 const v_lh, float2 const v_rh)
+{
+
+	return flt_zero;
+}
+
 ijk_inl f32 ijkVecCrossNormalizeGetLength2fv(float2 const v_lh, float2 const v_rh, f32* const length_out)
 {
 
 	return flt_zero;
 }
 
+ijk_inl f32 ijkVecCrossNormalizeSafeGetLength2fv(float2 const v_lh, float2 const v_rh, f32* const length_out)
+{
+
+	return flt_zero;
+}
+
 ijk_inl f32 ijkVecCrossNormalizeGetLengthInv2fv(float2 const v_lh, float2 const v_rh, f32* const lengthInv_out)
+{
+
+	return flt_zero;
+}
+
+ijk_inl f32 ijkVecCrossNormalizeSafeGetLengthInv2fv(float2 const v_lh, float2 const v_rh, f32* const lengthInv_out)
 {
 
 	return flt_zero;

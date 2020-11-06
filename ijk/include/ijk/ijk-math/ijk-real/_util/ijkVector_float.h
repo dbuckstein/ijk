@@ -3054,11 +3054,23 @@ f32 ijkVecLength2fv(float2 const v_in);
 //		return: inverse squared length
 f32 ijkVecLengthSqInv2fv(float2 const v_in);
 
+// ijkVecLengthSqInvSafe2*v
+//	Calculate the inverse squared length of a vector; division-by-zero safe.
+//		param v_in: input vector
+//		return: inverse squared length
+f32 ijkVecLengthSqInvSafe2fv(float2 const v_in);
+
 // ijkVecLengthInv2*v
 //	Calculate the inverse length of a vector.
 //		param v_in: input vector
 //		return: inverse length
 f32 ijkVecLengthInv2fv(float2 const v_in);
+
+// ijkVecLengthInvSafe2*v
+//	Calculate the inverse length of a vector; division-by-zero safe.
+//		param v_in: input vector
+//		return: inverse length
+f32 ijkVecLengthInvSafe2fv(float2 const v_in);
 
 // ijkVecNormalize2*v
 //	Calculate the unit-length direction of a vector.
@@ -3066,6 +3078,13 @@ f32 ijkVecLengthInv2fv(float2 const v_in);
 //		param v_in: input vector
 //		return: v_out
 floatv ijkVecNormalize2fv(float2 v_out, float2 const v_in);
+
+// ijkVecNormalizeSafe2*v
+//	Calculate the unit-length direction of a vector; division-by-zero safe.
+//		param v_out: output vector
+//		param v_in: input vector
+//		return: v_out
+floatv ijkVecNormalizeSafe2fv(float2 v_out, float2 const v_in);
 
 // ijkVecNormalizeGetLength2*v
 //	Calculate the unit-length direction of a vector; also capture the length 
@@ -3076,6 +3095,15 @@ floatv ijkVecNormalize2fv(float2 v_out, float2 const v_in);
 //		return: v_out
 floatv ijkVecNormalizeGetLength2fv(float2 v_out, float2 const v_in, f32* const length_out);
 
+// ijkVecNormalizeSafeGetLength2*v
+//	Calculate the unit-length direction of a vector; also capture the length 
+//	of the input vector; division-by-zero safe.
+//		param v_out: output vector
+//		param v_in: input vector
+//		param length_out: pointer to length storage
+//		return: v_out
+floatv ijkVecNormalizeSafeGetLength2fv(float2 v_out, float2 const v_in, f32* const length_out);
+
 // ijkVecNormalizeGetLengthInv2*v
 //	Calculate the unit-length direction of a vector; also capture the inverse 
 //	length of the input vector.
@@ -3085,12 +3113,28 @@ floatv ijkVecNormalizeGetLength2fv(float2 v_out, float2 const v_in, f32* const l
 //		return: v_out
 floatv ijkVecNormalizeGetLengthInv2fv(float2 v_out, float2 const v_in, f32* const lengthInv_out);
 
+// ijkVecNormalizeSafeGetLengthInv2*v
+//	Calculate the unit-length direction of a vector; also capture the inverse 
+//	length of the input vector; division-by-zero safe.
+//		param v_out: output vector
+//		param v_in: input vector
+//		param length_out: pointer to length storage
+//		return: v_out
+floatv ijkVecNormalizeSafeGetLengthInv2fv(float2 v_out, float2 const v_in, f32* const lengthInv_out);
+
 // ijkVecCrossNormalize2*v
 //	Calculate unit-length result of cross product.
 //		param v_lh: left-hand vector
 //		param v_rh: right-hand vector
 //		return: scalar cross product sign
 f32 ijkVecCrossNormalize2fv(float2 const v_lh, float2 const v_rh);
+
+// ijkVecCrossNormalizeSafe2*v
+//	Calculate unit-length result of cross product; division-by-zero safe.
+//		param v_lh: left-hand vector
+//		param v_rh: right-hand vector
+//		return: scalar cross product sign
+f32 ijkVecCrossNormalizeSafe2fv(float2 const v_lh, float2 const v_rh);
 
 // ijkVecCrossNormalizeGetLength2*v
 //	Calculate unit-length result of cross product; also capture length.
@@ -3100,6 +3144,15 @@ f32 ijkVecCrossNormalize2fv(float2 const v_lh, float2 const v_rh);
 //		return: scalar cross product sign
 f32 ijkVecCrossNormalizeGetLength2fv(float2 const v_lh, float2 const v_rh, f32* const length_out);
 
+// ijkVecCrossNormalizeSafeGetLength2*v
+//	Calculate unit-length result of cross product; also capture length; 
+//	division-by-zero safe.
+//		param v_lh: left-hand vector
+//		param v_rh: right-hand vector
+//		param length_out: pointer to length storage
+//		return: scalar cross product sign
+f32 ijkVecCrossNormalizeSafeGetLength2fv(float2 const v_lh, float2 const v_rh, f32* const length_out);
+
 // ijkVecCrossNormalizeGetLengthInv2*v
 //	Calculate unit-length result of cross product; also capture inverse length.
 //		param v_lh: left-hand vector
@@ -3107,6 +3160,15 @@ f32 ijkVecCrossNormalizeGetLength2fv(float2 const v_lh, float2 const v_rh, f32* 
 //		param lengthInv_out: pointer to length storage
 //		return: scalar cross product sign
 f32 ijkVecCrossNormalizeGetLengthInv2fv(float2 const v_lh, float2 const v_rh, f32* const lengthInv_out);
+
+// ijkVecCrossNormalizeSafeGetLengthInv2*v
+//	Calculate unit-length result of cross product; also capture inverse length;
+//	division-by-zero safe.
+//		param v_lh: left-hand vector
+//		param v_rh: right-hand vector
+//		param lengthInv_out: pointer to length storage
+//		return: scalar cross product sign
+f32 ijkVecCrossNormalizeSafeGetLengthInv2fv(float2 const v_lh, float2 const v_rh, f32* const lengthInv_out);
 
 // ijkVecLerp2*v
 //	Vector linear interpolation.
@@ -3202,11 +3264,23 @@ f32 ijkVecLength3fv(float3 const v_in);
 //		return: inverse squared length
 f32 ijkVecLengthSqInv3fv(float3 const v_in);
 
+// ijkVecLengthSqInvSafe3*v
+//	Calculate the inverse squared length of a vector; division-by-zero safe.
+//		param v_in: input vector
+//		return: inverse squared length
+f32 ijkVecLengthSqInvSafe3fv(float3 const v_in);
+
 // ijkVecLengthInv3*v
 //	Calculate the inverse length of a vector.
 //		param v_in: input vector
 //		return: inverse length
 f32 ijkVecLengthInv3fv(float3 const v_in);
+
+// ijkVecLengthInvSafe3*v
+//	Calculate the inverse length of a vector; division-by-zero safe.
+//		param v_in: input vector
+//		return: inverse length
+f32 ijkVecLengthInvSafe3fv(float3 const v_in);
 
 // ijkVecNormalize3*v
 //	Calculate the unit-length direction of a vector.
@@ -3214,6 +3288,13 @@ f32 ijkVecLengthInv3fv(float3 const v_in);
 //		param v_in: input vector
 //		return: v_out
 floatv ijkVecNormalize3fv(float3 v_out, float3 const v_in);
+
+// ijkVecNormalizeSafe3*v
+//	Calculate the unit-length direction of a vector; division-by-zero safe.
+//		param v_out: output vector
+//		param v_in: input vector
+//		return: v_out
+floatv ijkVecNormalizeSafe3fv(float3 v_out, float3 const v_in);
 
 // ijkVecNormalizeGetLength3*v
 //	Calculate the unit-length direction of a vector; also capture the length 
@@ -3224,6 +3305,15 @@ floatv ijkVecNormalize3fv(float3 v_out, float3 const v_in);
 //		return: v_out
 floatv ijkVecNormalizeGetLength3fv(float3 v_out, float3 const v_in, f32* const length_out);
 
+// ijkVecNormalizeSafeGetLength3*v
+//	Calculate the unit-length direction of a vector; also capture the length 
+//	of the input vector; division-by-zero safe.
+//		param v_out: output vector
+//		param v_in: input vector
+//		param length_out: pointer to length storage
+//		return: v_out
+floatv ijkVecNormalizeSafeGetLength3fv(float3 v_out, float3 const v_in, f32* const length_out);
+
 // ijkVecNormalizeGetLengthInv3*v
 //	Calculate the unit-length direction of a vector; also capture the inverse 
 //	length of the input vector.
@@ -3233,6 +3323,15 @@ floatv ijkVecNormalizeGetLength3fv(float3 v_out, float3 const v_in, f32* const l
 //		return: v_out
 floatv ijkVecNormalizeGetLengthInv3fv(float3 v_out, float3 const v_in, f32* const lengthInv_out);
 
+// ijkVecNormalizeSafeGetLengthInv3*v
+//	Calculate the unit-length direction of a vector; also capture the inverse 
+//	length of the input vector; division-by-zero safe.
+//		param v_out: output vector
+//		param v_in: input vector
+//		param length_out: pointer to length storage
+//		return: v_out
+floatv ijkVecNormalizeSafeGetLengthInv3fv(float3 v_out, float3 const v_in, f32* const lengthInv_out);
+
 // ijkVecCrossNormalize3*v
 //	Calculate unit-length result of cross product.
 //		param v_out: output unit cross product vector
@@ -3240,6 +3339,14 @@ floatv ijkVecNormalizeGetLengthInv3fv(float3 v_out, float3 const v_in, f32* cons
 //		param v_rh: right-hand vector
 //		return: v_out
 floatv ijkVecCrossNormalize3fv(float3 v_out, float3 const v_lh, float3 const v_rh);
+
+// ijkVecCrossNormalizeSafe3*v
+//	Calculate unit-length result of cross product; division-by-zero safe.
+//		param v_out: output unit cross product vector
+//		param v_lh: left-hand vector
+//		param v_rh: right-hand vector
+//		return: v_out
+floatv ijkVecCrossNormalizeSafe3fv(float3 v_out, float3 const v_lh, float3 const v_rh);
 
 // ijkVecCrossNormalizeGetLength3*v
 //	Calculate unit-length result of cross product; also capture length.
@@ -3250,6 +3357,16 @@ floatv ijkVecCrossNormalize3fv(float3 v_out, float3 const v_lh, float3 const v_r
 //		return: v_out
 floatv ijkVecCrossNormalizeGetLength3fv(float3 v_out, float3 const v_lh, float3 const v_rh, f32* const length_out);
 
+// ijkVecCrossNormalizeSafeGetLength3*v
+//	Calculate unit-length result of cross product; also capture length; 
+//	division-by-zero safe.
+//		param v_out: output unit cross product vector
+//		param v_lh: left-hand vector
+//		param v_rh: right-hand vector
+//		param length_out: pointer to length storage
+//		return: v_out
+floatv ijkVecCrossNormalizeSafeGetLength3fv(float3 v_out, float3 const v_lh, float3 const v_rh, f32* const length_out);
+
 // ijkVecCrossNormalizeGetLengthInv3*v
 //	Calculate unit-length result of cross product; also capture inverse length.
 //		param v_out: output unit cross product vector
@@ -3258,6 +3375,16 @@ floatv ijkVecCrossNormalizeGetLength3fv(float3 v_out, float3 const v_lh, float3 
 //		param lengthInv_out: pointer to length storage
 //		return: v_out
 floatv ijkVecCrossNormalizeGetLengthInv3fv(float3 v_out, float3 const v_lh, float3 const v_rh, f32* const lengthInv_out);
+
+// ijkVecCrossNormalizeSafeGetLengthInv3*v
+//	Calculate unit-length result of cross product; also capture inverse length;
+//	division-by-zero safe.
+//		param v_out: output unit cross product vector
+//		param v_lh: left-hand vector
+//		param v_rh: right-hand vector
+//		param lengthInv_out: pointer to length storage
+//		return: v_out
+floatv ijkVecCrossNormalizeSafeGetLengthInv3fv(float3 v_out, float3 const v_lh, float3 const v_rh, f32* const lengthInv_out);
 
 // ijkVecLerp3*v
 //	Vector linear interpolation.
@@ -3353,11 +3480,23 @@ f32 ijkVecLength4fv(float4 const v_in);
 //		return: inverse squared length
 f32 ijkVecLengthSqInv4fv(float4 const v_in);
 
+// ijkVecLengthSqInvSafe4*v
+//	Calculate the inverse squared length of a vector; division-by-zero safe.
+//		param v_in: input vector
+//		return: inverse squared length
+f32 ijkVecLengthSqInvSafe4fv(float4 const v_in);
+
 // ijkVecLengthInv4*v
 //	Calculate the inverse length of a vector.
 //		param v_in: input vector
 //		return: inverse length
 f32 ijkVecLengthInv4fv(float4 const v_in);
+
+// ijkVecLengthInvSafe4*v
+//	Calculate the inverse length of a vector; division-by-zero safe.
+//		param v_in: input vector
+//		return: inverse length
+f32 ijkVecLengthInvSafe4fv(float4 const v_in);
 
 // ijkVecNormalize4*v
 //	Calculate the unit-length direction of a vector.
@@ -3365,6 +3504,13 @@ f32 ijkVecLengthInv4fv(float4 const v_in);
 //		param v_in: input vector
 //		return: v_out
 floatv ijkVecNormalize4fv(float4 v_out, float4 const v_in);
+
+// ijkVecNormalizeSafe4*v
+//	Calculate the unit-length direction of a vector; division-by-zero safe.
+//		param v_out: output vector
+//		param v_in: input vector
+//		return: v_out
+floatv ijkVecNormalizeSafe4fv(float4 v_out, float4 const v_in);
 
 // ijkVecNormalizeGetLength4*v
 //	Calculate the unit-length direction of a vector; also capture the length 
@@ -3375,6 +3521,15 @@ floatv ijkVecNormalize4fv(float4 v_out, float4 const v_in);
 //		return: v_out
 floatv ijkVecNormalizeGetLength4fv(float4 v_out, float4 const v_in, f32* const length_out);
 
+// ijkVecNormalizeSafeGetLength4*v
+//	Calculate the unit-length direction of a vector; also capture the length 
+//	of the input vector; division-by-zero safe.
+//		param v_out: output vector
+//		param v_in: input vector
+//		param length_out: pointer to length storage
+//		return: v_out
+floatv ijkVecNormalizeSafeGetLength4fv(float4 v_out, float4 const v_in, f32* const length_out);
+
 // ijkVecNormalizeGetLengthInv4*v
 //	Calculate the unit-length direction of a vector; also capture the inverse 
 //	length of the input vector.
@@ -3384,6 +3539,15 @@ floatv ijkVecNormalizeGetLength4fv(float4 v_out, float4 const v_in, f32* const l
 //		return: v_out
 floatv ijkVecNormalizeGetLengthInv4fv(float4 v_out, float4 const v_in, f32* const lengthInv_out);
 
+// ijkVecNormalizeSafeGetLengthInv4*v
+//	Calculate the unit-length direction of a vector; also capture the inverse 
+//	length of the input vector; division-by-zero safe.
+//		param v_out: output vector
+//		param v_in: input vector
+//		param length_out: pointer to length storage
+//		return: v_out
+floatv ijkVecNormalizeSafeGetLengthInv4fv(float4 v_out, float4 const v_in, f32* const lengthInv_out);
+
 // ijkVecCrossNormalize4*v
 //	Calculate unit-length result of cross product.
 //		param v_out: output unit cross product vector
@@ -3391,6 +3555,14 @@ floatv ijkVecNormalizeGetLengthInv4fv(float4 v_out, float4 const v_in, f32* cons
 //		param v_rh: right-hand vector
 //		return: v_out
 floatv ijkVecCrossNormalize4fv(float4 v_out, float4 const v_lh, float4 const v_rh);
+
+// ijkVecCrossNormalizeSafe4*v
+//	Calculate unit-length result of cross product; division-by-zero safe.
+//		param v_out: output unit cross product vector
+//		param v_lh: left-hand vector
+//		param v_rh: right-hand vector
+//		return: v_out
+floatv ijkVecCrossNormalizeSafe4fv(float4 v_out, float4 const v_lh, float4 const v_rh);
 
 // ijkVecCrossNormalizeGetLength4*v
 //	Calculate unit-length result of cross product; also capture length.
@@ -3401,6 +3573,16 @@ floatv ijkVecCrossNormalize4fv(float4 v_out, float4 const v_lh, float4 const v_r
 //		return: v_out
 floatv ijkVecCrossNormalizeGetLength4fv(float4 v_out, float4 const v_lh, float4 const v_rh, f32* const length_out);
 
+// ijkVecCrossNormalizeSafeGetLength4*v
+//	Calculate unit-length result of cross product; also capture length; 
+//	division-by-zero safe.
+//		param v_out: output unit cross product vector
+//		param v_lh: left-hand vector
+//		param v_rh: right-hand vector
+//		param length_out: pointer to length storage
+//		return: v_out
+floatv ijkVecCrossNormalizeSafeGetLength4fv(float4 v_out, float4 const v_lh, float4 const v_rh, f32* const length_out);
+
 // ijkVecCrossNormalizeGetLengthInv4*v
 //	Calculate unit-length result of cross product; also capture inverse length.
 //		param v_out: output unit cross product vector
@@ -3409,6 +3591,16 @@ floatv ijkVecCrossNormalizeGetLength4fv(float4 v_out, float4 const v_lh, float4 
 //		param lengthInv_out: pointer to length storage
 //		return: v_out
 floatv ijkVecCrossNormalizeGetLengthInv4fv(float4 v_out, float4 const v_lh, float4 const v_rh, f32* const lengthInv_out);
+
+// ijkVecCrossNormalizeSafeGetLengthInv4*v
+//	Calculate unit-length result of cross product; also capture inverse length;
+//	division-by-zero safe.
+//		param v_out: output unit cross product vector
+//		param v_lh: left-hand vector
+//		param v_rh: right-hand vector
+//		param lengthInv_out: pointer to length storage
+//		return: v_out
+floatv ijkVecCrossNormalizeSafeGetLengthInv4fv(float4 v_out, float4 const v_lh, float4 const v_rh, f32* const lengthInv_out);
 
 // ijkVecLerp4*v
 //	Vector linear interpolation.
@@ -3511,17 +3703,35 @@ float ijkVecLength2f(fvec2 const v_in);
 //		return: inverse squared length
 float ijkVecLengthSqInv2f(fvec2 const v_in);
 
+// ijkVecLengthSqInvSafe2*
+//	Calculate the inverse squared length of a vector; division-by-zero safe.
+//		param v_in: input vector
+//		return: inverse squared length
+float ijkVecLengthSqInvSafe2f(fvec2 const v_in);
+
 // ijkVecLengthInv2*
 //	Calculate the inverse length of a vector.
 //		param v_in: input vector
 //		return: inverse length
 float ijkVecLengthInv2f(fvec2 const v_in);
 
+// ijkVecLengthInvSafe2*
+//	Calculate the inverse length of a vector; division-by-zero safe.
+//		param v_in: input vector
+//		return: inverse length
+float ijkVecLengthInvSafe2f(fvec2 const v_in);
+
 // ijkVecNormalize2*
 //	Calculate the unit-length direction of a vector.
 //		param v_in: input vector
 //		return: unit-length direction vector
 fvec2 ijkVecNormalize2f(fvec2 const v_in);
+
+// ijkVecNormalizeSafe2*
+//	Calculate the unit-length direction of a vector; division-by-zero safe.
+//		param v_in: input vector
+//		return: unit-length direction vector
+fvec2 ijkVecNormalizeSafe2f(fvec2 const v_in);
 
 // ijkVecNormalizeGetLength2*
 //	Calculate the unit-length direction of a vector; also capture the length 
@@ -3531,6 +3741,14 @@ fvec2 ijkVecNormalize2f(fvec2 const v_in);
 //		return: unit-length direction vector
 fvec2 ijkVecNormalizeGetLength2f(fvec2 const v_in, float* const length_out);
 
+// ijkVecNormalizeSafeGetLength2*
+//	Calculate the unit-length direction of a vector; also capture the length 
+//	of the input vector; division-by-zero safe.
+//		param v_in: input vector
+//		param length_out: pointer to length storage
+//		return: unit-length direction vector
+fvec2 ijkVecNormalizeSafeGetLength2f(fvec2 const v_in, float* const length_out);
+
 // ijkVecNormalizeGetLengthInv2*
 //	Calculate the unit-length direction of a vector; also capture the inverse 
 //	length of the input vector.
@@ -3539,12 +3757,27 @@ fvec2 ijkVecNormalizeGetLength2f(fvec2 const v_in, float* const length_out);
 //		return: unit-length direction vector
 fvec2 ijkVecNormalizeGetLengthInv2f(fvec2 const v_in, float* const lengthInv_out);
 
+// ijkVecNormalizeSafeGetLengthInv2*
+//	Calculate the unit-length direction of a vector; also capture the inverse 
+//	length of the input vector; division-by-zero safe.
+//		param v_in: input vector
+//		param length_out: pointer to length storage
+//		return: unit-length direction vector
+fvec2 ijkVecNormalizeSafeGetLengthInv2f(fvec2 const v_in, float* const lengthInv_out);
+
 // ijkVecCrossNormalize2*
 //	Calculate unit-length result of cross product.
 //		param v_lh: left-hand vector
 //		param v_rh: right-hand vector
 //		return: scalar cross product sign
 float ijkVecCrossNormalize2f(fvec2 const v_lh, fvec2 const v_rh);
+
+// ijkVecCrossNormalizeSafe2*
+//	Calculate unit-length result of cross product; division-by-zero safe.
+//		param v_lh: left-hand vector
+//		param v_rh: right-hand vector
+//		return: scalar cross product sign
+float ijkVecCrossNormalizeSafe2f(fvec2 const v_lh, fvec2 const v_rh);
 
 // ijkVecCrossNormalizeGetLength2*
 //	Calculate unit-length result of cross product; also capture length.
@@ -3554,6 +3787,15 @@ float ijkVecCrossNormalize2f(fvec2 const v_lh, fvec2 const v_rh);
 //		return: scalar cross product sign
 float ijkVecCrossNormalizeGetLength2f(fvec2 const v_lh, fvec2 const v_rh, float* const length_out);
 
+// ijkVecCrossNormalizeSafeGetLength2*
+//	Calculate unit-length result of cross product; also capture length; 
+//	division-by-zero safe.
+//		param v_lh: left-hand vector
+//		param v_rh: right-hand vector
+//		param length_out: pointer to length storage
+//		return: scalar cross product sign
+float ijkVecCrossNormalizeSafeGetLength2f(fvec2 const v_lh, fvec2 const v_rh, float* const length_out);
+
 // ijkVecCrossNormalizeGetLengthInv2*
 //	Calculate unit-length result of cross product; also capture inverse length.
 //		param v_lh: left-hand vector
@@ -3561,6 +3803,15 @@ float ijkVecCrossNormalizeGetLength2f(fvec2 const v_lh, fvec2 const v_rh, float*
 //		param lengthInv_out: pointer to length storage
 //		return: scalar cross product sign
 float ijkVecCrossNormalizeGetLengthInv2f(fvec2 const v_lh, fvec2 const v_rh, float* const lengthInv_out);
+
+// ijkVecCrossNormalizeSafeGetLengthInv2*
+//	Calculate unit-length result of cross product; also capture inverse length;
+//	division-by-zero safe.
+//		param v_lh: left-hand vector
+//		param v_rh: right-hand vector
+//		param lengthInv_out: pointer to length storage
+//		return: scalar cross product sign
+float ijkVecCrossNormalizeSafeGetLengthInv2f(fvec2 const v_lh, fvec2 const v_rh, float* const lengthInv_out);
 
 // ijkVecLerp2*
 //	Vector linear interpolation.
@@ -3649,17 +3900,35 @@ float ijkVecLength3f(fvec3 const v_in);
 //		return: inverse squared length
 float ijkVecLengthSqInv3f(fvec3 const v_in);
 
+// ijkVecLengthSqInvSafe3*
+//	Calculate the inverse squared length of a vector; division-by-zero safe.
+//		param v_in: input vector
+//		return: inverse squared length
+float ijkVecLengthSqInvSafe3f(fvec3 const v_in);
+
 // ijkVecLengthInv3*
 //	Calculate the inverse length of a vector.
 //		param v_in: input vector
 //		return: inverse length
 float ijkVecLengthInv3f(fvec3 const v_in);
 
+// ijkVecLengthInvSafe3*
+//	Calculate the inverse length of a vector; division-by-zero safe.
+//		param v_in: input vector
+//		return: inverse length
+float ijkVecLengthInvSafe3f(fvec3 const v_in);
+
 // ijkVecNormalize3*
 //	Calculate the unit-length direction of a vector.
 //		param v_in: input vector
 //		return: unit-length direction vector
 fvec3 ijkVecNormalize3f(fvec3 const v_in);
+
+// ijkVecNormalizeSafe3*
+//	Calculate the unit-length direction of a vector; division-by-zero safe.
+//		param v_in: input vector
+//		return: unit-length direction vector
+fvec3 ijkVecNormalizeSafe3f(fvec3 const v_in);
 
 // ijkVecNormalizeGetLength3*
 //	Calculate the unit-length direction of a vector; also capture the length 
@@ -3669,6 +3938,14 @@ fvec3 ijkVecNormalize3f(fvec3 const v_in);
 //		return: unit-length direction vector
 fvec3 ijkVecNormalizeGetLength3f(fvec3 const v_in, float* const length_out);
 
+// ijkVecNormalizeSafeGetLength3*
+//	Calculate the unit-length direction of a vector; also capture the length 
+//	of the input vector; division-by-zero safe.
+//		param v_in: input vector
+//		param length_out: pointer to length storage
+//		return: unit-length direction vector
+fvec3 ijkVecNormalizeSafeGetLength3f(fvec3 const v_in, float* const length_out);
+
 // ijkVecNormalizeGetLengthInv3*
 //	Calculate the unit-length direction of a vector; also capture the inverse 
 //	length of the input vector.
@@ -3677,12 +3954,27 @@ fvec3 ijkVecNormalizeGetLength3f(fvec3 const v_in, float* const length_out);
 //		return: unit-length direction vector
 fvec3 ijkVecNormalizeGetLengthInv3f(fvec3 const v_in, float* const lengthInv_out);
 
+// ijkVecNormalizeSafeGetLengthInv3*
+//	Calculate the unit-length direction of a vector; also capture the inverse 
+//	length of the input vector; division-by-zero safe.
+//		param v_in: input vector
+//		param length_out: pointer to length storage
+//		return: unit-length direction vector
+fvec3 ijkVecNormalizeSafeGetLengthInv3f(fvec3 const v_in, float* const lengthInv_out);
+
 // ijkVecCrossNormalize3*
 //	Calculate unit-length result of cross product.
 //		param v_lh: left-hand vector
 //		param v_rh: right-hand vector
 //		return: unit cross product
 fvec3 ijkVecCrossNormalize3f(fvec3 const v_lh, fvec3 const v_rh);
+
+// ijkVecCrossNormalizeSafe3*
+//	Calculate unit-length result of cross product; division-by-zero safe.
+//		param v_lh: left-hand vector
+//		param v_rh: right-hand vector
+//		return: unit cross product
+fvec3 ijkVecCrossNormalizeSafe3f(fvec3 const v_lh, fvec3 const v_rh);
 
 // ijkVecCrossNormalizeGetLength3*
 //	Calculate unit-length result of cross product; also capture length.
@@ -3692,6 +3984,15 @@ fvec3 ijkVecCrossNormalize3f(fvec3 const v_lh, fvec3 const v_rh);
 //		return: unit cross product
 fvec3 ijkVecCrossNormalizeGetLength3f(fvec3 const v_lh, fvec3 const v_rh, float* const length_out);
 
+// ijkVecCrossNormalizeSafeGetLength3*
+//	Calculate unit-length result of cross product; also capture length; 
+//	division-by-zero safe.
+//		param v_lh: left-hand vector
+//		param v_rh: right-hand vector
+//		param length_out: pointer to length storage
+//		return: unit cross product
+fvec3 ijkVecCrossNormalizeSafeGetLength3f(fvec3 const v_lh, fvec3 const v_rh, float* const length_out);
+
 // ijkVecCrossNormalizeGetLengthInv3*
 //	Calculate unit-length result of cross product; also capture inverse length.
 //		param v_lh: left-hand vector
@@ -3699,6 +4000,15 @@ fvec3 ijkVecCrossNormalizeGetLength3f(fvec3 const v_lh, fvec3 const v_rh, float*
 //		param lengthInv_out: pointer to length storage
 //		return: unit cross product
 fvec3 ijkVecCrossNormalizeGetLengthInv3f(fvec3 const v_lh, fvec3 const v_rh, float* const lengthInv_out);
+
+// ijkVecCrossNormalizeSafeGetLengthInv3*
+//	Calculate unit-length result of cross product; also capture inverse length;
+//	division-by-zero safe.
+//		param v_lh: left-hand vector
+//		param v_rh: right-hand vector
+//		param lengthInv_out: pointer to length storage
+//		return: unit cross product
+fvec3 ijkVecCrossNormalizeSafeGetLengthInv3f(fvec3 const v_lh, fvec3 const v_rh, float* const lengthInv_out);
 
 // ijkVecLerp3*
 //	Vector linear interpolation.
@@ -3787,17 +4097,35 @@ float ijkVecLength4f(fvec4 const v_in);
 //		return: inverse squared length
 float ijkVecLengthSqInv4f(fvec4 const v_in);
 
+// ijkVecLengthSqInvSafe4*
+//	Calculate the inverse squared length of a vector; division-by-zero safe.
+//		param v_in: input vector
+//		return: inverse squared length
+float ijkVecLengthSqInvSafe4f(fvec4 const v_in);
+
 // ijkVecLengthInv4*
 //	Calculate the inverse length of a vector.
 //		param v_in: input vector
 //		return: inverse length
 float ijkVecLengthInv4f(fvec4 const v_in);
 
+// ijkVecLengthInvSafe4*
+//	Calculate the inverse length of a vector; division-by-zero safe.
+//		param v_in: input vector
+//		return: inverse length
+float ijkVecLengthInvSafe4f(fvec4 const v_in);
+
 // ijkVecNormalize4*
 //	Calculate the unit-length direction of a vector.
 //		param v_in: input vector
 //		return: unit-length direction vector
 fvec4 ijkVecNormalize4f(fvec4 const v_in);
+
+// ijkVecNormalizeSafe4*
+//	Calculate the unit-length direction of a vector; division-by-zero safe.
+//		param v_in: input vector
+//		return: unit-length direction vector
+fvec4 ijkVecNormalizeSafe4f(fvec4 const v_in);
 
 // ijkVecNormalizeGetLength4*
 //	Calculate the unit-length direction of a vector; also capture the length 
@@ -3807,6 +4135,14 @@ fvec4 ijkVecNormalize4f(fvec4 const v_in);
 //		return: unit-length direction vector
 fvec4 ijkVecNormalizeGetLength4f(fvec4 const v_in, float* const length_out);
 
+// ijkVecNormalizeSafeGetLength4*
+//	Calculate the unit-length direction of a vector; also capture the length 
+//	of the input vector; division-by-zero safe.
+//		param v_in: input vector
+//		param length_out: pointer to length storage
+//		return: unit-length direction vector
+fvec4 ijkVecNormalizeSafeGetLength4f(fvec4 const v_in, float* const length_out);
+
 // ijkVecNormalizeGetLengthInv4*
 //	Calculate the unit-length direction of a vector; also capture the inverse 
 //	length of the input vector.
@@ -3815,12 +4151,27 @@ fvec4 ijkVecNormalizeGetLength4f(fvec4 const v_in, float* const length_out);
 //		return: unit-length direction vector
 fvec4 ijkVecNormalizeGetLengthInv4f(fvec4 const v_in, float* const lengthInv_out);
 
+// ijkVecNormalizeSafeGetLengthInv4*
+//	Calculate the unit-length direction of a vector; also capture the inverse 
+//	length of the input vector; division-by-zero safe.
+//		param v_in: input vector
+//		param length_out: pointer to length storage
+//		return: unit-length direction vector
+fvec4 ijkVecNormalizeSafeGetLengthInv4f(fvec4 const v_in, float* const lengthInv_out);
+
 // ijkVecCrossNormalize4*
 //	Calculate unit-length result of cross product.
 //		param v_lh: left-hand vector
 //		param v_rh: right-hand vector
 //		return: unit cross product
 fvec4 ijkVecCrossNormalize4f(fvec4 const v_lh, fvec4 const v_rh);
+
+// ijkVecCrossNormalizeSafe4*
+//	Calculate unit-length result of cross product; division-by-zero safe.
+//		param v_lh: left-hand vector
+//		param v_rh: right-hand vector
+//		return: unit cross product
+fvec4 ijkVecCrossNormalizeSafe4f(fvec4 const v_lh, fvec4 const v_rh);
 
 // ijkVecCrossNormalizeGetLength4*
 //	Calculate unit-length result of cross product; also capture length.
@@ -3830,6 +4181,15 @@ fvec4 ijkVecCrossNormalize4f(fvec4 const v_lh, fvec4 const v_rh);
 //		return: unit cross product
 fvec4 ijkVecCrossNormalizeGetLength4f(fvec4 const v_lh, fvec4 const v_rh, float* const length_out);
 
+// ijkVecCrossNormalizeSafeGetLength4*
+//	Calculate unit-length result of cross product; also capture length; 
+//	division-by-zero safe.
+//		param v_lh: left-hand vector
+//		param v_rh: right-hand vector
+//		param length_out: pointer to length storage
+//		return: unit cross product
+fvec4 ijkVecCrossNormalizeSafeGetLength4f(fvec4 const v_lh, fvec4 const v_rh, float* const length_out);
+
 // ijkVecCrossNormalizeGetLengthInv4*
 //	Calculate unit-length result of cross product; also capture inverse length.
 //		param v_lh: left-hand vector
@@ -3837,6 +4197,15 @@ fvec4 ijkVecCrossNormalizeGetLength4f(fvec4 const v_lh, fvec4 const v_rh, float*
 //		param lengthInv_out: pointer to length storage
 //		return: unit cross product
 fvec4 ijkVecCrossNormalizeGetLengthInv4f(fvec4 const v_lh, fvec4 const v_rh, float* const lengthInv_out);
+
+// ijkVecCrossNormalizeSafeGetLengthInv4*
+//	Calculate unit-length result of cross product; also capture inverse length;
+//	division-by-zero safe.
+//		param v_lh: left-hand vector
+//		param v_rh: right-hand vector
+//		param lengthInv_out: pointer to length storage
+//		return: unit cross product
+fvec4 ijkVecCrossNormalizeSafeGetLengthInv4f(fvec4 const v_lh, fvec4 const v_rh, float* const lengthInv_out);
 
 // ijkVecLerp4*
 //	Vector linear interpolation.
