@@ -3488,6 +3488,145 @@ ijk_inl fvec4 ijkVecCross4f(fvec4 const v_lh, fvec4 const v_rh)
 
 //-----------------------------------------------------------------------------
 
+#ifdef __cplusplus
+extern "C" {
+#endif	// __cplusplus
+
+//-----------------------------------------------------------------------------
+
+ijk_inl f32 ijkVecLengthSq2fv(float2 const v_in)
+{
+
+	return flt_zero;
+}
+
+ijk_inl f32 ijkVecLength2fv(float2 const v_in)
+{
+
+	return flt_zero;
+}
+
+ijk_inl f32 ijkVecLengthSqInv2fv(float2 const v_in)
+{
+
+	return flt_zero;
+}
+
+ijk_inl f32 ijkVecLengthInv2fv(float2 const v_in)
+{
+
+	return flt_zero;
+}
+
+ijk_inl floatv ijkVecNormalize2fv(float2 v_out, float2 const v_in)
+{
+
+	return v_out;
+}
+
+ijk_inl floatv ijkVecNormalizeGetLength2fv(float2 v_out, float2 const v_in, f32* const length_out)
+{
+
+	return v_out;
+}
+
+ijk_inl floatv ijkVecNormalizeGetLengthInv2fv(float2 v_out, float2 const v_in, f32* const lengthInv_out)
+{
+
+	return v_out;
+}
+
+ijk_inl f32 ijkVecCrossNormalize2fv(float2 const v_lh, float2 const v_rh)
+{
+
+	return flt_zero;
+}
+
+ijk_inl f32 ijkVecCrossNormalizeGetLength2fv(float2 const v_lh, float2 const v_rh, f32* const length_out)
+{
+
+	return flt_zero;
+}
+
+ijk_inl f32 ijkVecCrossNormalizeGetLengthInv2fv(float2 const v_lh, float2 const v_rh, f32* const lengthInv_out)
+{
+
+	return flt_zero;
+}
+
+ijk_inl floatv ijkVecLerp2fv(float2 v_out, float2 const v0, float2 const v1, f32 const u)
+{
+
+	return v_out;
+}
+
+ijk_inl floatv ijkVecLerpInv2fv(float2 v_out, float2 const v0, float2 const v1, float2 const v_lerp)
+{
+
+	return v_out;
+}
+
+ijk_inl floatv ijkVecLerpRevInit2fv(float2 v0_out, float2 const v_lerp, float2 const v1, f32 const u)
+{
+
+	return v0_out;
+}
+
+ijk_inl floatv ijkVecLerpRevTerm2fv(float2 v1_out, float2 const v0, float2 const v_lerp, f32 const u)
+{
+
+	return v1_out;
+}
+
+ijk_inl f32 ijkVecProjRatio2fv(float2 const v_base, float2 const v_in)
+{
+
+	return flt_zero;
+}
+
+ijk_inl floatv ijkVecProj2fv(float2 v_out, float2 const v_base, float2 const v_in)
+{
+
+	return v_out;
+}
+
+ijk_inl floatv ijkVecOrtho2fv(float2 v_out, float2 const v_base, float2 const v_in)
+{
+
+	return v_out;
+}
+
+ijk_inl float2* ijkVecOrthoList2fv(float2 vl_out[], float2 const v_base, float2 const vl_in[], size const n)
+{
+
+	return vl_out;
+}
+
+
+//-----------------------------------------------------------------------------
+
+
+//-----------------------------------------------------------------------------
+
+
+//-----------------------------------------------------------------------------
+
+
+#ifdef __cplusplus
+}
+#endif	// __cplusplus
+
+//-----------------------------------------------------------------------------
+
+
+//-----------------------------------------------------------------------------
+
+
+//-----------------------------------------------------------------------------
+
+
+//-----------------------------------------------------------------------------
+
 
 #endif	// !_IJK_VECTOR_FLOAT_INL_
 #endif	// _IJK_VECTOR_FLOAT_H_

@@ -3179,7 +3179,7 @@ floatv ijkVecOrtho2fv(float2 v_out, float2 const v_base, float2 const v_in);
 //		param vl_in: input list of vectors to be orthogonalized
 //		param n: number of vectors to orthogonalize
 //		return: vl_out
-floatv* ijkVecOrthoList2fv(float2 vl_out[], float2 const v_base, float2 const vl_in[], size const n);
+float2* ijkVecOrthoList2fv(float2 vl_out[], float2 const v_base, float2 const vl_in[], size const n);
 
 
 //-----------------------------------------------------------------------------
@@ -3330,7 +3330,7 @@ floatv ijkVecOrtho3fv(float3 v_out, float3 const v_base, float3 const v_in);
 //		param vl_in: input list of vectors to be orthogonalized
 //		param n: number of vectors to orthogonalize
 //		return: vl_out
-floatv* ijkVecOrthoList3fv(float3 vl_out[], float3 const v_base, float3 const vl_in[], size const n);
+float3* ijkVecOrthoList3fv(float3 vl_out[], float3 const v_base, float3 const vl_in[], size const n);
 
 
 //-----------------------------------------------------------------------------
@@ -3481,7 +3481,7 @@ floatv ijkVecOrtho4fv(float4 v_out, float4 const v_base, float4 const v_in);
 //		param vl_in: input list of vectors to be orthogonalized
 //		param n: number of vectors to orthogonalize
 //		return: vl_out
-floatv* ijkVecOrthoList4fv(float4 vl_out[], float4 const v_base, float4 const vl_in[], size const n);
+float4* ijkVecOrthoList4fv(float4 vl_out[], float4 const v_base, float4 const vl_in[], size const n);
 
 
 //-----------------------------------------------------------------------------
