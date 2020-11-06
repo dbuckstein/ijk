@@ -3474,14 +3474,12 @@ ijk_inl f32 ijkVecLengthSq2fv(float2 const v_in)
 
 ijk_inl f32 ijkVecLength2fv(float2 const v_in)
 {
-	f32 const lengthSq = ijkVecLengthSq2fv(v_in);
-	return ijkSqrt_flt(lengthSq);
+	return ijkSqrt_flt(ijkVecLengthSq2fv(v_in));
 }
 
 ijk_inl f32 ijkVecLengthSqInv2fv(float2 const v_in)
 {
-	f32 const lengthSq = ijkVecLengthSq2fv(v_in);
-	return ijk_recip_flt(lengthSq);
+	return ijk_recip_flt(ijkVecLengthSq2fv(v_in));
 }
 
 ijk_inl f32 ijkVecLengthSqInvSafe2fv(float2 const v_in)
@@ -3492,8 +3490,7 @@ ijk_inl f32 ijkVecLengthSqInvSafe2fv(float2 const v_in)
 
 ijk_inl f32 ijkVecLengthInv2fv(float2 const v_in)
 {
-	f32 const lengthSq = ijkVecLengthSq2fv(v_in);
-	return ijkSqrtInv_flt(lengthSq);
+	return ijkSqrtInv_flt(ijkVecLengthSq2fv(v_in));
 }
 
 ijk_inl f32 ijkVecLengthInvSafe2fv(float2 const v_in)
@@ -3504,38 +3501,32 @@ ijk_inl f32 ijkVecLengthInvSafe2fv(float2 const v_in)
 
 ijk_inl floatv ijkVecNormalize2fv(float2 v_out, float2 const v_in)
 {
-	f32 const lengthInv = ijkVecLengthInv2fv(v_in);
-	return ijkVecMul2fvs(v_out, v_in, lengthInv);
+	return ijkVecMul2fvs(v_out, v_in, ijkVecLengthInv2fv(v_in));
 }
 
 ijk_inl floatv ijkVecNormalizeSafe2fv(float2 v_out, float2 const v_in)
 {
-	f32 const lengthInv = ijkVecLengthInvSafe2fv(v_in);
-	return ijkVecMul2fvs(v_out, v_in, lengthInv);
+	return ijkVecMul2fvs(v_out, v_in, ijkVecLengthInvSafe2fv(v_in));
 }
 
 ijk_inl floatv ijkVecNormalizeGetLength2fv(float2 v_out, float2 const v_in, f32* const length_out)
 {
-	f32 const length = *length_out = ijkVecLength2fv(v_in);
-	return ijkVecDiv2fvs(v_out, v_in, length);
+	return ijkVecDiv2fvs(v_out, v_in, (*length_out = ijkVecLength2fv(v_in)));
 }
 
 ijk_inl floatv ijkVecNormalizeSafeGetLength2fv(float2 v_out, float2 const v_in, f32* const length_out)
 {
-	f32 const length = *length_out = ijkVecLength2fv(v_in);
-	return ijkVecDivSafe2fvs(v_out, v_in, length);
+	return ijkVecDivSafe2fvs(v_out, v_in, (*length_out = ijkVecLength2fv(v_in)));
 }
 
 ijk_inl floatv ijkVecNormalizeGetLengthInv2fv(float2 v_out, float2 const v_in, f32* const lengthInv_out)
 {
-	f32 const lengthInv = *lengthInv_out = ijkVecLengthInv2fv(v_in);
-	return ijkVecMul2fvs(v_out, v_in, lengthInv);
+	return ijkVecMul2fvs(v_out, v_in, (*lengthInv_out = ijkVecLengthInv2fv(v_in)));
 }
 
 ijk_inl floatv ijkVecNormalizeSafeGetLengthInv2fv(float2 v_out, float2 const v_in, f32* const lengthInv_out)
 {
-	f32 const lengthInv = *lengthInv_out = ijkVecLengthInvSafe2fv(v_in);
-	return ijkVecMul2fvs(v_out, v_in, lengthInv);
+	return ijkVecMul2fvs(v_out, v_in, (*lengthInv_out = ijkVecLengthInvSafe2fv(v_in)));
 }
 
 ijk_inl f32 ijkVecCrossNormalize2fv(float2 const v_lh, float2 const v_rh)
@@ -3582,49 +3573,62 @@ ijk_inl f32 ijkVecCrossNormalizeSafeGetLengthInv2fv(float2 const v_lh, float2 co
 
 ijk_inl floatv ijkVecLerp2fv(float2 v_out, float2 const v0, float2 const v1, f32 const u)
 {
-
+	v_out[0] = ijkInterpLinear_flt(v0[0], v1[0], u);
+	v_out[1] = ijkInterpLinear_flt(v0[1], v1[1], u);
 	return v_out;
 }
 
 ijk_inl floatv ijkVecLerpInv2fv(float2 v_out, float2 const v0, float2 const v1, float2 const v_lerp)
 {
-
+	v_out[0] = ijkInterpLinearInv_flt(v0[0], v1[0], v_lerp[0]);
+	v_out[1] = ijkInterpLinearInv_flt(v0[1], v1[1], v_lerp[1]);
 	return v_out;
 }
 
 ijk_inl floatv ijkVecLerpRevInit2fv(float2 v0_out, float2 const v_lerp, float2 const v1, f32 const u)
 {
-
+	f32 const s = ijk_recip_flt(flt_one - u);
+	v0_out[0] = (v_lerp[0] - v1[0] * u) * s;
+	v0_out[1] = (v_lerp[1] - v1[1] * u) * s;
 	return v0_out;
 }
 
 ijk_inl floatv ijkVecLerpRevTerm2fv(float2 v1_out, float2 const v0, float2 const v_lerp, f32 const u)
 {
-
-	return v1_out;
+	return ijkVecLerp2fv(v1_out, v0, v_lerp, ijk_recip_flt(u));
 }
 
 ijk_inl f32 ijkVecProjRatio2fv(float2 const v_base, float2 const v_in)
 {
-
-	return flt_zero;
+	return (ijkVecDot2fv(v_base, v_in) / ijkVecLengthSq2fv(v_base));
 }
 
 ijk_inl floatv ijkVecProj2fv(float2 v_out, float2 const v_base, float2 const v_in)
 {
-
-	return v_out;
+	return ijkVecMul2fvs(v_out, v_base, ijkVecProjRatio2fv(v_base, v_in));
 }
 
 ijk_inl floatv ijkVecOrtho2fv(float2 v_out, float2 const v_base, float2 const v_in)
 {
-
-	return v_out;
+	float2 ortho;
+	return ijkVecSub2fv(v_out, v_in, ijkVecProj2fv(ortho, v_base, v_in));
 }
 
 ijk_inl float2* ijkVecOrthoList2fv(float2 vl_out[], float2 const v_base, float2 const vl_in[], size const n)
 {
-
+	float2 ortho, orthoSum;
+	floatv vp_out;
+	floatkv vp_in;
+	uindex i, j;
+	for (i = 0; i < n; ++i)
+	{
+		vp_out = vl_out[i];
+		vp_in = vl_in[i];
+		ijkVecProj2fv(orthoSum, v_base, vp_in);
+		for (j = 0; j < i; ++j)
+			ijkVecAdd2fv(orthoSum, orthoSum, ijkVecProj2fv(ortho, vl_out[j], vp_in));
+		ijkVecSub2fv(vp_out, vp_in, orthoSum);
+	}
 	return vl_out;
 }
 
