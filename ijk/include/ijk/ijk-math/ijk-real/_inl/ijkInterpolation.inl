@@ -93,6 +93,46 @@ ijk_inl flt ijkInterpRemapSafe_flt(flt const v0_dst, flt const v1_dst, flt const
 }
 
 
+ijk_inl flt ijkInterpLinearRev0_flt(flt const v, flt const v1, flt const t)
+{
+	// v0 = (v - v1*t) / (1 - t)
+	return ((v - v1 * t) / (flt_one - t));
+}
+
+
+ijk_inl flt ijkInterpLinearRevSafe0_flt(flt const v, flt const v1, flt const t)
+{
+	return (t != flt_one ? ijkInterpLinearRev0_flt(v, v1, t) : v);
+}
+
+
+ijk_inl flt ijkInterpLinearRev1_flt(flt const v0, flt const v, flt const t)
+{
+	// v1 = v0 + (v - v0)/t = lerp[v0,v](1/t)
+	return (v0 + (v - v0) / t);
+}
+
+
+ijk_inl flt ijkInterpLinearRevSafe1_flt(flt const v0, flt const v, flt const t)
+{
+	return (t != flt_zero ? ijkInterpLinearRev1_flt(v0, v, t) : v);
+}
+
+
+ijk_inl flt ijkInterpSmoothstep_flt(flt const t)
+{
+	// v = (3t^2 - 2t^3)
+	return (t * t * (flt_three - flt_two * t));
+}
+
+
+ijk_inl flt ijkInterpSmootherstep_flt(flt const t)
+{
+	// v = (6t^5-15t^4+10t^3)
+	return (t * t * t * (flt_ten + t * (flt_six * t - 15.0f)));
+}
+
+
 ijk_inl flt ijkInterpBezier0_flt(flt const v0, flt const t)
 {
 	// base case: always return v0 regardless of parameter
@@ -481,6 +521,46 @@ ijk_inl dbl ijkInterpRemap_dbl(dbl const v0_dst, dbl const v1_dst, dbl const v0_
 ijk_inl dbl ijkInterpRemapSafe_dbl(dbl const v0_dst, dbl const v1_dst, dbl const v0_src, dbl const v1_src, dbl const v_src)
 {
 	return (v0_src != v1_src ? ijkInterpRemap_dbl(v0_dst, v1_dst, v0_src, v1_src, v_src) : v0_dst);
+}
+
+
+ijk_inl dbl ijkInterpLinearRev0_dbl(dbl const v, dbl const v1, dbl const t)
+{
+	// v0 = (v - v1*t) / (1 - t)
+	return ((v - v1 * t) / (dbl_one - t));
+}
+
+
+ijk_inl dbl ijkInterpLinearRevSafe0_dbl(dbl const v, dbl const v1, dbl const t)
+{
+	return (t != dbl_one ? ijkInterpLinearRev0_dbl(v, v1, t) : v);
+}
+
+
+ijk_inl dbl ijkInterpLinearRev1_dbl(dbl const v0, dbl const v, dbl const t)
+{
+	// v1 = v0 + (v - v0)/t = lerp[v0,v](1/t)
+	return (v0 + (v - v0) / t);
+}
+
+
+ijk_inl dbl ijkInterpLinearRevSafe1_dbl(dbl const v0, dbl const v, dbl const t)
+{
+	return (t != dbl_zero ? ijkInterpLinearRev1_dbl(v0, v, t) : v);
+}
+
+
+ijk_inl dbl ijkInterpSmoothstep_dbl(dbl const t)
+{
+	// v = (3t^2 - 2t^3)
+	return (t * t * (dbl_three - dbl_two * t));
+}
+
+
+ijk_inl dbl ijkInterpSmootherstep_dbl(dbl const t)
+{
+	// v = (6t^5-15t^4+10t^3)
+	return (t * t * t * (dbl_ten + t * (dbl_six * t - 15.0)));
 }
 
 

@@ -505,6 +505,14 @@ flt ijkTrigPointToFaceRatio_flt(flt const azimuth, flt const elevation, size con
 //		return: ratio of discrete to real sphere size
 flt ijkTrigFaceToPointRatio_flt(flt const azimuth, flt const elevation, size const numSlices, size const numStacks);
 
+// ijkTrigSmoothstepInv_flt
+//	Inverse smoothstep.
+//		param v: interpolated value; inputs within [0,1] yield a paremeter 
+//			in [0,1] used for interpolation, others yield parameters beyond 
+//			unit range used for extrapolation
+//		return: interpolation parameter used to interpolate between 0 and 1
+flt ijkTrigSmoothstepInv_flt(flt const v);
+
 
 //-----------------------------------------------------------------------------
 
@@ -975,6 +983,14 @@ dbl ijkTrigPointToFaceRatio_dbl(dbl const azimuth, dbl const elevation, size con
 //		param numStacks: number of stacks in discrete sphere (elevation divs)
 //		return: ratio of discrete to real sphere size
 dbl ijkTrigFaceToPointRatio_dbl(dbl const azimuth, dbl const elevation, size const numSlices, size const numStacks);
+
+// ijkTrigSmoothstepInv_dbl
+//	Inverse smoothstep.
+//		param v: interpolated value; inputs within [0,1] yield a paremeter 
+//			in [0,1] used for interpolation, others yield parameters beyond 
+//			unit range used for extrapolation
+//		return: interpolation parameter used to interpolate between 0 and 1
+dbl ijkTrigSmoothstepInv_dbl(dbl const v);
 
 
 //-----------------------------------------------------------------------------
@@ -1509,6 +1525,15 @@ dbl ijkTrigFaceToPointRatio_dbl(dbl const azimuth, dbl const elevation, size con
 //		return: ratio of discrete to real sphere size
 //real ijkTrigFaceToPointRatio(real const azimuth, real const elevation, size const numSlices, size const numStacks);
 #define	ijkTrigFaceToPointRatio			ijk_declrealf(ijkTrigFaceToPointRatio)
+
+// ijkTrigSmoothstepInv
+//	Inverse smoothstep.
+//		param v: interpolated value; inputs within [0,1] yield a paremeter 
+//			in [0,1] used for interpolation, others yield parameters beyond 
+//			unit range used for extrapolation
+//		return: interpolation parameter used to interpolate between 0 and 1
+//real ijkTrigSmoothstepInv(real const v);
+#define	ijkTrigSmoothstepInv			ijk_declrealf(ijkTrigSmoothstepInv)
 
 
 //-----------------------------------------------------------------------------

@@ -549,6 +549,13 @@ ijk_inl flt ijkTrigFaceToPointRatio_flt(flt const azimuth, flt const elevation, 
 }
 
 
+ijk_inl flt ijkTrigSmoothstepInv_flt(flt const v)
+{
+	// t = (0.5 - sin(asin(1 - 2v) / 3))
+	return (flt_half - ijkTrigSin_deg_flt(ijkTrigAsin_deg_flt(flt_one - flt_two * v) * flt_third));
+}
+
+
 //-----------------------------------------------------------------------------
 
 ijk_inl dbl ijkTrigDeg2Rad_dbl(dbl const x)
@@ -1064,6 +1071,13 @@ ijk_inl dbl ijkTrigPointToFaceRatio_dbl(dbl const azimuth, dbl const elevation, 
 ijk_inl dbl ijkTrigFaceToPointRatio_dbl(dbl const azimuth, dbl const elevation, size const numSlices, size const numStacks)
 {
 	return ijk_recip_dbl(ijkTrigPointToFaceRatio_dbl(azimuth, elevation, numSlices, numStacks));
+}
+
+
+ijk_inl dbl ijkTrigSmoothstepInv_dbl(dbl const v)
+{
+	// t = (0.5 - sin(asin(1 - 2v) / 3))
+	return (dbl_half - ijkTrigSin_deg_dbl(ijkTrigAsin_deg_dbl(dbl_one - dbl_two * v) * dbl_third));
 }
 
 
