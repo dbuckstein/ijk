@@ -3461,12 +3461,6 @@ ijk_inl fvec4 ijkVecCross4f(fvec4 const v_lh, fvec4 const v_rh)
 
 //-----------------------------------------------------------------------------
 
-#ifdef __cplusplus
-extern "C" {
-#endif	// __cplusplus
-
-//-----------------------------------------------------------------------------
-
 ijk_inl f32 ijkVecLengthSq2fv(float2 const v_in)
 {
 	return ijkVecDot2fv(v_in, v_in);
@@ -4049,13 +4043,6 @@ ijk_inl float4* ijkVecOrthoNormList4fv(float4 vl_out[], float4 const v_base, flo
 	return vl_out;
 }
 
-
-//-----------------------------------------------------------------------------
-
-
-#ifdef __cplusplus
-}
-#endif	// __cplusplus
 
 //-----------------------------------------------------------------------------
 
