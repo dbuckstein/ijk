@@ -3234,6 +3234,16 @@ floatv ijkVecProj2fv(float2 v_out, float2 const v_base, float2 const v_in);
 //		return: v_out
 floatv ijkVecOrtho2fv(float2 v_out, float2 const v_base, float2 const v_in);
 
+// ijkVecOrthoNorm2*v
+//	Vector orthonormalization using the Gram-Schmidt process.
+//		param v_out: output orthonormalized vector; difference between input 
+//			and its projection onto base vector
+//		param v_base: fixed base vector onto which input is projected
+//		param v_in: input vector to be orthonormalized
+//		param v_base_norm_out: normalized base vector
+//		return: v_out
+floatv ijkVecOrthoNorm2fv(float2 v_out, float2 const v_base, float2 const v_in, float2 v_base_norm_out);
+
 // ijkVecOrthoList2*v
 //	Vector orthogonalization using the Gram-Schmidt process.
 //		param vl_out: output list of orthogonalized vectors
@@ -3242,6 +3252,16 @@ floatv ijkVecOrtho2fv(float2 v_out, float2 const v_base, float2 const v_in);
 //		param n: number of vectors to orthogonalize
 //		return: vl_out
 float2* ijkVecOrthoList2fv(float2 vl_out[], float2 const v_base, float2 const vl_in[], size const n);
+
+// ijkVecOrthoNormList2*v
+//	Vector orthonormalization using the Gram-Schmidt process.
+//		param vl_out: output list of orthonormalized vectors
+//		param v_base: fixed base vector onto which inputs are projected
+//		param vl_in: input list of vectors to be orthonormalized
+//		param n: number of vectors to orthonormalized
+//		param v_base_norm_out: normalized base vector
+//		return: vl_out
+float2* ijkVecOrthoNormList2fv(float2 vl_out[], float2 const v_base, float2 const vl_in[], size const n, float2 v_base_norm_out);
 
 
 //-----------------------------------------------------------------------------
@@ -3450,6 +3470,16 @@ floatv ijkVecProj3fv(float3 v_out, float3 const v_base, float3 const v_in);
 //		return: v_out
 floatv ijkVecOrtho3fv(float3 v_out, float3 const v_base, float3 const v_in);
 
+// ijkVecOrthoNorm3*v
+//	Vector orthonormalization using the Gram-Schmidt process.
+//		param v_out: output orthonormalized vector; difference between input 
+//			and its projection onto base vector
+//		param v_base: fixed base vector onto which input is projected
+//		param v_in: input vector to be orthonormalized
+//		param v_base_norm_out: normalized base vector
+//		return: v_out
+floatv ijkVecOrthoNorm3fv(float3 v_out, float3 const v_base, float3 const v_in, float3 v_base_norm_out);
+
 // ijkVecOrthoList3*v
 //	Vector orthogonalization using the Gram-Schmidt process.
 //		param vl_out: output list of orthogonalized vectors
@@ -3458,6 +3488,16 @@ floatv ijkVecOrtho3fv(float3 v_out, float3 const v_base, float3 const v_in);
 //		param n: number of vectors to orthogonalize
 //		return: vl_out
 float3* ijkVecOrthoList3fv(float3 vl_out[], float3 const v_base, float3 const vl_in[], size const n);
+
+// ijkVecOrthoNormList3*v
+//	Vector orthonormalization using the Gram-Schmidt process.
+//		param vl_out: output list of orthonormalized vectors
+//		param v_base: fixed base vector onto which inputs are projected
+//		param vl_in: input list of vectors to be orthonormalized
+//		param n: number of vectors to orthonormalized
+//		param v_base_norm_out: normalized base vector
+//		return: vl_out
+float3* ijkVecOrthoNormList3fv(float3 vl_out[], float3 const v_base, float3 const vl_in[], size const n, float3 v_base_norm_out);
 
 
 //-----------------------------------------------------------------------------
@@ -3666,6 +3706,16 @@ floatv ijkVecProj4fv(float4 v_out, float4 const v_base, float4 const v_in);
 //		return: v_out
 floatv ijkVecOrtho4fv(float4 v_out, float4 const v_base, float4 const v_in);
 
+// ijkVecOrthoNorm4*v
+//	Vector orthonormalization using the Gram-Schmidt process.
+//		param v_out: output orthonormalized vector; difference between input 
+//			and its projection onto base vector
+//		param v_base: fixed base vector onto which input is projected
+//		param v_in: input vector to be orthonormalized
+//		param v_base_norm_out: normalized base vector
+//		return: v_out
+floatv ijkVecOrthoNorm4fv(float4 v_out, float4 const v_base, float4 const v_in, float4 v_base_norm_out);
+
 // ijkVecOrthoList4*v
 //	Vector orthogonalization using the Gram-Schmidt process.
 //		param vl_out: output list of orthogonalized vectors
@@ -3674,6 +3724,16 @@ floatv ijkVecOrtho4fv(float4 v_out, float4 const v_base, float4 const v_in);
 //		param n: number of vectors to orthogonalize
 //		return: vl_out
 float4* ijkVecOrthoList4fv(float4 vl_out[], float4 const v_base, float4 const vl_in[], size const n);
+
+// ijkVecOrthoNormList4*v
+//	Vector orthonormalization using the Gram-Schmidt process.
+//		param vl_out: output list of orthonormalized vectors
+//		param v_base: fixed base vector onto which inputs are projected
+//		param vl_in: input list of vectors to be orthonormalized
+//		param n: number of vectors to orthonormalized
+//		param v_base_norm_out: normalized base vector
+//		return: vl_out
+float4* ijkVecOrthoNormList4fv(float4 vl_out[], float4 const v_base, float4 const vl_in[], size const n, float4 v_base_norm_out);
 
 
 //-----------------------------------------------------------------------------
@@ -3870,6 +3930,14 @@ fvec2 ijkVecProj2f(fvec2 const v_base, fvec2 const v_in);
 //		return: output orthogonalized vector
 fvec2 ijkVecOrtho2f(fvec2 const v_base, fvec2 const v_in);
 
+// ijkVecOrthoNorm2*
+//	Vector orthonormalization using the Gram-Schmidt process.
+//		param v_base: fixed base vector onto which input is projected
+//		param v_in: input vector to be orthonormalized
+//		param v_base_norm_out: normalized base vector
+//		return: output orthonormalized vector
+fvec2 ijkVecOrthoNorm2f(fvec2 const v_base, fvec2 const v_in, fvec2* const v_base_norm_out);
+
 // ijkVecOrthoList2*
 //	Vector orthogonalization using the Gram-Schmidt process.
 //		param vl_out: output list of orthogonalized vectors
@@ -3878,6 +3946,16 @@ fvec2 ijkVecOrtho2f(fvec2 const v_base, fvec2 const v_in);
 //		param n: number of vectors to orthogonalize
 //		return: vl_out
 fvec2* ijkVecOrthoList2f(fvec2 vl_out[], fvec2 const v_base, fvec2 const vl_in[], size const n);
+
+// ijkVecOrthoNormList2*
+//	Vector orthonormalization using the Gram-Schmidt process.
+//		param vl_out: output list of orthonormalized vectors
+//		param v_base: fixed base vector onto which inputs are projected
+//		param vl_in: input list of vectors to be orthonormalized
+//		param n: number of vectors to orthonormalized
+//		param v_base_norm_out: normalized base vector
+//		return: vl_out
+fvec2* ijkVecOrthoNormList2f(fvec2 vl_out[], fvec2 const v_base, fvec2 const vl_in[], size const n, fvec2* const v_base_norm_out);
 
 
 //-----------------------------------------------------------------------------
@@ -4067,6 +4145,14 @@ fvec3 ijkVecProj3f(fvec3 const v_base, fvec3 const v_in);
 //		return: output orthogonalized vector
 fvec3 ijkVecOrtho3f(fvec3 const v_base, fvec3 const v_in);
 
+// ijkVecOrthoNorm3*
+//	Vector orthonormalization using the Gram-Schmidt process.
+//		param v_base: fixed base vector onto which input is projected
+//		param v_in: input vector to be orthonormalized
+//		param v_base_norm_out: normalized base vector
+//		return: output orthonormalized vector
+fvec3 ijkVecOrthoNorm3f(fvec3 const v_base, fvec3 const v_in, fvec3* const v_base_norm_out);
+
 // ijkVecOrthoList3*
 //	Vector orthogonalization using the Gram-Schmidt process.
 //		param vl_out: output list of orthogonalized vectors
@@ -4075,6 +4161,16 @@ fvec3 ijkVecOrtho3f(fvec3 const v_base, fvec3 const v_in);
 //		param n: number of vectors to orthogonalize
 //		return: vl_out
 fvec3* ijkVecOrthoList3f(fvec3 vl_out[], fvec3 const v_base, fvec3 const vl_in[], size const n);
+
+// ijkVecOrthoNormList3*
+//	Vector orthonormalization using the Gram-Schmidt process.
+//		param vl_out: output list of orthonormalized vectors
+//		param v_base: fixed base vector onto which inputs are projected
+//		param vl_in: input list of vectors to be orthonormalized
+//		param n: number of vectors to orthonormalized
+//		param v_base_norm_out: normalized base vector
+//		return: vl_out
+fvec3* ijkVecOrthoNormList3f(fvec3 vl_out[], fvec3 const v_base, fvec3 const vl_in[], size const n, fvec3* const v_base_norm_out);
 
 
 //-----------------------------------------------------------------------------
@@ -4264,6 +4360,14 @@ fvec4 ijkVecProj4f(fvec4 const v_base, fvec4 const v_in);
 //		return: output orthogonalized vector
 fvec4 ijkVecOrtho4f(fvec4 const v_base, fvec4 const v_in);
 
+// ijkVecOrthoNorm4*
+//	Vector orthonormalization using the Gram-Schmidt process.
+//		param v_base: fixed base vector onto which input is projected
+//		param v_in: input vector to be orthonormalized
+//		param v_base_norm_out: normalized base vector
+//		return: output orthonormalized vector
+fvec4 ijkVecOrthoNorm4f(fvec4 const v_base, fvec4 const v_in, fvec4* const v_base_norm_out);
+
 // ijkVecOrthoList4*
 //	Vector orthogonalization using the Gram-Schmidt process.
 //		param vl_out: output list of orthogonalized vectors
@@ -4272,6 +4376,16 @@ fvec4 ijkVecOrtho4f(fvec4 const v_base, fvec4 const v_in);
 //		param n: number of vectors to orthogonalize
 //		return: vl_out
 fvec4* ijkVecOrthoList4f(fvec4 vl_out[], fvec4 const v_base, fvec4 const vl_in[], size const n);
+
+// ijkVecOrthoNormList4*
+//	Vector orthonormalization using the Gram-Schmidt process.
+//		param vl_out: output list of orthonormalized vectors
+//		param v_base: fixed base vector onto which inputs are projected
+//		param vl_in: input list of vectors to be orthonormalized
+//		param n: number of vectors to orthonormalized
+//		param v_base_norm_out: normalized base vector
+//		return: vl_out
+fvec4* ijkVecOrthoNormList4f(fvec4 vl_out[], fvec4 const v_base, fvec4 const vl_in[], size const n, fvec4* const v_base_norm_out);
 
 
 //-----------------------------------------------------------------------------

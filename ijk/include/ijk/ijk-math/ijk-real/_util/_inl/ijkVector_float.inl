@@ -3614,6 +3614,14 @@ ijk_inl floatv ijkVecOrtho2fv(float2 v_out, float2 const v_base, float2 const v_
 	return ijkVecSub2fv(v_out, v_in, ijkVecProj2fv(ortho, v_base, v_in));
 }
 
+ijk_inl floatv ijkVecOrthoNorm2fv(float2 v_out, float2 const v_base, float2 const v_in, float2 v_base_norm_out)
+{
+	float2 ortho;
+	ijkVecNormalize2fv(v_base_norm_out, v_base);
+	ijkVecSub2fv(v_out, v_in, ijkVecMul2fvs(ortho, v_base_norm_out, ijkVecDot2fv(v_base_norm_out, v_in)));
+	return ijkVecNormalize2fv(v_out, v_out);
+}
+
 ijk_inl float2* ijkVecOrthoList2fv(float2 vl_out[], float2 const v_base, float2 const vl_in[], size const n)
 {
 	float2 ortho, orthoSum;
@@ -3628,6 +3636,29 @@ ijk_inl float2* ijkVecOrthoList2fv(float2 vl_out[], float2 const v_base, float2 
 		for (j = 0; j < i; ++j)
 			ijkVecAdd2fv(orthoSum, orthoSum, ijkVecProj2fv(ortho, vl_out[j], vp_in));
 		ijkVecSub2fv(vp_out, vp_in, orthoSum);
+	}
+	return vl_out;
+}
+
+ijk_inl float2* ijkVecOrthoNormList2fv(float2 vl_out[], float2 const v_base, float2 const vl_in[], size const n, float2 v_base_norm_out)
+{
+	float2 ortho, orthoSum;
+	floatv vp_out;
+	floatkv vp_in, vp_itr;
+	uindex i, j;
+	ijkVecNormalize2fv(v_base_norm_out, v_base);
+	for (i = 0; i < n; ++i)
+	{
+		vp_out = vl_out[i];
+		vp_in = vl_in[i];
+		ijkVecMul2fvs(ortho, v_base_norm_out, ijkVecDot2fv(v_base_norm_out, vp_in));
+		for (j = 0; j < i; ++j)
+		{
+			vp_itr = vl_out[j];
+			ijkVecAdd2fv(orthoSum, orthoSum, ijkVecMul2fvs(ortho, vp_itr, ijkVecDot2fv(vp_itr, vp_in)));
+		}
+		ijkVecSub2fv(vp_out, vp_in, orthoSum);
+		ijkVecNormalize2fv(vp_out, vp_out);
 	}
 	return vl_out;
 }
