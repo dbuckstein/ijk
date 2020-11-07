@@ -157,6 +157,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\source\ijk-math\common\ijk-math.c" />
+    <ClCompile Include="..\..\..\source\ijk-math\common\ijk-real\ijkMatrix.c" />
     <ClCompile Include="..\..\..\source\ijk-math\common\ijk-real\ijkRandom.c" />
     <ClCompile Include="..\..\..\source\ijk-math\common\ijk-real\ijkReal.c" />
     <ClCompile Include="..\..\..\source\ijk-math\common\ijk-real\ijkSqrt.c">
@@ -196,6 +197,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\include\ijk\ijk-math\ijk-real\_inl\ijkInterpolation.inl" />
+    <None Include="..\..\..\include\ijk\ijk-math\ijk-real\_inl\ijkMatrix.inl" />
     <None Include="..\..\..\include\ijk\ijk-math\ijk-real\_inl\ijkRandom.inl" />
     <None Include="..\..\..\include\ijk\ijk-math\ijk-real\_inl\ijkSqrt.inl" />
     <None Include="..\..\..\include\ijk\ijk-math\ijk-real\_inl\ijkStats.inl" />

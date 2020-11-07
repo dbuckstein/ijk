@@ -72,6 +72,9 @@
     <ClCompile Include="..\..\..\source\ijk-math\common\ijk-real\_cpp\ijkVectorSwizzle.cpp">
       <Filter>Source Files\common\ijk-real\_cpp</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\source\ijk-math\common\ijk-real\ijkMatrix.c">
+      <Filter>Source Files\common\ijk-real</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\include\ijk\ijk-math\ijk-math.h">
@@ -171,6 +174,9 @@
     </None>
     <None Include="..\..\..\include\ijk\ijk-math\ijk-real\_util\_inl\ijkVector_double.inl">
       <Filter>Header Files\ijk-math\ijk-real\_util\_inl</Filter>
+    </None>
+    <None Include="..\..\..\include\ijk\ijk-math\ijk-real\_inl\ijkMatrix.inl">
+      <Filter>Header Files\ijk-math\ijk-real\_inl</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
