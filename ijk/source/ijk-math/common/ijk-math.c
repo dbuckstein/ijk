@@ -44,8 +44,8 @@ void ijkMathTestReal()
 	real const x0min = ijk_x2r(100), x0max = ijk_x2r(200), x1min = ijk_x2r(-100), x1max = ijk_x2r(-50), x = ijk_x2r(160);
 
 	test_int = ijk_lerp(x0min_int, x0max_int, 6);	// 700
-	test_int = ijk_unlerp(x0min_int, x0max_int, x_int);	// 0
-	test_int = ijk_unlerp_safe(x0min_int, x0max_int, x_int);	// 0
+	test_int = ijk_lerp_inv(x0min_int, x0max_int, x_int);	// 0
+	test_int = ijk_lerp_inv_safe(x0min_int, x0max_int, x_int);	// 0
 	test_int = ijk_remap(x1min_int, x1max_int, x0min_int, x0max_int, x_int);	// -70
 	test_int = ijk_remap_safe(x1min_int, x1max_int, x0min_int, x0max_int, x_int);	// -70
 	test_int = ijk_divide(x_int, 4);	// 40
@@ -66,8 +66,8 @@ void ijkMathTestReal()
 	test_int = ijk_divide_safe_int(x_int, 4);	// 40
 
 	test_flt = ijk_lerp(x0min_flt, x0max_flt, flt_3quarters);	// 175.0
-	test_flt = ijk_unlerp(x0min_flt, x0max_flt, x_flt);	// 0.6
-	test_flt = ijk_unlerp_safe(x0min_flt, x0max_flt, x_flt);	// 0.6
+	test_flt = ijk_lerp_inv(x0min_flt, x0max_flt, x_flt);	// 0.6
+	test_flt = ijk_lerp_inv_safe(x0min_flt, x0max_flt, x_flt);	// 0.6
 	test_flt = ijk_remap(x1min_flt, x1max_flt, x0min_flt, x0max_flt, x_flt);	// -70.0
 	test_flt = ijk_remap_safe(x1min_flt, x1max_flt, x0min_flt, x0max_flt, x_flt);	// -70.0
 	test_flt = ijk_divide(x_flt, flt_four);	// 40.0
@@ -92,8 +92,8 @@ void ijkMathTestReal()
 	test_flt = ijk_rad2deg_flt(flt_pi);		// 180.0
 
 	test_dbl = ijk_lerp(x0min_dbl, x0max_dbl, dbl_3quarters);	// 175.0
-	test_dbl = ijk_unlerp(x0min_dbl, x0max_dbl, x_dbl);	// 0.6
-	test_dbl = ijk_unlerp_safe(x0min_dbl, x0max_dbl, x_dbl);	// 0.6
+	test_dbl = ijk_lerp_inv(x0min_dbl, x0max_dbl, x_dbl);	// 0.6
+	test_dbl = ijk_lerp_inv_safe(x0min_dbl, x0max_dbl, x_dbl);	// 0.6
 	test_dbl = ijk_remap(x1min_dbl, x1max_dbl, x0min_dbl, x0max_dbl, x_dbl);	// -70.0
 	test_dbl = ijk_remap_safe(x1min_dbl, x1max_dbl, x0min_dbl, x0max_dbl, x_dbl);	// -70.0
 	test_dbl = ijk_divide(x_dbl, dbl_four);	// 40.0
@@ -118,8 +118,8 @@ void ijkMathTestReal()
 	test_dbl = ijk_rad2deg_dbl(dbl_pi);		// 180.0
 
 	test = ijk_lerp(x0min, x0max, real_3quarters);	// 175.0
-	test = ijk_unlerp(x0min, x0max, x);	// 0.6
-	test = ijk_unlerp_safe(x0min, x0max, x);	// 0.6
+	test = ijk_lerp_inv(x0min, x0max, x);	// 0.6
+	test = ijk_lerp_inv_safe(x0min, x0max, x);	// 0.6
 	test = ijk_remap(x1min, x1max, x0min, x0max, x);	// -70.0
 	test = ijk_remap_safe(x1min, x1max, x0min, x0max, x);	// -70.0
 	test = ijk_divide(x, real_four);	// 40.0
