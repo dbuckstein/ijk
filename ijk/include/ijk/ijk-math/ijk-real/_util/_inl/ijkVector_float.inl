@@ -3666,8 +3666,397 @@ ijk_inl float2* ijkVecOrthoNormList2fv(float2 vl_out[], float2 const v_base, flo
 
 //-----------------------------------------------------------------------------
 
+ijk_inl f32 ijkVecLengthSq3fv(float3 const v_in)
+{
+	return ijkVecDot3fv(v_in, v_in);
+}
+
+ijk_inl f32 ijkVecLength3fv(float3 const v_in)
+{
+	return ijkSqrt_flt(ijkVecLengthSq3fv(v_in));
+}
+
+ijk_inl f32 ijkVecLengthSqInv3fv(float3 const v_in)
+{
+	return ijk_recip_flt(ijkVecLengthSq3fv(v_in));
+}
+
+ijk_inl f32 ijkVecLengthSqInvSafe3fv(float3 const v_in)
+{
+	f32 const lengthSq = ijkVecLengthSq3fv(v_in);
+	return ijk_recip_safe_flt(lengthSq);
+}
+
+ijk_inl f32 ijkVecLengthInv3fv(float3 const v_in)
+{
+	return ijkSqrtInv_flt(ijkVecLengthSq3fv(v_in));
+}
+
+ijk_inl f32 ijkVecLengthInvSafe3fv(float3 const v_in)
+{
+	f32 const lengthSq = ijkVecLengthSq3fv(v_in);
+	return (lengthSq > flt_zero ? ijkSqrtInv_flt(lengthSq) : flt_zero);
+}
+
+ijk_inl floatv ijkVecNormalize3fv(float3 v_out, float3 const v_in)
+{
+	return ijkVecMul3fvs(v_out, v_in, ijkVecLengthInv3fv(v_in));
+}
+
+ijk_inl floatv ijkVecNormalizeSafe3fv(float3 v_out, float3 const v_in)
+{
+	return ijkVecMul3fvs(v_out, v_in, ijkVecLengthInvSafe3fv(v_in));
+}
+
+ijk_inl floatv ijkVecNormalizeGetLength3fv(float3 v_out, float3 const v_in, f32* const length_out)
+{
+	return ijkVecDiv3fvs(v_out, v_in, (*length_out = ijkVecLength3fv(v_in)));
+}
+
+ijk_inl floatv ijkVecNormalizeSafeGetLength3fv(float3 v_out, float3 const v_in, f32* const length_out)
+{
+	return ijkVecDivSafe3fvs(v_out, v_in, (*length_out = ijkVecLength3fv(v_in)));
+}
+
+ijk_inl floatv ijkVecNormalizeGetLengthInv3fv(float3 v_out, float3 const v_in, f32* const lengthInv_out)
+{
+	return ijkVecMul3fvs(v_out, v_in, (*lengthInv_out = ijkVecLengthInv3fv(v_in)));
+}
+
+ijk_inl floatv ijkVecNormalizeSafeGetLengthInv3fv(float3 v_out, float3 const v_in, f32* const lengthInv_out)
+{
+	return ijkVecMul3fvs(v_out, v_in, (*lengthInv_out = ijkVecLengthInvSafe3fv(v_in)));
+}
+
+ijk_inl floatv ijkVecCrossNormalize3fv(float3 v_out, float3 const v_lh, float3 const v_rh)
+{
+	ijkVecCross3fv(v_out, v_lh, v_rh);
+	return ijkVecNormalize3fv(v_out, v_out);
+}
+
+ijk_inl floatv ijkVecCrossNormalizeSafe3fv(float3 v_out, float3 const v_lh, float3 const v_rh)
+{
+	ijkVecCross3fv(v_out, v_lh, v_rh);
+	return ijkVecNormalizeSafe3fv(v_out, v_out);
+}
+
+ijk_inl floatv ijkVecCrossNormalizeGetLength3fv(float3 v_out, float3 const v_lh, float3 const v_rh, f32* const length_out)
+{
+	ijkVecCross3fv(v_out, v_lh, v_rh);
+	return ijkVecNormalizeGetLength3fv(v_out, v_out, length_out);
+}
+
+ijk_inl floatv ijkVecCrossNormalizeSafeGetLength3fv(float3 v_out, float3 const v_lh, float3 const v_rh, f32* const length_out)
+{
+	ijkVecCross3fv(v_out, v_lh, v_rh);
+	return ijkVecNormalizeSafeGetLength3fv(v_out, v_out, length_out);
+}
+
+ijk_inl floatv ijkVecCrossNormalizeGetLengthInv3fv(float3 v_out, float3 const v_lh, float3 const v_rh, f32* const lengthInv_out)
+{
+	ijkVecCross3fv(v_out, v_lh, v_rh);
+	return ijkVecNormalizeGetLengthInv3fv(v_out, v_out, lengthInv_out);
+}
+
+ijk_inl floatv ijkVecCrossNormalizeSafeGetLengthInv3fv(float3 v_out, float3 const v_lh, float3 const v_rh, f32* const lengthInv_out)
+{
+	ijkVecCross3fv(v_out, v_lh, v_rh);
+	return ijkVecNormalizeSafeGetLengthInv3fv(v_out, v_out, lengthInv_out);
+}
+
+ijk_inl floatv ijkVecLerp3fv(float3 v_out, float3 const v0, float3 const v1, f32 const u)
+{
+	v_out[0] = ijkInterpLinear_flt(v0[0], v1[0], u);
+	v_out[1] = ijkInterpLinear_flt(v0[1], v1[1], u);
+	v_out[2] = ijkInterpLinear_flt(v0[2], v1[2], u);
+	return v_out;
+}
+
+ijk_inl floatv ijkVecLerpInv3fv(float3 v_out, float3 const v0, float3 const v1, float3 const v_lerp)
+{
+	v_out[0] = ijkInterpLinearInv_flt(v0[0], v1[0], v_lerp[0]);
+	v_out[1] = ijkInterpLinearInv_flt(v0[1], v1[1], v_lerp[1]);
+	v_out[2] = ijkInterpLinearInv_flt(v0[2], v1[2], v_lerp[2]);
+	return v_out;
+}
+
+ijk_inl floatv ijkVecLerpRevInit3fv(float3 v0_out, float3 const v_lerp, float3 const v1, f32 const u)
+{
+	f32 const s = ijk_recip_flt(flt_one - u);
+	v0_out[0] = (v_lerp[0] - v1[0] * u) * s;
+	v0_out[1] = (v_lerp[1] - v1[1] * u) * s;
+	v0_out[2] = (v_lerp[2] - v1[2] * u) * s;
+	return v0_out;
+}
+
+ijk_inl floatv ijkVecLerpRevTerm3fv(float3 v1_out, float3 const v0, float3 const v_lerp, f32 const u)
+{
+	return ijkVecLerp3fv(v1_out, v0, v_lerp, ijk_recip_flt(u));
+}
+
+ijk_inl f32 ijkVecProjRatio3fv(float3 const v_base, float3 const v_in)
+{
+	return (ijkVecDot3fv(v_base, v_in) / ijkVecLengthSq3fv(v_base));
+}
+
+ijk_inl floatv ijkVecProj3fv(float3 v_out, float3 const v_base, float3 const v_in)
+{
+	return ijkVecMul3fvs(v_out, v_base, ijkVecProjRatio3fv(v_base, v_in));
+}
+
+ijk_inl floatv ijkVecOrtho3fv(float3 v_out, float3 const v_base, float3 const v_in)
+{
+	float3 ortho;
+	return ijkVecSub3fv(v_out, v_in, ijkVecProj3fv(ortho, v_base, v_in));
+}
+
+ijk_inl floatv ijkVecOrthoNorm3fv(float3 v_out, float3 const v_base, float3 const v_in, float3 v_base_norm_out)
+{
+	float3 ortho;
+	ijkVecNormalize3fv(v_base_norm_out, v_base);
+	ijkVecSub3fv(v_out, v_in, ijkVecMul3fvs(ortho, v_base_norm_out, ijkVecDot3fv(v_base_norm_out, v_in)));
+	return ijkVecNormalize3fv(v_out, v_out);
+}
+
+ijk_inl float3* ijkVecOrthoList3fv(float3 vl_out[], float3 const v_base, float3 const vl_in[], size const n)
+{
+	float3 ortho, orthoSum;
+	floatv vp_out;
+	floatkv vp_in;
+	uindex i, j;
+	for (i = 0; i < n; ++i)
+	{
+		vp_out = vl_out[i];
+		vp_in = vl_in[i];
+		ijkVecProj3fv(orthoSum, v_base, vp_in);
+		for (j = 0; j < i; ++j)
+			ijkVecAdd3fv(orthoSum, orthoSum, ijkVecProj3fv(ortho, vl_out[j], vp_in));
+		ijkVecSub3fv(vp_out, vp_in, orthoSum);
+	}
+	return vl_out;
+}
+
+ijk_inl float3* ijkVecOrthoNormList3fv(float3 vl_out[], float3 const v_base, float3 const vl_in[], size const n, float3 v_base_norm_out)
+{
+	float3 ortho, orthoSum;
+	floatv vp_out;
+	floatkv vp_in, vp_itr;
+	uindex i, j;
+	ijkVecNormalize3fv(v_base_norm_out, v_base);
+	for (i = 0; i < n; ++i)
+	{
+		vp_out = vl_out[i];
+		vp_in = vl_in[i];
+		ijkVecMul3fvs(ortho, v_base_norm_out, ijkVecDot3fv(v_base_norm_out, vp_in));
+		for (j = 0; j < i; ++j)
+		{
+			vp_itr = vl_out[j];
+			ijkVecAdd3fv(orthoSum, orthoSum, ijkVecMul3fvs(ortho, vp_itr, ijkVecDot3fv(vp_itr, vp_in)));
+		}
+		ijkVecSub3fv(vp_out, vp_in, orthoSum);
+		ijkVecNormalize3fv(vp_out, vp_out);
+	}
+	return vl_out;
+}
+
 
 //-----------------------------------------------------------------------------
+
+ijk_inl f32 ijkVecLengthSq4fv(float4 const v_in)
+{
+	return ijkVecDot4fv(v_in, v_in);
+}
+
+ijk_inl f32 ijkVecLength4fv(float4 const v_in)
+{
+	return ijkSqrt_flt(ijkVecLengthSq4fv(v_in));
+}
+
+ijk_inl f32 ijkVecLengthSqInv4fv(float4 const v_in)
+{
+	return ijk_recip_flt(ijkVecLengthSq4fv(v_in));
+}
+
+ijk_inl f32 ijkVecLengthSqInvSafe4fv(float4 const v_in)
+{
+	f32 const lengthSq = ijkVecLengthSq4fv(v_in);
+	return ijk_recip_safe_flt(lengthSq);
+}
+
+ijk_inl f32 ijkVecLengthInv4fv(float4 const v_in)
+{
+	return ijkSqrtInv_flt(ijkVecLengthSq4fv(v_in));
+}
+
+ijk_inl f32 ijkVecLengthInvSafe4fv(float4 const v_in)
+{
+	f32 const lengthSq = ijkVecLengthSq4fv(v_in);
+	return (lengthSq > flt_zero ? ijkSqrtInv_flt(lengthSq) : flt_zero);
+}
+
+ijk_inl floatv ijkVecNormalize4fv(float4 v_out, float4 const v_in)
+{
+	return ijkVecMul4fvs(v_out, v_in, ijkVecLengthInv4fv(v_in));
+}
+
+ijk_inl floatv ijkVecNormalizeSafe4fv(float4 v_out, float4 const v_in)
+{
+	return ijkVecMul4fvs(v_out, v_in, ijkVecLengthInvSafe4fv(v_in));
+}
+
+ijk_inl floatv ijkVecNormalizeGetLength4fv(float4 v_out, float4 const v_in, f32* const length_out)
+{
+	return ijkVecDiv4fvs(v_out, v_in, (*length_out = ijkVecLength4fv(v_in)));
+}
+
+ijk_inl floatv ijkVecNormalizeSafeGetLength4fv(float4 v_out, float4 const v_in, f32* const length_out)
+{
+	return ijkVecDivSafe4fvs(v_out, v_in, (*length_out = ijkVecLength4fv(v_in)));
+}
+
+ijk_inl floatv ijkVecNormalizeGetLengthInv4fv(float4 v_out, float4 const v_in, f32* const lengthInv_out)
+{
+	return ijkVecMul4fvs(v_out, v_in, (*lengthInv_out = ijkVecLengthInv4fv(v_in)));
+}
+
+ijk_inl floatv ijkVecNormalizeSafeGetLengthInv4fv(float4 v_out, float4 const v_in, f32* const lengthInv_out)
+{
+	return ijkVecMul4fvs(v_out, v_in, (*lengthInv_out = ijkVecLengthInvSafe4fv(v_in)));
+}
+
+ijk_inl floatv ijkVecCrossNormalize4fv(float4 v_out, float4 const v_lh, float4 const v_rh)
+{
+	ijkVecCross4fv(v_out, v_lh, v_rh);
+	return ijkVecNormalize3fv(v_out, v_out);
+}
+
+ijk_inl floatv ijkVecCrossNormalizeSafe4fv(float4 v_out, float4 const v_lh, float4 const v_rh)
+{
+	ijkVecCross4fv(v_out, v_lh, v_rh);
+	return ijkVecNormalizeSafe3fv(v_out, v_out);
+}
+
+ijk_inl floatv ijkVecCrossNormalizeGetLength4fv(float4 v_out, float4 const v_lh, float4 const v_rh, f32* const length_out)
+{
+	ijkVecCross4fv(v_out, v_lh, v_rh);
+	return ijkVecNormalizeGetLength3fv(v_out, v_out, length_out);
+}
+
+ijk_inl floatv ijkVecCrossNormalizeSafeGetLength4fv(float4 v_out, float4 const v_lh, float4 const v_rh, f32* const length_out)
+{
+	ijkVecCross4fv(v_out, v_lh, v_rh);
+	return ijkVecNormalizeSafeGetLength3fv(v_out, v_out, length_out);
+}
+
+ijk_inl floatv ijkVecCrossNormalizeGetLengthInv4fv(float4 v_out, float4 const v_lh, float4 const v_rh, f32* const lengthInv_out)
+{
+	ijkVecCross4fv(v_out, v_lh, v_rh);
+	return ijkVecNormalizeGetLengthInv3fv(v_out, v_out, lengthInv_out);
+}
+
+ijk_inl floatv ijkVecCrossNormalizeSafeGetLengthInv4fv(float4 v_out, float4 const v_lh, float4 const v_rh, f32* const lengthInv_out)
+{
+	ijkVecCross4fv(v_out, v_lh, v_rh);
+	return ijkVecNormalizeSafeGetLengthInv3fv(v_out, v_out, lengthInv_out);
+}
+
+ijk_inl floatv ijkVecLerp4fv(float4 v_out, float4 const v0, float4 const v1, f32 const u)
+{
+	v_out[0] = ijkInterpLinear_flt(v0[0], v1[0], u);
+	v_out[1] = ijkInterpLinear_flt(v0[1], v1[1], u);
+	v_out[2] = ijkInterpLinear_flt(v0[2], v1[2], u);
+	v_out[3] = ijkInterpLinear_flt(v0[3], v1[3], u);
+	return v_out;
+}
+
+ijk_inl floatv ijkVecLerpInv4fv(float4 v_out, float4 const v0, float4 const v1, float4 const v_lerp)
+{
+	v_out[0] = ijkInterpLinearInv_flt(v0[0], v1[0], v_lerp[0]);
+	v_out[1] = ijkInterpLinearInv_flt(v0[1], v1[1], v_lerp[1]);
+	v_out[2] = ijkInterpLinearInv_flt(v0[2], v1[2], v_lerp[2]);
+	v_out[3] = ijkInterpLinearInv_flt(v0[3], v1[3], v_lerp[3]);
+	return v_out;
+}
+
+ijk_inl floatv ijkVecLerpRevInit4fv(float4 v0_out, float4 const v_lerp, float4 const v1, f32 const u)
+{
+	f32 const s = ijk_recip_flt(flt_one - u);
+	v0_out[0] = (v_lerp[0] - v1[0] * u) * s;
+	v0_out[1] = (v_lerp[1] - v1[1] * u) * s;
+	v0_out[2] = (v_lerp[2] - v1[2] * u) * s;
+	v0_out[3] = (v_lerp[3] - v1[3] * u) * s;
+	return v0_out;
+}
+
+ijk_inl floatv ijkVecLerpRevTerm4fv(float4 v1_out, float4 const v0, float4 const v_lerp, f32 const u)
+{
+	return ijkVecLerp4fv(v1_out, v0, v_lerp, ijk_recip_flt(u));
+}
+
+ijk_inl f32 ijkVecProjRatio4fv(float4 const v_base, float4 const v_in)
+{
+	return (ijkVecDot4fv(v_base, v_in) / ijkVecLengthSq4fv(v_base));
+}
+
+ijk_inl floatv ijkVecProj4fv(float4 v_out, float4 const v_base, float4 const v_in)
+{
+	return ijkVecMul4fvs(v_out, v_base, ijkVecProjRatio4fv(v_base, v_in));
+}
+
+ijk_inl floatv ijkVecOrtho4fv(float4 v_out, float4 const v_base, float4 const v_in)
+{
+	float4 ortho;
+	return ijkVecSub4fv(v_out, v_in, ijkVecProj4fv(ortho, v_base, v_in));
+}
+
+ijk_inl floatv ijkVecOrthoNorm4fv(float4 v_out, float4 const v_base, float4 const v_in, float4 v_base_norm_out)
+{
+	float4 ortho;
+	ijkVecNormalize4fv(v_base_norm_out, v_base);
+	ijkVecSub4fv(v_out, v_in, ijkVecMul4fvs(ortho, v_base_norm_out, ijkVecDot4fv(v_base_norm_out, v_in)));
+	return ijkVecNormalize4fv(v_out, v_out);
+}
+
+ijk_inl float4* ijkVecOrthoList4fv(float4 vl_out[], float4 const v_base, float4 const vl_in[], size const n)
+{
+	float4 ortho, orthoSum;
+	floatv vp_out;
+	floatkv vp_in;
+	uindex i, j;
+	for (i = 0; i < n; ++i)
+	{
+		vp_out = vl_out[i];
+		vp_in = vl_in[i];
+		ijkVecProj4fv(orthoSum, v_base, vp_in);
+		for (j = 0; j < i; ++j)
+			ijkVecAdd4fv(orthoSum, orthoSum, ijkVecProj4fv(ortho, vl_out[j], vp_in));
+		ijkVecSub4fv(vp_out, vp_in, orthoSum);
+	}
+	return vl_out;
+}
+
+ijk_inl float4* ijkVecOrthoNormList4fv(float4 vl_out[], float4 const v_base, float4 const vl_in[], size const n, float4 v_base_norm_out)
+{
+	float4 ortho, orthoSum;
+	floatv vp_out;
+	floatkv vp_in, vp_itr;
+	uindex i, j;
+	ijkVecNormalize4fv(v_base_norm_out, v_base);
+	for (i = 0; i < n; ++i)
+	{
+		vp_out = vl_out[i];
+		vp_in = vl_in[i];
+		ijkVecMul4fvs(ortho, v_base_norm_out, ijkVecDot4fv(v_base_norm_out, vp_in));
+		for (j = 0; j < i; ++j)
+		{
+			vp_itr = vl_out[j];
+			ijkVecAdd4fv(orthoSum, orthoSum, ijkVecMul4fvs(ortho, vp_itr, ijkVecDot4fv(vp_itr, vp_in)));
+		}
+		ijkVecSub4fv(vp_out, vp_in, orthoSum);
+		ijkVecNormalize4fv(vp_out, vp_out);
+	}
+	return vl_out;
+}
 
 
 //-----------------------------------------------------------------------------
