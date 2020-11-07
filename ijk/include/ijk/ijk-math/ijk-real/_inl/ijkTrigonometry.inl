@@ -556,6 +556,39 @@ ijk_inl flt ijkTrigSmoothstepInv_flt(flt const v)
 }
 
 
+ijk_inl flt ijkTrigExp_flt(flt const x)
+{
+	// need faster way to do this
+	dbl const xd = (dbl)x;
+	dbl X = dbl_one, F = dbl_one, degree = dbl_zero, sum = X, sum0 = dbl_zero;
+	while (sum != sum0)
+	{
+		F *= +(degree += dbl_one);
+		X *= xd;
+		sum0 = sum;
+		sum += X / F;
+	}
+	return (flt)sum;
+}
+
+
+ijk_inl flt ijkTrigLn1p_flt(flt const x)
+{
+	// need faster way to do this (e.g. algebraic-geometric mean)
+	dbl const xd = (dbl)x;
+	dbl X = x, F = dbl_one, degree = dbl_one, sum = X, sum0 = dbl_zero;
+	while (sum != sum0)
+	{
+		degree += dbl_one;
+		F = -F;
+		X *= xd;
+		sum0 = sum;
+		sum += X * F / degree;
+	}
+	return (flt)sum;
+}
+
+
 //-----------------------------------------------------------------------------
 
 ijk_inl dbl ijkTrigDeg2Rad_dbl(dbl const x)
@@ -1078,6 +1111,37 @@ ijk_inl dbl ijkTrigSmoothstepInv_dbl(dbl const v)
 {
 	// t = (0.5 - sin(asin(1 - 2v) / 3))
 	return (dbl_half - ijkTrigSin_deg_dbl(ijkTrigAsin_deg_dbl(dbl_one - dbl_two * v) * dbl_third));
+}
+
+
+ijk_inl dbl ijkTrigExp_dbl(dbl const x)
+{
+	// need faster way to do this
+	dbl X = dbl_one, F = dbl_one, degree = dbl_zero, sum = X, sum0 = dbl_zero;
+	while (sum != sum0)
+	{
+		F *= +(degree += dbl_one);
+		X *= x;
+		sum0 = sum;
+		sum += X / F;
+	}
+	return sum;
+}
+
+
+ijk_inl dbl ijkTrigLn1p_dbl(dbl const x)
+{
+	// need faster way to do this (e.g. algebraic-geometric mean)
+	dbl X = x, F = dbl_one, degree = dbl_one, sum = X, sum0 = dbl_zero;
+	while (sum != sum0)
+	{
+		degree += dbl_one;
+		F = -F;
+		X *= x;
+		sum0 = sum;
+		sum += X * F / degree;
+	}
+	return sum;
 }
 
 

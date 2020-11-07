@@ -513,6 +513,18 @@ flt ijkTrigFaceToPointRatio_flt(flt const azimuth, flt const elevation, size con
 //		return: interpolation parameter used to interpolate between 0 and 1
 flt ijkTrigSmoothstepInv_flt(flt const v);
 
+// ijkTrigExp_flt
+//	Natural exponential function (e^x).
+//		param x: value of which to take exponential
+//		return: e^x
+flt ijkTrigExp_flt(flt const x);
+
+// ijkTrigLn1p_flt
+//	Natural logarithm plus one function (ln(x+1)).
+//		param x: value of which to take logarithm
+//		return: ln(x+1)
+flt ijkTrigLn1p_flt(flt const x);
+
 
 //-----------------------------------------------------------------------------
 
@@ -991,6 +1003,18 @@ dbl ijkTrigFaceToPointRatio_dbl(dbl const azimuth, dbl const elevation, size con
 //			unit range used for extrapolation
 //		return: interpolation parameter used to interpolate between 0 and 1
 dbl ijkTrigSmoothstepInv_dbl(dbl const v);
+
+// ijkTrigExp_dbl
+//	Natural exponential function (e^x).
+//		param x: value of which to take exponential
+//		return: e^x
+dbl ijkTrigExp_dbl(dbl const x);
+
+// ijkTrigLn1p_dbl
+//	Natural logarithm plus one function (ln(x+1)).
+//		param x: value of which to take logarithm
+//		return: ln(x+1)
+dbl ijkTrigLn1p_dbl(dbl const x);
 
 
 //-----------------------------------------------------------------------------
@@ -1534,6 +1558,20 @@ dbl ijkTrigSmoothstepInv_dbl(dbl const v);
 //		return: interpolation parameter used to interpolate between 0 and 1
 //real ijkTrigSmoothstepInv(real const v);
 #define	ijkTrigSmoothstepInv			ijk_declrealf(ijkTrigSmoothstepInv)
+
+// ijkTrigExp
+//	Natural exponential function (e^x).
+//		param x: value of which to take exponential
+//		return: e^x
+//real ijkTrigExp(real const x);
+#define	ijkTrigExp						ijk_declrealf(ijkTrigExp)
+
+// ijkTrigLn1p
+//	Natural logarithm plus one function (ln(x+1)).
+//		param x: value of which to take logarithm
+//		return: ln(x+1)
+//real ijkTrigLn1p(real const x);
+#define	ijkTrigLn1p						ijk_declrealf(ijkTrigLn1p)
 
 
 //-----------------------------------------------------------------------------

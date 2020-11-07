@@ -59,6 +59,13 @@ size ijkStatsGetPermutations(size const n, size const k);
 //		return: combinations of k elements in a set of n items (nCk)
 size ijkStatsGetCombinations(size const n, size const k);
 
+// ijkStatsPascal
+//	Evaluate Pascal's triangle at row n, element k.
+//		param n: row index
+//		param k: element index
+//		return: Pascal's triangle, row n, element k
+size ijkStatsPascal(size const n, size const k);
+
 
 //-----------------------------------------------------------------------------
 

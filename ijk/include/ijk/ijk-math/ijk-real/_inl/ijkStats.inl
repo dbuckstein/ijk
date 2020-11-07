@@ -55,6 +55,19 @@ ijk_inl size ijkStatsGetCombinations(size const n, size const k)
 }
 
 
+ijk_inl size ijkStatsPascal(size const n, size const k)
+{
+	if (k <= n)
+	{
+		size i, v = 1;
+		for (i = 0; i < k; ++i)
+			v = (v * (n - i)) / (i + 1);
+		return v;
+	}
+	return 0;
+}
+
+
 //-----------------------------------------------------------------------------
 
 ijk_inl flt ijkStatsGetMedianInt_flt(schomp const v[], size const n)

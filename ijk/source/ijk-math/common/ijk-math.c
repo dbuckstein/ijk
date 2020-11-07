@@ -191,6 +191,7 @@ void ijkMathTestStats()
 	test_int = ijkStatsGetFactorial(n);			// 40320
 	test_int = ijkStatsGetPermutations(n, k);	// 1680
 	test_int = ijkStatsGetCombinations(n, k);	// 70
+	test_int = ijkStatsPascal(n, k);			// 70
 
 	test_flt = ijkStatsGetMedianInt_flt(v_int, n);				// 3.5
 	test_flt = ijkStatsGetMeanInt_flt(v_int, n);				// 4.375
@@ -310,6 +311,8 @@ void ijkMathTestInterpolation()
 	test_flt = ijkInterpBilinear_flt(v_flt[0][0], v_flt[0][1], v_flt[1][0], v_flt[1][1], t0_flt, t1_flt, t_flt);	// lerp(1.3125, -0.65625) = -0.41015625
 	test_flt = ijkInterpLinearInv_flt(v_flt[0][0], v_flt[0][1], v_flt[0][2]);		// 2.0
 	test_flt = ijkInterpLinearInvSafe_flt(v_flt[0][0], v_flt[0][1], v_flt[0][2]);	// 2.0
+	test_flt = ijkInterpLinearRev0_flt(1.40625f, v_flt[0][1], t_flt);	// v_flt[0][0]
+	test_flt = ijkInterpLinearRev1_flt(v_flt[0][0], 1.40625f, t_flt);	// v_flt[0][1]
 	test_flt = ijkInterpRemap_flt(v_flt[0][0], v_flt[0][1], v_flt[1][0], v_flt[1][1], v_flt[1][2]);		// -0.4615384 -> 0.4038461
 	test_flt = ijkInterpRemapSafe_flt(v_flt[0][0], v_flt[0][1], v_flt[1][0], v_flt[1][1], v_flt[1][2]);	// -0.4615384 -> 0.4038461
 	test_flt = ijkInterpBezier0_flt(v_flt[0][0], t_flt);	// 0.75
@@ -317,6 +320,7 @@ void ijkMathTestInterpolation()
 	test_flt = ijkInterpBezier2_flt(v_flt[0][0], v_flt[0][1], v_flt[0][2], t_flt);	// lerp(1.40625, lerp(1.5, 2.25) = 2.15625) = 2.0625
 	test_flt = ijkInterpBezier3_flt(v_flt[0][0], v_flt[0][1], v_flt[0][2], v_flt[0][3], t_flt);	// lerp(2.0625, lerp(2.15625, lerp(2.25, 3) = 2.90625) = 2.8125) = 2.71875
 	test_flt = ijkInterpBezierN_flt(*v_flt, order, t_flt);	// 2.71875
+	test_flt = ijkInterpSmoothstep_flt(flt_3quarters);	// 0.84375
 
 	test_flt = ijkInterpCubicHermite_flt(v_flt[0][0], (v_flt[1][0] - v_flt[0][0]), v_flt[0][1], (v_flt[1][1] - v_flt[0][1]), t_flt);	// 1.9326171875
 	test_flt = ijkInterpCubicHermiteHandles_flt(v_flt[0][0], v_flt[1][0], v_flt[0][1], v_flt[1][1], t_flt);	// 1.9326171875
@@ -337,6 +341,8 @@ void ijkMathTestInterpolation()
 	test_dbl = ijkInterpBilinear_dbl(v_dbl[0][0], v_dbl[0][1], v_dbl[1][0], v_dbl[1][1], t0_dbl, t1_dbl, t_dbl);	// lerp(1.3125, -0.65625) = -0.41015625
 	test_dbl = ijkInterpLinearInv_dbl(v_dbl[0][0], v_dbl[0][1], v_dbl[0][2]);		// 2.0
 	test_dbl = ijkInterpLinearInvSafe_dbl(v_dbl[0][0], v_dbl[0][1], v_dbl[0][2]);	// 2.0
+	test_dbl = ijkInterpLinearRev0_dbl(1.40625, v_dbl[0][1], t_dbl);	// v_dbl[0][0]
+	test_dbl = ijkInterpLinearRev1_dbl(v_dbl[0][0], 1.40625, t_dbl);	// v_dbl[0][1]
 	test_dbl = ijkInterpRemap_dbl(v_dbl[0][0], v_dbl[0][1], v_dbl[1][0], v_dbl[1][1], v_dbl[1][2]);		// -0.4615384 -> 0.4038461
 	test_dbl = ijkInterpRemapSafe_dbl(v_dbl[0][0], v_dbl[0][1], v_dbl[1][0], v_dbl[1][1], v_dbl[1][2]);	// -0.4615384 -> 0.4038461
 	test_dbl = ijkInterpBezier0_dbl(v_dbl[0][0], t_dbl);	// 0.75
@@ -344,6 +350,7 @@ void ijkMathTestInterpolation()
 	test_dbl = ijkInterpBezier2_dbl(v_dbl[0][0], v_dbl[0][1], v_dbl[0][2], t_dbl);	// lerp(1.40625, lerp(1.5, 2.25) = 2.15625) = 2.0625
 	test_dbl = ijkInterpBezier3_dbl(v_dbl[0][0], v_dbl[0][1], v_dbl[0][2], v_dbl[0][3], t_dbl);	// lerp(2.0625, lerp(2.15625, lerp(2.25, 3) = 2.90625) = 2.8125) = 2.71875
 	test_dbl = ijkInterpBezierN_dbl(*v_dbl, order, t_dbl);	// 2.71875
+	test_dbl = ijkInterpSmoothstep_dbl(dbl_3quarters);	// 0.84375
 
 	test_dbl = ijkInterpCubicHermite_dbl(v_dbl[0][0], (v_dbl[1][0] - v_dbl[0][0]), v_dbl[0][1], (v_dbl[1][1] - v_dbl[0][1]), t_dbl);	// 1.9326171875
 	test_dbl = ijkInterpCubicHermiteHandles_dbl(v_dbl[0][0], v_dbl[1][0], v_dbl[0][1], v_dbl[1][1], t_dbl);	// 1.9326171875
@@ -567,6 +574,9 @@ void ijkMathTestTrigonometry()
 	y_flt = ijkTrigEdgeToPointRatio_flt(flt_360, 24);	// 1.008629
 	y_flt = ijkTrigPointToFaceRatio_flt(flt_360, flt_180, 24, 18);	// 0.987672
 	y_flt = ijkTrigFaceToPointRatio_flt(flt_360, flt_180, 24, 18);	// 1.012482
+	y_flt = ijkTrigSmoothstepInv_flt(0.84375f);	// 0.75
+	y_flt = ijkTrigExp_flt(flt_two);			// 7.389056098930650227230427460575
+	y_flt = ijkTrigLn1p_flt(6.389056098930650227230427460575f);		// 2
 
 	y_dbl = ijkTrigDeg2Rad_dbl(+x_deg_dbl);	// +1.047197 (pi/3)
 	y_dbl = ijkTrigDeg2Rad_dbl(-x_deg_dbl);	// -1.047197 (pi/3)
@@ -687,6 +697,9 @@ void ijkMathTestTrigonometry()
 	y_dbl = ijkTrigEdgeToPointRatio_dbl(dbl_360, 24);	// 1.008629
 	y_dbl = ijkTrigPointToFaceRatio_dbl(dbl_360, dbl_180, 24, 18);	// 0.987672
 	y_dbl = ijkTrigFaceToPointRatio_dbl(dbl_360, dbl_180, 24, 18);	// 1.012482
+	y_dbl = ijkTrigSmoothstepInv_dbl(0.84375f);	// 0.75
+	y_dbl = ijkTrigExp_dbl(dbl_two);			// 7.389056098930650227230427460575
+	y_dbl = ijkTrigLn1p_dbl(6.389056098930650227230427460575f);		// 2
 
 	y = ijkTrigDeg2Rad(+x_deg);	// +1.047197 (pi/3)
 	y = ijkTrigDeg2Rad(-x_deg);	// -1.047197 (pi/3)
