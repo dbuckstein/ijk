@@ -91,7 +91,7 @@ typedef ijk_real					real;
 //			v=(-inf,v0)U(v1,+inf) for extrapolation
 #define ijk_lerp(v0,v1,t)			((v0) + ((v1) - (v0)) * (t))
 
-// ijk_unlerp
+// ijk_lerp_inv
 //	Linear interpolation inverse.
 //		param v0: lower bound at t=0
 //		param v1: upper bound at t=1
@@ -99,11 +99,11 @@ typedef ijk_real					real;
 //			v=(-inf,v0)U(v1,+inf) for extrapolation
 //		result: interpolation parameter 't'; t=[0,1] for interpolation,
 //			t=(-inf,0)U(1,+inf) for extrapolation
-#define ijk_unlerp(v0,v1,v)			(((v) - (v0)) / ((v1) - (v0)))
+#define ijk_lerp_inv(v0,v1,v)		(((v) - (v0)) / ((v1) - (v0)))
 
-// ijk_unlerp_safe
+// ijk_lerp_inv_safe
 //	Linear interpolation inverse with division-by-zero safety.
-#define ijk_unlerp_safe(v0,v1,v)	((v0) != (v1) ? ijk_unlerp(v0,v1,v) : ((v1) - (v0)))
+#define ijk_lerp_inv_safe(v0,v1,v)	((v0) != (v1) ? ijk_lerp_inv(v0,v1,v) : ((v1) - (v0)))
 
 // ijk_remap
 //	Re-map or re-interpolate value from one range into another.

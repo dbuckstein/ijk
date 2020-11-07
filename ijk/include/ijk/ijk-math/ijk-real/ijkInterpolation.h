@@ -135,6 +135,66 @@ flt ijkInterpRemap_flt(flt const v0_dst, flt const v1_dst, flt const v0_src, flt
 //		return: value in original range remapped to target range
 flt ijkInterpRemapSafe_flt(flt const v0_dst, flt const v1_dst, flt const v0_src, flt const v1_src, flt const v_src);
 
+// ijkInterpLinearRev0_flt
+//	Reverse linear interpolation to get first control value.
+//		param v: interpolated value; inputs within [v0,v1] yield a paremeter 
+//			in [0,1] used for interpolation, others yield parameters beyond 
+//			unit range used for extrapolation
+//		param v1: terminal reference value/end point, result when t=1
+//		param t: interpolation parameter; inputs in [0,1] interpolate in 
+//			[v0,v1], others yield extrapolation beyond reference values
+//		return: first control value, v0
+flt ijkInterpLinearRev0_flt(flt const v, flt const v1, flt const t);
+
+// ijkInterpLinearRevSafe0_flt
+//	Reverse linear interpolation to get first control value; division-by-zero
+//	safety.
+//		param v: interpolated value; inputs within [v0,v1] yield a paremeter 
+//			in [0,1] used for interpolation, others yield parameters beyond 
+//			unit range used for extrapolation
+//		param v1: terminal reference value/end point, result when t=1
+//		param t: interpolation parameter; inputs in [0,1] interpolate in 
+//			[v0,v1], others yield extrapolation beyond reference values
+//		return: first control value, v0
+flt ijkInterpLinearRevSafe0_flt(flt const v, flt const v1, flt const t);
+
+// ijkInterpLinearRev1_flt
+//	Reverse linear interpolation to get second control value.
+//		param v0: initial reference value/start point, result when t=0
+//		param v: interpolated value; inputs within [v0,v1] yield a paremeter 
+//			in [0,1] used for interpolation, others yield parameters beyond 
+//			unit range used for extrapolation
+//		param t: interpolation parameter; inputs in [0,1] interpolate in 
+//			[v0,v1], others yield extrapolation beyond reference values
+//		return: second control value, v1
+flt ijkInterpLinearRev1_flt(flt const v0, flt const v, flt const t);
+
+// ijkInterpLinearRevSafe1_flt
+//	Reverse linear interpolation to get second control value; division-by-zero
+//	safety.
+//		param v0: initial reference value/start point, result when t=0
+//		param v: interpolated value; inputs within [v0,v1] yield a paremeter 
+//			in [0,1] used for interpolation, others yield parameters beyond 
+//			unit range used for extrapolation
+//		param t: interpolation parameter; inputs in [0,1] interpolate in 
+//			[v0,v1], others yield extrapolation beyond reference values
+//		return: second control value, v1
+flt ijkInterpLinearRevSafe1_flt(flt const v0, flt const v, flt const t);
+
+// ijkInterpSmoothstep_flt
+//	Smoothstep for parameter.
+//		param t: interpolation parameter; inputs in [0,1] interpolate in 
+//			[0,1], others yield extrapolation beyond reference values
+//		return: interpolated value between 0 and 1
+flt ijkInterpSmoothstep_flt(flt const t);
+
+// ijkInterpSmootherstep_flt
+//	Smootherstep for parameter.
+//		param t: interpolation parameter; inputs in [0,1] interpolate in 
+//			[0,1], others yield extrapolation beyond reference values
+//		return: interpolated value between 0 and 1
+flt ijkInterpSmootherstep_flt(flt const t);
+
 // ijkInterpBezier0_flt
 //	Perform order-0 (point) Bezier interpolation given one reference value.
 //		param v0: reference value, always returned
@@ -536,6 +596,66 @@ dbl ijkInterpRemap_dbl(dbl const v0_dst, dbl const v1_dst, dbl const v0_src, dbl
 //		param v_src: value to be remapped from original to target range
 //		return: value in original range remapped to target range
 dbl ijkInterpRemapSafe_dbl(dbl const v0_dst, dbl const v1_dst, dbl const v0_src, dbl const v1_src, dbl const v_src);
+
+// ijkInterpLinearRev0_dbl
+//	Reverse linear interpolation to get first control value.
+//		param v: interpolated value; inputs within [v0,v1] yield a paremeter 
+//			in [0,1] used for interpolation, others yield parameters beyond 
+//			unit range used for extrapolation
+//		param v1: terminal reference value/end point, result when t=1
+//		param t: interpolation parameter; inputs in [0,1] interpolate in 
+//			[v0,v1], others yield extrapolation beyond reference values
+//		return: first control value, v0
+dbl ijkInterpLinearRev0_dbl(dbl const v, dbl const v1, dbl const t);
+
+// ijkInterpLinearRevSafe0_dbl
+//	Reverse linear interpolation to get first control value; division-by-zero
+//	safety.
+//		param v: interpolated value; inputs within [v0,v1] yield a paremeter 
+//			in [0,1] used for interpolation, others yield parameters beyond 
+//			unit range used for extrapolation
+//		param v1: terminal reference value/end point, result when t=1
+//		param t: interpolation parameter; inputs in [0,1] interpolate in 
+//			[v0,v1], others yield extrapolation beyond reference values
+//		return: first control value, v0
+dbl ijkInterpLinearRevSafe0_dbl(dbl const v, dbl const v1, dbl const t);
+
+// ijkInterpLinearRev1_dbl
+//	Reverse linear interpolation to get second control value.
+//		param v0: initial reference value/start point, result when t=0
+//		param v: interpolated value; inputs within [v0,v1] yield a paremeter 
+//			in [0,1] used for interpolation, others yield parameters beyond 
+//			unit range used for extrapolation
+//		param t: interpolation parameter; inputs in [0,1] interpolate in 
+//			[v0,v1], others yield extrapolation beyond reference values
+//		return: second control value, v1
+dbl ijkInterpLinearRev1_dbl(dbl const v0, dbl const v, dbl const t);
+
+// ijkInterpLinearRevSafe1_dbl
+//	Reverse linear interpolation to get second control value; division-by-zero
+//	safety.
+//		param v0: initial reference value/start point, result when t=0
+//		param v: interpolated value; inputs within [v0,v1] yield a paremeter 
+//			in [0,1] used for interpolation, others yield parameters beyond 
+//			unit range used for extrapolation
+//		param t: interpolation parameter; inputs in [0,1] interpolate in 
+//			[v0,v1], others yield extrapolation beyond reference values
+//		return: second control value, v1
+dbl ijkInterpLinearRevSafe1_dbl(dbl const v0, dbl const v, dbl const t);
+
+// ijkInterpSmoothstep_dbl
+//	Smoothstep for parameter.
+//		param t: interpolation parameter; inputs in [0,1] interpolate in 
+//			[0,1], others yield extrapolation beyond reference values
+//		return: interpolated value between 0 and 1
+dbl ijkInterpSmoothstep_dbl(dbl const t);
+
+// ijkInterpSmootherstep_dbl
+//	Smootherstep for parameter.
+//		param t: interpolation parameter; inputs in [0,1] interpolate in 
+//			[0,1], others yield extrapolation beyond reference values
+//		return: interpolated value between 0 and 1
+dbl ijkInterpSmootherstep_dbl(dbl const t);
 
 // ijkInterpBezier0_dbl
 //	Perform order-0 (point) Bezier interpolation given one reference value.
@@ -946,6 +1066,72 @@ index ijkInterpSampleTableDecIndex_dbl(dbl* const tReparam_out, dbl const tTable
 //		return: value in original range remapped to target range
 //real ijkInterpRemapSafe(real const v0_dst, real const v1_dst, real const v0_src, real const v1_src, real const v_src);
 #define ijkInterpRemapSafe					ijk_declrealf(ijkInterpRemapSafe)
+
+// ijkInterpLinearRev0
+//	Reverse linear interpolation to get first control value.
+//		param v: interpolated value; inputs within [v0,v1] yield a paremeter 
+//			in [0,1] used for interpolation, others yield parameters beyond 
+//			unit range used for extrapolation
+//		param v1: terminal reference value/end point, result when t=1
+//		param t: interpolation parameter; inputs in [0,1] interpolate in 
+//			[v0,v1], others yield extrapolation beyond reference values
+//		return: first control value, v0
+//real ijkInterpLinearRev0(real const v, real const v1, real const t);
+#define ijkInterpLinearRev0					ijk_declrealf(ijkInterpLinearRev0)
+
+// ijkInterpLinearRevSafe0
+//	Reverse linear interpolation to get first control value; division-by-zero
+//	safety.
+//		param v: interpolated value; inputs within [v0,v1] yield a paremeter 
+//			in [0,1] used for interpolation, others yield parameters beyond 
+//			unit range used for extrapolation
+//		param v1: terminal reference value/end point, result when t=1
+//		param t: interpolation parameter; inputs in [0,1] interpolate in 
+//			[v0,v1], others yield extrapolation beyond reference values
+//		return: first control value, v0
+//real ijkInterpLinearRevSafe0(real const v, real const v1, real const t);
+#define ijkInterpLinearRevSafe0				ijk_declrealf(ijkInterpLinearRevSafe0)
+
+// ijkInterpLinearRev1
+//	Reverse linear interpolation to get second control value.
+//		param v0: initial reference value/start point, result when t=0
+//		param v: interpolated value; inputs within [v0,v1] yield a paremeter 
+//			in [0,1] used for interpolation, others yield parameters beyond 
+//			unit range used for extrapolation
+//		param t: interpolation parameter; inputs in [0,1] interpolate in 
+//			[v0,v1], others yield extrapolation beyond reference values
+//		return: second control value, v1
+//real ijkInterpLinearRev1(real const v0, real const v, real const t);
+#define ijkInterpLinearRev1					ijk_declrealf(ijkInterpLinearRev1)
+
+// ijkInterpLinearRevSafe1
+//	Reverse linear interpolation to get second control value; division-by-zero
+//	safety.
+//		param v0: initial reference value/start point, result when t=0
+//		param v: interpolated value; inputs within [v0,v1] yield a paremeter 
+//			in [0,1] used for interpolation, others yield parameters beyond 
+//			unit range used for extrapolation
+//		param t: interpolation parameter; inputs in [0,1] interpolate in 
+//			[v0,v1], others yield extrapolation beyond reference values
+//		return: second control value, v1
+//real ijkInterpLinearRevSafe1(real const v0, real const v, real const t);
+#define ijkInterpLinearRevSafe1				ijk_declrealf(ijkInterpLinearRevSafe1)
+
+// ijkInterpSmoothstep
+//	Smoothstep for parameter.
+//		param t: interpolation parameter; inputs in [0,1] interpolate in 
+//			[0,1], others yield extrapolation beyond reference values
+//		return: interpolated value between 0 and 1
+//real ijkInterpSmoothstep(real const t);
+#define ijkInterpSmoothstep					ijk_declrealf(ijkInterpSmoothstep)
+
+// ijkInterpSmootherstep
+//	Smootherstep for parameter.
+//		param t: interpolation parameter; inputs in [0,1] interpolate in 
+//			[0,1], others yield extrapolation beyond reference values
+//		return: interpolated value between 0 and 1
+//real ijkInterpSmoothstep(real const t);
+#define ijkInterpSmootherstep				ijk_declrealf(ijkInterpSmootherstep)
 
 // ijkInterpBezier0
 //	Perform order-0 (point) Bezier interpolation given one reference value.
