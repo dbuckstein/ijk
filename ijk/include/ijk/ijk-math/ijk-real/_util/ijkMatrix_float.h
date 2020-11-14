@@ -189,7 +189,47 @@ extern "C" {
 #endif	// __cplusplus
 
 //-----------------------------------------------------------------------------
-	
+
+// ijkMatDeterminant2*m
+//	Calculate determinant of 2x2 matrix.
+//		param m_in: input matrix
+//		return: determinant
+f32 ijkMatDeterminant2fm(float2x2 const m_in);
+
+// ijkMatDeterminantInv2*m
+//	Calculate inverse determinant of 2x2 matrix.
+//		param m_in: input matrix
+//		return: determinant
+f32 ijkMatDeterminantInv2fm(float2x2 const m_in);
+
+// ijkMatDeterminantInvSafe2*m
+//	Calculate inverse determinant of 2x2 matrix; division-by-zero safety.
+//		param m_in: input matrix
+//		return: determinant
+f32 ijkMatDeterminantInvSafe2fm(float2x2 const m_in);
+
+// ijkMatTranspose2*m
+//	Calculate transpose of 2x2 matrix (flip elements about diagonal).
+//		param m_out: output matrix, transpose
+//		param m_in: input matrix
+//		return: m_out
+float2m ijkMatTranspose2fm(float2x2 m_out, float2x2 const m_in);
+
+// ijkMatInverse2*m
+//	Calculate inverse of 2x2 matrix; matrix multiplied by inverse is identity.
+//		param m_out: output matrix, inverse
+//		param m_in: input matrix
+//		return: m_out
+float2m ijkMatInverse2fm(float2x2 m_out, float2x2 const m_in);
+
+// ijkMatInverseSafe2*m
+//	Calculate inverse of 2x2 matrix; matrix multiplied by inverse is identity; 
+//	division-by-zero safety.
+//		param m_out: output matrix, inverse
+//		param m_in: input matrix
+//		return: m_out
+float2m ijkMatInverseSafe2fm(float2x2 m_out, float2x2 const m_in);
+
 // ijkMatMul2*mv
 //	Multiply 2D vector by 2x2 matrix.
 //		param v_out: output vector, product
@@ -205,6 +245,23 @@ floatv ijkMatMul2fmv(float2 v_out, float2x2 const m_lh, float2 const v_rh);
 //		param m_rh: right-hand matrix
 //		return: m_out
 float2m ijkMatMul2fm(float2x2 m_out, float2x2 const m_lh, float2x2 const m_rh);
+
+// ijkMatDiv2*m
+//	Divide 2x2 matrices (multiply left-hand by right-hand inverse).
+//		param m_out: output matrix, product
+//		param m_lh: left-hand matrix
+//		param m_rh: right-hand matrix
+//		return: m_out
+float2m ijkMatDiv2fm(float2x2 m_out, float2x2 const m_lh, float2x2 const m_rh);
+
+// ijkMatDivSafe2*m
+//	Divide 2x2 matrices (multiply left-hand by right-hand inverse); 
+//	division-by-zero safety.
+//		param m_out: output matrix, product
+//		param m_lh: left-hand matrix
+//		param m_rh: right-hand matrix
+//		return: m_out
+float2m ijkMatDivSafe2fm(float2x2 m_out, float2x2 const m_lh, float2x2 const m_rh);
 
 
 //-----------------------------------------------------------------------------

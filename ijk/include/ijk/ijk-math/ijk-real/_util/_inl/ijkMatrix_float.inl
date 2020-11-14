@@ -191,6 +191,59 @@ ijk_inl float2m ijkMatSub2fm(float2x2 m_out, float2x2 const m_lh, float2x2 const
 
 //-----------------------------------------------------------------------------
 
+ijk_inl f32 ijkMatDeterminant2fm(float2x2 const m_in)
+{
+	return ijkVecCross2fv(m_in[0], m_in[1]);
+}
+
+ijk_inl f32 ijkMatDeterminantInv2fm(float2x2 const m_in)
+{
+	f32 const s = ijkMatDeterminant2fm(m_in);
+	return ijk_recip_flt(s);
+}
+
+ijk_inl f32 ijkMatDeterminantInvSafe2fm(float2x2 const m_in)
+{
+	f32 const s = ijkMatDeterminant2fm(m_in);
+	return ijk_recip_safe_flt(s);
+}
+
+ijk_inl float2m ijkMatTranspose2fm(float2x2 m_out, float2x2 const m_in)
+{
+	f32 const m01 = m_in[0][1];
+	m_out[0][0] = m_in[0][0];
+	m_out[0][1] = m_in[1][0];
+	m_out[1][0] = m01;
+	m_out[1][1] = m_in[1][1];
+	return m_out;
+}
+
+ijk_inl float2m ijkMatInverse2fm(float2x2 m_out, float2x2 const m_in)
+{
+	// inv = adj/det
+	// adj = {{+m11,-m01},{-m10,+m00}}
+	f32 const detInv = ijkMatDeterminantInv2fm(m_in);
+	float2x2 const adj_det = {
+		+m_in[1][1] * detInv,
+		-m_in[0][1] * detInv,
+		-m_in[1][0] * detInv,
+		+m_in[0][0] * detInv,
+	};
+	return ijkMatCopy2fm2(m_out, adj_det);
+}
+
+ijk_inl float2m ijkMatInverseSafe2fm(float2x2 m_out, float2x2 const m_in)
+{
+	f32 const detInv = ijkMatDeterminantInvSafe2fm(m_in);
+	float2x2 const adj_det = {
+		+m_in[1][1] * detInv,
+		-m_in[0][1] * detInv,
+		-m_in[1][0] * detInv,
+		+m_in[0][0] * detInv,
+	};
+	return ijkMatCopy2fm2(m_out, adj_det);
+}
+
 ijk_inl floatv ijkMatMul2fmv(float2 v_out, float2x2 const m_lh, float2 const v_rh)
 {
 	float2 const v_copy = {
@@ -205,6 +258,18 @@ ijk_inl float2m ijkMatMul2fm(float2x2 m_out, float2x2 const m_lh, float2x2 const
 	ijkMatMul2fmv(m_out[0], m_lh, m_rh[0]);
 	ijkMatMul2fmv(m_out[1], m_lh, m_rh[1]);
 	return m_out;
+}
+
+ijk_inl float2m ijkMatDiv2fm(float2x2 m_out, float2x2 const m_lh, float2x2 const m_rh)
+{
+	float2x2 inv_rh;
+	return ijkMatMul2fm(m_out, m_lh, ijkMatInverse2fm(inv_rh, m_rh));
+}
+
+ijk_inl float2m ijkMatDivSafe2fm(float2x2 m_out, float2x2 const m_lh, float2x2 const m_rh)
+{
+	float2x2 inv_rh;
+	return ijkMatMul2fm(m_out, m_lh, ijkMatInverseSafe2fm(inv_rh, m_rh));
 }
 
 
