@@ -208,6 +208,18 @@ ijk_inl f32 ijkMatDeterminantInvSafe2fm(float2x2 const m_in)
 	return ijk_recip_safe_flt(s);
 }
 
+ijk_inl f32 ijkMatMulRowVec2fm(float2x2 const m_in, float2 const v_in, index const row)
+{
+	return (m_in[0][row] * v_in[0] + m_in[1][row] * v_in[1]);
+}
+
+ijk_inl floatv ijkMatGetRow2fm(float2 v_out, float2x2 const m_in, index const row)
+{
+	v_out[0] = m_in[0][row];
+	v_out[1] = m_in[1][row];
+	return v_out;
+}
+
 ijk_inl float2m ijkMatTranspose2fm(float2x2 m_out, float2x2 const m_in)
 {
 	f32 const m01 = m_in[0][1];
@@ -244,19 +256,19 @@ ijk_inl float2m ijkMatInverseSafe2fm(float2x2 m_out, float2x2 const m_in)
 	return ijkMatCopy2fm2(m_out, adj_det);
 }
 
-ijk_inl floatv ijkMatMul2fmv(float2 v_out, float2x2 const m_lh, float2 const v_rh)
+ijk_inl floatv ijkMatMulVec2fmv(float2 v_out, float2x2 const m_lh, float2 const v_rh)
 {
 	float2 const v_copy = {
-		m_lh[0][0] * v_rh[0] + m_lh[1][0] * v_rh[1],
-		m_lh[0][1] * v_rh[0] + m_lh[1][1] * v_rh[1],
+		ijkMatMulRowVec2fm(m_lh, v_rh, 0),
+		ijkMatMulRowVec2fm(m_lh, v_rh, 1),
 	};
 	return ijkVecCopy2fv(v_out, v_copy);
 }
 
 ijk_inl float2m ijkMatMul2fm(float2x2 m_out, float2x2 const m_lh, float2x2 const m_rh)
 {
-	ijkMatMul2fmv(m_out[0], m_lh, m_rh[0]);
-	ijkMatMul2fmv(m_out[1], m_lh, m_rh[1]);
+	ijkMatMulVec2fmv(m_out[0], m_lh, m_rh[0]);
+	ijkMatMulVec2fmv(m_out[1], m_lh, m_rh[1]);
 	return m_out;
 }
 

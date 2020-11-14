@@ -65,14 +65,14 @@ float2m ijkMatCopy2fm2(float2x2 m_out, float2x2 const m_in);
 
 // ijkMatCopy2*m3
 //	Copy 2x2 matrix from 3x3 matrix.
-//		param m_out: output matrix
+//		param m_out: output matrix; input's upper-left 2x2 matrix
 //		param m_in: input matrix
 //		return: m_out
 float2m ijkMatCopy2fm3(float2x2 m_out, float3x3 const m_in);
 
 // ijkMatCopy2*m4
 //	Copy 2x2 matrix from 4x4 matrix.
-//		param m_out: output matrix
+//		param m_out: output matrix; input's upper-left 2x2 matrix
 //		param m_in: input matrix
 //		return: m_out
 float2m ijkMatCopy2fm4(float2x2 m_out, float4x4 const m_in);
@@ -168,8 +168,105 @@ float2m ijkMatSub2fm(float2x2 m_out, float2x2 const m_lh, float2x2 const m_rh);
 
 
 //-----------------------------------------------------------------------------
+	
+// ijkMatInit2*
+//	Initialize 2x2 matrix to default (identity: ones along the diagonal).
+//		return: identity matrix
+fmat2 ijkMatInit2f();
 
-// 2D struct-based
+// ijkMatInitElems2*
+//	Initialize 2x2 matrix given elements.
+//		params x0, y0: elements of first column
+//		params x1, y1: elements of second column
+//		return: matrix of elements
+fmat2 ijkMatInitElems2f(float const x0, float const y0, float const x1, float const y1);
+
+// ijkMatInitVecs2*
+//	Initialize 2x2 matrix given column vectors.
+//		param c0: first column vector
+//		param c1: second column vector
+//		return: matrix of columns
+fmat2 ijkMatInitVecs2f(fvec2 const c0, fvec2 const c1);
+
+// ijkMatCopy2*2
+//	Copy 2x2 matrix from 2x2 matrix.
+//		param m_in: input matrix
+//		return: copy of input
+fmat2 ijkMatCopy2f2(fmat2 const m_in);
+
+// ijkMatCopy2*3
+//	Copy 2x2 matrix from 3x3 matrix.
+//		param m_in: input matrix
+//		return: copy of input's upper-left 2x2 matrix
+fmat2 ijkMatCopy2f3(fmat3 const m_in);
+
+// ijkMatCopy2*4
+//	Copy 2x2 matrix from 4x4 matrix.
+//		param m_in: input matrix
+//		return: copy of input's upper-left 2x2 matrix
+fmat2 ijkMatCopy2f4(fmat4 const m_in);
+
+// ijkMatCopy2*s
+//	Copy 2x2 matrix diagonal from scalar (scalar along the diagonal).
+//		param s_diag: input scalar assigned to diagonal elements
+//		return: diagonal matrix
+fmat2 ijkMatCopy2fs(float const s_diag);
+
+// ijkMatMul2*s
+//	Multiply 2x2 matrix by scalar.
+//		param m_lh: left-hand matrix
+//		param s_rh: right-hand scalar
+//		return: product
+fmat2 ijkMatMul2fs(fmat2 const m_lh, float const s_rh);
+
+// ijkMatDiv2*s
+//	Divide 2x2 matrix elements by scalar.
+//		param m_lh: left-hand matrix
+//		param s_rh: right-hand scalar
+//		return: quotient
+fmat2 ijkMatDiv2fs(fmat2 const m_lh, float const s_rh);
+
+// ijkMatDivSafe2*s
+//	Divide 2x2 matrix elements by scalar; division-by-zero safety.
+//		param m_lh: left-hand matrix
+//		param s_rh: right-hand scalar
+//		return: quotient
+fmat2 ijkMatDivSafe2fs(fmat2 const m_lh, float const s_rh);
+
+// ijkMatMul2*s
+//	Multiply scalar by 2x2 matrix elements.
+//		param s_lh: left-hand scalar
+//		param m_rh: right-hand matrix
+//		return: component-wise product
+fmat2 ijkMatMul2sf(float const s_lh, fmat2 const m_rh);
+
+// ijkMatDiv2*s
+//	Divide scalar by 2x2 matrix elements.
+//		param s_lh: left-hand scalar
+//		param m_rh: right-hand matrix
+//		return: component-wise quotient
+fmat2 ijkMatDiv2sf(float const s_lh, fmat2 const m_rh);
+
+// ijkMatDivSafe2*s
+//	Divide scalar by 2x2 matrix elements; division-by-zero safety.
+//		param s_lh: left-hand scalar
+//		param m_rh: right-hand matrix
+//		return: component-wise quotient
+fmat2 ijkMatDivSafe2sf(float const s_lh, fmat2 const m_rh);
+
+// ijkMatAdd2*
+//	Add 2x2 matrices.
+//		param m_lh: left-hand matrix
+//		param m_rh: right-hand matrix
+//		return: sum of inputs
+fmat2 ijkMatAdd2f(fmat2 const m_lh, fmat2 const m_rh);
+
+// ijkMatSub2*
+//	Subtract 2x2 matrices.
+//		param m_lh: left-hand matrix
+//		param m_rh: right-hand matrix
+//		return: difference of inputs
+fmat2 ijkMatSub2f(fmat2 const m_lh, fmat2 const m_rh);
 
 
 //-----------------------------------------------------------------------------
@@ -208,6 +305,22 @@ f32 ijkMatDeterminantInv2fm(float2x2 const m_in);
 //		return: determinant
 f32 ijkMatDeterminantInvSafe2fm(float2x2 const m_in);
 
+// ijkMatMulRowVec2*mv
+//	Get row as vector.
+//		param m_in: input matrix
+//		param v_in: input vector
+//		param row: matrix row index
+//		return: product of matrix row and v
+f32 ijkMatMulRowVec2fm(float2x2 const m_in, float2 const v_in, index const row);
+
+// ijkMatGetRow2*m
+//	Get row as vector.
+//		param v_out: output row vector
+//		param m_in: input matrix
+//		param row: matrix row index
+//		return: vector of row elements
+floatv ijkMatGetRow2fm(float2 v_out, float2x2 const m_in, index const row);
+
 // ijkMatTranspose2*m
 //	Calculate transpose of 2x2 matrix (flip elements about diagonal).
 //		param m_out: output matrix, transpose
@@ -230,13 +343,13 @@ float2m ijkMatInverse2fm(float2x2 m_out, float2x2 const m_in);
 //		return: m_out
 float2m ijkMatInverseSafe2fm(float2x2 m_out, float2x2 const m_in);
 
-// ijkMatMul2*mv
+// ijkMatMulVec2*mv
 //	Multiply 2D vector by 2x2 matrix.
 //		param v_out: output vector, product
 //		param m_lh: left-hand matrix
 //		param v_rh: right-hand vector
 //		return: m_out
-floatv ijkMatMul2fmv(float2 v_out, float2x2 const m_lh, float2 const v_rh);
+floatv ijkMatMulVec2fmv(float2 v_out, float2x2 const m_lh, float2 const v_rh);
 
 // ijkMatMul2*m
 //	Multiply 2x2 matrices (non-commutative).
