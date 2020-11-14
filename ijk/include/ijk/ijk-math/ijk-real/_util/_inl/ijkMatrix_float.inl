@@ -272,6 +272,53 @@ ijk_inl float2m ijkMatDivSafe2fm(float2x2 m_out, float2x2 const m_lh, float2x2 c
 	return ijkMatMul2fm(m_out, m_lh, ijkMatInverseSafe2fm(inv_rh, m_rh));
 }
 
+ijk_inl float2m ijkMatRotate2fm(float2x2 m_out, f32 const angle_degrees)
+{
+	ijkTrigSinCos_deg_flt(angle_degrees, m_out[0] + 1, m_out[0] + 0);
+	m_out[1][0] = -m_out[0][1];
+	m_out[1][1] = +m_out[0][0];
+	return m_out;
+}
+
+ijk_inl float2m ijkMatScale2fm(float2x2 m_out, f32 const sx, f32 const sy)
+{
+	m_out[0][0] = sx;
+	m_out[1][1] = sy;
+	m_out[0][1] = m_out[1][0] = flt_zero;
+	return m_out;
+}
+
+ijk_inl float2m ijkMatRotateScale2fm(float2x2 m_out, f32 const angle_degrees, f32 const sx, f32 const sy)
+{
+	ijkTrigSinCos_deg_flt(angle_degrees, m_out[0] + 1, m_out[0] + 0);
+	m_out[1][0] = -m_out[0][1] * sy;
+	m_out[1][1] = +m_out[0][0] * sy;
+	m_out[0][0] *= sx;
+	m_out[0][1] *= sx;
+	return m_out;
+}
+
+ijk_inl float2km ijkMatGetRotate2fm(float2x2 const m_in, f32* const angle_degrees_out)
+{
+	*angle_degrees_out = ijkTrigAtan2_deg_flt(m_in[0][1], m_in[0][0]);
+	return m_in;
+}
+
+ijk_inl float2km ijkMatGetScale2fm(float2x2 const m_in, f32* const sx_out, f32* const sy_out)
+{
+	*sx_out = ijkVecLength2fv(m_in[0]);
+	*sy_out = ijkVecLength2fv(m_in[1]);
+	return m_in;
+}
+
+ijk_inl float2km ijkMatGetRotateScale2fm(float2x2 const m_in, f32* const angle_degrees_out, f32* const sx_out, f32* const sy_out)
+{
+	*angle_degrees_out = ijkTrigAtan2_deg_flt(m_in[0][1], m_in[0][0]);
+	*sx_out = ijkVecLength2fv(m_in[0]);
+	*sy_out = ijkVecLength2fv(m_in[1]);
+	return m_in;
+}
+
 
 //-----------------------------------------------------------------------------
 

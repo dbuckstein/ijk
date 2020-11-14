@@ -263,6 +263,51 @@ float2m ijkMatDiv2fm(float2x2 m_out, float2x2 const m_lh, float2x2 const m_rh);
 //		return: m_out
 float2m ijkMatDivSafe2fm(float2x2 m_out, float2x2 const m_lh, float2x2 const m_rh);
 
+// ijkMatRotate2*m
+//	Make 2D rotation matrix.
+//		param m_out: output matrix, rotation
+//		param angle_degrees: input angle in degrees
+//		return: m_out
+float2m ijkMatRotate2fm(float2x2 m_out, f32 const angle_degrees);
+
+// ijkMatScale2*m
+//	Make 2D scale matrix.
+//		param m_out: output matrix, scale
+//		params sx, sy: scales on each dimension
+//		return: m_out
+float2m ijkMatScale2fm(float2x2 m_out, f32 const sx, f32 const sy);
+
+// ijkMatRotateScale2*m
+//	Make 2D rotation-scale matrix.
+//		param m_out: output matrix, rotation
+//		param angle_degrees: input angle in degrees
+//		params sx, sy: scales on each dimension
+//		return: m_out
+float2m ijkMatRotateScale2fm(float2x2 m_out, f32 const angle_degrees, f32 const sx, f32 const sy);
+
+// ijkMatGetRotate2*m
+//	Extract rotation angle in degrees from 2D rotation matrix; assumes columns 
+//	are unit-length for optimization.
+//		param m_in: input matrix
+//		param angle_degrees_out: pointer to angle storage
+//		return: m_in
+float2km ijkMatGetRotate2fm(float2x2 const m_in, f32* const angle_degrees_out);
+
+// ijkMatGetScale2*m
+//	Extract scales from 2D matrix.
+//		param m_in: input matrix
+//		params sx_out, sy_out: pointers to scale storage
+//		return: m_in
+float2km ijkMatGetScale2fm(float2x2 const m_in, f32* const sx_out, f32* const sy_out);
+
+// ijkMatGetRotateScale2*m
+//	Extract rotation angle in degrees and scales from 2D matrix.
+//		param m_in: input matrix
+//		param angle_degrees_out: pointer to angle storage
+//		params sx_out, sy_out: pointers to scale storage
+//		return: m_in
+float2km ijkMatGetRotateScale2fm(float2x2 const m_in, f32* const angle_degrees_out, f32* const sx_out, f32* const sy_out);
+
 
 //-----------------------------------------------------------------------------
 
