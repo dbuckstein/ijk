@@ -176,7 +176,151 @@ ijk_inl float2m ijkMatSub2fm(float2x2 m_out, float2x2 const m_lh, float2x2 const
 
 //-----------------------------------------------------------------------------
 
-// 2D struct-based
+ijk_inl fmat2 ijkMatInit2f()
+{
+	fmat2 const m_out = {
+		flt_one, flt_zero, flt_zero, flt_one,
+	};
+	return m_out;
+}
+
+ijk_inl fmat2 ijkMatInitElems2f(float const x0, float const y0, float const x1, float const y1)
+{
+	fmat2 const m_out = {
+		x0, y0, x1, y1,
+	};
+	return m_out;
+}
+
+ijk_inl fmat2 ijkMatInitVecs2f(fvec2 const c0, fvec2 const c1)
+{
+	fmat2 const m_out = {
+		c0.x, c0.y, c1.x, c1.y,
+	};
+	return m_out;
+}
+
+ijk_inl fmat2 ijkMatCopy2f2(fmat2 const m_in)
+{
+	fmat2 const m_out = {
+		m_in.x0, m_in.y0, m_in.x1, m_in.y1,
+	};
+	return m_out;
+}
+
+ijk_inl fmat2 ijkMatCopy2f3(fmat3 const m_in)
+{
+	fmat2 const m_out = {
+		m_in.x0, m_in.y0, m_in.x1, m_in.y1,
+	};
+	return m_out;
+}
+
+ijk_inl fmat2 ijkMatCopy2f4(fmat4 const m_in)
+{
+	fmat2 const m_out = {
+		m_in.x0, m_in.y0, m_in.x1, m_in.y1,
+	};
+	return m_out;
+}
+
+ijk_inl fmat2 ijkMatCopy2fs(float const s_diag)
+{
+	fmat2 const m_out = {
+		s_diag, flt_zero, flt_zero, s_diag,
+	};
+	return m_out;
+}
+
+ijk_inl fmat2 ijkMatMul2fs(fmat2 const m_lh, float const s_rh)
+{
+	fmat2 const m_out = {
+		m_lh.m00 * s_rh,
+		m_lh.m01 * s_rh,
+		m_lh.m10 * s_rh,
+		m_lh.m11 * s_rh,
+	};
+	return m_out;
+}
+
+ijk_inl fmat2 ijkMatDiv2fs(fmat2 const m_lh, float const s_rh)
+{
+	float const s = ijk_recip_flt(s_rh);
+	fmat2 const m_out = {
+		m_lh.m00 * s,
+		m_lh.m01 * s,
+		m_lh.m10 * s,
+		m_lh.m11 * s,
+	};
+	return m_out;
+}
+
+ijk_inl fmat2 ijkMatDivSafe2fs(fmat2 const m_lh, float const s_rh)
+{
+	float const s = ijk_recip_safe_flt(s_rh);
+	fmat2 const m_out = {
+		m_lh.m00 * s,
+		m_lh.m01 * s,
+		m_lh.m10 * s,
+		m_lh.m11 * s,
+	};
+	return m_out;
+}
+
+ijk_inl fmat2 ijkMatMul2sf(float const s_lh, fmat2 const m_rh)
+{
+	fmat2 const m_out = {
+		s_lh * m_rh.m00,
+		s_lh * m_rh.m01,
+		s_lh * m_rh.m10,
+		s_lh * m_rh.m11,
+	};
+	return m_out;
+}
+
+ijk_inl fmat2 ijkMatDiv2sf(float const s_lh, fmat2 const m_rh)
+{
+	fmat2 const m_out = {
+		s_lh / m_rh.m00,
+		s_lh / m_rh.m01,
+		s_lh / m_rh.m10,
+		s_lh / m_rh.m11,
+	};
+	return m_out;
+}
+
+ijk_inl fmat2 ijkMatDivSafe2sf(float const s_lh, fmat2 const m_rh)
+{
+	fmat2 const m_out = {
+		ijk_divide_safe_flt(s_lh, m_rh.m00),
+		ijk_divide_safe_flt(s_lh, m_rh.m01),
+		ijk_divide_safe_flt(s_lh, m_rh.m10),
+		ijk_divide_safe_flt(s_lh, m_rh.m11),
+	};
+	return m_out;
+}
+
+ijk_inl fmat2 ijkMatAdd2f(fmat2 const m_lh, fmat2 const m_rh)
+{
+	fmat2 const m_out = {
+		m_lh.m00 + m_rh.m00,
+		m_lh.m01 + m_rh.m01,
+		m_lh.m10 + m_rh.m10,
+		m_lh.m11 + m_rh.m11,
+	};
+	return m_out;
+}
+
+ijk_inl fmat2 ijkMatSub2f(fmat2 const m_lh, fmat2 const m_rh)
+{
+	fmat2 const m_out = {
+		m_lh.m00 - m_rh.m00,
+		m_lh.m01 - m_rh.m01,
+		m_lh.m10 - m_rh.m10,
+		m_lh.m11 - m_rh.m11,
+	};
+	return m_out;
+}
 
 
 //-----------------------------------------------------------------------------
