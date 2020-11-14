@@ -33,6 +33,7 @@
 #ifdef __cplusplus
 extern "C" {
 #else	// !__cplusplus
+typedef enum ijkRotationOrder	ijkRotationOrder;
 typedef union fmat2		fmat2;
 typedef union fmat3		fmat3;
 typedef union fmat4		fmat4;
@@ -71,9 +72,28 @@ typedef double4			* double4m,		// Generic 4D double-precision-based matrix, repr
 
 //-----------------------------------------------------------------------------
 
-#ifdef __cplusplus
+// ijkRotationOrder
+//	Tait-Bryan or "Euler" angles (Euler angles actually only use two axes with 
+//	one repeated, e.g. 'XZX') written order when used to encode and decode 
+//	rotations. Note that in right-handed systems, the order of operations is 
+//	right-to-left (e.g. if the selected written order is XYZ, the individual 
+//	rotations occur in the functional order Z then Y then X).
+enum ijkRotationOrder
+{
+	ijkRotationXYZ,
+	ijkRotationYZX,
+	ijkRotationZXY,
+	ijkRotationYXZ,
+	ijkRotationXZY,
+	ijkRotationZYX,
+};
 
-#else // !__cplusplus
+
+//-----------------------------------------------------------------------------
+
+//#ifdef __cplusplus
+
+//#else // !__cplusplus
 
 // fmat2
 //	Data structure representing 2D column-major float matrix.
@@ -199,7 +219,7 @@ union dmat4
 };
 
 
-#endif	// __cplusplus
+//#endif	// __cplusplus
 
 
 //-----------------------------------------------------------------------------

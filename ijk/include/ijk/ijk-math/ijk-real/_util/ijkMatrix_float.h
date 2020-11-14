@@ -854,7 +854,269 @@ float2km ijkMatGetRotateScale2fm(float2x2 const m_in, f32* const angle_degrees_o
 
 //-----------------------------------------------------------------------------
 
-// 3D array-based special
+// ijkMatDeterminant3*m
+//	Calculate determinant of 3x3 matrix.
+//		param m_in: input matrix
+//		return: determinant
+f32 ijkMatDeterminant3fm(float3x3 const m_in);
+
+// ijkMatDeterminantInv3*m
+//	Calculate inverse determinant of 3x3 matrix.
+//		param m_in: input matrix
+//		return: determinant
+f32 ijkMatDeterminantInv3fm(float3x3 const m_in);
+
+// ijkMatDeterminantInvSafe3*m
+//	Calculate inverse determinant of 3x3 matrix; division-by-zero safety.
+//		param m_in: input matrix
+//		return: determinant
+f32 ijkMatDeterminantInvSafe3fm(float3x3 const m_in);
+
+// ijkMatMulRowVec3*mv
+//	Get row as vector.
+//		param m_in: input matrix
+//		param v_in: input vector
+//		param row: matrix row index
+//		return: product of matrix row and v
+f32 ijkMatMulRowVec3fm(float3x3 const m_in, float3 const v_in, index const row);
+
+// ijkMatGetRow3*m
+//	Get row as vector.
+//		param v_out: output row vector
+//		param m_in: input matrix
+//		param row: matrix row index
+//		return: vector of row elements
+floatv ijkMatGetRow3fm(float3 v_out, float3x3 const m_in, index const row);
+
+// ijkMatTranspose3*m
+//	Calculate transpose of 3x3 matrix (flip elements about diagonal).
+//		param m_out: output matrix, transpose
+//		param m_in: input matrix
+//		return: m_out
+float3m ijkMatTranspose3fm(float3x3 m_out, float3x3 const m_in);
+
+// ijkMatInverse3*m
+//	Calculate inverse of 3x3 matrix; matrix multiplied by inverse is identity.
+//		param m_out: output matrix, inverse
+//		param m_in: input matrix
+//		return: m_out
+float3m ijkMatInverse3fm(float3x3 m_out, float3x3 const m_in);
+
+// ijkMatInverseSafe3*m
+//	Calculate inverse of 3x3 matrix; matrix multiplied by inverse is identity; 
+//	division-by-zero safety.
+//		param m_out: output matrix, inverse
+//		param m_in: input matrix
+//		return: m_out
+float3m ijkMatInverseSafe3fm(float3x3 m_out, float3x3 const m_in);
+
+// ijkMatMulVec3*mv
+//	Multiply 3D vector by 3x3 matrix.
+//		param v_out: output vector, product
+//		param m_lh: left-hand matrix
+//		param v_rh: right-hand vector
+//		return: m_out
+floatv ijkMatMulVec3fmv(float3 v_out, float3x3 const m_lh, float3 const v_rh);
+
+// ijkMatMul3*m
+//	Multiply 3x3 matrices (non-commutative).
+//		param m_out: output matrix, product
+//		param m_lh: left-hand matrix
+//		param m_rh: right-hand matrix
+//		return: m_out
+float3m ijkMatMul3fm(float3x3 m_out, float3x3 const m_lh, float3x3 const m_rh);
+
+// ijkMatDiv3*m
+//	Divide 3x3 matrices (multiply left-hand by right-hand inverse).
+//		param m_out: output matrix, product
+//		param m_lh: left-hand matrix
+//		param m_rh: right-hand matrix
+//		return: m_out
+float3m ijkMatDiv3fm(float3x3 m_out, float3x3 const m_lh, float3x3 const m_rh);
+
+// ijkMatDivSafe3*m
+//	Divide 3x3 matrices (multiply left-hand by right-hand inverse); 
+//	division-by-zero safety.
+//		param m_out: output matrix, product
+//		param m_lh: left-hand matrix
+//		param m_rh: right-hand matrix
+//		return: m_out
+float3m ijkMatDivSafe3fm(float3x3 m_out, float3x3 const m_lh, float3x3 const m_rh);
+
+// ijkMatRotateXYZ3*m
+//	Make 3D rotation matrix.
+//		param m_out: output matrix, rotation
+//		param angleX_degrees: input angle about X axis in degrees
+//		param angleY_degrees: input angle about Y axis in degrees
+//		param angleZ_degrees: input angle about Z axis in degrees
+//		return: m_out
+float3m ijkMatRotateXYZ3fm(float3x3 m_out, f32 const angleX_degrees, f32 const angleY_degrees, f32 const angleZ_degrees);
+
+// ijkMatRotateYZX3*m
+//	Make 3D rotation matrix.
+//		param m_out: output matrix, rotation
+//		param angleX_degrees: input angle about X axis in degrees
+//		param angleY_degrees: input angle about Y axis in degrees
+//		param angleZ_degrees: input angle about Z axis in degrees
+//		return: m_out
+float3m ijkMatRotateYZX3fm(float3x3 m_out, f32 const angleX_degrees, f32 const angleY_degrees, f32 const angleZ_degrees);
+
+// ijkMatRotateZXY3*m
+//	Make 3D rotation matrix.
+//		param m_out: output matrix, rotation
+//		param angleX_degrees: input angle about X axis in degrees
+//		param angleY_degrees: input angle about Y axis in degrees
+//		param angleZ_degrees: input angle about Z axis in degrees
+//		return: m_out
+float3m ijkMatRotateZXY3fm(float3x3 m_out, f32 const angleX_degrees, f32 const angleY_degrees, f32 const angleZ_degrees);
+
+// ijkMatRotateYXZ3*m
+//	Make 3D rotation matrix.
+//		param m_out: output matrix, rotation
+//		param angleX_degrees: input angle about X axis in degrees
+//		param angleY_degrees: input angle about Y axis in degrees
+//		param angleZ_degrees: input angle about Z axis in degrees
+//		return: m_out
+float3m ijkMatRotateYXZ3fm(float3x3 m_out, f32 const angleX_degrees, f32 const angleY_degrees, f32 const angleZ_degrees);
+
+// ijkMatRotateXZY3*m
+//	Make 3D rotation matrix.
+//		param m_out: output matrix, rotation
+//		param angleX_degrees: input angle about X axis in degrees
+//		param angleY_degrees: input angle about Y axis in degrees
+//		param angleZ_degrees: input angle about Z axis in degrees
+//		return: m_out
+float3m ijkMatRotateXZY3fm(float3x3 m_out, f32 const angleX_degrees, f32 const angleY_degrees, f32 const angleZ_degrees);
+
+// ijkMatRotateZYX3*m
+//	Make 3D rotation matrix.
+//		param m_out: output matrix, rotation
+//		param angleX_degrees: input angle about X axis in degrees
+//		param angleY_degrees: input angle about Y axis in degrees
+//		param angleZ_degrees: input angle about Z axis in degrees
+//		return: m_out
+float3m ijkMatRotateZYX3fm(float3x3 m_out, f32 const angleX_degrees, f32 const angleY_degrees, f32 const angleZ_degrees);
+
+// ijkMatGetRotateXYZ3*m
+//	Extract rotation angle in degrees from 3D rotation matrix; assumes columns 
+//	are unit-length for optimization.
+//		param m_in: input matrix
+//		param angleX_degrees_out: pointer to angle storage for X axis
+//		param angleY_degrees_out: pointer to angle storage for Y axis
+//		param angleZ_degrees_out: pointer to angle storage for Z axis
+//		return: m_in
+float3km ijkMatGetRotateXYZ3fm(float3x3 const m_in, f32* const angleX_degrees_out, f32* const angleY_degrees_out, f32* const angleZ_degrees_out);
+
+// ijkMatGetRotateYZX3*m
+//	Extract rotation angle in degrees from 3D rotation matrix; assumes columns 
+//	are unit-length for optimization.
+//		param m_in: input matrix
+//		param angleX_degrees_out: pointer to angle storage for X axis
+//		param angleY_degrees_out: pointer to angle storage for Y axis
+//		param angleZ_degrees_out: pointer to angle storage for Z axis
+//		return: m_in
+float3km ijkMatGetRotateYZX3fm(float3x3 const m_in, f32* const angleX_degrees_out, f32* const angleY_degrees_out, f32* const angleZ_degrees_out);
+
+// ijkMatGetRotateZXY3*m
+//	Extract rotation angle in degrees from 3D rotation matrix; assumes columns 
+//	are unit-length for optimization.
+//		param m_in: input matrix
+//		param angleX_degrees_out: pointer to angle storage for X axis
+//		param angleY_degrees_out: pointer to angle storage for Y axis
+//		param angleZ_degrees_out: pointer to angle storage for Z axis
+//		return: m_in
+float3km ijkMatGetRotateZXY3fm(float3x3 const m_in, f32* const angleX_degrees_out, f32* const angleY_degrees_out, f32* const angleZ_degrees_out);
+
+// ijkMatGetRotateYXZ3*m
+//	Extract rotation angle in degrees from 3D rotation matrix; assumes columns 
+//	are unit-length for optimization.
+//		param m_in: input matrix
+//		param angleX_degrees_out: pointer to angle storage for X axis
+//		param angleY_degrees_out: pointer to angle storage for Y axis
+//		param angleZ_degrees_out: pointer to angle storage for Z axis
+//		return: m_in
+float3km ijkMatGetRotateYXZ3fm(float3x3 const m_in, f32* const angleX_degrees_out, f32* const angleY_degrees_out, f32* const angleZ_degrees_out);
+
+// ijkMatGetRotateXZY3*m
+//	Extract rotation angle in degrees from 3D rotation matrix; assumes columns 
+//	are unit-length for optimization.
+//		param m_in: input matrix
+//		param angleX_degrees_out: pointer to angle storage for X axis
+//		param angleY_degrees_out: pointer to angle storage for Y axis
+//		param angleZ_degrees_out: pointer to angle storage for Z axis
+//		return: m_in
+float3km ijkMatGetRotateXZY3fm(float3x3 const m_in, f32* const angleX_degrees_out, f32* const angleY_degrees_out, f32* const angleZ_degrees_out);
+
+// ijkMatGetRotateZYX3*m
+//	Extract rotation angle in degrees from 3D rotation matrix; assumes columns 
+//	are unit-length for optimization.
+//		param m_in: input matrix
+//		param angleX_degrees_out: pointer to angle storage for X axis
+//		param angleY_degrees_out: pointer to angle storage for Y axis
+//		param angleZ_degrees_out: pointer to angle storage for Z axis
+//		return: m_in
+float3km ijkMatGetRotateZYX3fm(float3x3 const m_in, f32* const angleX_degrees_out, f32* const angleY_degrees_out, f32* const angleZ_degrees_out);
+
+// ijkMatRotate3*m
+//	Make 3D rotation matrix.
+//		param m_out: output matrix, rotation
+//		param order: written order of Euler angles (functional order of 
+//			operations is right-to-left)
+//		param angleX_degrees: input angle about X axis in degrees
+//		param angleY_degrees: input angle about Y axis in degrees
+//		param angleZ_degrees: input angle about Z axis in degrees
+//		return: m_out
+float3m ijkMatRotate3fm(float3x3 m_out, ijkRotationOrder const order, f32 const angleX_degrees, f32 const angleY_degrees, f32 const angleZ_degrees);
+
+// ijkMatScale3*m
+//	Make 3D scale matrix.
+//		param m_out: output matrix, scale
+//		params sx, sy, sz: scales on each dimension
+//		return: m_out
+float3m ijkMatScale3fm(float3x3 m_out, f32 const sx, f32 const sy, f32 const sz);
+
+// ijkMatRotateScale3*m
+//	Make 3D rotation-scale matrix.
+//		param m_out: output matrix, rotation
+//		param order: written order of Euler angles (functional order of 
+//			operations is right-to-left)
+//		param angleX_degrees: input angle about X axis in degrees
+//		param angleY_degrees: input angle about Y axis in degrees
+//		param angleZ_degrees: input angle about Z axis in degrees
+//		params sx, sy, sz: scales on each dimension
+//		return: m_out
+float3m ijkMatRotateScale3fm(float3x3 m_out, ijkRotationOrder const order, f32 const angleX_degrees, f32 const angleY_degrees, f32 const angleZ_degrees, f32 const sx, f32 const sy, f32 const sz);
+
+// ijkMatGetRotate3*m
+//	Extract rotation angle in degrees from 3D rotation matrix; assumes columns 
+//	are unit-length for optimization.
+//		param m_in: input matrix
+//		param order: written order of Euler angles (functional order of 
+//			operations is right-to-left)
+//		param angleX_degrees_out: pointer to angle storage for X axis
+//		param angleY_degrees_out: pointer to angle storage for Y axis
+//		param angleZ_degrees_out: pointer to angle storage for Z axis
+//		return: m_in
+float3km ijkMatGetRotate3fm(float3x3 const m_in, ijkRotationOrder const order, f32* const angleX_degrees_out, f32* const angleY_degrees_out, f32* const angleZ_degrees_out);
+
+// ijkMatGetScale3*m
+//	Extract scales from 3D matrix.
+//		param m_in: input matrix
+//		params sx_out, sy_out, sz_out: pointers to scale storage
+//		return: m_in
+float3km ijkMatGetScale3fm(float3x3 const m_in, f32* const sx_out, f32* const sy_out, f32* const sz_out);
+
+// ijkMatGetRotateScale3*m
+//	Extract rotation angle in degrees and scales from 3D matrix.
+//		param m_in: input matrix
+//		param order: written order of Euler angles (functional order of 
+//			operations is right-to-left)
+//		param angleX_degrees_out: pointer to angle storage for X axis
+//		param angleY_degrees_out: pointer to angle storage for Y axis
+//		param angleZ_degrees_out: pointer to angle storage for Z axis
+//		params sx_out, sy_out, sz_out: pointers to scale storage
+//		return: m_in
+float3km ijkMatGetRotateScale3fm(float3x3 const m_in, ijkRotationOrder const order, f32* const angleX_degrees_out, f32* const angleY_degrees_out, f32* const angleZ_degrees_out, f32* const sx_out, f32* const sy_out, f32* const sz_out);
 
 
 //-----------------------------------------------------------------------------
