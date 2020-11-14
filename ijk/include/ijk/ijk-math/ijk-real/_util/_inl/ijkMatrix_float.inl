@@ -488,7 +488,149 @@ ijk_inl float2km ijkMatGetRotateScale2fm(float2x2 const m_in, f32* const angle_d
 
 //-----------------------------------------------------------------------------
 
-// 2D struct-based special
+ijk_inl float ijkMatDeterminant2f(fmat2 const m_in)
+{
+	return ijkVecCross2f(m_in.c0, m_in.c1);
+}
+
+ijk_inl float ijkMatDeterminantInv2f(fmat2 const m_in)
+{
+	float const s = ijkMatDeterminant2f(m_in);
+	return ijk_recip_flt(s);
+}
+
+ijk_inl float ijkMatDeterminantInvSafe2f(fmat2 const m_in)
+{
+	float const s = ijkMatDeterminant2f(m_in);
+	return ijk_recip_safe_flt(s);
+}
+
+ijk_inl float ijkMatMulRowVec2f(fmat2 const m_in, fvec2 const v_in, index const row)
+{
+	return (m_in.c0.xy[row] * v_in.x + m_in.c1.xy[row] * v_in.y);
+}
+
+ijk_inl fvec2 ijkMatGetRow2f(fmat2 const m_in, index const row)
+{
+	fvec2 const v_out = {
+		m_in.c0.xy[row],
+		m_in.c1.xy[row],
+	};
+	return v_out;
+}
+
+ijk_inl fmat2 ijkMatTranspose2f(fmat2 const m_in)
+{
+	fmat2 const m_out = {
+		m_in.m00,
+		m_in.m10,
+		m_in.m01,
+		m_in.m11,
+	};
+	return m_out;
+}
+
+ijk_inl fmat2 ijkMatInverse2f(fmat2 const m_in)
+{
+	// inv = adj/det
+	// adj = {{+m11,-m01},{-m10,+m00}}
+	float const detInv = ijkMatDeterminantInv2f(m_in);
+	fmat2 const adj_det = {
+		+m_in.m11 * detInv,
+		-m_in.m01 * detInv,
+		-m_in.m10 * detInv,
+		+m_in.m00 * detInv,
+	};
+	return adj_det;
+}
+
+ijk_inl fmat2 ijkMatInverseSafe2f(fmat2 const m_in)
+{
+	float const detInv = ijkMatDeterminantInvSafe2f(m_in);
+	fmat2 const adj_det = {
+		+m_in.m11 * detInv,
+		-m_in.m01 * detInv,
+		-m_in.m10 * detInv,
+		+m_in.m00 * detInv,
+	};
+	return adj_det;
+}
+
+ijk_inl fvec2 ijkMatMulVec2f(fmat2 const m_lh, fvec2 const v_rh)
+{
+	fvec2 const v_copy = {
+		ijkMatMulRowVec2f(m_lh, v_rh, 0),
+		ijkMatMulRowVec2f(m_lh, v_rh, 1),
+	};
+	return v_copy;
+}
+
+ijk_inl fmat2 ijkMatMul2f(fmat2 const m_lh, fmat2 const m_rh)
+{
+	fmat2 m_out;
+	m_out.c0 = ijkMatMulVec2f(m_lh, m_rh.c0);
+	m_out.c1 = ijkMatMulVec2f(m_lh, m_rh.c1);
+	return m_out;
+}
+
+ijk_inl fmat2 ijkMatDiv2f(fmat2 const m_lh, fmat2 const m_rh)
+{
+	return ijkMatMul2f(m_lh, ijkMatInverse2f(m_rh));
+}
+
+ijk_inl fmat2 ijkMatDivSafe2f(fmat2 const m_lh, fmat2 const m_rh)
+{
+	return ijkMatMul2f(m_lh, ijkMatInverseSafe2f(m_rh));
+}
+
+ijk_inl fmat2 ijkMatRotate2f(float const angle_degrees)
+{
+	fmat2 m_out;
+	ijkTrigSinCos_deg_flt(angle_degrees, m_out.c0.xy + 1, m_out.c0.xy + 0);
+	m_out.m10 = -m_out.m01;
+	m_out.m11 = +m_out.m00;
+	return m_out;
+}
+
+ijk_inl fmat2 ijkMatScale2f(float const sx, float const sy)
+{
+	fmat2 const m_out = {
+		sx, flt_zero, flt_zero, sy,
+	};
+	return m_out;
+}
+
+ijk_inl fmat2 ijkMatRotateScale2f(float const angle_degrees, float const sx, float const sy)
+{
+	fmat2 m_out;
+	ijkTrigSinCos_deg_flt(angle_degrees, m_out.c0.xy + 1, m_out.c0.xy + 0);
+	m_out.m10 = -m_out.m01 * sy;
+	m_out.m11 = +m_out.m00 * sy;
+	m_out.m00 *= sx;
+	m_out.m01 *= sx;
+	return m_out;
+}
+
+ijk_inl fmat2 ijkMatGetRotate2f(fmat2 const m_in, float* const angle_degrees_out)
+{
+	*angle_degrees_out = ijkTrigAtan2_deg_flt(m_in.m01, m_in.m00);
+	return m_in;
+}
+
+ijk_inl fmat2 ijkMatGetScale2f(fmat2 const m_in, float* const sx_out, float* const sy_out)
+{
+	*sx_out = ijkVecLength2f(m_in.c0);
+	*sy_out = ijkVecLength2f(m_in.c1);
+	return m_in;
+}
+
+ijk_inl fmat2 ijkMatGetRotateScale2f(fmat2 const m_in, float* const angle_degrees_out, float* const sx_out, float* const sy_out)
+{
+	*angle_degrees_out = ijkTrigAtan2_deg_flt(m_in.m01, m_in.m00);
+	*sx_out = ijkVecLength2f(m_in.c0);
+	*sy_out = ijkVecLength2f(m_in.c1);
+	return m_in;
+}
 
 
 //-----------------------------------------------------------------------------
