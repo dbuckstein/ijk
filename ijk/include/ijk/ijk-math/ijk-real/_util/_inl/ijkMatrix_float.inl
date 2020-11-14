@@ -866,6 +866,7 @@ ijk_inl fmat4 ijkMatSub4f(fmat4 const m_lh, fmat4 const m_rh)
 
 ijk_inl f32 ijkMatDeterminant2fm(float2x2 const m_in)
 {
+	// det = m00 * m11 - m10 * m01
 	return ijkVecCross2fv(m_in[0], m_in[1]);
 }
 
@@ -900,6 +901,16 @@ ijk_inl float2m ijkMatTranspose2fm(float2x2 m_out, float2x2 const m_in)
 	m_out[1][0] = tmp;
 	m_out[0][0] = m_in[0][0];
 	m_out[1][1] = m_in[1][1];
+	return m_out;
+}
+
+ijk_inl float2m ijkMatTransposeMul2fms(float2x2 m_out, float2x2 const m_in, f32 const s)
+{
+	f32 const tmp = m_in[0][1];
+	m_out[0][1] = s * m_in[1][0];
+	m_out[1][0] = s * tmp;
+	m_out[0][0] = s * m_in[0][0];
+	m_out[1][1] = s * m_in[1][1];
 	return m_out;
 }
 
@@ -1059,9 +1070,9 @@ ijk_inl float2m ijkMatInverseTranspose2fm(float2x2 m_out, float2x2 const m_in)
 
 ijk_inl f32 ijkMatDeterminant3fm(float3x3 const m_in)
 {
-	return (m_in[0][2] * ijkVecCross2fv(m_in[1], m_in[2])
-		+	m_in[1][2] * ijkVecCross2fv(m_in[2], m_in[0])
-		+	m_in[2][2] * ijkVecCross2fv(m_in[0], m_in[1]));
+	// det = dot(c0, cross(c1, c2))
+	float3 cross;
+	return ijkVecDot3fv(m_in[0], ijkVecCross3fv(cross, m_in[1], m_in[2]));
 }
 
 ijk_inl f32 ijkMatDeterminantInv3fm(float3x3 const m_in)
@@ -1106,16 +1117,43 @@ ijk_inl float3m ijkMatTranspose3fm(float3x3 m_out, float3x3 const m_in)
 	return m_out;
 }
 
+ijk_inl float3m ijkMatTransposeMul3fms(float3x3 m_out, float3x3 const m_in, f32 const s)
+{
+	f32 tmp = m_in[0][1];
+	m_out[0][1] = s * m_in[1][0];
+	m_out[1][0] = s * tmp;
+	tmp = m_in[1][2];
+	m_out[1][2] = s * m_in[2][1];
+	m_out[2][1] = s * tmp;
+	tmp = m_in[2][0];
+	m_out[2][0] = s * m_in[0][2];
+	m_out[0][2] = s * tmp;
+	m_out[0][0] = s * m_in[0][0];
+	m_out[1][1] = s * m_in[1][1];
+	m_out[2][2] = s * m_in[2][2];
+	return m_out;
+}
+
 ijk_inl float3m ijkMatInverse3fm(float3x3 m_out, float3x3 const m_in)
 {
-
-	return m_out;
+	f32 detInv;
+	float3x3 cross;
+	ijkVecCross3fv(cross[0], m_in[1], m_in[2]);
+	ijkVecCross3fv(cross[1], m_in[2], m_in[0]);
+	ijkVecCross3fv(cross[2], m_in[0], m_in[1]);
+	detInv = ijkVecDot3fv(m_in[0], cross[0]);
+	return ijkMatTransposeMul3fms(m_out, cross, ijk_recip_flt(detInv));
 }
 
 ijk_inl float3m ijkMatInverseSafe3fm(float3x3 m_out, float3x3 const m_in)
 {
-
-	return m_out;
+	f32 detInv;
+	float3x3 cross;
+	ijkVecCross3fv(cross[0], m_in[1], m_in[2]);
+	ijkVecCross3fv(cross[1], m_in[2], m_in[0]);
+	ijkVecCross3fv(cross[2], m_in[0], m_in[1]);
+	detInv = ijkVecDot3fv(m_in[0], cross[0]);
+	return ijkMatTransposeMul3fms(m_out, cross, ijk_recip_safe_flt(detInv));
 }
 
 ijk_inl floatv ijkMatMulVec3fmv(float3 v_out, float3x3 const m_lh, float3 const v_rh)
@@ -1324,16 +1362,27 @@ ijk_inl fmat2 ijkMatTranspose2f(fmat2 const m_in)
 	return m_out;
 }
 
+ijk_inl fmat2 ijkMatTransposeMul2fs(fmat2 const m_in, float const s)
+{
+	fmat2 const m_out = {
+		(s * m_in.m00),
+		(s * m_in.m10),
+		(s * m_in.m01),
+		(s * m_in.m11),
+	};
+	return m_out;
+}
+
 ijk_inl fmat2 ijkMatInverse2f(fmat2 const m_in)
 {
 	// inv = adj/det
 	// adj = {{+m11,-m01},{-m10,+m00}}
 	float const detInv = ijkMatDeterminantInv2f(m_in);
 	fmat2 const adj_det = {
-		+m_in.m11 * detInv,
-		-m_in.m01 * detInv,
-		-m_in.m10 * detInv,
-		+m_in.m00 * detInv,
+		(+m_in.m11 * detInv),
+		(-m_in.m01 * detInv),
+		(-m_in.m10 * detInv),
+		(+m_in.m00 * detInv),
 	};
 	return adj_det;
 }
@@ -1342,10 +1391,10 @@ ijk_inl fmat2 ijkMatInverseSafe2f(fmat2 const m_in)
 {
 	float const detInv = ijkMatDeterminantInvSafe2f(m_in);
 	fmat2 const adj_det = {
-		+m_in.m11 * detInv,
-		-m_in.m01 * detInv,
-		-m_in.m10 * detInv,
-		+m_in.m00 * detInv,
+		(+m_in.m11 * detInv),
+		(-m_in.m01 * detInv),
+		(-m_in.m10 * detInv),
+		(+m_in.m00 * detInv),
 	};
 	return adj_det;
 }

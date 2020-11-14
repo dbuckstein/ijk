@@ -758,6 +758,15 @@ floatv ijkMatGetRow2fm(float2 v_out, float2x2 const m_in, index const row);
 //		return: m_out
 float2m ijkMatTranspose2fm(float2x2 m_out, float2x2 const m_in);
 
+// ijkMatTransposeMul2*ms
+//	Calculate transpose of 2x2 matrix (flip elements about diagonal), and 
+//	multiply elements by scalar.
+//		param m_out: output matrix, scaled transpose
+//		param m_in: input matrix
+//		param s: scalar multiplier
+//		return: m_out
+float2m ijkMatTransposeMul2fms(float2x2 m_out, float2x2 const m_in, f32 const s);
+
 // ijkMatInverse2*m
 //	Calculate inverse of 2x2 matrix; matrix multiplied by inverse is identity.
 //		param m_out: output matrix, inverse
@@ -926,6 +935,15 @@ floatv ijkMatGetRow3fm(float3 v_out, float3x3 const m_in, index const row);
 //		param m_in: input matrix
 //		return: m_out
 float3m ijkMatTranspose3fm(float3x3 m_out, float3x3 const m_in);
+
+// ijkMatTransposeMul3*ms
+//	Calculate transpose of 3x3 matrix (flip elements about diagonal), and 
+//	multiply elements by scalar.
+//		param m_out: output matrix, scaled transpose
+//		param m_in: input matrix
+//		param s: scalar multiplier
+//		return: m_out
+float3m ijkMatTransposeMul3fms(float3x3 m_out, float3x3 const m_in, f32 const s);
 
 // ijkMatInverse3*m
 //	Calculate inverse of 3x3 matrix; matrix multiplied by inverse is identity.
@@ -1235,6 +1253,14 @@ fvec2 ijkMatGetRow2f(fmat2 const m_in, index const row);
 //		param m_in: input matrix
 //		return: transpose matrix
 fmat2 ijkMatTranspose2f(fmat2 const m_in);
+
+// ijkMatTransposeMul2*s
+//	Calculate transpose of 2x2 matrix (flip elements about diagonal), and 
+//	multiply elements by scalar.
+//		param m_in: input matrix
+//		param s: scalar multiplier
+//		return: scaled transpose
+fmat2 ijkMatTransposeMul2fs(fmat2 const m_in, float const s);
 
 // ijkMatInverse2*
 //	Calculate inverse of 2x2 matrix; matrix multiplied by inverse is identity.
