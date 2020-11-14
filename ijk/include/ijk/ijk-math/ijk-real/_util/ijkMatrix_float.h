@@ -441,7 +441,129 @@ float2km ijkMatGetRotateScale2fm(float2x2 const m_in, f32* const angle_degrees_o
 
 //-----------------------------------------------------------------------------
 
-// 2D struct-based special
+// ijkMatDeterminant2*
+//	Calculate determinant of 2x2 matrix.
+//		param m_in: input matrix
+//		return: determinant
+float ijkMatDeterminant2f(fmat2 const m_in);
+
+// ijkMatDeterminantInv2*
+//	Calculate inverse determinant of 2x2 matrix.
+//		param m_in: input matrix
+//		return: determinant
+float ijkMatDeterminantInv2f(fmat2 const m_in);
+
+// ijkMatDeterminantInvSafe2*
+//	Calculate inverse determinant of 2x2 matrix; division-by-zero safety.
+//		param m_in: input matrix
+//		return: determinant
+float ijkMatDeterminantInvSafe2f(fmat2 const m_in);
+
+// ijkMatMulRowVec2*
+//	Get row as vector.
+//		param m_in: input matrix
+//		param v_in: input vector
+//		param row: matrix row index
+//		return: product of matrix row and v
+float ijkMatMulRowVec2f(fmat2 const m_in, fvec2 const v_in, index const row);
+
+// ijkMatGetRow2*
+//	Get row as vector.
+//		param m_in: input matrix
+//		param row: matrix row index
+//		return: vector of row elements
+fvec2 ijkMatGetRow2f(fmat2 const m_in, index const row);
+
+// ijkMatTranspose2*
+//	Calculate transpose of 2x2 matrix (flip elements about diagonal).
+//		param m_in: input matrix
+//		return: transpose matrix
+fmat2 ijkMatTranspose2f(fmat2 const m_in);
+
+// ijkMatInverse2*
+//	Calculate inverse of 2x2 matrix; matrix multiplied by inverse is identity.
+//		param m_in: input matrix
+//		return: inverse matrix
+fmat2 ijkMatInverse2f(fmat2 const m_in);
+
+// ijkMatInverseSafe2*
+//	Calculate inverse of 2x2 matrix; matrix multiplied by inverse is identity; 
+//	division-by-zero safety.
+//		param m_in: input matrix
+//		return: inverse matrix
+fmat2 ijkMatInverseSafe2f(fmat2 const m_in);
+
+// ijkMatMulVec2*
+//	Multiply 2D vector by 2x2 matrix.
+//		param m_lh: left-hand matrix
+//		param v_rh: right-hand vector
+//		return: product vector
+fvec2 ijkMatMulVec2f(fmat2 const m_lh, fvec2 const v_rh);
+
+// ijkMatMul2*
+//	Multiply 2x2 matrices (non-commutative).
+//		param m_lh: left-hand matrix
+//		param m_rh: right-hand matrix
+//		return: product matrix
+fmat2 ijkMatMul2f(fmat2 const m_lh, fmat2 const m_rh);
+
+// ijkMatDiv2*
+//	Divide 2x2 matrices (multiply left-hand by right-hand inverse).
+//		param m_out: output matrix, product
+//		param m_lh: left-hand matrix
+//		param m_rh: right-hand matrix
+//		return: quotient matrix
+fmat2 ijkMatDiv2f(fmat2 const m_lh, fmat2 const m_rh);
+
+// ijkMatDivSafe2*
+//	Divide 2x2 matrices (multiply left-hand by right-hand inverse); 
+//	division-by-zero safety.
+//		param m_lh: left-hand matrix
+//		param m_rh: right-hand matrix
+//		return: quotient matrix
+fmat2 ijkMatDivSafe2f(fmat2 const m_lh, fmat2 const m_rh);
+
+// ijkMatRotate2*
+//	Make 2D rotation matrix.
+//		param angle_degrees: input angle in degrees
+//		return: rotation matrix
+fmat2 ijkMatRotate2f(float const angle_degrees);
+
+// ijkMatScale2*
+//	Make 2D scale matrix.
+//		params sx, sy: scales on each dimension
+//		return: scale matrix
+fmat2 ijkMatScale2f(float const sx, float const sy);
+
+// ijkMatRotateScale2*
+//	Make 2D rotation-scale matrix.
+//		param angle_degrees: input angle in degrees
+//		params sx, sy: scales on each dimension
+//		return: rotation-scale matrix
+fmat2 ijkMatRotateScale2f(float const angle_degrees, float const sx, float const sy);
+
+// ijkMatGetRotate2*
+//	Extract rotation angle in degrees from 2D rotation matrix; assumes columns 
+//	are unit-length for optimization.
+//		param m_in: input matrix
+//		param angle_degrees_out: pointer to angle storage
+//		return: m_in
+fmat2 ijkMatGetRotate2f(fmat2 const m_in, float* const angle_degrees_out);
+
+// ijkMatGetScale2*
+//	Extract scales from 2D matrix.
+//		param m_in: input matrix
+//		params sx_out, sy_out: pointers to scale storage
+//		return: m_in
+fmat2 ijkMatGetScale2f(fmat2 const m_in, float* const sx_out, float* const sy_out);
+
+// ijkMatGetRotateScale2*
+//	Extract rotation angle in degrees and scales from 2D matrix.
+//		param m_in: input matrix
+//		param angle_degrees_out: pointer to angle storage
+//		params sx_out, sy_out: pointers to scale storage
+//		return: m_in
+fmat2 ijkMatGetRotateScale2f(fmat2 const m_in, float* const angle_degrees_out, float* const sx_out, float* const sy_out);
 
 
 //-----------------------------------------------------------------------------
