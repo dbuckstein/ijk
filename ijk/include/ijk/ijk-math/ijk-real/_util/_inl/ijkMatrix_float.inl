@@ -39,46 +39,36 @@ ijk_inl float2m ijkMatInit2fm(float2x2 m_out)
 
 ijk_inl float2m ijkMatInitElems2fm(float2x2 m_out, f32 const x0, f32 const y0, f32 const x1, f32 const y1)
 {
-	m_out[0][0] = x0;
-	m_out[0][1] = y0;
-	m_out[1][0] = x1;
-	m_out[1][1] = y1;
+	ijkVecInitElems2fv(m_out[0], x0, y0);
+	ijkVecInitElems2fv(m_out[1], x1, y1);
 	return m_out;
 }
 
 ijk_inl float2m ijkMatInitVecs2fm(float2x2 m_out, float2 const c0, float2 const c1)
 {
-	m_out[0][0] = c0[0];
-	m_out[0][1] = c0[1];
-	m_out[1][0] = c1[0];
-	m_out[1][1] = c1[1];
+	ijkVecCopy2fv(m_out[0], c0);
+	ijkVecCopy2fv(m_out[1], c1);
 	return m_out;
 }
 
 ijk_inl float2m ijkMatCopy2fm2(float2x2 m_out, float2x2 const m_in)
 {
-	m_out[0][0] = m_in[0][0];
-	m_out[0][1] = m_in[0][1];
-	m_out[1][0] = m_in[1][0];
-	m_out[1][1] = m_in[1][1];
+	ijkVecCopy2fv(m_out[0], m_in[0]);
+	ijkVecCopy2fv(m_out[1], m_in[1]);
 	return m_out;
 }
 
 ijk_inl float2m ijkMatCopy2fm3(float2x2 m_out, float3x3 const m_in)
 {
-	m_out[0][0] = m_in[0][0];
-	m_out[0][1] = m_in[0][1];
-	m_out[1][0] = m_in[1][0];
-	m_out[1][1] = m_in[1][1];
+	ijkVecCopy2fv(m_out[0], m_in[0]);
+	ijkVecCopy2fv(m_out[1], m_in[1]);
 	return m_out;
 }
 
 ijk_inl float2m ijkMatCopy2fm4(float2x2 m_out, float4x4 const m_in)
 {
-	m_out[0][0] = m_in[0][0];
-	m_out[0][1] = m_in[0][1];
-	m_out[1][0] = m_in[1][0];
-	m_out[1][1] = m_in[1][1];
+	ijkVecCopy2fv(m_out[0], m_in[0]);
+	ijkVecCopy2fv(m_out[1], m_in[1]);
 	return m_out;
 }
 
@@ -91,87 +81,320 @@ ijk_inl float2m ijkMatCopy2fms(float2x2 m_out, f32 const s_diag)
 
 ijk_inl float2m ijkMatMul2fms(float2x2 m_out, float2x2 const m_lh, f32 const s_rh)
 {
-	m_out[0][0] = m_lh[0][0] * s_rh;
-	m_out[0][1] = m_lh[0][1] * s_rh;
-	m_out[1][0] = m_lh[1][0] * s_rh;
-	m_out[1][1] = m_lh[1][1] * s_rh;
+	ijkVecMul2fvs(m_out[0], m_lh[0], s_rh);
+	ijkVecMul2fvs(m_out[1], m_lh[1], s_rh);
 	return m_out;
 }
 
 ijk_inl float2m ijkMatDiv2fms(float2x2 m_out, float2x2 const m_lh, f32 const s_rh)
 {
 	f32 const s = ijk_recip_flt(s_rh);
-	m_out[0][0] = m_lh[0][0] * s;
-	m_out[0][1] = m_lh[0][1] * s;
-	m_out[1][0] = m_lh[1][0] * s;
-	m_out[1][1] = m_lh[1][1] * s;
+	ijkVecMul2fvs(m_out[0], m_lh[0], s);
+	ijkVecMul2fvs(m_out[1], m_lh[1], s);
 	return m_out;
 }
 
 ijk_inl float2m ijkMatDivSafe2fms(float2x2 m_out, float2x2 const m_lh, f32 const s_rh)
 {
 	f32 const s = ijk_recip_safe_flt(s_rh);
-	m_out[0][0] = m_lh[0][0] * s;
-	m_out[0][1] = m_lh[0][1] * s;
-	m_out[1][0] = m_lh[1][0] * s;
-	m_out[1][1] = m_lh[1][1] * s;
+	ijkVecMul2fvs(m_out[0], m_lh[0], s);
+	ijkVecMul2fvs(m_out[1], m_lh[1], s);
 	return m_out;
 }
 
 ijk_inl float2m ijkMatMul2fsm(float2x2 m_out, f32 const s_lh, float2x2 const m_rh)
 {
-	m_out[0][0] = s_lh * m_rh[0][0];
-	m_out[0][1] = s_lh * m_rh[0][1];
-	m_out[1][0] = s_lh * m_rh[1][0];
-	m_out[1][1] = s_lh * m_rh[1][1];
+	ijkVecMul2fsv(m_out[0], s_lh, m_rh[0]);
+	ijkVecMul2fsv(m_out[1], s_lh, m_rh[1]);
 	return m_out;
 }
 
 ijk_inl float2m ijkMatDiv2fsm(float2x2 m_out, f32 const s_lh, float2x2 const m_rh)
 {
-	m_out[0][0] = s_lh / m_rh[0][0];
-	m_out[0][1] = s_lh / m_rh[0][1];
-	m_out[1][0] = s_lh / m_rh[1][0];
-	m_out[1][1] = s_lh / m_rh[1][1];
+	ijkVecDiv2fsv(m_out[0], s_lh, m_rh[0]);
+	ijkVecDiv2fsv(m_out[1], s_lh, m_rh[1]);
 	return m_out;
 }
 
 ijk_inl float2m ijkMatDivSafe2fsm(float2x2 m_out, f32 const s_lh, float2x2 const m_rh)
 {
-	m_out[0][0] = ijk_divide_safe_flt(s_lh, m_rh[0][0]);
-	m_out[0][1] = ijk_divide_safe_flt(s_lh, m_rh[0][1]);
-	m_out[1][0] = ijk_divide_safe_flt(s_lh, m_rh[1][0]);
-	m_out[1][1] = ijk_divide_safe_flt(s_lh, m_rh[1][1]);
+	ijkVecDivSafe2fsv(m_out[0], s_lh, m_rh[0]);
+	ijkVecDivSafe2fsv(m_out[1], s_lh, m_rh[1]);
 	return m_out;
 }
 
 ijk_inl float2m ijkMatAdd2fm(float2x2 m_out, float2x2 const m_lh, float2x2 const m_rh)
 {
-	m_out[0][0] = m_lh[0][0] + m_rh[0][0];
-	m_out[0][1] = m_lh[0][1] + m_rh[0][1];
-	m_out[1][0] = m_lh[1][0] + m_rh[1][0];
-	m_out[1][1] = m_lh[1][1] + m_rh[1][1];
+	ijkVecAdd2fv(m_out[0], m_lh[0], m_rh[0]);
+	ijkVecAdd2fv(m_out[1], m_lh[1], m_rh[1]);
 	return m_out;
 }
 
 ijk_inl float2m ijkMatSub2fm(float2x2 m_out, float2x2 const m_lh, float2x2 const m_rh)
 {
-	m_out[0][0] = m_lh[0][0] - m_rh[0][0];
-	m_out[0][1] = m_lh[0][1] - m_rh[0][1];
-	m_out[1][0] = m_lh[1][0] - m_rh[1][0];
-	m_out[1][1] = m_lh[1][1] - m_rh[1][1];
+	ijkVecSub2fv(m_out[0], m_lh[0], m_rh[0]);
+	ijkVecSub2fv(m_out[1], m_lh[1], m_rh[1]);
 	return m_out;
 }
 
 
 //-----------------------------------------------------------------------------
 
-// 3D array-based
+ijk_inl float3m ijkMatInit3fm(float3x3 m_out)
+{
+	m_out[0][0] = m_out[1][1] = m_out[2][2] = flt_one;
+	m_out[0][1] = m_out[0][2] = m_out[1][0] = m_out[1][2] = m_out[2][0] = m_out[2][1] = flt_zero;
+	return m_out;
+}
+
+ijk_inl float3m ijkMatInitElems3fm(float3x3 m_out, f32 const x0, f32 const y0, f32 const z0, f32 const x1, f32 const y1, f32 const z1, f32 const x2, f32 const y2, f32 const z2)
+{
+	ijkVecInitElems3fv(m_out[0], x0, y0, z0);
+	ijkVecInitElems3fv(m_out[1], x1, y1, z1);
+	ijkVecInitElems3fv(m_out[2], x2, y2, z2);
+	return m_out;
+}
+
+ijk_inl float3m ijkMatInitVecs3fm(float3x3 m_out, float3 const c0, float3 const c1, float3 const c2)
+{
+	ijkVecCopy3fv(m_out[0], c0);
+	ijkVecCopy3fv(m_out[1], c1);
+	ijkVecCopy3fv(m_out[2], c2);
+	return m_out;
+}
+
+ijk_inl float3m ijkMatCopy3fm2(float3x3 m_out, float2x2 const m_in)
+{
+	ijkVecCopy3fvz(m_out[0], m_in[0], flt_zero);
+	ijkVecCopy3fvz(m_out[1], m_in[1], flt_zero);
+	ijkVecCopy3fv(m_out[2], float3_z);
+	return m_out;
+}
+
+ijk_inl float3m ijkMatCopy3fm3(float3x3 m_out, float3x3 const m_in)
+{
+	ijkVecCopy3fv(m_out[0], m_in[0]);
+	ijkVecCopy3fv(m_out[1], m_in[1]);
+	ijkVecCopy3fv(m_out[2], m_in[2]);
+	return m_out;
+}
+
+ijk_inl float3m ijkMatCopy3fm4(float3x3 m_out, float4x4 const m_in)
+{
+	ijkVecCopy3fv(m_out[0], m_in[0]);
+	ijkVecCopy3fv(m_out[1], m_in[1]);
+	ijkVecCopy3fv(m_out[2], m_in[2]);
+	return m_out;
+}
+
+ijk_inl float3m ijkMatCopy3fms(float3x3 m_out, f32 const s_diag)
+{
+	m_out[0][0] = m_out[1][1] = m_out[2][2] = s_diag;
+	m_out[0][1] = m_out[0][2] = m_out[1][0] = m_out[1][2] = m_out[2][0] = m_out[2][1] = flt_zero;
+	return m_out;
+}
+
+ijk_inl float3m ijkMatMul3fms(float3x3 m_out, float3x3 const m_lh, f32 const s_rh)
+{
+	ijkVecMul3fvs(m_out[0], m_lh[0], s_rh);
+	ijkVecMul3fvs(m_out[1], m_lh[1], s_rh);
+	ijkVecMul3fvs(m_out[2], m_lh[2], s_rh);
+	return m_out;
+}
+
+ijk_inl float3m ijkMatDiv3fms(float3x3 m_out, float3x3 const m_lh, f32 const s_rh)
+{
+	f32 const s = ijk_recip_flt(s_rh);
+	ijkVecMul3fvs(m_out[0], m_lh[0], s);
+	ijkVecMul3fvs(m_out[1], m_lh[1], s);
+	ijkVecMul3fvs(m_out[2], m_lh[2], s);
+	return m_out;
+}
+
+ijk_inl float3m ijkMatDivSafe3fms(float3x3 m_out, float3x3 const m_lh, f32 const s_rh)
+{
+	f32 const s = ijk_recip_safe_flt(s_rh);
+	ijkVecMul3fvs(m_out[0], m_lh[0], s);
+	ijkVecMul3fvs(m_out[1], m_lh[1], s);
+	ijkVecMul3fvs(m_out[2], m_lh[2], s);
+	return m_out;
+}
+
+ijk_inl float3m ijkMatMul3fsm(float3x3 m_out, f32 const s_lh, float3x3 const m_rh)
+{
+	ijkVecMul3fsv(m_out[0], s_lh, m_rh[0]);
+	ijkVecMul3fsv(m_out[1], s_lh, m_rh[1]);
+	ijkVecMul3fsv(m_out[2], s_lh, m_rh[2]);
+	return m_out;
+}
+
+ijk_inl float3m ijkMatDiv3fsm(float3x3 m_out, f32 const s_lh, float3x3 const m_rh)
+{
+	ijkVecDiv3fsv(m_out[0], s_lh, m_rh[0]);
+	ijkVecDiv3fsv(m_out[1], s_lh, m_rh[1]);
+	ijkVecDiv3fsv(m_out[2], s_lh, m_rh[2]);
+	return m_out;
+}
+
+ijk_inl float3m ijkMatDivSafe3fsm(float3x3 m_out, f32 const s_lh, float3x3 const m_rh)
+{
+	ijkVecDivSafe3fsv(m_out[0], s_lh, m_rh[0]);
+	ijkVecDivSafe3fsv(m_out[1], s_lh, m_rh[1]);
+	ijkVecDivSafe3fsv(m_out[2], s_lh, m_rh[2]);
+	return m_out;
+}
+
+ijk_inl float3m ijkMatAdd3fm(float3x3 m_out, float3x3 const m_lh, float3x3 const m_rh)
+{
+	ijkVecAdd3fv(m_out[0], m_lh[0], m_rh[0]);
+	ijkVecAdd3fv(m_out[1], m_lh[1], m_rh[1]);
+	ijkVecAdd3fv(m_out[2], m_lh[2], m_rh[2]);
+	return m_out;
+}
+
+ijk_inl float3m ijkMatSub3fm(float3x3 m_out, float3x3 const m_lh, float3x3 const m_rh)
+{
+	ijkVecSub3fv(m_out[0], m_lh[0], m_rh[0]);
+	ijkVecSub3fv(m_out[1], m_lh[1], m_rh[1]);
+	ijkVecSub3fv(m_out[2], m_lh[2], m_rh[2]);
+	return m_out;
+}
 
 
 //-----------------------------------------------------------------------------
 
-// 4D array-based
+ijk_inl float4m ijkMatInit4fm(float4x4 m_out)
+{
+	m_out[0][0] = m_out[1][1] = m_out[2][2] = m_out[3][3] = flt_one;
+	m_out[0][1] = m_out[0][2] = m_out[0][3] = m_out[1][0] = m_out[1][2] = m_out[1][3] = m_out[2][0] = m_out[2][1] = m_out[2][3] = m_out[3][0] = m_out[3][1] = m_out[3][2] = flt_zero;
+	return m_out;
+}
+
+ijk_inl float4m ijkMatInitElems4fm(float4x4 m_out, f32 const x0, f32 const y0, f32 const z0, f32 const w0, f32 const x1, f32 const y1, f32 const z1, f32 const w1, f32 const x2, f32 const y2, f32 const z2, f32 const w2, f32 const x3, f32 const y3, f32 const z3, f32 const w3)
+{
+	ijkVecInitElems4fv(m_out[0], x0, y0, z0, w0);
+	ijkVecInitElems4fv(m_out[1], x1, y1, z1, w1);
+	ijkVecInitElems4fv(m_out[2], x2, y2, z2, w2);
+	ijkVecInitElems4fv(m_out[3], x3, y3, z3, w3);
+	return m_out;
+}
+
+ijk_inl float4m ijkMatInitVecs4fm(float4x4 m_out, float4 const c0, float4 const c1, float4 const c2, float4 const c3)
+{
+	ijkVecCopy4fv(m_out[0], c0);
+	ijkVecCopy4fv(m_out[1], c1);
+	ijkVecCopy4fv(m_out[2], c2);
+	ijkVecCopy4fv(m_out[3], c3);
+	return m_out;
+}
+
+ijk_inl float4m ijkMatCopy4fm2(float4x4 m_out, float2x2 const m_in)
+{
+	ijkVecCopy4fvzw(m_out[0], m_in[0], flt_zero, flt_zero);
+	ijkVecCopy4fvzw(m_out[1], m_in[1], flt_zero, flt_zero);
+	ijkVecCopy4fv(m_out[2], float4_z);
+	ijkVecCopy4fv(m_out[3], float4_w);
+	return m_out;
+}
+
+ijk_inl float4m ijkMatCopy4fm3(float4x4 m_out, float3x3 const m_in)
+{
+	ijkVecCopy4fvw(m_out[0], m_in[0], flt_zero);
+	ijkVecCopy4fvw(m_out[1], m_in[1], flt_zero);
+	ijkVecCopy4fvw(m_out[2], m_in[2], flt_zero);
+	ijkVecCopy4fv(m_out[3], float4_w);
+	return m_out;
+}
+
+ijk_inl float4m ijkMatCopy4fm4(float4x4 m_out, float4x4 const m_in)
+{
+	ijkVecCopy4fv(m_out[0], m_in[0]);
+	ijkVecCopy4fv(m_out[1], m_in[1]);
+	ijkVecCopy4fv(m_out[2], m_in[2]);
+	ijkVecCopy4fv(m_out[3], m_in[3]);
+	return m_out;
+}
+
+ijk_inl float4m ijkMatCopy4fms(float4x4 m_out, f32 const s_diag)
+{
+	m_out[0][0] = m_out[1][1] = m_out[2][2] = m_out[3][3] = s_diag;
+	m_out[0][1] = m_out[0][2] = m_out[0][3] = m_out[1][0] = m_out[1][2] = m_out[1][3] = m_out[2][0] = m_out[2][1] = m_out[2][3] = m_out[3][0] = m_out[3][1] = m_out[3][2] = flt_zero;
+	return m_out;
+}
+
+ijk_inl float4m ijkMatMul4fms(float4x4 m_out, float4x4 const m_lh, f32 const s_rh)
+{
+	ijkVecMul4fvs(m_out[0], m_lh[0], s_rh);
+	ijkVecMul4fvs(m_out[1], m_lh[1], s_rh);
+	ijkVecMul4fvs(m_out[2], m_lh[2], s_rh);
+	ijkVecMul4fvs(m_out[3], m_lh[3], s_rh);
+	return m_out;
+}
+
+ijk_inl float4m ijkMatDiv4fms(float4x4 m_out, float4x4 const m_lh, f32 const s_rh)
+{
+	f32 const s = ijk_recip_flt(s_rh);
+	ijkVecMul4fvs(m_out[0], m_lh[0], s);
+	ijkVecMul4fvs(m_out[1], m_lh[1], s);
+	ijkVecMul4fvs(m_out[2], m_lh[2], s);
+	ijkVecMul4fvs(m_out[3], m_lh[3], s);
+	return m_out;
+}
+
+ijk_inl float4m ijkMatDivSafe4fms(float4x4 m_out, float4x4 const m_lh, f32 const s_rh)
+{
+	f32 const s = ijk_recip_safe_flt(s_rh);
+	ijkVecMul4fvs(m_out[0], m_lh[0], s);
+	ijkVecMul4fvs(m_out[1], m_lh[1], s);
+	ijkVecMul4fvs(m_out[2], m_lh[2], s);
+	ijkVecMul4fvs(m_out[3], m_lh[3], s);
+	return m_out;
+}
+
+ijk_inl float4m ijkMatMul4fsm(float4x4 m_out, f32 const s_lh, float4x4 const m_rh)
+{
+	ijkVecMul4fsv(m_out[0], s_lh, m_rh[0]);
+	ijkVecMul4fsv(m_out[1], s_lh, m_rh[1]);
+	ijkVecMul4fsv(m_out[2], s_lh, m_rh[2]);
+	ijkVecMul4fsv(m_out[3], s_lh, m_rh[3]);
+	return m_out;
+}
+
+ijk_inl float4m ijkMatDiv4fsm(float4x4 m_out, f32 const s_lh, float4x4 const m_rh)
+{
+	ijkVecDiv4fsv(m_out[0], s_lh, m_rh[0]);
+	ijkVecDiv4fsv(m_out[1], s_lh, m_rh[1]);
+	ijkVecDiv4fsv(m_out[2], s_lh, m_rh[2]);
+	ijkVecDiv4fsv(m_out[3], s_lh, m_rh[3]);
+	return m_out;
+}
+
+ijk_inl float4m ijkMatDivSafe4fsm(float4x4 m_out, f32 const s_lh, float4x4 const m_rh)
+{
+	ijkVecDivSafe4fsv(m_out[0], s_lh, m_rh[0]);
+	ijkVecDivSafe4fsv(m_out[1], s_lh, m_rh[1]);
+	ijkVecDivSafe4fsv(m_out[2], s_lh, m_rh[2]);
+	ijkVecDivSafe4fsv(m_out[3], s_lh, m_rh[3]);
+	return m_out;
+}
+
+ijk_inl float4m ijkMatAdd4fm(float4x4 m_out, float4x4 const m_lh, float4x4 const m_rh)
+{
+	ijkVecAdd4fv(m_out[0], m_lh[0], m_rh[0]);
+	ijkVecAdd4fv(m_out[1], m_lh[1], m_rh[1]);
+	ijkVecAdd4fv(m_out[2], m_lh[2], m_rh[2]);
+	ijkVecAdd4fv(m_out[3], m_lh[3], m_rh[3]);
+	return m_out;
+}
+
+ijk_inl float4m ijkMatSub4fm(float4x4 m_out, float4x4 const m_lh, float4x4 const m_rh)
+{
+	ijkVecSub4fv(m_out[0], m_lh[0], m_rh[0]);
+	ijkVecSub4fv(m_out[1], m_lh[1], m_rh[1]);
+	ijkVecSub4fv(m_out[2], m_lh[2], m_rh[2]);
+	ijkVecSub4fv(m_out[3], m_lh[3], m_rh[3]);
+	return m_out;
+}
 
 
 //-----------------------------------------------------------------------------
@@ -366,10 +589,10 @@ ijk_inl floatv ijkMatGetRow2fm(float2 v_out, float2x2 const m_in, index const ro
 
 ijk_inl float2m ijkMatTranspose2fm(float2x2 m_out, float2x2 const m_in)
 {
-	f32 const m01 = m_in[0][1];
+	f32 const tmp = m_in[0][1];
 	m_out[0][0] = m_in[0][0];
 	m_out[0][1] = m_in[1][0];
-	m_out[1][0] = m01;
+	m_out[1][0] = tmp;
 	m_out[1][1] = m_in[1][1];
 	return m_out;
 }
