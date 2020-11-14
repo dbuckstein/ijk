@@ -190,6 +190,14 @@ extern "C" {
 
 //-----------------------------------------------------------------------------
 	
+// ijkMatMul2*mv
+//	Multiply 2D vector by 2x2 matrix.
+//		param v_out: output vector, product
+//		param m_lh: left-hand matrix
+//		param v_rh: right-hand vector
+//		return: m_out
+floatv ijkMatMul2fmv(float2 v_out, float2x2 const m_lh, float2 const v_rh);
+
 // ijkMatMul2*m
 //	Multiply 2x2 matrices (non-commutative).
 //		param m_out: output matrix, product
