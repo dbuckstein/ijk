@@ -501,12 +501,212 @@ fmat2 ijkMatSub2f(fmat2 const m_lh, fmat2 const m_rh);
 
 //-----------------------------------------------------------------------------
 
-// 3D struct-based
+// ijkMatInit3*
+//	Initialize 3x3 matrix to default (identity: ones along the diagonal).
+//		return: identity matrix
+fmat3 ijkMatInit3f();
+
+// ijkMatInitElems3*
+//	Initialize 3x3 matrix given elements.
+//		params x0, y0, z0: elements of first column
+//		params x1, y1, z1: elements of second column
+//		params x2, y2, z2: elements of third column
+//		return: matrix of elements
+fmat3 ijkMatInitElems3f(float const x0, float const y0, float const z0, float const x1, float const y1, float const z1, float const x2, float const y2, float const z2);
+
+// ijkMatInitVecs3*
+//	Initialize 3x3 matrix given column vectors.
+//		param c0: first column vector
+//		param c1: second column vector
+//		param c2: third column vector
+//		return: matrix of columns
+fmat3 ijkMatInitVecs3f(fvec3 const c0, fvec3 const c1, fvec3 const c2);
+
+// ijkMatCopy3*2
+//	Copy 3x3 matrix from 2x2 matrix; fill the rest as identity.
+//		param m_in: input matrix
+//		return: copy of input
+fmat3 ijkMatCopy3f2(fmat2 const m_in);
+
+// ijkMatCopy3*3
+//	Copy 3x3 matrix from 3x3 matrix.
+//		param m_in: input matrix
+//		return: copy of input
+fmat3 ijkMatCopy3f3(fmat3 const m_in);
+
+// ijkMatCopy3*4
+//	Copy 3x3 matrix from 4x4 matrix.
+//		param m_in: input matrix
+//		return: copy of input's upper-left 3x3 matrix
+fmat3 ijkMatCopy3f4(fmat4 const m_in);
+
+// ijkMatCopy3*s
+//	Copy 3x3 matrix diagonal from scalar (scalar along the diagonal).
+//		param s_diag: input scalar assigned to diagonal elements
+//		return: diagonal matrix
+fmat3 ijkMatCopy3fs(float const s_diag);
+
+// ijkMatMul3*s
+//	Multiply 3x3 matrix by scalar.
+//		param m_lh: left-hand matrix
+//		param s_rh: right-hand scalar
+//		return: product
+fmat3 ijkMatMul3fs(fmat3 const m_lh, float const s_rh);
+
+// ijkMatDiv3*s
+//	Divide 3x3 matrix elements by scalar.
+//		param m_lh: left-hand matrix
+//		param s_rh: right-hand scalar
+//		return: quotient
+fmat3 ijkMatDiv3fs(fmat3 const m_lh, float const s_rh);
+
+// ijkMatDivSafe3*s
+//	Divide 3x3 matrix elements by scalar; division-by-zero safety.
+//		param m_lh: left-hand matrix
+//		param s_rh: right-hand scalar
+//		return: quotient
+fmat3 ijkMatDivSafe3fs(fmat3 const m_lh, float const s_rh);
+
+// ijkMatMul3*s
+//	Multiply scalar by 3x3 matrix elements.
+//		param s_lh: left-hand scalar
+//		param m_rh: right-hand matrix
+//		return: component-wise product
+fmat3 ijkMatMul3sf(float const s_lh, fmat3 const m_rh);
+
+// ijkMatDiv3*s
+//	Divide scalar by 3x3 matrix elements.
+//		param s_lh: left-hand scalar
+//		param m_rh: right-hand matrix
+//		return: component-wise quotient
+fmat3 ijkMatDiv3sf(float const s_lh, fmat3 const m_rh);
+
+// ijkMatDivSafe3*s
+//	Divide scalar by 3x3 matrix elements; division-by-zero safety.
+//		param s_lh: left-hand scalar
+//		param m_rh: right-hand matrix
+//		return: component-wise quotient
+fmat3 ijkMatDivSafe3sf(float const s_lh, fmat3 const m_rh);
+
+// ijkMatAdd3*
+//	Add 3x3 matrices.
+//		param m_lh: left-hand matrix
+//		param m_rh: right-hand matrix
+//		return: sum of inputs
+fmat3 ijkMatAdd3f(fmat3 const m_lh, fmat3 const m_rh);
+
+// ijkMatSub3*
+//	Subtract 3x3 matrices.
+//		param m_lh: left-hand matrix
+//		param m_rh: right-hand matrix
+//		return: difference of inputs
+fmat3 ijkMatSub3f(fmat3 const m_lh, fmat3 const m_rh);
 
 
 //-----------------------------------------------------------------------------
 
-// 4D struct-based
+// ijkMatInit4*
+//	Initialize 4x4 matrix to default (identity: ones along the diagonal).
+//		return: identity matrix
+fmat4 ijkMatInit4f();
+
+// ijkMatInitElems4*
+//	Initialize 4x4 matrix given elements.
+//		params x0, y0, z0, w0: elements of first column
+//		params x1, y1, z1, w1: elements of second column
+//		params x2, y2, z2, w2: elements of third column
+//		params x3, y3, z3, w3: elements of fourth column
+//		return: matrix of elements
+fmat4 ijkMatInitElems4f(float const x0, float const y0, float const z0, float const w0, float const x1, float const y1, float const z1, float const w1, float const x2, float const y2, float const z2, float const w2, float const x3, float const y3, float const z3, float const w3);
+
+// ijkMatInitVecs4*
+//	Initialize 4x4 matrix given column vectors.
+//		param c0: first column vector
+//		param c1: second column vector
+//		param c2: third column vector
+//		param c3: fourth column vector
+//		return: matrix of columns
+fmat4 ijkMatInitVecs4f(fvec4 const c0, fvec4 const c1, fvec4 const c2, fvec4 const c3);
+
+// ijkMatCopy4*2
+//	Copy 4x4 matrix from 2x2 matrix; fill the rest as identity.
+//		param m_in: input matrix
+//		return: copy of input
+fmat4 ijkMatCopy4f2(fmat2 const m_in);
+
+// ijkMatCopy4*3
+//	Copy 4x4 matrix from 3x3 matrix; fill the rest as identity.
+//		param m_in: input matrix
+//		return: copy of input
+fmat4 ijkMatCopy4f3(fmat3 const m_in);
+
+// ijkMatCopy4*4
+//	Copy 4x4 matrix from 4x4 matrix.
+//		param m_in: input matrix
+//		return: copy of input
+fmat4 ijkMatCopy4f4(fmat4 const m_in);
+
+// ijkMatCopy4*s
+//	Copy 4x4 matrix diagonal from scalar (scalar along the diagonal).
+//		param s_diag: input scalar assigned to diagonal elements
+//		return: diagonal matrix
+fmat4 ijkMatCopy4fs(float const s_diag);
+
+// ijkMatMul4*s
+//	Multiply 4x4 matrix by scalar.
+//		param m_lh: left-hand matrix
+//		param s_rh: right-hand scalar
+//		return: product
+fmat4 ijkMatMul4fs(fmat4 const m_lh, float const s_rh);
+
+// ijkMatDiv4*s
+//	Divide 4x4 matrix elements by scalar.
+//		param m_lh: left-hand matrix
+//		param s_rh: right-hand scalar
+//		return: quotient
+fmat4 ijkMatDiv4fs(fmat4 const m_lh, float const s_rh);
+
+// ijkMatDivSafe4*s
+//	Divide 4x4 matrix elements by scalar; division-by-zero safety.
+//		param m_lh: left-hand matrix
+//		param s_rh: right-hand scalar
+//		return: quotient
+fmat4 ijkMatDivSafe4fs(fmat4 const m_lh, float const s_rh);
+
+// ijkMatMul4*s
+//	Multiply scalar by 4x4 matrix elements.
+//		param s_lh: left-hand scalar
+//		param m_rh: right-hand matrix
+//		return: component-wise product
+fmat4 ijkMatMul4sf(float const s_lh, fmat4 const m_rh);
+
+// ijkMatDiv4*s
+//	Divide scalar by 4x4 matrix elements.
+//		param s_lh: left-hand scalar
+//		param m_rh: right-hand matrix
+//		return: component-wise quotient
+fmat4 ijkMatDiv4sf(float const s_lh, fmat4 const m_rh);
+
+// ijkMatDivSafe4*s
+//	Divide scalar by 4x4 matrix elements; division-by-zero safety.
+//		param s_lh: left-hand scalar
+//		param m_rh: right-hand matrix
+//		return: component-wise quotient
+fmat4 ijkMatDivSafe4sf(float const s_lh, fmat4 const m_rh);
+
+// ijkMatAdd4*
+//	Add 4x4 matrices.
+//		param m_lh: left-hand matrix
+//		param m_rh: right-hand matrix
+//		return: sum of inputs
+fmat4 ijkMatAdd4f(fmat4 const m_lh, fmat4 const m_rh);
+
+// ijkMatSub4*
+//	Subtract 4x4 matrices.
+//		param m_lh: left-hand matrix
+//		param m_rh: right-hand matrix
+//		return: difference of inputs
+fmat4 ijkMatSub4f(fmat4 const m_lh, fmat4 const m_rh);
 
 
 //-----------------------------------------------------------------------------

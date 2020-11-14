@@ -402,7 +402,8 @@ ijk_inl float4m ijkMatSub4fm(float4x4 m_out, float4x4 const m_lh, float4x4 const
 ijk_inl fmat2 ijkMatInit2f()
 {
 	fmat2 const m_out = {
-		flt_one, flt_zero, flt_zero, flt_one,
+		flt_one, flt_zero,
+		flt_zero, flt_one,
 	};
 	return m_out;
 }
@@ -410,7 +411,8 @@ ijk_inl fmat2 ijkMatInit2f()
 ijk_inl fmat2 ijkMatInitElems2f(float const x0, float const y0, float const x1, float const y1)
 {
 	fmat2 const m_out = {
-		x0, y0, x1, y1,
+		x0, y0,
+		x1, y1,
 	};
 	return m_out;
 }
@@ -418,7 +420,8 @@ ijk_inl fmat2 ijkMatInitElems2f(float const x0, float const y0, float const x1, 
 ijk_inl fmat2 ijkMatInitVecs2f(fvec2 const c0, fvec2 const c1)
 {
 	fmat2 const m_out = {
-		c0.x, c0.y, c1.x, c1.y,
+		c0.x, c0.y,
+		c1.x, c1.y,
 	};
 	return m_out;
 }
@@ -426,7 +429,8 @@ ijk_inl fmat2 ijkMatInitVecs2f(fvec2 const c0, fvec2 const c1)
 ijk_inl fmat2 ijkMatCopy2f2(fmat2 const m_in)
 {
 	fmat2 const m_out = {
-		m_in.x0, m_in.y0, m_in.x1, m_in.y1,
+		m_in.x0, m_in.y0,
+		m_in.x1, m_in.y1,
 	};
 	return m_out;
 }
@@ -434,7 +438,8 @@ ijk_inl fmat2 ijkMatCopy2f2(fmat2 const m_in)
 ijk_inl fmat2 ijkMatCopy2f3(fmat3 const m_in)
 {
 	fmat2 const m_out = {
-		m_in.x0, m_in.y0, m_in.x1, m_in.y1,
+		m_in.x0, m_in.y0,
+		m_in.x1, m_in.y1,
 	};
 	return m_out;
 }
@@ -442,7 +447,8 @@ ijk_inl fmat2 ijkMatCopy2f3(fmat3 const m_in)
 ijk_inl fmat2 ijkMatCopy2f4(fmat4 const m_in)
 {
 	fmat2 const m_out = {
-		m_in.x0, m_in.y0, m_in.x1, m_in.y1,
+		m_in.x0, m_in.y0,
+		m_in.x1, m_in.y1,
 	};
 	return m_out;
 }
@@ -450,7 +456,8 @@ ijk_inl fmat2 ijkMatCopy2f4(fmat4 const m_in)
 ijk_inl fmat2 ijkMatCopy2fs(float const s_diag)
 {
 	fmat2 const m_out = {
-		s_diag, flt_zero, flt_zero, s_diag,
+		s_diag, flt_zero,
+		flt_zero, s_diag,
 	};
 	return m_out;
 }
@@ -458,10 +465,8 @@ ijk_inl fmat2 ijkMatCopy2fs(float const s_diag)
 ijk_inl fmat2 ijkMatMul2fs(fmat2 const m_lh, float const s_rh)
 {
 	fmat2 const m_out = {
-		m_lh.m00 * s_rh,
-		m_lh.m01 * s_rh,
-		m_lh.m10 * s_rh,
-		m_lh.m11 * s_rh,
+		(m_lh.x0 * s_rh), (m_lh.y0 * s_rh),
+		(m_lh.x1 * s_rh), (m_lh.y1 * s_rh),
 	};
 	return m_out;
 }
@@ -470,10 +475,8 @@ ijk_inl fmat2 ijkMatDiv2fs(fmat2 const m_lh, float const s_rh)
 {
 	float const s = ijk_recip_flt(s_rh);
 	fmat2 const m_out = {
-		m_lh.m00 * s,
-		m_lh.m01 * s,
-		m_lh.m10 * s,
-		m_lh.m11 * s,
+		(m_lh.x0 * s), (m_lh.y0 * s),
+		(m_lh.x1 * s), (m_lh.y1 * s),
 	};
 	return m_out;
 }
@@ -482,10 +485,8 @@ ijk_inl fmat2 ijkMatDivSafe2fs(fmat2 const m_lh, float const s_rh)
 {
 	float const s = ijk_recip_safe_flt(s_rh);
 	fmat2 const m_out = {
-		m_lh.m00 * s,
-		m_lh.m01 * s,
-		m_lh.m10 * s,
-		m_lh.m11 * s,
+		(m_lh.x0 * s), (m_lh.y0 * s),
+		(m_lh.x1 * s), (m_lh.y1 * s),
 	};
 	return m_out;
 }
@@ -493,10 +494,8 @@ ijk_inl fmat2 ijkMatDivSafe2fs(fmat2 const m_lh, float const s_rh)
 ijk_inl fmat2 ijkMatMul2sf(float const s_lh, fmat2 const m_rh)
 {
 	fmat2 const m_out = {
-		s_lh * m_rh.m00,
-		s_lh * m_rh.m01,
-		s_lh * m_rh.m10,
-		s_lh * m_rh.m11,
+		(s_lh * m_rh.x0), (s_lh * m_rh.y0),
+		(s_lh * m_rh.x1), (s_lh * m_rh.y1),
 	};
 	return m_out;
 }
@@ -504,10 +503,8 @@ ijk_inl fmat2 ijkMatMul2sf(float const s_lh, fmat2 const m_rh)
 ijk_inl fmat2 ijkMatDiv2sf(float const s_lh, fmat2 const m_rh)
 {
 	fmat2 const m_out = {
-		s_lh / m_rh.m00,
-		s_lh / m_rh.m01,
-		s_lh / m_rh.m10,
-		s_lh / m_rh.m11,
+		(s_lh / m_rh.x0), (s_lh / m_rh.y0),
+		(s_lh / m_rh.x1), (s_lh / m_rh.y1),
 	};
 	return m_out;
 }
@@ -515,10 +512,8 @@ ijk_inl fmat2 ijkMatDiv2sf(float const s_lh, fmat2 const m_rh)
 ijk_inl fmat2 ijkMatDivSafe2sf(float const s_lh, fmat2 const m_rh)
 {
 	fmat2 const m_out = {
-		ijk_divide_safe_flt(s_lh, m_rh.m00),
-		ijk_divide_safe_flt(s_lh, m_rh.m01),
-		ijk_divide_safe_flt(s_lh, m_rh.m10),
-		ijk_divide_safe_flt(s_lh, m_rh.m11),
+		ijk_divide_safe_flt(s_lh, m_rh.x0), ijk_divide_safe_flt(s_lh, m_rh.y0),
+		ijk_divide_safe_flt(s_lh, m_rh.x1), ijk_divide_safe_flt(s_lh, m_rh.y1),
 	};
 	return m_out;
 }
@@ -526,10 +521,8 @@ ijk_inl fmat2 ijkMatDivSafe2sf(float const s_lh, fmat2 const m_rh)
 ijk_inl fmat2 ijkMatAdd2f(fmat2 const m_lh, fmat2 const m_rh)
 {
 	fmat2 const m_out = {
-		m_lh.m00 + m_rh.m00,
-		m_lh.m01 + m_rh.m01,
-		m_lh.m10 + m_rh.m10,
-		m_lh.m11 + m_rh.m11,
+		(m_lh.x0 + m_rh.x0), (m_lh.y0 + m_rh.y0),
+		(m_lh.x1 + m_rh.x1), (m_lh.y1 + m_rh.y1),
 	};
 	return m_out;
 }
@@ -537,10 +530,8 @@ ijk_inl fmat2 ijkMatAdd2f(fmat2 const m_lh, fmat2 const m_rh)
 ijk_inl fmat2 ijkMatSub2f(fmat2 const m_lh, fmat2 const m_rh)
 {
 	fmat2 const m_out = {
-		m_lh.m00 - m_rh.m00,
-		m_lh.m01 - m_rh.m01,
-		m_lh.m10 - m_rh.m10,
-		m_lh.m11 - m_rh.m11,
+		(m_lh.x0 - m_rh.x0), (m_lh.y0 - m_rh.y0),
+		(m_lh.x1 - m_rh.x1), (m_lh.y1 - m_rh.y1),
 	};
 	return m_out;
 }
@@ -548,12 +539,327 @@ ijk_inl fmat2 ijkMatSub2f(fmat2 const m_lh, fmat2 const m_rh)
 
 //-----------------------------------------------------------------------------
 
-// 3D struct-based
+ijk_inl fmat3 ijkMatInit3f()
+{
+	fmat3 const m_out = {
+		flt_one, flt_zero, flt_zero,
+		flt_zero, flt_one, flt_zero,
+		flt_zero, flt_zero, flt_one,
+	};
+	return m_out;
+}
+
+ijk_inl fmat3 ijkMatInitElems3f(float const x0, float const y0, float const z0, float const x1, float const y1, float const z1, float const x2, float const y2, float const z2)
+{
+	fmat3 const m_out = {
+		x0, y0, z0,
+		x1, y1, z1,
+		x2, y2, z2,
+	};
+	return m_out;
+}
+
+ijk_inl fmat3 ijkMatInitVecs3f(fvec3 const c0, fvec3 const c1, fvec3 const c2)
+{
+	fmat3 const m_out = {
+		c0.x, c0.y, c0.z,
+		c1.x, c1.y, c1.z,
+		c2.x, c2.y, c2.z,
+	};
+	return m_out;
+}
+
+ijk_inl fmat3 ijkMatCopy3f2(fmat2 const m_in)
+{
+	fmat3 const m_out = {
+		m_in.x0, m_in.y0, flt_zero,
+		m_in.x1, m_in.y1, flt_zero,
+		flt_zero, flt_zero, flt_one,
+	};
+	return m_out;
+}
+
+ijk_inl fmat3 ijkMatCopy3f3(fmat3 const m_in)
+{
+	fmat3 const m_out = {
+		m_in.x0, m_in.y0, m_in.z0,
+		m_in.x1, m_in.y1, m_in.z1,
+		m_in.x2, m_in.y2, m_in.z2,
+	};
+	return m_out;
+}
+
+ijk_inl fmat3 ijkMatCopy3f4(fmat4 const m_in)
+{
+	fmat3 const m_out = {
+		m_in.x0, m_in.y0, m_in.z0,
+		m_in.x1, m_in.y1, m_in.z1,
+		m_in.x2, m_in.y2, m_in.z2,
+	};
+	return m_out;
+}
+
+ijk_inl fmat3 ijkMatCopy3fs(float const s_diag)
+{
+	fmat3 const m_out = {
+		s_diag, flt_zero, flt_zero,
+		flt_zero, s_diag, flt_zero,
+		flt_zero, flt_zero, s_diag,
+	};
+	return m_out;
+}
+
+ijk_inl fmat3 ijkMatMul3fs(fmat3 const m_lh, float const s_rh)
+{
+	fmat3 const m_out = {
+		(m_lh.x0 * s_rh), (m_lh.y0 * s_rh), (m_lh.z0* s_rh),
+		(m_lh.x1 * s_rh), (m_lh.y1 * s_rh), (m_lh.z1* s_rh),
+		(m_lh.x2 * s_rh), (m_lh.y2 * s_rh), (m_lh.z2* s_rh),
+	};
+	return m_out;
+}
+
+ijk_inl fmat3 ijkMatDiv3fs(fmat3 const m_lh, float const s_rh)
+{
+	float const s = ijk_recip_flt(s_rh);
+	fmat3 const m_out = {
+		(m_lh.x0 * s), (m_lh.y0 * s), (m_lh.z0 * s),
+		(m_lh.x1 * s), (m_lh.y1 * s), (m_lh.z1 * s),
+		(m_lh.x2 * s), (m_lh.y2 * s), (m_lh.z2 * s),
+	};
+	return m_out;
+}
+
+ijk_inl fmat3 ijkMatDivSafe3fs(fmat3 const m_lh, float const s_rh)
+{
+	float const s = ijk_recip_safe_flt(s_rh);
+	fmat3 const m_out = {
+		(m_lh.x0 * s), (m_lh.y0 * s), (m_lh.z0 * s),
+		(m_lh.x1 * s), (m_lh.y1 * s), (m_lh.z1 * s),
+		(m_lh.x2 * s), (m_lh.y2 * s), (m_lh.z2 * s),
+	};
+	return m_out;
+}
+
+ijk_inl fmat3 ijkMatMul3sf(float const s_lh, fmat3 const m_rh)
+{
+	fmat3 const m_out = {
+		(s_lh * m_rh.x0), (s_lh * m_rh.y0), (s_lh * m_rh.z0),
+		(s_lh * m_rh.x1), (s_lh * m_rh.y1), (s_lh * m_rh.z1),
+		(s_lh * m_rh.x2), (s_lh * m_rh.y2), (s_lh * m_rh.z2),
+	};
+	return m_out;
+}
+
+ijk_inl fmat3 ijkMatDiv3sf(float const s_lh, fmat3 const m_rh)
+{
+	fmat3 const m_out = {
+		(s_lh / m_rh.x0), (s_lh / m_rh.y0), (s_lh / m_rh.z0),
+		(s_lh / m_rh.x1), (s_lh / m_rh.y1), (s_lh / m_rh.z1),
+		(s_lh / m_rh.x2), (s_lh / m_rh.y2), (s_lh / m_rh.z2),
+	};
+	return m_out;
+}
+
+ijk_inl fmat3 ijkMatDivSafe3sf(float const s_lh, fmat3 const m_rh)
+{
+	fmat3 const m_out = {
+		ijk_divide_safe_flt(s_lh, m_rh.x0), ijk_divide_safe_flt(s_lh, m_rh.y0), ijk_divide_safe_flt(s_lh, m_rh.z0),
+		ijk_divide_safe_flt(s_lh, m_rh.x1), ijk_divide_safe_flt(s_lh, m_rh.y1), ijk_divide_safe_flt(s_lh, m_rh.z1),
+		ijk_divide_safe_flt(s_lh, m_rh.x2), ijk_divide_safe_flt(s_lh, m_rh.y2), ijk_divide_safe_flt(s_lh, m_rh.z2),
+	};
+	return m_out;
+}
+
+ijk_inl fmat3 ijkMatAdd3f(fmat3 const m_lh, fmat3 const m_rh)
+{
+	fmat3 const m_out = {
+		(m_lh.x0 + m_rh.x0), (m_lh.y0 + m_rh.y0), (m_lh.z0 + m_rh.z0),
+		(m_lh.x1 + m_rh.x1), (m_lh.y1 + m_rh.y1), (m_lh.z1 + m_rh.z1),
+		(m_lh.x2 + m_rh.x2), (m_lh.y2 + m_rh.y2), (m_lh.z2 + m_rh.z2),
+	};
+	return m_out;
+}
+
+ijk_inl fmat3 ijkMatSub3f(fmat3 const m_lh, fmat3 const m_rh)
+{
+	fmat3 const m_out = {
+		(m_lh.x0 - m_rh.x0), (m_lh.y0 - m_rh.y0), (m_lh.z0 - m_rh.z0),
+		(m_lh.x1 - m_rh.x1), (m_lh.y1 - m_rh.y1), (m_lh.z1 - m_rh.z1),
+		(m_lh.x2 - m_rh.x2), (m_lh.y2 - m_rh.y2), (m_lh.z2 - m_rh.z2),
+	};
+	return m_out;
+}
 
 
 //-----------------------------------------------------------------------------
 
-// 4D struct-based
+ijk_inl fmat4 ijkMatInit4f()
+{
+	fmat4 const m_out = {
+		flt_one, flt_zero, flt_zero, flt_zero,
+		flt_zero, flt_one, flt_zero, flt_zero,
+		flt_zero, flt_zero, flt_one, flt_zero,
+		flt_zero, flt_zero, flt_zero, flt_one,
+	};
+	return m_out;
+}
+
+ijk_inl fmat4 ijkMatInitElems4f(float const x0, float const y0, float const z0, float const w0, float const x1, float const y1, float const z1, float const w1, float const x2, float const y2, float const z2, float const w2, float const x3, float const y3, float const z3, float const w3)
+{
+	fmat4 const m_out = {
+		x0, y0, z0, w0,
+		x1, y1, z1, w1,
+		x2, y2, z2, w2,
+		x3, y3, z3, w3,
+	};
+	return m_out;
+}
+
+ijk_inl fmat4 ijkMatInitVecs4f(fvec4 const c0, fvec4 const c1, fvec4 const c2, fvec4 const c3)
+{
+	fmat4 const m_out = {
+		c0.x, c0.y, c0.z, c0.w,
+		c1.x, c1.y, c1.z, c1.w,
+		c2.x, c2.y, c2.z, c2.w,
+		c3.x, c3.y, c3.z, c3.w,
+	};
+	return m_out;
+}
+
+ijk_inl fmat4 ijkMatCopy4f2(fmat2 const m_in)
+{
+	fmat4 const m_out = {
+		m_in.x0, m_in.y0, flt_zero, flt_zero,
+		m_in.x1, m_in.y1, flt_zero, flt_zero,
+		flt_zero, flt_zero, flt_one, flt_zero,
+		flt_zero, flt_zero, flt_zero, flt_one,
+	};
+	return m_out;
+}
+
+ijk_inl fmat4 ijkMatCopy4f3(fmat3 const m_in)
+{
+	fmat4 const m_out = {
+		m_in.x0, m_in.y0, m_in.z0, flt_zero,
+		m_in.x1, m_in.y1, m_in.z1, flt_zero,
+		m_in.x2, m_in.y2, m_in.z2, flt_zero,
+		flt_zero, flt_zero, flt_zero, flt_one,
+	};
+	return m_out;
+}
+
+ijk_inl fmat4 ijkMatCopy4f4(fmat4 const m_in)
+{
+	fmat4 const m_out = {
+		m_in.x0, m_in.y0, m_in.z0, m_in.w0,
+		m_in.x1, m_in.y1, m_in.z1, m_in.w1,
+		m_in.x2, m_in.y2, m_in.z2, m_in.w2,
+		m_in.x3, m_in.y3, m_in.z3, m_in.w3,
+	};
+	return m_out;
+}
+
+ijk_inl fmat4 ijkMatCopy4fs(float const s_diag)
+{
+	fmat4 const m_out = {
+		s_diag, flt_zero, flt_zero, flt_zero,
+		flt_zero, s_diag, flt_zero, flt_zero,
+		flt_zero, flt_zero, s_diag, flt_zero,
+		flt_zero, flt_zero, flt_zero, s_diag,
+	};
+	return m_out;
+}
+
+ijk_inl fmat4 ijkMatMul4fs(fmat4 const m_lh, float const s_rh)
+{
+	fmat4 const m_out = {
+		(m_lh.x0 * s_rh), (m_lh.y0 * s_rh), (m_lh.z0 * s_rh), (m_lh.w0 * s_rh),
+		(m_lh.x1 * s_rh), (m_lh.y1 * s_rh), (m_lh.z1 * s_rh), (m_lh.w1 * s_rh),
+		(m_lh.x2 * s_rh), (m_lh.y2 * s_rh), (m_lh.z2 * s_rh), (m_lh.w2 * s_rh),
+		(m_lh.x3 * s_rh), (m_lh.y3 * s_rh), (m_lh.z3 * s_rh), (m_lh.w3 * s_rh),
+	};
+	return m_out;
+}
+
+ijk_inl fmat4 ijkMatDiv4fs(fmat4 const m_lh, float const s_rh)
+{
+	float const s = ijk_recip_flt(s_rh);
+	fmat4 const m_out = {
+		(m_lh.x0 * s), (m_lh.y0 * s), (m_lh.z0 * s), (m_lh.w0 * s),
+		(m_lh.x1 * s), (m_lh.y1 * s), (m_lh.z1 * s), (m_lh.w1 * s),
+		(m_lh.x2 * s), (m_lh.y2 * s), (m_lh.z2 * s), (m_lh.w2 * s),
+		(m_lh.x3 * s), (m_lh.y3 * s), (m_lh.z3 * s), (m_lh.w3 * s),
+	};
+	return m_out;
+}
+
+ijk_inl fmat4 ijkMatDivSafe4fs(fmat4 const m_lh, float const s_rh)
+{
+	float const s = ijk_recip_safe_flt(s_rh);
+	fmat4 const m_out = {
+		(m_lh.x0 * s), (m_lh.y0 * s), (m_lh.z0 * s), (m_lh.w0 * s),
+		(m_lh.x1 * s), (m_lh.y1 * s), (m_lh.z1 * s), (m_lh.w1 * s),
+		(m_lh.x2 * s), (m_lh.y2 * s), (m_lh.z2 * s), (m_lh.w2 * s),
+		(m_lh.x3 * s), (m_lh.y3 * s), (m_lh.z3 * s), (m_lh.w3 * s),
+	};
+	return m_out;
+}
+
+ijk_inl fmat4 ijkMatMul4sf(float const s_lh, fmat4 const m_rh)
+{
+	fmat4 const m_out = {
+		(s_lh * m_rh.x0), (s_lh * m_rh.y0), (s_lh * m_rh.z0), (s_lh * m_rh.w0),
+		(s_lh * m_rh.x1), (s_lh * m_rh.y1), (s_lh * m_rh.z1), (s_lh * m_rh.w1),
+		(s_lh * m_rh.x2), (s_lh * m_rh.y2), (s_lh * m_rh.z2), (s_lh * m_rh.w2),
+		(s_lh * m_rh.x3), (s_lh * m_rh.y3), (s_lh * m_rh.z3), (s_lh * m_rh.w3),
+	};
+	return m_out;
+}
+
+ijk_inl fmat4 ijkMatDiv4sf(float const s_lh, fmat4 const m_rh)
+{
+	fmat4 const m_out = {
+		(s_lh / m_rh.x0), (s_lh / m_rh.y0), (s_lh / m_rh.z0), (s_lh / m_rh.w0),
+		(s_lh / m_rh.x1), (s_lh / m_rh.y1), (s_lh / m_rh.z1), (s_lh / m_rh.w1),
+		(s_lh / m_rh.x2), (s_lh / m_rh.y2), (s_lh / m_rh.z2), (s_lh / m_rh.w2),
+		(s_lh / m_rh.x3), (s_lh / m_rh.y3), (s_lh / m_rh.z3), (s_lh / m_rh.w3),
+	};
+	return m_out;
+}
+
+ijk_inl fmat4 ijkMatDivSafe4sf(float const s_lh, fmat4 const m_rh)
+{
+	fmat4 const m_out = {
+		ijk_divide_safe_flt(s_lh, m_rh.x0), ijk_divide_safe_flt(s_lh, m_rh.y0), ijk_divide_safe_flt(s_lh, m_rh.z0), ijk_divide_safe_flt(s_lh, m_rh.w0),
+		ijk_divide_safe_flt(s_lh, m_rh.x1), ijk_divide_safe_flt(s_lh, m_rh.y1), ijk_divide_safe_flt(s_lh, m_rh.z1), ijk_divide_safe_flt(s_lh, m_rh.w1),
+		ijk_divide_safe_flt(s_lh, m_rh.x2), ijk_divide_safe_flt(s_lh, m_rh.y2), ijk_divide_safe_flt(s_lh, m_rh.z2), ijk_divide_safe_flt(s_lh, m_rh.w2),
+		ijk_divide_safe_flt(s_lh, m_rh.x3), ijk_divide_safe_flt(s_lh, m_rh.y3), ijk_divide_safe_flt(s_lh, m_rh.z3), ijk_divide_safe_flt(s_lh, m_rh.w3),
+	};
+	return m_out;
+}
+
+ijk_inl fmat4 ijkMatAdd4f(fmat4 const m_lh, fmat4 const m_rh)
+{
+	fmat4 const m_out = {
+		(m_lh.x0 + m_rh.x0), (m_lh.y0 + m_rh.y0), (m_lh.z0 + m_rh.z0), (m_lh.w0 + m_rh.w0),
+		(m_lh.x1 + m_rh.x1), (m_lh.y1 + m_rh.y1), (m_lh.z1 + m_rh.z1), (m_lh.w1 + m_rh.w1),
+		(m_lh.x2 + m_rh.x2), (m_lh.y2 + m_rh.y2), (m_lh.z2 + m_rh.z2), (m_lh.w2 + m_rh.w2),
+		(m_lh.x3 + m_rh.x3), (m_lh.y3 + m_rh.y3), (m_lh.z3 + m_rh.z3), (m_lh.w3 + m_rh.w3),
+	};
+	return m_out;
+}
+
+ijk_inl fmat4 ijkMatSub4f(fmat4 const m_lh, fmat4 const m_rh)
+{
+	fmat4 const m_out = {
+		(m_lh.x0 - m_rh.x0), (m_lh.y0 - m_rh.y0), (m_lh.z0 - m_rh.z0), (m_lh.w0 - m_rh.w0),
+		(m_lh.x1 - m_rh.x1), (m_lh.y1 - m_rh.y1), (m_lh.z1 - m_rh.z1), (m_lh.w1 - m_rh.w1),
+		(m_lh.x2 - m_rh.x2), (m_lh.y2 - m_rh.y2), (m_lh.z2 - m_rh.z2), (m_lh.w2 - m_rh.w2),
+		(m_lh.x3 - m_rh.x3), (m_lh.y3 - m_rh.y3), (m_lh.z3 - m_rh.z3), (m_lh.w3 - m_rh.w3),
+	};
+	return m_out;
+}
 
 
 //-----------------------------------------------------------------------------
