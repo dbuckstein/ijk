@@ -30,17 +30,6 @@
 
 //-----------------------------------------------------------------------------
 
-ijk_inl float2m ijkMatTest2fv(float2x2 m_out, float2x2 const m_in)
-{
-	ijkVecCopy2fv(m_out[0], m_in[0]);
-	ijkVecCopy2fv(m_out[1], m_in[1]);
-	return m_out;
-}
-
-ijk_inl float2m ijkMatTest2fvs(float2x2 m_out, float2x2 const m_lh, f32 const s_rh)
-{
-	return ijkMatTest2fv(ijkMatTest2fv(m_out, m_lh), m_lh);
-}
 
 
 //-----------------------------------------------------------------------------

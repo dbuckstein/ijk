@@ -204,17 +204,13 @@ union dmat4
 
 //-----------------------------------------------------------------------------
 
-// test C function
-float2m ijkMatTest2fv(float2x2 m_out, float2x2 const m_in);
-// test C function
-float2m ijkMatTest2fvs(float2x2 m_out, float2x2 const m_lh, f32 const s_rh);
-
 #ifdef __cplusplus
 }
 #endif	// __cplusplus
 
 
-
+#include "_util/ijkMatrix_float.h"
+#include "_util/ijkMatrix_double.h"
 
 
 #ifdef __cplusplus
@@ -289,6 +285,23 @@ ijk_ext dmat3 const dmat3_id;
 ijk_ext double4x4 const double4x4_id;
 ijk_ext double16 const double16_id;
 ijk_ext dmat4 const dmat4_id;
+
+
+//-----------------------------------------------------------------------------
+
+// Global constants for real array-based matrices and data structures.
+///
+ijk_ext real2x2 const real2x2_id;
+ijk_ext real4 const real4_id;
+ijk_ext rmat2 const rmat2_id;
+
+ijk_ext real3x3 const real3x3_id;
+ijk_ext real9 const real9_id;
+ijk_ext rmat3 const rmat3_id;
+
+ijk_ext real4x4 const real4x4_id;
+ijk_ext real16 const real16_id;
+ijk_ext rmat4 const rmat4_id;
 
 
 //-----------------------------------------------------------------------------
