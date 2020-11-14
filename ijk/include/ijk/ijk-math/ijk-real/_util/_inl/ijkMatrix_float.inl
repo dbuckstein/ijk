@@ -1011,19 +1011,46 @@ ijk_inl float2m ijkMatInverseRotation2fm(float2x2 m_out, float2x2 const m_in)
 
 ijk_inl float2m ijkMatInverseScale2fm(float2x2 m_out, float2x2 const m_in)
 {
-
+	m_out[0][0] = ijk_recip(m_in[0][0]);
+	m_out[1][1] = ijk_recip(m_in[1][1]);
+	m_out[0][1] = m_out[1][0] = flt_zero;
 	return m_out;
 }
 
 ijk_inl float2m ijkMatInverseRotationScale2fm(float2x2 m_out, float2x2 const m_in)
 {
-
+	// M = RS
+	// M^-1 = (RS)^-1
+	//		= S^-1 * R^-1
+	//			R^-1 = R^T
+	// M^-1 = S^-1 * R^T
+	//		= S^-T * R^T
+	//		= (R * S^-1)^T
+	//		= ((RS) / S^2)^T
+	f32 const sx2_inv = ijkVecLengthSqInv2fv(m_in[0]);
+	f32 const sy2_inv = ijkVecLengthSqInv2fv(m_in[1]);
+	f32 const tmp = m_in[0][1];
+	m_out[0][1] = m_in[1][0] * sy2_inv;
+	m_out[1][0] = tmp * sx2_inv;
+	m_out[0][0] = m_in[0][0] * sx2_inv;
+	m_out[1][1] = m_in[1][1] * sy2_inv;
 	return m_out;
 }
 
 ijk_inl float2m ijkMatInverseTranspose2fm(float2x2 m_out, float2x2 const m_in)
 {
-
+	// M = RS
+	// M^-T = (RS)^-T
+	//		= (S^-1 * R^-1)^T
+	//		= R^-T * S^-T
+	//			R^-T = R
+	//			S^-T = S^-1
+	// M^-T = R * S^-1
+	//		= (RS) / S^2
+	f32 const sx2_inv = ijkVecLengthSqInv2fv(m_in[0]);
+	f32 const sy2_inv = ijkVecLengthSqInv2fv(m_in[1]);
+	ijkVecMul2fvs(m_out[0], m_in[0], sx2_inv);
+	ijkVecMul2fvs(m_out[1], m_in[1], sy2_inv);
 	return m_out;
 }
 
@@ -1401,22 +1428,54 @@ ijk_inl fmat2 ijkMatGetRotateScale2f(fmat2 const m_in, float* const angle_degree
 
 ijk_inl fmat2 ijkMatInverseRotation2f(fmat2 const m_in)
 {
-
+	return ijkMatTranspose2f(m_in);
 }
 
 ijk_inl fmat2 ijkMatInverseScale2f(fmat2 const m_in)
 {
-
+	fmat2 const m_out = {
+		ijk_recip(m_in.x0),	flt_zero,
+		flt_zero, ijk_recip(m_in.y1),
+	};
+	return m_out;
 }
 
 ijk_inl fmat2 ijkMatInverseRotationScale2f(fmat2 const m_in)
 {
-
+	// M = RS
+	// M^-1 = (RS)^-1
+	//		= S^-1 * R^-1
+	//			R^-1 = R^T
+	// M^-1 = S^-1 * R^T
+	//		= S^-T * R^T
+	//		= (R * S^-1)^T
+	//		= ((RS) / S^2)^T
+	float const sx2_inv = ijkVecLengthSqInv2f(m_in.c0);
+	float const sy2_inv = ijkVecLengthSqInv2f(m_in.c1);
+	fmat2 const m_out = {
+		(m_in.x0 * sx2_inv), (m_in.x1 * sy2_inv),
+		(m_in.y0 * sx2_inv), (m_in.y1 * sy2_inv),
+	};
+	return m_out;
 }
 
 ijk_inl fmat2 ijkMatInverseTranspose2f(fmat2 const m_in)
 {
-
+	// M = RS
+	// M^-T = (RS)^-T
+	//		= (S^-1 * R^-1)^T
+	//		= R^-T * S^-T
+	//			R^-T = R
+	//			S^-T = S^-1
+	// M^-T = R * S^-1
+	//		= (RS) / S^2
+	float const sx2_inv = ijkVecLengthSqInv2f(m_in.c0);
+	float const sy2_inv = ijkVecLengthSqInv2f(m_in.c1);
+	fmat2 const m_out = {
+		(m_in.x0 * sx2_inv), (m_in.y0 * sx2_inv),
+		(m_in.x1 * sy2_inv), (m_in.y1 * sy2_inv),
+	};
+	return m_out;
 }
 
 
