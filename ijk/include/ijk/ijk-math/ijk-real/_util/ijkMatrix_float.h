@@ -34,10 +34,119 @@ extern "C" {
 
 //-----------------------------------------------------------------------------
 	
-// test C function
-float2m ijkMatTest2fv(float2x2 m_out, float2x2 const m_in);
+// ijkMatInit2*m
+//	Initialize 2x2 matrix to default (identity: ones along the diagonal).
+//		param m_out: output matrix
+//		return: m_out
+float2m ijkMatInit2fm(float2x2 m_out);
 
-// 2D array-based
+// ijkMatInitElems2*m
+//	Initialize 2x2 matrix given elements.
+//		param m_out: output matrix
+//		params x0, y0: elements of first column
+//		params x1, y1: elements of second column
+//		return: m_out
+float2m ijkMatInitElems2fm(float2x2 m_out, f32 const x0, f32 const y0, f32 const x1, f32 const y1);
+
+// ijkMatInitVecs2*m
+//	Initialize 2x2 matrix given column vectors.
+//		param m_out: output matrix
+//		param c0: first column vector
+//		param c1: second column vector
+//		return: m_out
+float2m ijkMatInitVecs2fm(float2x2 m_out, float2 const c0, float2 const c1);
+
+// ijkMatCopy2*m2
+//	Copy 2x2 matrix from 2x2 matrix.
+//		param m_out: output matrix
+//		param m_in: input matrix
+//		return: m_out
+float2m ijkMatCopy2fm2(float2x2 m_out, float2x2 const m_in);
+
+// ijkMatCopy2*m3
+//	Copy 2x2 matrix from 3x3 matrix.
+//		param m_out: output matrix
+//		param m_in: input matrix
+//		return: m_out
+float2m ijkMatCopy2fm3(float2x2 m_out, float3x3 const m_in);
+
+// ijkMatCopy2*m4
+//	Copy 2x2 matrix from 4x4 matrix.
+//		param m_out: output matrix
+//		param m_in: input matrix
+//		return: m_out
+float2m ijkMatCopy2fm4(float2x2 m_out, float4x4 const m_in);
+
+// ijkMatCopy2*ms
+//	Copy 2x2 matrix diagonal from scalar (scalar along the diagonal).
+//		param m_out: output matrix
+//		param s_diag: input scalar assigned to diagonal elements
+//		return: m_out
+float2m ijkMatCopy2fms(float2x2 m_out, f32 const s_diag);
+
+// ijkMatMul2*ms
+//	Multiply 2x2 matrix by scalar.
+//		param m_out: output matrix
+//		param m_lh: left-hand matrix
+//		param s_rh: right-hand scalar
+//		return: m_out
+float2m ijkMatMul2fms(float2x2 m_out, float2x2 const m_lh, f32 const s_rh);
+
+// ijkMatDiv2*ms
+//	Divide 2x2 matrix elements by scalar.
+//		param m_out: output matrix
+//		param m_lh: left-hand matrix
+//		param s_rh: right-hand scalar
+//		return: m_out
+float2m ijkMatDiv2fms(float2x2 m_out, float2x2 const m_lh, f32 const s_rh);
+
+// ijkMatDivSafe2*ms
+//	Divide 2x2 matrix elements by scalar; division-by-zero safety.
+//		param m_out: output matrix
+//		param m_lh: left-hand matrix
+//		param s_rh: right-hand scalar
+//		return: m_out
+float2m ijkMatDivSafe2fms(float2x2 m_out, float2x2 const m_lh, f32 const s_rh);
+
+// ijkMatMul2*sm
+//	Multiply scalar by 2x2 matrix elements.
+//		param m_out: output matrix
+//		param s_lh: left-hand scalar
+//		param m_rh: right-hand matrix
+//		return: m_out
+float2m ijkMatMul2fsm(float2x2 m_out, f32 const s_lh, float2x2 const m_rh);
+
+// ijkMatDiv2*sm
+//	Divide scalar by 2x2 matrix elements.
+//		param m_out: output matrix
+//		param s_lh: left-hand scalar
+//		param m_rh: right-hand matrix
+//		return: m_out
+float2m ijkMatDiv2fsm(float2x2 m_out, f32 const s_lh, float2x2 const m_rh);
+
+// ijkMatDivSafe2*sm
+//	Divide scalar by 2x2 matrix elements; division-by-zero safety.
+//		param m_out: output matrix
+//		param s_lh: left-hand scalar
+//		param m_rh: right-hand matrix
+//		return: m_out
+float2m ijkMatDivSafe2fsm(float2x2 m_out, f32 const s_lh, float2x2 const m_rh);
+
+// ijkMatAdd2*m
+//	Add 2x2 matrices.
+//		param m_out: output matrix, sum of inputs
+//		param m_lh: left-hand matrix
+//		param m_rh: right-hand matrix
+//		return: m_out
+float2m ijkMatAdd2fm(float2x2 m_out, float2x2 const m_lh, float2x2 const m_rh);
+
+// ijkMatSub2*m
+//	Subtract 2x2 matrices.
+//		param m_out: output matrix, difference of inputs
+//		param m_lh: left-hand matrix
+//		param m_rh: right-hand matrix
+//		return: m_out
+float2m ijkMatSub2fm(float2x2 m_out, float2x2 const m_lh, float2x2 const m_rh);
 
 
 //-----------------------------------------------------------------------------
@@ -81,10 +190,13 @@ extern "C" {
 
 //-----------------------------------------------------------------------------
 	
-// test C function
-float2m ijkMatTest2fvs(float2x2 m_out, float2x2 const m_lh, f32 const s_rh);
-
-// 2D array-based special
+// ijkMatMul2*m
+//	Multiply 2x2 matrices (non-commutative).
+//		param m_out: output matrix, product
+//		param m_lh: left-hand matrix
+//		param m_rh: right-hand matrix
+//		return: m_out
+float2m ijkMatMul2fm(float2x2 m_out, float2x2 const m_lh, float2x2 const m_rh);
 
 
 //-----------------------------------------------------------------------------

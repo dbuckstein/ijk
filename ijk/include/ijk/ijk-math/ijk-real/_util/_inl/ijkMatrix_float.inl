@@ -30,14 +30,12 @@
 
 //-----------------------------------------------------------------------------
 
-ijk_inl float2m ijkMatTest2fv(float2x2 m_out, float2x2 const m_in)
+ijk_inl float2m ijkMatInit2fm(float2x2 m_out)
 {
-	ijkVecCopy2fv(m_out[0], m_in[0]);
-	ijkVecCopy2fv(m_out[1], m_in[1]);
+	m_out[0][0] = m_out[1][1] = flt_one;
+	m_out[0][1] = m_out[1][0] = flt_zero;
 	return m_out;
 }
-
-// 2D array-based
 
 
 //-----------------------------------------------------------------------------
@@ -66,11 +64,6 @@ ijk_inl float2m ijkMatTest2fv(float2x2 m_out, float2x2 const m_in)
 
 
 //-----------------------------------------------------------------------------
-
-ijk_inl float2m ijkMatTest2fvs(float2x2 m_out, float2x2 const m_lh, f32 const s_rh)
-{
-	return ijkMatTest2fv(ijkMatTest2fv(m_out, m_lh), m_lh);
-}
 
 // 2D array-based special
 
