@@ -994,148 +994,126 @@ float3m ijkMatDiv3fm(float3x3 m_out, float3x3 const m_lh, float3x3 const m_rh);
 float3m ijkMatDivSafe3fm(float3x3 m_out, float3x3 const m_lh, float3x3 const m_rh);
 
 // ijkMatRotateXYZ3*m
-//	Make 3D rotation matrix.
+//	Make 3D rotation matrix with Euler angles in written order XYZ, meaning 
+//	the order of operations is Z then Y then X.
 //		param m_out: output matrix, rotation
-//		param angleX_degrees: input angle about X axis in degrees
-//		param angleY_degrees: input angle about Y axis in degrees
-//		param angleZ_degrees: input angle about Z axis in degrees
+//		param rotateDegXYZ: Euler angles in degrees (component order XYZ)
 //		return: m_out
-float3m ijkMatRotateXYZ3fm(float3x3 m_out, f32 const angleX_degrees, f32 const angleY_degrees, f32 const angleZ_degrees);
+float3m ijkMatRotateXYZ3fm(float3x3 m_out, float3 const rotateDegXYZ);
 
 // ijkMatRotateYZX3*m
-//	Make 3D rotation matrix.
+//	Make 3D rotation matrix with Euler angles in written order YZX, meaning 
+//	the order of operations is X then Z then Y.
 //		param m_out: output matrix, rotation
-//		param angleX_degrees: input angle about X axis in degrees
-//		param angleY_degrees: input angle about Y axis in degrees
-//		param angleZ_degrees: input angle about Z axis in degrees
+//		param rotateDegXYZ: Euler angles in degrees (component order XYZ)
 //		return: m_out
-float3m ijkMatRotateYZX3fm(float3x3 m_out, f32 const angleX_degrees, f32 const angleY_degrees, f32 const angleZ_degrees);
+float3m ijkMatRotateYZX3fm(float3x3 m_out, float3 const rotateDegXYZ);
 
 // ijkMatRotateZXY3*m
-//	Make 3D rotation matrix.
+//	Make 3D rotation matrix with Euler angles in written order ZXY, meaning 
+//	the order of operations is Y then X then Z.
 //		param m_out: output matrix, rotation
-//		param angleX_degrees: input angle about X axis in degrees
-//		param angleY_degrees: input angle about Y axis in degrees
-//		param angleZ_degrees: input angle about Z axis in degrees
+//		param rotateDegXYZ: Euler angles in degrees (component order XYZ)
 //		return: m_out
-float3m ijkMatRotateZXY3fm(float3x3 m_out, f32 const angleX_degrees, f32 const angleY_degrees, f32 const angleZ_degrees);
+float3m ijkMatRotateZXY3fm(float3x3 m_out, float3 const rotateDegXYZ);
 
 // ijkMatRotateYXZ3*m
-//	Make 3D rotation matrix.
+//	Make 3D rotation matrix with Euler angles in written order YXZ, meaning 
+//	the order of operations is Z then X then Y.
 //		param m_out: output matrix, rotation
-//		param angleX_degrees: input angle about X axis in degrees
-//		param angleY_degrees: input angle about Y axis in degrees
-//		param angleZ_degrees: input angle about Z axis in degrees
+//		param rotateDegXYZ: Euler angles in degrees (component order XYZ)
 //		return: m_out
-float3m ijkMatRotateYXZ3fm(float3x3 m_out, f32 const angleX_degrees, f32 const angleY_degrees, f32 const angleZ_degrees);
+float3m ijkMatRotateYXZ3fm(float3x3 m_out, float3 const rotateDegXYZ);
 
 // ijkMatRotateXZY3*m
-//	Make 3D rotation matrix.
+//	Make 3D rotation matrix with Euler angles in written order XZY, meaning 
+//	the order of operations is Y then Z then X.
 //		param m_out: output matrix, rotation
-//		param angleX_degrees: input angle about X axis in degrees
-//		param angleY_degrees: input angle about Y axis in degrees
-//		param angleZ_degrees: input angle about Z axis in degrees
+//		param rotateDegXYZ: Euler angles in degrees (component order XYZ)
 //		return: m_out
-float3m ijkMatRotateXZY3fm(float3x3 m_out, f32 const angleX_degrees, f32 const angleY_degrees, f32 const angleZ_degrees);
+float3m ijkMatRotateXZY3fm(float3x3 m_out, float3 const rotateDegXYZ);
 
 // ijkMatRotateZYX3*m
-//	Make 3D rotation matrix.
+//	Make 3D rotation matrix with Euler angles in written order ZYX, meaning 
+//	the order of operations is X then Y then Z.
 //		param m_out: output matrix, rotation
-//		param angleX_degrees: input angle about X axis in degrees
-//		param angleY_degrees: input angle about Y axis in degrees
-//		param angleZ_degrees: input angle about Z axis in degrees
+//		param rotateDegXYZ: Euler angles in degrees (component order XYZ)
 //		return: m_out
-float3m ijkMatRotateZYX3fm(float3x3 m_out, f32 const angleX_degrees, f32 const angleY_degrees, f32 const angleZ_degrees);
+float3m ijkMatRotateZYX3fm(float3x3 m_out, float3 const rotateDegXYZ);
 
 // ijkMatGetRotateXYZ3*m
 //	Extract rotation angle in degrees from 3D rotation matrix; assumes columns 
 //	are unit-length for optimization.
 //		param m_in: input matrix
-//		param angleX_degrees_out: pointer to angle storage for X axis
-//		param angleY_degrees_out: pointer to angle storage for Y axis
-//		param angleZ_degrees_out: pointer to angle storage for Z axis
+//		param rotateDegXYZ_out: storage for Euler angles in component order XYZ
 //		return: m_in
-float3km ijkMatGetRotateXYZ3fm(float3x3 const m_in, f32* const angleX_degrees_out, f32* const angleY_degrees_out, f32* const angleZ_degrees_out);
+float3km ijkMatGetRotateXYZ3fm(float3x3 const m_in, float3 rotateDegXYZ_out);
 
 // ijkMatGetRotateYZX3*m
 //	Extract rotation angle in degrees from 3D rotation matrix; assumes columns 
 //	are unit-length for optimization.
 //		param m_in: input matrix
-//		param angleX_degrees_out: pointer to angle storage for X axis
-//		param angleY_degrees_out: pointer to angle storage for Y axis
-//		param angleZ_degrees_out: pointer to angle storage for Z axis
+//		param rotateDegXYZ_out: storage for Euler angles in component order XYZ
 //		return: m_in
-float3km ijkMatGetRotateYZX3fm(float3x3 const m_in, f32* const angleX_degrees_out, f32* const angleY_degrees_out, f32* const angleZ_degrees_out);
+float3km ijkMatGetRotateYZX3fm(float3x3 const m_in, float3 rotateDegXYZ_out);
 
 // ijkMatGetRotateZXY3*m
 //	Extract rotation angle in degrees from 3D rotation matrix; assumes columns 
 //	are unit-length for optimization.
 //		param m_in: input matrix
-//		param angleX_degrees_out: pointer to angle storage for X axis
-//		param angleY_degrees_out: pointer to angle storage for Y axis
-//		param angleZ_degrees_out: pointer to angle storage for Z axis
+//		param rotateDegXYZ_out: storage for Euler angles in component order XYZ
 //		return: m_in
-float3km ijkMatGetRotateZXY3fm(float3x3 const m_in, f32* const angleX_degrees_out, f32* const angleY_degrees_out, f32* const angleZ_degrees_out);
+float3km ijkMatGetRotateZXY3fm(float3x3 const m_in, float3 rotateDegXYZ_out);
 
 // ijkMatGetRotateYXZ3*m
 //	Extract rotation angle in degrees from 3D rotation matrix; assumes columns 
 //	are unit-length for optimization.
 //		param m_in: input matrix
-//		param angleX_degrees_out: pointer to angle storage for X axis
-//		param angleY_degrees_out: pointer to angle storage for Y axis
-//		param angleZ_degrees_out: pointer to angle storage for Z axis
+//		param rotateDegXYZ_out: storage for Euler angles in component order XYZ
 //		return: m_in
-float3km ijkMatGetRotateYXZ3fm(float3x3 const m_in, f32* const angleX_degrees_out, f32* const angleY_degrees_out, f32* const angleZ_degrees_out);
+float3km ijkMatGetRotateYXZ3fm(float3x3 const m_in, float3 rotateDegXYZ_out);
 
 // ijkMatGetRotateXZY3*m
 //	Extract rotation angle in degrees from 3D rotation matrix; assumes columns 
 //	are unit-length for optimization.
 //		param m_in: input matrix
-//		param angleX_degrees_out: pointer to angle storage for X axis
-//		param angleY_degrees_out: pointer to angle storage for Y axis
-//		param angleZ_degrees_out: pointer to angle storage for Z axis
+//		param rotateDegXYZ_out: storage for Euler angles in component order XYZ
 //		return: m_in
-float3km ijkMatGetRotateXZY3fm(float3x3 const m_in, f32* const angleX_degrees_out, f32* const angleY_degrees_out, f32* const angleZ_degrees_out);
+float3km ijkMatGetRotateXZY3fm(float3x3 const m_in, float3 rotateDegXYZ_out);
 
 // ijkMatGetRotateZYX3*m
 //	Extract rotation angle in degrees from 3D rotation matrix; assumes columns 
 //	are unit-length for optimization.
 //		param m_in: input matrix
-//		param angleX_degrees_out: pointer to angle storage for X axis
-//		param angleY_degrees_out: pointer to angle storage for Y axis
-//		param angleZ_degrees_out: pointer to angle storage for Z axis
+//		param rotateDegXYZ_out: storage for Euler angles in component order XYZ
 //		return: m_in
-float3km ijkMatGetRotateZYX3fm(float3x3 const m_in, f32* const angleX_degrees_out, f32* const angleY_degrees_out, f32* const angleZ_degrees_out);
+float3km ijkMatGetRotateZYX3fm(float3x3 const m_in, float3 rotateDegXYZ_out);
 
 // ijkMatRotate3*m
 //	Make 3D rotation matrix.
 //		param m_out: output matrix, rotation
 //		param order: written order of Euler angles (functional order of 
 //			operations is right-to-left)
-//		param angleX_degrees: input angle about X axis in degrees
-//		param angleY_degrees: input angle about Y axis in degrees
-//		param angleZ_degrees: input angle about Z axis in degrees
+//		param rotateDegXYZ_out: storage for Euler angles in component order XYZ
 //		return: m_out
-float3m ijkMatRotate3fm(float3x3 m_out, ijkRotationOrder const order, f32 const angleX_degrees, f32 const angleY_degrees, f32 const angleZ_degrees);
+float3m ijkMatRotate3fm(float3x3 m_out, ijkRotationOrder const order, float3 const rotateDegXYZ);
 
 // ijkMatScale3*m
 //	Make 3D scale matrix.
 //		param m_out: output matrix, scale
-//		params sx, sy, sz: scales on each dimension
+//		param scale: scales on each dimension
 //		return: m_out
-float3m ijkMatScale3fm(float3x3 m_out, f32 const sx, f32 const sy, f32 const sz);
+float3m ijkMatScale3fm(float3x3 m_out, float3 const scale);
 
 // ijkMatRotateScale3*m
 //	Make 3D rotation-scale matrix.
 //		param m_out: output matrix, rotation-scale
 //		param order: written order of Euler angles (functional order of 
 //			operations is right-to-left)
-//		param angleX_degrees: input angle about X axis in degrees
-//		param angleY_degrees: input angle about Y axis in degrees
-//		param angleZ_degrees: input angle about Z axis in degrees
-//		params sx, sy, sz: scales on each dimension
+//		param rotateDegXYZ: Euler angles in degrees (component order XYZ)
+//		param scale: scales on each dimension
 //		return: m_out
-float3m ijkMatRotateScale3fm(float3x3 m_out, ijkRotationOrder const order, f32 const angleX_degrees, f32 const angleY_degrees, f32 const angleZ_degrees, f32 const sx, f32 const sy, f32 const sz);
+float3m ijkMatRotateScale3fm(float3x3 m_out, ijkRotationOrder const order, float3 const rotateDegXYZ, float3 const scale);
 
 // ijkMatGetRotate3*m
 //	Extract rotation angle in degrees from 3D rotation matrix; assumes columns 
@@ -1143,30 +1121,26 @@ float3m ijkMatRotateScale3fm(float3x3 m_out, ijkRotationOrder const order, f32 c
 //		param m_in: input matrix
 //		param order: written order of Euler angles (functional order of 
 //			operations is right-to-left)
-//		param angleX_degrees_out: pointer to angle storage for X axis
-//		param angleY_degrees_out: pointer to angle storage for Y axis
-//		param angleZ_degrees_out: pointer to angle storage for Z axis
+//		param rotateDegXYZ_out: storage for Euler angles in component order XYZ
 //		return: m_in
-float3km ijkMatGetRotate3fm(float3x3 const m_in, ijkRotationOrder const order, f32* const angleX_degrees_out, f32* const angleY_degrees_out, f32* const angleZ_degrees_out);
+float3km ijkMatGetRotate3fm(float3x3 const m_in, ijkRotationOrder const order, float3 rotateDegXYZ_out);
 
 // ijkMatGetScale3*m
 //	Extract scales from 3D matrix.
 //		param m_in: input matrix
-//		params sx_out, sy_out, sz_out: pointers to scale storage
+//		param scale_out: storage for scale amounts
 //		return: m_in
-float3km ijkMatGetScale3fm(float3x3 const m_in, f32* const sx_out, f32* const sy_out, f32* const sz_out);
+float3km ijkMatGetScale3fm(float3x3 const m_in, float3 scale_out);
 
 // ijkMatGetRotateScale3*m
 //	Extract rotation angle in degrees and scales from 3D matrix.
 //		param m_in: input matrix
 //		param order: written order of Euler angles (functional order of 
 //			operations is right-to-left)
-//		param angleX_degrees_out: pointer to angle storage for X axis
-//		param angleY_degrees_out: pointer to angle storage for Y axis
-//		param angleZ_degrees_out: pointer to angle storage for Z axis
-//		params sx_out, sy_out, sz_out: pointers to scale storage
+//		param rotateDegXYZ_out: storage for Euler angles in component order XYZ
+//		param scale_out: storage for scale amounts
 //		return: m_in
-float3km ijkMatGetRotateScale3fm(float3x3 const m_in, ijkRotationOrder const order, f32* const angleX_degrees_out, f32* const angleY_degrees_out, f32* const angleZ_degrees_out, f32* const sx_out, f32* const sy_out, f32* const sz_out);
+float3km ijkMatGetRotateScale3fm(float3x3 const m_in, ijkRotationOrder const order, float3 rotateDegXYZ_out, float3 scale_out);
 
 // ijkMatInverseRotate3*m
 //	Calculate quick transform inverse for 3D matrix, assuming matrix encodes 
@@ -1214,9 +1188,9 @@ float3m ijkMatRotateAxisAngle3fm(float3x3 m_out, float3 const axis_unit, f32 con
 //		param m_out: output matrix, rotation-scale
 //		param axis_unit: pre-normalized axis of rotation
 //		param angle_degrees: angle of rotation in degrees
-//		params sx, sy, sz: scales on each dimension
+//		param scale: scales on each dimension
 //		return: m_out
-float3m ijkMatRotateAxisAngleScale3fm(float3x3 m_out, float3 const axis_unit, f32 const angle_degrees, f32 const sx, f32 const sy, f32 const sz);
+float3m ijkMatRotateAxisAngleScale3fm(float3x3 m_out, float3 const axis_unit, f32 const angle_degrees, float3 const scale);
 
 // ijkMatGetRotateAxisAngle3*m
 //	Extract unit axis of rotation and angle in degrees from 3D rotation matrix.
@@ -1231,9 +1205,9 @@ float3km ijkMatGetRotateAxisAngle3fm(float3x3 const m_in, float3 axis_unit_out, 
 //		param m_in: input matrix, rotation-scale
 //		param axis_unit_out: output unit axis of rotation
 //		param angle_degrees_out: pointer to angle storage
-//		params sx_out, sy_out, sz_out: pointers to scale storage
+//		param scale_out: storage for scale amounts
 //		return: m_in
-float3km ijkMatGetRotateAxisAngleScale3fm(float3x3 const m_in, float3 axis_unit_out, f32* const angle_degrees_out, f32* const sx_out, f32* const sy_out, f32* const sz_out);
+float3km ijkMatGetRotateAxisAngleScale3fm(float3x3 const m_in, float3 axis_unit_out, f32* const angle_degrees_out, float3 scale_out);
 
 
 //-----------------------------------------------------------------------------
@@ -1505,138 +1479,110 @@ fmat3 ijkMatDivSafe3f(fmat3 const m_lh, fmat3 const m_rh);
 
 // ijkMatRotateXYZ3*
 //	Make 3D rotation matrix.
-//		param angleX_degrees: input angle about X axis in degrees
-//		param angleY_degrees: input angle about Y axis in degrees
-//		param angleZ_degrees: input angle about Z axis in degrees
+//		param rotateDegXYZ: Euler angles in degrees (component order XYZ)
 //		return: rotation matrix
-fmat3 ijkMatRotateXYZ3f(float const angleX_degrees, float const angleY_degrees, float const angleZ_degrees);
+fmat3 ijkMatRotateXYZ3f(fvec3 const rotateDegXYZ);
 
 // ijkMatRotateYZX3*
 //	Make 3D rotation matrix.
-//		param angleX_degrees: input angle about X axis in degrees
-//		param angleY_degrees: input angle about Y axis in degrees
-//		param angleZ_degrees: input angle about Z axis in degrees
+//		param rotateDegXYZ: Euler angles in degrees (component order XYZ)
 //		return: rotation matrix
-fmat3 ijkMatRotateYZX3f(float const angleX_degrees, float const angleY_degrees, float const angleZ_degrees);
+fmat3 ijkMatRotateYZX3f(fvec3 const rotateDegXYZ);
 
 // ijkMatRotateZXY3*
 //	Make 3D rotation matrix.
-//		param angleX_degrees: input angle about X axis in degrees
-//		param angleY_degrees: input angle about Y axis in degrees
-//		param angleZ_degrees: input angle about Z axis in degrees
+//		param rotateDegXYZ: Euler angles in degrees (component order XYZ)
 //		return: rotation matrix
-fmat3 ijkMatRotateZXY3f(float const angleX_degrees, float const angleY_degrees, float const angleZ_degrees);
+fmat3 ijkMatRotateZXY3f(fvec3 const rotateDegXYZ);
 
 // ijkMatRotateYXZ3*
 //	Make 3D rotation matrix.
-//		param angleX_degrees: input angle about X axis in degrees
-//		param angleY_degrees: input angle about Y axis in degrees
-//		param angleZ_degrees: input angle about Z axis in degrees
+//		param rotateDegXYZ: Euler angles in degrees (component order XYZ)
 //		return: rotation matrix
-fmat3 ijkMatRotateYXZ3f(float const angleX_degrees, float const angleY_degrees, float const angleZ_degrees);
+fmat3 ijkMatRotateYXZ3f(fvec3 const rotateDegXYZ);
 
 // ijkMatRotateXZY3*
 //	Make 3D rotation matrix.
-//		param angleX_degrees: input angle about X axis in degrees
-//		param angleY_degrees: input angle about Y axis in degrees
-//		param angleZ_degrees: input angle about Z axis in degrees
+//		param rotateDegXYZ: Euler angles in degrees (component order XYZ)
 //		return: rotation matrix
-fmat3 ijkMatRotateXZY3f(float const angleX_degrees, float const angleY_degrees, float const angleZ_degrees);
+fmat3 ijkMatRotateXZY3f(fvec3 const rotateDegXYZ);
 
 // ijkMatRotateZYX3*
 //	Make 3D rotation matrix.
-//		param angleX_degrees: input angle about X axis in degrees
-//		param angleY_degrees: input angle about Y axis in degrees
-//		param angleZ_degrees: input angle about Z axis in degrees
+//		param rotateDegXYZ: Euler angles in degrees (component order XYZ)
 //		return: rotation matrix
-fmat3 ijkMatRotateZYX3f(float const angleX_degrees, float const angleY_degrees, float const angleZ_degrees);
+fmat3 ijkMatRotateZYX3f(fvec3 const rotateDegXYZ);
 
 // ijkMatGetRotateXYZ3*
 //	Extract rotation angle in degrees from 3D rotation matrix; assumes columns 
 //	are unit-length for optimization.
 //		param m_in: input matrix
-//		param angleX_degrees_out: pointer to angle storage for X axis
-//		param angleY_degrees_out: pointer to angle storage for Y axis
-//		param angleZ_degrees_out: pointer to angle storage for Z axis
+//		param rotateDegXYZ_out: storage for Euler angles in component order XYZ
 //		return: m_in
-fmat3 ijkMatGetRotateXYZ3f(fmat3 const m_in, float* const angleX_degrees_out, float* const angleY_degrees_out, float* const angleZ_degrees_out);
+fmat3 ijkMatGetRotateXYZ3f(fmat3 const m_in, fvec3* const rotateDegXYZ_out);
 
 // ijkMatGetRotateYZX3*
 //	Extract rotation angle in degrees from 3D rotation matrix; assumes columns 
 //	are unit-length for optimization.
 //		param m_in: input matrix
-//		param angleX_degrees_out: pointer to angle storage for X axis
-//		param angleY_degrees_out: pointer to angle storage for Y axis
-//		param angleZ_degrees_out: pointer to angle storage for Z axis
+//		param rotateDegXYZ_out: storage for Euler angles in component order XYZ
 //		return: m_in
-fmat3 ijkMatGetRotateYZX3f(fmat3 const m_in, float* const angleX_degrees_out, float* const angleY_degrees_out, float* const angleZ_degrees_out);
+fmat3 ijkMatGetRotateYZX3f(fmat3 const m_in, fvec3* const rotateDegXYZ_out);
 
 // ijkMatGetRotateZXY3*
 //	Extract rotation angle in degrees from 3D rotation matrix; assumes columns 
 //	are unit-length for optimization.
 //		param m_in: input matrix
-//		param angleX_degrees_out: pointer to angle storage for X axis
-//		param angleY_degrees_out: pointer to angle storage for Y axis
-//		param angleZ_degrees_out: pointer to angle storage for Z axis
+//		param rotateDegXYZ_out: storage for Euler angles in component order XYZ
 //		return: m_in
-fmat3 ijkMatGetRotateZXY3f(fmat3 const m_in, float* const angleX_degrees_out, float* const angleY_degrees_out, float* const angleZ_degrees_out);
+fmat3 ijkMatGetRotateZXY3f(fmat3 const m_in, fvec3* const rotateDegXYZ_out);
 
 // ijkMatGetRotateYXZ3*
 //	Extract rotation angle in degrees from 3D rotation matrix; assumes columns 
 //	are unit-length for optimization.
 //		param m_in: input matrix
-//		param angleX_degrees_out: pointer to angle storage for X axis
-//		param angleY_degrees_out: pointer to angle storage for Y axis
-//		param angleZ_degrees_out: pointer to angle storage for Z axis
+//		param rotateDegXYZ_out: storage for Euler angles in component order XYZ
 //		return: m_in
-fmat3 ijkMatGetRotateYXZ3f(fmat3 const m_in, float* const angleX_degrees_out, float* const angleY_degrees_out, float* const angleZ_degrees_out);
+fmat3 ijkMatGetRotateYXZ3f(fmat3 const m_in, fvec3* const rotateDegXYZ_out);
 
 // ijkMatGetRotateXZY3*
 //	Extract rotation angle in degrees from 3D rotation matrix; assumes columns 
 //	are unit-length for optimization.
 //		param m_in: input matrix
-//		param angleX_degrees_out: pointer to angle storage for X axis
-//		param angleY_degrees_out: pointer to angle storage for Y axis
-//		param angleZ_degrees_out: pointer to angle storage for Z axis
+//		param rotateDegXYZ_out: storage for Euler angles in component order XYZ
 //		return: m_in
-fmat3 ijkMatGetRotateXZY3f(fmat3 const m_in, float* const angleX_degrees_out, float* const angleY_degrees_out, float* const angleZ_degrees_out);
+fmat3 ijkMatGetRotateXZY3f(fmat3 const m_in, fvec3* const rotateDegXYZ_out);
 
 // ijkMatGetRotateZYX3*
 //	Extract rotation angle in degrees from 3D rotation matrix; assumes columns 
 //	are unit-length for optimization.
 //		param m_in: input matrix
-//		param angleX_degrees_out: pointer to angle storage for X axis
-//		param angleY_degrees_out: pointer to angle storage for Y axis
-//		param angleZ_degrees_out: pointer to angle storage for Z axis
+//		param rotateDegXYZ_out: storage for Euler angles in component order XYZ
 //		return: m_in
-fmat3 ijkMatGetRotateZYX3f(fmat3 const m_in, float* const angleX_degrees_out, float* const angleY_degrees_out, float* const angleZ_degrees_out);
+fmat3 ijkMatGetRotateZYX3f(fmat3 const m_in, fvec3* const rotateDegXYZ_out);
 
 // ijkMatRotate3*
 //	Make 3D rotation matrix.
 //		param order: written order of Euler angles (functional order of 
 //			operations is right-to-left)
-//		param angleX_degrees: input angle about X axis in degrees
-//		param angleY_degrees: input angle about Y axis in degrees
-//		param angleZ_degrees: input angle about Z axis in degrees
+//		param rotateDegXYZ: Euler angles in degrees (component order XYZ)
 //		return: rotation matrix
-fmat3 ijkMatRotate3f(ijkRotationOrder const order, float const angleX_degrees, float const angleY_degrees, float const angleZ_degrees);
+fmat3 ijkMatRotate3f(ijkRotationOrder const order, fvec3 const rotateDegXYZ);
 
 // ijkMatScale3*
 //	Make 3D scale matrix.
-//		params sx, sy, sz: scales on each dimension
+//		param scale: scales on each dimension
 //		return: scale matrix
-fmat3 ijkMatScale3f(float const sx, float const sy, float const sz);
+fmat3 ijkMatScale3f(fvec3 const scale);
 
 // ijkMatRotateScale3*
 //	Make 3D rotation-scale matrix.
 //		param order: written order of Euler angles (functional order of 
 //			operations is right-to-left)
-//		param angleX_degrees: input angle about X axis in degrees
-//		param angleY_degrees: input angle about Y axis in degrees
-//		param angleZ_degrees: input angle about Z axis in degrees
-//		params sx, sy, sz: scales on each dimension
+//		param rotateDegXYZ: Euler angles in degrees (component order XYZ)
+//		param scale: scales on each dimension
 //		return: rotation-scale matrix
-fmat3 ijkMatRotateScale3f(ijkRotationOrder const order, float const angleX_degrees, float const angleY_degrees, float const angleZ_degrees, float const sx, float const sy, float const sz);
+fmat3 ijkMatRotateScale3f(ijkRotationOrder const order, fvec3 const rotateDegXYZ, fvec3 const scale);
 
 // ijkMatGetRotate3*
 //	Extract rotation angle in degrees from 3D rotation matrix; assumes columns 
@@ -1644,30 +1590,26 @@ fmat3 ijkMatRotateScale3f(ijkRotationOrder const order, float const angleX_degre
 //		param m_in: input matrix
 //		param order: written order of Euler angles (functional order of 
 //			operations is right-to-left)
-//		param angleX_degrees_out: pointer to angle storage for X axis
-//		param angleY_degrees_out: pointer to angle storage for Y axis
-//		param angleZ_degrees_out: pointer to angle storage for Z axis
+//		param rotateDegXYZ_out: storage for Euler angles in component order XYZ
 //		return: m_in
-fmat3 ijkMatGetRotate3f(fmat3 const m_in, ijkRotationOrder const order, float* const angleX_degrees_out, float* const angleY_degrees_out, float* const angleZ_degrees_out);
+fmat3 ijkMatGetRotate3f(fmat3 const m_in, ijkRotationOrder const order, fvec3* const rotateDegXYZ_out);
 
 // ijkMatGetScale3*
 //	Extract scales from 3D matrix.
 //		param m_in: input matrix
-//		params sx_out, sy_out, sz_out: pointers to scale storage
+//		param scale_out: storage for scale amounts
 //		return: m_in
-fmat3 ijkMatGetScale3f(fmat3 const m_in, float* const sx_out, float* const sy_out, float* const sz_out);
+fmat3 ijkMatGetScale3f(fmat3 const m_in, fvec3* const scale_out);
 
 // ijkMatGetRotateScale3*
 //	Extract rotation angle in degrees and scales from 3D matrix.
 //		param m_in: input matrix
 //		param order: written order of Euler angles (functional order of 
 //			operations is right-to-left)
-//		param angleX_degrees_out: pointer to angle storage for X axis
-//		param angleY_degrees_out: pointer to angle storage for Y axis
-//		param angleZ_degrees_out: pointer to angle storage for Z axis
-//		params sx_out, sy_out, sz_out: pointers to scale storage
+//		param rotateDegXYZ_out: storage for Euler angles in component order XYZ
+//		param scale_out: storage for scale amounts
 //		return: m_in
-fmat3 ijkMatGetRotateScale3f(fmat3 const m_in, ijkRotationOrder const order, float* const angleX_degrees_out, float* const angleY_degrees_out, float* const angleZ_degrees_out, float* const sx_out, float* const sy_out, float* const sz_out);
+fmat3 ijkMatGetRotateScale3f(fmat3 const m_in, ijkRotationOrder const order, fvec3* const rotateDegXYZ_out, fvec3* const scale_out);
 
 // ijkMatInverseRotate3*
 //	Calculate quick transform inverse for 3D matrix, assuming matrix encodes 
@@ -1709,9 +1651,9 @@ fmat3 ijkMatRotateAxisAngle3f(fvec3 const axis_unit, float const angle_degrees);
 //	and scales.
 //		param axis_unit: pre-normalized axis of rotation
 //		param angle_degrees: angle of rotation in degrees
-//		params sx, sy, sz: scales on each dimension
+//		param scale: scales on each dimension
 //		return: rotation-scale matrix
-fmat3 ijkMatRotateAxisAngleScale3f(fvec3 const axis_unit, float const angle_degrees, float const sx, float const sy, float const sz);
+fmat3 ijkMatRotateAxisAngleScale3f(fvec3 const axis_unit, float const angle_degrees, fvec3 const scale);
 
 // ijkMatGetRotateAxisAngle3*
 //	Extract unit axis of rotation and angle in degrees from 3D rotation matrix.
@@ -1726,9 +1668,9 @@ fmat3 ijkMatGetRotateAxisAngle3f(fmat3 const m_in, fvec3* const axis_unit_out, f
 //		param m_in: input matrix, rotation-scale
 //		param axis_unit_out: output unit axis of rotation
 //		param angle_degrees_out: pointer to angle storage
-//		params sx_out, sy_out, sz_out: pointers to scale storage
+//		param scale_out: storage for scale amounts
 //		return: m_in
-fmat3 ijkMatGetRotateAxisAngleScale3f(fmat3 const m_in, fvec3* const axis_unit_out, float* const angle_degrees_out, float* const sx_out, float* const sy_out, float* const sz_out);
+fmat3 ijkMatGetRotateAxisAngleScale3f(fmat3 const m_in, fvec3* const axis_unit_out, float* const angle_degrees_out, fvec3* const scale_out);
 
 
 //-----------------------------------------------------------------------------

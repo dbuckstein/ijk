@@ -1183,12 +1183,12 @@ ijk_inl float3m ijkMatDivSafe3fm(float3x3 m_out, float3x3 const m_lh, float3x3 c
 	return ijkMatMul3fm(m_out, m_lh, ijkMatInverseSafe3fm(inv_rh, m_rh));
 }
 
-ijk_inl float3m ijkMatRotateXYZ3fm(float3x3 m_out, f32 const angleX_degrees, f32 const angleY_degrees, f32 const angleZ_degrees)
+ijk_inl float3m ijkMatRotateXYZ3fm(float3x3 m_out, float3 const rotateDegXYZ)
 {
 	f32 sx, sy, sz, cx, cy, cz, ss, cs;
-	ijkTrigSinCos_deg_flt(angleX_degrees, &sx, &cx);
-	ijkTrigSinCos_deg_flt(angleY_degrees, &sy, &cy);
-	ijkTrigSinCos_deg_flt(angleZ_degrees, &sz, &cz);
+	ijkTrigSinCos_deg_flt(rotateDegXYZ[0], &sx, &cx);
+	ijkTrigSinCos_deg_flt(rotateDegXYZ[1], &sy, &cy);
+	ijkTrigSinCos_deg_flt(rotateDegXYZ[2], &sz, &cz);
 	ss = sx * sy;
 	cs = cx * sy;
 	return ijkMatInitElems3fm(m_out,
@@ -1197,12 +1197,12 @@ ijk_inl float3m ijkMatRotateXYZ3fm(float3x3 m_out, f32 const angleX_degrees, f32
 		(+sy), (-sx * cy), (+cx * cy));
 }
 
-ijk_inl float3m ijkMatRotateYZX3fm(float3x3 m_out, f32 const angleX_degrees, f32 const angleY_degrees, f32 const angleZ_degrees)
+ijk_inl float3m ijkMatRotateYZX3fm(float3x3 m_out, float3 const rotateDegXYZ)
 {
 	f32 sx, sy, sz, cx, cy, cz, ss, cs;
-	ijkTrigSinCos_deg_flt(angleX_degrees, &sx, &cx);
-	ijkTrigSinCos_deg_flt(angleY_degrees, &sy, &cy);
-	ijkTrigSinCos_deg_flt(angleZ_degrees, &sz, &cz);
+	ijkTrigSinCos_deg_flt(rotateDegXYZ[0], &sx, &cx);
+	ijkTrigSinCos_deg_flt(rotateDegXYZ[1], &sy, &cy);
+	ijkTrigSinCos_deg_flt(rotateDegXYZ[2], &sz, &cz);
 	ss = sy * sz;
 	cs = cy * sz;
 	return ijkMatInitElems3fm(m_out,
@@ -1211,12 +1211,12 @@ ijk_inl float3m ijkMatRotateYZX3fm(float3x3 m_out, f32 const angleX_degrees, f32
 		(+sy * cx + cs * sx), (-cz * sx), (+cy * cx - ss * sx));
 }
 
-ijk_inl float3m ijkMatRotateZXY3fm(float3x3 m_out, f32 const angleX_degrees, f32 const angleY_degrees, f32 const angleZ_degrees)
+ijk_inl float3m ijkMatRotateZXY3fm(float3x3 m_out, float3 const rotateDegXYZ)
 {
 	f32 sx, sy, sz, cx, cy, cz, ss, cs;
-	ijkTrigSinCos_deg_flt(angleX_degrees, &sx, &cx);
-	ijkTrigSinCos_deg_flt(angleY_degrees, &sy, &cy);
-	ijkTrigSinCos_deg_flt(angleZ_degrees, &sz, &cz);
+	ijkTrigSinCos_deg_flt(rotateDegXYZ[0], &sx, &cx);
+	ijkTrigSinCos_deg_flt(rotateDegXYZ[1], &sy, &cy);
+	ijkTrigSinCos_deg_flt(rotateDegXYZ[2], &sz, &cz);
 	ss = sz * sx;
 	cs = cz * sx;
 	return ijkMatInitElems3fm(m_out,
@@ -1225,12 +1225,12 @@ ijk_inl float3m ijkMatRotateZXY3fm(float3x3 m_out, f32 const angleX_degrees, f32
 		(+cz * sy + ss * cy), (+sz * sy - cs * cy), (+cx * cy));
 }
 
-ijk_inl float3m ijkMatRotateYXZ3fm(float3x3 m_out, f32 const angleX_degrees, f32 const angleY_degrees, f32 const angleZ_degrees)
+ijk_inl float3m ijkMatRotateYXZ3fm(float3x3 m_out, float3 const rotateDegXYZ)
 {
 	f32 sx, sy, sz, cx, cy, cz, ss, cs;
-	ijkTrigSinCos_deg_flt(angleX_degrees, &sx, &cx);
-	ijkTrigSinCos_deg_flt(angleY_degrees, &sy, &cy);
-	ijkTrigSinCos_deg_flt(angleZ_degrees, &sz, &cz);
+	ijkTrigSinCos_deg_flt(rotateDegXYZ[0], &sx, &cx);
+	ijkTrigSinCos_deg_flt(rotateDegXYZ[1], &sy, &cy);
+	ijkTrigSinCos_deg_flt(rotateDegXYZ[2], &sz, &cz);
 	ss = sy * sx;
 	cs = cy * sx;
 	return ijkMatInitElems3fm(m_out,
@@ -1239,12 +1239,12 @@ ijk_inl float3m ijkMatRotateYXZ3fm(float3x3 m_out, f32 const angleX_degrees, f32
 		(+sy * cx), (-sx), (+cy * cx));
 }
 
-ijk_inl float3m ijkMatRotateXZY3fm(float3x3 m_out, f32 const angleX_degrees, f32 const angleY_degrees, f32 const angleZ_degrees)
+ijk_inl float3m ijkMatRotateXZY3fm(float3x3 m_out, float3 const rotateDegXYZ)
 {
 	f32 sx, sy, sz, cx, cy, cz, ss, cs;
-	ijkTrigSinCos_deg_flt(angleX_degrees, &sx, &cx);
-	ijkTrigSinCos_deg_flt(angleY_degrees, &sy, &cy);
-	ijkTrigSinCos_deg_flt(angleZ_degrees, &sz, &cz);
+	ijkTrigSinCos_deg_flt(rotateDegXYZ[0], &sx, &cx);
+	ijkTrigSinCos_deg_flt(rotateDegXYZ[1], &sy, &cy);
+	ijkTrigSinCos_deg_flt(rotateDegXYZ[2], &sz, &cz);
 	ss = sx * sz;
 	cs = cx * sz;
 	return ijkMatInitElems3fm(m_out,
@@ -1253,12 +1253,12 @@ ijk_inl float3m ijkMatRotateXZY3fm(float3x3 m_out, f32 const angleX_degrees, f32
 		(+cz * sy), (+cs * sy - sx * cy), (+ss * sy + cx * cy));
 }
 
-ijk_inl float3m ijkMatRotateZYX3fm(float3x3 m_out, f32 const angleX_degrees, f32 const angleY_degrees, f32 const angleZ_degrees)
+ijk_inl float3m ijkMatRotateZYX3fm(float3x3 m_out, float3 const rotateDegXYZ)
 {
 	f32 sx, sy, sz, cx, cy, cz, ss, cs;
-	ijkTrigSinCos_deg_flt(angleX_degrees, &sx, &cx);
-	ijkTrigSinCos_deg_flt(angleY_degrees, &sy, &cy);
-	ijkTrigSinCos_deg_flt(angleZ_degrees, &sz, &cz);
+	ijkTrigSinCos_deg_flt(rotateDegXYZ[0], &sx, &cx);
+	ijkTrigSinCos_deg_flt(rotateDegXYZ[1], &sy, &cy);
+	ijkTrigSinCos_deg_flt(rotateDegXYZ[2], &sz, &cz);
 	ss = sz * sy;
 	cs = cz * sy;
 	return ijkMatInitElems3fm(m_out,
@@ -1267,127 +1267,127 @@ ijk_inl float3m ijkMatRotateZYX3fm(float3x3 m_out, f32 const angleX_degrees, f32
 		(+cs * cx + sz * sx), (+ss * cx - cz * sx), (+cy * cx));
 }
 
-ijk_inl float3km ijkMatGetRotateXYZ3fm(float3x3 const m_in, f32* const angleX_degrees_out, f32* const angleY_degrees_out, f32* const angleZ_degrees_out)
+ijk_inl float3km ijkMatGetRotateXYZ3fm(float3x3 const m_in, float3 rotateDegXYZ_out)
 {
-	*angleY_degrees_out = ijkTrigAsin_deg_flt(+m_in[2][0]);
-	*angleZ_degrees_out = ijkTrigAtan2_deg_flt(-m_in[1][0], +m_in[0][0]);
-	*angleX_degrees_out = ijkTrigAtan2_deg_flt(-m_in[2][1], +m_in[2][2]);
+	rotateDegXYZ_out[1] = ijkTrigAsin_deg_flt(+m_in[2][0]);
+	rotateDegXYZ_out[2] = ijkTrigAtan2_deg_flt(-m_in[1][0], +m_in[0][0]);
+	rotateDegXYZ_out[0] = ijkTrigAtan2_deg_flt(-m_in[2][1], +m_in[2][2]);
 	return m_in;
 }
 
-ijk_inl float3km ijkMatGetRotateYZX3fm(float3x3 const m_in, f32* const angleX_degrees_out, f32* const angleY_degrees_out, f32* const angleZ_degrees_out)
+ijk_inl float3km ijkMatGetRotateYZX3fm(float3x3 const m_in, float3 rotateDegXYZ_out)
 {
-	*angleZ_degrees_out = ijkTrigAsin_deg_flt(+m_in[0][1]);
-	*angleX_degrees_out = ijkTrigAtan2_deg_flt(-m_in[2][1], +m_in[1][1]);
-	*angleY_degrees_out = ijkTrigAtan2_deg_flt(-m_in[0][2], +m_in[0][0]);
+	rotateDegXYZ_out[2] = ijkTrigAsin_deg_flt(+m_in[0][1]);
+	rotateDegXYZ_out[0] = ijkTrigAtan2_deg_flt(-m_in[2][1], +m_in[1][1]);
+	rotateDegXYZ_out[1] = ijkTrigAtan2_deg_flt(-m_in[0][2], +m_in[0][0]);
 	return m_in;
 }
 
-ijk_inl float3km ijkMatGetRotateZXY3fm(float3x3 const m_in, f32* const angleX_degrees_out, f32* const angleY_degrees_out, f32* const angleZ_degrees_out)
+ijk_inl float3km ijkMatGetRotateZXY3fm(float3x3 const m_in, float3 rotateDegXYZ_out)
 {
-	*angleX_degrees_out = ijkTrigAsin_deg_flt(+m_in[1][2]);
-	*angleY_degrees_out = ijkTrigAtan2_deg_flt(-m_in[0][2], +m_in[2][2]);
-	*angleZ_degrees_out = ijkTrigAtan2_deg_flt(-m_in[1][0], +m_in[1][1]);
+	rotateDegXYZ_out[0] = ijkTrigAsin_deg_flt(+m_in[1][2]);
+	rotateDegXYZ_out[1] = ijkTrigAtan2_deg_flt(-m_in[0][2], +m_in[2][2]);
+	rotateDegXYZ_out[2] = ijkTrigAtan2_deg_flt(-m_in[1][0], +m_in[1][1]);
 	return m_in;
 }
 
-ijk_inl float3km ijkMatGetRotateYXZ3fm(float3x3 const m_in, f32* const angleX_degrees_out, f32* const angleY_degrees_out, f32* const angleZ_degrees_out)
+ijk_inl float3km ijkMatGetRotateYXZ3fm(float3x3 const m_in, float3 rotateDegXYZ_out)
 {
-	*angleX_degrees_out = ijkTrigAsin_deg_flt(-m_in[2][1]);
-	*angleZ_degrees_out = ijkTrigAtan2_deg_flt(+m_in[2][0], +m_in[2][2]);
-	*angleY_degrees_out = ijkTrigAtan2_deg_flt(+m_in[0][1], +m_in[1][1]);
+	rotateDegXYZ_out[0] = ijkTrigAsin_deg_flt(-m_in[2][1]);
+	rotateDegXYZ_out[2] = ijkTrigAtan2_deg_flt(+m_in[2][0], +m_in[2][2]);
+	rotateDegXYZ_out[1] = ijkTrigAtan2_deg_flt(+m_in[0][1], +m_in[1][1]);
 	return m_in;
 }
 
-ijk_inl float3km ijkMatGetRotateXZY3fm(float3x3 const m_in, f32* const angleX_degrees_out, f32* const angleY_degrees_out, f32* const angleZ_degrees_out)
+ijk_inl float3km ijkMatGetRotateXZY3fm(float3x3 const m_in, float3 rotateDegXYZ_out)
 {
-	*angleZ_degrees_out = ijkTrigAsin_deg_flt(-m_in[1][0]);
-	*angleY_degrees_out = ijkTrigAtan2_deg_flt(+m_in[1][2], +m_in[1][1]);
-	*angleX_degrees_out = ijkTrigAtan2_deg_flt(+m_in[2][0], +m_in[0][0]);
+	rotateDegXYZ_out[2] = ijkTrigAsin_deg_flt(-m_in[1][0]);
+	rotateDegXYZ_out[1] = ijkTrigAtan2_deg_flt(+m_in[1][2], +m_in[1][1]);
+	rotateDegXYZ_out[0] = ijkTrigAtan2_deg_flt(+m_in[2][0], +m_in[0][0]);
 	return m_in;
 }
 
-ijk_inl float3km ijkMatGetRotateZYX3fm(float3x3 const m_in, f32* const angleX_degrees_out, f32* const angleY_degrees_out, f32* const angleZ_degrees_out)
+ijk_inl float3km ijkMatGetRotateZYX3fm(float3x3 const m_in, float3 rotateDegXYZ_out)
 {
-	*angleY_degrees_out = ijkTrigAsin_deg_flt(-m_in[0][2]);
-	*angleX_degrees_out = ijkTrigAtan2_deg_flt(+m_in[0][1], +m_in[0][0]);
-	*angleZ_degrees_out = ijkTrigAtan2_deg_flt(+m_in[1][2], +m_in[2][2]);
+	rotateDegXYZ_out[1] = ijkTrigAsin_deg_flt(-m_in[0][2]);
+	rotateDegXYZ_out[0] = ijkTrigAtan2_deg_flt(+m_in[0][1], +m_in[0][0]);
+	rotateDegXYZ_out[2] = ijkTrigAtan2_deg_flt(+m_in[1][2], +m_in[2][2]);
 	return m_in;
 }
 
-ijk_inl float3m ijkMatRotate3fm(float3x3 m_out, ijkRotationOrder const order, f32 const angleX_degrees, f32 const angleY_degrees, f32 const angleZ_degrees)
+ijk_inl float3m ijkMatRotate3fm(float3x3 m_out, ijkRotationOrder const order, float3 const rotateDegXYZ)
 {
 	switch (order)
 	{
 	case ijkRotationXYZ:
-		return ijkMatRotateXYZ3fm(m_out, angleX_degrees, angleY_degrees, angleZ_degrees);
+		return ijkMatRotateXYZ3fm(m_out, rotateDegXYZ);
 	case ijkRotationYZX:
-		return ijkMatRotateYZX3fm(m_out, angleX_degrees, angleY_degrees, angleZ_degrees);
+		return ijkMatRotateYZX3fm(m_out, rotateDegXYZ);
 	case ijkRotationZXY:
-		return ijkMatRotateZXY3fm(m_out, angleX_degrees, angleY_degrees, angleZ_degrees);
+		return ijkMatRotateZXY3fm(m_out, rotateDegXYZ);
 	case ijkRotationYXZ:
-		return ijkMatRotateYXZ3fm(m_out, angleX_degrees, angleY_degrees, angleZ_degrees);
+		return ijkMatRotateYXZ3fm(m_out, rotateDegXYZ);
 	case ijkRotationXZY:
-		return ijkMatRotateXZY3fm(m_out, angleX_degrees, angleY_degrees, angleZ_degrees);
+		return ijkMatRotateXZY3fm(m_out, rotateDegXYZ);
 	case ijkRotationZYX:
-		return ijkMatRotateZYX3fm(m_out, angleX_degrees, angleY_degrees, angleZ_degrees);
+		return ijkMatRotateZYX3fm(m_out, rotateDegXYZ);
 	}
 	return m_out;
 }
 
-ijk_inl float3m ijkMatScale3fm(float3x3 m_out, f32 const sx, f32 const sy, f32 const sz)
+ijk_inl float3m ijkMatScale3fm(float3x3 m_out, float3 const scale)
 {
-	m_out[0][0] = sx;
-	m_out[1][1] = sy;
-	m_out[2][2] = sz;
+	m_out[0][0] = scale[0];
+	m_out[1][1] = scale[1];
+	m_out[2][2] = scale[2];
 	m_out[0][1] = m_out[0][2] = m_out[1][0] = m_out[1][2] = m_out[2][0] = m_out[2][1] = flt_zero;
 	return m_out;
 }
 
-ijk_inl float3m ijkMatRotateScale3fm(float3x3 m_out, ijkRotationOrder const order, f32 const angleX_degrees, f32 const angleY_degrees, f32 const angleZ_degrees, f32 const sx, f32 const sy, f32 const sz)
+ijk_inl float3m ijkMatRotateScale3fm(float3x3 m_out, ijkRotationOrder const order, float3 const rotateDegXYZ, float3 const scale)
 {
-	ijkMatRotate3fm(m_out, order, angleX_degrees, angleY_degrees, angleZ_degrees);
-	ijkVecMul3fvs(m_out[0], m_out[0], sx);
-	ijkVecMul3fvs(m_out[1], m_out[1], sy);
-	ijkVecMul3fvs(m_out[2], m_out[2], sz);
+	ijkMatRotate3fm(m_out, order, rotateDegXYZ);
+	ijkVecMul3fvs(m_out[0], m_out[0], scale[0]);
+	ijkVecMul3fvs(m_out[1], m_out[1], scale[1]);
+	ijkVecMul3fvs(m_out[2], m_out[2], scale[2]);
 	return m_out;
 }
 
-ijk_inl float3km ijkMatGetRotate3fm(float3x3 const m_in, ijkRotationOrder const order, f32* const angleX_degrees_out, f32* const angleY_degrees_out, f32* const angleZ_degrees_out)
+ijk_inl float3km ijkMatGetRotate3fm(float3x3 const m_in, ijkRotationOrder const order, float3 rotateDegXYZ_out)
 {
 	switch (order)
 	{
 	case ijkRotationXYZ:
-		return ijkMatGetRotateXYZ3fm(m_in, angleX_degrees_out, angleY_degrees_out, angleZ_degrees_out);
+		return ijkMatGetRotateXYZ3fm(m_in, rotateDegXYZ_out);
 	case ijkRotationYZX:
-		return ijkMatGetRotateYZX3fm(m_in, angleX_degrees_out, angleY_degrees_out, angleZ_degrees_out);
+		return ijkMatGetRotateYZX3fm(m_in, rotateDegXYZ_out);
 	case ijkRotationZXY:
-		return ijkMatGetRotateZXY3fm(m_in, angleX_degrees_out, angleY_degrees_out, angleZ_degrees_out);
+		return ijkMatGetRotateZXY3fm(m_in, rotateDegXYZ_out);
 	case ijkRotationYXZ:
-		return ijkMatGetRotateYXZ3fm(m_in, angleX_degrees_out, angleY_degrees_out, angleZ_degrees_out);
+		return ijkMatGetRotateYXZ3fm(m_in, rotateDegXYZ_out);
 	case ijkRotationXZY:
-		return ijkMatGetRotateXZY3fm(m_in, angleX_degrees_out, angleY_degrees_out, angleZ_degrees_out);
+		return ijkMatGetRotateXZY3fm(m_in, rotateDegXYZ_out);
 	case ijkRotationZYX:
-		return ijkMatGetRotateZYX3fm(m_in, angleX_degrees_out, angleY_degrees_out, angleZ_degrees_out);
+		return ijkMatGetRotateZYX3fm(m_in, rotateDegXYZ_out);
 	}
 	return m_in;
 }
 
-ijk_inl float3km ijkMatGetScale3fm(float3x3 const m_in, f32* const sx_out, f32* const sy_out, f32* const sz_out)
+ijk_inl float3km ijkMatGetScale3fm(float3x3 const m_in, float3 scale_out)
 {
-	*sx_out = ijkVecLength3fv(m_in[0]);
-	*sy_out = ijkVecLength3fv(m_in[1]);
-	*sz_out = ijkVecLength3fv(m_in[2]);
+	scale_out[0] = ijkVecLength3fv(m_in[0]);
+	scale_out[1] = ijkVecLength3fv(m_in[1]);
+	scale_out[2] = ijkVecLength3fv(m_in[2]);
 	return m_in;
 }
 
-ijk_inl float3km ijkMatGetRotateScale3fm(float3x3 const m_in, ijkRotationOrder const order, f32* const angleX_degrees_out, f32* const angleY_degrees_out, f32* const angleZ_degrees_out, f32* const sx_out, f32* const sy_out, f32* const sz_out)
+ijk_inl float3km ijkMatGetRotateScale3fm(float3x3 const m_in, ijkRotationOrder const order, float3 rotateDegXYZ_out, float3 scale_out)
 {
 	float3x3 rot;
-	ijkVecDivSafe3fvs(rot[0], m_in[0], (*sx_out = ijkVecLength3fv(m_in[0])));
-	ijkVecDivSafe3fvs(rot[1], m_in[1], (*sy_out = ijkVecLength3fv(m_in[1])));
-	ijkVecDivSafe3fvs(rot[2], m_in[2], (*sz_out = ijkVecLength3fv(m_in[2])));
-	ijkMatGetRotate3fm(rot, order, angleX_degrees_out, angleY_degrees_out, angleZ_degrees_out);
+	ijkVecDivSafe3fvs(rot[0], m_in[0], (scale_out[0] = ijkVecLength3fv(m_in[0])));
+	ijkVecDivSafe3fvs(rot[1], m_in[1], (scale_out[1] = ijkVecLength3fv(m_in[1])));
+	ijkVecDivSafe3fvs(rot[2], m_in[2], (scale_out[2] = ijkVecLength3fv(m_in[2])));
+	ijkMatGetRotate3fm(rot, order, rotateDegXYZ_out);
 	return m_in;
 }
 
@@ -1470,12 +1470,12 @@ ijk_inl float3m ijkMatRotateAxisAngle3fm(float3x3 m_out, float3 const axis_unit,
 		(zxt + ys), (yzt - xs), (z * zt + c));
 }
 
-ijk_inl float3m ijkMatRotateAxisAngleScale3fm(float3x3 m_out, float3 const axis_unit, f32 const angle_degrees, f32 const sx, f32 const sy, f32 const sz)
+ijk_inl float3m ijkMatRotateAxisAngleScale3fm(float3x3 m_out, float3 const axis_unit, f32 const angle_degrees, float3 const scale)
 {
 	ijkMatRotateAxisAngle3fm(m_out, axis_unit, angle_degrees);
-	ijkVecMul3fvs(m_out[0], m_out[0], sx);
-	ijkVecMul3fvs(m_out[1], m_out[1], sy);
-	ijkVecMul3fvs(m_out[2], m_out[2], sz);
+	ijkVecMul3fvs(m_out[0], m_out[0], scale[0]);
+	ijkVecMul3fvs(m_out[1], m_out[1], scale[1]);
+	ijkVecMul3fvs(m_out[2], m_out[2], scale[2]);
 	return m_out;
 }
 
@@ -1491,13 +1491,12 @@ ijk_inl float3km ijkMatGetRotateAxisAngle3fm(float3x3 const m_in, float3 axis_un
 	return m_in;
 }
 
-ijk_inl float3km ijkMatGetRotateAxisAngleScale3fm(float3x3 const m_in, float3 axis_unit_out, f32* const angle_degrees_out, f32* const sx_out, f32* const sy_out, f32* const sz_out)
+ijk_inl float3km ijkMatGetRotateAxisAngleScale3fm(float3x3 const m_in, float3 axis_unit_out, f32* const angle_degrees_out, float3 scale_out)
 {
 	float3x3 rot;
-	ijkMatGetScale3fm(m_in, sx_out, sy_out, sz_out);
-	ijkVecDivSafe3fvs(rot[0], m_in[0], *sx_out);
-	ijkVecDivSafe3fvs(rot[1], m_in[1], *sy_out);
-	ijkVecDivSafe3fvs(rot[2], m_in[2], *sz_out);
+	ijkVecDivSafe3fvs(rot[0], m_in[0], (scale_out[0] = ijkVecLength3fv(m_in[0])));
+	ijkVecDivSafe3fvs(rot[1], m_in[1], (scale_out[1] = ijkVecLength3fv(m_in[1])));
+	ijkVecDivSafe3fvs(rot[2], m_in[2], (scale_out[2] = ijkVecLength3fv(m_in[2])));
 	ijkMatGetRotateAxisAngle3fm(rot, axis_unit_out, angle_degrees_out);
 	return m_in;
 }
@@ -1817,12 +1816,12 @@ ijk_inl fmat3 ijkMatDivSafe3f(fmat3 const m_lh, fmat3 const m_rh)
 	return ijkMatMul3f(m_lh, ijkMatInverseSafe3f(m_rh));
 }
 
-ijk_inl fmat3 ijkMatRotateXYZ3f(float const angleX_degrees, float const angleY_degrees, float const angleZ_degrees)
+ijk_inl fmat3 ijkMatRotateXYZ3f(fvec3 const rotateDegXYZ)
 {
 	float sx, sy, sz, cx, cy, cz, ss, cs;
-	ijkTrigSinCos_deg_flt(angleX_degrees, &sx, &cx);
-	ijkTrigSinCos_deg_flt(angleY_degrees, &sy, &cy);
-	ijkTrigSinCos_deg_flt(angleZ_degrees, &sz, &cz);
+	ijkTrigSinCos_deg_flt(rotateDegXYZ.x, &sx, &cx);
+	ijkTrigSinCos_deg_flt(rotateDegXYZ.y, &sy, &cy);
+	ijkTrigSinCos_deg_flt(rotateDegXYZ.z, &sz, &cz);
 	ss = sx * sy;
 	cs = cx * sy;
 	return ijkMatInitElems3f(
@@ -1831,12 +1830,12 @@ ijk_inl fmat3 ijkMatRotateXYZ3f(float const angleX_degrees, float const angleY_d
 		(+sy), (-sx * cy), (+cx * cy));
 }
 
-ijk_inl fmat3 ijkMatRotateYZX3f(float const angleX_degrees, float const angleY_degrees, float const angleZ_degrees)
+ijk_inl fmat3 ijkMatRotateYZX3f(fvec3 const rotateDegXYZ)
 {
 	float sx, sy, sz, cx, cy, cz, ss, cs;
-	ijkTrigSinCos_deg_flt(angleX_degrees, &sx, &cx);
-	ijkTrigSinCos_deg_flt(angleY_degrees, &sy, &cy);
-	ijkTrigSinCos_deg_flt(angleZ_degrees, &sz, &cz);
+	ijkTrigSinCos_deg_flt(rotateDegXYZ.x, &sx, &cx);
+	ijkTrigSinCos_deg_flt(rotateDegXYZ.y, &sy, &cy);
+	ijkTrigSinCos_deg_flt(rotateDegXYZ.z, &sz, &cz);
 	ss = sy * sz;
 	cs = cy * sz;
 	return ijkMatInitElems3f(
@@ -1845,12 +1844,12 @@ ijk_inl fmat3 ijkMatRotateYZX3f(float const angleX_degrees, float const angleY_d
 		(+sy * cx + cs * sx), (-cz * sx), (+cy * cx - ss * sx));
 }
 
-ijk_inl fmat3 ijkMatRotateZXY3f(float const angleX_degrees, float const angleY_degrees, float const angleZ_degrees)
+ijk_inl fmat3 ijkMatRotateZXY3f(fvec3 const rotateDegXYZ)
 {
 	float sx, sy, sz, cx, cy, cz, ss, cs;
-	ijkTrigSinCos_deg_flt(angleX_degrees, &sx, &cx);
-	ijkTrigSinCos_deg_flt(angleY_degrees, &sy, &cy);
-	ijkTrigSinCos_deg_flt(angleZ_degrees, &sz, &cz);
+	ijkTrigSinCos_deg_flt(rotateDegXYZ.x, &sx, &cx);
+	ijkTrigSinCos_deg_flt(rotateDegXYZ.y, &sy, &cy);
+	ijkTrigSinCos_deg_flt(rotateDegXYZ.z, &sz, &cz);
 	ss = sz * sx;
 	cs = cz * sx;
 	return ijkMatInitElems3f(
@@ -1859,12 +1858,12 @@ ijk_inl fmat3 ijkMatRotateZXY3f(float const angleX_degrees, float const angleY_d
 		(+cz * sy + ss * cy), (+sz * sy - cs * cy), (+cx * cy));
 }
 
-ijk_inl fmat3 ijkMatRotateYXZ3f(float const angleX_degrees, float const angleY_degrees, float const angleZ_degrees)
+ijk_inl fmat3 ijkMatRotateYXZ3f(fvec3 const rotateDegXYZ)
 {
 	float sx, sy, sz, cx, cy, cz, ss, cs;
-	ijkTrigSinCos_deg_flt(angleX_degrees, &sx, &cx);
-	ijkTrigSinCos_deg_flt(angleY_degrees, &sy, &cy);
-	ijkTrigSinCos_deg_flt(angleZ_degrees, &sz, &cz);
+	ijkTrigSinCos_deg_flt(rotateDegXYZ.x, &sx, &cx);
+	ijkTrigSinCos_deg_flt(rotateDegXYZ.y, &sy, &cy);
+	ijkTrigSinCos_deg_flt(rotateDegXYZ.z, &sz, &cz);
 	ss = sy * sx;
 	cs = cy * sx;
 	return ijkMatInitElems3f(
@@ -1873,12 +1872,12 @@ ijk_inl fmat3 ijkMatRotateYXZ3f(float const angleX_degrees, float const angleY_d
 		(+sy * cx), (-sx), (+cy * cx));
 }
 
-ijk_inl fmat3 ijkMatRotateXZY3f(float const angleX_degrees, float const angleY_degrees, float const angleZ_degrees)
+ijk_inl fmat3 ijkMatRotateXZY3f(fvec3 const rotateDegXYZ)
 {
 	float sx, sy, sz, cx, cy, cz, ss, cs;
-	ijkTrigSinCos_deg_flt(angleX_degrees, &sx, &cx);
-	ijkTrigSinCos_deg_flt(angleY_degrees, &sy, &cy);
-	ijkTrigSinCos_deg_flt(angleZ_degrees, &sz, &cz);
+	ijkTrigSinCos_deg_flt(rotateDegXYZ.x, &sx, &cx);
+	ijkTrigSinCos_deg_flt(rotateDegXYZ.y, &sy, &cy);
+	ijkTrigSinCos_deg_flt(rotateDegXYZ.z, &sz, &cz);
 	ss = sx * sz;
 	cs = cx * sz;
 	return ijkMatInitElems3f(
@@ -1887,12 +1886,12 @@ ijk_inl fmat3 ijkMatRotateXZY3f(float const angleX_degrees, float const angleY_d
 		(+cz * sy), (+cs * sy - sx * cy), (+ss * sy + cx * cy));
 }
 
-ijk_inl fmat3 ijkMatRotateZYX3f(float const angleX_degrees, float const angleY_degrees, float const angleZ_degrees)
+ijk_inl fmat3 ijkMatRotateZYX3f(fvec3 const rotateDegXYZ)
 {
 	float sx, sy, sz, cx, cy, cz, ss, cs;
-	ijkTrigSinCos_deg_flt(angleX_degrees, &sx, &cx);
-	ijkTrigSinCos_deg_flt(angleY_degrees, &sy, &cy);
-	ijkTrigSinCos_deg_flt(angleZ_degrees, &sz, &cz);
+	ijkTrigSinCos_deg_flt(rotateDegXYZ.x, &sx, &cx);
+	ijkTrigSinCos_deg_flt(rotateDegXYZ.y, &sy, &cy);
+	ijkTrigSinCos_deg_flt(rotateDegXYZ.z, &sz, &cz);
 	ss = sz * sy;
 	cs = cz * sy;
 	return ijkMatInitElems3f(
@@ -1901,128 +1900,128 @@ ijk_inl fmat3 ijkMatRotateZYX3f(float const angleX_degrees, float const angleY_d
 		(+cs * cx + sz * sx), (+ss * cx - cz * sx), (+cy * cx));
 }
 
-ijk_inl fmat3 ijkMatGetRotateXYZ3f(fmat3 const m_in, float* const angleX_degrees_out, float* const angleY_degrees_out, float* const angleZ_degrees_out)
+ijk_inl fmat3 ijkMatGetRotateXYZ3f(fmat3 const m_in, fvec3* const rotateDegXYZ_out)
 {
-	*angleY_degrees_out = ijkTrigAsin_deg_flt(+m_in.x2);
-	*angleZ_degrees_out = ijkTrigAtan2_deg_flt(-m_in.x1, +m_in.x0);
-	*angleX_degrees_out = ijkTrigAtan2_deg_flt(-m_in.y2, +m_in.z2);
+	rotateDegXYZ_out->y = ijkTrigAsin_deg_flt(+m_in.x2);
+	rotateDegXYZ_out->z = ijkTrigAtan2_deg_flt(-m_in.x1, +m_in.x0);
+	rotateDegXYZ_out->x = ijkTrigAtan2_deg_flt(-m_in.y2, +m_in.z2);
 	return m_in;
 }
 
-ijk_inl fmat3 ijkMatGetRotateYZX3f(fmat3 const m_in, float* const angleX_degrees_out, float* const angleY_degrees_out, float* const angleZ_degrees_out)
+ijk_inl fmat3 ijkMatGetRotateYZX3f(fmat3 const m_in, fvec3* const rotateDegXYZ_out)
 {
-	*angleZ_degrees_out = ijkTrigAsin_deg_flt(+m_in.y0);
-	*angleX_degrees_out = ijkTrigAtan2_deg_flt(-m_in.y2, +m_in.y1);
-	*angleY_degrees_out = ijkTrigAtan2_deg_flt(-m_in.z0, +m_in.x0);
+	rotateDegXYZ_out->z = ijkTrigAsin_deg_flt(+m_in.y0);
+	rotateDegXYZ_out->x = ijkTrigAtan2_deg_flt(-m_in.y2, +m_in.y1);
+	rotateDegXYZ_out->y = ijkTrigAtan2_deg_flt(-m_in.z0, +m_in.x0);
 	return m_in;
 }
 
-ijk_inl fmat3 ijkMatGetRotateZXY3f(fmat3 const m_in, float* const angleX_degrees_out, float* const angleY_degrees_out, float* const angleZ_degrees_out)
+ijk_inl fmat3 ijkMatGetRotateZXY3f(fmat3 const m_in, fvec3* const rotateDegXYZ_out)
 {
-	*angleX_degrees_out = ijkTrigAsin_deg_flt(+m_in.z1);
-	*angleY_degrees_out = ijkTrigAtan2_deg_flt(-m_in.z0, +m_in.z2);
-	*angleZ_degrees_out = ijkTrigAtan2_deg_flt(-m_in.x1, +m_in.y1);
+	rotateDegXYZ_out->x = ijkTrigAsin_deg_flt(+m_in.z1);
+	rotateDegXYZ_out->y = ijkTrigAtan2_deg_flt(-m_in.z0, +m_in.z2);
+	rotateDegXYZ_out->z = ijkTrigAtan2_deg_flt(-m_in.x1, +m_in.y1);
 	return m_in;
 }
 
-ijk_inl fmat3 ijkMatGetRotateYXZ3f(fmat3 const m_in, float* const angleX_degrees_out, float* const angleY_degrees_out, float* const angleZ_degrees_out)
+ijk_inl fmat3 ijkMatGetRotateYXZ3f(fmat3 const m_in, fvec3* const rotateDegXYZ_out)
 {
-	*angleX_degrees_out = ijkTrigAsin_deg_flt(-m_in.y2);
-	*angleZ_degrees_out = ijkTrigAtan2_deg_flt(+m_in.x2, +m_in.z2);
-	*angleY_degrees_out = ijkTrigAtan2_deg_flt(+m_in.y0, +m_in.y1);
+	rotateDegXYZ_out->x = ijkTrigAsin_deg_flt(-m_in.y2);
+	rotateDegXYZ_out->z = ijkTrigAtan2_deg_flt(+m_in.x2, +m_in.z2);
+	rotateDegXYZ_out->y = ijkTrigAtan2_deg_flt(+m_in.y0, +m_in.y1);
 	return m_in;
 }
 
-ijk_inl fmat3 ijkMatGetRotateXZY3f(fmat3 const m_in, float* const angleX_degrees_out, float* const angleY_degrees_out, float* const angleZ_degrees_out)
+ijk_inl fmat3 ijkMatGetRotateXZY3f(fmat3 const m_in, fvec3* const rotateDegXYZ_out)
 {
-	*angleZ_degrees_out = ijkTrigAsin_deg_flt(-m_in.x1);
-	*angleY_degrees_out = ijkTrigAtan2_deg_flt(+m_in.z1, +m_in.y1);
-	*angleX_degrees_out = ijkTrigAtan2_deg_flt(+m_in.x2, +m_in.x0);
+	rotateDegXYZ_out->z = ijkTrigAsin_deg_flt(-m_in.x1);
+	rotateDegXYZ_out->y = ijkTrigAtan2_deg_flt(+m_in.z1, +m_in.y1);
+	rotateDegXYZ_out->x = ijkTrigAtan2_deg_flt(+m_in.x2, +m_in.x0);
 	return m_in;
 }
 
-ijk_inl fmat3 ijkMatGetRotateZYX3f(fmat3 const m_in, float* const angleX_degrees_out, float* const angleY_degrees_out, float* const angleZ_degrees_out)
+ijk_inl fmat3 ijkMatGetRotateZYX3f(fmat3 const m_in, fvec3* const rotateDegXYZ_out)
 {
-	*angleY_degrees_out = ijkTrigAsin_deg_flt(-m_in.z0);
-	*angleX_degrees_out = ijkTrigAtan2_deg_flt(+m_in.y0, +m_in.x0);
-	*angleZ_degrees_out = ijkTrigAtan2_deg_flt(+m_in.z1, +m_in.z2);
+	rotateDegXYZ_out->y = ijkTrigAsin_deg_flt(-m_in.z0);
+	rotateDegXYZ_out->x = ijkTrigAtan2_deg_flt(+m_in.y0, +m_in.x0);
+	rotateDegXYZ_out->z = ijkTrigAtan2_deg_flt(+m_in.z1, +m_in.z2);
 	return m_in;
 }
 
-ijk_inl fmat3 ijkMatRotate3f(ijkRotationOrder const order, float const angleX_degrees, float const angleY_degrees, float const angleZ_degrees)
+ijk_inl fmat3 ijkMatRotate3f(ijkRotationOrder const order, fvec3 const rotateDegXYZ)
 {
 	switch (order)
 	{
 	case ijkRotationXYZ:
-		return ijkMatRotateXYZ3f(angleX_degrees, angleY_degrees, angleZ_degrees);
+		return ijkMatRotateXYZ3f(rotateDegXYZ);
 	case ijkRotationYZX:
-		return ijkMatRotateYZX3f(angleX_degrees, angleY_degrees, angleZ_degrees);
+		return ijkMatRotateYZX3f(rotateDegXYZ);
 	case ijkRotationZXY:
-		return ijkMatRotateZXY3f(angleX_degrees, angleY_degrees, angleZ_degrees);
+		return ijkMatRotateZXY3f(rotateDegXYZ);
 	case ijkRotationYXZ:
-		return ijkMatRotateYXZ3f(angleX_degrees, angleY_degrees, angleZ_degrees);
+		return ijkMatRotateYXZ3f(rotateDegXYZ);
 	case ijkRotationXZY:
-		return ijkMatRotateXZY3f(angleX_degrees, angleY_degrees, angleZ_degrees);
+		return ijkMatRotateXZY3f(rotateDegXYZ);
 	case ijkRotationZYX:
-		return ijkMatRotateZYX3f(angleX_degrees, angleY_degrees, angleZ_degrees);
+		return ijkMatRotateZYX3f(rotateDegXYZ);
 	}
 	//return m_out;
 }
 
-ijk_inl fmat3 ijkMatScale3f(float const sx, float const sy, float const sz)
+ijk_inl fmat3 ijkMatScale3f(fvec3 const scale)
 {
 	fmat3 const m_out = {
-		sx, flt_zero, flt_zero,
-		flt_zero, sy, flt_zero,
-		flt_zero, flt_zero, sz,
+		scale.x, flt_zero, flt_zero,
+		flt_zero, scale.y, flt_zero,
+		flt_zero, flt_zero, scale.z,
 	};
 	return m_out;
 }
 
-ijk_inl fmat3 ijkMatRotateScale3f(ijkRotationOrder const order, float const angleX_degrees, float const angleY_degrees, float const angleZ_degrees, float const sx, float const sy, float const sz)
+ijk_inl fmat3 ijkMatRotateScale3f(ijkRotationOrder const order, fvec3 const rotateDegXYZ, fvec3 const scale)
 {
-	fmat3 m_out = ijkMatRotate3f(order, angleX_degrees, angleY_degrees, angleZ_degrees);
-	m_out.c0 = ijkVecMul3fs(m_out.c0, sx);
-	m_out.c1 = ijkVecMul3fs(m_out.c1, sy);
-	m_out.c2 = ijkVecMul3fs(m_out.c2, sz);
+	fmat3 m_out = ijkMatRotate3f(order, rotateDegXYZ);
+	m_out.c0 = ijkVecMul3fs(m_out.c0, scale.x);
+	m_out.c1 = ijkVecMul3fs(m_out.c1, scale.y);
+	m_out.c2 = ijkVecMul3fs(m_out.c2, scale.z);
 	return m_out;
 }
 
-ijk_inl fmat3 ijkMatGetRotate3f(fmat3 const m_in, ijkRotationOrder const order, float* const angleX_degrees_out, float* const angleY_degrees_out, float* const angleZ_degrees_out)
+ijk_inl fmat3 ijkMatGetRotate3f(fmat3 const m_in, ijkRotationOrder const order, fvec3* const rotateDegXYZ_out)
 {
 	switch (order)
 	{
 	case ijkRotationXYZ:
-		return ijkMatGetRotateXYZ3f(m_in, angleX_degrees_out, angleY_degrees_out, angleZ_degrees_out);
+		return ijkMatGetRotateXYZ3f(m_in, rotateDegXYZ_out);
 	case ijkRotationYZX:
-		return ijkMatGetRotateYZX3f(m_in, angleX_degrees_out, angleY_degrees_out, angleZ_degrees_out);
+		return ijkMatGetRotateYZX3f(m_in, rotateDegXYZ_out);
 	case ijkRotationZXY:
-		return ijkMatGetRotateZXY3f(m_in, angleX_degrees_out, angleY_degrees_out, angleZ_degrees_out);
+		return ijkMatGetRotateZXY3f(m_in, rotateDegXYZ_out);
 	case ijkRotationYXZ:
-		return ijkMatGetRotateYXZ3f(m_in, angleX_degrees_out, angleY_degrees_out, angleZ_degrees_out);
+		return ijkMatGetRotateYXZ3f(m_in, rotateDegXYZ_out);
 	case ijkRotationXZY:
-		return ijkMatGetRotateXZY3f(m_in, angleX_degrees_out, angleY_degrees_out, angleZ_degrees_out);
+		return ijkMatGetRotateXZY3f(m_in, rotateDegXYZ_out);
 	case ijkRotationZYX:
-		return ijkMatGetRotateZYX3f(m_in, angleX_degrees_out, angleY_degrees_out, angleZ_degrees_out);
+		return ijkMatGetRotateZYX3f(m_in, rotateDegXYZ_out);
 	}
 	return m_in;
 }
 
-ijk_inl fmat3 ijkMatGetScale3f(fmat3 const m_in, float* const sx_out, float* const sy_out, float* const sz_out)
+ijk_inl fmat3 ijkMatGetScale3f(fmat3 const m_in, fvec3* const scale_out)
 {
-	*sx_out = ijkVecLength3f(m_in.c0);
-	*sy_out = ijkVecLength3f(m_in.c1);
-	*sz_out = ijkVecLength3f(m_in.c2);
+	scale_out->x = ijkVecLength3f(m_in.c0);
+	scale_out->y = ijkVecLength3f(m_in.c1);
+	scale_out->z = ijkVecLength3f(m_in.c2);
 	return m_in;
 }
 
-ijk_inl fmat3 ijkMatGetRotateScale3f(fmat3 const m_in, ijkRotationOrder const order, float* const angleX_degrees_out, float* const angleY_degrees_out, float* const angleZ_degrees_out, float* const sx_out, float* const sy_out, float* const sz_out)
+ijk_inl fmat3 ijkMatGetRotateScale3f(fmat3 const m_in, ijkRotationOrder const order, fvec3* const rotateDegXYZ_out, fvec3* const scale_out)
 {
 	fmat3 rot;
-	rot.c0 = ijkVecDivSafe3fs(m_in.c0, (*sx_out = ijkVecLength3f(m_in.c0)));
-	rot.c1 = ijkVecDivSafe3fs(m_in.c1, (*sy_out = ijkVecLength3f(m_in.c1)));
-	rot.c2 = ijkVecDivSafe3fs(m_in.c2, (*sz_out = ijkVecLength3f(m_in.c2)));
-	ijkMatGetRotate3f(rot, order, angleX_degrees_out, angleY_degrees_out, angleZ_degrees_out);
+	rot.c0 = ijkVecDivSafe3fs(m_in.c0, (scale_out->x = ijkVecLength3f(m_in.c0)));
+	rot.c1 = ijkVecDivSafe3fs(m_in.c1, (scale_out->y = ijkVecLength3f(m_in.c1)));
+	rot.c2 = ijkVecDivSafe3fs(m_in.c2, (scale_out->z = ijkVecLength3f(m_in.c2)));
+	ijkMatGetRotate3f(rot, order, rotateDegXYZ_out);
 	return m_in;
 }
 
@@ -2100,12 +2099,12 @@ ijk_inl fmat3 ijkMatRotateAxisAngle3f(fvec3 const axis_unit, float const angle_d
 		(zxt + ys), (yzt - xs), (z * zt + c));
 }
 
-ijk_inl fmat3 ijkMatRotateAxisAngleScale3f(fvec3 const axis_unit, float const angle_degrees, float const sx, float const sy, float const sz)
+ijk_inl fmat3 ijkMatRotateAxisAngleScale3f(fvec3 const axis_unit, float const angle_degrees, fvec3 const scale)
 {
 	fmat3 m_out = ijkMatRotateAxisAngle3f(axis_unit, angle_degrees);
-	m_out.c0 = ijkVecMul3fs(m_out.c0, sx);
-	m_out.c1 = ijkVecMul3fs(m_out.c1, sy);
-	m_out.c2 = ijkVecMul3fs(m_out.c2, sz);
+	m_out.c0 = ijkVecMul3fs(m_out.c0, scale.x);
+	m_out.c1 = ijkVecMul3fs(m_out.c1, scale.y);
+	m_out.c2 = ijkVecMul3fs(m_out.c2, scale.z);
 	return m_out;
 }
 
@@ -2124,12 +2123,12 @@ ijk_inl fmat3 ijkMatGetRotateAxisAngle3f(fmat3 const m_in, fvec3* const axis_uni
 	return m_in;
 }
 
-ijk_inl fmat3 ijkMatGetRotateAxisAngleScale3f(fmat3 const m_in, fvec3* const axis_unit_out, float* const angle_degrees_out, float* const sx_out, float* const sy_out, float* const sz_out)
+ijk_inl fmat3 ijkMatGetRotateAxisAngleScale3f(fmat3 const m_in, fvec3* const axis_unit_out, float* const angle_degrees_out, fvec3* const scale_out)
 {
 	fmat3 rot;
-	rot.c0 = ijkVecDivSafe3fs(m_in.c0, (*sx_out = ijkVecLength3f(m_in.c0)));
-	rot.c1 = ijkVecDivSafe3fs(m_in.c1, (*sy_out = ijkVecLength3f(m_in.c1)));
-	rot.c2 = ijkVecDivSafe3fs(m_in.c2, (*sz_out = ijkVecLength3f(m_in.c2)));
+	rot.c0 = ijkVecDivSafe3fs(m_in.c0, (scale_out->x = ijkVecLength3f(m_in.c0)));
+	rot.c1 = ijkVecDivSafe3fs(m_in.c1, (scale_out->y = ijkVecLength3f(m_in.c1)));
+	rot.c2 = ijkVecDivSafe3fs(m_in.c2, (scale_out->z = ijkVecLength3f(m_in.c2)));
 	ijkMatGetRotateAxisAngle3f(rot, axis_unit_out, angle_degrees_out);
 	return m_in;
 }
