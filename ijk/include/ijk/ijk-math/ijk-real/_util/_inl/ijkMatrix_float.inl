@@ -1501,6 +1501,12 @@ ijk_inl float3km ijkMatGetRotateAxisAngleScale3fm(float3x3 const m_in, float3 ax
 	return m_in;
 }
 
+ijk_inl float3m ijkMatLookAt3fm(float3x3 m_out, float3x3 m_inv_out_opt, float3 const origin, float3 const target, float3 const calibUnit, ijkTransformBasis const calibAxis)
+{
+	// ****TO-DO
+	return m_out;
+}
+
 
 //-----------------------------------------------------------------------------
 
@@ -2003,6 +2009,138 @@ ijk_inl float4km ijkMatGetRotateAxisAngleScale4fm(float4x4 const m_in, float3 ax
 	ijkVecDivSafe3fvs(rot[2], m_in[2], (scale_out[2] = ijkVecLength3fv(m_in[2])));
 	ijkMatGetRotateAxisAngle3fm(rot, axis_unit_out, angle_degrees_out);
 	return m_in;
+}
+
+ijk_inl float4m ijkMatTranslate4fm(float4x4 m_out, float3 const translate)
+{
+	// ****TO-DO
+	return m_out;
+}
+
+ijk_inl float4m ijkMatRotateTranslate4fm(float4x4 m_out, ijkRotationOrder const order, float3 const rotateDegXYZ, float3 const translate)
+{
+
+	return m_out;
+}
+
+ijk_inl float4m ijkMatScaleTranslate4fm(float4x4 m_out, float3 const scale, float3 const translate)
+{
+
+	return m_out;
+}
+
+ijk_inl float4m ijkMatRotateScaleTranslate4fm(float4x4 m_out, ijkRotationOrder const order, float3 const rotateDegXYZ, float3 const scale, float3 const translate)
+{
+
+	return m_out;
+}
+
+ijk_inl float4m ijkMatRotateAxisAngleTranslate4fm(float4x4 m_out, float3 const axis_unit, f32 const angle_degrees, float3 const translate)
+{
+
+	return m_out;
+}
+
+ijk_inl float4m ijkMatRotateAxisAngleScaleTranslate4fm(float4x4 m_out, float3 const axis_unit, f32 const angle_degrees, float3 const scale, float3 const translate)
+{
+
+	return m_out;
+}
+
+ijk_inl float4km ijkMatGetTranslate4fm(float4x4 const m_in, float3 translate_out)
+{
+
+	return m_in;
+}
+
+ijk_inl float4km ijkMatGetRotateTranslate4fm(float4x4 const m_in, ijkRotationOrder const order, float3 rotateDegXYZ_out, float3 translate_out)
+{
+
+	return m_in;
+}
+
+ijk_inl float4km ijkMatGetScaleTranslate4fm(float4x4 const m_in, float3 scale_out, float3 translate_out)
+{
+
+	return m_in;
+}
+
+ijk_inl float4km ijkMatGetRotateScaleTranslate4fm(float4x4 const m_in, ijkRotationOrder const order, float3 rotateDegXYZ_out, float3 scale_out, float3 translate_out)
+{
+
+	return m_in;
+}
+
+ijk_inl float4km ijkMatGetRotateAxisAngleTranslate4fm(float4x4 const m_in, float3 axis_unit_out, f32* const angle_degrees_out, float3 translate_out)
+{
+
+	return m_in;
+}
+
+ijk_inl float4km ijkMatGetRotateAxisAngleScaleTranslate4fm(float4x4 const m_in, float3 axis_unit_out, f32* const angle_degrees_out, float3 scale_out, float3 translate_out)
+{
+
+	return m_in;
+}
+
+ijk_inl float4m ijkMatInverseRotateTranslate4fm(float4x4 m_out, float4x4 const m_in)
+{
+
+	return m_out;
+}
+
+ijk_inl float4m ijkMatInverseScaleTranslate4fm(float4x4 m_out, float4x4 const m_in)
+{
+
+	return m_out;
+}
+
+ijk_inl float4m ijkMatInverseRotateScaleTranslate4fm(float4x4 m_out, float4x4 const m_in)
+{
+
+	return m_out;
+}
+
+ijk_inl float4m ijkMatInverseTransposeTranslate4fm(float4x4 m_out, float4x4 const m_in)
+{
+
+	return m_out;
+}
+
+ijk_inl float4m ijkMatLookAt4fm(float4x4 m_out, float4x4 m_inv_out_opt, float3 const origin, float3 const target, float3 const calibUnit, ijkTransformBasis const calibAxis)
+{
+
+	return m_out;
+}
+
+ijk_inl float4m ijkMatProjectionPerspective4fm(float4x4 m_out, float4x4 m_inv_out_opt, f32 const fovyDeg, f32 const aspect, f32 const nearDist, f32 const farDist)
+{
+
+	return m_out;
+}
+
+ijk_inl float4m ijkMatProjectionParallel4fm(float4x4 m_out, float4x4 m_inv_out_opt, f32 const fovyDeg, f32 const aspect, f32 const nearDist, f32 const farDist)
+{
+
+	return m_out;
+}
+
+ijk_inl float4m ijkMatProjectionPerspectivePlanes4fm(float4x4 m_out, float4x4 m_inv_out_opt, f32 const leftDist, f32 const rightDist, f32 const bottomDist, f32 const topDist, f32 const nearDist, f32 const farDist)
+{
+
+	return m_out;
+}
+
+ijk_inl float4m ijkMatProjectionParallelPlanes4fm(float4x4 m_out, float4x4 m_inv_out_opt, f32 const leftDist, f32 const rightDist, f32 const bottomDist, f32 const topDist, f32 const nearDist, f32 const farDist)
+{
+
+	return m_out;
+}
+
+ijk_inl float4m ijkMatProjectionStereoConversion4fm(float4x4 m_left_out, float4x4 m_left_inv_out_opt, float4x4 m_right_out, float4x4 m_right_inv_out_opt, f32 const interocularDist, f32 const convergenceDist)
+{
+
+	return m_left_out;
 }
 
 
@@ -2632,6 +2770,13 @@ ijk_inl fmat3 ijkMatGetRotateAxisAngleScale3f(fmat3 const m_in, fvec3* const axi
 	return m_in;
 }
 
+ijk_inl fmat3 ijkMatLookAt3f(fmat3* const m_inv_out_opt, fvec3 const origin, fvec3 const target, fvec3 const calibUnit, ijkTransformBasis const calibAxis)
+{
+	fmat3 rot;
+	// ****TO-DO
+	return rot;
+}
+
 
 //-----------------------------------------------------------------------------
 
@@ -3066,6 +3211,159 @@ ijk_inl fmat4 ijkMatGetRotateAxisAngleScale4f(fmat4 const m_in, fvec3* const axi
 	rot.c2 = ijkVecDivSafe4fs(m_in.c2, (scale_out->z = ijkVecLength3fv(m_in.c2.xyz)));
 	ijkMatGetRotateAxisAngle4f(rot, axis_unit_out, angle_degrees_out);
 	return m_in;
+}
+
+ijk_inl fmat4 ijkMatTranslate4f(fvec3 const translate)
+{
+	fmat4 m_out;
+	// ****TO-DO
+	return m_out;
+}
+
+ijk_inl fmat4 ijkMatRotateTranslate4f(ijkRotationOrder const order, fvec3 const rotateDegXYZ, fvec3 const translate)
+{
+	fmat4 m_out;
+
+	return m_out;
+}
+
+ijk_inl fmat4 ijkMatScaleTranslate4f(fvec3 const scale, fvec3 const translate)
+{
+	fmat4 m_out;
+
+	return m_out;
+}
+
+ijk_inl fmat4 ijkMatRotateScaleTranslate4f(ijkRotationOrder const order, fvec3 const rotateDegXYZ, fvec3 const scale, fvec3 const translate)
+{
+	fmat4 m_out;
+
+	return m_out;
+}
+
+ijk_inl fmat4 ijkMatRotateAxisAngleTranslate4f(fvec3 const axis_unit, float const angle_degrees, fvec3 const translate)
+{
+	fmat4 m_out;
+
+	return m_out;
+}
+
+ijk_inl fmat4 ijkMatRotateAxisAngleScaleTranslate4f(fvec3 const axis_unit, float const angle_degrees, fvec3 const scale, fvec3 const translate)
+{
+	fmat4 m_out;
+
+	return m_out;
+}
+
+ijk_inl fmat4 ijkMatGetTranslate4f(fmat4 const m_in, fvec3* const translate_out)
+{
+	fmat4 m_out;
+
+	return m_out;
+}
+
+ijk_inl fmat4 ijkMatGetRotateTranslate4f(fmat4 const m_in, ijkRotationOrder const order, fvec3* const rotateDegXYZ_out, fvec3* const translate_out)
+{
+	fmat4 m_out;
+
+	return m_out;
+}
+
+ijk_inl fmat4 ijkMatGetScaleTranslate4f(fmat4 const m_in, fvec3* const scale_out, fvec3* const translate_out)
+{
+	fmat4 m_out;
+
+	return m_out;
+}
+
+ijk_inl fmat4 ijkMatGetRotateScaleTranslate4f(fmat4 const m_in, ijkRotationOrder const order, fvec3* const rotateDegXYZ_out, fvec3* const scale_out, fvec3* const translate_out)
+{
+	fmat4 m_out;
+
+	return m_out;
+}
+
+ijk_inl fmat4 ijkMatGetRotateAxisAngleTranslate4f(fmat4 const m_in, fvec3* const axis_unit_out, float* const angle_degrees_out, fvec3* const translate_out)
+{
+	fmat4 m_out;
+
+	return m_out;
+}
+
+ijk_inl fmat4 ijkMatGetRotateAxisAngleScaleTranslate4f(fmat4 const m_in, fvec3* const axis_unit_out, float* const angle_degrees_out, fvec3* const scale_out, fvec3* const translate_out)
+{
+	fmat4 m_out;
+
+	return m_out;
+}
+
+ijk_inl fmat4 ijkMatInverseRotateTranslate4f(fmat4 const m_in)
+{
+	fmat4 m_out;
+
+	return m_out;
+}
+
+ijk_inl fmat4 ijkMatInverseScaleTranslate4f(fmat4 const m_in)
+{
+	fmat4 m_out;
+
+	return m_out;
+}
+
+ijk_inl fmat4 ijkMatInverseRotateScaleTranslate4f(fmat4 const m_in)
+{
+	fmat4 m_out;
+
+	return m_out;
+}
+
+ijk_inl fmat4 ijkMatInverseTransposeTranslate4f(fmat4 const m_in)
+{
+	fmat4 m_out;
+
+	return m_out;
+}
+
+ijk_inl fmat4 ijkMatLookAt4f(fmat4* const m_inv_out_opt, fvec3 const origin, fvec3 const target, fvec3 const calibUnit, ijkTransformBasis const calibAxis)
+{
+	fmat4 m_out;
+
+	return m_out;
+}
+
+ijk_inl fmat4 ijkMatProjectionPerspective4f(fmat4* const m_inv_out_opt, float const fovyDeg, float const aspect, float const nearDist, float const farDist)
+{
+	fmat4 m_out;
+
+	return m_out;
+}
+
+ijk_inl fmat4 ijkMatProjectionParallel4f(fmat4* const m_inv_out_opt, float const fovyDeg, float const aspect, float const nearDist, float const farDist)
+{
+	fmat4 m_out;
+
+	return m_out;
+}
+
+ijk_inl fmat4 ijkMatProjectionPerspectivePlanes4f(fmat4* const m_inv_out_opt, float const leftDist, float const rightDist, float const bottomDist, float const topDist, float const nearDist, float const farDist)
+{
+	fmat4 m_out;
+
+	return m_out;
+}
+
+ijk_inl fmat4 ijkMatProjectionParallelPlanes4f(fmat4* const m_inv_out_opt, float const leftDist, float const rightDist, float const bottomDist, float const topDist, float const nearDist, float const farDist)
+{
+	fmat4 m_out;
+
+	return m_out;
+}
+
+ijk_inl fmat4 ijkMatProjectionStereoConversion4f(fmat4* const m_left_out, fmat4* const m_left_inv_out_opt, fmat4* const m_right_out, fmat4* const m_right_inv_out_opt, float const interocularDist, float const convergenceDist)
+{
+
+	return *m_left_out;
 }
 
 

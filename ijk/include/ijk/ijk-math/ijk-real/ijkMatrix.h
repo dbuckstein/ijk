@@ -34,6 +34,7 @@
 extern "C" {
 #else	// !__cplusplus
 typedef enum ijkRotationOrder	ijkRotationOrder;
+typedef enum ijkTransformBasis	ijkTransformBasis;
 typedef union fmat2		fmat2;
 typedef union fmat3		fmat3;
 typedef union fmat4		fmat4;
@@ -80,12 +81,22 @@ typedef double4			* double4m,		// Generic 4D double-precision-based matrix, repr
 //	rotations occur in the functional order Z then Y then X).
 enum ijkRotationOrder
 {
-	ijkRotationXYZ,
-	ijkRotationYZX,
-	ijkRotationZXY,
-	ijkRotationYXZ,
-	ijkRotationXZY,
-	ijkRotationZYX,
+	ijkRotationXYZ,		// Written order XYZ; order of operations is Z then Y then X.
+	ijkRotationYZX,		// Written order YZX; order of operations is X then Z then Y.
+	ijkRotationZXY,		// Written order ZXY; order of operations is Y then X then Z.
+	ijkRotationYXZ,		// Written order YXZ; order of operations is Z then X then Y.
+	ijkRotationXZY,		// Written order XZY; order of operations is Y then Z then X.
+	ijkRotationZYX,		// Written order ZYX; order of operations is X then Y then Z.
+};
+
+// ijkTransformBasis
+//	Named axis indices for basis vectors in matrix.
+enum ijkTransformBasis
+{
+	ijkTransformRight,	// Right or X axis is first basis vector.
+	ijkTransformVert,	// Vertical or Y axis is second basis vector.
+	ijkTransformNorm,	// Normal or Z axis is third basis vector.
+	ijkTransformOrig,	// Origin or W axis is fourth basis vector.
 };
 
 

@@ -1209,6 +1209,17 @@ float3km ijkMatGetRotateAxisAngle3fm(float3x3 const m_in, float3 axis_unit_out, 
 //		return: m_in
 float3km ijkMatGetRotateAxisAngleScale3fm(float3x3 const m_in, float3 axis_unit_out, f32* const angle_degrees_out, float3 scale_out);
 
+// ijkMatLookAt3*m
+//	Create look-at 3D matrix given origin, target and calibration vector.
+//		param m_out: output matrix, look-at
+//		param m_inv_out_opt: optional output inverse matrix
+//		param origin: location of origin/viewer
+//		param target: location or target/control
+//		param calibUnit: unit calibration vector (e.g. "local/world up")
+//		param calibAxis: index of calibration vector (0, 1 or 2)
+//		return: m_out
+float3m ijkMatLookAt3fm(float3x3 m_out, float3x3 m_inv_out_opt, float3 const origin, float3 const target, float3 const calibUnit, ijkTransformBasis const calibAxis);
+
 
 //-----------------------------------------------------------------------------
 
@@ -1537,7 +1548,7 @@ float4m ijkMatTranslate4fm(float4x4 m_out, float3 const translate);
 // ijkMatRotateTranslate4*m
 //	Create 4D rotation-translation matrix, R in upper-left, offset vector in 
 //	upper-right.
-//		param m_out: output matrix, translation
+//		param m_out: output matrix, rotate-translate
 //		param order: written order of Euler angles (functional order of 
 //			operations is right-to-left)
 //		param rotateDegXYZ_out: storage for Euler angles in component order XYZ
@@ -1548,7 +1559,7 @@ float4m ijkMatRotateTranslate4fm(float4x4 m_out, ijkRotationOrder const order, f
 // ijkMatScaleTranslate4*m
 //	Create 4D scale-translation matrix, S in upper-left, offset vector in 
 //	upper-right.
-//		param m_out: output matrix, translation
+//		param m_out: output matrix, scale-translate
 //		param scale: scales on each dimension
 //		param translate: translation offset vector
 //		return: m_out
@@ -1557,7 +1568,7 @@ float4m ijkMatScaleTranslate4fm(float4x4 m_out, float3 const scale, float3 const
 // ijkMatRotateScaleTranslate4*m
 //	Create 4D rotation-scale-translation matrix, RS in upper-left, offset 
 //	vector in upper-right.
-//		param m_out: output matrix, translation
+//		param m_out: output matrix, rotate-scale-translate
 //		param order: written order of Euler angles (functional order of 
 //			operations is right-to-left)
 //		param rotateDegXYZ_out: storage for Euler angles in component order XYZ
@@ -1569,7 +1580,7 @@ float4m ijkMatRotateScaleTranslate4fm(float4x4 m_out, ijkRotationOrder const ord
 // ijkMatRotateAxisAngleTranslate4*m
 //	Create 4D rotation-translation matrix, R in upper-left, offset vector in 
 //	upper-right.
-//		param m_out: output matrix, translation
+//		param m_out: output matrix, rotate-translate
 //		param axis_unit: pre-normalized axis of rotation
 //		param angle_degrees: angle of rotation in degrees
 //		param translate: translation offset vector
@@ -1579,7 +1590,7 @@ float4m ijkMatRotateAxisAngleTranslate4fm(float4x4 m_out, float3 const axis_unit
 // ijkMatRotateAxisAngleScaleTranslate4*m
 //	Create 4D rotation-scale-translation matrix, RS in upper-left, offset 
 //	vector in upper-right.
-//		param m_out: output matrix, translation
+//		param m_out: output matrix, rotate-scale-translate
 //		param axis_unit: pre-normalized axis of rotation
 //		param angle_degrees: angle of rotation in degrees
 //		param scale: scales on each dimension
@@ -1677,6 +1688,17 @@ float4m ijkMatInverseRotateScaleTranslate4fm(float4x4 m_out, float4x4 const m_in
 //		param m_in: input matrix
 //		return: m_out
 float4m ijkMatInverseTransposeTranslate4fm(float4x4 m_out, float4x4 const m_in);
+
+// ijkMatLookAt4*m
+//	Create look-at 4D matrix given origin, target and calibration vector.
+//		param m_out: output matrix, look-at
+//		param m_inv_out_opt: optional output inverse matrix
+//		param origin: location of origin/viewer
+//		param target: location or target/control
+//		param calibUnit: unit calibration vector (e.g. "local/world up")
+//		param calibAxis: index of calibration vector (0, 1 or 2)
+//		return: m_out
+float4m ijkMatLookAt4fm(float4x4 m_out, float4x4 m_inv_out_opt, float3 const origin, float3 const target, float3 const calibUnit, ijkTransformBasis const calibAxis);
 
 // ijkMatProjectionPerspective4*m
 //	Create perspective projection matrix.
@@ -2198,6 +2220,16 @@ fmat3 ijkMatGetRotateAxisAngle3f(fmat3 const m_in, fvec3* const axis_unit_out, f
 //		return: m_in
 fmat3 ijkMatGetRotateAxisAngleScale3f(fmat3 const m_in, fvec3* const axis_unit_out, float* const angle_degrees_out, fvec3* const scale_out);
 
+// ijkMatLookAt3*
+//	Create look-at 3D matrix given origin, target and calibration vector.
+//		param m_inv_out_opt: optional output inverse matrix
+//		param origin: location of origin/viewer
+//		param target: location or target/control
+//		param calibUnit: unit calibration vector (e.g. "local/world up")
+//		param calibAxis: index of calibration vector (0, 1 or 2)
+//		return: look-at matrix
+fmat3 ijkMatLookAt3f(fmat3* const m_inv_out_opt, fvec3 const origin, fvec3 const target, fvec3 const calibUnit, ijkTransformBasis const calibAxis);
+
 
 //-----------------------------------------------------------------------------
 
@@ -2489,62 +2521,56 @@ fmat4 ijkMatGetRotateAxisAngleScale4f(fmat4 const m_in, fvec3* const axis_unit_o
 // ijkMatTranslate4*
 //	Create 4D translation matrix, identity in upper-left, offset vector in 
 //	upper-right.
-//		param m_out: output matrix, translation
 //		param translate: translation offset vector
-//		return: m_out
+//		return: translation matrix
 fmat4 ijkMatTranslate4f(fvec3 const translate);
 
 // ijkMatRotateTranslate4*
 //	Create 4D rotation-translation matrix, R in upper-left, offset vector in 
 //	upper-right.
-//		param m_out: output matrix, translation
 //		param order: written order of Euler angles (functional order of 
 //			operations is right-to-left)
 //		param rotateDegXYZ_out: storage for Euler angles in component order XYZ
 //		param translate: translation offset vector
-//		return: m_out
+//		return: rotation-translation matrix
 fmat4 ijkMatRotateTranslate4f(ijkRotationOrder const order, fvec3 const rotateDegXYZ, fvec3 const translate);
 
 // ijkMatScaleTranslate4*
 //	Create 4D scale-translation matrix, S in upper-left, offset vector in 
 //	upper-right.
-//		param m_out: output matrix, translation
 //		param scale: scales on each dimension
 //		param translate: translation offset vector
-//		return: m_out
+//		return: scale-translation matrix
 fmat4 ijkMatScaleTranslate4f(fvec3 const scale, fvec3 const translate);
 
 // ijkMatRotateScaleTranslate4*
 //	Create 4D rotation-scale-translation matrix, RS in upper-left, offset 
 //	vector in upper-right.
-//		param m_out: output matrix, translation
 //		param order: written order of Euler angles (functional order of 
 //			operations is right-to-left)
 //		param rotateDegXYZ_out: storage for Euler angles in component order XYZ
 //		param scale: scales on each dimension
 //		param translate: translation offset vector
-//		return: m_out
+//		return: rotation-scale-translation matrix
 fmat4 ijkMatRotateScaleTranslate4f(ijkRotationOrder const order, fvec3 const rotateDegXYZ, fvec3 const scale, fvec3 const translate);
 
 // ijkMatRotateAxisAngleTranslate4*
 //	Create 4D rotation-translation matrix, R in upper-left, offset vector in 
 //	upper-right.
-//		param m_out: output matrix, translation
 //		param axis_unit: pre-normalized axis of rotation
 //		param angle_degrees: angle of rotation in degrees
 //		param translate: translation offset vector
-//		return: m_out
+//		return: rotation-translation matrix
 fmat4 ijkMatRotateAxisAngleTranslate4f(fvec3 const axis_unit, float const angle_degrees, fvec3 const translate);
 
 // ijkMatRotateAxisAngleScaleTranslate4*
 //	Create 4D rotation-scale-translation matrix, RS in upper-left, offset 
 //	vector in upper-right.
-//		param m_out: output matrix, translation
 //		param axis_unit: pre-normalized axis of rotation
 //		param angle_degrees: angle of rotation in degrees
 //		param scale: scales on each dimension
 //		param translate: translation offset vector
-//		return: m_out
+//		return: rotation-scale-translation matrix
 fmat4 ijkMatRotateAxisAngleScaleTranslate4f(fvec3 const axis_unit, float const angle_degrees, fvec3 const scale, fvec3 const translate);
 
 // ijkMatGetTranslate4*
@@ -2609,60 +2635,63 @@ fmat4 ijkMatGetRotateAxisAngleScaleTranslate4f(fmat4 const m_in, fvec3* const ax
 // ijkMatInverseRotateTranslate4*
 //	Calculate quick transform inverse for 4D matrix, assuming matrix encodes 
 //	rotation and translation; this is simply the transpose.
-//		param m_out: output matrix, quick inverse
 //		param m_in: input matrix
-//		return: m_out
+//		return: quick inverse
 fmat4 ijkMatInverseRotateTranslate4f(fmat4 const m_in);
 
 // ijkMatInverseScaleTranslate4*
 //	Calculate quick transform inverse for 4D matrix, assuming matrix encodes 
 //	scale and translation; this is simply the reciprocal of the diagonal elements.
-//		param m_out: output matrix, quick inverse
 //		param m_in: input matrix
-//		return: m_out
+//		return: quick inverse
 fmat4 ijkMatInverseScaleTranslate4f(fmat4 const m_in);
 
 // ijkMatInverseRotateScaleTranslate4*
 //	Calculate quick transform inverse for 4D matrix, assuming matrix encodes 
 //	rotation, scale and translation.
-//		param m_out: output matrix, quick inverse
 //		param m_in: input matrix
-//		return: m_out
+//		return: quick inverse
 fmat4 ijkMatInverseRotateScaleTranslate4f(fmat4 const m_in);
 
 // ijkMatInverseTransposeTranslate4*
 //	Calculate quick inverse-transpose of 4D matrix, assuming matrix encodes 
 //	rotation, scale and translation.
-//		param m_out: output matrix, quick inverse-transpose
 //		param m_in: input matrix
-//		return: m_out
+//		return: quick inverse
 fmat4 ijkMatInverseTransposeTranslate4f(fmat4 const m_in);
+
+// ijkMatLookAt4*
+//	Create look-at 4D matrix given origin, target and calibration vector.
+//		param m_inv_out_opt: optional output inverse matrix
+//		param origin: location of origin/viewer
+//		param target: location or target/control
+//		param calibUnit: unit calibration vector (e.g. "local/world up")
+//		param calibAxis: index of calibration vector (0, 1 or 2)
+//		return: look-at matrix
+fmat4 ijkMatLookAt4f(fmat4* const m_inv_out_opt, fvec3 const origin, fvec3 const target, fvec3 const calibUnit, ijkTransformBasis const calibAxis);
 
 // ijkMatProjectionPerspective4*
 //	Create perspective projection matrix.
-//		param m_out: output matrix, perspective projection
 //		param m_inv_out_opt: optional inverse matrix output
 //		param fovyDeg: vertical field-of-view in degrees (greater than zero)
 //		param aspect: aspect ratio of viewing plane (greater than zero)
 //		param nearDist: distance to near plane (greater than zero)
 //		param farDist: distance to far plane (greater than near)
-//		return: m_out
+//		return: perspective projection matrix
 fmat4 ijkMatProjectionPerspective4f(fmat4* const m_inv_out_opt, float const fovyDeg, float const aspect, float const nearDist, float const farDist);
 
 // ijkMatProjectionParallel4*
 //	Create parallel/orthographic projection matrix.
-//		param m_out: output matrix, parallel projection
 //		param m_inv_out_opt: optional inverse matrix output
 //		param fovyDeg: vertical field-of-view in degrees (greater than zero)
 //		param aspect: aspect ratio of viewing plane (greater than zero)
 //		param nearDist: distance to near plane (not equal to far)
 //		param farDist: distance to far plane (not equal to near)
-//		return: m_out
+//		return: parallel projection matrix
 fmat4 ijkMatProjectionParallel4f(fmat4* const m_inv_out_opt, float const fovyDeg, float const aspect, float const nearDist, float const farDist);
 
 // ijkMatProjectionPerspectivePlanes4*
 //	Create perspective projection matrix given plane distances.
-//		param m_out: output matrix, perspective projection
 //		param m_inv_out_opt: optional inverse matrix output
 //		param leftDist: distance to left plane (not equal to right)
 //		param rightDist: distance to right plane (not equal to left)
@@ -2670,12 +2699,11 @@ fmat4 ijkMatProjectionParallel4f(fmat4* const m_inv_out_opt, float const fovyDeg
 //		param topDist: distance to top plane (not equal to bottom)
 //		param nearDist: distance to near plane (greater than zero)
 //		param farDist: distance to far plane (greater than near)
-//		return: m_out
+//		return: perspective projection matrix
 fmat4 ijkMatProjectionPerspectivePlanes4f(fmat4* const m_inv_out_opt, float const leftDist, float const rightDist, float const bottomDist, float const topDist, float const nearDist, float const farDist);
 
 // ijkMatProjectionParallelPlanes4*
 //	Create parallel/orthographic projection matrix given plane distances.
-//		param m_out: output matrix, parallel projection
 //		param m_inv_out_opt: optional inverse matrix output
 //		param leftDist: distance to left plane (not equal to right)
 //		param rightDist: distance to right plane (not equal to left)
@@ -2683,7 +2711,7 @@ fmat4 ijkMatProjectionPerspectivePlanes4f(fmat4* const m_inv_out_opt, float cons
 //		param topDist: distance to top plane (not equal to bottom)
 //		param nearDist: distance to near plane (not equal to far)
 //		param farDist: distance to far plane (not equal to near)
-//		return: m_out
+//		return: parallel projection matrix
 fmat4 ijkMatProjectionParallelPlanes4f(fmat4* const m_inv_out_opt, float const leftDist, float const rightDist, float const bottomDist, float const topDist, float const nearDist, float const farDist);
 
 // ijkMatProjectionStereoConversion4*
