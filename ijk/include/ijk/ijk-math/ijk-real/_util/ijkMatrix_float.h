@@ -860,13 +860,13 @@ float2km ijkMatGetScale2fm(float2x2 const m_in, f32* const sx_out, f32* const sy
 //		return: m_in
 float2km ijkMatGetRotateScale2fm(float2x2 const m_in, f32* const angle_degrees_out, f32* const sx_out, f32* const sy_out);
 
-// ijkMatInverseRotation2*m
+// ijkMatInverseRotate2*m
 //	Calculate quick transform inverse for 2D matrix, assuming matrix encodes 
 //	only rotation; this is simply the transpose.
 //		param m_out: output matrix, quick inverse
 //		param m_in: input matrix
 //		return: m_out
-float2m ijkMatInverseRotation2fm(float2x2 m_out, float2x2 const m_in);
+float2m ijkMatInverseRotate2fm(float2x2 m_out, float2x2 const m_in);
 
 // ijkMatInverseScale2*m
 //	Calculate quick transform inverse for 2D matrix, assuming matrix encodes 
@@ -876,13 +876,13 @@ float2m ijkMatInverseRotation2fm(float2x2 m_out, float2x2 const m_in);
 //		return: m_out
 float2m ijkMatInverseScale2fm(float2x2 m_out, float2x2 const m_in);
 
-// ijkMatInverseRotationScale2*m
+// ijkMatInverseRotateScale2*m
 //	Calculate quick transform inverse for 2D matrix, assuming matrix encodes 
 //	rotation and scale.
 //		param m_out: output matrix, quick inverse
 //		param m_in: input matrix
 //		return: m_out
-float2m ijkMatInverseRotationScale2fm(float2x2 m_out, float2x2 const m_in);
+float2m ijkMatInverseRotateScale2fm(float2x2 m_out, float2x2 const m_in);
 
 // ijkMatInverseTranspose2*m
 //	Calculate quick inverse-transpose of 2D matrix, assuming matrix encodes 
@@ -1168,13 +1168,13 @@ float3km ijkMatGetScale3fm(float3x3 const m_in, f32* const sx_out, f32* const sy
 //		return: m_in
 float3km ijkMatGetRotateScale3fm(float3x3 const m_in, ijkRotationOrder const order, f32* const angleX_degrees_out, f32* const angleY_degrees_out, f32* const angleZ_degrees_out, f32* const sx_out, f32* const sy_out, f32* const sz_out);
 
-// ijkMatInverseRotation3*m
+// ijkMatInverseRotate3*m
 //	Calculate quick transform inverse for 3D matrix, assuming matrix encodes 
 //	only rotation; this is simply the transpose.
 //		param m_out: output matrix, quick inverse
 //		param m_in: input matrix
 //		return: m_out
-float3m ijkMatInverseRotation3fm(float3x3 m_out, float3x3 const m_in);
+float3m ijkMatInverseRotate3fm(float3x3 m_out, float3x3 const m_in);
 
 // ijkMatInverseScale3*m
 //	Calculate quick transform inverse for 3D matrix, assuming matrix encodes 
@@ -1184,13 +1184,13 @@ float3m ijkMatInverseRotation3fm(float3x3 m_out, float3x3 const m_in);
 //		return: m_out
 float3m ijkMatInverseScale3fm(float3x3 m_out, float3x3 const m_in);
 
-// ijkMatInverseRotationScale3*m
+// ijkMatInverseRotateScale3*m
 //	Calculate quick transform inverse for 3D matrix, assuming matrix encodes 
 //	rotation and scale.
 //		param m_out: output matrix, quick inverse
 //		param m_in: input matrix
 //		return: m_out
-float3m ijkMatInverseRotationScale3fm(float3x3 m_out, float3x3 const m_in);
+float3m ijkMatInverseRotateScale3fm(float3x3 m_out, float3x3 const m_in);
 
 // ijkMatInverseTranspose3*m
 //	Calculate quick inverse-transpose of 3D matrix, assuming matrix encodes 
@@ -1199,6 +1199,41 @@ float3m ijkMatInverseRotationScale3fm(float3x3 m_out, float3x3 const m_in);
 //		param m_in: input matrix
 //		return: m_out
 float3m ijkMatInverseTranspose3fm(float3x3 m_out, float3x3 const m_in);
+
+// ijkMatRotateAxisAngle3*m
+//	Create 3D rotation matrix given unit axis of rotation and angle in degrees.
+//		param m_out: output matrix, rotation
+//		param axis_unit: pre-normalized axis of rotation
+//		param angle_degrees: angle of rotation in degrees
+//		return m_out
+float3m ijkMatRotateAxisAngle3fm(float3x3 m_out, float3 const axis_unit, f32 const angle_degrees);
+
+// ijkMatRotateAxisAngleScale3*m
+//	Create 3D rotation matrix given unit axis of rotation, angle in degrees 
+//	and scales.
+//		param m_out: output matrix, rotation-scale
+//		param axis_unit: pre-normalized axis of rotation
+//		param angle_degrees: angle of rotation in degrees
+//		params sx, sy, sz: scales on each dimension
+//		return m_out
+float3m ijkMatRotateAxisAngleScale3fm(float3x3 m_out, float3 const axis_unit, f32 const angle_degrees, f32 const sx, f32 const sy, f32 const sz);
+
+// ijkMatGetRotateAxisAngle3*m
+//	Extract unit axis of rotation and angle in degrees from 3D rotation matrix.
+//		param m_in: input matrix, rotation
+//		param axis_unit_out: output unit axis of rotation
+//		param angle_degrees_out: pointer to angle storage
+//		return m_in
+float3km ijkMatGetRotateAxisAngle3fm(float3x3 const m_in, float3 axis_unit_out, f32* const angle_degrees_out);
+
+// ijkMatGetRotateAxisAngleScale3*m
+//	Extract unit axis of rotation, angle in degrees and scale from 3D matrix.
+//		param m_in: input matrix, rotation-scale
+//		param axis_unit_out: output unit axis of rotation
+//		param angle_degrees_out: pointer to angle storage
+//		params sx_out, sy_out, sz_out: pointers to scale storage
+//		return m_in
+float3km ijkMatGetRotateAxisAngleScale3fm(float3x3 const m_in, float3 axis_unit_out, f32* const angle_degrees_out, f32* const sx_out, f32* const sy_out, f32* const sz_out);
 
 
 //-----------------------------------------------------------------------------
@@ -1347,12 +1382,12 @@ fmat2 ijkMatGetScale2f(fmat2 const m_in, float* const sx_out, float* const sy_ou
 //		return: m_in
 fmat2 ijkMatGetRotateScale2f(fmat2 const m_in, float* const angle_degrees_out, float* const sx_out, float* const sy_out);
 
-// ijkMatInverseRotation2*
+// ijkMatInverseRotate2*
 //	Calculate quick transform inverse for 2D matrix, assuming matrix encodes 
 //	only rotation; this is simply the transpose.
 //		param m_in: input matrix
 //		return: quick inverse
-fmat2 ijkMatInverseRotation2f(fmat2 const m_in);
+fmat2 ijkMatInverseRotate2f(fmat2 const m_in);
 
 // ijkMatInverseScale2*
 //	Calculate quick transform inverse for 2D matrix, assuming matrix encodes 
@@ -1361,12 +1396,12 @@ fmat2 ijkMatInverseRotation2f(fmat2 const m_in);
 //		return: quick inverse
 fmat2 ijkMatInverseScale2f(fmat2 const m_in);
 
-// ijkMatInverseRotationScale2*
+// ijkMatInverseRotateScale2*
 //	Calculate quick transform inverse for 2D matrix, assuming matrix encodes 
 //	rotation and scale.
 //		param m_in: input matrix
 //		return: quick inverse
-fmat2 ijkMatInverseRotationScale2f(fmat2 const m_in);
+fmat2 ijkMatInverseRotateScale2f(fmat2 const m_in);
 
 // ijkMatInverseTranspose2*
 //	Calculate quick inverse-transpose of 2D matrix, assuming matrix encodes 
