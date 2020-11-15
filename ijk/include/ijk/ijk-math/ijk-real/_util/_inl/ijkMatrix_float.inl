@@ -1185,73 +1185,133 @@ ijk_inl float3m ijkMatDivSafe3fm(float3x3 m_out, float3x3 const m_lh, float3x3 c
 
 ijk_inl float3m ijkMatRotateXYZ3fm(float3x3 m_out, f32 const angleX_degrees, f32 const angleY_degrees, f32 const angleZ_degrees)
 {
-
-	return m_out;
+	f32 sx, sy, sz, cx, cy, cz, ss, cs;
+	ijkTrigSinCos_deg_flt(angleX_degrees, &sx, &cx);
+	ijkTrigSinCos_deg_flt(angleY_degrees, &sy, &cy);
+	ijkTrigSinCos_deg_flt(angleZ_degrees, &sz, &cz);
+	ss = sx * sy;
+	cs = cx * sy;
+	return ijkMatInitElems3fm(m_out,
+		(+cy * cz), (+cx * sz + ss * cz), (+sx * sz - cs * cz),
+		(-cy * sz), (+cx * cz - ss * sz), (+sx * cz + cs * sz),
+		(+sy), (-sx * cy), (+cx * cy));
 }
 
 ijk_inl float3m ijkMatRotateYZX3fm(float3x3 m_out, f32 const angleX_degrees, f32 const angleY_degrees, f32 const angleZ_degrees)
 {
-
-	return m_out;
+	f32 sx, sy, sz, cx, cy, cz, ss, cs;
+	ijkTrigSinCos_deg_flt(angleX_degrees, &sx, &cx);
+	ijkTrigSinCos_deg_flt(angleY_degrees, &sy, &cy);
+	ijkTrigSinCos_deg_flt(angleZ_degrees, &sz, &cz);
+	ss = sy * sz;
+	cs = cy * sz;
+	return ijkMatInitElems3fm(m_out,
+		(+cy * cz), (+sz), (-sy * cz),
+		(+sy * sx - cs * cx), (+cz * cx), (+cy * sx + ss * cx),
+		(+sy * cx + cs * sx), (-cz * sx), (+cy * cx - ss * sx));
 }
 
 ijk_inl float3m ijkMatRotateZXY3fm(float3x3 m_out, f32 const angleX_degrees, f32 const angleY_degrees, f32 const angleZ_degrees)
 {
-
-	return m_out;
+	f32 sx, sy, sz, cx, cy, cz, ss, cs;
+	ijkTrigSinCos_deg_flt(angleX_degrees, &sx, &cx);
+	ijkTrigSinCos_deg_flt(angleY_degrees, &sy, &cy);
+	ijkTrigSinCos_deg_flt(angleZ_degrees, &sz, &cz);
+	ss = sz * sx;
+	cs = cz * sx;
+	return ijkMatInitElems3fm(m_out,
+		(+cz * cy - ss * sy), (+sz * cy + cs * sy), (-cx * sy),
+		(-sz * cx), (+cz * cx), (+sx),
+		(+cz * sy + ss * cy), (+sz * sy - cs * cy), (+cx * cy));
 }
 
 ijk_inl float3m ijkMatRotateYXZ3fm(float3x3 m_out, f32 const angleX_degrees, f32 const angleY_degrees, f32 const angleZ_degrees)
 {
-
-	return m_out;
+	f32 sx, sy, sz, cx, cy, cz, ss, cs;
+	ijkTrigSinCos_deg_flt(angleX_degrees, &sx, &cx);
+	ijkTrigSinCos_deg_flt(angleY_degrees, &sy, &cy);
+	ijkTrigSinCos_deg_flt(angleZ_degrees, &sz, &cz);
+	ss = sy * sx;
+	cs = cy * sx;
+	return ijkMatInitElems3fm(m_out,
+		(+ss * sz + cy * cz), (+cx * sz), (+cs * sz - sy * cz),
+		(+ss * cz - cy * sz), (+cx * cz), (+cs * cz + sy * sz),
+		(+sy * cx), (-sx), (+cy * cx));
 }
 
 ijk_inl float3m ijkMatRotateXZY3fm(float3x3 m_out, f32 const angleX_degrees, f32 const angleY_degrees, f32 const angleZ_degrees)
 {
-
-	return m_out;
+	f32 sx, sy, sz, cx, cy, cz, ss, cs;
+	ijkTrigSinCos_deg_flt(angleX_degrees, &sx, &cx);
+	ijkTrigSinCos_deg_flt(angleY_degrees, &sy, &cy);
+	ijkTrigSinCos_deg_flt(angleZ_degrees, &sz, &cz);
+	ss = sx * sz;
+	cs = cx * sz;
+	return ijkMatInitElems3fm(m_out,
+		(+cz * cy), (+cs * cy + sx * sy), (+ss * cy - cx * sy),
+		(-sz), (+cx * cz), (+sx * cz),
+		(+cz * sy), (+cs * sy - sx * cy), (+ss * sy + cx * cy));
 }
 
 ijk_inl float3m ijkMatRotateZYX3fm(float3x3 m_out, f32 const angleX_degrees, f32 const angleY_degrees, f32 const angleZ_degrees)
 {
-
-	return m_out;
+	f32 sx, sy, sz, cx, cy, cz, ss, cs;
+	ijkTrigSinCos_deg_flt(angleX_degrees, &sx, &cx);
+	ijkTrigSinCos_deg_flt(angleY_degrees, &sy, &cy);
+	ijkTrigSinCos_deg_flt(angleZ_degrees, &sz, &cz);
+	ss = sz * sy;
+	cs = cz * sy;
+	return ijkMatInitElems3fm(m_out,
+		(+cz * cy), (+sy * cy), (-sy),
+		(+cs * sx - sz * cx), (+ss * sx + cz * cx), (+cy * sx),
+		(+cs * cx + sz * sx), (+ss * cx - cz * sx), (+cy * cx));
 }
 
 ijk_inl float3km ijkMatGetRotateXYZ3fm(float3x3 const m_in, f32* const angleX_degrees_out, f32* const angleY_degrees_out, f32* const angleZ_degrees_out)
 {
-
+	*angleY_degrees_out = ijkTrigAsin_deg_flt(+m_in[2][0]);
+	*angleZ_degrees_out = ijkTrigAtan2_deg_flt(-m_in[1][0], +m_in[0][0]);
+	*angleX_degrees_out = ijkTrigAtan2_deg_flt(-m_in[2][1], +m_in[2][2]);
 	return m_in;
 }
 
 ijk_inl float3km ijkMatGetRotateYZX3fm(float3x3 const m_in, f32* const angleX_degrees_out, f32* const angleY_degrees_out, f32* const angleZ_degrees_out)
 {
-
+	*angleZ_degrees_out = ijkTrigAsin_deg_flt(+m_in[0][1]);
+	*angleX_degrees_out = ijkTrigAtan2_deg_flt(-m_in[2][1], +m_in[1][1]);
+	*angleY_degrees_out = ijkTrigAtan2_deg_flt(-m_in[0][2], +m_in[0][0]);
 	return m_in;
 }
 
 ijk_inl float3km ijkMatGetRotateZXY3fm(float3x3 const m_in, f32* const angleX_degrees_out, f32* const angleY_degrees_out, f32* const angleZ_degrees_out)
 {
-
+	*angleX_degrees_out = ijkTrigAsin_deg_flt(+m_in[1][2]);
+	*angleY_degrees_out = ijkTrigAtan2_deg_flt(-m_in[0][2], +m_in[2][2]);
+	*angleZ_degrees_out = ijkTrigAtan2_deg_flt(-m_in[1][0], +m_in[1][1]);
 	return m_in;
 }
 
 ijk_inl float3km ijkMatGetRotateYXZ3fm(float3x3 const m_in, f32* const angleX_degrees_out, f32* const angleY_degrees_out, f32* const angleZ_degrees_out)
 {
-
+	*angleX_degrees_out = ijkTrigAsin_deg_flt(-m_in[2][1]);
+	*angleZ_degrees_out = ijkTrigAtan2_deg_flt(+m_in[2][0], +m_in[2][2]);
+	*angleY_degrees_out = ijkTrigAtan2_deg_flt(+m_in[0][1], +m_in[1][1]);
 	return m_in;
 }
 
 ijk_inl float3km ijkMatGetRotateXZY3fm(float3x3 const m_in, f32* const angleX_degrees_out, f32* const angleY_degrees_out, f32* const angleZ_degrees_out)
 {
-
+	*angleZ_degrees_out = ijkTrigAsin_deg_flt(-m_in[1][0]);
+	*angleY_degrees_out = ijkTrigAtan2_deg_flt(+m_in[1][2], +m_in[1][1]);
+	*angleX_degrees_out = ijkTrigAtan2_deg_flt(+m_in[2][0], +m_in[0][0]);
 	return m_in;
 }
 
 ijk_inl float3km ijkMatGetRotateZYX3fm(float3x3 const m_in, f32* const angleX_degrees_out, f32* const angleY_degrees_out, f32* const angleZ_degrees_out)
 {
-
+	*angleY_degrees_out = ijkTrigAsin_deg_flt(-m_in[0][2]);
+	*angleX_degrees_out = ijkTrigAtan2_deg_flt(+m_in[0][1], +m_in[0][0]);
+	*angleZ_degrees_out = ijkTrigAtan2_deg_flt(+m_in[1][2], +m_in[2][2]);
 	return m_in;
 }
 
