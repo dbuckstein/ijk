@@ -75,6 +75,9 @@
     <ClCompile Include="..\..\..\source\ijk-math\common\ijk-real\ijkMatrix.c">
       <Filter>Source Files\common\ijk-real</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\source\ijk-math\common\ijk-real\_cpp\ijkMatrixSwizzle.cpp">
+      <Filter>Source Files\common\ijk-real\_cpp</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\include\ijk\ijk-math\ijk-math.h">

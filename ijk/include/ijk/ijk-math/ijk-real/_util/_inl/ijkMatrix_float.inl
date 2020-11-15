@@ -2317,7 +2317,7 @@ ijk_inl fmat3 ijkMatDivSafe3f(fmat3 const m_lh, fmat3 const m_rh)
 
 ijk_inl fmat3 ijkMatRotateXYZ3f(fvec3 const rotateDegXYZ)
 {
-	float sx, sy, sz, cx, cy, cz, ss, cs;
+	f32 sx, sy, sz, cx, cy, cz, ss, cs;
 	ijkTrigSinCos_deg_flt(rotateDegXYZ.x, &sx, &cx);
 	ijkTrigSinCos_deg_flt(rotateDegXYZ.y, &sy, &cy);
 	ijkTrigSinCos_deg_flt(rotateDegXYZ.z, &sz, &cz);
@@ -2331,7 +2331,7 @@ ijk_inl fmat3 ijkMatRotateXYZ3f(fvec3 const rotateDegXYZ)
 
 ijk_inl fmat3 ijkMatRotateYZX3f(fvec3 const rotateDegXYZ)
 {
-	float sx, sy, sz, cx, cy, cz, ss, cs;
+	f32 sx, sy, sz, cx, cy, cz, ss, cs;
 	ijkTrigSinCos_deg_flt(rotateDegXYZ.x, &sx, &cx);
 	ijkTrigSinCos_deg_flt(rotateDegXYZ.y, &sy, &cy);
 	ijkTrigSinCos_deg_flt(rotateDegXYZ.z, &sz, &cz);
@@ -2345,7 +2345,7 @@ ijk_inl fmat3 ijkMatRotateYZX3f(fvec3 const rotateDegXYZ)
 
 ijk_inl fmat3 ijkMatRotateZXY3f(fvec3 const rotateDegXYZ)
 {
-	float sx, sy, sz, cx, cy, cz, ss, cs;
+	f32 sx, sy, sz, cx, cy, cz, ss, cs;
 	ijkTrigSinCos_deg_flt(rotateDegXYZ.x, &sx, &cx);
 	ijkTrigSinCos_deg_flt(rotateDegXYZ.y, &sy, &cy);
 	ijkTrigSinCos_deg_flt(rotateDegXYZ.z, &sz, &cz);
@@ -2359,7 +2359,7 @@ ijk_inl fmat3 ijkMatRotateZXY3f(fvec3 const rotateDegXYZ)
 
 ijk_inl fmat3 ijkMatRotateYXZ3f(fvec3 const rotateDegXYZ)
 {
-	float sx, sy, sz, cx, cy, cz, ss, cs;
+	f32 sx, sy, sz, cx, cy, cz, ss, cs;
 	ijkTrigSinCos_deg_flt(rotateDegXYZ.x, &sx, &cx);
 	ijkTrigSinCos_deg_flt(rotateDegXYZ.y, &sy, &cy);
 	ijkTrigSinCos_deg_flt(rotateDegXYZ.z, &sz, &cz);
@@ -2373,7 +2373,7 @@ ijk_inl fmat3 ijkMatRotateYXZ3f(fvec3 const rotateDegXYZ)
 
 ijk_inl fmat3 ijkMatRotateXZY3f(fvec3 const rotateDegXYZ)
 {
-	float sx, sy, sz, cx, cy, cz, ss, cs;
+	f32 sx, sy, sz, cx, cy, cz, ss, cs;
 	ijkTrigSinCos_deg_flt(rotateDegXYZ.x, &sx, &cx);
 	ijkTrigSinCos_deg_flt(rotateDegXYZ.y, &sy, &cy);
 	ijkTrigSinCos_deg_flt(rotateDegXYZ.z, &sz, &cz);
@@ -2387,7 +2387,7 @@ ijk_inl fmat3 ijkMatRotateXZY3f(fvec3 const rotateDegXYZ)
 
 ijk_inl fmat3 ijkMatRotateZYX3f(fvec3 const rotateDegXYZ)
 {
-	float sx, sy, sz, cx, cy, cz, ss, cs;
+	f32 sx, sy, sz, cx, cy, cz, ss, cs;
 	ijkTrigSinCos_deg_flt(rotateDegXYZ.x, &sx, &cx);
 	ijkTrigSinCos_deg_flt(rotateDegXYZ.y, &sy, &cy);
 	ijkTrigSinCos_deg_flt(rotateDegXYZ.z, &sz, &cz);
@@ -2579,8 +2579,8 @@ ijk_inl fmat3 ijkMatInverseTranspose3f(fmat3 const m_in)
 
 ijk_inl fmat3 ijkMatRotateAxisAngle3f(fvec3 const axis_unit, float const angle_degrees)
 {
-	float c, s, t, xs, ys, zs, xt, yt, zt, xyt, yzt, zxt;
-	float const x = axis_unit.x, y = axis_unit.y, z = axis_unit.z;
+	f32 c, s, t, xs, ys, zs, xt, yt, zt, xyt, yzt, zxt;
+	f32 const x = axis_unit.x, y = axis_unit.y, z = axis_unit.z;
 	ijkTrigSinCos_deg_flt(angle_degrees, &s, &c);
 	t = flt_one - c;
 	xs = x * s;
@@ -2742,7 +2742,7 @@ ijk_inl fmat4 ijkMatDivSafe4f(fmat4 const m_lh, fmat4 const m_rh)
 
 ijk_inl fmat4 ijkMatRotateXYZ4f(fvec4 const rotateDegXYZ)
 {
-	float sx, sy, sz, cx, cy, cz, ss, cs;
+	f32 sx, sy, sz, cx, cy, cz, ss, cs;
 	ijkTrigSinCos_deg_flt(rotateDegXYZ.x, &sx, &cx);
 	ijkTrigSinCos_deg_flt(rotateDegXYZ.y, &sy, &cy);
 	ijkTrigSinCos_deg_flt(rotateDegXYZ.z, &sz, &cz);
@@ -2757,7 +2757,7 @@ ijk_inl fmat4 ijkMatRotateXYZ4f(fvec4 const rotateDegXYZ)
 
 ijk_inl fmat4 ijkMatRotateYZX4f(fvec4 const rotateDegXYZ)
 {
-	float sx, sy, sz, cx, cy, cz, ss, cs;
+	f32 sx, sy, sz, cx, cy, cz, ss, cs;
 	ijkTrigSinCos_deg_flt(rotateDegXYZ.x, &sx, &cx);
 	ijkTrigSinCos_deg_flt(rotateDegXYZ.y, &sy, &cy);
 	ijkTrigSinCos_deg_flt(rotateDegXYZ.z, &sz, &cz);
@@ -2772,7 +2772,7 @@ ijk_inl fmat4 ijkMatRotateYZX4f(fvec4 const rotateDegXYZ)
 
 ijk_inl fmat4 ijkMatRotateZXY4f(fvec4 const rotateDegXYZ)
 {
-	float sx, sy, sz, cx, cy, cz, ss, cs;
+	f32 sx, sy, sz, cx, cy, cz, ss, cs;
 	ijkTrigSinCos_deg_flt(rotateDegXYZ.x, &sx, &cx);
 	ijkTrigSinCos_deg_flt(rotateDegXYZ.y, &sy, &cy);
 	ijkTrigSinCos_deg_flt(rotateDegXYZ.z, &sz, &cz);
@@ -2787,7 +2787,7 @@ ijk_inl fmat4 ijkMatRotateZXY4f(fvec4 const rotateDegXYZ)
 
 ijk_inl fmat4 ijkMatRotateYXZ4f(fvec4 const rotateDegXYZ)
 {
-	float sx, sy, sz, cx, cy, cz, ss, cs;
+	f32 sx, sy, sz, cx, cy, cz, ss, cs;
 	ijkTrigSinCos_deg_flt(rotateDegXYZ.x, &sx, &cx);
 	ijkTrigSinCos_deg_flt(rotateDegXYZ.y, &sy, &cy);
 	ijkTrigSinCos_deg_flt(rotateDegXYZ.z, &sz, &cz);
@@ -2802,7 +2802,7 @@ ijk_inl fmat4 ijkMatRotateYXZ4f(fvec4 const rotateDegXYZ)
 
 ijk_inl fmat4 ijkMatRotateXZY4f(fvec4 const rotateDegXYZ)
 {
-	float sx, sy, sz, cx, cy, cz, ss, cs;
+	f32 sx, sy, sz, cx, cy, cz, ss, cs;
 	ijkTrigSinCos_deg_flt(rotateDegXYZ.x, &sx, &cx);
 	ijkTrigSinCos_deg_flt(rotateDegXYZ.y, &sy, &cy);
 	ijkTrigSinCos_deg_flt(rotateDegXYZ.z, &sz, &cz);
@@ -2817,7 +2817,7 @@ ijk_inl fmat4 ijkMatRotateXZY4f(fvec4 const rotateDegXYZ)
 
 ijk_inl fmat4 ijkMatRotateZYX4f(fvec4 const rotateDegXYZ)
 {
-	float sx, sy, sz, cx, cy, cz, ss, cs;
+	f32 sx, sy, sz, cx, cy, cz, ss, cs;
 	ijkTrigSinCos_deg_flt(rotateDegXYZ.x, &sx, &cx);
 	ijkTrigSinCos_deg_flt(rotateDegXYZ.y, &sy, &cy);
 	ijkTrigSinCos_deg_flt(rotateDegXYZ.z, &sz, &cz);
@@ -3014,8 +3014,8 @@ ijk_inl fmat4 ijkMatInverseTranspose4f(fmat4 const m_in)
 
 ijk_inl fmat4 ijkMatRotateAxisAngle4f(fvec3 const axis_unit, float const angle_degrees)
 {
-	float c, s, t, xs, ys, zs, xt, yt, zt, xyt, yzt, zxt;
-	float const x = axis_unit.x, y = axis_unit.y, z = axis_unit.z;
+	f32 c, s, t, xs, ys, zs, xt, yt, zt, xyt, yzt, zxt;
+	f32 const x = axis_unit.x, y = axis_unit.y, z = axis_unit.z;
 	ijkTrigSinCos_deg_flt(angle_degrees, &s, &c);
 	t = flt_one - c;
 	xs = x * s;

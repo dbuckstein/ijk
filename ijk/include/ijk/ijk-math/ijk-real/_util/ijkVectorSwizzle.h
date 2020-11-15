@@ -185,13 +185,13 @@ struct ttvec2
 	explicit ttvec2(stvec3<type> const& xy);						// Construct vector given 3D swizzle vector.
 	explicit ttvec2(stvec4<type> const& xy);						// Construct vector given 4D swizzle vector.
 
-	explicit ttvec2(bool const xy[2]);								// Construct vector given boolean array-based vector.
-	explicit ttvec2(i32 const xy[2]);								// Construct vector given signed 32-bit integer array-based vector.
-	explicit ttvec2(i64 const xy[2]);								// Construct vector given signed 64-bit integer array-based vector.
-	explicit ttvec2(ui32 const xy[2]);								// Construct vector given unsigned 32-bit integer array-based vector.
-	explicit ttvec2(ui64 const xy[2]);								// Construct vector given unsigned 64-bit integer array-based vector.
-	explicit ttvec2(f32 const xy[2]);								// Construct vector given float array-based vector.
-	explicit ttvec2(f64 const xy[2]);								// Construct vector given double array-based vector.
+	explicit ttvec2(bool2 const xy);								// Construct vector given boolean array-based vector.
+	explicit ttvec2(int2 const xy);								// Construct vector given signed 32-bit integer array-based vector.
+	explicit ttvec2(intl2 const xy);								// Construct vector given signed 64-bit integer array-based vector.
+	explicit ttvec2(uint2 const xy);								// Construct vector given unsigned 32-bit integer array-based vector.
+	explicit ttvec2(uintl2 const xy);								// Construct vector given unsigned 64-bit integer array-based vector.
+	explicit ttvec2(float2 const xy);								// Construct vector given float array-based vector.
+	explicit ttvec2(double2 const xy);								// Construct vector given double array-based vector.
 	explicit ttvec2(ttvec1<bool> const xy[2]);						// Construct vector given boolean array-based vector.
 	explicit ttvec2(ttvec1<i32> const xy[2]);						// Construct vector given signed 32-bit integer array-based vector.
 	explicit ttvec2(ttvec1<intl> const xy[2]);						// Construct vector given signed 64-bit integer array-based vector.
@@ -308,13 +308,13 @@ struct ttvec3
 	ttvec3(stvec3<type> const& xyz);										// Construct vector given 3D swizzle vector.
 	explicit ttvec3(stvec4<type> const& xyz);								// Construct vector given 4D swizzle vector.
 
-	explicit ttvec3(bool const xyz[3]);										// Construct vector given boolean array-based vector.
-	explicit ttvec3(i32 const xyz[3]);										// Construct vector given 32-bit signed integer array-based vector.
-	explicit ttvec3(i64 const xyz[3]);										// Construct vector given 64-bit signed integer array-based vector.
-	explicit ttvec3(ui32 const xyz[3]);										// Construct vector given unsigned 32-bit integer array-based vector.
-	explicit ttvec3(ui64 const xyz[3]);										// Construct vector given unsigned 64-bit integer array-based vector.
-	explicit ttvec3(f32 const xyz[3]);										// Construct vector given float array-based vector.
-	explicit ttvec3(f64 const xyz[3]);										// Construct vector given double array-based vector.
+	explicit ttvec3(bool3 const xyz);										// Construct vector given boolean array-based vector.
+	explicit ttvec3(int3 const xyz);										// Construct vector given 32-bit signed integer array-based vector.
+	explicit ttvec3(intl3 const xyz);										// Construct vector given 64-bit signed integer array-based vector.
+	explicit ttvec3(uint3 const xyz);										// Construct vector given unsigned 32-bit integer array-based vector.
+	explicit ttvec3(uintl3 const xyz);										// Construct vector given unsigned 64-bit integer array-based vector.
+	explicit ttvec3(float3 const xyz);										// Construct vector given float array-based vector.
+	explicit ttvec3(double3 const xyz);										// Construct vector given double array-based vector.
 	explicit ttvec3(ttvec1<bool> const xyz[3]);								// Construct vector given boolean array-based vector.
 	explicit ttvec3(ttvec1<i32> const xyz[3]);								// Construct vector given 32-bit signed integer array-based vector.
 	explicit ttvec3(ttvec1<i64> const xyz[3]);								// Construct vector given 64-bit signed integer array-based vector.
@@ -437,13 +437,13 @@ struct ttvec4
 	explicit ttvec4(type const& xc, stvec3<type> const& yzw);									// Construct vector given 3D swizzle vector and one scalar.
 	ttvec4(stvec4<type> const& xyzw);															// Construct vector given 4D swizzle vector.
 
-	explicit ttvec4(bool const xyzw[4]);														// Construct vector given boolean array-based vector.
-	explicit ttvec4(i32 const xyzw[4]);															// Construct vector given signed 32-bit integer array-based vector.
-	explicit ttvec4(i64 const xyzw[4]);															// Construct vector given signed 64-bit integer array-based vector.
-	explicit ttvec4(ui32 const xyzw[4]);														// Construct vector given unsigned 32-bit integer array-based vector.
-	explicit ttvec4(ui64 const xyzw[4]);														// Construct vector given unsigned 64-bit integer array-based vector.
-	explicit ttvec4(f32 const xyzw[4]);															// Construct vector given float array-based vector.
-	explicit ttvec4(f64 const xyzw[4]);															// Construct vector given double array-based vector.
+	explicit ttvec4(bool4 const xyzw);														// Construct vector given boolean array-based vector.
+	explicit ttvec4(int4 const xyzw);															// Construct vector given signed 32-bit integer array-based vector.
+	explicit ttvec4(intl4 const xyzw);															// Construct vector given signed 64-bit integer array-based vector.
+	explicit ttvec4(uint4 const xyzw);														// Construct vector given unsigned 32-bit integer array-based vector.
+	explicit ttvec4(uintl4 const xyzw);														// Construct vector given unsigned 64-bit integer array-based vector.
+	explicit ttvec4(float4 const xyzw);															// Construct vector given float array-based vector.
+	explicit ttvec4(double4 const xyzw);															// Construct vector given double array-based vector.
 	explicit ttvec4(ttvec1<bool> const xyzw[4]);												// Construct vector given boolean array-based vector.
 	explicit ttvec4(ttvec1<i32> const xyzw[4]);													// Construct vector given signed 32-bit integer array-based vector.
 	explicit ttvec4(ttvec1<i64> const xyzw[4]);													// Construct vector given signed 64-bit integer array-based vector.

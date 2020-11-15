@@ -91,9 +91,9 @@ enum ijkRotationOrder
 
 //-----------------------------------------------------------------------------
 
-//#ifdef __cplusplus
+#ifdef __cplusplus
 
-//#else // !__cplusplus
+#else // !__cplusplus
 
 // fmat2
 //	Data structure representing 2D column-major float matrix.
@@ -219,7 +219,7 @@ union dmat4
 };
 
 
-//#endif	// __cplusplus
+#endif	// __cplusplus
 
 
 //-----------------------------------------------------------------------------
