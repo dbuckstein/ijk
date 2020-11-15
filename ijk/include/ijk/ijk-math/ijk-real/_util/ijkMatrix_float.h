@@ -1316,7 +1316,7 @@ float4m ijkMatDivSafe4fm(float4x4 m_out, float4x4 const m_lh, float4x4 const m_r
 //		param m_out: output matrix, rotation
 //		param rotateDegXYZ: Euler angles in degrees (component order XYZ)
 //		return: m_out
-float4m ijkMatRotateXYZ4fm(float4x4 m_out, float4 const rotateDegXYZ);
+float4m ijkMatRotateXYZ4fm(float4x4 m_out, float3 const rotateDegXYZ);
 
 // ijkMatRotateYZX4*m
 //	Make 4D rotation matrix with Euler angles in written order YZX, meaning 
@@ -1324,7 +1324,7 @@ float4m ijkMatRotateXYZ4fm(float4x4 m_out, float4 const rotateDegXYZ);
 //		param m_out: output matrix, rotation
 //		param rotateDegXYZ: Euler angles in degrees (component order XYZ)
 //		return: m_out
-float4m ijkMatRotateYZX4fm(float4x4 m_out, float4 const rotateDegXYZ);
+float4m ijkMatRotateYZX4fm(float4x4 m_out, float3 const rotateDegXYZ);
 
 // ijkMatRotateZXY4*m
 //	Make 4D rotation matrix with Euler angles in written order ZXY, meaning 
@@ -1332,7 +1332,7 @@ float4m ijkMatRotateYZX4fm(float4x4 m_out, float4 const rotateDegXYZ);
 //		param m_out: output matrix, rotation
 //		param rotateDegXYZ: Euler angles in degrees (component order XYZ)
 //		return: m_out
-float4m ijkMatRotateZXY4fm(float4x4 m_out, float4 const rotateDegXYZ);
+float4m ijkMatRotateZXY4fm(float4x4 m_out, float3 const rotateDegXYZ);
 
 // ijkMatRotateYXZ4*m
 //	Make 4D rotation matrix with Euler angles in written order YXZ, meaning 
@@ -1340,7 +1340,7 @@ float4m ijkMatRotateZXY4fm(float4x4 m_out, float4 const rotateDegXYZ);
 //		param m_out: output matrix, rotation
 //		param rotateDegXYZ: Euler angles in degrees (component order XYZ)
 //		return: m_out
-float4m ijkMatRotateYXZ4fm(float4x4 m_out, float4 const rotateDegXYZ);
+float4m ijkMatRotateYXZ4fm(float4x4 m_out, float3 const rotateDegXYZ);
 
 // ijkMatRotateXZY4*m
 //	Make 4D rotation matrix with Euler angles in written order XZY, meaning 
@@ -1348,7 +1348,7 @@ float4m ijkMatRotateYXZ4fm(float4x4 m_out, float4 const rotateDegXYZ);
 //		param m_out: output matrix, rotation
 //		param rotateDegXYZ: Euler angles in degrees (component order XYZ)
 //		return: m_out
-float4m ijkMatRotateXZY4fm(float4x4 m_out, float4 const rotateDegXYZ);
+float4m ijkMatRotateXZY4fm(float4x4 m_out, float3 const rotateDegXYZ);
 
 // ijkMatRotateZYX4*m
 //	Make 4D rotation matrix with Euler angles in written order ZYX, meaning 
@@ -1356,7 +1356,7 @@ float4m ijkMatRotateXZY4fm(float4x4 m_out, float4 const rotateDegXYZ);
 //		param m_out: output matrix, rotation
 //		param rotateDegXYZ: Euler angles in degrees (component order XYZ)
 //		return: m_out
-float4m ijkMatRotateZYX4fm(float4x4 m_out, float4 const rotateDegXYZ);
+float4m ijkMatRotateZYX4fm(float4x4 m_out, float3 const rotateDegXYZ);
 
 // ijkMatGetRotateXYZ4*m
 //	Extract rotation angle in degrees from 4D rotation matrix; assumes columns 
@@ -1364,7 +1364,7 @@ float4m ijkMatRotateZYX4fm(float4x4 m_out, float4 const rotateDegXYZ);
 //		param m_in: input matrix
 //		param rotateDegXYZ_out: storage for Euler angles in component order XYZ
 //		return: m_in
-float4km ijkMatGetRotateXYZ4fm(float4x4 const m_in, float4 rotateDegXYZ_out);
+float4km ijkMatGetRotateXYZ4fm(float4x4 const m_in, float3 rotateDegXYZ_out);
 
 // ijkMatGetRotateYZX4*m
 //	Extract rotation angle in degrees from 4D rotation matrix; assumes columns 
@@ -1372,7 +1372,7 @@ float4km ijkMatGetRotateXYZ4fm(float4x4 const m_in, float4 rotateDegXYZ_out);
 //		param m_in: input matrix
 //		param rotateDegXYZ_out: storage for Euler angles in component order XYZ
 //		return: m_in
-float4km ijkMatGetRotateYZX4fm(float4x4 const m_in, float4 rotateDegXYZ_out);
+float4km ijkMatGetRotateYZX4fm(float4x4 const m_in, float3 rotateDegXYZ_out);
 
 // ijkMatGetRotateZXY4*m
 //	Extract rotation angle in degrees from 4D rotation matrix; assumes columns 
@@ -1380,7 +1380,7 @@ float4km ijkMatGetRotateYZX4fm(float4x4 const m_in, float4 rotateDegXYZ_out);
 //		param m_in: input matrix
 //		param rotateDegXYZ_out: storage for Euler angles in component order XYZ
 //		return: m_in
-float4km ijkMatGetRotateZXY4fm(float4x4 const m_in, float4 rotateDegXYZ_out);
+float4km ijkMatGetRotateZXY4fm(float4x4 const m_in, float3 rotateDegXYZ_out);
 
 // ijkMatGetRotateYXZ4*m
 //	Extract rotation angle in degrees from 4D rotation matrix; assumes columns 
@@ -1388,7 +1388,7 @@ float4km ijkMatGetRotateZXY4fm(float4x4 const m_in, float4 rotateDegXYZ_out);
 //		param m_in: input matrix
 //		param rotateDegXYZ_out: storage for Euler angles in component order XYZ
 //		return: m_in
-float4km ijkMatGetRotateYXZ4fm(float4x4 const m_in, float4 rotateDegXYZ_out);
+float4km ijkMatGetRotateYXZ4fm(float4x4 const m_in, float3 rotateDegXYZ_out);
 
 // ijkMatGetRotateXZY4*m
 //	Extract rotation angle in degrees from 4D rotation matrix; assumes columns 
@@ -1396,7 +1396,7 @@ float4km ijkMatGetRotateYXZ4fm(float4x4 const m_in, float4 rotateDegXYZ_out);
 //		param m_in: input matrix
 //		param rotateDegXYZ_out: storage for Euler angles in component order XYZ
 //		return: m_in
-float4km ijkMatGetRotateXZY4fm(float4x4 const m_in, float4 rotateDegXYZ_out);
+float4km ijkMatGetRotateXZY4fm(float4x4 const m_in, float3 rotateDegXYZ_out);
 
 // ijkMatGetRotateZYX4*m
 //	Extract rotation angle in degrees from 4D rotation matrix; assumes columns 
@@ -1404,7 +1404,7 @@ float4km ijkMatGetRotateXZY4fm(float4x4 const m_in, float4 rotateDegXYZ_out);
 //		param m_in: input matrix
 //		param rotateDegXYZ_out: storage for Euler angles in component order XYZ
 //		return: m_in
-float4km ijkMatGetRotateZYX4fm(float4x4 const m_in, float4 rotateDegXYZ_out);
+float4km ijkMatGetRotateZYX4fm(float4x4 const m_in, float3 rotateDegXYZ_out);
 
 // ijkMatRotate4*m
 //	Make 4D rotation matrix.
@@ -1413,7 +1413,7 @@ float4km ijkMatGetRotateZYX4fm(float4x4 const m_in, float4 rotateDegXYZ_out);
 //			operations is right-to-left)
 //		param rotateDegXYZ_out: storage for Euler angles in component order XYZ
 //		return: m_out
-float4m ijkMatRotate4fm(float4x4 m_out, ijkRotationOrder const order, float4 const rotateDegXYZ);
+float4m ijkMatRotate4fm(float4x4 m_out, ijkRotationOrder const order, float3 const rotateDegXYZ);
 
 // ijkMatScale4*m
 //	Make 4D scale matrix.
@@ -1430,7 +1430,7 @@ float4m ijkMatScale4fm(float4x4 m_out, float3 const scale);
 //		param rotateDegXYZ: Euler angles in degrees (component order XYZ)
 //		param scale: scales on each dimension
 //		return: m_out
-float4m ijkMatRotateScale4fm(float4x4 m_out, ijkRotationOrder const order, float4 const rotateDegXYZ, float3 const scale);
+float4m ijkMatRotateScale4fm(float4x4 m_out, ijkRotationOrder const order, float3 const rotateDegXYZ, float3 const scale);
 
 // ijkMatGetRotate4*m
 //	Extract rotation angle in degrees from 4D rotation matrix; assumes columns 
@@ -1440,7 +1440,7 @@ float4m ijkMatRotateScale4fm(float4x4 m_out, ijkRotationOrder const order, float
 //			operations is right-to-left)
 //		param rotateDegXYZ_out: storage for Euler angles in component order XYZ
 //		return: m_in
-float4km ijkMatGetRotate4fm(float4x4 const m_in, ijkRotationOrder const order, float4 rotateDegXYZ_out);
+float4km ijkMatGetRotate4fm(float4x4 const m_in, ijkRotationOrder const order, float3 rotateDegXYZ_out);
 
 // ijkMatGetScale4*m
 //	Extract scales from 4D matrix.
@@ -1457,7 +1457,7 @@ float4km ijkMatGetScale4fm(float4x4 const m_in, float3 scale_out);
 //		param rotateDegXYZ_out: storage for Euler angles in component order XYZ
 //		param scale_out: storage for scale amounts
 //		return: m_in
-float4km ijkMatGetRotateScale4fm(float4x4 const m_in, ijkRotationOrder const order, float4 rotateDegXYZ_out, float3 scale_out);
+float4km ijkMatGetRotateScale4fm(float4x4 const m_in, ijkRotationOrder const order, float3 rotateDegXYZ_out, float3 scale_out);
 
 // ijkMatInverseRotate4*m
 //	Calculate quick transform inverse for 4D matrix, assuming matrix encodes 
@@ -1525,6 +1525,220 @@ float4km ijkMatGetRotateAxisAngle4fm(float4x4 const m_in, float3 axis_unit_out, 
 //		param scale_out: storage for scale amounts
 //		return: m_in
 float4km ijkMatGetRotateAxisAngleScale4fm(float4x4 const m_in, float3 axis_unit_out, f32* const angle_degrees_out, float3 scale_out);
+
+// ijkMatTranslate4*m
+//	Create 4D translation matrix, identity in upper-left, offset vector in 
+//	upper-right.
+//		param m_out: output matrix, translation
+//		param translate: translation offset vector
+//		return: m_out
+float4m ijkMatTranslate4fm(float4x4 m_out, float3 const translate);
+
+// ijkMatRotateTranslate4*m
+//	Create 4D rotation-translation matrix, R in upper-left, offset vector in 
+//	upper-right.
+//		param m_out: output matrix, translation
+//		param order: written order of Euler angles (functional order of 
+//			operations is right-to-left)
+//		param rotateDegXYZ_out: storage for Euler angles in component order XYZ
+//		param translate: translation offset vector
+//		return: m_out
+float4m ijkMatRotateTranslate4fm(float4x4 m_out, ijkRotationOrder const order, float3 const rotateDegXYZ, float3 const translate);
+
+// ijkMatScaleTranslate4*m
+//	Create 4D scale-translation matrix, S in upper-left, offset vector in 
+//	upper-right.
+//		param m_out: output matrix, translation
+//		param scale: scales on each dimension
+//		param translate: translation offset vector
+//		return: m_out
+float4m ijkMatScaleTranslate4fm(float4x4 m_out, float3 const scale, float3 const translate);
+
+// ijkMatRotateScaleTranslate4*m
+//	Create 4D rotation-scale-translation matrix, RS in upper-left, offset 
+//	vector in upper-right.
+//		param m_out: output matrix, translation
+//		param order: written order of Euler angles (functional order of 
+//			operations is right-to-left)
+//		param rotateDegXYZ_out: storage for Euler angles in component order XYZ
+//		param scale: scales on each dimension
+//		param translate: translation offset vector
+//		return: m_out
+float4m ijkMatRotateScaleTranslate4fm(float4x4 m_out, ijkRotationOrder const order, float3 const rotateDegXYZ, float3 const scale, float3 const translate);
+
+// ijkMatRotateAxisAngleTranslate4*m
+//	Create 4D rotation-translation matrix, R in upper-left, offset vector in 
+//	upper-right.
+//		param m_out: output matrix, translation
+//		param axis_unit: pre-normalized axis of rotation
+//		param angle_degrees: angle of rotation in degrees
+//		param translate: translation offset vector
+//		return: m_out
+float4m ijkMatRotateAxisAngleTranslate4fm(float4x4 m_out, float3 const axis_unit, f32 const angle_degrees, float3 const translate);
+
+// ijkMatRotateAxisAngleScaleTranslate4*m
+//	Create 4D rotation-scale-translation matrix, RS in upper-left, offset 
+//	vector in upper-right.
+//		param m_out: output matrix, translation
+//		param axis_unit: pre-normalized axis of rotation
+//		param angle_degrees: angle of rotation in degrees
+//		param scale: scales on each dimension
+//		param translate: translation offset vector
+//		return: m_out
+float4m ijkMatRotateAxisAngleScaleTranslate4fm(float4x4 m_out, float3 const axis_unit, f32 const angle_degrees, float3 const scale, float3 const translate);
+
+// ijkMatGetTranslate4*m
+//	Extract translation offset vector from 4D matrix.
+//		param m_in: input matrix
+//		param translate_out: storage for translation offset
+//		return: m_in
+float4km ijkMatGetTranslate4fm(float4x4 const m_in, float3 translate_out);
+
+// ijkMatGetRotateTranslate4*m
+//	Extract rotation angle in degrees and translation offset vector from 4D 
+//	rotation matrix; assumes columns are unit-length for optimization.
+//		param m_in: input matrix
+//		param order: written order of Euler angles (functional order of 
+//			operations is right-to-left)
+//		param rotateDegXYZ_out: storage for Euler angles in component order XYZ
+//		param translate_out: storage for translation offset
+//		return: m_in
+float4km ijkMatGetRotateTranslate4fm(float4x4 const m_in, ijkRotationOrder const order, float3 rotateDegXYZ_out, float3 translate_out);
+
+// ijkMatGetScaleTranslate4*m
+//	Extract scales and translation offset vector from 4D matrix.
+//		param m_in: input matrix
+//		param scale_out: storage for scale amounts
+//		param translate_out: storage for translation offset
+//		return: m_in
+float4km ijkMatGetScaleTranslate4fm(float4x4 const m_in, float3 scale_out, float3 translate_out);
+
+// ijkMatGetRotateScaleTranslate4*m
+//	Extract rotation angle in degrees, scales and translation offset vector 
+//	from 4D matrix.
+//		param m_in: input matrix
+//		param order: written order of Euler angles (functional order of 
+//			operations is right-to-left)
+//		param rotateDegXYZ_out: storage for Euler angles in component order XYZ
+//		param scale_out: storage for scale amounts
+//		param translate_out: storage for translation offset
+//		return: m_in
+float4km ijkMatGetRotateScaleTranslate4fm(float4x4 const m_in, ijkRotationOrder const order, float3 rotateDegXYZ_out, float3 scale_out, float3 translate_out);
+
+// ijkMatGetRotateAxisAngleTranslate4*m
+//	Extract unit axis of rotation, angle in degrees and translation offset 
+//	vector from 4D rotation matrix.
+//		param m_in: input matrix, rotation
+//		param axis_unit_out: output unit axis of rotation
+//		param angle_degrees_out: pointer to angle storage
+//		param translate_out: storage for translation offset
+//		return: m_in
+float4km ijkMatGetRotateAxisAngleTranslate4fm(float4x4 const m_in, float3 axis_unit_out, f32* const angle_degrees_out, float3 translate_out);
+
+// ijkMatGetRotateAxisAngleScaleTranslate4*m
+//	Extract unit axis of rotation, angle in degrees, scale and translation 
+//	offset vector from 4D matrix.
+//		param m_in: input matrix, rotation-scale
+//		param axis_unit_out: output unit axis of rotation
+//		param angle_degrees_out: pointer to angle storage
+//		param scale_out: storage for scale amounts
+//		param translate_out: storage for translation offset
+//		return: m_in
+float4km ijkMatGetRotateAxisAngleScaleTranslate4fm(float4x4 const m_in, float3 axis_unit_out, f32* const angle_degrees_out, float3 scale_out, float3 translate_out);
+
+// ijkMatInverseRotateTranslate4*m
+//	Calculate quick transform inverse for 4D matrix, assuming matrix encodes 
+//	rotation and translation; this is simply the transpose.
+//		param m_out: output matrix, quick inverse
+//		param m_in: input matrix
+//		return: m_out
+float4m ijkMatInverseRotateTranslate4fm(float4x4 m_out, float4x4 const m_in);
+
+// ijkMatInverseScaleTranslate4*m
+//	Calculate quick transform inverse for 4D matrix, assuming matrix encodes 
+//	scale and translation; this is simply the reciprocal of the diagonal elements.
+//		param m_out: output matrix, quick inverse
+//		param m_in: input matrix
+//		return: m_out
+float4m ijkMatInverseScaleTranslate4fm(float4x4 m_out, float4x4 const m_in);
+
+// ijkMatInverseRotateScaleTranslate4*m
+//	Calculate quick transform inverse for 4D matrix, assuming matrix encodes 
+//	rotation, scale and translation.
+//		param m_out: output matrix, quick inverse
+//		param m_in: input matrix
+//		return: m_out
+float4m ijkMatInverseRotateScaleTranslate4fm(float4x4 m_out, float4x4 const m_in);
+
+// ijkMatInverseTransposeTranslate4*m
+//	Calculate quick inverse-transpose of 4D matrix, assuming matrix encodes 
+//	rotation, scale and translation.
+//		param m_out: output matrix, quick inverse-transpose
+//		param m_in: input matrix
+//		return: m_out
+float4m ijkMatInverseTransposeTranslate4fm(float4x4 m_out, float4x4 const m_in);
+
+// ijkMatProjectionPerspective4*m
+//	Create perspective projection matrix.
+//		param m_out: output matrix, perspective projection
+//		param m_inv_out_opt: optional inverse matrix output
+//		param fovyDeg: vertical field-of-view in degrees (greater than zero)
+//		param aspect: aspect ratio of viewing plane (greater than zero)
+//		param nearDist: distance to near plane (greater than zero)
+//		param farDist: distance to far plane (greater than near)
+//		return: m_out
+float4m ijkMatProjectionPerspective4fm(float4x4 m_out, float4x4 m_inv_out_opt, f32 const fovyDeg, f32 const aspect, f32 const nearDist, f32 const farDist);
+
+// ijkMatProjectionParallel4*m
+//	Create parallel/orthographic projection matrix.
+//		param m_out: output matrix, parallel projection
+//		param m_inv_out_opt: optional inverse matrix output
+//		param fovyDeg: vertical field-of-view in degrees (greater than zero)
+//		param aspect: aspect ratio of viewing plane (greater than zero)
+//		param nearDist: distance to near plane (not equal to far)
+//		param farDist: distance to far plane (not equal to near)
+//		return: m_out
+float4m ijkMatProjectionParallel4fm(float4x4 m_out, float4x4 m_inv_out_opt, f32 const fovyDeg, f32 const aspect, f32 const nearDist, f32 const farDist);
+
+// ijkMatProjectionPerspectivePlanes4*m
+//	Create perspective projection matrix given plane distances.
+//		param m_out: output matrix, perspective projection
+//		param m_inv_out_opt: optional inverse matrix output
+//		param leftDist: distance to left plane (not equal to right)
+//		param rightDist: distance to right plane (not equal to left)
+//		param bottomDist: distance to bottom plane (not equal to top)
+//		param topDist: distance to top plane (not equal to bottom)
+//		param nearDist: distance to near plane (greater than zero)
+//		param farDist: distance to far plane (greater than near)
+//		return: m_out
+float4m ijkMatProjectionPerspectivePlanes4fm(float4x4 m_out, float4x4 m_inv_out_opt, f32 const leftDist, f32 const rightDist, f32 const bottomDist, f32 const topDist, f32 const nearDist, f32 const farDist);
+
+// ijkMatProjectionParallelPlanes4*m
+//	Create parallel/orthographic projection matrix given plane distances.
+//		param m_out: output matrix, parallel projection
+//		param m_inv_out_opt: optional inverse matrix output
+//		param leftDist: distance to left plane (not equal to right)
+//		param rightDist: distance to right plane (not equal to left)
+//		param bottomDist: distance to bottom plane (not equal to top)
+//		param topDist: distance to top plane (not equal to bottom)
+//		param nearDist: distance to near plane (not equal to far)
+//		param farDist: distance to far plane (not equal to near)
+//		return: m_out
+float4m ijkMatProjectionParallelPlanes4fm(float4x4 m_out, float4x4 m_inv_out_opt, f32 const leftDist, f32 const rightDist, f32 const bottomDist, f32 const topDist, f32 const nearDist, f32 const farDist);
+
+// ijkMatProjectionStereoConversion4*m
+//	Create stereo projection conversion matrix. Convert monoscopic matrix to 
+//	stereoscopic by multiplying conversion matrix on the right (mono * stereo).
+//	Convert mono inverse matrix to stereo inverse by multiplying conversion 
+//	inverse matrix on the left (stereo inv * mono inv).
+//		param m_left_out: output left eye conversion matrix
+//		param m_right_out: output right eye conversion matrix
+//		param m_left_inv_out_opt: output left eye conversion matrix inverse
+//		param m_right_inv_out_opt: output right eye conversion matrix inverse
+//		param interocularDist: distance between eyes
+//		param convergenceDist: distance to convergence plane
+//		return: m_left_out
+float4m ijkMatProjectionStereoConversion4fm(float4x4 m_left_out, float4x4 m_left_inv_out_opt, float4x4 m_right_out, float4x4 m_right_inv_out_opt, f32 const interocularDist, f32 const convergenceDist);
 
 
 //-----------------------------------------------------------------------------
@@ -2081,37 +2295,37 @@ fmat4 ijkMatDivSafe4f(fmat4 const m_lh, fmat4 const m_rh);
 //	Make 4D rotation matrix.
 //		param rotateDegXYZ: Euler angles in degrees (component order XYZ)
 //		return: rotation matrix
-fmat4 ijkMatRotateXYZ4f(fvec4 const rotateDegXYZ);
+fmat4 ijkMatRotateXYZ4f(fvec3 const rotateDegXYZ);
 
 // ijkMatRotateYZX4*
 //	Make 4D rotation matrix.
 //		param rotateDegXYZ: Euler angles in degrees (component order XYZ)
 //		return: rotation matrix
-fmat4 ijkMatRotateYZX4f(fvec4 const rotateDegXYZ);
+fmat4 ijkMatRotateYZX4f(fvec3 const rotateDegXYZ);
 
 // ijkMatRotateZXY4*
 //	Make 4D rotation matrix.
 //		param rotateDegXYZ: Euler angles in degrees (component order XYZ)
 //		return: rotation matrix
-fmat4 ijkMatRotateZXY4f(fvec4 const rotateDegXYZ);
+fmat4 ijkMatRotateZXY4f(fvec3 const rotateDegXYZ);
 
 // ijkMatRotateYXZ4*
 //	Make 4D rotation matrix.
 //		param rotateDegXYZ: Euler angles in degrees (component order XYZ)
 //		return: rotation matrix
-fmat4 ijkMatRotateYXZ4f(fvec4 const rotateDegXYZ);
+fmat4 ijkMatRotateYXZ4f(fvec3 const rotateDegXYZ);
 
 // ijkMatRotateXZY4*
 //	Make 4D rotation matrix.
 //		param rotateDegXYZ: Euler angles in degrees (component order XYZ)
 //		return: rotation matrix
-fmat4 ijkMatRotateXZY4f(fvec4 const rotateDegXYZ);
+fmat4 ijkMatRotateXZY4f(fvec3 const rotateDegXYZ);
 
 // ijkMatRotateZYX4*
 //	Make 4D rotation matrix.
 //		param rotateDegXYZ: Euler angles in degrees (component order XYZ)
 //		return: rotation matrix
-fmat4 ijkMatRotateZYX4f(fvec4 const rotateDegXYZ);
+fmat4 ijkMatRotateZYX4f(fvec3 const rotateDegXYZ);
 
 // ijkMatGetRotateXYZ4*
 //	Extract rotation angle in degrees from 4D rotation matrix; assumes columns 
@@ -2119,7 +2333,7 @@ fmat4 ijkMatRotateZYX4f(fvec4 const rotateDegXYZ);
 //		param m_in: input matrix
 //		param rotateDegXYZ_out: storage for Euler angles in component order XYZ
 //		return: m_in
-fmat4 ijkMatGetRotateXYZ4f(fmat4 const m_in, fvec4* const rotateDegXYZ_out);
+fmat4 ijkMatGetRotateXYZ4f(fmat4 const m_in, fvec3* const rotateDegXYZ_out);
 
 // ijkMatGetRotateYZX4*
 //	Extract rotation angle in degrees from 4D rotation matrix; assumes columns 
@@ -2127,7 +2341,7 @@ fmat4 ijkMatGetRotateXYZ4f(fmat4 const m_in, fvec4* const rotateDegXYZ_out);
 //		param m_in: input matrix
 //		param rotateDegXYZ_out: storage for Euler angles in component order XYZ
 //		return: m_in
-fmat4 ijkMatGetRotateYZX4f(fmat4 const m_in, fvec4* const rotateDegXYZ_out);
+fmat4 ijkMatGetRotateYZX4f(fmat4 const m_in, fvec3* const rotateDegXYZ_out);
 
 // ijkMatGetRotateZXY4*
 //	Extract rotation angle in degrees from 4D rotation matrix; assumes columns 
@@ -2135,7 +2349,7 @@ fmat4 ijkMatGetRotateYZX4f(fmat4 const m_in, fvec4* const rotateDegXYZ_out);
 //		param m_in: input matrix
 //		param rotateDegXYZ_out: storage for Euler angles in component order XYZ
 //		return: m_in
-fmat4 ijkMatGetRotateZXY4f(fmat4 const m_in, fvec4* const rotateDegXYZ_out);
+fmat4 ijkMatGetRotateZXY4f(fmat4 const m_in, fvec3* const rotateDegXYZ_out);
 
 // ijkMatGetRotateYXZ4*
 //	Extract rotation angle in degrees from 4D rotation matrix; assumes columns 
@@ -2143,7 +2357,7 @@ fmat4 ijkMatGetRotateZXY4f(fmat4 const m_in, fvec4* const rotateDegXYZ_out);
 //		param m_in: input matrix
 //		param rotateDegXYZ_out: storage for Euler angles in component order XYZ
 //		return: m_in
-fmat4 ijkMatGetRotateYXZ4f(fmat4 const m_in, fvec4* const rotateDegXYZ_out);
+fmat4 ijkMatGetRotateYXZ4f(fmat4 const m_in, fvec3* const rotateDegXYZ_out);
 
 // ijkMatGetRotateXZY4*
 //	Extract rotation angle in degrees from 4D rotation matrix; assumes columns 
@@ -2151,7 +2365,7 @@ fmat4 ijkMatGetRotateYXZ4f(fmat4 const m_in, fvec4* const rotateDegXYZ_out);
 //		param m_in: input matrix
 //		param rotateDegXYZ_out: storage for Euler angles in component order XYZ
 //		return: m_in
-fmat4 ijkMatGetRotateXZY4f(fmat4 const m_in, fvec4* const rotateDegXYZ_out);
+fmat4 ijkMatGetRotateXZY4f(fmat4 const m_in, fvec3* const rotateDegXYZ_out);
 
 // ijkMatGetRotateZYX4*
 //	Extract rotation angle in degrees from 4D rotation matrix; assumes columns 
@@ -2159,7 +2373,7 @@ fmat4 ijkMatGetRotateXZY4f(fmat4 const m_in, fvec4* const rotateDegXYZ_out);
 //		param m_in: input matrix
 //		param rotateDegXYZ_out: storage for Euler angles in component order XYZ
 //		return: m_in
-fmat4 ijkMatGetRotateZYX4f(fmat4 const m_in, fvec4* const rotateDegXYZ_out);
+fmat4 ijkMatGetRotateZYX4f(fmat4 const m_in, fvec3* const rotateDegXYZ_out);
 
 // ijkMatRotate4*
 //	Make 4D rotation matrix.
@@ -2167,7 +2381,7 @@ fmat4 ijkMatGetRotateZYX4f(fmat4 const m_in, fvec4* const rotateDegXYZ_out);
 //			operations is right-to-left)
 //		param rotateDegXYZ: Euler angles in degrees (component order XYZ)
 //		return: rotation matrix
-fmat4 ijkMatRotate4f(ijkRotationOrder const order, fvec4 const rotateDegXYZ);
+fmat4 ijkMatRotate4f(ijkRotationOrder const order, fvec3 const rotateDegXYZ);
 
 // ijkMatScale4*
 //	Make 4D scale matrix.
@@ -2182,7 +2396,7 @@ fmat4 ijkMatScale4f(fvec3 const scale);
 //		param rotateDegXYZ: Euler angles in degrees (component order XYZ)
 //		param scale: scales on each dimension
 //		return: rotation-scale matrix
-fmat4 ijkMatRotateScale4f(ijkRotationOrder const order, fvec4 const rotateDegXYZ, fvec3 const scale);
+fmat4 ijkMatRotateScale4f(ijkRotationOrder const order, fvec3 const rotateDegXYZ, fvec3 const scale);
 
 // ijkMatGetRotate4*
 //	Extract rotation angle in degrees from 4D rotation matrix; assumes columns 
@@ -2192,7 +2406,7 @@ fmat4 ijkMatRotateScale4f(ijkRotationOrder const order, fvec4 const rotateDegXYZ
 //			operations is right-to-left)
 //		param rotateDegXYZ_out: storage for Euler angles in component order XYZ
 //		return: m_in
-fmat4 ijkMatGetRotate4f(fmat4 const m_in, ijkRotationOrder const order, fvec4* const rotateDegXYZ_out);
+fmat4 ijkMatGetRotate4f(fmat4 const m_in, ijkRotationOrder const order, fvec3* const rotateDegXYZ_out);
 
 // ijkMatGetScale4*
 //	Extract scales from 4D matrix.
@@ -2209,7 +2423,7 @@ fmat4 ijkMatGetScale4f(fmat4 const m_in, fvec3* const scale_out);
 //		param rotateDegXYZ_out: storage for Euler angles in component order XYZ
 //		param scale_out: storage for scale amounts
 //		return: m_in
-fmat4 ijkMatGetRotateScale4f(fmat4 const m_in, ijkRotationOrder const order, fvec4* const rotateDegXYZ_out, fvec3* const scale_out);
+fmat4 ijkMatGetRotateScale4f(fmat4 const m_in, ijkRotationOrder const order, fvec3* const rotateDegXYZ_out, fvec3* const scale_out);
 
 // ijkMatInverseRotate4*
 //	Calculate quick transform inverse for 4D matrix, assuming matrix encodes 

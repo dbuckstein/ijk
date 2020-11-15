@@ -1674,7 +1674,7 @@ ijk_inl float4m ijkMatDivSafe4fm(float4x4 m_out, float4x4 const m_lh, float4x4 c
 	return ijkMatMul4fm(m_out, m_lh, ijkMatInverseSafe4fm(inv_rh, m_rh));
 }
 
-ijk_inl float4m ijkMatRotateXYZ4fm(float4x4 m_out, float4 const rotateDegXYZ)
+ijk_inl float4m ijkMatRotateXYZ4fm(float4x4 m_out, float3 const rotateDegXYZ)
 {
 	f32 sx, sy, sz, cx, cy, cz, ss, cs;
 	ijkTrigSinCos_deg_flt(rotateDegXYZ[0], &sx, &cx);
@@ -1689,7 +1689,7 @@ ijk_inl float4m ijkMatRotateXYZ4fm(float4x4 m_out, float4 const rotateDegXYZ)
 		flt_zero, flt_zero, flt_zero, flt_one);
 }
 
-ijk_inl float4m ijkMatRotateYZX4fm(float4x4 m_out, float4 const rotateDegXYZ)
+ijk_inl float4m ijkMatRotateYZX4fm(float4x4 m_out, float3 const rotateDegXYZ)
 {
 	f32 sx, sy, sz, cx, cy, cz, ss, cs;
 	ijkTrigSinCos_deg_flt(rotateDegXYZ[0], &sx, &cx);
@@ -1704,7 +1704,7 @@ ijk_inl float4m ijkMatRotateYZX4fm(float4x4 m_out, float4 const rotateDegXYZ)
 		flt_zero, flt_zero, flt_zero, flt_one);
 }
 
-ijk_inl float4m ijkMatRotateZXY4fm(float4x4 m_out, float4 const rotateDegXYZ)
+ijk_inl float4m ijkMatRotateZXY4fm(float4x4 m_out, float3 const rotateDegXYZ)
 {
 	f32 sx, sy, sz, cx, cy, cz, ss, cs;
 	ijkTrigSinCos_deg_flt(rotateDegXYZ[0], &sx, &cx);
@@ -1719,7 +1719,7 @@ ijk_inl float4m ijkMatRotateZXY4fm(float4x4 m_out, float4 const rotateDegXYZ)
 		flt_zero, flt_zero, flt_zero, flt_one);
 }
 
-ijk_inl float4m ijkMatRotateYXZ4fm(float4x4 m_out, float4 const rotateDegXYZ)
+ijk_inl float4m ijkMatRotateYXZ4fm(float4x4 m_out, float3 const rotateDegXYZ)
 {
 	f32 sx, sy, sz, cx, cy, cz, ss, cs;
 	ijkTrigSinCos_deg_flt(rotateDegXYZ[0], &sx, &cx);
@@ -1734,7 +1734,7 @@ ijk_inl float4m ijkMatRotateYXZ4fm(float4x4 m_out, float4 const rotateDegXYZ)
 		flt_zero, flt_zero, flt_zero, flt_one);
 }
 
-ijk_inl float4m ijkMatRotateXZY4fm(float4x4 m_out, float4 const rotateDegXYZ)
+ijk_inl float4m ijkMatRotateXZY4fm(float4x4 m_out, float3 const rotateDegXYZ)
 {
 	f32 sx, sy, sz, cx, cy, cz, ss, cs;
 	ijkTrigSinCos_deg_flt(rotateDegXYZ[0], &sx, &cx);
@@ -1749,7 +1749,7 @@ ijk_inl float4m ijkMatRotateXZY4fm(float4x4 m_out, float4 const rotateDegXYZ)
 		flt_zero, flt_zero, flt_zero, flt_one);
 }
 
-ijk_inl float4m ijkMatRotateZYX4fm(float4x4 m_out, float4 const rotateDegXYZ)
+ijk_inl float4m ijkMatRotateZYX4fm(float4x4 m_out, float3 const rotateDegXYZ)
 {
 	f32 sx, sy, sz, cx, cy, cz, ss, cs;
 	ijkTrigSinCos_deg_flt(rotateDegXYZ[0], &sx, &cx);
@@ -1764,7 +1764,7 @@ ijk_inl float4m ijkMatRotateZYX4fm(float4x4 m_out, float4 const rotateDegXYZ)
 		flt_zero, flt_zero, flt_zero, flt_one);
 }
 
-ijk_inl float4km ijkMatGetRotateXYZ4fm(float4x4 const m_in, float4 rotateDegXYZ_out)
+ijk_inl float4km ijkMatGetRotateXYZ4fm(float4x4 const m_in, float3 rotateDegXYZ_out)
 {
 	rotateDegXYZ_out[1] = ijkTrigAsin_deg_flt(+m_in[2][0]);
 	rotateDegXYZ_out[2] = ijkTrigAtan2_deg_flt(-m_in[1][0], +m_in[0][0]);
@@ -1772,7 +1772,7 @@ ijk_inl float4km ijkMatGetRotateXYZ4fm(float4x4 const m_in, float4 rotateDegXYZ_
 	return m_in;
 }
 
-ijk_inl float4km ijkMatGetRotateYZX4fm(float4x4 const m_in, float4 rotateDegXYZ_out)
+ijk_inl float4km ijkMatGetRotateYZX4fm(float4x4 const m_in, float3 rotateDegXYZ_out)
 {
 	rotateDegXYZ_out[2] = ijkTrigAsin_deg_flt(+m_in[0][1]);
 	rotateDegXYZ_out[0] = ijkTrigAtan2_deg_flt(-m_in[2][1], +m_in[1][1]);
@@ -1780,7 +1780,7 @@ ijk_inl float4km ijkMatGetRotateYZX4fm(float4x4 const m_in, float4 rotateDegXYZ_
 	return m_in;
 }
 
-ijk_inl float4km ijkMatGetRotateZXY4fm(float4x4 const m_in, float4 rotateDegXYZ_out)
+ijk_inl float4km ijkMatGetRotateZXY4fm(float4x4 const m_in, float3 rotateDegXYZ_out)
 {
 	rotateDegXYZ_out[0] = ijkTrigAsin_deg_flt(+m_in[1][2]);
 	rotateDegXYZ_out[1] = ijkTrigAtan2_deg_flt(-m_in[0][2], +m_in[2][2]);
@@ -1788,7 +1788,7 @@ ijk_inl float4km ijkMatGetRotateZXY4fm(float4x4 const m_in, float4 rotateDegXYZ_
 	return m_in;
 }
 
-ijk_inl float4km ijkMatGetRotateYXZ4fm(float4x4 const m_in, float4 rotateDegXYZ_out)
+ijk_inl float4km ijkMatGetRotateYXZ4fm(float4x4 const m_in, float3 rotateDegXYZ_out)
 {
 	rotateDegXYZ_out[0] = ijkTrigAsin_deg_flt(-m_in[2][1]);
 	rotateDegXYZ_out[2] = ijkTrigAtan2_deg_flt(+m_in[2][0], +m_in[2][2]);
@@ -1796,7 +1796,7 @@ ijk_inl float4km ijkMatGetRotateYXZ4fm(float4x4 const m_in, float4 rotateDegXYZ_
 	return m_in;
 }
 
-ijk_inl float4km ijkMatGetRotateXZY4fm(float4x4 const m_in, float4 rotateDegXYZ_out)
+ijk_inl float4km ijkMatGetRotateXZY4fm(float4x4 const m_in, float3 rotateDegXYZ_out)
 {
 	rotateDegXYZ_out[2] = ijkTrigAsin_deg_flt(-m_in[1][0]);
 	rotateDegXYZ_out[1] = ijkTrigAtan2_deg_flt(+m_in[1][2], +m_in[1][1]);
@@ -1804,7 +1804,7 @@ ijk_inl float4km ijkMatGetRotateXZY4fm(float4x4 const m_in, float4 rotateDegXYZ_
 	return m_in;
 }
 
-ijk_inl float4km ijkMatGetRotateZYX4fm(float4x4 const m_in, float4 rotateDegXYZ_out)
+ijk_inl float4km ijkMatGetRotateZYX4fm(float4x4 const m_in, float3 rotateDegXYZ_out)
 {
 	rotateDegXYZ_out[1] = ijkTrigAsin_deg_flt(-m_in[0][2]);
 	rotateDegXYZ_out[0] = ijkTrigAtan2_deg_flt(+m_in[0][1], +m_in[0][0]);
@@ -1812,7 +1812,7 @@ ijk_inl float4km ijkMatGetRotateZYX4fm(float4x4 const m_in, float4 rotateDegXYZ_
 	return m_in;
 }
 
-ijk_inl float4m ijkMatRotate4fm(float4x4 m_out, ijkRotationOrder const order, float4 const rotateDegXYZ)
+ijk_inl float4m ijkMatRotate4fm(float4x4 m_out, ijkRotationOrder const order, float3 const rotateDegXYZ)
 {
 	switch (order)
 	{
@@ -1842,7 +1842,7 @@ ijk_inl float4m ijkMatScale4fm(float4x4 m_out, float3 const scale)
 	return m_out;
 }
 
-ijk_inl float4m ijkMatRotateScale4fm(float4x4 m_out, ijkRotationOrder const order, float4 const rotateDegXYZ, float3 const scale)
+ijk_inl float4m ijkMatRotateScale4fm(float4x4 m_out, ijkRotationOrder const order, float3 const rotateDegXYZ, float3 const scale)
 {
 	ijkMatRotate4fm(m_out, order, rotateDegXYZ);
 	ijkVecMul3fvs(m_out[0], m_out[0], scale[0]);
@@ -1851,7 +1851,7 @@ ijk_inl float4m ijkMatRotateScale4fm(float4x4 m_out, ijkRotationOrder const orde
 	return m_out;
 }
 
-ijk_inl float4km ijkMatGetRotate4fm(float4x4 const m_in, ijkRotationOrder const order, float4 rotateDegXYZ_out)
+ijk_inl float4km ijkMatGetRotate4fm(float4x4 const m_in, ijkRotationOrder const order, float3 rotateDegXYZ_out)
 {
 	switch (order)
 	{
@@ -1879,7 +1879,7 @@ ijk_inl float4km ijkMatGetScale4fm(float4x4 const m_in, float3 scale_out)
 	return m_in;
 }
 
-ijk_inl float4km ijkMatGetRotateScale4fm(float4x4 const m_in, ijkRotationOrder const order, float4 rotateDegXYZ_out, float3 scale_out)
+ijk_inl float4km ijkMatGetRotateScale4fm(float4x4 const m_in, ijkRotationOrder const order, float3 rotateDegXYZ_out, float3 scale_out)
 {
 	float3x3 rot;
 	ijkVecDivSafe3fvs(rot[0], m_in[0], (scale_out[0] = ijkVecLength3fv(m_in[0])));
@@ -2740,7 +2740,7 @@ ijk_inl fmat4 ijkMatDivSafe4f(fmat4 const m_lh, fmat4 const m_rh)
 	return ijkMatMul4f(m_lh, ijkMatInverseSafe4f(m_rh));
 }
 
-ijk_inl fmat4 ijkMatRotateXYZ4f(fvec4 const rotateDegXYZ)
+ijk_inl fmat4 ijkMatRotateXYZ4f(fvec3 const rotateDegXYZ)
 {
 	f32 sx, sy, sz, cx, cy, cz, ss, cs;
 	ijkTrigSinCos_deg_flt(rotateDegXYZ.x, &sx, &cx);
@@ -2755,7 +2755,7 @@ ijk_inl fmat4 ijkMatRotateXYZ4f(fvec4 const rotateDegXYZ)
 		flt_zero, flt_zero, flt_zero, flt_one);
 }
 
-ijk_inl fmat4 ijkMatRotateYZX4f(fvec4 const rotateDegXYZ)
+ijk_inl fmat4 ijkMatRotateYZX4f(fvec3 const rotateDegXYZ)
 {
 	f32 sx, sy, sz, cx, cy, cz, ss, cs;
 	ijkTrigSinCos_deg_flt(rotateDegXYZ.x, &sx, &cx);
@@ -2770,7 +2770,7 @@ ijk_inl fmat4 ijkMatRotateYZX4f(fvec4 const rotateDegXYZ)
 		flt_zero, flt_zero, flt_zero, flt_one);
 }
 
-ijk_inl fmat4 ijkMatRotateZXY4f(fvec4 const rotateDegXYZ)
+ijk_inl fmat4 ijkMatRotateZXY4f(fvec3 const rotateDegXYZ)
 {
 	f32 sx, sy, sz, cx, cy, cz, ss, cs;
 	ijkTrigSinCos_deg_flt(rotateDegXYZ.x, &sx, &cx);
@@ -2785,7 +2785,7 @@ ijk_inl fmat4 ijkMatRotateZXY4f(fvec4 const rotateDegXYZ)
 		flt_zero, flt_zero, flt_zero, flt_one);
 }
 
-ijk_inl fmat4 ijkMatRotateYXZ4f(fvec4 const rotateDegXYZ)
+ijk_inl fmat4 ijkMatRotateYXZ4f(fvec3 const rotateDegXYZ)
 {
 	f32 sx, sy, sz, cx, cy, cz, ss, cs;
 	ijkTrigSinCos_deg_flt(rotateDegXYZ.x, &sx, &cx);
@@ -2800,7 +2800,7 @@ ijk_inl fmat4 ijkMatRotateYXZ4f(fvec4 const rotateDegXYZ)
 		flt_zero, flt_zero, flt_zero, flt_one);
 }
 
-ijk_inl fmat4 ijkMatRotateXZY4f(fvec4 const rotateDegXYZ)
+ijk_inl fmat4 ijkMatRotateXZY4f(fvec3 const rotateDegXYZ)
 {
 	f32 sx, sy, sz, cx, cy, cz, ss, cs;
 	ijkTrigSinCos_deg_flt(rotateDegXYZ.x, &sx, &cx);
@@ -2815,7 +2815,7 @@ ijk_inl fmat4 ijkMatRotateXZY4f(fvec4 const rotateDegXYZ)
 		flt_zero, flt_zero, flt_zero, flt_one);
 }
 
-ijk_inl fmat4 ijkMatRotateZYX4f(fvec4 const rotateDegXYZ)
+ijk_inl fmat4 ijkMatRotateZYX4f(fvec3 const rotateDegXYZ)
 {
 	f32 sx, sy, sz, cx, cy, cz, ss, cs;
 	ijkTrigSinCos_deg_flt(rotateDegXYZ.x, &sx, &cx);
@@ -2830,7 +2830,7 @@ ijk_inl fmat4 ijkMatRotateZYX4f(fvec4 const rotateDegXYZ)
 		flt_zero, flt_zero, flt_zero, flt_one);
 }
 
-ijk_inl fmat4 ijkMatGetRotateXYZ4f(fmat4 const m_in, fvec4* const rotateDegXYZ_out)
+ijk_inl fmat4 ijkMatGetRotateXYZ4f(fmat4 const m_in, fvec3* const rotateDegXYZ_out)
 {
 	rotateDegXYZ_out->y = ijkTrigAsin_deg_flt(+m_in.x2);
 	rotateDegXYZ_out->z = ijkTrigAtan2_deg_flt(-m_in.x1, +m_in.x0);
@@ -2838,7 +2838,7 @@ ijk_inl fmat4 ijkMatGetRotateXYZ4f(fmat4 const m_in, fvec4* const rotateDegXYZ_o
 	return m_in;
 }
 
-ijk_inl fmat4 ijkMatGetRotateYZX4f(fmat4 const m_in, fvec4* const rotateDegXYZ_out)
+ijk_inl fmat4 ijkMatGetRotateYZX4f(fmat4 const m_in, fvec3* const rotateDegXYZ_out)
 {
 	rotateDegXYZ_out->z = ijkTrigAsin_deg_flt(+m_in.y0);
 	rotateDegXYZ_out->x = ijkTrigAtan2_deg_flt(-m_in.y2, +m_in.y1);
@@ -2846,7 +2846,7 @@ ijk_inl fmat4 ijkMatGetRotateYZX4f(fmat4 const m_in, fvec4* const rotateDegXYZ_o
 	return m_in;
 }
 
-ijk_inl fmat4 ijkMatGetRotateZXY4f(fmat4 const m_in, fvec4* const rotateDegXYZ_out)
+ijk_inl fmat4 ijkMatGetRotateZXY4f(fmat4 const m_in, fvec3* const rotateDegXYZ_out)
 {
 	rotateDegXYZ_out->x = ijkTrigAsin_deg_flt(+m_in.z1);
 	rotateDegXYZ_out->y = ijkTrigAtan2_deg_flt(-m_in.z0, +m_in.z2);
@@ -2854,7 +2854,7 @@ ijk_inl fmat4 ijkMatGetRotateZXY4f(fmat4 const m_in, fvec4* const rotateDegXYZ_o
 	return m_in;
 }
 
-ijk_inl fmat4 ijkMatGetRotateYXZ4f(fmat4 const m_in, fvec4* const rotateDegXYZ_out)
+ijk_inl fmat4 ijkMatGetRotateYXZ4f(fmat4 const m_in, fvec3* const rotateDegXYZ_out)
 {
 	rotateDegXYZ_out->x = ijkTrigAsin_deg_flt(-m_in.y2);
 	rotateDegXYZ_out->z = ijkTrigAtan2_deg_flt(+m_in.x2, +m_in.z2);
@@ -2862,7 +2862,7 @@ ijk_inl fmat4 ijkMatGetRotateYXZ4f(fmat4 const m_in, fvec4* const rotateDegXYZ_o
 	return m_in;
 }
 
-ijk_inl fmat4 ijkMatGetRotateXZY4f(fmat4 const m_in, fvec4* const rotateDegXYZ_out)
+ijk_inl fmat4 ijkMatGetRotateXZY4f(fmat4 const m_in, fvec3* const rotateDegXYZ_out)
 {
 	rotateDegXYZ_out->z = ijkTrigAsin_deg_flt(-m_in.x1);
 	rotateDegXYZ_out->y = ijkTrigAtan2_deg_flt(+m_in.z1, +m_in.y1);
@@ -2870,7 +2870,7 @@ ijk_inl fmat4 ijkMatGetRotateXZY4f(fmat4 const m_in, fvec4* const rotateDegXYZ_o
 	return m_in;
 }
 
-ijk_inl fmat4 ijkMatGetRotateZYX4f(fmat4 const m_in, fvec4* const rotateDegXYZ_out)
+ijk_inl fmat4 ijkMatGetRotateZYX4f(fmat4 const m_in, fvec3* const rotateDegXYZ_out)
 {
 	rotateDegXYZ_out->y = ijkTrigAsin_deg_flt(-m_in.z0);
 	rotateDegXYZ_out->x = ijkTrigAtan2_deg_flt(+m_in.y0, +m_in.x0);
@@ -2878,7 +2878,7 @@ ijk_inl fmat4 ijkMatGetRotateZYX4f(fmat4 const m_in, fvec4* const rotateDegXYZ_o
 	return m_in;
 }
 
-ijk_inl fmat4 ijkMatRotate4f(ijkRotationOrder const order, fvec4 const rotateDegXYZ)
+ijk_inl fmat4 ijkMatRotate4f(ijkRotationOrder const order, fvec3 const rotateDegXYZ)
 {
 	switch (order)
 	{
@@ -2909,7 +2909,7 @@ ijk_inl fmat4 ijkMatScale4f(fvec3 const scale)
 	return m_out;
 }
 
-ijk_inl fmat4 ijkMatRotateScale4f(ijkRotationOrder const order, fvec4 const rotateDegXYZ, fvec3 const scale)
+ijk_inl fmat4 ijkMatRotateScale4f(ijkRotationOrder const order, fvec3 const rotateDegXYZ, fvec3 const scale)
 {
 	fmat4 m_out = ijkMatRotate4f(order, rotateDegXYZ);
 	m_out.c0 = ijkVecMul4fs(m_out.c0, scale.x);
@@ -2918,7 +2918,7 @@ ijk_inl fmat4 ijkMatRotateScale4f(ijkRotationOrder const order, fvec4 const rota
 	return m_out;
 }
 
-ijk_inl fmat4 ijkMatGetRotate4f(fmat4 const m_in, ijkRotationOrder const order, fvec4* const rotateDegXYZ_out)
+ijk_inl fmat4 ijkMatGetRotate4f(fmat4 const m_in, ijkRotationOrder const order, fvec3* const rotateDegXYZ_out)
 {
 	switch (order)
 	{
@@ -2946,7 +2946,7 @@ ijk_inl fmat4 ijkMatGetScale4f(fmat4 const m_in, fvec3* const scale_out)
 	return m_in;
 }
 
-ijk_inl fmat4 ijkMatGetRotateScale4f(fmat4 const m_in, ijkRotationOrder const order, fvec4* const rotateDegXYZ_out, fvec3* const scale_out)
+ijk_inl fmat4 ijkMatGetRotateScale4f(fmat4 const m_in, ijkRotationOrder const order, fvec3* const rotateDegXYZ_out, fvec3* const scale_out)
 {
 	fmat4 rot;
 	rot.c0 = ijkVecDivSafe4fs(m_in.c0, (scale_out->x = ijkVecLength3fv(m_in.c0.xyz)));
