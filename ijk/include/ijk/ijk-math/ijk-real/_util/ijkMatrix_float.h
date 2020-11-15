@@ -1212,7 +1212,319 @@ float3km ijkMatGetRotateAxisAngleScale3fm(float3x3 const m_in, float3 axis_unit_
 
 //-----------------------------------------------------------------------------
 
-// 4D array-based special
+// ijkMatDeterminant4*m
+//	Calculate determinant of 4x4 matrix.
+//		param m_in: input matrix
+//		return: determinant
+f32 ijkMatDeterminant4fm(float4x4 const m_in);
+
+// ijkMatDeterminantInv4*m
+//	Calculate inverse determinant of 4x4 matrix.
+//		param m_in: input matrix
+//		return: determinant inverse
+f32 ijkMatDeterminantInv4fm(float4x4 const m_in);
+
+// ijkMatDeterminantInvSafe4*m
+//	Calculate inverse determinant of 4x4 matrix; division-by-zero safety.
+//		param m_in: input matrix
+//		return: determinant inverse
+f32 ijkMatDeterminantInvSafe4fm(float4x4 const m_in);
+
+// ijkMatMulRowVec4*mv
+//	Get row as vector.
+//		param m_in: input matrix
+//		param v_in: input vector
+//		param row: matrix row index
+//		return: product of matrix row and v
+f32 ijkMatMulRowVec4fmv(float4x4 const m_in, float4 const v_in, index const row);
+
+// ijkMatGetRow4*m
+//	Get row as vector.
+//		param v_out: output row vector
+//		param m_in: input matrix
+//		param row: matrix row index
+//		return: v_out
+floatv ijkMatGetRow4fm(float4 v_out, float4x4 const m_in, index const row);
+
+// ijkMatTranspose4*m
+//	Calculate transpose of 4x4 matrix (flip elements about diagonal).
+//		param m_out: output matrix, transpose
+//		param m_in: input matrix
+//		return: m_out
+float4m ijkMatTranspose4fm(float4x4 m_out, float4x4 const m_in);
+
+// ijkMatTransposeMul4*ms
+//	Calculate transpose of 4x4 matrix (flip elements about diagonal), and 
+//	multiply elements by scalar.
+//		param m_out: output matrix, scaled transpose
+//		param m_in: input matrix
+//		param s: scalar multiplier
+//		return: m_out
+float4m ijkMatTransposeMul4fms(float4x4 m_out, float4x4 const m_in, f32 const s);
+
+// ijkMatInverse4*m
+//	Calculate inverse of 4x4 matrix; matrix multiplied by inverse is identity.
+//		param m_out: output matrix, inverse
+//		param m_in: input matrix
+//		return: m_out
+float4m ijkMatInverse4fm(float4x4 m_out, float4x4 const m_in);
+
+// ijkMatInverseSafe4*m
+//	Calculate inverse of 4x4 matrix; matrix multiplied by inverse is identity; 
+//	division-by-zero safety.
+//		param m_out: output matrix, inverse
+//		param m_in: input matrix
+//		return: m_out
+float4m ijkMatInverseSafe4fm(float4x4 m_out, float4x4 const m_in);
+
+// ijkMatMulVec4*mv
+//	Multiply 4D vector by 4x4 matrix.
+//		param v_out: output vector, product
+//		param m_lh: left-hand matrix
+//		param v_rh: right-hand vector
+//		return: m_out
+floatv ijkMatMulVec4fmv(float4 v_out, float4x4 const m_lh, float4 const v_rh);
+
+// ijkMatMul4*m
+//	Multiply 4x4 matrices (non-commutative).
+//		param m_out: output matrix, product
+//		param m_lh: left-hand matrix
+//		param m_rh: right-hand matrix
+//		return: m_out
+float4m ijkMatMul4fm(float4x4 m_out, float4x4 const m_lh, float4x4 const m_rh);
+
+// ijkMatDiv4*m
+//	Divide 4x4 matrices (multiply left-hand by right-hand inverse).
+//		param m_out: output matrix, quotient
+//		param m_lh: left-hand matrix
+//		param m_rh: right-hand matrix
+//		return: m_out
+float4m ijkMatDiv4fm(float4x4 m_out, float4x4 const m_lh, float4x4 const m_rh);
+
+// ijkMatDivSafe4*m
+//	Divide 4x4 matrices (multiply left-hand by right-hand inverse); 
+//	division-by-zero safety.
+//		param m_out: output matrix, quotient
+//		param m_lh: left-hand matrix
+//		param m_rh: right-hand matrix
+//		return: m_out
+float4m ijkMatDivSafe4fm(float4x4 m_out, float4x4 const m_lh, float4x4 const m_rh);
+
+// ijkMatRotateXYZ4*m
+//	Make 4D rotation matrix with Euler angles in written order XYZ, meaning 
+//	the order of operations is Z then Y then X.
+//		param m_out: output matrix, rotation
+//		param rotateDegXYZ: Euler angles in degrees (component order XYZ)
+//		return: m_out
+float4m ijkMatRotateXYZ4fm(float4x4 m_out, float4 const rotateDegXYZ);
+
+// ijkMatRotateYZX4*m
+//	Make 4D rotation matrix with Euler angles in written order YZX, meaning 
+//	the order of operations is X then Z then Y.
+//		param m_out: output matrix, rotation
+//		param rotateDegXYZ: Euler angles in degrees (component order XYZ)
+//		return: m_out
+float4m ijkMatRotateYZX4fm(float4x4 m_out, float4 const rotateDegXYZ);
+
+// ijkMatRotateZXY4*m
+//	Make 4D rotation matrix with Euler angles in written order ZXY, meaning 
+//	the order of operations is Y then X then Z.
+//		param m_out: output matrix, rotation
+//		param rotateDegXYZ: Euler angles in degrees (component order XYZ)
+//		return: m_out
+float4m ijkMatRotateZXY4fm(float4x4 m_out, float4 const rotateDegXYZ);
+
+// ijkMatRotateYXZ4*m
+//	Make 4D rotation matrix with Euler angles in written order YXZ, meaning 
+//	the order of operations is Z then X then Y.
+//		param m_out: output matrix, rotation
+//		param rotateDegXYZ: Euler angles in degrees (component order XYZ)
+//		return: m_out
+float4m ijkMatRotateYXZ4fm(float4x4 m_out, float4 const rotateDegXYZ);
+
+// ijkMatRotateXZY4*m
+//	Make 4D rotation matrix with Euler angles in written order XZY, meaning 
+//	the order of operations is Y then Z then X.
+//		param m_out: output matrix, rotation
+//		param rotateDegXYZ: Euler angles in degrees (component order XYZ)
+//		return: m_out
+float4m ijkMatRotateXZY4fm(float4x4 m_out, float4 const rotateDegXYZ);
+
+// ijkMatRotateZYX4*m
+//	Make 4D rotation matrix with Euler angles in written order ZYX, meaning 
+//	the order of operations is X then Y then Z.
+//		param m_out: output matrix, rotation
+//		param rotateDegXYZ: Euler angles in degrees (component order XYZ)
+//		return: m_out
+float4m ijkMatRotateZYX4fm(float4x4 m_out, float4 const rotateDegXYZ);
+
+// ijkMatGetRotateXYZ4*m
+//	Extract rotation angle in degrees from 4D rotation matrix; assumes columns 
+//	are unit-length for optimization.
+//		param m_in: input matrix
+//		param rotateDegXYZ_out: storage for Euler angles in component order XYZ
+//		return: m_in
+float4km ijkMatGetRotateXYZ4fm(float4x4 const m_in, float4 rotateDegXYZ_out);
+
+// ijkMatGetRotateYZX4*m
+//	Extract rotation angle in degrees from 4D rotation matrix; assumes columns 
+//	are unit-length for optimization.
+//		param m_in: input matrix
+//		param rotateDegXYZ_out: storage for Euler angles in component order XYZ
+//		return: m_in
+float4km ijkMatGetRotateYZX4fm(float4x4 const m_in, float4 rotateDegXYZ_out);
+
+// ijkMatGetRotateZXY4*m
+//	Extract rotation angle in degrees from 4D rotation matrix; assumes columns 
+//	are unit-length for optimization.
+//		param m_in: input matrix
+//		param rotateDegXYZ_out: storage for Euler angles in component order XYZ
+//		return: m_in
+float4km ijkMatGetRotateZXY4fm(float4x4 const m_in, float4 rotateDegXYZ_out);
+
+// ijkMatGetRotateYXZ4*m
+//	Extract rotation angle in degrees from 4D rotation matrix; assumes columns 
+//	are unit-length for optimization.
+//		param m_in: input matrix
+//		param rotateDegXYZ_out: storage for Euler angles in component order XYZ
+//		return: m_in
+float4km ijkMatGetRotateYXZ4fm(float4x4 const m_in, float4 rotateDegXYZ_out);
+
+// ijkMatGetRotateXZY4*m
+//	Extract rotation angle in degrees from 4D rotation matrix; assumes columns 
+//	are unit-length for optimization.
+//		param m_in: input matrix
+//		param rotateDegXYZ_out: storage for Euler angles in component order XYZ
+//		return: m_in
+float4km ijkMatGetRotateXZY4fm(float4x4 const m_in, float4 rotateDegXYZ_out);
+
+// ijkMatGetRotateZYX4*m
+//	Extract rotation angle in degrees from 4D rotation matrix; assumes columns 
+//	are unit-length for optimization.
+//		param m_in: input matrix
+//		param rotateDegXYZ_out: storage for Euler angles in component order XYZ
+//		return: m_in
+float4km ijkMatGetRotateZYX4fm(float4x4 const m_in, float4 rotateDegXYZ_out);
+
+// ijkMatRotate4*m
+//	Make 4D rotation matrix.
+//		param m_out: output matrix, rotation
+//		param order: written order of Euler angles (functional order of 
+//			operations is right-to-left)
+//		param rotateDegXYZ_out: storage for Euler angles in component order XYZ
+//		return: m_out
+float4m ijkMatRotate4fm(float4x4 m_out, ijkRotationOrder const order, float4 const rotateDegXYZ);
+
+// ijkMatScale4*m
+//	Make 4D scale matrix.
+//		param m_out: output matrix, scale
+//		param scale: scales on each dimension
+//		return: m_out
+float4m ijkMatScale4fm(float4x4 m_out, float3 const scale);
+
+// ijkMatRotateScale4*m
+//	Make 4D rotation-scale matrix.
+//		param m_out: output matrix, rotation-scale
+//		param order: written order of Euler angles (functional order of 
+//			operations is right-to-left)
+//		param rotateDegXYZ: Euler angles in degrees (component order XYZ)
+//		param scale: scales on each dimension
+//		return: m_out
+float4m ijkMatRotateScale4fm(float4x4 m_out, ijkRotationOrder const order, float4 const rotateDegXYZ, float3 const scale);
+
+// ijkMatGetRotate4*m
+//	Extract rotation angle in degrees from 4D rotation matrix; assumes columns 
+//	are unit-length for optimization.
+//		param m_in: input matrix
+//		param order: written order of Euler angles (functional order of 
+//			operations is right-to-left)
+//		param rotateDegXYZ_out: storage for Euler angles in component order XYZ
+//		return: m_in
+float4km ijkMatGetRotate4fm(float4x4 const m_in, ijkRotationOrder const order, float4 rotateDegXYZ_out);
+
+// ijkMatGetScale4*m
+//	Extract scales from 4D matrix.
+//		param m_in: input matrix
+//		param scale_out: storage for scale amounts
+//		return: m_in
+float4km ijkMatGetScale4fm(float4x4 const m_in, float3 scale_out);
+
+// ijkMatGetRotateScale4*m
+//	Extract rotation angle in degrees and scales from 4D matrix.
+//		param m_in: input matrix
+//		param order: written order of Euler angles (functional order of 
+//			operations is right-to-left)
+//		param rotateDegXYZ_out: storage for Euler angles in component order XYZ
+//		param scale_out: storage for scale amounts
+//		return: m_in
+float4km ijkMatGetRotateScale4fm(float4x4 const m_in, ijkRotationOrder const order, float4 rotateDegXYZ_out, float3 scale_out);
+
+// ijkMatInverseRotate4*m
+//	Calculate quick transform inverse for 4D matrix, assuming matrix encodes 
+//	only rotation; this is simply the transpose.
+//		param m_out: output matrix, quick inverse
+//		param m_in: input matrix
+//		return: m_out
+float4m ijkMatInverseRotate4fm(float4x4 m_out, float4x4 const m_in);
+
+// ijkMatInverseScale4*m
+//	Calculate quick transform inverse for 4D matrix, assuming matrix encodes 
+//	only scale; this is simply the reciprocal of the diagonal elements.
+//		param m_out: output matrix, quick inverse
+//		param m_in: input matrix
+//		return: m_out
+float4m ijkMatInverseScale4fm(float4x4 m_out, float4x4 const m_in);
+
+// ijkMatInverseRotateScale4*m
+//	Calculate quick transform inverse for 4D matrix, assuming matrix encodes 
+//	rotation and scale.
+//		param m_out: output matrix, quick inverse
+//		param m_in: input matrix
+//		return: m_out
+float4m ijkMatInverseRotateScale4fm(float4x4 m_out, float4x4 const m_in);
+
+// ijkMatInverseTranspose4*m
+//	Calculate quick inverse-transpose of 4D matrix, assuming matrix encodes 
+//	rotation and scale.
+//		param m_out: output matrix, quick inverse-transpose
+//		param m_in: input matrix
+//		return: m_out
+float4m ijkMatInverseTranspose4fm(float4x4 m_out, float4x4 const m_in);
+
+// ijkMatRotateAxisAngle4*m
+//	Create 4D rotation matrix given unit axis of rotation and angle in degrees.
+//		param m_out: output matrix, rotation
+//		param axis_unit: pre-normalized axis of rotation
+//		param angle_degrees: angle of rotation in degrees
+//		return: m_out
+float4m ijkMatRotateAxisAngle4fm(float4x4 m_out, float3 const axis_unit, f32 const angle_degrees);
+
+// ijkMatRotateAxisAngleScale4*m
+//	Create 4D rotation matrix given unit axis of rotation, angle in degrees 
+//	and scales.
+//		param m_out: output matrix, rotation-scale
+//		param axis_unit: pre-normalized axis of rotation
+//		param angle_degrees: angle of rotation in degrees
+//		param scale: scales on each dimension
+//		return: m_out
+float4m ijkMatRotateAxisAngleScale4fm(float4x4 m_out, float3 const axis_unit, f32 const angle_degrees, float3 const scale);
+
+// ijkMatGetRotateAxisAngle4*m
+//	Extract unit axis of rotation and angle in degrees from 4D rotation matrix.
+//		param m_in: input matrix, rotation
+//		param axis_unit_out: output unit axis of rotation
+//		param angle_degrees_out: pointer to angle storage
+//		return: m_in
+float4km ijkMatGetRotateAxisAngle4fm(float4x4 const m_in, float3 axis_unit_out, f32* const angle_degrees_out);
+
+// ijkMatGetRotateAxisAngleScale4*m
+//	Extract unit axis of rotation, angle in degrees and scale from 4D matrix.
+//		param m_in: input matrix, rotation-scale
+//		param axis_unit_out: output unit axis of rotation
+//		param angle_degrees_out: pointer to angle storage
+//		param scale_out: storage for scale amounts
+//		return: m_in
+float4km ijkMatGetRotateAxisAngleScale4fm(float4x4 const m_in, float3 axis_unit_out, f32* const angle_degrees_out, float3 scale_out);
 
 
 //-----------------------------------------------------------------------------
@@ -1675,7 +1987,290 @@ fmat3 ijkMatGetRotateAxisAngleScale3f(fmat3 const m_in, fvec3* const axis_unit_o
 
 //-----------------------------------------------------------------------------
 
-// 4D struct-based special
+// ijkMatDeterminant4*
+//	Calculate determinant of 4x4 matrix.
+//		param m_in: input matrix
+//		return: determinant
+float ijkMatDeterminant4f(fmat4 const m_in);
+
+// ijkMatDeterminantInv4*
+//	Calculate inverse determinant of 4x4 matrix.
+//		param m_in: input matrix
+//		return: determinant inverse
+float ijkMatDeterminantInv4f(fmat4 const m_in);
+
+// ijkMatDeterminantInvSafe4*
+//	Calculate inverse determinant of 4x4 matrix; division-by-zero safety.
+//		param m_in: input matrix
+//		return: determinant inverse
+float ijkMatDeterminantInvSafe4f(fmat4 const m_in);
+
+// ijkMatMulRowVec4*
+//	Get row as vector.
+//		param m_in: input matrix
+//		param v_in: input vector
+//		param row: matrix row index
+//		return: product of matrix row and v
+float ijkMatMulRowVec4f(fmat4 const m_in, fvec4 const v_in, index const row);
+
+// ijkMatGetRow4*
+//	Get row as vector.
+//		param v_out: output row vector
+//		param m_in: input matrix
+//		param row: matrix row index
+//		return: vector of row elements
+fvec4 ijkMatGetRow4f(fmat4 const m_in, index const row);
+
+// ijkMatTranspose4*
+//	Calculate transpose of 4x4 matrix (flip elements about diagonal).
+//		param m_in: input matrix
+//		return: transpose matrix
+fmat4 ijkMatTranspose4f(fmat4 const m_in);
+
+// ijkMatTransposeMul4*s
+//	Calculate transpose of 4x4 matrix (flip elements about diagonal), and 
+//	multiply elements by scalar.
+//		param m_in: input matrix
+//		param s: scalar multiplier
+//		return: scaled transpose
+fmat4 ijkMatTransposeMul4fs(fmat4 const m_in, float const s);
+
+// ijkMatInverse4*
+//	Calculate inverse of 4x4 matrix; matrix multiplied by inverse is identity.
+//		param m_in: input matrix
+//		return: inverse matrix
+fmat4 ijkMatInverse4f(fmat4 const m_in);
+
+// ijkMatInverseSafe4*
+//	Calculate inverse of 4x4 matrix; matrix multiplied by inverse is identity; 
+//	division-by-zero safety.
+//		param m_in: input matrix
+//		return: inverse matrix
+fmat4 ijkMatInverseSafe4f(fmat4 const m_in);
+
+// ijkMatMulVec4*
+//	Multiply 4D vector by 4x4 matrix.
+//		param m_lh: left-hand matrix
+//		param v_rh: right-hand vector
+//		return: product vector
+fvec4 ijkMatMulVec4f(fmat4 const m_lh, fvec4 const v_rh);
+
+// ijkMatMul4*
+//	Multiply 4x4 matrices (non-commutative).
+//		param m_lh: left-hand matrix
+//		param m_rh: right-hand matrix
+//		return: product matrix
+fmat4 ijkMatMul4f(fmat4 const m_lh, fmat4 const m_rh);
+
+// ijkMatDiv4*
+//	Divide 4x4 matrices (multiply left-hand by right-hand inverse).
+//		param m_lh: left-hand matrix
+//		param m_rh: right-hand matrix
+//		return: quotient matrix
+fmat4 ijkMatDiv4f(fmat4 const m_lh, fmat4 const m_rh);
+
+// ijkMatDivSafe4*
+//	Divide 4x4 matrices (multiply left-hand by right-hand inverse); 
+//	division-by-zero safety.
+//		param m_lh: left-hand matrix
+//		param m_rh: right-hand matrix
+//		return: quotient matrix
+fmat4 ijkMatDivSafe4f(fmat4 const m_lh, fmat4 const m_rh);
+
+// ijkMatRotateXYZ4*
+//	Make 4D rotation matrix.
+//		param rotateDegXYZ: Euler angles in degrees (component order XYZ)
+//		return: rotation matrix
+fmat4 ijkMatRotateXYZ4f(fvec4 const rotateDegXYZ);
+
+// ijkMatRotateYZX4*
+//	Make 4D rotation matrix.
+//		param rotateDegXYZ: Euler angles in degrees (component order XYZ)
+//		return: rotation matrix
+fmat4 ijkMatRotateYZX4f(fvec4 const rotateDegXYZ);
+
+// ijkMatRotateZXY4*
+//	Make 4D rotation matrix.
+//		param rotateDegXYZ: Euler angles in degrees (component order XYZ)
+//		return: rotation matrix
+fmat4 ijkMatRotateZXY4f(fvec4 const rotateDegXYZ);
+
+// ijkMatRotateYXZ4*
+//	Make 4D rotation matrix.
+//		param rotateDegXYZ: Euler angles in degrees (component order XYZ)
+//		return: rotation matrix
+fmat4 ijkMatRotateYXZ4f(fvec4 const rotateDegXYZ);
+
+// ijkMatRotateXZY4*
+//	Make 4D rotation matrix.
+//		param rotateDegXYZ: Euler angles in degrees (component order XYZ)
+//		return: rotation matrix
+fmat4 ijkMatRotateXZY4f(fvec4 const rotateDegXYZ);
+
+// ijkMatRotateZYX4*
+//	Make 4D rotation matrix.
+//		param rotateDegXYZ: Euler angles in degrees (component order XYZ)
+//		return: rotation matrix
+fmat4 ijkMatRotateZYX4f(fvec4 const rotateDegXYZ);
+
+// ijkMatGetRotateXYZ4*
+//	Extract rotation angle in degrees from 4D rotation matrix; assumes columns 
+//	are unit-length for optimization.
+//		param m_in: input matrix
+//		param rotateDegXYZ_out: storage for Euler angles in component order XYZ
+//		return: m_in
+fmat4 ijkMatGetRotateXYZ4f(fmat4 const m_in, fvec4* const rotateDegXYZ_out);
+
+// ijkMatGetRotateYZX4*
+//	Extract rotation angle in degrees from 4D rotation matrix; assumes columns 
+//	are unit-length for optimization.
+//		param m_in: input matrix
+//		param rotateDegXYZ_out: storage for Euler angles in component order XYZ
+//		return: m_in
+fmat4 ijkMatGetRotateYZX4f(fmat4 const m_in, fvec4* const rotateDegXYZ_out);
+
+// ijkMatGetRotateZXY4*
+//	Extract rotation angle in degrees from 4D rotation matrix; assumes columns 
+//	are unit-length for optimization.
+//		param m_in: input matrix
+//		param rotateDegXYZ_out: storage for Euler angles in component order XYZ
+//		return: m_in
+fmat4 ijkMatGetRotateZXY4f(fmat4 const m_in, fvec4* const rotateDegXYZ_out);
+
+// ijkMatGetRotateYXZ4*
+//	Extract rotation angle in degrees from 4D rotation matrix; assumes columns 
+//	are unit-length for optimization.
+//		param m_in: input matrix
+//		param rotateDegXYZ_out: storage for Euler angles in component order XYZ
+//		return: m_in
+fmat4 ijkMatGetRotateYXZ4f(fmat4 const m_in, fvec4* const rotateDegXYZ_out);
+
+// ijkMatGetRotateXZY4*
+//	Extract rotation angle in degrees from 4D rotation matrix; assumes columns 
+//	are unit-length for optimization.
+//		param m_in: input matrix
+//		param rotateDegXYZ_out: storage for Euler angles in component order XYZ
+//		return: m_in
+fmat4 ijkMatGetRotateXZY4f(fmat4 const m_in, fvec4* const rotateDegXYZ_out);
+
+// ijkMatGetRotateZYX4*
+//	Extract rotation angle in degrees from 4D rotation matrix; assumes columns 
+//	are unit-length for optimization.
+//		param m_in: input matrix
+//		param rotateDegXYZ_out: storage for Euler angles in component order XYZ
+//		return: m_in
+fmat4 ijkMatGetRotateZYX4f(fmat4 const m_in, fvec4* const rotateDegXYZ_out);
+
+// ijkMatRotate4*
+//	Make 4D rotation matrix.
+//		param order: written order of Euler angles (functional order of 
+//			operations is right-to-left)
+//		param rotateDegXYZ: Euler angles in degrees (component order XYZ)
+//		return: rotation matrix
+fmat4 ijkMatRotate4f(ijkRotationOrder const order, fvec4 const rotateDegXYZ);
+
+// ijkMatScale4*
+//	Make 4D scale matrix.
+//		param scale: scales on each dimension
+//		return: scale matrix
+fmat4 ijkMatScale4f(fvec3 const scale);
+
+// ijkMatRotateScale4*
+//	Make 4D rotation-scale matrix.
+//		param order: written order of Euler angles (functional order of 
+//			operations is right-to-left)
+//		param rotateDegXYZ: Euler angles in degrees (component order XYZ)
+//		param scale: scales on each dimension
+//		return: rotation-scale matrix
+fmat4 ijkMatRotateScale4f(ijkRotationOrder const order, fvec4 const rotateDegXYZ, fvec3 const scale);
+
+// ijkMatGetRotate4*
+//	Extract rotation angle in degrees from 4D rotation matrix; assumes columns 
+//	are unit-length for optimization.
+//		param m_in: input matrix
+//		param order: written order of Euler angles (functional order of 
+//			operations is right-to-left)
+//		param rotateDegXYZ_out: storage for Euler angles in component order XYZ
+//		return: m_in
+fmat4 ijkMatGetRotate4f(fmat4 const m_in, ijkRotationOrder const order, fvec4* const rotateDegXYZ_out);
+
+// ijkMatGetScale4*
+//	Extract scales from 4D matrix.
+//		param m_in: input matrix
+//		param scale_out: storage for scale amounts
+//		return: m_in
+fmat4 ijkMatGetScale4f(fmat4 const m_in, fvec3* const scale_out);
+
+// ijkMatGetRotateScale4*
+//	Extract rotation angle in degrees and scales from 4D matrix.
+//		param m_in: input matrix
+//		param order: written order of Euler angles (functional order of 
+//			operations is right-to-left)
+//		param rotateDegXYZ_out: storage for Euler angles in component order XYZ
+//		param scale_out: storage for scale amounts
+//		return: m_in
+fmat4 ijkMatGetRotateScale4f(fmat4 const m_in, ijkRotationOrder const order, fvec4* const rotateDegXYZ_out, fvec3* const scale_out);
+
+// ijkMatInverseRotate4*
+//	Calculate quick transform inverse for 4D matrix, assuming matrix encodes 
+//	only rotation; this is simply the transpose.
+//		param m_in: input matrix
+//		return: quick inverse
+fmat4 ijkMatInverseRotate4f(fmat4 const m_in);
+
+// ijkMatInverseScale4*
+//	Calculate quick transform inverse for 4D matrix, assuming matrix encodes 
+//	only scale; this is simply the reciprocal of the diagonal elements.
+//		param m_in: input matrix
+//		return: quick inverse
+fmat4 ijkMatInverseScale4f(fmat4 const m_in);
+
+// ijkMatInverseRotateScale4*
+//	Calculate quick transform inverse for 4D matrix, assuming matrix encodes 
+//	rotation and scale.
+//		param m_in: input matrix
+//		return: quick inverse
+fmat4 ijkMatInverseRotateScale4f(fmat4 const m_in);
+
+// ijkMatInverseTranspose4*
+//	Calculate quick inverse-transpose of 4D matrix, assuming matrix encodes 
+//	rotation and scale.
+//		param m_in: input matrix
+//		return: quick inverse-transpose
+fmat4 ijkMatInverseTranspose4f(fmat4 const m_in);
+
+// ijkMatRotateAxisAngle4*
+//	Create 4D rotation matrix given unit axis of rotation and angle in degrees.
+//		param axis_unit: pre-normalized axis of rotation
+//		param angle_degrees: angle of rotation in degrees
+//		return: rotation matrix
+fmat4 ijkMatRotateAxisAngle4f(fvec3 const axis_unit, float const angle_degrees);
+
+// ijkMatRotateAxisAngleScale4*
+//	Create 4D rotation matrix given unit axis of rotation, angle in degrees 
+//	and scales.
+//		param axis_unit: pre-normalized axis of rotation
+//		param angle_degrees: angle of rotation in degrees
+//		param scale: scales on each dimension
+//		return: rotation-scale matrix
+fmat4 ijkMatRotateAxisAngleScale4f(fvec3 const axis_unit, float const angle_degrees, fvec3 const scale);
+
+// ijkMatGetRotateAxisAngle4*
+//	Extract unit axis of rotation and angle in degrees from 4D rotation matrix.
+//		param m_in: input matrix, rotation
+//		param axis_unit_out: output unit axis of rotation
+//		param angle_degrees_out: pointer to angle storage
+//		return: m_in
+fmat4 ijkMatGetRotateAxisAngle4f(fmat4 const m_in, fvec3* const axis_unit_out, float* const angle_degrees_out);
+
+// ijkMatGetRotateAxisAngleScale4*
+//	Extract unit axis of rotation, angle in degrees and scale from 4D matrix.
+//		param m_in: input matrix, rotation-scale
+//		param axis_unit_out: output unit axis of rotation
+//		param angle_degrees_out: pointer to angle storage
+//		param scale_out: storage for scale amounts
+//		return: m_in
+fmat4 ijkMatGetRotateAxisAngleScale4f(fmat4 const m_in, fvec3* const axis_unit_out, float* const angle_degrees_out, fvec3* const scale_out);
 
 
 //-----------------------------------------------------------------------------
