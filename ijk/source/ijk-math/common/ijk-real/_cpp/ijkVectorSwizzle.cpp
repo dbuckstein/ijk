@@ -25,6 +25,7 @@
 
 #define IJK_VECTOR_SWIZZLE
 #include "ijk/ijk-math/ijk-real/ijkVector.h"
+#include "ijk/ijk-math/ijk-real/_util/ijkVectorSwizzle_macros.h"
 
 
 //-----------------------------------------------------------------------------
