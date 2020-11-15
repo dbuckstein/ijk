@@ -58,7 +58,7 @@ struct ttmat2
 	ttmat2 const operator +() const;
 	ttmat2 const operator +(ttmat2 const& m_rh) const;
 	ttmat2 const operator -(ttmat2 const& m_rh) const;
-	ttvec2<type> const operator *(ttvec2<type> const& m_rh) const;
+	ttvec2<type> const operator *(ttvec2<type> const& v_rh) const;
 	ttmat2 const operator *(ttmat2 const& m_rh) const;
 	ttmat2 const operator *(type const& s_rh) const;
 	ttmat2 const operator /(type const& s_rh) const;
@@ -88,6 +88,8 @@ struct ttmat2
 	inline operator ttvec2<type>* () { return c; }
 	inline operator ttvec1<type> const* () const { return (ttvec1<type>*)v; }
 	inline operator ttvec1<type>* () { return (ttvec1<type>*)v; }
+	ttvec2<type> const r(index const i) const;
+	type rx(ttvec2<type> const& v_rh, index const i) const;
 };
 
 template<typename type> ttmat2<type> const operator *(type const& s_lh, ttmat2<type> const& m_rh);
@@ -115,7 +117,7 @@ struct ttmat3
 	ttmat3 const operator +() const;
 	ttmat3 const operator +(ttmat3 const& m_rh) const;
 	ttmat3 const operator -(ttmat3 const& m_rh) const;
-	ttvec3<type> const operator *(ttvec3<type> const& m_rh) const;
+	ttvec3<type> const operator *(ttvec3<type> const& v_rh) const;
 	ttmat3 const operator *(ttmat3 const& m_rh) const;
 	ttmat3 const operator *(type const& s_rh) const;
 	ttmat3 const operator /(type const& s_rh) const;
@@ -145,6 +147,8 @@ struct ttmat3
 	inline operator ttvec3<type>* () { return c; }
 	inline operator ttvec1<type> const* () const { return (ttvec1<type>*)v; }
 	inline operator ttvec1<type>* () { return (ttvec1<type>*)v; }
+	ttvec3<type> const r(index const i) const;
+	type rx(ttvec3<type> const& v_rh, index const i) const;
 };
 
 template<typename type> ttmat3<type> const operator *(type const& s_lh, ttmat3<type> const& m_rh);
@@ -172,7 +176,7 @@ struct ttmat4
 	ttmat4 const operator +() const;
 	ttmat4 const operator +(ttmat4 const& m_rh) const;
 	ttmat4 const operator -(ttmat4 const& m_rh) const;
-	ttvec4<type> const operator *(ttvec4<type> const& m_rh) const;
+	ttvec4<type> const operator *(ttvec4<type> const& v_rh) const;
 	ttmat4 const operator *(ttmat4 const& m_rh) const;
 	ttmat4 const operator *(type const& s_rh) const;
 	ttmat4 const operator /(type const& s_rh) const;
@@ -202,6 +206,8 @@ struct ttmat4
 	inline operator ttvec4<type>* () { return c; }
 	inline operator ttvec1<type> const* () const { return (ttvec1<type>*)v; }
 	inline operator ttvec1<type>* () { return (ttvec1<type>*)v; }
+	ttvec4<type> const r(index const i) const;
+	type rx(ttvec4<type> const& v_rh, index const i) const;
 };
 
 template<typename type> ttmat4<type> const operator *(type const& s_lh, ttmat4<type> const& m_rh);
