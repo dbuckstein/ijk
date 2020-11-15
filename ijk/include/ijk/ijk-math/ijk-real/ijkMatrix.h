@@ -229,6 +229,7 @@ union dmat4
 #endif	// __cplusplus
 
 
+#include "_util/ijkMatrixSwizzle.h"
 #include "_util/ijkMatrix_float.h"
 #include "_util/ijkMatrix_double.h"
 

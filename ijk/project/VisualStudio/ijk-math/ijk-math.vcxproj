@@ -185,6 +185,7 @@
     <ClInclude Include="..\..\..\include\ijk\ijk-math\ijk-real\ijkStats.h" />
     <ClInclude Include="..\..\..\include\ijk\ijk-math\ijk-real\ijkTrigonometry.h" />
     <ClInclude Include="..\..\..\include\ijk\ijk-math\ijk-real\ijkVector.h" />
+    <ClInclude Include="..\..\..\include\ijk\ijk-math\ijk-real\_util\ijkMatrixSwizzle.h" />
     <ClInclude Include="..\..\..\include\ijk\ijk-math\ijk-real\_util\ijkMatrix_double.h" />
     <ClInclude Include="..\..\..\include\ijk\ijk-math\ijk-real\_util\ijkMatrix_float.h" />
     <ClInclude Include="..\..\..\include\ijk\ijk-math\ijk-real\_util\ijkVectorSwizzle.h" />
@@ -208,6 +209,7 @@
     </MASM>
     <None Include="..\..\..\include\ijk\ijk-math\ijk-real\_inl\ijkTrigonometry.inl" />
     <None Include="..\..\..\include\ijk\ijk-math\ijk-real\_inl\ijkVector.inl" />
+    <None Include="..\..\..\include\ijk\ijk-math\ijk-real\_util\_inl\ijkMatrixSwizzle.inl" />
     <None Include="..\..\..\include\ijk\ijk-math\ijk-real\_util\_inl\ijkMatrix_double.inl" />
     <None Include="..\..\..\include\ijk\ijk-math\ijk-real\_util\_inl\ijkMatrix_float.inl" />
     <None Include="..\..\..\include\ijk\ijk-math\ijk-real\_util\_inl\ijkVectorSwizzle.inl" />

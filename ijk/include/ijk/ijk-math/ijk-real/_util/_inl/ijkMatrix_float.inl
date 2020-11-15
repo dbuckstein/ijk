@@ -88,17 +88,17 @@ ijk_inl float2m ijkMatMul2fms(float2x2 m_out, float2x2 const m_lh, f32 const s_r
 
 ijk_inl float2m ijkMatDiv2fms(float2x2 m_out, float2x2 const m_lh, f32 const s_rh)
 {
-	f32 const s = ijk_recip_flt(s_rh);
-	ijkVecMul2fvs(m_out[0], m_lh[0], s);
-	ijkVecMul2fvs(m_out[1], m_lh[1], s);
+	f32 const recip = ijk_recip_flt(s_rh);
+	ijkVecMul2fvs(m_out[0], m_lh[0], recip);
+	ijkVecMul2fvs(m_out[1], m_lh[1], recip);
 	return m_out;
 }
 
 ijk_inl float2m ijkMatDivSafe2fms(float2x2 m_out, float2x2 const m_lh, f32 const s_rh)
 {
-	f32 const s = ijk_recip_safe_flt(s_rh);
-	ijkVecMul2fvs(m_out[0], m_lh[0], s);
-	ijkVecMul2fvs(m_out[1], m_lh[1], s);
+	f32 const recip = ijk_recip_safe_flt(s_rh);
+	ijkVecMul2fvs(m_out[0], m_lh[0], recip);
+	ijkVecMul2fvs(m_out[1], m_lh[1], recip);
 	return m_out;
 }
 
@@ -204,19 +204,19 @@ ijk_inl float3m ijkMatMul3fms(float3x3 m_out, float3x3 const m_lh, f32 const s_r
 
 ijk_inl float3m ijkMatDiv3fms(float3x3 m_out, float3x3 const m_lh, f32 const s_rh)
 {
-	f32 const s = ijk_recip_flt(s_rh);
-	ijkVecMul3fvs(m_out[0], m_lh[0], s);
-	ijkVecMul3fvs(m_out[1], m_lh[1], s);
-	ijkVecMul3fvs(m_out[2], m_lh[2], s);
+	f32 const recip = ijk_recip_flt(s_rh);
+	ijkVecMul3fvs(m_out[0], m_lh[0], recip);
+	ijkVecMul3fvs(m_out[1], m_lh[1], recip);
+	ijkVecMul3fvs(m_out[2], m_lh[2], recip);
 	return m_out;
 }
 
 ijk_inl float3m ijkMatDivSafe3fms(float3x3 m_out, float3x3 const m_lh, f32 const s_rh)
 {
-	f32 const s = ijk_recip_safe_flt(s_rh);
-	ijkVecMul3fvs(m_out[0], m_lh[0], s);
-	ijkVecMul3fvs(m_out[1], m_lh[1], s);
-	ijkVecMul3fvs(m_out[2], m_lh[2], s);
+	f32 const recip = ijk_recip_safe_flt(s_rh);
+	ijkVecMul3fvs(m_out[0], m_lh[0], recip);
+	ijkVecMul3fvs(m_out[1], m_lh[1], recip);
+	ijkVecMul3fvs(m_out[2], m_lh[2], recip);
 	return m_out;
 }
 
@@ -333,21 +333,21 @@ ijk_inl float4m ijkMatMul4fms(float4x4 m_out, float4x4 const m_lh, f32 const s_r
 
 ijk_inl float4m ijkMatDiv4fms(float4x4 m_out, float4x4 const m_lh, f32 const s_rh)
 {
-	f32 const s = ijk_recip_flt(s_rh);
-	ijkVecMul4fvs(m_out[0], m_lh[0], s);
-	ijkVecMul4fvs(m_out[1], m_lh[1], s);
-	ijkVecMul4fvs(m_out[2], m_lh[2], s);
-	ijkVecMul4fvs(m_out[3], m_lh[3], s);
+	f32 const recip = ijk_recip_flt(s_rh);
+	ijkVecMul4fvs(m_out[0], m_lh[0], recip);
+	ijkVecMul4fvs(m_out[1], m_lh[1], recip);
+	ijkVecMul4fvs(m_out[2], m_lh[2], recip);
+	ijkVecMul4fvs(m_out[3], m_lh[3], recip);
 	return m_out;
 }
 
 ijk_inl float4m ijkMatDivSafe4fms(float4x4 m_out, float4x4 const m_lh, f32 const s_rh)
 {
-	f32 const s = ijk_recip_safe_flt(s_rh);
-	ijkVecMul4fvs(m_out[0], m_lh[0], s);
-	ijkVecMul4fvs(m_out[1], m_lh[1], s);
-	ijkVecMul4fvs(m_out[2], m_lh[2], s);
-	ijkVecMul4fvs(m_out[3], m_lh[3], s);
+	f32 const recip = ijk_recip_safe_flt(s_rh);
+	ijkVecMul4fvs(m_out[0], m_lh[0], recip);
+	ijkVecMul4fvs(m_out[1], m_lh[1], recip);
+	ijkVecMul4fvs(m_out[2], m_lh[2], recip);
+	ijkVecMul4fvs(m_out[3], m_lh[3], recip);
 	return m_out;
 }
 

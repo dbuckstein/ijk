@@ -23,7 +23,7 @@
 	Swizzling shortcut macro definitions.
 */
 
-#ifdef _IJK_VECTOR_H_
+#ifdef _IJK_VECTORSWIZZLE_H_
 #ifndef _IJK_VECTORSWIZZLE_MACRO_H_
 #define _IJK_VECTORSWIZZLE_MACRO_H_
 
@@ -1075,4 +1075,4 @@
 
 
 #endif	// !_IJK_VECTORSWIZZLE_MACRO_H_
-#endif	// _IJK_VECTOR_H_
+#endif	// _IJK_VECTORSWIZZLE_H_

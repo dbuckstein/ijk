@@ -19,8 +19,8 @@
 		c-based rendering framework
 	By Daniel S. Buckstein
 
-	ijkVector.inl
-	Inline definitions for vector types.
+	ijkVectorSwizzle.inl
+	Inline definitions for vector swizzling types (C++).
 */
 
 #ifdef _IJK_VECTORSWIZZLE_H_
