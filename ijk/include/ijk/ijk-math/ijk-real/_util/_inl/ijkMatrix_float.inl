@@ -1506,9 +1506,13 @@ ijk_inl float3km ijkMatGetRotateAxisAngleScale3fm(float3x3 const m_in, float3 ax
 
 ijk_inl f32 ijkMatDeterminant4fm(float4x4 const m_in)
 {
-	// det = dot(c0, cross(c1, c2))
-	float4 cross;
-	return ijkVecDot4fv(m_in[0], ijkVecCross4fv(cross, m_in[1], m_in[2]));
+	float3 cross;
+	f32 det = flt_zero;
+	det += m_in[0][3] * ijkVecDot3fv(m_in[1], ijkVecCross3fv(cross, m_in[2], m_in[3]));
+	det += m_in[1][3] * ijkVecDot3fv(m_in[2], ijkVecCross3fv(cross, m_in[3], m_in[0]));
+	det += m_in[2][3] * ijkVecDot3fv(m_in[3], ijkVecCross3fv(cross, m_in[0], m_in[1]));
+	det += m_in[3][3] * ijkVecDot3fv(m_in[0], ijkVecCross3fv(cross, m_in[1], m_in[2]));
+	return det;
 }
 
 ijk_inl f32 ijkMatDeterminantInv4fm(float4x4 const m_in)
@@ -1525,7 +1529,7 @@ ijk_inl f32 ijkMatDeterminantInvSafe4fm(float4x4 const m_in)
 
 ijk_inl f32 ijkMatMulRowVec4fmv(float4x4 const m_in, float4 const v_in, index const row)
 {
-	return (m_in[0][row] * v_in[0] + m_in[1][row] * v_in[1] + m_in[2][row] * v_in[2]);
+	return (m_in[0][row] * v_in[0] + m_in[1][row] * v_in[1] + m_in[2][row] * v_in[2] + m_in[3][row] * v_in[3]);
 }
 
 ijk_inl floatv ijkMatGetRow4fm(float4 v_out, float4x4 const m_in, index const row)
@@ -1533,6 +1537,7 @@ ijk_inl floatv ijkMatGetRow4fm(float4 v_out, float4x4 const m_in, index const ro
 	v_out[0] = m_in[0][row];
 	v_out[1] = m_in[1][row];
 	v_out[2] = m_in[2][row];
+	v_out[3] = m_in[3][row];
 	return v_out;
 }
 
@@ -1544,12 +1549,22 @@ ijk_inl float4m ijkMatTranspose4fm(float4x4 m_out, float4x4 const m_in)
 	tmp = m_in[1][2];
 	m_out[1][2] = m_in[2][1];
 	m_out[2][1] = tmp;
+	tmp = m_in[1][3];
+	m_out[1][3] = m_in[3][1];
+	m_out[3][1] = tmp;
 	tmp = m_in[2][0];
 	m_out[2][0] = m_in[0][2];
 	m_out[0][2] = tmp;
+	tmp = m_in[2][1];
+	m_out[2][1] = m_in[1][2];
+	m_out[1][2] = tmp;
+	tmp = m_in[2][3];
+	m_out[2][3] = m_in[3][2];
+	m_out[3][2] = tmp;
 	m_out[0][0] = m_in[0][0];
 	m_out[1][1] = m_in[1][1];
 	m_out[2][2] = m_in[2][2];
+	m_out[3][3] = m_in[3][3];
 	return m_out;
 }
 
@@ -1561,35 +1576,70 @@ ijk_inl float4m ijkMatTransposeMul4fms(float4x4 m_out, float4x4 const m_in, f32 
 	tmp = m_in[1][2];
 	m_out[1][2] = s * m_in[2][1];
 	m_out[2][1] = s * tmp;
+	tmp = m_in[1][3];
+	m_out[1][3] = s * m_in[3][1];
+	m_out[3][1] = s * tmp;
 	tmp = m_in[2][0];
 	m_out[2][0] = s * m_in[0][2];
 	m_out[0][2] = s * tmp;
+	tmp = m_in[2][1];
+	m_out[2][1] = s * m_in[1][2];
+	m_out[1][2] = s * tmp;
+	tmp = m_in[2][3];
+	m_out[2][3] = s * m_in[3][2];
+	m_out[3][2] = s * tmp;
 	m_out[0][0] = s * m_in[0][0];
 	m_out[1][1] = s * m_in[1][1];
 	m_out[2][2] = s * m_in[2][2];
+	m_out[3][3] = s * m_in[3][3];
 	return m_out;
 }
 
 ijk_inl float4m ijkMatInverse4fm(float4x4 m_out, float4x4 const m_in)
 {
-	f32 detInv;
-	float4x4 cross;
-	ijkVecCross4fv(cross[0], m_in[1], m_in[2]);
-	ijkVecCross4fv(cross[1], m_in[2], m_in[0]);
-	ijkVecCross4fv(cross[2], m_in[0], m_in[1]);
-	detInv = ijkVecDot4fv(m_in[0], cross[0]);
-	return ijkMatTransposeMul4fms(m_out, cross, ijk_recip_flt(detInv));
+	// block-wise inversion; upper-left 3x3 (A), bottom-right 1x1 (D)
+	f32 const blockD = -m_in[3][3], blockInvD = ijk_recip_flt(blockD);
+	float3 const blockB_D = {
+		(m_in[3][0] * blockInvD), (m_in[3][1] * blockInvD), (m_in[3][2] * blockInvD),
+	};
+	float3 const blockC_D = {
+		(blockInvD * m_in[0][3]), (blockInvD * m_in[1][3]), (blockInvD * m_in[2][3]),
+	};
+	float3x3 blockInvA = {
+		(m_in[0][0] + blockB_D[0] * m_in[0][3]), (m_in[0][1] + blockB_D[1] * m_in[0][3]), (m_in[0][2] + blockB_D[2] * m_in[0][3]),
+		(m_in[1][0] + blockB_D[0] * m_in[1][3]), (m_in[1][1] + blockB_D[1] * m_in[1][3]), (m_in[1][2] + blockB_D[2] * m_in[1][3]),
+		(m_in[2][0] + blockB_D[0] * m_in[2][3]), (m_in[2][1] + blockB_D[1] * m_in[2][3]), (m_in[2][2] + blockB_D[2] * m_in[2][3]),
+	};
+	ijkMatInverse3fm(blockInvA, blockInvA);
+	ijkVecCopy4fvw(m_out[0], blockInvA[0], ijkVecDot3fv(blockC_D, blockInvA[0]));
+	ijkVecCopy4fvw(m_out[1], blockInvA[1], ijkVecDot3fv(blockC_D, blockInvA[1]));
+	ijkVecCopy4fvw(m_out[2], blockInvA[2], ijkVecDot3fv(blockC_D, blockInvA[2]));
+	ijkMatMulVec3fmv(m_out[3], blockInvA, blockB_D);
+	m_out[3][3] = ijkVecDot3fv(m_out[3], blockC_D) - blockInvD;
+	return m_out;
 }
 
 ijk_inl float4m ijkMatInverseSafe4fm(float4x4 m_out, float4x4 const m_in)
 {
-	f32 detInv;
-	float4x4 cross;
-	ijkVecCross4fv(cross[0], m_in[1], m_in[2]);
-	ijkVecCross4fv(cross[1], m_in[2], m_in[0]);
-	ijkVecCross4fv(cross[2], m_in[0], m_in[1]);
-	detInv = ijkVecDot4fv(m_in[0], cross[0]);
-	return ijkMatTransposeMul4fms(m_out, cross, ijk_recip_safe_flt(detInv));
+	f32 const blockD = -m_in[3][3], blockInvD = ijk_recip_safe_flt(blockD);
+	float3 const blockB_D = {
+		(m_in[3][0] * blockInvD), (m_in[3][1] * blockInvD), (m_in[3][2] * blockInvD),
+	};
+	float3 const blockC_D = {
+		(blockInvD * m_in[0][3]), (blockInvD * m_in[1][3]), (blockInvD * m_in[2][3]),
+	};
+	float3x3 blockInvA = {
+		(m_in[0][0] + blockB_D[0] * m_in[0][3]), (m_in[0][1] + blockB_D[1] * m_in[0][3]), (m_in[0][2] + blockB_D[2] * m_in[0][3]),
+		(m_in[1][0] + blockB_D[0] * m_in[1][3]), (m_in[1][1] + blockB_D[1] * m_in[1][3]), (m_in[1][2] + blockB_D[2] * m_in[1][3]),
+		(m_in[2][0] + blockB_D[0] * m_in[2][3]), (m_in[2][1] + blockB_D[1] * m_in[2][3]), (m_in[2][2] + blockB_D[2] * m_in[2][3]),
+	};
+	ijkMatInverseSafe3fm(blockInvA, blockInvA);
+	ijkVecCopy4fvw(m_out[0], blockInvA[0], ijkVecDot3fv(blockC_D, blockInvA[0]));
+	ijkVecCopy4fvw(m_out[1], blockInvA[1], ijkVecDot3fv(blockC_D, blockInvA[1]));
+	ijkVecCopy4fvw(m_out[2], blockInvA[2], ijkVecDot3fv(blockC_D, blockInvA[2]));
+	ijkMatMulVec3fmv(m_out[3], blockInvA, blockB_D);
+	m_out[3][3] = ijkVecDot3fv(m_out[3], blockC_D) - blockInvD;
+	return m_out;
 }
 
 ijk_inl floatv ijkMatMulVec4fmv(float4 v_out, float4x4 const m_lh, float4 const v_rh)
@@ -1598,6 +1648,7 @@ ijk_inl floatv ijkMatMulVec4fmv(float4 v_out, float4x4 const m_lh, float4 const 
 		ijkMatMulRowVec4fmv(m_lh, v_rh, 0),
 		ijkMatMulRowVec4fmv(m_lh, v_rh, 1),
 		ijkMatMulRowVec4fmv(m_lh, v_rh, 2),
+		ijkMatMulRowVec4fmv(m_lh, v_rh, 3),
 	};
 	return ijkVecCopy4fv(v_out, v_copy);
 }
@@ -1607,6 +1658,7 @@ ijk_inl float4m ijkMatMul4fm(float4x4 m_out, float4x4 const m_lh, float4x4 const
 	ijkMatMulVec4fmv(m_out[0], m_lh, m_rh[0]);
 	ijkMatMulVec4fmv(m_out[1], m_lh, m_rh[1]);
 	ijkMatMulVec4fmv(m_out[2], m_lh, m_rh[2]);
+	ijkMatMulVec4fmv(m_out[3], m_lh, m_rh[3]);
 	return m_out;
 }
 
@@ -1785,16 +1837,17 @@ ijk_inl float4m ijkMatScale4fm(float4x4 m_out, float3 const scale)
 	m_out[0][0] = scale[0];
 	m_out[1][1] = scale[1];
 	m_out[2][2] = scale[2];
-	m_out[0][1] = m_out[0][2] = m_out[1][0] = m_out[1][2] = m_out[2][0] = m_out[2][1] = flt_zero;
+	m_out[3][3] = flt_one;
+	m_out[0][1] = m_out[0][2] = m_out[0][3] = m_out[1][0] = m_out[1][2] = m_out[1][3] = m_out[2][0] = m_out[2][1] = m_out[2][3] = m_out[3][0] = m_out[3][1] = m_out[3][2] = flt_zero;
 	return m_out;
 }
 
 ijk_inl float4m ijkMatRotateScale4fm(float4x4 m_out, ijkRotationOrder const order, float4 const rotateDegXYZ, float3 const scale)
 {
 	ijkMatRotate4fm(m_out, order, rotateDegXYZ);
-	ijkVecMul4fvs(m_out[0], m_out[0], scale[0]);
-	ijkVecMul4fvs(m_out[1], m_out[1], scale[1]);
-	ijkVecMul4fvs(m_out[2], m_out[2], scale[2]);
+	ijkVecMul3fvs(m_out[0], m_out[0], scale[0]);
+	ijkVecMul3fvs(m_out[1], m_out[1], scale[1]);
+	ijkVecMul3fvs(m_out[2], m_out[2], scale[2]);
 	return m_out;
 }
 
@@ -1820,19 +1873,19 @@ ijk_inl float4km ijkMatGetRotate4fm(float4x4 const m_in, ijkRotationOrder const 
 
 ijk_inl float4km ijkMatGetScale4fm(float4x4 const m_in, float3 scale_out)
 {
-	scale_out[0] = ijkVecLength4fv(m_in[0]);
-	scale_out[1] = ijkVecLength4fv(m_in[1]);
-	scale_out[2] = ijkVecLength4fv(m_in[2]);
+	scale_out[0] = ijkVecLength3fv(m_in[0]);
+	scale_out[1] = ijkVecLength3fv(m_in[1]);
+	scale_out[2] = ijkVecLength3fv(m_in[2]);
 	return m_in;
 }
 
 ijk_inl float4km ijkMatGetRotateScale4fm(float4x4 const m_in, ijkRotationOrder const order, float4 rotateDegXYZ_out, float3 scale_out)
 {
-	float4x4 rot;
-	ijkVecDivSafe4fvs(rot[0], m_in[0], (scale_out[0] = ijkVecLength4fv(m_in[0])));
-	ijkVecDivSafe4fvs(rot[1], m_in[1], (scale_out[1] = ijkVecLength4fv(m_in[1])));
-	ijkVecDivSafe4fvs(rot[2], m_in[2], (scale_out[2] = ijkVecLength4fv(m_in[2])));
-	ijkMatGetRotate4fm(rot, order, rotateDegXYZ_out);
+	float3x3 rot;
+	ijkVecDivSafe3fvs(rot[0], m_in[0], (scale_out[0] = ijkVecLength3fv(m_in[0])));
+	ijkVecDivSafe3fvs(rot[1], m_in[1], (scale_out[1] = ijkVecLength3fv(m_in[1])));
+	ijkVecDivSafe3fvs(rot[2], m_in[2], (scale_out[2] = ijkVecLength3fv(m_in[2])));
+	ijkMatGetRotate3fm(rot, order, rotateDegXYZ_out);
 	return m_in;
 }
 
@@ -1846,7 +1899,8 @@ ijk_inl float4m ijkMatInverseScale4fm(float4x4 m_out, float4x4 const m_in)
 	m_out[0][0] = ijk_recip_flt(m_in[0][0]);
 	m_out[1][1] = ijk_recip_flt(m_in[1][1]);
 	m_out[2][2] = ijk_recip_flt(m_in[2][2]);
-	m_out[0][1] = m_out[0][2] = m_out[1][0] = m_out[1][2] = m_out[2][0] = m_out[2][1] = flt_zero;
+	m_out[3][3] = flt_one;
+	m_out[0][1] = m_out[0][2] = m_out[0][3] = m_out[1][0] = m_out[1][2] = m_out[1][3] = m_out[2][0] = m_out[2][1] = m_out[2][3] = m_out[3][0] = m_out[3][1] = m_out[3][2] = flt_zero;
 	return m_out;
 }
 
@@ -1860,9 +1914,9 @@ ijk_inl float4m ijkMatInverseRotateScale4fm(float4x4 m_out, float4x4 const m_in)
 	//		= S^-T * R^T
 	//		= (R * S^-1)^T
 	//		= ((RS) / S^2)^T
-	f32 const sx2_inv = ijkVecLengthSqInv4fv(m_in[0]);
-	f32 const sy2_inv = ijkVecLengthSqInv4fv(m_in[1]);
-	f32 const sz2_inv = ijkVecLengthSqInv4fv(m_in[2]);
+	f32 const sx2_inv = ijkVecLengthSqInv3fv(m_in[0]);
+	f32 const sy2_inv = ijkVecLengthSqInv3fv(m_in[1]);
+	f32 const sz2_inv = ijkVecLengthSqInv3fv(m_in[2]);
 	f32 tmp = m_in[0][1];
 	m_out[0][1] = m_in[1][0] * sy2_inv;
 	m_out[1][0] = tmp * sx2_inv;
@@ -1875,6 +1929,8 @@ ijk_inl float4m ijkMatInverseRotateScale4fm(float4x4 m_out, float4x4 const m_in)
 	m_out[0][0] = m_in[0][0] * sx2_inv;
 	m_out[1][1] = m_in[1][1] * sy2_inv;
 	m_out[2][2] = m_in[2][2] * sz2_inv;
+	m_out[3][3] = flt_one;
+	m_out[0][3] = m_out[1][3] = m_out[2][3] = m_out[3][0] = m_out[3][1] = m_out[3][2] = flt_zero;
 	return m_out;
 }
 
@@ -1888,9 +1944,11 @@ ijk_inl float4m ijkMatInverseTranspose4fm(float4x4 m_out, float4x4 const m_in)
 	//			S^-T = S^-1
 	// M^-T = R * S^-1
 	//		= (RS) / S^2
-	ijkVecMul4fvs(m_out[0], m_in[0], ijkVecLengthSqInv4fv(m_in[0]));
-	ijkVecMul4fvs(m_out[1], m_in[1], ijkVecLengthSqInv4fv(m_in[1]));
-	ijkVecMul4fvs(m_out[2], m_in[2], ijkVecLengthSqInv4fv(m_in[2]));
+	ijkVecMul3fvs(m_out[0], m_in[0], ijkVecLengthSqInv3fv(m_in[0]));
+	ijkVecMul3fvs(m_out[1], m_in[1], ijkVecLengthSqInv3fv(m_in[1]));
+	ijkVecMul3fvs(m_out[2], m_in[2], ijkVecLengthSqInv3fv(m_in[2]));
+	m_out[3][3] = flt_one;
+	m_out[0][3] = m_out[1][3] = m_out[2][3] = m_out[3][0] = m_out[3][1] = m_out[3][2] = flt_zero;
 	return m_out;
 }
 
@@ -1939,11 +1997,11 @@ ijk_inl float4km ijkMatGetRotateAxisAngle4fm(float4x4 const m_in, float3 axis_un
 
 ijk_inl float4km ijkMatGetRotateAxisAngleScale4fm(float4x4 const m_in, float3 axis_unit_out, f32* const angle_degrees_out, float3 scale_out)
 {
-	float4x4 rot;
-	ijkVecDivSafe4fvs(rot[0], m_in[0], (scale_out[0] = ijkVecLength4fv(m_in[0])));
-	ijkVecDivSafe4fvs(rot[1], m_in[1], (scale_out[1] = ijkVecLength4fv(m_in[1])));
-	ijkVecDivSafe4fvs(rot[2], m_in[2], (scale_out[2] = ijkVecLength4fv(m_in[2])));
-	ijkMatGetRotateAxisAngle4fm(rot, axis_unit_out, angle_degrees_out);
+	float3x3 rot;
+	ijkVecDivSafe3fvs(rot[0], m_in[0], (scale_out[0] = ijkVecLength3fv(m_in[0])));
+	ijkVecDivSafe3fvs(rot[1], m_in[1], (scale_out[1] = ijkVecLength3fv(m_in[1])));
+	ijkVecDivSafe3fvs(rot[2], m_in[2], (scale_out[2] = ijkVecLength3fv(m_in[2])));
+	ijkMatGetRotateAxisAngle3fm(rot, axis_unit_out, angle_degrees_out);
 	return m_in;
 }
 
