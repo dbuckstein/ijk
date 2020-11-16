@@ -344,6 +344,7 @@ ijk_ext rmat4 const rmat4_id;
 #endif	// __cplusplus
 
 
+#include "_util/ijkMatrix_real.h"
 #include "_inl/ijkMatrix.inl"
 
 

@@ -1055,6 +1055,7 @@ ijk_ext rvec4 const rvec4_wn;		// (  0,  0,  0, -1 )
 #endif	// __cplusplus
 
 
+#include "_util/ijkVector_real.h"
 #include "_inl/ijkVector.inl"
 
 
