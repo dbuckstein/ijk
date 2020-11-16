@@ -42,7 +42,15 @@ template<typename type> struct ttdualquat;	// Template dual quaternion base type
 template<typename type>
 struct ttquat
 {
-	ttquat();
+	ttquat();																// Identity quaternion: zero vector, one real.
+	ttquat(type const& xc, type const& yc, type const& zc, type const& wc);	// Initialize components.
+
+	union
+	{
+		type v[4];
+		struct { ttvec3<type> vec; ttvec1<type> re; };
+		struct { type x, y, z, w; };
+	};
 };
 
 
@@ -52,7 +60,17 @@ struct ttquat
 template<typename type>
 struct ttdualquat
 {
-	ttdualquat();
+	ttdualquat();															// Identity dual quaternion: zero vector, one real, zero dual.
+	ttdualquat(ttquat<type> const& qr, ttquat<type> const& qd);				// Initialize components.
+	
+	union
+	{
+		type v[8];
+		type m[2][4];
+		ttquat<type> q[2];
+		struct { ttquat<type> qr, qd; };
+		struct { type xr, yr, zr, wr, xd, yd, zd, wd; };
+	};
 };
 
 
