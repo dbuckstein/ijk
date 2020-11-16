@@ -1717,8 +1717,8 @@ float4m ijkMatProjectionPerspective4fm(float4x4 m_out, float4x4 m_inv_out_opt, f
 //		param m_inv_out_opt: optional inverse matrix output
 //		param fovyDeg: vertical field-of-view in degrees (greater than zero)
 //		param aspect: aspect ratio of viewing plane (greater than zero)
-//		param nearDist: distance to near plane (not equal to far)
-//		param farDist: distance to far plane (not equal to near)
+//		param nearDist: distance to near plane (greater than zero)
+//		param farDist: distance to far plane (greater than near)
 //		return: m_out
 float4m ijkMatProjectionParallel4fm(float4x4 m_out, float4x4 m_inv_out_opt, f32 const fovyDeg, f32 const aspect, f32 const nearDist, f32 const farDist);
 
@@ -1757,10 +1757,10 @@ float4m ijkMatProjectionParallelPlanes4fm(float4x4 m_out, float4x4 m_inv_out_opt
 //		param m_right_out: output right eye conversion matrix
 //		param m_left_inv_out_opt: output left eye conversion matrix inverse
 //		param m_right_inv_out_opt: output right eye conversion matrix inverse
-//		param interocularDist: distance between eyes
-//		param convergenceDist: distance to convergence plane
+//		param interocularDist: distance between eyes (greater than zero)
+//		param convergenceDist: distance to convergence plane (greater than zero)
 //		return: m_left_out
-float4m ijkMatProjectionStereoConversion4fm(float4x4 m_left_out, float4x4 m_left_inv_out_opt, float4x4 m_right_out, float4x4 m_right_inv_out_opt, f32 const interocularDist, f32 const convergenceDist);
+float4m ijkMatProjectionStereoConversion4fm(float4x4 m_left_out, float4x4 m_right_out, float4x4 m_left_inv_out_opt, float4x4 m_right_inv_out_opt, f32 const interocularDist, f32 const convergenceDist);
 
 
 //-----------------------------------------------------------------------------
@@ -2685,8 +2685,8 @@ fmat4 ijkMatProjectionPerspective4f(fmat4* const m_inv_out_opt, float const fovy
 //		param m_inv_out_opt: optional inverse matrix output
 //		param fovyDeg: vertical field-of-view in degrees (greater than zero)
 //		param aspect: aspect ratio of viewing plane (greater than zero)
-//		param nearDist: distance to near plane (not equal to far)
-//		param farDist: distance to far plane (not equal to near)
+//		param nearDist: distance to near plane (greater than zero)
+//		param farDist: distance to far plane (greater than near)
 //		return: parallel projection matrix
 fmat4 ijkMatProjectionParallel4f(fmat4* const m_inv_out_opt, float const fovyDeg, float const aspect, float const nearDist, float const farDist);
 
@@ -2723,10 +2723,10 @@ fmat4 ijkMatProjectionParallelPlanes4f(fmat4* const m_inv_out_opt, float const l
 //		param m_right_out: output right eye conversion matrix
 //		param m_left_inv_out_opt: output left eye conversion matrix inverse
 //		param m_right_inv_out_opt: output right eye conversion matrix inverse
-//		param interocularDist: distance between eyes
-//		param convergenceDist: distance to convergence plane
+//		param interocularDist: distance between eyes (greater than zero)
+//		param convergenceDist: distance to convergence plane (greater than zero)
 //		return: m_left_out
-fmat4 ijkMatProjectionStereoConversion4f(fmat4* const m_left_out, fmat4* const m_left_inv_out_opt, fmat4* const m_right_out, fmat4* const m_right_inv_out_opt, float const interocularDist, float const convergenceDist);
+fmat4 ijkMatProjectionStereoConversion4f(fmat4* const m_left_out, fmat4* const m_right_out, fmat4* const m_left_inv_out_opt, fmat4* const m_right_inv_out_opt, float const interocularDist, float const convergenceDist);
 
 
 //-----------------------------------------------------------------------------

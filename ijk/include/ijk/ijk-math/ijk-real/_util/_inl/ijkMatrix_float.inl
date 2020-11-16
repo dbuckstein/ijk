@@ -2196,7 +2196,7 @@ ijk_inl float4m ijkMatProjectionPerspective4fm(float4x4 m_out, float4x4 m_inv_ou
 			// r = t*aspect
 			// y1 = t/n = (n*tan(a/2))/n = tan(a/2)
 			// x0 = r/n = (t*aspect)/n = aspect*(t/n) = y1*aspect
-			flt const doubleNearFarInv = flt_half / (nearDist * farDist);
+			f32 const doubleNearFarInv = flt_half / (nearDist * farDist);
 			m_inv_out_opt[1][1] = flt_one / m_out[1][1];
 			m_inv_out_opt[0][0] = m_inv_out_opt[1][1] * aspect;
 			m_inv_out_opt[2][3] = (nearDist - farDist) * doubleNearFarInv;
@@ -2215,25 +2215,145 @@ ijk_inl float4m ijkMatProjectionPerspective4fm(float4x4 m_out, float4x4 m_inv_ou
 
 ijk_inl float4m ijkMatProjectionParallel4fm(float4x4 m_out, float4x4 m_inv_out_opt, f32 const fovyDeg, f32 const aspect, f32 const nearDist, f32 const farDist)
 {
+	if (m_out && fovyDeg > flt_zero && aspect > flt_zero && nearDist > flt_zero && farDist > nearDist)
+	{
+		f32 const halfAngle = flt_half * fovyDeg;
+		f32 const farToNearInv = flt_one / (nearDist - farDist);
+		m_out[1][1] = ijkTrigCot_deg_flt(halfAngle);
+		m_out[0][0] = m_out[1][1] / aspect;
+		m_out[2][2] = flt_two * farToNearInv;
+		m_out[3][2] = (nearDist + farDist) * farToNearInv;
+		m_out[3][3] = flt_one;
 
+		m_out[0][1] = m_out[0][2] = m_out[0][3]
+			= m_out[1][0] = m_out[1][2] = m_out[1][3]
+			= m_out[2][0] = m_out[2][1] = m_out[2][3]
+			= m_out[3][0] = m_out[3][1] = flt_zero;
+
+		if (m_inv_out_opt)
+		{
+			m_inv_out_opt[1][1] = flt_one / m_out[1][1];
+			m_inv_out_opt[0][0] = m_inv_out_opt[1][1] * aspect;
+			m_inv_out_opt[2][2] = flt_half * (nearDist - farDist);
+			m_inv_out_opt[3][2] = -flt_half * (nearDist + farDist);
+			m_inv_out_opt[3][3] = flt_one;
+
+			m_inv_out_opt[0][1] = m_inv_out_opt[0][2] = m_inv_out_opt[0][3]
+				= m_inv_out_opt[1][0] = m_inv_out_opt[1][2] = m_inv_out_opt[1][3]
+				= m_inv_out_opt[2][0] = m_inv_out_opt[2][1] = m_inv_out_opt[2][3]
+				= m_inv_out_opt[3][0] = m_inv_out_opt[3][1] = flt_zero;
+		}
+	}
 	return m_out;
 }
 
 ijk_inl float4m ijkMatProjectionPerspectivePlanes4fm(float4x4 m_out, float4x4 m_inv_out_opt, f32 const leftDist, f32 const rightDist, f32 const bottomDist, f32 const topDist, f32 const nearDist, f32 const farDist)
 {
+	if (m_out && leftDist != rightDist && bottomDist != topDist && nearDist > flt_zero && farDist > nearDist)
+	{
+		f32 const leftToRightInv = flt_one / (rightDist - leftDist);
+		f32 const bottomToTopInv = flt_one / (topDist - bottomDist);
+		f32 const farToNearInv = flt_one / (nearDist - farDist);
+		f32 const doubleNear = nearDist + nearDist;
+		m_out[0][0] = doubleNear * leftToRightInv;
+		m_out[1][1] = doubleNear * bottomToTopInv;
+		m_out[2][0] = (rightDist + leftDist) * leftToRightInv;
+		m_out[2][1] = (topDist + bottomDist) * bottomToTopInv;
+		m_out[2][2] = (nearDist + farDist) * farToNearInv;
+		m_out[2][3] = -flt_one;
+		m_out[3][2] = doubleNear * farDist * farToNearInv;
 
+		m_out[0][1] = m_out[0][2] = m_out[0][3]
+			= m_out[1][0] = m_out[1][2] = m_out[1][3]
+			= m_out[3][0] = m_out[3][1] = m_out[3][3] = flt_zero;
+
+		if (m_inv_out_opt)
+		{
+			f32 const doubleNearInv = flt_half / nearDist;
+			f32 const doubleNearFarInv = flt_half / (nearDist * farDist);
+			m_inv_out_opt[3][0] = (rightDist - leftDist) * doubleNearInv;
+			m_inv_out_opt[3][1] = (topDist - bottomDist) * doubleNearInv;
+			m_inv_out_opt[2][3] = (nearDist - farDist) * doubleNearFarInv;
+			m_inv_out_opt[3][0] = (rightDist + leftDist) * doubleNearInv;
+			m_inv_out_opt[3][1] = (topDist + bottomDist) * doubleNearInv;
+			m_inv_out_opt[3][2] = -flt_one;
+			m_inv_out_opt[3][3] = (nearDist + farDist) * doubleNearFarInv;
+
+			m_inv_out_opt[0][1] = m_inv_out_opt[0][2] = m_inv_out_opt[0][3]
+				= m_inv_out_opt[1][0] = m_inv_out_opt[1][2] = m_inv_out_opt[1][3]
+				= m_inv_out_opt[2][0] = m_inv_out_opt[2][1] = m_inv_out_opt[2][2] = flt_zero;
+		}
+	}
 	return m_out;
 }
 
 ijk_inl float4m ijkMatProjectionParallelPlanes4fm(float4x4 m_out, float4x4 m_inv_out_opt, f32 const leftDist, f32 const rightDist, f32 const bottomDist, f32 const topDist, f32 const nearDist, f32 const farDist)
 {
+	if (m_out && leftDist != rightDist && bottomDist != topDist && nearDist != farDist)
+	{
+		f32 const leftToRightInv = flt_one / (rightDist - leftDist);
+		f32 const bottomToTopInv = flt_one / (topDist - bottomDist);
+		f32 const farToNearInv = flt_one / (nearDist - farDist);
+		m_out[0][0] = leftToRightInv + leftToRightInv;
+		m_out[1][1] = bottomToTopInv + bottomToTopInv;
+		m_out[2][2] = farToNearInv + farToNearInv;
+		m_out[3][0] = -(rightDist + leftDist) * leftToRightInv;
+		m_out[3][1] = -(topDist + bottomDist) * bottomToTopInv;
+		m_out[3][2] = (nearDist + farDist) * farToNearInv;
+		m_out[3][3] = flt_one;
 
+		m_out[0][1] = m_out[0][2] = m_out[0][3]
+			= m_out[1][0] = m_out[1][2] = m_out[1][3]
+			= m_out[2][0] = m_out[2][1] = m_out[2][3] = flt_zero;
+
+		if (m_inv_out_opt)
+		{
+			m_inv_out_opt[0][0] = flt_half * (rightDist - leftDist);
+			m_inv_out_opt[1][1] = flt_half * (topDist - bottomDist);
+			m_inv_out_opt[2][2] = flt_half * (nearDist - farDist);
+			m_inv_out_opt[3][0] = flt_half * (rightDist + leftDist);
+			m_inv_out_opt[3][1] = flt_half * (topDist + bottomDist);
+			m_inv_out_opt[3][2] = -flt_half * (nearDist + farDist);
+			m_inv_out_opt[3][3] = flt_one;
+
+			m_inv_out_opt[0][1] = m_inv_out_opt[0][2] = m_inv_out_opt[0][3]
+				= m_inv_out_opt[1][0] = m_inv_out_opt[1][2] = m_inv_out_opt[1][3]
+				= m_inv_out_opt[2][0] = m_inv_out_opt[2][1] = m_inv_out_opt[2][3] = flt_zero;
+		}
+	}
 	return m_out;
 }
 
-ijk_inl float4m ijkMatProjectionStereoConversion4fm(float4x4 m_left_out, float4x4 m_left_inv_out_opt, float4x4 m_right_out, float4x4 m_right_inv_out_opt, f32 const interocularDist, f32 const convergenceDist)
+ijk_inl float4m ijkMatProjectionStereoConversion4fm(float4x4 m_left_out, float4x4 m_right_out, float4x4 m_left_inv_out_opt, float4x4 m_right_inv_out_opt, f32 const interocularDist, f32 const convergenceDist)
 {
-
+	if (interocularDist > flt_zero && convergenceDist > flt_zero)
+	{
+		f32 const dx3 = flt_half * interocularDist, dx2 = dx3 / convergenceDist;
+		if (m_left_out)
+		{
+			ijkMatInit4fm(m_left_out);
+			m_left_out[3][0] = +dx3;
+			m_left_out[2][0] = +dx2;
+		}
+		if (m_right_out)
+		{
+			ijkMatInit4fm(m_right_out);
+			m_right_out[3][0] = -dx3;
+			m_right_out[2][0] = -dx2;
+		}
+		if (m_left_inv_out_opt)
+		{
+			ijkMatInit4fm(m_left_inv_out_opt);
+			m_left_inv_out_opt[3][0] = -dx3;
+			m_left_inv_out_opt[2][0] = -dx2;
+		}
+		if (m_right_inv_out_opt)
+		{
+			ijkMatInit4fm(m_right_inv_out_opt);
+			m_right_inv_out_opt[3][0] = +dx3;
+			m_right_inv_out_opt[2][0] = +dx2;
+		}
+	}
 	return m_left_out;
 }
 
@@ -3455,7 +3575,7 @@ ijk_inl fmat4 ijkMatProjectionParallelPlanes4f(fmat4* const m_inv_out_opt, float
 	return m_out;
 }
 
-ijk_inl fmat4 ijkMatProjectionStereoConversion4f(fmat4* const m_left_out, fmat4* const m_left_inv_out_opt, fmat4* const m_right_out, fmat4* const m_right_inv_out_opt, float const interocularDist, float const convergenceDist)
+ijk_inl fmat4 ijkMatProjectionStereoConversion4f(fmat4* const m_left_out, fmat4* const m_right_out, fmat4* const m_left_inv_out_opt, fmat4* const m_right_inv_out_opt, float const interocularDist, float const convergenceDist)
 {
 
 	return *m_left_out;
