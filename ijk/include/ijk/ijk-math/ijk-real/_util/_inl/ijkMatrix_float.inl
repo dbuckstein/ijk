@@ -2084,45 +2084,40 @@ ijk_inl float4km ijkMatGetTranslate4fm(float4x4 const m_in, float3 translate_out
 
 ijk_inl float4km ijkMatGetRotateTranslate4fm(float4x4 const m_in, ijkRotationOrder const order, float3 rotateDegXYZ_out, float3 translate_out)
 {
-	ijkMatGetRotate4fm(m_in, order, rotateDegXYZ_out);
 	ijkVecCopy3fv(translate_out, m_in[3]);
-	return m_in;
+	return ijkMatGetRotate4fm(m_in, order, rotateDegXYZ_out);
 }
 
 ijk_inl float4km ijkMatGetScaleTranslate4fm(float4x4 const m_in, float3 scale_out, float3 translate_out)
 {
-	ijkMatGetScale4fm(m_in, scale_out);
 	ijkVecCopy3fv(translate_out, m_in[3]);
-	return m_in;
+	return ijkMatGetScale4fm(m_in, scale_out);
 }
 
 ijk_inl float4km ijkMatGetRotateScaleTranslate4fm(float4x4 const m_in, ijkRotationOrder const order, float3 rotateDegXYZ_out, float3 scale_out, float3 translate_out)
 {
-	ijkMatGetRotateScale4fm(m_in, order, rotateDegXYZ_out, scale_out);
 	ijkVecCopy3fv(translate_out, m_in[3]);
-	return m_in;
+	return ijkMatGetRotateScale4fm(m_in, order, rotateDegXYZ_out, scale_out);
 }
 
 ijk_inl float4km ijkMatGetRotateAxisAngleTranslate4fm(float4x4 const m_in, float3 axis_unit_out, f32* const angle_degrees_out, float3 translate_out)
 {
-	ijkMatGetRotateAxisAngle4fm(m_in, axis_unit_out, angle_degrees_out);
 	ijkVecCopy3fv(translate_out, m_in[3]);
-	return m_in;
+	return ijkMatGetRotateAxisAngle4fm(m_in, axis_unit_out, angle_degrees_out);
 }
 
 ijk_inl float4km ijkMatGetRotateAxisAngleScaleTranslate4fm(float4x4 const m_in, float3 axis_unit_out, f32* const angle_degrees_out, float3 scale_out, float3 translate_out)
 {
-	ijkMatGetRotateAxisAngleScale4fm(m_in, axis_unit_out, angle_degrees_out, scale_out);
 	ijkVecCopy3fv(translate_out, m_in[3]);
-	return m_in;
+	return ijkMatGetRotateAxisAngleScale4fm(m_in, axis_unit_out, angle_degrees_out, scale_out);
 }
 
 ijk_inl float4m ijkMatInverseRotateTranslate4fm(float4x4 m_out, float4x4 const m_in)
 {
 	ijkMatInverseRotate4fm(m_out, m_in);
 	m_out[3][0] = -(m_out[0][0] * m_in[3][0] + m_out[1][0] * m_in[3][1] + m_out[2][0] * m_in[3][2]);
-	m_out[3][1] = -(m_out[0][1] * m_in[3][1] + m_out[1][1] * m_in[3][1] + m_out[2][1] * m_in[3][2]);
-	m_out[3][2] = -(m_out[0][2] * m_in[3][2] + m_out[1][2] * m_in[3][1] + m_out[2][2] * m_in[3][2]);
+	m_out[3][1] = -(m_out[0][1] * m_in[3][0] + m_out[1][1] * m_in[3][1] + m_out[2][1] * m_in[3][2]);
+	m_out[3][2] = -(m_out[0][2] * m_in[3][0] + m_out[1][2] * m_in[3][1] + m_out[2][2] * m_in[3][2]);
 	return m_out;
 }
 
@@ -2130,8 +2125,8 @@ ijk_inl float4m ijkMatInverseScaleTranslate4fm(float4x4 m_out, float4x4 const m_
 {
 	ijkMatInverseScale4fm(m_out, m_in);
 	m_out[3][0] = -(m_out[0][0] * m_in[3][0] + m_out[1][0] * m_in[3][1] + m_out[2][0] * m_in[3][2]);
-	m_out[3][1] = -(m_out[0][1] * m_in[3][1] + m_out[1][1] * m_in[3][1] + m_out[2][1] * m_in[3][2]);
-	m_out[3][2] = -(m_out[0][2] * m_in[3][2] + m_out[1][2] * m_in[3][1] + m_out[2][2] * m_in[3][2]);
+	m_out[3][1] = -(m_out[0][1] * m_in[3][0] + m_out[1][1] * m_in[3][1] + m_out[2][1] * m_in[3][2]);
+	m_out[3][2] = -(m_out[0][2] * m_in[3][0] + m_out[1][2] * m_in[3][1] + m_out[2][2] * m_in[3][2]);
 	return m_out;
 }
 
@@ -2139,8 +2134,8 @@ ijk_inl float4m ijkMatInverseRotateScaleTranslate4fm(float4x4 m_out, float4x4 co
 {
 	ijkMatInverseRotateScale4fm(m_out, m_in);
 	m_out[3][0] = -(m_out[0][0] * m_in[3][0] + m_out[1][0] * m_in[3][1] + m_out[2][0] * m_in[3][2]);
-	m_out[3][1] = -(m_out[0][1] * m_in[3][1] + m_out[1][1] * m_in[3][1] + m_out[2][1] * m_in[3][2]);
-	m_out[3][2] = -(m_out[0][2] * m_in[3][2] + m_out[1][2] * m_in[3][1] + m_out[2][2] * m_in[3][2]);
+	m_out[3][1] = -(m_out[0][1] * m_in[3][0] + m_out[1][1] * m_in[3][1] + m_out[2][1] * m_in[3][2]);
+	m_out[3][2] = -(m_out[0][2] * m_in[3][0] + m_out[1][2] * m_in[3][1] + m_out[2][2] * m_in[3][2]);
 	return m_out;
 }
 
@@ -2167,7 +2162,7 @@ ijk_inl float4m ijkMatLookAt4fm(float4x4 m_out, float4x4 m_inv_out_opt, float3 c
 
 ijk_inl float4m ijkMatProjectionPerspective4fm(float4x4 m_out, float4x4 m_inv_out_opt, f32 const fovyDeg, f32 const aspect, f32 const nearDist, f32 const farDist)
 {
-	if (m_out && fovyDeg > flt_zero && aspect > flt_zero && nearDist > flt_zero && farDist > nearDist)
+	if (m_out && fovyDeg > flt_zero && fovyDeg < flt_180 && aspect > flt_zero && nearDist > flt_zero && farDist > nearDist)
 	{
 		// top of near plane is calculated using tan(theta/2)
 		// store half angle then use it to calculate top
@@ -2184,10 +2179,7 @@ ijk_inl float4m ijkMatProjectionPerspective4fm(float4x4 m_out, float4x4 m_inv_ou
 		m_out[3][2] = flt_two * nearDist * farDist * farToNearInv;
 
 		// the rest are zero
-		m_out[0][1] = m_out[0][2] = m_out[0][3]
-			= m_out[1][0] = m_out[1][2] = m_out[1][3]
-			= m_out[3][0] = m_out[3][1] = m_out[3][3]
-			= m_out[2][0] = m_out[2][1] = flt_zero;
+		m_out[0][1] = m_out[0][2] = m_out[0][3] = m_out[1][0] = m_out[1][2] = m_out[1][3] = m_out[3][0] = m_out[3][1] = m_out[3][3] = m_out[2][0] = m_out[2][1] = flt_zero;
 
 		// inverse
 		if (m_inv_out_opt)
@@ -2204,10 +2196,7 @@ ijk_inl float4m ijkMatProjectionPerspective4fm(float4x4 m_out, float4x4 m_inv_ou
 			m_inv_out_opt[3][3] = (nearDist + farDist) * doubleNearFarInv;
 
 			// zeros
-			m_inv_out_opt[0][1] = m_inv_out_opt[0][2] = m_inv_out_opt[0][3]
-				= m_inv_out_opt[1][0] = m_inv_out_opt[1][2] = m_inv_out_opt[1][3]
-				= m_inv_out_opt[2][0] = m_inv_out_opt[2][1] = m_inv_out_opt[2][2]
-				= m_inv_out_opt[3][0] = m_inv_out_opt[3][1] = flt_zero;
+			m_inv_out_opt[0][1] = m_inv_out_opt[0][2] = m_inv_out_opt[0][3] = m_inv_out_opt[1][0] = m_inv_out_opt[1][2] = m_inv_out_opt[1][3] = m_inv_out_opt[2][0] = m_inv_out_opt[2][1] = m_inv_out_opt[2][2] = m_inv_out_opt[3][0] = m_inv_out_opt[3][1] = flt_zero;
 		}
 	}
 	return m_out;
@@ -2215,7 +2204,7 @@ ijk_inl float4m ijkMatProjectionPerspective4fm(float4x4 m_out, float4x4 m_inv_ou
 
 ijk_inl float4m ijkMatProjectionParallel4fm(float4x4 m_out, float4x4 m_inv_out_opt, f32 const fovyDeg, f32 const aspect, f32 const nearDist, f32 const farDist)
 {
-	if (m_out && fovyDeg > flt_zero && aspect > flt_zero && nearDist > flt_zero && farDist > nearDist)
+	if (m_out && fovyDeg > flt_zero && fovyDeg < flt_180 && aspect > flt_zero && nearDist > flt_zero && farDist > nearDist)
 	{
 		f32 const halfAngle = flt_half * fovyDeg;
 		f32 const farToNearInv = flt_one / (nearDist - farDist);
@@ -2224,11 +2213,7 @@ ijk_inl float4m ijkMatProjectionParallel4fm(float4x4 m_out, float4x4 m_inv_out_o
 		m_out[2][2] = flt_two * farToNearInv;
 		m_out[3][2] = (nearDist + farDist) * farToNearInv;
 		m_out[3][3] = flt_one;
-
-		m_out[0][1] = m_out[0][2] = m_out[0][3]
-			= m_out[1][0] = m_out[1][2] = m_out[1][3]
-			= m_out[2][0] = m_out[2][1] = m_out[2][3]
-			= m_out[3][0] = m_out[3][1] = flt_zero;
+		m_out[0][1] = m_out[0][2] = m_out[0][3] = m_out[1][0] = m_out[1][2] = m_out[1][3] = m_out[2][0] = m_out[2][1] = m_out[2][3] = m_out[3][0] = m_out[3][1] = flt_zero;
 
 		if (m_inv_out_opt)
 		{
@@ -2237,11 +2222,7 @@ ijk_inl float4m ijkMatProjectionParallel4fm(float4x4 m_out, float4x4 m_inv_out_o
 			m_inv_out_opt[2][2] = flt_half * (nearDist - farDist);
 			m_inv_out_opt[3][2] = -flt_half * (nearDist + farDist);
 			m_inv_out_opt[3][3] = flt_one;
-
-			m_inv_out_opt[0][1] = m_inv_out_opt[0][2] = m_inv_out_opt[0][3]
-				= m_inv_out_opt[1][0] = m_inv_out_opt[1][2] = m_inv_out_opt[1][3]
-				= m_inv_out_opt[2][0] = m_inv_out_opt[2][1] = m_inv_out_opt[2][3]
-				= m_inv_out_opt[3][0] = m_inv_out_opt[3][1] = flt_zero;
+			m_inv_out_opt[0][1] = m_inv_out_opt[0][2] = m_inv_out_opt[0][3] = m_inv_out_opt[1][0] = m_inv_out_opt[1][2] = m_inv_out_opt[1][3] = m_inv_out_opt[2][0] = m_inv_out_opt[2][1] = m_inv_out_opt[2][3] = m_inv_out_opt[3][0] = m_inv_out_opt[3][1] = flt_zero;
 		}
 	}
 	return m_out;
@@ -2262,10 +2243,7 @@ ijk_inl float4m ijkMatProjectionPerspectivePlanes4fm(float4x4 m_out, float4x4 m_
 		m_out[2][2] = (nearDist + farDist) * farToNearInv;
 		m_out[2][3] = -flt_one;
 		m_out[3][2] = doubleNear * farDist * farToNearInv;
-
-		m_out[0][1] = m_out[0][2] = m_out[0][3]
-			= m_out[1][0] = m_out[1][2] = m_out[1][3]
-			= m_out[3][0] = m_out[3][1] = m_out[3][3] = flt_zero;
+		m_out[0][1] = m_out[0][2] = m_out[0][3] = m_out[1][0] = m_out[1][2] = m_out[1][3] = m_out[3][0] = m_out[3][1] = m_out[3][3] = flt_zero;
 
 		if (m_inv_out_opt)
 		{
@@ -2278,10 +2256,7 @@ ijk_inl float4m ijkMatProjectionPerspectivePlanes4fm(float4x4 m_out, float4x4 m_
 			m_inv_out_opt[3][1] = (topDist + bottomDist) * doubleNearInv;
 			m_inv_out_opt[3][2] = -flt_one;
 			m_inv_out_opt[3][3] = (nearDist + farDist) * doubleNearFarInv;
-
-			m_inv_out_opt[0][1] = m_inv_out_opt[0][2] = m_inv_out_opt[0][3]
-				= m_inv_out_opt[1][0] = m_inv_out_opt[1][2] = m_inv_out_opt[1][3]
-				= m_inv_out_opt[2][0] = m_inv_out_opt[2][1] = m_inv_out_opt[2][2] = flt_zero;
+			m_inv_out_opt[0][1] = m_inv_out_opt[0][2] = m_inv_out_opt[0][3] = m_inv_out_opt[1][0] = m_inv_out_opt[1][2] = m_inv_out_opt[1][3] = m_inv_out_opt[2][0] = m_inv_out_opt[2][1] = m_inv_out_opt[2][2] = flt_zero;
 		}
 	}
 	return m_out;
@@ -2301,10 +2276,7 @@ ijk_inl float4m ijkMatProjectionParallelPlanes4fm(float4x4 m_out, float4x4 m_inv
 		m_out[3][1] = -(topDist + bottomDist) * bottomToTopInv;
 		m_out[3][2] = (nearDist + farDist) * farToNearInv;
 		m_out[3][3] = flt_one;
-
-		m_out[0][1] = m_out[0][2] = m_out[0][3]
-			= m_out[1][0] = m_out[1][2] = m_out[1][3]
-			= m_out[2][0] = m_out[2][1] = m_out[2][3] = flt_zero;
+		m_out[0][1] = m_out[0][2] = m_out[0][3] = m_out[1][0] = m_out[1][2] = m_out[1][3] = m_out[2][0] = m_out[2][1] = m_out[2][3] = flt_zero;
 
 		if (m_inv_out_opt)
 		{
@@ -2315,10 +2287,7 @@ ijk_inl float4m ijkMatProjectionParallelPlanes4fm(float4x4 m_out, float4x4 m_inv
 			m_inv_out_opt[3][1] = flt_half * (topDist + bottomDist);
 			m_inv_out_opt[3][2] = -flt_half * (nearDist + farDist);
 			m_inv_out_opt[3][3] = flt_one;
-
-			m_inv_out_opt[0][1] = m_inv_out_opt[0][2] = m_inv_out_opt[0][3]
-				= m_inv_out_opt[1][0] = m_inv_out_opt[1][2] = m_inv_out_opt[1][3]
-				= m_inv_out_opt[2][0] = m_inv_out_opt[2][1] = m_inv_out_opt[2][3] = flt_zero;
+			m_inv_out_opt[0][1] = m_inv_out_opt[0][2] = m_inv_out_opt[0][3] = m_inv_out_opt[1][0] = m_inv_out_opt[1][2] = m_inv_out_opt[1][3] = m_inv_out_opt[2][0] = m_inv_out_opt[2][1] = m_inv_out_opt[2][3] = flt_zero;
 		}
 	}
 	return m_out;
@@ -2986,7 +2955,6 @@ ijk_inl fmat3 ijkMatGetRotateAxisAngleScale3f(fmat3 const m_in, fvec3* const axi
 
 ijk_inl fmat3 ijkMatLookAt3f(fmat3* const m_inv_out_opt, fvec3 const origin, fvec3 const target, fvec3 const calibUnit, ijkTransformBasis const calibAxis)
 {
-	// right-handed: direction basis is from target to center, side = up x dir, up = dir x side
 	fmat3 rot;
 	ijkMatLookAt3fm(rot.m, m_inv_out_opt->m, origin.xyz, target.xyz, calibUnit.xyz, calibAxis);
 	return rot;
@@ -3431,153 +3399,156 @@ ijk_inl fmat4 ijkMatGetRotateAxisAngleScale4f(fmat4 const m_in, fvec3* const axi
 ijk_inl fmat4 ijkMatTranslate4f(fvec3 const translate)
 {
 	fmat4 m_out;
-	// ****TO-DO
+	m_out.c0 = fvec4_x;
+	m_out.c1 = fvec4_y;
+	m_out.c2 = fvec4_z;
+	m_out.c3 = ijkVecCopy4fw(translate, flt_one);
 	return m_out;
 }
 
 ijk_inl fmat4 ijkMatRotateTranslate4f(ijkRotationOrder const order, fvec3 const rotateDegXYZ, fvec3 const translate)
 {
-	fmat4 m_out;
-
+	fmat4 m_out = ijkMatRotate4f(order, rotateDegXYZ);
+	ijkVecCopy3fv(m_out.c3.xyz, translate.xyz);
 	return m_out;
 }
 
 ijk_inl fmat4 ijkMatScaleTranslate4f(fvec3 const scale, fvec3 const translate)
 {
-	fmat4 m_out;
-
+	fmat4 m_out = ijkMatScale4f(scale);
+	ijkVecCopy3fv(m_out.c3.xyz, translate.xyz);
 	return m_out;
 }
 
 ijk_inl fmat4 ijkMatRotateScaleTranslate4f(ijkRotationOrder const order, fvec3 const rotateDegXYZ, fvec3 const scale, fvec3 const translate)
 {
-	fmat4 m_out;
-
+	fmat4 m_out = ijkMatRotateScale4f(order, rotateDegXYZ, scale);
+	ijkVecCopy3fv(m_out.c3.xyz, translate.xyz);
 	return m_out;
 }
 
 ijk_inl fmat4 ijkMatRotateAxisAngleTranslate4f(fvec3 const axis_unit, float const angle_degrees, fvec3 const translate)
 {
-	fmat4 m_out;
-
+	fmat4 m_out = ijkMatRotateAxisAngle4f(axis_unit, angle_degrees);
+	ijkVecCopy3fv(m_out.c3.xyz, translate.xyz);
 	return m_out;
 }
 
 ijk_inl fmat4 ijkMatRotateAxisAngleScaleTranslate4f(fvec3 const axis_unit, float const angle_degrees, fvec3 const scale, fvec3 const translate)
 {
-	fmat4 m_out;
-
+	fmat4 m_out = ijkMatRotateAxisAngleScale4f(axis_unit, angle_degrees, scale);
+	ijkVecCopy3fv(m_out.c3.xyz, translate.xyz);
 	return m_out;
 }
 
 ijk_inl fmat4 ijkMatGetTranslate4f(fmat4 const m_in, fvec3* const translate_out)
 {
-	fmat4 m_out;
-
-	return m_out;
+	ijkVecCopy3fv(translate_out->xyz, m_in.c3.xyz);
+	return m_in;
 }
 
 ijk_inl fmat4 ijkMatGetRotateTranslate4f(fmat4 const m_in, ijkRotationOrder const order, fvec3* const rotateDegXYZ_out, fvec3* const translate_out)
 {
-	fmat4 m_out;
-
-	return m_out;
+	ijkVecCopy3fv(translate_out->xyz, m_in.c3.xyz);
+	return ijkMatGetRotate4f(m_in, order, rotateDegXYZ_out);
 }
 
 ijk_inl fmat4 ijkMatGetScaleTranslate4f(fmat4 const m_in, fvec3* const scale_out, fvec3* const translate_out)
 {
-	fmat4 m_out;
-
-	return m_out;
+	ijkVecCopy3fv(translate_out->xyz, m_in.c3.xyz);
+	return ijkMatGetScale4f(m_in, scale_out);
 }
 
 ijk_inl fmat4 ijkMatGetRotateScaleTranslate4f(fmat4 const m_in, ijkRotationOrder const order, fvec3* const rotateDegXYZ_out, fvec3* const scale_out, fvec3* const translate_out)
 {
-	fmat4 m_out;
-
-	return m_out;
+	ijkVecCopy3fv(translate_out->xyz, m_in.c3.xyz);
+	return ijkMatGetRotateScale4f(m_in, order, rotateDegXYZ_out, scale_out);
 }
 
 ijk_inl fmat4 ijkMatGetRotateAxisAngleTranslate4f(fmat4 const m_in, fvec3* const axis_unit_out, float* const angle_degrees_out, fvec3* const translate_out)
 {
-	fmat4 m_out;
-
-	return m_out;
+	ijkVecCopy3fv(translate_out->xyz, m_in.c3.xyz);
+	return ijkMatGetRotateAxisAngle4f(m_in, axis_unit_out, angle_degrees_out);
 }
 
 ijk_inl fmat4 ijkMatGetRotateAxisAngleScaleTranslate4f(fmat4 const m_in, fvec3* const axis_unit_out, float* const angle_degrees_out, fvec3* const scale_out, fvec3* const translate_out)
 {
-	fmat4 m_out;
-
-	return m_out;
+	ijkVecCopy3fv(translate_out->xyz, m_in.c3.xyz);
+	return ijkMatGetRotateAxisAngleScale4f(m_in, axis_unit_out, angle_degrees_out, scale_out);
 }
 
 ijk_inl fmat4 ijkMatInverseRotateTranslate4f(fmat4 const m_in)
 {
-	fmat4 m_out;
-
+	fmat4 m_out = ijkMatInverseRotate4f(m_in);
+	m_out.x3 = -(m_out.x0 * m_in.x3 + m_out.x1 * m_in.y3 + m_out.x2 * m_in.z3);
+	m_out.y3 = -(m_out.y0 * m_in.x3 + m_out.y1 * m_in.y3 + m_out.y2 * m_in.z3);
+	m_out.z3 = -(m_out.z0 * m_in.x3 + m_out.z1 * m_in.y3 + m_out.z2 * m_in.z3);
 	return m_out;
 }
 
 ijk_inl fmat4 ijkMatInverseScaleTranslate4f(fmat4 const m_in)
 {
-	fmat4 m_out;
-
+	fmat4 m_out = ijkMatInverseScale4f(m_in);
+	m_out.x3 = -(m_out.x0 * m_in.x3 + m_out.x1 * m_in.y3 + m_out.x2 * m_in.z3);
+	m_out.y3 = -(m_out.y0 * m_in.x3 + m_out.y1 * m_in.y3 + m_out.y2 * m_in.z3);
+	m_out.z3 = -(m_out.z0 * m_in.x3 + m_out.z1 * m_in.y3 + m_out.z2 * m_in.z3);
 	return m_out;
 }
 
 ijk_inl fmat4 ijkMatInverseRotateScaleTranslate4f(fmat4 const m_in)
 {
-	fmat4 m_out;
-
+	fmat4 m_out = ijkMatInverseRotateScale4f(m_in);
+	m_out.x3 = -(m_out.x0 * m_in.x3 + m_out.x1 * m_in.y3 + m_out.x2 * m_in.z3);
+	m_out.y3 = -(m_out.y0 * m_in.x3 + m_out.y1 * m_in.y3 + m_out.y2 * m_in.z3);
+	m_out.z3 = -(m_out.z0 * m_in.x3 + m_out.z1 * m_in.y3 + m_out.z2 * m_in.z3);
 	return m_out;
 }
 
 ijk_inl fmat4 ijkMatInverseTransposeTranslate4f(fmat4 const m_in)
 {
-	fmat4 m_out;
-
+	fmat4 m_out = ijkMatInverseTranspose4f(m_in);
+	m_out.c3 = m_in.c3;
 	return m_out;
 }
 
 ijk_inl fmat4 ijkMatLookAt4f(fmat4* const m_inv_out_opt, fvec3 const origin, fvec3 const target, fvec3 const calibUnit, ijkTransformBasis const calibAxis)
 {
-	fmat4 m_out;
-
-	return m_out;
+	fmat4 rot;
+	ijkMatLookAt4fm(rot.m, m_inv_out_opt->m, origin.xyz, target.xyz, calibUnit.xyz, calibAxis);
+	return rot;
 }
 
 ijk_inl fmat4 ijkMatProjectionPerspective4f(fmat4* const m_inv_out_opt, float const fovyDeg, float const aspect, float const nearDist, float const farDist)
 {
 	fmat4 m_out;
-
+	ijkMatProjectionPerspective4fm(m_out.m, (float4m)m_inv_out_opt, fovyDeg, aspect, nearDist, farDist);
 	return m_out;
 }
 
 ijk_inl fmat4 ijkMatProjectionParallel4f(fmat4* const m_inv_out_opt, float const fovyDeg, float const aspect, float const nearDist, float const farDist)
 {
 	fmat4 m_out;
-
+	ijkMatProjectionParallel4fm(m_out.m, (float4m)m_inv_out_opt, fovyDeg, aspect, nearDist, farDist);
 	return m_out;
 }
 
 ijk_inl fmat4 ijkMatProjectionPerspectivePlanes4f(fmat4* const m_inv_out_opt, float const leftDist, float const rightDist, float const bottomDist, float const topDist, float const nearDist, float const farDist)
 {
 	fmat4 m_out;
-
+	ijkMatProjectionPerspectivePlanes4fm(m_out.m, (float4m)m_inv_out_opt, leftDist, rightDist, bottomDist, topDist, nearDist, farDist);
 	return m_out;
 }
 
 ijk_inl fmat4 ijkMatProjectionParallelPlanes4f(fmat4* const m_inv_out_opt, float const leftDist, float const rightDist, float const bottomDist, float const topDist, float const nearDist, float const farDist)
 {
 	fmat4 m_out;
-
+	ijkMatProjectionParallelPlanes4fm(m_out.m, (float4m)m_inv_out_opt, leftDist, rightDist, bottomDist, topDist, nearDist, farDist);
 	return m_out;
 }
 
 ijk_inl fmat4 ijkMatProjectionStereoConversion4f(fmat4* const m_left_out, fmat4* const m_right_out, fmat4* const m_left_inv_out_opt, fmat4* const m_right_inv_out_opt, float const interocularDist, float const convergenceDist)
 {
-
+	ijkMatProjectionStereoConversion4fm((float4m)m_left_out, (float4m)m_right_out, (float4m)m_left_inv_out_opt, (float4m)m_right_inv_out_opt, interocularDist, convergenceDist);
 	return *m_left_out;
 }
 
