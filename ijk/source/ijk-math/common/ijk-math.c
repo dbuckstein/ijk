@@ -23,9 +23,9 @@
 	Default source for math library.
 */
 
-#include "ijk/ijk-math/ijk-math.h"
-
 #include <malloc.h>
+
+#include "ijk/ijk-math/ijk-math.h"
 
 
 //-----------------------------------------------------------------------------

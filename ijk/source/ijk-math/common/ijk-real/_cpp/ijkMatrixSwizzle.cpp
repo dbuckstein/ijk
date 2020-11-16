@@ -19,22 +19,27 @@
 		c-based rendering framework
 	By Daniel S. Buckstein
 
-	ijk-math.h
-	Main header for math library.
+	ijkMatrixSwizzle.cpp
+	C++ testing source definitions for matrix types.
 */
 
-#ifndef _IJK_MATH_H_
-#define _IJK_MATH_H_
+#include "ijk/ijk-math/ijk-real/ijkMatrix.h"
 
 
-#include "ijk-real/ijkReal.h"
-#include "ijk-real/ijkSqrt.h"
-#include "ijk-real/ijkStats.h"
-#include "ijk-real/ijkRandom.h"
-#include "ijk-real/ijkInterpolation.h"
-#include "ijk-real/ijkTrigonometry.h"
-#include "ijk-real/ijkVector.h"
-#include "ijk-real/ijkMatrix.h"
+//-----------------------------------------------------------------------------
 
+extern "C" {
+	void ijkMathTestMatrixSwizzle();
+}
 
-#endif	// !_IJK_MATH_H_
+void ijkMathTestMatrixSwizzle()
+{
+	typedef f32 base, * basev;
+	typedef float type;
+	typedef fvec2 tvec2;
+	typedef fvec3 tvec3;
+	typedef fvec4 tvec4;
+	typedef fmat2 tmat2;
+	typedef fmat3 tmat3;
+	typedef fmat4 tmat4;
+}

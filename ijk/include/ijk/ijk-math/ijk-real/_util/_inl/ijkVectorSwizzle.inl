@@ -19,8 +19,8 @@
 		c-based rendering framework
 	By Daniel S. Buckstein
 
-	ijkVector.inl
-	Inline definitions for vector types.
+	ijkVectorSwizzle.inl
+	Inline definitions for vector swizzling types (C++).
 */
 
 #ifdef _IJK_VECTORSWIZZLE_H_
@@ -487,37 +487,37 @@ inline ttvec2<type>::ttvec2(stvec4<type> const& xy)
 }
 
 template <typename type>
-inline ttvec2<type>::ttvec2(bool const xy[2])
+inline ttvec2<type>::ttvec2(bool2 const xy)
 	: x((type)xy[0]), y((type)xy[1])
 {
 }
 template <typename type>
-inline ttvec2<type>::ttvec2(i32 const xy[2])
+inline ttvec2<type>::ttvec2(int2 const xy)
 	: x((type)xy[0]), y((type)xy[1])
 {
 }
 template <typename type>
-inline ttvec2<type>::ttvec2(i64 const xy[2])
+inline ttvec2<type>::ttvec2(intl2 const xy)
 	: x((type)xy[0]), y((type)xy[1])
 {
 }
 template <typename type>
-inline ttvec2<type>::ttvec2(ui32 const xy[2])
+inline ttvec2<type>::ttvec2(uint2 const xy)
 	: x((type)xy[0]), y((type)xy[1])
 {
 }
 template <typename type>
-inline ttvec2<type>::ttvec2(ui64 const xy[2])
+inline ttvec2<type>::ttvec2(uintl2 const xy)
 	: x((type)xy[0]), y((type)xy[1])
 {
 }
 template <typename type>
-inline ttvec2<type>::ttvec2(f32 const xy[2])
+inline ttvec2<type>::ttvec2(float2 const xy)
 	: x((type)xy[0]), y((type)xy[1])
 {
 }
 template <typename type>
-inline ttvec2<type>::ttvec2(f64 const xy[2])
+inline ttvec2<type>::ttvec2(double2 const xy)
 	: x((type)xy[0]), y((type)xy[1])
 {
 }
@@ -1055,37 +1055,37 @@ inline ttvec3<type>::ttvec3(stvec4<type> const& xyz)
 }
 
 template <typename type>
-inline ttvec3<type>::ttvec3(bool const xyz[3])
+inline ttvec3<type>::ttvec3(bool3 const xyz)
 	: x((type)xyz[0]), y((type)xyz[1]), z((type)xyz[2])
 {
 }
 template <typename type>
-inline ttvec3<type>::ttvec3(i32 const xyz[3])
+inline ttvec3<type>::ttvec3(int3 const xyz)
 	: x((type)xyz[0]), y((type)xyz[1]), z((type)xyz[2])
 {
 }
 template <typename type>
-inline ttvec3<type>::ttvec3(i64 const xyz[3])
+inline ttvec3<type>::ttvec3(intl3 const xyz)
 	: x((type)xyz[0]), y((type)xyz[1]), z((type)xyz[2])
 {
 }
 template <typename type>
-inline ttvec3<type>::ttvec3(ui32 const xyz[3])
+inline ttvec3<type>::ttvec3(uint3 const xyz)
 	: x((type)xyz[0]), y((type)xyz[1]), z((type)xyz[2])
 {
 }
 template <typename type>
-inline ttvec3<type>::ttvec3(ui64 const xyz[3])
+inline ttvec3<type>::ttvec3(uintl3 const xyz)
 	: x((type)xyz[0]), y((type)xyz[1]), z((type)xyz[2])
 {
 }
 template <typename type>
-inline ttvec3<type>::ttvec3(f32 const xyz[3])
+inline ttvec3<type>::ttvec3(float3 const xyz)
 	: x((type)xyz[0]), y((type)xyz[1]), z((type)xyz[2])
 {
 }
 template <typename type>
-inline ttvec3<type>::ttvec3(f64 const xyz[3])
+inline ttvec3<type>::ttvec3(double3 const xyz)
 	: x((type)xyz[0]), y((type)xyz[1]), z((type)xyz[2])
 {
 }
@@ -1675,37 +1675,37 @@ inline ttvec4<type>::ttvec4(stvec4<type> const& xyzw)
 }
 
 template <typename type>
-inline ttvec4<type>::ttvec4(bool const xyzw[4])
+inline ttvec4<type>::ttvec4(bool4 const xyzw)
 	: x((type)xyzw[0]), y((type)xyzw[1]), z((type)xyzw[2]), w((type)xyzw[3])
 {
 }
 template <typename type>
-inline ttvec4<type>::ttvec4(i32 const xyzw[4])
+inline ttvec4<type>::ttvec4(int4 const xyzw)
 	: x((type)xyzw[0]), y((type)xyzw[1]), z((type)xyzw[2]), w((type)xyzw[3])
 {
 }
 template <typename type>
-inline ttvec4<type>::ttvec4(i64 const xyzw[4])
+inline ttvec4<type>::ttvec4(intl4 const xyzw)
 	: x((type)xyzw[0]), y((type)xyzw[1]), z((type)xyzw[2]), w((type)xyzw[3])
 {
 }
 template <typename type>
-inline ttvec4<type>::ttvec4(ui32 const xyzw[4])
+inline ttvec4<type>::ttvec4(uint4 const xyzw)
 	: x((type)xyzw[0]), y((type)xyzw[1]), z((type)xyzw[2]), w((type)xyzw[3])
 {
 }
 template <typename type>
-inline ttvec4<type>::ttvec4(ui64 const xyzw[4])
+inline ttvec4<type>::ttvec4(uintl4 const xyzw)
 	: x((type)xyzw[0]), y((type)xyzw[1]), z((type)xyzw[2]), w((type)xyzw[3])
 {
 }
 template <typename type>
-inline ttvec4<type>::ttvec4(f32 const xyzw[4])
+inline ttvec4<type>::ttvec4(float4 const xyzw)
 	: x((type)xyzw[0]), y((type)xyzw[1]), z((type)xyzw[2]), w((type)xyzw[3])
 {
 }
 template <typename type>
-inline ttvec4<type>::ttvec4(f64 const xyzw[4])
+inline ttvec4<type>::ttvec4(double4 const xyzw)
 	: x((type)xyzw[0]), y((type)xyzw[1]), z((type)xyzw[2]), w((type)xyzw[3])
 {
 }

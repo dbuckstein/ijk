@@ -487,7 +487,6 @@ union dvec4
 #include "_util/ijkVector_uintl.h"
 #include "_util/ijkVector_float.h"
 #include "_util/ijkVector_double.h"
-#include "_util/ijkVectorSwizzle_macros.h"
 
 
 #ifdef __cplusplus
@@ -982,6 +981,71 @@ ijk_ext dvec4 const dvec4_xn;		// ( -1,  0,  0,  0 )
 ijk_ext dvec4 const dvec4_yn;		// (  0, -1,  0,  0 )
 ijk_ext dvec4 const dvec4_zn;		// (  0,  0, -1,  0 )
 ijk_ext dvec4 const dvec4_wn;		// (  0,  0,  0, -1 )
+
+
+//-----------------------------------------------------------------------------
+
+// Global constants for real array-based vectors and data structures.
+///
+ijk_ext real2 const real2_1;		// ( +1, +1 )
+ijk_ext real2 const real2_0;		// (  0,  0 )
+ijk_ext real2 const real2_1n;		// ( -1, -1 )
+ijk_ext real2 const real2_x;		// ( +1,  0 )
+ijk_ext real2 const real2_y;		// (  0, +1 )
+ijk_ext real2 const real2_xn;		// ( -1,  0 )
+ijk_ext real2 const real2_yn;		// (  0, -1 )
+
+ijk_ext real3 const real3_1;		// ( +1, +1, +1 )
+ijk_ext real3 const real3_0;		// (  0,  0,  0 )
+ijk_ext real3 const real3_1n;		// ( -1, -1, -1 )
+ijk_ext real3 const real3_x;		// ( +1,  0,  0 )
+ijk_ext real3 const real3_y;		// (  0, +1,  0 )
+ijk_ext real3 const real3_z;		// (  0,  0, +1 )
+ijk_ext real3 const real3_xn;		// ( -1,  0,  0 )
+ijk_ext real3 const real3_yn;		// (  0, -1,  0 )
+ijk_ext real3 const real3_zn;		// (  0,  0, -1 )
+
+ijk_ext real4 const real4_1;		// ( +1, +1, +1, +1 )
+ijk_ext real4 const real4_0;		// (  0,  0,  0,  0 )
+ijk_ext real4 const real4_1n;		// ( -1, -1, -1, -1 )
+ijk_ext real4 const real4_x;		// ( +1,  0,  0,  0 )
+ijk_ext real4 const real4_y;		// (  0, +1,  0,  0 )
+ijk_ext real4 const real4_z;		// (  0,  0, +1,  0 )
+ijk_ext real4 const real4_w;		// (  0,  0,  0, +1 )
+ijk_ext real4 const real4_xn;		// ( -1,  0,  0,  0 )
+ijk_ext real4 const real4_yn;		// (  0, -1,  0,  0 )
+ijk_ext real4 const real4_zn;		// (  0,  0, -1,  0 )
+ijk_ext real4 const real4_wn;		// (  0,  0,  0, -1 )
+
+ijk_ext rvec2 const rvec2_1;		// ( +1, +1 )
+ijk_ext rvec2 const rvec2_0;		// (  0,  0 )
+ijk_ext rvec2 const rvec2_1n;		// ( -1, -1 )
+ijk_ext rvec2 const rvec2_x;		// ( +1,  0 )
+ijk_ext rvec2 const rvec2_y;		// (  0, +1 )
+ijk_ext rvec2 const rvec2_xn;		// ( -1,  0 )
+ijk_ext rvec2 const rvec2_yn;		// (  0, -1 )
+
+ijk_ext rvec3 const rvec3_1;		// ( +1, +1, +1 )
+ijk_ext rvec3 const rvec3_0;		// (  0,  0,  0 )
+ijk_ext rvec3 const rvec3_1n;		// ( -1, -1, -1 )
+ijk_ext rvec3 const rvec3_x;		// ( +1,  0,  0 )
+ijk_ext rvec3 const rvec3_y;		// (  0, +1,  0 )
+ijk_ext rvec3 const rvec3_z;		// (  0,  0, +1 )
+ijk_ext rvec3 const rvec3_xn;		// ( -1,  0,  0 )
+ijk_ext rvec3 const rvec3_yn;		// (  0, -1,  0 )
+ijk_ext rvec3 const rvec3_zn;		// (  0,  0, -1 )
+
+ijk_ext rvec4 const rvec4_1;		// ( +1, +1, +1, +1 )
+ijk_ext rvec4 const rvec4_0;		// (  0,  0,  0,  0 )
+ijk_ext rvec4 const rvec4_1n;		// ( -1, -1, -1, -1 )
+ijk_ext rvec4 const rvec4_x;		// ( +1,  0,  0,  0 )
+ijk_ext rvec4 const rvec4_y;		// (  0, +1,  0,  0 )
+ijk_ext rvec4 const rvec4_z;		// (  0,  0, +1,  0 )
+ijk_ext rvec4 const rvec4_w;		// (  0,  0,  0, +1 )
+ijk_ext rvec4 const rvec4_xn;		// ( -1,  0,  0,  0 )
+ijk_ext rvec4 const rvec4_yn;		// (  0, -1,  0,  0 )
+ijk_ext rvec4 const rvec4_zn;		// (  0,  0, -1,  0 )
+ijk_ext rvec4 const rvec4_wn;		// (  0,  0,  0, -1 )
 
 
 //-----------------------------------------------------------------------------
