@@ -493,32 +493,6 @@ union dvec4
 extern "C" {
 #endif	// __cplusplus
 
-//-----------------------------------------------------------------------------
-
-// Alternative names for float vector.
-///
-typedef fvec2		vec2;
-typedef fvec3		vec3;
-typedef fvec4		vec4;
-
-// Select real vector types.
-///
-typedef real const	* realkv;	// Generic constant real-type array-based vector, represented by pointer, used as constant vector return type since returning sized array is not allowed.
-typedef real		* realv,	// Generic real-type array-based vector, represented by pointer, used as vector return type since returning sized array is not allowed.
-					real2[2],	// 2D real-type array-based vector, always passed by pointer.
-					real3[3],	// 3D real-type array-based vector, always passed by pointer.
-					real4[4];	// 4D real-type array-based vector, always passed by pointer.
-
-#ifdef IJK_REAL_DBL
-typedef dvec2		rvec2;		// Real 2D vector data structure type is 2D double vector.
-typedef dvec3		rvec3;		// Real 3D vector data structure type is 3D double vector.
-typedef dvec4		rvec4;		// Real 4D vector data structure type is 4D double vector.
-#else	// !IJK_REAL_DBL
-typedef fvec2		rvec2;		// Real 2D vector data structure type is 2D float vector.
-typedef fvec3		rvec3;		// Real 3D vector data structure type is 3D float vector.
-typedef fvec4		rvec4;		// Real 4D vector data structure type is 4D float vector.
-#endif	// IJK_REAL_DBL
-
 
 //-----------------------------------------------------------------------------
 
@@ -825,6 +799,12 @@ ijk_ext ulvec4 const ulvec4_wn;		// (  0,  0,  0, -1 )
 
 //-----------------------------------------------------------------------------
 
+// Alternative names for float vector.
+///
+typedef fvec2		vec2;		// Alias for 2D float vector.
+typedef fvec3		vec3;		// Alias for 3D float vector.
+typedef fvec4		vec4;		// Alias for 4D float vector.
+
 // Global constants for float array-based vectors and data structures.
 ///
 ijk_ext float2 const float2_1;		// ( +1, +1 )
@@ -985,67 +965,147 @@ ijk_ext dvec4 const dvec4_wn;		// (  0,  0,  0, -1 )
 
 //-----------------------------------------------------------------------------
 
+// Select real vector types.
+///
+typedef real const	* realkv;	// Generic constant real-type array-based vector, represented by pointer, used as constant vector return type since returning sized array is not allowed.
+typedef real		* realv,	// Generic real-type array-based vector, represented by pointer, used as vector return type since returning sized array is not allowed.
+					real2[2],	// 2D real-type array-based vector, always passed by pointer.
+					real3[3],	// 3D real-type array-based vector, always passed by pointer.
+					real4[4];	// 4D real-type array-based vector, always passed by pointer.
+
 // Global constants for real array-based vectors and data structures.
 ///
-ijk_ext real2 const real2_1;		// ( +1, +1 )
-ijk_ext real2 const real2_0;		// (  0,  0 )
-ijk_ext real2 const real2_1n;		// ( -1, -1 )
-ijk_ext real2 const real2_x;		// ( +1,  0 )
-ijk_ext real2 const real2_y;		// (  0, +1 )
-ijk_ext real2 const real2_xn;		// ( -1,  0 )
-ijk_ext real2 const real2_yn;		// (  0, -1 )
+#ifdef IJK_REAL_DBL
+typedef dvec2		rvec2;		// Real 2D vector data structure type is 2D double vector.
+typedef dvec3		rvec3;		// Real 3D vector data structure type is 3D double vector.
+typedef dvec4		rvec4;		// Real 4D vector data structure type is 4D double vector.
 
-ijk_ext real3 const real3_1;		// ( +1, +1, +1 )
-ijk_ext real3 const real3_0;		// (  0,  0,  0 )
-ijk_ext real3 const real3_1n;		// ( -1, -1, -1 )
-ijk_ext real3 const real3_x;		// ( +1,  0,  0 )
-ijk_ext real3 const real3_y;		// (  0, +1,  0 )
-ijk_ext real3 const real3_z;		// (  0,  0, +1 )
-ijk_ext real3 const real3_xn;		// ( -1,  0,  0 )
-ijk_ext real3 const real3_yn;		// (  0, -1,  0 )
-ijk_ext real3 const real3_zn;		// (  0,  0, -1 )
+#define real2_1		double2_1	// ( +1, +1 )
+#define real2_0		double2_0	// (  0,  0 )
+#define real2_1n	double2_1n	// ( -1, -1 )
+#define real2_x		double2_x	// ( +1,  0 )
+#define real2_y		double2_y	// (  0, +1 )
+#define real2_xn	double2_xn	// ( -1,  0 )
+#define real2_yn	double2_yn	// (  0, -1 )
 
-ijk_ext real4 const real4_1;		// ( +1, +1, +1, +1 )
-ijk_ext real4 const real4_0;		// (  0,  0,  0,  0 )
-ijk_ext real4 const real4_1n;		// ( -1, -1, -1, -1 )
-ijk_ext real4 const real4_x;		// ( +1,  0,  0,  0 )
-ijk_ext real4 const real4_y;		// (  0, +1,  0,  0 )
-ijk_ext real4 const real4_z;		// (  0,  0, +1,  0 )
-ijk_ext real4 const real4_w;		// (  0,  0,  0, +1 )
-ijk_ext real4 const real4_xn;		// ( -1,  0,  0,  0 )
-ijk_ext real4 const real4_yn;		// (  0, -1,  0,  0 )
-ijk_ext real4 const real4_zn;		// (  0,  0, -1,  0 )
-ijk_ext real4 const real4_wn;		// (  0,  0,  0, -1 )
+#define real3_1		double3_1	// ( +1, +1, +1 )
+#define real3_0		double3_0	// (  0,  0,  0 )
+#define real3_1n	double3_1n	// ( -1, -1, -1 )
+#define real3_x		double3_x	// ( +1,  0,  0 )
+#define real3_y		double3_y	// (  0, +1,  0 )
+#define real3_z		double3_z	// (  0,  0, +1 )
+#define real3_xn	double3_xn	// ( -1,  0,  0 )
+#define real3_yn	double3_yn	// (  0, -1,  0 )
+#define real3_zn	double3_zn	// (  0,  0, -1 )
 
-ijk_ext rvec2 const rvec2_1;		// ( +1, +1 )
-ijk_ext rvec2 const rvec2_0;		// (  0,  0 )
-ijk_ext rvec2 const rvec2_1n;		// ( -1, -1 )
-ijk_ext rvec2 const rvec2_x;		// ( +1,  0 )
-ijk_ext rvec2 const rvec2_y;		// (  0, +1 )
-ijk_ext rvec2 const rvec2_xn;		// ( -1,  0 )
-ijk_ext rvec2 const rvec2_yn;		// (  0, -1 )
+#define real4_1		double4_1	// ( +1, +1, +1, +1 )
+#define real4_0		double4_0	// (  0,  0,  0,  0 )
+#define real4_1n	double4_1n	// ( -1, -1, -1, -1 )
+#define real4_x		double4_x	// ( +1,  0,  0,  0 )
+#define real4_y		double4_y	// (  0, +1,  0,  0 )
+#define real4_z		double4_z	// (  0,  0, +1,  0 )
+#define real4_w		double4_w	// (  0,  0,  0, +1 )
+#define real4_xn	double4_xn	// ( -1,  0,  0,  0 )
+#define real4_yn	double4_yn	// (  0, -1,  0,  0 )
+#define real4_zn	double4_zn	// (  0,  0, -1,  0 )
+#define real4_wn	double4_wn	// (  0,  0,  0, -1 )
 
-ijk_ext rvec3 const rvec3_1;		// ( +1, +1, +1 )
-ijk_ext rvec3 const rvec3_0;		// (  0,  0,  0 )
-ijk_ext rvec3 const rvec3_1n;		// ( -1, -1, -1 )
-ijk_ext rvec3 const rvec3_x;		// ( +1,  0,  0 )
-ijk_ext rvec3 const rvec3_y;		// (  0, +1,  0 )
-ijk_ext rvec3 const rvec3_z;		// (  0,  0, +1 )
-ijk_ext rvec3 const rvec3_xn;		// ( -1,  0,  0 )
-ijk_ext rvec3 const rvec3_yn;		// (  0, -1,  0 )
-ijk_ext rvec3 const rvec3_zn;		// (  0,  0, -1 )
+#define rvec2_1		dvec2_1		// ( +1, +1 )
+#define rvec2_0		dvec2_0		// (  0,  0 )
+#define rvec2_1n	dvec2_1n	// ( -1, -1 )
+#define rvec2_x		dvec2_x		// ( +1,  0 )
+#define rvec2_y		dvec2_y		// (  0, +1 )
+#define rvec2_xn	dvec2_xn	// ( -1,  0 )
+#define rvec2_yn	dvec2_yn	// (  0, -1 )
 
-ijk_ext rvec4 const rvec4_1;		// ( +1, +1, +1, +1 )
-ijk_ext rvec4 const rvec4_0;		// (  0,  0,  0,  0 )
-ijk_ext rvec4 const rvec4_1n;		// ( -1, -1, -1, -1 )
-ijk_ext rvec4 const rvec4_x;		// ( +1,  0,  0,  0 )
-ijk_ext rvec4 const rvec4_y;		// (  0, +1,  0,  0 )
-ijk_ext rvec4 const rvec4_z;		// (  0,  0, +1,  0 )
-ijk_ext rvec4 const rvec4_w;		// (  0,  0,  0, +1 )
-ijk_ext rvec4 const rvec4_xn;		// ( -1,  0,  0,  0 )
-ijk_ext rvec4 const rvec4_yn;		// (  0, -1,  0,  0 )
-ijk_ext rvec4 const rvec4_zn;		// (  0,  0, -1,  0 )
-ijk_ext rvec4 const rvec4_wn;		// (  0,  0,  0, -1 )
+#define rvec3_1		dvec3_1		// ( +1, +1, +1 )
+#define rvec3_0		dvec3_0		// (  0,  0,  0 )
+#define rvec3_1n	dvec3_1n	// ( -1, -1, -1 )
+#define rvec3_x		dvec3_x		// ( +1,  0,  0 )
+#define rvec3_y		dvec3_y		// (  0, +1,  0 )
+#define rvec3_z		dvec3_z		// (  0,  0, +1 )
+#define rvec3_xn	dvec3_xn	// ( -1,  0,  0 )
+#define rvec3_yn	dvec3_yn	// (  0, -1,  0 )
+#define rvec3_zn	dvec3_zn	// (  0,  0, -1 )
+
+#define rvec4_1		dvec4_1		// ( +1, +1, +1, +1 )
+#define rvec4_0		dvec4_0		// (  0,  0,  0,  0 )
+#define rvec4_1n	dvec4_1n	// ( -1, -1, -1, -1 )
+#define rvec4_x		dvec4_x		// ( +1,  0,  0,  0 )
+#define rvec4_y		dvec4_y		// (  0, +1,  0,  0 )
+#define rvec4_z		dvec4_z		// (  0,  0, +1,  0 )
+#define rvec4_w		dvec4_w		// (  0,  0,  0, +1 )
+#define rvec4_xn	dvec4_xn	// ( -1,  0,  0,  0 )
+#define rvec4_yn	dvec4_yn	// (  0, -1,  0,  0 )
+#define rvec4_zn	dvec4_zn	// (  0,  0, -1,  0 )
+#define rvec4_wn	dvec4_wn	// (  0,  0,  0, -1 )
+
+#else	// !IJK_REAL_DBL
+typedef fvec2		rvec2;		// Real 2D vector data structure type is 2D float vector.
+typedef fvec3		rvec3;		// Real 3D vector data structure type is 3D float vector.
+typedef fvec4		rvec4;		// Real 4D vector data structure type is 4D float vector.
+
+#define real2_1		float2_1	// ( +1, +1 )
+#define real2_0		float2_0	// (  0,  0 )
+#define real2_1n	float2_1n	// ( -1, -1 )
+#define real2_x		float2_x	// ( +1,  0 )
+#define real2_y		float2_y	// (  0, +1 )
+#define real2_xn	float2_xn	// ( -1,  0 )
+#define real2_yn	float2_yn	// (  0, -1 )
+
+#define real3_1		float3_1	// ( +1, +1, +1 )
+#define real3_0		float3_0	// (  0,  0,  0 )
+#define real3_1n	float3_1n	// ( -1, -1, -1 )
+#define real3_x		float3_x	// ( +1,  0,  0 )
+#define real3_y		float3_y	// (  0, +1,  0 )
+#define real3_z		float3_z	// (  0,  0, +1 )
+#define real3_xn	float3_xn	// ( -1,  0,  0 )
+#define real3_yn	float3_yn	// (  0, -1,  0 )
+#define real3_zn	float3_zn	// (  0,  0, -1 )
+
+#define real4_1		float4_1	// ( +1, +1, +1, +1 )
+#define real4_0		float4_0	// (  0,  0,  0,  0 )
+#define real4_1n	float4_1n	// ( -1, -1, -1, -1 )
+#define real4_x		float4_x	// ( +1,  0,  0,  0 )
+#define real4_y		float4_y	// (  0, +1,  0,  0 )
+#define real4_z		float4_z	// (  0,  0, +1,  0 )
+#define real4_w		float4_w	// (  0,  0,  0, +1 )
+#define real4_xn	float4_xn	// ( -1,  0,  0,  0 )
+#define real4_yn	float4_yn	// (  0, -1,  0,  0 )
+#define real4_zn	float4_zn	// (  0,  0, -1,  0 )
+#define real4_wn	float4_wn	// (  0,  0,  0, -1 )
+
+#define rvec2_1		fvec2_1		// ( +1, +1 )
+#define rvec2_0		fvec2_0		// (  0,  0 )
+#define rvec2_1n	fvec2_1n	// ( -1, -1 )
+#define rvec2_x		fvec2_x		// ( +1,  0 )
+#define rvec2_y		fvec2_y		// (  0, +1 )
+#define rvec2_xn	fvec2_xn	// ( -1,  0 )
+#define rvec2_yn	fvec2_yn	// (  0, -1 )
+
+#define rvec3_1		fvec3_1		// ( +1, +1, +1 )
+#define rvec3_0		fvec3_0		// (  0,  0,  0 )
+#define rvec3_1n	fvec3_1n	// ( -1, -1, -1 )
+#define rvec3_x		fvec3_x		// ( +1,  0,  0 )
+#define rvec3_y		fvec3_y		// (  0, +1,  0 )
+#define rvec3_z		fvec3_z		// (  0,  0, +1 )
+#define rvec3_xn	fvec3_xn	// ( -1,  0,  0 )
+#define rvec3_yn	fvec3_yn	// (  0, -1,  0 )
+#define rvec3_zn	fvec3_zn	// (  0,  0, -1 )
+
+#define rvec4_1		fvec4_1		// ( +1, +1, +1, +1 )
+#define rvec4_0		fvec4_0		// (  0,  0,  0,  0 )
+#define rvec4_1n	fvec4_1n	// ( -1, -1, -1, -1 )
+#define rvec4_x		fvec4_x		// ( +1,  0,  0,  0 )
+#define rvec4_y		fvec4_y		// (  0, +1,  0,  0 )
+#define rvec4_z		fvec4_z		// (  0,  0, +1,  0 )
+#define rvec4_w		fvec4_w		// (  0,  0,  0, +1 )
+#define rvec4_xn	fvec4_xn	// ( -1,  0,  0,  0 )
+#define rvec4_yn	fvec4_yn	// (  0, -1,  0,  0 )
+#define rvec4_zn	fvec4_zn	// (  0,  0, -1,  0 )
+#define rvec4_wn	fvec4_wn	// (  0,  0,  0, -1 )
+
+#endif	// IJK_REAL_DBL
 
 
 //-----------------------------------------------------------------------------

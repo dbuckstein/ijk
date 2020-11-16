@@ -87,55 +87,70 @@ typedef double4			double2x4[2];	// 2x4 (2c x 4r) double-precision array-based qu
 extern "C" {
 #endif	// __cplusplus
 
+
 //-----------------------------------------------------------------------------
 	
 // Alternative names for float quaternion.
 ///
-//typedef fquat		quat;
-//typedef fdualquat	dualquat;
-
-// Select real quaternion types.
-///
-typedef real			real8[8];		// 8-element real array-based vector, always passed by pointer.
-typedef real4			real2x4[4];		// 2x4 (2c x 4r) real array-based quaternion, always passed by pointer.
-
-#ifdef IJK_REAL_DBL
-//typedef dquat		rquat;		// Real 3D quaternion data structure type is 3D double quaternion.
-//typedef ddualquat	rdualquat;	// Real 4D quaternion data structure type is 4D double quaternion.
-#else	// !IJK_REAL_DBL
-//typedef fquat		rquat;		// Real 3D quaternion data structure type is 3D float quaternion.
-//typedef fdualquat	rdualquat;	// Real 4D quaternion data structure type is 4D float quaternion.
-#endif	// IJK_REAL_DBL
-
-
-//-----------------------------------------------------------------------------
+//typedef fquat		quat;			// Alias for float quaternion.
+//typedef fdualquat	dualquat;		// Alias for float dual quaternion.
 
 // Global constants for 32-bit float array-based quaternions and data structures.
 ///
-ijk_ext float4 const float4q_id;
-//ijk_ext fquat const fquat_id;
-//ijk_ext quat const quat_id;
+ijk_ext float4 const float4q_id;		// (0, 0, 0, 1)
+//ijk_ext fquat const fquat_id;			// (0, 0, 0, 1)
+//ijk_ext quat const quat_id;			// (0, 0, 0, 1)
 
-ijk_ext float8 const float8dq_id;
-//ijk_ext fdualquat const fdualquat_id;
-//ijk_ext dualquat const dualquat_id;
+ijk_ext float2x4 const float2x4_id;		// (0, 0, 0, 1; 0, 0, 0, 0)
+ijk_ext float8 const float8dq_id;		// (0, 0, 0, 1; 0, 0, 0, 0)
+//ijk_ext fdualquat const fdualquat_id;	// (0, 0, 0, 1; 0, 0, 0, 0)
+//ijk_ext dualquat const dualquat_id;	// (0, 0, 0, 1; 0, 0, 0, 0)
 
 
 //-----------------------------------------------------------------------------
 
 // Global constants for 64-bit float (double) array-based quaternions and data structures.
 ///
-ijk_ext double4 const double4q_id;
-//ijk_ext dquat const dquat_id;
+ijk_ext double4 const double4q_id;		// (0, 0, 0, 1)
+//ijk_ext dquat const dquat_id;			// (0, 0, 0, 1)
 
-ijk_ext double8 const double8dq_id;
-//ijk_ext ddualquat const ddualquat_id;
+ijk_ext double2x4 const double2x4_id;	// (0, 0, 0, 1; 0, 0, 0, 0)
+ijk_ext double8 const double8dq_id;		// (0, 0, 0, 1; 0, 0, 0, 0)
+//ijk_ext ddualquat const ddualquat_id;	// (0, 0, 0, 1; 0, 0, 0, 0)
 
 
 //-----------------------------------------------------------------------------
 
+// Select real quaternion types.
+///
+typedef real		real8[8];		// 8-element real array-based vector, always passed by pointer.
+typedef real4		real2x4[4];		// 2x4 (2c x 4r) real array-based quaternion, always passed by pointer.
+
 // Global constants for real array-based quaternions and data structures.
 ///
+#ifdef IJK_REAL_DBL
+//typedef dquat		rquat;			// Real 3D quaternion data structure type is 3D double quaternion.
+//typedef ddualquat	rdualquat;		// Real 4D quaternion data structure type is 4D double quaternion.
+
+#define real4q_id double4q_id		// (0, 0, 0, 1)
+//#define rquat_id dquat_id			// (0, 0, 0, 1)
+
+#define real2x4_id double2x4_id		// (0, 0, 0, 1; 0, 0, 0, 0)
+#define real8dq_id double8dq_id		// (0, 0, 0, 1; 0, 0, 0, 0)
+//#define rdualquat_id ddualquat_id	// (0, 0, 0, 1; 0, 0, 0, 0)
+
+#else	// !IJK_REAL_DBL
+//typedef fquat		rquat;			// Real 3D quaternion data structure type is 3D float quaternion.
+//typedef fdualquat	rdualquat;		// Real 4D quaternion data structure type is 4D float quaternion.
+
+#define real4q_id float4q_id		// (0, 0, 0, 1)
+//#define rquat_id fquat_id			// (0, 0, 0, 1)
+
+#define real2x4_id float2x4_id		// (0, 0, 0, 1; 0, 0, 0, 0)
+#define real8dq_id float8dq_id		// (0, 0, 0, 1; 0, 0, 0, 0)
+//#define rdualquat_id fdualquat_id	// (0, 0, 0, 1; 0, 0, 0, 0)
+
+#endif	// IJK_REAL_DBL
 
 
 //-----------------------------------------------------------------------------

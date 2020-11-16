@@ -38,6 +38,7 @@ float4 const float4q_id = __q_id;
 //fquat const fquat_id = __q_id;
 //quat const quat_id = __q_id;
 
+float2x4 const float2x4_id = __dq_id;
 float8 const float8dq_id = __dq_id;
 //fdualquat const fdualquat_id = __dq_id;
 //dualquat const dualquat_id = __dq_id;
@@ -48,6 +49,7 @@ float8 const float8dq_id = __dq_id;
 double4 const double4q_id = __q_id;
 //dquat const dquat_id = __q_id;
 
+double2x4 const double2x4_id = __dq_id;
 double8 const double8dq_id = __dq_id;
 //ddualquat const ddualquat_id = __dq_id;
 

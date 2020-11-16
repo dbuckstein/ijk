@@ -249,91 +249,103 @@ union dmat4
 extern "C" {
 #endif	// __cplusplus
 
+
 //-----------------------------------------------------------------------------
-	
+
 // Alternative names for float matrix.
 ///
-typedef fmat2		mat2;
-typedef fmat3		mat3;
-typedef fmat4		mat4;
-
-// Select real matrix types.
-///
-typedef real			real9[9],		// 9-element real array-based vector, always passed by pointer.
-						real16[16];		// 16-element real array-based vector, always passed by pointer.
-typedef real2 const		* real2km;		// Generic constant 2D real array-based matrix, represented by pointer, used as constant vector return type since returning sized array is not allowed.
-typedef real2			* real2m,		// Generic 2D real-based matrix, represented by pointer, used as vector return type since returning sized array is not allowed.
-						real2x2[2];		// 2D real array-based matrix, always passed by pointer.
-typedef real3 const		* real3km;		// Generic constant 3D real array-based matrix, represented by pointer, used as constant vector return type since returning sized array is not allowed.
-typedef real3			* real3m,		// Generic 3D real-based matrix, represented by pointer, used as vector return type since returning sized array is not allowed.
-						real3x3[3];		// 3D real array-based matrix, always passed by pointer.
-typedef real4 const		* real4km;		// Generic constant 4D real array-based matrix, represented by pointer, used as constant vector return type since returning sized array is not allowed.
-typedef real4			* real4m,		// Generic 4D real-based matrix, represented by pointer, used as vector return type since returning sized array is not allowed.
-						real4x4[4];		// 4D real array-based matrix, always passed by pointer.
-
-#ifdef IJK_REAL_DBL
-typedef dmat2		rmat2;		// Real 2D matrix data structure type is 2D double matrix.
-typedef dmat3		rmat3;		// Real 3D matrix data structure type is 3D double matrix.
-typedef dmat4		rmat4;		// Real 4D matrix data structure type is 4D double matrix.
-#else	// !IJK_REAL_DBL
-typedef fmat2		rmat2;		// Real 2D matrix data structure type is 2D float matrix.
-typedef fmat3		rmat3;		// Real 3D matrix data structure type is 3D float matrix.
-typedef fmat4		rmat4;		// Real 4D matrix data structure type is 4D float matrix.
-#endif	// IJK_REAL_DBL
-
-
-//-----------------------------------------------------------------------------
+typedef fmat2		mat2;			// Alias for float 2D matrix.
+typedef fmat3		mat3;			// Alias for float 3D matrix.
+typedef fmat4		mat4;			// Alias for float 4D matrix.
 
 // Global constants for 32-bit float array-based matrices and data structures.
 ///
-ijk_ext float2x2 const float2x2_id;
-ijk_ext float4 const float4_id;
-ijk_ext fmat2 const fmat2_id;
-ijk_ext mat2 const mat2_id;
+ijk_ext float2x2 const float2x2_id;		// (1, 0; 0, 1)
+ijk_ext float4 const float4m_id;		// (1, 0; 0, 1)
+ijk_ext fmat2 const fmat2_id;			// (1, 0; 0, 1)
+ijk_ext mat2 const mat2_id;				// (1, 0; 0, 1)
 
-ijk_ext float3x3 const float3x3_id;
-ijk_ext float9 const float9_id;
-ijk_ext fmat3 const fmat3_id;
-ijk_ext mat3 const mat3_id;
+ijk_ext float3x3 const float3x3_id;		// (1, 0, 0; 0, 1, 0; 0, 0, 1)
+ijk_ext float9 const float9m_id;		// (1, 0, 0; 0, 1, 0; 0, 0, 1)
+ijk_ext fmat3 const fmat3_id;			// (1, 0, 0; 0, 1, 0; 0, 0, 1)
+ijk_ext mat3 const mat3_id;				// (1, 0, 0; 0, 1, 0; 0, 0, 1)
 
-ijk_ext float4x4 const float4x4_id;
-ijk_ext float16 const float16_id;
-ijk_ext fmat4 const fmat4_id;
-ijk_ext mat4 const mat4_id;
+ijk_ext float4x4 const float4x4_id;		// (1, 0, 0, 0; 0, 1, 0, 0; 0, 0, 1, 0; 0, 0, 0, 1)
+ijk_ext float16 const float16m_id;		// (1, 0, 0, 0; 0, 1, 0, 0; 0, 0, 1, 0; 0, 0, 0, 1)
+ijk_ext fmat4 const fmat4_id;			// (1, 0, 0, 0; 0, 1, 0, 0; 0, 0, 1, 0; 0, 0, 0, 1)
+ijk_ext mat4 const mat4_id;				// (1, 0, 0, 0; 0, 1, 0, 0; 0, 0, 1, 0; 0, 0, 0, 1)
 
 
 //-----------------------------------------------------------------------------
 
 // Global constants for 64-bit float (double) array-based matrices and data structures.
 ///
-ijk_ext double2x2 const double2x2_id;
-ijk_ext double4 const double4_id;
-ijk_ext dmat2 const dmat2_id;
+ijk_ext double2x2 const double2x2_id;	// (1, 0; 0, 1)
+ijk_ext double4 const double4m_id;		// (1, 0; 0, 1)
+ijk_ext dmat2 const dmat2_id;			// (1, 0; 0, 1)
 
-ijk_ext double3x3 const double3x3_id;
-ijk_ext double9 const double9_id;
-ijk_ext dmat3 const dmat3_id;
+ijk_ext double3x3 const double3x3_id;	// (1, 0, 0; 0, 1, 0; 0, 0, 1)
+ijk_ext double9 const double9m_id;		// (1, 0, 0; 0, 1, 0; 0, 0, 1)
+ijk_ext dmat3 const dmat3_id;			// (1, 0, 0; 0, 1, 0; 0, 0, 1)
 
-ijk_ext double4x4 const double4x4_id;
-ijk_ext double16 const double16_id;
-ijk_ext dmat4 const dmat4_id;
+ijk_ext double4x4 const double4x4_id;	// (1, 0, 0, 0; 0, 1, 0, 0; 0, 0, 1, 0; 0, 0, 0, 1)
+ijk_ext double16 const double16m_id;	// (1, 0, 0, 0; 0, 1, 0, 0; 0, 0, 1, 0; 0, 0, 0, 1)
+ijk_ext dmat4 const dmat4_id;			// (1, 0, 0, 0; 0, 1, 0, 0; 0, 0, 1, 0; 0, 0, 0, 1)
 
 
 //-----------------------------------------------------------------------------
 
+// Select real matrix types.
+///
+typedef real		real9[9],		// 9-element real array-based vector, always passed by pointer.
+					real16[16];		// 16-element real array-based vector, always passed by pointer.
+typedef real2 const	* real2km;		// Generic constant 2D real array-based matrix, represented by pointer, used as constant vector return type since returning sized array is not allowed.
+typedef real2		* real2m,		// Generic 2D real-based matrix, represented by pointer, used as vector return type since returning sized array is not allowed.
+					real2x2[2];		// 2D real array-based matrix, always passed by pointer.
+typedef real3 const	* real3km;		// Generic constant 3D real array-based matrix, represented by pointer, used as constant vector return type since returning sized array is not allowed.
+typedef real3		* real3m,		// Generic 3D real-based matrix, represented by pointer, used as vector return type since returning sized array is not allowed.
+					real3x3[3];		// 3D real array-based matrix, always passed by pointer.
+typedef real4 const	* real4km;		// Generic constant 4D real array-based matrix, represented by pointer, used as constant vector return type since returning sized array is not allowed.
+typedef real4		* real4m,		// Generic 4D real-based matrix, represented by pointer, used as vector return type since returning sized array is not allowed.
+					real4x4[4];		// 4D real array-based matrix, always passed by pointer.
+
 // Global constants for real array-based matrices and data structures.
 ///
-ijk_ext real2x2 const real2x2_id;
-ijk_ext real4 const real4_id;
-ijk_ext rmat2 const rmat2_id;
+#ifdef IJK_REAL_DBL
+typedef dmat2		rmat2;			// Real 2D matrix data structure type is 2D double matrix.
+typedef dmat3		rmat3;			// Real 3D matrix data structure type is 3D double matrix.
+typedef dmat4		rmat4;			// Real 4D matrix data structure type is 4D double matrix.
 
-ijk_ext real3x3 const real3x3_id;
-ijk_ext real9 const real9_id;
-ijk_ext rmat3 const rmat3_id;
+#define real2x2_id	double2x2_id	// (1, 0; 0, 1)
+#define real4m_id	double4m_id		// (1, 0; 0, 1)
+#define rmat2_id	dmat2_id		// (1, 0; 0, 1)
 
-ijk_ext real4x4 const real4x4_id;
-ijk_ext real16 const real16_id;
-ijk_ext rmat4 const rmat4_id;
+#define real3x3_id	double3x3_id	// (1, 0, 0; 0, 1, 0; 0, 0, 1)
+#define real9m_id	double9m_id		// (1, 0, 0; 0, 1, 0; 0, 0, 1)
+#define rmat3_id	dmat3_id		// (1, 0, 0; 0, 1, 0; 0, 0, 1)
+
+#define real4x4_id	double4x4_id	// (1, 0, 0, 0; 0, 1, 0, 0; 0, 0, 1, 0; 0, 0, 0, 1)
+#define real16m_id	double16m_id	// (1, 0, 0, 0; 0, 1, 0, 0; 0, 0, 1, 0; 0, 0, 0, 1)
+#define rmat4_id	dmat4_id		// (1, 0, 0, 0; 0, 1, 0, 0; 0, 0, 1, 0; 0, 0, 0, 1)
+
+#else	// !IJK_REAL_DBL
+typedef fmat2		rmat2;			// Real 2D matrix data structure type is 2D float matrix.
+typedef fmat3		rmat3;			// Real 3D matrix data structure type is 3D float matrix.
+typedef fmat4		rmat4;			// Real 4D matrix data structure type is 4D float matrix.
+
+#define real2x2_id	float2x2_id		// (1, 0; 0, 1)
+#define real4m_id	float4m_id		// (1, 0; 0, 1)
+#define rmat2_id	fmat2_id		// (1, 0; 0, 1)
+
+#define real3x3_id	float3x3_id		// (1, 0, 0; 0, 1, 0; 0, 0, 1)
+#define real9m_id	float9m_id		// (1, 0, 0; 0, 1, 0; 0, 0, 1)
+#define rmat3_id	fmat3_id		// (1, 0, 0; 0, 1, 0; 0, 0, 1)
+
+#define real4x4_id	float4x4_id		// (1, 0, 0, 0; 0, 1, 0, 0; 0, 0, 1, 0; 0, 0, 0, 1)
+#define real16m_id	float16m_id		// (1, 0, 0, 0; 0, 1, 0, 0; 0, 0, 1, 0; 0, 0, 0, 1)
+#define rmat4_id	fmat4_id		// (1, 0, 0, 0; 0, 1, 0, 0; 0, 0, 1, 0; 0, 0, 0, 1)
+
+#endif	// IJK_REAL_DBL
 
 
 //-----------------------------------------------------------------------------
