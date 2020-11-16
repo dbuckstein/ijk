@@ -1102,12 +1102,12 @@ ijk_inl float3m ijkMatTranspose3fm(float3x3 m_out, float3x3 const m_in)
 	f32 tmp = m_in[0][1];
 	m_out[0][1] = m_in[1][0];
 	m_out[1][0] = tmp;
+	tmp = m_in[0][2];
+	m_out[0][2] = m_in[2][0];
+	m_out[2][0] = tmp;
 	tmp = m_in[1][2];
 	m_out[1][2] = m_in[2][1];
 	m_out[2][1] = tmp;
-	tmp = m_in[2][0];
-	m_out[2][0] = m_in[0][2];
-	m_out[0][2] = tmp;
 	m_out[0][0] = m_in[0][0];
 	m_out[1][1] = m_in[1][1];
 	m_out[2][2] = m_in[2][2];
@@ -1119,12 +1119,12 @@ ijk_inl float3m ijkMatTransposeMul3fms(float3x3 m_out, float3x3 const m_in, f32 
 	f32 tmp = m_in[0][1];
 	m_out[0][1] = s * m_in[1][0];
 	m_out[1][0] = s * tmp;
+	tmp = m_in[0][2];
+	m_out[0][2] = s * m_in[2][0];
+	m_out[2][0] = s * tmp;
 	tmp = m_in[1][2];
 	m_out[1][2] = s * m_in[2][1];
 	m_out[2][1] = s * tmp;
-	tmp = m_in[2][0];
-	m_out[2][0] = s * m_in[0][2];
-	m_out[0][2] = s * tmp;
 	m_out[0][0] = s * m_in[0][0];
 	m_out[1][1] = s * m_in[1][1];
 	m_out[2][2] = s * m_in[2][2];
@@ -1503,7 +1503,14 @@ ijk_inl float3km ijkMatGetRotateAxisAngleScale3fm(float3x3 const m_in, float3 ax
 
 ijk_inl float3m ijkMatLookAt3fm(float3x3 m_out, float3x3 m_inv_out_opt, float3 const origin, float3 const target, float3 const calibUnit, ijkTransformBasis const calibAxis)
 {
-	// ****TO-DO
+	// right-handed: direction basis is from target to center, side = up x dir, up = dir x side
+	uindex const up = calibAxis % 3, dir = (up + 1) % 3, side = (up + 2) % 3;
+	ijkVecSub3fv(m_out[dir], origin, target);
+	ijkVecNormalize3fv(m_out[dir], m_out[dir]);
+	ijkVecCrossNormalize3fv(m_out[side], calibUnit, m_out[dir]);
+	ijkVecCross3fv(m_out[up], m_out[dir], m_out[side]);
+	if (m_inv_out_opt)
+		ijkMatTranspose3fm(m_inv_out_opt, m_out);
 	return m_out;
 }
 
@@ -1552,18 +1559,18 @@ ijk_inl float4m ijkMatTranspose4fm(float4x4 m_out, float4x4 const m_in)
 	f32 tmp = m_in[0][1];
 	m_out[0][1] = m_in[1][0];
 	m_out[1][0] = tmp;
+	tmp = m_in[0][2];
+	m_out[0][2] = m_in[2][0];
+	m_out[2][0] = tmp;
+	tmp = m_in[0][3];
+	m_out[0][3] = m_in[3][0];
+	m_out[3][0] = tmp;
 	tmp = m_in[1][2];
 	m_out[1][2] = m_in[2][1];
 	m_out[2][1] = tmp;
 	tmp = m_in[1][3];
 	m_out[1][3] = m_in[3][1];
 	m_out[3][1] = tmp;
-	tmp = m_in[2][0];
-	m_out[2][0] = m_in[0][2];
-	m_out[0][2] = tmp;
-	tmp = m_in[2][1];
-	m_out[2][1] = m_in[1][2];
-	m_out[1][2] = tmp;
 	tmp = m_in[2][3];
 	m_out[2][3] = m_in[3][2];
 	m_out[3][2] = tmp;
@@ -1579,18 +1586,18 @@ ijk_inl float4m ijkMatTransposeMul4fms(float4x4 m_out, float4x4 const m_in, f32 
 	f32 tmp = m_in[0][1];
 	m_out[0][1] = s * m_in[1][0];
 	m_out[1][0] = s * tmp;
+	tmp = m_in[0][2];
+	m_out[0][2] = s * m_in[2][0];
+	m_out[2][0] = s * tmp;
+	tmp = m_in[0][3];
+	m_out[0][3] = s * m_in[3][0];
+	m_out[3][0] = s * tmp;
 	tmp = m_in[1][2];
 	m_out[1][2] = s * m_in[2][1];
 	m_out[2][1] = s * tmp;
 	tmp = m_in[1][3];
 	m_out[1][3] = s * m_in[3][1];
 	m_out[3][1] = s * tmp;
-	tmp = m_in[2][0];
-	m_out[2][0] = s * m_in[0][2];
-	m_out[0][2] = s * tmp;
-	tmp = m_in[2][1];
-	m_out[2][1] = s * m_in[1][2];
-	m_out[1][2] = s * tmp;
 	tmp = m_in[2][3];
 	m_out[2][3] = s * m_in[3][2];
 	m_out[3][2] = s * tmp;
@@ -1897,7 +1904,21 @@ ijk_inl float4km ijkMatGetRotateScale4fm(float4x4 const m_in, ijkRotationOrder c
 
 ijk_inl float4m ijkMatInverseRotate4fm(float4x4 m_out, float4x4 const m_in)
 {
-	return ijkMatTranspose4fm(m_out, m_in);
+	f32 tmp = m_in[0][1];
+	m_out[0][1] = m_in[1][0];
+	m_out[1][0] = tmp;
+	tmp = m_in[0][2];
+	m_out[0][2] = m_in[2][0];
+	m_out[2][0] = tmp;
+	tmp = m_in[1][2];
+	m_out[1][2] = m_in[2][1];
+	m_out[2][1] = tmp;
+	m_out[0][0] = m_in[0][0];
+	m_out[1][1] = m_in[1][1];
+	m_out[2][2] = m_in[2][2];
+	m_out[3][3] = flt_one;
+	m_out[0][1] = m_out[0][2] = m_out[0][3] = m_out[1][0] = m_out[1][2] = m_out[1][3] = m_out[2][0] = m_out[2][1] = m_out[2][3] = m_out[3][0] = m_out[3][1] = m_out[3][2] = flt_zero;
+	return m_out;
 }
 
 ijk_inl float4m ijkMatInverseScale4fm(float4x4 m_out, float4x4 const m_in)
@@ -2013,109 +2034,182 @@ ijk_inl float4km ijkMatGetRotateAxisAngleScale4fm(float4x4 const m_in, float3 ax
 
 ijk_inl float4m ijkMatTranslate4fm(float4x4 m_out, float3 const translate)
 {
-	// ****TO-DO
+	ijkVecCopy4fv(m_out[0], float4_x);
+	ijkVecCopy4fv(m_out[1], float4_y);
+	ijkVecCopy4fv(m_out[2], float4_z);
+	ijkVecCopy4fvw(m_out[3], translate, flt_one);
 	return m_out;
 }
 
 ijk_inl float4m ijkMatRotateTranslate4fm(float4x4 m_out, ijkRotationOrder const order, float3 const rotateDegXYZ, float3 const translate)
 {
-
+	ijkMatRotate4fm(m_out, order, rotateDegXYZ);
+	ijkVecCopy3fv(m_out[3], translate);
 	return m_out;
 }
 
 ijk_inl float4m ijkMatScaleTranslate4fm(float4x4 m_out, float3 const scale, float3 const translate)
 {
-
+	ijkMatScale4fm(m_out, scale);
+	ijkVecCopy3fv(m_out[3], translate);
 	return m_out;
 }
 
 ijk_inl float4m ijkMatRotateScaleTranslate4fm(float4x4 m_out, ijkRotationOrder const order, float3 const rotateDegXYZ, float3 const scale, float3 const translate)
 {
-
+	ijkMatRotateScale4fm(m_out, order, rotateDegXYZ, scale);
+	ijkVecCopy3fv(m_out[3], translate);
 	return m_out;
 }
 
 ijk_inl float4m ijkMatRotateAxisAngleTranslate4fm(float4x4 m_out, float3 const axis_unit, f32 const angle_degrees, float3 const translate)
 {
-
+	ijkMatRotateAxisAngle4fm(m_out, axis_unit, angle_degrees);
+	ijkVecCopy3fv(m_out[3], translate);
 	return m_out;
 }
 
 ijk_inl float4m ijkMatRotateAxisAngleScaleTranslate4fm(float4x4 m_out, float3 const axis_unit, f32 const angle_degrees, float3 const scale, float3 const translate)
 {
-
+	ijkMatRotateAxisAngleScale4fm(m_out, axis_unit, angle_degrees, scale);
+	ijkVecCopy3fv(m_out[3], translate);
 	return m_out;
 }
 
 ijk_inl float4km ijkMatGetTranslate4fm(float4x4 const m_in, float3 translate_out)
 {
-
+	ijkVecCopy3fv(translate_out, m_in[3]);
 	return m_in;
 }
 
 ijk_inl float4km ijkMatGetRotateTranslate4fm(float4x4 const m_in, ijkRotationOrder const order, float3 rotateDegXYZ_out, float3 translate_out)
 {
-
+	ijkMatGetRotate4fm(m_in, order, rotateDegXYZ_out);
+	ijkVecCopy3fv(translate_out, m_in[3]);
 	return m_in;
 }
 
 ijk_inl float4km ijkMatGetScaleTranslate4fm(float4x4 const m_in, float3 scale_out, float3 translate_out)
 {
-
+	ijkMatGetScale4fm(m_in, scale_out);
+	ijkVecCopy3fv(translate_out, m_in[3]);
 	return m_in;
 }
 
 ijk_inl float4km ijkMatGetRotateScaleTranslate4fm(float4x4 const m_in, ijkRotationOrder const order, float3 rotateDegXYZ_out, float3 scale_out, float3 translate_out)
 {
-
+	ijkMatGetRotateScale4fm(m_in, order, rotateDegXYZ_out, scale_out);
+	ijkVecCopy3fv(translate_out, m_in[3]);
 	return m_in;
 }
 
 ijk_inl float4km ijkMatGetRotateAxisAngleTranslate4fm(float4x4 const m_in, float3 axis_unit_out, f32* const angle_degrees_out, float3 translate_out)
 {
-
+	ijkMatGetRotateAxisAngle4fm(m_in, axis_unit_out, angle_degrees_out);
+	ijkVecCopy3fv(translate_out, m_in[3]);
 	return m_in;
 }
 
 ijk_inl float4km ijkMatGetRotateAxisAngleScaleTranslate4fm(float4x4 const m_in, float3 axis_unit_out, f32* const angle_degrees_out, float3 scale_out, float3 translate_out)
 {
-
+	ijkMatGetRotateAxisAngleScale4fm(m_in, axis_unit_out, angle_degrees_out, scale_out);
+	ijkVecCopy3fv(translate_out, m_in[3]);
 	return m_in;
 }
 
 ijk_inl float4m ijkMatInverseRotateTranslate4fm(float4x4 m_out, float4x4 const m_in)
 {
-
+	ijkMatInverseRotate4fm(m_out, m_in);
+	m_out[3][0] = -(m_out[0][0] * m_in[3][0] + m_out[1][0] * m_in[3][1] + m_out[2][0] * m_in[3][2]);
+	m_out[3][1] = -(m_out[0][1] * m_in[3][1] + m_out[1][1] * m_in[3][1] + m_out[2][1] * m_in[3][2]);
+	m_out[3][2] = -(m_out[0][2] * m_in[3][2] + m_out[1][2] * m_in[3][1] + m_out[2][2] * m_in[3][2]);
 	return m_out;
 }
 
 ijk_inl float4m ijkMatInverseScaleTranslate4fm(float4x4 m_out, float4x4 const m_in)
 {
-
+	ijkMatInverseScale4fm(m_out, m_in);
+	m_out[3][0] = -(m_out[0][0] * m_in[3][0] + m_out[1][0] * m_in[3][1] + m_out[2][0] * m_in[3][2]);
+	m_out[3][1] = -(m_out[0][1] * m_in[3][1] + m_out[1][1] * m_in[3][1] + m_out[2][1] * m_in[3][2]);
+	m_out[3][2] = -(m_out[0][2] * m_in[3][2] + m_out[1][2] * m_in[3][1] + m_out[2][2] * m_in[3][2]);
 	return m_out;
 }
 
 ijk_inl float4m ijkMatInverseRotateScaleTranslate4fm(float4x4 m_out, float4x4 const m_in)
 {
-
+	ijkMatInverseRotateScale4fm(m_out, m_in);
+	m_out[3][0] = -(m_out[0][0] * m_in[3][0] + m_out[1][0] * m_in[3][1] + m_out[2][0] * m_in[3][2]);
+	m_out[3][1] = -(m_out[0][1] * m_in[3][1] + m_out[1][1] * m_in[3][1] + m_out[2][1] * m_in[3][2]);
+	m_out[3][2] = -(m_out[0][2] * m_in[3][2] + m_out[1][2] * m_in[3][1] + m_out[2][2] * m_in[3][2]);
 	return m_out;
 }
 
 ijk_inl float4m ijkMatInverseTransposeTranslate4fm(float4x4 m_out, float4x4 const m_in)
 {
-
+	ijkMatInverseTranspose4fm(m_out, m_in);
+	ijkVecCopy3fv(m_out[3], m_in[3]);
 	return m_out;
 }
 
 ijk_inl float4m ijkMatLookAt4fm(float4x4 m_out, float4x4 m_inv_out_opt, float3 const origin, float3 const target, float3 const calibUnit, ijkTransformBasis const calibAxis)
 {
-
+	// right-handed: direction basis is from target to center, side = up x dir, up = dir x side, pos = orig
+	uindex const up = calibAxis % 3, dir = (up + 1) % 3, side = (up + 2) % 3, pos = ijkTransformOrig;
+	ijkVecSub3fv(m_out[dir], origin, target);
+	ijkVecNormalize3fv(m_out[dir], m_out[dir]);
+	ijkVecCrossNormalize3fv(m_out[side], calibUnit, m_out[dir]);
+	ijkVecCross3fv(m_out[up], m_out[dir], m_out[side]);
+	ijkVecCopy3fv(m_out[pos], origin);
+	if (m_inv_out_opt)
+		ijkMatInverseRotateTranslate4fm(m_inv_out_opt, m_out);
 	return m_out;
 }
 
 ijk_inl float4m ijkMatProjectionPerspective4fm(float4x4 m_out, float4x4 m_inv_out_opt, f32 const fovyDeg, f32 const aspect, f32 const nearDist, f32 const farDist)
 {
+	if (m_out && fovyDeg > flt_zero && aspect > flt_zero && nearDist > flt_zero && farDist > nearDist)
+	{
+		// top of near plane is calculated using tan(theta/2)
+		// store half angle then use it to calculate top
+		// t = n*tan(a/2)
+		// r = t*aspect
+		// y1 = n/t = n/(n*tan(a/2)) = 1/tan(a/2) = cot(a/2)
+		// x0 = n/r = n/(t*aspect) = (n/t)/aspect = y1/aspect
+		f32 const halfAngle = flt_half * fovyDeg;
+		f32 const farToNearInv = flt_one / (nearDist - farDist);
+		m_out[1][1] = ijkTrigCot_deg_flt(halfAngle);
+		m_out[0][0] = m_out[1][1] / aspect;
+		m_out[2][2] = (nearDist + farDist) * farToNearInv;
+		m_out[2][3] = -flt_one;
+		m_out[3][2] = flt_two * nearDist * farDist * farToNearInv;
 
+		// the rest are zero
+		m_out[0][1] = m_out[0][2] = m_out[0][3]
+			= m_out[1][0] = m_out[1][2] = m_out[1][3]
+			= m_out[3][0] = m_out[3][1] = m_out[3][3]
+			= m_out[2][0] = m_out[2][1] = flt_zero;
+
+		// inverse
+		if (m_inv_out_opt)
+		{
+			// t = n*tan(a/2) = n*sin(a/2)/cos(a/2)
+			// r = t*aspect
+			// y1 = t/n = (n*tan(a/2))/n = tan(a/2)
+			// x0 = r/n = (t*aspect)/n = aspect*(t/n) = y1*aspect
+			flt const doubleNearFarInv = flt_half / (nearDist * farDist);
+			m_inv_out_opt[1][1] = flt_one / m_out[1][1];
+			m_inv_out_opt[0][0] = m_inv_out_opt[1][1] * aspect;
+			m_inv_out_opt[2][3] = (nearDist - farDist) * doubleNearFarInv;
+			m_inv_out_opt[3][2] = -flt_one;
+			m_inv_out_opt[3][3] = (nearDist + farDist) * doubleNearFarInv;
+
+			// zeros
+			m_inv_out_opt[0][1] = m_inv_out_opt[0][2] = m_inv_out_opt[0][3]
+				= m_inv_out_opt[1][0] = m_inv_out_opt[1][2] = m_inv_out_opt[1][3]
+				= m_inv_out_opt[2][0] = m_inv_out_opt[2][1] = m_inv_out_opt[2][2]
+				= m_inv_out_opt[3][0] = m_inv_out_opt[3][1] = flt_zero;
+		}
+	}
 	return m_out;
 }
 
@@ -2772,8 +2866,9 @@ ijk_inl fmat3 ijkMatGetRotateAxisAngleScale3f(fmat3 const m_in, fvec3* const axi
 
 ijk_inl fmat3 ijkMatLookAt3f(fmat3* const m_inv_out_opt, fvec3 const origin, fvec3 const target, fvec3 const calibUnit, ijkTransformBasis const calibAxis)
 {
+	// right-handed: direction basis is from target to center, side = up x dir, up = dir x side
 	fmat3 rot;
-	// ****TO-DO
+	ijkMatLookAt3fm(rot.m, m_inv_out_opt->m, origin.xyz, target.xyz, calibUnit.xyz, calibAxis);
 	return rot;
 }
 
