@@ -1835,56 +1835,64 @@ extern "C" {
 
 
 //-----------------------------------------------------------------------------
-#define func***v ijk_declrealfs(func,**v)
+
 // ijkVecAbs1*
 //	Absolute value of scalar: (s >= 0 ? +s : -s).
 //		param s: scalar
 //		return: absolute value
 //real ijkVecAbs1r(real const s);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecAbs1r ijk_declrealfs(ijkVecAbs1,)
+
 // ijkVecSgn1*
 //	Sign of scalar: (s != 0 ? s > 0 ? +1 : -1).
 //		param s: scalar
 //		return: sign
 //real ijkVecSgn1r(real const s);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecSgn1r ijk_declrealfs(ijkVecSgn1,)
+
 // ijkVecDot1*
 //	Dot product of scalars, which is just their product.
 //		param s_lh: left-hand scalar
 //		param s_rh: right-hand scalar
 //		return: product
 //real ijkVecDot1r(real const s_lh, real const s_rh);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecDot1r ijk_declrealfs(ijkVecDot1,)
+
 // ijkVecLengthSq1*
 //	Squared length of scalar.
 //		param s: scalar
 //		return: squared length
 //real ijkVecLengthSq1r(real const s);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecLengthSq1r ijk_declrealfs(ijkVecLengthSq1,)
+
 // ijkVecLength1*
 //	Length of scalar.
 //		param s: scalar
 //		return: length
 //real ijkVecLength1r(real const s);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecLength1r ijk_declrealfs(ijkVecLength1,)
+
 // ijkVecLengthSqInv1*
 //	Inverse squared length of scalar.
 //		param s: scalar
 //		return: inverse squared length
 //real ijkVecLengthSqInv1r(real const s);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecLengthSqInv1r ijk_declrealfs(ijkVecLengthSqInv1,)
+
 // ijkVecLengthSqInv1*
 //	Inverse length of scalar.
 //		param s: scalar
 //		return: inverse length
 //real ijkVecLengthInv1r(real const s);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecLengthSqInv1r ijk_declrealfs(ijkVecLengthSqInv1,)
+
 // ijkVecNormalize1*
 //	Calculate unit scalar in same direction as input (sign).
 //		param s: scalar
 //		return: unit scalar (sign)
 //real ijkVecNormalize1r(real const s);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecNormalize1r ijk_declrealfs(ijkVecNormalize1,)
+
 // ijkVecNormalizeGetLength1*
 //	Calculate unit scalar in same direction as input (sign).
 //	Also calculate and store the length (absolute value).
@@ -1892,7 +1900,8 @@ extern "C" {
 //		param length_out: pointer to length storage
 //		return: unit scalar (sign)
 //real ijkVecNormalizeGetLength1r(real const s, real* const length_out);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecNormalizeGetLength1r ijk_declrealfs(ijkVecNormalizeGetLength1,)
+
 // ijkVecNormalizeGetLengthInv1*
 //	Calculate unit scalar in same direction as input (sign).
 //	Also calculate and store the inverse length length (absolute value).
@@ -1900,437 +1909,500 @@ extern "C" {
 //		param lengthInv_out: pointer to length storage
 //		return: unit scalar (sign)
 //real ijkVecNormalizeGetLengthInv1r(real const s, real* const lengthInv_out);
-#define func***v ijk_declrealfs(func,**v)
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecNormalizeGetLengthInv1r ijk_declrealfs(ijkVecNormalizeGetLengthInv1,)
+
+
 //-----------------------------------------------------------------------------
-#define func***v ijk_declrealfs(func,**v)
+
 // ijkVecInit2*
 //	Initialize 2D vector to default value (zero vector).
 //		return: default vector
 //rvec2 ijkVecInit2r();
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecInit2r ijk_declrealfs(ijkVecInit2,)
+
 // ijkVecInitElems2*
 //	Initialize 2D vector to specified individual elements.
 //		param x: first element
 //		param y: second element
 //		return: result vector
 //rvec2 ijkVecInitElems2r(real const x, real const y);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecInitElems2r ijk_declrealfs(ijkVecInitElems2,)
+
 // ijkVecCopy2*
 //	Copy 2D vector from first elements of another vector.
 //		param v_in: input vector
 //		return: result vector
 //rvec2 ijkVecCopy2r(rvec2 const v_in);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecCopy2r ijk_declrealfs(ijkVecCopy2,)
+
 // ijkVecNegate2*
 //	Negate 2D vector.
 //		param v_in: input vector
 //		return: result vector
 //rvec2 ijkVecNegate2r(rvec2 const v_in);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecNegate2r ijk_declrealfs(ijkVecNegate2,)
+
 // ijkVecNot2*
 //	Calculate component-wise logical 'not' of 2D vector.
 //		param v_in: input vector
 //		return: comparison vector
 //bvec2 ijkVecNot2r(rvec2 const v_in);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecNot2r ijk_declrealfs(ijkVecNot2,)
+
 // ijkVecAdd2*
 //	Calculate sum of 2D vectors.
 //		param v_lh: left-hand vector
 //		param v_rh: right-hand vector
 //		return: result vector
 //rvec2 ijkVecAdd2r(rvec2 const v_lh, rvec2 const v_rh);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecAdd2r ijk_declrealfs(ijkVecAdd2,)
+
 // ijkVecSub2*
 //	Calculate difference of 2D vectors.
 //		param v_lh: left-hand vector
 //		param v_rh: right-hand vector
 //		return: result vector
 //rvec2 ijkVecSub2r(rvec2 const v_lh, rvec2 const v_rh);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecSub2r ijk_declrealfs(ijkVecSub2,)
+
 // ijkVecMul2*
 //	Calculate component-wise product of 2D vectors.
 //		param v_lh: left-hand vector
 //		param v_rh: right-hand vector
 //		return: result vector
 //rvec2 ijkVecMul2r(rvec2 const v_lh, rvec2 const v_rh);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecMul2r ijk_declrealfs(ijkVecMul2,)
+
 // ijkVecDiv2*
 //	Calculate component-wise quotient of 2D vectors.
 //		param v_lh: left-hand vector
 //		param v_rh: right-hand vector
 //		return: result vector
 //rvec2 ijkVecDiv2r(rvec2 const v_lh, rvec2 const v_rh);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecDiv2r ijk_declrealfs(ijkVecDiv2,)
+
 // ijkVecDivSafe2*
 //	Calculate component-wise quotient of 2D vectors, division-by-zero safe.
 //		param v_lh: left-hand vector
 //		param v_rh: right-hand vector
 //		return: result vector
 //rvec2 ijkVecDivSafe2r(rvec2 const v_lh, rvec2 const v_rh);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecDivSafe2r ijk_declrealfs(ijkVecDivSafe2,)
+
 // ijkVecMod2*
 //	Calculate component-wise remainder of 2D vectors.
 //		param v_lh: left-hand vector
 //		param v_rh: right-hand vector
 //		return: result vector
 //rvec2 ijkVecMod2r(rvec2 const v_lh, rvec2 const v_rh);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecMod2r ijk_declrealfs(ijkVecMod2,)
+
 // ijkVecModSafe2*
 //	Calculate component-wise remainder of 2D vectors, division-by-zero safe.
 //		param v_lh: left-hand vector
 //		param v_rh: right-hand vector
 //		return: result vector
 //rvec2 ijkVecModSafe2r(rvec2 const v_lh, rvec2 const v_rh);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecModSafe2r ijk_declrealfs(ijkVecModSafe2,)
+
 // ijkVecEqual2*
 //	Equality comparison for 2D vectors.
 //		param v_lh: left-hand vector
 //		param v_rh: right-hand vector
 //		return: comparison vector
 //bvec2 ijkVecEqual2r(rvec2 const v_lh, rvec2 const v_rh);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecEqual2r ijk_declrealfs(ijkVecEqual2,)
+
 // ijkVecInequal2*
 //	Inequality comparison for 2D vectors.
 //		param v_lh: left-hand vector
 //		param v_rh: right-hand vector
 //		return: comparison vector
 //bvec2 ijkVecInequal2r(rvec2 const v_lh, rvec2 const v_rh);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecInequal2r ijk_declrealfs(ijkVecInequal2,)
+
 // ijkVecLessEqual2*
 //	Less-than or equal comparison for 2D vectors.
 //		param v_lh: left-hand vector
 //		param v_rh: right-hand vector
 //		return: comparison vector
 //bvec2 ijkVecLessEqual2r(rvec2 const v_lh, rvec2 const v_rh);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecLessEqual2r ijk_declrealfs(ijkVecLessEqual2,)
+
 // ijkVecGreaterEqual2*
 //	Greater-than or equal comparison for 2D vectors.
 //		param v_lh: left-hand vector
 //		param v_rh: right-hand vector
 //		return: comparison vector
 //bvec2 ijkVecGreaterEqual2r(rvec2 const v_lh, rvec2 const v_rh);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecGreaterEqual2r ijk_declrealfs(ijkVecGreaterEqual2,)
+
 // ijkVecLess2*
 //	Less-than comparison for 2D vectors.
 //		param v_lh: left-hand vector
 //		param v_rh: right-hand vector
 //		return: comparison vector
 //bvec2 ijkVecLess2r(rvec2 const v_lh, rvec2 const v_rh);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecLess2r ijk_declrealfs(ijkVecLess2,)
+
 // ijkVecGreater2*
 //	Greater-than comparison for 2D vectors.
 //		param v_lh: left-hand vector
 //		param v_rh: right-hand vector
 //		return: comparison vector
 //bvec2 ijkVecGreater2r(rvec2 const v_lh, rvec2 const v_rh);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecGreater2r ijk_declrealfs(ijkVecGreater2,)
+
 // ijkVecAnd2*
 //	Component-wise logical 'and' comparison for 2D vectors.
 //		param v_lh: left-hand vector
 //		param v_rh: right-hand vector
 //		return: comparison vector
 //bvec2 ijkVecAnd2r(rvec2 const v_lh, rvec2 const v_rh);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecAnd2r ijk_declrealfs(ijkVecAnd2,)
+
 // ijkVecNand2*
 //	Component-wise logical 'nand' comparison for 2D vectors.
 //		param v_lh: left-hand vector
 //		param v_rh: right-hand vector
 //		return: comparison vector
 //bvec2 ijkVecNand2r(rvec2 const v_lh, rvec2 const v_rh);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecNand2r ijk_declrealfs(ijkVecNand2,)
+
 // ijkVecOr2*
 //	Component-wise logical 'or' comparison for 2D vectors.
 //		param v_lh: left-hand vector
 //		param v_rh: right-hand vector
 //		return: comparison vector
 //bvec2 ijkVecOr2r(rvec2 const v_lh, rvec2 const v_rh);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecOr2r ijk_declrealfs(ijkVecOr2,)
+
 // ijkVecNor2*
 //	Component-wise logical 'nor' comparison for 2D vectors.
 //		param v_lh: left-hand vector
 //		param v_rh: right-hand vector
 //		return: comparison vector
 //bvec2 ijkVecNor2r(rvec2 const v_lh, rvec2 const v_rh);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecNor2r ijk_declrealfs(ijkVecNor2,)
+
 // ijkVecCopy2*s
 //	Copy 2D vector from scalar.
 //		param s_in: input scalar
 //		return: result vector
 //rvec2 ijkVecCopy2rs(real const s_in);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecCopy2rs ijk_declrealfs(ijkVecCopy2,s)
+
 // ijkVecNegate2*s
 //	Negate scalar to 2D vector.
 //		param s_in: input scalar
 //		return: result vector
 //rvec2 ijkVecNegate2rs(real const s_in);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecNegate2rs ijk_declrealfs(ijkVecNegate2,s)
+
 // ijkVecNot2*s
 //	Calculate logical 'not' of scalar.
 //		param s_in: input scalar
 //		return: comparison vector
 //bvec2 ijkVecNot2rs(real const s_in);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecNot2rs ijk_declrealfs(ijkVecNot2,s)
+
 // ijkVecAdd2*s
 //	Calculate sum of 2D vector components and scalar.
 //		param v_lh: left-hand vector
 //		param s_rh: right-hand scalar
 //		return: result vector
 //rvec2 ijkVecAdd2rs(rvec2 const v_lh, real const s_rh);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecAdd2rs ijk_declrealfs(ijkVecAdd2,s)
+
 // ijkVecSub2*s
 //	Calculate difference of 2D vector components and scalar.
 //		param v_lh: left-hand vector
 //		param s_rh: right-hand scalar
 //		return: result vector
 //rvec2 ijkVecSub2rs(rvec2 const v_lh, real const s_rh);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecSub2rs ijk_declrealfs(ijkVecSub2,s)
+
 // ijkVecMul2*s
 //	Calculate product of 2D vector components by scalar.
 //		param v_lh: left-hand vector
 //		param s_rh: right-hand scalar
 //		return: result vector
 //rvec2 ijkVecMul2rs(rvec2 const v_lh, real const s_rh);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecMul2rs ijk_declrealfs(ijkVecMul2,s)
+
 // ijkVecDiv2*s
 //	Calculate quotient of 2D vector components by scalar.
 //		param v_lh: left-hand vector
 //		param s_rh: right-hand scalar
 //		return: result vector
 //rvec2 ijkVecDiv2rs(rvec2 const v_lh, real const s_rh);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecDiv2rs ijk_declrealfs(ijkVecDiv2,s)
+
 // ijkVecDivSafe2*s
 //	Calculate quotient of 2D vector components by scalar, division-by-zero safe.
 //		param v_lh: left-hand vector
 //		param s_rh: right-hand scalar
 //		return: result vector
 //rvec2 ijkVecDivSafe2rs(rvec2 const v_lh, real const s_rh);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecDivSafe2rs ijk_declrealfs(ijkVecDivSafe2,s)
+
 // ijkVecMod2*s
 //	Calculate remainder of 2D vector components by scalar.
 //		param v_lh: left-hand vector
 //		param s_rh: right-hand scalar
 //		return: result vector
 //rvec2 ijkVecMod2rs(rvec2 const v_lh, real const s_rh);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecMod2rs ijk_declrealfs(ijkVecMod2,s)
+
 // ijkVecModSafe2*s
 //	Calculate remainder of 2D vector components by scalar, division-by-zero safe.
 //		param v_lh: left-hand vector
 //		param s_rh: right-hand scalar
 //		return: result vector
 //rvec2 ijkVecModSafe2rs(rvec2 const v_lh, real const s_rh);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecModSafe2rs ijk_declrealfs(ijkVecModSafe2,s)
+
 // ijkVecEqual2*s
 //	Equality comparison of 2D vector components and scalar.
 //		param v_lh: left-hand vector
 //		param s_rh: right-hand scalar
 //		return: comparison vector
 //bvec2 ijkVecEqual2rs(rvec2 const v_lh, real const s_rh);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecEqual2rs ijk_declrealfs(ijkVecEqual2,s)
+
 // ijkVecInequal2*s
 //	Inequality comparison of 2D vector components and scalar.
 //		param v_lh: left-hand vector
 //		param s_rh: right-hand scalar
 //		return: comparison vector
 //bvec2 ijkVecInequal2rs(rvec2 const v_lh, real const s_rh);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecInequal2rs ijk_declrealfs(ijkVecInequal2,s)
+
 // ijkVecLessEqual2*s
 //	Less-than or equal comparison of 2D vector components and scalar.
 //		param v_lh: left-hand vector
 //		param s_rh: right-hand scalar
 //		return: comparison vector
 //bvec2 ijkVecLessEqual2rs(rvec2 const v_lh, real const s_rh);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecLessEqual2rs ijk_declrealfs(ijkVecLessEqual2,s)
+
 // ijkVecGreaterEqual2*s
 //	Greater-than or equal comparison of 2D vector components and scalar.
 //		param v_lh: left-hand vector
 //		param s_rh: right-hand scalar
 //		return: comparison vector
 //bvec2 ijkVecGreaterEqual2rs(rvec2 const v_lh, real const s_rh);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecGreaterEqual2rs ijk_declrealfs(ijkVecGreaterEqual2,s)
+
 // ijkVecLess2*s
 //	Less-than comparison of 2D vector components and scalar.
 //		param v_lh: left-hand vector
 //		param s_rh: right-hand scalar
 //		return: comparison vector
 //bvec2 ijkVecLess2rs(rvec2 const v_lh, real const s_rh);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecLess2rs ijk_declrealfs(ijkVecLess2,s)
+
 // ijkVecGreater2*s
 //	Greater-than comparison of 2D vector components and scalar.
 //		param v_lh: left-hand vector
 //		param s_rh: right-hand scalar
 //		return: comparison vector
 //bvec2 ijkVecGreater2rs(rvec2 const v_lh, real const s_rh);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecGreater2rs ijk_declrealfs(ijkVecGreater2,s)
+
 // ijkVecAnd2*s
 //	Component-wise logical 'and' comparison of 2D vector and scalar.
 //		param v_lh: left-hand vector
 //		param s_rh: right-hand scalar
 //		return: comparison vector
 //bvec2 ijkVecAnd2rs(rvec2 const v_lh, real const s_rh);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecAnd2rs ijk_declrealfs(ijkVecAnd2,s)
+
 // ijkVecNand2*s
 //	Component-wise logical 'nand' comparison of 2D vector and scalar.
 //		param v_lh: left-hand vector
 //		param s_rh: right-hand scalar
 //		return: comparison vector
 //bvec2 ijkVecNand2rs(rvec2 const v_lh, real const s_rh);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecNand2rs ijk_declrealfs(ijkVecNand2,s)
+
 // ijkVecOr2*s
 //	Component-wise logical 'or' comparison of 2D vector and scalar.
 //		param v_lh: left-hand vector
 //		param s_rh: right-hand scalar
 //		return: comparison vector
 //bvec2 ijkVecOr2rs(rvec2 const v_lh, real const s_rh);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecOr2rs ijk_declrealfs(ijkVecOr2,s)
+
 // ijkVecNor2*s
 //	Component-wise logical 'nor' comparison of 2D vector and scalar.
 //		param v_lh: left-hand vector
 //		param s_rh: right-hand scalar
 //		return: comparison vector
 //bvec2 ijkVecNor2rs(rvec2 const v_lh, real const s_rh);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecNor2rs ijk_declrealfs(ijkVecNor2,s)
+
 // ijkVecAdd2s*
 //	Calculate sum of scalar and 2D vector components.
 //		param s_lh: left-hand scalar
 //		param v_rh: right-hand vector
 //		return: result vector
 //rvec2 ijkVecAdd2sr(real const s_lh, rvec2 const v_rh);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecAdd2sr ijk_declrealfs(ijkVecAdd2s,)
+
 // ijkVecSub2s*
 //	Calculate difference of scalar and 2D vector components.
 //		param s_lh: left-hand scalar
 //		param v_rh: right-hand vector
 //		return: result vector
 //rvec2 ijkVecSub2sr(real const s_lh, rvec2 const v_rh);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecSub2sr ijk_declrealfs(ijkVecSub2s,)
+
 // ijkVecMul2s*
 //	Calculate product of scalar by 2D vector components.
 //		param s_lh: left-hand scalar
 //		param v_rh: right-hand vector
 //		return: result vector
 //rvec2 ijkVecMul2sr(real const s_lh, rvec2 const v_rh);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecMul2sr ijk_declrealfs(ijkVecMul2s,)
+
 // ijkVecDiv2s*
 //	Calculate quotient of scalar by 2D vector components.
 //		param s_lh: left-hand scalar
 //		param v_rh: right-hand vector
 //		return: result vector
 //rvec2 ijkVecDiv2sr(real const s_lh, rvec2 const v_rh);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecDiv2sr ijk_declrealfs(ijkVecDiv2s,)
+
 // ijkVecDivSafe2s*
 //	Calculate quotient of scalar by 2D vector components, division-by-zero safe.
 //		param s_lh: left-hand scalar
 //		param v_rh: right-hand vector
 //		return: result vector
 //rvec2 ijkVecDivSafe2sr(real const s_lh, rvec2 const v_rh);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecDivSafe2sr ijk_declrealfs(ijkVecDivSafe2s,)
+
 // ijkVecMod2s*
 //	Calculate remainder of scalar by 2D vector components.
 //		param s_lh: left-hand scalar
 //		param v_rh: right-hand vector
 //		return: result vector
 //rvec2 ijkVecMod2sr(real const s_lh, rvec2 const v_rh);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecMod2sr ijk_declrealfs(ijkVecMod2s,)
+
 // ijkVecModSafe2s*
 //	Calculate remainder of scalar by 2D vector components, division-by-zero safe.
 //		param s_lh: left-hand scalar
 //		param v_rh: right-hand vector
 //		return: result vector
 //rvec2 ijkVecModSafe2sr(real const s_lh, rvec2 const v_rh);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecModSafe2sr ijk_declrealfs(ijkVecModSafe2s,)
+
 // ijkVecEqual2s*
 //	Equality comparison of scalar and 2D vector components.
 //		param s_lh: left-hand scalar
 //		param v_rh: right-hand vector
 //		return: comparison vector
 //bvec2 ijkVecEqual2sr(real const s_lh, rvec2 const v_rh);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecEqual2sr ijk_declrealfs(ijkVecEqual2s,)
+
 // ijkVecInequal2s*
 //	Inequality comparison of scalar and 2D vector components.
 //		param s_lh: left-hand scalar
 //		param v_rh: right-hand vector
 //		return: comparison vector
 //bvec2 ijkVecInequal2sr(real const s_lh, rvec2 const v_rh);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecInequal2sr ijk_declrealfs(ijkVecInequal2s,)
+
 // ijkVecLessEqual2s*
 //	Less-than or equal comparison of scalar and 2D vector components.
 //		param s_lh: left-hand scalar
 //		param v_rh: right-hand vector
 //		return: comparison vector
 //bvec2 ijkVecLessEqual2sr(real const s_lh, rvec2 const v_rh);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecLessEqual2sr ijk_declrealfs(ijkVecLessEqual2s,)
+
 // ijkVecGreaterEqual2s*
 //	Greater-than or equal comparison of scalar and 2D vector components.
 //		param s_lh: left-hand scalar
 //		param v_rh: right-hand vector
 //		return: comparison vector
 //bvec2 ijkVecGreaterEqual2sr(real const s_lh, rvec2 const v_rh);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecGreaterEqual2sr ijk_declrealfs(ijkVecGreaterEqual2s,)
+
 // ijkVecLess2s*
 //	Less-than comparison of scalar and 2D vector components.
 //		param s_lh: left-hand scalar
 //		param v_rh: right-hand vector
 //		return: comparison vector
 //bvec2 ijkVecLess2sr(real const s_lh, rvec2 const v_rh);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecLess2sr ijk_declrealfs(ijkVecLess2s,)
+
 // ijkVecGreater2s*
 //	Greater-than comparison of scalar and 2D vector components.
 //		param s_lh: left-hand scalar
 //		param v_rh: right-hand vector
 //		return: comparison vector
 //bvec2 ijkVecGreater2sr(real const s_lh, rvec2 const v_rh);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecGreater2sr ijk_declrealfs(ijkVecGreater2s,)
+
 // ijkVecAnd2s*
 //	Component-wise logical 'and' comparison of 2D vector and scalar.
 //		param s_lh: left-hand scalar
 //		param v_rh: right-hand vector
 //		return: comparison vector
 //bvec2 ijkVecAnd2sr(real const s_lh, rvec2 const v_rh);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecAnd2sr ijk_declrealfs(ijkVecAnd2s,)
+
 // ijkVecNand2s*
 //	Component-wise logical 'nand' comparison of 2D vector and scalar.
 //		param s_lh: left-hand scalar
 //		param v_rh: right-hand vector
 //		return: comparison vector
 //bvec2 ijkVecNand2sr(real const s_lh, rvec2 const v_rh);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecNand2sr ijk_declrealfs(ijkVecNand2s,)
+
 // ijkVecOr2s*
 //	Component-wise logical 'or' comparison of 2D vector and scalar.
 //		param s_lh: left-hand scalar
 //		param v_rh: right-hand vector
 //		return: comparison vector
 //bvec2 ijkVecOr2sr(real const s_lh, rvec2 const v_rh);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecOr2sr ijk_declrealfs(ijkVecOr2s,)
+
 // ijkVecNor2s*
 //	Component-wise logical 'nor' comparison of 2D vector and scalar.
 //		param s_lh: left-hand scalar
 //		param v_rh: right-hand vector
 //		return: comparison vector
 //bvec2 ijkVecNor2sr(real const s_lh, rvec2 const v_rh);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecNor2sr ijk_declrealfs(ijkVecNor2s,)
+
 // ijkVecDot2*
 //	Dot product of 2D vectors.
 //		param v_lh: left-hand vector
 //		param v_rh: right-hand vector
 //		return: dot product
 //real ijkVecDot2r(rvec2 const v_lh, rvec2 const v_rh);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecDot2r ijk_declrealfs(ijkVecDot2,)
+
 // ijkVecCross2*
 //	Cross product scalar of 2D vectors.
 //		param v_lh: left-hand vector
 //		param v_rh: right-hand vector
 //		return: scalar quantity of imaginary perpendicular axis
 //real ijkVecCross2r(rvec2 const v_lh, rvec2 const v_rh);
-#define func***v ijk_declrealfs(func,**v)
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecCross2r ijk_declrealfs(ijkVecCross2,)
+
+
 //-----------------------------------------------------------------------------
-#define func***v ijk_declrealfs(func,**v)
+
 // ijkVecInit3*
 //	Initialize 3D vector to default value (zero vector).
 //		return: default vector
 //rvec3 ijkVecInit3r();
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecInit3r ijk_declrealfs(ijkVecInit3,)
+
 // ijkVecInitElems3*
 //	Initialize 3D vector to specified individual elements.
 //		param x: first element
@@ -2338,436 +2410,499 @@ extern "C" {
 //		param z: third element
 //		return: result vector
 //rvec3 ijkVecInitElems3r(real const x, real const y, real const z);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecInitElems3r ijk_declrealfs(ijkVecInitElems3,)
+
 // ijkVecCopy3*
 //	Copy 3D vector from first elements of another vector.
 //		param v_in: input vector
 //		return: result vector
 //rvec3 ijkVecCopy3r(rvec3 const v_in);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecCopy3r ijk_declrealfs(ijkVecCopy3,)
+
 // ijkVecNegate3*
 //	Negate 3D vector.
 //		param v_in: input vector
 //		return: result vector
 //rvec3 ijkVecNegate3r(rvec3 const v_in);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecNegate3r ijk_declrealfs(ijkVecNegate3,)
+
 // ijkVecNot3*
 //	Calculate component-wise logical 'not' of 3D vector.
 //		param v_in: input vector
 //		return: comparison vector
 //bvec3 ijkVecNot3r(rvec3 const v_in);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecNot3r ijk_declrealfs(ijkVecNot3,)
+
 // ijkVecAdd3*
 //	Calculate sum of 3D vectors.
 //		param v_lh: left-hand vector
 //		param v_rh: right-hand vector
 //		return: result vector
 //rvec3 ijkVecAdd3r(rvec3 const v_lh, rvec3 const v_rh);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecAdd3r ijk_declrealfs(ijkVecAdd3,)
+
 // ijkVecSub3*
 //	Calculate difference of 3D vectors.
 //		param v_lh: left-hand vector
 //		param v_rh: right-hand vector
 //		return: result vector
 //rvec3 ijkVecSub3r(rvec3 const v_lh, rvec3 const v_rh);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecSub3r ijk_declrealfs(ijkVecSub3,)
+
 // ijkVecMul3*
 //	Calculate component-wise product of 3D vectors.
 //		param v_lh: left-hand vector
 //		param v_rh: right-hand vector
 //		return: result vector
 //rvec3 ijkVecMul3r(rvec3 const v_lh, rvec3 const v_rh);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecMul3r ijk_declrealfs(ijkVecMul3,)
+
 // ijkVecDiv3*
 //	Calculate component-wise quotient of 3D vectors.
 //		param v_lh: left-hand vector
 //		param v_rh: right-hand vector
 //		return: result vector
 //rvec3 ijkVecDiv3r(rvec3 const v_lh, rvec3 const v_rh);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecDiv3r ijk_declrealfs(ijkVecDiv3,)
+
 // ijkVecDivSafe3*
 //	Calculate component-wise quotient of 3D vectors, division-by-zero safe.
 //		param v_lh: left-hand vector
 //		param v_rh: right-hand vector
 //		return: result vector
 //rvec3 ijkVecDivSafe3r(rvec3 const v_lh, rvec3 const v_rh);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecDivSafe3r ijk_declrealfs(ijkVecDivSafe3,)
+
 // ijkVecMod3*
 //	Calculate component-wise remainder of 3D vectors.
 //		param v_lh: left-hand vector
 //		param v_rh: right-hand vector
 //		return: result vector
 //rvec3 ijkVecMod3r(rvec3 const v_lh, rvec3 const v_rh);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecMod3r ijk_declrealfs(ijkVecMod3,)
+
 // ijkVecModSafe3*
 //	Calculate component-wise remainder of 3D vectors, division-by-zero safe.
 //		param v_lh: left-hand vector
 //		param v_rh: right-hand vector
 //		return: result vector
 //rvec3 ijkVecModSafe3r(rvec3 const v_lh, rvec3 const v_rh);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecModSafe3r ijk_declrealfs(ijkVecModSafe3,)
+
 // ijkVecEqual3*
 //	Equality comparison for 3D vectors.
 //		param v_lh: left-hand vector
 //		param v_rh: right-hand vector
 //		return: comparison vector
 //bvec3 ijkVecEqual3r(rvec3 const v_lh, rvec3 const v_rh);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecEqual3r ijk_declrealfs(ijkVecEqual3,)
+
 // ijkVecInequal3*
 //	Inequality comparison for 3D vectors.
 //		param v_lh: left-hand vector
 //		param v_rh: right-hand vector
 //		return: comparison vector
 //bvec3 ijkVecInequal3r(rvec3 const v_lh, rvec3 const v_rh);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecInequal3r ijk_declrealfs(ijkVecInequal3,)
+
 // ijkVecLessEqual3*
 //	Less-than or equal comparison for 3D vectors.
 //		param v_lh: left-hand vector
 //		param v_rh: right-hand vector
 //		return: comparison vector
 //bvec3 ijkVecLessEqual3r(rvec3 const v_lh, rvec3 const v_rh);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecLessEqual3r ijk_declrealfs(ijkVecLessEqual3,)
+
 // ijkVecGreaterEqual3*
 //	Greater-than or equal comparison for 3D vectors.
 //		param v_lh: left-hand vector
 //		param v_rh: right-hand vector
 //		return: comparison vector
 //bvec3 ijkVecGreaterEqual3r(rvec3 const v_lh, rvec3 const v_rh);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecGreaterEqual3r ijk_declrealfs(ijkVecGreaterEqual3,)
+
 // ijkVecLess3*
 //	Less-than comparison for 3D vectors.
 //		param v_lh: left-hand vector
 //		param v_rh: right-hand vector
 //		return: comparison vector
 //bvec3 ijkVecLess3r(rvec3 const v_lh, rvec3 const v_rh);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecLess3r ijk_declrealfs(ijkVecLess3,)
+
 // ijkVecGreater3*
 //	Greater-than comparison for 3D vectors.
 //		param v_lh: left-hand vector
 //		param v_rh: right-hand vector
 //		return: comparison vector
 //bvec3 ijkVecGreater3r(rvec3 const v_lh, rvec3 const v_rh);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecGreater3r ijk_declrealfs(ijkVecGreater3,)
+
 // ijkVecAnd3*
 //	Component-wise logical 'and' comparison for 3D vectors.
 //		param v_lh: left-hand vector
 //		param v_rh: right-hand vector
 //		return: comparison vector
 //bvec3 ijkVecAnd3r(rvec3 const v_lh, rvec3 const v_rh);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecAnd3r ijk_declrealfs(ijkVecAnd3,)
+
 // ijkVecNand3*
 //	Component-wise logical 'nand' comparison for 3D vectors.
 //		param v_lh: left-hand vector
 //		param v_rh: right-hand vector
 //		return: comparison vector
 //bvec3 ijkVecNand3r(rvec3 const v_lh, rvec3 const v_rh);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecNand3r ijk_declrealfs(ijkVecNand3,)
+
 // ijkVecOr3*
 //	Component-wise logical 'or' comparison for 3D vectors.
 //		param v_lh: left-hand vector
 //		param v_rh: right-hand vector
 //		return: comparison vector
 //bvec3 ijkVecOr3r(rvec3 const v_lh, rvec3 const v_rh);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecOr3r ijk_declrealfs(ijkVecOr3,)
+
 // ijkVecNor3*
 //	Component-wise logical 'nor' comparison for 3D vectors.
 //		param v_lh: left-hand vector
 //		param v_rh: right-hand vector
 //		return: comparison vector
 //bvec3 ijkVecNor3r(rvec3 const v_lh, rvec3 const v_rh);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecNor3r ijk_declrealfs(ijkVecNor3,)
+
 // ijkVecCopy3*z
 //	Copy 3D vector from 2D vector and one scalar.
 //		param v_xy: input 2D vector holding first two components
 //		param z: third element
 //		return: result vector
 //rvec3 ijkVecCopy3rz(rvec2 const v_xy, real const z);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecCopy3rz ijk_declrealfs(ijkVecCopy3,z)
+
 // ijkVecCopy3*s
 //	Copy 3D vector from scalar.
 //		param s_in: input scalar
 //		return: result vector
 //rvec3 ijkVecCopy3rs(real const s_in);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecCopy3rs ijk_declrealfs(ijkVecCopy3,s)
+
 // ijkVecNegate3*s
 //	Negate scalar to 3D vector.
 //		param s_in: input scalar
 //		return: result vector
 //rvec3 ijkVecNegate3rs(real const s_in);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecNegate3rs ijk_declrealfs(ijkVecNegate3,s)
+
 // ijkVecNot3*s
 //	Calculate logical 'not' of scalar.
 //		param s_in: input scalar
 //		return: comparison vector
 //bvec3 ijkVecNot3rs(real const s_in);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecNot3rs ijk_declrealfs(ijkVecNot3,s)
+
 // ijkVecAdd3*s
 //	Calculate sum of 3D vector components and scalar.
 //		param v_lh: left-hand vector
 //		param s_rh: right-hand scalar
 //		return: result vector
 //rvec3 ijkVecAdd3rs(rvec3 const v_lh, real const s_rh);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecAdd3rs ijk_declrealfs(ijkVecAdd3,s)
+
 // ijkVecSub3*s
 //	Calculate difference of 3D vector components and scalar.
 //		param v_lh: left-hand vector
 //		param s_rh: right-hand scalar
 //		return: result vector
 //rvec3 ijkVecSub3rs(rvec3 const v_lh, real const s_rh);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecSub3rs ijk_declrealfs(ijkVecSub3,s)
+
 // ijkVecMul3*s
 //	Calculate product of 3D vector components by scalar.
 //		param v_lh: left-hand vector
 //		param s_rh: right-hand scalar
 //		return: result vector
 //rvec3 ijkVecMul3rs(rvec3 const v_lh, real const s_rh);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecMul3rs ijk_declrealfs(ijkVecMul3,s)
+
 // ijkVecDiv3*s
 //	Calculate quotient of 3D vector components by scalar.
 //		param v_lh: left-hand vector
 //		param s_rh: right-hand scalar
 //		return: result vector
 //rvec3 ijkVecDiv3rs(rvec3 const v_lh, real const s_rh);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecDiv3rs ijk_declrealfs(ijkVecDiv3,s)
+
 // ijkVecDivSafe3*s
 //	Calculate quotient of 3D vector components by scalar, division-by-zero safe.
 //		param v_lh: left-hand vector
 //		param s_rh: right-hand scalar
 //		return: result vector
 //rvec3 ijkVecDivSafe3rs(rvec3 const v_lh, real const s_rh);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecDivSafe3rs ijk_declrealfs(ijkVecDivSafe3,s)
+
 // ijkVecMod3*s
 //	Calculate remainder of 3D vector components by scalar.
 //		param v_lh: left-hand vector
 //		param s_rh: right-hand scalar
 //		return: result vector
 //rvec3 ijkVecMod3rs(rvec3 const v_lh, real const s_rh);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecMod3rs ijk_declrealfs(ijkVecMod3,s)
+
 // ijkVecModSafe3*s
 //	Calculate remainder of 3D vector components by scalar, division-by-zero safe.
 //		param v_lh: left-hand vector
 //		param s_rh: right-hand scalar
 //		return: result vector
 //rvec3 ijkVecModSafe3rs(rvec3 const v_lh, real const s_rh);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecModSafe3rs ijk_declrealfs(ijkVecModSafe3,s)
+
 // ijkVecEqual3*s
 //	Equality comparison of 3D vector components and scalar.
 //		param v_lh: left-hand vector
 //		param s_rh: right-hand scalar
 //		return: comparison vector
 //bvec3 ijkVecEqual3rs(rvec3 const v_lh, real const s_rh);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecEqual3rs ijk_declrealfs(ijkVecEqual3,s)
+
 // ijkVecInequal3*s
 //	Inequality comparison of 3D vector components and scalar.
 //		param v_lh: left-hand vector
 //		param s_rh: right-hand scalar
 //		return: comparison vector
 //bvec3 ijkVecInequal3rs(rvec3 const v_lh, real const s_rh);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecInequal3rs ijk_declrealfs(ijkVecInequal3,s)
+
 // ijkVecLessEqual3*s
 //	Less-than or equal comparison of 3D vector components and scalar.
 //		param v_lh: left-hand vector
 //		param s_rh: right-hand scalar
 //		return: comparison vector
 //bvec3 ijkVecLessEqual3rs(rvec3 const v_lh, real const s_rh);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecLessEqual3rs ijk_declrealfs(ijkVecLessEqual3,s)
+
 // ijkVecGreaterEqual3*s
 //	Greater-than or equal comparison of 3D vector components and scalar.
 //		param v_lh: left-hand vector
 //		param s_rh: right-hand scalar
 //		return: comparison vector
 //bvec3 ijkVecGreaterEqual3rs(rvec3 const v_lh, real const s_rh);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecGreaterEqual3rs ijk_declrealfs(ijkVecGreaterEqual3,s)
+
 // ijkVecLess3*s
 //	Less-than comparison of 3D vector components and scalar.
 //		param v_lh: left-hand vector
 //		param s_rh: right-hand scalar
 //		return: comparison vector
 //bvec3 ijkVecLess3rs(rvec3 const v_lh, real const s_rh);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecLess3rs ijk_declrealfs(ijkVecLess3,s)
+
 // ijkVecGreater3*s
 //	Greater-than comparison of 3D vector components and scalar.
 //		param v_lh: left-hand vector
 //		param s_rh: right-hand scalar
 //		return: comparison vector
 //bvec3 ijkVecGreater3rs(rvec3 const v_lh, real const s_rh);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecGreater3rs ijk_declrealfs(ijkVecGreater3,s)
+
 // ijkVecAnd3*s
 //	Component-wise logical 'and' comparison of 3D vector and scalar.
 //		param v_lh: left-hand vector
 //		param s_rh: right-hand scalar
 //		return: comparison vector
 //bvec3 ijkVecAnd3rs(rvec3 const v_lh, real const s_rh);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecAnd3rs ijk_declrealfs(ijkVecAnd3,s)
+
 // ijkVecNand3*s
 //	Component-wise logical 'nand' comparison of 3D vector and scalar.
 //		param v_lh: left-hand vector
 //		param s_rh: right-hand scalar
 //		return: comparison vector
 //bvec3 ijkVecNand3rs(rvec3 const v_lh, real const s_rh);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecNand3rs ijk_declrealfs(ijkVecNand3,s)
+
 // ijkVecOr3*s
 //	Component-wise logical 'or' comparison of 3D vector and scalar.
 //		param v_lh: left-hand vector
 //		param s_rh: right-hand scalar
 //		return: comparison vector
 //bvec3 ijkVecOr3rs(rvec3 const v_lh, real const s_rh);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecOr3rs ijk_declrealfs(ijkVecOr3,s)
+
 // ijkVecNor3*s
 //	Component-wise logical 'nor' comparison of 3D vector and scalar.
 //		param v_lh: left-hand vector
 //		param s_rh: right-hand scalar
 //		return: comparison vector
 //bvec3 ijkVecNor3rs(rvec3 const v_lh, real const s_rh);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecNor3rs ijk_declrealfs(ijkVecNor3,s)
+
 // ijkVecCopy3x*
 //	Copy 3D vector from 2D vector and one scalar.
 //		param x: first element
 //		param v_yz: input 2D vector holding last two components
 //		return: result vector
 //rvec3 ijkVecCopy3xr(real const x, rvec2 const v_yz);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecCopy3xr ijk_declrealfs(ijkVecCopy3x,)
+
 // ijkVecAdd3s*
 //	Calculate sum of scalar and 3D vector components.
 //		param s_lh: left-hand scalar
 //		param v_rh: right-hand vector
 //		return: result vector
 //rvec3 ijkVecAdd3sr(real const s_lh, rvec3 const v_rh);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecAdd3sr ijk_declrealfs(ijkVecAdd3s,)
+
 // ijkVecSub3s*
 //	Calculate difference of scalar and 3D vector components.
 //		param s_lh: left-hand scalar
 //		param v_rh: right-hand vector
 //		return: result vector
 //rvec3 ijkVecSub3sr(real const s_lh, rvec3 const v_rh);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecSub3sr ijk_declrealfs(ijkVecSub3s,)
+
 // ijkVecMul3s*
 //	Calculate product of scalar by 3D vector components.
 //		param s_lh: left-hand scalar
 //		param v_rh: right-hand vector
 //		return: result vector
 //rvec3 ijkVecMul3sr(real const s_lh, rvec3 const v_rh);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecMul3sr ijk_declrealfs(ijkVecMul3s,)
+
 // ijkVecDiv3s*
 //	Calculate quotient of scalar by 3D vector components.
 //		param s_lh: left-hand scalar
 //		param v_rh: right-hand vector
 //		return: result vector
 //rvec3 ijkVecDiv3sr(real const s_lh, rvec3 const v_rh);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecDiv3sr ijk_declrealfs(ijkVecDiv3s,)
+
 // ijkVecDivSafe3s*
 //	Calculate quotient of scalar by 3D vector components, division-by-zero safe.
 //		param s_lh: left-hand scalar
 //		param v_rh: right-hand vector
 //		return: result vector
 //rvec3 ijkVecDivSafe3sr(real const s_lh, rvec3 const v_rh);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecDivSafe3sr ijk_declrealfs(ijkVecDivSafe3s,)
+
 // ijkVecMod3s*
 //	Calculate remainder of scalar by 3D vector components.
 //		param s_lh: left-hand scalar
 //		param v_rh: right-hand vector
 //		return: result vector
 //rvec3 ijkVecMod3sr(real const s_lh, rvec3 const v_rh);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecMod3sr ijk_declrealfs(ijkVecMod3s,)
+
 // ijkVecModSafe3s*
 //	Calculate remainder of scalar by 3D vector components, division-by-zero safe.
 //		param s_lh: left-hand scalar
 //		param v_rh: right-hand vector
 //		return: result vector
 //rvec3 ijkVecModSafe3sr(real const s_lh, rvec3 const v_rh);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecModSafe3sr ijk_declrealfs(ijkVecModSafe3s,)
+
 // ijkVecEqual3s*
 //	Equality comparison of scalar and 3D vector components.
 //		param s_lh: left-hand scalar
 //		param v_rh: right-hand vector
 //		return: comparison vector
 //bvec3 ijkVecEqual3sr(real const s_lh, rvec3 const v_rh);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecEqual3sr ijk_declrealfs(ijkVecEqual3s,)
+
 // ijkVecInequal3s*
 //	Inequality comparison of scalar and 3D vector components.
 //		param s_lh: left-hand scalar
 //		param v_rh: right-hand vector
 //		return: comparison vector
 //bvec3 ijkVecInequal3sr(real const s_lh, rvec3 const v_rh);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecInequal3sr ijk_declrealfs(ijkVecInequal3s,)
+
 // ijkVecLessEqual3s*
 //	Less-than or equal comparison of scalar and 3D vector components.
 //		param s_lh: left-hand scalar
 //		param v_rh: right-hand vector
 //		return: comparison vector
 //bvec3 ijkVecLessEqual3sr(real const s_lh, rvec3 const v_rh);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecLessEqual3sr ijk_declrealfs(ijkVecLessEqual3s,)
+
 // ijkVecGreaterEqual3s*
 //	Greater-than or equal comparison of scalar and 3D vector components.
 //		param s_lh: left-hand scalar
 //		param v_rh: right-hand vector
 //		return: comparison vector
 //bvec3 ijkVecGreaterEqual3sr(real const s_lh, rvec3 const v_rh);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecGreaterEqual3sr ijk_declrealfs(ijkVecGreaterEqual3s,)
+
 // ijkVecLess3s*
 //	Less-than comparison of scalar and 3D vector components.
 //		param s_lh: left-hand scalar
 //		param v_rh: right-hand vector
 //		return: comparison vector
 //bvec3 ijkVecLess3sr(real const s_lh, rvec3 const v_rh);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecLess3sr ijk_declrealfs(ijkVecLess3s,)
+
 // ijkVecGreater3s*
 //	Greater-than comparison of scalar and 3D vector components.
 //		param s_lh: left-hand scalar
 //		param v_rh: right-hand vector
 //		return: comparison vector
 //bvec3 ijkVecGreater3sr(real const s_lh, rvec3 const v_rh);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecGreater3sr ijk_declrealfs(ijkVecGreater3s,)
+
 // ijkVecAnd3s*
 //	Component-wise logical 'and' comparison of 3D vector and scalar.
 //		param s_lh: left-hand scalar
 //		param v_rh: right-hand vector
 //		return: comparison vector
 //bvec3 ijkVecAnd3sr(real const s_lh, rvec3 const v_rh);
-#define func***v ijk_declrealfs(func,**v)
-// ijkVecNand3s*
+#define ijkVecAnd3sr ijk_declrealfs(ijkVecAnd3s,)
+
+// ijkVecAnd3s*
 //	Component-wise logical 'nand' comparison of 3D vector and scalar.
 //		param s_lh: left-hand scalar
 //		param v_rh: right-hand vector
 //		return: comparison vector
 //bvec3 ijkVecNand3sr(real const s_lh, rvec3 const v_rh);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecAnd3sr ijk_declrealfs(ijkVecAnd3s,)
+
 // ijkVecOr3s*
 //	Component-wise logical 'or' comparison of 3D vector and scalar.
 //		param s_lh: left-hand scalar
 //		param v_rh: right-hand vector
 //		return: comparison vector
 //bvec3 ijkVecOr3sr(real const s_lh, rvec3 const v_rh);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecOr3sr ijk_declrealfs(ijkVecOr3s,)
+
 // ijkVecNor3s*
 //	Component-wise logical 'nor' comparison of 3D vector and scalar.
 //		param s_lh: left-hand scalar
 //		param v_rh: right-hand vector
 //		return: comparison vector
 //bvec3 ijkVecNor3sr(real const s_lh, rvec3 const v_rh);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecNor3sr ijk_declrealfs(ijkVecNor3s,)
+
 // ijkVecDot3*
 //	Dot product of 3D vectors.
 //		param v_lh: left-hand vector
 //		param v_rh: right-hand vector
 //		return: dot product
 //real ijkVecDot3r(rvec3 const v_lh, rvec3 const v_rh);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecDot3r ijk_declrealfs(ijkVecDot3,)
+
 // ijkVecCross3*
 //	Cross product of 3D vectors.
 //		param v_lh: left-hand vector
 //		param v_rh: right-hand vector
 //		return: cross product
 //rvec3 ijkVecCross3r(rvec3 const v_lh, rvec3 const v_rh);
-#define func***v ijk_declrealfs(func,**v)
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecCross3r ijk_declrealfs(ijkVecCross3,)
+
+
 //-----------------------------------------------------------------------------
-#define func***v ijk_declrealfs(func,**v)
+
 // ijkVecInit4*
 //	Initialize 4D vector to default value (zero vector).
 //		return: default vector
 //rvec4 ijkVecInit4r();
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecInit4***v ijk_declrealfs(ijkVecInit4,**v)
+
 // ijkVecInitElems4*
 //	Initialize 4D vector to specified individual elements.
 //		param x: first element
@@ -2776,7 +2911,8 @@ extern "C" {
 //		param w: fourth element (in space, set as 1 for poreal, 0 for vector)
 //		return: result vector
 //rvec4 ijkVecInitElems4r(real const x, real const y, real const z, real const w);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecInitElems4***v ijk_declrealfs(ijkVecInitElems4,**v)
+
 // ijkVecCopy4x*w
 //	Copy 4D vector from scalar, 2D vector and another scalar.
 //		param x: first element
@@ -2784,151 +2920,173 @@ extern "C" {
 //		param w: fourth element (in space, set as 1 for poreal, 0 for vector)
 //		return: result vector
 //rvec4 ijkVecCopy4xrw(real const x, rvec2 const v_yz, real const w);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecCopy4xrw ijk_declrealfs(ijkVecCopy4x,w)
+
 // ijkVecCopy4*2
 //	Copy 4D vector from two 2D vectors.
 //		param v_xy: input 2D vector holding first two components
 //		param v_zw: input 2D vector holding last two components
 //		return: result vector
 //rvec4 ijkVecCopy4r2(rvec2 const v_xy, rvec2 const v_zw);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecCopy4r2 ijk_declrealfs(ijkVecCopy4,2)
+
 // ijkVecCopy4*
 //	Copy 4D vector from first elements of another vector.
 //		param v_in: input vector
 //		return: result vector
 //rvec4 ijkVecCopy4r(rvec4 const v_in);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecCopy4r ijk_declrealfs(ijkVecCopy4,)
+
 // ijkVecNegate4*
 //	Negate 4D vector.
 //		param v_in: input vector
 //		return: result vector
 //rvec4 ijkVecNegate4r(rvec4 const v_in);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecNegate4r ijk_declrealfs(ijkVecNegate4,)
+
 // ijkVecNot4*
 //	Calculate component-wise logical 'not' of 4D vector.
 //		param v_in: input vector
 //		return: comparison vector
 //bvec4 ijkVecNot4r(rvec4 const v_in);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecNot4r ijk_declrealfs(ijkVecNot4,)
+
 // ijkVecAdd4*
 //	Calculate sum of 4D vectors.
 //		param v_lh: left-hand vector
 //		param v_rh: right-hand vector
 //		return: result vector
 //rvec4 ijkVecAdd4r(rvec4 const v_lh, rvec4 const v_rh);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecAdd4r ijk_declrealfs(ijkVecAdd4,)
+
 // ijkVecSub4*
 //	Calculate difference of 4D vectors.
 //		param v_lh: left-hand vector
 //		param v_rh: right-hand vector
 //		return: result vector
 //rvec4 ijkVecSub4r(rvec4 const v_lh, rvec4 const v_rh);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecSub4r ijk_declrealfs(ijkVecSub4,)
+
 // ijkVecMul4*
 //	Calculate component-wise product of 4D vectors.
 //		param v_lh: left-hand vector
 //		param v_rh: right-hand vector
 //		return: result vector
 //rvec4 ijkVecMul4r(rvec4 const v_lh, rvec4 const v_rh);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecMul4r ijk_declrealfs(ijkVecMul4,)
+
 // ijkVecDiv4*
 //	Calculate component-wise quotient of 4D vectors.
 //		param v_lh: left-hand vector
 //		param v_rh: right-hand vector
 //		return: result vector
 //rvec4 ijkVecDiv4r(rvec4 const v_lh, rvec4 const v_rh);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecDiv4r ijk_declrealfs(ijkVecDiv4,)
+
 // ijkVecDivSafe4*
 //	Calculate component-wise quotient of 4D vectors, division-by-zero safe.
 //		param v_lh: left-hand vector
 //		param v_rh: right-hand vector
 //		return: result vector
 //rvec4 ijkVecDivSafe4r(rvec4 const v_lh, rvec4 const v_rh);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecDivSafe4r ijk_declrealfs(ijkVecDivSafe4,)
+
 // ijkVecMod4*
 //	Calculate component-wise remainder of 4D vectors.
 //		param v_lh: left-hand vector
 //		param v_rh: right-hand vector
 //		return: result vector
 //rvec4 ijkVecMod4r(rvec4 const v_lh, rvec4 const v_rh);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecMod4r ijk_declrealfs(ijkVecMod4,)
+
 // ijkVecModSafe4*
 //	Calculate component-wise remainder of 4D vectors, division-by-zero safe.
 //		param v_lh: left-hand vector
 //		param v_rh: right-hand vector
 //		return: result vector
 //rvec4 ijkVecModSafe4r(rvec4 const v_lh, rvec4 const v_rh);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecModSafe4r ijk_declrealfs(ijkVecModSafe4,)
+
 // ijkVecEqual4*
 //	Equality comparison for 4D vectors.
 //		param v_lh: left-hand vector
 //		param v_rh: right-hand vector
 //		return: comparison vector
 //bvec4 ijkVecEqual4r(rvec4 const v_lh, rvec4 const v_rh);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecEqual4r ijk_declrealfs(ijkVecEqual4,)
+
 // ijkVecInequal4*
 //	Inequality comparison for 4D vectors.
 //		param v_lh: left-hand vector
 //		param v_rh: right-hand vector
 //		return: comparison vector
 //bvec4 ijkVecInequal4r(rvec4 const v_lh, rvec4 const v_rh);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecInequal4r ijk_declrealfs(ijkVecInequal4,)
+
 // ijkVecLessEqual4*
 //	Less-than or equal comparison for 4D vectors.
 //		param v_lh: left-hand vector
 //		param v_rh: right-hand vector
 //		return: comparison vector
 //bvec4 ijkVecLessEqual4r(rvec4 const v_lh, rvec4 const v_rh);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecLessEqual4r ijk_declrealfs(ijkVecLessEqual4,)
+
 // ijkVecGreaterEqual4*
 //	Greater-than or equal comparison for 4D vectors.
 //		param v_lh: left-hand vector
 //		param v_rh: right-hand vector
 //		return: comparison vector
 //bvec4 ijkVecGreaterEqual4r(rvec4 const v_lh, rvec4 const v_rh);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecGreaterEqual4r ijk_declrealfs(ijkVecGreaterEqual4,)
+
 // ijkVecLess4*
 //	Less-than comparison for 4D vectors.
 //		param v_lh: left-hand vector
 //		param v_rh: right-hand vector
 //		return: comparison vector
 //bvec4 ijkVecLess4r(rvec4 const v_lh, rvec4 const v_rh);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecLess4r ijk_declrealfs(ijkVecLess4,)
+
 // ijkVecGreater4*
 //	Greater-than comparison for 4D vectors.
 //		param v_lh: left-hand vector
 //		param v_rh: right-hand vector
 //		return: comparison vector
 //bvec4 ijkVecGreater4r(rvec4 const v_lh, rvec4 const v_rh);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecGreater4r ijk_declrealfs(ijkVecGreater4,)
+
 // ijkVecAnd4*
 //	Component-wise logical 'and' comparison for 4D vectors.
 //		param v_lh: left-hand vector
 //		param v_rh: right-hand vector
 //		return: comparison vector
 //bvec4 ijkVecAnd4r(rvec4 const v_lh, rvec4 const v_rh);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecAnd4r ijk_declrealfs(ijkVecAnd4,)
+
 // ijkVecNand4*
 //	Component-wise logical 'nand' comparison for 4D vectors.
 //		param v_lh: left-hand vector
 //		param v_rh: right-hand vector
 //		return: comparison vector
 //bvec4 ijkVecNand4r(rvec4 const v_lh, rvec4 const v_rh);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecNand4r ijk_declrealfs(ijkVecNand4,)
+
 // ijkVecOr4*
 //	Component-wise logical 'or' comparison for 4D vectors.
 //		param v_lh: left-hand vector
 //		param v_rh: right-hand vector
 //		return: comparison vector
 //bvec4 ijkVecOr4r(rvec4 const v_lh, rvec4 const v_rh);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecOr4r ijk_declrealfs(ijkVecOr4,)
+
 // ijkVecNor4*
 //	Component-wise logical 'nor' comparison for 4D vectors.
 //		param v_lh: left-hand vector
 //		param v_rh: right-hand vector
 //		return: comparison vector
 //bvec4 ijkVecNor4r(rvec4 const v_lh, rvec4 const v_rh);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecNor4r ijk_declrealfs(ijkVecNor4,)
+
 // ijkVecCopy4*zw
 //	Copy 4D vector from 2D vector and two scalars.
 //		param v_xy: input 2D vector holding first two components
@@ -2936,151 +3094,173 @@ extern "C" {
 //		param w: fourth element (in space, set as 1 for poreal, 0 for vector)
 //		return: result vector
 //rvec4 ijkVecCopy4rzw(rvec2 const v_xy, real const z, real const w);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecCopy4rzw ijk_declrealfs(ijkVecCopy4,zw)
+
 // ijkVecCopy4*w
 //	Copy 4D vector from 3D vector and one scalar.
 //		param v_xyz: input 3D vector holding first three components
 //		param w: fourth element (in space, set as 1 for poreal, 0 for vector)
 //		return: result vector
 //rvec4 ijkVecCopy4rw(rvec3 const v_xyz, real const w);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecCopy4rw ijk_declrealfs(ijkVecCopy4,w)
+
 // ijkVecCopy4*s
 //	Copy 4D vector from scalar.
 //		param s_in: input scalar
 //		return: result vector
 //rvec4 ijkVecCopy4rs(real const s_in);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecCopy4rs ijk_declrealfs(ijkVecCopy4,s)
+
 // ijkVecNegate4*s
 //	Negate scalar to 4D vector.
 //		param s_in: input scalar
 //		return: result vector
 //rvec4 ijkVecNegate4rs(real const s_in);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecNegate4rs ijk_declrealfs(ijkVecNegate4,s)
+
 // ijkVecNot4*s
 //	Calculate logical 'not' of scalar.
 //		param s_in: input scalar
 //		return: comparison vector
 //bvec4 ijkVecNot4rs(real const s_in);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecNot4rs ijk_declrealfs(ijkVecNot4,s)
+
 // ijkVecAdd4*s
 //	Calculate sum of 4D vector components and scalar.
 //		param v_lh: left-hand vector
 //		param s_rh: right-hand scalar
 //		return: result vector
 //rvec4 ijkVecAdd4rs(rvec4 const v_lh, real const s_rh);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecAdd4rs ijk_declrealfs(ijkVecAdd4,s)
+
 // ijkVecSub4*s
 //	Calculate difference of 4D vector components and scalar.
 //		param v_lh: left-hand vector
 //		param s_rh: right-hand scalar
 //		return: result vector
 //rvec4 ijkVecSub4rs(rvec4 const v_lh, real const s_rh);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecSub4rs ijk_declrealfs(ijkVecSub4,s)
+
 // ijkVecMul4*s
 //	Calculate product of 4D vector components by scalar.
 //		param v_lh: left-hand vector
 //		param s_rh: right-hand scalar
 //		return: result vector
 //rvec4 ijkVecMul4rs(rvec4 const v_lh, real const s_rh);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecMul4rs ijk_declrealfs(ijkVecMul4,s)
+
 // ijkVecDiv4*s
 //	Calculate quotient of 4D vector components by scalar.
 //		param v_lh: left-hand vector
 //		param s_rh: right-hand scalar
 //		return: result vector
 //rvec4 ijkVecDiv4rs(rvec4 const v_lh, real const s_rh);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecDiv4rs ijk_declrealfs(ijkVecDiv4,s)
+
 // ijkVecDivSafe4*s
 //	Calculate quotient of 4D vector components by scalar, division-by-zero safe.
 //		param v_lh: left-hand vector
 //		param s_rh: right-hand scalar
 //		return: result vector
 //rvec4 ijkVecDivSafe4rs(rvec4 const v_lh, real const s_rh);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecDivSafe4rs ijk_declrealfs(ijkVecDivSafe4,s)
+
 // ijkVecMod4*s
 //	Calculate remainder of 4D vector components by scalar.
 //		param v_lh: left-hand vector
 //		param s_rh: right-hand scalar
 //		return: result vector
 //rvec4 ijkVecMod4rs(rvec4 const v_lh, real const s_rh);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecMod4rs ijk_declrealfs(ijkVecMod4,s)
+
 // ijkVecModSafe4*s
 //	Calculate remainder of 4D vector components by scalar, division-by-zero safe.
 //		param v_lh: left-hand vector
 //		param s_rh: right-hand scalar
 //		return: result vector
 //rvec4 ijkVecModSafe4rs(rvec4 const v_lh, real const s_rh);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecModSafe4rs ijk_declrealfs(ijkVecModSafe4,s)
+
 // ijkVecEqual4*s
 //	Equality comparison of 4D vector components and scalar.
 //		param v_lh: left-hand vector
 //		param s_rh: right-hand scalar
 //		return: comparison vector
 //bvec4 ijkVecEqual4rs(rvec4 const v_lh, real const s_rh);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecEqual4rs ijk_declrealfs(ijkVecEqual4,s)
+
 // ijkVecInequal4*s
 //	Inequality comparison of 4D vector components and scalar.
 //		param v_lh: left-hand vector
 //		param s_rh: right-hand scalar
 //		return: comparison vector
 //bvec4 ijkVecInequal4rs(rvec4 const v_lh, real const s_rh);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecInequal4rs ijk_declrealfs(ijkVecInequal4,s)
+
 // ijkVecLessEqual4*s
 //	Less-than or equal comparison of 4D vector components and scalar.
 //		param v_lh: left-hand vector
 //		param s_rh: right-hand scalar
 //		return: comparison vector
 //bvec4 ijkVecLessEqual4rs(rvec4 const v_lh, real const s_rh);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecLessEqual4rs ijk_declrealfs(ijkVecLessEqual4,s)
+
 // ijkVecGreaterEqual4*s
 //	Greater-than or equal comparison of 4D vector components and scalar.
 //		param v_lh: left-hand vector
 //		param s_rh: right-hand scalar
 //		return: comparison vector
 //bvec4 ijkVecGreaterEqual4rs(rvec4 const v_lh, real const s_rh);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecGreaterEqual4rs ijk_declrealfs(ijkVecGreaterEqual4,s)
+
 // ijkVecLess4*s
 //	Less-than comparison of 4D vector components and scalar.
 //		param v_lh: left-hand vector
 //		param s_rh: right-hand scalar
 //		return: comparison vector
 //bvec4 ijkVecLess4rs(rvec4 const v_lh, real const s_rh);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecLess4rs ijk_declrealfs(ijkVecLess4,s)
+
 // ijkVecGreater4*s
 //	Greater-than comparison of 4D vector components and scalar.
 //		param v_lh: left-hand vector
 //		param s_rh: right-hand scalar
 //		return: comparison vector
 //bvec4 ijkVecGreater4rs(rvec4 const v_lh, real const s_rh);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecGreater4rs ijk_declrealfs(ijkVecGreater4,s)
+
 // ijkVecAnd4*s
 //	Component-wise logical 'and' comparison of 4D vector and scalar.
 //		param v_lh: left-hand vector
 //		param s_rh: right-hand scalar
 //		return: comparison vector
 //bvec4 ijkVecAnd4rs(rvec4 const v_lh, real const s_rh);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecAnd4rs ijk_declrealfs(ijkVecAnd4,s)
+
 // ijkVecNand4*s
 //	Component-wise logical 'nand' comparison of 4D vector and scalar.
 //		param v_lh: left-hand vector
 //		param s_rh: right-hand scalar
 //		return: comparison vector
 //bvec4 ijkVecNand4rs(rvec4 const v_lh, real const s_rh);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecNand4rs ijk_declrealfs(ijkVecNand4,s)
+
 // ijkVecOr4*s
 //	Component-wise logical 'or' comparison of 4D vector and scalar.
 //		param v_lh: left-hand vector
 //		param s_rh: right-hand scalar
 //		return: comparison vector
 //bvec4 ijkVecOr4rs(rvec4 const v_lh, real const s_rh);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecOr4rs ijk_declrealfs(ijkVecOr4,s)
+
 // ijkVecNor4*s
 //	Component-wise logical 'nor' comparison of 4D vector and scalar.
 //		param v_lh: left-hand vector
 //		param s_rh: right-hand scalar
 //		return: comparison vector
 //bvec4 ijkVecNor4rs(rvec4 const v_lh, real const s_rh);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecNor4rs ijk_declrealfs(ijkVecNor4,s)
+
 // ijkVecCopy4xy*
 //	Copy 4D vector from two scalars and 2D vector.
 //		param x: first element
@@ -3088,148 +3268,169 @@ extern "C" {
 //		param v_zw: input 2D vector holding last two components
 //		return: result vector
 //rvec4 ijkVecCopy4xyr(real const x, real const y, rvec2 const v_zw);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecCopy4xyr ijk_declrealfs(ijkVecCopy4xy,)
+
 // ijkVecCopy4x*
 //	Copy 4D vector from one scalar and 3D vector.
 //		param x: first element
 //		param v_yzw: input 3D vector holding last three components
 //		return: result vector
 //rvec4 ijkVecCopy4xr(real const x, rvec3 const v_yzw);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecCopy4xr ijk_declrealfs(ijkVecCopy4x,)
+
 // ijkVecAdd4s*
 //	Calculate sum of scalar and 4D vector components.
 //		param s_lh: left-hand scalar
 //		param v_rh: right-hand vector
 //		return: result vector
 //rvec4 ijkVecAdd4sr(real const s_lh, rvec4 const v_rh);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecAdd4sr ijk_declrealfs(ijkVecAdd4s,)
+
 // ijkVecSub4s*
 //	Calculate difference of scalar and 4D vector components.
 //		param s_lh: left-hand scalar
 //		param v_rh: right-hand vector
 //		return: result vector
 //rvec4 ijkVecSub4sr(real const s_lh, rvec4 const v_rh);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecSub4sr ijk_declrealfs(ijkVecSub4s,)
+
 // ijkVecMul4s*
 //	Calculate product of scalar by 4D vector components.
 //		param s_lh: left-hand scalar
 //		param v_rh: right-hand vector
 //		return: result vector
 //rvec4 ijkVecMul4sr(real const s_lh, rvec4 const v_rh);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecMul4sr ijk_declrealfs(ijkVecMul4s,)
+
 // ijkVecDiv4s*
 //	Calculate quotient of scalar by 4D vector components.
 //		param s_lh: left-hand scalar
 //		param v_rh: right-hand vector
 //		return: result vector
 //rvec4 ijkVecDiv4sr(real const s_lh, rvec4 const v_rh);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecDiv4sr ijk_declrealfs(ijkVecDiv4s,)
+
 // ijkVecDivSafe4s*
 //	Calculate quotient of scalar by 4D vector components, division-by-zero safe.
 //		param s_lh: left-hand scalar
 //		param v_rh: right-hand vector
 //		return: result vector
 //rvec4 ijkVecDivSafe4sr(real const s_lh, rvec4 const v_rh);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecDivSafe4sr ijk_declrealfs(ijkVecDivSafe4s,)
+
 // ijkVecMod4s*
 //	Calculate remainder of scalar by 4D vector components.
 //		param s_lh: left-hand scalar
 //		param v_rh: right-hand vector
 //		return: result vector
 //rvec4 ijkVecMod4sr(real const s_lh, rvec4 const v_rh);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecMod4sr ijk_declrealfs(ijkVecMod4s,)
+
 // ijkVecModSafe4s*
 //	Calculate remainder of scalar by 4D vector components, division-by-zero safe.
 //		param s_lh: left-hand scalar
 //		param v_rh: right-hand vector
 //		return: result vector
 //rvec4 ijkVecModSafe4sr(real const s_lh, rvec4 const v_rh);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecModSafe4sr ijk_declrealfs(ijkVecModSafe4s,)
+
 // ijkVecEqual4s*
 //	Equality comparison of scalar and 4D vector components.
 //		param s_lh: left-hand scalar
 //		param v_rh: right-hand vector
 //		return: comparison vector
 //bvec4 ijkVecEqual4sr(real const s_lh, rvec4 const v_rh);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecEqual4sr ijk_declrealfs(ijkVecEqual4s,)
+
 // ijkVecInequal4s*
 //	Inequality comparison of scalar and 4D vector components.
 //		param s_lh: left-hand scalar
 //		param v_rh: right-hand vector
 //		return: comparison vector
 //bvec4 ijkVecInequal4sr(real const s_lh, rvec4 const v_rh);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecInequal4sr ijk_declrealfs(ijkVecInequal4s,)
+
 // ijkVecLessEqual4s*
 //	Less-than or equal comparison of scalar and 4D vector components.
 //		param s_lh: left-hand scalar
 //		param v_rh: right-hand vector
 //		return: comparison vector
 //bvec4 ijkVecLessEqual4sr(real const s_lh, rvec4 const v_rh);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecLessEqual4sr ijk_declrealfs(ijkVecLessEqual4s,)
+
 // ijkVecGreaterEqual4s*
 //	Greater-than or equal comparison of scalar and 4D vector components.
 //		param s_lh: left-hand scalar
 //		param v_rh: right-hand vector
 //		return: comparison vector
 //bvec4 ijkVecGreaterEqual4sr(real const s_lh, rvec4 const v_rh);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecGreaterEqual4sr ijk_declrealfs(ijkVecGreaterEqual4s,)
+
 // ijkVecLess4s*
 //	Less-than comparison of scalar and 4D vector components.
 //		param s_lh: left-hand scalar
 //		param v_rh: right-hand vector
 //		return: comparison vector
 //bvec4 ijkVecLess4sr(real const s_lh, rvec4 const v_rh);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecLess4sr ijk_declrealfs(ijkVecLess4s,)
+
 // ijkVecGreater4s*
 //	Greater-than comparison of scalar and 4D vector components.
 //		param s_lh: left-hand scalar
 //		param v_rh: right-hand vector
 //		return: comparison vector
 //bvec4 ijkVecGreater4sr(real const s_lh, rvec4 const v_rh);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecGreater4sr ijk_declrealfs(ijkVecGreater4s,)
+
 // ijkVecAnd4s*
 //	Component-wise logical 'and' comparison of 4D vector and scalar.
 //		param s_lh: left-hand scalar
 //		param v_rh: right-hand vector
 //		return: comparison vector
 //bvec4 ijkVecAnd4sr(real const s_lh, rvec4 const v_rh);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecAnd4sr ijk_declrealfs(ijkVecAnd4s,)
+
 // ijkVecNand4s*
 //	Component-wise logical 'nand' comparison of 4D vector and scalar.
 //		param s_lh: left-hand scalar
 //		param v_rh: right-hand vector
 //		return: comparison vector
 //bvec4 ijkVecNand4sr(real const s_lh, rvec4 const v_rh);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecNand4sr ijk_declrealfs(ijkVecNand4s,)
+
 // ijkVecOr4s*
 //	Component-wise logical 'or' comparison of 4D vector and scalar.
 //		param s_lh: left-hand scalar
 //		param v_rh: right-hand vector
 //		return: comparison vector
 //bvec4 ijkVecOr4sr(real const s_lh, rvec4 const v_rh);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecOr4sr ijk_declrealfs(ijkVecOr4s,)
+
 // ijkVecNor4s*
 //	Component-wise logical 'nor' comparison of 4D vector and scalar.
 //		param s_lh: left-hand scalar
 //		param v_rh: right-hand vector
 //		return: comparison vector
 //bvec4 ijkVecNor4sr(real const s_lh, rvec4 const v_rh);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecNor4sr ijk_declrealfs(ijkVecNor4s,)
+
 // ijkVecDot4*
 //	Dot product of 4D vectors.
 //		param v_lh: left-hand vector
 //		param v_rh: right-hand vector
 //		return: dot product
 //real ijkVecDot4r(rvec4 const v_lh, rvec4 const v_rh);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecDot4r ijk_declrealfs(ijkVecDot4,)
+
 // ijkVecCross4*
 //	Cross product of 4D vectors.
 //		param v_lh: left-hand vector
 //		param v_rh: right-hand vector
 //		return: cross product (fourth component is zero)
 //rvec4 ijkVecCross4r(rvec4 const v_lh, rvec4 const v_rh);
-#define func***v ijk_declrealfs(func,**v)
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecCross4r ijk_declrealfs(ijkVecCross4,)
+
+
 //-----------------------------------------------------------------------------
 
 #ifdef __cplusplus
