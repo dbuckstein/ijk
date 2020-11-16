@@ -1991,21 +1991,21 @@ extern "C" {
 //		param m_in: input matrix
 //		return: determinant
 //real ijkMatDeterminant2r(rmat2 const m_in);
-#define func***m ijk_declrealfs(func,**m)
+#define ijkMatDeterminant2r ijk_declrealfs(ijkMatDeterminant2,)
 
 // ijkMatDeterminantInv2*
 //	Calculate inverse determinant of 2x2 matrix.
 //		param m_in: input matrix
 //		return: determinant inverse
 //real ijkMatDeterminantInv2r(rmat2 const m_in);
-#define func***m ijk_declrealfs(func,**m)
+#define ijkMatDeterminantInv2r ijk_declrealfs(ijkMatDeterminantInv2,)
 
 // ijkMatDeterminantInvSafe2*
 //	Calculate inverse determinant of 2x2 matrix; division-by-zero safety.
 //		param m_in: input matrix
 //		return: determinant inverse
 //real ijkMatDeterminantInvSafe2r(rmat2 const m_in);
-#define func***m ijk_declrealfs(func,**m)
+#define ijkMatDeterminantInvSafe2r ijk_declrealfs(ijkMatDeterminantInvSafe2,)
 
 // ijkMatMulRowVec2*
 //	Get row as vector.
@@ -2014,7 +2014,7 @@ extern "C" {
 //		param row: matrix row index
 //		return: product of matrix row and vector
 //real ijkMatMulRowVec2r(rmat2 const m_in, rvec2 const v_in, index const row);
-#define func***m ijk_declrealfs(func,**m)
+#define ijkMatMulRowVec2r ijk_declrealfs(ijkMatMulRowVec2,)
 
 // ijkMatGetRow2*
 //	Get row as vector.
@@ -2022,14 +2022,14 @@ extern "C" {
 //		param row: matrix row index
 //		return: vector of row elements
 //rvec2 ijkMatGetRow2r(rmat2 const m_in, index const row);
-#define func***m ijk_declrealfs(func,**m)
+#define ijkMatGetRow2r ijk_declrealfs(ijkMatGetRow2,)
 
 // ijkMatTranspose2*
 //	Calculate transpose of 2x2 matrix (flip elements about diagonal).
 //		param m_in: input matrix
 //		return: transpose matrix
 //rmat2 ijkMatTranspose2r(rmat2 const m_in);
-#define func***m ijk_declrealfs(func,**m)
+#define ijkMatTranspose2r ijk_declrealfs(ijkMatTranspose2,)
 
 // ijkMatTransposeMul2*s
 //	Calculate transpose of 2x2 matrix (flip elements about diagonal), and 
@@ -2038,14 +2038,14 @@ extern "C" {
 //		param s: scalar multiplier
 //		return: scaled transpose
 //rmat2 ijkMatTransposeMul2rs(rmat2 const m_in, real const s);
-#define func***m ijk_declrealfs(func,**m)
+#define ijkMatTransposeMul2rs ijk_declrealfs(ijkMatTransposeMul2,s)
 
 // ijkMatInverse2*
 //	Calculate inverse of 2x2 matrix; matrix multiplied by inverse is identity.
 //		param m_in: input matrix
 //		return: inverse matrix
 //rmat2 ijkMatInverse2r(rmat2 const m_in);
-#define func***m ijk_declrealfs(func,**m)
+#define ijkMatInverse2r ijk_declrealfs(ijkMatInverse2,)
 
 // ijkMatInverseSafe2*
 //	Calculate inverse of 2x2 matrix; matrix multiplied by inverse is identity; 
@@ -2053,7 +2053,7 @@ extern "C" {
 //		param m_in: input matrix
 //		return: inverse matrix
 //rmat2 ijkMatInverseSafe2r(rmat2 const m_in);
-#define func***m ijk_declrealfs(func,**m)
+#define ijkMatInverseSafe2r ijk_declrealfs(ijkMatInverseSafe2,)
 
 // ijkMatMulVec2*
 //	Multiply 2D vector by 2x2 matrix.
@@ -2061,7 +2061,7 @@ extern "C" {
 //		param v_rh: right-hand vector
 //		return: product vector
 //rvec2 ijkMatMulVec2r(rmat2 const m_lh, rvec2 const v_rh);
-#define func***m ijk_declrealfs(func,**m)
+#define ijkMatMulVec2r ijk_declrealfs(ijkMatMulVec2,)
 
 // ijkMatMul2*
 //	Multiply 2x2 matrices (non-commutative).
@@ -2069,7 +2069,7 @@ extern "C" {
 //		param m_rh: right-hand matrix
 //		return: product matrix
 //rmat2 ijkMatMul2r(rmat2 const m_lh, rmat2 const m_rh);
-#define func***m ijk_declrealfs(func,**m)
+#define ijkMatMul2r ijk_declrealfs(ijkMatMul2,)
 
 // ijkMatDiv2*
 //	Divide 2x2 matrices (multiply left-hand by right-hand inverse).
@@ -2078,7 +2078,7 @@ extern "C" {
 //		param m_rh: right-hand matrix
 //		return: quotient matrix
 //rmat2 ijkMatDiv2r(rmat2 const m_lh, rmat2 const m_rh);
-#define func***m ijk_declrealfs(func,**m)
+#define ijkMatDiv2r ijk_declrealfs(ijkMatDiv2,)
 
 // ijkMatDivSafe2*
 //	Divide 2x2 matrices (multiply left-hand by right-hand inverse); 
@@ -2087,21 +2087,21 @@ extern "C" {
 //		param m_rh: right-hand matrix
 //		return: quotient matrix
 //rmat2 ijkMatDivSafe2r(rmat2 const m_lh, rmat2 const m_rh);
-#define func***m ijk_declrealfs(func,**m)
+#define ijkMatDivSafe2r ijk_declrealfs(ijkMatDivSafe2,)
 
 // ijkMatRotate2*
 //	Make 2D rotation matrix.
 //		param angle_degrees: input angle in degrees
 //		return: rotation matrix
 //rmat2 ijkMatRotate2r(real const angle_degrees);
-#define func***m ijk_declrealfs(func,**m)
+#define ijkMatRotate2r ijk_declrealfs(ijkMatRotate2,)
 
 // ijkMatScale2*
 //	Make 2D scale matrix.
 //		params sx, sy: scales on each dimension
 //		return: scale matrix
 //rmat2 ijkMatScale2r(real const sx, real const sy);
-#define func***m ijk_declrealfs(func,**m)
+#define ijkMatScale2r ijk_declrealfs(ijkMatScale2,)
 
 // ijkMatRotateScale2*
 //	Make 2D rotation-scale matrix.
@@ -2109,7 +2109,7 @@ extern "C" {
 //		params sx, sy: scales on each dimension
 //		return: rotation-scale matrix
 //rmat2 ijkMatRotateScale2r(real const angle_degrees, real const sx, real const sy);
-#define func***m ijk_declrealfs(func,**m)
+#define ijkMatRotateScale2r ijk_declrealfs(ijkMatRotateScale2,)
 
 // ijkMatGetRotate2*
 //	Extract rotation angle in degrees from 2D rotation matrix; assumes columns 
@@ -2118,7 +2118,7 @@ extern "C" {
 //		param angle_degrees_out: pointer to angle storage
 //		return: m_in
 //rmat2 ijkMatGetRotate2r(rmat2 const m_in, real* const angle_degrees_out);
-#define func***m ijk_declrealfs(func,**m)
+#define ijkMatGetRotate2r ijk_declrealfs(ijkMatGetRotate2,)
 
 // ijkMatGetScale2*
 //	Extract scales from 2D matrix.
@@ -2126,7 +2126,7 @@ extern "C" {
 //		params sx_out, sy_out: pointers to scale storage
 //		return: m_in
 //rmat2 ijkMatGetScale2r(rmat2 const m_in, real* const sx_out, real* const sy_out);
-#define func***m ijk_declrealfs(func,**m)
+#define ijkMatGetScale2r ijk_declrealfs(ijkMatGetScale2,)
 
 // ijkMatGetRotateScale2*
 //	Extract rotation angle in degrees and scales from 2D matrix.
@@ -2135,7 +2135,7 @@ extern "C" {
 //		params sx_out, sy_out: pointers to scale storage
 //		return: m_in
 //rmat2 ijkMatGetRotateScale2r(rmat2 const m_in, real* const angle_degrees_out, real* const sx_out, real* const sy_out);
-#define func***m ijk_declrealfs(func,**m)
+#define ijkMatGetRotateScale2r ijk_declrealfs(ijkMatGetRotateScale2,)
 
 // ijkMatInverseRotate2*
 //	Calculate quick transform inverse for 2D matrix, assuming matrix encodes 
@@ -2143,7 +2143,7 @@ extern "C" {
 //		param m_in: input matrix
 //		return: quick inverse
 //rmat2 ijkMatInverseRotate2r(rmat2 const m_in);
-#define func***m ijk_declrealfs(func,**m)
+#define ijkMatInverseRotate2r ijk_declrealfs(ijkMatInverseRotate2,)
 
 // ijkMatInverseScale2*
 //	Calculate quick transform inverse for 2D matrix, assuming matrix encodes 
@@ -2151,7 +2151,7 @@ extern "C" {
 //		param m_in: input matrix
 //		return: quick inverse
 //rmat2 ijkMatInverseScale2r(rmat2 const m_in);
-#define func***m ijk_declrealfs(func,**m)
+#define ijkMatInverseScale2r ijk_declrealfs(ijkMatInverseScale2,)
 
 // ijkMatInverseRotateScale2*
 //	Calculate quick transform inverse for 2D matrix, assuming matrix encodes 
@@ -2159,7 +2159,7 @@ extern "C" {
 //		param m_in: input matrix
 //		return: quick inverse
 //rmat2 ijkMatInverseRotateScale2r(rmat2 const m_in);
-#define func***m ijk_declrealfs(func,**m)
+#define ijkMatInverseRotateScale2r ijk_declrealfs(ijkMatInverseRotateScale2,)
 
 // ijkMatInverseTranspose2*
 //	Calculate quick inverse-transpose of 2D matrix, assuming matrix encodes 
@@ -2167,7 +2167,7 @@ extern "C" {
 //		param m_in: input matrix
 //		return: quick inverse-transpose
 //rmat2 ijkMatInverseTranspose2r(rmat2 const m_in);
-#define func***m ijk_declrealfs(func,**m)
+#define ijkMatInverseTranspose2r ijk_declrealfs(ijkMatInverseTranspose2,)
 
 
 //-----------------------------------------------------------------------------
@@ -2177,21 +2177,21 @@ extern "C" {
 //		param m_in: input matrix
 //		return: determinant
 //real ijkMatDeterminant3r(rmat3 const m_in);
-#define func***m ijk_declrealfs(func,**m)
+#define ijkMatDeterminant3r ijk_declrealfs(ijkMatDeterminant3,)
 
 // ijkMatDeterminantInv3*
 //	Calculate inverse determinant of 3x3 matrix.
 //		param m_in: input matrix
 //		return: determinant inverse
 //real ijkMatDeterminantInv3r(rmat3 const m_in);
-#define func***m ijk_declrealfs(func,**m)
+#define ijkMatDeterminantInv3r ijk_declrealfs(ijkMatDeterminantInv3,)
 
 // ijkMatDeterminantInvSafe3*
 //	Calculate inverse determinant of 3x3 matrix; division-by-zero safety.
 //		param m_in: input matrix
 //		return: determinant inverse
 //real ijkMatDeterminantInvSafe3r(rmat3 const m_in);
-#define func***m ijk_declrealfs(func,**m)
+#define ijkMatDeterminantInvSafe3r ijk_declrealfs(ijkMatDeterminantInvSafe3,)
 
 // ijkMatMulRowVec3*
 //	Get row as vector.
@@ -2200,23 +2200,23 @@ extern "C" {
 //		param row: matrix row index
 //		return: product of matrix row and vector
 //real ijkMatMulRowVec3r(rmat3 const m_in, rvec3 const v_in, index const row);
-#define func***m ijk_declrealfs(func,**m)
+#define ijkMatMulRowVec3r ijk_declrealfs(ijkMatMulRowVec3,)
 
-// ijkMatGetRow3*
+// ijkMatMulRowVec3*
 //	Get row as vector.
 //		param v_out: output row vector
 //		param m_in: input matrix
 //		param row: matrix row index
 //		return: vector of row elements
 //rvec3 ijkMatGetRow3r(rmat3 const m_in, index const row);
-#define func***m ijk_declrealfs(func,**m)
+#define ijkMatMulRowVec3r ijk_declrealfs(ijkMatMulRowVec3,)
 
 // ijkMatTranspose3*
 //	Calculate transpose of 3x3 matrix (flip elements about diagonal).
 //		param m_in: input matrix
 //		return: transpose matrix
 //rmat3 ijkMatTranspose3r(rmat3 const m_in);
-#define func***m ijk_declrealfs(func,**m)
+#define ijkMatTranspose3r ijk_declrealfs(ijkMatTranspose3,)
 
 // ijkMatTransposeMul3*s
 //	Calculate transpose of 3x3 matrix (flip elements about diagonal), and 
@@ -2225,14 +2225,14 @@ extern "C" {
 //		param s: scalar multiplier
 //		return: scaled transpose
 //rmat3 ijkMatTransposeMul3rs(rmat3 const m_in, real const s);
-#define func***m ijk_declrealfs(func,**m)
+#define ijkMatTransposeMul3rs ijk_declrealfs(ijkMatTransposeMul3,s)
 
 // ijkMatInverse3*
 //	Calculate inverse of 3x3 matrix; matrix multiplied by inverse is identity.
 //		param m_in: input matrix
 //		return: inverse matrix
 //rmat3 ijkMatInverse3r(rmat3 const m_in);
-#define func***m ijk_declrealfs(func,**m)
+#define ijkMatInverse3r ijk_declrealfs(ijkMatInverse3,)
 
 // ijkMatInverseSafe3*
 //	Calculate inverse of 3x3 matrix; matrix multiplied by inverse is identity; 
@@ -2240,7 +2240,7 @@ extern "C" {
 //		param m_in: input matrix
 //		return: inverse matrix
 //rmat3 ijkMatInverseSafe3r(rmat3 const m_in);
-#define func***m ijk_declrealfs(func,**m)
+#define ijkMatInverseSafe3r ijk_declrealfs(ijkMatInverseSafe3,)
 
 // ijkMatMulVec3*
 //	Multiply 3D vector by 3x3 matrix.
@@ -2248,7 +2248,7 @@ extern "C" {
 //		param v_rh: right-hand vector
 //		return: product vector
 //rvec3 ijkMatMulVec3r(rmat3 const m_lh, rvec3 const v_rh);
-#define func***m ijk_declrealfs(func,**m)
+#define ijkMatMulVec3r ijk_declrealfs(ijkMatMulVec3,)
 
 // ijkMatMul3*
 //	Multiply 3x3 matrices (non-commutative).
@@ -2256,7 +2256,7 @@ extern "C" {
 //		param m_rh: right-hand matrix
 //		return: product matrix
 //rmat3 ijkMatMul3r(rmat3 const m_lh, rmat3 const m_rh);
-#define func***m ijk_declrealfs(func,**m)
+#define ijkMatMul3r ijk_declrealfs(ijkMatMul3,)
 
 // ijkMatDiv3*
 //	Divide 3x3 matrices (multiply left-hand by right-hand inverse).
@@ -2264,7 +2264,7 @@ extern "C" {
 //		param m_rh: right-hand matrix
 //		return: quotient matrix
 //rmat3 ijkMatDiv3r(rmat3 const m_lh, rmat3 const m_rh);
-#define func***m ijk_declrealfs(func,**m)
+#define ijkMatDiv3r ijk_declrealfs(ijkMatDiv3,)
 
 // ijkMatDivSafe3*
 //	Divide 3x3 matrices (multiply left-hand by right-hand inverse); 
@@ -2273,49 +2273,49 @@ extern "C" {
 //		param m_rh: right-hand matrix
 //		return: quotient matrix
 //rmat3 ijkMatDivSafe3r(rmat3 const m_lh, rmat3 const m_rh);
-#define func***m ijk_declrealfs(func,**m)
+#define ijkMatDivSafe3r ijk_declrealfs(ijkMatDivSafe3,)
 
 // ijkMatRotateXYZ3*
 //	Make 3D rotation matrix.
 //		param rotateDegXYZ: Euler angles in degrees (component order XYZ)
 //		return: rotation matrix
 //rmat3 ijkMatRotateXYZ3r(rvec3 const rotateDegXYZ);
-#define func***m ijk_declrealfs(func,**m)
+#define ijkMatRotateXYZ3r ijk_declrealfs(ijkMatRotateXYZ3,)
 
 // ijkMatRotateYZX3*
 //	Make 3D rotation matrix.
 //		param rotateDegXYZ: Euler angles in degrees (component order XYZ)
 //		return: rotation matrix
 //rmat3 ijkMatRotateYZX3r(rvec3 const rotateDegXYZ);
-#define func***m ijk_declrealfs(func,**m)
+#define ijkMatRotateYZX3r ijk_declrealfs(ijkMatRotateYZX3,)
 
 // ijkMatRotateZXY3*
 //	Make 3D rotation matrix.
 //		param rotateDegXYZ: Euler angles in degrees (component order XYZ)
 //		return: rotation matrix
 //rmat3 ijkMatRotateZXY3r(rvec3 const rotateDegXYZ);
-#define func***m ijk_declrealfs(func,**m)
+#define ijkMatRotateZXY3r ijk_declrealfs(ijkMatRotateZXY3,)
 
 // ijkMatRotateYXZ3*
 //	Make 3D rotation matrix.
 //		param rotateDegXYZ: Euler angles in degrees (component order XYZ)
 //		return: rotation matrix
 //rmat3 ijkMatRotateYXZ3r(rvec3 const rotateDegXYZ);
-#define func***m ijk_declrealfs(func,**m)
+#define ijkMatRotateYXZ3r ijk_declrealfs(ijkMatRotateYXZ3,)
 
 // ijkMatRotateXZY3*
 //	Make 3D rotation matrix.
 //		param rotateDegXYZ: Euler angles in degrees (component order XYZ)
 //		return: rotation matrix
 //rmat3 ijkMatRotateXZY3r(rvec3 const rotateDegXYZ);
-#define func***m ijk_declrealfs(func,**m)
+#define ijkMatRotateXZY3r ijk_declrealfs(ijkMatRotateXZY3,)
 
 // ijkMatRotateZYX3*
 //	Make 3D rotation matrix.
 //		param rotateDegXYZ: Euler angles in degrees (component order XYZ)
 //		return: rotation matrix
 //rmat3 ijkMatRotateZYX3r(rvec3 const rotateDegXYZ);
-#define func***m ijk_declrealfs(func,**m)
+#define ijkMatRotateZYX3r ijk_declrealfs(ijkMatRotateZYX3,)
 
 // ijkMatGetRotateXYZ3*
 //	Extract rotation angle in degrees from 3D rotation matrix; assumes columns 
@@ -2324,7 +2324,7 @@ extern "C" {
 //		param rotateDegXYZ_out: storage for Euler angles in component order XYZ
 //		return: m_in
 //rmat3 ijkMatGetRotateXYZ3r(rmat3 const m_in, rvec3* const rotateDegXYZ_out);
-#define func***m ijk_declrealfs(func,**m)
+#define ijkMatGetRotateXYZ3r ijk_declrealfs(ijkMatGetRotateXYZ3,)
 
 // ijkMatGetRotateYZX3*
 //	Extract rotation angle in degrees from 3D rotation matrix; assumes columns 
@@ -2333,7 +2333,7 @@ extern "C" {
 //		param rotateDegXYZ_out: storage for Euler angles in component order XYZ
 //		return: m_in
 //rmat3 ijkMatGetRotateYZX3r(rmat3 const m_in, rvec3* const rotateDegXYZ_out);
-#define func***m ijk_declrealfs(func,**m)
+#define ijkMatGetRotateYZX3r ijk_declrealfs(ijkMatGetRotateYZX3,)
 
 // ijkMatGetRotateZXY3*
 //	Extract rotation angle in degrees from 3D rotation matrix; assumes columns 
@@ -2342,7 +2342,7 @@ extern "C" {
 //		param rotateDegXYZ_out: storage for Euler angles in component order XYZ
 //		return: m_in
 //rmat3 ijkMatGetRotateZXY3r(rmat3 const m_in, rvec3* const rotateDegXYZ_out);
-#define func***m ijk_declrealfs(func,**m)
+#define ijkMatGetRotateZXY3r ijk_declrealfs(ijkMatGetRotateZXY3,)
 
 // ijkMatGetRotateYXZ3*
 //	Extract rotation angle in degrees from 3D rotation matrix; assumes columns 
@@ -2351,7 +2351,7 @@ extern "C" {
 //		param rotateDegXYZ_out: storage for Euler angles in component order XYZ
 //		return: m_in
 //rmat3 ijkMatGetRotateYXZ3r(rmat3 const m_in, rvec3* const rotateDegXYZ_out);
-#define func***m ijk_declrealfs(func,**m)
+#define ijkMatGetRotateYXZ3r ijk_declrealfs(ijkMatGetRotateYXZ3,)
 
 // ijkMatGetRotateXZY3*
 //	Extract rotation angle in degrees from 3D rotation matrix; assumes columns 
@@ -2360,7 +2360,7 @@ extern "C" {
 //		param rotateDegXYZ_out: storage for Euler angles in component order XYZ
 //		return: m_in
 //rmat3 ijkMatGetRotateXZY3r(rmat3 const m_in, rvec3* const rotateDegXYZ_out);
-#define func***m ijk_declrealfs(func,**m)
+#define ijkMatGetRotateXZY3r ijk_declrealfs(ijkMatGetRotateXZY3,)
 
 // ijkMatGetRotateZYX3*
 //	Extract rotation angle in degrees from 3D rotation matrix; assumes columns 
@@ -2369,7 +2369,7 @@ extern "C" {
 //		param rotateDegXYZ_out: storage for Euler angles in component order XYZ
 //		return: m_in
 //rmat3 ijkMatGetRotateZYX3r(rmat3 const m_in, rvec3* const rotateDegXYZ_out);
-#define func***m ijk_declrealfs(func,**m)
+#define ijkMatGetRotateZYX3r ijk_declrealfs(ijkMatGetRotateZYX3,)
 
 // ijkMatRotate3*
 //	Make 3D rotation matrix.
@@ -2378,14 +2378,14 @@ extern "C" {
 //		param rotateDegXYZ: Euler angles in degrees (component order XYZ)
 //		return: rotation matrix
 //rmat3 ijkMatRotate3r(ijkRotationOrder const order, rvec3 const rotateDegXYZ);
-#define func***m ijk_declrealfs(func,**m)
+#define ijkMatRotate3r ijk_declrealfs(ijkMatRotate3,)
 
 // ijkMatScale3*
 //	Make 3D scale matrix.
 //		param scale: scales on each dimension
 //		return: scale matrix
 //rmat3 ijkMatScale3r(rvec3 const scale);
-#define func***m ijk_declrealfs(func,**m)
+#define ijkMatScale3r ijk_declrealfs(ijkMatScale3,)
 
 // ijkMatRotateScale3*
 //	Make 3D rotation-scale matrix.
@@ -2395,7 +2395,7 @@ extern "C" {
 //		param scale: scales on each dimension
 //		return: rotation-scale matrix
 //rmat3 ijkMatRotateScale3r(ijkRotationOrder const order, rvec3 const rotateDegXYZ, rvec3 const scale);
-#define func***m ijk_declrealfs(func,**m)
+#define ijkMatRotateScale3r ijk_declrealfs(ijkMatRotateScale3,)
 
 // ijkMatGetRotate3*
 //	Extract rotation angle in degrees from 3D rotation matrix; assumes columns 
@@ -2406,7 +2406,7 @@ extern "C" {
 //		param rotateDegXYZ_out: storage for Euler angles in component order XYZ
 //		return: m_in
 //rmat3 ijkMatGetRotate3r(rmat3 const m_in, ijkRotationOrder const order, rvec3* const rotateDegXYZ_out);
-#define func***m ijk_declrealfs(func,**m)
+#define ijkMatGetRotate3r ijk_declrealfs(ijkMatGetRotate3,)
 
 // ijkMatGetScale3*
 //	Extract scales from 3D matrix.
@@ -2414,7 +2414,7 @@ extern "C" {
 //		param scale_out: storage for scale amounts
 //		return: m_in
 //rmat3 ijkMatGetScale3r(rmat3 const m_in, rvec3* const scale_out);
-#define func***m ijk_declrealfs(func,**m)
+#define ijkMatGetScale3r ijk_declrealfs(ijkMatGetScale3,)
 
 // ijkMatGetRotateScale3*
 //	Extract rotation angle in degrees and scales from 3D matrix.
@@ -2425,7 +2425,7 @@ extern "C" {
 //		param scale_out: storage for scale amounts
 //		return: m_in
 //rmat3 ijkMatGetRotateScale3r(rmat3 const m_in, ijkRotationOrder const order, rvec3* const rotateDegXYZ_out, rvec3* const scale_out);
-#define func***m ijk_declrealfs(func,**m)
+#define ijkMatGetRotateScale3r ijk_declrealfs(ijkMatGetRotateScale3,)
 
 // ijkMatInverseRotate3*
 //	Calculate quick transform inverse for 3D matrix, assuming matrix encodes 
@@ -2433,7 +2433,7 @@ extern "C" {
 //		param m_in: input matrix
 //		return: quick inverse
 //rmat3 ijkMatInverseRotate3r(rmat3 const m_in);
-#define func***m ijk_declrealfs(func,**m)
+#define ijkMatInverseRotate3r ijk_declrealfs(ijkMatInverseRotate3,)
 
 // ijkMatInverseScale3*
 //	Calculate quick transform inverse for 3D matrix, assuming matrix encodes 
@@ -2441,7 +2441,7 @@ extern "C" {
 //		param m_in: input matrix
 //		return: quick inverse
 //rmat3 ijkMatInverseScale3r(rmat3 const m_in);
-#define func***m ijk_declrealfs(func,**m)
+#define ijkMatInverseScale3r ijk_declrealfs(ijkMatInverseScale3,)
 
 // ijkMatInverseRotateScale3*
 //	Calculate quick transform inverse for 3D matrix, assuming matrix encodes 
@@ -2449,7 +2449,7 @@ extern "C" {
 //		param m_in: input matrix
 //		return: quick inverse
 //rmat3 ijkMatInverseRotateScale3r(rmat3 const m_in);
-#define func***m ijk_declrealfs(func,**m)
+#define ijkMatInverseRotateScale3r ijk_declrealfs(ijkMatInverseRotateScale3,)
 
 // ijkMatInverseTranspose3*
 //	Calculate quick inverse-transpose of 3D matrix, assuming matrix encodes 
@@ -2457,7 +2457,7 @@ extern "C" {
 //		param m_in: input matrix
 //		return: quick inverse-transpose
 //rmat3 ijkMatInverseTranspose3r(rmat3 const m_in);
-#define func***m ijk_declrealfs(func,**m)
+#define ijkMatInverseTranspose3r ijk_declrealfs(ijkMatInverseTranspose3,)
 
 // ijkMatRotateAxisAngle3*
 //	Create 3D rotation matrix given unit axis of rotation and angle in degrees.
@@ -2465,7 +2465,7 @@ extern "C" {
 //		param angle_degrees: angle of rotation in degrees
 //		return: rotation matrix
 //rmat3 ijkMatRotateAxisAngle3r(rvec3 const axis_unit, real const angle_degrees);
-#define func***m ijk_declrealfs(func,**m)
+#define ijkMatRotateAxisAngle3r ijk_declrealfs(ijkMatRotateAxisAngle3,)
 
 // ijkMatRotateAxisAngleScale3*
 //	Create 3D rotation matrix given unit axis of rotation, angle in degrees 
@@ -2475,7 +2475,7 @@ extern "C" {
 //		param scale: scales on each dimension
 //		return: rotation-scale matrix
 //rmat3 ijkMatRotateAxisAngleScale3r(rvec3 const axis_unit, real const angle_degrees, rvec3 const scale);
-#define func***m ijk_declrealfs(func,**m)
+#define ijkMatRotateAxisAngleScale3r ijk_declrealfs(ijkMatRotateAxisAngleScale3,)
 
 // ijkMatGetRotateAxisAngle3*
 //	Extract unit axis of rotation and angle in degrees from 3D rotation matrix.
@@ -2484,7 +2484,7 @@ extern "C" {
 //		param angle_degrees_out: pointer to angle storage
 //		return: m_in
 //rmat3 ijkMatGetRotateAxisAngle3r(rmat3 const m_in, rvec3* const axis_unit_out, real* const angle_degrees_out);
-#define func***m ijk_declrealfs(func,**m)
+#define ijkMatGetRotateAxisAngle3r ijk_declrealfs(ijkMatGetRotateAxisAngle3,)
 
 // ijkMatGetRotateAxisAngleScale3*
 //	Extract unit axis of rotation, angle in degrees and scale from 3D matrix.
@@ -2494,7 +2494,7 @@ extern "C" {
 //		param scale_out: storage for scale amounts
 //		return: m_in
 //rmat3 ijkMatGetRotateAxisAngleScale3r(rmat3 const m_in, rvec3* const axis_unit_out, real* const angle_degrees_out, rvec3* const scale_out);
-#define func***m ijk_declrealfs(func,**m)
+#define ijkMatGetRotateAxisAngleScale3r ijk_declrealfs(ijkMatGetRotateAxisAngleScale3,)
 
 // ijkMatLookAt3*
 //	Create look-at 3D matrix given origin, target and calibration vector.
@@ -2505,7 +2505,7 @@ extern "C" {
 //		param calibAxis: index of calibration vector (0, 1 or 2)
 //		return: look-at matrix
 //rmat3 ijkMatLookAt3r(rmat3* const m_inv_out_opt, rvec3 const origin, rvec3 const target, rvec3 const calibUnit, ijkTransformBasis const calibAxis);
-#define func***m ijk_declrealfs(func,**m)
+#define ijkMatLookAt3r ijk_declrealfs(ijkMatLookAt3,)
 
 
 //-----------------------------------------------------------------------------
@@ -2515,21 +2515,21 @@ extern "C" {
 //		param m_in: input matrix
 //		return: determinant
 //real ijkMatDeterminant4r(rmat4 const m_in);
-#define func***m ijk_declrealfs(func,**m)
+#define ijkMatDeterminant4r ijk_declrealfs(ijkMatDeterminant4,)
 
 // ijkMatDeterminantInv4*
 //	Calculate inverse determinant of 4x4 matrix.
 //		param m_in: input matrix
 //		return: determinant inverse
 //real ijkMatDeterminantInv4r(rmat4 const m_in);
-#define func***m ijk_declrealfs(func,**m)
+#define ijkMatDeterminantInv4r ijk_declrealfs(ijkMatDeterminantInv4,)
 
 // ijkMatDeterminantInvSafe4*
 //	Calculate inverse determinant of 4x4 matrix; division-by-zero safety.
 //		param m_in: input matrix
 //		return: determinant inverse
 //real ijkMatDeterminantInvSafe4r(rmat4 const m_in);
-#define func***m ijk_declrealfs(func,**m)
+#define ijkMatDeterminantInvSafe4r ijk_declrealfs(ijkMatDeterminantInvSafe4,)
 
 // ijkMatMulRowVec4*
 //	Get row as vector.
@@ -2538,7 +2538,7 @@ extern "C" {
 //		param row: matrix row index
 //		return: product of matrix row and vector
 //real ijkMatMulRowVec4r(rmat4 const m_in, rvec4 const v_in, index const row);
-#define func***m ijk_declrealfs(func,**m)
+#define ijkMatMulRowVec4r ijk_declrealfs(ijkMatMulRowVec4,)
 
 // ijkMatGetRow4*
 //	Get row as vector.
@@ -2547,14 +2547,14 @@ extern "C" {
 //		param row: matrix row index
 //		return: vector of row elements
 //rvec4 ijkMatGetRow4r(rmat4 const m_in, index const row);
-#define func***m ijk_declrealfs(func,**m)
+#define ijkMatGetRow4r ijk_declrealfs(ijkMatGetRow4,)
 
 // ijkMatTranspose4*
 //	Calculate transpose of 4x4 matrix (flip elements about diagonal).
 //		param m_in: input matrix
 //		return: transpose matrix
 //rmat4 ijkMatTranspose4r(rmat4 const m_in);
-#define func***m ijk_declrealfs(func,**m)
+#define ijkMatTranspose4r ijk_declrealfs(ijkMatTranspose4,)
 
 // ijkMatTransposeMul4*s
 //	Calculate transpose of 4x4 matrix (flip elements about diagonal), and 
@@ -2563,14 +2563,14 @@ extern "C" {
 //		param s: scalar multiplier
 //		return: scaled transpose
 //rmat4 ijkMatTransposeMul4rs(rmat4 const m_in, real const s);
-#define func***m ijk_declrealfs(func,**m)
+#define ijkMatTransposeMul4rs ijk_declrealfs(ijkMatTransposeMul4,s)
 
 // ijkMatInverse4*
 //	Calculate inverse of 4x4 matrix; matrix multiplied by inverse is identity.
 //		param m_in: input matrix
 //		return: inverse matrix
 //rmat4 ijkMatInverse4r(rmat4 const m_in);
-#define func***m ijk_declrealfs(func,**m)
+#define ijkMatInverse4r ijk_declrealfs(ijkMatInverse4,)
 
 // ijkMatInverseSafe4*
 //	Calculate inverse of 4x4 matrix; matrix multiplied by inverse is identity; 
@@ -2578,7 +2578,7 @@ extern "C" {
 //		param m_in: input matrix
 //		return: inverse matrix
 //rmat4 ijkMatInverseSafe4r(rmat4 const m_in);
-#define func***m ijk_declrealfs(func,**m)
+#define ijkMatInverseSafe4r ijk_declrealfs(ijkMatInverseSafe4,)
 
 // ijkMatMulVec4*
 //	Multiply 4D vector by 4x4 matrix.
@@ -2586,7 +2586,7 @@ extern "C" {
 //		param v_rh: right-hand vector
 //		return: product vector
 //rvec4 ijkMatMulVec4r(rmat4 const m_lh, rvec4 const v_rh);
-#define func***m ijk_declrealfs(func,**m)
+#define ijkMatMulVec4r ijk_declrealfs(ijkMatMulVec4,)
 
 // ijkMatMul4*
 //	Multiply 4x4 matrices (non-commutative).
@@ -2594,7 +2594,7 @@ extern "C" {
 //		param m_rh: right-hand matrix
 //		return: product matrix
 //rmat4 ijkMatMul4r(rmat4 const m_lh, rmat4 const m_rh);
-#define func***m ijk_declrealfs(func,**m)
+#define ijkMatMul4r ijk_declrealfs(ijkMatMul4,)
 
 // ijkMatDiv4*
 //	Divide 4x4 matrices (multiply left-hand by right-hand inverse).
@@ -2602,7 +2602,7 @@ extern "C" {
 //		param m_rh: right-hand matrix
 //		return: quotient matrix
 //rmat4 ijkMatDiv4r(rmat4 const m_lh, rmat4 const m_rh);
-#define func***m ijk_declrealfs(func,**m)
+#define ijkMatDiv4r ijk_declrealfs(ijkMatDiv4,)
 
 // ijkMatDivSafe4*
 //	Divide 4x4 matrices (multiply left-hand by right-hand inverse); 
@@ -2611,49 +2611,49 @@ extern "C" {
 //		param m_rh: right-hand matrix
 //		return: quotient matrix
 //rmat4 ijkMatDivSafe4r(rmat4 const m_lh, rmat4 const m_rh);
-#define func***m ijk_declrealfs(func,**m)
+#define ijkMatDivSafe4r ijk_declrealfs(ijkMatDivSafe4,)
 
 // ijkMatRotateXYZ4*
 //	Make 4D rotation matrix.
 //		param rotateDegXYZ: Euler angles in degrees (component order XYZ)
 //		return: rotation matrix
 //rmat4 ijkMatRotateXYZ4r(rvec3 const rotateDegXYZ);
-#define func***m ijk_declrealfs(func,**m)
+#define ijkMatRotateXYZ4r ijk_declrealfs(ijkMatRotateXYZ4,)
 
 // ijkMatRotateYZX4*
 //	Make 4D rotation matrix.
 //		param rotateDegXYZ: Euler angles in degrees (component order XYZ)
 //		return: rotation matrix
 //rmat4 ijkMatRotateYZX4r(rvec3 const rotateDegXYZ);
-#define func***m ijk_declrealfs(func,**m)
+#define ijkMatRotateYZX4r ijk_declrealfs(ijkMatRotateYZX4,)
 
 // ijkMatRotateZXY4*
 //	Make 4D rotation matrix.
 //		param rotateDegXYZ: Euler angles in degrees (component order XYZ)
 //		return: rotation matrix
 //rmat4 ijkMatRotateZXY4r(rvec3 const rotateDegXYZ);
-#define func***m ijk_declrealfs(func,**m)
+#define ijkMatRotateZXY4r ijk_declrealfs(ijkMatRotateZXY4,)
 
 // ijkMatRotateYXZ4*
 //	Make 4D rotation matrix.
 //		param rotateDegXYZ: Euler angles in degrees (component order XYZ)
 //		return: rotation matrix
 //rmat4 ijkMatRotateYXZ4r(rvec3 const rotateDegXYZ);
-#define func***m ijk_declrealfs(func,**m)
+#define ijkMatRotateYXZ4r ijk_declrealfs(ijkMatRotateYXZ4,)
 
 // ijkMatRotateXZY4*
 //	Make 4D rotation matrix.
 //		param rotateDegXYZ: Euler angles in degrees (component order XYZ)
 //		return: rotation matrix
 //rmat4 ijkMatRotateXZY4r(rvec3 const rotateDegXYZ);
-#define func***m ijk_declrealfs(func,**m)
+#define ijkMatRotateXZY4r ijk_declrealfs(ijkMatRotateXZY4,)
 
 // ijkMatRotateZYX4*
 //	Make 4D rotation matrix.
 //		param rotateDegXYZ: Euler angles in degrees (component order XYZ)
 //		return: rotation matrix
 //rmat4 ijkMatRotateZYX4r(rvec3 const rotateDegXYZ);
-#define func***m ijk_declrealfs(func,**m)
+#define ijkMatRotateZYX4r ijk_declrealfs(ijkMatRotateZYX4,)
 
 // ijkMatGetRotateXYZ4*
 //	Extract rotation angle in degrees from 4D rotation matrix; assumes columns 
@@ -2662,7 +2662,7 @@ extern "C" {
 //		param rotateDegXYZ_out: storage for Euler angles in component order XYZ
 //		return: m_in
 //rmat4 ijkMatGetRotateXYZ4r(rmat4 const m_in, rvec3* const rotateDegXYZ_out);
-#define func***m ijk_declrealfs(func,**m)
+#define ijkMatGetRotateXYZ4r ijk_declrealfs(ijkMatGetRotateXYZ4,)
 
 // ijkMatGetRotateYZX4*
 //	Extract rotation angle in degrees from 4D rotation matrix; assumes columns 
@@ -2671,7 +2671,7 @@ extern "C" {
 //		param rotateDegXYZ_out: storage for Euler angles in component order XYZ
 //		return: m_in
 //rmat4 ijkMatGetRotateYZX4r(rmat4 const m_in, rvec3* const rotateDegXYZ_out);
-#define func***m ijk_declrealfs(func,**m)
+#define ijkMatGetRotateYZX4r ijk_declrealfs(ijkMatGetRotateYZX4,)
 
 // ijkMatGetRotateZXY4*
 //	Extract rotation angle in degrees from 4D rotation matrix; assumes columns 
@@ -2680,7 +2680,7 @@ extern "C" {
 //		param rotateDegXYZ_out: storage for Euler angles in component order XYZ
 //		return: m_in
 //rmat4 ijkMatGetRotateZXY4r(rmat4 const m_in, rvec3* const rotateDegXYZ_out);
-#define func***m ijk_declrealfs(func,**m)
+#define ijkMatGetRotateZXY4r ijk_declrealfs(ijkMatGetRotateZXY4,)
 
 // ijkMatGetRotateYXZ4*
 //	Extract rotation angle in degrees from 4D rotation matrix; assumes columns 
@@ -2689,7 +2689,7 @@ extern "C" {
 //		param rotateDegXYZ_out: storage for Euler angles in component order XYZ
 //		return: m_in
 //rmat4 ijkMatGetRotateYXZ4r(rmat4 const m_in, rvec3* const rotateDegXYZ_out);
-#define func***m ijk_declrealfs(func,**m)
+#define ijkMatGetRotateYXZ4r ijk_declrealfs(ijkMatGetRotateYXZ4,)
 
 // ijkMatGetRotateXZY4*
 //	Extract rotation angle in degrees from 4D rotation matrix; assumes columns 
@@ -2698,7 +2698,7 @@ extern "C" {
 //		param rotateDegXYZ_out: storage for Euler angles in component order XYZ
 //		return: m_in
 //rmat4 ijkMatGetRotateXZY4r(rmat4 const m_in, rvec3* const rotateDegXYZ_out);
-#define func***m ijk_declrealfs(func,**m)
+#define ijkMatGetRotateXZY4r ijk_declrealfs(ijkMatGetRotateXZY4,)
 
 // ijkMatGetRotateZYX4*
 //	Extract rotation angle in degrees from 4D rotation matrix; assumes columns 
@@ -2707,7 +2707,7 @@ extern "C" {
 //		param rotateDegXYZ_out: storage for Euler angles in component order XYZ
 //		return: m_in
 //rmat4 ijkMatGetRotateZYX4r(rmat4 const m_in, rvec3* const rotateDegXYZ_out);
-#define func***m ijk_declrealfs(func,**m)
+#define ijkMatGetRotateZYX4r ijk_declrealfs(ijkMatGetRotateZYX4,)
 
 // ijkMatRotate4*
 //	Make 4D rotation matrix.
@@ -2716,14 +2716,14 @@ extern "C" {
 //		param rotateDegXYZ: Euler angles in degrees (component order XYZ)
 //		return: rotation matrix
 //rmat4 ijkMatRotate4r(ijkRotationOrder const order, rvec3 const rotateDegXYZ);
-#define func***m ijk_declrealfs(func,**m)
+#define ijkMatRotate4r ijk_declrealfs(ijkMatRotate4,)
 
 // ijkMatScale4*
 //	Make 4D scale matrix.
 //		param scale: scales on each dimension
 //		return: scale matrix
 //rmat4 ijkMatScale4r(rvec3 const scale);
-#define func***m ijk_declrealfs(func,**m)
+#define ijkMatScale4r ijk_declrealfs(ijkMatScale4,)
 
 // ijkMatRotateScale4*
 //	Make 4D rotation-scale matrix.
@@ -2733,7 +2733,7 @@ extern "C" {
 //		param scale: scales on each dimension
 //		return: rotation-scale matrix
 //rmat4 ijkMatRotateScale4r(ijkRotationOrder const order, rvec3 const rotateDegXYZ, rvec3 const scale);
-#define func***m ijk_declrealfs(func,**m)
+#define ijkMatRotateScale4r ijk_declrealfs(ijkMatRotateScale4,)
 
 // ijkMatGetRotate4*
 //	Extract rotation angle in degrees from 4D rotation matrix; assumes columns 
@@ -2744,7 +2744,7 @@ extern "C" {
 //		param rotateDegXYZ_out: storage for Euler angles in component order XYZ
 //		return: m_in
 //rmat4 ijkMatGetRotate4r(rmat4 const m_in, ijkRotationOrder const order, rvec3* const rotateDegXYZ_out);
-#define func***m ijk_declrealfs(func,**m)
+#define ijkMatGetRotate4r ijk_declrealfs(ijkMatGetRotate4,)
 
 // ijkMatGetScale4*
 //	Extract scales from 4D matrix.
@@ -2752,7 +2752,7 @@ extern "C" {
 //		param scale_out: storage for scale amounts
 //		return: m_in
 //rmat4 ijkMatGetScale4r(rmat4 const m_in, rvec3* const scale_out);
-#define func***m ijk_declrealfs(func,**m)
+#define ijkMatGetScale4r ijk_declrealfs(ijkMatGetScale4,)
 
 // ijkMatGetRotateScale4*
 //	Extract rotation angle in degrees and scales from 4D matrix.
@@ -2763,7 +2763,7 @@ extern "C" {
 //		param scale_out: storage for scale amounts
 //		return: m_in
 //rmat4 ijkMatGetRotateScale4r(rmat4 const m_in, ijkRotationOrder const order, rvec3* const rotateDegXYZ_out, rvec3* const scale_out);
-#define func***m ijk_declrealfs(func,**m)
+#define ijkMatGetRotateScale4r ijk_declrealfs(ijkMatGetRotateScale4,)
 
 // ijkMatInverseRotate4*
 //	Calculate quick transform inverse for 4D matrix, assuming matrix encodes 
@@ -2771,7 +2771,7 @@ extern "C" {
 //		param m_in: input matrix
 //		return: quick inverse
 //rmat4 ijkMatInverseRotate4r(rmat4 const m_in);
-#define func***m ijk_declrealfs(func,**m)
+#define ijkMatInverseRotate4r ijk_declrealfs(ijkMatInverseRotate4,)
 
 // ijkMatInverseScale4*
 //	Calculate quick transform inverse for 4D matrix, assuming matrix encodes 
@@ -2779,7 +2779,7 @@ extern "C" {
 //		param m_in: input matrix
 //		return: quick inverse
 //rmat4 ijkMatInverseScale4r(rmat4 const m_in);
-#define func***m ijk_declrealfs(func,**m)
+#define ijkMatInverseScale4r ijk_declrealfs(ijkMatInverseScale4,)
 
 // ijkMatInverseRotateScale4*
 //	Calculate quick transform inverse for 4D matrix, assuming matrix encodes 
@@ -2787,7 +2787,7 @@ extern "C" {
 //		param m_in: input matrix
 //		return: quick inverse
 //rmat4 ijkMatInverseRotateScale4r(rmat4 const m_in);
-#define func***m ijk_declrealfs(func,**m)
+#define ijkMatInverseRotateScale4r ijk_declrealfs(ijkMatInverseRotateScale4,)
 
 // ijkMatInverseTranspose4*
 //	Calculate quick inverse-transpose of 4D matrix, assuming matrix encodes 
@@ -2795,7 +2795,7 @@ extern "C" {
 //		param m_in: input matrix
 //		return: quick inverse-transpose
 //rmat4 ijkMatInverseTranspose4r(rmat4 const m_in);
-#define func***m ijk_declrealfs(func,**m)
+#define ijkMatInverseTranspose4r ijk_declrealfs(ijkMatInverseTranspose4,)
 
 // ijkMatRotateAxisAngle4*
 //	Create 4D rotation matrix given unit axis of rotation and angle in degrees.
@@ -2803,7 +2803,7 @@ extern "C" {
 //		param angle_degrees: angle of rotation in degrees
 //		return: rotation matrix
 //rmat4 ijkMatRotateAxisAngle4r(rvec3 const axis_unit, real const angle_degrees);
-#define func***m ijk_declrealfs(func,**m)
+#define ijkMatRotateAxisAngle4r ijk_declrealfs(ijkMatRotateAxisAngle4,)
 
 // ijkMatRotateAxisAngleScale4*
 //	Create 4D rotation matrix given unit axis of rotation, angle in degrees 
@@ -2813,7 +2813,7 @@ extern "C" {
 //		param scale: scales on each dimension
 //		return: rotation-scale matrix
 //rmat4 ijkMatRotateAxisAngleScale4r(rvec3 const axis_unit, real const angle_degrees, rvec3 const scale);
-#define func***m ijk_declrealfs(func,**m)
+#define ijkMatRotateAxisAngleScale4r ijk_declrealfs(ijkMatRotateAxisAngleScale4,)
 
 // ijkMatGetRotateAxisAngle4*
 //	Extract unit axis of rotation and angle in degrees from 4D rotation matrix.
@@ -2822,7 +2822,7 @@ extern "C" {
 //		param angle_degrees_out: pointer to angle storage
 //		return: m_in
 //rmat4 ijkMatGetRotateAxisAngle4r(rmat4 const m_in, rvec3* const axis_unit_out, real* const angle_degrees_out);
-#define func***m ijk_declrealfs(func,**m)
+#define ijkMatGetRotateAxisAngle4r ijk_declrealfs(ijkMatGetRotateAxisAngle4,)
 
 // ijkMatGetRotateAxisAngleScale4*
 //	Extract unit axis of rotation, angle in degrees and scale from 4D matrix.
@@ -2832,7 +2832,7 @@ extern "C" {
 //		param scale_out: storage for scale amounts
 //		return: m_in
 //rmat4 ijkMatGetRotateAxisAngleScale4r(rmat4 const m_in, rvec3* const axis_unit_out, real* const angle_degrees_out, rvec3* const scale_out);
-#define func***m ijk_declrealfs(func,**m)
+#define ijkMatGetRotateAxisAngleScale4r ijk_declrealfs(ijkMatGetRotateAxisAngleScale4,)
 
 // ijkMatTranslate4*
 //	Create 4D translation matrix, identity in upper-left, offset vector in 
@@ -2840,7 +2840,7 @@ extern "C" {
 //		param translate: translation offset vector
 //		return: translation matrix
 //rmat4 ijkMatTranslate4r(rvec3 const translate);
-#define func***m ijk_declrealfs(func,**m)
+#define ijkMatTranslate4r ijk_declrealfs(ijkMatTranslate4,)
 
 // ijkMatRotateTranslate4*
 //	Create 4D rotation-translation matrix, R in upper-left, offset vector in 
@@ -2851,7 +2851,7 @@ extern "C" {
 //		param translate: translation offset vector
 //		return: rotation-translation matrix
 //rmat4 ijkMatRotateTranslate4r(ijkRotationOrder const order, rvec3 const rotateDegXYZ, rvec3 const translate);
-#define func***m ijk_declrealfs(func,**m)
+#define ijkMatRotateTranslate4r ijk_declrealfs(ijkMatRotateTranslate4,)
 
 // ijkMatScaleTranslate4*
 //	Create 4D scale-translation matrix, S in upper-left, offset vector in 
@@ -2860,7 +2860,7 @@ extern "C" {
 //		param translate: translation offset vector
 //		return: scale-translation matrix
 //rmat4 ijkMatScaleTranslate4r(rvec3 const scale, rvec3 const translate);
-#define func***m ijk_declrealfs(func,**m)
+#define ijkMatScaleTranslate4r ijk_declrealfs(ijkMatScaleTranslate4,)
 
 // ijkMatRotateScaleTranslate4*
 //	Create 4D rotation-scale-translation matrix, RS in upper-left, offset 
@@ -2872,7 +2872,7 @@ extern "C" {
 //		param translate: translation offset vector
 //		return: rotation-scale-translation matrix
 //rmat4 ijkMatRotateScaleTranslate4r(ijkRotationOrder const order, rvec3 const rotateDegXYZ, rvec3 const scale, rvec3 const translate);
-#define func***m ijk_declrealfs(func,**m)
+#define ijkMatRotateScaleTranslate4r ijk_declrealfs(ijkMatRotateScaleTranslate4,)
 
 // ijkMatRotateAxisAngleTranslate4*
 //	Create 4D rotation-translation matrix, R in upper-left, offset vector in 
@@ -2882,7 +2882,7 @@ extern "C" {
 //		param translate: translation offset vector
 //		return: rotation-translation matrix
 //rmat4 ijkMatRotateAxisAngleTranslate4r(rvec3 const axis_unit, real const angle_degrees, rvec3 const translate);
-#define func***m ijk_declrealfs(func,**m)
+#define ijkMatRotateAxisAngleTranslate4r ijk_declrealfs(ijkMatRotateAxisAngleTranslate4,)
 
 // ijkMatRotateAxisAngleScaleTranslate4*
 //	Create 4D rotation-scale-translation matrix, RS in upper-left, offset 
@@ -2893,7 +2893,7 @@ extern "C" {
 //		param translate: translation offset vector
 //		return: rotation-scale-translation matrix
 //rmat4 ijkMatRotateAxisAngleScaleTranslate4r(rvec3 const axis_unit, real const angle_degrees, rvec3 const scale, rvec3 const translate);
-#define func***m ijk_declrealfs(func,**m)
+#define ijkMatRotateAxisAngleScaleTranslate4r ijk_declrealfs(ijkMatRotateAxisAngleScaleTranslate4,)
 
 // ijkMatGetTranslate4*
 //	Extract translation offset vector from 4D matrix.
@@ -2901,7 +2901,7 @@ extern "C" {
 //		param translate_out: storage for translation offset
 //		return: m_in
 //rmat4 ijkMatGetTranslate4r(rmat4 const m_in, rvec3* const translate_out);
-#define func***m ijk_declrealfs(func,**m)
+#define ijkMatGetTranslate4r ijk_declrealfs(ijkMatGetTranslate4,)
 
 // ijkMatGetRotateTranslate4*
 //	Extract rotation angle in degrees and translation offset vector from 4D 
@@ -2913,7 +2913,7 @@ extern "C" {
 //		param translate_out: storage for translation offset
 //		return: m_in
 //rmat4 ijkMatGetRotateTranslate4r(rmat4 const m_in, ijkRotationOrder const order, rvec3* const rotateDegXYZ_out, rvec3* const translate_out);
-#define func***m ijk_declrealfs(func,**m)
+#define ijkMatGetRotateTranslate4r ijk_declrealfs(ijkMatGetRotateTranslate4,)
 
 // ijkMatGetScaleTranslate4*
 //	Extract scales and translation offset vector from 4D matrix.
@@ -2922,7 +2922,7 @@ extern "C" {
 //		param translate_out: storage for translation offset
 //		return: m_in
 //rmat4 ijkMatGetScaleTranslate4r(rmat4 const m_in, rvec3* const scale_out, rvec3* const translate_out);
-#define func***m ijk_declrealfs(func,**m)
+#define ijkMatGetScaleTranslate4r ijk_declrealfs(ijkMatGetScaleTranslate4,)
 
 // ijkMatGetRotateScaleTranslate4*
 //	Extract rotation angle in degrees, scales and translation offset vector 
@@ -2935,7 +2935,7 @@ extern "C" {
 //		param translate_out: storage for translation offset
 //		return: m_in
 //rmat4 ijkMatGetRotateScaleTranslate4r(rmat4 const m_in, ijkRotationOrder const order, rvec3* const rotateDegXYZ_out, rvec3* const scale_out, rvec3* const translate_out);
-#define func***m ijk_declrealfs(func,**m)
+#define ijkMatGetRotateScaleTranslate4r ijk_declrealfs(ijkMatGetRotateScaleTranslate4,)
 
 // ijkMatGetRotateAxisAngleTranslate4*
 //	Extract unit axis of rotation, angle in degrees and translation offset 
@@ -2946,7 +2946,7 @@ extern "C" {
 //		param translate_out: storage for translation offset
 //		return: m_in
 //rmat4 ijkMatGetRotateAxisAngleTranslate4r(rmat4 const m_in, rvec3* const axis_unit_out, real* const angle_degrees_out, rvec3* const translate_out);
-#define func***m ijk_declrealfs(func,**m)
+#define ijkMatGetRotateAxisAngleTranslate4r ijk_declrealfs(ijkMatGetRotateAxisAngleTranslate4,)
 
 // ijkMatGetRotateAxisAngleScaleTranslate4*
 //	Extract unit axis of rotation, angle in degrees, scale and translation 
@@ -2958,7 +2958,7 @@ extern "C" {
 //		param translate_out: storage for translation offset
 //		return: m_in
 //rmat4 ijkMatGetRotateAxisAngleScaleTranslate4r(rmat4 const m_in, rvec3* const axis_unit_out, real* const angle_degrees_out, rvec3* const scale_out, rvec3* const translate_out);
-#define func***m ijk_declrealfs(func,**m)
+#define ijkMatGetRotateAxisAngleScaleTranslate4r ijk_declrealfs(ijkMatGetRotateAxisAngleScaleTranslate4,)
 
 // ijkMatInverseRotateTranslate4*
 //	Calculate quick transform inverse for 4D matrix, assuming matrix encodes 
@@ -2966,7 +2966,7 @@ extern "C" {
 //		param m_in: input matrix
 //		return: quick inverse
 //rmat4 ijkMatInverseRotateTranslate4r(rmat4 const m_in);
-#define func***m ijk_declrealfs(func,**m)
+#define ijkMatInverseRotateTranslate4r ijk_declrealfs(ijkMatInverseRotateTranslate4,)
 
 // ijkMatInverseScaleTranslate4*
 //	Calculate quick transform inverse for 4D matrix, assuming matrix encodes 
@@ -2974,7 +2974,7 @@ extern "C" {
 //		param m_in: input matrix
 //		return: quick inverse
 //rmat4 ijkMatInverseScaleTranslate4r(rmat4 const m_in);
-#define func***m ijk_declrealfs(func,**m)
+#define ijkMatInverseScaleTranslate4r ijk_declrealfs(ijkMatInverseScaleTranslate4,)
 
 // ijkMatInverseRotateScaleTranslate4*
 //	Calculate quick transform inverse for 4D matrix, assuming matrix encodes 
@@ -2982,7 +2982,7 @@ extern "C" {
 //		param m_in: input matrix
 //		return: quick inverse
 //rmat4 ijkMatInverseRotateScaleTranslate4r(rmat4 const m_in);
-#define func***m ijk_declrealfs(func,**m)
+#define ijkMatInverseRotateScaleTranslate4r ijk_declrealfs(ijkMatInverseRotateScaleTranslate4,)
 
 // ijkMatInverseTransposeTranslate4*
 //	Calculate quick inverse-transpose of 4D matrix, assuming matrix encodes 
@@ -2990,7 +2990,7 @@ extern "C" {
 //		param m_in: input matrix
 //		return: quick inverse
 //rmat4 ijkMatInverseTransposeTranslate4r(rmat4 const m_in);
-#define func***m ijk_declrealfs(func,**m)
+#define ijkMatInverseTransposeTranslate4r ijk_declrealfs(ijkMatInverseTransposeTranslate4,)
 
 // ijkMatLookAt4*
 //	Create look-at 4D matrix given origin, target and calibration vector.
@@ -3001,7 +3001,7 @@ extern "C" {
 //		param calibAxis: index of calibration vector (0, 1 or 2)
 //		return: look-at matrix
 //rmat4 ijkMatLookAt4r(rmat4* const m_inv_out_opt, rvec3 const origin, rvec3 const target, rvec3 const calibUnit, ijkTransformBasis const calibAxis);
-#define func***m ijk_declrealfs(func,**m)
+#define ijkMatLookAt4r ijk_declrealfs(ijkMatLookAt4,)
 
 // ijkMatProjectionPerspective4*
 //	Create perspective projection matrix.
@@ -3012,7 +3012,7 @@ extern "C" {
 //		param farDist: distance to far plane (greater than near)
 //		return: perspective projection matrix
 //rmat4 ijkMatProjectionPerspective4r(rmat4* const m_inv_out_opt, real const fovyDeg, real const aspect, real const nearDist, real const farDist);
-#define func***m ijk_declrealfs(func,**m)
+#define ijkMatProjectionPerspective4r ijk_declrealfs(ijkMatProjectionPerspective4,)
 
 // ijkMatProjectionParallel4*
 //	Create parallel/orthographic projection matrix.
@@ -3023,7 +3023,7 @@ extern "C" {
 //		param farDist: distance to far plane (greater than near)
 //		return: parallel projection matrix
 //rmat4 ijkMatProjectionParallel4r(rmat4* const m_inv_out_opt, real const fovyDeg, real const aspect, real const nearDist, real const farDist);
-#define func***m ijk_declrealfs(func,**m)
+#define ijkMatProjectionParallel4r ijk_declrealfs(ijkMatProjectionParallel4,)
 
 // ijkMatProjectionPerspectivePlanes4*
 //	Create perspective projection matrix given plane distances.
@@ -3036,7 +3036,7 @@ extern "C" {
 //		param farDist: distance to far plane (greater than near)
 //		return: perspective projection matrix
 //rmat4 ijkMatProjectionPerspectivePlanes4r(rmat4* const m_inv_out_opt, real const leftDist, real const rightDist, real const bottomDist, real const topDist, real const nearDist, real const farDist);
-#define func***m ijk_declrealfs(func,**m)
+#define ijkMatProjectionPerspectivePlanes4r ijk_declrealfs(ijkMatProjectionPerspectivePlanes4,)
 
 // ijkMatProjectionParallelPlanes4*
 //	Create parallel/orthographic projection matrix given plane distances.
@@ -3049,7 +3049,7 @@ extern "C" {
 //		param farDist: distance to far plane (not equal to near)
 //		return: parallel projection matrix
 //rmat4 ijkMatProjectionParallelPlanes4r(rmat4* const m_inv_out_opt, real const leftDist, real const rightDist, real const bottomDist, real const topDist, real const nearDist, real const farDist);
-#define func***m ijk_declrealfs(func,**m)
+#define ijkMatProjectionParallelPlanes4r ijk_declrealfs(ijkMatProjectionParallelPlanes4,)
 
 // ijkMatProjectionStereoConversion4*
 //	Create stereo projection conversion matrix. Convert monoscopic matrix to 
@@ -3064,7 +3064,7 @@ extern "C" {
 //		param convergenceDist: distance to convergence plane (greater than zero)
 //		return: m_left_out
 //rmat4 ijkMatProjectionStereoConversion4r(rmat4* const m_left_out, rmat4* const m_right_out, rmat4* const m_left_inv_out_opt, rmat4* const m_right_inv_out_opt, real const interocularDist, real const convergenceDist);
-#define func***m ijk_declrealfs(func,**m)
+#define ijkMatProjectionStereoConversion4r ijk_declrealfs(ijkMatProjectionStereoConversion4,)
 
 
 //-----------------------------------------------------------------------------
