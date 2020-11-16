@@ -194,6 +194,7 @@
     <ClInclude Include="..\..\..\include\ijk\ijk-math\ijk-real\_util\ijkMatrixSwizzle.h" />
     <ClInclude Include="..\..\..\include\ijk\ijk-math\ijk-real\_util\ijkMatrix_double.h" />
     <ClInclude Include="..\..\..\include\ijk\ijk-math\ijk-real\_util\ijkMatrix_float.h" />
+    <ClInclude Include="..\..\..\include\ijk\ijk-math\ijk-real\_util\ijkMatrix_real.h" />
     <ClInclude Include="..\..\..\include\ijk\ijk-math\ijk-real\_util\ijkVectorSwizzle.h" />
     <ClInclude Include="..\..\..\include\ijk\ijk-math\ijk-real\_util\ijkVectorSwizzle_macros.h" />
     <ClInclude Include="..\..\..\include\ijk\ijk-math\ijk-real\_util\ijkVector_bool.h" />
@@ -201,6 +202,7 @@
     <ClInclude Include="..\..\..\include\ijk\ijk-math\ijk-real\_util\ijkVector_float.h" />
     <ClInclude Include="..\..\..\include\ijk\ijk-math\ijk-real\_util\ijkVector_int.h" />
     <ClInclude Include="..\..\..\include\ijk\ijk-math\ijk-real\_util\ijkVector_intl.h" />
+    <ClInclude Include="..\..\..\include\ijk\ijk-math\ijk-real\_util\ijkVector_real.h" />
     <ClInclude Include="..\..\..\include\ijk\ijk-math\ijk-real\_util\ijkVector_uint.h" />
     <ClInclude Include="..\..\..\include\ijk\ijk-math\ijk-real\_util\ijkVector_uintl.h" />
   </ItemGroup>

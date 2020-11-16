@@ -43,9 +43,13 @@ extern "C" {
 #ifdef IJK_REAL_DBL
 // Real number type is based on 64-bit float (double).
 #define ijk_real					dbl
+// Single letter real suffix.
+#define ijk_reals					d
 #else	// !IJK_REAL_DBL
 // Real number type is based on 32-bit float (single).
 #define ijk_real					flt
+// Single letter real suffix.
+#define ijk_reals					f
 #endif	// IJK_REAL_DBL
 
 // real
@@ -77,6 +81,20 @@ typedef ijk_real					real;
 //		param var: name of variable to declare for real type
 //		result: name of variable for real type
 #define ijk_declrealv(var)			ijk_tokencat(ijk_real,ijk_tokencat(_,var))
+
+// ijk_declrealfs
+//	Declare real function with suffix.
+//		param func: name of function to declare for real type
+//		param sfx: suffix for function
+//		result: name of function for real type
+#define ijk_declrealfs(func,sfx)	ijk_tokencat(ijk_tokencat(func,ijk_reals),sfx)
+
+// ijk_declrealpv
+//	Declare real variable with prefix.
+//		param var: name of variable to declare for real type
+//		param pfx: suffix for variable
+//		result: name of variable for real type
+#define ijk_declrealpv(var,pfx)		ijk_tokencat(pfx,ijk_tokencat(ijk_reals,var))
 
 
 //-----------------------------------------------------------------------------

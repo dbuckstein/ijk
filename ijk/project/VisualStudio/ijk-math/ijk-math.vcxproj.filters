@@ -25,17 +25,11 @@
     <Filter Include="Source Files\common\ijk-real">
       <UniqueIdentifier>{58f84b7a-d689-403c-b3a0-03cbe87b6393}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\ijk-math\ijk-xmath">
-      <UniqueIdentifier>{ce829540-eaad-456d-91a9-29dc2b332887}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source Files\common\ijk-xmath">
       <UniqueIdentifier>{5e26b8f2-7b71-4114-88a9-84e1eefb3fb4}</UniqueIdentifier>
     </Filter>
     <Filter Include="Header Files\ijk-math\ijk-real\_inl">
       <UniqueIdentifier>{ab5a83be-bd92-4a97-8549-cdb70bb169eb}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\ijk-math\ijk-xmath\_inl">
-      <UniqueIdentifier>{cff62012-f43b-4a9a-8a41-16c32f34cb55}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source Files\common\ijk-real\_asm">
       <UniqueIdentifier>{9b63c867-16b2-4359-8e70-466f5ef76d9e}</UniqueIdentifier>
@@ -48,6 +42,12 @@
     </Filter>
     <Filter Include="Header Files\ijk-math\ijk-real\_util\_inl">
       <UniqueIdentifier>{0fc15d88-9e2e-467d-8a35-e958b38c367c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\ijk-math\ijk-real-ext">
+      <UniqueIdentifier>{ce829540-eaad-456d-91a9-29dc2b332887}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\ijk-math\ijk-real-ext\_inl">
+      <UniqueIdentifier>{cff62012-f43b-4a9a-8a41-16c32f34cb55}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -141,6 +141,12 @@
       <Filter>Header Files\ijk-math\ijk-real\_util</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\include\ijk\ijk-math\ijk-real\_util\ijkMatrixSwizzle.h">
+      <Filter>Header Files\ijk-math\ijk-real\_util</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\ijk\ijk-math\ijk-real\_util\ijkMatrix_real.h">
+      <Filter>Header Files\ijk-math\ijk-real\_util</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\ijk\ijk-math\ijk-real\_util\ijkVector_real.h">
       <Filter>Header Files\ijk-math\ijk-real\_util</Filter>
     </ClInclude>
   </ItemGroup>
