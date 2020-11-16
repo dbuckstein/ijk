@@ -214,7 +214,7 @@ extern "C" {
 //		param v_rh: right-hand vector
 //		return: v_out
 //realv ijkVecMod2rv(real2 v_out, real2 const v_lh, real2 const v_rh);
-#define ijkVecMod2rv ijkVecMod2(func,v)
+#define ijkVecMod2rv ijkVecMod2(ijkVecMod2rv,v)
 
 // ijkVecModSafe2*v
 //	Calculate component-wise remainder of 2D vectors, division-by-zero safe.
@@ -1607,7 +1607,7 @@ extern "C" {
 //		param s_rh: right-hand scalar
 //		return: bv_out
 //boolv ijkVecAnd4rvs(bool4 bv_out, real4 const v_lh, real const s_rh);
-#define ijkVecAnd4rvs ijk_declrealfs(func,vs)
+#define ijkVecAnd4rvs ijk_declrealfs(ijkVecAnd4rvs,vs)
 
 // ijkVecNand4*vs
 //	Component-wise logical 'nand' of 4D vector and scalar.
@@ -2901,7 +2901,7 @@ extern "C" {
 //	Initialize 4D vector to default value (zero vector).
 //		return: default vector
 //rvec4 ijkVecInit4r();
-#define ijkVecInit4***v ijk_declrealfs(ijkVecInit4,**v)
+#define ijkVecInit4r ijk_declrealfs(ijkVecInit4,)
 
 // ijkVecInitElems4*
 //	Initialize 4D vector to specified individual elements.
@@ -2911,7 +2911,7 @@ extern "C" {
 //		param w: fourth element (in space, set as 1 for poreal, 0 for vector)
 //		return: result vector
 //rvec4 ijkVecInitElems4r(real const x, real const y, real const z, real const w);
-#define ijkVecInitElems4***v ijk_declrealfs(ijkVecInitElems4,**v)
+#define ijkVecInitElems4r ijk_declrealfs(ijkVecInitElems4,)
 
 // ijkVecCopy4x*w
 //	Copy 4D vector from scalar, 2D vector and another scalar.
@@ -3438,57 +3438,65 @@ extern "C" {
 #endif	// __cplusplus
 
 //-----------------------------------------------------------------------------
-#define func***v ijk_declrealfs(func,**v)
+
 // ijkVecLengthSq2*v
 //	Calculate the squared length of a vector.
 //		param v_in: input vector
 //		return: squared length
 //real ijkVecLengthSq2rv(real2 const v_in);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecLengthSq2rv ijk_declrealfs(ijkVecLengthSq2,v)
+
 // ijkVecLength2*v
 //	Calculate the length of a vector.
 //		param v_in: input vector
 //		return: length
 //real ijkVecLength2rv(real2 const v_in);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecLength2rv ijk_declrealfs(ijkVecLength2,v)
+
 // ijkVecLengthSqInv2*v
 //	Calculate the inverse squared length of a vector.
 //		param v_in: input vector
 //		return: inverse squared length
 //real ijkVecLengthSqInv2rv(real2 const v_in);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecLengthSqInv2rv ijk_declrealfs(ijkVecLengthSqInv2,v)
+
 // ijkVecLengthSqInvSafe2*v
 //	Calculate the inverse squared length of a vector; division-by-zero safe.
 //		param v_in: input vector
 //		return: inverse squared length
 //real ijkVecLengthSqInvSafe2rv(real2 const v_in);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecLengthSqInvSafe2rv ijk_declrealfs(ijkVecLengthSqInvSafe2,v)
+
 // ijkVecLengthInv2*v
 //	Calculate the inverse length of a vector.
 //		param v_in: input vector
 //		return: inverse length
 //real ijkVecLengthInv2rv(real2 const v_in);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecLengthInv2rv ijk_declrealfs(ijkVecLengthInv2,v)
+
 // ijkVecLengthInvSafe2*v
 //	Calculate the inverse length of a vector; division-by-zero safe.
 //		param v_in: input vector
 //		return: inverse length
 //real ijkVecLengthInvSafe2rv(real2 const v_in);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecLengthInvSafe2rv ijk_declrealfs(ijkVecLengthInvSafe2,v)
+
 // ijkVecNormalize2*v
 //	Calculate the unit-length direction of a vector.
 //		param v_out: output vector
 //		param v_in: input vector
 //		return: v_out
 //realv ijkVecNormalize2rv(real2 v_out, real2 const v_in);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecNormalize2rv ijk_declrealfs(ijkVecNormalize2,v)
+
 // ijkVecNormalizeSafe2*v
 //	Calculate the unit-length direction of a vector; division-by-zero safe.
 //		param v_out: output vector
 //		param v_in: input vector
 //		return: v_out
 //realv ijkVecNormalizeSafe2rv(real2 v_out, real2 const v_in);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecNormalizeSafe2rv ijk_declrealfs(ijkVecNormalizeSafe2,v)
+
 // ijkVecNormalizeGetLength2*v
 //	Calculate the unit-length direction of a vector; also capture the length 
 //	of the input vector.
@@ -3497,7 +3505,8 @@ extern "C" {
 //		param length_out: pointer to length storage
 //		return: v_out
 //realv ijkVecNormalizeGetLength2rv(real2 v_out, real2 const v_in, real* const length_out);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecNormalizeGetLength2rv ijk_declrealfs(ijkVecNormalizeGetLength2,v)
+
 // ijkVecNormalizeSafeGetLength2*v
 //	Calculate the unit-length direction of a vector; also capture the length 
 //	of the input vector; division-by-zero safe.
@@ -3506,7 +3515,8 @@ extern "C" {
 //		param length_out: pointer to length storage
 //		return: v_out
 //realv ijkVecNormalizeSafeGetLength2rv(real2 v_out, real2 const v_in, real* const length_out);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecNormalizeSafeGetLength2rv ijk_declrealfs(ijkVecNormalizeSafeGetLength2,v)
+
 // ijkVecNormalizeGetLengthInv2*v
 //	Calculate the unit-length direction of a vector; also capture the inverse 
 //	length of the input vector.
@@ -3515,7 +3525,8 @@ extern "C" {
 //		param length_out: pointer to length storage
 //		return: v_out
 //realv ijkVecNormalizeGetLengthInv2rv(real2 v_out, real2 const v_in, real* const lengthInv_out);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecNormalizeGetLengthInv2rv ijk_declrealfs(ijkVecNormalizeGetLengthInv2,v)
+
 // ijkVecNormalizeSafeGetLengthInv2*v
 //	Calculate the unit-length direction of a vector; also capture the inverse 
 //	length of the input vector; division-by-zero safe.
@@ -3524,21 +3535,24 @@ extern "C" {
 //		param length_out: pointer to length storage
 //		return: v_out
 //realv ijkVecNormalizeSafeGetLengthInv2rv(real2 v_out, real2 const v_in, real* const lengthInv_out);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecNormalizeSafeGetLengthInv2rv ijk_declrealfs(ijkVecNormalizeSafeGetLengthInv2,v)
+
 // ijkVecCrossNormalize2*v
 //	Calculate unit-length result of cross product.
 //		param v_lh: left-hand vector
 //		param v_rh: right-hand vector
 //		return: scalar cross product sign
 //real ijkVecCrossNormalize2rv(real2 const v_lh, real2 const v_rh);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecCrossNormalize2rv ijk_declrealfs(ijkVecCrossNormalize2,v)
+
 // ijkVecCrossNormalizeSafe2*v
 //	Calculate unit-length result of cross product; division-by-zero safe.
 //		param v_lh: left-hand vector
 //		param v_rh: right-hand vector
 //		return: scalar cross product sign
 //real ijkVecCrossNormalizeSafe2rv(real2 const v_lh, real2 const v_rh);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecCrossNormalizeSafe2rv ijk_declrealfs(ijkVecCrossNormalizeSafe2,v)
+
 // ijkVecCrossNormalizeGetLength2*v
 //	Calculate unit-length result of cross product; also capture length.
 //		param v_lh: left-hand vector
@@ -3546,7 +3560,8 @@ extern "C" {
 //		param length_out: pointer to length storage
 //		return: scalar cross product sign
 //real ijkVecCrossNormalizeGetLength2rv(real2 const v_lh, real2 const v_rh, real* const length_out);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecCrossNormalizeGetLength2rv ijk_declrealfs(ijkVecCrossNormalizeGetLength2,v)
+
 // ijkVecCrossNormalizeSafeGetLength2*v
 //	Calculate unit-length result of cross product; also capture length; 
 //	division-by-zero safe.
@@ -3555,7 +3570,8 @@ extern "C" {
 //		param length_out: pointer to length storage
 //		return: scalar cross product sign
 //real ijkVecCrossNormalizeSafeGetLength2rv(real2 const v_lh, real2 const v_rh, real* const length_out);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecCrossNormalizeSafeGetLength2rv ijk_declrealfs(ijkVecCrossNormalizeSafeGetLength2,v)
+
 // ijkVecCrossNormalizeGetLengthInv2*v
 //	Calculate unit-length result of cross product; also capture inverse length.
 //		param v_lh: left-hand vector
@@ -3563,7 +3579,8 @@ extern "C" {
 //		param lengthInv_out: pointer to length storage
 //		return: scalar cross product sign
 //real ijkVecCrossNormalizeGetLengthInv2rv(real2 const v_lh, real2 const v_rh, real* const lengthInv_out);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecCrossNormalizeGetLengthInv2rv ijk_declrealfs(ijkVecCrossNormalizeGetLengthInv2,v)
+
 // ijkVecCrossNormalizeSafeGetLengthInv2*v
 //	Calculate unit-length result of cross product; also capture inverse length;
 //	division-by-zero safe.
@@ -3572,7 +3589,8 @@ extern "C" {
 //		param lengthInv_out: pointer to length storage
 //		return: scalar cross product sign
 //real ijkVecCrossNormalizeSafeGetLengthInv2rv(real2 const v_lh, real2 const v_rh, real* const lengthInv_out);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecCrossNormalizeSafeGetLengthInv2rv ijk_declrealfs(ijkVecCrossNormalizeSafeGetLengthInv2,v)
+
 // ijkVecLerp2*v
 //	Vector linear interpolation.
 //		param v_out: output vector, interpolated components
@@ -3582,7 +3600,8 @@ extern "C" {
 //			interpolation in range [v0,v1], others result in extrapolation
 //		return: v_out
 //realv ijkVecLerp2rv(real2 v_out, real2 const v0, real2 const v1, real const u);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecLerp2rv ijk_declrealfs(ijkVecLerp2,v)
+
 // ijkVecLerpInv2*v
 //	Vector linear interpolation inverse to calculate parameters given control .
 //		param v_out: output vector, interpolation parameter for each component
@@ -3592,7 +3611,8 @@ extern "C" {
 //			in range [0,1] indicate interpolation, others for extrapolation
 //		return: v_out
 //realv ijkVecLerpInv2rv(real2 v_out, real2 const v0, real2 const v1, real2 const v_lerp);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecLerpInv2rv ijk_declrealfs(ijkVecLerpInv2,v)
+
 // ijkVecLerpRevInit2*v
 //	Vector linear interpolation reversal to calculate initial control.
 //		param v0_out: output initial control vector, result when param is 0
@@ -3602,7 +3622,8 @@ extern "C" {
 //			interpolation in range [v0,v1], others result in extrapolation
 //		return: v0_out
 //realv ijkVecLerpRevInit2rv(real2 v0_out, real2 const v_lerp, real2 const v1, real const u);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecLerpRevInit2rv ijk_declrealfs(ijkVecLerpRevInit2,v)
+
 // ijkVecLerpRevTerm2*v
 //	Vector linear interpolation reversal to calculate terminal control.
 //		param v1_out: output terminal control vector, result when param is 1
@@ -3612,14 +3633,16 @@ extern "C" {
 //			interpolation in range [v0,v1], others result in extrapolation
 //		return: v1_out
 //realv ijkVecLerpRevTerm2rv(real2 v1_out, real2 const v0, real2 const v_lerp, real const u);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecLerpRevTerm2rv ijk_declrealfs(ijkVecLerpRevTerm2,v)
+
 // ijkVecProjRatio2*v
 //	Calculate projection length ratio.
 //		param v_base: fixed base vector onto which input is projected
 //		param v_in: input vector to be projected
 //		return: length ratio of projected vector to base
 //real ijkVecProjRatio2rv(real2 const v_base, real2 const v_in);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecProjRatio2rv ijk_declrealfs(ijkVecProjRatio2,v)
+
 // ijkVecProj2*v
 //	Vector projection.
 //		param v_out: output vector, projected input onto base
@@ -3627,7 +3650,8 @@ extern "C" {
 //		param v_in: input vector to be projected
 //		return: v_out
 //realv ijkVecProj2rv(real2 v_out, real2 const v_base, real2 const v_in);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecProj2rv ijk_declrealfs(ijkVecProj2,v)
+
 // ijkVecOrtho2*v
 //	Vector orthogonalization using the Gram-Schmidt process.
 //		param v_out: output orthogonalized vector; difference between input 
@@ -3636,7 +3660,8 @@ extern "C" {
 //		param v_in: input vector to be orthogonalized
 //		return: v_out
 //realv ijkVecOrtho2rv(real2 v_out, real2 const v_base, real2 const v_in);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecOrtho2rv ijk_declrealfs(ijkVecOrtho2,v)
+
 // ijkVecOrthoNorm2*v
 //	Vector orthonormalization using the Gram-Schmidt process.
 //		param v_out: output orthonormalized vector; difference between input 
@@ -3646,7 +3671,8 @@ extern "C" {
 //		param v_base_norm_out: normalized base vector
 //		return: v_out
 //realv ijkVecOrthoNorm2rv(real2 v_out, real2 const v_base, real2 const v_in, real2 v_base_norm_out);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecOrthoNorm2rv ijk_declrealfs(ijkVecOrthoNorm2,v)
+
 // ijkVecOrthoList2*v
 //	Vector orthogonalization using the Gram-Schmidt process.
 //		param vl_out: output list of orthogonalized vectors
@@ -3655,7 +3681,8 @@ extern "C" {
 //		param n: number of vectors to orthogonalize
 //		return: vl_out
 //real2* ijkVecOrthoList2rv(real2 vl_out[], real2 const v_base, real2 const vl_in[], size const n);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecOrthoList2rv ijk_declrealfs(ijkVecOrthoList2,v)
+
 // ijkVecOrthoNormList2*v
 //	Vector orthonormalization using the Gram-Schmidt process.
 //		param vl_out: output list of orthonormalized vectors
@@ -3665,60 +3692,69 @@ extern "C" {
 //		param v_base_norm_out: normalized base vector
 //		return: vl_out
 //real2* ijkVecOrthoNormList2rv(real2 vl_out[], real2 const v_base, real2 const vl_in[], size const n, real2 v_base_norm_out);
-#define func***v ijk_declrealfs(func,**v)
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecOrthoNormList2rv ijk_declrealfs(ijkVecOrthoNormList2,v)
+
+
 //-----------------------------------------------------------------------------
-#define func***v ijk_declrealfs(func,**v)
+
 // ijkVecLengthSq3*v
 //	Calculate the squared length of a vector.
 //		param v_in: input vector
 //		return: squared length
 //real ijkVecLengthSq3rv(real3 const v_in);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecLengthSq3rv ijk_declrealfs(ijkVecLengthSq3,v)
+
 // ijkVecLength3*v
 //	Calculate the length of a vector.
 //		param v_in: input vector
 //		return: length
 //real ijkVecLength3rv(real3 const v_in);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecLength3rv ijk_declrealfs(ijkVecLength3,v)
+
 // ijkVecLengthSqInv3*v
 //	Calculate the inverse squared length of a vector.
 //		param v_in: input vector
 //		return: inverse squared length
 //real ijkVecLengthSqInv3rv(real3 const v_in);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecLengthSqInv3rv ijk_declrealfs(ijkVecLengthSqInv3,v)
+
 // ijkVecLengthSqInvSafe3*v
 //	Calculate the inverse squared length of a vector; division-by-zero safe.
 //		param v_in: input vector
 //		return: inverse squared length
 //real ijkVecLengthSqInvSafe3rv(real3 const v_in);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecLengthSqInvSafe3rv ijk_declrealfs(ijkVecLengthSqInvSafe3,v)
+
 // ijkVecLengthInv3*v
 //	Calculate the inverse length of a vector.
 //		param v_in: input vector
 //		return: inverse length
 //real ijkVecLengthInv3rv(real3 const v_in);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecLengthInv3rv ijk_declrealfs(ijkVecLengthInv3,v)
+
 // ijkVecLengthInvSafe3*v
 //	Calculate the inverse length of a vector; division-by-zero safe.
 //		param v_in: input vector
 //		return: inverse length
 //real ijkVecLengthInvSafe3rv(real3 const v_in);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecLengthInvSafe3rv ijk_declrealfs(ijkVecLengthInvSafe3,v)
+
 // ijkVecNormalize3*v
 //	Calculate the unit-length direction of a vector.
 //		param v_out: output vector
 //		param v_in: input vector
 //		return: v_out
 //realv ijkVecNormalize3rv(real3 v_out, real3 const v_in);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecNormalize3rv ijk_declrealfs(ijkVecNormalize3,v)
+
 // ijkVecNormalizeSafe3*v
 //	Calculate the unit-length direction of a vector; division-by-zero safe.
 //		param v_out: output vector
 //		param v_in: input vector
 //		return: v_out
 //realv ijkVecNormalizeSafe3rv(real3 v_out, real3 const v_in);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecNormalizeSafe3rv ijk_declrealfs(ijkVecNormalizeSafe3,v)
+
 // ijkVecNormalizeGetLength3*v
 //	Calculate the unit-length direction of a vector; also capture the length 
 //	of the input vector.
@@ -3727,7 +3763,8 @@ extern "C" {
 //		param length_out: pointer to length storage
 //		return: v_out
 //realv ijkVecNormalizeGetLength3rv(real3 v_out, real3 const v_in, real* const length_out);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecNormalizeGetLength3rv ijk_declrealfs(ijkVecNormalizeGetLength3,v)
+
 // ijkVecNormalizeSafeGetLength3*v
 //	Calculate the unit-length direction of a vector; also capture the length 
 //	of the input vector; division-by-zero safe.
@@ -3736,7 +3773,8 @@ extern "C" {
 //		param length_out: pointer to length storage
 //		return: v_out
 //realv ijkVecNormalizeSafeGetLength3rv(real3 v_out, real3 const v_in, real* const length_out);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecNormalizeSafeGetLength3rv ijk_declrealfs(ijkVecNormalizeSafeGetLength3,v)
+
 // ijkVecNormalizeGetLengthInv3*v
 //	Calculate the unit-length direction of a vector; also capture the inverse 
 //	length of the input vector.
@@ -3745,7 +3783,8 @@ extern "C" {
 //		param length_out: pointer to length storage
 //		return: v_out
 //realv ijkVecNormalizeGetLengthInv3rv(real3 v_out, real3 const v_in, real* const lengthInv_out);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecNormalizeGetLengthInv3rv ijk_declrealfs(ijkVecNormalizeGetLengthInv3,v)
+
 // ijkVecNormalizeSafeGetLengthInv3*v
 //	Calculate the unit-length direction of a vector; also capture the inverse 
 //	length of the input vector; division-by-zero safe.
@@ -3754,7 +3793,8 @@ extern "C" {
 //		param length_out: pointer to length storage
 //		return: v_out
 //realv ijkVecNormalizeSafeGetLengthInv3rv(real3 v_out, real3 const v_in, real* const lengthInv_out);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecNormalizeSafeGetLengthInv3rv ijk_declrealfs(ijkVecNormalizeSafeGetLengthInv3,v)
+
 // ijkVecCrossNormalize3*v
 //	Calculate unit-length result of cross product.
 //		param v_out: output unit cross product vector
@@ -3762,7 +3802,8 @@ extern "C" {
 //		param v_rh: right-hand vector
 //		return: v_out
 //realv ijkVecCrossNormalize3rv(real3 v_out, real3 const v_lh, real3 const v_rh);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecCrossNormalize3rv ijk_declrealfs(ijkVecCrossNormalize3,v)
+
 // ijkVecCrossNormalizeSafe3*v
 //	Calculate unit-length result of cross product; division-by-zero safe.
 //		param v_out: output unit cross product vector
@@ -3770,7 +3811,8 @@ extern "C" {
 //		param v_rh: right-hand vector
 //		return: v_out
 //realv ijkVecCrossNormalizeSafe3rv(real3 v_out, real3 const v_lh, real3 const v_rh);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecCrossNormalizeSafe3rv ijk_declrealfs(ijkVecCrossNormalizeSafe3,v)
+
 // ijkVecCrossNormalizeGetLength3*v
 //	Calculate unit-length result of cross product; also capture length.
 //		param v_out: output unit cross product vector
@@ -3779,7 +3821,8 @@ extern "C" {
 //		param length_out: pointer to length storage
 //		return: v_out
 //realv ijkVecCrossNormalizeGetLength3rv(real3 v_out, real3 const v_lh, real3 const v_rh, real* const length_out);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecCrossNormalizeGetLength3rv ijk_declrealfs(ijkVecCrossNormalizeGetLength3,v)
+
 // ijkVecCrossNormalizeSafeGetLength3*v
 //	Calculate unit-length result of cross product; also capture length; 
 //	division-by-zero safe.
@@ -3789,7 +3832,8 @@ extern "C" {
 //		param length_out: pointer to length storage
 //		return: v_out
 //realv ijkVecCrossNormalizeSafeGetLength3rv(real3 v_out, real3 const v_lh, real3 const v_rh, real* const length_out);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecCrossNormalizeSafeGetLength3rv ijk_declrealfs(ijkVecCrossNormalizeSafeGetLength3,v)
+
 // ijkVecCrossNormalizeGetLengthInv3*v
 //	Calculate unit-length result of cross product; also capture inverse length.
 //		param v_out: output unit cross product vector
@@ -3798,7 +3842,8 @@ extern "C" {
 //		param lengthInv_out: pointer to length storage
 //		return: v_out
 //realv ijkVecCrossNormalizeGetLengthInv3rv(real3 v_out, real3 const v_lh, real3 const v_rh, real* const lengthInv_out);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecCrossNormalizeGetLengthInv3rv ijk_declrealfs(ijkVecCrossNormalizeGetLengthInv3,v)
+
 // ijkVecCrossNormalizeSafeGetLengthInv3*v
 //	Calculate unit-length result of cross product; also capture inverse length;
 //	division-by-zero safe.
@@ -3808,7 +3853,8 @@ extern "C" {
 //		param lengthInv_out: pointer to length storage
 //		return: v_out
 //realv ijkVecCrossNormalizeSafeGetLengthInv3rv(real3 v_out, real3 const v_lh, real3 const v_rh, real* const lengthInv_out);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecCrossNormalizeSafeGetLengthInv3rv ijk_declrealfs(ijkVecCrossNormalizeSafeGetLengthInv3,v)
+
 // ijkVecLerp3*v
 //	Vector linear interpolation.
 //		param v_out: output vector, interpolated components
@@ -3818,7 +3864,8 @@ extern "C" {
 //			interpolation in range [v0,v1], others result in extrapolation
 //		return: v_out
 //realv ijkVecLerp3rv(real3 v_out, real3 const v0, real3 const v1, real const u);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecLerp3rv ijk_declrealfs(ijkVecLerp3,v)
+
 // ijkVecLerpInv3*v
 //	Vector linear interpolation inverse to calculate parameters given control .
 //		param v_out: output vector, interpolation parameter for each component
@@ -3828,7 +3875,8 @@ extern "C" {
 //			in range [0,1] indicate interpolation, others for extrapolation
 //		return: v_out
 //realv ijkVecLerpInv3rv(real3 v_out, real3 const v0, real3 const v1, real3 const v_lerp);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecLerpInv3rv ijk_declrealfs(ijkVecLerpInv3,v)
+
 // ijkVecLerpRevInit3*v
 //	Vector linear interpolation reversal to calculate initial control.
 //		param v0_out: output initial control vector, result when param is 0
@@ -3838,7 +3886,8 @@ extern "C" {
 //			interpolation in range [v0,v1], others result in extrapolation
 //		return: v0_out
 //realv ijkVecLerpRevInit3rv(real3 v0_out, real3 const v_lerp, real3 const v1, real const u);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecLerpRevInit3rv ijk_declrealfs(ijkVecLerpRevInit3,v)
+
 // ijkVecLerpRevTerm3*v
 //	Vector linear interpolation reversal to calculate terminal control.
 //		param v1_out: output terminal control vector, result when param is 1
@@ -3848,14 +3897,16 @@ extern "C" {
 //			interpolation in range [v0,v1], others result in extrapolation
 //		return: v1_out
 //realv ijkVecLerpRevTerm3rv(real3 v1_out, real3 const v0, real3 const v_lerp, real const u);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecLerpRevTerm3rv ijk_declrealfs(ijkVecLerpRevTerm3,v)
+
 // ijkVecProjRatio3*v
 //	Calculate projection length ratio.
 //		param v_base: fixed base vector onto which input is projected
 //		param v_in: input vector to be projected
 //		return: length ratio of projected vector to base
 //real ijkVecProjRatio3rv(real3 const v_base, real3 const v_in);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecProjRatio3rv ijk_declrealfs(ijkVecProjRatio3,v)
+
 // ijkVecProj3*v
 //	Vector projection.
 //		param v_out: output vector, projected input onto base
@@ -3863,7 +3914,8 @@ extern "C" {
 //		param v_in: input vector to be projected
 //		return: v_out
 //realv ijkVecProj3rv(real3 v_out, real3 const v_base, real3 const v_in);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecProj3rv ijk_declrealfs(ijkVecProj3,v)
+
 // ijkVecOrtho3*v
 //	Vector orthogonalization using the Gram-Schmidt process.
 //		param v_out: output orthogonalized vector; difference between input 
@@ -3872,7 +3924,8 @@ extern "C" {
 //		param v_in: input vector to be orthogonalized
 //		return: v_out
 //realv ijkVecOrtho3rv(real3 v_out, real3 const v_base, real3 const v_in);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecOrtho3rv ijk_declrealfs(ijkVecOrtho3,v)
+
 // ijkVecOrthoNorm3*v
 //	Vector orthonormalization using the Gram-Schmidt process.
 //		param v_out: output orthonormalized vector; difference between input 
@@ -3882,7 +3935,8 @@ extern "C" {
 //		param v_base_norm_out: normalized base vector
 //		return: v_out
 //realv ijkVecOrthoNorm3rv(real3 v_out, real3 const v_base, real3 const v_in, real3 v_base_norm_out);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecOrthoNorm3rv ijk_declrealfs(ijkVecOrthoNorm3,v)
+
 // ijkVecOrthoList3*v
 //	Vector orthogonalization using the Gram-Schmidt process.
 //		param vl_out: output list of orthogonalized vectors
@@ -3891,7 +3945,8 @@ extern "C" {
 //		param n: number of vectors to orthogonalize
 //		return: vl_out
 //real3* ijkVecOrthoList3rv(real3 vl_out[], real3 const v_base, real3 const vl_in[], size const n);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecOrthoList3rv ijk_declrealfs(ijkVecOrthoList3,v)
+
 // ijkVecOrthoNormList3*v
 //	Vector orthonormalization using the Gram-Schmidt process.
 //		param vl_out: output list of orthonormalized vectors
@@ -3901,60 +3956,69 @@ extern "C" {
 //		param v_base_norm_out: normalized base vector
 //		return: vl_out
 //real3* ijkVecOrthoNormList3rv(real3 vl_out[], real3 const v_base, real3 const vl_in[], size const n, real3 v_base_norm_out);
-#define func***v ijk_declrealfs(func,**v)
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecOrthoNormList3rv ijk_declrealfs(ijkVecOrthoNormList3,v)
+
+
 //-----------------------------------------------------------------------------
-#define func***v ijk_declrealfs(func,**v)
+
 // ijkVecLengthSq4*v
 //	Calculate the squared length of a vector.
 //		param v_in: input vector
 //		return: squared length
 //real ijkVecLengthSq4rv(real4 const v_in);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecLengthSq4rv ijk_declrealfs(ijkVecLengthSq4,v)
+
 // ijkVecLength4*v
 //	Calculate the length of a vector.
 //		param v_in: input vector
 //		return: length
 //real ijkVecLength4rv(real4 const v_in);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecLength4rv ijk_declrealfs(ijkVecLength4,v)
+
 // ijkVecLengthSqInv4*v
 //	Calculate the inverse squared length of a vector.
 //		param v_in: input vector
 //		return: inverse squared length
 //real ijkVecLengthSqInv4rv(real4 const v_in);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecLengthSqInv4rv ijk_declrealfs(ijkVecLengthSqInv4,v)
+
 // ijkVecLengthSqInvSafe4*v
 //	Calculate the inverse squared length of a vector; division-by-zero safe.
 //		param v_in: input vector
 //		return: inverse squared length
 //real ijkVecLengthSqInvSafe4rv(real4 const v_in);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecLengthSqInvSafe4rv ijk_declrealfs(ijkVecLengthSqInvSafe4,v)
+
 // ijkVecLengthInv4*v
 //	Calculate the inverse length of a vector.
 //		param v_in: input vector
 //		return: inverse length
 //real ijkVecLengthInv4rv(real4 const v_in);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecLengthInv4rv ijk_declrealfs(ijkVecLengthInv4,v)
+
 // ijkVecLengthInvSafe4*v
 //	Calculate the inverse length of a vector; division-by-zero safe.
 //		param v_in: input vector
 //		return: inverse length
 //real ijkVecLengthInvSafe4rv(real4 const v_in);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecLengthInvSafe4rv ijk_declrealfs(ijkVecLengthInvSafe4,v)
+
 // ijkVecNormalize4*v
 //	Calculate the unit-length direction of a vector.
 //		param v_out: output vector
 //		param v_in: input vector
 //		return: v_out
 //realv ijkVecNormalize4rv(real4 v_out, real4 const v_in);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecNormalize4rv ijk_declrealfs(ijkVecNormalize4,v)
+
 // ijkVecNormalizeSafe4*v
 //	Calculate the unit-length direction of a vector; division-by-zero safe.
 //		param v_out: output vector
 //		param v_in: input vector
 //		return: v_out
 //realv ijkVecNormalizeSafe4rv(real4 v_out, real4 const v_in);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecNormalizeSafe4rv ijk_declrealfs(ijkVecNormalizeSafe4,v)
+
 // ijkVecNormalizeGetLength4*v
 //	Calculate the unit-length direction of a vector; also capture the length 
 //	of the input vector.
@@ -3963,7 +4027,8 @@ extern "C" {
 //		param length_out: pointer to length storage
 //		return: v_out
 //realv ijkVecNormalizeGetLength4rv(real4 v_out, real4 const v_in, real* const length_out);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecNormalizeGetLength4rv ijk_declrealfs(ijkVecNormalizeGetLength4,v)
+
 // ijkVecNormalizeSafeGetLength4*v
 //	Calculate the unit-length direction of a vector; also capture the length 
 //	of the input vector; division-by-zero safe.
@@ -3972,7 +4037,8 @@ extern "C" {
 //		param length_out: pointer to length storage
 //		return: v_out
 //realv ijkVecNormalizeSafeGetLength4rv(real4 v_out, real4 const v_in, real* const length_out);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecNormalizeSafeGetLength4rv ijk_declrealfs(ijkVecNormalizeSafeGetLength4,v)
+
 // ijkVecNormalizeGetLengthInv4*v
 //	Calculate the unit-length direction of a vector; also capture the inverse 
 //	length of the input vector.
@@ -3981,7 +4047,8 @@ extern "C" {
 //		param length_out: pointer to length storage
 //		return: v_out
 //realv ijkVecNormalizeGetLengthInv4rv(real4 v_out, real4 const v_in, real* const lengthInv_out);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecNormalizeGetLengthInv4rv ijk_declrealfs(ijkVecNormalizeGetLengthInv4,v)
+
 // ijkVecNormalizeSafeGetLengthInv4*v
 //	Calculate the unit-length direction of a vector; also capture the inverse 
 //	length of the input vector; division-by-zero safe.
@@ -3990,7 +4057,8 @@ extern "C" {
 //		param length_out: pointer to length storage
 //		return: v_out
 //realv ijkVecNormalizeSafeGetLengthInv4rv(real4 v_out, real4 const v_in, real* const lengthInv_out);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecNormalizeSafeGetLengthInv4rv ijk_declrealfs(ijkVecNormalizeSafeGetLengthInv4,v)
+
 // ijkVecCrossNormalize4*v
 //	Calculate unit-length result of cross product.
 //		param v_out: output unit cross product vector
@@ -3998,7 +4066,8 @@ extern "C" {
 //		param v_rh: right-hand vector
 //		return: v_out
 //realv ijkVecCrossNormalize4rv(real4 v_out, real4 const v_lh, real4 const v_rh);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecCrossNormalize4rv ijk_declrealfs(ijkVecCrossNormalize4,v)
+
 // ijkVecCrossNormalizeSafe4*v
 //	Calculate unit-length result of cross product; division-by-zero safe.
 //		param v_out: output unit cross product vector
@@ -4006,7 +4075,8 @@ extern "C" {
 //		param v_rh: right-hand vector
 //		return: v_out
 //realv ijkVecCrossNormalizeSafe4rv(real4 v_out, real4 const v_lh, real4 const v_rh);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecCrossNormalizeSafe4rv ijk_declrealfs(ijkVecCrossNormalizeSafe4,v)
+
 // ijkVecCrossNormalizeGetLength4*v
 //	Calculate unit-length result of cross product; also capture length.
 //		param v_out: output unit cross product vector
@@ -4015,7 +4085,8 @@ extern "C" {
 //		param length_out: pointer to length storage
 //		return: v_out
 //realv ijkVecCrossNormalizeGetLength4rv(real4 v_out, real4 const v_lh, real4 const v_rh, real* const length_out);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecCrossNormalizeGetLength4rv ijk_declrealfs(ijkVecCrossNormalizeGetLength4,v)
+
 // ijkVecCrossNormalizeSafeGetLength4*v
 //	Calculate unit-length result of cross product; also capture length; 
 //	division-by-zero safe.
@@ -4025,7 +4096,8 @@ extern "C" {
 //		param length_out: pointer to length storage
 //		return: v_out
 //realv ijkVecCrossNormalizeSafeGetLength4rv(real4 v_out, real4 const v_lh, real4 const v_rh, real* const length_out);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecCrossNormalizeSafeGetLength4rv ijk_declrealfs(ijkVecCrossNormalizeSafeGetLength4,v)
+
 // ijkVecCrossNormalizeGetLengthInv4*v
 //	Calculate unit-length result of cross product; also capture inverse length.
 //		param v_out: output unit cross product vector
@@ -4034,7 +4106,8 @@ extern "C" {
 //		param lengthInv_out: pointer to length storage
 //		return: v_out
 //realv ijkVecCrossNormalizeGetLengthInv4rv(real4 v_out, real4 const v_lh, real4 const v_rh, real* const lengthInv_out);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecCrossNormalizeGetLengthInv4rv ijk_declrealfs(ijkVecCrossNormalizeGetLengthInv4,v)
+
 // ijkVecCrossNormalizeSafeGetLengthInv4*v
 //	Calculate unit-length result of cross product; also capture inverse length;
 //	division-by-zero safe.
@@ -4044,7 +4117,8 @@ extern "C" {
 //		param lengthInv_out: pointer to length storage
 //		return: v_out
 //realv ijkVecCrossNormalizeSafeGetLengthInv4rv(real4 v_out, real4 const v_lh, real4 const v_rh, real* const lengthInv_out);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecCrossNormalizeSafeGetLengthInv4rv ijk_declrealfs(ijkVecCrossNormalizeSafeGetLengthInv4,v)
+
 // ijkVecLerp4*v
 //	Vector linear interpolation.
 //		param v_out: output vector, interpolated components
@@ -4054,7 +4128,8 @@ extern "C" {
 //			interpolation in range [v0,v1], others result in extrapolation
 //		return: v_out
 //realv ijkVecLerp4rv(real4 v_out, real4 const v0, real4 const v1, real const u);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecLerp4rv ijk_declrealfs(ijkVecLerp4,v)
+
 // ijkVecLerpInv4*v
 //	Vector linear interpolation inverse to calculate parameters given control .
 //		param v_out: output vector, interpolation parameter for each component
@@ -4064,7 +4139,8 @@ extern "C" {
 //			in range [0,1] indicate interpolation, others for extrapolation
 //		return: v_out
 //realv ijkVecLerpInv4rv(real4 v_out, real4 const v0, real4 const v1, real4 const v_lerp);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecLerpInv4rv ijk_declrealfs(ijkVecLerpInv4,v)
+
 // ijkVecLerpRevInit4*v
 //	Vector linear interpolation reversal to calculate initial control.
 //		param v0_out: output initial control vector, result when param is 0
@@ -4074,7 +4150,8 @@ extern "C" {
 //			interpolation in range [v0,v1], others result in extrapolation
 //		return: v0_out
 //realv ijkVecLerpRevInit4rv(real4 v0_out, real4 const v_lerp, real4 const v1, real const u);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecLerpRevInit4rv ijk_declrealfs(ijkVecLerpRevInit4,v)
+
 // ijkVecLerpRevTerm4*v
 //	Vector linear interpolation reversal to calculate terminal control.
 //		param v1_out: output terminal control vector, result when param is 1
@@ -4084,14 +4161,16 @@ extern "C" {
 //			interpolation in range [v0,v1], others result in extrapolation
 //		return: v1_out
 //realv ijkVecLerpRevTerm4rv(real4 v1_out, real4 const v0, real4 const v_lerp, real const u);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecLerpRevTerm4rv ijk_declrealfs(ijkVecLerpRevTerm4,v)
+
 // ijkVecProjRatio4*v
 //	Calculate projection length ratio.
 //		param v_base: fixed base vector onto which input is projected
 //		param v_in: input vector to be projected
 //		return: length ratio of projected vector to base
 //real ijkVecProjRatio4rv(real4 const v_base, real4 const v_in);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecProjRatio4rv ijk_declrealfs(ijkVecProjRatio4,v)
+
 // ijkVecProj4*v
 //	Vector projection.
 //		param v_out: output vector, projected input onto base
@@ -4099,7 +4178,8 @@ extern "C" {
 //		param v_in: input vector to be projected
 //		return: v_out
 //realv ijkVecProj4rv(real4 v_out, real4 const v_base, real4 const v_in);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecProj4rv ijk_declrealfs(ijkVecProj4,v)
+
 // ijkVecOrtho4*v
 //	Vector orthogonalization using the Gram-Schmidt process.
 //		param v_out: output orthogonalized vector; difference between input 
@@ -4108,7 +4188,8 @@ extern "C" {
 //		param v_in: input vector to be orthogonalized
 //		return: v_out
 //realv ijkVecOrtho4rv(real4 v_out, real4 const v_base, real4 const v_in);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecOrtho4rv ijk_declrealfs(ijkVecOrtho4,v)
+
 // ijkVecOrthoNorm4*v
 //	Vector orthonormalization using the Gram-Schmidt process.
 //		param v_out: output orthonormalized vector; difference between input 
@@ -4118,7 +4199,8 @@ extern "C" {
 //		param v_base_norm_out: normalized base vector
 //		return: v_out
 //realv ijkVecOrthoNorm4rv(real4 v_out, real4 const v_base, real4 const v_in, real4 v_base_norm_out);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecOrthoNorm4rv ijk_declrealfs(ijkVecOrthoNorm4,v)
+
 // ijkVecOrthoList4*v
 //	Vector orthogonalization using the Gram-Schmidt process.
 //		param vl_out: output list of orthogonalized vectors
@@ -4127,7 +4209,8 @@ extern "C" {
 //		param n: number of vectors to orthogonalize
 //		return: vl_out
 //real4* ijkVecOrthoList4rv(real4 vl_out[], real4 const v_base, real4 const vl_in[], size const n);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecOrthoList4rv ijk_declrealfs(ijkVecOrthoList4,v)
+
 // ijkVecOrthoNormList4*v
 //	Vector orthonormalization using the Gram-Schmidt process.
 //		param vl_out: output list of orthonormalized vectors
@@ -4137,8 +4220,9 @@ extern "C" {
 //		param v_base_norm_out: normalized base vector
 //		return: vl_out
 //real4* ijkVecOrthoNormList4rv(real4 vl_out[], real4 const v_base, real4 const vl_in[], size const n, real4 v_base_norm_out);
-#define func***v ijk_declrealfs(func,**v)
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecOrthoNormList4rv ijk_declrealfs(ijkVecOrthoNormList4,v)
+
+
 //-----------------------------------------------------------------------------
 
 	
@@ -4147,55 +4231,63 @@ extern "C" {
 #endif	// __cplusplus
 
 //-----------------------------------------------------------------------------
-#define func***v ijk_declrealfs(func,**v)
+
 // ijkVecLengthSq2*
 //	Calculate the squared length of a vector.
 //		param v_in: input vector
 //		return: squared length
 //real ijkVecLengthSq2r(rvec2 const v_in);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecLengthSq2r ijk_declrealfs(ijkVecLengthSq2,)
+
 // ijkVecLength2*
 //	Calculate the length of a vector.
 //		param v_in: input vector
 //		return: length
 //real ijkVecLength2r(rvec2 const v_in);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecLength2r ijk_declrealfs(ijkVecLength2,)
+
 // ijkVecLengthSqInv2*
 //	Calculate the inverse squared length of a vector.
 //		param v_in: input vector
 //		return: inverse squared length
 //real ijkVecLengthSqInv2r(rvec2 const v_in);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecLengthSqInv2r ijk_declrealfs(ijkVecLengthSqInv2,)
+
 // ijkVecLengthSqInvSafe2*
 //	Calculate the inverse squared length of a vector; division-by-zero safe.
 //		param v_in: input vector
 //		return: inverse squared length
 //real ijkVecLengthSqInvSafe2r(rvec2 const v_in);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecLengthSqInvSafe2r ijk_declrealfs(ijkVecLengthSqInvSafe2,)
+
 // ijkVecLengthInv2*
 //	Calculate the inverse length of a vector.
 //		param v_in: input vector
 //		return: inverse length
 //real ijkVecLengthInv2r(rvec2 const v_in);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecLengthInv2r ijk_declrealfs(ijkVecLengthInv2,)
+
 // ijkVecLengthInvSafe2*
 //	Calculate the inverse length of a vector; division-by-zero safe.
 //		param v_in: input vector
 //		return: inverse length
 //real ijkVecLengthInvSafe2r(rvec2 const v_in);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecLengthInvSafe2r ijk_declrealfs(ijkVecLengthInvSafe2,)
+
 // ijkVecNormalize2*
 //	Calculate the unit-length direction of a vector.
 //		param v_in: input vector
 //		return: unit-length direction vector
 //rvec2 ijkVecNormalize2r(rvec2 const v_in);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecNormalize2r ijk_declrealfs(ijkVecNormalize2,)
+
 // ijkVecNormalizeSafe2*
 //	Calculate the unit-length direction of a vector; division-by-zero safe.
 //		param v_in: input vector
 //		return: unit-length direction vector
 //rvec2 ijkVecNormalizeSafe2r(rvec2 const v_in);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecNormalizeSafe2r ijk_declrealfs(ijkVecNormalizeSafe2,)
+
 // ijkVecNormalizeGetLength2*
 //	Calculate the unit-length direction of a vector; also capture the length 
 //	of the input vector.
@@ -4203,7 +4295,8 @@ extern "C" {
 //		param length_out: pointer to length storage
 //		return: unit-length direction vector
 //rvec2 ijkVecNormalizeGetLength2r(rvec2 const v_in, real* const length_out);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecNormalizeGetLength2r ijk_declrealfs(ijkVecNormalizeGetLength2,)
+
 // ijkVecNormalizeSafeGetLength2*
 //	Calculate the unit-length direction of a vector; also capture the length 
 //	of the input vector; division-by-zero safe.
@@ -4211,7 +4304,8 @@ extern "C" {
 //		param length_out: pointer to length storage
 //		return: unit-length direction vector
 //rvec2 ijkVecNormalizeSafeGetLength2r(rvec2 const v_in, real* const length_out);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecNormalizeSafeGetLength2r ijk_declrealfs(ijkVecNormalizeSafeGetLength2,)
+
 // ijkVecNormalizeGetLengthInv2*
 //	Calculate the unit-length direction of a vector; also capture the inverse 
 //	length of the input vector.
@@ -4219,7 +4313,8 @@ extern "C" {
 //		param length_out: pointer to length storage
 //		return: unit-length direction vector
 //rvec2 ijkVecNormalizeGetLengthInv2r(rvec2 const v_in, real* const lengthInv_out);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecNormalizeGetLengthInv2r ijk_declrealfs(ijkVecNormalizeGetLengthInv2,)
+
 // ijkVecNormalizeSafeGetLengthInv2*
 //	Calculate the unit-length direction of a vector; also capture the inverse 
 //	length of the input vector; division-by-zero safe.
@@ -4227,21 +4322,24 @@ extern "C" {
 //		param length_out: pointer to length storage
 //		return: unit-length direction vector
 //rvec2 ijkVecNormalizeSafeGetLengthInv2r(rvec2 const v_in, real* const lengthInv_out);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecNormalizeSafeGetLengthInv2r ijk_declrealfs(ijkVecNormalizeSafeGetLengthInv2,)
+
 // ijkVecCrossNormalize2*
 //	Calculate unit-length result of cross product.
 //		param v_lh: left-hand vector
 //		param v_rh: right-hand vector
 //		return: scalar cross product sign
 //real ijkVecCrossNormalize2r(rvec2 const v_lh, rvec2 const v_rh);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecCrossNormalize2r ijk_declrealfs(ijkVecCrossNormalize2,)
+
 // ijkVecCrossNormalizeSafe2*
 //	Calculate unit-length result of cross product; division-by-zero safe.
 //		param v_lh: left-hand vector
 //		param v_rh: right-hand vector
 //		return: scalar cross product sign
 //real ijkVecCrossNormalizeSafe2r(rvec2 const v_lh, rvec2 const v_rh);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecCrossNormalizeSafe2r ijk_declrealfs(ijkVecCrossNormalizeSafe2,)
+
 // ijkVecCrossNormalizeGetLength2*
 //	Calculate unit-length result of cross product; also capture length.
 //		param v_lh: left-hand vector
@@ -4249,7 +4347,8 @@ extern "C" {
 //		param length_out: pointer to length storage
 //		return: scalar cross product sign
 //real ijkVecCrossNormalizeGetLength2r(rvec2 const v_lh, rvec2 const v_rh, real* const length_out);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecCrossNormalizeGetLength2r ijk_declrealfs(ijkVecCrossNormalizeGetLength2,)
+
 // ijkVecCrossNormalizeSafeGetLength2*
 //	Calculate unit-length result of cross product; also capture length; 
 //	division-by-zero safe.
@@ -4258,7 +4357,8 @@ extern "C" {
 //		param length_out: pointer to length storage
 //		return: scalar cross product sign
 //real ijkVecCrossNormalizeSafeGetLength2r(rvec2 const v_lh, rvec2 const v_rh, real* const length_out);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecCrossNormalizeSafeGetLength2r ijk_declrealfs(ijkVecCrossNormalizeSafeGetLength2,)
+
 // ijkVecCrossNormalizeGetLengthInv2*
 //	Calculate unit-length result of cross product; also capture inverse length.
 //		param v_lh: left-hand vector
@@ -4266,7 +4366,8 @@ extern "C" {
 //		param lengthInv_out: pointer to length storage
 //		return: scalar cross product sign
 //real ijkVecCrossNormalizeGetLengthInv2r(rvec2 const v_lh, rvec2 const v_rh, real* const lengthInv_out);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecCrossNormalizeGetLengthInv2r ijk_declrealfs(ijkVecCrossNormalizeGetLengthInv2,)
+
 // ijkVecCrossNormalizeSafeGetLengthInv2*
 //	Calculate unit-length result of cross product; also capture inverse length;
 //	division-by-zero safe.
@@ -4275,7 +4376,8 @@ extern "C" {
 //		param lengthInv_out: pointer to length storage
 //		return: scalar cross product sign
 //real ijkVecCrossNormalizeSafeGetLengthInv2r(rvec2 const v_lh, rvec2 const v_rh, real* const lengthInv_out);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecCrossNormalizeSafeGetLengthInv2r ijk_declrealfs(ijkVecCrossNormalizeSafeGetLengthInv2,)
+
 // ijkVecLerp2*
 //	Vector linear interpolation.
 //		param v0: input initial control vector, result when param is 0
@@ -4284,7 +4386,8 @@ extern "C" {
 //			interpolation in range [v0,v1], others result in extrapolation
 //		return: interpolated vector
 //rvec2 ijkVecLerp2r(rvec2 const v0, rvec2 const v1, real const u);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecLerp2r ijk_declrealfs(ijkVecLerp2,)
+
 // ijkVecLerpInv2*
 //	Vector linear interpolation inverse to calculate parameters given control .
 //		param v0: input initial control vector, result when param is 0
@@ -4293,7 +4396,8 @@ extern "C" {
 //			in range [0,1] indicate interpolation, others for extrapolation
 //		return: interpolation parameter for each component
 //rvec2 ijkVecLerpInv2r(rvec2 const v0, rvec2 const v1, rvec2 const v_lerp);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecLerpInv2r ijk_declrealfs(ijkVecLerpInv2,)
+
 // ijkVecLerpRevInit2*
 //	Vector linear interpolation reversal to calculate initial control.
 //		param v_lerp: input interpolated vector
@@ -4302,7 +4406,8 @@ extern "C" {
 //			interpolation in range [v0,v1], others result in extrapolation
 //		return: initial control vector, result when param is 0
 //rvec2 ijkVecLerpRevInit2r(rvec2 const v_lerp, rvec2 const v1, real const u);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecLerpRevInit2r ijk_declrealfs(ijkVecLerpRevInit2,)
+
 // ijkVecLerpRevTerm2*
 //	Vector linear interpolation reversal to calculate terminal control.
 //		param v0: input initial control vector, result when param is 0
@@ -4311,28 +4416,32 @@ extern "C" {
 //			interpolation in range [v0,v1], others result in extrapolation
 //		return: terminal control vector, result when param is 1
 //rvec2 ijkVecLerpRevTerm2r(rvec2 const v0, rvec2 const v_lerp, real const u);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecLerpRevTerm2r ijk_declrealfs(ijkVecLerpRevTerm2,)
+
 // ijkVecProjRatio2*
 //	Calculate projection length ratio.
 //		param v_base: fixed base vector onto which input is projected
 //		param v_in: input vector to be projected
 //		return: length ratio of projected vector to base
 //real ijkVecProjRatio2r(rvec2 const v_base, rvec2 const v_in);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecProjRatio2r ijk_declrealfs(ijkVecProjRatio2,)
+
 // ijkVecProj2*
 //	Vector projection.
 //		param v_base: fixed base vector onto which input is projected
 //		param v_in: input vector to be projected
 //		return: projected input onto base
 //rvec2 ijkVecProj2r(rvec2 const v_base, rvec2 const v_in);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecProj2r ijk_declrealfs(ijkVecProj2,)
+
 // ijkVecOrtho2*
 //	Vector orthogonalization using the Gram-Schmidt process.
 //		param v_base: fixed base vector onto which input is projected
 //		param v_in: input vector to be orthogonalized
 //		return: output orthogonalized vector
 //rvec2 ijkVecOrtho2r(rvec2 const v_base, rvec2 const v_in);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecOrtho2r ijk_declrealfs(ijkVecOrtho2,)
+
 // ijkVecOrthoNorm2*
 //	Vector orthonormalization using the Gram-Schmidt process.
 //		param v_base: fixed base vector onto which input is projected
@@ -4340,7 +4449,8 @@ extern "C" {
 //		param v_base_norm_out: normalized base vector
 //		return: output orthonormalized vector
 //rvec2 ijkVecOrthoNorm2r(rvec2 const v_base, rvec2 const v_in, rvec2* const v_base_norm_out);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecOrthoNorm2r ijk_declrealfs(ijkVecOrthoNorm2,)
+
 // ijkVecOrthoList2*
 //	Vector orthogonalization using the Gram-Schmidt process.
 //		param vl_out: output list of orthogonalized vectors
@@ -4349,7 +4459,8 @@ extern "C" {
 //		param n: number of vectors to orthogonalize
 //		return: vl_out
 //rvec2* ijkVecOrthoList2r(rvec2 vl_out[], rvec2 const v_base, rvec2 const vl_in[], size const n);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecOrthoList2r ijk_declrealfs(ijkVecOrthoList2,)
+
 // ijkVecOrthoNormList2*
 //	Vector orthonormalization using the Gram-Schmidt process.
 //		param vl_out: output list of orthonormalized vectors
@@ -4359,58 +4470,67 @@ extern "C" {
 //		param v_base_norm_out: normalized base vector
 //		return: vl_out
 //rvec2* ijkVecOrthoNormList2r(rvec2 vl_out[], rvec2 const v_base, rvec2 const vl_in[], size const n, rvec2* const v_base_norm_out);
-#define func***v ijk_declrealfs(func,**v)
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecOrthoNormList2r ijk_declrealfs(ijkVecOrthoNormList2,)
+
+
 //-----------------------------------------------------------------------------
-#define func***v ijk_declrealfs(func,**v)
+
 // ijkVecLengthSq3*
 //	Calculate the squared length of a vector.
 //		param v_in: input vector
 //		return: squared length
 //real ijkVecLengthSq3r(rvec3 const v_in);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecLengthSq3r ijk_declrealfs(ijkVecLengthSq3,)
+
 // ijkVecLength3*
 //	Calculate the length of a vector.
 //		param v_in: input vector
 //		return: length
 //real ijkVecLength3r(rvec3 const v_in);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecLength3r ijk_declrealfs(ijkVecLength3,)
+
 // ijkVecLengthSqInv3*
 //	Calculate the inverse squared length of a vector.
 //		param v_in: input vector
 //		return: inverse squared length
 //real ijkVecLengthSqInv3r(rvec3 const v_in);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecLengthSqInv3r ijk_declrealfs(ijkVecLengthSqInv3,)
+
 // ijkVecLengthSqInvSafe3*
 //	Calculate the inverse squared length of a vector; division-by-zero safe.
 //		param v_in: input vector
 //		return: inverse squared length
 //real ijkVecLengthSqInvSafe3r(rvec3 const v_in);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecLengthSqInvSafe3r ijk_declrealfs(ijkVecLengthSqInvSafe3,)
+
 // ijkVecLengthInv3*
 //	Calculate the inverse length of a vector.
 //		param v_in: input vector
 //		return: inverse length
 //real ijkVecLengthInv3r(rvec3 const v_in);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecLengthInv3r ijk_declrealfs(ijkVecLengthInv3,)
+
 // ijkVecLengthInvSafe3*
 //	Calculate the inverse length of a vector; division-by-zero safe.
 //		param v_in: input vector
 //		return: inverse length
 //real ijkVecLengthInvSafe3r(rvec3 const v_in);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecLengthInvSafe3r ijk_declrealfs(ijkVecLengthInvSafe3,)
+
 // ijkVecNormalize3*
 //	Calculate the unit-length direction of a vector.
 //		param v_in: input vector
 //		return: unit-length direction vector
 //rvec3 ijkVecNormalize3r(rvec3 const v_in);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecNormalize3r ijk_declrealfs(ijkVecNormalize3,)
+
 // ijkVecNormalizeSafe3*
 //	Calculate the unit-length direction of a vector; division-by-zero safe.
 //		param v_in: input vector
 //		return: unit-length direction vector
 //rvec3 ijkVecNormalizeSafe3r(rvec3 const v_in);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecNormalizeSafe3r ijk_declrealfs(ijkVecNormalizeSafe3,)
+
 // ijkVecNormalizeGetLength3*
 //	Calculate the unit-length direction of a vector; also capture the length 
 //	of the input vector.
@@ -4418,7 +4538,8 @@ extern "C" {
 //		param length_out: pointer to length storage
 //		return: unit-length direction vector
 //rvec3 ijkVecNormalizeGetLength3r(rvec3 const v_in, real* const length_out);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecNormalizeGetLength3r ijk_declrealfs(ijkVecNormalizeGetLength3,)
+
 // ijkVecNormalizeSafeGetLength3*
 //	Calculate the unit-length direction of a vector; also capture the length 
 //	of the input vector; division-by-zero safe.
@@ -4426,7 +4547,8 @@ extern "C" {
 //		param length_out: pointer to length storage
 //		return: unit-length direction vector
 //rvec3 ijkVecNormalizeSafeGetLength3r(rvec3 const v_in, real* const length_out);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecNormalizeSafeGetLength3r ijk_declrealfs(ijkVecNormalizeSafeGetLength3,)
+
 // ijkVecNormalizeGetLengthInv3*
 //	Calculate the unit-length direction of a vector; also capture the inverse 
 //	length of the input vector.
@@ -4434,7 +4556,8 @@ extern "C" {
 //		param length_out: pointer to length storage
 //		return: unit-length direction vector
 //rvec3 ijkVecNormalizeGetLengthInv3r(rvec3 const v_in, real* const lengthInv_out);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecNormalizeGetLengthInv3r ijk_declrealfs(ijkVecNormalizeGetLengthInv3,)
+
 // ijkVecNormalizeSafeGetLengthInv3*
 //	Calculate the unit-length direction of a vector; also capture the inverse 
 //	length of the input vector; division-by-zero safe.
@@ -4442,21 +4565,24 @@ extern "C" {
 //		param length_out: pointer to length storage
 //		return: unit-length direction vector
 //rvec3 ijkVecNormalizeSafeGetLengthInv3r(rvec3 const v_in, real* const lengthInv_out);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecNormalizeSafeGetLengthInv3r ijk_declrealfs(ijkVecNormalizeSafeGetLengthInv3,)
+
 // ijkVecCrossNormalize3*
 //	Calculate unit-length result of cross product.
 //		param v_lh: left-hand vector
 //		param v_rh: right-hand vector
 //		return: unit cross product
 //rvec3 ijkVecCrossNormalize3r(rvec3 const v_lh, rvec3 const v_rh);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecCrossNormalize3r ijk_declrealfs(ijkVecCrossNormalize3,)
+
 // ijkVecCrossNormalizeSafe3*
 //	Calculate unit-length result of cross product; division-by-zero safe.
 //		param v_lh: left-hand vector
 //		param v_rh: right-hand vector
 //		return: unit cross product
 //rvec3 ijkVecCrossNormalizeSafe3r(rvec3 const v_lh, rvec3 const v_rh);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecCrossNormalizeSafe3r ijk_declrealfs(ijkVecCrossNormalizeSafe3,)
+
 // ijkVecCrossNormalizeGetLength3*
 //	Calculate unit-length result of cross product; also capture length.
 //		param v_lh: left-hand vector
@@ -4464,7 +4590,8 @@ extern "C" {
 //		param length_out: pointer to length storage
 //		return: unit cross product
 //rvec3 ijkVecCrossNormalizeGetLength3r(rvec3 const v_lh, rvec3 const v_rh, real* const length_out);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecCrossNormalizeGetLength3r ijk_declrealfs(ijkVecCrossNormalizeGetLength3,)
+
 // ijkVecCrossNormalizeSafeGetLength3*
 //	Calculate unit-length result of cross product; also capture length; 
 //	division-by-zero safe.
@@ -4473,7 +4600,8 @@ extern "C" {
 //		param length_out: pointer to length storage
 //		return: unit cross product
 //rvec3 ijkVecCrossNormalizeSafeGetLength3r(rvec3 const v_lh, rvec3 const v_rh, real* const length_out);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecCrossNormalizeSafeGetLength3r ijk_declrealfs(ijkVecCrossNormalizeSafeGetLength3,)
+
 // ijkVecCrossNormalizeGetLengthInv3*
 //	Calculate unit-length result of cross product; also capture inverse length.
 //		param v_lh: left-hand vector
@@ -4481,7 +4609,8 @@ extern "C" {
 //		param lengthInv_out: pointer to length storage
 //		return: unit cross product
 //rvec3 ijkVecCrossNormalizeGetLengthInv3r(rvec3 const v_lh, rvec3 const v_rh, real* const lengthInv_out);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecCrossNormalizeGetLengthInv3r ijk_declrealfs(ijkVecCrossNormalizeGetLengthInv3,)
+
 // ijkVecCrossNormalizeSafeGetLengthInv3*
 //	Calculate unit-length result of cross product; also capture inverse length;
 //	division-by-zero safe.
@@ -4490,7 +4619,8 @@ extern "C" {
 //		param lengthInv_out: pointer to length storage
 //		return: unit cross product
 //rvec3 ijkVecCrossNormalizeSafeGetLengthInv3r(rvec3 const v_lh, rvec3 const v_rh, real* const lengthInv_out);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecCrossNormalizeSafeGetLengthInv3r ijk_declrealfs(ijkVecCrossNormalizeSafeGetLengthInv3,)
+
 // ijkVecLerp3*
 //	Vector linear interpolation.
 //		param v0: input initial control vector, result when param is 0
@@ -4499,7 +4629,8 @@ extern "C" {
 //			interpolation in range [v0,v1], others result in extrapolation
 //		return: interpolated vector
 //rvec3 ijkVecLerp3r(rvec3 const v0, rvec3 const v1, real const u);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecLerp3r ijk_declrealfs(ijkVecLerp3,)
+
 // ijkVecLerpInv3*
 //	Vector linear interpolation inverse to calculate parameters given control .
 //		param v0: input initial control vector, result when param is 0
@@ -4508,7 +4639,8 @@ extern "C" {
 //			in range [0,1] indicate interpolation, others for extrapolation
 //		return: interpolation parameter for each component
 //rvec3 ijkVecLerpInv3r(rvec3 const v0, rvec3 const v1, rvec3 const v_lerp);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecLerpInv3r ijk_declrealfs(ijkVecLerpInv3,)
+
 // ijkVecLerpRevInit3*
 //	Vector linear interpolation reversal to calculate initial control.
 //		param v_lerp: input interpolated vector
@@ -4517,7 +4649,8 @@ extern "C" {
 //			interpolation in range [v0,v1], others result in extrapolation
 //		return: initial control vector, result when param is 0
 //rvec3 ijkVecLerpRevInit3r(rvec3 const v_lerp, rvec3 const v1, real const u);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecLerpRevInit3r ijk_declrealfs(ijkVecLerpRevInit3,)
+
 // ijkVecLerpRevTerm3*
 //	Vector linear interpolation reversal to calculate terminal control.
 //		param v0: input initial control vector, result when param is 0
@@ -4526,28 +4659,32 @@ extern "C" {
 //			interpolation in range [v0,v1], others result in extrapolation
 //		return: terminal control vector, result when param is 1
 //rvec3 ijkVecLerpRevTerm3r(rvec3 const v0, rvec3 const v_lerp, real const u);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecLerpRevTerm3r ijk_declrealfs(ijkVecLerpRevTerm3,)
+
 // ijkVecProjRatio3*
 //	Calculate projection length ratio.
 //		param v_base: fixed base vector onto which input is projected
 //		param v_in: input vector to be projected
 //		return: length ratio of projected vector to base
 //real ijkVecProjRatio3r(rvec3 const v_base, rvec3 const v_in);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecProjRatio3r ijk_declrealfs(ijkVecProjRatio3,)
+
 // ijkVecProj3*
 //	Vector projection.
 //		param v_base: fixed base vector onto which input is projected
 //		param v_in: input vector to be projected
 //		return: projected input onto base
 //rvec3 ijkVecProj3r(rvec3 const v_base, rvec3 const v_in);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecProj3r ijk_declrealfs(ijkVecProj3,)
+
 // ijkVecOrtho3*
 //	Vector orthogonalization using the Gram-Schmidt process.
 //		param v_base: fixed base vector onto which input is projected
 //		param v_in: input vector to be orthogonalized
 //		return: output orthogonalized vector
 //rvec3 ijkVecOrtho3r(rvec3 const v_base, rvec3 const v_in);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecOrtho3r ijk_declrealfs(ijkVecOrtho3,)
+
 // ijkVecOrthoNorm3*
 //	Vector orthonormalization using the Gram-Schmidt process.
 //		param v_base: fixed base vector onto which input is projected
@@ -4555,7 +4692,8 @@ extern "C" {
 //		param v_base_norm_out: normalized base vector
 //		return: output orthonormalized vector
 //rvec3 ijkVecOrthoNorm3r(rvec3 const v_base, rvec3 const v_in, rvec3* const v_base_norm_out);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecOrthoNorm3r ijk_declrealfs(ijkVecOrthoNorm3,)
+
 // ijkVecOrthoList3*
 //	Vector orthogonalization using the Gram-Schmidt process.
 //		param vl_out: output list of orthogonalized vectors
@@ -4564,7 +4702,8 @@ extern "C" {
 //		param n: number of vectors to orthogonalize
 //		return: vl_out
 //rvec3* ijkVecOrthoList3r(rvec3 vl_out[], rvec3 const v_base, rvec3 const vl_in[], size const n);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecOrthoList3r ijk_declrealfs(ijkVecOrthoList3,)
+
 // ijkVecOrthoNormList3*
 //	Vector orthonormalization using the Gram-Schmidt process.
 //		param vl_out: output list of orthonormalized vectors
@@ -4574,58 +4713,67 @@ extern "C" {
 //		param v_base_norm_out: normalized base vector
 //		return: vl_out
 //rvec3* ijkVecOrthoNormList3r(rvec3 vl_out[], rvec3 const v_base, rvec3 const vl_in[], size const n, rvec3* const v_base_norm_out);
-#define func***v ijk_declrealfs(func,**v)
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecOrthoNormList3r ijk_declrealfs(ijkVecOrthoNormList3,)
+
+
 //-----------------------------------------------------------------------------
-#define func***v ijk_declrealfs(func,**v)
+
 // ijkVecLengthSq4*
 //	Calculate the squared length of a vector.
 //		param v_in: input vector
 //		return: squared length
 //real ijkVecLengthSq4r(rvec4 const v_in);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecLengthSq4r ijk_declrealfs(ijkVecLengthSq4,)
+
 // ijkVecLength4*
 //	Calculate the length of a vector.
 //		param v_in: input vector
 //		return: length
 //real ijkVecLength4r(rvec4 const v_in);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecLength4r ijk_declrealfs(ijkVecLength4,)
+
 // ijkVecLengthSqInv4*
 //	Calculate the inverse squared length of a vector.
 //		param v_in: input vector
 //		return: inverse squared length
 //real ijkVecLengthSqInv4r(rvec4 const v_in);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecLengthSqInv4r ijk_declrealfs(ijkVecLengthSqInv4,)
+
 // ijkVecLengthSqInvSafe4*
 //	Calculate the inverse squared length of a vector; division-by-zero safe.
 //		param v_in: input vector
 //		return: inverse squared length
 //real ijkVecLengthSqInvSafe4r(rvec4 const v_in);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecLengthSqInvSafe4r ijk_declrealfs(ijkVecLengthSqInvSafe4,)
+
 // ijkVecLengthInv4*
 //	Calculate the inverse length of a vector.
 //		param v_in: input vector
 //		return: inverse length
 //real ijkVecLengthInv4r(rvec4 const v_in);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecLengthInv4r ijk_declrealfs(ijkVecLengthInv4,)
+
 // ijkVecLengthInvSafe4*
 //	Calculate the inverse length of a vector; division-by-zero safe.
 //		param v_in: input vector
 //		return: inverse length
 //real ijkVecLengthInvSafe4r(rvec4 const v_in);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecLengthInvSafe4r ijk_declrealfs(ijkVecLengthInvSafe4,)
+
 // ijkVecNormalize4*
 //	Calculate the unit-length direction of a vector.
 //		param v_in: input vector
 //		return: unit-length direction vector
 //rvec4 ijkVecNormalize4r(rvec4 const v_in);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecNormalize4r ijk_declrealfs(ijkVecNormalize4,)
+
 // ijkVecNormalizeSafe4*
 //	Calculate the unit-length direction of a vector; division-by-zero safe.
 //		param v_in: input vector
 //		return: unit-length direction vector
 //rvec4 ijkVecNormalizeSafe4r(rvec4 const v_in);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecNormalizeSafe4r ijk_declrealfs(ijkVecNormalizeSafe4,)
+
 // ijkVecNormalizeGetLength4*
 //	Calculate the unit-length direction of a vector; also capture the length 
 //	of the input vector.
@@ -4633,7 +4781,8 @@ extern "C" {
 //		param length_out: pointer to length storage
 //		return: unit-length direction vector
 //rvec4 ijkVecNormalizeGetLength4r(rvec4 const v_in, real* const length_out);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecNormalizeGetLength4r ijk_declrealfs(ijkVecNormalizeGetLength4,)
+
 // ijkVecNormalizeSafeGetLength4*
 //	Calculate the unit-length direction of a vector; also capture the length 
 //	of the input vector; division-by-zero safe.
@@ -4641,7 +4790,8 @@ extern "C" {
 //		param length_out: pointer to length storage
 //		return: unit-length direction vector
 //rvec4 ijkVecNormalizeSafeGetLength4r(rvec4 const v_in, real* const length_out);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecNormalizeSafeGetLength4r ijk_declrealfs(ijkVecNormalizeSafeGetLength4,)
+
 // ijkVecNormalizeGetLengthInv4*
 //	Calculate the unit-length direction of a vector; also capture the inverse 
 //	length of the input vector.
@@ -4649,7 +4799,8 @@ extern "C" {
 //		param length_out: pointer to length storage
 //		return: unit-length direction vector
 //rvec4 ijkVecNormalizeGetLengthInv4r(rvec4 const v_in, real* const lengthInv_out);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecNormalizeGetLengthInv4r ijk_declrealfs(ijkVecNormalizeGetLengthInv4,)
+
 // ijkVecNormalizeSafeGetLengthInv4*
 //	Calculate the unit-length direction of a vector; also capture the inverse 
 //	length of the input vector; division-by-zero safe.
@@ -4657,21 +4808,24 @@ extern "C" {
 //		param length_out: pointer to length storage
 //		return: unit-length direction vector
 //rvec4 ijkVecNormalizeSafeGetLengthInv4r(rvec4 const v_in, real* const lengthInv_out);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecNormalizeSafeGetLengthInv4r ijk_declrealfs(ijkVecNormalizeSafeGetLengthInv4,)
+
 // ijkVecCrossNormalize4*
 //	Calculate unit-length result of cross product.
 //		param v_lh: left-hand vector
 //		param v_rh: right-hand vector
 //		return: unit cross product
 //rvec4 ijkVecCrossNormalize4r(rvec4 const v_lh, rvec4 const v_rh);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecCrossNormalize4r ijk_declrealfs(ijkVecCrossNormalize4,)
+
 // ijkVecCrossNormalizeSafe4*
 //	Calculate unit-length result of cross product; division-by-zero safe.
 //		param v_lh: left-hand vector
 //		param v_rh: right-hand vector
 //		return: unit cross product
 //rvec4 ijkVecCrossNormalizeSafe4r(rvec4 const v_lh, rvec4 const v_rh);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecCrossNormalizeSafe4r ijk_declrealfs(ijkVecCrossNormalizeSafe4,)
+
 // ijkVecCrossNormalizeGetLength4*
 //	Calculate unit-length result of cross product; also capture length.
 //		param v_lh: left-hand vector
@@ -4679,7 +4833,8 @@ extern "C" {
 //		param length_out: pointer to length storage
 //		return: unit cross product
 //rvec4 ijkVecCrossNormalizeGetLength4r(rvec4 const v_lh, rvec4 const v_rh, real* const length_out);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecCrossNormalizeGetLength4r ijk_declrealfs(ijkVecCrossNormalizeGetLength4,)
+
 // ijkVecCrossNormalizeSafeGetLength4*
 //	Calculate unit-length result of cross product; also capture length; 
 //	division-by-zero safe.
@@ -4688,7 +4843,8 @@ extern "C" {
 //		param length_out: pointer to length storage
 //		return: unit cross product
 //rvec4 ijkVecCrossNormalizeSafeGetLength4r(rvec4 const v_lh, rvec4 const v_rh, real* const length_out);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecCrossNormalizeSafeGetLength4r ijk_declrealfs(ijkVecCrossNormalizeSafeGetLength4,)
+
 // ijkVecCrossNormalizeGetLengthInv4*
 //	Calculate unit-length result of cross product; also capture inverse length.
 //		param v_lh: left-hand vector
@@ -4696,7 +4852,8 @@ extern "C" {
 //		param lengthInv_out: pointer to length storage
 //		return: unit cross product
 //rvec4 ijkVecCrossNormalizeGetLengthInv4r(rvec4 const v_lh, rvec4 const v_rh, real* const lengthInv_out);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecCrossNormalizeGetLengthInv4r ijk_declrealfs(ijkVecCrossNormalizeGetLengthInv4,)
+
 // ijkVecCrossNormalizeSafeGetLengthInv4*
 //	Calculate unit-length result of cross product; also capture inverse length;
 //	division-by-zero safe.
@@ -4705,7 +4862,8 @@ extern "C" {
 //		param lengthInv_out: pointer to length storage
 //		return: unit cross product
 //rvec4 ijkVecCrossNormalizeSafeGetLengthInv4r(rvec4 const v_lh, rvec4 const v_rh, real* const lengthInv_out);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecCrossNormalizeSafeGetLengthInv4r ijk_declrealfs(ijkVecCrossNormalizeSafeGetLengthInv4,)
+
 // ijkVecLerp4*
 //	Vector linear interpolation.
 //		param v0: input initial control vector, result when param is 0
@@ -4714,7 +4872,8 @@ extern "C" {
 //			interpolation in range [v0,v1], others result in extrapolation
 //		return: interpolated vector
 //rvec4 ijkVecLerp4r(rvec4 const v0, rvec4 const v1, real const u);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecLerp4r ijk_declrealfs(ijkVecLerp4,)
+
 // ijkVecLerpInv4*
 //	Vector linear interpolation inverse to calculate parameters given control .
 //		param v0: input initial control vector, result when param is 0
@@ -4723,7 +4882,8 @@ extern "C" {
 //			in range [0,1] indicate interpolation, others for extrapolation
 //		return: interpolation parameter for each component
 //rvec4 ijkVecLerpInv4r(rvec4 const v0, rvec4 const v1, rvec4 const v_lerp);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecLerpInv4r ijk_declrealfs(ijkVecLerpInv4,)
+
 // ijkVecLerpRevInit4*
 //	Vector linear interpolation reversal to calculate initial control.
 //		param v_lerp: input interpolated vector
@@ -4732,7 +4892,8 @@ extern "C" {
 //			interpolation in range [v0,v1], others result in extrapolation
 //		return: initial control vector, result when param is 0
 //rvec4 ijkVecLerpRevInit4r(rvec4 const v_lerp, rvec4 const v1, real const u);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecLerpRevInit4r ijk_declrealfs(ijkVecLerpRevInit4,)
+
 // ijkVecLerpRevTerm4*
 //	Vector linear interpolation reversal to calculate terminal control.
 //		param v0: input initial control vector, result when param is 0
@@ -4741,28 +4902,32 @@ extern "C" {
 //			interpolation in range [v0,v1], others result in extrapolation
 //		return: terminal control vector, result when param is 1
 //rvec4 ijkVecLerpRevTerm4r(rvec4 const v0, rvec4 const v_lerp, real const u);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecLerpRevTerm4r ijk_declrealfs(ijkVecLerpRevTerm4,)
+
 // ijkVecProjRatio4*
 //	Calculate projection length ratio.
 //		param v_base: fixed base vector onto which input is projected
 //		param v_in: input vector to be projected
 //		return: length ratio of projected vector to base
 //real ijkVecProjRatio4r(rvec4 const v_base, rvec4 const v_in);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecProjRatio4r ijk_declrealfs(ijkVecProjRatio4,)
+
 // ijkVecProj4*
 //	Vector projection.
 //		param v_base: fixed base vector onto which input is projected
 //		param v_in: input vector to be projected
 //		return: projected input onto base
 //rvec4 ijkVecProj4r(rvec4 const v_base, rvec4 const v_in);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecProj4r ijk_declrealfs(ijkVecProj4,)
+
 // ijkVecOrtho4*
 //	Vector orthogonalization using the Gram-Schmidt process.
 //		param v_base: fixed base vector onto which input is projected
 //		param v_in: input vector to be orthogonalized
 //		return: output orthogonalized vector
 //rvec4 ijkVecOrtho4r(rvec4 const v_base, rvec4 const v_in);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecOrtho4r ijk_declrealfs(ijkVecOrtho4,)
+
 // ijkVecOrthoNorm4*
 //	Vector orthonormalization using the Gram-Schmidt process.
 //		param v_base: fixed base vector onto which input is projected
@@ -4770,7 +4935,8 @@ extern "C" {
 //		param v_base_norm_out: normalized base vector
 //		return: output orthonormalized vector
 //rvec4 ijkVecOrthoNorm4r(rvec4 const v_base, rvec4 const v_in, rvec4* const v_base_norm_out);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecOrthoNorm4r ijk_declrealfs(ijkVecOrthoNorm4,)
+
 // ijkVecOrthoList4*
 //	Vector orthogonalization using the Gram-Schmidt process.
 //		param vl_out: output list of orthogonalized vectors
@@ -4779,7 +4945,8 @@ extern "C" {
 //		param n: number of vectors to orthogonalize
 //		return: vl_out
 //rvec4* ijkVecOrthoList4r(rvec4 vl_out[], rvec4 const v_base, rvec4 const vl_in[], size const n);
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecOrthoList4r ijk_declrealfs(ijkVecOrthoList4,)
+
 // ijkVecOrthoNormList4*
 //	Vector orthonormalization using the Gram-Schmidt process.
 //		param vl_out: output list of orthonormalized vectors
@@ -4789,8 +4956,9 @@ extern "C" {
 //		param v_base_norm_out: normalized base vector
 //		return: vl_out
 //rvec4* ijkVecOrthoNormList4r(rvec4 vl_out[], rvec4 const v_base, rvec4 const vl_in[], size const n, rvec4* const v_base_norm_out);
-#define func***v ijk_declrealfs(func,**v)
-#define func***v ijk_declrealfs(func,**v)
+#define ijkVecOrthoNormList4r ijk_declrealfs(ijkVecOrthoNormList4,)
+
+
 //-----------------------------------------------------------------------------
 
 
