@@ -463,21 +463,21 @@ fmat2 ijkMatDiv2fs(fmat2 const m_lh, float const s_rh);
 //		return: quotient
 fmat2 ijkMatDivSafe2fs(fmat2 const m_lh, float const s_rh);
 
-// ijkMatMul2*s
+// ijkMatMul2s*
 //	Multiply scalar by 2x2 matrix elements.
 //		param s_lh: left-hand scalar
 //		param m_rh: right-hand matrix
 //		return: component-wise product
 fmat2 ijkMatMul2sf(float const s_lh, fmat2 const m_rh);
 
-// ijkMatDiv2*s
+// ijkMatDiv2s*
 //	Divide scalar by 2x2 matrix elements.
 //		param s_lh: left-hand scalar
 //		param m_rh: right-hand matrix
 //		return: component-wise quotient
 fmat2 ijkMatDiv2sf(float const s_lh, fmat2 const m_rh);
 
-// ijkMatDivSafe2*s
+// ijkMatDivSafe2s*
 //	Divide scalar by 2x2 matrix elements; division-by-zero safety.
 //		param s_lh: left-hand scalar
 //		param m_rh: right-hand matrix
@@ -567,21 +567,21 @@ fmat3 ijkMatDiv3fs(fmat3 const m_lh, float const s_rh);
 //		return: quotient
 fmat3 ijkMatDivSafe3fs(fmat3 const m_lh, float const s_rh);
 
-// ijkMatMul3*s
+// ijkMatMul3s*
 //	Multiply scalar by 3x3 matrix elements.
 //		param s_lh: left-hand scalar
 //		param m_rh: right-hand matrix
 //		return: component-wise product
 fmat3 ijkMatMul3sf(float const s_lh, fmat3 const m_rh);
 
-// ijkMatDiv3*s
+// ijkMatDiv3s*
 //	Divide scalar by 3x3 matrix elements.
 //		param s_lh: left-hand scalar
 //		param m_rh: right-hand matrix
 //		return: component-wise quotient
 fmat3 ijkMatDiv3sf(float const s_lh, fmat3 const m_rh);
 
-// ijkMatDivSafe3*s
+// ijkMatDivSafe3s*
 //	Divide scalar by 3x3 matrix elements; division-by-zero safety.
 //		param s_lh: left-hand scalar
 //		param m_rh: right-hand matrix
@@ -673,21 +673,21 @@ fmat4 ijkMatDiv4fs(fmat4 const m_lh, float const s_rh);
 //		return: quotient
 fmat4 ijkMatDivSafe4fs(fmat4 const m_lh, float const s_rh);
 
-// ijkMatMul4*s
+// ijkMatMul4s*
 //	Multiply scalar by 4x4 matrix elements.
 //		param s_lh: left-hand scalar
 //		param m_rh: right-hand matrix
 //		return: component-wise product
 fmat4 ijkMatMul4sf(float const s_lh, fmat4 const m_rh);
 
-// ijkMatDiv4*s
+// ijkMatDiv4s*
 //	Divide scalar by 4x4 matrix elements.
 //		param s_lh: left-hand scalar
 //		param m_rh: right-hand matrix
 //		return: component-wise quotient
 fmat4 ijkMatDiv4sf(float const s_lh, fmat4 const m_rh);
 
-// ijkMatDivSafe4*s
+// ijkMatDivSafe4s*
 //	Divide scalar by 4x4 matrix elements; division-by-zero safety.
 //		param s_lh: left-hand scalar
 //		param m_rh: right-hand matrix
@@ -740,7 +740,7 @@ f32 ijkMatDeterminantInvSafe2fm(float2x2 const m_in);
 //		param m_in: input matrix
 //		param v_in: input vector
 //		param row: matrix row index
-//		return: product of matrix row and v
+//		return: product of matrix row and vector
 f32 ijkMatMulRowVec2fmv(float2x2 const m_in, float2 const v_in, index const row);
 
 // ijkMatGetRow2*m
@@ -918,7 +918,7 @@ f32 ijkMatDeterminantInvSafe3fm(float3x3 const m_in);
 //		param m_in: input matrix
 //		param v_in: input vector
 //		param row: matrix row index
-//		return: product of matrix row and v
+//		return: product of matrix row and vector
 f32 ijkMatMulRowVec3fmv(float3x3 const m_in, float3 const v_in, index const row);
 
 // ijkMatGetRow3*m
@@ -1246,7 +1246,7 @@ f32 ijkMatDeterminantInvSafe4fm(float4x4 const m_in);
 //		param m_in: input matrix
 //		param v_in: input vector
 //		param row: matrix row index
-//		return: product of matrix row and v
+//		return: product of matrix row and vector
 f32 ijkMatMulRowVec4fmv(float4x4 const m_in, float4 const v_in, index const row);
 
 // ijkMatGetRow4*m
@@ -1795,7 +1795,7 @@ float ijkMatDeterminantInvSafe2f(fmat2 const m_in);
 //		param m_in: input matrix
 //		param v_in: input vector
 //		param row: matrix row index
-//		return: product of matrix row and v
+//		return: product of matrix row and vector
 float ijkMatMulRowVec2f(fmat2 const m_in, fvec2 const v_in, index const row);
 
 // ijkMatGetRow2*
@@ -1958,7 +1958,7 @@ float ijkMatDeterminantInvSafe3f(fmat3 const m_in);
 //		param m_in: input matrix
 //		param v_in: input vector
 //		param row: matrix row index
-//		return: product of matrix row and v
+//		return: product of matrix row and vector
 float ijkMatMulRowVec3f(fmat3 const m_in, fvec3 const v_in, index const row);
 
 // ijkMatGetRow3*
@@ -2256,7 +2256,7 @@ float ijkMatDeterminantInvSafe4f(fmat4 const m_in);
 //		param m_in: input matrix
 //		param v_in: input vector
 //		param row: matrix row index
-//		return: product of matrix row and v
+//		return: product of matrix row and vector
 float ijkMatMulRowVec4f(fmat4 const m_in, fvec4 const v_in, index const row);
 
 // ijkMatGetRow4*
