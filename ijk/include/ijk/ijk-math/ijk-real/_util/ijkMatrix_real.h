@@ -39,7 +39,8 @@ extern "C" {
 //		param m_out: output matrix
 //		return: m_out
 //real2m ijkMatInit2rm(real2x2 m_out);
-#define func***m ijk_declrealfs(func,**m)
+#define ijkMatInit2rm ijk_declrealfs(ijkMatInit2,**m)
+
 // ijkMatInitElems2*m
 //	Initialize 2x2 matrix given elements.
 //		param m_out: output matrix
@@ -47,7 +48,8 @@ extern "C" {
 //		params x1, y1: elements of second column
 //		return: m_out
 //real2m ijkMatInitElems2rm(real2x2 m_out, real const x0, real const y0, real const x1, real const y1);
-#define func***m ijk_declrealfs(func,**m)
+#define ijkMatInitElems2rm ijk_declrealfs(ijkMatInitElems2,**m)
+
 // ijkMatInitVecs2*m
 //	Initialize 2x2 matrix given column vectors.
 //		param m_out: output matrix
@@ -55,35 +57,40 @@ extern "C" {
 //		param c1: second column vector
 //		return: m_out
 //real2m ijkMatInitVecs2rm(real2x2 m_out, real2 const c0, real2 const c1);
-#define func***m ijk_declrealfs(func,**m)
+#define ijkMatInitVecs2rm ijk_declrealfs(ijkMatInitVecs2,**m)
+
 // ijkMatCopy2*m2
 //	Copy 2x2 matrix from 2x2 matrix.
 //		param m_out: output matrix
 //		param m_in: input matrix
 //		return: m_out
-//real2m ijkMatCopy2fm2(real2x2 m_out, real2x2 const m_in);
-#define func***m ijk_declrealfs(func,**m)
+//real2m ijkMatCopy2rm2(real2x2 m_out, real2x2 const m_in);
+#define ijkMatCopy2rm ijk_declrealfs(ijkMatCopy2,**m)
+
 // ijkMatCopy2*m3
 //	Copy 2x2 matrix from 3x3 matrix.
 //		param m_out: output matrix; input's upper-left 2x2 matrix
 //		param m_in: input matrix
 //		return: m_out
-//real2m ijkMatCopy2fm3(real2x2 m_out, real3x3 const m_in);
-#define func***m ijk_declrealfs(func,**m)
+//real2m ijkMatCopy2rm3(real2x2 m_out, real3x3 const m_in);
+#define ijkMatCopy2rm ijk_declrealfs(ijkMatCopy2,**m)
+
 // ijkMatCopy2*m4
 //	Copy 2x2 matrix from 4x4 matrix.
 //		param m_out: output matrix; input's upper-left 2x2 matrix
 //		param m_in: input matrix
 //		return: m_out
-//real2m ijkMatCopy2fm4(real2x2 m_out, real4x4 const m_in);
-#define func***m ijk_declrealfs(func,**m)
+//real2m ijkMatCopy2rm4(real2x2 m_out, real4x4 const m_in);
+#define ijkMatCopy2rm ijk_declrealfs(ijkMatCopy2,**m)
+
 // ijkMatCopy2*ms
 //	Copy 2x2 matrix diagonal from scalar (scalar along the diagonal).
 //		param m_out: output matrix
 //		param s_diag: input scalar assigned to diagonal elements
 //		return: m_out
 //real2m ijkMatCopy2rms(real2x2 m_out, real const s_diag);
-#define func***m ijk_declrealfs(func,**m)
+#define ijkMatCopy2rm ijk_declrealfs(ijkMatCopy2,**m)
+
 // ijkMatMul2*ms
 //	Multiply 2x2 matrix by scalar.
 //		param m_out: output matrix
@@ -91,7 +98,8 @@ extern "C" {
 //		param s_rh: right-hand scalar
 //		return: m_out
 //real2m ijkMatMul2rms(real2x2 m_out, real2x2 const m_lh, real const s_rh);
-#define func***m ijk_declrealfs(func,**m)
+#define ijkMatMul2rm ijk_declrealfs(ijkMatMul2,**m)
+
 // ijkMatDiv2*ms
 //	Divide 2x2 matrix elements by scalar.
 //		param m_out: output matrix
@@ -99,7 +107,8 @@ extern "C" {
 //		param s_rh: right-hand scalar
 //		return: m_out
 //real2m ijkMatDiv2rms(real2x2 m_out, real2x2 const m_lh, real const s_rh);
-#define func***m ijk_declrealfs(func,**m)
+#define ijkMatDiv2rm ijk_declrealfs(ijkMatDiv2,**m)
+
 // ijkMatDivSafe2*ms
 //	Divide 2x2 matrix elements by scalar; division-by-zero safety.
 //		param m_out: output matrix
@@ -107,7 +116,8 @@ extern "C" {
 //		param s_rh: right-hand scalar
 //		return: m_out
 //real2m ijkMatDivSafe2rms(real2x2 m_out, real2x2 const m_lh, real const s_rh);
-#define func***m ijk_declrealfs(func,**m)
+#define ijkMatDivSafe2rm ijk_declrealfs(ijkMatDivSafe2,**m)
+
 // ijkMatMul2*sm
 //	Multiply scalar by 2x2 matrix elements.
 //		param m_out: output matrix
@@ -115,7 +125,8 @@ extern "C" {
 //		param m_rh: right-hand matrix
 //		return: m_out
 //real2m ijkMatMul2rsm(real2x2 m_out, real const s_lh, real2x2 const m_rh);
-#define func***m ijk_declrealfs(func,**m)
+#define ijkMatMul2rm ijk_declrealfs(ijkMatMul2,**m)
+
 // ijkMatDiv2*sm
 //	Divide scalar by 2x2 matrix elements.
 //		param m_out: output matrix
@@ -123,7 +134,8 @@ extern "C" {
 //		param m_rh: right-hand matrix
 //		return: m_out
 //real2m ijkMatDiv2rsm(real2x2 m_out, real const s_lh, real2x2 const m_rh);
-#define func***m ijk_declrealfs(func,**m)
+#define ijkMatDiv2rm ijk_declrealfs(ijkMatDiv2,**m)
+
 // ijkMatDivSafe2*sm
 //	Divide scalar by 2x2 matrix elements; division-by-zero safety.
 //		param m_out: output matrix
@@ -131,7 +143,8 @@ extern "C" {
 //		param m_rh: right-hand matrix
 //		return: m_out
 //real2m ijkMatDivSafe2rsm(real2x2 m_out, real const s_lh, real2x2 const m_rh);
-#define func***m ijk_declrealfs(func,**m)
+#define ijkMatDivSafe2rm ijk_declrealfs(ijkMatDivSafe2,**m)
+
 // ijkMatAdd2*m
 //	Add 2x2 matrices.
 //		param m_out: output matrix, sum of inputs
@@ -139,7 +152,8 @@ extern "C" {
 //		param m_rh: right-hand matrix
 //		return: m_out
 //real2m ijkMatAdd2rm(real2x2 m_out, real2x2 const m_lh, real2x2 const m_rh);
-#define func***m ijk_declrealfs(func,**m)
+#define ijkMatAdd2rm ijk_declrealfs(ijkMatAdd2,**m)
+
 // ijkMatSub2*m
 //	Subtract 2x2 matrices.
 //		param m_out: output matrix, difference of inputs
@@ -147,16 +161,18 @@ extern "C" {
 //		param m_rh: right-hand matrix
 //		return: m_out
 //real2m ijkMatSub2rm(real2x2 m_out, real2x2 const m_lh, real2x2 const m_rh);
-#define func***m ijk_declrealfs(func,**m)
-#define func***m ijk_declrealfs(func,**m)
+#define ijkMatSub2rm ijk_declrealfs(ijkMatSub2,**m)
+
+
 //-----------------------------------------------------------------------------
-#define func***m ijk_declrealfs(func,**m)	
+
 // ijkMatInit3*m
 //	Initialize 3x3 matrix to default (identity: ones along the diagonal).
 //		param m_out: output matrix
 //		return: m_out
 //real3m ijkMatInit3rm(real3x3 m_out);
-#define func***m ijk_declrealfs(func,**m)
+#define ijkMatInit3rm ijk_declrealfs(ijkMatInit3,**m)
+
 // ijkMatInitElems3*m
 //	Initialize 3x3 matrix given elements.
 //		param m_out: output matrix
@@ -165,7 +181,8 @@ extern "C" {
 //		params x2, y2, z2: elements of third column
 //		return: m_out
 //real3m ijkMatInitElems3rm(real3x3 m_out, real const x0, real const y0, real const z0, real const x1, real const y1, real const z1, real const x2, real const y2, real const z2);
-#define func***m ijk_declrealfs(func,**m)
+#define ijkMatInitElems3rm ijk_declrealfs(ijkMatInitElems3,**m)
+
 // ijkMatInitVecs3*m
 //	Initialize 3x3 matrix given column vectors.
 //		param m_out: output matrix
@@ -174,35 +191,40 @@ extern "C" {
 //		param c2: third column vector
 //		return: m_out
 //real3m ijkMatInitVecs3rm(real3x3 m_out, real3 const c0, real3 const c1, real3 const c2);
-#define func***m ijk_declrealfs(func,**m)
+#define ijkMatInitVecs3rm ijk_declrealfs(ijkMatInitVecs3,**m)
+
 // ijkMatCopy3*m2
 //	Copy 3x3 matrix from 2x2 matrix; fill the rest as identity.
 //		param m_out: output matrix
 //		param m_in: input matrix
 //		return: m_out
-//real3m ijkMatCopy3fm2(real3x3 m_out, real2x2 const m_in);
-#define func***m ijk_declrealfs(func,**m)
+//real3m ijkMatCopy3rm2(real3x3 m_out, real2x2 const m_in);
+#define ijkMatCopy3rm ijk_declrealfs(ijkMatCopy3,**m)
+
 // ijkMatCopy3*m3
 //	Copy 3x3 matrix from 3x3 matrix.
 //		param m_out: output matrix
 //		param m_in: input matrix
 //		return: m_out
-//real3m ijkMatCopy3fm3(real3x3 m_out, real3x3 const m_in);
-#define func***m ijk_declrealfs(func,**m)
+//real3m ijkMatCopy3rm3(real3x3 m_out, real3x3 const m_in);
+#define ijkMatCopy3rm ijk_declrealfs(ijkMatCopy3,**m)
+
 // ijkMatCopy3*m4
 //	Copy 3x3 matrix from 4x4 matrix.
 //		param m_out: output matrix; input's upper-left 3x3 matrix
 //		param m_in: input matrix
 //		return: m_out
-//real3m ijkMatCopy3fm4(real3x3 m_out, real4x4 const m_in);
-#define func***m ijk_declrealfs(func,**m)
+//real3m ijkMatCopy3rm4(real3x3 m_out, real4x4 const m_in);
+#define ijkMatCopy3rm ijk_declrealfs(ijkMatCopy3,**m)
+
 // ijkMatCopy3*ms
 //	Copy 3x3 matrix diagonal from scalar (scalar along the diagonal).
 //		param m_out: output matrix
 //		param s_diag: input scalar assigned to diagonal elements
 //		return: m_out
 //real3m ijkMatCopy3rms(real3x3 m_out, real const s_diag);
-#define func***m ijk_declrealfs(func,**m)
+#define ijkMatCopy3rm ijk_declrealfs(ijkMatCopy3,**m)
+
 // ijkMatMul3*ms
 //	Multiply 3x3 matrix by scalar.
 //		param m_out: output matrix
@@ -210,7 +232,8 @@ extern "C" {
 //		param s_rh: right-hand scalar
 //		return: m_out
 //real3m ijkMatMul3rms(real3x3 m_out, real3x3 const m_lh, real const s_rh);
-#define func***m ijk_declrealfs(func,**m)
+#define ijkMatMul3rm ijk_declrealfs(ijkMatMul3,**m)
+
 // ijkMatDiv3*ms
 //	Divide 3x3 matrix elements by scalar.
 //		param m_out: output matrix
@@ -218,7 +241,8 @@ extern "C" {
 //		param s_rh: right-hand scalar
 //		return: m_out
 //real3m ijkMatDiv3rms(real3x3 m_out, real3x3 const m_lh, real const s_rh);
-#define func***m ijk_declrealfs(func,**m)
+#define ijkMatDiv3rm ijk_declrealfs(ijkMatDiv3,**m)
+
 // ijkMatDivSafe3*ms
 //	Divide 3x3 matrix elements by scalar; division-by-zero safety.
 //		param m_out: output matrix
@@ -226,7 +250,8 @@ extern "C" {
 //		param s_rh: right-hand scalar
 //		return: m_out
 //real3m ijkMatDivSafe3rms(real3x3 m_out, real3x3 const m_lh, real const s_rh);
-#define func***m ijk_declrealfs(func,**m)
+#define ijkMatDivSafe3rm ijk_declrealfs(ijkMatDivSafe3,**m)
+
 // ijkMatMul3*sm
 //	Multiply scalar by 3x3 matrix elements.
 //		param m_out: output matrix
@@ -234,7 +259,8 @@ extern "C" {
 //		param m_rh: right-hand matrix
 //		return: m_out
 //real3m ijkMatMul3rsm(real3x3 m_out, real const s_lh, real3x3 const m_rh);
-#define func***m ijk_declrealfs(func,**m)
+#define ijkMatMul3rm ijk_declrealfs(ijkMatMul3,**m)
+
 // ijkMatDiv3*sm
 //	Divide scalar by 3x3 matrix elements.
 //		param m_out: output matrix
@@ -242,7 +268,8 @@ extern "C" {
 //		param m_rh: right-hand matrix
 //		return: m_out
 //real3m ijkMatDiv3rsm(real3x3 m_out, real const s_lh, real3x3 const m_rh);
-#define func***m ijk_declrealfs(func,**m)
+#define ijkMatDiv3rm ijk_declrealfs(ijkMatDiv3,**m)
+
 // ijkMatDivSafe3*sm
 //	Divide scalar by 3x3 matrix elements; division-by-zero safety.
 //		param m_out: output matrix
@@ -250,7 +277,8 @@ extern "C" {
 //		param m_rh: right-hand matrix
 //		return: m_out
 //real3m ijkMatDivSafe3rsm(real3x3 m_out, real const s_lh, real3x3 const m_rh);
-#define func***m ijk_declrealfs(func,**m)
+#define ijkMatDivSafe3rm ijk_declrealfs(ijkMatDivSafe3,**m)
+
 // ijkMatAdd3*m
 //	Add 3x3 matrices.
 //		param m_out: output matrix, sum of inputs
@@ -258,7 +286,8 @@ extern "C" {
 //		param m_rh: right-hand matrix
 //		return: m_out
 //real3m ijkMatAdd3rm(real3x3 m_out, real3x3 const m_lh, real3x3 const m_rh);
-#define func***m ijk_declrealfs(func,**m)
+#define ijkMatAdd3rm ijk_declrealfs(ijkMatAdd3,**m)
+
 // ijkMatSub3*m
 //	Subtract 3x3 matrices.
 //		param m_out: output matrix, difference of inputs
@@ -266,16 +295,18 @@ extern "C" {
 //		param m_rh: right-hand matrix
 //		return: m_out
 //real3m ijkMatSub3rm(real3x3 m_out, real3x3 const m_lh, real3x3 const m_rh);
-#define func***m ijk_declrealfs(func,**m)
-#define func***m ijk_declrealfs(func,**m)
+#define ijkMatSub3rm ijk_declrealfs(ijkMatSub3,**m)
+
+
 //-----------------------------------------------------------------------------
-#define func***m ijk_declrealfs(func,**m)	
+
 // ijkMatInit4*m
 //	Initialize 4x4 matrix to default (identity: ones along the diagonal).
 //		param m_out: output matrix
 //		return: m_out
 //real4m ijkMatInit4rm(real4x4 m_out);
-#define func***m ijk_declrealfs(func,**m)
+#define ijkMatInit4rm ijk_declrealfs(ijkMatInit4,m)
+
 // ijkMatInitElems4*m
 //	Initialize 4x4 matrix given elements.
 //		param m_out: output matrix
@@ -285,7 +316,8 @@ extern "C" {
 //		params x3, y3, z3, w3: elements of fourth column
 //		return: m_out
 //real4m ijkMatInitElems4rm(real4x4 m_out, real const x0, real const y0, real const z0, real const w0, real const x1, real const y1, real const z1, real const w1, real const x2, real const y2, real const z2, real const w2, real const x3, real const y3, real const z3, real const w3);
-#define func***m ijk_declrealfs(func,**m)
+#define ijkMatInitElems4rm ijk_declrealfs(ijkMatInitElems4,m)
+
 // ijkMatInitVecs4*m
 //	Initialize 4x4 matrix given column vectors.
 //		param m_out: output matrix
@@ -295,35 +327,40 @@ extern "C" {
 //		param c3: fourth column vector
 //		return: m_out
 //real4m ijkMatInitVecs4rm(real4x4 m_out, real4 const c0, real4 const c1, real4 const c2, real4 const c3);
-#define func***m ijk_declrealfs(func,**m)
+#define ijkMatInitVecs4rm ijk_declrealfs(ijkMatInitVecs4,m)
+
 // ijkMatCopy4*m2
 //	Copy 4x4 matrix from 2x2 matrix; fill the rest as identity.
 //		param m_out: output matrix
 //		param m_in: input matrix
 //		return: m_out
-//real4m ijkMatCopy4fm2(real4x4 m_out, real2x2 const m_in);
-#define func***m ijk_declrealfs(func,**m)
+//real4m ijkMatCopy4rm2(real4x4 m_out, real2x2 const m_in);
+#define ijkMatCopy4rm2 ijk_declrealfs(ijkMatCopy4,m2)
+
 // ijkMatCopy4*m3
 //	Copy 4x4 matrix from 3x3 matrix; fill the rest as identity.
 //		param m_out: output matrix
 //		param m_in: input matrix
 //		return: m_out
-//real4m ijkMatCopy4fm3(real4x4 m_out, real3x3 const m_in);
-#define func***m ijk_declrealfs(func,**m)
+//real4m ijkMatCopy4rm3(real4x4 m_out, real3x3 const m_in);
+#define ijkMatCopy4rm3 ijk_declrealfs(ijkMatCopy4,m3)
+
 // ijkMatCopy4*m4
 //	Copy 4x4 matrix from 4x4 matrix.
 //		param m_out: output matrix
 //		param m_in: input matrix
 //		return: m_out
-//real4m ijkMatCopy4fm4(real4x4 m_out, real4x4 const m_in);
-#define func***m ijk_declrealfs(func,**m)
+//real4m ijkMatCopy4rm4(real4x4 m_out, real4x4 const m_in);
+#define ijkMatCopy4rm4 ijk_declrealfs(ijkMatCopy4,m4)
+
 // ijkMatCopy4*ms
 //	Copy 4x4 matrix diagonal from scalar (scalar along the diagonal).
 //		param m_out: output matrix
 //		param s_diag: input scalar assigned to diagonal elements
 //		return: m_out
 //real4m ijkMatCopy4rms(real4x4 m_out, real const s_diag);
-#define func***m ijk_declrealfs(func,**m)
+#define ijkMatCopy4rms ijk_declrealfs(ijkMatCopy4,ms)
+
 // ijkMatMul4*ms
 //	Multiply 4x4 matrix by scalar.
 //		param m_out: output matrix
@@ -331,7 +368,8 @@ extern "C" {
 //		param s_rh: right-hand scalar
 //		return: m_out
 //real4m ijkMatMul4rms(real4x4 m_out, real4x4 const m_lh, real const s_rh);
-#define func***m ijk_declrealfs(func,**m)
+#define ijkMatMul4rms ijk_declrealfs(ijkMatMul4,ms)
+
 // ijkMatDiv4*ms
 //	Divide 4x4 matrix elements by scalar.
 //		param m_out: output matrix
@@ -339,7 +377,8 @@ extern "C" {
 //		param s_rh: right-hand scalar
 //		return: m_out
 //real4m ijkMatDiv4rms(real4x4 m_out, real4x4 const m_lh, real const s_rh);
-#define func***m ijk_declrealfs(func,**m)
+#define ijkMatDiv4rms ijk_declrealfs(ijkMatDiv4,ms)
+
 // ijkMatDivSafe4*ms
 //	Divide 4x4 matrix elements by scalar; division-by-zero safety.
 //		param m_out: output matrix
@@ -347,7 +386,8 @@ extern "C" {
 //		param s_rh: right-hand scalar
 //		return: m_out
 //real4m ijkMatDivSafe4rms(real4x4 m_out, real4x4 const m_lh, real const s_rh);
-#define func***m ijk_declrealfs(func,**m)
+#define ijkMatDivSafe4rms ijk_declrealfs(ijkMatDivSafe4,ms)
+
 // ijkMatMul4*sm
 //	Multiply scalar by 4x4 matrix elements.
 //		param m_out: output matrix
@@ -355,7 +395,8 @@ extern "C" {
 //		param m_rh: right-hand matrix
 //		return: m_out
 //real4m ijkMatMul4rsm(real4x4 m_out, real const s_lh, real4x4 const m_rh);
-#define func***m ijk_declrealfs(func,**m)
+#define ijkMatMul4rsm ijk_declrealfs(ijkMatMul4,sm)
+
 // ijkMatDiv4*sm
 //	Divide scalar by 4x4 matrix elements.
 //		param m_out: output matrix
@@ -363,7 +404,8 @@ extern "C" {
 //		param m_rh: right-hand matrix
 //		return: m_out
 //real4m ijkMatDiv4rsm(real4x4 m_out, real const s_lh, real4x4 const m_rh);
-#define func***m ijk_declrealfs(func,**m)
+#define ijkMatDiv4rsm ijk_declrealfs(ijkMatDiv4,sm)
+
 // ijkMatDivSafe4*sm
 //	Divide scalar by 4x4 matrix elements; division-by-zero safety.
 //		param m_out: output matrix
@@ -371,7 +413,8 @@ extern "C" {
 //		param m_rh: right-hand matrix
 //		return: m_out
 //real4m ijkMatDivSafe4rsm(real4x4 m_out, real const s_lh, real4x4 const m_rh);
-#define func***m ijk_declrealfs(func,**m)
+#define ijkMatDivSafe4rsm ijk_declrealfs(ijkMatDivSafe4,sm)
+
 // ijkMatAdd4*m
 //	Add 4x4 matrices.
 //		param m_out: output matrix, sum of inputs
@@ -379,7 +422,8 @@ extern "C" {
 //		param m_rh: right-hand matrix
 //		return: m_out
 //real4m ijkMatAdd4rm(real4x4 m_out, real4x4 const m_lh, real4x4 const m_rh);
-#define func***m ijk_declrealfs(func,**m)
+#define ijkMatAdd4rm ijk_declrealfs(ijkMatAdd4,m)
+
 // ijkMatSub4*m
 //	Subtract 4x4 matrices.
 //		param m_out: output matrix, difference of inputs
@@ -387,8 +431,9 @@ extern "C" {
 //		param m_rh: right-hand matrix
 //		return: m_out
 //real4m ijkMatSub4rm(real4x4 m_out, real4x4 const m_lh, real4x4 const m_rh);
-#define func***m ijk_declrealfs(func,**m)
-#define func***m ijk_declrealfs(func,**m)
+#define ijkMatSub4rm ijk_declrealfs(ijkMatSub4,m)
+
+
 //-----------------------------------------------------------------------------
 
 
