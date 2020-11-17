@@ -44,6 +44,7 @@ struct ttquat
 {
 	ttquat();																	// Identity quaternion: zero vector, one real.
 	ttquat(type const& xc, type const& yc, type const& zc, type const& wc);		// Initialize components.
+	ttquat(ttvec3<type> const& vc, ttvec1<type> const& rc);						// Initialize given vector and real parts.
 	ttquat(ttquat const& qc);													// Initialize given quaternion to copy.
 	ttquat(ttmat3<type> const& m);												// Initialize by converting 3D matrix.
 	ttquat(ttmat4<type> const& m);												// Initialize by converting 4D matrix (upper-left 3D part).
@@ -78,10 +79,12 @@ struct ttquat
 		struct { type vec[3]; type re; };
 		struct { type x, y, z, w; };
 	};
+	ttmat3<type> const mat3() const;
+	ttmat4<type> const mat4() const;
 	inline operator ttvec1<type> const* () const { return (ttvec1<type>*)v; }
 	inline operator ttvec1<type>* () { return (ttvec1<type>*)v; }
-	operator ttmat3<type> const () const;
-	operator ttmat4<type> const () const;
+	inline operator ttmat3<type> const () const { return this->mat3(); }
+	inline operator ttmat4<type> const () const { return this->mat4(); }
 };
 
 template<typename type> ttquat<type> const operator *(ttvec3<type> const& v_lh, ttquat<type> const& q_rh);
@@ -134,15 +137,16 @@ struct ttdualquat
 		ttquat<type> q[2];
 		struct { ttquat<type> qr, qd; };
 	};
+	ttmat4<type> const mat4() const;
 	inline operator ttquat<type> const* () const { return q; }
 	inline operator ttquat<type>* () { return q; }
 	inline operator ttvec1<type> const* () const { return (ttvec1<type>*)v; }
 	inline operator ttvec1<type>* () { return (ttvec1<type>*)v; }
-	operator ttmat4<type> const () const;
+	inline operator ttmat4<type> const () const { return this->mat4(); }
 };
 
-template<typename type> ttdualquat<type> const operator *(ttvec3<type> const& v_lh, ttdualquat<type> const& q_rh);
-template<typename type> ttdualquat<type> const operator *(ttvec4<type> const& v_lh, ttdualquat<type> const& q_rh);
+template<typename type> ttdualquat<type> const operator *(ttvec3<type> const& v_lh, ttdualquat<type> const& dq_rh);
+template<typename type> ttdualquat<type> const operator *(ttvec4<type> const& v_lh, ttdualquat<type> const& dq_rh);
 template<typename type> ttdualquat<type> const operator *(type const& s_lh, ttdualquat<type> const& dq_rh);
 template<typename type> ttdualquat<type> const operator /(type const& s_lh, ttdualquat<type> const& dq_rh);
 

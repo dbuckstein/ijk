@@ -32,6 +32,35 @@
 
 //-----------------------------------------------------------------------------
 
+template<typename type>
+inline ttmat3<type> const ttquat<type>::mat3() const
+{
+	type const ww = w * w, xx = x * x, yy = y * y, zz = z * z;
+	type const xy = x * y, yz = y * z, zx = z * x;
+	type const xw = x * w, yw = y * w, zw = z * w;
+	return ttmat3<type>(
+		(ww + xx - yy - zz), 2.0 * (xy + zw), 2.0 * (zx - yw),
+		2.0 * (xy - zw), (ww - xx + yy - zz), 2.0 * (yz + xw),
+		2.0 * (zx + yw), 2.0 * (yz - xw), (ww - xx - yy + zz)
+	);
+}
+template<typename type>
+inline ttmat4<type> const ttquat<type>::mat4() const
+{
+	return ttmat4<type>(mat3());
+}
+
+template<typename type>
+inline ttmat4<type> const ttdualquat<type>::mat4() const
+{
+	ttmat3<type> const mat3 = qr.mat3();
+	ttvec3<type> const translate = (qd * *qr) * 2.0;
+	return ttmat4<type>(mat3.c0, mat3.c1, mat3.c2, ttvec4<type>(translate, 1.0));
+}
+
+
+//-----------------------------------------------------------------------------
+
 template <typename type>
 inline ttquat<type>::ttquat()
 	: x(0), y(0), z(0), w(1)
@@ -40,6 +69,11 @@ inline ttquat<type>::ttquat()
 template <typename type>
 inline ttquat<type>::ttquat(type const& xc, type const& yc, type const& zc, type const& wc)
 	: x(xc), y(yc), z(zc), w(wc)
+{
+}
+template <typename type>
+inline ttquat<type>::ttquat(ttvec3<type> const& vc, ttvec1<type> const& rc)
+	: x(vc.x), y(vc.y), z(vc.z), w(rc)
 {
 }
 template <typename type>
@@ -264,24 +298,6 @@ inline ttquat<type>::operator type* ()
 }
 
 template<typename type>
-inline ttquat<type>::operator ttmat3<type> const () const
-{
-	type const ww = w * w, xx = x * x, yy = y * y, zz = z * z;
-	type const xy = x * y, yz = y * z, zx = z * x;
-	type const xw = x * w, yw = y * w, zw = z * w;
-	return ttmat3<type>(
-		(ww + xx - yy - zz), 2.0 * (xy + zw), 2.0 * (zx - yw),
-		2.0 * (xy - zw), (ww - xx + yy - zz), 2.0 * (yz + xw),
-		2.0 * (zx + yw), 2.0 * (yz - xw), (ww - xx - yy + zz)
-	);
-}
-template<typename type>
-inline ttquat<type>::operator ttmat4<type> const () const
-{
-	return ttmat4<type>((ttmat3<type>)(*this));
-}
-
-template<typename type>
 inline ttquat<type> const operator *(ttvec3<type> const& v_lh, ttquat<type> const& q_rh)
 {
 	return ttquat<type>(
@@ -332,19 +348,23 @@ inline ttdualquat<type>::ttdualquat(ttdualquat const& qc)
 }
 template <typename type>
 inline ttdualquat<type>::ttdualquat(ttmat4<type> const& m)
-	: qr(m), qd(qr * (ttvec3<type>(m.c3) * 0.5))
+	: qr(m), qd((0.5 * ttvec3<type>(m.c3)) * qr)
 {
 }
 
 template <typename type>
 inline ttdualquat<type> const ttdualquat<type>::operator *(ttvec3<type> const& v_rh) const
 {
-	// ****TO-DO
+	// (qr + E qd)(E v)
+	//	= E qr v + EE qd v
+	return ttdualquat<type>(ttquat<type>(), qr * v_rh);
 }
 template <typename type>
 inline ttdualquat<type> const ttdualquat<type>::operator *(ttvec4<type> const& v_rh) const
 {
-	// ****TO-DO
+	// (qr + E qd)(w + E v)
+	//	= qr w + E qr v + E qd w + EE qd v
+	return ttdualquat<type>(qr * v_rh.w, qr * ttvec3<type>(v_rh) + qd * v_rh.w);
 }
 template <typename type>
 inline ttdualquat<type> const ttdualquat<type>::operator +() const
@@ -384,8 +404,10 @@ inline ttdualquat<type> const ttdualquat<type>::operator -(ttdualquat const& dq_
 template <typename type>
 inline ttdualquat<type> const ttdualquat<type>::operator *(ttdualquat const& dq_rh) const
 {
-	// ****TO-DO
-	return *this;
+	// (qr_lh + E qd_lh)(qr_rh + E qd_rh)
+	//	= qr_lh qr_rh + E qr_lh qd_rh + E qd_lh qr_rh + EE qd_lh qd_rh
+	//	= (qr_lh qr_rh) + E(qr_lh qd_rh + qd_lh qr_rh)
+	return ttdualquat<type>(qr * dq_rh.qr, qr * dq_rh.qd + qd * dq_rh.qr);
 }
 template <typename type>
 inline ttdualquat<type> const ttdualquat<type>::operator *(type const& s_rh) const
@@ -470,23 +492,18 @@ inline ttdualquat<type>::operator type* ()
 }
 
 template<typename type>
-inline ttdualquat<type>::operator ttmat4<type> const () const
+inline ttdualquat<type> const operator *(ttvec3<type> const& v_lh, ttdualquat<type> const& dq_rh)
 {
-	// ****TO-DO
-	return ttmat4<type>();
-}
-
-template<typename type>
-inline ttdualquat<type> const operator *(ttvec3<type> const& v_lh, ttdualquat<type> const& q_rh)
-{
-	// ****TO-DO
-	return ttdualquat<type>();
+	// (E v)(qr + E qd)
+	//	= E v qr + EE v qd
+	return ttdualquat<type>(ttquat<type>(), v_lh * dq_rh.qr);
 }
 template<typename type>
-inline ttdualquat<type> const operator *(ttvec4<type> const& v_lh, ttdualquat<type> const& q_rh)
+inline ttdualquat<type> const operator *(ttvec4<type> const& v_lh, ttdualquat<type> const& dq_rh)
 {
-	// ****TO-DO
-	return ttdualquat<type>();
+	// (w + E v)(qr + E qd)
+	//	= w qr + E w qd + E v qr + EE qd v
+	return ttdualquat<type>(v_lh.w * dq_rh.qr, v_lh.w * dq_rh.qd + ttvec3<type>(v_lh) * dq_rh.qr);
 }
 template<typename type>
 inline ttdualquat<type> const operator *(type const& s_lh, ttdualquat<type> const& dq_rh)
