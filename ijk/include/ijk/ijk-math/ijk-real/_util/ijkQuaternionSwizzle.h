@@ -45,26 +45,28 @@ struct ttquat
 	ttquat();																	// Identity quaternion: zero vector, one real.
 	ttquat(type const& xc, type const& yc, type const& zc, type const& wc);		// Initialize components.
 	ttquat(ttquat const& qc);													// Initialize given quaternion to copy.
-	ttquat(ttvec3<type> const& axis_unit, ttvec1<type> const& angle_degrees);	// Initialize given unit axis and angle in degrees.
-	ttquat(ttvec1<type> const& scale_uniform);									// Initialize given uniform scale.
-	ttquat(ttvec3<type> const& axis_unit, ttvec1<type> const& angle_degrees, ttvec1<type> const& scale_uniform);	// Initialize given unit axis, angle in degrees and uniform scale.
 	ttquat(ttmat3<type> const& mat);											// Initialize by converting 3D matrix.
 	ttquat(ttmat4<type> const& mat);											// Initialize by converting 4D matrix (upper-left 3D part).
 
+	ttquat const operator *(ttvec3<type> const& v_rh) const;
+	ttquat const operator *(ttvec4<type> const& v_rh) const;
 	ttquat const operator +() const;
 	ttquat const operator -() const;
-	ttquat const operator +(ttquat const& v_rh) const;
-	ttquat const operator -(ttquat const& v_rh) const;
-	ttquat const operator *(ttquat const& v_rh) const;
+	ttquat const operator *() const;	// Conjugate.
+	ttquat const operator +(ttquat const& q_rh) const;
+	ttquat const operator -(ttquat const& q_rh) const;
+	ttquat const operator *(ttquat const& q_rh) const;
 	ttquat const operator *(type const& s_rh) const;
 	ttquat const operator /(type const& s_rh) const;
 	type const operator [](index const i) const;
 	operator type const* () const;
 
-	ttquat& operator =(ttquat const& v_rh);
-	ttquat& operator +=(ttquat const& v_rh);
-	ttquat& operator -=(ttquat const& v_rh);
-	ttquat& operator *=(ttquat const& v_rh);
+	ttquat& operator =(ttquat const& q_rh);
+	ttquat& operator *=(ttvec3<type> const& v_rh);
+	ttquat& operator *=(ttvec4<type> const& v_rh);
+	ttquat& operator +=(ttquat const& q_rh);
+	ttquat& operator -=(ttquat const& q_rh);
+	ttquat& operator *=(ttquat const& q_rh);
 	ttquat& operator *=(type const& s_rh);
 	ttquat& operator /=(type const& s_rh);
 	type& operator [](index const i);
@@ -82,8 +84,10 @@ struct ttquat
 	inline operator ttmat4<type> const () const;
 };
 
-template<typename type> ttquat<type> const operator *(type const& s_lh, ttquat<type> const& m_rh);
-template<typename type> ttquat<type> const operator /(type const& s_lh, ttquat<type> const& m_rh);
+template<typename type> ttquat<type> const operator *(ttvec3<type> const& v_lh, ttquat<type> const& q_rh);
+template<typename type> ttquat<type> const operator *(ttvec4<type> const& v_lh, ttquat<type> const& q_rh);
+template<typename type> ttquat<type> const operator *(type const& s_lh, ttquat<type> const& q_rh);
+template<typename type> ttquat<type> const operator /(type const& s_lh, ttquat<type> const& q_rh);
 
 
 //-----------------------------------------------------------------------------
@@ -93,31 +97,35 @@ template<typename type>
 struct ttdualquat
 {
 	ttdualquat();																	// Identity dual quaternion: zero vector, one real, zero dual.
-	ttdualquat(ttquat<type> const& qr);												// Initialize real component only.
 	ttdualquat(ttquat<type> const& qr, ttquat<type> const& qd);						// Initialize real and dual components.
 	ttdualquat(ttdualquat const& dqc);												// Initialize given dual quaternion to copy.
-	ttdualquat(ttvec3<type> const& translate);										// Initialize given translation vector.
-	ttdualquat(ttquat<type> const& qr, ttvec3<type> const& translate);				// Initialize given real quaternion and translation vector.
 	ttdualquat(ttmat4<type> const& mat);											// Initialize by converting 4D transformation matrix.
 
+	ttdualquat const operator *(ttvec3<type> const& v_rh) const;
+	ttdualquat const operator *(ttvec4<type> const& v_rh) const;
 	ttdualquat const operator +() const;
 	ttdualquat const operator -() const;
+	ttdualquat const operator *() const;	// Conjugate of quaternions and dual part.
+	ttdualquat const operator ~() const;	// Conjugate of quaternions.
+	ttdualquat const operator !() const;	// Conjugate of dual part.
 	ttdualquat const operator +(ttdualquat const& dq_rh) const;
 	ttdualquat const operator -(ttdualquat const& dq_rh) const;
 	ttdualquat const operator *(ttdualquat const& dq_rh) const;
 	ttdualquat const operator *(type const& s_rh) const;
 	ttdualquat const operator /(type const& s_rh) const;
-	ttvec2<type> const operator [](index const i) const;
+	ttquat<type> const operator [](index const i) const;
 	operator type const* () const;
 
 	ttdualquat& operator =(ttdualquat const& dq_rh);
+	ttdualquat& operator *=(ttvec3<type> const& v_rh);
+	ttdualquat& operator *=(ttvec4<type> const& v_rh);
 	ttdualquat& operator +=(ttdualquat const& dq_rh);
 	ttdualquat& operator -=(ttdualquat const& dq_rh);
 	ttdualquat& operator *=(ttdualquat const& dq_rh);
 	ttdualquat& operator =(type const& s_rh);
 	ttdualquat& operator *=(type const& s_rh);
 	ttdualquat& operator /=(type const& s_rh);
-	ttvec2<type>& operator [](index const i);
+	ttquat<type>& operator [](index const i);
 	operator type* ();
 
 	union
@@ -134,8 +142,10 @@ struct ttdualquat
 	inline operator ttmat4<type> const () const;
 };
 
-template<typename type> ttdualquat<type> const operator *(type const& s_lh, ttdualquat<type> const& m_rh);
-template<typename type> ttdualquat<type> const operator /(type const& s_lh, ttdualquat<type> const& m_rh);
+template<typename type> ttdualquat<type> const operator *(ttvec3<type> const& v_lh, ttdualquat<type> const& q_rh);
+template<typename type> ttdualquat<type> const operator *(ttvec4<type> const& v_lh, ttdualquat<type> const& q_rh);
+template<typename type> ttdualquat<type> const operator *(type const& s_lh, ttdualquat<type> const& dq_rh);
+template<typename type> ttdualquat<type> const operator /(type const& s_lh, ttdualquat<type> const& dq_rh);
 
 
 //-----------------------------------------------------------------------------
