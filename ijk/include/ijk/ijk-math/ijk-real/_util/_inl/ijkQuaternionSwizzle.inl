@@ -34,12 +34,17 @@
 
 template <typename type>
 inline ttquat<type>::ttquat()
-	: vec(), re(1)
+	: x(0), y(0), z(0), w(1)
 {
 }
 template <typename type>
 inline ttquat<type>::ttquat(type const& xc, type const& yc, type const& zc, type const& wc)
-	: vec(xc, yc, zc), re(wc)
+	: x(xc), y(yc), z(zc), w(wc)
+{
+}
+template <typename type>
+inline ttquat<type>::ttquat(ttquat const& qc)
+	: x(qc.x), y(qc.y), z(qc.z), w(qc.w)
 {
 }
 
@@ -52,8 +57,18 @@ inline ttdualquat<type>::ttdualquat()
 {
 }
 template <typename type>
+inline ttdualquat<type>::ttdualquat(ttquat<type> const& qr)
+	: qr(qr), qd(0, 0, 0, 0)
+{
+}
+template <typename type>
 inline ttdualquat<type>::ttdualquat(ttquat<type> const& qr, ttquat<type> const& qd)
 	: qr(qr), qd(qd)
+{
+}
+template <typename type>
+inline ttdualquat<type>::ttdualquat(ttdualquat const& qc)
+	: qr(qc.qr), qd(qc.qd)
 {
 }
 

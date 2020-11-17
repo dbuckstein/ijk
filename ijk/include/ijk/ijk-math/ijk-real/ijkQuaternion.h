@@ -63,7 +63,7 @@ typedef double4			double2x4[2];	// 2x4 (2c x 4r) double-precision array-based qu
 union fquat
 {
 	float4 v;
-	struct { fvec3 vec; float re; };
+	struct { float3 vec; f32 re; };
 	struct { f32 x, y, z, w; };
 };
 
@@ -75,7 +75,7 @@ union fquat
 union dquat
 {
 	double4 v;
-	struct { dvec3 vec; double re; };
+	struct { double3 vec; f64 re; };
 	struct { f64 x, y, z, w; };
 };
 
@@ -85,14 +85,12 @@ union dquat
 //		member m: matrix array-based data
 //		member q: quaternion components
 //		members qr, qd: real and dual quaternion components
-//		members x, y, z, w: individual components
 union fdualquat
 {
 	float8 v;
 	float2x4 m;
 	fquat q[2];
 	struct { fquat qr, qd; };
-	struct { f32 xr, yr, zr, wr, xd, yd, zd, wd; };
 };
 
 // ddualquat
@@ -101,14 +99,12 @@ union fdualquat
 //		member m: matrix array-based data
 //		member q: quaternion components
 //		members qr, qd: real and dual quaternion components
-//		members x, y, z, w: individual components
 union ddualquat
 {
 	double8 v;
 	double2x4 m;
 	dquat q[2];
 	struct { dquat qr, qd; };
-	struct { f64 xr, yr, zr, wr, xd, yd, zd, wd; };
 };
 
 
