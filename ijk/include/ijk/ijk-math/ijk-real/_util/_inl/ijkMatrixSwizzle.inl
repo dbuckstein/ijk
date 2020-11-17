@@ -126,6 +126,11 @@ inline ttmat2<type> const ttmat2<type>::operator +() const
 	return *this;
 }
 template <typename type>
+inline ttmat2<type> const ttmat2<type>::operator -() const
+{
+	return ttmat2(-c0, -c1);
+}
+template <typename type>
 inline ttmat2<type> const ttmat2<type>::operator +(ttmat2 const& m_rh) const
 {
 	return ttmat2(c0 + m_rh.c0, c1 + m_rh.c1);
@@ -292,6 +297,11 @@ template <typename type>
 inline ttmat3<type> const ttmat3<type>::operator +() const
 {
 	return *this;
+}
+template <typename type>
+inline ttmat3<type> const ttmat3<type>::operator -() const
+{
+	return ttmat3(-c0, -c1, -c2);
 }
 template <typename type>
 inline ttmat3<type> const ttmat3<type>::operator +(ttmat3 const& m_rh) const
@@ -465,6 +475,11 @@ template <typename type>
 inline ttmat4<type> const ttmat4<type>::operator +() const
 {
 	return *this;
+}
+template <typename type>
+inline ttmat4<type> const ttmat4<type>::operator -() const
+{
+	return ttmat4(-c0, -c1, -c2, -c3);
 }
 template <typename type>
 inline ttmat4<type> const ttmat4<type>::operator +(ttmat4 const& m_rh) const

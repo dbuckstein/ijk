@@ -72,6 +72,13 @@ ijk_inl float2m ijkMatCopy2fm4(float2x2 m_out, float4x4 const m_in)
 	return m_out;
 }
 
+ijk_inl float2m ijkMatNegate2fm(float2x2 m_out, float2x2 const m_in)
+{
+	ijkVecNegate2fv(m_out[0], m_in[0]);
+	ijkVecNegate2fv(m_out[1], m_in[1]);
+	return m_out;
+}
+
 ijk_inl float2m ijkMatCopy2fms(float2x2 m_out, f32 const s_diag)
 {
 	m_out[0][0] = m_out[1][1] = s_diag;
@@ -184,6 +191,14 @@ ijk_inl float3m ijkMatCopy3fm4(float3x3 m_out, float4x4 const m_in)
 	ijkVecCopy3fv(m_out[0], m_in[0]);
 	ijkVecCopy3fv(m_out[1], m_in[1]);
 	ijkVecCopy3fv(m_out[2], m_in[2]);
+	return m_out;
+}
+
+ijk_inl float3m ijkMatNegate3fm(float3x3 m_out, float3x3 const m_in)
+{
+	ijkVecNegate3fv(m_out[0], m_in[0]);
+	ijkVecNegate3fv(m_out[1], m_in[1]);
+	ijkVecNegate3fv(m_out[2], m_in[2]);
 	return m_out;
 }
 
@@ -312,6 +327,15 @@ ijk_inl float4m ijkMatCopy4fm4(float4x4 m_out, float4x4 const m_in)
 	ijkVecCopy4fv(m_out[1], m_in[1]);
 	ijkVecCopy4fv(m_out[2], m_in[2]);
 	ijkVecCopy4fv(m_out[3], m_in[3]);
+	return m_out;
+}
+
+ijk_inl float4m ijkMatNegate4fm(float4x4 m_out, float4x4 const m_in)
+{
+	ijkVecNegate4fv(m_out[0], m_in[0]);
+	ijkVecNegate4fv(m_out[1], m_in[1]);
+	ijkVecNegate4fv(m_out[2], m_in[2]);
+	ijkVecNegate4fv(m_out[3], m_in[3]);
 	return m_out;
 }
 
@@ -449,6 +473,15 @@ ijk_inl fmat2 ijkMatCopy2f4(fmat4 const m_in)
 	fmat2 const m_out = {
 		m_in.x0, m_in.y0,
 		m_in.x1, m_in.y1,
+	};
+	return m_out;
+}
+
+ijk_inl fmat2 ijkMatNegate2f(fmat2 const m_in)
+{
+	fmat2 const m_out = {
+		-m_in.x0, -m_in.y0,
+		-m_in.x1, -m_in.y1,
 	};
 	return m_out;
 }
@@ -595,6 +628,16 @@ ijk_inl fmat3 ijkMatCopy3f4(fmat4 const m_in)
 		m_in.x0, m_in.y0, m_in.z0,
 		m_in.x1, m_in.y1, m_in.z1,
 		m_in.x2, m_in.y2, m_in.z2,
+	};
+	return m_out;
+}
+
+ijk_inl fmat3 ijkMatNegate3f(fmat3 const m_in)
+{
+	fmat3 const m_out = {
+		-m_in.x0, -m_in.y0, -m_in.z0,
+		-m_in.x1, -m_in.y1, -m_in.z1,
+		-m_in.x2, -m_in.y2, -m_in.z2,
 	};
 	return m_out;
 }
@@ -756,6 +799,17 @@ ijk_inl fmat4 ijkMatCopy4f4(fmat4 const m_in)
 		m_in.x1, m_in.y1, m_in.z1, m_in.w1,
 		m_in.x2, m_in.y2, m_in.z2, m_in.w2,
 		m_in.x3, m_in.y3, m_in.z3, m_in.w3,
+	};
+	return m_out;
+}
+
+ijk_inl fmat4 ijkMatNegate4f(fmat4 const m_in)
+{
+	fmat4 const m_out = {
+		-m_in.x0, -m_in.y0, -m_in.z0, -m_in.w0,
+		-m_in.x1, -m_in.y1, -m_in.z1, -m_in.w1,
+		-m_in.x2, -m_in.y2, -m_in.z2, -m_in.w2,
+		-m_in.x3, -m_in.y3, -m_in.z3, -m_in.w3,
 	};
 	return m_out;
 }

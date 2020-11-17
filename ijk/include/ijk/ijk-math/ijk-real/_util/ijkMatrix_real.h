@@ -83,6 +83,14 @@ extern "C" {
 //real2m ijkMatCopy2rm4(real2x2 m_out, real4x4 const m_in);
 #define ijkMatCopy2rm4 ijk_declrealfs(ijkMatCopy2,m4)
 
+// ijkMatNegate2*m
+//	Negate 2x2 matrix.
+//		param m_out: output matrix
+//		param m_in: input matrix
+//		return: m_out
+//real2m ijkMatNegate2rm(real2x2 m_out, real2x2 const m_in);
+#define ijkMatNegate2rm ijk_declrealfs(ijkMatNegate2,m)
+
 // ijkMatCopy2*ms
 //	Copy 2x2 matrix diagonal from scalar (scalar along the diagonal).
 //		param m_out: output matrix
@@ -216,6 +224,14 @@ extern "C" {
 //		return: m_out
 //real3m ijkMatCopy3rm4(real3x3 m_out, real4x4 const m_in);
 #define ijkMatCopy3rm4 ijk_declrealfs(ijkMatCopy3,m4)
+
+// ijkMatNegate3*m
+//	Negate 3x3 matrix.
+//		param m_out: output matrix
+//		param m_in: input matrix
+//		return: m_out
+//real3m ijkMatNegate3rm(real3x3 m_out, real3x3 const m_in);
+#define ijkMatNegate3rm ijk_declrealfs(ijkMatNegate3,m)
 
 // ijkMatCopy3*ms
 //	Copy 3x3 matrix diagonal from scalar (scalar along the diagonal).
@@ -353,6 +369,14 @@ extern "C" {
 //real4m ijkMatCopy4rm4(real4x4 m_out, real4x4 const m_in);
 #define ijkMatCopy4rm4 ijk_declrealfs(ijkMatCopy4,m4)
 
+// ijkMatNegate4*m
+//	Negate 4x4 matrix.
+//		param m_out: output matrix
+//		param m_in: input matrix
+//		return: m_out
+//real4m ijkMatNegate4rm(real4x4 m_out, real4x4 const m_in);
+#define ijkMatNegate4rm ijk_declrealfs(ijkMatNegate4,m)
+
 // ijkMatCopy4*ms
 //	Copy 4x4 matrix diagonal from scalar (scalar along the diagonal).
 //		param m_out: output matrix
@@ -487,6 +511,13 @@ extern "C" {
 //rmat2 ijkMatCopy2r4(rmat4 const m_in);
 #define ijkMatCopy2r4 ijk_declrealfs(ijkMatCopy2,4)
 
+// ijkMatNegate2*
+//	Negate 2x2 matrix.
+//		param m_in: input matrix
+//		return: negated matrix
+//rmat2 ijkMatNegate2r(rmat2 const m_in);
+#define ijkMatNegate2r ijk_declrealfs(ijkMatNegate2,)
+
 // ijkMatCopy2*s
 //	Copy 2x2 matrix diagonal from scalar (scalar along the diagonal).
 //		param s_diag: input scalar assigned to diagonal elements
@@ -605,6 +636,13 @@ extern "C" {
 //		return: copy of input's upper-left 3x3 matrix
 //rmat3 ijkMatCopy3r4(rmat4 const m_in);
 #define ijkMatCopy3r4 ijk_declrealfs(ijkMatCopy3,4)
+
+// ijkMatNegate3*
+//	Negate 3x3 matrix.
+//		param m_in: input matrix
+//		return: negated matrix
+//rmat3 ijkMatNegate3r(rmat3 const m_in);
+#define ijkMatNegate3r ijk_declrealfs(ijkMatNegate3,)
 
 // ijkMatCopy3*s
 //	Copy 3x3 matrix diagonal from scalar (scalar along the diagonal).
@@ -726,6 +764,13 @@ extern "C" {
 //		return: copy of input
 //rmat4 ijkMatCopy4r4(rmat4 const m_in);
 #define ijkMatCopy4r4 ijk_declrealfs(ijkMatCopy4,4)
+
+// ijkMatNegate4*
+//	Negate 4x4 matrix.
+//		param m_in: input matrix
+//		return: negated matrix
+//rmat4 ijkMatNegate4r(rmat4 const m_in);
+#define ijkMatNegate4r ijk_declrealfs(ijkMatNegate4,)
 
 // ijkMatCopy4*s
 //	Copy 4x4 matrix diagonal from scalar (scalar along the diagonal).

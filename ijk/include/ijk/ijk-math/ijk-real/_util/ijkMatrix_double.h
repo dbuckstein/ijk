@@ -77,6 +77,13 @@ double2m ijkMatCopy2dm3(double2x2 m_out, double3x3 const m_in);
 //		return: m_out
 double2m ijkMatCopy2dm4(double2x2 m_out, double4x4 const m_in);
 
+// ijkMatNegate2*m
+//	Negate 2x2 matrix.
+//		param m_out: output matrix
+//		param m_in: input matrix
+//		return: m_out
+double2m ijkMatNegate2dm(double2x2 m_out, double2x2 const m_in);
+
 // ijkMatCopy2*ms
 //	Copy 2x2 matrix diagonal from scalar (scalar along the diagonal).
 //		param m_out: output matrix
@@ -195,6 +202,13 @@ double3m ijkMatCopy3dm3(double3x3 m_out, double3x3 const m_in);
 //		param m_in: input matrix
 //		return: m_out
 double3m ijkMatCopy3dm4(double3x3 m_out, double4x4 const m_in);
+
+// ijkMatNegate3*m
+//	Negate 3x3 matrix.
+//		param m_out: output matrix
+//		param m_in: input matrix
+//		return: m_out
+double3m ijkMatNegate3dm(double3x3 m_out, double3x3 const m_in);
 
 // ijkMatCopy3*ms
 //	Copy 3x3 matrix diagonal from scalar (scalar along the diagonal).
@@ -317,6 +331,13 @@ double4m ijkMatCopy4dm3(double4x4 m_out, double3x3 const m_in);
 //		return: m_out
 double4m ijkMatCopy4dm4(double4x4 m_out, double4x4 const m_in);
 
+// ijkMatNegate4*m
+//	Negate 4x4 matrix.
+//		param m_out: output matrix
+//		param m_in: input matrix
+//		return: m_out
+double4m ijkMatNegate4dm(double4x4 m_out, double4x4 const m_in);
+
 // ijkMatCopy4*ms
 //	Copy 4x4 matrix diagonal from scalar (scalar along the diagonal).
 //		param m_out: output matrix
@@ -436,6 +457,12 @@ dmat2 ijkMatCopy2d3(dmat3 const m_in);
 //		return: copy of input's upper-left 2x2 matrix
 dmat2 ijkMatCopy2d4(dmat4 const m_in);
 
+// ijkMatNegate2*
+//	Negate 2x2 matrix.
+//		param m_in: input matrix
+//		return: negated matrix
+dmat2 ijkMatNegate2d(dmat2 const m_in);
+
 // ijkMatCopy2*s
 //	Copy 2x2 matrix diagonal from scalar (scalar along the diagonal).
 //		param s_diag: input scalar assigned to diagonal elements
@@ -539,6 +566,12 @@ dmat3 ijkMatCopy3d3(dmat3 const m_in);
 //		param m_in: input matrix
 //		return: copy of input's upper-left 3x3 matrix
 dmat3 ijkMatCopy3d4(dmat4 const m_in);
+
+// ijkMatNegate3*
+//	Negate 3x3 matrix.
+//		param m_in: input matrix
+//		return: negated matrix
+dmat3 ijkMatNegate3d(dmat3 const m_in);
 
 // ijkMatCopy3*s
 //	Copy 3x3 matrix diagonal from scalar (scalar along the diagonal).
@@ -645,6 +678,12 @@ dmat4 ijkMatCopy4d3(dmat3 const m_in);
 //		param m_in: input matrix
 //		return: copy of input
 dmat4 ijkMatCopy4d4(dmat4 const m_in);
+
+// ijkMatNegate4*
+//	Negate 4x4 matrix.
+//		param m_in: input matrix
+//		return: negated matrix
+dmat4 ijkMatNegate4d(dmat4 const m_in);
 
 // ijkMatCopy4*s
 //	Copy 4x4 matrix diagonal from scalar (scalar along the diagonal).
