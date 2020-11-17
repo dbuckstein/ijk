@@ -105,9 +105,9 @@ struct ttdualquat
 	ttdualquat const operator *(ttvec4<type> const& v_rh) const;
 	ttdualquat const operator +() const;
 	ttdualquat const operator -() const;
-	ttdualquat const operator *() const;	// Conjugate of quaternions and dual part.
-	ttdualquat const operator ~() const;	// Conjugate of quaternions.
 	ttdualquat const operator !() const;	// Conjugate of dual part.
+	ttdualquat const operator *() const;	// Conjugate of quaternions.
+	ttdualquat const operator ~() const;	// Conjugate of quaternions and dual part.
 	ttdualquat const operator +(ttdualquat const& dq_rh) const;
 	ttdualquat const operator -(ttdualquat const& dq_rh) const;
 	ttdualquat const operator *(ttdualquat const& dq_rh) const;
@@ -122,7 +122,6 @@ struct ttdualquat
 	ttdualquat& operator +=(ttdualquat const& dq_rh);
 	ttdualquat& operator -=(ttdualquat const& dq_rh);
 	ttdualquat& operator *=(ttdualquat const& dq_rh);
-	ttdualquat& operator =(type const& s_rh);
 	ttdualquat& operator *=(type const& s_rh);
 	ttdualquat& operator /=(type const& s_rh);
 	ttquat<type>& operator [](index const i);
@@ -139,7 +138,7 @@ struct ttdualquat
 	inline operator ttquat<type>* () { return q; }
 	inline operator ttvec1<type> const* () const { return (ttvec1<type>*)v; }
 	inline operator ttvec1<type>* () { return (ttvec1<type>*)v; }
-	inline operator ttmat4<type> const () const;
+	operator ttmat4<type> const () const;
 };
 
 template<typename type> ttdualquat<type> const operator *(ttvec3<type> const& v_lh, ttdualquat<type> const& q_rh);

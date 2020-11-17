@@ -195,6 +195,10 @@ inline ttquat<type>::operator type const* () const
 template<typename type>
 inline ttquat<type>& ttquat<type>::operator =(ttquat const& q_rh)
 {
+	x = q_rh.x;
+	y = q_rh.y;
+	z = q_rh.z;
+	w = q_rh.w;
 	return *this;
 }
 template<typename type>
@@ -258,6 +262,7 @@ inline ttquat<type>::operator type* ()
 {
 	return v;
 }
+
 template<typename type>
 inline ttquat<type>::operator ttmat3<type> const () const
 {
@@ -273,7 +278,7 @@ inline ttquat<type>::operator ttmat3<type> const () const
 template<typename type>
 inline ttquat<type>::operator ttmat4<type> const () const
 {
-	return ttmat4<type>(ttmat3<type>(*this));
+	return ttmat4<type>((ttmat3<type>)(*this));
 }
 
 template<typename type>
@@ -325,7 +330,164 @@ inline ttdualquat<type>::ttdualquat(ttdualquat const& qc)
 	: qr(qc.qr), qd(qc.qd)
 {
 }
+template <typename type>
+inline ttdualquat<type>::ttdualquat(ttmat4<type> const& m)
+	: qr(m), qd(qr * (ttvec3<type>(m.c3) * 0.5))
+{
+}
 
+template <typename type>
+inline ttdualquat<type> const ttdualquat<type>::operator *(ttvec3<type> const& v_rh) const
+{
+	// ****TO-DO
+}
+template <typename type>
+inline ttdualquat<type> const ttdualquat<type>::operator *(ttvec4<type> const& v_rh) const
+{
+	// ****TO-DO
+}
+template <typename type>
+inline ttdualquat<type> const ttdualquat<type>::operator +() const
+{
+	return *this;
+}
+template <typename type>
+inline ttdualquat<type> const ttdualquat<type>::operator -() const
+{
+	return ttdualquat<type>(-qr, -qd);
+}
+template <typename type>
+inline ttdualquat<type> const ttdualquat<type>::operator !() const
+{
+	return ttdualquat<type>(qr, -qd);
+}
+template <typename type>
+inline ttdualquat<type> const ttdualquat<type>::operator *() const
+{
+	return ttdualquat<type>(*qr, *qd);
+}
+template <typename type>
+inline ttdualquat<type> const ttdualquat<type>::operator ~() const
+{
+	return ttdualquat<type>(*qr, ttquat<type>(qd.x, qd.y, qd.z, -qd.w));
+}
+template <typename type>
+inline ttdualquat<type> const ttdualquat<type>::operator +(ttdualquat const& dq_rh) const
+{
+	return ttdualquat<type>(qr + dq_rh.qr, qd + dq_rh.qd);
+}
+template <typename type>
+inline ttdualquat<type> const ttdualquat<type>::operator -(ttdualquat const& dq_rh) const
+{
+	return ttdualquat<type>(qr - dq_rh.qr, qd - dq_rh.qd);
+}
+template <typename type>
+inline ttdualquat<type> const ttdualquat<type>::operator *(ttdualquat const& dq_rh) const
+{
+	// ****TO-DO
+	return *this;
+}
+template <typename type>
+inline ttdualquat<type> const ttdualquat<type>::operator *(type const& s_rh) const
+{
+	return ttdualquat<type>(qr * s_rh, qd * s_rh);
+}
+template <typename type>
+inline ttdualquat<type> const ttdualquat<type>::operator /(type const& s_rh) const
+{
+	return ttdualquat<type>(qr / s_rh, qd / s_rh);
+}
+template <typename type>
+inline ttquat<type> const ttdualquat<type>::operator [](index const i) const
+{
+	return q[i];
+}
+template <typename type>
+inline ttdualquat<type>::operator type const* () const
+{
+	return v;
+}
+
+template <typename type>
+inline ttdualquat<type>& ttdualquat<type>::operator =(ttdualquat const& dq_rh)
+{
+	qr = dq_rh.qr;
+	qd = dq_rh.qd;
+	return *this;
+}
+template <typename type>
+inline ttdualquat<type>& ttdualquat<type>::operator *=(ttvec3<type> const& v_rh)
+{
+	return (*this = *this * v_rh);
+}
+template <typename type>
+inline ttdualquat<type>& ttdualquat<type>::operator *=(ttvec4<type> const& v_rh)
+{
+	return (*this = *this * v_rh);
+}
+template <typename type>
+inline ttdualquat<type>& ttdualquat<type>::operator +=(ttdualquat const& dq_rh)
+{
+	qr += dq_rh.qr;
+	qd += dq_rh.qd;
+	return *this;
+}
+template <typename type>
+inline ttdualquat<type>& ttdualquat<type>::operator -=(ttdualquat const& dq_rh)
+{
+	qr -= dq_rh.qr;
+	qd -= dq_rh.qd;
+	return *this;
+}
+template <typename type>
+inline ttdualquat<type>& ttdualquat<type>::operator *=(ttdualquat const& dq_rh)
+{
+	return (*this = *this * dq_rh);
+}
+template <typename type>
+inline ttdualquat<type>& ttdualquat<type>::operator *=(type const& s_rh)
+{
+	qr *= s_rh;
+	qd *= s_rh;
+	return *this;
+}
+template <typename type>
+inline ttdualquat<type>& ttdualquat<type>::operator /=(type const& s_rh)
+{
+	qr /= s_rh;
+	qd /= s_rh;
+	return *this;
+}
+template <typename type>
+inline ttquat<type>& ttdualquat<type>::operator [](index const i)
+{
+	return q[i];
+}
+template <typename type>
+inline ttdualquat<type>::operator type* ()
+{
+	return v;
+}
+
+template<typename type>
+inline ttdualquat<type>::operator ttmat4<type> const () const
+{
+	// ****TO-DO
+	return ttmat4<type>();
+}
+
+template<typename type>
+inline ttdualquat<type> const operator *(ttvec3<type> const& v_lh, ttdualquat<type> const& q_rh)
+{
+	// ****TO-DO
+	return ttdualquat<type>();
+}
+template<typename type>
+inline ttdualquat<type> const operator *(ttvec4<type> const& v_lh, ttdualquat<type> const& q_rh)
+{
+	// ****TO-DO
+	return ttdualquat<type>();
+}
 template<typename type>
 inline ttdualquat<type> const operator *(type const& s_lh, ttdualquat<type> const& dq_rh)
 {
