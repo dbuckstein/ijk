@@ -99,8 +99,8 @@ template<typename type> ttquat<type> const operator /(type const& s_lh, ttquat<t
 template<typename type>
 struct ttdualquat
 {
-	ttdualquat();																// Identity dual quaternion: zero vector, one real, zero dual.
-	ttdualquat(ttquat<type> const& qr, ttquat<type> const& qd);					// Initialize real and dual components.
+	ttdualquat();																// Identity dual quaternion: zero dual, zero vector, one real.
+	ttdualquat(ttquat<type> const& qd, ttquat<type> const& qr);					// Initialize dual and real components.
 	ttdualquat(ttdualquat const& dqc);											// Initialize given dual quaternion to copy.
 	ttdualquat(ttmat4<type> const& m);											// Initialize by converting 4D transformation matrix.
 
@@ -108,9 +108,9 @@ struct ttdualquat
 	ttdualquat const operator *(ttvec4<type> const& v_rh) const;
 	ttdualquat const operator +() const;
 	ttdualquat const operator -() const;
-	ttdualquat const operator !() const;	// Conjugate of dual part.
 	ttdualquat const operator *() const;	// Conjugate of quaternions.
-	ttdualquat const operator ~() const;	// Conjugate of quaternions and dual part.
+	ttdualquat const operator ~() const;	// Conjugate of dual part.
+	ttdualquat const operator !() const;	// Conjugate of quaternions and dual part.
 	ttdualquat const operator +(ttdualquat const& dq_rh) const;
 	ttdualquat const operator -(ttdualquat const& dq_rh) const;
 	ttdualquat const operator *(ttdualquat const& dq_rh) const;
@@ -135,7 +135,8 @@ struct ttdualquat
 		type v[8];
 		type m[2][4];
 		ttquat<type> q[2];
-		struct { ttquat<type> qr, qd; };
+		struct { ttquat<type> qd, qr; };
+		struct { ttquat<type> dual, re; };
 	};
 	ttmat4<type> const mat4() const;
 	inline operator ttquat<type> const* () const { return q; }

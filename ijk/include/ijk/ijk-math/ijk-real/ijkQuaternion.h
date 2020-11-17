@@ -84,13 +84,15 @@ union dquat
 //		member v: vector array-based data
 //		member m: matrix array-based data
 //		member q: quaternion components
-//		members qr, qd: real and dual quaternion components
+//		members qd, qr: dual and real quaternion components
+//		members dual, re: dual and real quaternion components
 union fdualquat
 {
 	float8 v;
 	float2x4 m;
 	fquat q[2];
-	struct { fquat qr, qd; };
+	struct { fquat qd, qr; };
+	struct { fquat dual, re; };
 };
 
 // ddualquat
@@ -98,13 +100,15 @@ union fdualquat
 //		member v: vector array-based data
 //		member m: matrix array-based data
 //		member q: quaternion components
-//		members qr, qd: real and dual quaternion components
+//		members qd, qr: dual and real quaternion components
+//		members dual, re: dual and real quaternion components
 union ddualquat
 {
 	double8 v;
 	double2x4 m;
 	dquat q[2];
-	struct { dquat qr, qd; };
+	struct { dquat qd, qr; };
+	struct { dquat dual, re; };
 };
 
 
