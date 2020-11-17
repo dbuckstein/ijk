@@ -47,6 +47,54 @@ inline ttquat<type>::ttquat(ttquat const& qc)
 	: x(qc.x), y(qc.y), z(qc.z), w(qc.w)
 {
 }
+template <typename type>
+inline ttquat<type>::ttquat(ttmat3<type> const& m)
+{
+	// scale = lenSq of each column; take average (assuming orthogonal)
+	type const scale = (type)(
+		(m.x0 * m.x0 + m.y0 * m.y0 + m.z0 * m.z0) +
+		(m.x1 * m.x1 + m.y1 * m.y1 + m.z1 * m.z1) +
+		(m.x2 * m.x2 + m.y2 * m.y2 + m.z2 * m.z2)) / 3.0;
+	type const len = (type)ijkSqrt_dbl((dbl)scale);
+	type t = (m.m00 + m.m11 + m.m22);
+	if (t > (type)0)
+	{
+		t = (type)(0.5 * ijkSqrtInv_dbl((dbl)((len + t) / len)));
+		x = t * (m.m12 - m.m21);
+		y = t * (m.m20 - m.m02);
+		z = t * (m.m01 - m.m10);
+		w = (type)(0.25 / t);
+	}
+	else if (m.m00 > m.m11 && m.m00 > m.m22)
+	{
+		t = (type)(0.5 * ijkSqrtInv_dbl((dbl)((len + m.m00 - m.m11 - m.m22) / len)));
+		x = (type)(0.25 / t);
+		y = t * (m.m01 + m.m10);
+		z = t * (m.m20 + m.m02);
+		w = t * (m.m12 - m.m21);
+	}
+	else if (m.m11 > m.m22)
+	{
+		t = (type)(0.5 * ijkSqrtInv_dbl((dbl)((len - m.m00 + m.m11 - m.m22) / len)));
+		x = t * (m.m01 + m.m10);
+		y = (type)(0.25 / t);
+		z = t * (m.m12 + m.m21);
+		w = t * (m.m20 - m.m02);
+	}
+	else
+	{
+		t = (type)(0.5 * ijkSqrtInv_dbl((dbl)((len - m.m00 - m.m11 + m.m22) / len)));
+		x = t * (m.m20 + m.m02);
+		y = t * (m.m12 + m.m21);
+		z = (type)(0.25 / t);
+		w = t * (m.m01 - m.m10);
+	}
+}
+template <typename type>
+inline ttquat<type>::ttquat(ttmat4<type> const& m)
+	: ttquat(ttmat3<type>(m))
+{
+}
 
 template<typename type>
 inline ttquat<type> const ttquat<type>::operator *(ttvec3<type> const& v_rh) const
@@ -209,6 +257,23 @@ template<typename type>
 inline ttquat<type>::operator type* ()
 {
 	return v;
+}
+template<typename type>
+inline ttquat<type>::operator ttmat3<type> const () const
+{
+	type const ww = w * w, xx = x * x, yy = y * y, zz = z * z;
+	type const xy = x * y, yz = y * z, zx = z * x;
+	type const xw = x * w, yw = y * w, zw = z * w;
+	return ttmat3<type>(
+		(ww + xx - yy - zz), 2.0 * (xy + zw), 2.0 * (zx - yw),
+		2.0 * (xy - zw), (ww - xx + yy - zz), 2.0 * (yz + xw),
+		2.0 * (zx + yw), 2.0 * (yz - xw), (ww - xx - yy + zz)
+	);
+}
+template<typename type>
+inline ttquat<type>::operator ttmat4<type> const () const
+{
+	return ttmat4<type>(ttmat3<type>(*this));
 }
 
 template<typename type>

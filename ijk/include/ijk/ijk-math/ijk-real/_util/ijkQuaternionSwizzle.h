@@ -45,8 +45,8 @@ struct ttquat
 	ttquat();																	// Identity quaternion: zero vector, one real.
 	ttquat(type const& xc, type const& yc, type const& zc, type const& wc);		// Initialize components.
 	ttquat(ttquat const& qc);													// Initialize given quaternion to copy.
-	ttquat(ttmat3<type> const& mat);											// Initialize by converting 3D matrix.
-	ttquat(ttmat4<type> const& mat);											// Initialize by converting 4D matrix (upper-left 3D part).
+	ttquat(ttmat3<type> const& m);												// Initialize by converting 3D matrix.
+	ttquat(ttmat4<type> const& m);												// Initialize by converting 4D matrix (upper-left 3D part).
 
 	ttquat const operator *(ttvec3<type> const& v_rh) const;
 	ttquat const operator *(ttvec4<type> const& v_rh) const;
@@ -80,8 +80,8 @@ struct ttquat
 	};
 	inline operator ttvec1<type> const* () const { return (ttvec1<type>*)v; }
 	inline operator ttvec1<type>* () { return (ttvec1<type>*)v; }
-	inline operator ttmat3<type> const () const;
-	inline operator ttmat4<type> const () const;
+	operator ttmat3<type> const () const;
+	operator ttmat4<type> const () const;
 };
 
 template<typename type> ttquat<type> const operator *(ttvec3<type> const& v_lh, ttquat<type> const& q_rh);
@@ -96,10 +96,10 @@ template<typename type> ttquat<type> const operator /(type const& s_lh, ttquat<t
 template<typename type>
 struct ttdualquat
 {
-	ttdualquat();																	// Identity dual quaternion: zero vector, one real, zero dual.
-	ttdualquat(ttquat<type> const& qr, ttquat<type> const& qd);						// Initialize real and dual components.
-	ttdualquat(ttdualquat const& dqc);												// Initialize given dual quaternion to copy.
-	ttdualquat(ttmat4<type> const& mat);											// Initialize by converting 4D transformation matrix.
+	ttdualquat();																// Identity dual quaternion: zero vector, one real, zero dual.
+	ttdualquat(ttquat<type> const& qr, ttquat<type> const& qd);					// Initialize real and dual components.
+	ttdualquat(ttdualquat const& dqc);											// Initialize given dual quaternion to copy.
+	ttdualquat(ttmat4<type> const& m);											// Initialize by converting 4D transformation matrix.
 
 	ttdualquat const operator *(ttvec3<type> const& v_rh) const;
 	ttdualquat const operator *(ttvec4<type> const& v_rh) const;
