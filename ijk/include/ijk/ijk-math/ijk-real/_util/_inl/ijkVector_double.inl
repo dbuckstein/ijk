@@ -3654,6 +3654,35 @@ ijk_inl double2* ijkVecOrthoNormList2dv(double2 vl_out[], double2 const v_base, 
 	return vl_out;
 }
 
+ijk_inl doublev ijkVecNlerp2dv(double2 v_out, double2 const v0, double2 const v1, f64 const u)
+{
+	ijkVecLerp2dv(v_out, v0, v1, u);
+	return ijkVecNormalize2dv(v_out, v_out);
+}
+
+ijk_inl doublev ijkVecSlerp2dv(double2 v_out, double2 const v0, double2 const v1, f64 const u)
+{
+	// slerp[v0,v1](u) = (sin([1 - u]A)v0 + sin(uA)v1) / sin(A)
+	//	A = acos(dot(v0,v1))
+
+	//f64 const lenInv0 = ijkVecLengthInv2dv(v0), lenInv1 = ijkVecLengthInv2dv(v1);
+	// check if vectors are far enough apart to have an effect
+	f64 const dot = ijkVecDot2dv(v0, v1);
+	if ((dot * dot) < dbl_one)
+	{
+		double2 tmp;
+		f64 const angle = ijkTrigAcos_deg_dbl(dot),
+			sinInv = ijkTrigCsc_deg_dbl(angle),
+			s0 = sinInv * ijkTrigSin_deg_dbl(angle * (dbl_one - u)),
+			s1 = sinInv * ijkTrigSin_deg_dbl(angle * u);
+		ijkVecAdd2dv(v_out, ijkVecMul2dvs(v_out, v0, s0), ijkVecMul2dvs(tmp, v0, s0));
+	}
+	// vectors are parallel; just do lerp
+	else
+		ijkVecLerp2dv(v_out, v0, v1, u);
+	return v_out;
+}
+
 
 //-----------------------------------------------------------------------------
 
@@ -3845,6 +3874,29 @@ ijk_inl double3* ijkVecOrthoNormList3dv(double3 vl_out[], double3 const v_base, 
 		ijkVecNormalize3dv(vp_out, vp_out);
 	}
 	return vl_out;
+}
+
+ijk_inl doublev ijkVecNlerp3dv(double3 v_out, double3 const v0, double3 const v1, f64 const u)
+{
+	ijkVecLerp3dv(v_out, v0, v1, u);
+	return ijkVecNormalize3dv(v_out, v_out);
+}
+
+ijk_inl doublev ijkVecSlerp3dv(double3 v_out, double3 const v0, double3 const v1, f64 const u)
+{
+	f64 const dot = ijkVecDot3dv(v0, v1);
+	if ((dot * dot) < dbl_one)
+	{
+		double3 tmp;
+		f64 const angle = ijkTrigAcos_deg_dbl(dot),
+			sinInv = ijkTrigCsc_deg_dbl(angle),
+			s0 = sinInv * ijkTrigSin_deg_dbl(angle * (dbl_one - u)),
+			s1 = sinInv * ijkTrigSin_deg_dbl(angle * u);
+		ijkVecAdd3dv(v_out, ijkVecMul3dvs(v_out, v0, s0), ijkVecMul3dvs(tmp, v0, s0));
+	}
+	else
+		ijkVecLerp3dv(v_out, v0, v1, u);
+	return v_out;
 }
 
 
@@ -4043,6 +4095,29 @@ ijk_inl double4* ijkVecOrthoNormList4dv(double4 vl_out[], double4 const v_base, 
 	return vl_out;
 }
 
+ijk_inl doublev ijkVecNlerp4dv(double4 v_out, double4 const v0, double4 const v1, f64 const u)
+{
+	ijkVecLerp4dv(v_out, v0, v1, u);
+	return ijkVecNormalize4dv(v_out, v_out);
+}
+
+ijk_inl doublev ijkVecSlerp4dv(double4 v_out, double4 const v0, double4 const v1, f64 const u)
+{
+	f64 const dot = ijkVecDot4dv(v0, v1);
+	if ((dot * dot) < dbl_one)
+	{
+		double4 tmp;
+		f64 const angle = ijkTrigAcos_deg_dbl(dot),
+			sinInv = ijkTrigCsc_deg_dbl(angle),
+			s0 = sinInv * ijkTrigSin_deg_dbl(angle * (dbl_one - u)),
+			s1 = sinInv * ijkTrigSin_deg_dbl(angle * u);
+		ijkVecAdd4dv(v_out, ijkVecMul4dvs(v_out, v0, s0), ijkVecMul4dvs(tmp, v0, s0));
+	}
+	else
+		ijkVecLerp4dv(v_out, v0, v1, u);
+	return v_out;
+}
+
 
 //-----------------------------------------------------------------------------
 
@@ -4237,6 +4312,28 @@ ijk_inl dvec2* ijkVecOrthoNormList2d(dvec2 vl_out[], dvec2 const v_base, dvec2 c
 	return vl_out;
 }
 
+ijk_inl dvec2 ijkVecNlerp2d(dvec2 const v0, dvec2 const v1, double const u)
+{
+	return ijkVecNormalize2d(ijkVecLerp2d(v0, v1, u));
+}
+
+ijk_inl dvec2 ijkVecSlerp2d(dvec2 const v0, dvec2 const v1, double const u)
+{
+	dvec2 v_out;
+	double const dot = ijkVecDot2d(v0, v1);
+	if ((dot * dot) < dbl_one)
+	{
+		double const angle = ijkTrigAcos_deg_dbl(dot),
+			sinInv = ijkTrigCsc_deg_dbl(angle),
+			s0 = sinInv * ijkTrigSin_deg_dbl(angle * (dbl_one - u)),
+			s1 = sinInv * ijkTrigSin_deg_dbl(angle * u);
+		v_out = ijkVecAdd2d(ijkVecMul2ds(v0, s0), ijkVecMul2ds(v0, s0));
+	}
+	else
+		v_out = ijkVecLerp2d(v0, v1, u);
+	return v_out;
+}
+
 
 //-----------------------------------------------------------------------------
 
@@ -4420,6 +4517,28 @@ ijk_inl dvec3* ijkVecOrthoNormList3d(dvec3 vl_out[], dvec3 const v_base, dvec3 c
 		vl_out[i] = ijkVecNormalize3d(ijkVecSub3d(vp_in, orthoSum));
 	}
 	return vl_out;
+}
+
+ijk_inl dvec3 ijkVecNlerp3d(dvec3 const v0, dvec3 const v1, double const u)
+{
+	return ijkVecNormalize3d(ijkVecLerp3d(v0, v1, u));
+}
+
+ijk_inl dvec3 ijkVecSlerp3d(dvec3 const v0, dvec3 const v1, double const u)
+{
+	dvec3 v_out;
+	double const dot = ijkVecDot3d(v0, v1);
+	if ((dot * dot) < dbl_one)
+	{
+		double const angle = ijkTrigAcos_deg_dbl(dot),
+			sinInv = ijkTrigCsc_deg_dbl(angle),
+			s0 = sinInv * ijkTrigSin_deg_dbl(angle * (dbl_one - u)),
+			s1 = sinInv * ijkTrigSin_deg_dbl(angle * u);
+		v_out = ijkVecAdd3d(ijkVecMul3ds(v0, s0), ijkVecMul3ds(v0, s0));
+	}
+	else
+		v_out = ijkVecLerp3d(v0, v1, u);
+	return v_out;
 }
 
 
@@ -4608,6 +4727,28 @@ ijk_inl dvec4* ijkVecOrthoNormList4d(dvec4 vl_out[], dvec4 const v_base, dvec4 c
 		vl_out[i] = ijkVecNormalize4d(ijkVecSub4d(vp_in, orthoSum));
 	}
 	return vl_out;
+}
+
+ijk_inl dvec4 ijkVecNlerp4d(dvec4 const v0, dvec4 const v1, double const u)
+{
+	return ijkVecNormalize4d(ijkVecLerp4d(v0, v1, u));
+}
+
+ijk_inl dvec4 ijkVecSlerp4d(dvec4 const v0, dvec4 const v1, double const u)
+{
+	dvec4 v_out;
+	double const dot = ijkVecDot4d(v0, v1);
+	if ((dot * dot) < dbl_one)
+	{
+		double const angle = ijkTrigAcos_deg_dbl(dot),
+			sinInv = ijkTrigCsc_deg_dbl(angle),
+			s0 = sinInv * ijkTrigSin_deg_dbl(angle * (dbl_one - u)),
+			s1 = sinInv * ijkTrigSin_deg_dbl(angle * u);
+		v_out = ijkVecAdd4d(ijkVecMul4ds(v0, s0), ijkVecMul4ds(v0, s0));
+	}
+	else
+		v_out = ijkVecLerp4d(v0, v1, u);
+	return v_out;
 }
 
 

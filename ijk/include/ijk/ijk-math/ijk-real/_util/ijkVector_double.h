@@ -3263,6 +3263,28 @@ double2* ijkVecOrthoList2dv(double2 vl_out[], double2 const v_base, double2 cons
 //		return: vl_out
 double2* ijkVecOrthoNormList2dv(double2 vl_out[], double2 const v_base, double2 const vl_in[], size const n, double2 v_base_norm_out);
 
+// ijkVecNlerp2*v
+//	Calculate normalized linear interpolation between two 2D vectors; keeps
+//	result at unit-length but yields a non-uniform rate of change.
+//		param v_out: output vector, interpolated vector
+//		param v0: input initial control vector, result when param is 0
+//		param v1: input terminal control vector, result when param is 1
+//		param u: interpolation parameter; values in domain [0,1] result in 
+//			interpolation in range [v0,v1], others result in extrapolation
+//		return: v_out
+doublev ijkVecNlerp2dv(double2 v_out, double2 const v0, double2 const v1, f64 const u);
+
+// ijkVecSlerp2*v
+//	Calculate spherical linear interpolation between two unit 2D vectors; keeps
+//	result at unit-length and yields a uniform rate of change.
+//		param v_out: output vector, interpolated vector
+//		param v0: input initial control vector, result when param is 0
+//		param v1: input terminal control vector, result when param is 1
+//		param u: interpolation parameter; values in domain [0,1] result in 
+//			interpolation in range [v0,v1], others result in extrapolation
+//		return: v_out
+doublev ijkVecSlerp2dv(double2 v_out, double2 const v0, double2 const v1, f64 const u);
+
 
 //-----------------------------------------------------------------------------
 
@@ -3498,6 +3520,28 @@ double3* ijkVecOrthoList3dv(double3 vl_out[], double3 const v_base, double3 cons
 //		param v_base_norm_out: normalized base vector
 //		return: vl_out
 double3* ijkVecOrthoNormList3dv(double3 vl_out[], double3 const v_base, double3 const vl_in[], size const n, double3 v_base_norm_out);
+
+// ijkVecNlerp3*v
+//	Calculate normalized linear interpolation between two 3D vectors; keeps
+//	result at unit-length but yields a non-uniform rate of change.
+//		param v_out: output vector, interpolated vector
+//		param v0: input initial control vector, result when param is 0
+//		param v1: input terminal control vector, result when param is 1
+//		param u: interpolation parameter; values in domain [0,1] result in 
+//			interpolation in range [v0,v1], others result in extrapolation
+//		return: v_out
+doublev ijkVecNlerp3dv(double3 v_out, double3 const v0, double3 const v1, f64 const u);
+
+// ijkVecSlerp3*v
+//	Calculate spherical linear interpolation between two unit 3D vectors; keeps
+//	result at unit-length and yields a uniform rate of change.
+//		param v_out: output vector, interpolated vector
+//		param v0: input initial control vector, result when param is 0
+//		param v1: input terminal control vector, result when param is 1
+//		param u: interpolation parameter; values in domain [0,1] result in 
+//			interpolation in range [v0,v1], others result in extrapolation
+//		return: v_out
+doublev ijkVecSlerp3dv(double3 v_out, double3 const v0, double3 const v1, f64 const u);
 
 
 //-----------------------------------------------------------------------------
@@ -3735,6 +3779,28 @@ double4* ijkVecOrthoList4dv(double4 vl_out[], double4 const v_base, double4 cons
 //		return: vl_out
 double4* ijkVecOrthoNormList4dv(double4 vl_out[], double4 const v_base, double4 const vl_in[], size const n, double4 v_base_norm_out);
 
+// ijkVecNlerp4*v
+//	Calculate normalized linear interpolation between two 4D vectors; keeps
+//	result at unit-length but yields a non-uniform rate of change.
+//		param v_out: output vector, interpolated vector
+//		param v0: input initial control vector, result when param is 0
+//		param v1: input terminal control vector, result when param is 1
+//		param u: interpolation parameter; values in domain [0,1] result in 
+//			interpolation in range [v0,v1], others result in extrapolation
+//		return: v_out
+doublev ijkVecNlerp4dv(double4 v_out, double4 const v0, double4 const v1, f64 const u);
+
+// ijkVecSlerp4*v
+//	Calculate spherical linear interpolation between two unit 4D vectors; keeps
+//	result at unit-length and yields a uniform rate of change.
+//		param v_out: output vector, interpolated vector
+//		param v0: input initial control vector, result when param is 0
+//		param v1: input terminal control vector, result when param is 1
+//		param u: interpolation parameter; values in domain [0,1] result in 
+//			interpolation in range [v0,v1], others result in extrapolation
+//		return: v_out
+doublev ijkVecSlerp4dv(double4 v_out, double4 const v0, double4 const v1, f64 const u);
+
 
 //-----------------------------------------------------------------------------
 
@@ -3957,6 +4023,26 @@ dvec2* ijkVecOrthoList2d(dvec2 vl_out[], dvec2 const v_base, dvec2 const vl_in[]
 //		return: vl_out
 dvec2* ijkVecOrthoNormList2d(dvec2 vl_out[], dvec2 const v_base, dvec2 const vl_in[], size const n, dvec2* const v_base_norm_out);
 
+// ijkVecNlerp2*
+//	Calculate normalized linear interpolation between two 2D vectors; keeps
+//	result at unit-length but yields a non-uniform rate of change.
+//		param v0: input initial control vector, result when param is 0
+//		param v1: input terminal control vector, result when param is 1
+//		param u: interpolation parameter; values in domain [0,1] result in 
+//			interpolation in range [v0,v1], others result in extrapolation
+//		return: interpolated vector
+dvec2 ijkVecNlerp2d(dvec2 const v0, dvec2 const v1, double const u);
+
+// ijkVecSlerp2*
+//	Calculate spherical linear interpolation between two unit 2D vectors; keeps
+//	result at unit-length and yields a uniform rate of change.
+//		param v0: input initial control vector, result when param is 0
+//		param v1: input terminal control vector, result when param is 1
+//		param u: interpolation parameter; values in domain [0,1] result in 
+//			interpolation in range [v0,v1], others result in extrapolation
+//		return: interpolated vector
+dvec2 ijkVecSlerp2d(dvec2 const v0, dvec2 const v1, double const u);
+
 
 //-----------------------------------------------------------------------------
 
@@ -4172,6 +4258,26 @@ dvec3* ijkVecOrthoList3d(dvec3 vl_out[], dvec3 const v_base, dvec3 const vl_in[]
 //		return: vl_out
 dvec3* ijkVecOrthoNormList3d(dvec3 vl_out[], dvec3 const v_base, dvec3 const vl_in[], size const n, dvec3* const v_base_norm_out);
 
+// ijkVecNlerp3*
+//	Calculate normalized linear interpolation between two 3D vectors; keeps
+//	result at unit-length but yields a non-uniform rate of change.
+//		param v0: input initial control vector, result when param is 0
+//		param v1: input terminal control vector, result when param is 1
+//		param u: interpolation parameter; values in domain [0,1] result in 
+//			interpolation in range [v0,v1], others result in extrapolation
+//		return: interpolated vector
+dvec3 ijkVecNlerp3d(dvec3 const v0, dvec3 const v1, double const u);
+
+// ijkVecSlerp3*
+//	Calculate spherical linear interpolation between two unit 3D vectors; keeps
+//	result at unit-length and yields a uniform rate of change.
+//		param v0: input initial control vector, result when param is 0
+//		param v1: input terminal control vector, result when param is 1
+//		param u: interpolation parameter; values in domain [0,1] result in 
+//			interpolation in range [v0,v1], others result in extrapolation
+//		return: interpolated vector
+dvec3 ijkVecSlerp3d(dvec3 const v0, dvec3 const v1, double const u);
+
 
 //-----------------------------------------------------------------------------
 
@@ -4386,6 +4492,26 @@ dvec4* ijkVecOrthoList4d(dvec4 vl_out[], dvec4 const v_base, dvec4 const vl_in[]
 //		param v_base_norm_out: normalized base vector
 //		return: vl_out
 dvec4* ijkVecOrthoNormList4d(dvec4 vl_out[], dvec4 const v_base, dvec4 const vl_in[], size const n, dvec4* const v_base_norm_out);
+
+// ijkVecNlerp4*
+//	Calculate normalized linear interpolation between two 4D vectors; keeps
+//	result at unit-length but yields a non-uniform rate of change.
+//		param v0: input initial control vector, result when param is 0
+//		param v1: input terminal control vector, result when param is 1
+//		param u: interpolation parameter; values in domain [0,1] result in 
+//			interpolation in range [v0,v1], others result in extrapolation
+//		return: interpolated vector
+dvec4 ijkVecNlerp4d(dvec4 const v0, dvec4 const v1, double const u);
+
+// ijkVecSlerp4*
+//	Calculate spherical linear interpolation between two unit 4D vectors; keeps
+//	result at unit-length and yields a uniform rate of change.
+//		param v0: input initial control vector, result when param is 0
+//		param v1: input terminal control vector, result when param is 1
+//		param u: interpolation parameter; values in domain [0,1] result in 
+//			interpolation in range [v0,v1], others result in extrapolation
+//		return: interpolated vector
+dvec4 ijkVecSlerp4d(dvec4 const v0, dvec4 const v1, double const u);
 
 
 //-----------------------------------------------------------------------------
