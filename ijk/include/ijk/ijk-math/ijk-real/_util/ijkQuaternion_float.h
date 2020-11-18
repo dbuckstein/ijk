@@ -275,49 +275,6 @@ floatv ijkQuatRotateXZYQfv(float4 q_out, float3 const rotateDegXYZ);
 //		return: q_out
 floatv ijkQuatRotateZYXQfv(float4 q_out, float3 const rotateDegXYZ);
 
-// ijkQuatRotateQ*v
-//	Make rotation quaternion with Euler angles.
-//		param q_out: output quaternion, rotation
-//		param order: written order of Euler angles (functional order of 
-//			operations is right-to-left)
-//		param rotateDegXYZ: Euler angles in degrees (component order XYZ)
-//		return: q_out
-floatv ijkQuatRotateQfv(float4 q_out, ijkRotationOrder const order, float3 const rotateDegXYZ);
-
-// ijkQuatScaleQ*v
-//	Make rotation quaternion with uniform scale.
-//		param q_out: output quaternion, rotation-scale
-//		param scale_unif: uniform scale amount
-//		return: q_out
-floatv ijkQuatScaleQfv(float4 q_out, f32 const scale_unif);
-
-// ijkQuatRotateScaleQ*v
-//	Make rotation quaternion with Euler angles and uniform scale.
-//		param q_out: output quaternion, rotation-scale
-//		param order: written order of Euler angles (functional order of 
-//			operations is right-to-left)
-//		param rotateDegXYZ: Euler angles in degrees (component order XYZ)
-//		param scale_unif: uniform scale amount
-//		return: q_out
-floatv ijkQuatRotateScaleQfv(float4 q_out, ijkRotationOrder const order, float3 const rotateDegXYZ, f32 const scale_unif);
-
-// ijkQuatAxisAngleQ*v
-//	Make rotation quaternion with unit axis and angle in degrees.
-//		param q_out: output quaternion, rotation-scale
-//		param axis_unit: unit axis of rotation
-//		param angle_degrees: angle of rotation in degrees
-//		return: q_out
-floatv ijkQuatAxisAngleQfv(float4 q_out, float3 const axis_unit, f32 const angle_degrees);
-
-// ijkQuatAxisAngleScaleQ*v
-//	Make rotation quaternion with unit axis, angle in degrees and uniform scale.
-//		param q_out: output quaternion, rotation-scale
-//		param axis_unit: unit axis of rotation
-//		param angle_degrees: angle of rotation in degrees
-//		param scale_unif: uniform scale amount
-//		return: q_out
-floatv ijkQuatAxisAngleScaleQfv(float4 q_out, float3 const axis_unit, f32 const angle_degrees, f32 const scale_unif);
-
 // ijkQuatGetRotateXYZQ*v
 //	Extract Euler angles from rotation quaternion; written order XYZ.
 //		param q_in: input quaternion
@@ -360,6 +317,49 @@ floatkv ijkQuatGetRotateXZYQfv(float4 const q_in, float3 rotateDegXYZ_out);
 //		return: q_in
 floatkv ijkQuatGetRotateZYXQfv(float4 const q_in, float3 rotateDegXYZ_out);
 
+// ijkQuatRotateQ*v
+//	Make rotation quaternion with Euler angles.
+//		param q_out: output quaternion, rotation
+//		param order: written order of Euler angles (functional order of 
+//			operations is right-to-left)
+//		param rotateDegXYZ: Euler angles in degrees (component order XYZ)
+//		return: q_out
+floatv ijkQuatRotateQfv(float4 q_out, ijkRotationOrder const order, float3 const rotateDegXYZ);
+
+// ijkQuatAxisAngleQ*v
+//	Make rotation quaternion with unit axis and angle in degrees.
+//		param q_out: output quaternion, rotation-scale
+//		param axis_unit: unit axis of rotation
+//		param angle_degrees: angle of rotation in degrees
+//		return: q_out
+floatv ijkQuatAxisAngleQfv(float4 q_out, float3 const axis_unit, f32 const angle_degrees);
+
+// ijkQuatScaleQ*v
+//	Make rotation quaternion with uniform scale.
+//		param q_out: output quaternion, rotation-scale
+//		param scale_unif: uniform scale amount
+//		return: q_out
+floatv ijkQuatScaleQfv(float4 q_out, f32 const scale_unif);
+
+// ijkQuatRotateScaleQ*v
+//	Make rotation quaternion with Euler angles and uniform scale.
+//		param q_out: output quaternion, rotation-scale
+//		param order: written order of Euler angles (functional order of 
+//			operations is right-to-left)
+//		param rotateDegXYZ: Euler angles in degrees (component order XYZ)
+//		param scale_unif: uniform scale amount
+//		return: q_out
+floatv ijkQuatRotateScaleQfv(float4 q_out, ijkRotationOrder const order, float3 const rotateDegXYZ, f32 const scale_unif);
+
+// ijkQuatAxisAngleScaleQ*v
+//	Make rotation quaternion with unit axis, angle in degrees and uniform scale.
+//		param q_out: output quaternion, rotation-scale
+//		param axis_unit: unit axis of rotation
+//		param angle_degrees: angle of rotation in degrees
+//		param scale_unif: uniform scale amount
+//		return: q_out
+floatv ijkQuatAxisAngleScaleQfv(float4 q_out, float3 const axis_unit, f32 const angle_degrees, f32 const scale_unif);
+
 // ijkQuatGetRotateQ*v
 //	Extract Euler angles from rotation quaternion.
 //		param q_in: input quaternion
@@ -368,6 +368,14 @@ floatkv ijkQuatGetRotateZYXQfv(float4 const q_in, float3 rotateDegXYZ_out);
 //		param rotateDegXYZ_out: storage for Euler angles in component order XYZ
 //		return: q_in
 floatkv ijkQuatGetRotateQfv(float4 const q_in, ijkRotationOrder const order, float3 rotateDegXYZ_out);
+
+// ijkQuatGetAxisAngleQ*v
+//	Extract unit axis and angle in degrees from quaternion.
+//		param q_in: input quaternion
+//		param axis_unit_out: storage for unit axis of rotation
+//		param angle_degrees_out: storage for rotation angle in degrees
+//		return: q_in
+floatkv ijkQuatGetAxisAngleQfv(float4 const q_in, float3 axis_unit_out, f32* const angle_degrees_out);
 
 // ijkQuatGetScaleQ*v
 //	Extract uniform scale from quaternion.
@@ -385,14 +393,6 @@ floatkv ijkQuatGetScaleQfv(float4 const q_in, f32* const scale_unif_out);
 //		param scale_unif_out: storage for uniform scale amount
 //		return: q_in
 floatkv ijkQuatGetRotateScaleQfv(float4 const q_in, ijkRotationOrder const order, float3 rotateDegXYZ_out, f32* const scale_unif_out);
-
-// ijkQuatGetAxisAngleQ*v
-//	Extract unit axis and angle in degrees from quaternion.
-//		param q_in: input quaternion
-//		param axis_unit_out: storage for unit axis of rotation
-//		param angle_degrees_out: storage for rotation angle in degrees
-//		return: q_in
-floatkv ijkQuatGetAxisAngleQfv(float4 const q_in, float3 axis_unit_out, f32* const angle_degrees_out);
 
 // ijkQuatGetAxisAngleScaleQ*v
 //	Extract unit axis, angle in degrees and uniform scale from quaternion.
@@ -475,10 +475,523 @@ floatv ijkQuatNlerpQfv(float4 q_out, float4 const q0, float4 const q1, f32 const
 //		return: q_out
 floatv ijkQuatSlerpQfv(float4 q_out, float4 const q0, float4 const q1, f32 const u);
 
+// ijkQuatDerivQ*v
+//	Calculate derivative of quaternion.
+//		param q1_out: output quaternion, derivative of quaternion
+//		param q_in: input quaternion
+//		param angularVelocity: angular velocity vector
+//		return: q1_out
+floatv ijkQuatDerivQfv(float4 q1_out, float4 const q_in, float3 const angularVelocity);
+
+// ijkQuatDeriv2Q*v
+//	Calculate second derivative of quaternion.
+//		param q2_out: output quaternion, second derivative of quaternion
+//		param q1_out: output quaternion, first derivative of quaternion
+//		param q_in: input quaternion
+//		param angularVelocity: angular velocity vector
+//		param angularAcceleration: angular acceleration vector
+//		return: q2_out
+floatv ijkQuatDeriv2Qfv(float4 q2_out, float4 q1_out, float4 const q_in, float3 const angularVelocity, float3 const angularAcceleration);
+
+// ijkQuatEncodeTranslateQ*v
+//	Encode translation offset vector using quaternion.
+//		param qt_out: output quaternion, encoded translation
+//		param translate_in: input vector, translation offset
+//		param q_encode: encoding quaternion
+//		return: qt_out
+floatv ijkQuatEncodeTranslateQfv(float4 qt_out, float3 const translate_in, float4 const q_encode);
+
+// ijkQuatDecodeTranslateQ*v
+//	Decode translation offset vector from quaternion.
+//		param translate_out: output vector, translation offset
+//		param qt_in: input quaternion, encoded translation
+//		param q_decode: decoding quaternion
+//		return: translate_out
+floatv ijkQuatDecodeTranslateQfv(float3 translate_out, float4 const qt_in, float4 const q_decode);
+
 
 //-----------------------------------------------------------------------------
 
-	
+// ijkDualQuatInitDQ*v
+//	Initialize identity dual quaternion (zero dual, identity real).
+//		param dq_out: output dual quaternion
+//		return: dq_out
+float4m ijkDualQuatInitDQfv(float2x4 dq_out);
+
+// ijkDualQuatInitDualReDQ*v
+//	Initialize dual quaternion with dual and real parts.
+//		param dq_out: output dual quaternion
+//		param dual: dual component (E qd)
+//		param re: real component (qr)
+//		return: dq_out
+float4m ijkDualQuatInitDualReDQfv(float2x4 dq_out, float4 const dual, float4 const re);
+
+// ijkDualQuatInitMatDQ*v3
+//	Initialize dual quaternion from 3D matrix.
+//		param dq_out: output dual quaternion
+//		param m_in: input matrix
+//		return: dq_out
+float4m ijkDualQuatInitMatDQfv3(float2x4 dq_out, float3x3 const m_in);
+
+// ijkDualQuatInitMatDQ*v4
+//	Initialize dual quaternion from 4D matrix.
+//		param dq_out: output dual quaternion
+//		param m_in: input matrix
+//		return: dq_out
+float4m ijkDualQuatInitMatDQfv4(float2x4 dq_out, float4x4 const m_in);
+
+// ijkDualQuatCopyDQ*v
+//	Copy dual quaternion.
+//		param dq_out: output dual quaternion
+//		param dq_in: input dual quaternion
+//		return: dq_out
+float4m ijkDualQuatCopyDQfv(float2x4 dq_out, float2x4 const dq_in);
+
+// ijkDualQuatNegateDQ*v
+//	Negate dual quaternion.
+//		param dq_out: output dual quaternion, negative
+//		param dq_in: input dual quaternion
+//		return: dq_out
+float4m ijkDualQuatNegateDQfv(float2x4 dq_out, float2x4 const dq_in);
+
+// ijkDualQuatConjugateDQ*v
+//	Conjugate dual quaternion: take conjugate of both components.
+//		param dq_out: output dual quaternion, conjugate
+//		param dq_in: input dual quaternion
+//		return: dq_out
+float4m ijkDualQuatConjugateDQfv(float2x4 dq_out, float2x4 const dq_in);
+
+// ijkDualQuatNegateDualDQ*v
+//	Negate dual part: conjugate of dual number.
+//		param dq_out: output dual quaternion, dual conjugate
+//		param dq_in: input dual quaternion
+//		return: dq_out
+float4m ijkDualQuatNegateDualDQfv(float2x4 dq_out, float2x4 const dq_in);
+
+// ijkDualQuatConjugateDualDQ*v
+//	Conjugate and negate dual part: conjugate of dual number and components.
+//		param dq_out: output dual quaternion, complete dual conjugate
+//		param dq_in: input dual quaternion
+//		return: dq_out
+float4m ijkDualQuatConjugateDualDQfv(float2x4 dq_out, float2x4 const dq_in);
+
+// ijkDualQuatAddDQ*v
+//	Calculate sum of dual quaternions.
+//		param dq_out: output dual quaternion, sum
+//		param dq_lh: left-hand dual quaternion
+//		param dq_rh: right-hand dual quaternion
+//		return: dq_out
+float4m ijkDualQuatAddDQfv(float2x4 dq_out, float2x4 const dq_lh, float2x4 const dq_rh);
+
+// ijkDualQuatSubDQ*v
+//	Calculate difference of dual quaternions.
+//		param dq_out: output dual quaternion, difference
+//		param dq_lh: left-hand dual quaternion
+//		param dq_rh: right-hand dual quaternion
+//		return: dq_out
+float4m ijkDualQuatSubDQfv(float2x4 dq_out, float2x4 const dq_lh, float2x4 const dq_rh);
+
+// ijkDualQuatMulDQ*vs
+//	Calculate product of dual quaternion and scalar.
+//		param dq_out: output dual quaternion, product
+//		param dq_lh: left-hand dual quaternion
+//		param s_rh: right-hand scalar
+//		return: dq_out
+float4m ijkDualQuatMulDQfvs(float2x4 dq_out, float2x4 const dq_lh, f32 const s_rh);
+
+// ijkDualQuatDivDQ*vs
+//	Calculate quotient of dual quaternion and scalar.
+//		param dq_out: output dual quaternion, quotient
+//		param dq_lh: left-hand dual quaternion
+//		param s_rh: right-hand scalar
+//		return: dq_out
+float4m ijkDualQuatDivDQfvs(float2x4 dq_out, float2x4 const dq_lh, f32 const s_rh);
+
+// ijkDualQuatDivSafeDQ*vs
+//	Calculate quotient of dual quaternion and scalar; division-by-zero safety.
+//		param dq_out: output dual quaternion, quotient
+//		param dq_lh: left-hand dual quaternion
+//		param s_rh: right-hand scalar
+//		return: dq_out
+float4m ijkDualQuatDivSafeDQfvs(float2x4 dq_out, float2x4 const dq_lh, f32 const s_rh);
+
+// ijkDualQuatLengthSqDQ*v
+//	Calculate squared length of dual quaternion.
+//		param dq_in: input dual quaternion
+//		return: squared length
+f32 ijkDualQuatLengthSqDQfv(float2x4 const dq_in);
+
+// ijkDualQuatLengthDQ*v
+//	Calculate length of dual quaternion.
+//		param dq_in: input dual quaternion
+//		return: length
+f32 ijkDualQuatLengthDQfv(float2x4 const dq_in);
+
+// ijkDualQuatLengthSqInvDQ*v
+//	Calculate inverse squared length of dual quaternion.
+//		param dq_in: input dual quaternion
+//		return: inverse squared length
+f32 ijkDualQuatLengthSqInvDQfv(float2x4 const dq_in);
+
+// ijkDualQuatLengthInvDQ*v
+//	Calculate inverse length of dual quaternion.
+//		param dq_in: input dual quaternion
+//		return: inverse length
+f32 ijkDualQuatLengthInvDQfv(float2x4 const dq_in);
+
+// ijkDualQuatLengthSqInvSafeDQ*v
+//	Calculate inverse squared length of dual quaternion.
+//		param dq_in: input dual quaternion
+//		return: inverse squared length
+f32 ijkDualQuatLengthSqInvSafeDQfv(float2x4 const dq_in);
+
+// ijkDualQuatLengthInvSafeDQ*v
+//	Calculate inverse length of dual quaternion.
+//		param dq_in: input dual quaternion
+//		return: inverse length
+f32 ijkDualQuatLengthInvSafeDQfv(float2x4 const dq_in);
+
+// ijkDualQuatNormalizeDQ*v
+//	Normalize dual quaternion.
+//		param dq_out: output dual quaternion, unit-length
+//		param dq_in: input dual quaternion
+//		return: dq_out
+float4m ijkDualQuatNormalizeDQfv(float2x4 dq_out, float2x4 const dq_in);
+
+// ijkDualQuatNormalizeSafeDQ*v
+//	Normalize dual quaternion; division-by-zero safety.
+//		param dq_out: output dual quaternion, unit-length
+//		param dq_in: input dual quaternion
+//		return: dq_out
+float4m ijkDualQuatNormalizeSafeDQfv(float2x4 dq_out, float2x4 const dq_in);
+
+// ijkDualQuatInverseDQ*v
+//	Calculate inverse of dual quaternion: conjugate divided by squared length.
+//		param dq_out: output dual quaternion, inverse
+//		param dq_in: input dual quaternion
+//		return: dq_out
+float4m ijkDualQuatInverseDQfv(float2x4 dq_out, float2x4 const dq_in);
+
+// ijkDualQuatInverseSafeDQ*v
+//	Calculate inverse of dual quaternion: conjugate divided by squared length; 
+//	division-by-zero safety.
+//		param dq_out: output dual quaternion, inverse
+//		param dq_in: input dual quaternion
+//		return: dq_out
+float4m ijkDualQuatInverseSafeDQfv(float2x4 dq_out, float2x4 const dq_in);
+
+// ijkDualQuatMulVecDQ*v3
+//	Calculate product of dual quaternion and 3D vector (result is dual quaternion).
+//		param dq_out: output dual quaternion, product
+//		param dq_lh: left-hand dual quaternion
+//		param v_rh: right-hand vector
+//		return: dq_out
+float4m ijkDualQuatMulVecDQfv3(float2x4 dq_out, float2x4 const dq_lh, float3 const v_rh);
+
+// ijkDualQuatMulVecDQ*v3q
+//	Calculate product of 3D vector and dual quaternion (result is dual quaternion).
+//		param dq_out: output dual quaternion, product
+//		param v_lh: left-hand vector
+//		param dq_rh: right-hand dual quaternion
+//		return: dq_out
+float4m ijkDualQuatMulVecDQfv3q(float2x4 dq_out, float3 const v_lh, float2x4 const dq_rh);
+
+// ijkDualQuatMulDQ*v
+//	Calculate product of dual quaternions.
+//		param dq_out: output dual quaternion, product
+//		param dq_lh: left-hand dual quaternion
+//		param dq_rh: right-hand dual quaternion
+//		return: dq_out
+float4m ijkDualQuatMulDQfv(float2x4 dq_out, float2x4 const dq_lh, float2x4 const dq_rh);
+
+// ijkDualQuatDivDQ*v
+//	Calculate quotient of dual quaternions (multiply by rh inverse).
+//		param dq_out: output dual quaternion, quotient
+//		param dq_lh: left-hand dual quaternion
+//		param dq_rh: right-hand dual quaternion
+//		return: dq_out
+float4m ijkDualQuatDivDQfv(float2x4 dq_out, float2x4 const dq_lh, float2x4 const dq_rh);
+
+// ijkDualQuatRotateDQ*v
+//	Make rotation dual quaternion with Euler angles.
+//		param dq_out: output dual quaternion, rotation
+//		param order: written order of Euler angles (functional order of 
+//			operations is right-to-left)
+//		param rotateDegXYZ: Euler angles in degrees (component order XYZ)
+//		return: dq_out
+float4m ijkDualQuatRotateDQfv(float2x4 dq_out, ijkRotationOrder const order, float3 const rotateDegXYZ);
+
+// ijkDualQuatAxisAngleDQ*v
+//	Make rotation dual quaternion with unit axis and angle in degrees.
+//		param dq_out: output dual quaternion, rotation-scale
+//		param axis_unit: unit axis of rotation
+//		param angle_degrees: angle of rotation in degrees
+//		return: dq_out
+float4m ijkDualQuatAxisAngleDQfv(float2x4 dq_out, float3 const axis_unit, f32 const angle_degrees);
+
+// ijkDualQuatScaleDQ*v
+//	Make rotation dual quaternion with uniform scale.
+//		param dq_out: output dual quaternion, rotation-scale
+//		param scale_unif: uniform scale amount
+//		return: dq_out
+float4m ijkDualQuatScaleDQfv(float2x4 dq_out, f32 const scale_unif);
+
+// ijkDualQuatRotateScaleDQ*v
+//	Make rotation dual quaternion with Euler angles and uniform scale.
+//		param dq_out: output dual quaternion, rotation-scale
+//		param order: written order of Euler angles (functional order of 
+//			operations is right-to-left)
+//		param rotateDegXYZ: Euler angles in degrees (component order XYZ)
+//		param scale_unif: uniform scale amount
+//		return: dq_out
+float4m ijkDualQuatRotateScaleDQfv(float2x4 dq_out, ijkRotationOrder const order, float3 const rotateDegXYZ, f32 const scale_unif);
+
+// ijkDualQuatAxisAngleScaleDQ*v
+//	Make rotation dual quaternion with unit axis, angle in degrees and uniform scale.
+//		param dq_out: output dual quaternion, rotation-scale
+//		param axis_unit: unit axis of rotation
+//		param angle_degrees: angle of rotation in degrees
+//		param scale_unif: uniform scale amount
+//		return: dq_out
+float4m ijkDualQuatAxisAngleScaleDQfv(float2x4 dq_out, float3 const axis_unit, f32 const angle_degrees, f32 const scale_unif);
+
+// ijkDualQuatTranslateDQ*v
+//	Make rotation dual quaternion with Euler angles.
+//		param dq_out: output dual quaternion, rotation
+//		param order: written order of Euler angles (functional order of 
+//			operations is right-to-left)
+//		param translate: translation offset vector
+//		return: dq_out
+float4m ijkDualQuatTranslateDQfv(float2x4 dq_out, float3 const translate);
+
+// ijkDualQuatRotateTranslateDQ*v
+//	Make rotation dual quaternion with Euler angles.
+//		param dq_out: output dual quaternion, rotation
+//		param order: written order of Euler angles (functional order of 
+//			operations is right-to-left)
+//		param rotateDegXYZ: Euler angles in degrees (component order XYZ)
+//		param translate: translation offset vector
+//		return: dq_out
+float4m ijkDualQuatRotateTranslateDQfv(float2x4 dq_out, ijkRotationOrder const order, float3 const rotateDegXYZ, float3 const translate);
+
+// ijkDualQuatAxisAngleTranslateDQ*v
+//	Make rotation dual quaternion with unit axis and angle in degrees.
+//		param dq_out: output dual quaternion, rotation-scale
+//		param axis_unit: unit axis of rotation
+//		param angle_degrees: angle of rotation in degrees
+//		param translate: translation offset vector
+//		return: dq_out
+float4m ijkDualQuatAxisAngleTranslateDQfv(float2x4 dq_out, float3 const axis_unit, f32 const angle_degrees, float3 const translate);
+
+// ijkDualQuatScaleTranslateDQ*v
+//	Make rotation dual quaternion with uniform scale.
+//		param dq_out: output dual quaternion, rotation-scale
+//		param scale_unif: uniform scale amount
+//		param translate: translation offset vector
+//		return: dq_out
+float4m ijkDualQuatScaleTranslateDQfv(float2x4 dq_out, f32 const scale_unif, float3 const translate);
+
+// ijkDualQuatRotateScaleTranslateDQ*v
+//	Make rotation dual quaternion with Euler angles and uniform scale.
+//		param dq_out: output dual quaternion, rotation-scale
+//		param order: written order of Euler angles (functional order of 
+//			operations is right-to-left)
+//		param rotateDegXYZ: Euler angles in degrees (component order XYZ)
+//		param scale_unif: uniform scale amount
+//		param translate: translation offset vector
+//		return: dq_out
+float4m ijkDualQuatRotateScaleTranslateDQfv(float2x4 dq_out, ijkRotationOrder const order, float3 const rotateDegXYZ, f32 const scale_unif, float3 const translate);
+
+// ijkDualQuatAxisAngleScaleTranslateDQ*v
+//	Make rotation dual quaternion with unit axis, angle in degrees and uniform scale.
+//		param dq_out: output dual quaternion, rotation-scale
+//		param axis_unit: unit axis of rotation
+//		param angle_degrees: angle of rotation in degrees
+//		param scale_unif: uniform scale amount
+//		param translate: translation offset vector
+//		return: dq_out
+float4m ijkDualQuatAxisAngleScaleTranslateDQfv(float2x4 dq_out, float3 const axis_unit, f32 const angle_degrees, f32 const scale_unif, float3 const translate);
+
+// ijkDualQuatGetRotateDQ*v
+//	Extract Euler angles from rotation dual quaternion.
+//		param dq_in: input dual quaternion
+//		param order: written order of Euler angles (functional order of 
+//			operations is right-to-left)
+//		param rotateDegXYZ_out: storage for Euler angles in component order XYZ
+//		return: dq_in
+float4km ijkDualQuatGetRotateDQfv(float2x4 const dq_in, ijkRotationOrder const order, float3 rotateDegXYZ_out);
+
+// ijkDualQuatGetAxisAngleDQ*v
+//	Extract unit axis and angle in degrees from dual quaternion.
+//		param dq_in: input dual quaternion
+//		param axis_unit_out: storage for unit axis of rotation
+//		param angle_degrees_out: storage for rotation angle in degrees
+//		return: dq_in
+float4km ijkDualQuatGetAxisAngleDQfv(float2x4 const dq_in, float3 axis_unit_out, f32* const angle_degrees_out);
+
+// ijkDualQuatGetScaleDQ*v
+//	Extract uniform scale from dual quaternion.
+//		param dq_in: input dual quaternion
+//		param scale_unif_out: storage for uniform scale amount
+//		return: dq_in
+float4km ijkDualQuatGetScaleDQfv(float2x4 const dq_in, f32* const scale_unif_out);
+
+// ijkDualQuatGetRotateScaleDQ*v
+//	Extract Euler angles and uniform scale from dual quaternion.
+//		param dq_in: input dual quaternion
+//		param order: written order of Euler angles (functional order of 
+//			operations is right-to-left)
+//		param rotateDegXYZ_out: storage for Euler angles in component order XYZ
+//		param scale_unif_out: storage for uniform scale amount
+//		return: dq_in
+float4km ijkDualQuatGetRotateScaleDQfv(float2x4 const dq_in, ijkRotationOrder const order, float3 rotateDegXYZ_out, f32* const scale_unif_out);
+
+// ijkDualQuatGetAxisAngleScaleDQ*v
+//	Extract unit axis, angle in degrees and uniform scale from dual quaternion.
+//		param dq_in: input dual quaternion
+//		param axis_unit_out: storage for unit axis of rotation
+//		param angle_degrees_out: storage for rotation angle in degrees
+//		param scale_unif_out: storage for uniform scale amount
+//		return: dq_in
+float4km ijkDualQuatGetAxisAngleScaleDQfv(float2x4 const dq_in, float3 axis_unit_out, f32* const angle_degrees_out, f32* const scale_unif_out);
+
+// ijkDualQuatGetTranslateDQ*v
+//	Extract Euler angles from rotation dual quaternion.
+//		param dq_in: input dual quaternion
+//		param translate_out: storage for translation offset vector
+//		return: dq_in
+float4km ijkDualQuatGetTranslateDQfv(float2x4 const dq_in, float3 translate_out);
+
+// ijkDualQuatGetRotateTranslateDQ*v
+//	Extract Euler angles from rotation dual quaternion.
+//		param dq_in: input dual quaternion
+//		param order: written order of Euler angles (functional order of 
+//			operations is right-to-left)
+//		param rotateDegXYZ_out: storage for Euler angles in component order XYZ
+//		param translate_out: storage for translation offset vector
+//		return: dq_in
+float4km ijkDualQuatGetRotateTranslateDQfv(float2x4 const dq_in, ijkRotationOrder const order, float3 rotateDegXYZ_out, float3 translate_out);
+
+// ijkDualQuatGetAxisAngleTranslateDQ*v
+//	Extract unit axis and angle in degrees from dual quaternion.
+//		param dq_in: input dual quaternion
+//		param axis_unit_out: storage for unit axis of rotation
+//		param angle_degrees_out: storage for rotation angle in degrees
+//		param translate_out: storage for translation offset vector
+//		return: dq_in
+float4km ijkDualQuatGetAxisAngleTranslateDQfv(float2x4 const dq_in, float3 axis_unit_out, f32* const angle_degrees_out, float3 translate_out);
+
+// ijkDualQuatGetScaleTranslateDQ*v
+//	Extract uniform scale from dual quaternion.
+//		param dq_in: input dual quaternion
+//		param scale_unif_out: storage for uniform scale amount
+//		param translate_out: storage for translation offset vector
+//		return: dq_in
+float4km ijkDualQuatGetScaleTranslateDQfv(float2x4 const dq_in, f32* const scale_unif_out, float3 translate_out);
+
+// ijkDualQuatGetRotateScaleTranslateDQ*v
+//	Extract Euler angles and uniform scale from dual quaternion.
+//		param dq_in: input dual quaternion
+//		param order: written order of Euler angles (functional order of 
+//			operations is right-to-left)
+//		param rotateDegXYZ_out: storage for Euler angles in component order XYZ
+//		param scale_unif_out: storage for uniform scale amount
+//		param translate_out: storage for translation offset vector
+//		return: dq_in
+float4km ijkDualQuatGetRotateScaleTranslateDQfv(float2x4 const dq_in, ijkRotationOrder const order, float3 rotateDegXYZ_out, f32* const scale_unif_out, float3 translate_out);
+
+// ijkDualQuatGetAxisAngleScaleTranslateDQ*v
+//	Extract unit axis, angle in degrees and uniform scale from dual quaternion.
+//		param dq_in: input dual quaternion
+//		param axis_unit_out: storage for unit axis of rotation
+//		param angle_degrees_out: storage for rotation angle in degrees
+//		param scale_unif_out: storage for uniform scale amount
+//		param translate_out: storage for translation offset vector
+//		return: dq_in
+float4km ijkDualQuatGetAxisAngleScaleTranslateDQfv(float2x4 const dq_in, float3 axis_unit_out, f32* const angle_degrees_out, f32* const scale_unif_out, float3 translate_out);
+
+// ijkDualQuatGetScrewParamsDQ*v
+//	Extract screw parameters from dual quaternion.
+//		param dq_in: input dual quaternion
+//		param axis_unit_out: storage for unit axis of rotation
+//		param angle_degrees_out: storage for rotation angle in degrees
+//		param translate_out: storage for translation offset vector
+//		param momentArm_out: storage for moment arm
+//		param screwDisplace_out: storage for screw displacement parameter
+//		return: dq_in
+float4km ijkDualQuatGetScrewParamsDQfv(float2x4 const dq_in, float3 axis_unit_out, f32* const angle_degrees_out, float3 translate_out, float3 momentArm_out, f32* const screwDisplace_out);
+
+// ijkDualQuatGetMatDQ*v3
+//	Convert dual quaternion to 3D matrix.
+//		param m_out: output matrix
+//		param dq_in: input dual quaternion
+//		return: m_out
+float3m ijkDualQuatGetMatDQfv3(float3x3 m_out, float2x4 const dq_in);
+
+// ijkDualQuatGetMatDQ*v4
+//	Convert dual quaternion to 4D matrix.
+//		param m_out: output matrix
+//		param dq_in: input dual quaternion
+//		return: m_out
+float4m ijkDualQuatGetMatDQfv4(float4x4 m_out, float2x4 const dq_in);
+
+// ijkDualQuatTransformVecDQ*v3
+//	Rotate and/or scale a 3D vector using a dual quaternion.
+//		param v_out: output vector
+//		param dq_in: input dual quaternion
+//		return: v_out
+floatv ijkDualQuatTransformVecDQfv3(float3 v_out, float2x4 const dq_in);
+
+// ijkDualQuatTransformVecDQ*v4
+//	Rotate and/or scale a 4D vector using a dual quaternion.
+//		param v_out: output vector
+//		param dq_in: input dual quaternion
+//		return: v_out
+floatv ijkDualQuatTransformVecDQfv4(float4 v_out, float2x4 const dq_in);
+
+// ijkDualQuatNlerpDQ*v
+//	Calculate normalized linear interpolation between two dual quaternions; 
+//	keeps result at unit-length but yields a non-uniform rate of change.
+//		param dq_out: output dual quaternion, interpolated dual quaternion
+//		param dq0: input initial control dual quaternion, result when param is 0
+//		param dq1: input terminal control dual quaternion, result when param is 1
+//		param u: interpolation parameter; values in domain [0,1] result in 
+//			interpolation in range [dq0,dq1], others result in extrapolation
+//		return: dq_out
+float4m ijkDualQuatNlerpDQfv(float2x4 dq_out, float2x4 const dq0, float2x4 const dq1, f32 const u);
+
+// ijkDualQuatSclerpDQ*v
+//	Calculate screw linear interpolation between two unit dual quaternions; 
+//	keeps result at unit-length and yields a uniform rate of change.
+//		param dq_out: output dual quaternion, interpolated dual quaternion
+//		param dq0: input initial control dual quaternion, result when param is 0
+//		param dq1: input terminal control dual quaternion, result when param is 1
+//		param u: interpolation parameter; values in domain [0,1] result in 
+//			interpolation in range [dq0,dq1], others result in extrapolation
+//		return: dq_out
+float4m ijkDualQuatSclerpDQfv(float2x4 dq_out, float2x4 const dq0, float2x4 const dq1, f32 const u);
+
+// ijkDualQuatDerivDQ*v
+//	Calculate derivative of dual quaternion.
+//		param dq1_out: output dual quaternion, derivative of dual quaternion
+//		param dq_in: input dual quaternion
+//		param linearVelocity: linear velocity vector
+//		param angularVelocity: angular velocity vector
+//		return: dq1_out
+float4m ijkDualQuatDerivDQfv(float2x4 dq1_out, float2x4 const dq_in, float3 const linearVelocity, float3 const angularVelocity);
+
+// ijkDualQuatDeriv2DQ*v
+//	Calculate second derivative of dual quaternion.
+//		param dq2_out: output dual quaternion, second derivative of dual quaternion
+//		param dq1_out: output dual quaternion, first derivative of dual quaternion
+//		param dq_in: input dual quaternion
+//		param linearVelocity: linear velocity vector
+//		param linearAcceleration: linear acceleration vector
+//		param angularVelocity: angular velocity vector
+//		param angularAcceleration: angular acceleration vector
+//		return: dq2_out
+float4m ijkDualQuatDeriv2DQfv(float2x4 dq2_out, float2x4 dq1_out, float2x4 const dq_in, float3 const linearVelocity, float3 const linearAcceleration, float3 const angularVelocity, float3 const angularAcceleration);
+
 
 //-----------------------------------------------------------------------------
 
