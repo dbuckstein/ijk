@@ -33,11 +33,34 @@
 #ifdef __cplusplus
 extern "C" {
 #else	// !__cplusplus
+typedef enum ijkQuatComp		ijkQuatComp;
+typedef enum ijkDualQuatComp	ijkDualQuatComp;
 typedef union fquat		fquat;
 typedef union fdualquat	fdualquat;
 typedef union dquat		dquat;
 typedef union ddualquat	ddualquat;
 #endif	// __cplusplus
+
+
+//-----------------------------------------------------------------------------
+
+// ijkQuatComp
+//	Named quaternion component index for user access.
+enum ijkQuatComp
+{
+	ijkQuatVecX,
+	ijkQuatVecY,
+	ijkQuatVecZ,
+	ijkQuatReal,
+};
+
+// ijkDualQuatComp
+//	Named dual quaternion component index for user access.
+enum ijkDualQuatComp
+{
+	ijkDualQuatDual,
+	ijkDualQuatReal,
+};
 
 
 //-----------------------------------------------------------------------------

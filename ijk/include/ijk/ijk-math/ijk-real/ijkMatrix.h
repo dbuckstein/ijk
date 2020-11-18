@@ -35,6 +35,7 @@ extern "C" {
 #else	// !__cplusplus
 typedef enum ijkRotationOrder	ijkRotationOrder;
 typedef enum ijkTransformBasis	ijkTransformBasis;
+typedef enum ijkMatComp	ijkMatComp;
 typedef union fmat2		fmat2;
 typedef union fmat3		fmat3;
 typedef union fmat4		fmat4;
@@ -97,6 +98,16 @@ enum ijkTransformBasis
 	ijkTransformVert,	// Vertical or Y axis is second basis vector.
 	ijkTransformNorm,	// Normal or Z axis is third basis vector.
 	ijkTransformOrig,	// Origin or W axis is fourth basis vector.
+};
+
+// ijkMatComp
+//	Named matrix component index for user access.
+enum ijkMatComp
+{
+	ijkMatColumn0,
+	ijkMatColumn1,
+	ijkMatColumn2,
+	ijkMatColumn3,
 };
 
 

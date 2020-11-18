@@ -68,6 +68,7 @@
 #ifdef __cplusplus
 extern "C" {
 #else	// !__cplusplus
+typedef enum ijkVecComp	ijkVecComp;
 typedef union bvec2		bvec2;
 typedef union bvec3		bvec3;
 typedef union bvec4		bvec4;
@@ -111,6 +112,19 @@ typedef union dvec4		dvec4;
 #define IJK_DVEC_IMPL(vecSize)			IJK_VEC_IMPL(double,vecSize)
 
 #endif	// __cplusplus
+
+
+//-----------------------------------------------------------------------------
+
+// ijkVecComp
+//	Named vector component index for user access.
+enum ijkVecComp
+{
+	ijkVecX,
+	ijkVecY,
+	ijkVecZ,
+	ijkVecW,
+};
 
 
 //-----------------------------------------------------------------------------
