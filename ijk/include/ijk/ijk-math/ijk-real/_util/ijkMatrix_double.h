@@ -1133,7 +1133,7 @@ double3km ijkMatGetRotateZYX3dm(double3x3 const m_in, double3 rotateDegXYZ_out);
 //		param m_out: output matrix, rotation
 //		param order: written order of Euler angles (functional order of 
 //			operations is right-to-left)
-//		param rotateDegXYZ_out: storage for Euler angles in component order XYZ
+//		param rotateDegXYZ: Euler angles in degrees (component order XYZ)
 //		return: m_out
 double3m ijkMatRotate3dm(double3x3 m_out, ijkRotationOrder const order, double3 const rotateDegXYZ);
 
@@ -1461,7 +1461,7 @@ double4km ijkMatGetRotateZYX4dm(double4x4 const m_in, double3 rotateDegXYZ_out);
 //		param m_out: output matrix, rotation
 //		param order: written order of Euler angles (functional order of 
 //			operations is right-to-left)
-//		param rotateDegXYZ_out: storage for Euler angles in component order XYZ
+//		param rotateDegXYZ: Euler angles in degrees (component order XYZ)
 //		return: m_out
 double4m ijkMatRotate4dm(double4x4 m_out, ijkRotationOrder const order, double3 const rotateDegXYZ);
 

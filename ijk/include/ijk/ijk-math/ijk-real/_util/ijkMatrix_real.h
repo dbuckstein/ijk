@@ -1277,7 +1277,7 @@ extern "C" {
 //		param m_out: output matrix, rotation
 //		param order: written order of Euler angles (functional order of 
 //			operations is right-to-left)
-//		param rotateDegXYZ_out: storage for Euler angles in component order XYZ
+//		param rotateDegXYZ: Euler angles in degrees (component order XYZ)
 //		return: m_out
 //real3m ijkMatRotate3rm(real3x3 m_out, ijkRotationOrder const order, real3 const rotateDegXYZ);
 #define ijkMatRotate3rm ijk_declrealfs(ijkMatRotate3,m)
@@ -1645,7 +1645,7 @@ extern "C" {
 //		param m_out: output matrix, rotation
 //		param order: written order of Euler angles (functional order of 
 //			operations is right-to-left)
-//		param rotateDegXYZ_out: storage for Euler angles in component order XYZ
+//		param rotateDegXYZ: Euler angles in degrees (component order XYZ)
 //		return: m_out
 //real4m ijkMatRotate4rm(real4x4 m_out, ijkRotationOrder const order, real3 const rotateDegXYZ);
 #define ijkMatRotate4rm ijk_declrealfs(ijkMatRotate4,m)
