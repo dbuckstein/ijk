@@ -33,6 +33,27 @@ extern "C" {
 #endif	// __cplusplus
 
 //-----------------------------------------------------------------------------
+
+// ijkMat2P*m
+//	Pass-thru array-based 2D matrix function (does nothing).
+//		param m_out: output matrix
+//		return: m_out
+float2m ijkMat2Pfm(float2x2 m_out);
+
+// ijkMat3P*m
+//	Pass-thru array-based 3D matrix function (does nothing).
+//		param m_out: output matrix
+//		return: m_out
+float3m ijkMat3Pfm(float3x3 m_out);
+
+// ijkMat4P*m
+//	Pass-thru array-based 4D matrix function (does nothing).
+//		param m_out: output matrix
+//		return: m_out
+float4m ijkMat4Pfm(float4x4 m_out);
+
+
+//-----------------------------------------------------------------------------
 	
 // ijkMatInit2*m
 //	Initialize 2x2 matrix to default (identity: ones along the diagonal).

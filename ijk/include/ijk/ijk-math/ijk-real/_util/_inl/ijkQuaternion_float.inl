@@ -30,6 +30,19 @@
 
 //-----------------------------------------------------------------------------
 
+ijk_inl floatv ijkQuatPfv(float4 q_out)
+{
+	return q_out;
+}
+
+ijk_inl float4m ijkDualQuatPfm(float2x4 dq_out)
+{
+	return dq_out;
+}
+
+
+//-----------------------------------------------------------------------------
+
 ijk_inl floatv ijkQuatInitQfv(float4 q_out)
 {
 
@@ -390,6 +403,12 @@ ijk_inl floatv ijkQuatLnQfv(float4 q_out, float4 const q_in)
 	return q_out;
 }
 
+ijk_inl floatv ijkQuatLerpQfv(float4 q_out, float4 const q0, float4 const q1, f32 const u)
+{
+
+	return q_out;
+}
+
 ijk_inl floatv ijkQuatNlerpQfv(float4 q_out, float4 const q0, float4 const q1, f32 const u)
 {
 
@@ -429,367 +448,373 @@ ijk_inl floatv ijkQuatDecodeTranslateQfv(float3 translate_out, float4 const qt_i
 
 //-----------------------------------------------------------------------------
 
-ijk_inl float4m ijkDualQuatInitDQfv(float2x4 dq_out)
+ijk_inl float4m ijkDualQuatInitDQfm(float2x4 dq_out)
 {
 
 	return dq_out;
 }
 
-ijk_inl float4m ijkDualQuatInitDualReDQfv(float2x4 dq_out, float4 const dual, float4 const re)
+ijk_inl float4m ijkDualQuatInitDualReDQfm(float2x4 dq_out, float4 const dual, float4 const re)
 {
 
 	return dq_out;
 }
 
-ijk_inl float4m ijkDualQuatInitMatDQfv3(float2x4 dq_out, float3x3 const m_in)
+ijk_inl float4m ijkDualQuatInitMatDQfm3(float2x4 dq_out, float3x3 const m_in)
 {
 
 	return dq_out;
 }
 
-ijk_inl float4m ijkDualQuatInitMatDQfv4(float2x4 dq_out, float4x4 const m_in)
+ijk_inl float4m ijkDualQuatInitMatDQfm4(float2x4 dq_out, float4x4 const m_in)
 {
 
 	return dq_out;
 }
 
-ijk_inl float4m ijkDualQuatCopyDQfv(float2x4 dq_out, float2x4 const dq_in)
+ijk_inl float4m ijkDualQuatCopyDQfm(float2x4 dq_out, float2x4 const dq_in)
 {
 
 	return dq_out;
 }
 
-ijk_inl float4m ijkDualQuatNegateDQfv(float2x4 dq_out, float2x4 const dq_in)
+ijk_inl float4m ijkDualQuatNegateDQfm(float2x4 dq_out, float2x4 const dq_in)
 {
 
 	return dq_out;
 }
 
-ijk_inl float4m ijkDualQuatConjugateDQfv(float2x4 dq_out, float2x4 const dq_in)
+ijk_inl float4m ijkDualQuatConjugateDQfm(float2x4 dq_out, float2x4 const dq_in)
 {
 
 	return dq_out;
 }
 
-ijk_inl float4m ijkDualQuatNegateDualDQfv(float2x4 dq_out, float2x4 const dq_in)
+ijk_inl float4m ijkDualQuatNegateDualDQfm(float2x4 dq_out, float2x4 const dq_in)
 {
 
 	return dq_out;
 }
 
-ijk_inl float4m ijkDualQuatConjugateDualDQfv(float2x4 dq_out, float2x4 const dq_in)
+ijk_inl float4m ijkDualQuatConjugateDualDQfm(float2x4 dq_out, float2x4 const dq_in)
 {
 
 	return dq_out;
 }
 
-ijk_inl float4m ijkDualQuatAddDQfv(float2x4 dq_out, float2x4 const dq_lh, float2x4 const dq_rh)
+ijk_inl float4m ijkDualQuatAddDQfm(float2x4 dq_out, float2x4 const dq_lh, float2x4 const dq_rh)
 {
 
 	return dq_out;
 }
 
-ijk_inl float4m ijkDualQuatSubDQfv(float2x4 dq_out, float2x4 const dq_lh, float2x4 const dq_rh)
+ijk_inl float4m ijkDualQuatSubDQfm(float2x4 dq_out, float2x4 const dq_lh, float2x4 const dq_rh)
 {
 
 	return dq_out;
 }
 
-ijk_inl float4m ijkDualQuatMulDQfvs(float2x4 dq_out, float2x4 const dq_lh, f32 const s_rh)
+ijk_inl float4m ijkDualQuatMulDQfms(float2x4 dq_out, float2x4 const dq_lh, f32 const s_rh)
 {
 
 	return dq_out;
 }
 
-ijk_inl float4m ijkDualQuatDivDQfvs(float2x4 dq_out, float2x4 const dq_lh, f32 const s_rh)
+ijk_inl float4m ijkDualQuatDivDQfms(float2x4 dq_out, float2x4 const dq_lh, f32 const s_rh)
 {
 
 	return dq_out;
 }
 
-ijk_inl float4m ijkDualQuatDivSafeDQfvs(float2x4 dq_out, float2x4 const dq_lh, f32 const s_rh)
+ijk_inl float4m ijkDualQuatDivSafeDQfms(float2x4 dq_out, float2x4 const dq_lh, f32 const s_rh)
 {
 
 	return dq_out;
 }
 
-ijk_inl f32 ijkDualQuatLengthSqDQfv(float2x4 const dq_in)
+ijk_inl f32 ijkDualQuatLengthSqDQfm(float2x4 const dq_in)
 {
 
 	return flt_zero;
 }
 
-ijk_inl f32 ijkDualQuatLengthDQfv(float2x4 const dq_in)
+ijk_inl f32 ijkDualQuatLengthDQfm(float2x4 const dq_in)
 {
 
 	return flt_zero;
 }
 
-ijk_inl f32 ijkDualQuatLengthSqInvDQfv(float2x4 const dq_in)
+ijk_inl f32 ijkDualQuatLengthSqInvDQfm(float2x4 const dq_in)
 {
 
 	return flt_zero;
 }
 
-ijk_inl f32 ijkDualQuatLengthInvDQfv(float2x4 const dq_in)
+ijk_inl f32 ijkDualQuatLengthInvDQfm(float2x4 const dq_in)
 {
 
 	return flt_zero;
 }
 
-ijk_inl f32 ijkDualQuatLengthSqInvSafeDQfv(float2x4 const dq_in)
+ijk_inl f32 ijkDualQuatLengthSqInvSafeDQfm(float2x4 const dq_in)
 {
 
 	return flt_zero;
 }
 
-ijk_inl f32 ijkDualQuatLengthInvSafeDQfv(float2x4 const dq_in)
+ijk_inl f32 ijkDualQuatLengthInvSafeDQfm(float2x4 const dq_in)
 {
 
 	return flt_zero;
 }
 
-ijk_inl float4m ijkDualQuatNormalizeDQfv(float2x4 dq_out, float2x4 const dq_in)
+ijk_inl float4m ijkDualQuatNormalizeDQfm(float2x4 dq_out, float2x4 const dq_in)
 {
 
 	return dq_out;
 }
 
-ijk_inl float4m ijkDualQuatNormalizeSafeDQfv(float2x4 dq_out, float2x4 const dq_in)
+ijk_inl float4m ijkDualQuatNormalizeSafeDQfm(float2x4 dq_out, float2x4 const dq_in)
 {
 
 	return dq_out;
 }
 
-ijk_inl float4m ijkDualQuatInverseDQfv(float2x4 dq_out, float2x4 const dq_in)
+ijk_inl float4m ijkDualQuatInverseDQfm(float2x4 dq_out, float2x4 const dq_in)
 {
 
 	return dq_out;
 }
 
-ijk_inl float4m ijkDualQuatInverseSafeDQfv(float2x4 dq_out, float2x4 const dq_in)
+ijk_inl float4m ijkDualQuatInverseSafeDQfm(float2x4 dq_out, float2x4 const dq_in)
 {
 
 	return dq_out;
 }
 
-ijk_inl float4m ijkDualQuatMulVecDQfv3(float2x4 dq_out, float2x4 const dq_lh, float3 const v_rh)
+ijk_inl float4m ijkDualQuatMulVecDQfm3(float2x4 dq_out, float2x4 const dq_lh, float3 const v_rh)
 {
 
 	return dq_out;
 }
 
-ijk_inl float4m ijkDualQuatMulVecDQfv3q(float2x4 dq_out, float3 const v_lh, float2x4 const dq_rh)
+ijk_inl float4m ijkDualQuatMulVecDQfm3q(float2x4 dq_out, float3 const v_lh, float2x4 const dq_rh)
 {
 
 	return dq_out;
 }
 
-ijk_inl float4m ijkDualQuatMulDQfv(float2x4 dq_out, float2x4 const dq_lh, float2x4 const dq_rh)
+ijk_inl float4m ijkDualQuatMulDQfm(float2x4 dq_out, float2x4 const dq_lh, float2x4 const dq_rh)
 {
 
 	return dq_out;
 }
 
-ijk_inl float4m ijkDualQuatDivDQfv(float2x4 dq_out, float2x4 const dq_lh, float2x4 const dq_rh)
+ijk_inl float4m ijkDualQuatDivDQfm(float2x4 dq_out, float2x4 const dq_lh, float2x4 const dq_rh)
 {
 
 	return dq_out;
 }
 
-ijk_inl float4m ijkDualQuatRotateDQfv(float2x4 dq_out, ijkRotationOrder const order, float3 const rotateDegXYZ)
+ijk_inl float4m ijkDualQuatRotateDQfm(float2x4 dq_out, ijkRotationOrder const order, float3 const rotateDegXYZ)
 {
 
 	return dq_out;
 }
 
-ijk_inl float4m ijkDualQuatAxisAngleDQfv(float2x4 dq_out, float3 const axis_unit, f32 const angle_degrees)
+ijk_inl float4m ijkDualQuatAxisAngleDQfm(float2x4 dq_out, float3 const axis_unit, f32 const angle_degrees)
 {
 
 	return dq_out;
 }
 
-ijk_inl float4m ijkDualQuatScaleDQfv(float2x4 dq_out, f32 const scale_unif)
+ijk_inl float4m ijkDualQuatScaleDQfm(float2x4 dq_out, f32 const scale_unif)
 {
 
 	return dq_out;
 }
 
-ijk_inl float4m ijkDualQuatRotateScaleDQfv(float2x4 dq_out, ijkRotationOrder const order, float3 const rotateDegXYZ, f32 const scale_unif)
+ijk_inl float4m ijkDualQuatRotateScaleDQfm(float2x4 dq_out, ijkRotationOrder const order, float3 const rotateDegXYZ, f32 const scale_unif)
 {
 
 	return dq_out;
 }
 
-ijk_inl float4m ijkDualQuatAxisAngleScaleDQfv(float2x4 dq_out, float3 const axis_unit, f32 const angle_degrees, f32 const scale_unif)
+ijk_inl float4m ijkDualQuatAxisAngleScaleDQfm(float2x4 dq_out, float3 const axis_unit, f32 const angle_degrees, f32 const scale_unif)
 {
 
 	return dq_out;
 }
 
-ijk_inl float4m ijkDualQuatTranslateDQfv(float2x4 dq_out, float3 const translate)
+ijk_inl float4m ijkDualQuatTranslateDQfm(float2x4 dq_out, float3 const translate)
 {
 
 	return dq_out;
 }
 
-ijk_inl float4m ijkDualQuatRotateTranslateDQfv(float2x4 dq_out, ijkRotationOrder const order, float3 const rotateDegXYZ, float3 const translate)
+ijk_inl float4m ijkDualQuatRotateTranslateDQfm(float2x4 dq_out, ijkRotationOrder const order, float3 const rotateDegXYZ, float3 const translate)
 {
 
 	return dq_out;
 }
 
-ijk_inl float4m ijkDualQuatAxisAngleTranslateDQfv(float2x4 dq_out, float3 const axis_unit, f32 const angle_degrees, float3 const translate)
+ijk_inl float4m ijkDualQuatAxisAngleTranslateDQfm(float2x4 dq_out, float3 const axis_unit, f32 const angle_degrees, float3 const translate)
 {
 
 	return dq_out;
 }
 
-ijk_inl float4m ijkDualQuatScaleTranslateDQfv(float2x4 dq_out, f32 const scale_unif, float3 const translate)
+ijk_inl float4m ijkDualQuatScaleTranslateDQfm(float2x4 dq_out, f32 const scale_unif, float3 const translate)
 {
 
 	return dq_out;
 }
 
-ijk_inl float4m ijkDualQuatRotateScaleTranslateDQfv(float2x4 dq_out, ijkRotationOrder const order, float3 const rotateDegXYZ, f32 const scale_unif, float3 const translate)
+ijk_inl float4m ijkDualQuatRotateScaleTranslateDQfm(float2x4 dq_out, ijkRotationOrder const order, float3 const rotateDegXYZ, f32 const scale_unif, float3 const translate)
 {
 
 	return dq_out;
 }
 
-ijk_inl float4m ijkDualQuatAxisAngleScaleTranslateDQfv(float2x4 dq_out, float3 const axis_unit, f32 const angle_degrees, f32 const scale_unif, float3 const translate)
+ijk_inl float4m ijkDualQuatAxisAngleScaleTranslateDQfm(float2x4 dq_out, float3 const axis_unit, f32 const angle_degrees, f32 const scale_unif, float3 const translate)
 {
 
 	return dq_out;
 }
 
-ijk_inl float4km ijkDualQuatGetRotateDQfv(float2x4 const dq_in, ijkRotationOrder const order, float3 rotateDegXYZ_out)
+ijk_inl float4km ijkDualQuatGetRotateDQfm(float2x4 const dq_in, ijkRotationOrder const order, float3 rotateDegXYZ_out)
 {
 
 	return dq_in;
 }
 
-ijk_inl float4km ijkDualQuatGetAxisAngleDQfv(float2x4 const dq_in, float3 axis_unit_out, f32* const angle_degrees_out)
+ijk_inl float4km ijkDualQuatGetAxisAngleDQfm(float2x4 const dq_in, float3 axis_unit_out, f32* const angle_degrees_out)
 {
 
 	return dq_in;
 }
 
-ijk_inl float4km ijkDualQuatGetScaleDQfv(float2x4 const dq_in, f32* const scale_unif_out)
+ijk_inl float4km ijkDualQuatGetScaleDQfm(float2x4 const dq_in, f32* const scale_unif_out)
 {
 
 	return dq_in;
 }
 
-ijk_inl float4km ijkDualQuatGetRotateScaleDQfv(float2x4 const dq_in, ijkRotationOrder const order, float3 rotateDegXYZ_out, f32* const scale_unif_out)
+ijk_inl float4km ijkDualQuatGetRotateScaleDQfm(float2x4 const dq_in, ijkRotationOrder const order, float3 rotateDegXYZ_out, f32* const scale_unif_out)
 {
 
 	return dq_in;
 }
 
-ijk_inl float4km ijkDualQuatGetAxisAngleScaleDQfv(float2x4 const dq_in, float3 axis_unit_out, f32* const angle_degrees_out, f32* const scale_unif_out)
+ijk_inl float4km ijkDualQuatGetAxisAngleScaleDQfm(float2x4 const dq_in, float3 axis_unit_out, f32* const angle_degrees_out, f32* const scale_unif_out)
 {
 
 	return dq_in;
 }
 
-ijk_inl float4km ijkDualQuatGetTranslateDQfv(float2x4 const dq_in, float3 translate_out)
+ijk_inl float4km ijkDualQuatGetTranslateDQfm(float2x4 const dq_in, float3 translate_out)
 {
 
 	return dq_in;
 }
 
-ijk_inl float4km ijkDualQuatGetRotateTranslateDQfv(float2x4 const dq_in, ijkRotationOrder const order, float3 rotateDegXYZ_out, float3 translate_out)
+ijk_inl float4km ijkDualQuatGetRotateTranslateDQfm(float2x4 const dq_in, ijkRotationOrder const order, float3 rotateDegXYZ_out, float3 translate_out)
 {
 
 	return dq_in;
 }
 
-ijk_inl float4km ijkDualQuatGetAxisAngleTranslateDQfv(float2x4 const dq_in, float3 axis_unit_out, f32* const angle_degrees_out, float3 translate_out)
+ijk_inl float4km ijkDualQuatGetAxisAngleTranslateDQfm(float2x4 const dq_in, float3 axis_unit_out, f32* const angle_degrees_out, float3 translate_out)
 {
 
 	return dq_in;
 }
 
-ijk_inl float4km ijkDualQuatGetScaleTranslateDQfv(float2x4 const dq_in, f32* const scale_unif_out, float3 translate_out)
+ijk_inl float4km ijkDualQuatGetScaleTranslateDQfm(float2x4 const dq_in, f32* const scale_unif_out, float3 translate_out)
 {
 
 	return dq_in;
 }
 
-ijk_inl float4km ijkDualQuatGetRotateScaleTranslateDQfv(float2x4 const dq_in, ijkRotationOrder const order, float3 rotateDegXYZ_out, f32* const scale_unif_out, float3 translate_out)
+ijk_inl float4km ijkDualQuatGetRotateScaleTranslateDQfm(float2x4 const dq_in, ijkRotationOrder const order, float3 rotateDegXYZ_out, f32* const scale_unif_out, float3 translate_out)
 {
 
 	return dq_in;
 }
 
-ijk_inl float4km ijkDualQuatGetAxisAngleScaleTranslateDQfv(float2x4 const dq_in, float3 axis_unit_out, f32* const angle_degrees_out, f32* const scale_unif_out, float3 translate_out)
+ijk_inl float4km ijkDualQuatGetAxisAngleScaleTranslateDQfm(float2x4 const dq_in, float3 axis_unit_out, f32* const angle_degrees_out, f32* const scale_unif_out, float3 translate_out)
 {
 
 	return dq_in;
 }
 
-ijk_inl float4km ijkDualQuatGetScrewParamsDQfv(float2x4 const dq_in, float3 axis_unit_out, f32* const angle_degrees_out, float3 translate_out, float3 momentArm_out, f32* const screwDisplace_out)
+ijk_inl float4km ijkDualQuatGetScrewParamsDQfm(float2x4 const dq_in, float3 axis_unit_out, f32* const angle_degrees_out, float3 translate_out, float3 momentArm_out, f32* const screwDisplace_out)
 {
 
 	return dq_in;
 }
 
-ijk_inl float3m ijkDualQuatGetMatDQfv3(float3x3 m_out, float2x4 const dq_in)
+ijk_inl float3m ijkDualQuatGetMatDQfm3(float3x3 m_out, float2x4 const dq_in)
 {
 
 	return m_out;
 }
 
-ijk_inl float4m ijkDualQuatGetMatDQfv4(float4x4 m_out, float2x4 const dq_in)
+ijk_inl float4m ijkDualQuatGetMatDQfm4(float4x4 m_out, float2x4 const dq_in)
 {
 
 	return m_out;
 }
 
-ijk_inl floatv ijkDualQuatTransformVecDQfv3(float3 v_out, float2x4 const dq_in)
+ijk_inl floatv ijkDualQuatTransformVecDQfm3(float3 v_out, float2x4 const dq_in)
 {
 
 	return v_out;
 }
 
-ijk_inl floatv ijkDualQuatTransformVecDQfv4(float4 v_out, float2x4 const dq_in)
+ijk_inl floatv ijkDualQuatTransformVecDQfm4(float4 v_out, float2x4 const dq_in)
 {
 
 	return v_out;
 }
 
-ijk_inl floatv ijkDualQuatTransformScaleVecDQfv3(float3 v_out, float2x4 const dq_in)
+ijk_inl floatv ijkDualQuatTransformScaleVecDQfm3(float3 v_out, float2x4 const dq_in)
 {
 
 	return v_out;
 }
 
-ijk_inl floatv ijkDualQuatTransformScaleVecDQfv4(float4 v_out, float2x4 const dq_in)
+ijk_inl floatv ijkDualQuatTransformScaleVecDQfm4(float4 v_out, float2x4 const dq_in)
 {
 
 	return v_out;
 }
 
-ijk_inl float4m ijkDualQuatNlerpDQfv(float2x4 dq_out, float2x4 const dq0, float2x4 const dq1, f32 const u)
+ijk_inl float4m ijkDualQuatLerpDQfm(float2x4 dq_out, float2x4 const dq0, float2x4 const dq1, f32 const u)
 {
 
 	return dq_out;
 }
 
-ijk_inl float4m ijkDualQuatSclerpDQfv(float2x4 dq_out, float2x4 const dq0, float2x4 const dq1, f32 const u)
+ijk_inl float4m ijkDualQuatNlerpDQfm(float2x4 dq_out, float2x4 const dq0, float2x4 const dq1, f32 const u)
 {
 
 	return dq_out;
 }
 
-ijk_inl float4m ijkDualQuatDerivDQfv(float2x4 dq1_out, float2x4 const dq_in, float3 const linearVelocity, float3 const angularVelocity)
+ijk_inl float4m ijkDualQuatSclerpDQfm(float2x4 dq_out, float2x4 const dq0, float2x4 const dq1, f32 const u)
+{
+
+	return dq_out;
+}
+
+ijk_inl float4m ijkDualQuatDerivDQfm(float2x4 dq1_out, float2x4 const dq_in, float3 const linearVelocity, float3 const angularVelocity)
 {
 
 	return dq1_out;
 }
 
-ijk_inl float4m ijkDualQuatDeriv2DQfv(float2x4 dq2_out, float2x4 dq1_out, float2x4 const dq_in, float3 const linearVelocity, float3 const linearAcceleration, float3 const angularVelocity, float3 const angularAcceleration)
+ijk_inl float4m ijkDualQuatDeriv2DQfm(float2x4 dq2_out, float2x4 dq1_out, float2x4 const dq_in, float3 const linearVelocity, float3 const linearAcceleration, float3 const angularVelocity, float3 const angularAcceleration)
 {
 
 	return dq2_out;

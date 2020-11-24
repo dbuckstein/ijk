@@ -30,6 +30,24 @@
 
 //-----------------------------------------------------------------------------
 
+ijk_inl double2m ijkMat2Pdm(double2x2 m_out)
+{
+	return m_out;
+}
+
+ijk_inl double3m ijkMat3Pdm(double3x3 m_out)
+{
+	return m_out;
+}
+
+ijk_inl double4m ijkMat4Pdm(double4x4 m_out)
+{
+	return m_out;
+}
+
+
+//-----------------------------------------------------------------------------
+
 ijk_inl double2m ijkMatInit2dm(double2x2 m_out)
 {
 	m_out[0][0] = m_out[1][1] = dbl_one;

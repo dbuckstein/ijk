@@ -30,6 +30,24 @@
 
 //-----------------------------------------------------------------------------
 
+ijk_inl float2m ijkMat2Pfm(float2x2 m_out)
+{
+	return m_out;
+}
+
+ijk_inl float3m ijkMat3Pfm(float3x3 m_out)
+{
+	return m_out;
+}
+
+ijk_inl float4m ijkMat4Pfm(float4x4 m_out)
+{
+	return m_out;
+}
+
+
+//-----------------------------------------------------------------------------
+
 ijk_inl float2m ijkMatInit2fm(float2x2 m_out)
 {
 	m_out[0][0] = m_out[1][1] = flt_one;
