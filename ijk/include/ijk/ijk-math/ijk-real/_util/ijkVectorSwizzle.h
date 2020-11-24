@@ -128,7 +128,7 @@
 
 // Convenience macros for declaring template vector types.
 ///
-#define IJK_TVEC_IMPL(vecSize)			IJK_VECA_IMPL(type,vecSize)
+#define IJK_TVEC_IMPL(sz)				IJK_VEC_IMPL(type,ttvec,sz,<type>)
 
 #pragma endregion
 // IJK_SWIZZLE_MACRO_DECL

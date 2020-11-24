@@ -37,29 +37,21 @@
 // Vector definition shortcuts (in lieu of templates in C).
 ///
 #define IJK_VECS(t1,x,t2,y)				struct { t1 x; t2 y; }
-#define IJK_VEC2(t1,t2,t3,t4,x,y,z,w)	t2 x##y; IJK_VECS(t1,x,t1,y)
-#define IJK_VEC3(t1,t2,t3,t4,x,y,z,w)	t3 x##y##z; t2 x##y; IJK_VECS(t1,x,union,{ IJK_VEC2(t1,t2,,,y,z,,); })
-#define IJK_VEC4(t1,t2,t3,t4,x,y,z,w)	t4 x##y##z##w; t3 x##y##z; t2 x##y; IJK_VECS(t1,x,union,{ IJK_VEC3(t1,t2,t3,,y,z,w,); })
+#define IJK_VEC2(t1,t2,t3,t4,x,y,z,w)	{ t2 x##y; IJK_VECS(t1,x,t1,y); }
+#define IJK_VEC3(t1,t2,t3,t4,x,y,z,w)	{ t3 x##y##z; t2 x##y; IJK_VECS(t1,x,union,IJK_VEC2(t1,t2,,,y,z,,)); }
+#define IJK_VEC4(t1,t2,t3,t4,x,y,z,w)	{ t4 x##y##z##w; t3 x##y##z; t2 x##y; IJK_VECS(t1,x,union,IJK_VEC3(t1,t2,t3,,y,z,w,)); }
+#define IJK_VECA2(t1,t2,t3,t4,x,y,z,w)	t1 x##y[2]; IJK_VECS(t1,x,t1,y)
+#define IJK_VECA3(t1,t2,t3,t4,x,y,z,w)	t1 x##y##z[3]; t2 x##y; IJK_VECS(t1,x,union,IJK_VEC2(t1,t2,,,y,z,,))
+#define IJK_VECA4(t1,t2,t3,t4,x,y,z,w)	t1 x##y##z##w[4]; t3 x##y##z; t2 x##y; IJK_VECS(t1,x,union,IJK_VEC3(t1,t2,t3,,y,z,w,))
 #define IJK_VEC_DECL(decl,t1,t2,t3,t4)	decl(t1,t2,t3,t4,x,y,z,w); decl(t1,t2,t3,t4,r,g,b,a); decl(t1,t2,t3,t4,s,t,p,q)
-
-// Vector definition shortcuts (in lieu of templates in C) using arrays.
-///
-#define IJK_VECA2(t0,x,y,z,w)			t0 x##y[2]; IJK_VECS(t0,x,t0,y)
-#define IJK_VECA3(t0,x,y,z,w)			t0 x##y##z[3]; t0 x##y[2]; IJK_VECS(t0,x,union,{ IJK_VECA2(t0,y,z,,); })
-#define IJK_VECA4(t0,x,y,z,w)			t0 x##y##z##w[4]; t0 x##y##z[3]; t0 x##y[2]; IJK_VECS(t0,x,union,{ IJK_VECA3(t0,y,z,w,); })
-#define IJK_VECA_DECL(decl,t0)			decl(t0,x,y,z,w); decl(t0,r,g,b,a); decl(t0,s,t,p,q)
 
 // IJK_VEC_IMPL
 //	Implements union vector of specified type in target interface.
-//		param vecType: base type of vector (e.g. 'int' for integer vectors)
-//		param vecSize: number of elements in vector (e.g. '2' for a 2D vector)
-#define IJK_VEC_IMPL(vecType,vecSize)	IJK_VEC_DECL(IJK_VEC##vecSize,vecType,vecType##2,vecType##3,vecType##4)
-
-// IJK_VECA_IMPL
-//	Implements union vector of specified type in target interface using arrays.
-//		param vecType: base type of vector (e.g. 'int' for integer vectors)
-//		param vecSize: number of elements in vector (e.g. '2' for a 2D vector)
-#define IJK_VECA_IMPL(vecType,vecSize)	IJK_VECA_DECL(IJK_VECA##vecSize,vecType)
+//		param type: base type of vector (e.g. 'int' for integer vectors)
+//		param tvec: vector type prefix (e.g. 'ivec' for integer vectors)
+//		param sz: number of elements in vector (e.g. '2' for a 2D vector)
+//		param sfx: suffix after elements (e.g. '<type>' for a template vector)
+#define IJK_VEC_IMPL(type,tvec,sz,sfx)	type v[sz]; IJK_VEC_DECL(IJK_VECA##sz,type,tvec##2##sfx,tvec##3##sfx,tvec##4##sfx)
 
 #pragma endregion
 // IJK_SWIZZLE_VECTOR_DECL
@@ -103,13 +95,13 @@ typedef union dvec4		dvec4;
 
 // Convenience macros for declaring vector types.
 ///
-#define IJK_BVEC_IMPL(vecSize)			IJK_VEC_IMPL(bool,vecSize)
-#define IJK_IVEC_IMPL(vecSize)			IJK_VEC_IMPL(int,vecSize)
-#define IJK_ILVEC_IMPL(vecSize)			IJK_VEC_IMPL(intl,vecSize)
-#define IJK_UVEC_IMPL(vecSize)			IJK_VEC_IMPL(uint,vecSize)
-#define IJK_ULVEC_IMPL(vecSize)			IJK_VEC_IMPL(uintl,vecSize)
-#define IJK_FVEC_IMPL(vecSize)			IJK_VEC_IMPL(float,vecSize)
-#define IJK_DVEC_IMPL(vecSize)			IJK_VEC_IMPL(double,vecSize)
+#define IJK_BVEC_IMPL(sz)				IJK_VEC_IMPL(bool,bvec,sz,)
+#define IJK_IVEC_IMPL(sz)				IJK_VEC_IMPL(int,ivec,sz,)
+#define IJK_ILVEC_IMPL(sz)				IJK_VEC_IMPL(intl,ilvec,sz,)
+#define IJK_UVEC_IMPL(sz)				IJK_VEC_IMPL(uint,uvec,sz,)
+#define IJK_ULVEC_IMPL(sz)				IJK_VEC_IMPL(uintl,ulvec,sz,)
+#define IJK_FVEC_IMPL(sz)				IJK_VEC_IMPL(float,fvec,sz,)
+#define IJK_DVEC_IMPL(sz)				IJK_VEC_IMPL(double,dvec,sz,)
 
 #endif	// __cplusplus
 
@@ -180,7 +172,7 @@ typedef f64				* doublev,	// Generic double-precision array-based vector, repres
 
 // bvec2
 //	Data structure representing 2D boolean vector.
-//		members xy, rg, st: array of elements, used as pointer argument to vector functions
+//		members v, xy, rg, st: array of elements, used as pointer argument to vector functions
 //		members x, y: individual named elements representing a spatial coordinate
 //		members r, g: individual named elements representing a color
 //		members s, t: individual named elements representing a parametric coordinate
@@ -191,9 +183,9 @@ union bvec2
 
 // bvec3
 //	Data structure representing 3D boolean vector.
-//		members xyz, rgb, stp: array of elements, used as pointer argument to vector functions
-//		members xy, rg, st: partial swizzle of first two elements, used in same fashion as above
-//		members yz, gb, tp: partial swizzle of last two elements, used in same fashion as above
+//		members v, xyz, rgb, stp: array of elements, used as pointer argument to vector functions
+//		members xy, rg, st: partial swizzle of first two elements
+//		members yz, gb, tp: partial swizzle of last two elements
 //		members x, y, z: individual named elements representing a spatial coordinate
 //		members r, g, b: individual named elements representing a color
 //		members s, t, p: individual named elements representing a parametric coordinate
@@ -204,12 +196,12 @@ union bvec3
 
 // bvec4
 //	Data structure representing 4D boolean vector.
-//		members xyzw, rgba, stpq: array of elements, used as pointer argument to vector functions
-//		members xyz, rgb, stp: partial swizzle of first three elements, used in same fashion as above
-//		members yzw, gba, tpq: partial swizzle of last three elements, used in same fashion as above
-//		members xy, rg, st: partial swizzle of first two elements, used in same fashion as above
-//		members yz, gb, tp: partial swizzle of middle two elements, used in same fashion as above
-//		members zw, ba, pq: partial swizzle of last two elements, used in same fashion as above
+//		members v, xyzw, rgba, stpq: array of elements, used as pointer argument to vector functions
+//		members xyz, rgb, stp: partial swizzle of first three elements
+//		members yzw, gba, tpq: partial swizzle of last three elements
+//		members xy, rg, st: partial swizzle of first two elements
+//		members yz, gb, tp: partial swizzle of middle two elements
+//		members zw, ba, pq: partial swizzle of last two elements
 //		members x, y, z, w: individual named elements representing a spatial coordinate
 //			note: vectors have w = 0, while points have w = 1
 //		members r, g, b, a: individual named elements representing a color
@@ -224,7 +216,7 @@ union bvec4
 
 // ivec2
 //	Data structure representing 2D signed 32-bit integer vector.
-//		members xy, rg, st: array of elements, used as pointer argument to vector functions
+//		members v, xy, rg, st: array of elements, used as pointer argument to vector functions
 //		members x, y: individual named elements representing a spatial coordinate
 //		members r, g: individual named elements representing a color
 //		members s, t: individual named elements representing a parametric coordinate
@@ -235,9 +227,9 @@ union ivec2
 
 // ivec3
 //	Data structure representing 3D signed 32-bit integer vector.
-//		members xyz, rgb, stp: array of elements, used as pointer argument to vector functions
-//		members xy, rg, st: partial swizzle of first two elements, used in same fashion as above
-//		members yz, gb, tp: partial swizzle of last two elements, used in same fashion as above
+//		members v, xyz, rgb, stp: array of elements, used as pointer argument to vector functions
+//		members xy, rg, st: partial swizzle of first two elements
+//		members yz, gb, tp: partial swizzle of last two elements
 //		members x, y, z: individual named elements representing a spatial coordinate
 //		members r, g, b: individual named elements representing a color
 //		members s, t, p: individual named elements representing a parametric coordinate
@@ -248,12 +240,12 @@ union ivec3
 
 // ivec4
 //	Data structure representing 4D signed 32-bit integer vector.
-//		members xyzw, rgba, stpq: array of elements, used as pointer argument to vector functions
-//		members xyz, rgb, stp: partial swizzle of first three elements, used in same fashion as above
-//		members yzw, gba, tpq: partial swizzle of last three elements, used in same fashion as above
-//		members xy, rg, st: partial swizzle of first two elements, used in same fashion as above
-//		members yz, gb, tp: partial swizzle of middle two elements, used in same fashion as above
-//		members zw, ba, pq: partial swizzle of last two elements, used in same fashion as above
+//		members v, xyzw, rgba, stpq: array of elements, used as pointer argument to vector functions
+//		members xyz, rgb, stp: partial swizzle of first three elements
+//		members yzw, gba, tpq: partial swizzle of last three elements
+//		members xy, rg, st: partial swizzle of first two elements
+//		members yz, gb, tp: partial swizzle of middle two elements
+//		members zw, ba, pq: partial swizzle of last two elements
 //		members x, y, z, w: individual named elements representing a spatial coordinate
 //			note: vectors have w = 0, while points have w = 1
 //		members r, g, b, a: individual named elements representing a color
@@ -268,7 +260,7 @@ union ivec4
 
 // ilvec2
 //	Data structure representing 2D signed 64-bit integer vector.
-//		members xy, rg, st: array of elements, used as pointer argument to vector functions
+//		members v, xy, rg, st: array of elements, used as pointer argument to vector functions
 //		members x, y: individual named elements representing a spatial coordinate
 //		members r, g: individual named elements representing a color
 //		members s, t: individual named elements representing a parametric coordinate
@@ -279,9 +271,9 @@ union ilvec2
 
 // ilvec3
 //	Data structure representing 3D signed 64-bit integer vector.
-//		members xyz, rgb, stp: array of elements, used as pointer argument to vector functions
-//		members xy, rg, st: partial swizzle of first two elements, used in same fashion as above
-//		members yz, gb, tp: partial swizzle of last two elements, used in same fashion as above
+//		members v, xyz, rgb, stp: array of elements, used as pointer argument to vector functions
+//		members xy, rg, st: partial swizzle of first two elements
+//		members yz, gb, tp: partial swizzle of last two elements
 //		members x, y, z: individual named elements representing a spatial coordinate
 //		members r, g, b: individual named elements representing a color
 //		members s, t, p: individual named elements representing a parametric coordinate
@@ -292,12 +284,12 @@ union ilvec3
 
 // ilvec4
 //	Data structure representing 4D signed 64-bit integer vector.
-//		members xyzw, rgba, stpq: array of elements, used as pointer argument to vector functions
-//		members xyz, rgb, stp: partial swizzle of first three elements, used in same fashion as above
-//		members yzw, gba, tpq: partial swizzle of last three elements, used in same fashion as above
-//		members xy, rg, st: partial swizzle of first two elements, used in same fashion as above
-//		members yz, gb, tp: partial swizzle of middle two elements, used in same fashion as above
-//		members zw, ba, pq: partial swizzle of last two elements, used in same fashion as above
+//		members v, xyzw, rgba, stpq: array of elements, used as pointer argument to vector functions
+//		members xyz, rgb, stp: partial swizzle of first three elements
+//		members yzw, gba, tpq: partial swizzle of last three elements
+//		members xy, rg, st: partial swizzle of first two elements
+//		members yz, gb, tp: partial swizzle of middle two elements
+//		members zw, ba, pq: partial swizzle of last two elements
 //		members x, y, z, w: individual named elements representing a spatial coordinate
 //			note: vectors have w = 0, while points have w = 1
 //		members r, g, b, a: individual named elements representing a color
@@ -312,7 +304,7 @@ union ilvec4
 
 // uvec2
 //	Data structure representing 2D unsigned 32-bit integer vector.
-//		members xy, rg, st: array of elements, used as pointer argument to vector functions
+//		members v, xy, rg, st: array of elements, used as pointer argument to vector functions
 //		members x, y: individual named elements representing a spatial coordinate
 //		members r, g: individual named elements representing a color
 //		members s, t: individual named elements representing a parametric coordinate
@@ -323,9 +315,9 @@ union uvec2
 
 // uvec3
 //	Data structure representing 3D unsigned 32-bit integer vector.
-//		members xyz, rgb, stp: array of elements, used as pointer argument to vector functions
-//		members xy, rg, st: partial swizzle of first two elements, used in same fashion as above
-//		members yz, gb, tp: partial swizzle of last two elements, used in same fashion as above
+//		members v, xyz, rgb, stp: array of elements, used as pointer argument to vector functions
+//		members xy, rg, st: partial swizzle of first two elements
+//		members yz, gb, tp: partial swizzle of last two elements
 //		members x, y, z: individual named elements representing a spatial coordinate
 //		members r, g, b: individual named elements representing a color
 //		members s, t, p: individual named elements representing a parametric coordinate
@@ -336,12 +328,12 @@ union uvec3
 
 // uvec4
 //	Data structure representing 4D unsigned 32-bit integer vector.
-//		members xyzw, rgba, stpq: array of elements, used as pointer argument to vector functions
-//		members xyz, rgb, stp: partial swizzle of first three elements, used in same fashion as above
-//		members yzw, gba, tpq: partial swizzle of last three elements, used in same fashion as above
-//		members xy, rg, st: partial swizzle of first two elements, used in same fashion as above
-//		members yz, gb, tp: partial swizzle of middle two elements, used in same fashion as above
-//		members zw, ba, pq: partial swizzle of last two elements, used in same fashion as above
+//		members v, xyzw, rgba, stpq: array of elements, used as pointer argument to vector functions
+//		members xyz, rgb, stp: partial swizzle of first three elements
+//		members yzw, gba, tpq: partial swizzle of last three elements
+//		members xy, rg, st: partial swizzle of first two elements
+//		members yz, gb, tp: partial swizzle of middle two elements
+//		members zw, ba, pq: partial swizzle of last two elements
 //		members x, y, z, w: individual named elements representing a spatial coordinate
 //			note: vectors have w = 0, while points have w = 1
 //		members r, g, b, a: individual named elements representing a color
@@ -356,7 +348,7 @@ union uvec4
 
 // ulvec2
 //	Data structure representing 2D unsigned 64-bit integer vector.
-//		members xy, rg, st: array of elements, used as pointer argument to vector functions
+//		members v, xy, rg, st: array of elements, used as pointer argument to vector functions
 //		members x, y: individual named elements representing a spatial coordinate
 //		members r, g: individual named elements representing a color
 //		members s, t: individual named elements representing a parametric coordinate
@@ -367,9 +359,9 @@ union ulvec2
 
 // ulvec3
 //	Data structure representing 3D unsigned 64-bit integer vector.
-//		members xyz, rgb, stp: array of elements, used as pointer argument to vector functions
-//		members xy, rg, st: partial swizzle of first two elements, used in same fashion as above
-//		members yz, gb, tp: partial swizzle of last two elements, used in same fashion as above
+//		members v, xyz, rgb, stp: array of elements, used as pointer argument to vector functions
+//		members xy, rg, st: partial swizzle of first two elements
+//		members yz, gb, tp: partial swizzle of last two elements
 //		members x, y, z: individual named elements representing a spatial coordinate
 //		members r, g, b: individual named elements representing a color
 //		members s, t, p: individual named elements representing a parametric coordinate
@@ -380,12 +372,12 @@ union ulvec3
 
 // ulvec4
 //	Data structure representing 4D unsigned 64-bit integer vector.
-//		members xyzw, rgba, stpq: array of elements, used as pointer argument to vector functions
-//		members xyz, rgb, stp: partial swizzle of first three elements, used in same fashion as above
-//		members yzw, gba, tpq: partial swizzle of last three elements, used in same fashion as above
-//		members xy, rg, st: partial swizzle of first two elements, used in same fashion as above
-//		members yz, gb, tp: partial swizzle of middle two elements, used in same fashion as above
-//		members zw, ba, pq: partial swizzle of last two elements, used in same fashion as above
+//		members v, xyzw, rgba, stpq: array of elements, used as pointer argument to vector functions
+//		members xyz, rgb, stp: partial swizzle of first three elements
+//		members yzw, gba, tpq: partial swizzle of last three elements
+//		members xy, rg, st: partial swizzle of first two elements
+//		members yz, gb, tp: partial swizzle of middle two elements
+//		members zw, ba, pq: partial swizzle of last two elements
 //		members x, y, z, w: individual named elements representing a spatial coordinate
 //			note: vectors have w = 0, while points have w = 1
 //		members r, g, b, a: individual named elements representing a color
@@ -400,7 +392,7 @@ union ulvec4
 
 // fvec2
 //	Data structure representing 2D single-precision (float) vector.
-//		members xy, rg, st: array of elements, used as pointer argument to vector functions
+//		members v, xy, rg, st: array of elements, used as pointer argument to vector functions
 //		members x, y: individual named elements representing a spatial coordinate
 //		members r, g: individual named elements representing a color
 //		members s, t: individual named elements representing a parametric coordinate
@@ -411,9 +403,9 @@ union fvec2
 
 // fvec3
 //	Data structure representing 3D single-precision (float) vector.
-//		members xyz, rgb, stp: array of elements, used as pointer argument to vector functions
-//		members xy, rg, st: partial swizzle of first two elements, used in same fashion as above
-//		members yz, gb, tp: partial swizzle of last two elements, used in same fashion as above
+//		members v, xyz, rgb, stp: array of elements, used as pointer argument to vector functions
+//		members xy, rg, st: partial swizzle of first two elements
+//		members yz, gb, tp: partial swizzle of last two elements
 //		members x, y, z: individual named elements representing a spatial coordinate
 //		members r, g, b: individual named elements representing a color
 //		members s, t, p: individual named elements representing a parametric coordinate
@@ -424,12 +416,12 @@ union fvec3
 
 // fvec4
 //	Data structure representing 4D single-precision (float) vector.
-//		members xyzw, rgba, stpq: array of elements, used as pointer argument to vector functions
-//		members xyz, rgb, stp: partial swizzle of first three elements, used in same fashion as above
-//		members yzw, gba, tpq: partial swizzle of last three elements, used in same fashion as above
-//		members xy, rg, st: partial swizzle of first two elements, used in same fashion as above
-//		members yz, gb, tp: partial swizzle of middle two elements, used in same fashion as above
-//		members zw, ba, pq: partial swizzle of last two elements, used in same fashion as above
+//		members v, xyzw, rgba, stpq: array of elements, used as pointer argument to vector functions
+//		members xyz, rgb, stp: partial swizzle of first three elements
+//		members yzw, gba, tpq: partial swizzle of last three elements
+//		members xy, rg, st: partial swizzle of first two elements
+//		members yz, gb, tp: partial swizzle of middle two elements
+//		members zw, ba, pq: partial swizzle of last two elements
 //		members x, y, z, w: individual named elements representing a spatial coordinate
 //			note: vectors have w = 0, while points have w = 1
 //		members r, g, b, a: individual named elements representing a color
@@ -444,7 +436,7 @@ union fvec4
 
 // dvec2
 //	Data structure representing 2D double-precision (double) vector.
-//		members xy, rg, st: array of elements, used as pointer argument to vector functions
+//		members v, xy, rg, st: array of elements, used as pointer argument to vector functions
 //		members x, y: individual named elements representing a spatial coordinate
 //		members r, g: individual named elements representing a color
 //		members s, t: individual named elements representing a parametric coordinate
@@ -455,9 +447,9 @@ union dvec2
 
 // dvec3
 //	Data structure representing 3D double-precision (double) vector.
-//		members xyz, rgb, stp: array of elements, used as pointer argument to vector functions
-//		members xy, rg, st: partial swizzle of first two elements, used in same fashion as above
-//		members yz, gb, tp: partial swizzle of last two elements, used in same fashion as above
+//		members v, xyz, rgb, stp: array of elements, used as pointer argument to vector functions
+//		members xy, rg, st: partial swizzle of first two elements
+//		members yz, gb, tp: partial swizzle of last two elements
 //		members x, y, z: individual named elements representing a spatial coordinate
 //		members r, g, b: individual named elements representing a color
 //		members s, t, p: individual named elements representing a parametric coordinate
@@ -468,12 +460,12 @@ union dvec3
 
 // dvec4
 //	Data structure representing 4D double-precision (double) vector.
-//		members xyzw, rgba, stpq: array of elements, used as pointer argument to vector functions
-//		members xyz, rgb, stp: partial swizzle of first three elements, used in same fashion as above
-//		members yzw, gba, tpq: partial swizzle of last three elements, used in same fashion as above
-//		members xy, rg, st: partial swizzle of first two elements, used in same fashion as above
-//		members yz, gb, tp: partial swizzle of middle two elements, used in same fashion as above
-//		members zw, ba, pq: partial swizzle of last two elements, used in same fashion as above
+//		members v, xyzw, rgba, stpq: array of elements, used as pointer argument to vector functions
+//		members xyz, rgb, stp: partial swizzle of first three elements
+//		members yzw, gba, tpq: partial swizzle of last three elements
+//		members xy, rg, st: partial swizzle of first two elements
+//		members yz, gb, tp: partial swizzle of middle two elements
+//		members zw, ba, pq: partial swizzle of last two elements
 //		members x, y, z, w: individual named elements representing a spatial coordinate
 //			note: vectors have w = 0, while points have w = 1
 //		members r, g, b, a: individual named elements representing a color
