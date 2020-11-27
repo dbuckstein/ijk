@@ -45,7 +45,8 @@ typedef union ddualquat	ddualquat;
 //-----------------------------------------------------------------------------
 
 // ijkQuatComp
-//	Named quaternion component index for user access.
+//	Named quaternion component index for user access; vector part comes first 
+//	for easier access since it is more likely to be used.
 enum ijkQuatComp
 {
 	ijkQuatVecX,
@@ -55,11 +56,12 @@ enum ijkQuatComp
 };
 
 // ijkDualQuatComp
-//	Named dual quaternion component index for user access.
+//	Named dual quaternion component index for user access; real quaternion 
+//	comes first for easier access since it is more likely to be used.
 enum ijkDualQuatComp
 {
-	ijkDualQuatDual,
 	ijkDualQuatReal,
+	ijkDualQuatDual,
 };
 
 
@@ -86,7 +88,7 @@ typedef double4			double2x4[2];	// 2x4 (2c x 4r) double-precision array-based qu
 union fquat
 {
 	float4 v;
-	struct { float3 vec; f32 re; };
+	struct { fvec3 vec; f32 re; };
 	struct { f32 x, y, z, w; };
 };
 
@@ -98,7 +100,7 @@ union fquat
 union dquat
 {
 	double4 v;
-	struct { double3 vec; f64 re; };
+	struct { dvec3 vec; f64 re; };
 	struct { f64 x, y, z, w; };
 };
 
@@ -107,15 +109,15 @@ union dquat
 //		member v: vector array-based data
 //		member m: matrix array-based data
 //		member q: quaternion components
-//		members qd, qr: dual and real quaternion components
-//		members dual, re: dual and real quaternion components
+//		members qr, qd: real and dual quaternion components
+//		members re, dual: real and dual quaternion components
 union fdualquat
 {
 	float8 v;
 	float2x4 m;
 	fquat q[2];
-	struct { fquat qd, qr; };
-	struct { fquat dual, re; };
+	struct { fquat qr, qd; };
+	struct { fquat re, dual; };
 };
 
 // ddualquat
@@ -123,15 +125,15 @@ union fdualquat
 //		member v: vector array-based data
 //		member m: matrix array-based data
 //		member q: quaternion components
-//		members qd, qr: dual and real quaternion components
-//		members dual, re: dual and real quaternion components
+//		members qr, qd: real and dual quaternion components
+//		members re, dual: real and dual quaternion components
 union ddualquat
 {
 	double8 v;
 	double2x4 m;
 	dquat q[2];
-	struct { dquat qd, qr; };
-	struct { dquat dual, re; };
+	struct { dquat qr, qd; };
+	struct { dquat re, dual; };
 };
 
 
