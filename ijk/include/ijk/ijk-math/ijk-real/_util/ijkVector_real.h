@@ -3718,6 +3718,33 @@ extern "C" {
 //realv ijkVecSlerp2rv(real2 v_out, real2 const v0, real2 const v1, real const u);
 #define ijkVecSlerp2rv ijk_declrealfs(ijkVecSlerp2,v)
 
+// ijkVecReflectScale2*v
+//	Reflect incident vector about normal, scaling to match normal size.
+//		param v_out: output vector, reflected vector
+//		param v_in: input vector, incident vector
+//		param v_nrm: normal vector
+//		return: v_out
+//realv ijkVecReflectScale2rv(real2 v_out, real2 const v_in, real2 const v_nrm);
+#define ijkVecReflectScale2rv ijk_declrealfs(ijkVecReflectScale2,v)
+
+// ijkVecUnitReflect2*v
+//	Reflect incident vector about normal; optimized for unit normal vector.
+//		param v_out: output vector, reflected vector
+//		param v_in: input vector, incident vector
+//		param v_nrm: normal vector
+//		return: v_out
+//realv ijkVecUnitReflect2rv(real2 v_out, real2 const v_in, real2 const v_nrm);
+#define ijkVecUnitReflect2rv ijk_declrealfs(ijkVecUnitReflect2,v)
+
+// ijkVecReflect2*v
+//	Reflect incident vector about normal.
+//		param v_out: output vector, reflected vector
+//		param v_in: input vector, incident vector
+//		param v_nrm: normal vector
+//		return: v_out
+//realv ijkVecReflect2rv(real2 v_out, real2 const v_in, real2 const v_nrm);
+#define ijkVecReflect2rv ijk_declrealfs(ijkVecReflect2,v)
+
 
 //-----------------------------------------------------------------------------
 
@@ -4005,6 +4032,33 @@ extern "C" {
 //		return: v_out
 //realv ijkVecSlerp3rv(real3 v_out, real3 const v0, real3 const v1, real const u);
 #define ijkVecSlerp3rv ijk_declrealfs(ijkVecSlerp3,v)
+
+// ijkVecReflectScale3*v
+//	Reflect incident vector about normal, scaling to match normal size.
+//		param v_out: output vector, reflected vector
+//		param v_in: input vector, incident vector
+//		param v_nrm: normal vector
+//		return: v_out
+//realv ijkVecReflectScale3rv(real3 v_out, real3 const v_in, real3 const v_nrm);
+#define ijkVecReflectScale3rv ijk_declrealfs(ijkVecReflectScale3,v)
+
+// ijkVecUnitReflect3*v
+//	Reflect incident vector about normal; optimized for unit normal vector.
+//		param v_out: output vector, reflected vector
+//		param v_in: input vector, incident vector
+//		param v_nrm: normal vector
+//		return: v_out
+//realv ijkVecUnitReflect3rv(real3 v_out, real3 const v_in, real3 const v_nrm);
+#define ijkVecUnitReflect3rv ijk_declrealfs(ijkVecUnitReflect3,v)
+
+// ijkVecReflect3*v
+//	Reflect incident vector about normal.
+//		param v_out: output vector, reflected vector
+//		param v_in: input vector, incident vector
+//		param v_nrm: normal vector
+//		return: v_out
+//realv ijkVecReflect3rv(real3 v_out, real3 const v_in, real3 const v_nrm);
+#define ijkVecReflect3rv ijk_declrealfs(ijkVecReflect3,v)
 
 
 //-----------------------------------------------------------------------------
@@ -4294,6 +4348,33 @@ extern "C" {
 //realv ijkVecSlerp4rv(real4 v_out, real4 const v0, real4 const v1, real const u);
 #define ijkVecSlerp4rv ijk_declrealfs(ijkVecSlerp4,v)
 
+// ijkVecReflectScale4*v
+//	Reflect incident vector about normal, scaling to match normal size.
+//		param v_out: output vector, reflected vector
+//		param v_in: input vector, incident vector
+//		param v_nrm: normal vector
+//		return: v_out
+//realv ijkVecReflectScale4rv(real4 v_out, real4 const v_in, real4 const v_nrm);
+#define ijkVecReflectScale4rv ijk_declrealfs(ijkVecReflectScale4,v)
+
+// ijkVecUnitReflect4*v
+//	Reflect incident vector about normal; optimized for unit normal vector.
+//		param v_out: output vector, reflected vector
+//		param v_in: input vector, incident vector
+//		param v_nrm: normal vector
+//		return: v_out
+//realv ijkVecUnitReflect4rv(real4 v_out, real4 const v_in, real4 const v_nrm);
+#define ijkVecUnitReflect4rv ijk_declrealfs(ijkVecUnitReflect4,v)
+
+// ijkVecReflect4*v
+//	Reflect incident vector about normal.
+//		param v_out: output vector, reflected vector
+//		param v_in: input vector, incident vector
+//		param v_nrm: normal vector
+//		return: v_out
+//realv ijkVecReflect4rv(real4 v_out, real4 const v_in, real4 const v_nrm);
+#define ijkVecReflect4rv ijk_declrealfs(ijkVecReflect4,v)
+
 
 //-----------------------------------------------------------------------------
 
@@ -4566,6 +4647,30 @@ extern "C" {
 //rvec2 ijkVecSlerp2r(rvec2 const v0, rvec2 const v1, real const u);
 #define ijkVecSlerp2r ijk_declrealfs(ijkVecSlerp2,)
 
+// ijkVecReflectScale2*
+//	Reflect incident vector about normal, scaling to match normal size.
+//		param v_in: input vector, incident vector
+//		param v_nrm: normal vector
+//		return: reflected vector
+//rvec2 ijkVecReflectScale2r(rvec2 const v_in, rvec2 const v_nrm);
+#define ijkVecReflectScale2r ijk_declrealfs(ijkVecReflectScale2,)
+
+// ijkVecUnitReflect2*
+//	Reflect incident vector about normal; optimized for unit normal vector.
+//		param v_in: input vector, incident vector
+//		param v_nrm: normal vector
+//		return: reflected vector
+//rvec2 ijkVecUnitReflect2r(rvec2 const v_in, rvec2 const v_nrm);
+#define ijkVecUnitReflect2r ijk_declrealfs(ijkVecUnitReflect2,)
+
+// ijkVecReflect2*
+//	Reflect incident vector about normal.
+//		param v_in: input vector, incident vector
+//		param v_nrm: normal vector
+//		return: reflected vector
+//rvec2 ijkVecReflect2r(rvec2 const v_in, rvec2 const v_nrm);
+#define ijkVecReflect2r ijk_declrealfs(ijkVecReflect2,)
+
 
 //-----------------------------------------------------------------------------
 
@@ -4831,6 +4936,30 @@ extern "C" {
 //rvec3 ijkVecSlerp3r(rvec3 const v0, rvec3 const v1, real const u);
 #define ijkVecSlerp3r ijk_declrealfs(ijkVecSlerp3,)
 
+// ijkVecReflectScale3*
+//	Reflect incident vector about normal, scaling to match normal size.
+//		param v_in: input vector, incident vector
+//		param v_nrm: normal vector
+//		return: reflected vector
+//rvec3 ijkVecReflectScale3r(rvec3 const v_in, rvec3 const v_nrm);
+#define ijkVecReflectScale3r ijk_declrealfs(ijkVecReflectScale3,)
+
+// ijkVecUnitReflect3*
+//	Reflect incident vector about normal; optimized for unit normal vector.
+//		param v_in: input vector, incident vector
+//		param v_nrm: normal vector
+//		return: reflected vector
+//rvec3 ijkVecUnitReflect3r(rvec3 const v_in, rvec3 const v_nrm);
+#define ijkVecUnitReflect3r ijk_declrealfs(ijkVecUnitReflect3,)
+
+// ijkVecReflect3*
+//	Reflect incident vector about normal.
+//		param v_in: input vector, incident vector
+//		param v_nrm: normal vector
+//		return: reflected vector
+//rvec3 ijkVecReflect3r(rvec3 const v_in, rvec3 const v_nrm);
+#define ijkVecReflect3r ijk_declrealfs(ijkVecReflect3,)
+
 
 //-----------------------------------------------------------------------------
 
@@ -5095,6 +5224,30 @@ extern "C" {
 //		return: interpolated vector
 //rvec4 ijkVecSlerp4r(rvec4 const v0, rvec4 const v1, real const u);
 #define ijkVecSlerp4r ijk_declrealfs(ijkVecSlerp4,)
+
+// ijkVecReflectScale4*
+//	Reflect incident vector about normal, scaling to match normal size.
+//		param v_in: input vector, incident vector
+//		param v_nrm: normal vector
+//		return: reflected vector
+//rvec4 ijkVecReflectScale4r(rvec4 const v_in, rvec4 const v_nrm);
+#define ijkVecReflectScale4r ijk_declrealfs(ijkVecReflectScale4,)
+
+// ijkVecUnitReflect4*
+//	Reflect incident vector about normal; optimized for unit normal vector.
+//		param v_in: input vector, incident vector
+//		param v_nrm: normal vector
+//		return: reflected vector
+//rvec4 ijkVecUnitReflect4r(rvec4 const v_in, rvec4 const v_nrm);
+#define ijkVecUnitReflect4r ijk_declrealfs(ijkVecUnitReflect4,)
+
+// ijkVecReflect4*
+//	Reflect incident vector about normal.
+//		param v_in: input vector, incident vector
+//		param v_nrm: normal vector
+//		return: reflected vector
+//rvec4 ijkVecReflect4r(rvec4 const v_in, rvec4 const v_nrm);
+#define ijkVecReflect4r ijk_declrealfs(ijkVecReflect4,)
 
 
 //-----------------------------------------------------------------------------

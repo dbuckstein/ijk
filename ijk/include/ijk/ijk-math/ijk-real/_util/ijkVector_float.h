@@ -3285,6 +3285,30 @@ floatv ijkVecNlerp2fv(float2 v_out, float2 const v0, float2 const v1, f32 const 
 //		return: v_out
 floatv ijkVecSlerp2fv(float2 v_out, float2 const v0, float2 const v1, f32 const u);
 
+// ijkVecReflectScale2*v
+//	Reflect incident vector about normal, scaling to match normal size.
+//		param v_out: output vector, reflected vector
+//		param v_in: input vector, incident vector
+//		param v_nrm: normal vector
+//		return: v_out
+floatv ijkVecReflectScale2fv(float2 v_out, float2 const v_in, float2 const v_nrm);
+
+// ijkVecUnitReflect2*v
+//	Reflect incident vector about normal; optimized for unit normal vector.
+//		param v_out: output vector, reflected vector
+//		param v_in: input vector, incident vector
+//		param v_nrm: normal vector
+//		return: v_out
+floatv ijkVecUnitReflect2fv(float2 v_out, float2 const v_in, float2 const v_nrm);
+
+// ijkVecReflect2*v
+//	Reflect incident vector about normal.
+//		param v_out: output vector, reflected vector
+//		param v_in: input vector, incident vector
+//		param v_nrm: normal vector
+//		return: v_out
+floatv ijkVecReflect2fv(float2 v_out, float2 const v_in, float2 const v_nrm);
+
 
 //-----------------------------------------------------------------------------
 
@@ -3542,6 +3566,30 @@ floatv ijkVecNlerp3fv(float3 v_out, float3 const v0, float3 const v1, f32 const 
 //			interpolation in range [v0,v1], others result in extrapolation
 //		return: v_out
 floatv ijkVecSlerp3fv(float3 v_out, float3 const v0, float3 const v1, f32 const u);
+
+// ijkVecReflectScale3*v
+//	Reflect incident vector about normal, scaling to match normal size.
+//		param v_out: output vector, reflected vector
+//		param v_in: input vector, incident vector
+//		param v_nrm: normal vector
+//		return: v_out
+floatv ijkVecReflectScale3fv(float3 v_out, float3 const v_in, float3 const v_nrm);
+
+// ijkVecUnitReflect3*v
+//	Reflect incident vector about normal; optimized for unit normal vector.
+//		param v_out: output vector, reflected vector
+//		param v_in: input vector, incident vector
+//		param v_nrm: normal vector
+//		return: v_out
+floatv ijkVecUnitReflect3fv(float3 v_out, float3 const v_in, float3 const v_nrm);
+
+// ijkVecReflect3*v
+//	Reflect incident vector about normal.
+//		param v_out: output vector, reflected vector
+//		param v_in: input vector, incident vector
+//		param v_nrm: normal vector
+//		return: v_out
+floatv ijkVecReflect3fv(float3 v_out, float3 const v_in, float3 const v_nrm);
 
 
 //-----------------------------------------------------------------------------
@@ -3801,6 +3849,30 @@ floatv ijkVecNlerp4fv(float4 v_out, float4 const v0, float4 const v1, f32 const 
 //		return: v_out
 floatv ijkVecSlerp4fv(float4 v_out, float4 const v0, float4 const v1, f32 const u);
 
+// ijkVecReflectScale4*v
+//	Reflect incident vector about normal, scaling to match normal size.
+//		param v_out: output vector, reflected vector
+//		param v_in: input vector, incident vector
+//		param v_nrm: normal vector
+//		return: v_out
+floatv ijkVecReflectScale4fv(float4 v_out, float4 const v_in, float4 const v_nrm);
+
+// ijkVecUnitReflect4*v
+//	Reflect incident vector about normal; optimized for unit normal vector.
+//		param v_out: output vector, reflected vector
+//		param v_in: input vector, incident vector
+//		param v_nrm: normal vector
+//		return: v_out
+floatv ijkVecUnitReflect4fv(float4 v_out, float4 const v_in, float4 const v_nrm);
+
+// ijkVecReflect4*v
+//	Reflect incident vector about normal.
+//		param v_out: output vector, reflected vector
+//		param v_in: input vector, incident vector
+//		param v_nrm: normal vector
+//		return: v_out
+floatv ijkVecReflect4fv(float4 v_out, float4 const v_in, float4 const v_nrm);
+
 
 //-----------------------------------------------------------------------------
 
@@ -4043,6 +4115,27 @@ fvec2 ijkVecNlerp2f(fvec2 const v0, fvec2 const v1, float const u);
 //		return: interpolated vector
 fvec2 ijkVecSlerp2f(fvec2 const v0, fvec2 const v1, float const u);
 
+// ijkVecReflectScale2*
+//	Reflect incident vector about normal, scaling to match normal size.
+//		param v_in: input vector, incident vector
+//		param v_nrm: normal vector
+//		return: reflected vector
+fvec2 ijkVecReflectScale2f(fvec2 const v_in, fvec2 const v_nrm);
+
+// ijkVecUnitReflect2*
+//	Reflect incident vector about normal; optimized for unit normal vector.
+//		param v_in: input vector, incident vector
+//		param v_nrm: normal vector
+//		return: reflected vector
+fvec2 ijkVecUnitReflect2f(fvec2 const v_in, fvec2 const v_nrm);
+
+// ijkVecReflect2*
+//	Reflect incident vector about normal.
+//		param v_in: input vector, incident vector
+//		param v_nrm: normal vector
+//		return: reflected vector
+fvec2 ijkVecReflect2f(fvec2 const v_in, fvec2 const v_nrm);
+
 
 //-----------------------------------------------------------------------------
 
@@ -4278,6 +4371,27 @@ fvec3 ijkVecNlerp3f(fvec3 const v0, fvec3 const v1, float const u);
 //		return: interpolated vector
 fvec3 ijkVecSlerp3f(fvec3 const v0, fvec3 const v1, float const u);
 
+// ijkVecReflectScale3*
+//	Reflect incident vector about normal, scaling to match normal size.
+//		param v_in: input vector, incident vector
+//		param v_nrm: normal vector
+//		return: reflected vector
+fvec3 ijkVecReflectScale3f(fvec3 const v_in, fvec3 const v_nrm);
+
+// ijkVecUnitReflect3*
+//	Reflect incident vector about normal; optimized for unit normal vector.
+//		param v_in: input vector, incident vector
+//		param v_nrm: normal vector
+//		return: reflected vector
+fvec3 ijkVecUnitReflect3f(fvec3 const v_in, fvec3 const v_nrm);
+
+// ijkVecReflect3*
+//	Reflect incident vector about normal.
+//		param v_in: input vector, incident vector
+//		param v_nrm: normal vector
+//		return: reflected vector
+fvec3 ijkVecReflect3f(fvec3 const v_in, fvec3 const v_nrm);
+
 
 //-----------------------------------------------------------------------------
 
@@ -4512,6 +4626,27 @@ fvec4 ijkVecNlerp4f(fvec4 const v0, fvec4 const v1, float const u);
 //			interpolation in range [v0,v1], others result in extrapolation
 //		return: interpolated vector
 fvec4 ijkVecSlerp4f(fvec4 const v0, fvec4 const v1, float const u);
+
+// ijkVecReflectScale4*
+//	Reflect incident vector about normal, scaling to match normal size.
+//		param v_in: input vector, incident vector
+//		param v_nrm: normal vector
+//		return: reflected vector
+fvec4 ijkVecReflectScale4f(fvec4 const v_in, fvec4 const v_nrm);
+
+// ijkVecUnitReflect4*
+//	Reflect incident vector about normal; optimized for unit normal vector.
+//		param v_in: input vector, incident vector
+//		param v_nrm: normal vector
+//		return: reflected vector
+fvec4 ijkVecUnitReflect4f(fvec4 const v_in, fvec4 const v_nrm);
+
+// ijkVecReflect4*
+//	Reflect incident vector about normal.
+//		param v_in: input vector, incident vector
+//		param v_nrm: normal vector
+//		return: reflected vector
+fvec4 ijkVecReflect4f(fvec4 const v_in, fvec4 const v_nrm);
 
 
 //-----------------------------------------------------------------------------

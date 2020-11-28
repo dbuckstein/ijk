@@ -725,11 +725,20 @@ ijk_inl floatv ijkQuatUnitRotateVecQfv3(float3 v_out, float4 const q_in, float3 
 ijk_inl floatv ijkQuatRotateVecQfv3(float3 v_out, float4 const q_in, float3 const v_in)
 {
 	// v' /= |q|^2
-	ijkQuatRotateScaleVecQfv3(v_out, q_in, v_in);
-	return ijkVecDivSafe3fvs(v_out, v_out, ijkQuatLengthSqQfv(q_in));
+	//		= v(wq2 - vq . vq) + 2wq(vq x v) + 2vq(vq . v)
+	//	|q|^2 = 2wq2 - (wq2 - vq . vq) = 2wq2 - wq2 + vq . vq
+	f32 const vx = v_in[0], vy = v_in[1], vz = v_in[2], qx = q_in[0], qy = q_in[1], qz = q_in[2], qw = q_in[3],
+		ww = qw * qw - ijkVecLengthSq3fv(q_in), w2 = flt_two * qw, d = flt_two * ijkVecDot3fv(q_in, v_in);
+	f32 const nrm = flt_one / (w2 * qw - ww);
+	float3 const v = {
+		(vx * ww + w2 * (qy * vz - qz * vy) + qx * d) * nrm,
+		(vy * ww + w2 * (qz * vx - qx * vz) + qy * d) * nrm,
+		(vz * ww + w2 * (qx * vy - qy * vx) + qz * d) * nrm,
+	};
+	return ijkVecCopy3fv(v_out, v);
 }
 
-ijk_inl floatv ijkQuatReflectQfv(float4 q_out, float4 const q_in, float3 const v_in)
+ijk_inl floatv ijkQuatReflectScaleQfv(float4 q_out, float4 const q_in, float3 const v_in)
 {
 	// v' = q v q
 	//		= (wq + vq)v(wq + vq)
@@ -759,6 +768,19 @@ ijk_inl floatv ijkQuatUnitReflectQfv(float4 q_out, float4 const q_in, float3 con
 	q_out[1] = v_in[1] - d * q_in[1];
 	q_out[2] = v_in[2] - d * q_in[2];
 	q_out[3] = -d * q_in[3];
+	return q_out;
+}
+
+ijk_inl floatv ijkQuatReflectQfv(float4 q_out, float4 const q_in, float3 const v_in)
+{
+	// v' = q v q
+	//	v' /= |q|^2
+	//		= v - 2(vq . v)q / |q|^2
+	f32 const d = flt_two * ijkVecDot3fv(q_in, v_in), lenSqInv = d * ijkQuatLengthSqInvQfv(q_in);
+	q_out[0] = v_in[0] - lenSqInv * q_in[0];
+	q_out[1] = v_in[1] - lenSqInv * q_in[1];
+	q_out[2] = v_in[2] - lenSqInv * q_in[2];
+	q_out[3] = -lenSqInv * q_in[3];
 	return q_out;
 }
 

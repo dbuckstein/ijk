@@ -467,6 +467,22 @@ floatv ijkQuatUnitRotateVecQfv3(float3 v_out, float4 const q_in, float3 const v_
 //		return: v_out
 floatv ijkQuatRotateVecQfv3(float3 v_out, float4 const q_in, float3 const v_in);
 
+// ijkQuatReflectScaleQ*v
+//	Reflect and/or scale a quaternion about an axis.
+//		param q_out: output quaternion
+//		param q_in: input quaternion
+//		param v_in: input vector
+//		return: v_out
+floatv ijkQuatReflectScaleQfv(float4 q_out, float4 const q_in, float3 const v_in);
+
+// ijkQuatUnitReflectQ*v
+//	Reflect a unit quaternion about an axis; optimized for unit quaternions.
+//		param q_out: output quaternion
+//		param q_in: input quaternion
+//		param v_in: input vector
+//		return: v_out
+floatv ijkQuatUnitReflectQfv(float4 q_out, float4 const q_in, float3 const v_in);
+
 // ijkQuatReflectQ*v
 //	Reflect a non-unit quaternion about an axis.
 //		param q_out: output quaternion
@@ -474,14 +490,6 @@ floatv ijkQuatRotateVecQfv3(float3 v_out, float4 const q_in, float3 const v_in);
 //		param v_in: input vector
 //		return: v_out
 floatv ijkQuatReflectQfv(float4 q_out, float4 const q_in, float3 const v_in);
-
-// ijkQuatUnitReflectQ*v
-//	Reflect a unit quaternion about an axis; optimized.
-//		param q_out: output quaternion
-//		param q_in: input quaternion
-//		param v_in: input vector
-//		return: v_out
-floatv ijkQuatUnitReflectQfv(float4 q_out, float4 const q_in, float3 const v_in);
 
 // ijkQuatExpQ*v
 //	Calculate quaternion as natural exponent base (e) raised to vector power.

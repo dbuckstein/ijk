@@ -3683,6 +3683,34 @@ ijk_inl doublev ijkVecSlerp2dv(double2 v_out, double2 const v0, double2 const v1
 	return v_out;
 }
 
+ijk_inl doublev ijkVecReflectScale2dv(double2 v_out, double2 const v_in, double2 const v_nrm)
+{
+	// v' = v|n|^2 - 2dot(v, n)n
+	f64 const d = flt_two * ijkVecDot2dv(v_in, v_nrm), lenSq = ijkVecLengthSq2dv(v_nrm);
+	v_out[0] = v_in[0] * lenSq - d * v_nrm[0];
+	v_out[1] = v_in[1] * lenSq - d * v_nrm[1];
+	return v_out;
+}
+
+ijk_inl doublev ijkVecUnitReflect2dv(double2 v_out, double2 const v_in, double2 const v_nrm)
+{
+	// v' = v - 2dot(v, n)n
+	f64 const d = flt_two * ijkVecDot2dv(v_in, v_nrm);
+	v_out[0] = v_in[0] - d * v_nrm[0];
+	v_out[1] = v_in[1] - d * v_nrm[1];
+	return v_out;
+}
+
+ijk_inl doublev ijkVecReflect2dv(double2 v_out, double2 const v_in, double2 const v_nrm)
+{
+	// v' /= |n|^2
+	//		= v - 2dot(v, n)n / |n|^2
+	f64 const d = flt_two * ijkVecDot2dv(v_in, v_nrm), lenSqInv = d * ijkVecLengthSqInv2dv(v_nrm);
+	v_out[0] = v_in[0] - lenSqInv * v_nrm[0];
+	v_out[1] = v_in[1] - lenSqInv * v_nrm[1];
+	return v_out;
+}
+
 
 //-----------------------------------------------------------------------------
 
@@ -3896,6 +3924,33 @@ ijk_inl doublev ijkVecSlerp3dv(double3 v_out, double3 const v0, double3 const v1
 	}
 	else
 		ijkVecLerp3dv(v_out, v0, v1, u);
+	return v_out;
+}
+
+ijk_inl doublev ijkVecReflectScale3dv(double3 v_out, double3 const v_in, double3 const v_nrm)
+{
+	f64 const d = flt_two * ijkVecDot3dv(v_in, v_nrm), lenSq = ijkVecLengthSq3dv(v_nrm);
+	v_out[0] = v_in[0] * lenSq - d * v_nrm[0];
+	v_out[1] = v_in[1] * lenSq - d * v_nrm[1];
+	v_out[2] = v_in[2] * lenSq - d * v_nrm[2];
+	return v_out;
+}
+
+ijk_inl doublev ijkVecUnitReflect3dv(double3 v_out, double3 const v_in, double3 const v_nrm)
+{
+	f64 const d = flt_two * ijkVecDot3dv(v_in, v_nrm);
+	v_out[0] = v_in[0] - d * v_nrm[0];
+	v_out[1] = v_in[1] - d * v_nrm[1];
+	v_out[2] = v_in[2] - d * v_nrm[2];
+	return v_out;
+}
+
+ijk_inl doublev ijkVecReflect3dv(double3 v_out, double3 const v_in, double3 const v_nrm)
+{
+	f64 const d = flt_two * ijkVecDot3dv(v_in, v_nrm), lenSqInv = d * ijkVecLengthSqInv3dv(v_nrm);
+	v_out[0] = v_in[0] - lenSqInv * v_nrm[0];
+	v_out[1] = v_in[1] - lenSqInv * v_nrm[1];
+	v_out[2] = v_in[2] - lenSqInv * v_nrm[2];
 	return v_out;
 }
 
@@ -4118,6 +4173,36 @@ ijk_inl doublev ijkVecSlerp4dv(double4 v_out, double4 const v0, double4 const v1
 	return v_out;
 }
 
+ijk_inl doublev ijkVecReflectScale4dv(double4 v_out, double4 const v_in, double4 const v_nrm)
+{
+	f64 const d = flt_two * ijkVecDot4dv(v_in, v_nrm), lenSq = ijkVecLengthSq4dv(v_nrm);
+	v_out[0] = v_in[0] * lenSq - d * v_nrm[0];
+	v_out[1] = v_in[1] * lenSq - d * v_nrm[1];
+	v_out[2] = v_in[2] * lenSq - d * v_nrm[2];
+	v_out[3] = v_in[3] * lenSq - d * v_nrm[3];
+	return v_out;
+}
+
+ijk_inl doublev ijkVecUnitReflect4dv(double4 v_out, double4 const v_in, double4 const v_nrm)
+{
+	f64 const d = flt_two * ijkVecDot4dv(v_in, v_nrm);
+	v_out[0] = v_in[0] - d * v_nrm[0];
+	v_out[1] = v_in[1] - d * v_nrm[1];
+	v_out[2] = v_in[2] - d * v_nrm[2];
+	v_out[3] = v_in[3] - d * v_nrm[3];
+	return v_out;
+}
+
+ijk_inl doublev ijkVecReflect4dv(double4 v_out, double4 const v_in, double4 const v_nrm)
+{
+	f64 const d = flt_two * ijkVecDot4dv(v_in, v_nrm), lenSqInv = d * ijkVecLengthSqInv4dv(v_nrm);
+	v_out[0] = v_in[0] - lenSqInv * v_nrm[0];
+	v_out[1] = v_in[1] - lenSqInv * v_nrm[1];
+	v_out[2] = v_in[2] - lenSqInv * v_nrm[2];
+	v_out[3] = v_in[3] - lenSqInv * v_nrm[3];
+	return v_out;
+}
+
 
 //-----------------------------------------------------------------------------
 
@@ -4334,6 +4419,36 @@ ijk_inl dvec2 ijkVecSlerp2d(dvec2 const v0, dvec2 const v1, double const u)
 	return v_out;
 }
 
+ijk_inl dvec2 ijkVecReflectScale2d(dvec2 const v_in, dvec2 const v_nrm)
+{
+	double const d = flt_two * ijkVecDot2d(v_in, v_nrm), lenSq = ijkVecLengthSq2d(v_nrm);
+	dvec2 const v_out = {
+		(v_in.x * lenSq - d * v_nrm.x),
+		(v_in.y * lenSq - d * v_nrm.y),
+	};
+	return v_out;
+}
+
+ijk_inl dvec2 ijkVecUnitReflect2d(dvec2 const v_in, dvec2 const v_nrm)
+{
+	double const d = flt_two * ijkVecDot2d(v_in, v_nrm);
+	dvec2 const v_out = {
+		(v_in.x - d * v_nrm.x),
+		(v_in.y - d * v_nrm.y),
+	};
+	return v_out;
+}
+
+ijk_inl dvec2 ijkVecReflect2d(dvec2 const v_in, dvec2 const v_nrm)
+{
+	double const d = flt_two * ijkVecDot2d(v_in, v_nrm), lenSqInv = d * ijkVecLengthSqInv2d(v_nrm);
+	dvec2 const v_out = {
+		(v_in.x - lenSqInv * v_nrm.x),
+		(v_in.y - lenSqInv * v_nrm.y),
+	};
+	return v_out;
+}
+
 
 //-----------------------------------------------------------------------------
 
@@ -4538,6 +4653,39 @@ ijk_inl dvec3 ijkVecSlerp3d(dvec3 const v0, dvec3 const v1, double const u)
 	}
 	else
 		v_out = ijkVecLerp3d(v0, v1, u);
+	return v_out;
+}
+
+ijk_inl dvec3 ijkVecReflectScale3d(dvec3 const v_in, dvec3 const v_nrm)
+{
+	double const d = flt_two * ijkVecDot3d(v_in, v_nrm), lenSq = ijkVecLengthSq3d(v_nrm);
+	dvec3 const v_out = {
+		(v_in.x * lenSq - d * v_nrm.x),
+		(v_in.y * lenSq - d * v_nrm.y),
+		(v_in.z * lenSq - d * v_nrm.z),
+	};
+	return v_out;
+}
+
+ijk_inl dvec3 ijkVecUnitReflect3d(dvec3 const v_in, dvec3 const v_nrm)
+{
+	double const d = flt_two * ijkVecDot3d(v_in, v_nrm);
+	dvec3 const v_out = {
+		(v_in.x - d * v_nrm.x),
+		(v_in.y - d * v_nrm.y),
+		(v_in.z - d * v_nrm.z),
+	};
+	return v_out;
+}
+
+ijk_inl dvec3 ijkVecReflect3d(dvec3 const v_in, dvec3 const v_nrm)
+{
+	double const d = flt_two * ijkVecDot3d(v_in, v_nrm), lenSqInv = d * ijkVecLengthSqInv3d(v_nrm);
+	dvec3 const v_out = {
+		(v_in.x - lenSqInv * v_nrm.x),
+		(v_in.y - lenSqInv * v_nrm.y),
+		(v_in.z - lenSqInv * v_nrm.z),
+	};
 	return v_out;
 }
 
@@ -4748,6 +4896,42 @@ ijk_inl dvec4 ijkVecSlerp4d(dvec4 const v0, dvec4 const v1, double const u)
 	}
 	else
 		v_out = ijkVecLerp4d(v0, v1, u);
+	return v_out;
+}
+
+ijk_inl dvec4 ijkVecReflectScale4d(dvec4 const v_in, dvec4 const v_nrm)
+{
+	double const d = flt_two * ijkVecDot4d(v_in, v_nrm), lenSq = ijkVecLengthSq4d(v_nrm);
+	dvec4 const v_out = {
+		(v_in.x * lenSq - d * v_nrm.x),
+		(v_in.y * lenSq - d * v_nrm.y),
+		(v_in.z * lenSq - d * v_nrm.z),
+		(v_in.w * lenSq - d * v_nrm.w),
+	};
+	return v_out;
+}
+
+ijk_inl dvec4 ijkVecUnitReflect4d(dvec4 const v_in, dvec4 const v_nrm)
+{
+	double const d = flt_two * ijkVecDot4d(v_in, v_nrm);
+	dvec4 const v_out = {
+		(v_in.x - d * v_nrm.x),
+		(v_in.y - d * v_nrm.y),
+		(v_in.z - d * v_nrm.z),
+		(v_in.w - d * v_nrm.w),
+	};
+	return v_out;
+}
+
+ijk_inl dvec4 ijkVecReflect4d(dvec4 const v_in, dvec4 const v_nrm)
+{
+	double const d = flt_two * ijkVecDot4d(v_in, v_nrm), lenSqInv = d * ijkVecLengthSqInv4d(v_nrm);
+	dvec4 const v_out = {
+		(v_in.x - lenSqInv * v_nrm.x),
+		(v_in.y - lenSqInv * v_nrm.y),
+		(v_in.z - lenSqInv * v_nrm.z),
+		(v_in.w - lenSqInv * v_nrm.w),
+	};
 	return v_out;
 }
 
