@@ -440,24 +440,6 @@ float4m ijkQuatGetMatQfv4(float4x4 m_out, float4 const q_in);
 //		return: m_out
 float4m ijkQuatGetMatQfv4t(float4x4 m_out, float4 const q_in, float3 const translate);
 
-// ijkQuatRotateVecQ*v3
-//	Rotate a 3D vector using a quaternion; use this when the input quaternion 
-//	is non-unit length so that the result will only be rotated.
-//		param v_out: output vector
-//		param q_in: input quaternion
-//		param v_in: input vector
-//		return: v_out
-floatv ijkQuatRotateVecQfv3(float3 v_out, float4 const q_in, float3 const v_in);
-
-// ijkQuatRotateVecQ*v4
-//	Rotate a 4D vector/3D point using a quaternion; use this when the input 
-//	quaternion is non-unit length so that the result will only be rotated.
-//		param v_out: output vector
-//		param q_in: input quaternion
-//		param v_in: input vector
-//		return: v_out
-floatv ijkQuatRotateVecQfv4(float4 v_out, float4 const q_in, float4 const v_in);
-
 // ijkQuatRotateScaleVecQ*v3
 //	Rotate and/or scale a 3D vector using a quaternion; result will not be 
 //	divided by squared magnitude.
@@ -467,50 +449,39 @@ floatv ijkQuatRotateVecQfv4(float4 v_out, float4 const q_in, float4 const v_in);
 //		return: v_out
 floatv ijkQuatRotateScaleVecQfv3(float3 v_out, float4 const q_in, float3 const v_in);
 
-// ijkQuatRotateScaleVecQ*v4
-//	Rotate and/or scale a 4D vector/3D point using a quaternion; result will 
-//	not be divided by squared magnitude.
+// ijkQuatUnitRotateVecQ*v3
+//	Rotate a 3D vector using a quaternion; use with unit quaternion for most 
+//	optimized solution.
 //		param v_out: output vector
 //		param q_in: input quaternion
 //		param v_in: input vector
 //		return: v_out
-floatv ijkQuatRotateScaleVecQfv4(float4 v_out, float4 const q_in, float4 const v_in);
+floatv ijkQuatUnitRotateVecQfv3(float3 v_out, float4 const q_in, float3 const v_in);
 
-// ijkQuatReflectVecQ*v3
-//	Reflect a 3D vector using a quaternion; use this when the input quaternion 
-//	is non-unit length so that the result will only be reflected.
+// ijkQuatRotateVecQ*v3
+//	Rotate a 3D vector using a quaternion; use this when the input quaternion 
+//	is non-unit length so that the result will only be rotated.
 //		param v_out: output vector
 //		param q_in: input quaternion
 //		param v_in: input vector
 //		return: v_out
-floatv ijkQuatReflectVecQfv3(float3 v_out, float4 const q_in, float3 const v_in);
+floatv ijkQuatRotateVecQfv3(float3 v_out, float4 const q_in, float3 const v_in);
 
-// ijkQuatReflectVecQ*v4
-//	Reflect a 4D vector/3D point using a quaternion; use this when the input 
-//	quaternion is non-unit length so that the result will only be reflected.
-//		param v_out: output vector
+// ijkQuatReflectQ*v
+//	Reflect a non-unit quaternion about an axis.
+//		param q_out: output quaternion
 //		param q_in: input quaternion
 //		param v_in: input vector
 //		return: v_out
-floatv ijkQuatReflectVecQfv4(float4 v_out, float4 const q_in, float4 const v_in);
+floatv ijkQuatReflectQfv(float4 q_out, float4 const q_in, float3 const v_in);
 
-// ijkQuatReflectScaleVecQ*v3
-//	Reflect and/or scale a 3D vector using a quaternion; result will not be 
-//	divided by squared magnitude.
-//		param v_out: output vector
+// ijkQuatUnitReflectQ*v
+//	Reflect a unit quaternion about an axis; optimized.
+//		param q_out: output quaternion
 //		param q_in: input quaternion
 //		param v_in: input vector
 //		return: v_out
-floatv ijkQuatReflectScaleVecQfv3(float3 v_out, float4 const q_in, float3 const v_in);
-
-// ijkQuatReflectScaleVecQ*v4
-//	Reflect and/or scale a 4D vector/3D point using a quaternion; result will 
-//	not be divided by squared magnitude.
-//		param v_out: output vector
-//		param q_in: input quaternion
-//		param v_in: input vector
-//		return: v_out
-floatv ijkQuatReflectScaleVecQfv4(float4 v_out, float4 const q_in, float4 const v_in);
+floatv ijkQuatUnitReflectQfv(float4 q_out, float4 const q_in, float3 const v_in);
 
 // ijkQuatExpQ*v
 //	Calculate quaternion as natural exponent base (e) raised to vector power.
@@ -1046,24 +1017,6 @@ float3m ijkDualQuatGetMatDQfm3(float3x3 m_out, float2x4 const dq_in);
 //		return: m_out
 float4m ijkDualQuatGetMatDQfm4(float4x4 m_out, float2x4 const dq_in);
 
-// ijkDualQuatTransformVecDQ*m3
-//	Transform a 3D vector using a dual quaternion; use when dual quaternion is 
-//	unit length or translation part should also be scaled.
-//		param v_out: output vector
-//		param dq_in: input dual quaternion
-//		param v_in: input vector
-//		return: v_out
-floatv ijkDualQuatTransformVecDQfm3(float3 v_out, float2x4 const dq_in, float3 const v_in);
-
-// ijkDualQuatTransformVecDQ*m4
-//	Transform a 4D vector/3D point using a dual quaternion; use when dual 
-//	quaternion is unit length or translation part should also be scaled.
-//		param v_out: output vector
-//		param dq_in: input dual quaternion
-//		param v_in: input vector
-//		return: v_out
-floatv ijkDualQuatTransformVecDQfm4(float4 v_out, float2x4 const dq_in, float4 const v_in);
-
 // ijkDualQuatTransformScaleVecDQ*m3
 //	Transform a 3D vector using a dual quaternion with scale; use when dual 
 //	quaternion has scale to prevent translation part from being scaled.
@@ -1073,14 +1026,23 @@ floatv ijkDualQuatTransformVecDQfm4(float4 v_out, float2x4 const dq_in, float4 c
 //		return: v_out
 floatv ijkDualQuatTransformScaleVecDQfm3(float3 v_out, float2x4 const dq_in, float3 const v_in);
 
-// ijkDualQuatTransformScaleVecDQ*m4
-//	Transform a 4D vector/3D point using a dual quaternion with scale; use when
-//	dual quaternion has scale to prevent translation part from being scaled.
+// ijkDualQuatUnitTransformVecDQ*m3
+//	Transform a 3D vector using a dual quaternion; use when dual quaternion is 
+//	unit-length for most optimized solution.
 //		param v_out: output vector
 //		param dq_in: input dual quaternion
 //		param v_in: input vector
 //		return: v_out
-floatv ijkDualQuatTransformScaleVecDQfm4(float4 v_out, float2x4 const dq_in, float4 const v_in);
+floatv ijkDualQuatUnitTransformVecDQfm3(float3 v_out, float2x4 const dq_in, float3 const v_in);
+
+// ijkDualQuatTransformVecDQ*m3
+//	Transform a 3D vector using a dual quaternion; use when dual quaternion is 
+//	unit length or translation part should also be scaled.
+//		param v_out: output vector
+//		param dq_in: input dual quaternion
+//		param v_in: input vector
+//		return: v_out
+floatv ijkDualQuatTransformVecDQfm3(float3 v_out, float2x4 const dq_in, float3 const v_in);
 
 // ijkDualQuatLerpDQ*m
 //	Calculate linear interpolation between two dual quaternions; yields uniform
