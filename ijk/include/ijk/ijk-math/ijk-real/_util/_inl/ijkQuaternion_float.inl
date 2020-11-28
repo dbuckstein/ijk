@@ -355,37 +355,49 @@ ijk_inl float4m ijkQuatGetMatQfv4t(float4x4 m_out, float4 const q_in, float3 con
 	return m_out;
 }
 
-ijk_inl floatv ijkQuatRotateVecQfv3(float3 v_out, float4 const q_in)
+ijk_inl floatv ijkQuatRotateVecQfv3(float3 v_out, float4 const q_in, float3 const v_in)
 {
 
 	return v_out;
 }
 
-ijk_inl floatv ijkQuatRotateVecQfv4(float4 v_out, float4 const q_in)
+ijk_inl floatv ijkQuatRotateVecQfv4(float4 v_out, float4 const q_in, float4 const v_in)
 {
 
 	return v_out;
 }
 
-ijk_inl floatv ijkQuatRotateScaleVecQfv3(float3 v_out, float4 const q_in)
+ijk_inl floatv ijkQuatRotateScaleVecQfv3(float3 v_out, float4 const q_in, float3 const v_in)
 {
 
 	return v_out;
 }
 
-ijk_inl floatv ijkQuatRotateScaleVecQfv4(float4 v_out, float4 const q_in)
+ijk_inl floatv ijkQuatRotateScaleVecQfv4(float4 v_out, float4 const q_in, float4 const v_in)
 {
 
 	return v_out;
 }
 
-ijk_inl floatv ijkQuatReflectVecQfv3(float3 v_out, float4 const q_in)
+ijk_inl floatv ijkQuatReflectVecQfv3(float3 v_out, float4 const q_in, float3 const v_in)
 {
 
 	return v_out;
 }
 
-ijk_inl floatv ijkQuatReflectVecQfv4(float4 v_out, float4 const q_in)
+ijk_inl floatv ijkQuatReflectVecQfv4(float4 v_out, float4 const q_in, float4 const v_in)
+{
+
+	return v_out;
+}
+
+ijk_inl floatv ijkQuatReflectScaleVecQfv3(float3 v_out, float4 const q_in, float3 const v_in)
+{
+
+	return v_out;
+}
+
+ijk_inl floatv ijkQuatReflectScaleVecQfv4(float4 v_out, float4 const q_in, float4 const v_in)
 {
 
 	return v_out;
@@ -439,7 +451,19 @@ ijk_inl floatv ijkQuatEncodeTranslateQfv(float4 qt_out, float3 const translate_i
 	return qt_out;
 }
 
+ijk_inl floatv ijkQuatEncodeTranslateRemScaleQfv(float4 qt_out, float3 const translate_in, float4 const q_encode)
+{
+
+	return qt_out;
+}
+
 ijk_inl floatv ijkQuatDecodeTranslateQfv(float3 translate_out, float4 const qt_in, float4 const q_decode)
+{
+
+	return translate_out;
+}
+
+ijk_inl floatv ijkQuatDecodeTranslateRemScaleQfv(float3 translate_out, float4 const qt_in, float4 const q_decode)
 {
 
 	return translate_out;
@@ -610,6 +634,12 @@ ijk_inl float4m ijkDualQuatMulDQfm(float2x4 dq_out, float2x4 const dq_lh, float2
 	return dq_out;
 }
 
+ijk_inl float4m ijkDualQuatMulScaleDQfm(float2x4 dq_out, float2x4 const dq_lh, float2x4 const dq_rh)
+{
+
+	return dq_out;
+}
+
 ijk_inl float4m ijkDualQuatDivDQfm(float2x4 dq_out, float2x4 const dq_lh, float2x4 const dq_rh)
 {
 
@@ -766,25 +796,25 @@ ijk_inl float4m ijkDualQuatGetMatDQfm4(float4x4 m_out, float2x4 const dq_in)
 	return m_out;
 }
 
-ijk_inl floatv ijkDualQuatTransformVecDQfm3(float3 v_out, float2x4 const dq_in)
+ijk_inl floatv ijkDualQuatTransformVecDQfm3(float3 v_out, float2x4 const dq_in, float3 const v_in)
 {
 
 	return v_out;
 }
 
-ijk_inl floatv ijkDualQuatTransformVecDQfm4(float4 v_out, float2x4 const dq_in)
+ijk_inl floatv ijkDualQuatTransformVecDQfm4(float4 v_out, float2x4 const dq_in, float4 const v_in)
 {
 
 	return v_out;
 }
 
-ijk_inl floatv ijkDualQuatTransformScaleVecDQfm3(float3 v_out, float2x4 const dq_in)
+ijk_inl floatv ijkDualQuatTransformScaleVecDQfm3(float3 v_out, float2x4 const dq_in, float3 const v_in)
 {
 
 	return v_out;
 }
 
-ijk_inl floatv ijkDualQuatTransformScaleVecDQfm4(float4 v_out, float2x4 const dq_in)
+ijk_inl floatv ijkDualQuatTransformScaleVecDQfm4(float4 v_out, float2x4 const dq_in, float4 const v_in)
 {
 
 	return v_out;
