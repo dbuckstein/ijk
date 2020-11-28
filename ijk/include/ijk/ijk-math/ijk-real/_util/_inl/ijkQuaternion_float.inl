@@ -442,97 +442,189 @@ ijk_inl floatv ijkQuatRotateZYXQfv(float4 q_out, float3 const rotateDegXYZ)
 
 ijk_inl floatkv ijkQuatGetRotateXYZQfv(float4 const q_in, float3 rotateDegXYZ_out)
 {
-
+	f32 const x = q_in[0], y = q_in[1], z = q_in[2], w = q_in[3],
+		wwyy = w * w - y * y, xxzz = x * x - z * z;
+	f32 s = flt_two * (z * x + y * w), c;
+	rotateDegXYZ_out[1] = ijkTrigAsin_deg_flt(s);
+	s = flt_two * (w * z - y * x);
+	c = wwyy + xxzz;
+	rotateDegXYZ_out[2] = ijkTrigAtan2_deg_flt(s, c);
+	s = flt_two * (w * x - y * z);
+	c = wwyy - xxzz;
+	rotateDegXYZ_out[0] = ijkTrigAtan2_deg_flt(s, c);
 	return q_in;
 }
 
 ijk_inl floatkv ijkQuatGetRotateYZXQfv(float4 const q_in, float3 rotateDegXYZ_out)
 {
-
+	f32 const x = q_in[0], y = q_in[1], z = q_in[2], w = q_in[3],
+		wwzz = w * w - z * z, yyxx = y * y - x * x;
+	f32 s = flt_two * (x * y + z * w), c;
+	rotateDegXYZ_out[2] = ijkTrigAsin_deg_flt(s);
+	s = flt_two * (w * x - z * y);
+	c = wwzz + yyxx;
+	rotateDegXYZ_out[0] = ijkTrigAtan2_deg_flt(s, c);
+	s = flt_two * (w * y - z * x);
+	c = wwzz - yyxx;
+	rotateDegXYZ_out[1] = ijkTrigAtan2_deg_flt(s, c);
 	return q_in;
 }
 
 ijk_inl floatkv ijkQuatGetRotateZXYQfv(float4 const q_in, float3 rotateDegXYZ_out)
 {
-
+	f32 const x = q_in[0], y = q_in[1], z = q_in[2], w = q_in[3],
+		wwxx = w * w - x * x, zzyy = z * z - y * y;
+	f32 s = flt_two * (y * z + x * w), c;
+	rotateDegXYZ_out[0] = ijkTrigAsin_deg_flt(s);
+	s = flt_two * (w * y - x * z);
+	c = wwxx + zzyy;
+	rotateDegXYZ_out[1] = ijkTrigAtan2_deg_flt(s, c);
+	s = flt_two * (w * z - x * y);
+	c = wwxx - zzyy;
+	rotateDegXYZ_out[2] = ijkTrigAtan2_deg_flt(s, c);
 	return q_in;
 }
 
 ijk_inl floatkv ijkQuatGetRotateYXZQfv(float4 const q_in, float3 rotateDegXYZ_out)
 {
-
+	f32 const x = q_in[0], y = q_in[1], z = q_in[2], w = q_in[3],
+		wwxx = w * w - x * x, zzyy = z * z - y * y;
+	f32 s = flt_two * (w * x - y * z), c;
+	rotateDegXYZ_out[0] = ijkTrigAsin_deg_flt(s);
+	s = flt_two * (w * y + x * z);
+	c = wwxx + zzyy;
+	rotateDegXYZ_out[1] = ijkTrigAtan2_deg_flt(s, c);
+	s = flt_two * (w * z + x * y);
+	c = wwxx - zzyy;
+	rotateDegXYZ_out[2] = ijkTrigAtan2_deg_flt(s, c);
 	return q_in;
 }
 
 ijk_inl floatkv ijkQuatGetRotateXZYQfv(float4 const q_in, float3 rotateDegXYZ_out)
 {
-
+	f32 const x = q_in[0], y = q_in[1], z = q_in[2], w = q_in[3],
+		wwzz = w * w - z * z, yyxx = y * y - x * x;
+	f32 s = flt_two * (w * z - x * y), c;
+	rotateDegXYZ_out[2] = ijkTrigAsin_deg_flt(s);
+	s = flt_two * (w * x + z * y);
+	c = wwzz + yyxx;
+	rotateDegXYZ_out[0] = ijkTrigAtan2_deg_flt(s, c);
+	s = flt_two * (w * y + z * x);
+	c = wwzz - yyxx;
+	rotateDegXYZ_out[1] = ijkTrigAtan2_deg_flt(s, c);
 	return q_in;
 }
 
 ijk_inl floatkv ijkQuatGetRotateZYXQfv(float4 const q_in, float3 rotateDegXYZ_out)
 {
-
+	f32 const x = q_in[0], y = q_in[1], z = q_in[2], w = q_in[3],
+		wwyy = w * w - y * y, xxzz = x * x - z * z;
+	f32 s = flt_two * (w * y - z * x), c;
+	rotateDegXYZ_out[1] = ijkTrigAsin_deg_flt(s);
+	s = flt_two * (w * z + y * x);
+	c = wwyy + xxzz;
+	rotateDegXYZ_out[2] = ijkTrigAtan2_deg_flt(s, c);
+	s = flt_two * (w * x + y * z);
+	c = wwyy - xxzz;
+	rotateDegXYZ_out[0] = ijkTrigAtan2_deg_flt(s, c);
 	return q_in;
 }
 
 ijk_inl floatv ijkQuatRotateQfv(float4 q_out, ijkRotationOrder const order, float3 const rotateDegXYZ)
 {
-
+	switch (order)
+	{
+	case ijkRotationXYZ:
+		return ijkQuatRotateXYZQfv(q_out, rotateDegXYZ);
+	case ijkRotationYZX:
+		return ijkQuatRotateYZXQfv(q_out, rotateDegXYZ);
+	case ijkRotationZXY:
+		return ijkQuatRotateZXYQfv(q_out, rotateDegXYZ);
+	case ijkRotationYXZ:
+		return ijkQuatRotateYXZQfv(q_out, rotateDegXYZ);
+	case ijkRotationXZY:
+		return ijkQuatRotateXZYQfv(q_out, rotateDegXYZ);
+	case ijkRotationZYX:
+		return ijkQuatRotateZYXQfv(q_out, rotateDegXYZ);
+	}
 	return q_out;
 }
 
 ijk_inl floatv ijkQuatAxisAngleQfv(float4 q_out, float3 const axis_unit, f32 const angle_degrees)
 {
-
-	return q_out;
+	ijkTrigSinCos_deg_flt(angle_degrees * flt_half, q_out, q_out + 3);
+	return ijkVecMul3fvs(q_out, axis_unit, *q_out);
 }
 
 ijk_inl floatv ijkQuatScaleQfv(float4 q_out, f32 const scale_unif)
 {
-
+	q_out[0] = q_out[1] = q_out[2] = flt_zero;
+	q_out[3] = ijkSqrt_flt(scale_unif);
 	return q_out;
 }
 
 ijk_inl floatv ijkQuatRotateScaleQfv(float4 q_out, ijkRotationOrder const order, float3 const rotateDegXYZ, f32 const scale_unif)
 {
-
-	return q_out;
+	f32 const len = ijkSqrt_flt(scale_unif);
+	ijkQuatRotateQfv(q_out, order, rotateDegXYZ);
+	return ijkQuatMulQfvs(q_out, q_out, len);
 }
 
 ijk_inl floatv ijkQuatAxisAngleScaleQfv(float4 q_out, float3 const axis_unit, f32 const angle_degrees, f32 const scale_unif)
 {
-
-	return q_out;
+	f32 const len = ijkSqrt_flt(scale_unif);
+	ijkTrigSinCos_deg_flt(angle_degrees * flt_half, q_out, q_out + 3);
+	q_out[3] *= len;
+	return ijkVecMul3fvs(q_out, axis_unit, *q_out * len);
 }
 
 ijk_inl floatkv ijkQuatGetRotateQfv(float4 const q_in, ijkRotationOrder const order, float3 rotateDegXYZ_out)
 {
-
+	switch (order)
+	{
+	case ijkRotationXYZ:
+		return ijkQuatGetRotateXYZQfv(q_in, rotateDegXYZ_out);
+	case ijkRotationYZX:
+		return ijkQuatGetRotateYZXQfv(q_in, rotateDegXYZ_out);
+	case ijkRotationZXY:
+		return ijkQuatGetRotateZXYQfv(q_in, rotateDegXYZ_out);
+	case ijkRotationYXZ:
+		return ijkQuatGetRotateYXZQfv(q_in, rotateDegXYZ_out);
+	case ijkRotationXZY:
+		return ijkQuatGetRotateXZYQfv(q_in, rotateDegXYZ_out);
+	case ijkRotationZYX:
+		return ijkQuatGetRotateZYXQfv(q_in, rotateDegXYZ_out);
+	}
 	return q_in;
 }
 
 ijk_inl floatkv ijkQuatGetAxisAngleQfv(float4 const q_in, float3 axis_unit_out, f32* const angle_degrees_out)
 {
-
+	f32 const s = ijkVecLength3fv(q_in);
+	ijkVecDivSafe3fvs(axis_unit_out, q_in, s);
+	*angle_degrees_out = flt_two * ijkTrigAtan2_deg_flt(s, q_in[3]);
 	return q_in;
 }
 
 ijk_inl floatkv ijkQuatGetScaleQfv(float4 const q_in, f32* const scale_unif_out)
 {
-
+	*scale_unif_out = ijkQuatLengthSqQfv(q_in);
 	return q_in;
 }
 
 ijk_inl floatkv ijkQuatGetRotateScaleQfv(float4 const q_in, ijkRotationOrder const order, float3 rotateDegXYZ_out, f32* const scale_unif_out)
 {
-
-	return q_in;
+	*scale_unif_out = ijkQuatLengthSqQfv(q_in);
+	return ijkQuatGetRotateQfv(q_in, order, rotateDegXYZ_out);
 }
 
 ijk_inl floatkv ijkQuatGetAxisAngleScaleQfv(float4 const q_in, float3 axis_unit_out, f32* const angle_degrees_out, f32* const scale_unif_out)
 {
-
+	f32 s = ijkVecLengthSq3fv(q_in);
+	*scale_unif_out = ijkSqrt_flt(s + q_in[3] * q_in[3]);
+	s = ijkSqrt_flt(s);
+	ijkVecDivSafe3fvs(axis_unit_out, q_in, s);
+	*angle_degrees_out = flt_two * ijkTrigAtan2_deg_flt(s, q_in[3]);
 	return q_in;
 }
 
