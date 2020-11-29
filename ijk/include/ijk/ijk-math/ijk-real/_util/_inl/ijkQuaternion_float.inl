@@ -838,7 +838,17 @@ ijk_inl floatv ijkQuatPowQfv(float4 q_out, float4 const q_in, f32 const u)
 
 ijk_inl floatv ijkQuatSqrtQfv(float4 q_out, float4 const q_in)
 {
-
+	f32 lenv = ijkVecLengthSq3fv(q_in);
+	if (lenv > flt_zero)
+	{
+		f32 const lenq = ijkSqrt_flt(lenv + q_in[3] * q_in[3]);
+		f32 const w = q_in[3];
+		q_out[3] = ijkSqrt_flt(flt_half * (lenq + w));
+		lenv = ijkSqrt_flt(flt_half * (lenq - w) / lenv);
+		return ijkVecMul3fvs(q_out, q_in, lenv);
+	}
+	q_out[0] = q_out[1] = q_out[2] = flt_zero;
+	q_out[3] = ijkSqrt_flt(q_in[3]);
 	return q_out;
 }
 
@@ -855,44 +865,95 @@ ijk_inl floatv ijkQuatNlerpQfv(float4 q_out, float4 const q0, float4 const q1, f
 
 ijk_inl floatv ijkQuatSlerpQfv(float4 q_out, float4 const q0, float4 const q1, f32 const u)
 {
-
+	// similar to vector slerp except we have to worry about double-coverage
+	float4 copy;
+	floatkv q1b = q1;
+	f32 dot = ijkVecDot4fv(q0, q1);
+	if (dot < flt_zero)
+	{
+		dot = -dot;
+		q1b = ijkQuatNegateQfv(copy, q1);
+	}
+	if (dot < flt_one)
+	{
+		float4 tmp;
+		f32 const angle = ijkTrigAcos_deg_flt(dot),
+			sinInv = ijkTrigCsc_deg_flt(angle),
+			s0 = sinInv * ijkTrigSin_deg_flt(angle * (flt_one - u)),
+			s1 = sinInv * ijkTrigSin_deg_flt(angle * u);
+		ijkQuatAddQfv(q_out, ijkQuatMulQfvs(q_out, q0, s0), ijkQuatMulQfvs(tmp, q1, s1));
+	}
+	else
+		ijkQuatLerpQfv(q_out, q0, q1, u);
 	return q_out;
 }
 
 ijk_inl floatv ijkQuatDerivQfv(float4 q1_out, float4 const q_in, float3 const angularVelocity)
 {
-
-	return q1_out;
+	// q' = d(e^v)/dt = dv/dt e^v
+	//		v = (angle/2)axis
+	//		dv/dt = (angular velocity)/2 = w/2
+	// q' = wq/2
+	float3 const hv = {
+		flt_half * angularVelocity[0], flt_half * angularVelocity[1], flt_half * angularVelocity[2]
+	};
+	return ijkQuatMulVecQfv3q(q1_out, hv, q_in);
 }
 
 ijk_inl floatv ijkQuatDeriv2Qfv(float4 q2_out, float4 q1_out, float4 const q_in, float3 const angularVelocity, float3 const angularAcceleration)
 {
-
-	return q2_out;
+	// q" = d(q')/dt = d(w q/2)/dt
+	//		= (dw/dt)q/2 + w(dq/dt)/2
+	//		= aq/2 + w(wq/2)/2
+	//		= aq/2 - q|w|^2/4
+	//		= (a/2 - |w|^2/4)q
+	f32 const angularSpeedSq = ijkVecLengthSq3fv(angularVelocity);
+	float4 const q_lh = {
+		flt_half * angularAcceleration[0], flt_half * angularAcceleration[1], flt_half * angularAcceleration[2], -flt_quarter * angularSpeedSq
+	};
+	ijkQuatDerivQfv(q1_out, q_in, angularVelocity);
+	return ijkQuatMulQfv(q2_out, q_lh, q_in);
 }
 
 ijk_inl floatv ijkQuatEncodeTranslateQfv(float4 qt_out, float3 const translate_in, float4 const q_encode)
 {
-
-	return qt_out;
-}
-
-ijk_inl floatv ijkQuatEncodeTranslateRemScaleQfv(float4 qt_out, float3 const translate_in, float4 const q_encode)
-{
-
-	return qt_out;
+	// q' = tq/2
+	//		= t(w + v)/2
+	//		= (tw + tv)/2
+	//		= ([tw + t x v] - [t . v])/2
+	return ijkQuatDerivQfv(qt_out, q_encode, translate_in);
 }
 
 ijk_inl floatv ijkQuatDecodeTranslateQfv(float3 translate_out, float4 const qt_in, float4 const q_decode)
 {
-
+	// q' = tq/2
+	// t = 2q'q*
+	//		= 2(w' + v')(w - v)
+	//		= 2(w' w - w' v + v' w - v' v)
+	//		= 2(w' w - w' v + v' w - v' x v + v' . v)
+	//		= 2(w' w + v . v' - w' v + v' w + v x v')
+	//		= 2(-[t . v]w/2 + [v . [tw + t x v]]/2 + [t . v]v/2 + [tw + t x v]w/2 + v x [tw + t x v]/2)
+	//		= -[t . v]w + [v . t]w + [v . [t x v]] + [t . v]v + tww + [t x v]w + [v x t]w + v x [t x v]
+	//		= [v . t - t . v]w + [t x v - t x v]w + tw2 + [t . v]v + t[v . v] - v[v . t]
+	//		= tw2 + t[v . v] + [t . v - v . t]v
+	//		= t|q|^t = t (unit encoding quaternion; proves that real is zero)
+	// t = 2q'q*
+	//		= 2([w' w + v . v'] - w' v + v' w + v x v')
+	//		= 2([0] + [v' w - w' v + v x v'])
+	f32 const qx = q_decode[0], qy = q_decode[1], qz = q_decode[2], qw = q_decode[3],
+		qtx = qt_in[0], qty = qt_in[1], qtz = qt_in[2], qtw = qt_in[3];
+	translate_out[0] = qtx * qw - qtw * qx + qy * qtz - qz * qty;
+	translate_out[1] = qty * qw - qtw * qy + qz * qtx - qx * qtz;
+	translate_out[2] = qtz * qw - qtw * qz + qx * qty - qy * qtx;
 	return translate_out;
 }
 
 ijk_inl floatv ijkQuatDecodeTranslateRemScaleQfv(float3 translate_out, float4 const qt_in, float4 const q_decode)
 {
-
-	return translate_out;
+	// q' = tq/2
+	// t = 2q'q^-1 = 2q'q*/|q|^2
+	ijkQuatDecodeTranslateQfv(translate_out, qt_in, q_decode);
+	return ijkVecDiv3fvs(translate_out, translate_out, ijkQuatLengthSqQfv(q_decode));
 }
 
 

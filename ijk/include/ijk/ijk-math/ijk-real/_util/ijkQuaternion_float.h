@@ -579,16 +579,9 @@ floatv ijkQuatDeriv2Qfv(float4 q2_out, float4 q1_out, float4 const q_in, float3 
 //		return: qt_out
 floatv ijkQuatEncodeTranslateQfv(float4 qt_out, float3 const translate_in, float4 const q_encode);
 
-// ijkQuatEncodeTranslateRemScaleQ*v
-//	Encode translation offset vector using quaternion, removing scale.
-//		param qt_out: output quaternion, encoded translation
-//		param translate_in: input vector, translation offset
-//		param q_encode: encoding quaternion
-//		return: qt_out
-floatv ijkQuatEncodeTranslateRemScaleQfv(float4 qt_out, float3 const translate_in, float4 const q_encode);
-
 // ijkQuatDecodeTranslateQ*v
-//	Decode translation offset vector from quaternion.
+//	Decode translation offset vector from quaternion; use if encoding 
+//	quaternion is unit or if decoded translation should have scale.
 //		param translate_out: output vector, translation offset
 //		param qt_in: input quaternion, encoded translation
 //		param q_decode: decoding quaternion

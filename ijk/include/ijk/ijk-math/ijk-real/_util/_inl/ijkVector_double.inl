@@ -3675,7 +3675,7 @@ ijk_inl doublev ijkVecSlerp2dv(double2 v_out, double2 const v0, double2 const v1
 			sinInv = ijkTrigCsc_deg_dbl(angle),
 			s0 = sinInv * ijkTrigSin_deg_dbl(angle * (dbl_one - u)),
 			s1 = sinInv * ijkTrigSin_deg_dbl(angle * u);
-		ijkVecAdd2dv(v_out, ijkVecMul2dvs(v_out, v0, s0), ijkVecMul2dvs(tmp, v0, s0));
+		ijkVecAdd2dv(v_out, ijkVecMul2dvs(v_out, v0, s0), ijkVecMul2dvs(tmp, v1, s1));
 	}
 	// vectors are parallel; just do lerp
 	else
@@ -3920,7 +3920,7 @@ ijk_inl doublev ijkVecSlerp3dv(double3 v_out, double3 const v0, double3 const v1
 			sinInv = ijkTrigCsc_deg_dbl(angle),
 			s0 = sinInv * ijkTrigSin_deg_dbl(angle * (dbl_one - u)),
 			s1 = sinInv * ijkTrigSin_deg_dbl(angle * u);
-		ijkVecAdd3dv(v_out, ijkVecMul3dvs(v_out, v0, s0), ijkVecMul3dvs(tmp, v0, s0));
+		ijkVecAdd3dv(v_out, ijkVecMul3dvs(v_out, v0, s0), ijkVecMul3dvs(tmp, v1, s1));
 	}
 	else
 		ijkVecLerp3dv(v_out, v0, v1, u);
@@ -4166,7 +4166,7 @@ ijk_inl doublev ijkVecSlerp4dv(double4 v_out, double4 const v0, double4 const v1
 			sinInv = ijkTrigCsc_deg_dbl(angle),
 			s0 = sinInv * ijkTrigSin_deg_dbl(angle * (dbl_one - u)),
 			s1 = sinInv * ijkTrigSin_deg_dbl(angle * u);
-		ijkVecAdd4dv(v_out, ijkVecMul4dvs(v_out, v0, s0), ijkVecMul4dvs(tmp, v0, s0));
+		ijkVecAdd4dv(v_out, ijkVecMul4dvs(v_out, v0, s0), ijkVecMul4dvs(tmp, v1, s1));
 	}
 	else
 		ijkVecLerp4dv(v_out, v0, v1, u);
@@ -4412,7 +4412,7 @@ ijk_inl dvec2 ijkVecSlerp2d(dvec2 const v0, dvec2 const v1, double const u)
 			sinInv = ijkTrigCsc_deg_dbl(angle),
 			s0 = sinInv * ijkTrigSin_deg_dbl(angle * (dbl_one - u)),
 			s1 = sinInv * ijkTrigSin_deg_dbl(angle * u);
-		v_out = ijkVecAdd2d(ijkVecMul2ds(v0, s0), ijkVecMul2ds(v0, s0));
+		v_out = ijkVecAdd2d(ijkVecMul2ds(v0, s0), ijkVecMul2ds(v1, s1));
 	}
 	else
 		v_out = ijkVecLerp2d(v0, v1, u);
@@ -4649,7 +4649,7 @@ ijk_inl dvec3 ijkVecSlerp3d(dvec3 const v0, dvec3 const v1, double const u)
 			sinInv = ijkTrigCsc_deg_dbl(angle),
 			s0 = sinInv * ijkTrigSin_deg_dbl(angle * (dbl_one - u)),
 			s1 = sinInv * ijkTrigSin_deg_dbl(angle * u);
-		v_out = ijkVecAdd3d(ijkVecMul3ds(v0, s0), ijkVecMul3ds(v0, s0));
+		v_out = ijkVecAdd3d(ijkVecMul3ds(v0, s0), ijkVecMul3ds(v1, s1));
 	}
 	else
 		v_out = ijkVecLerp3d(v0, v1, u);
@@ -4892,7 +4892,7 @@ ijk_inl dvec4 ijkVecSlerp4d(dvec4 const v0, dvec4 const v1, double const u)
 			sinInv = ijkTrigCsc_deg_dbl(angle),
 			s0 = sinInv * ijkTrigSin_deg_dbl(angle * (dbl_one - u)),
 			s1 = sinInv * ijkTrigSin_deg_dbl(angle * u);
-		v_out = ijkVecAdd4d(ijkVecMul4ds(v0, s0), ijkVecMul4ds(v0, s0));
+		v_out = ijkVecAdd4d(ijkVecMul4ds(v0, s0), ijkVecMul4ds(v1, s1));
 	}
 	else
 		v_out = ijkVecLerp4d(v0, v1, u);
