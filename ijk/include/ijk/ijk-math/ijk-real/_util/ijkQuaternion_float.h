@@ -505,6 +505,21 @@ floatv ijkQuatExpQfv(float4 q_out, float3 const v_in);
 //		return: q_out
 floatv ijkQuatLnQfv(float4 q_out, float4 const q_in);
 
+// ijkQuatPowQ*v
+//	Calculate quaternion raised to power of exponent.
+//		param q_out: output quaternion
+//		param q_in: input quaternion
+//		param u: exponent
+//		return: q_out
+floatv ijkQuatPowQfv(float4 q_out, float4 const q_in, f32 const u);
+
+// ijkQuatSqrtQ*v
+//	Calculate square root of quaternion.
+//		param q_out: output quaternion
+//		param q_in: input quaternion
+//		return: q_out
+floatv ijkQuatSqrtQfv(float4 q_out, float4 const q_in);
+
 // ijkQuatLerpQ*v
 //	Calculate linear interpolation between two quaternions; yields a uniform 
 //	rate of change but affects encoded scale.

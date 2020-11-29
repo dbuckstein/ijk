@@ -786,11 +786,57 @@ ijk_inl floatv ijkQuatReflectQfv(float4 q_out, float4 const q_in, float3 const v
 
 ijk_inl floatv ijkQuatExpQfv(float4 q_out, float3 const v_in)
 {
-
-	return q_out;
+	// exp(v) = exp(|v|unit(v)) = cos(|v|) + sin(|v|)unit(v)
+	f32 const len = ijkVecLength3fv(v_in);
+	if (len > flt_zero)
+	{
+		ijkTrigSinCos_rad_flt(len, q_out, q_out + 3);
+		return ijkVecMul3fvs(q_out, q_out, *q_out / len);
+	}
+	return ijkQuatInitQfv(q_out);
 }
 
 ijk_inl floatv ijkQuatLnQfv(float4 q_out, float4 const q_in)
+{
+	// ln(q) = ln(|q|unit(q))
+	//		= ln|q| + ln(w + v)
+	//		= ln|q| + ln(cos(|v|) + sin(|v|)unit(v))
+	//		= ln|q| + |v|unit(v)
+	//		= ln|q| + acos(w/|q|)v/|v|
+	f32 lenv = ijkVecLengthSq3fv(q_in);
+	if (lenv > flt_zero)
+	{
+		f32 const lenq = ijkSqrt_flt(lenv + q_in[3] * q_in[3]);
+		lenv = ijkTrigAcos_rad_flt(q_in[3] / lenq) * ijkSqrtInv_flt(lenv);
+		q_out[3] = ijkTrigLn1p_flt(lenq - flt_one);
+		return ijkVecMul3fvs(q_out, q_in, lenv);
+	}
+	q_out[0] = q_out[1] = q_out[2] = flt_zero;
+	q_out[3] = ijkTrigLn1p_flt(q_in[3] - flt_one);
+	return q_out;
+}
+
+ijk_inl floatv ijkQuatPowQfv(float4 q_out, float4 const q_in, f32 const u)
+{
+	// q^u = |q|^u unit(q)^u
+	//		= |q|^u (cos(a) + sin(a)n)^u
+	//		= |q|^u (cos(ua) + sin(ua)n)
+	f32 lenv = ijkVecLengthSq3fv(q_in), a, s;
+	if (lenv > flt_zero)
+	{
+		f32 const lenq = ijkTrigPow_flt((lenv + q_in[3] * q_in[3]), u * flt_half);
+		lenv = ijkSqrtInv_flt(lenv);
+		a = u * ijkTrigAtan2_deg_flt(lenv, q_in[3]);
+		ijkTrigSinCos_deg_flt(a, &s, q_out + 3);
+		q_out[3] *= lenq;
+		return ijkVecMul3fvs(q_out, q_in, lenq / lenv);
+	}
+	q_out[0] = q_out[1] = q_out[2] = flt_zero;
+	q_out[3] = ijkTrigPow_flt(q_in[3], u);
+	return q_out;
+}
+
+ijk_inl floatv ijkQuatSqrtQfv(float4 q_out, float4 const q_in)
 {
 
 	return q_out;
@@ -798,14 +844,13 @@ ijk_inl floatv ijkQuatLnQfv(float4 q_out, float4 const q_in)
 
 ijk_inl floatv ijkQuatLerpQfv(float4 q_out, float4 const q0, float4 const q1, f32 const u)
 {
-
-	return q_out;
+	return ijkVecLerp4fv(q_out, q0, q1, u);
 }
 
 ijk_inl floatv ijkQuatNlerpQfv(float4 q_out, float4 const q0, float4 const q1, f32 const u)
 {
-
-	return q_out;
+	ijkQuatLerpQfv(q_out, q0, q1, u);
+	return ijkQuatNormalizeQfv(q_out, q_out);
 }
 
 ijk_inl floatv ijkQuatSlerpQfv(float4 q_out, float4 const q0, float4 const q1, f32 const u)
