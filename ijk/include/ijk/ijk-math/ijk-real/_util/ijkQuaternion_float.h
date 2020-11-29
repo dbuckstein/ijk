@@ -105,6 +105,13 @@ floatv ijkQuatNegateQfv(float4 q_out, float4 const q_in);
 //		return: q_out
 floatv ijkQuatConjugateQfv(float4 q_out, float4 const q_in);
 
+// ijkQuatNegateConjugateQ*v
+//	Negate and conjugate quaternion: negate real part, copy vector part.
+//		param q_out: output quaternion, negative conjugate
+//		param q_in: input quaternion
+//		return: q_out
+floatv ijkQuatNegateConjugateQfv(float4 q_out, float4 const q_in);
+
 // ijkQuatAddQ*v
 //	Calculate sum of quaternions.
 //		param q_out: output quaternion, sum
@@ -608,10 +615,10 @@ float4m ijkDualQuatInitDQfm(float2x4 dq_out);
 // ijkDualQuatInitDualReDQ*m
 //	Initialize dual quaternion with dual and real parts.
 //		param dq_out: output dual quaternion
-//		param dual: dual component (E qd)
 //		param re: real component (qr)
+//		param dual: dual component (E qd)
 //		return: dq_out
-float4m ijkDualQuatInitDualReDQfm(float2x4 dq_out, float4 const dual, float4 const re);
+float4m ijkDualQuatInitDualReDQfm(float2x4 dq_out, float4 const re, float4 const dual);
 
 // ijkDualQuatInitMatDQ*m3
 //	Initialize dual quaternion from 3D matrix.

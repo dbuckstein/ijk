@@ -209,7 +209,16 @@ ijk_inl floatv ijkQuatConjugateQfv(float4 q_out, float4 const q_in)
 	q_out[0] = -q_in[0];
 	q_out[1] = -q_in[1];
 	q_out[2] = -q_in[2];
-	q_out[3] = q_in[3];
+	q_out[3] = +q_in[3];
+	return q_out;
+}
+
+ijk_inl floatv ijkQuatNegateConjugateQfv(float4 q_out, float4 const q_in)
+{
+	q_out[0] = +q_in[0];
+	q_out[1] = +q_in[1];
+	q_out[2] = +q_in[2];
+	q_out[3] = -q_in[3];
 	return q_out;
 }
 
@@ -961,86 +970,97 @@ ijk_inl floatv ijkQuatDecodeTranslateRemScaleQfv(float3 translate_out, float4 co
 
 ijk_inl float4m ijkDualQuatInitDQfm(float2x4 dq_out)
 {
-
+	ijkQuatInitQfv(dq_out[0]);
+	ijkQuatInitElemsQfv(dq_out[1], flt_zero, flt_zero, flt_zero, flt_zero);
 	return dq_out;
 }
 
-ijk_inl float4m ijkDualQuatInitDualReDQfm(float2x4 dq_out, float4 const dual, float4 const re)
+ijk_inl float4m ijkDualQuatInitDualReDQfm(float2x4 dq_out, float4 const re, float4 const dual)
 {
-
+	ijkQuatCopyQfv(dq_out[0], re);
+	ijkQuatCopyQfv(dq_out[1], dual);
 	return dq_out;
 }
 
 ijk_inl float4m ijkDualQuatInitMatDQfm3(float2x4 dq_out, float3x3 const m_in)
 {
-
+	ijkQuatInitMatQfv3(dq_out[0], m_in);
+	ijkQuatInitElemsQfv(dq_out[1], flt_zero, flt_zero, flt_zero, flt_zero);
 	return dq_out;
 }
 
 ijk_inl float4m ijkDualQuatInitMatDQfm4(float2x4 dq_out, float4x4 const m_in)
 {
-
+	ijkQuatEncodeTranslateQfv(dq_out[1], m_in[3], ijkQuatInitMatQfv4(dq_out[0], m_in));
 	return dq_out;
 }
 
 ijk_inl float4m ijkDualQuatCopyDQfm(float2x4 dq_out, float2x4 const dq_in)
 {
-
+	ijkQuatCopyQfv(dq_out[0], dq_in[0]);
+	ijkQuatCopyQfv(dq_out[1], dq_in[1]);
 	return dq_out;
 }
 
 ijk_inl float4m ijkDualQuatNegateDQfm(float2x4 dq_out, float2x4 const dq_in)
 {
-
+	ijkQuatNegateQfv(dq_out[0], dq_in[0]);
+	ijkQuatNegateQfv(dq_out[1], dq_in[1]);
 	return dq_out;
 }
 
 ijk_inl float4m ijkDualQuatConjugateDQfm(float2x4 dq_out, float2x4 const dq_in)
 {
-
+	ijkQuatConjugateQfv(dq_out[0], dq_in[0]);
+	ijkQuatConjugateQfv(dq_out[1], dq_in[1]);
 	return dq_out;
 }
 
 ijk_inl float4m ijkDualQuatNegateDualDQfm(float2x4 dq_out, float2x4 const dq_in)
 {
-
+	ijkQuatCopyQfv(dq_out[0], dq_in[0]);
+	ijkQuatNegateQfv(dq_out[1], dq_in[1]);
 	return dq_out;
 }
 
 ijk_inl float4m ijkDualQuatConjugateDualDQfm(float2x4 dq_out, float2x4 const dq_in)
 {
-
+	ijkQuatConjugateQfv(dq_out[0], dq_in[0]);
+	ijkQuatNegateConjugateQfv(dq_out[1], dq_in[1]);
 	return dq_out;
 }
 
 ijk_inl float4m ijkDualQuatAddDQfm(float2x4 dq_out, float2x4 const dq_lh, float2x4 const dq_rh)
 {
-
+	ijkQuatAddQfv(dq_out[0], dq_lh[0], dq_rh[0]);
+	ijkQuatAddQfv(dq_out[1], dq_lh[1], dq_rh[1]);
 	return dq_out;
 }
 
 ijk_inl float4m ijkDualQuatSubDQfm(float2x4 dq_out, float2x4 const dq_lh, float2x4 const dq_rh)
 {
-
+	ijkQuatSubQfv(dq_out[0], dq_lh[0], dq_rh[0]);
+	ijkQuatSubQfv(dq_out[1], dq_lh[1], dq_rh[1]);
 	return dq_out;
 }
 
 ijk_inl float4m ijkDualQuatMulDQfms(float2x4 dq_out, float2x4 const dq_lh, f32 const s_rh)
 {
-
+	ijkQuatMulQfvs(dq_out[0], dq_lh[0], s_rh);
+	ijkQuatMulQfvs(dq_out[1], dq_lh[1], s_rh);
 	return dq_out;
 }
 
 ijk_inl float4m ijkDualQuatDivDQfms(float2x4 dq_out, float2x4 const dq_lh, f32 const s_rh)
 {
-
-	return dq_out;
+	f32 const s = ijk_recip_flt(s_rh);
+	return ijkDualQuatMulDQfms(dq_out, dq_lh, s);
 }
 
 ijk_inl float4m ijkDualQuatDivSafeDQfms(float2x4 dq_out, float2x4 const dq_lh, f32 const s_rh)
 {
-
-	return dq_out;
+	f32 const s = ijk_recip_safe_flt(s_rh);
+	return ijkDualQuatMulDQfms(dq_out, dq_lh, s);
 }
 
 ijk_inl f32 ijkDualQuatLengthSqDQfm(float2x4 const dq_in)
