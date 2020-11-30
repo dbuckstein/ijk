@@ -81,7 +81,7 @@ typedef double4			double2x4[2];	// 2x4 (2c x 4r) double-precision array-based qu
 #else // !__cplusplus
 
 // fquat
-//	Data structure representing float quaternion.
+//	Data structure representing single-precision float quaternion.
 //		member v: vector array-based data
 //		members vec, re: vector and real components
 //		members x, y, z, w: individual components
@@ -93,7 +93,7 @@ union fquat
 };
 
 // dquat
-//	Data structure representing double quaternion.
+//	Data structure representing double-precision float quaternion.
 //		member v: vector array-based data
 //		members vec, re: vector and real components
 //		members x, y, z, w: individual components
@@ -105,7 +105,8 @@ union dquat
 };
 
 // fdualquat
-//	Data structure representing float dual quaternion.
+//	Data structure representing single-precision float dual quaternion; this 
+//	is designed for spatial transformations.
 //		member v: vector array-based data
 //		member m: matrix array-based data
 //		member q: quaternion components
@@ -121,7 +122,8 @@ union fdualquat
 };
 
 // ddualquat
-//	Data structure representing double dual quaternion.
+//	Data structure representing double-precision float dual quaternion; this 
+//	is designed for spatial transformations.
 //		member v: vector array-based data
 //		member m: matrix array-based data
 //		member q: quaternion components

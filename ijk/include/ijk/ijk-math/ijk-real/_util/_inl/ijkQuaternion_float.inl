@@ -640,34 +640,72 @@ ijk_inl floatkv ijkQuatGetAxisAngleScaleQfv(float4 const q_in, float3 axis_unit_
 ijk_inl float3m ijkQuatGetMatQfv3(float3x3 m_out, float4 const q_in)
 {
 	f32 const x = q_in[0], y = q_in[1], z = q_in[2], w = q_in[3],
-		ww = w * w, xx = x * x, yy = y * y, zz = z * z,
-		xy = x * y, yz = y * z, zx = x * z, xw = x * w, yw = y * w, zw = z * w;
+		ww = w * w, xx = x * x, yy = y * y, zz = z * z, wwxx = ww - xx, yyzz = yy - zz,
+		xy = x * y, yz = y * z, zx = z * x, xw = x * w, yw = y * w, zw = z * w;
 	m_out[0][0] = ww + xx - yy - zz;
 	m_out[0][1] = flt_two * (xy + zw);
 	m_out[0][2] = flt_two * (zx - yw);
 	m_out[1][0] = flt_two * (xy - zw);
-	m_out[1][1] = ww - xx + yy - zz;
+	m_out[1][1] = wwxx + yyzz;
 	m_out[1][2] = flt_two * (yz + xw);
 	m_out[2][0] = flt_two * (zx + yw);
 	m_out[2][1] = flt_two * (yz - xw);
-	m_out[2][1] = ww - xx - yy + zz;
+	m_out[2][1] = wwxx - yyzz;
+	return m_out;
+}
+
+ijk_inl float3m ijkQuatUnitGetMatQfv3(float3x3 m_out, float4 const q_in)
+{
+	f32 const x = q_in[0], y = q_in[1], z = q_in[2], w = q_in[3],
+		x2 = x * flt_two, y2 = y * flt_two, z2 = z * flt_two,
+		xx2 = x2 * x, yy2 = y2 * y, zz2 = z2 * z,
+		xy2 = x2 * y, yz2 = y2 * z, zx2 = z2 * x, xw2 = x2 * w, yw2 = y2 * w, zw2 = z2 * w;
+	m_out[0][0] = flt_one - (yy2 + zz2);
+	m_out[0][1] = (xy2 + zw2);
+	m_out[0][2] = (zx2 - yw2);
+	m_out[1][0] = (xy2 - zw2);
+	m_out[1][1] = flt_one - (zz2 + xx2);
+	m_out[1][2] = (yz2 + xw2);
+	m_out[2][0] = (zx2 + yw2);
+	m_out[2][1] = (yz2 - xw2);
+	m_out[2][1] = flt_one - (xx2 + yy2);
 	return m_out;
 }
 
 ijk_inl float4m ijkQuatGetMatQfv4(float4x4 m_out, float4 const q_in)
 {
 	f32 const x = q_in[0], y = q_in[1], z = q_in[2], w = q_in[3],
-		ww = w * w, xx = x * x, yy = y * y, zz = z * z,
-		xy = x * y, yz = y * z, zx = x * z, xw = x * w, yw = y * w, zw = z * w;
+		ww = w * w, xx = x * x, yy = y * y, zz = z * z, wwxx = ww - xx, yyzz = yy - zz,
+		xy = x * y, yz = y * z, zx = z * x, xw = x * w, yw = y * w, zw = z * w;
 	m_out[0][0] = ww + xx - yy - zz;
 	m_out[0][1] = flt_two * (xy + zw);
 	m_out[0][2] = flt_two * (zx - yw);
 	m_out[1][0] = flt_two * (xy - zw);
-	m_out[1][1] = ww - xx + yy - zz;
+	m_out[1][1] = wwxx + yyzz;
 	m_out[1][2] = flt_two * (yz + xw);
 	m_out[2][0] = flt_two * (zx + yw);
 	m_out[2][1] = flt_two * (yz - xw);
-	m_out[2][1] = ww - xx - yy + zz;
+	m_out[2][1] = wwxx - yyzz;
+	m_out[0][3] = m_out[1][3] = m_out[2][3] = m_out[3][0] = m_out[3][1] = m_out[3][2] = flt_zero;
+	m_out[3][3] = flt_one;
+	return m_out;
+}
+
+ijk_inl float4m ijkQuatUnitGetMatQfv4(float4x4 m_out, float4 const q_in)
+{
+	f32 const x = q_in[0], y = q_in[1], z = q_in[2], w = q_in[3],
+		x2 = x * flt_two, y2 = y * flt_two, z2 = z * flt_two,
+		xx2 = x2 * x, yy2 = y2 * y, zz2 = z2 * z,
+		xy2 = x2 * y, yz2 = y2 * z, zx2 = z2 * x, xw2 = x2 * w, yw2 = y2 * w, zw2 = z2 * w;
+	m_out[0][0] = flt_one - (yy2 + zz2);
+	m_out[0][1] = (xy2 + zw2);
+	m_out[0][2] = (zx2 - yw2);
+	m_out[1][0] = (xy2 - zw2);
+	m_out[1][1] = flt_one - (zz2 + xx2);
+	m_out[1][2] = (yz2 + xw2);
+	m_out[2][0] = (zx2 + yw2);
+	m_out[2][1] = (yz2 - xw2);
+	m_out[2][1] = flt_one - (xx2 + yy2);
 	m_out[0][3] = m_out[1][3] = m_out[2][3] = m_out[3][0] = m_out[3][1] = m_out[3][2] = flt_zero;
 	m_out[3][3] = flt_one;
 	return m_out;
@@ -676,17 +714,37 @@ ijk_inl float4m ijkQuatGetMatQfv4(float4x4 m_out, float4 const q_in)
 ijk_inl float4m ijkQuatGetMatQfv4t(float4x4 m_out, float4 const q_in, float3 const translate)
 {
 	f32 const x = q_in[0], y = q_in[1], z = q_in[2], w = q_in[3],
-		ww = w * w, xx = x * x, yy = y * y, zz = z * z,
-		xy = x * y, yz = y * z, zx = x * z, xw = x * w, yw = y * w, zw = z * w;
+		ww = w * w, xx = x * x, yy = y * y, zz = z * z, wwxx = ww - xx, yyzz = yy - zz,
+		xy = x * y, yz = y * z, zx = z * x, xw = x * w, yw = y * w, zw = z * w;
 	m_out[0][0] = ww + xx - yy - zz;
 	m_out[0][1] = flt_two * (xy + zw);
 	m_out[0][2] = flt_two * (zx - yw);
 	m_out[1][0] = flt_two * (xy - zw);
-	m_out[1][1] = ww - xx + yy - zz;
+	m_out[1][1] = wwxx + yyzz;
 	m_out[1][2] = flt_two * (yz + xw);
 	m_out[2][0] = flt_two * (zx + yw);
 	m_out[2][1] = flt_two * (yz - xw);
-	m_out[2][1] = ww - xx - yy + zz;
+	m_out[2][1] = wwxx - yyzz;
+	m_out[0][3] = m_out[1][3] = m_out[2][3] = flt_zero;
+	ijkVecCopy4fvw(m_out[3], translate, flt_one);
+	return m_out;
+}
+
+ijk_inl float4m ijkQuatUnitGetMatQfv4t(float4x4 m_out, float4 const q_in, float3 const translate)
+{
+	f32 const x = q_in[0], y = q_in[1], z = q_in[2], w = q_in[3],
+		x2 = x * flt_two, y2 = y * flt_two, z2 = z * flt_two,
+		xx2 = x2 * x, yy2 = y2 * y, zz2 = z2 * z,
+		xy2 = x2 * y, yz2 = y2 * z, zx2 = z2 * x, xw2 = x2 * w, yw2 = y2 * w, zw2 = z2 * w;
+	m_out[0][0] = flt_one - (yy2 + zz2);
+	m_out[0][1] = (xy2 + zw2);
+	m_out[0][2] = (zx2 - yw2);
+	m_out[1][0] = (xy2 - zw2);
+	m_out[1][1] = flt_one - (zz2 + xx2);
+	m_out[1][2] = (yz2 + xw2);
+	m_out[2][0] = (zx2 + yw2);
+	m_out[2][1] = (yz2 - xw2);
+	m_out[2][1] = flt_one - (xx2 + yy2);
 	m_out[0][3] = m_out[1][3] = m_out[2][3] = flt_zero;
 	ijkVecCopy4fvw(m_out[3], translate, flt_one);
 	return m_out;
@@ -1297,7 +1355,49 @@ ijk_inl float3m ijkDualQuatGetMatDQfm3(float3x3 m_out, float2x4 const dq_in)
 	return m_out;
 }
 
+ijk_inl float3m ijkDualQuatUnitGetMatDQfm3(float3x3 m_out, float2x4 const dq_in)
+{
+
+	return m_out;
+}
+
+ijk_inl float3m ijkDualQuatGetMatTranslateDQfm3(float3x3 m_out, float3 translate_out, float2x4 const dq_in)
+{
+
+	return m_out;
+}
+
+ijk_inl float3m ijkDualQuatUnitGetMatTranslateDQfm3(float3x3 m_out, float3 translate_out, float2x4 const dq_in)
+{
+
+	return m_out;
+}
+
+ijk_inl float3m ijkDualQuatGetMatTranslateRemScaleDQfm3(float3x3 m_out, float3 translate_out, float2x4 const dq_in)
+{
+
+	return m_out;
+}
+
 ijk_inl float4m ijkDualQuatGetMatDQfm4(float4x4 m_out, float2x4 const dq_in)
+{
+
+	return m_out;
+}
+
+ijk_inl float4m ijkDualQuatUnitGetMatDQfm4(float4x4 m_out, float2x4 const dq_in)
+{
+	
+	return m_out;
+}
+
+ijk_inl float4m ijkDualQuatGetMatRemScaleDQfm4(float4x4 m_out, float2x4 const dq_in)
+{
+
+	return m_out;
+}
+
+ijk_inl float4m ijkDualQuatGetMatTranslateRemScaleDQfm4(float4x4 m_out, float2x4 const dq_in)
 {
 
 	return m_out;

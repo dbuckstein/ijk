@@ -432,12 +432,26 @@ floatkv ijkQuatGetAxisAngleScaleQfv(float4 const q_in, float3 axis_unit_out, f32
 //		return: m_out
 float3m ijkQuatGetMatQfv3(float3x3 m_out, float4 const q_in);
 
+// ijkQuatUnitGetMatQ*v3
+//	Convert unit quaternion to 3D matrix.
+//		param m_out: output matrix
+//		param q_in: input quaternion
+//		return: m_out
+float3m ijkQuatUnitGetMatQfv3(float3x3 m_out, float4 const q_in);
+
 // ijkQuatGetMatQ*v4
 //	Convert quaternion to 4D matrix.
 //		param m_out: output matrix
 //		param q_in: input quaternion
 //		return: m_out
 float4m ijkQuatGetMatQfv4(float4x4 m_out, float4 const q_in);
+
+// ijkQuatUnitGetMatQ*v4
+//	Convert unit quaternion to 4D matrix.
+//		param m_out: output matrix
+//		param q_in: input quaternion
+//		return: m_out
+float4m ijkQuatUnitGetMatQfv4(float4x4 m_out, float4 const q_in);
 
 // ijkQuatGetMatQ*v4t
 //	Convert quaternion to 4D matrix, with additional translation vector.
@@ -446,6 +460,14 @@ float4m ijkQuatGetMatQfv4(float4x4 m_out, float4 const q_in);
 //		param translate: translation offset vector
 //		return: m_out
 float4m ijkQuatGetMatQfv4t(float4x4 m_out, float4 const q_in, float3 const translate);
+
+// ijkQuatUnitGetMatQ*v4t
+//	Convert unit quaternion to 4D matrix, with additional translation vector.
+//		param m_out: output matrix
+//		param q_in: input quaternion
+//		param translate: translation offset vector
+//		return: m_out
+float4m ijkQuatUnitGetMatQfv4t(float4x4 m_out, float4 const q_in, float3 const translate);
 
 // ijkQuatRotateScaleVecQ*v3
 //	Rotate and/or scale a 3D vector using a quaternion; result will not be 
@@ -1033,12 +1055,66 @@ float4km ijkDualQuatGetScrewParamsDQfm(float2x4 const dq_in, float3 axis_unit_ou
 //		return: m_out
 float3m ijkDualQuatGetMatDQfm3(float3x3 m_out, float2x4 const dq_in);
 
+// ijkDualQuatUnitGetMatDQ*m3
+//	Convert unit dual quaternion's real part to 3D matrix.
+//		param m_out: output matrix
+//		param dq_in: input dual quaternion
+//		return: m_out
+float3m ijkDualQuatUnitGetMatDQfm3(float3x3 m_out, float2x4 const dq_in);
+
+// ijkDualQuatGetMatTranslateDQ*m3
+//	Convert dual quaternion's real part to 3D matrix and extract translation.
+//		param m_out: output matrix
+//		param translate_out: output translation vector
+//		param dq_in: input dual quaternion
+//		return: m_out
+float3m ijkDualQuatGetMatTranslateDQfm3(float3x3 m_out, float3 translate_out, float2x4 const dq_in);
+
+// ijkDualQuatUnitGetMatTranslateDQ*m3
+//	Convert unit dual quaternion's real part to 3D matrix and extract 
+//	translation.
+//		param m_out: output matrix
+//		param translate_out: output translation vector
+//		param dq_in: input dual quaternion
+//		return: m_out
+float3m ijkDualQuatUnitGetMatTranslateDQfm3(float3x3 m_out, float3 translate_out, float2x4 const dq_in);
+
+// ijkDualQuatGetMatTranslateRemScaleDQ*m3
+//	Convert dual quaternion's real part to 3D matrix and extract translation 
+//	with scale removed.
+//		param m_out: output matrix
+//		param translate_out: output translation vector
+//		param dq_in: input dual quaternion
+//		return: m_out
+float3m ijkDualQuatGetMatTranslateRemScaleDQfm3(float3x3 m_out, float3 translate_out, float2x4 const dq_in);
+
 // ijkDualQuatGetMatDQ*m4
 //	Convert dual quaternion to 4D matrix.
 //		param m_out: output matrix
 //		param dq_in: input dual quaternion
 //		return: m_out
 float4m ijkDualQuatGetMatDQfm4(float4x4 m_out, float2x4 const dq_in);
+
+// ijkDualQuatUnitGetMatDQ*m4
+//	Convert unit dual quaternion to 4D matrix.
+//		param m_out: output matrix
+//		param dq_in: input dual quaternion
+//		return: m_out
+float4m ijkDualQuatUnitGetMatDQfm4(float4x4 m_out, float2x4 const dq_in);
+
+// ijkDualQuatGetMatRemScaleDQ*m4
+//	Convert dual quaternion to 4D matrix, scale removed.
+//		param m_out: output matrix
+//		param dq_in: input dual quaternion
+//		return: m_out
+float4m ijkDualQuatGetMatRemScaleDQfm4(float4x4 m_out, float2x4 const dq_in);
+
+// ijkDualQuatGetMatTranslateRemScaleDQ*m4
+//	Convert dual quaternion to 4D matrix, scale removed from translation part.
+//		param m_out: output matrix
+//		param dq_in: input dual quaternion
+//		return: m_out
+float4m ijkDualQuatGetMatTranslateRemScaleDQfm4(float4x4 m_out, float2x4 const dq_in);
 
 // ijkDualQuatTransformScaleVecDQ*m3
 //	Transform a 3D vector using a dual quaternion with scale; use when dual 
