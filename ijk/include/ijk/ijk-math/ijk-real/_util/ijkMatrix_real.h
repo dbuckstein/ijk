@@ -1978,6 +1978,34 @@ extern "C" {
 //real4m ijkMatLookAt4rm(real4x4 m_out, real4x4 m_inv_out_opt, real3 const origin, real3 const target, real3 const calibUnit, ijkTransformBasis const calibAxis);
 #define ijkMatLookAt4rm ijk_declrealfs(ijkMatLookAt4,m)
 
+// ijkMatMulTransform4*m
+//	Concatenate as if inputs are transformation matrices, saving a few 
+//	operations over full 4x4 product.
+//		param m_out: output matrix, transform product
+//		param m_lh: left-hand input matrix
+//		param m_rh: right-hand input matrix
+//		return: m_out
+//real4m ijkMatMulTransform4rm(real4x4 m_out, real4x4 const m_lh, real4x4 const m_rh);
+#define ijkMatMulTransform4rm ijk_declrealfs(ijkMatMulTransform4,m)
+
+// ijkMatMulVecTransform4*mv3
+//	Multiply 3D vector by transformation matrix, saving a few operations.
+//		param v_out: output vector, transformed input
+//		param m_lh: left-hand input matrix
+//		param v_rh: right-hand input vector
+//		return: v_out
+//realv ijkMatMulVecTransform4rmv3(real3 v_out, real4x4 const m_lh, real3 const v_rh);
+#define ijkMatMulVecTransform4rmv3 ijk_declrealfs(ijkMatMulVecTransform4,mv3)
+
+// ijkMatMulVecTransform4*mv4
+//	Multiply 4D vector by transformation matrix, saving a few operations.
+//		param v_out: output vector, transformed input
+//		param m_lh: left-hand input matrix
+//		param v_rh: right-hand input vector
+//		return: v_out
+//realv ijkMatMulVecTransform4rmv4(real4 v_out, real4x4 const m_lh, real4 const v_rh);
+#define ijkMatMulVecTransform4rmv4 ijk_declrealfs(ijkMatMulVecTransform4,mv4)
+
 // ijkMatProjectionPerspective4*m
 //	Create perspective projection matrix.
 //		param m_out: output matrix, perspective projection
@@ -3060,6 +3088,31 @@ extern "C" {
 //		return: quick inverse
 //rmat4 ijkMatInverseTransposeTranslate4r(rmat4 const m_in);
 #define ijkMatInverseTransposeTranslate4r ijk_declrealfs(ijkMatInverseTransposeTranslate4,)
+
+// ijkMatMulTransform4*
+//	Concatenate as if inputs are transformation matrices, saving a few 
+//	operations over full 4x4 product.
+//		param m_lh: left-hand input matrix
+//		param m_rh: right-hand input matrix
+//		return: transform product
+//rmat4 ijkMatMulTransform4r(rmat4 const m_lh, rmat4 const m_rh);
+#define ijkMatMulTransform4r ijk_declrealfs(ijkMatMulTransform4,)
+
+// ijkMatMulVecTransform4*v3
+//	Multiply 3D vector by transformation matrix, saving a few operations.
+//		param m_lh: left-hand input matrix
+//		param v_rh: right-hand input vector
+//		return: transformed input
+//dvec3 ijkMatMulVecTransform4rv3(rmat4 const m_lh, dvec3 const v_rh);
+#define ijkMatMulVecTransform4rv3 ijk_declrealfs(ijkMatMulVecTransform4,v3)
+
+// ijkMatMulVecTransform4*v4
+//	Multiply 4D vector by transformation matrix, saving a few operations.
+//		param m_lh: left-hand input matrix
+//		param v_rh: right-hand input vector
+//		return: transformed input
+//dvec4 ijkMatMulVecTransform4rv4(rmat4 const m_lh, dvec4 const v_rh);
+#define ijkMatMulVecTransform4rv4 ijk_declrealfs(ijkMatMulVecTransform4,v4)
 
 // ijkMatLookAt4*
 //	Create look-at 4D matrix given origin, target and calibration vector.

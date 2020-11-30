@@ -1749,6 +1749,31 @@ float4m ijkMatInverseRotateScaleTranslate4fm(float4x4 m_out, float4x4 const m_in
 //		return: m_out
 float4m ijkMatInverseTransposeTranslate4fm(float4x4 m_out, float4x4 const m_in);
 
+// ijkMatMulTransform4*m
+//	Concatenate as if inputs are transformation matrices, saving a few 
+//	operations over full 4x4 product.
+//		param m_out: output matrix, transform product
+//		param m_lh: left-hand input matrix
+//		param m_rh: right-hand input matrix
+//		return: m_out
+float4m ijkMatMulTransform4fm(float4x4 m_out, float4x4 const m_lh, float4x4 const m_rh);
+
+// ijkMatMulVecTransform4*mv3
+//	Multiply 3D vector by transformation matrix, saving a few operations.
+//		param v_out: output vector, transformed input
+//		param m_lh: left-hand input matrix
+//		param v_rh: right-hand input vector
+//		return: v_out
+floatv ijkMatMulVecTransform4fmv3(float3 v_out, float4x4 const m_lh, float3 const v_rh);
+
+// ijkMatMulVecTransform4*mv4
+//	Multiply 4D vector by transformation matrix, saving a few operations.
+//		param v_out: output vector, transformed input
+//		param m_lh: left-hand input matrix
+//		param v_rh: right-hand input vector
+//		return: v_out
+floatv ijkMatMulVecTransform4fmv4(float4 v_out, float4x4 const m_lh, float4 const v_rh);
+
 // ijkMatLookAt4*m
 //	Create look-at 4D matrix given origin, target and calibration vector.
 //		param m_out: output matrix, look-at
@@ -2719,6 +2744,28 @@ fmat4 ijkMatInverseRotateScaleTranslate4f(fmat4 const m_in);
 //		param m_in: input matrix
 //		return: quick inverse
 fmat4 ijkMatInverseTransposeTranslate4f(fmat4 const m_in);
+
+// ijkMatMulTransform4*
+//	Concatenate as if inputs are transformation matrices, saving a few 
+//	operations over full 4x4 product.
+//		param m_lh: left-hand input matrix
+//		param m_rh: right-hand input matrix
+//		return: transform product
+fmat4 ijkMatMulTransform4f(fmat4 const m_lh, fmat4 const m_rh);
+
+// ijkMatMulVecTransform4*v3
+//	Multiply 3D vector by transformation matrix, saving a few operations.
+//		param m_lh: left-hand input matrix
+//		param v_rh: right-hand input vector
+//		return: transformed input
+fvec3 ijkMatMulVecTransform4fv3(fmat4 const m_lh, fvec3 const v_rh);
+
+// ijkMatMulVecTransform4*v4
+//	Multiply 4D vector by transformation matrix, saving a few operations.
+//		param m_lh: left-hand input matrix
+//		param v_rh: right-hand input vector
+//		return: transformed input
+fvec4 ijkMatMulVecTransform4fv4(fmat4 const m_lh, fvec4 const v_rh);
 
 // ijkMatLookAt4*
 //	Create look-at 4D matrix given origin, target and calibration vector.

@@ -1023,9 +1023,13 @@ ijk_inl floatv ijkMatMulVec2fmv(float2 v_out, float2x2 const m_lh, float2 const 
 
 ijk_inl float2m ijkMatMul2fm(float2x2 m_out, float2x2 const m_lh, float2x2 const m_rh)
 {
-	ijkMatMulVec2fmv(m_out[0], m_lh, m_rh[0]);
-	ijkMatMulVec2fmv(m_out[1], m_lh, m_rh[1]);
-	return m_out;
+	float2x2 const m_copy = {
+		ijkMatMulRowVec2fmv(m_lh, m_rh[0], 0),
+		ijkMatMulRowVec2fmv(m_lh, m_rh[0], 1),
+		ijkMatMulRowVec2fmv(m_lh, m_rh[1], 0),
+		ijkMatMulRowVec2fmv(m_lh, m_rh[1], 1),
+	};
+	return ijkMatCopy2fm2(m_out, m_copy);
 }
 
 ijk_inl float2m ijkMatDiv2fm(float2x2 m_out, float2x2 const m_lh, float2x2 const m_rh)
@@ -1237,10 +1241,18 @@ ijk_inl floatv ijkMatMulVec3fmv(float3 v_out, float3x3 const m_lh, float3 const 
 
 ijk_inl float3m ijkMatMul3fm(float3x3 m_out, float3x3 const m_lh, float3x3 const m_rh)
 {
-	ijkMatMulVec3fmv(m_out[0], m_lh, m_rh[0]);
-	ijkMatMulVec3fmv(m_out[1], m_lh, m_rh[1]);
-	ijkMatMulVec3fmv(m_out[2], m_lh, m_rh[2]);
-	return m_out;
+	float3x3 const m_copy = {
+		ijkMatMulRowVec3fmv(m_lh, m_rh[0], 0),
+		ijkMatMulRowVec3fmv(m_lh, m_rh[0], 1),
+		ijkMatMulRowVec3fmv(m_lh, m_rh[0], 2),
+		ijkMatMulRowVec3fmv(m_lh, m_rh[1], 0),
+		ijkMatMulRowVec3fmv(m_lh, m_rh[1], 1),
+		ijkMatMulRowVec3fmv(m_lh, m_rh[1], 2),
+		ijkMatMulRowVec3fmv(m_lh, m_rh[2], 0),
+		ijkMatMulRowVec3fmv(m_lh, m_rh[2], 1),
+		ijkMatMulRowVec3fmv(m_lh, m_rh[2], 2),
+	};
+	return ijkMatCopy3fm3(m_out, m_copy);
 }
 
 ijk_inl float3m ijkMatDiv3fm(float3x3 m_out, float3x3 const m_lh, float3x3 const m_rh)
@@ -1740,11 +1752,25 @@ ijk_inl floatv ijkMatMulVec4fmv(float4 v_out, float4x4 const m_lh, float4 const 
 
 ijk_inl float4m ijkMatMul4fm(float4x4 m_out, float4x4 const m_lh, float4x4 const m_rh)
 {
-	ijkMatMulVec4fmv(m_out[0], m_lh, m_rh[0]);
-	ijkMatMulVec4fmv(m_out[1], m_lh, m_rh[1]);
-	ijkMatMulVec4fmv(m_out[2], m_lh, m_rh[2]);
-	ijkMatMulVec4fmv(m_out[3], m_lh, m_rh[3]);
-	return m_out;
+	float4x4 const m_copy = {
+		ijkMatMulRowVec4fmv(m_lh, m_rh[0], 0),
+		ijkMatMulRowVec4fmv(m_lh, m_rh[0], 1),
+		ijkMatMulRowVec4fmv(m_lh, m_rh[0], 2),
+		ijkMatMulRowVec4fmv(m_lh, m_rh[0], 3),
+		ijkMatMulRowVec4fmv(m_lh, m_rh[1], 0),
+		ijkMatMulRowVec4fmv(m_lh, m_rh[1], 1),
+		ijkMatMulRowVec4fmv(m_lh, m_rh[1], 2),
+		ijkMatMulRowVec4fmv(m_lh, m_rh[1], 3),
+		ijkMatMulRowVec4fmv(m_lh, m_rh[2], 0),
+		ijkMatMulRowVec4fmv(m_lh, m_rh[2], 1),
+		ijkMatMulRowVec4fmv(m_lh, m_rh[2], 2),
+		ijkMatMulRowVec4fmv(m_lh, m_rh[2], 3),
+		ijkMatMulRowVec4fmv(m_lh, m_rh[3], 0),
+		ijkMatMulRowVec4fmv(m_lh, m_rh[3], 1),
+		ijkMatMulRowVec4fmv(m_lh, m_rh[3], 2),
+		ijkMatMulRowVec4fmv(m_lh, m_rh[3], 3),
+	};
+	return ijkMatCopy4fm4(m_out, m_copy);
 }
 
 ijk_inl float4m ijkMatDiv4fm(float4x4 m_out, float4x4 const m_lh, float4x4 const m_rh)
@@ -2216,6 +2242,45 @@ ijk_inl float4m ijkMatInverseTransposeTranslate4fm(float4x4 m_out, float4x4 cons
 	ijkMatInverseTranspose4fm(m_out, m_in);
 	ijkVecCopy3fv(m_out[3], m_in[3]);
 	return m_out;
+}
+
+ijk_inl float4m ijkMatMulTransform4fm(float4x4 m_out, float4x4 const m_lh, float4x4 const m_rh)
+{
+	float4x4 const m = {
+		(m_lh[0][0] * m_rh[0][0] + m_lh[1][0] * m_rh[0][1] + m_lh[2][0] * m_rh[0][2]),
+		(m_lh[0][1] * m_rh[0][0] + m_lh[1][1] * m_rh[0][1] + m_lh[2][1] * m_rh[0][2]),
+		(m_lh[0][2] * m_rh[0][0] + m_lh[1][2] * m_rh[0][1] + m_lh[2][2] * m_rh[0][2]),
+		flt_zero,
+		(m_lh[0][0] * m_rh[1][0] + m_lh[1][0] * m_rh[1][1] + m_lh[2][0] * m_rh[1][2]),
+		(m_lh[0][1] * m_rh[1][0] + m_lh[1][1] * m_rh[1][1] + m_lh[2][1] * m_rh[1][2]),
+		(m_lh[0][2] * m_rh[1][0] + m_lh[1][2] * m_rh[1][1] + m_lh[2][2] * m_rh[1][2]),
+		flt_zero,
+		(m_lh[0][0] * m_rh[2][0] + m_lh[1][0] * m_rh[2][1] + m_lh[2][0] * m_rh[2][2]),
+		(m_lh[0][1] * m_rh[2][0] + m_lh[1][1] * m_rh[2][1] + m_lh[2][1] * m_rh[2][2]),
+		(m_lh[0][2] * m_rh[2][0] + m_lh[1][2] * m_rh[2][1] + m_lh[2][2] * m_rh[2][2]),
+		flt_zero,
+		(m_lh[0][0] * m_rh[3][0] + m_lh[1][0] * m_rh[3][1] + m_lh[2][0] * m_rh[3][2] + m_lh[3][0]),
+		(m_lh[0][1] * m_rh[3][0] + m_lh[1][1] * m_rh[3][1] + m_lh[2][1] * m_rh[3][2] + m_lh[3][1]),
+		(m_lh[0][2] * m_rh[3][0] + m_lh[1][2] * m_rh[3][1] + m_lh[2][2] * m_rh[3][2] + m_lh[3][2]),
+		flt_one,
+	};
+	return ijkMatCopy4fm4(m_out, m);
+}
+
+ijk_inl floatv ijkMatMulVecTransform4fmv3(float3 v_out, float4x4 const m_lh, float3 const v_rh)
+{
+	float3 const v = {
+		(m_lh[0][0] * v_rh[0] + m_lh[1][0] * v_rh[1] + m_lh[2][0] * v_rh[2] + m_lh[3][0]),
+		(m_lh[0][1] * v_rh[0] + m_lh[1][1] * v_rh[1] + m_lh[2][1] * v_rh[2] + m_lh[3][1]),
+		(m_lh[0][2] * v_rh[0] + m_lh[1][2] * v_rh[1] + m_lh[2][2] * v_rh[2] + m_lh[3][2]),
+	};
+	return ijkVecCopy3fv(v_out, v);
+}
+
+ijk_inl floatv ijkMatMulVecTransform4fmv4(float4 v_out, float4x4 const m_lh, float4 const v_rh)
+{
+	v_out[3] = flt_one;
+	return ijkMatMulVecTransform4fmv3(v_out, m_lh, v_rh);
 }
 
 ijk_inl float4m ijkMatLookAt4fm(float4x4 m_out, float4x4 m_inv_out_opt, float3 const origin, float3 const target, float3 const calibUnit, ijkTransformBasis const calibAxis)
@@ -3581,6 +3646,50 @@ ijk_inl fmat4 ijkMatInverseTransposeTranslate4f(fmat4 const m_in)
 	fmat4 m_out = ijkMatInverseTranspose4f(m_in);
 	m_out.c3 = m_in.c3;
 	return m_out;
+}
+
+ijk_inl fmat4 ijkMatMulTransform4f(fmat4 const m_lh, fmat4 const m_rh)
+{
+	fmat4 const m_out = {
+		(m_lh.m00 * m_rh.m00 + m_lh.m10 * m_rh.m01 + m_lh.m20 * m_rh.m02),
+		(m_lh.m01 * m_rh.m00 + m_lh.m11 * m_rh.m01 + m_lh.m21 * m_rh.m02),
+		(m_lh.m02 * m_rh.m00 + m_lh.m12 * m_rh.m01 + m_lh.m22 * m_rh.m02),
+		flt_zero,
+		(m_lh.m00 * m_rh.m10 + m_lh.m10 * m_rh.m11 + m_lh.m20 * m_rh.m12),
+		(m_lh.m01 * m_rh.m10 + m_lh.m11 * m_rh.m11 + m_lh.m21 * m_rh.m12),
+		(m_lh.m02 * m_rh.m10 + m_lh.m12 * m_rh.m11 + m_lh.m22 * m_rh.m12),
+		flt_zero,
+		(m_lh.m00 * m_rh.m20 + m_lh.m10 * m_rh.m21 + m_lh.m20 * m_rh.m22),
+		(m_lh.m01 * m_rh.m20 + m_lh.m11 * m_rh.m21 + m_lh.m21 * m_rh.m22),
+		(m_lh.m02 * m_rh.m20 + m_lh.m12 * m_rh.m21 + m_lh.m22 * m_rh.m22),
+		flt_zero,
+		(m_lh.m00 * m_rh.m30 + m_lh.m10 * m_rh.m31 + m_lh.m20 * m_rh.m32 + m_lh.m30),
+		(m_lh.m01 * m_rh.m30 + m_lh.m11 * m_rh.m31 + m_lh.m21 * m_rh.m32 + m_lh.m31),
+		(m_lh.m02 * m_rh.m30 + m_lh.m12 * m_rh.m31 + m_lh.m22 * m_rh.m32 + m_lh.m32),
+		flt_one,
+	};
+	return m_out;
+}
+
+ijk_inl fvec3 ijkMatMulVecTransform4fv3(fmat4 const m_lh, fvec3 const v_rh)
+{
+	fvec3 const v_out = {
+		(m_lh.m00 * v_rh.x + m_lh.m10 * v_rh.y + m_lh.m20 * v_rh.z + m_lh.m30),
+		(m_lh.m01 * v_rh.x + m_lh.m11 * v_rh.y + m_lh.m21 * v_rh.z + m_lh.m31),
+		(m_lh.m02 * v_rh.x + m_lh.m12 * v_rh.y + m_lh.m22 * v_rh.z + m_lh.m32),
+	};
+	return v_out;
+}
+
+ijk_inl fvec4 ijkMatMulVecTransform4fv4(fmat4 const m_lh, fvec4 const v_rh)
+{
+	fvec4 const v_out = {
+		(m_lh.m00 * v_rh.x + m_lh.m10 * v_rh.y + m_lh.m20 * v_rh.z + m_lh.m30),
+		(m_lh.m01 * v_rh.x + m_lh.m11 * v_rh.y + m_lh.m21 * v_rh.z + m_lh.m31),
+		(m_lh.m02 * v_rh.x + m_lh.m12 * v_rh.y + m_lh.m22 * v_rh.z + m_lh.m32),
+		flt_one,
+	};
+	return v_out;
 }
 
 ijk_inl fmat4 ijkMatLookAt4f(fmat4* const m_inv_out_opt, fvec3 const origin, fvec3 const target, fvec3 const calibUnit, ijkTransformBasis const calibAxis)
