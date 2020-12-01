@@ -68,6 +68,32 @@ ijk_inl floatv ijkQuatInitVecReQfv(float4 q_out, float3 const vec, f32 const re)
 	return q_out;
 }
 
+ijk_inl floatv ijkQuatInitVecProductQfv(float4 q_out, float3 const v_lh, float3 const v_rh)
+{
+	q_out[3] = -ijkVecDot3fv(v_lh, v_rh);
+	return ijkVecCross3fv(q_out, v_lh, v_rh);
+}
+
+ijk_inl floatv ijkQuatInitVecProductSqrtQfv(float4 q_out, float3 const v_lh, float3 const v_rh)
+{
+	float3 const hv = {
+		flt_half * (v_lh[0] + v_rh[0]),
+		flt_half * (v_lh[1] + v_rh[1]),
+		flt_half * (v_lh[2] + v_rh[2]),
+	};
+	return ijkQuatInitVecProductQfv(q_out, v_lh, hv);
+}
+
+ijk_inl floatv ijkQuatInitVecProductSqrtUnitQfv(float4 q_out, float3 const v_lh, float3 const v_rh)
+{
+	float3 hv = {
+		flt_half * (v_lh[0] + v_rh[0]),
+		flt_half * (v_lh[1] + v_rh[1]),
+		flt_half * (v_lh[2] + v_rh[2]),
+	};
+	return ijkQuatInitVecProductQfv(q_out, v_lh, ijkVecNormalize3fv(hv, hv));
+}
+
 ijk_inl floatv ijkQuatInitMatQfv3(float4 q_out, float3x3 const m_in)
 {
 	f32 t, w, x, y, z;
@@ -213,12 +239,30 @@ ijk_inl floatv ijkQuatConjugateQfv(float4 q_out, float4 const q_in)
 	return q_out;
 }
 
+ijk_inl floatv ijkQuatConjugateMulQfvs(float4 q_out, float4 const q_in, f32 const s)
+{
+	q_out[0] = -q_in[0] * s;
+	q_out[1] = -q_in[1] * s;
+	q_out[2] = -q_in[2] * s;
+	q_out[3] = +q_in[3] * s;
+	return q_out;
+}
+
 ijk_inl floatv ijkQuatNegateConjugateQfv(float4 q_out, float4 const q_in)
 {
 	q_out[0] = +q_in[0];
 	q_out[1] = +q_in[1];
 	q_out[2] = +q_in[2];
 	q_out[3] = -q_in[3];
+	return q_out;
+}
+
+ijk_inl floatv ijkQuatNegateConjugateMulQfvs(float4 q_out, float4 const q_in, f32 const s)
+{
+	q_out[0] = +q_in[0] * s;
+	q_out[1] = +q_in[1] * s;
+	q_out[2] = +q_in[2] * s;
+	q_out[3] = -q_in[3] * s;
 	return q_out;
 }
 
@@ -939,7 +983,7 @@ ijk_inl floatv ijkQuatSlerpQfv(float4 q_out, float4 const q0, float4 const q1, f
 	if (dot < flt_zero)
 	{
 		dot = -dot;
-		q1b = ijkQuatNegateQfv(copy, q1);
+		q1b = ijkQuatNegateQfv(copy, q1b);
 	}
 	if (dot < flt_one)
 	{
@@ -948,11 +992,9 @@ ijk_inl floatv ijkQuatSlerpQfv(float4 q_out, float4 const q0, float4 const q1, f
 			sinInv = ijkTrigCsc_deg_flt(angle),
 			s0 = sinInv * ijkTrigSin_deg_flt(angle * (flt_one - u)),
 			s1 = sinInv * ijkTrigSin_deg_flt(angle * u);
-		ijkQuatAddQfv(q_out, ijkQuatMulQfvs(q_out, q0, s0), ijkQuatMulQfvs(tmp, q1, s1));
+		return ijkQuatAddQfv(q_out, ijkQuatMulQfvs(q_out, q0, s0), ijkQuatMulQfvs(tmp, q1b, s1));
 	}
-	else
-		ijkQuatLerpQfv(q_out, q0, q1, u);
-	return q_out;
+	return ijkQuatNlerpQfv(q_out, q0, q1b, u);
 }
 
 ijk_inl floatv ijkQuatDerivQfv(float4 q1_out, float4 const q_in, float3 const angularVelocity)
@@ -1123,61 +1165,66 @@ ijk_inl float4m ijkDualQuatDivSafeDQfms(float2x4 dq_out, float2x4 const dq_lh, f
 
 ijk_inl f32 ijkDualQuatLengthSqDQfm(float2x4 const dq_in)
 {
-
-	return flt_zero;
+	// length is that of real part only
+	return ijkQuatLengthSqQfv(dq_in[0]);
 }
 
 ijk_inl f32 ijkDualQuatLengthDQfm(float2x4 const dq_in)
 {
-
-	return flt_zero;
+	return ijkQuatLengthQfv(dq_in[0]);
 }
 
 ijk_inl f32 ijkDualQuatLengthSqInvDQfm(float2x4 const dq_in)
 {
-
-	return flt_zero;
+	return ijkQuatLengthSqInvQfv(dq_in[0]);
 }
 
 ijk_inl f32 ijkDualQuatLengthInvDQfm(float2x4 const dq_in)
 {
-
-	return flt_zero;
+	return ijkQuatLengthInvQfv(dq_in[0]);
 }
 
 ijk_inl f32 ijkDualQuatLengthSqInvSafeDQfm(float2x4 const dq_in)
 {
-
-	return flt_zero;
+	return ijkQuatLengthSqInvSafeQfv(dq_in[0]);
 }
 
 ijk_inl f32 ijkDualQuatLengthInvSafeDQfm(float2x4 const dq_in)
 {
-
-	return flt_zero;
+	return ijkQuatLengthInvSafeQfv(dq_in[0]);
 }
 
 ijk_inl float4m ijkDualQuatNormalizeDQfm(float2x4 dq_out, float2x4 const dq_in)
 {
-
+	// divide both parts by real part's length
+	f32 const lenInv = ijkQuatLengthInvQfv(dq_out[0]);
+	ijkQuatMulQfvs(dq_out[0], dq_out[0], lenInv);
+	ijkQuatMulQfvs(dq_out[1], dq_out[1], lenInv);
 	return dq_out;
 }
 
 ijk_inl float4m ijkDualQuatNormalizeSafeDQfm(float2x4 dq_out, float2x4 const dq_in)
 {
-
+	f32 const lenInv = ijkQuatLengthInvSafeQfv(dq_out[0]);
+	ijkQuatMulQfvs(dq_out[0], dq_out[0], lenInv);
+	ijkQuatMulQfvs(dq_out[1], dq_out[1], lenInv);
 	return dq_out;
 }
 
 ijk_inl float4m ijkDualQuatInverseDQfm(float2x4 dq_out, float2x4 const dq_in)
 {
-
+	// conjugate of each part divided by real part's length
+	f32 const lenInv = ijkQuatLengthInvQfv(dq_out[0]);
+	ijkQuatConjugateMulQfvs(dq_out[0], dq_in[0], lenInv);
+	ijkQuatConjugateMulQfvs(dq_out[1], dq_in[1], lenInv);
 	return dq_out;
 }
 
 ijk_inl float4m ijkDualQuatInverseSafeDQfm(float2x4 dq_out, float2x4 const dq_in)
 {
-
+	f32 const lenInv = ijkQuatLengthInvSafeQfv(dq_out[0]);
+	ijkQuatConjugateMulQfvs(dq_out[0], dq_in[0], lenInv);
+	ijkQuatConjugateMulQfvs(dq_out[1], dq_in[1], lenInv);
 	return dq_out;
 }
 
@@ -1207,8 +1254,8 @@ ijk_inl float4m ijkDualQuatMulScaleDQfm(float2x4 dq_out, float2x4 const dq_lh, f
 
 ijk_inl float4m ijkDualQuatDivDQfm(float2x4 dq_out, float2x4 const dq_lh, float2x4 const dq_rh)
 {
-
-	return dq_out;
+	float2x4 dq_rh_inv;
+	return ijkDualQuatMulDQfm(dq_out, dq_lh, ijkDualQuatInverseDQfm(dq_rh_inv, dq_rh));
 }
 
 ijk_inl float4m ijkDualQuatRotateDQfm(float2x4 dq_out, ijkRotationOrder const order, float3 const rotateDegXYZ)
@@ -1345,62 +1392,75 @@ ijk_inl float4km ijkDualQuatGetAxisAngleScaleTranslateDQfm(float2x4 const dq_in,
 
 ijk_inl float4km ijkDualQuatGetScrewParamsDQfm(float2x4 const dq_in, float3 axis_unit_out, f32* const angle_degrees_out, float3 translate_out, float3 momentArm_out, f32* const screwDisplace_out)
 {
+	floatkv r = dq_in[0], d = dq_in[1];
+	f32 distance;
+	f32 const lenSq = ijkQuatLengthSqQfv(r), lenSqInv2 = flt_two / lenSq;
+	f32 const c = r[3], s = ijkVecLength3fv(r);
+	f32 const angle = ijkTrigAtan2_deg_flt(s, c), cot = c / s;
 
+	translate_out[0] = lenSqInv2 * (d[0] * r[3] + d[2] * r[1] - d[1] * r[2] - d[3] * r[0]);
+	translate_out[1] = lenSqInv2 * (d[1] * r[3] + d[0] * r[2] - d[2] * r[0] - d[3] * r[1]);
+	translate_out[2] = lenSqInv2 * (d[2] * r[3] + d[1] * r[0] - d[0] * r[1] - d[3] * r[2]);
+
+	axis_unit_out[0] = r[0] * s;
+	axis_unit_out[1] = r[1] * s;
+	axis_unit_out[2] = r[2] * s;
+
+	*angle_degrees_out = flt_two * angle;
+	*screwDisplace_out = distance = ijkVecDot3fv(translate_out, axis_unit_out);
+
+	// moment = 1/2 * ( cross(translate, axis) + (translate - distance*axis)*cot(halfAngle) )
+	momentArm_out[0] = flt_half * (translate_out[1] * axis_unit_out[2] - translate_out[2] * axis_unit_out[1] + cot * (translate_out[0] - distance * axis_unit_out[0]));
+	momentArm_out[1] = flt_half * (translate_out[2] * axis_unit_out[0] - translate_out[0] * axis_unit_out[2] + cot * (translate_out[1] - distance * axis_unit_out[1]));
+	momentArm_out[2] = flt_half * (translate_out[0] * axis_unit_out[1] - translate_out[1] * axis_unit_out[0] + cot * (translate_out[2] - distance * axis_unit_out[2]));
+	
 	return dq_in;
 }
 
 ijk_inl float3m ijkDualQuatGetMatDQfm3(float3x3 m_out, float2x4 const dq_in)
 {
-
-	return m_out;
+	return ijkQuatGetMatQfv3(m_out, dq_in[0]);
 }
 
 ijk_inl float3m ijkDualQuatUnitGetMatDQfm3(float3x3 m_out, float2x4 const dq_in)
 {
-
-	return m_out;
+	return ijkQuatUnitGetMatQfv3(m_out, dq_in[0]);
 }
 
 ijk_inl float3m ijkDualQuatGetMatTranslateDQfm3(float3x3 m_out, float3 translate_out, float2x4 const dq_in)
 {
-
-	return m_out;
+	ijkQuatDecodeTranslateQfv(translate_out, dq_in[1], dq_in[0]);
+	return ijkQuatGetMatQfv3(m_out, dq_in[0]);
 }
 
 ijk_inl float3m ijkDualQuatUnitGetMatTranslateDQfm3(float3x3 m_out, float3 translate_out, float2x4 const dq_in)
 {
-
-	return m_out;
+	ijkQuatDecodeTranslateQfv(translate_out, dq_in[1], dq_in[0]);
+	return ijkQuatUnitGetMatQfv3(m_out, dq_in[0]);
 }
 
 ijk_inl float3m ijkDualQuatGetMatTranslateRemScaleDQfm3(float3x3 m_out, float3 translate_out, float2x4 const dq_in)
 {
-
-	return m_out;
+	ijkQuatDecodeTranslateRemScaleQfv(translate_out, dq_in[1], dq_in[0]);
+	return ijkQuatGetMatQfv3(m_out, dq_in[0]);
 }
 
 ijk_inl float4m ijkDualQuatGetMatDQfm4(float4x4 m_out, float2x4 const dq_in)
 {
-
-	return m_out;
+	float3 translate;
+	return ijkQuatGetMatQfv4t(m_out, dq_in[0], ijkQuatDecodeTranslateQfv(translate, dq_in[1], dq_in[0]));
 }
 
 ijk_inl float4m ijkDualQuatUnitGetMatDQfm4(float4x4 m_out, float2x4 const dq_in)
 {
-	
-	return m_out;
-}
-
-ijk_inl float4m ijkDualQuatGetMatRemScaleDQfm4(float4x4 m_out, float2x4 const dq_in)
-{
-
-	return m_out;
+	float3 translate;
+	return ijkQuatUnitGetMatQfv4t(m_out, dq_in[0], ijkQuatDecodeTranslateQfv(translate, dq_in[1], dq_in[0]));
 }
 
 ijk_inl float4m ijkDualQuatGetMatTranslateRemScaleDQfm4(float4x4 m_out, float2x4 const dq_in)
 {
-
-	return m_out;
+	float3 translate;
+	return ijkQuatGetMatQfv4t(m_out, dq_in[0], ijkQuatDecodeTranslateRemScaleQfv(translate, dq_in[1], dq_in[0]));
 }
 
 ijk_inl floatv ijkDualQuatTransformScaleVecDQfm3(float3 v_out, float2x4 const dq_in, float3 const v_in)
@@ -1423,25 +1483,52 @@ ijk_inl floatv ijkDualQuatTransformVecDQfm3(float3 v_out, float2x4 const dq_in, 
 
 ijk_inl float4m ijkDualQuatLerpDQfm(float2x4 dq_out, float2x4 const dq0, float2x4 const dq1, f32 const u)
 {
-
+	ijkQuatLerpQfv(dq_out[0], dq0[0], dq1[0], u);
+	ijkQuatLerpQfv(dq_out[1], dq0[1], dq1[1], u);
 	return dq_out;
 }
 
 ijk_inl float4m ijkDualQuatNlerpDQfm(float2x4 dq_out, float2x4 const dq0, float2x4 const dq1, f32 const u)
 {
-
-	return dq_out;
+	ijkDualQuatLerpDQfm(dq_out, dq0, dq1, u);
+	return ijkDualQuatNormalizeDQfm(dq_out, dq_out);
 }
 
 ijk_inl float4m ijkDualQuatSclerpDQfm(float2x4 dq_out, float2x4 const dq0, float2x4 const dq1, f32 const u)
 {
-
-	return dq_out;
+	float2x4 copy;
+	float4km dq1b = dq1;
+	floatkv r0 = dq0[0], r1 = dq1[0], d0 = dq0[1], d1 = dq1[1];
+	f32 dot = ijkVecDot4fv(r0, r1);
+	if (dot < flt_zero)
+	{
+		dot = -dot;
+		r1 = ijkVecNegate4fv(copy[0], r1);
+		d1 = ijkVecNegate4fv(copy[1], d1);
+	}
+	if (dot < flt_one)
+	{
+		float2x4 tmp;
+		f32 const angle = ijkTrigAcos_deg_flt(dot),
+			sinInv = ijkTrigCsc_deg_flt(angle),
+			s0 = sinInv * ijkTrigSin_deg_flt(angle * (flt_one - u)),
+			s1 = sinInv * ijkTrigSin_deg_flt(angle * u);
+		return ijkDualQuatAddDQfm(dq_out, ijkDualQuatMulDQfms(dq_out, dq0, s0), ijkDualQuatMulDQfms(tmp, dq1b, s1));
+	}
+	return ijkDualQuatNlerpDQfm(dq_out, dq0, dq1b, u);
 }
 
 ijk_inl float4m ijkDualQuatDerivDQfm(float2x4 dq1_out, float2x4 const dq_in, float3 const linearVelocity, float3 const angularVelocity)
 {
-
+	// dq/dt = wq/2
+	// d(R + E D)/dt = dR/dt + E dD/dt
+	//		= WR/2 + E d(TR/2)/dt
+	//		= WR/2 + E/2 (dT/dt R + T dR/dt)
+	//		= WR/2 + E/2 (VR + T WR/2)
+	//		= WR/2 + E VR/2 + E/2 ((T x W - T.W)R)
+	//		= WR/2 + E VR/2 + E/2 (T x W)R - E (T.W)R/2
+	//		= WR/2 + E VR/2 + E/2 ((T x W) x R - (T x W).R) - E (T.W)R/2
+	//		= (W x R - W.R)/2 + E (V x R - V.R)/2 + E/2 (W(R.T) - T(R.W) - R(T.W)) - E/2 (T x W).R
 	return dq1_out;
 }
 

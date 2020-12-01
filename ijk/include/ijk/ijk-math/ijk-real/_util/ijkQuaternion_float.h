@@ -70,6 +70,30 @@ floatv ijkQuatInitElemsQfv(float4 q_out, f32 const x, f32 const y, f32 const z, 
 //		return: q_out
 floatv ijkQuatInitVecReQfv(float4 q_out, float3 const vec, f32 const re);
 
+// ijkQuatInitVecProductQ*v
+//	Initialize quaternion as product of two vectors.
+//		param q_out: output quaternion
+//		param v_lh: left-hand vector
+//		param v_rh: left-hand vector
+//		return: q_out
+floatv ijkQuatInitVecProductQfv(float4 q_out, float3 const v_lh, float3 const v_rh);
+
+// ijkQuatInitVecProductSqrtQ*v
+//	Initialize quaternion as product square root of two vectors.
+//		param q_out: output quaternion
+//		param v_lh: left-hand vector
+//		param v_rh: left-hand vector
+//		return: q_out
+floatv ijkQuatInitVecProductSqrtQfv(float4 q_out, float3 const v_lh, float3 const v_rh);
+
+// ijkQuatInitVecProductSqrtUnitQ*v
+//	Initialize quaternion as product square root of two unit vectors.
+//		param q_out: output quaternion
+//		param v_lh: left-hand vector
+//		param v_rh: left-hand vector
+//		return: q_out
+floatv ijkQuatInitVecProductSqrtUnitQfv(float4 q_out, float3 const v_lh, float3 const v_rh);
+
 // ijkQuatInitMatQ*v3
 //	Initialize quaternion from 3D matrix.
 //		param q_out: output quaternion
@@ -105,12 +129,28 @@ floatv ijkQuatNegateQfv(float4 q_out, float4 const q_in);
 //		return: q_out
 floatv ijkQuatConjugateQfv(float4 q_out, float4 const q_in);
 
+// ijkQuatConjugateMulQ*vs
+//	Conjugate quaternion: negate vector part, copy real part, multiply by 
+//	scalar.
+//		param q_out: output quaternion, conjugate
+//		param q_in: input quaternion
+//		return: q_out
+floatv ijkQuatConjugateMulQfvs(float4 q_out, float4 const q_in, f32 const s);
+
 // ijkQuatNegateConjugateQ*v
 //	Negate and conjugate quaternion: negate real part, copy vector part.
 //		param q_out: output quaternion, negative conjugate
 //		param q_in: input quaternion
 //		return: q_out
 floatv ijkQuatNegateConjugateQfv(float4 q_out, float4 const q_in);
+
+// ijkQuatNegateConjugateMulQ*vs
+//	Negate and conjugate quaternion: negate real part, copy vector part, 
+//	multiply by scalar.
+//		param q_out: output quaternion, negative conjugate
+//		param q_in: input quaternion
+//		return: q_out
+floatv ijkQuatNegateConjugateMulQfvs(float4 q_out, float4 const q_in, f32 const s);
 
 // ijkQuatAddQ*v
 //	Calculate sum of quaternions.
@@ -1101,13 +1141,6 @@ float4m ijkDualQuatGetMatDQfm4(float4x4 m_out, float2x4 const dq_in);
 //		param dq_in: input dual quaternion
 //		return: m_out
 float4m ijkDualQuatUnitGetMatDQfm4(float4x4 m_out, float2x4 const dq_in);
-
-// ijkDualQuatGetMatRemScaleDQ*m4
-//	Convert dual quaternion to 4D matrix, scale removed.
-//		param m_out: output matrix
-//		param dq_in: input dual quaternion
-//		return: m_out
-float4m ijkDualQuatGetMatRemScaleDQfm4(float4x4 m_out, float2x4 const dq_in);
 
 // ijkDualQuatGetMatTranslateRemScaleDQ*m4
 //	Convert dual quaternion to 4D matrix, scale removed from translation part.

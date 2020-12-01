@@ -3675,12 +3675,10 @@ ijk_inl floatv ijkVecSlerp2fv(float2 v_out, float2 const v0, float2 const v1, f3
 			sinInv = ijkTrigCsc_deg_flt(angle),
 			s0 = sinInv * ijkTrigSin_deg_flt(angle * (flt_one - u)),
 			s1 = sinInv * ijkTrigSin_deg_flt(angle * u);
-		ijkVecAdd2fv(v_out, ijkVecMul2fvs(v_out, v0, s0), ijkVecMul2fvs(tmp, v1, s1));
+		return ijkVecAdd2fv(v_out, ijkVecMul2fvs(v_out, v0, s0), ijkVecMul2fvs(tmp, v1, s1));
 	}
 	// vectors are parallel; just do lerp
-	else
-		ijkVecLerp2fv(v_out, v0, v1, u);
-	return v_out;
+	return ijkVecLerp2fv(v_out, v0, v1, u);
 }
 
 ijk_inl floatv ijkVecReflectScale2fv(float2 v_out, float2 const v_in, float2 const v_nrm)
@@ -3920,11 +3918,9 @@ ijk_inl floatv ijkVecSlerp3fv(float3 v_out, float3 const v0, float3 const v1, f3
 			sinInv = ijkTrigCsc_deg_flt(angle),
 			s0 = sinInv * ijkTrigSin_deg_flt(angle * (flt_one - u)),
 			s1 = sinInv * ijkTrigSin_deg_flt(angle * u);
-		ijkVecAdd3fv(v_out, ijkVecMul3fvs(v_out, v0, s0), ijkVecMul3fvs(tmp, v1, s1));
+		return ijkVecAdd3fv(v_out, ijkVecMul3fvs(v_out, v0, s0), ijkVecMul3fvs(tmp, v1, s1));
 	}
-	else
-		ijkVecLerp3fv(v_out, v0, v1, u);
-	return v_out;
+	return ijkVecLerp3fv(v_out, v0, v1, u);
 }
 
 ijk_inl floatv ijkVecReflectScale3fv(float3 v_out, float3 const v_in, float3 const v_nrm)
@@ -4166,11 +4162,9 @@ ijk_inl floatv ijkVecSlerp4fv(float4 v_out, float4 const v0, float4 const v1, f3
 			sinInv = ijkTrigCsc_deg_flt(angle),
 			s0 = sinInv * ijkTrigSin_deg_flt(angle * (flt_one - u)),
 			s1 = sinInv * ijkTrigSin_deg_flt(angle * u);
-		ijkVecAdd4fv(v_out, ijkVecMul4fvs(v_out, v0, s0), ijkVecMul4fvs(tmp, v1, s1));
+		return ijkVecAdd4fv(v_out, ijkVecMul4fvs(v_out, v0, s0), ijkVecMul4fvs(tmp, v1, s1));
 	}
-	else
-		ijkVecLerp4fv(v_out, v0, v1, u);
-	return v_out;
+	return ijkVecLerp4fv(v_out, v0, v1, u);
 }
 
 ijk_inl floatv ijkVecReflectScale4fv(float4 v_out, float4 const v_in, float4 const v_nrm)
@@ -4404,7 +4398,6 @@ ijk_inl fvec2 ijkVecNlerp2f(fvec2 const v0, fvec2 const v1, float const u)
 
 ijk_inl fvec2 ijkVecSlerp2f(fvec2 const v0, fvec2 const v1, float const u)
 {
-	fvec2 v_out;
 	float const dot = ijkVecDot2f(v0, v1);
 	if ((dot * dot) < flt_one)
 	{
@@ -4412,11 +4405,9 @@ ijk_inl fvec2 ijkVecSlerp2f(fvec2 const v0, fvec2 const v1, float const u)
 			sinInv = ijkTrigCsc_deg_flt(angle),
 			s0 = sinInv * ijkTrigSin_deg_flt(angle * (flt_one - u)),
 			s1 = sinInv * ijkTrigSin_deg_flt(angle * u);
-		v_out = ijkVecAdd2f(ijkVecMul2fs(v0, s0), ijkVecMul2fs(v1, s1));
+		return ijkVecAdd2f(ijkVecMul2fs(v0, s0), ijkVecMul2fs(v1, s1));
 	}
-	else
-		v_out = ijkVecLerp2f(v0, v1, u);
-	return v_out;
+	return ijkVecLerp2f(v0, v1, u);
 }
 
 ijk_inl fvec2 ijkVecReflectScale2f(fvec2 const v_in, fvec2 const v_nrm)
@@ -4641,7 +4632,6 @@ ijk_inl fvec3 ijkVecNlerp3f(fvec3 const v0, fvec3 const v1, float const u)
 
 ijk_inl fvec3 ijkVecSlerp3f(fvec3 const v0, fvec3 const v1, float const u)
 {
-	fvec3 v_out;
 	float const dot = ijkVecDot3f(v0, v1);
 	if ((dot * dot) < flt_one)
 	{
@@ -4649,11 +4639,9 @@ ijk_inl fvec3 ijkVecSlerp3f(fvec3 const v0, fvec3 const v1, float const u)
 			sinInv = ijkTrigCsc_deg_flt(angle),
 			s0 = sinInv * ijkTrigSin_deg_flt(angle * (flt_one - u)),
 			s1 = sinInv * ijkTrigSin_deg_flt(angle * u);
-		v_out = ijkVecAdd3f(ijkVecMul3fs(v0, s0), ijkVecMul3fs(v1, s1));
+		return ijkVecAdd3f(ijkVecMul3fs(v0, s0), ijkVecMul3fs(v1, s1));
 	}
-	else
-		v_out = ijkVecLerp3f(v0, v1, u);
-	return v_out;
+	return ijkVecLerp3f(v0, v1, u);
 }
 
 ijk_inl fvec3 ijkVecReflectScale3f(fvec3 const v_in, fvec3 const v_nrm)
@@ -4884,7 +4872,6 @@ ijk_inl fvec4 ijkVecNlerp4f(fvec4 const v0, fvec4 const v1, float const u)
 
 ijk_inl fvec4 ijkVecSlerp4f(fvec4 const v0, fvec4 const v1, float const u)
 {
-	fvec4 v_out;
 	float const dot = ijkVecDot4f(v0, v1);
 	if ((dot * dot) < flt_one)
 	{
@@ -4892,11 +4879,9 @@ ijk_inl fvec4 ijkVecSlerp4f(fvec4 const v0, fvec4 const v1, float const u)
 			sinInv = ijkTrigCsc_deg_flt(angle),
 			s0 = sinInv * ijkTrigSin_deg_flt(angle * (flt_one - u)),
 			s1 = sinInv * ijkTrigSin_deg_flt(angle * u);
-		v_out = ijkVecAdd4f(ijkVecMul4fs(v0, s0), ijkVecMul4fs(v1, s1));
+		return ijkVecAdd4f(ijkVecMul4fs(v0, s0), ijkVecMul4fs(v1, s1));
 	}
-	else
-		v_out = ijkVecLerp4f(v0, v1, u);
-	return v_out;
+	return ijkVecLerp4f(v0, v1, u);
 }
 
 ijk_inl fvec4 ijkVecReflectScale4f(fvec4 const v_in, fvec4 const v_nrm)
