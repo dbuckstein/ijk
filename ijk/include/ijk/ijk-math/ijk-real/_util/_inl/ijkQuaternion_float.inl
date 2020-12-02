@@ -807,6 +807,10 @@ ijk_inl floatv ijkQuatRotateScaleVecQfv3(float3 v_out, float4 const q_in, float3
 	//	real part and scalar triple product cancel out, while the vector triple product is expanded: 
 	//		= wq2 v + wq(vq x v) + (vq x v)wq + vq(vq . v) - v(vq . vq) + vq(v . vq)
 	//		= v(wq2 - vq . vq) + 2wq(vq x v) + 2vq(vq . v)
+	//		= v(|q|^2 - 2(vq . vq)) + 2wq(vq x v) + 2vq(vq . v)
+	//		= v|q|^2 + 2(wq(vq x v) + vq(vq . v) - v(vq . vq))
+	//		= v|q|^2 + 2(vq x (wq v) + vq x (vq x v))
+	//		= v|q|^2 + 2vq x (wq v + vq x v)
 	f32 const vx = v_in[0], vy = v_in[1], vz = v_in[2], qx = q_in[0], qy = q_in[1], qz = q_in[2], qw = q_in[3],
 		ww = qw * qw - ijkVecLengthSq3fv(q_in), w2 = flt_two * qw, d = flt_two * ijkVecDot3fv(q_in, v_in);	// 9*, 5+-
 	float3 const v = {
@@ -814,6 +818,15 @@ ijk_inl floatv ijkQuatRotateScaleVecQfv3(float3 v_out, float4 const q_in, float3
 		(vy * ww + w2 * (qz * vx - qx * vz) + qy * d),	// 5*, 3+-
 		(vz * ww + w2 * (qx * vy - qy * vx) + qz * d),	// 5*, 3+-
 	};
+	//f32 const lenSq = ijkQuatLengthSqQfv(q_in);	// 4*, 3+
+	//float3 const v = {
+	//	(qy * vz - qz * vy + qw * vx),	// 3*, 2+-
+	//	(qz * vx - qx * vz + qw * vy),	// 3*, 2+-
+	//	(qx * vy - qy * vx + qw * vz),	// 3*, 2+-
+	//};
+	//v_out[0] = vx * lenSq + flt_two * (qy * vz - qz * vy);	// 4*, 2+-
+	//v_out[1] = vy * lenSq + flt_two * (qz * vx - qx * vz);	// 4*, 2+-
+	//v_out[2] = vz * lenSq + flt_two * (qx * vy - qy * vx);	// 4*, 2+-
 	return ijkVecCopy3fv(v_out, v);
 }
 
@@ -827,9 +840,9 @@ ijk_inl floatv ijkQuatUnitRotateVecQfv3(float3 v_out, float4 const q_in, float3 
 		(qz * vx - qx * vz + qw * vy),	// 3*, 2+-
 		(qx * vy - qy * vx + qw * vz),	// 3*, 2+-
 	};
-	v_out[0] = vx + flt_two * (qy * v[2] - qz * v[1]);	// 3*, 2+-
-	v_out[1] = vy + flt_two * (qz * v[0] - qx * v[2]);	// 3*, 2+-
-	v_out[2] = vz + flt_two * (qx * v[1] - qy * v[0]);	// 3*, 2+-
+	v_out[0] = vx + flt_two * (qy * vz - qz * vy);	// 3*, 2+-
+	v_out[1] = vy + flt_two * (qz * vx - qx * vz);	// 3*, 2+-
+	v_out[2] = vz + flt_two * (qx * vy - qy * vx);	// 3*, 2+-
 	return v_out;
 }
 
@@ -999,14 +1012,30 @@ ijk_inl floatv ijkQuatSlerpQfv(float4 q_out, float4 const q0, float4 const q1, f
 
 ijk_inl floatv ijkQuatDerivQfv(float4 q1_out, float4 const q_in, float3 const angularVelocity)
 {
-	// q' = d(e^v)/dt = dv/dt e^v
+	// using quaternion as exponential of vector: 
+	//	q' = d(e^v)/dt = dv/dt e^v
 	//		v = (angle/2)axis
 	//		dv/dt = (angular velocity)/2 = w/2
-	// q' = wq/2
-	float3 const hv = {
-		flt_half * angularVelocity[0], flt_half * angularVelocity[1], flt_half * angularVelocity[2]
+	//	q' = wq/2
+	// using limit of difference quotient: 
+	//	q' = lim[dt->0](q[t+dt] - q[t])/dt
+	//		= lim[dt->0]((cos(|w|dt/2) + sin(|w|dt/2)w/|w|)q - q)/dt
+	//		= lim[dt->0](cos(|w|dt/2) - 1 + sin(|w|dt/2)w/|w|)q/dt
+	//		= lim[dt->0](cos(|w|dt/2) - 1)/dt + lim[dt->0]sin(|w|dt/2)wq/(|w|dt)
+	//			a = |w|/2
+	//		= lim[dt->0](cos(a dt) - 1)/dt + (wq/|w|)lim[dt->0]sin(a dt)/dt -> squeeze theorem: lim[x->0]sin(kx)/x = k
+	//		= lim[dt->0](cos(a dt) - 1)(cos(a dt) + 1)/(cos(a dt) + 1)dt + (wq/|w|)a
+	//		= lim[dt->0](cos^2(a dt) - 1)/(cos(a dt) + 1)dt + (wq/|w|)|w|/2
+	//		= lim[dt->0](-sin^2(a dt)/dt)/(cos(a dt) + 1) + wq/2
+	//		= -lim[dt->0](sin(a dt)sin(a dt)/dt)/(cos(a dt) + 1) + wq/2
+	//		= -lim[dt->0]sin(a dt) lim[dt->0](sin(a dt)/dt)/lim[dt->0](cos(a dt) + 1) + wq/2
+	//		= -sin(0)a/(cos(0) + 1) + wq/2
+	//		= 0/2 + wq/2
+	//		= wq/2
+	float3 const hw = {
+		(flt_half * angularVelocity[0]), (flt_half * angularVelocity[1]), (flt_half * angularVelocity[2])
 	};
-	return ijkQuatMulVecQfv3q(q1_out, hv, q_in);
+	return ijkQuatMulVecQfv3q(q1_out, hw, q_in);
 }
 
 ijk_inl floatv ijkQuatDeriv2Qfv(float4 q2_out, float4 q1_out, float4 const q_in, float3 const angularVelocity, float3 const angularAcceleration)
@@ -1018,7 +1047,7 @@ ijk_inl floatv ijkQuatDeriv2Qfv(float4 q2_out, float4 q1_out, float4 const q_in,
 	//		= (a/2 - |w|^2/4)q
 	f32 const angularSpeedSq = ijkVecLengthSq3fv(angularVelocity);
 	float4 const q_lh = {
-		flt_half * angularAcceleration[0], flt_half * angularAcceleration[1], flt_half * angularAcceleration[2], -flt_quarter * angularSpeedSq
+		(flt_half * angularAcceleration[0]), (flt_half * angularAcceleration[1]), (flt_half * angularAcceleration[2]), (-flt_quarter * angularSpeedSq)
 	};
 	ijkQuatDerivQfv(q1_out, q_in, angularVelocity);
 	return ijkQuatMulQfv(q2_out, q_lh, q_in);
@@ -1521,19 +1550,75 @@ ijk_inl float4m ijkDualQuatSclerpDQfm(float2x4 dq_out, float2x4 const dq0, float
 ijk_inl float4m ijkDualQuatDerivDQfm(float2x4 dq1_out, float2x4 const dq_in, float3 const linearVelocity, float3 const angularVelocity)
 {
 	// dq/dt = wq/2
-	// d(R + E D)/dt = dR/dt + E dD/dt
+	// Q' = d(R + E D)/dt
+	//		= dR/dt + E dD/dt
 	//		= WR/2 + E d(TR/2)/dt
-	//		= WR/2 + E/2 (dT/dt R + T dR/dt)
-	//		= WR/2 + E/2 (VR + T WR/2)
-	//		= WR/2 + E VR/2 + E/2 ((T x W - T.W)R)
-	//		= WR/2 + E VR/2 + E/2 (T x W)R - E (T.W)R/2
-	//		= WR/2 + E VR/2 + E/2 ((T x W) x R - (T x W).R) - E (T.W)R/2
-	//		= (W x R - W.R)/2 + E (V x R - V.R)/2 + E/2 (W(R.T) - T(R.W) - R(T.W)) - E/2 (T x W).R
+	//		= WR/2 + E(dT/dt R/2 + T/2 dR/dt)
+	//		= WR/2 + E(VR/2 + T/2 WR/2)
+	//		= WR/2 + E(V/2 + (T/2)W/2)R
+	//		= R' + E(V/2 + (DR*/|R|^2)W/2)R
+	//		= R' + E(V/2 - D(R*W*/2)/|R|^2)R
+	//		= R' + E(V/2 - (DR'*)/|R|^2)R
+	//						DR'*
+	//							= (Dw + Dv)(R'w - R'v)
+	//							= Dw R'w - Dw R'v + Dv R'w - Dv R'v
+	//							= (Dw R'w + Dv.R'v) + Dv R'w - Dw R'v - Dv x R'v
+	//							= D.R' + Dv R'w - Dw R'v - Dv x R'v
+	//						eliminate where possible
+	//							= D.R' + Dv R'w - Dw R'v - Dv x R'v
+	//							= [(TR/2).(WR/2)] + Dv R'w - Dw R'v - Dv x R'v
+	//							= [(T(Rw + Rv)).(W(Rw + Rv))]/4 + Dv R'w - Dw R'v - Dv x R'v
+	//							= [(TRw + T x Rv - T.Rv).(WRw + W x Rv - W.Rv)]/4 + Dv R'w - Dw R'v - Dv x R'v
+	//							= [(TRw + T x Rv).(WRw + W x Rv) + (T.Rv)(W.Rv)]/4 + Dv R'w - Dw R'v - Dv x R'v
+	//							= [(TRw).(WRw) + (TRw).(W x Rv) + (T x Rv).(WRw) + (T x Rv).(W x Rv) + (T.Rv)(W.Rv)]/4 + Dv R'w - Dw R'v - Dv x R'v
+	//							= [(T.W)Rw^2 + (T.Rv)(W.Rv) + (T).(W x Rv)Rw + (T x Rv).(W)Rw + T.W Rv.Rv - W.Rv T.Rv]/4 + Dv R'w - Dw R'v - Dv x R'v
+	//							= [(T.W)Rw^2 + (T.W)Rv.Rv + (T.Rv W.Rv - W.Rv T.Rv) + ((T).(W x Rv)Rw - (W).(Rv x T)Rw)]/4 + Dv R'w - Dw R'v - Dv x R'v
+	//							= (T.W)|R|^2/4 + Dv R'w - Dw R'v - Dv x R'v
+	//							= (T.W)|R|^2/4 + (TR/2)v(WR/2)w - Dw R'v - Dv x R'v
+	//							= (T.W)|R|^2/4 + (T Rw + T x Rv - T.Rv)v(W Rw + W x Rv - W.Rv)w/4 - Dw R'v - Dv x R'v
+	//							= (T.W)|R|^2/4 + (T Rw + T x Rv)(-W.Rv)/4 + (T.Rv)(W Rw + W x Rv)/4 - (T Rw + T x Rv) x (W Rw + W x Rv)/4
+	//							= (T.W)|R|^2/4 - (T Rw + T x Rv)(W.Rv)/4 + (T.Rv)(W Rw + W x Rv)/4 + (W Rw + W x Rv)x(T Rw + T x Rv)/4
+	//							= (T.W)|R|^2/4 + (W Rw + W x Rv)(T.Rv)/4 - (T Rw + T x Rv)(W.Rv)/4 + (W Rw)x(T Rw + T x Rv)/4 + (W x Rv)x(T Rw + T x Rv)/4
+	//							= (T.W)|R|^2/4 + (W Rw)(T.Rv)/4 + (W x Rv)(T.Rv)/4 - (T Rw)(W.Rv)/4 - (T x Rv)(W.Rv)/4 + (W x T)Rw^2/4 + (W Rw)x(T x Rv)/4 + (W x Rv)x(T Rw)/4 + (W x Rv)x(T x Rv)/4
+	//							= (T.W)|R|^2/4 + W(T.Rv)Rw/4 + (W x Rv)(T.Rv)/4 - T(W.Rv)Rw/4 - (T x Rv)(W.Rv)/4 + (W x T)Rw^2/4 + (T(W.Rv) - Rv(W.T))Rw/4 + (Rv(W.T) - W(Rv.T))Rw/4 + (W.(Rv x Rv)T - W.(Rv x T)Rv)/4
+	//							= (T.W)|R|^2/4 + (W x Rv)(T.Rv)/4 - (T x Rv)(W.Rv)/4 - W.(Rv x T)Rv/4 + (W x T)Rw^2/4
+
+	//		= R' + E(VR/2 + DR^-1 WR/2)
+	//						DR^-1 WR/2
+	//							= D([Rw - Rv]W[Rw + Rv])/2|R|^2
+	//							= D(W/2 - Rv/|R|^2 x (Rw W - Rv x W))
+	//							= D(W/2 + Rv/|R|^2 x (Rv x W - Rw W))
+
+	floatkv r = dq_in[0], d = dq_in[1];
+	f32 const lenSqInv = ijkQuatLengthSqInvQfv(r);
+	float4 tmp = {
+		(r[1] * angularVelocity[2] - r[2] * angularVelocity[1] - r[3] * angularVelocity[0]),
+		(r[2] * angularVelocity[0] - r[0] * angularVelocity[2] - r[3] * angularVelocity[1]),
+		(r[0] * angularVelocity[1] - r[1] * angularVelocity[0] - r[3] * angularVelocity[2]),
+		flt_zero
+	};
+	float3 const hw = {
+		(flt_half * angularVelocity[0]), (flt_half * angularVelocity[1]), (flt_half * angularVelocity[2])
+	};
+	float3 const hv = {
+		(flt_half * linearVelocity[0]), (flt_half * linearVelocity[1]), (flt_half * linearVelocity[2])
+	};
+	float3 const tmp2 = {
+		(hw[0] + lenSqInv * (r[1] * tmp[2] - r[2] * tmp[1])),
+		(hw[1] + lenSqInv * (r[2] * tmp[0] - r[0] * tmp[2])),
+		(hw[2] + lenSqInv * (r[0] * tmp[1] - r[1] * tmp[0])),
+	};
+	ijkQuatMulVecQfv3q(dq1_out[0], hw, r);
+	ijkQuatAddQfv(dq1_out[1], ijkQuatMulVecQfv3q(dq1_out[1], d, tmp2), ijkQuatMulVecQfv3q(tmp, hv, r));
 	return dq1_out;
 }
 
 ijk_inl float4m ijkDualQuatDeriv2DQfm(float2x4 dq2_out, float2x4 dq1_out, float2x4 const dq_in, float3 const linearVelocity, float3 const linearAcceleration, float3 const angularVelocity, float3 const angularAcceleration)
 {
+	// Q" = d(Q')/dt
+	//		= d(WR/2 + E(VR/2 + T/2 W/2 R))/dt
+	//		= d(WR/2)/dt + E d(VR/2 + T/2 W/2 R)/dt
+	//		= d(W/2)/dt R + (W/2) dR/dt + E (d(V/2)/dt R + (V/2) dR/dt + d(T/2)/dt (WR/2)
 
 	return dq2_out;
 }
