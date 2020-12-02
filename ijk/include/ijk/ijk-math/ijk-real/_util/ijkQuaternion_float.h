@@ -633,12 +633,11 @@ floatv ijkQuatDerivQfv(float4 q1_out, float4 const q_in, float3 const angularVel
 // ijkQuatDeriv2Q*v
 //	Calculate second derivative of quaternion.
 //		param q2_out: output quaternion, second derivative of quaternion
-//		param q1_out: output quaternion, first derivative of quaternion
 //		param q_in: input quaternion
 //		param angularVelocity: angular velocity vector
 //		param angularAcceleration: angular acceleration vector
 //		return: q2_out
-floatv ijkQuatDeriv2Qfv(float4 q2_out, float4 q1_out, float4 const q_in, float3 const angularVelocity, float3 const angularAcceleration);
+floatv ijkQuatDeriv2Qfv(float4 q2_out, float4 const q_in, float3 const angularVelocity, float3 const angularAcceleration);
 
 // ijkQuatEncodeTranslateQ*v
 //	Encode translation offset vector using quaternion.
@@ -647,6 +646,14 @@ floatv ijkQuatDeriv2Qfv(float4 q2_out, float4 q1_out, float4 const q_in, float3 
 //		param q_encode: encoding quaternion
 //		return: qt_out
 floatv ijkQuatEncodeTranslateQfv(float4 qt_out, float3 const translate_in, float4 const q_encode);
+
+// ijkQuatEncodeTranslateX2Q*v
+//	Encode double translation offset vector using quaternion.
+//		param qt_out: output quaternion, encoded translation
+//		param translate_in: input vector, translation offset
+//		param q_encode: encoding quaternion
+//		return: qt_out
+floatv ijkQuatEncodeTranslateX2Qfv(float4 qt_out, float3 const translate_in, float4 const q_encode);
 
 // ijkQuatDecodeTranslateQ*v
 //	Decode translation offset vector from quaternion; use if encoding 
@@ -657,6 +664,15 @@ floatv ijkQuatEncodeTranslateQfv(float4 qt_out, float3 const translate_in, float
 //		return: translate_out
 floatv ijkQuatDecodeTranslateQfv(float3 translate_out, float4 const qt_in, float4 const q_decode);
 
+// ijkQuatDecodeTranslateD2Q*v
+//	Decode half translation offset vector from quaternion; use if encoding 
+//	quaternion is unit or if decoded translation should have scale.
+//		param translate_out: output vector, translation offset
+//		param qt_in: input quaternion, encoded translation
+//		param q_decode: decoding quaternion
+//		return: translate_out
+floatv ijkQuatDecodeTranslateD2Qfv(float3 translate_out, float4 const qt_in, float4 const q_decode);
+
 // ijkQuatDecodeTranslateRemScaleQ*v
 //	Decode translation offset vector from quaternion, removing scale.
 //		param translate_out: output vector, translation offset
@@ -664,6 +680,14 @@ floatv ijkQuatDecodeTranslateQfv(float3 translate_out, float4 const qt_in, float
 //		param q_decode: decoding quaternion
 //		return: translate_out
 floatv ijkQuatDecodeTranslateRemScaleQfv(float3 translate_out, float4 const qt_in, float4 const q_decode);
+
+// ijkQuatDecodeTranslateRemScaleD2Q*v
+//	Decode half translation offset vector from quaternion, removing scale.
+//		param translate_out: output vector, translation offset
+//		param qt_in: input quaternion, encoded translation
+//		param q_decode: decoding quaternion
+//		return: translate_out
+floatv ijkQuatDecodeTranslateRemScaleD2Qfv(float3 translate_out, float4 const qt_in, float4 const q_decode);
 
 
 //-----------------------------------------------------------------------------
@@ -1221,14 +1245,13 @@ float4m ijkDualQuatDerivDQfm(float2x4 dq1_out, float2x4 const dq_in, float3 cons
 // ijkDualQuatDeriv2DQ*m
 //	Calculate second derivative of dual quaternion.
 //		param dq2_out: output dual quaternion, second derivative of dual quaternion
-//		param dq1_out: output dual quaternion, first derivative of dual quaternion
 //		param dq_in: input dual quaternion
 //		param linearVelocity: linear velocity vector
 //		param linearAcceleration: linear acceleration vector
 //		param angularVelocity: angular velocity vector
 //		param angularAcceleration: angular acceleration vector
 //		return: dq2_out
-float4m ijkDualQuatDeriv2DQfm(float2x4 dq2_out, float2x4 dq1_out, float2x4 const dq_in, float3 const linearVelocity, float3 const linearAcceleration, float3 const angularVelocity, float3 const angularAcceleration);
+float4m ijkDualQuatDeriv2DQfm(float2x4 dq2_out, float2x4 const dq_in, float3 const linearVelocity, float3 const linearAcceleration, float3 const angularVelocity, float3 const angularAcceleration);
 
 
 //-----------------------------------------------------------------------------

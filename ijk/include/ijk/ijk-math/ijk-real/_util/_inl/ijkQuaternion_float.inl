@@ -1031,25 +1031,24 @@ ijk_inl floatv ijkQuatDerivQfv(float4 q1_out, float4 const q_in, float3 const an
 	//		= -lim[dt->0]sin(a dt) lim[dt->0](sin(a dt)/dt)/lim[dt->0](cos(a dt) + 1) + wq/2
 	//		= -sin(0)a/(cos(0) + 1) + wq/2
 	//		= 0/2 + wq/2
-	//		= wq/2
+	//		= wq/2 -> [half: 3x; wq: 12x8+; total = 15x8+ = 23]
 	float3 const hw = {
 		(flt_half * angularVelocity[0]), (flt_half * angularVelocity[1]), (flt_half * angularVelocity[2])
 	};
 	return ijkQuatMulVecQfv3q(q1_out, hw, q_in);
 }
 
-ijk_inl floatv ijkQuatDeriv2Qfv(float4 q2_out, float4 q1_out, float4 const q_in, float3 const angularVelocity, float3 const angularAcceleration)
+ijk_inl floatv ijkQuatDeriv2Qfv(float4 q2_out, float4 const q_in, float3 const angularVelocity, float3 const angularAcceleration)
 {
 	// q" = d(q')/dt = d(w q/2)/dt
 	//		= (dw/dt)q/2 + w(dq/dt)/2
 	//		= aq/2 + w(wq/2)/2
 	//		= aq/2 - q|w|^2/4
-	//		= (a/2 - |w|^2/4)q
+	//		= (a/2 - |w|^2/4)q	-> [lenSq: 7; sub&mul: 7; mul: 28; total = 42]
 	f32 const angularSpeedSq = ijkVecLengthSq3fv(angularVelocity);
 	float4 const q_lh = {
 		(flt_half * angularAcceleration[0]), (flt_half * angularAcceleration[1]), (flt_half * angularAcceleration[2]), (-flt_quarter * angularSpeedSq)
 	};
-	ijkQuatDerivQfv(q1_out, q_in, angularVelocity);
 	return ijkQuatMulQfv(q2_out, q_lh, q_in);
 }
 
@@ -1060,6 +1059,12 @@ ijk_inl floatv ijkQuatEncodeTranslateQfv(float4 qt_out, float3 const translate_i
 	//		= (tw + tv)/2
 	//		= ([tw + t x v] - [t . v])/2
 	return ijkQuatDerivQfv(qt_out, q_encode, translate_in);
+}
+
+ijk_inl floatv ijkQuatEncodeTranslateX2Qfv(float4 qt_out, float3 const translate_in, float4 const q_encode)
+{
+	// q' = tq
+	return ijkQuatMulVecQfv3q(qt_out, translate_in, q_encode);
 }
 
 ijk_inl floatv ijkQuatDecodeTranslateQfv(float3 translate_out, float4 const qt_in, float4 const q_decode)
@@ -1080,9 +1085,21 @@ ijk_inl floatv ijkQuatDecodeTranslateQfv(float3 translate_out, float4 const qt_i
 	//		= 2([0] + [v' w - w' v + v x v'])
 	f32 const qx = q_decode[0], qy = q_decode[1], qz = q_decode[2], qw = q_decode[3],
 		qtx = qt_in[0], qty = qt_in[1], qtz = qt_in[2], qtw = qt_in[3];
-	translate_out[0] = qtx * qw - qtw * qx + qy * qtz - qz * qty;
-	translate_out[1] = qty * qw - qtw * qy + qz * qtx - qx * qtz;
-	translate_out[2] = qtz * qw - qtw * qz + qx * qty - qy * qtx;
+	translate_out[0] = flt_two * (qtx * qw - qtw * qx + qy * qtz - qz * qty);
+	translate_out[1] = flt_two * (qty * qw - qtw * qy + qz * qtx - qx * qtz);
+	translate_out[2] = flt_two * (qtz * qw - qtw * qz + qx * qty - qy * qtx);
+	return translate_out;
+}
+
+ijk_inl floatv ijkQuatDecodeTranslateD2Qfv(float3 translate_out, float4 const qt_in, float4 const q_decode)
+{
+	// q' = tq/2
+	// t/2 = q'q*
+	f32 const qx = q_decode[0], qy = q_decode[1], qz = q_decode[2], qw = q_decode[3],
+		qtx = qt_in[0], qty = qt_in[1], qtz = qt_in[2], qtw = qt_in[3];
+	translate_out[0] = (qtx * qw - qtw * qx + qy * qtz - qz * qty);
+	translate_out[1] = (qty * qw - qtw * qy + qz * qtx - qx * qtz);
+	translate_out[2] = (qtz * qw - qtw * qz + qx * qty - qy * qtx);
 	return translate_out;
 }
 
@@ -1090,8 +1107,26 @@ ijk_inl floatv ijkQuatDecodeTranslateRemScaleQfv(float3 translate_out, float4 co
 {
 	// q' = tq/2
 	// t = 2q'q^-1 = 2q'q*/|q|^2
-	ijkQuatDecodeTranslateQfv(translate_out, qt_in, q_decode);
-	return ijkVecDiv3fvs(translate_out, translate_out, ijkQuatLengthSqQfv(q_decode));
+	f32 const qx = q_decode[0], qy = q_decode[1], qz = q_decode[2], qw = q_decode[3],
+		qtx = qt_in[0], qty = qt_in[1], qtz = qt_in[2], qtw = qt_in[3],
+		s = flt_two / ijkQuatLengthSqQfv(q_decode);
+	translate_out[0] = s * (qtx * qw - qtw * qx + qy * qtz - qz * qty);
+	translate_out[1] = s * (qty * qw - qtw * qy + qz * qtx - qx * qtz);
+	translate_out[2] = s * (qtz * qw - qtw * qz + qx * qty - qy * qtx);
+	return translate_out;
+}
+
+ijk_inl floatv ijkQuatDecodeTranslateRemScaleD2Qfv(float3 translate_out, float4 const qt_in, float4 const q_decode)
+{
+	// q' = tq/2
+	// t/2 = q'q^-1 = q'q*/|q|^2
+	f32 const qx = q_decode[0], qy = q_decode[1], qz = q_decode[2], qw = q_decode[3],
+		qtx = qt_in[0], qty = qt_in[1], qtz = qt_in[2], qtw = qt_in[3],
+		s = flt_one / ijkQuatLengthSqQfv(q_decode);
+	translate_out[0] = s * (qtx * qw - qtw * qx + qy * qtz - qz * qty);
+	translate_out[1] = s * (qty * qw - qtw * qy + qz * qtx - qx * qtz);
+	translate_out[2] = s * (qtz * qw - qtw * qz + qx * qty - qy * qtx);
+	return translate_out;
 }
 
 
@@ -1549,77 +1584,58 @@ ijk_inl float4m ijkDualQuatSclerpDQfm(float2x4 dq_out, float2x4 const dq0, float
 
 ijk_inl float4m ijkDualQuatDerivDQfm(float2x4 dq1_out, float2x4 const dq_in, float3 const linearVelocity, float3 const angularVelocity)
 {
-	// dq/dt = wq/2
 	// Q' = d(R + E D)/dt
 	//		= dR/dt + E dD/dt
-	//		= WR/2 + E d(TR/2)/dt
-	//		= WR/2 + E(dT/dt R/2 + T/2 dR/dt)
-	//		= WR/2 + E(VR/2 + T/2 WR/2)
-	//		= WR/2 + E(V/2 + (T/2)W/2)R
-	//		= R' + E(V/2 + (DR*/|R|^2)W/2)R
-	//		= R' + E(V/2 - D(R*W*/2)/|R|^2)R
-	//		= R' + E(V/2 - (DR'*)/|R|^2)R
-	//						DR'*
-	//							= (Dw + Dv)(R'w - R'v)
-	//							= Dw R'w - Dw R'v + Dv R'w - Dv R'v
-	//							= (Dw R'w + Dv.R'v) + Dv R'w - Dw R'v - Dv x R'v
-	//							= D.R' + Dv R'w - Dw R'v - Dv x R'v
-	//						eliminate where possible
-	//							= D.R' + Dv R'w - Dw R'v - Dv x R'v
-	//							= [(TR/2).(WR/2)] + Dv R'w - Dw R'v - Dv x R'v
-	//							= [(T(Rw + Rv)).(W(Rw + Rv))]/4 + Dv R'w - Dw R'v - Dv x R'v
-	//							= [(TRw + T x Rv - T.Rv).(WRw + W x Rv - W.Rv)]/4 + Dv R'w - Dw R'v - Dv x R'v
-	//							= [(TRw + T x Rv).(WRw + W x Rv) + (T.Rv)(W.Rv)]/4 + Dv R'w - Dw R'v - Dv x R'v
-	//							= [(TRw).(WRw) + (TRw).(W x Rv) + (T x Rv).(WRw) + (T x Rv).(W x Rv) + (T.Rv)(W.Rv)]/4 + Dv R'w - Dw R'v - Dv x R'v
-	//							= [(T.W)Rw^2 + (T.Rv)(W.Rv) + (T).(W x Rv)Rw + (T x Rv).(W)Rw + T.W Rv.Rv - W.Rv T.Rv]/4 + Dv R'w - Dw R'v - Dv x R'v
-	//							= [(T.W)Rw^2 + (T.W)Rv.Rv + (T.Rv W.Rv - W.Rv T.Rv) + ((T).(W x Rv)Rw - (W).(Rv x T)Rw)]/4 + Dv R'w - Dw R'v - Dv x R'v
-	//							= (T.W)|R|^2/4 + Dv R'w - Dw R'v - Dv x R'v
-	//							= (T.W)|R|^2/4 + (TR/2)v(WR/2)w - Dw R'v - Dv x R'v
-	//							= (T.W)|R|^2/4 + (T Rw + T x Rv - T.Rv)v(W Rw + W x Rv - W.Rv)w/4 - Dw R'v - Dv x R'v
-	//							= (T.W)|R|^2/4 + (T Rw + T x Rv)(-W.Rv)/4 + (T.Rv)(W Rw + W x Rv)/4 - (T Rw + T x Rv) x (W Rw + W x Rv)/4
-	//							= (T.W)|R|^2/4 - (T Rw + T x Rv)(W.Rv)/4 + (T.Rv)(W Rw + W x Rv)/4 + (W Rw + W x Rv)x(T Rw + T x Rv)/4
-	//							= (T.W)|R|^2/4 + (W Rw + W x Rv)(T.Rv)/4 - (T Rw + T x Rv)(W.Rv)/4 + (W Rw)x(T Rw + T x Rv)/4 + (W x Rv)x(T Rw + T x Rv)/4
-	//							= (T.W)|R|^2/4 + (W Rw)(T.Rv)/4 + (W x Rv)(T.Rv)/4 - (T Rw)(W.Rv)/4 - (T x Rv)(W.Rv)/4 + (W x T)Rw^2/4 + (W Rw)x(T x Rv)/4 + (W x Rv)x(T Rw)/4 + (W x Rv)x(T x Rv)/4
-	//							= (T.W)|R|^2/4 + W(T.Rv)Rw/4 + (W x Rv)(T.Rv)/4 - T(W.Rv)Rw/4 - (T x Rv)(W.Rv)/4 + (W x T)Rw^2/4 + (T(W.Rv) - Rv(W.T))Rw/4 + (Rv(W.T) - W(Rv.T))Rw/4 + (W.(Rv x Rv)T - W.(Rv x T)Rv)/4
-	//							= (T.W)|R|^2/4 + (W x Rv)(T.Rv)/4 - (T x Rv)(W.Rv)/4 - W.(Rv x T)Rv/4 + (W x T)Rw^2/4
-
+	//		= R' + E d(TR/2)/dt
+	//		= R' + E(dT/dt R + T dR/dt)/2
+	//		= R' + E(VR + TR')/2 -> definition
+	//			R' = WR/2 -> 23
 	//		= R' + E(VR/2 + DR^-1 WR/2)
-	//						DR^-1 WR/2
-	//							= D([Rw - Rv]W[Rw + Rv])/2|R|^2
-	//							= D(W/2 - Rv/|R|^2 x (Rw W - Rv x W))
-	//							= D(W/2 + Rv/|R|^2 x (Rv x W - Rw W))
+	//		= R' + E(VR/2 + D(R^-1 W R)/2)	-> [deriv x2: 46; half: 3; lenSqInv: 8; rotate: 24; vq = 20; total = 101]
+	//		= R' + E(V/2 - D(R*W*/2)/|R|^2)R
+	//		= R' + E(V/2 - (D R'*)/|R|^2)R	-> [deriv: 23; mul/mulConj x2: 56; mulLenSqInv: 12; half&sub: 6; total = 97]
 
-	floatkv r = dq_in[0], d = dq_in[1];
+	floatkv r = dq_in[0], d = dq_in[1], dr_dt = ijkQuatDerivQfv(dq1_out[0], r, angularVelocity);
+	floatv dd_dt = dq1_out[1];
 	f32 const lenSqInv = ijkQuatLengthSqInvQfv(r);
-	float4 tmp = {
-		(r[1] * angularVelocity[2] - r[2] * angularVelocity[1] - r[3] * angularVelocity[0]),
-		(r[2] * angularVelocity[0] - r[0] * angularVelocity[2] - r[3] * angularVelocity[1]),
-		(r[0] * angularVelocity[1] - r[1] * angularVelocity[0] - r[3] * angularVelocity[2]),
-		flt_zero
-	};
-	float3 const hw = {
-		(flt_half * angularVelocity[0]), (flt_half * angularVelocity[1]), (flt_half * angularVelocity[2])
-	};
-	float3 const hv = {
-		(flt_half * linearVelocity[0]), (flt_half * linearVelocity[1]), (flt_half * linearVelocity[2])
-	};
-	float3 const tmp2 = {
-		(hw[0] + lenSqInv * (r[1] * tmp[2] - r[2] * tmp[1])),
-		(hw[1] + lenSqInv * (r[2] * tmp[0] - r[0] * tmp[2])),
-		(hw[2] + lenSqInv * (r[0] * tmp[1] - r[1] * tmp[0])),
-	};
-	ijkQuatMulVecQfv3q(dq1_out[0], hw, r);
-	ijkQuatAddQfv(dq1_out[1], ijkQuatMulVecQfv3q(dq1_out[1], d, tmp2), ijkQuatMulVecQfv3q(tmp, hv, r));
+	dd_dt[0] = linearVelocity[0] * flt_half - lenSqInv * (d[0] * dr_dt[3] - d[3] * dr_dt[0] + d[2] * dr_dt[1] - d[1] * dr_dt[2]);
+	dd_dt[1] = linearVelocity[1] * flt_half - lenSqInv * (d[1] * dr_dt[3] - d[3] * dr_dt[1] + d[0] * dr_dt[2] - d[2] * dr_dt[0]);
+	dd_dt[2] = linearVelocity[2] * flt_half - lenSqInv * (d[2] * dr_dt[3] - d[3] * dr_dt[2] + d[1] * dr_dt[0] - d[0] * dr_dt[1]);
+	dd_dt[3] = -lenSqInv * ijkVecDot4fv(d, dr_dt);
+	ijkQuatMulQfv(dd_dt, dd_dt, r);
 	return dq1_out;
 }
 
-ijk_inl float4m ijkDualQuatDeriv2DQfm(float2x4 dq2_out, float2x4 dq1_out, float2x4 const dq_in, float3 const linearVelocity, float3 const linearAcceleration, float3 const angularVelocity, float3 const angularAcceleration)
+ijk_inl float4m ijkDualQuatDeriv2DQfm(float2x4 dq2_out, float2x4 const dq_in, float3 const linearVelocity, float3 const linearAcceleration, float3 const angularVelocity, float3 const angularAcceleration)
 {
 	// Q" = d(Q')/dt
-	//		= d(WR/2 + E(VR/2 + T/2 W/2 R))/dt
-	//		= d(WR/2)/dt + E d(VR/2 + T/2 W/2 R)/dt
-	//		= d(W/2)/dt R + (W/2) dR/dt + E (d(V/2)/dt R + (V/2) dR/dt + d(T/2)/dt (WR/2)
-
+	//		= d(R')/dt + E d(D')/dt
+	//		= R" + E d(VR + TR')/2)/dt
+	//		= R" + E(d(VR)/dt + d(TR')/dt)/2
+	//		= R" + E(dV/dt R + V dR/dt + dT/dt R' + T dR'/dt)/2
+	//		= R" + E(AR + VR' + VR' + TR")/2
+	//		= R" + E(AR + 2VR' + TR")/2 -> definition
+	//			R' = WR/2, R" = (W'/2 - |W|^2/4)R -> 23, 42
+	//		= (W'/2 - |W|^2/4)R + E(AR + 2VWR/2 + 2DR^-1(W'/2 - |W|^2/4)R)/2
+	//		= (W'/2 - |W/2|^2)R + E((A/2 + V(W/2))R + DR^-1(W'/2 - |W/2|^2)R/|R|^2)
+	//		= R" + E((A/2 + V(W/2))R + (T/2)R")
+	//		= R" + E((A/2 + V x (W/2) - V.(W/2))R + (T/2)R")
+	float3 const hw = {
+		(flt_half * angularVelocity[0]), (flt_half * angularVelocity[1]), (flt_half * angularVelocity[2])
+	};
+	f32 const wLenSq = ijkVecLengthSq3fv(hw);
+	floatkv r = dq_in[0], d = dq_in[1];
+	floatv d2d_dt2 = dq2_out[1], d2r_dt2 = ijkQuatInitElemsQfv(dq2_out[0],
+		(flt_half * angularAcceleration[0]), (flt_half * angularAcceleration[1]), (flt_half * angularAcceleration[2]), -wLenSq);
+	float4 ht, hdiff = {
+		(flt_half * linearAcceleration[0] + linearVelocity[1] * hw[2] - linearVelocity[2] * hw[1]),
+		(flt_half * linearAcceleration[1] + linearVelocity[2] * hw[0] - linearVelocity[0] * hw[2]),
+		(flt_half * linearAcceleration[2] + linearVelocity[0] * hw[1] - linearVelocity[1] * hw[0]),
+		(-ijkVecDot3fv(linearVelocity, hw))
+	};
+	ijkQuatDecodeTranslateD2Qfv(ht, d, r);
+	ijkQuatMulQfv(d2r_dt2, d2r_dt2, r);
+	ijkQuatAddQfv(d2d_dt2, ijkQuatMulQfv(hdiff, hdiff, r), ijkQuatMulQfv(ht, ht, d2r_dt2));
 	return dq2_out;
 }
 
