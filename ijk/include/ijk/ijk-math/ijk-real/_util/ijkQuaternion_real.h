@@ -1523,318 +1523,366 @@ extern "C" {
 // ijkQuatInitQ*
 //	Initialize identity quaternion (zero vector, one real).
 //		return: identity quaternion
-rquat ijkQuatInitQr();
+//rquat ijkQuatInitQr();
+#define ijkQuatInitQr ijk_declrealfs(ijkQuatInitQ,)
 
 // ijkQuatInitZeroQ*
 //	Initialize zero quaternion.
 //		return: zero quaternion
-rquat ijkQuatInitZeroQr();
+//rquat ijkQuatInitZeroQr();
+#define ijkQuatInitZeroQr ijk_declrealfs(ijkQuatInitZeroQ,)
 
 // ijkQuatInitElemsQ*
 //	Initialize individual elements of quaternion.
 //		params x, y, z, w: components
 //		return: xyzw quaternion
-rquat ijkQuatInitElemsQr(real const x, real const y, real const z, real const w);
+//rquat ijkQuatInitElemsQr(real const x, real const y, real const z, real const w);
+#define ijkQuatInitElemsQr ijk_declrealfs(ijkQuatInitElemsQ,)
 
 // ijkQuatInitVecReQ*
 //	Initialize quaternion with vector and real parts.
 //		param vec: vector components (xyz)
 //		param re: real component (w)
 //		return: output quaternion
-rquat ijkQuatInitVecReQr(rvec3 const vec, real const re);
+//rquat ijkQuatInitVecReQr(rvec3 const vec, real const re);
+#define ijkQuatInitVecReQr ijk_declrealfs(ijkQuatInitVecReQ,)
 
 // ijkQuatInitVecProductQ*
 //	Initialize quaternion as product of two vectors.
 //		param v_lh: left-hand vector
 //		param v_rh: left-hand vector
 //		return: output quaternion
-rquat ijkQuatInitVecProductQr(rvec3 const v_lh, rvec3 const v_rh);
+//rquat ijkQuatInitVecProductQr(rvec3 const v_lh, rvec3 const v_rh);
+#define ijkQuatInitVecProductQr ijk_declrealfs(ijkQuatInitVecProductQ,)
 
 // ijkQuatInitVecProductSqrtQ*
 //	Initialize quaternion as product square root of two vectors.
 //		param v_lh: left-hand vector
 //		param v_rh: left-hand vector
 //		return: output quaternion
-rquat ijkQuatInitVecProductSqrtQr(rvec3 const v_lh, rvec3 const v_rh);
+//rquat ijkQuatInitVecProductSqrtQr(rvec3 const v_lh, rvec3 const v_rh);
+#define ijkQuatInitVecProductSqrtQr ijk_declrealfs(ijkQuatInitVecProductSqrtQ,)
 
 // ijkQuatInitVecProductSqrtUnitQ*
 //	Initialize quaternion as product square root of two unit vectors.
 //		param v_lh: left-hand vector
 //		param v_rh: left-hand vector
 //		return: output quaternion
-rquat ijkQuatInitVecProductSqrtUnitQr(rvec3 const v_lh, rvec3 const v_rh);
+//rquat ijkQuatInitVecProductSqrtUnitQr(rvec3 const v_lh, rvec3 const v_rh);
+#define ijkQuatInitVecProductSqrtUnitQr ijk_declrealfs(ijkQuatInitVecProductSqrtUnitQ,)
 
 // ijkQuatInitMatQ*3
 //	Initialize quaternion from 3D matrix.
 //		param m_in: input matrix
 //		return: output quaternion
-rquat ijkQuatInitMatQr3(rmat3 const m_in);
+//rquat ijkQuatInitMatQr3(rmat3 const m_in);
+#define ijkQuatInitMatQr3 ijk_declrealfs(ijkQuatInitMatQ,3)
 
 // ijkQuatInitMatQ*4
 //	Initialize quaternion from 4D matrix.
 //		param m_in: input matrix
 //		return: output quaternion
-rquat ijkQuatInitMatQr4(rmat4 const m_in);
+//rquat ijkQuatInitMatQr4(rmat4 const m_in);
+#define ijkQuatInitMatQr4 ijk_declrealfs(ijkQuatInitMatQ,4)
 
 // ijkQuatCopyQ*
 //	Copy quaternion.
 //		param q_in: input quaternion
 //		return: copy
-rquat ijkQuatCopyQr(rquat const q_in);
+//rquat ijkQuatCopyQr(rquat const q_in);
+#define ijkQuatCopyQr ijk_declrealfs(ijkQuatCopyQ,)
 
 // ijkQuatNegateQ*
 //	Negate quaternion.
 //		param q_in: input quaternion
 //		return: negative quaternion
-rquat ijkQuatNegateQr(rquat const q_in);
+//rquat ijkQuatNegateQr(rquat const q_in);
+#define ijkQuatNegateQr ijk_declrealfs(ijkQuatNegateQ,)
 
 // ijkQuatConjugateQ*
 //	Conjugate quaternion: negate vector part, copy real part.
 //		param q_in: input quaternion
 //		return: conjugate quaternion
-rquat ijkQuatConjugateQr(rquat const q_in);
+//rquat ijkQuatConjugateQr(rquat const q_in);
+#define ijkQuatConjugateQr ijk_declrealfs(ijkQuatConjugateQ,)
 
 // ijkQuatConjugateMulQ*s
 //	Conjugate quaternion: negate vector part, copy real part, multiply by 
 //	scalar.
 //		param q_in: input quaternion
 //		return: scaled conjugate quaternion
-rquat ijkQuatConjugateMulQrs(rquat const q_in, real const s);
+//rquat ijkQuatConjugateMulQrs(rquat const q_in, real const s);
+#define ijkQuatConjugateMulQrs ijk_declrealfs(ijkQuatConjugateMulQ,s)
 
 // ijkQuatNegateConjugateQ*
 //	Negate and conjugate quaternion: negate real part, copy vector part.
 //		param q_in: input quaternion
 //		return: negative conjugate quaternion
-rquat ijkQuatNegateConjugateQr(rquat const q_in);
+//rquat ijkQuatNegateConjugateQr(rquat const q_in);
+#define ijkQuatNegateConjugateQr ijk_declrealfs(ijkQuatNegateConjugateQ,)
 
 // ijkQuatNegateConjugateMulQ*s
 //	Negate and conjugate quaternion: negate real part, copy vector part, 
 //	multiply by scalar.
 //		param q_in: input quaternion
 //		return: scaled negative conjugate quaternion
-rquat ijkQuatNegateConjugateMulQrs(rquat const q_in, real const s);
+//rquat ijkQuatNegateConjugateMulQrs(rquat const q_in, real const s);
+#define ijkQuatNegateConjugateMulQrs ijk_declrealfs(ijkQuatNegateConjugateMulQ,s)
 
 // ijkQuatAddQ*
 //	Calculate sum of quaternions.
 //		param q_lh: left-hand quaternion
 //		param q_rh: right-hand quaternion
 //		return: sum quaternion
-rquat ijkQuatAddQr(rquat const q_lh, rquat const q_rh);
+//rquat ijkQuatAddQr(rquat const q_lh, rquat const q_rh);
+#define ijkQuatAddQr ijk_declrealfs(ijkQuatAddQ,)
 
 // ijkQuatSubQ*
 //	Calculate difference of quaternions.
 //		param q_lh: left-hand quaternion
 //		param q_rh: right-hand quaternion
 //		return: difference quaternion
-rquat ijkQuatSubQr(rquat const q_lh, rquat const q_rh);
+//rquat ijkQuatSubQr(rquat const q_lh, rquat const q_rh);
+#define ijkQuatSubQr ijk_declrealfs(ijkQuatSubQ,)
 
 // ijkQuatMulQ*s
 //	Calculate product of quaternion and scalar.
 //		param q_lh: left-hand quaternion
 //		param s_rh: right-hand scalar
 //		return: product quaternion
-rquat ijkQuatMulQrs(rquat const q_lh, real const s_rh);
+//rquat ijkQuatMulQrs(rquat const q_lh, real const s_rh);
+#define ijkQuatMulQrs ijk_declrealfs(ijkQuatMulQ,s)
 
 // ijkQuatDivQ*s
 //	Calculate quotient of quaternion and scalar.
 //		param q_lh: left-hand quaternion
 //		param s_rh: right-hand scalar
 //		return: quotient quaternion
-rquat ijkQuatDivQrs(rquat const q_lh, real const s_rh);
+//rquat ijkQuatDivQrs(rquat const q_lh, real const s_rh);
+#define ijkQuatDivQrs ijk_declrealfs(ijkQuatDivQ,s)
 
 // ijkQuatDivSafeQ*s
 //	Calculate quotient of quaternion and scalar; division-by-zero safety.
 //		param q_lh: left-hand quaternion
 //		param s_rh: right-hand scalar
 //		return: quotient quaternion
-rquat ijkQuatDivSafeQrs(rquat const q_lh, real const s_rh);
+//rquat ijkQuatDivSafeQrs(rquat const q_lh, real const s_rh);
+#define ijkQuatDivSafeQrs ijk_declrealfs(ijkQuatDivSafeQ,s)
 
 // ijkQuatLengthSqQ*
 //	Calculate squared length of quaternion.
 //		param q_in: input quaternion
 //		return: squared length
-real ijkQuatLengthSqQr(rquat const q_in);
+//real ijkQuatLengthSqQr(rquat const q_in);
+#define ijkQuatLengthSqQr ijk_declrealfs(ijkQuatLengthSqQ,)
 
 // ijkQuatLengthQ*
 //	Calculate length of quaternion.
 //		param q_in: input quaternion
 //		return: length
-real ijkQuatLengthQr(rquat const q_in);
+//real ijkQuatLengthQr(rquat const q_in);
+#define ijkQuatLengthQr ijk_declrealfs(ijkQuatLengthQ,)
 
 // ijkQuatLengthSqInvQ*
 //	Calculate inverse squared length of quaternion.
 //		param q_in: input quaternion
 //		return: inverse squared length
-real ijkQuatLengthSqInvQr(rquat const q_in);
+//real ijkQuatLengthSqInvQr(rquat const q_in);
+#define ijkQuatLengthSqInvQr ijk_declrealfs(ijkQuatLengthSqInvQ,)
 
 // ijkQuatLengthInvQ*
 //	Calculate inverse length of quaternion.
 //		param q_in: input quaternion
 //		return: inverse length
-real ijkQuatLengthInvQr(rquat const q_in);
+//real ijkQuatLengthInvQr(rquat const q_in);
+#define ijkQuatLengthInvQr ijk_declrealfs(ijkQuatLengthInvQ,)
 
 // ijkQuatLengthSqInvSafeQ*
 //	Calculate inverse squared length of quaternion.
 //		param q_in: input quaternion
 //		return: inverse squared length
-real ijkQuatLengthSqInvSafeQr(rquat const q_in);
+//real ijkQuatLengthSqInvSafeQr(rquat const q_in);
+#define ijkQuatLengthSqInvSafeQr ijk_declrealfs(ijkQuatLengthSqInvSafeQ,)
 
 // ijkQuatLengthInvSafeQ*
 //	Calculate inverse length of quaternion.
 //		param q_in: input quaternion
 //		return: inverse length
-real ijkQuatLengthInvSafeQr(rquat const q_in);
+//real ijkQuatLengthInvSafeQr(rquat const q_in);
+#define ijkQuatLengthInvSafeQr ijk_declrealfs(ijkQuatLengthInvSafeQ,)
 
 // ijkQuatNormalizeQ*
 //	Normalize quaternion.
 //		param q_in: input quaternion
 //		return: unit quaternion
-rquat ijkQuatNormalizeQr(rquat const q_in);
+//rquat ijkQuatNormalizeQr(rquat const q_in);
+#define ijkQuatNormalizeQr ijk_declrealfs(ijkQuatNormalizeQ,)
 
 // ijkQuatNormalizeSafeQ*
 //	Normalize quaternion; division-by-zero safety.
 //		param q_in: input quaternion
 //		return: unit quaternion
-rquat ijkQuatNormalizeSafeQr(rquat const q_in);
+//rquat ijkQuatNormalizeSafeQr(rquat const q_in);
+#define ijkQuatNormalizeSafeQr ijk_declrealfs(ijkQuatNormalizeSafeQ,)
 
 // ijkQuatInverseQ*
 //	Calculate inverse of quaternion: conjugate divided by squared length.
 //		param q_in: input quaternion
 //		return: inverse quaternion
-rquat ijkQuatInverseQr(rquat const q_in);
+//rquat ijkQuatInverseQr(rquat const q_in);
+#define ijkQuatInverseQr ijk_declrealfs(ijkQuatInverseQ,)
 
 // ijkQuatInverseSafeQ*
 //	Calculate inverse of quaternion: conjugate divided by squared length; 
 //	division-by-zero safety.
 //		param q_in: input quaternion
 //		return: inverse quaternion
-rquat ijkQuatInverseSafeQr(rquat const q_in);
+//rquat ijkQuatInverseSafeQr(rquat const q_in);
+#define ijkQuatInverseSafeQr ijk_declrealfs(ijkQuatInverseSafeQ,)
 
 // ijkQuatMulVecQ*3
 //	Calculate product of quaternion and 3D vector (result is quaternion).
 //		param q_lh: left-hand quaternion
 //		param v_rh: right-hand vector
 //		return: product quaternion
-rquat ijkQuatMulVecQr3(rquat const q_lh, rvec3 const v_rh);
+//rquat ijkQuatMulVecQr3(rquat const q_lh, rvec3 const v_rh);
+#define ijkQuatMulVecQr3 ijk_declrealfs(ijkQuatMulVecQ,3)
 
 // ijkQuatMulVecQ*3q
 //	Calculate product of 3D vector and quaternion (result is quaternion).
 //		param v_lh: left-hand vector
 //		param q_rh: right-hand quaternion
 //		return: product quaternion
-rquat ijkQuatMulVecQr3q(rvec3 const v_lh, rquat const q_rh);
+//rquat ijkQuatMulVecQr3q(rvec3 const v_lh, rquat const q_rh);
+#define ijkQuatMulVecQr3q ijk_declrealfs(ijkQuatMulVecQ,3q)
 
 // ijkQuatMulQ*
 //	Calculate product of quaternions.
 //		param q_lh: left-hand quaternion
 //		param q_rh: right-hand quaternion
 //		return: product quaternion
-rquat ijkQuatMulQr(rquat const q_lh, rquat const q_rh);
+//rquat ijkQuatMulQr(rquat const q_lh, rquat const q_rh);
+#define ijkQuatMulQr ijk_declrealfs(ijkQuatMulQ,)
 
 // ijkQuatMulConjQ*
 //	Calculate product of quaternion with quaternion conjugate.
 //		param q_lh: left-hand quaternion
 //		param q_rh: right-hand quaternion, conjugated before multiplying
 //		return: product quaternion
-rquat ijkQuatMulConjQr(rquat const q_lh, rquat const q_rh);
+//rquat ijkQuatMulConjQr(rquat const q_lh, rquat const q_rh);
+#define ijkQuatMulConjQr ijk_declrealfs(ijkQuatMulConjQ,)
 
 // ijkQuatConjMulQ*
 //	Calculate product of quaternion conjugate with quaternion.
 //		param q_lh: left-hand quaternion, conjugated before multiplying
 //		param q_rh: right-hand quaternion
 //		return: product quaternion
-rquat ijkQuatConjMulQr(rquat const q_lh, rquat const q_rh);
+//rquat ijkQuatConjMulQr(rquat const q_lh, rquat const q_rh);
+#define ijkQuatConjMulQr ijk_declrealfs(ijkQuatConjMulQ,)
 
 // ijkQuatDivQ*
 //	Calculate quotient of quaternions (multiply by rh inverse).
 //		param q_lh: left-hand quaternion
 //		param q_rh: right-hand quaternion
 //		return: quotient quaternion
-rquat ijkQuatDivQr(rquat const q_lh, rquat const q_rh);
+//rquat ijkQuatDivQr(rquat const q_lh, rquat const q_rh);
+#define ijkQuatDivQr ijk_declrealfs(ijkQuatDivQ,)
 
 // ijkQuatRotateXYZQ*
 //	Make rotation quaternion with Euler angles in written order XYZ, meaning 
 //	the order of operations is Z then Y then X.
 //		param rotateDegXYZ: Euler angles in degrees (component order XYZ)
 //		return: rotation quaternion
-rquat ijkQuatRotateXYZQr(rvec3 const rotateDegXYZ);
+//rquat ijkQuatRotateXYZQr(rvec3 const rotateDegXYZ);
+#define ijkQuatRotateXYZQr ijk_declrealfs(ijkQuatRotateXYZQ,)
 
 // ijkQuatRotateYZXQ*
 //	Make rotation quaternion with Euler angles in written order YZX, meaning 
 //	the order of operations is X then Z then Y.
 //		param rotateDegXYZ: Euler angles in degrees (component order XYZ)
 //		return: rotation quaternion
-rquat ijkQuatRotateYZXQr(rvec3 const rotateDegXYZ);
+//rquat ijkQuatRotateYZXQr(rvec3 const rotateDegXYZ);
+#define ijkQuatRotateYZXQr ijk_declrealfs(ijkQuatRotateYZXQ,)
 
 // ijkQuatRotateZXYQ*
 //	Make rotation quaternion with Euler angles in written order ZXY, meaning 
 //	the order of operations is Y then X then Z.
 //		param rotateDegXYZ: Euler angles in degrees (component order XYZ)
 //		return: rotation quaternion
-rquat ijkQuatRotateZXYQr(rvec3 const rotateDegXYZ);
+//rquat ijkQuatRotateZXYQr(rvec3 const rotateDegXYZ);
+#define ijkQuatRotateZXYQr ijk_declrealfs(ijkQuatRotateZXYQ,)
 
 // ijkQuatRotateYXZQ*
 //	Make rotation quaternion with Euler angles in written order YXZ, meaning 
 //	the order of operations is Z then X then Y.
 //		param rotateDegXYZ: Euler angles in degrees (component order XYZ)
 //		return: rotation quaternion
-rquat ijkQuatRotateYXZQr(rvec3 const rotateDegXYZ);
+//rquat ijkQuatRotateYXZQr(rvec3 const rotateDegXYZ);
+#define ijkQuatRotateYXZQr ijk_declrealfs(ijkQuatRotateYXZQ,)
 
 // ijkQuatRotateXZYQ*
 //	Make rotation quaternion with Euler angles in written order XZY, meaning 
 //	the order of operations is X then Z then Y.
 //		param rotateDegXYZ: Euler angles in degrees (component order XYZ)
 //		return: rotation quaternion
-rquat ijkQuatRotateXZYQr(rvec3 const rotateDegXYZ);
+//rquat ijkQuatRotateXZYQr(rvec3 const rotateDegXYZ);
+#define ijkQuatRotateXZYQr ijk_declrealfs(ijkQuatRotateXZYQ,)
 
 // ijkQuatRotateZYXQ*
 //	Make rotation quaternion with Euler angles in written order ZYX, meaning 
 //	the order of operations is X then Y then Z.
 //		param rotateDegXYZ: Euler angles in degrees (component order XYZ)
 //		return: rotation quaternion
-rquat ijkQuatRotateZYXQr(rvec3 const rotateDegXYZ);
+//rquat ijkQuatRotateZYXQr(rvec3 const rotateDegXYZ);
+#define ijkQuatRotateZYXQr ijk_declrealfs(ijkQuatRotateZYXQ,)
 
 // ijkQuatGetRotateXYZQ*
 //	Extract Euler angles from rotation quaternion; written order XYZ.
 //		param q_in: input quaternion
 //		param rotateDegXYZ_out: storage for Euler angles in component order XYZ
 //		return: q_in
-rquat ijkQuatGetRotateXYZQr(rquat const q_in, rvec3* const rotateDegXYZ_out);
+//rquat ijkQuatGetRotateXYZQr(rquat const q_in, rvec3* const rotateDegXYZ_out);
+#define ijkQuatGetRotateXYZQr ijk_declrealfs(ijkQuatGetRotateXYZQ,)
 
 // ijkQuatGetRotateYZXQ*
 //	Extract Euler angles from rotation quaternion; written order YZX.
 //		param q_in: input quaternion
 //		param rotateDegXYZ_out: storage for Euler angles in component order XYZ
 //		return: q_in
-rquat ijkQuatGetRotateYZXQr(rquat const q_in, rvec3* const rotateDegXYZ_out);
+//rquat ijkQuatGetRotateYZXQr(rquat const q_in, rvec3* const rotateDegXYZ_out);
+#define ijkQuatGetRotateYZXQr ijk_declrealfs(ijkQuatGetRotateYZXQ,)
 
 // ijkQuatGetRotateZXYQ*
 //	Extract Euler angles from rotation quaternion; written order ZXY.
 //		param q_in: input quaternion
 //		param rotateDegXYZ_out: storage for Euler angles in component order XYZ
 //		return: q_in
-rquat ijkQuatGetRotateZXYQr(rquat const q_in, rvec3* const rotateDegXYZ_out);
+//rquat ijkQuatGetRotateZXYQr(rquat const q_in, rvec3* const rotateDegXYZ_out);
+#define ijkQuatGetRotateZXYQr ijk_declrealfs(ijkQuatGetRotateZXYQ,)
 
 // ijkQuatGetRotateYXZQ*
 //	Extract Euler angles from rotation quaternion; written order YXZ.
 //		param q_in: input quaternion
 //		param rotateDegXYZ_out: storage for Euler angles in component order XYZ
 //		return: q_in
-rquat ijkQuatGetRotateYXZQr(rquat const q_in, rvec3* const rotateDegXYZ_out);
+//rquat ijkQuatGetRotateYXZQr(rquat const q_in, rvec3* const rotateDegXYZ_out);
+#define ijkQuatGetRotateYXZQr ijk_declrealfs(ijkQuatGetRotateYXZQ,)
 
 // ijkQuatGetRotateXZYQ*
 //	Extract Euler angles from rotation quaternion; written order XZY.
 //		param q_in: input quaternion
 //		param rotateDegXYZ_out: storage for Euler angles in component order XYZ
 //		return: q_in
-rquat ijkQuatGetRotateXZYQr(rquat const q_in, rvec3* const rotateDegXYZ_out);
+//rquat ijkQuatGetRotateXZYQr(rquat const q_in, rvec3* const rotateDegXYZ_out);
+#define ijkQuatGetRotateXZYQr ijk_declrealfs(ijkQuatGetRotateXZYQ,)
 
 // ijkQuatGetRotateZYXQ*
 //	Extract Euler angles from rotation quaternion; written order ZYX.
 //		param q_in: input quaternion
 //		param rotateDegXYZ_out: storage for Euler angles in component order XYZ
 //		return: q_in
-rquat ijkQuatGetRotateZYXQr(rquat const q_in, rvec3* const rotateDegXYZ_out);
+//rquat ijkQuatGetRotateZYXQr(rquat const q_in, rvec3* const rotateDegXYZ_out);
+#define ijkQuatGetRotateZYXQr ijk_declrealfs(ijkQuatGetRotateZYXQ,)
 
 // ijkQuatRotateQ*
 //	Make rotation quaternion with Euler angles.
@@ -1842,20 +1890,23 @@ rquat ijkQuatGetRotateZYXQr(rquat const q_in, rvec3* const rotateDegXYZ_out);
 //			operations is right-to-left)
 //		param rotateDegXYZ: Euler angles in degrees (component order XYZ)
 //		return: rotation quaternion
-rquat ijkQuatRotateQr(ijkRotationOrder const order, rvec3 const rotateDegXYZ);
+//rquat ijkQuatRotateQr(ijkRotationOrder const order, rvec3 const rotateDegXYZ);
+#define ijkQuatRotateQr ijk_declrealfs(ijkQuatRotateQ,)
 
 // ijkQuatAxisAngleQ*
 //	Make rotation quaternion with unit axis and angle in degrees.
 //		param axis_unit: unit axis of rotation
 //		param angle_degrees: angle of rotation in degrees
 //		return: rotation quaternion
-rquat ijkQuatAxisAngleQr(rvec3 const axis_unit, real const angle_degrees);
+//rquat ijkQuatAxisAngleQr(rvec3 const axis_unit, real const angle_degrees);
+#define ijkQuatAxisAngleQr ijk_declrealfs(ijkQuatAxisAngleQ,)
 
 // ijkQuatScaleQ*
 //	Make rotation quaternion with uniform scale.
 //		param scale_unif: uniform scale amount
 //		return: scale quaternion
-rquat ijkQuatScaleQr(real const scale_unif);
+//rquat ijkQuatScaleQr(real const scale_unif);
+#define ijkQuatScaleQr ijk_declrealfs(ijkQuatScaleQ,)
 
 // ijkQuatRotateScaleQ*
 //	Make rotation quaternion with Euler angles and uniform scale.
@@ -1864,7 +1915,8 @@ rquat ijkQuatScaleQr(real const scale_unif);
 //		param rotateDegXYZ: Euler angles in degrees (component order XYZ)
 //		param scale_unif: uniform scale amount
 //		return: rotation-scale quaternion
-rquat ijkQuatRotateScaleQr(ijkRotationOrder const order, rvec3 const rotateDegXYZ, real const scale_unif);
+//rquat ijkQuatRotateScaleQr(ijkRotationOrder const order, rvec3 const rotateDegXYZ, real const scale_unif);
+#define ijkQuatRotateScaleQr ijk_declrealfs(ijkQuatRotateScaleQ,)
 
 // ijkQuatAxisAngleScaleQ*
 //	Make rotation quaternion with unit axis, angle in degrees and uniform scale.
@@ -1872,7 +1924,8 @@ rquat ijkQuatRotateScaleQr(ijkRotationOrder const order, rvec3 const rotateDegXY
 //		param angle_degrees: angle of rotation in degrees
 //		param scale_unif: uniform scale amount
 //		return: rotation-scale quaternion
-rquat ijkQuatAxisAngleScaleQr(rvec3 const axis_unit, real const angle_degrees, real const scale_unif);
+//rquat ijkQuatAxisAngleScaleQr(rvec3 const axis_unit, real const angle_degrees, real const scale_unif);
+#define ijkQuatAxisAngleScaleQr ijk_declrealfs(ijkQuatAxisAngleScaleQ,)
 
 // ijkQuatGetRotateQ*
 //	Extract Euler angles from rotation quaternion.
@@ -1881,7 +1934,8 @@ rquat ijkQuatAxisAngleScaleQr(rvec3 const axis_unit, real const angle_degrees, r
 //			operations is right-to-left)
 //		param rotateDegXYZ_out: storage for Euler angles in component order XYZ
 //		return: q_in
-rquat ijkQuatGetRotateQr(rquat const q_in, ijkRotationOrder const order, rvec3* const rotateDegXYZ_out);
+//rquat ijkQuatGetRotateQr(rquat const q_in, ijkRotationOrder const order, rvec3* const rotateDegXYZ_out);
+#define ijkQuatGetRotateQr ijk_declrealfs(ijkQuatGetRotateQ,)
 
 // ijkQuatGetAxisAngleQ*
 //	Extract unit axis and angle in degrees from quaternion.
@@ -1889,14 +1943,16 @@ rquat ijkQuatGetRotateQr(rquat const q_in, ijkRotationOrder const order, rvec3* 
 //		param axis_unit_out: storage for unit axis of rotation
 //		param angle_degrees_out: storage for rotation angle in degrees
 //		return: q_in
-rquat ijkQuatGetAxisAngleQr(rquat const q_in, rvec3* const axis_unit_out, real* const angle_degrees_out);
+//rquat ijkQuatGetAxisAngleQr(rquat const q_in, rvec3* const axis_unit_out, real* const angle_degrees_out);
+#define ijkQuatGetAxisAngleQr ijk_declrealfs(ijkQuatGetAxisAngleQ,)
 
 // ijkQuatGetScaleQ*
 //	Extract uniform scale from quaternion.
 //		param q_in: input quaternion
 //		param scale_unif_out: storage for uniform scale amount
 //		return: q_in
-rquat ijkQuatGetScaleQr(rquat const q_in, real* const scale_unif_out);
+//rquat ijkQuatGetScaleQr(rquat const q_in, real* const scale_unif_out);
+#define ijkQuatGetScaleQr ijk_declrealfs(ijkQuatGetScaleQ,)
 
 // ijkQuatGetRotateScaleQ*
 //	Extract Euler angles and uniform scale from quaternion.
@@ -1906,7 +1962,8 @@ rquat ijkQuatGetScaleQr(rquat const q_in, real* const scale_unif_out);
 //		param rotateDegXYZ_out: storage for Euler angles in component order XYZ
 //		param scale_unif_out: storage for uniform scale amount
 //		return: q_in
-rquat ijkQuatGetRotateScaleQr(rquat const q_in, ijkRotationOrder const order, rvec3* const rotateDegXYZ_out, real* const scale_unif_out);
+//rquat ijkQuatGetRotateScaleQr(rquat const q_in, ijkRotationOrder const order, rvec3* const rotateDegXYZ_out, real* const scale_unif_out);
+#define ijkQuatGetRotateScaleQr ijk_declrealfs(ijkQuatGetRotateScaleQ,)
 
 // ijkQuatGetAxisAngleScaleQ*
 //	Extract unit axis, angle in degrees and uniform scale from quaternion.
@@ -1915,45 +1972,52 @@ rquat ijkQuatGetRotateScaleQr(rquat const q_in, ijkRotationOrder const order, rv
 //		param angle_degrees_out: storage for rotation angle in degrees
 //		param scale_unif_out: storage for uniform scale amount
 //		return: q_in
-rquat ijkQuatGetAxisAngleScaleQr(rquat const q_in, rvec3* const axis_unit_out, real* const angle_degrees_out, real* const scale_unif_out);
+//rquat ijkQuatGetAxisAngleScaleQr(rquat const q_in, rvec3* const axis_unit_out, real* const angle_degrees_out, real* const scale_unif_out);
+#define ijkQuatGetAxisAngleScaleQr ijk_declrealfs(ijkQuatGetAxisAngleScaleQ,)
 
 // ijkQuatGetMatQ*3
 //	Convert quaternion to 3D matrix.
 //		param q_in: input quaternion
 //		return: output matrix
-rmat3 ijkQuatGetMatQr3(rquat const q_in);
+//rmat3 ijkQuatGetMatQr3(rquat const q_in);
+#define ijkQuatGetMatQr3 ijk_declrealfs(ijkQuatGetMatQ,3)
 
 // ijkQuatUnitGetMatQ*3
 //	Convert unit quaternion to 3D matrix.
 //		param q_in: input quaternion
 //		return: output matrix
-rmat3 ijkQuatUnitGetMatQr3(rquat const q_in);
+//rmat3 ijkQuatUnitGetMatQr3(rquat const q_in);
+#define ijkQuatUnitGetMatQr3 ijk_declrealfs(ijkQuatUnitGetMatQ,3)
 
 // ijkQuatGetMatQ*4
 //	Convert quaternion to 4D matrix.
 //		param q_in: input quaternion
 //		return: output matrix
-rmat4 ijkQuatGetMatQr4(rquat const q_in);
+//rmat4 ijkQuatGetMatQr4(rquat const q_in);
+#define ijkQuatGetMatQr4 ijk_declrealfs(ijkQuatGetMatQ,4)
 
 // ijkQuatUnitGetMatQ*4
 //	Convert unit quaternion to 4D matrix.
 //		param q_in: input quaternion
 //		return: output matrix
-rmat4 ijkQuatUnitGetMatQr4(rquat const q_in);
+//rmat4 ijkQuatUnitGetMatQr4(rquat const q_in);
+#define ijkQuatUnitGetMatQr4 ijk_declrealfs(ijkQuatUnitGetMatQ,4)
 
 // ijkQuatGetMatQ*4t
 //	Convert quaternion to 4D matrix, with additional translation vector.
 //		param q_in: input quaternion
 //		param translate: translation offset vector
 //		return: output matrix
-rmat4 ijkQuatGetMatQr4t(rquat const q_in, rvec3 const translate);
+//rmat4 ijkQuatGetMatQr4t(rquat const q_in, rvec3 const translate);
+#define ijkQuatGetMatQr4t ijk_declrealfs(ijkQuatGetMatQ,4t)
 
 // ijkQuatUnitGetMatQ*4t
 //	Convert unit quaternion to 4D matrix, with additional translation vector.
 //		param q_in: input quaternion
 //		param translate: translation offset vector
 //		return: output matrix
-rmat4 ijkQuatUnitGetMatQr4t(rquat const q_in, rvec3 const translate);
+//rmat4 ijkQuatUnitGetMatQr4t(rquat const q_in, rvec3 const translate);
+#define ijkQuatUnitGetMatQr4t ijk_declrealfs(ijkQuatUnitGetMatQ,4t)
 
 // ijkQuatRotateScaleVecQ*3
 //	Rotate and/or scale a 3D vector using a quaternion; result will not be 
@@ -1961,7 +2025,8 @@ rmat4 ijkQuatUnitGetMatQr4t(rquat const q_in, rvec3 const translate);
 //		param q_in: input quaternion
 //		param v_in: input vector
 //		return: rotated vector
-rvec3 ijkQuatRotateScaleVecQr3(rquat const q_in, rvec3 const v_in);
+//rvec3 ijkQuatRotateScaleVecQr3(rquat const q_in, rvec3 const v_in);
+#define ijkQuatRotateScaleVecQr3 ijk_declrealfs(ijkQuatRotateScaleVecQ,3)
 
 // ijkQuatUnitRotateVecQ*3
 //	Rotate a 3D vector using a quaternion; use with unit quaternion for most 
@@ -1969,7 +2034,8 @@ rvec3 ijkQuatRotateScaleVecQr3(rquat const q_in, rvec3 const v_in);
 //		param q_in: input quaternion
 //		param v_in: input vector
 //		return: rotated vector
-rvec3 ijkQuatUnitRotateVecQr3(rquat const q_in, rvec3 const v_in);
+//rvec3 ijkQuatUnitRotateVecQr3(rquat const q_in, rvec3 const v_in);
+#define ijkQuatUnitRotateVecQr3 ijk_declrealfs(ijkQuatUnitRotateVecQ,3)
 
 // ijkQuatRotateVecQ*3
 //	Rotate a 3D vector using a quaternion; use this when the input quaternion 
@@ -1977,53 +2043,61 @@ rvec3 ijkQuatUnitRotateVecQr3(rquat const q_in, rvec3 const v_in);
 //		param q_in: input quaternion
 //		param v_in: input vector
 //		return: rotated vector
-rvec3 ijkQuatRotateVecQr3(rquat const q_in, rvec3 const v_in);
+//rvec3 ijkQuatRotateVecQr3(rquat const q_in, rvec3 const v_in);
+#define ijkQuatRotateVecQr3 ijk_declrealfs(ijkQuatRotateVecQ,3)
 
 // ijkQuatReflectScaleQ*
 //	Reflect and/or scale a quaternion about an axis.
 //		param q_in: input quaternion
 //		param v_in: input vector
 //		return: reflected quaternion
-rquat ijkQuatReflectScaleQr(rquat const q_in, rvec3 const v_in);
+//rquat ijkQuatReflectScaleQr(rquat const q_in, rvec3 const v_in);
+#define ijkQuatReflectScaleQr ijk_declrealfs(ijkQuatReflectScaleQ,)
 
 // ijkQuatUnitReflectQ*
 //	Reflect a unit quaternion about an axis; optimized for unit quaternions.
 //		param q_in: input quaternion
 //		param v_in: input vector
 //		return: reflected quaternion
-rquat ijkQuatUnitReflectQr(rquat const q_in, rvec3 const v_in);
+//rquat ijkQuatUnitReflectQr(rquat const q_in, rvec3 const v_in);
+#define ijkQuatUnitReflectQr ijk_declrealfs(ijkQuatUnitReflectQ,)
 
 // ijkQuatReflectQ*
 //	Reflect a non-unit quaternion about an axis.
 //		param q_in: input quaternion
 //		param v_in: input vector
 //		return: reflected quaternion
-rquat ijkQuatReflectQr(rquat const q_in, rvec3 const v_in);
+//rquat ijkQuatReflectQr(rquat const q_in, rvec3 const v_in);
+#define ijkQuatReflectQr ijk_declrealfs(ijkQuatReflectQ,)
 
 // ijkQuatExpQ*
 //	Calculate quaternion as natural exponent base (e) raised to vector power.
 //		param v_in: input vector
 //		return: exp
-rquat ijkQuatExpQr(rvec3 const v_in);
+//rquat ijkQuatExpQr(rvec3 const v_in);
+#define ijkQuatExpQr ijk_declrealfs(ijkQuatExpQ,)
 
 // ijkQuatLnQ*
 //	Calculate quaternion or vector as natural logarithm of quaternion.
 //		param q_in: input quaternion
 //		return: ln
-rquat ijkQuatLnQr(rquat const q_in);
+//rquat ijkQuatLnQr(rquat const q_in);
+#define ijkQuatLnQr ijk_declrealfs(ijkQuatLnQ,)
 
 // ijkQuatPowQ*
 //	Calculate quaternion raised to power of exponent.
 //		param q_in: input quaternion
 //		param u: exponent
 //		return: pow
-rquat ijkQuatPowQr(rquat const q_in, real const u);
+//rquat ijkQuatPowQr(rquat const q_in, real const u);
+#define ijkQuatPowQr ijk_declrealfs(ijkQuatPowQ,)
 
 // ijkQuatSqrtQ*
 //	Calculate square root of quaternion.
 //		param q_in: input quaternion
 //		return: sqrt
-rquat ijkQuatSqrtQr(rquat const q_in);
+//rquat ijkQuatSqrtQr(rquat const q_in);
+#define ijkQuatSqrtQr ijk_declrealfs(ijkQuatSqrtQ,)
 
 // ijkQuatLerpQ*
 //	Calculate linear interpolation between two quaternions; yields a uniform 
@@ -2033,7 +2107,8 @@ rquat ijkQuatSqrtQr(rquat const q_in);
 //		param u: interpolation parameter; values in domain [0,1] result in 
 //			interpolation in range [q0,q1], others result in extrapolation
 //		return: interpolated quaternion
-rquat ijkQuatLerpQr(rquat const q0, rquat const q1, real const u);
+//rquat ijkQuatLerpQr(rquat const q0, rquat const q1, real const u);
+#define ijkQuatLerpQr ijk_declrealfs(ijkQuatLerpQ,)
 
 // ijkQuatNlerpQ*
 //	Calculate normalized linear interpolation between two quaternions; keeps 
@@ -2043,7 +2118,8 @@ rquat ijkQuatLerpQr(rquat const q0, rquat const q1, real const u);
 //		param u: interpolation parameter; values in domain [0,1] result in 
 //			interpolation in range [q0,q1], others result in extrapolation
 //		return: interpolated quaternion
-rquat ijkQuatNlerpQr(rquat const q0, rquat const q1, real const u);
+//rquat ijkQuatNlerpQr(rquat const q0, rquat const q1, real const u);
+#define ijkQuatNlerpQr ijk_declrealfs(ijkQuatNlerpQ,)
 
 // ijkQuatSlerpQ*
 //	Calculate spherical linear interpolation between two unit quaternions; 
@@ -2053,14 +2129,16 @@ rquat ijkQuatNlerpQr(rquat const q0, rquat const q1, real const u);
 //		param u: interpolation parameter; values in domain [0,1] result in 
 //			interpolation in range [q0,q1], others result in extrapolation
 //		return: interpolated quaternion
-rquat ijkQuatSlerpQr(rquat const q0, rquat const q1, real const u);
+//rquat ijkQuatSlerpQr(rquat const q0, rquat const q1, real const u);
+#define ijkQuatSlerpQr ijk_declrealfs(ijkQuatSlerpQ,)
 
 // ijkQuatDerivQ*
 //	Calculate derivative of quaternion.
 //		param q_in: input quaternion
 //		param angularVelocity: angular velocity vector
 //		return: derivative of quaternion
-rquat ijkQuatDerivQr(rquat const q_in, rvec3 const angularVelocity);
+//rquat ijkQuatDerivQr(rquat const q_in, rvec3 const angularVelocity);
+#define ijkQuatDerivQr ijk_declrealfs(ijkQuatDerivQ,)
 
 // ijkQuatDeriv2Q*
 //	Calculate second derivative of quaternion.
@@ -2068,21 +2146,24 @@ rquat ijkQuatDerivQr(rquat const q_in, rvec3 const angularVelocity);
 //		param angularVelocity: angular velocity vector
 //		param angularAcceleration: angular acceleration vector
 //		return: second derivative of quaternion
-rquat ijkQuatDeriv2Qr(rquat const q_in, rvec3 const angularVelocity, rvec3 const angularAcceleration);
+//rquat ijkQuatDeriv2Qr(rquat const q_in, rvec3 const angularVelocity, rvec3 const angularAcceleration);
+#define ijkQuatDeriv2Qr ijk_declrealfs(ijkQuatDeriv2Q,)
 
 // ijkQuatEncodeTranslateQ*
 //	Encode translation offset vector using quaternion.
 //		param translate_in: input vector, translation offset
 //		param q_encode: encoding quaternion
 //		return: encoded translation
-rquat ijkQuatEncodeTranslateQr(rvec3 const translate_in, rquat const q_encode);
+//rquat ijkQuatEncodeTranslateQr(rvec3 const translate_in, rquat const q_encode);
+#define ijkQuatEncodeTranslateQr ijk_declrealfs(ijkQuatEncodeTranslateQ,)
 
 // ijkQuatEncodeTranslateX2Q*
 //	Encode double translation offset vector using quaternion.
 //		param translate_in: input vector, translation offset
 //		param q_encode: encoding quaternion
 //		return: encoded translation
-rquat ijkQuatEncodeTranslateX2Qr(rvec3 const translate_in, rquat const q_encode);
+//rquat ijkQuatEncodeTranslateX2Qr(rvec3 const translate_in, rquat const q_encode);
+#define ijkQuatEncodeTranslateX2Qr ijk_declrealfs(ijkQuatEncodeTranslateX2Q,)
 
 // ijkQuatDecodeTranslateQ*
 //	Decode translation offset vector from quaternion; use if encoding 
@@ -2090,7 +2171,8 @@ rquat ijkQuatEncodeTranslateX2Qr(rvec3 const translate_in, rquat const q_encode)
 //		param qt_in: input quaternion, encoded translation
 //		param q_decode: decoding quaternion
 //		return: translation offset
-rvec3 ijkQuatDecodeTranslateQr(rquat const qt_in, rquat const q_decode);
+//rvec3 ijkQuatDecodeTranslateQr(rquat const qt_in, rquat const q_decode);
+#define ijkQuatDecodeTranslateQr ijk_declrealfs(ijkQuatDecodeTranslateQ,)
 
 // ijkQuatDecodeTranslateD2Q*s
 //	Decode half translation offset vector from quaternion with scalar 
@@ -2099,7 +2181,8 @@ rvec3 ijkQuatDecodeTranslateQr(rquat const qt_in, rquat const q_decode);
 //		param qt_in: input quaternion, encoded translation
 //		param q_decode: decoding quaternion
 //		return: translation offset
-rvec3 ijkQuatDecodeTranslateD2Qrs(rquat const qt_in, rquat const q_decode, real const s);
+//rvec3 ijkQuatDecodeTranslateD2Qrs(rquat const qt_in, rquat const q_decode, real const s);
+#define ijkQuatDecodeTranslateD2Qrs ijk_declrealfs(ijkQuatDecodeTranslateD2Q,s)
 
 // ijkQuatDecodeTranslateD2Q*
 //	Decode half translation offset vector from quaternion; use if encoding 
@@ -2107,21 +2190,24 @@ rvec3 ijkQuatDecodeTranslateD2Qrs(rquat const qt_in, rquat const q_decode, real 
 //		param qt_in: input quaternion, encoded translation
 //		param q_decode: decoding quaternion
 //		return: translation offset
-rvec3 ijkQuatDecodeTranslateD2Qr(rquat const qt_in, rquat const q_decode);
+//rvec3 ijkQuatDecodeTranslateD2Qr(rquat const qt_in, rquat const q_decode);
+#define ijkQuatDecodeTranslateD2Qr ijk_declrealfs(ijkQuatDecodeTranslateD2Q,)
 
 // ijkQuatDecodeTranslateRemScaleQ*
 //	Decode translation offset vector from quaternion, removing scale.
 //		param qt_in: input quaternion, encoded translation
 //		param q_decode: decoding quaternion
 //		return: translation offset
-rvec3 ijkQuatDecodeTranslateRemScaleQr(rquat const qt_in, rquat const q_decode);
+//rvec3 ijkQuatDecodeTranslateRemScaleQr(rquat const qt_in, rquat const q_decode);
+#define ijkQuatDecodeTranslateRemScaleQr ijk_declrealfs(ijkQuatDecodeTranslateRemScaleQ,)
 
 // ijkQuatDecodeTranslateRemScaleD2Q*
 //	Decode half translation offset vector from quaternion, removing scale.
 //		param qt_in: input quaternion, encoded translation
 //		param q_decode: decoding quaternion
 //		return: translation offset
-rvec3 ijkQuatDecodeTranslateRemScaleD2Qr(rquat const qt_in, rquat const q_decode);
+//rvec3 ijkQuatDecodeTranslateRemScaleD2Qr(rquat const qt_in, rquat const q_decode);
+#define ijkQuatDecodeTranslateRemScaleD2Qr ijk_declrealfs(ijkQuatDecodeTranslateRemScaleD2Q,)
 
 
 //-----------------------------------------------------------------------------
@@ -2129,166 +2215,192 @@ rvec3 ijkQuatDecodeTranslateRemScaleD2Qr(rquat const qt_in, rquat const q_decode
 // ijkDualQuatInitDQ*
 //	Initialize identity dual quaternion (zero dual, identity real).
 //		return: identity dual quaternion
-rdualquat ijkDualQuatInitDQr();
+//rdualquat ijkDualQuatInitDQr();
+#define ijkDualQuatInitDQr ijk_declrealfs(ijkDualQuatInitDQ,)
 
 // ijkDualQuatInitDualReDQ*
 //	Initialize dual quaternion with dual and real parts.
 //		param re: real component (qr)
 //		param dual: dual component (E qd)
 //		return: r+Ed dual quaternion
-rdualquat ijkDualQuatInitDualReDQr(rquat const re, rquat const dual);
+//rdualquat ijkDualQuatInitDualReDQr(rquat const re, rquat const dual);
+#define ijkDualQuatInitDualReDQr ijk_declrealfs(ijkDualQuatInitDualReDQ,)
 
 // ijkDualQuatInitMatDQ*3
 //	Initialize dual quaternion from 3D matrix.
 //		param m_in: input matrix
 //		return: output dual quaternion
-rdualquat ijkDualQuatInitMatDQr3(rmat3 const m_in);
+//rdualquat ijkDualQuatInitMatDQr3(rmat3 const m_in);
+#define ijkDualQuatInitMatDQr3 ijk_declrealfs(ijkDualQuatInitMatDQ,3)
 
 // ijkDualQuatInitMatDQ*4
 //	Initialize dual quaternion from 4D matrix.
 //		param m_in: input matrix
 //		return: output dual quaternion
-rdualquat ijkDualQuatInitMatDQr4(rmat4 const m_in);
+//rdualquat ijkDualQuatInitMatDQr4(rmat4 const m_in);
+#define ijkDualQuatInitMatDQr4 ijk_declrealfs(ijkDualQuatInitMatDQ,4)
 
 // ijkDualQuatCopyDQ*
 //	Copy dual quaternion.
 //		param dq_in: input dual quaternion
 //		return: copy
-rdualquat ijkDualQuatCopyDQr(rdualquat const dq_in);
+//rdualquat ijkDualQuatCopyDQr(rdualquat const dq_in);
+#define ijkDualQuatCopyDQr ijk_declrealfs(ijkDualQuatCopyDQ,)
 
 // ijkDualQuatNegateDQ*
 //	Negate dual quaternion.
 //		param dq_in: input dual quaternion
 //		return: negative dual quaternion
-rdualquat ijkDualQuatNegateDQr(rdualquat const dq_in);
+//rdualquat ijkDualQuatNegateDQr(rdualquat const dq_in);
+#define ijkDualQuatNegateDQr ijk_declrealfs(ijkDualQuatNegateDQ,)
 
 // ijkDualQuatConjugateDQ*
 //	Conjugate dual quaternion: take conjugate of both components.
 //		param dq_in: input dual quaternion
 //		return: conjugate dual quaternion
-rdualquat ijkDualQuatConjugateDQr(rdualquat const dq_in);
+//rdualquat ijkDualQuatConjugateDQr(rdualquat const dq_in);
+#define ijkDualQuatConjugateDQr ijk_declrealfs(ijkDualQuatConjugateDQ,)
 
 // ijkDualQuatNegateDualDQ*
 //	Negate dual part: conjugate of dual number.
 //		param dq_in: input dual quaternion
 //		return: dual conjugate dual quaternion
-rdualquat ijkDualQuatNegateDualDQr(rdualquat const dq_in);
+//rdualquat ijkDualQuatNegateDualDQr(rdualquat const dq_in);
+#define ijkDualQuatNegateDualDQr ijk_declrealfs(ijkDualQuatNegateDualDQ,)
 
 // ijkDualQuatConjugateDualDQ*
 //	Conjugate and negate dual part: conjugate of dual number and components.
 //		param dq_in: input dual quaternion
 //		return: full dual conjugate dual quaternion
-rdualquat ijkDualQuatConjugateDualDQr(rdualquat const dq_in);
+//rdualquat ijkDualQuatConjugateDualDQr(rdualquat const dq_in);
+#define ijkDualQuatConjugateDualDQr ijk_declrealfs(ijkDualQuatConjugateDualDQ,)
 
 // ijkDualQuatAddDQ*
 //	Calculate sum of dual quaternions.
 //		param dq_lh: left-hand dual quaternion
 //		param dq_rh: right-hand dual quaternion
 //		return: sum dual quaternion
-rdualquat ijkDualQuatAddDQr(rdualquat const dq_lh, rdualquat const dq_rh);
+//rdualquat ijkDualQuatAddDQr(rdualquat const dq_lh, rdualquat const dq_rh);
+#define ijkDualQuatAddDQr ijk_declrealfs(ijkDualQuatAddDQ,)
 
 // ijkDualQuatSubDQ*
 //	Calculate difference of dual quaternions.
 //		param dq_lh: left-hand dual quaternion
 //		param dq_rh: right-hand dual quaternion
 //		return: difference dual quaternion
-rdualquat ijkDualQuatSubDQr(rdualquat const dq_lh, rdualquat const dq_rh);
+//rdualquat ijkDualQuatSubDQr(rdualquat const dq_lh, rdualquat const dq_rh);
+#define ijkDualQuatSubDQr ijk_declrealfs(ijkDualQuatSubDQ,)
 
 // ijkDualQuatMulDQ*s
 //	Calculate product of dual quaternion and scalar.
 //		param dq_lh: left-hand dual quaternion
 //		param s_rh: right-hand scalar
 //		return: product dual quaternion
-rdualquat ijkDualQuatMulDQrs(rdualquat const dq_lh, real const s_rh);
+//rdualquat ijkDualQuatMulDQrs(rdualquat const dq_lh, real const s_rh);
+#define ijkDualQuatMulDQrs ijk_declrealfs(ijkDualQuatMulDQ,s)
 
 // ijkDualQuatDivDQ*s
 //	Calculate quotient of dual quaternion and scalar.
 //		param dq_lh: left-hand dual quaternion
 //		param s_rh: right-hand scalar
 //		return: quotient dual quaternion
-rdualquat ijkDualQuatDivDQrs(rdualquat const dq_lh, real const s_rh);
+//rdualquat ijkDualQuatDivDQrs(rdualquat const dq_lh, real const s_rh);
+#define ijkDualQuatDivDQrs ijk_declrealfs(ijkDualQuatDivDQ,s)
 
 // ijkDualQuatDivSafeDQ*s
 //	Calculate quotient of dual quaternion and scalar; division-by-zero safety.
 //		param dq_lh: left-hand dual quaternion
 //		param s_rh: right-hand scalar
 //		return: quotient dual quaternion
-rdualquat ijkDualQuatDivSafeDQrs(rdualquat const dq_lh, real const s_rh);
+//rdualquat ijkDualQuatDivSafeDQrs(rdualquat const dq_lh, real const s_rh);
+#define ijkDualQuatDivSafeDQrs ijk_declrealfs(ijkDualQuatDivSafeDQ,s)
 
 // ijkDualQuatLengthSqDQ*
 //	Calculate squared length of dual quaternion.
 //		param dq_in: input dual quaternion
 //		return: squared length
-real ijkDualQuatLengthSqDQr(rdualquat const dq_in);
+//real ijkDualQuatLengthSqDQr(rdualquat const dq_in);
+#define ijkDualQuatLengthSqDQr ijk_declrealfs(ijkDualQuatLengthSqDQ,)
 
 // ijkDualQuatLengthDQ*
 //	Calculate length of dual quaternion.
 //		param dq_in: input dual quaternion
 //		return: length
-real ijkDualQuatLengthDQr(rdualquat const dq_in);
+//real ijkDualQuatLengthDQr(rdualquat const dq_in);
+#define ijkDualQuatLengthDQr ijk_declrealfs(ijkDualQuatLengthDQ,)
 
 // ijkDualQuatLengthSqInvDQ*
 //	Calculate inverse squared length of dual quaternion.
 //		param dq_in: input dual quaternion
 //		return: inverse squared length
-real ijkDualQuatLengthSqInvDQr(rdualquat const dq_in);
+//real ijkDualQuatLengthSqInvDQr(rdualquat const dq_in);
+#define ijkDualQuatLengthSqInvDQr ijk_declrealfs(ijkDualQuatLengthSqInvDQ,)
 
 // ijkDualQuatLengthInvDQ*
 //	Calculate inverse length of dual quaternion.
 //		param dq_in: input dual quaternion
 //		return: inverse length
-real ijkDualQuatLengthInvDQr(rdualquat const dq_in);
+//real ijkDualQuatLengthInvDQr(rdualquat const dq_in);
+#define ijkDualQuatLengthInvDQr ijk_declrealfs(ijkDualQuatLengthInvDQ,)
 
 // ijkDualQuatLengthSqInvSafeDQ*
 //	Calculate inverse squared length of dual quaternion.
 //		param dq_in: input dual quaternion
 //		return: inverse squared length
-real ijkDualQuatLengthSqInvSafeDQr(rdualquat const dq_in);
+//real ijkDualQuatLengthSqInvSafeDQr(rdualquat const dq_in);
+#define ijkDualQuatLengthSqInvSafeDQr ijk_declrealfs(ijkDualQuatLengthSqInvSafeDQ,)
 
 // ijkDualQuatLengthInvSafeDQ*
 //	Calculate inverse length of dual quaternion.
 //		param dq_in: input dual quaternion
 //		return: inverse length
-real ijkDualQuatLengthInvSafeDQr(rdualquat const dq_in);
+//real ijkDualQuatLengthInvSafeDQr(rdualquat const dq_in);
+#define ijkDualQuatLengthInvSafeDQr ijk_declrealfs(ijkDualQuatLengthInvSafeDQ,)
 
 // ijkDualQuatNormalizeDQ*
 //	Normalize dual quaternion.
 //		param dq_in: input dual quaternion
 //		return: unit dual quaternion
-rdualquat ijkDualQuatNormalizeDQr(rdualquat const dq_in);
+//rdualquat ijkDualQuatNormalizeDQr(rdualquat const dq_in);
+#define ijkDualQuatNormalizeDQr ijk_declrealfs(ijkDualQuatNormalizeDQ,)
 
 // ijkDualQuatNormalizeSafeDQ*
 //	Normalize dual quaternion; division-by-zero safety.
 //		param dq_in: input dual quaternion
 //		return: unit dual quaternion
-rdualquat ijkDualQuatNormalizeSafeDQr(rdualquat const dq_in);
+//rdualquat ijkDualQuatNormalizeSafeDQr(rdualquat const dq_in);
+#define ijkDualQuatNormalizeSafeDQr ijk_declrealfs(ijkDualQuatNormalizeSafeDQ,)
 
 // ijkDualQuatInverseDQ*
 //	Calculate inverse of dual quaternion: conjugate divided by squared length.
 //		param dq_in: input dual quaternion
 //		return: inverse dual quaternion
-rdualquat ijkDualQuatInverseDQr(rdualquat const dq_in);
+//rdualquat ijkDualQuatInverseDQr(rdualquat const dq_in);
+#define ijkDualQuatInverseDQr ijk_declrealfs(ijkDualQuatInverseDQ,)
 
 // ijkDualQuatInverseSafeDQ*
 //	Calculate inverse of dual quaternion: conjugate divided by squared length; 
 //	division-by-zero safety.
 //		param dq_in: input dual quaternion
 //		return: inverse dual quaternion
-rdualquat ijkDualQuatInverseSafeDQr(rdualquat const dq_in);
+//rdualquat ijkDualQuatInverseSafeDQr(rdualquat const dq_in);
+#define ijkDualQuatInverseSafeDQr ijk_declrealfs(ijkDualQuatInverseSafeDQ,)
 
 // ijkDualQuatMulVecDQ*3
 //	Calculate product of dual quaternion and 3D vector (result is dual quaternion).
 //		param dq_lh: left-hand dual quaternion
 //		param v_rh: right-hand vector
 //		return: product dual quaternion
-rdualquat ijkDualQuatMulVecDQr3(rdualquat const dq_lh, rvec3 const v_rh);
+//rdualquat ijkDualQuatMulVecDQr3(rdualquat const dq_lh, rvec3 const v_rh);
+#define ijkDualQuatMulVecDQr3 ijk_declrealfs(ijkDualQuatMulVecDQ,3)
 
 // ijkDualQuatMulVecDQ*3q
 //	Calculate product of 3D vector and dual quaternion (result is dual quaternion).
 //		param v_lh: left-hand vector
 //		param dq_rh: right-hand dual quaternion
 //		return: product dual quaternion
-rdualquat ijkDualQuatMulVecDQr3q(rvec3 const v_lh, rdualquat const dq_rh);
+//rdualquat ijkDualQuatMulVecDQr3q(rvec3 const v_lh, rdualquat const dq_rh);
+#define ijkDualQuatMulVecDQr3q ijk_declrealfs(ijkDualQuatMulVecDQ,3q)
 
 // ijkDualQuatMulDQ*
 //	Calculate product of dual quaternions, or concatenate unit dual quaternions
@@ -2296,7 +2408,8 @@ rdualquat ijkDualQuatMulVecDQr3q(rvec3 const v_lh, rdualquat const dq_rh);
 //		param dq_lh: left-hand dual quaternion
 //		param dq_rh: right-hand dual quaternion
 //		return: product dual quaternion
-rdualquat ijkDualQuatMulDQr(rdualquat const dq_lh, rdualquat const dq_rh);
+//rdualquat ijkDualQuatMulDQr(rdualquat const dq_lh, rdualquat const dq_rh);
+#define ijkDualQuatMulDQr ijk_declrealfs(ijkDualQuatMulDQ,)
 
 // ijkDualQuatMulScaleDQ*
 //	Correctly concatenate dual quaternions that represent transformations such 
@@ -2305,14 +2418,16 @@ rdualquat ijkDualQuatMulDQr(rdualquat const dq_lh, rdualquat const dq_rh);
 //		param dq_lh: left-hand dual quaternion
 //		param dq_rh: right-hand dual quaternion
 //		return: product dual quaternion
-rdualquat ijkDualQuatMulScaleDQr(rdualquat const dq_lh, rdualquat const dq_rh);
+//rdualquat ijkDualQuatMulScaleDQr(rdualquat const dq_lh, rdualquat const dq_rh);
+#define ijkDualQuatMulScaleDQr ijk_declrealfs(ijkDualQuatMulScaleDQ,)
 
 // ijkDualQuatDivDQ*
 //	Calculate quotient of dual quaternions (multiply by rh inverse).
 //		param dq_lh: left-hand dual quaternion
 //		param dq_rh: right-hand dual quaternion
 //		return: quotient dual quaternion
-rdualquat ijkDualQuatDivDQr(rdualquat const dq_lh, rdualquat const dq_rh);
+//rdualquat ijkDualQuatDivDQr(rdualquat const dq_lh, rdualquat const dq_rh);
+#define ijkDualQuatDivDQr ijk_declrealfs(ijkDualQuatDivDQ,)
 
 // ijkDualQuatRotateDQ*
 //	Make rotation dual quaternion with Euler angles.
@@ -2320,20 +2435,23 @@ rdualquat ijkDualQuatDivDQr(rdualquat const dq_lh, rdualquat const dq_rh);
 //			operations is right-to-left)
 //		param rotateDegXYZ: Euler angles in degrees (component order XYZ)
 //		return: rotation dual quaternion
-rdualquat ijkDualQuatRotateDQr(ijkRotationOrder const order, rvec3 const rotateDegXYZ);
+//rdualquat ijkDualQuatRotateDQr(ijkRotationOrder const order, rvec3 const rotateDegXYZ);
+#define ijkDualQuatRotateDQr ijk_declrealfs(ijkDualQuatRotateDQ,)
 
 // ijkDualQuatAxisAngleDQ*
 //	Make rotation dual quaternion with unit axis and angle in degrees.
 //		param axis_unit: unit axis of rotation
 //		param angle_degrees: angle of rotation in degrees
 //		return: rotation dual quaternion
-rdualquat ijkDualQuatAxisAngleDQr(rvec3 const axis_unit, real const angle_degrees);
+//rdualquat ijkDualQuatAxisAngleDQr(rvec3 const axis_unit, real const angle_degrees);
+#define ijkDualQuatAxisAngleDQr ijk_declrealfs(ijkDualQuatAxisAngleDQ,)
 
 // ijkDualQuatScaleDQ*
 //	Make rotation dual quaternion with uniform scale.
 //		param scale_unif: uniform scale amount
 //		return: scale dual quaternion
-rdualquat ijkDualQuatScaleDQr(real const scale_unif);
+//rdualquat ijkDualQuatScaleDQr(real const scale_unif);
+#define ijkDualQuatScaleDQr ijk_declrealfs(ijkDualQuatScaleDQ,)
 
 // ijkDualQuatRotateScaleDQ*
 //	Make rotation dual quaternion with Euler angles and uniform scale.
@@ -2342,7 +2460,8 @@ rdualquat ijkDualQuatScaleDQr(real const scale_unif);
 //		param rotateDegXYZ: Euler angles in degrees (component order XYZ)
 //		param scale_unif: uniform scale amount
 //		return: rotation-scale dual quaternion
-rdualquat ijkDualQuatRotateScaleDQr(ijkRotationOrder const order, rvec3 const rotateDegXYZ, real const scale_unif);
+//rdualquat ijkDualQuatRotateScaleDQr(ijkRotationOrder const order, rvec3 const rotateDegXYZ, real const scale_unif);
+#define ijkDualQuatRotateScaleDQr ijk_declrealfs(ijkDualQuatRotateScaleDQ,)
 
 // ijkDualQuatAxisAngleScaleDQ*
 //	Make rotation dual quaternion with unit axis, angle in degrees and uniform scale.
@@ -2350,7 +2469,8 @@ rdualquat ijkDualQuatRotateScaleDQr(ijkRotationOrder const order, rvec3 const ro
 //		param angle_degrees: angle of rotation in degrees
 //		param scale_unif: uniform scale amount
 //		return: rotation-scale dual quaternion
-rdualquat ijkDualQuatAxisAngleScaleDQr(rvec3 const axis_unit, real const angle_degrees, real const scale_unif);
+//rdualquat ijkDualQuatAxisAngleScaleDQr(rvec3 const axis_unit, real const angle_degrees, real const scale_unif);
+#define ijkDualQuatAxisAngleScaleDQr ijk_declrealfs(ijkDualQuatAxisAngleScaleDQ,)
 
 // ijkDualQuatTranslateDQ*
 //	Make rotation dual quaternion with Euler angles.
@@ -2358,7 +2478,8 @@ rdualquat ijkDualQuatAxisAngleScaleDQr(rvec3 const axis_unit, real const angle_d
 //			operations is right-to-left)
 //		param translate: translation offset vector
 //		return: translation dual quaternion
-rdualquat ijkDualQuatTranslateDQr(rvec3 const translate);
+//rdualquat ijkDualQuatTranslateDQr(rvec3 const translate);
+#define ijkDualQuatTranslateDQr ijk_declrealfs(ijkDualQuatTranslateDQ,)
 
 // ijkDualQuatRotateTranslateDQ*
 //	Make rotation dual quaternion with Euler angles.
@@ -2367,7 +2488,8 @@ rdualquat ijkDualQuatTranslateDQr(rvec3 const translate);
 //		param rotateDegXYZ: Euler angles in degrees (component order XYZ)
 //		param translate: translation offset vector
 //		return: rotation-translation dual quaternion
-rdualquat ijkDualQuatRotateTranslateDQr(ijkRotationOrder const order, rvec3 const rotateDegXYZ, rvec3 const translate);
+//rdualquat ijkDualQuatRotateTranslateDQr(ijkRotationOrder const order, rvec3 const rotateDegXYZ, rvec3 const translate);
+#define ijkDualQuatRotateTranslateDQr ijk_declrealfs(ijkDualQuatRotateTranslateDQ,)
 
 // ijkDualQuatAxisAngleTranslateDQ*
 //	Make rotation dual quaternion with unit axis and angle in degrees.
@@ -2375,14 +2497,16 @@ rdualquat ijkDualQuatRotateTranslateDQr(ijkRotationOrder const order, rvec3 cons
 //		param angle_degrees: angle of rotation in degrees
 //		param translate: translation offset vector
 //		return: rotation-translation dual quaternion
-rdualquat ijkDualQuatAxisAngleTranslateDQr(rvec3 const axis_unit, real const angle_degrees, rvec3 const translate);
+//rdualquat ijkDualQuatAxisAngleTranslateDQr(rvec3 const axis_unit, real const angle_degrees, rvec3 const translate);
+#define ijkDualQuatAxisAngleTranslateDQr ijk_declrealfs(ijkDualQuatAxisAngleTranslateDQ,)
 
 // ijkDualQuatScaleTranslateDQ*
 //	Make rotation dual quaternion with uniform scale.
 //		param scale_unif: uniform scale amount
 //		param translate: translation offset vector
 //		return: scale-translation dual quaternion
-rdualquat ijkDualQuatScaleTranslateDQr(real const scale_unif, rvec3 const translate);
+//rdualquat ijkDualQuatScaleTranslateDQr(real const scale_unif, rvec3 const translate);
+#define ijkDualQuatScaleTranslateDQr ijk_declrealfs(ijkDualQuatScaleTranslateDQ,)
 
 // ijkDualQuatRotateScaleTranslateDQ*
 //	Make rotation dual quaternion with Euler angles and uniform scale.
@@ -2392,7 +2516,8 @@ rdualquat ijkDualQuatScaleTranslateDQr(real const scale_unif, rvec3 const transl
 //		param scale_unif: uniform scale amount
 //		param translate: translation offset vector
 //		return: rotation-scale-translation dual quaternion
-rdualquat ijkDualQuatRotateScaleTranslateDQr(ijkRotationOrder const order, rvec3 const rotateDegXYZ, real const scale_unif, rvec3 const translate);
+//rdualquat ijkDualQuatRotateScaleTranslateDQr(ijkRotationOrder const order, rvec3 const rotateDegXYZ, real const scale_unif, rvec3 const translate);
+#define ijkDualQuatRotateScaleTranslateDQr ijk_declrealfs(ijkDualQuatRotateScaleTranslateDQ,)
 
 // ijkDualQuatAxisAngleScaleTranslateDQ*
 //	Make rotation dual quaternion with unit axis, angle in degrees and uniform scale.
@@ -2401,7 +2526,8 @@ rdualquat ijkDualQuatRotateScaleTranslateDQr(ijkRotationOrder const order, rvec3
 //		param scale_unif: uniform scale amount
 //		param translate: translation offset vector
 //		return: rotation-scale-translation dual quaternion
-rdualquat ijkDualQuatAxisAngleScaleTranslateDQr(rvec3 const axis_unit, real const angle_degrees, real const scale_unif, rvec3 const translate);
+//rdualquat ijkDualQuatAxisAngleScaleTranslateDQr(rvec3 const axis_unit, real const angle_degrees, real const scale_unif, rvec3 const translate);
+#define ijkDualQuatAxisAngleScaleTranslateDQr ijk_declrealfs(ijkDualQuatAxisAngleScaleTranslateDQ,)
 
 // ijkDualQuatGetRotateDQ*
 //	Extract Euler angles from rotation dual quaternion.
@@ -2410,7 +2536,8 @@ rdualquat ijkDualQuatAxisAngleScaleTranslateDQr(rvec3 const axis_unit, real cons
 //			operations is right-to-left)
 //		param rotateDegXYZ_out: storage for Euler angles in component order XYZ
 //		return: dq_in
-rdualquat ijkDualQuatGetRotateDQr(rdualquat const dq_in, ijkRotationOrder const order, rvec3* const rotateDegXYZ_out);
+//rdualquat ijkDualQuatGetRotateDQr(rdualquat const dq_in, ijkRotationOrder const order, rvec3* const rotateDegXYZ_out);
+#define ijkDualQuatGetRotateDQr ijk_declrealfs(ijkDualQuatGetRotateDQ,)
 
 // ijkDualQuatGetAxisAngleDQ*
 //	Extract unit axis and angle in degrees from dual quaternion.
@@ -2418,14 +2545,16 @@ rdualquat ijkDualQuatGetRotateDQr(rdualquat const dq_in, ijkRotationOrder const 
 //		param axis_unit_out: storage for unit axis of rotation
 //		param angle_degrees_out: storage for rotation angle in degrees
 //		return: dq_in
-rdualquat ijkDualQuatGetAxisAngleDQr(rdualquat const dq_in, rvec3* const axis_unit_out, real* const angle_degrees_out);
+//rdualquat ijkDualQuatGetAxisAngleDQr(rdualquat const dq_in, rvec3* const axis_unit_out, real* const angle_degrees_out);
+#define ijkDualQuatGetAxisAngleDQr ijk_declrealfs(ijkDualQuatGetAxisAngleDQ,)
 
 // ijkDualQuatGetScaleDQ*
 //	Extract uniform scale from dual quaternion.
 //		param dq_in: input dual quaternion
 //		param scale_unif_out: storage for uniform scale amount
 //		return: dq_in
-rdualquat ijkDualQuatGetScaleDQr(rdualquat const dq_in, real* const scale_unif_out);
+//rdualquat ijkDualQuatGetScaleDQr(rdualquat const dq_in, real* const scale_unif_out);
+#define ijkDualQuatGetScaleDQr ijk_declrealfs(ijkDualQuatGetScaleDQ,)
 
 // ijkDualQuatGetRotateScaleDQ*
 //	Extract Euler angles and uniform scale from dual quaternion.
@@ -2435,7 +2564,8 @@ rdualquat ijkDualQuatGetScaleDQr(rdualquat const dq_in, real* const scale_unif_o
 //		param rotateDegXYZ_out: storage for Euler angles in component order XYZ
 //		param scale_unif_out: storage for uniform scale amount
 //		return: dq_in
-rdualquat ijkDualQuatGetRotateScaleDQr(rdualquat const dq_in, ijkRotationOrder const order, rvec3* const rotateDegXYZ_out, real* const scale_unif_out);
+//rdualquat ijkDualQuatGetRotateScaleDQr(rdualquat const dq_in, ijkRotationOrder const order, rvec3* const rotateDegXYZ_out, real* const scale_unif_out);
+#define ijkDualQuatGetRotateScaleDQr ijk_declrealfs(ijkDualQuatGetRotateScaleDQ,)
 
 // ijkDualQuatGetAxisAngleScaleDQ*
 //	Extract unit axis, angle in degrees and uniform scale from dual quaternion.
@@ -2444,14 +2574,16 @@ rdualquat ijkDualQuatGetRotateScaleDQr(rdualquat const dq_in, ijkRotationOrder c
 //		param angle_degrees_out: storage for rotation angle in degrees
 //		param scale_unif_out: storage for uniform scale amount
 //		return: dq_in
-rdualquat ijkDualQuatGetAxisAngleScaleDQr(rdualquat const dq_in, rvec3* const axis_unit_out, real* const angle_degrees_out, real* const scale_unif_out);
+//rdualquat ijkDualQuatGetAxisAngleScaleDQr(rdualquat const dq_in, rvec3* const axis_unit_out, real* const angle_degrees_out, real* const scale_unif_out);
+#define ijkDualQuatGetAxisAngleScaleDQr ijk_declrealfs(ijkDualQuatGetAxisAngleScaleDQ,)
 
 // ijkDualQuatGetTranslateDQ*
 //	Extract Euler angles from rotation dual quaternion.
 //		param dq_in: input dual quaternion
 //		param translate_out: storage for translation offset vector
 //		return: dq_in
-rdualquat ijkDualQuatGetTranslateDQr(rdualquat const dq_in, rvec3* const translate_out);
+//rdualquat ijkDualQuatGetTranslateDQr(rdualquat const dq_in, rvec3* const translate_out);
+#define ijkDualQuatGetTranslateDQr ijk_declrealfs(ijkDualQuatGetTranslateDQ,)
 
 // ijkDualQuatGetRotateTranslateDQ*
 //	Extract Euler angles from rotation dual quaternion.
@@ -2461,7 +2593,8 @@ rdualquat ijkDualQuatGetTranslateDQr(rdualquat const dq_in, rvec3* const transla
 //		param rotateDegXYZ_out: storage for Euler angles in component order XYZ
 //		param translate_out: storage for translation offset vector
 //		return: dq_in
-rdualquat ijkDualQuatGetRotateTranslateDQr(rdualquat const dq_in, ijkRotationOrder const order, rvec3* const rotateDegXYZ_out, rvec3* const translate_out);
+//rdualquat ijkDualQuatGetRotateTranslateDQr(rdualquat const dq_in, ijkRotationOrder const order, rvec3* const rotateDegXYZ_out, rvec3* const translate_out);
+#define ijkDualQuatGetRotateTranslateDQr ijk_declrealfs(ijkDualQuatGetRotateTranslateDQ,)
 
 // ijkDualQuatGetAxisAngleTranslateDQ*
 //	Extract unit axis and angle in degrees from dual quaternion.
@@ -2470,7 +2603,8 @@ rdualquat ijkDualQuatGetRotateTranslateDQr(rdualquat const dq_in, ijkRotationOrd
 //		param angle_degrees_out: storage for rotation angle in degrees
 //		param translate_out: storage for translation offset vector
 //		return: dq_in
-rdualquat ijkDualQuatGetAxisAngleTranslateDQr(rdualquat const dq_in, rvec3* const axis_unit_out, real* const angle_degrees_out, rvec3* const translate_out);
+//rdualquat ijkDualQuatGetAxisAngleTranslateDQr(rdualquat const dq_in, rvec3* const axis_unit_out, real* const angle_degrees_out, rvec3* const translate_out);
+#define ijkDualQuatGetAxisAngleTranslateDQr ijk_declrealfs(ijkDualQuatGetAxisAngleTranslateDQ,)
 
 // ijkDualQuatGetScaleTranslateDQ*
 //	Extract uniform scale from dual quaternion.
@@ -2478,7 +2612,8 @@ rdualquat ijkDualQuatGetAxisAngleTranslateDQr(rdualquat const dq_in, rvec3* cons
 //		param scale_unif_out: storage for uniform scale amount
 //		param translate_out: storage for translation offset vector
 //		return: dq_in
-rdualquat ijkDualQuatGetScaleTranslateDQr(rdualquat const dq_in, real* const scale_unif_out, rvec3* const translate_out);
+//rdualquat ijkDualQuatGetScaleTranslateDQr(rdualquat const dq_in, real* const scale_unif_out, rvec3* const translate_out);
+#define ijkDualQuatGetScaleTranslateDQr ijk_declrealfs(ijkDualQuatGetScaleTranslateDQ,)
 
 // ijkDualQuatGetRotateScaleTranslateDQ*
 //	Extract Euler angles and uniform scale from dual quaternion.
@@ -2489,7 +2624,8 @@ rdualquat ijkDualQuatGetScaleTranslateDQr(rdualquat const dq_in, real* const sca
 //		param scale_unif_out: storage for uniform scale amount
 //		param translate_out: storage for translation offset vector
 //		return: dq_in
-rdualquat ijkDualQuatGetRotateScaleTranslateDQr(rdualquat const dq_in, ijkRotationOrder const order, rvec3* const rotateDegXYZ_out, real* const scale_unif_out, rvec3* const translate_out);
+//rdualquat ijkDualQuatGetRotateScaleTranslateDQr(rdualquat const dq_in, ijkRotationOrder const order, rvec3* const rotateDegXYZ_out, real* const scale_unif_out, rvec3* const translate_out);
+#define ijkDualQuatGetRotateScaleTranslateDQr ijk_declrealfs(ijkDualQuatGetRotateScaleTranslateDQ,)
 
 // ijkDualQuatGetAxisAngleScaleTranslateDQ*
 //	Extract unit axis, angle in degrees and uniform scale from dual quaternion.
@@ -2499,7 +2635,8 @@ rdualquat ijkDualQuatGetRotateScaleTranslateDQr(rdualquat const dq_in, ijkRotati
 //		param scale_unif_out: storage for uniform scale amount
 //		param translate_out: storage for translation offset vector
 //		return: dq_in
-rdualquat ijkDualQuatGetAxisAngleScaleTranslateDQr(rdualquat const dq_in, rvec3* const axis_unit_out, real* const angle_degrees_out, real* const scale_unif_out, rvec3* const translate_out);
+//rdualquat ijkDualQuatGetAxisAngleScaleTranslateDQr(rdualquat const dq_in, rvec3* const axis_unit_out, real* const angle_degrees_out, real* const scale_unif_out, rvec3* const translate_out);
+#define ijkDualQuatGetAxisAngleScaleTranslateDQr ijk_declrealfs(ijkDualQuatGetAxisAngleScaleTranslateDQ,)
 
 // ijkDualQuatGetTranslateRemScaleDQ*
 //	Extract Euler angles from rotation dual quaternion, removing scale from 
@@ -2507,7 +2644,8 @@ rdualquat ijkDualQuatGetAxisAngleScaleTranslateDQr(rdualquat const dq_in, rvec3*
 //		param dq_in: input dual quaternion
 //		param translate_out: storage for translation offset vector
 //		return: dq_in
-rdualquat ijkDualQuatGetTranslateRemScaleDQr(rdualquat const dq_in, rvec3* const translate_out);
+//rdualquat ijkDualQuatGetTranslateRemScaleDQr(rdualquat const dq_in, rvec3* const translate_out);
+#define ijkDualQuatGetTranslateRemScaleDQr ijk_declrealfs(ijkDualQuatGetTranslateRemScaleDQ,)
 
 // ijkDualQuatGetRotateTranslateRemScaleDQ*
 //	Extract Euler angles from rotation dual quaternion, removing scale from 
@@ -2518,7 +2656,8 @@ rdualquat ijkDualQuatGetTranslateRemScaleDQr(rdualquat const dq_in, rvec3* const
 //		param rotateDegXYZ_out: storage for Euler angles in component order XYZ
 //		param translate_out: storage for translation offset vector
 //		return: dq_in
-rdualquat ijkDualQuatGetRotateTranslateRemScaleDQr(rdualquat const dq_in, ijkRotationOrder const order, rvec3* const rotateDegXYZ_out, rvec3* const translate_out);
+//rdualquat ijkDualQuatGetRotateTranslateRemScaleDQr(rdualquat const dq_in, ijkRotationOrder const order, rvec3* const rotateDegXYZ_out, rvec3* const translate_out);
+#define ijkDualQuatGetRotateTranslateRemScaleDQr ijk_declrealfs(ijkDualQuatGetRotateTranslateRemScaleDQ,)
 
 // ijkDualQuatGetAxisAngleTranslateRemScaleDQ*
 //	Extract unit axis and angle in degrees from dual quaternion, removing 
@@ -2528,7 +2667,8 @@ rdualquat ijkDualQuatGetRotateTranslateRemScaleDQr(rdualquat const dq_in, ijkRot
 //		param angle_degrees_out: storage for rotation angle in degrees
 //		param translate_out: storage for translation offset vector
 //		return: dq_in
-rdualquat ijkDualQuatGetAxisAngleTranslateRemScaleDQr(rdualquat const dq_in, rvec3* const axis_unit_out, real* const angle_degrees_out, rvec3* const translate_out);
+//rdualquat ijkDualQuatGetAxisAngleTranslateRemScaleDQr(rdualquat const dq_in, rvec3* const axis_unit_out, real* const angle_degrees_out, rvec3* const translate_out);
+#define ijkDualQuatGetAxisAngleTranslateRemScaleDQr ijk_declrealfs(ijkDualQuatGetAxisAngleTranslateRemScaleDQ,)
 
 // ijkDualQuatGetScaleTranslateRemScaleDQ*
 //	Extract uniform scale from dual quaternion, removing scale from 
@@ -2537,7 +2677,8 @@ rdualquat ijkDualQuatGetAxisAngleTranslateRemScaleDQr(rdualquat const dq_in, rve
 //		param scale_unif_out: storage for uniform scale amount
 //		param translate_out: storage for translation offset vector
 //		return: dq_in
-rdualquat ijkDualQuatGetScaleTranslateRemScaleDQr(rdualquat const dq_in, real* const scale_unif_out, rvec3* const translate_out);
+//rdualquat ijkDualQuatGetScaleTranslateRemScaleDQr(rdualquat const dq_in, real* const scale_unif_out, rvec3* const translate_out);
+#define ijkDualQuatGetScaleTranslateRemScaleDQr ijk_declrealfs(ijkDualQuatGetScaleTranslateRemScaleDQ,)
 
 // ijkDualQuatGetRotateScaleTranslateRemScaleDQ*
 //	Extract Euler angles and uniform scale from dual quaternion, removing 
@@ -2549,7 +2690,8 @@ rdualquat ijkDualQuatGetScaleTranslateRemScaleDQr(rdualquat const dq_in, real* c
 //		param scale_unif_out: storage for uniform scale amount
 //		param translate_out: storage for translation offset vector
 //		return: dq_in
-rdualquat ijkDualQuatGetRotateScaleTranslateRemScaleDQr(rdualquat const dq_in, ijkRotationOrder const order, rvec3* const rotateDegXYZ_out, real* const scale_unif_out, rvec3* const translate_out);
+//rdualquat ijkDualQuatGetScaleTranslateRemScaleDQr(rdualquat const dq_in, ijkRotationOrder const order, rvec3* const rotateDegXYZ_out, real* const scale_unif_out, rvec3* const translate_out);
+#define ijkDualQuatGetScaleTranslateRemScaleDQr ijk_declrealfs(ijkDualQuatGetScaleTranslateRemScaleDQ,)
 
 // ijkDualQuatGetAxisAngleScaleTranslateRemScaleDQ*
 //	Extract unit axis, angle in degrees and uniform scale from dual quaternion,
@@ -2560,7 +2702,8 @@ rdualquat ijkDualQuatGetRotateScaleTranslateRemScaleDQr(rdualquat const dq_in, i
 //		param scale_unif_out: storage for uniform scale amount
 //		param translate_out: storage for translation offset vector
 //		return: dq_in
-rdualquat ijkDualQuatGetAxisAngleScaleTranslateRemScaleDQr(rdualquat const dq_in, rvec3* const axis_unit_out, real* const angle_degrees_out, real* const scale_unif_out, rvec3* const translate_out);
+//rdualquat ijkDualQuatGetScaleTranslateRemScaleDQr(rdualquat const dq_in, rvec3* const axis_unit_out, real* const angle_degrees_out, real* const scale_unif_out, rvec3* const translate_out);
+#define ijkDualQuatGetScaleTranslateRemScaleDQr ijk_declrealfs(ijkDualQuatGetScaleTranslateRemScaleDQ,)
 
 // ijkDualQuatGetScrewParamsDQ*
 //	Extract screw parameters from dual quaternion.
@@ -2571,26 +2714,30 @@ rdualquat ijkDualQuatGetAxisAngleScaleTranslateRemScaleDQr(rdualquat const dq_in
 //		param momentArm_out: storage for moment arm
 //		param screwDisplace_out: storage for screw displacement parameter
 //		return: dq_in
-rdualquat ijkDualQuatGetScrewParamsDQr(rdualquat const dq_in, rvec3* const axis_unit_out, real* const angle_degrees_out, rvec3* const translate_out, rvec3* const momentArm_out, real* const screwDisplace_out);
+//rdualquat ijkDualQuatGetScrewParamsDQr(rdualquat const dq_in, rvec3* const axis_unit_out, real* const angle_degrees_out, rvec3* const translate_out, rvec3* const momentArm_out, real* const screwDisplace_out);
+#define ijkDualQuatGetScrewParamsDQr ijk_declrealfs(ijkDualQuatGetScrewParamsDQ,)
 
 // ijkDualQuatGetMatDQ*3
 //	Convert dual quaternion's real part to 3D matrix.
 //		param dq_in: input dual quaternion
 //		return: output matrix
-rmat3 ijkDualQuatGetMatDQr3(rdualquat const dq_in);
+//rmat3 ijkDualQuatGetMatDQr3(rdualquat const dq_in);
+#define ijkDualQuatGetMatDQr3 ijk_declrealfs(ijkDualQuatGetMatDQ,3)
 
 // ijkDualQuatUnitGetMatDQ*3
 //	Convert unit dual quaternion's real part to 3D matrix.
 //		param dq_in: input dual quaternion
 //		return: output matrix
-rmat3 ijkDualQuatUnitGetMatDQr3(rdualquat const dq_in);
+//rmat3 ijkDualQuatUnitGetMatDQr3(rdualquat const dq_in);
+#define ijkDualQuatUnitGetMatDQr3 ijk_declrealfs(ijkDualQuatUnitGetMatDQ,3)
 
 // ijkDualQuatGetMatTranslateDQ*3
 //	Convert dual quaternion's real part to 3D matrix and extract translation.
 //		param translate_out: output translation vector
 //		param dq_in: input dual quaternion
 //		return: output matrix
-rmat3 ijkDualQuatGetMatTranslateDQr3(rvec3* const translate_out, rdualquat const dq_in);
+//rmat3 ijkDualQuatGetMatTranslateDQr3(rvec3* const translate_out, rdualquat const dq_in);
+#define ijkDualQuatGetMatTranslateDQr3 ijk_declrealfs(ijkDualQuatGetMatTranslateDQ,3)
 
 // ijkDualQuatUnitGetMatTranslateDQ*3
 //	Convert unit dual quaternion's real part to 3D matrix and extract 
@@ -2598,7 +2745,8 @@ rmat3 ijkDualQuatGetMatTranslateDQr3(rvec3* const translate_out, rdualquat const
 //		param translate_out: output translation vector
 //		param dq_in: input dual quaternion
 //		return: output matrix
-rmat3 ijkDualQuatUnitGetMatTranslateDQr3(rvec3* const translate_out, rdualquat const dq_in);
+//rmat3 ijkDualQuatUnitGetMatTranslateDQr3(rvec3* const translate_out, rdualquat const dq_in);
+#define ijkDualQuatUnitGetMatTranslateDQr3 ijk_declrealfs(ijkDualQuatUnitGetMatTranslateDQ,3)
 
 // ijkDualQuatGetMatTranslateRemScaleDQ*3
 //	Convert dual quaternion's real part to 3D matrix and extract translation 
@@ -2606,25 +2754,29 @@ rmat3 ijkDualQuatUnitGetMatTranslateDQr3(rvec3* const translate_out, rdualquat c
 //		param translate_out: output translation vector
 //		param dq_in: input dual quaternion
 //		return: output matrix
-rmat3 ijkDualQuatGetMatTranslateRemScaleDQr3(rvec3* const translate_out, rdualquat const dq_in);
+//rmat3 ijkDualQuatGetMatTranslateRemScaleDQr3(rvec3* const translate_out, rdualquat const dq_in);
+#define ijkDualQuatGetMatTranslateRemScaleDQr3 ijk_declrealfs(ijkDualQuatGetMatTranslateRemScaleDQ,3)
 
 // ijkDualQuatGetMatDQ*4
 //	Convert dual quaternion to 4D matrix.
 //		param dq_in: input dual quaternion
 //		return: output matrix
-rmat4 ijkDualQuatGetMatDQr4(rdualquat const dq_in);
+//rmat4 ijkDualQuatGetMatDQr4(rdualquat const dq_in);
+#define ijkDualQuatGetMatDQr4 ijk_declrealfs(ijkDualQuatGetMatDQ,4)
 
 // ijkDualQuatUnitGetMatDQ*4
 //	Convert unit dual quaternion to 4D matrix.
 //		param dq_in: input dual quaternion
 //		return: output matrix
-rmat4 ijkDualQuatUnitGetMatDQr4(rdualquat const dq_in);
+//rmat4 ijkDualQuatUnitGetMatDQr4(rdualquat const dq_in);
+#define ijkDualQuatUnitGetMatDQr4 ijk_declrealfs(ijkDualQuatUnitGetMatDQ,4)
 
 // ijkDualQuatGetMatTranslateRemScaleDQ*4
 //	Convert dual quaternion to 4D matrix, scale removed from translation part.
 //		param dq_in: input dual quaternion
 //		return: output matrix
-rmat4 ijkDualQuatGetMatTranslateRemScaleDQr4(rdualquat const dq_in);
+//rmat4 ijkDualQuatGetMatTranslateRemScaleDQr4(rdualquat const dq_in);
+#define ijkDualQuatGetMatTranslateRemScaleDQr4 ijk_declrealfs(ijkDualQuatGetMatTranslateRemScaleDQ,4)
 
 // ijkDualQuatTransformScaleVecDQ*3
 //	Transform a 3D vector using a dual quaternion with scale; use when dual 
@@ -2632,7 +2784,8 @@ rmat4 ijkDualQuatGetMatTranslateRemScaleDQr4(rdualquat const dq_in);
 //		param dq_in: input dual quaternion
 //		param v_in: input vector
 //		return: transformed vector
-rvec3 ijkDualQuatTransformScaleVecDQr3(rdualquat const dq_in, rvec3 const v_in);
+//rvec3 ijkDualQuatTransformScaleVecDQr3(rdualquat const dq_in, rvec3 const v_in);
+#define ijkDualQuatTransformScaleVecDQr3 ijk_declrealfs(ijkDualQuatTransformScaleVecDQ,3)
 
 // ijkDualQuatUnitTransformVecDQ*3
 //	Transform a 3D vector using a dual quaternion; use when dual quaternion is 
@@ -2641,7 +2794,8 @@ rvec3 ijkDualQuatTransformScaleVecDQr3(rdualquat const dq_in, rvec3 const v_in);
 //		param dq_in: input dual quaternion
 //		param v_in: input vector
 //		return: transformed vector
-rvec3 ijkDualQuatUnitTransformVecDQr3(rdualquat const dq_in, rvec3 const v_in);
+//rvec3 ijkDualQuatUnitTransformVecDQr3(rdualquat const dq_in, rvec3 const v_in);
+#define ijkDualQuatUnitTransformVecDQr3 ijk_declrealfs(ijkDualQuatUnitTransformVecDQ,3)
 
 // ijkDualQuatTransformVecDQ*3
 //	Transform a 3D vector using a dual quaternion; use when dual quaternion is 
@@ -2649,7 +2803,8 @@ rvec3 ijkDualQuatUnitTransformVecDQr3(rdualquat const dq_in, rvec3 const v_in);
 //		param dq_in: input dual quaternion
 //		param v_in: input vector
 //		return: transformed vector
-rvec3 ijkDualQuatTransformVecDQr3(rdualquat const dq_in, rvec3 const v_in);
+//rvec3 ijkDualQuatTransformVecDQr3(rdualquat const dq_in, rvec3 const v_in);
+#define ijkDualQuatTransformVecDQr3 ijk_declrealfs(ijkDualQuatTransformVecDQ,3)
 
 // ijkDualQuatLerpDQ*
 //	Calculate linear interpolation between two dual quaternions; yields uniform
@@ -2659,7 +2814,8 @@ rvec3 ijkDualQuatTransformVecDQr3(rdualquat const dq_in, rvec3 const v_in);
 //		param u: interpolation parameter; values in domain [0,1] result in 
 //			interpolation in range [dq0,dq1], others result in extrapolation
 //		return: interpolated dual quaternion
-rdualquat ijkDualQuatLerpDQr(rdualquat const dq0, rdualquat const dq1, real const u);
+//rdualquat ijkDualQuatLerpDQr(rdualquat const dq0, rdualquat const dq1, real const u);
+#define ijkDualQuatLerpDQr ijk_declrealfs(ijkDualQuatLerpDQ,)
 
 // ijkDualQuatNlerpDQ*
 //	Calculate normalized linear interpolation between two dual quaternions; 
@@ -2669,7 +2825,8 @@ rdualquat ijkDualQuatLerpDQr(rdualquat const dq0, rdualquat const dq1, real cons
 //		param u: interpolation parameter; values in domain [0,1] result in 
 //			interpolation in range [dq0,dq1], others result in extrapolation
 //		return: interpolated dual quaternion
-rdualquat ijkDualQuatNlerpDQr(rdualquat const dq0, rdualquat const dq1, real const u);
+//rdualquat ijkDualQuatNlerpDQr(rdualquat const dq0, rdualquat const dq1, real const u);
+#define ijkDualQuatNlerpDQr ijk_declrealfs(ijkDualQuatNlerpDQ,)
 
 // ijkDualQuatSclerpDQ*
 //	Calculate screw linear interpolation between two unit dual quaternions; 
@@ -2679,7 +2836,8 @@ rdualquat ijkDualQuatNlerpDQr(rdualquat const dq0, rdualquat const dq1, real con
 //		param u: interpolation parameter; values in domain [0,1] result in 
 //			interpolation in range [dq0,dq1], others result in extrapolation
 //		return: interpolated dual quaternion
-rdualquat ijkDualQuatSclerpDQr(rdualquat const dq0, rdualquat const dq1, real const u);
+//rdualquat ijkDualQuatSclerpDQr(rdualquat const dq0, rdualquat const dq1, real const u);
+#define ijkDualQuatSclerpDQr ijk_declrealfs(ijkDualQuatSclerpDQ,)
 
 // ijkDualQuatDerivDQ*
 //	Calculate derivative of dual quaternion.
@@ -2687,7 +2845,8 @@ rdualquat ijkDualQuatSclerpDQr(rdualquat const dq0, rdualquat const dq1, real co
 //		param linearVelocity: linear velocity vector
 //		param angularVelocity: angular velocity vector
 //		return: derivative of dual quaternion
-rdualquat ijkDualQuatDerivDQr(rdualquat const dq_in, rvec3 const linearVelocity, rvec3 const angularVelocity);
+//rdualquat ijkDualQuatDerivDQr(rdualquat const dq_in, rvec3 const linearVelocity, rvec3 const angularVelocity);
+#define ijkDualQuatDerivDQr ijk_declrealfs(ijkDualQuatDerivDQ,)
 
 // ijkDualQuatDeriv2DQ*
 //	Calculate second derivative of dual quaternion.
@@ -2697,7 +2856,8 @@ rdualquat ijkDualQuatDerivDQr(rdualquat const dq_in, rvec3 const linearVelocity,
 //		param angularVelocity: angular velocity vector
 //		param angularAcceleration: angular acceleration vector
 //		return: second derivative of dual quaternion
-rdualquat ijkDualQuatDeriv2DQr(rdualquat const dq_in, rvec3 const linearVelocity, rvec3 const linearAcceleration, rvec3 const angularVelocity, rvec3 const angularAcceleration);
+//rdualquat ijkDualQuatDeriv2DQr(rdualquat const dq_in, rvec3 const linearVelocity, rvec3 const linearAcceleration, rvec3 const angularVelocity, rvec3 const angularAcceleration);
+#define ijkDualQuatDeriv2DQr ijk_declrealfs(ijkDualQuatDeriv2DQ,)
 
 
 //-----------------------------------------------------------------------------
