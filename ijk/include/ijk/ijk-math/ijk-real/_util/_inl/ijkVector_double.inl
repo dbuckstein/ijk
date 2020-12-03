@@ -3492,7 +3492,7 @@ ijk_inl f64 ijkVecLengthInv2dv(double2 const v_in)
 ijk_inl f64 ijkVecLengthInvSafe2dv(double2 const v_in)
 {
 	f64 const lengthSq = ijkVecLengthSq2dv(v_in);
-	return (lengthSq > flt_zero ? ijkSqrtInv_dbl(lengthSq) : flt_zero);
+	return (lengthSq > dbl_zero ? ijkSqrtInv_dbl(lengthSq) : dbl_zero);
 }
 
 ijk_inl doublev ijkVecNormalize2dv(double2 v_out, double2 const v_in)
@@ -3583,7 +3583,7 @@ ijk_inl doublev ijkVecLerpInv2dv(double2 v_out, double2 const v0, double2 const 
 
 ijk_inl doublev ijkVecLerpRevInit2dv(double2 v0_out, double2 const v_lerp, double2 const v1, f64 const u)
 {
-	f64 const s = ijk_recip_dbl(flt_one - u);
+	f64 const s = ijk_recip_dbl(dbl_one - u);
 	v0_out[0] = (v_lerp[0] - v1[0] * u) * s;
 	v0_out[1] = (v_lerp[1] - v1[1] * u) * s;
 	return v0_out;
@@ -3686,7 +3686,7 @@ ijk_inl doublev ijkVecSlerp2dv(double2 v_out, double2 const v0, double2 const v1
 ijk_inl doublev ijkVecReflectScale2dv(double2 v_out, double2 const v_in, double2 const v_nrm)
 {
 	// v' = v|n|^2 - 2dot(v, n)n
-	f64 const d = flt_two * ijkVecDot2dv(v_in, v_nrm), lenSq = ijkVecLengthSq2dv(v_nrm);
+	f64 const d = dbl_two * ijkVecDot2dv(v_in, v_nrm), lenSq = ijkVecLengthSq2dv(v_nrm);
 	v_out[0] = v_in[0] * lenSq - d * v_nrm[0];
 	v_out[1] = v_in[1] * lenSq - d * v_nrm[1];
 	return v_out;
@@ -3695,7 +3695,7 @@ ijk_inl doublev ijkVecReflectScale2dv(double2 v_out, double2 const v_in, double2
 ijk_inl doublev ijkVecUnitReflect2dv(double2 v_out, double2 const v_in, double2 const v_nrm)
 {
 	// v' = v - 2dot(v, n)n
-	f64 const d = flt_two * ijkVecDot2dv(v_in, v_nrm);
+	f64 const d = dbl_two * ijkVecDot2dv(v_in, v_nrm);
 	v_out[0] = v_in[0] - d * v_nrm[0];
 	v_out[1] = v_in[1] - d * v_nrm[1];
 	return v_out;
@@ -3705,10 +3705,327 @@ ijk_inl doublev ijkVecReflect2dv(double2 v_out, double2 const v_in, double2 cons
 {
 	// v' /= |n|^2
 	//		= v - 2dot(v, n)n / |n|^2
-	f64 const d = flt_two * ijkVecDot2dv(v_in, v_nrm), lenSqInv = d * ijkVecLengthSqInv2dv(v_nrm);
+	f64 const d = dbl_two * ijkVecDot2dv(v_in, v_nrm), lenSqInv = d * ijkVecLengthSqInv2dv(v_nrm);
 	v_out[0] = v_in[0] - lenSqInv * v_nrm[0];
 	v_out[1] = v_in[1] - lenSqInv * v_nrm[1];
 	return v_out;
+}
+
+ijk_inl f64 ijkVecDistance2dv(double2 const v_lh, double2 const v_rh)
+{
+	double2 const diff = {
+		(v_lh[0] - v_rh[0]),
+		(v_lh[1] - v_rh[1]),
+	};
+	return ijkVecLength2dv(diff);
+}
+
+ijk_inl doublev ijkVecResize2dv(double2 v_out, double2 const v_in, f64 const length)
+{
+	f64 const s = length * ijkVecLengthInv2dv(v_in);
+	return ijkVecMul2dvs(v_out, v_in, s);
+}
+
+ijk_inl doublev ijkVecResizeSafe2dv(double2 v_out, double2 const v_in, f64 const length)
+{
+	f64 const s = length * ijkVecLengthInvSafe2dv(v_in);
+	return ijkVecMul2dvs(v_out, v_in, s);
+}
+
+ijk_inl f64 ijkVecCrossResize2dv(double2 const v_lh, double2 const v_rh, f64 const length)
+{
+	return (length * ijkVecCrossNormalize2dv(v_lh, v_rh));
+}
+
+ijk_inl f64 ijkVecCrossResizeSafe2dv(double2 const v_lh, double2 const v_rh, f64 const length)
+{
+	return (length * ijkVecCrossNormalizeSafe2dv(v_lh, v_rh));
+}
+
+ijk_inl doublev ijkVecNearest2dv(double2 v_out, double2 const v0, double2 const v1, f64 const u)
+{
+	return ijkVecCopy2dv(v_out, (u < dbl_half ? v0 : v1));
+}
+
+ijk_inl doublev ijkVecBinearest2dv(double2 v_out, double2 const v00, double2 const v01, double2 const v10, double2 const v11, f64 const u0, f64 const u1, f64 const u)
+{
+	return ijkVecCopy2dv(v_out, (u < dbl_half ? u0 < dbl_half ? v00 : v01 : u1 < dbl_half ? v10 : v11));
+}
+
+ijk_inl doublev ijkVecRemap2dv(double2 v_out, double2 const v0_dst, double2 const v1_dst, double2 const v0_src, double2 const v1_src, double2 const v_src)
+{
+	v_out[0] = ijkInterpRemap_dbl(v0_dst[0], v1_dst[0], v0_src[0], v1_src[0], v_src[0]);
+	v_out[1] = ijkInterpRemap_dbl(v0_dst[1], v1_dst[1], v0_src[1], v1_src[1], v_src[1]);
+	return v_out;
+}
+
+ijk_inl doublev ijkVecBezier0O2dv(double2 v_out, double2 const v0, f64 const u)
+{
+	return ijkVecCopy2dv(v_out, v0);
+}
+
+ijk_inl doublev ijkVecBezier1O2dv(double2 v_out, double2 const v0, double2 const v1, f64 const u)
+{
+	return ijkVecLerp2dv(v_out, v0, v1, u);
+}
+
+ijk_inl doublev ijkVecBezier2O2dv(double2 v_out, double2 const v0, double2 const v1, double2 const v2, f64 const u)
+{
+	double2 u0, u1;
+	ijkVecBezier1O2dv(u0, v0, v1, u);
+	ijkVecBezier1O2dv(u1, v1, v2, u);
+	return ijkVecLerp2dv(v_out, u0, u1, u);
+}
+
+ijk_inl doublev ijkVecBezier3O2dv(double2 v_out, double2 const v0, double2 const v1, double2 const v2, double2 const v3, f64 const u)
+{
+	double2 u0, u1;
+	ijkVecBezier2O2dv(u0, v0, v1, v2, u);
+	ijkVecBezier2O2dv(u1, v1, v2, v3, u);
+	return ijkVecLerp2dv(v_out, u0, u1, u);
+}
+
+ijk_inl doublev ijkVecBezierNO2dv(double2 v_out, double2 const v[], size const order, f64 const u)
+{
+	double2 u0, u1;
+	if (order > 0)
+		return ijkVecLerp2dv(v_out, ijkVecBezierNO2dv(u0, v + 0, order - 1, u), ijkVecBezierNO2dv(u1, v + 1, order - 1, u), u);
+	return ijkVecCopy2dv(v_out, *v);
+}
+
+ijk_inl doublev ijkVecCubicHermite2dv(double2 v_out, double2 const v0, double2 const dv0, double2 const v1, double2 const dv1, f64 const u)
+{
+	// v = [v0, dv0, v1, dv1] K (1, t, t2, t3)
+	// K =	|  1  0 -3  2 |
+	//		|  0  1 -2  1 |
+	//		|  0  0  3 -2 |
+	//		|  0  0 -1  1 |
+	// K' =	| (1  0 -3  2).(1, t, t2, t3) |
+	//		| (0  1 -2  1).(1, t, t2, t3) |
+	//		| (0  0  3 -2).(1, t, t2, t3) |
+	//		| (0  0 -1  1).(1, t, t2, t3) |
+	f64 const u2 = u * u, u3 = u * u2;
+	double4 const k = {
+		(dbl_one - dbl_three * u2 + dbl_two * u3),
+		(u - dbl_two * u2 + u3),
+		(dbl_three * u2 - dbl_two * u3),
+		(u3 - u2),
+	};
+	v_out[0] = (k[0] * v0[0] + k[1] * dv0[0] + k[2] * v1[0] + k[3] * dv1[0]);
+	v_out[1] = (k[0] * v0[1] + k[1] * dv0[1] + k[2] * v1[1] + k[3] * dv1[1]);
+	return v_out;
+}
+
+ijk_inl doublev ijkVecCubicHermiteHandles2dv(double2 v_out, double2 const v0, double2 const cv0, double2 const v1, double2 const cv1, f64 const u)
+{
+	// v = [v0, cv0, v1, cv1] K' (1, t, t2, t3)
+	// K' =	|  1 -1 -1  1 |
+	//		|  0  1 -2  1 |
+	//		|  0  0  4 -3 |
+	//		|  0  0 -1  1 |
+	// K" =	| (1 -1 -1  1).(1, t, t2, t3) |
+	//		| (0  1 -2  1).(1, t, t2, t3) |
+	//		| (0  0  4 -3).(1, t, t2, t3) |
+	//		| (0  0 -1  1).(1, t, t2, t3) |
+	f64 const u2 = u * u, u3 = u * u2;
+	double4 const k = {
+		(dbl_one - u - u2 + u3),
+		(u - dbl_two * u2 + u3),
+		(dbl_four * u2 - dbl_three * u3),
+		(u3 - u2),
+	};
+	v_out[0] = (k[0] * v0[0] + k[1] * cv0[0] + k[2] * v1[0] + k[3] * cv1[0]);
+	v_out[1] = (k[0] * v0[1] + k[1] * cv0[1] + k[2] * v1[1] + k[3] * cv1[1]);
+	return v_out;
+}
+
+ijk_inl doublev ijkVecCubicCatmullRom2dv(double2 v_out, double2 const vp, double2 const v0, double2 const v1, double2 const v2, f64 const u)
+{
+	// v = [vp, v0, v1, v2] K' (1, t, t2, t3)
+	//		|  0 -1  2 -1 |
+	// K' =	|  2  0 -5  3 |
+	//		|  0  1  4 -3 |
+	//		|  0  0 -1  1 | / 2
+	//		| (0 -1  2 -1).(1/2, t/2, t2/2, t3/2) |
+	// K' =	| (2  0 -5  3).(1/2, t/2, t2/2, t3/2) |
+	//		| (0  1  4 -3).(1/2, t/2, t2/2, t3/2) |
+	//		| (0  0 -1  1).(1/2, t/2, t2/2, t3/2) |
+	f64 const uh = dbl_half * u, u2h = u * uh, u3h = u * u2h;
+	double4 const k = {
+		(dbl_two * u2h - uh - u3h),
+		(dbl_one - dbl_five * u2h + dbl_three * u3h),
+		(uh + dbl_four * u2h - dbl_three * u3h),
+		(u3h - u2h),
+	};
+	v_out[0] = (k[0] * vp[0] + k[1] * v0[0] + k[2] * v1[0] + k[3] * v2[0]);
+	v_out[1] = (k[0] * vp[1] + k[1] * v0[1] + k[2] * v1[1] + k[3] * v2[1]);
+	return v_out;
+}
+
+ijk_inl doublev ijkVecBicubicCatmullRom2dv(double2 v_out, double2 const vpp, double2 const vp0, double2 const vp1, double2 const vp2, double2 const v0p, double2 const v00, double2 const v01, double2 const v02, double2 const v1p, double2 const v10, double2 const v11, double2 const v12, double2 const v2p, double2 const v20, double2 const v21, double2 const v22, f64 const up, f64 const u0, f64 const u1, f64 const u2, f64 const u)
+{
+	double2 vp, v0, v1, v2;
+	ijkVecCubicCatmullRom2dv(vp, vpp, vp0, vp1, vp2, up);
+	ijkVecCubicCatmullRom2dv(v0, v0p, v00, v01, v02, u0);
+	ijkVecCubicCatmullRom2dv(v1, v1p, v10, v11, v12, u1);
+	ijkVecCubicCatmullRom2dv(v2, v2p, v20, v21, v22, u2);
+	return ijkVecCubicCatmullRom2dv(v_out, vp, v0, v1, v2, u);
+}
+
+ijk_inl f64 ijkVecReparamCubicHermite2dv(f64 uTable_out[], f64 lTable_out[], double2 vTable_out[], size const numDivisions, ibool const lNormalize, double2 const v0, double2 const dv0, double2 const v1, double2 const dv1)
+{
+	f64 u = dbl_zero, du, arcLength = dbl_zero, arcLengthInv;
+	f64* lTable = lTable_out;
+	uindex i;
+	doublekv v, vc;
+
+	if (uTable_out && lTable_out && vTable_out && numDivisions)
+	{
+		*uTable_out = u;
+		*lTable_out = arcLength;
+		vc = ijkVecCopy2dv(*vTable_out, v0);
+
+		for (i = 1, du = ijk_recip_dbl((f64)numDivisions); i <= numDivisions; ++i)
+		{
+			u = (f64)i * du;
+			v = ijkVecCubicHermite2dv(*(++vTable_out), v0, dv0, v1, dv1, u);
+			arcLength += ijkVecDistance2dv(v, vc);
+			*(++uTable_out) = u;
+			*(++lTable_out) = arcLength;
+			vc = v;
+		}
+
+		if (lNormalize)
+			for (i = 1, arcLengthInv = ijk_recip_dbl(arcLength); i <= numDivisions; ++i)
+				*(++lTable) *= arcLengthInv;
+	}
+	return arcLength;
+}
+
+ijk_inl f64 ijkVecReparamCubicHermiteHandles2dv(f64 uTable_out[], f64 lTable_out[], double2 vTable_out[], size const numDivisions, ibool const lNormalize, double2 const v0, double2 const cv0, double2 const v1, double2 const cv1)
+{
+	f64 u = dbl_zero, du, arcLength = dbl_zero, arcLengthInv;
+	f64* lTable = lTable_out;
+	uindex i;
+	doublekv v, vc;
+
+	if (uTable_out && lTable_out && vTable_out && numDivisions)
+	{
+		*uTable_out = u;
+		*lTable_out = arcLength;
+		vc = ijkVecCopy2dv(*vTable_out, v0);
+
+		for (i = 1, du = ijk_recip_dbl((f64)numDivisions); i <= numDivisions; ++i)
+		{
+			u = (f64)i * du;
+			v = ijkVecCubicHermiteHandles2dv(*(++vTable_out), v0, cv0, v1, cv1, u);
+			arcLength += ijkVecDistance2dv(v, vc);
+			*(++uTable_out) = u;
+			*(++lTable_out) = arcLength;
+			vc = v;
+		}
+
+		if (lNormalize)
+			for (i = 1, arcLengthInv = ijk_recip_dbl(arcLength); i <= numDivisions; ++i)
+				*(++lTable) *= arcLengthInv;
+	}
+	return arcLength;
+}
+
+ijk_inl f64 ijkVecReparamCubicCatmullRom2dv(f64 uTable_out[], f64 lTable_out[], double2 vTable_out[], size const numDivisions, ibool const lNormalize, double2 const vp, double2 const v0, double2 const v1, double2 const v2)
+{
+	f64 u = dbl_zero, du, arcLength = dbl_zero, arcLengthInv;
+	f64* lTable = lTable_out;
+	uindex i;
+	doublekv v, vc;
+
+	if (uTable_out && lTable_out && vTable_out && numDivisions)
+	{
+		*uTable_out = u;
+		*lTable_out = arcLength;
+		vc = ijkVecCopy2dv(*vTable_out, v0);
+
+		for (i = 1, du = ijk_recip_dbl((f64)numDivisions); i <= numDivisions; ++i)
+		{
+			u = (f64)i * du;
+			v = ijkVecCubicCatmullRom2dv(*(++vTable_out), vp, v0, v1, v2, u);
+			arcLength += ijkVecDistance2dv(v, vc);
+			*(++uTable_out) = u;
+			*(++lTable_out) = arcLength;
+			vc = v;
+		}
+
+		if (lNormalize)
+			for (i = 1, arcLengthInv = ijk_recip_dbl(arcLength); i <= numDivisions; ++i)
+				*(++lTable) *= arcLengthInv;
+	}
+	return arcLength;
+}
+
+ijk_inl f64 ijkVecReparamBicubicCatmullRom2dv(f64 uTable_out[], f64 lTable_out[], double2 vTable_out[], size const numDivisions, ibool const lNormalize, double2 const vpp, double2 const vp0, double2 const vp1, double2 const vp2, double2 const v0p, double2 const v00, double2 const v01, double2 const v02, double2 const v1p, double2 const v10, double2 const v11, double2 const v12, double2 const v2p, double2 const v20, double2 const v21, double2 const v22, f64 const up, f64 const u0, f64 const u1, f64 const u2)
+{
+	f64 u = dbl_zero, du, arcLength = dbl_zero, arcLengthInv;
+	f64* lTable = lTable_out;
+	uindex i;
+	doublekv v, vc;
+
+	if (uTable_out && lTable_out && vTable_out && numDivisions)
+	{
+		double2 vp, v0, v1, v2;
+		ijkVecCubicCatmullRom2dv(vp, vpp, vp0, vp1, vp2, up);
+		ijkVecCubicCatmullRom2dv(v0, v0p, v00, v01, v02, u0);
+		ijkVecCubicCatmullRom2dv(v1, v1p, v10, v11, v12, u1);
+		ijkVecCubicCatmullRom2dv(v2, v2p, v20, v21, v22, u2);
+
+		*uTable_out = u;
+		*lTable_out = arcLength;
+		vc = ijkVecCopy2dv(*vTable_out, v0);
+
+		for (i = 1, du = ijk_recip_dbl((f64)numDivisions); i <= numDivisions; ++i)
+		{
+			u = (f64)i * du;
+			v = ijkVecCubicCatmullRom2dv(*(++vTable_out), vp, v0, v1, v2, u);
+			arcLength += ijkVecDistance2dv(v, vc);
+			*(++uTable_out) = u;
+			*(++lTable_out) = arcLength;
+			vc = v;
+		}
+
+		if (lNormalize)
+			for (i = 1, arcLengthInv = ijk_recip_dbl(arcLength); i <= numDivisions; ++i)
+				*(++lTable) *= arcLengthInv;
+	}
+	return arcLength;
+}
+
+ijk_inl doublev ijkVecSampleTableInc2dv(double2 v_out, f64 const uTable[], double2 const vTable[], index i, index di, f64 const u)
+{
+	doublekv v0, v1;
+	f64 uReparam;
+	f64 u0, u1 = *(uTable + (i += (di ? di : (di = 1))));
+
+	while (u1 < u)
+		u1 = *(uTable + (i += di));
+	v1 = *(vTable + i);
+	v0 = *(vTable + (i -= di));
+	u0 = *(uTable + i);
+	uReparam = ijkInterpLinearInv_dbl(u0, u1, u);
+	return ijkVecLerp2dv(v_out, v0, v1, uReparam);
+}
+
+ijk_inl doublev ijkVecSampleTableDec2dv(double2 v_out, f64 const uTable[], double2 const vTable[], index i, index di, f64 const u)
+{
+	doublekv v0, v1;
+	f64 uReparam;
+	f64 u0, u1 = *(uTable + (i += (di ? di : (di = 1))));
+
+	while (u1 > u)
+		u1 = *(uTable + (i += di));
+	v1 = *(vTable + i);
+	v0 = *(vTable + (i -= di));
+	u0 = *(uTable + i);
+	uReparam = ijkInterpLinearInv_dbl(u0, u1, u);
+	return ijkVecLerp2dv(v_out, v0, v1, uReparam);
 }
 
 
@@ -3743,7 +4060,7 @@ ijk_inl f64 ijkVecLengthInv3dv(double3 const v_in)
 ijk_inl f64 ijkVecLengthInvSafe3dv(double3 const v_in)
 {
 	f64 const lengthSq = ijkVecLengthSq3dv(v_in);
-	return (lengthSq > flt_zero ? ijkSqrtInv_dbl(lengthSq) : flt_zero);
+	return (lengthSq > dbl_zero ? ijkSqrtInv_dbl(lengthSq) : dbl_zero);
 }
 
 ijk_inl doublev ijkVecNormalize3dv(double3 v_out, double3 const v_in)
@@ -3830,7 +4147,7 @@ ijk_inl doublev ijkVecLerpInv3dv(double3 v_out, double3 const v0, double3 const 
 
 ijk_inl doublev ijkVecLerpRevInit3dv(double3 v0_out, double3 const v_lerp, double3 const v1, f64 const u)
 {
-	f64 const s = ijk_recip_dbl(flt_one - u);
+	f64 const s = ijk_recip_dbl(dbl_one - u);
 	v0_out[0] = (v_lerp[0] - v1[0] * u) * s;
 	v0_out[1] = (v_lerp[1] - v1[1] * u) * s;
 	v0_out[2] = (v_lerp[2] - v1[2] * u) * s;
@@ -3927,7 +4244,7 @@ ijk_inl doublev ijkVecSlerp3dv(double3 v_out, double3 const v0, double3 const v1
 
 ijk_inl doublev ijkVecReflectScale3dv(double3 v_out, double3 const v_in, double3 const v_nrm)
 {
-	f64 const d = flt_two * ijkVecDot3dv(v_in, v_nrm), lenSq = ijkVecLengthSq3dv(v_nrm);
+	f64 const d = dbl_two * ijkVecDot3dv(v_in, v_nrm), lenSq = ijkVecLengthSq3dv(v_nrm);
 	v_out[0] = v_in[0] * lenSq - d * v_nrm[0];
 	v_out[1] = v_in[1] * lenSq - d * v_nrm[1];
 	v_out[2] = v_in[2] * lenSq - d * v_nrm[2];
@@ -3936,7 +4253,7 @@ ijk_inl doublev ijkVecReflectScale3dv(double3 v_out, double3 const v_in, double3
 
 ijk_inl doublev ijkVecUnitReflect3dv(double3 v_out, double3 const v_in, double3 const v_nrm)
 {
-	f64 const d = flt_two * ijkVecDot3dv(v_in, v_nrm);
+	f64 const d = dbl_two * ijkVecDot3dv(v_in, v_nrm);
 	v_out[0] = v_in[0] - d * v_nrm[0];
 	v_out[1] = v_in[1] - d * v_nrm[1];
 	v_out[2] = v_in[2] - d * v_nrm[2];
@@ -3945,11 +4262,308 @@ ijk_inl doublev ijkVecUnitReflect3dv(double3 v_out, double3 const v_in, double3 
 
 ijk_inl doublev ijkVecReflect3dv(double3 v_out, double3 const v_in, double3 const v_nrm)
 {
-	f64 const d = flt_two * ijkVecDot3dv(v_in, v_nrm), lenSqInv = d * ijkVecLengthSqInv3dv(v_nrm);
+	f64 const d = dbl_two * ijkVecDot3dv(v_in, v_nrm), lenSqInv = d * ijkVecLengthSqInv3dv(v_nrm);
 	v_out[0] = v_in[0] - lenSqInv * v_nrm[0];
 	v_out[1] = v_in[1] - lenSqInv * v_nrm[1];
 	v_out[2] = v_in[2] - lenSqInv * v_nrm[2];
 	return v_out;
+}
+
+ijk_inl f64 ijkVecDistance3dv(double3 const v_lh, double3 const v_rh)
+{
+	double3 const diff = {
+		(v_lh[0] - v_rh[0]),
+		(v_lh[1] - v_rh[1]),
+		(v_lh[2] - v_rh[2]),
+	};
+	return ijkVecLength3dv(diff);
+}
+
+ijk_inl doublev ijkVecResize3dv(double3 v_out, double3 const v_in, f64 const length)
+{
+	f64 const s = length * ijkVecLengthInv3dv(v_in);
+	return ijkVecMul3dvs(v_out, v_in, s);
+}
+
+ijk_inl doublev ijkVecResizeSafe3dv(double3 v_out, double3 const v_in, f64 const length)
+{
+	f64 const s = length * ijkVecLengthInvSafe3dv(v_in);
+	return ijkVecMul3dvs(v_out, v_in, s);
+}
+
+ijk_inl doublev ijkVecCrossResize3dv(double3 v_out, double3 const v_lh, double3 const v_rh, f64 const length)
+{
+	f64 const s = length * ijkVecLengthInv3dv(ijkVecCross3dv(v_out, v_lh, v_rh));
+	return ijkVecMul3dvs(v_out, v_out, s);
+}
+
+ijk_inl doublev ijkVecCrossResizeSafe3dv(double3 v_out, double3 const v_lh, double3 const v_rh, f64 const length)
+{
+	f64 const s = length * ijkVecLengthInvSafe3dv(ijkVecCross3dv(v_out, v_lh, v_rh));
+	return ijkVecMul3dvs(v_out, v_out, s);
+}
+
+ijk_inl doublev ijkVecNearest3dv(double3 v_out, double3 const v0, double3 const v1, f64 const u)
+{
+	return ijkVecCopy3dv(v_out, (u < dbl_half ? v0 : v1));
+}
+
+ijk_inl doublev ijkVecBinearest3dv(double3 v_out, double3 const v00, double3 const v01, double3 const v10, double3 const v11, f64 const u0, f64 const u1, f64 const u)
+{
+	return ijkVecCopy3dv(v_out, (u < dbl_half ? u0 < dbl_half ? v00 : v01 : u1 < dbl_half ? v10 : v11));
+}
+
+ijk_inl doublev ijkVecRemap3dv(double3 v_out, double3 const v0_dst, double3 const v1_dst, double3 const v0_src, double3 const v1_src, double3 const v_src)
+{
+	v_out[0] = ijkInterpRemap_dbl(v0_dst[0], v1_dst[0], v0_src[0], v1_src[0], v_src[0]);
+	v_out[1] = ijkInterpRemap_dbl(v0_dst[1], v1_dst[1], v0_src[1], v1_src[1], v_src[1]);
+	v_out[2] = ijkInterpRemap_dbl(v0_dst[2], v1_dst[2], v0_src[2], v1_src[2], v_src[2]);
+	return v_out;
+}
+
+ijk_inl doublev ijkVecBezier0O3dv(double3 v_out, double3 const v0, f64 const u)
+{
+	return ijkVecCopy3dv(v_out, v0);
+}
+
+ijk_inl doublev ijkVecBezier1O3dv(double3 v_out, double3 const v0, double3 const v1, f64 const u)
+{
+	return ijkVecLerp3dv(v_out, v0, v1, u);
+}
+
+ijk_inl doublev ijkVecBezier2O3dv(double3 v_out, double3 const v0, double3 const v1, double3 const v2, f64 const u)
+{
+	double3 u0, u1;
+	ijkVecBezier1O3dv(u0, v0, v1, u);
+	ijkVecBezier1O3dv(u1, v1, v2, u);
+	return ijkVecLerp3dv(v_out, u0, u1, u);
+}
+
+ijk_inl doublev ijkVecBezier3O3dv(double3 v_out, double3 const v0, double3 const v1, double3 const v2, double3 const v3, f64 const u)
+{
+	double3 u0, u1;
+	ijkVecBezier2O3dv(u0, v0, v1, v2, u);
+	ijkVecBezier2O3dv(u1, v1, v2, v3, u);
+	return ijkVecLerp3dv(v_out, u0, u1, u);
+}
+
+ijk_inl doublev ijkVecBezierNO3dv(double3 v_out, double3 const v[], size const order, f64 const u)
+{
+	double3 u0, u1;
+	if (order > 0)
+		return ijkVecLerp3dv(v_out, ijkVecBezierNO3dv(u0, v + 0, order - 1, u), ijkVecBezierNO3dv(u1, v + 1, order - 1, u), u);
+	return ijkVecCopy3dv(v_out, *v);
+}
+
+ijk_inl doublev ijkVecCubicHermite3dv(double3 v_out, double3 const v0, double3 const dv0, double3 const v1, double3 const dv1, f64 const u)
+{
+	f64 const u2 = u * u, u3 = u * u2;
+	double4 const k = {
+		(dbl_one - dbl_three * u2 + dbl_two * u3),
+		(u - dbl_two * u2 + u3),
+		(dbl_three * u2 - dbl_two * u3),
+		(u3 - u2),
+	};
+	v_out[0] = (k[0] * v0[0] + k[1] * dv0[0] + k[2] * v1[0] + k[3] * dv1[0]);
+	v_out[1] = (k[0] * v0[1] + k[1] * dv0[1] + k[2] * v1[1] + k[3] * dv1[1]);
+	v_out[2] = (k[0] * v0[2] + k[1] * dv0[2] + k[2] * v1[2] + k[3] * dv1[2]);
+	return v_out;
+}
+
+ijk_inl doublev ijkVecCubicHermiteHandles3dv(double3 v_out, double3 const v0, double3 const cv0, double3 const v1, double3 const cv1, f64 const u)
+{
+	f64 const u2 = u * u, u3 = u * u2;
+	double4 const k = {
+		(dbl_one - u - u2 + u3),
+		(u - dbl_two * u2 + u3),
+		(dbl_four * u2 - dbl_three * u3),
+		(u3 - u2),
+	};
+	v_out[0] = (k[0] * v0[0] + k[1] * cv0[0] + k[2] * v1[0] + k[3] * cv1[0]);
+	v_out[1] = (k[0] * v0[1] + k[1] * cv0[1] + k[2] * v1[1] + k[3] * cv1[1]);
+	v_out[2] = (k[0] * v0[2] + k[1] * cv0[2] + k[2] * v1[2] + k[3] * cv1[2]);
+	return v_out;
+}
+
+ijk_inl doublev ijkVecCubicCatmullRom3dv(double3 v_out, double3 const vp, double3 const v0, double3 const v1, double3 const v2, f64 const u)
+{
+	f64 const uh = dbl_half * u, u2h = u * uh, u3h = u * u2h;
+	double4 const k = {
+		(dbl_two * u2h - uh - u3h),
+		(dbl_one - dbl_five * u2h + dbl_three * u3h),
+		(uh + dbl_four * u2h - dbl_three * u3h),
+		(u3h - u2h),
+	};
+	v_out[0] = (k[0] * vp[0] + k[1] * v0[0] + k[2] * v1[0] + k[3] * v2[0]);
+	v_out[1] = (k[0] * vp[1] + k[1] * v0[1] + k[2] * v1[1] + k[3] * v2[1]);
+	v_out[2] = (k[0] * vp[2] + k[1] * v0[2] + k[2] * v1[2] + k[3] * v2[2]);
+	return v_out;
+}
+
+ijk_inl doublev ijkVecBicubicCatmullRom3dv(double3 v_out, double3 const vpp, double3 const vp0, double3 const vp1, double3 const vp2, double3 const v0p, double3 const v00, double3 const v01, double3 const v02, double3 const v1p, double3 const v10, double3 const v11, double3 const v12, double3 const v2p, double3 const v20, double3 const v21, double3 const v22, f64 const up, f64 const u0, f64 const u1, f64 const u2, f64 const u)
+{
+	double3 vp, v0, v1, v2;
+	ijkVecCubicCatmullRom3dv(vp, vpp, vp0, vp1, vp2, up);
+	ijkVecCubicCatmullRom3dv(v0, v0p, v00, v01, v02, u0);
+	ijkVecCubicCatmullRom3dv(v1, v1p, v10, v11, v12, u1);
+	ijkVecCubicCatmullRom3dv(v2, v2p, v20, v21, v22, u2);
+	return ijkVecCubicCatmullRom3dv(v_out, vp, v0, v1, v2, u);
+}
+
+ijk_inl f64 ijkVecReparamCubicHermite3dv(f64 uTable_out[], f64 lTable_out[], double3 vTable_out[], size const numDivisions, ibool const lNormalize, double3 const v0, double3 const dv0, double3 const v1, double3 const dv1)
+{
+	f64 u = dbl_zero, du, arcLength = dbl_zero, arcLengthInv;
+	f64* lTable = lTable_out;
+	uindex i;
+	doublekv v, vc;
+
+	if (uTable_out && lTable_out && vTable_out && numDivisions)
+	{
+		*uTable_out = u;
+		*lTable_out = arcLength;
+		vc = ijkVecCopy3dv(*vTable_out, v0);
+
+		for (i = 1, du = ijk_recip_dbl((f64)numDivisions); i <= numDivisions; ++i)
+		{
+			u = (f64)i * du;
+			v = ijkVecCubicHermite3dv(*(++vTable_out), v0, dv0, v1, dv1, u);
+			arcLength += ijkVecDistance3dv(v, vc);
+			*(++uTable_out) = u;
+			*(++lTable_out) = arcLength;
+			vc = v;
+		}
+
+		if (lNormalize)
+			for (i = 1, arcLengthInv = ijk_recip_dbl(arcLength); i <= numDivisions; ++i)
+				*(++lTable) *= arcLengthInv;
+	}
+	return arcLength;
+}
+
+ijk_inl f64 ijkVecReparamCubicHermiteHandles3dv(f64 uTable_out[], f64 lTable_out[], double3 vTable_out[], size const numDivisions, ibool const lNormalize, double3 const v0, double3 const cv0, double3 const v1, double3 const cv1)
+{
+	f64 u = dbl_zero, du, arcLength = dbl_zero, arcLengthInv;
+	f64* lTable = lTable_out;
+	uindex i;
+	doublekv v, vc;
+
+	if (uTable_out && lTable_out && vTable_out && numDivisions)
+	{
+		*uTable_out = u;
+		*lTable_out = arcLength;
+		vc = ijkVecCopy3dv(*vTable_out, v0);
+
+		for (i = 1, du = ijk_recip_dbl((f64)numDivisions); i <= numDivisions; ++i)
+		{
+			u = (f64)i * du;
+			v = ijkVecCubicHermiteHandles3dv(*(++vTable_out), v0, cv0, v1, cv1, u);
+			arcLength += ijkVecDistance3dv(v, vc);
+			*(++uTable_out) = u;
+			*(++lTable_out) = arcLength;
+			vc = v;
+		}
+
+		if (lNormalize)
+			for (i = 1, arcLengthInv = ijk_recip_dbl(arcLength); i <= numDivisions; ++i)
+				*(++lTable) *= arcLengthInv;
+	}
+	return arcLength;
+}
+
+ijk_inl f64 ijkVecReparamCubicCatmullRom3dv(f64 uTable_out[], f64 lTable_out[], double3 vTable_out[], size const numDivisions, ibool const lNormalize, double3 const vp, double3 const v0, double3 const v1, double3 const v2)
+{
+	f64 u = dbl_zero, du, arcLength = dbl_zero, arcLengthInv;
+	f64* lTable = lTable_out;
+	uindex i;
+	doublekv v, vc;
+
+	if (uTable_out && lTable_out && vTable_out && numDivisions)
+	{
+		*uTable_out = u;
+		*lTable_out = arcLength;
+		vc = ijkVecCopy3dv(*vTable_out, v0);
+
+		for (i = 1, du = ijk_recip_dbl((f64)numDivisions); i <= numDivisions; ++i)
+		{
+			u = (f64)i * du;
+			v = ijkVecCubicCatmullRom3dv(*(++vTable_out), vp, v0, v1, v2, u);
+			arcLength += ijkVecDistance3dv(v, vc);
+			*(++uTable_out) = u;
+			*(++lTable_out) = arcLength;
+			vc = v;
+		}
+
+		if (lNormalize)
+			for (i = 1, arcLengthInv = ijk_recip_dbl(arcLength); i <= numDivisions; ++i)
+				*(++lTable) *= arcLengthInv;
+	}
+	return arcLength;
+}
+
+ijk_inl f64 ijkVecReparamBicubicCatmullRom3dv(f64 uTable_out[], f64 lTable_out[], double3 vTable_out[], size const numDivisions, ibool const lNormalize, double3 const vpp, double3 const vp0, double3 const vp1, double3 const vp2, double3 const v0p, double3 const v00, double3 const v01, double3 const v02, double3 const v1p, double3 const v10, double3 const v11, double3 const v12, double3 const v2p, double3 const v20, double3 const v21, double3 const v22, f64 const up, f64 const u0, f64 const u1, f64 const u2)
+{
+	f64 u = dbl_zero, du, arcLength = dbl_zero, arcLengthInv;
+	f64* lTable = lTable_out;
+	uindex i;
+	doublekv v, vc;
+
+	if (uTable_out && lTable_out && vTable_out && numDivisions)
+	{
+		double3 vp, v0, v1, v2;
+		ijkVecCubicCatmullRom3dv(vp, vpp, vp0, vp1, vp2, up);
+		ijkVecCubicCatmullRom3dv(v0, v0p, v00, v01, v02, u0);
+		ijkVecCubicCatmullRom3dv(v1, v1p, v10, v11, v12, u1);
+		ijkVecCubicCatmullRom3dv(v2, v2p, v20, v21, v22, u2);
+
+		*uTable_out = u;
+		*lTable_out = arcLength;
+		vc = ijkVecCopy3dv(*vTable_out, v0);
+
+		for (i = 1, du = ijk_recip_dbl((f64)numDivisions); i <= numDivisions; ++i)
+		{
+			u = (f64)i * du;
+			v = ijkVecCubicCatmullRom3dv(*(++vTable_out), vp, v0, v1, v2, u);
+			arcLength += ijkVecDistance3dv(v, vc);
+			*(++uTable_out) = u;
+			*(++lTable_out) = arcLength;
+			vc = v;
+		}
+
+		if (lNormalize)
+			for (i = 1, arcLengthInv = ijk_recip_dbl(arcLength); i <= numDivisions; ++i)
+				*(++lTable) *= arcLengthInv;
+	}
+	return arcLength;
+}
+
+ijk_inl doublev ijkVecSampleTableInc3dv(double3 v_out, f64 const uTable[], double3 const vTable[], index i, index di, f64 const u)
+{
+	doublekv v0, v1;
+	f64 uReparam;
+	f64 u0, u1 = *(uTable + (i += (di ? di : (di = 1))));
+
+	while (u1 < u)
+		u1 = *(uTable + (i += di));
+	v1 = *(vTable + i);
+	v0 = *(vTable + (i -= di));
+	u0 = *(uTable + i);
+	uReparam = ijkInterpLinearInv_dbl(u0, u1, u);
+	return ijkVecLerp3dv(v_out, v0, v1, uReparam);
+}
+
+ijk_inl doublev ijkVecSampleTableDec3dv(double3 v_out, f64 const uTable[], double3 const vTable[], index i, index di, f64 const u)
+{
+	doublekv v0, v1;
+	f64 uReparam;
+	f64 u0, u1 = *(uTable + (i += (di ? di : (di = 1))));
+
+	while (u1 > u)
+		u1 = *(uTable + (i += di));
+	v1 = *(vTable + i);
+	v0 = *(vTable + (i -= di));
+	u0 = *(uTable + i);
+	uReparam = ijkInterpLinearInv_dbl(u0, u1, u);
+	return ijkVecLerp3dv(v_out, v0, v1, uReparam);
 }
 
 
@@ -3984,7 +4598,7 @@ ijk_inl f64 ijkVecLengthInv4dv(double4 const v_in)
 ijk_inl f64 ijkVecLengthInvSafe4dv(double4 const v_in)
 {
 	f64 const lengthSq = ijkVecLengthSq4dv(v_in);
-	return (lengthSq > flt_zero ? ijkSqrtInv_dbl(lengthSq) : flt_zero);
+	return (lengthSq > dbl_zero ? ijkSqrtInv_dbl(lengthSq) : dbl_zero);
 }
 
 ijk_inl doublev ijkVecNormalize4dv(double4 v_out, double4 const v_in)
@@ -4073,7 +4687,7 @@ ijk_inl doublev ijkVecLerpInv4dv(double4 v_out, double4 const v0, double4 const 
 
 ijk_inl doublev ijkVecLerpRevInit4dv(double4 v0_out, double4 const v_lerp, double4 const v1, f64 const u)
 {
-	f64 const s = ijk_recip_dbl(flt_one - u);
+	f64 const s = ijk_recip_dbl(dbl_one - u);
 	v0_out[0] = (v_lerp[0] - v1[0] * u) * s;
 	v0_out[1] = (v_lerp[1] - v1[1] * u) * s;
 	v0_out[2] = (v_lerp[2] - v1[2] * u) * s;
@@ -4171,7 +4785,7 @@ ijk_inl doublev ijkVecSlerp4dv(double4 v_out, double4 const v0, double4 const v1
 
 ijk_inl doublev ijkVecReflectScale4dv(double4 v_out, double4 const v_in, double4 const v_nrm)
 {
-	f64 const d = flt_two * ijkVecDot4dv(v_in, v_nrm), lenSq = ijkVecLengthSq4dv(v_nrm);
+	f64 const d = dbl_two * ijkVecDot4dv(v_in, v_nrm), lenSq = ijkVecLengthSq4dv(v_nrm);
 	v_out[0] = v_in[0] * lenSq - d * v_nrm[0];
 	v_out[1] = v_in[1] * lenSq - d * v_nrm[1];
 	v_out[2] = v_in[2] * lenSq - d * v_nrm[2];
@@ -4181,7 +4795,7 @@ ijk_inl doublev ijkVecReflectScale4dv(double4 v_out, double4 const v_in, double4
 
 ijk_inl doublev ijkVecUnitReflect4dv(double4 v_out, double4 const v_in, double4 const v_nrm)
 {
-	f64 const d = flt_two * ijkVecDot4dv(v_in, v_nrm);
+	f64 const d = dbl_two * ijkVecDot4dv(v_in, v_nrm);
 	v_out[0] = v_in[0] - d * v_nrm[0];
 	v_out[1] = v_in[1] - d * v_nrm[1];
 	v_out[2] = v_in[2] - d * v_nrm[2];
@@ -4191,12 +4805,314 @@ ijk_inl doublev ijkVecUnitReflect4dv(double4 v_out, double4 const v_in, double4 
 
 ijk_inl doublev ijkVecReflect4dv(double4 v_out, double4 const v_in, double4 const v_nrm)
 {
-	f64 const d = flt_two * ijkVecDot4dv(v_in, v_nrm), lenSqInv = d * ijkVecLengthSqInv4dv(v_nrm);
+	f64 const d = dbl_two * ijkVecDot4dv(v_in, v_nrm), lenSqInv = d * ijkVecLengthSqInv4dv(v_nrm);
 	v_out[0] = v_in[0] - lenSqInv * v_nrm[0];
 	v_out[1] = v_in[1] - lenSqInv * v_nrm[1];
 	v_out[2] = v_in[2] - lenSqInv * v_nrm[2];
 	v_out[3] = v_in[3] - lenSqInv * v_nrm[3];
 	return v_out;
+}
+
+ijk_inl f64 ijkVecDistance4dv(double4 const v_lh, double4 const v_rh)
+{
+	double4 const diff = {
+		(v_lh[0] - v_rh[0]),
+		(v_lh[1] - v_rh[1]),
+		(v_lh[2] - v_rh[2]),
+		(v_lh[3] - v_rh[3]),
+	};
+	return ijkVecLength4dv(diff);
+}
+
+ijk_inl doublev ijkVecResize4dv(double4 v_out, double4 const v_in, f64 const length)
+{
+	f64 const s = length * ijkVecLengthInv4dv(v_in);
+	return ijkVecMul4dvs(v_out, v_in, s);
+}
+
+ijk_inl doublev ijkVecResizeSafe4dv(double4 v_out, double4 const v_in, f64 const length)
+{
+	f64 const s = length * ijkVecLengthInvSafe4dv(v_in);
+	return ijkVecMul4dvs(v_out, v_in, s);
+}
+
+ijk_inl doublev ijkVecCrossResize4dv(double4 v_out, double4 const v_lh, double4 const v_rh, f64 const length)
+{
+	f64 const s = length * ijkVecLengthInv3dv(ijkVecCross4dv(v_out, v_lh, v_rh));
+	return ijkVecMul3dvs(v_out, v_out, s);
+}
+
+ijk_inl doublev ijkVecCrossResizeSafe4dv(double4 v_out, double4 const v_lh, double4 const v_rh, f64 const length)
+{
+	f64 const s = length * ijkVecLengthInvSafe3dv(ijkVecCross4dv(v_out, v_lh, v_rh));
+	return ijkVecMul3dvs(v_out, v_out, s);
+}
+
+ijk_inl doublev ijkVecNearest4dv(double4 v_out, double4 const v0, double4 const v1, f64 const u)
+{
+	return ijkVecCopy4dv(v_out, (u < dbl_half ? v0 : v1));
+}
+
+ijk_inl doublev ijkVecBinearest4dv(double4 v_out, double4 const v00, double4 const v01, double4 const v10, double4 const v11, f64 const u0, f64 const u1, f64 const u)
+{
+	return ijkVecCopy4dv(v_out, (u < dbl_half ? u0 < dbl_half ? v00 : v01 : u1 < dbl_half ? v10 : v11));
+}
+
+ijk_inl doublev ijkVecRemap4dv(double4 v_out, double4 const v0_dst, double4 const v1_dst, double4 const v0_src, double4 const v1_src, double4 const v_src)
+{
+	v_out[0] = ijkInterpRemap_dbl(v0_dst[0], v1_dst[0], v0_src[0], v1_src[0], v_src[0]);
+	v_out[1] = ijkInterpRemap_dbl(v0_dst[1], v1_dst[1], v0_src[1], v1_src[1], v_src[1]);
+	v_out[2] = ijkInterpRemap_dbl(v0_dst[2], v1_dst[2], v0_src[2], v1_src[2], v_src[2]);
+	v_out[3] = ijkInterpRemap_dbl(v0_dst[3], v1_dst[3], v0_src[3], v1_src[3], v_src[3]);
+	return v_out;
+}
+
+ijk_inl doublev ijkVecBezier0O4dv(double4 v_out, double4 const v0, f64 const u)
+{
+	return ijkVecCopy4dv(v_out, v0);
+}
+
+ijk_inl doublev ijkVecBezier1O4dv(double4 v_out, double4 const v0, double4 const v1, f64 const u)
+{
+	return ijkVecLerp4dv(v_out, v0, v1, u);
+}
+
+ijk_inl doublev ijkVecBezier2O4dv(double4 v_out, double4 const v0, double4 const v1, double4 const v2, f64 const u)
+{
+	double4 u0, u1;
+	ijkVecBezier1O4dv(u0, v0, v1, u);
+	ijkVecBezier1O4dv(u1, v1, v2, u);
+	return ijkVecLerp4dv(v_out, u0, u1, u);
+}
+
+ijk_inl doublev ijkVecBezier3O4dv(double4 v_out, double4 const v0, double4 const v1, double4 const v2, double4 const v3, f64 const u)
+{
+	double4 u0, u1;
+	ijkVecBezier2O4dv(u0, v0, v1, v2, u);
+	ijkVecBezier2O4dv(u1, v1, v2, v3, u);
+	return ijkVecLerp4dv(v_out, u0, u1, u);
+}
+
+ijk_inl doublev ijkVecBezierNO4dv(double4 v_out, double4 const v[], size const order, f64 const u)
+{
+	double4 u0, u1;
+	if (order > 0)
+		return ijkVecLerp4dv(v_out, ijkVecBezierNO4dv(u0, v + 0, order - 1, u), ijkVecBezierNO4dv(u1, v + 1, order - 1, u), u);
+	return ijkVecCopy4dv(v_out, *v);
+}
+
+ijk_inl doublev ijkVecCubicHermite4dv(double4 v_out, double4 const v0, double4 const dv0, double4 const v1, double4 const dv1, f64 const u)
+{
+	f64 const u2 = u * u, u3 = u * u2;
+	double4 const k = {
+		(dbl_one - dbl_three * u2 + dbl_two * u3),
+		(u - dbl_two * u2 + u3),
+		(dbl_three * u2 - dbl_two * u3),
+		(u3 - u2),
+	};
+	v_out[0] = (k[0] * v0[0] + k[1] * dv0[0] + k[2] * v1[0] + k[3] * dv1[0]);
+	v_out[1] = (k[0] * v0[1] + k[1] * dv0[1] + k[2] * v1[1] + k[3] * dv1[1]);
+	v_out[2] = (k[0] * v0[2] + k[1] * dv0[2] + k[2] * v1[2] + k[3] * dv1[2]);
+	v_out[3] = (k[0] * v0[3] + k[1] * dv0[3] + k[2] * v1[3] + k[3] * dv1[3]);
+	return v_out;
+}
+
+ijk_inl doublev ijkVecCubicHermiteHandles4dv(double4 v_out, double4 const v0, double4 const cv0, double4 const v1, double4 const cv1, f64 const u)
+{
+	f64 const u2 = u * u, u3 = u * u2;
+	double4 const k = {
+		(dbl_one - u - u2 + u3),
+		(u - dbl_two * u2 + u3),
+		(dbl_four * u2 - dbl_three * u3),
+		(u3 - u2),
+	};
+	v_out[0] = (k[0] * v0[0] + k[1] * cv0[0] + k[2] * v1[0] + k[3] * cv1[0]);
+	v_out[1] = (k[0] * v0[1] + k[1] * cv0[1] + k[2] * v1[1] + k[3] * cv1[1]);
+	v_out[2] = (k[0] * v0[2] + k[1] * cv0[2] + k[2] * v1[2] + k[3] * cv1[2]);
+	v_out[3] = (k[0] * v0[3] + k[1] * cv0[3] + k[2] * v1[3] + k[3] * cv1[3]);
+	return v_out;
+}
+
+ijk_inl doublev ijkVecCubicCatmullRom4dv(double4 v_out, double4 const vp, double4 const v0, double4 const v1, double4 const v2, f64 const u)
+{
+	f64 const uh = dbl_half * u, u2h = u * uh, u3h = u * u2h;
+	double4 const k = {
+		(dbl_two * u2h - uh - u3h),
+		(dbl_one - dbl_five * u2h + dbl_three * u3h),
+		(uh + dbl_four * u2h - dbl_three * u3h),
+		(u3h - u2h),
+	};
+	v_out[0] = (k[0] * vp[0] + k[1] * v0[0] + k[2] * v1[0] + k[3] * v2[0]);
+	v_out[1] = (k[0] * vp[1] + k[1] * v0[1] + k[2] * v1[1] + k[3] * v2[1]);
+	v_out[2] = (k[0] * vp[2] + k[1] * v0[2] + k[2] * v1[2] + k[3] * v2[2]);
+	v_out[3] = (k[0] * vp[3] + k[1] * v0[3] + k[2] * v1[3] + k[3] * v2[3]);
+	return v_out;
+}
+
+ijk_inl doublev ijkVecBicubicCatmullRom4dv(double4 v_out, double4 const vpp, double4 const vp0, double4 const vp1, double4 const vp2, double4 const v0p, double4 const v00, double4 const v01, double4 const v02, double4 const v1p, double4 const v10, double4 const v11, double4 const v12, double4 const v2p, double4 const v20, double4 const v21, double4 const v22, f64 const up, f64 const u0, f64 const u1, f64 const u2, f64 const u)
+{
+	double4 vp, v0, v1, v2;
+	ijkVecCubicCatmullRom4dv(vp, vpp, vp0, vp1, vp2, up);
+	ijkVecCubicCatmullRom4dv(v0, v0p, v00, v01, v02, u0);
+	ijkVecCubicCatmullRom4dv(v1, v1p, v10, v11, v12, u1);
+	ijkVecCubicCatmullRom4dv(v2, v2p, v20, v21, v22, u2);
+	return ijkVecCubicCatmullRom4dv(v_out, vp, v0, v1, v2, u);
+}
+
+ijk_inl f64 ijkVecReparamCubicHermite4dv(f64 uTable_out[], f64 lTable_out[], double4 vTable_out[], size const numDivisions, ibool const lNormalize, double4 const v0, double4 const dv0, double4 const v1, double4 const dv1)
+{
+	f64 u = dbl_zero, du, arcLength = dbl_zero, arcLengthInv;
+	f64* lTable = lTable_out;
+	uindex i;
+	doublekv v, vc;
+
+	if (uTable_out && lTable_out && vTable_out && numDivisions)
+	{
+		*uTable_out = u;
+		*lTable_out = arcLength;
+		vc = ijkVecCopy4dv(*vTable_out, v0);
+
+		for (i = 1, du = ijk_recip_dbl((f64)numDivisions); i <= numDivisions; ++i)
+		{
+			u = (f64)i * du;
+			v = ijkVecCubicHermite4dv(*(++vTable_out), v0, dv0, v1, dv1, u);
+			arcLength += ijkVecDistance4dv(v, vc);
+			*(++uTable_out) = u;
+			*(++lTable_out) = arcLength;
+			vc = v;
+		}
+
+		if (lNormalize)
+			for (i = 1, arcLengthInv = ijk_recip_dbl(arcLength); i <= numDivisions; ++i)
+				*(++lTable) *= arcLengthInv;
+	}
+	return arcLength;
+}
+
+ijk_inl f64 ijkVecReparamCubicHermiteHandles4dv(f64 uTable_out[], f64 lTable_out[], double4 vTable_out[], size const numDivisions, ibool const lNormalize, double4 const v0, double4 const cv0, double4 const v1, double4 const cv1)
+{
+	f64 u = dbl_zero, du, arcLength = dbl_zero, arcLengthInv;
+	f64* lTable = lTable_out;
+	uindex i;
+	doublekv v, vc;
+
+	if (uTable_out && lTable_out && vTable_out && numDivisions)
+	{
+		*uTable_out = u;
+		*lTable_out = arcLength;
+		vc = ijkVecCopy4dv(*vTable_out, v0);
+
+		for (i = 1, du = ijk_recip_dbl((f64)numDivisions); i <= numDivisions; ++i)
+		{
+			u = (f64)i * du;
+			v = ijkVecCubicHermiteHandles4dv(*(++vTable_out), v0, cv0, v1, cv1, u);
+			arcLength += ijkVecDistance4dv(v, vc);
+			*(++uTable_out) = u;
+			*(++lTable_out) = arcLength;
+			vc = v;
+		}
+
+		if (lNormalize)
+			for (i = 1, arcLengthInv = ijk_recip_dbl(arcLength); i <= numDivisions; ++i)
+				*(++lTable) *= arcLengthInv;
+	}
+	return arcLength;
+}
+
+ijk_inl f64 ijkVecReparamCubicCatmullRom4dv(f64 uTable_out[], f64 lTable_out[], double4 vTable_out[], size const numDivisions, ibool const lNormalize, double4 const vp, double4 const v0, double4 const v1, double4 const v2)
+{
+	f64 u = dbl_zero, du, arcLength = dbl_zero, arcLengthInv;
+	f64* lTable = lTable_out;
+	uindex i;
+	doublekv v, vc;
+
+	if (uTable_out && lTable_out && vTable_out && numDivisions)
+	{
+		*uTable_out = u;
+		*lTable_out = arcLength;
+		vc = ijkVecCopy4dv(*vTable_out, v0);
+
+		for (i = 1, du = ijk_recip_dbl((f64)numDivisions); i <= numDivisions; ++i)
+		{
+			u = (f64)i * du;
+			v = ijkVecCubicCatmullRom4dv(*(++vTable_out), vp, v0, v1, v2, u);
+			arcLength += ijkVecDistance4dv(v, vc);
+			*(++uTable_out) = u;
+			*(++lTable_out) = arcLength;
+			vc = v;
+		}
+
+		if (lNormalize)
+			for (i = 1, arcLengthInv = ijk_recip_dbl(arcLength); i <= numDivisions; ++i)
+				*(++lTable) *= arcLengthInv;
+	}
+	return arcLength;
+}
+
+ijk_inl f64 ijkVecReparamBicubicCatmullRom4dv(f64 uTable_out[], f64 lTable_out[], double4 vTable_out[], size const numDivisions, ibool const lNormalize, double4 const vpp, double4 const vp0, double4 const vp1, double4 const vp2, double4 const v0p, double4 const v00, double4 const v01, double4 const v02, double4 const v1p, double4 const v10, double4 const v11, double4 const v12, double4 const v2p, double4 const v20, double4 const v21, double4 const v22, f64 const up, f64 const u0, f64 const u1, f64 const u2)
+{
+	f64 u = dbl_zero, du, arcLength = dbl_zero, arcLengthInv;
+	f64* lTable = lTable_out;
+	uindex i;
+	doublekv v, vc;
+
+	if (uTable_out && lTable_out && vTable_out && numDivisions)
+	{
+		double4 vp, v0, v1, v2;
+		ijkVecCubicCatmullRom4dv(vp, vpp, vp0, vp1, vp2, up);
+		ijkVecCubicCatmullRom4dv(v0, v0p, v00, v01, v02, u0);
+		ijkVecCubicCatmullRom4dv(v1, v1p, v10, v11, v12, u1);
+		ijkVecCubicCatmullRom4dv(v2, v2p, v20, v21, v22, u2);
+
+		*uTable_out = u;
+		*lTable_out = arcLength;
+		vc = ijkVecCopy4dv(*vTable_out, v0);
+
+		for (i = 1, du = ijk_recip_dbl((f64)numDivisions); i <= numDivisions; ++i)
+		{
+			u = (f64)i * du;
+			v = ijkVecCubicCatmullRom4dv(*(++vTable_out), vp, v0, v1, v2, u);
+			arcLength += ijkVecDistance4dv(v, vc);
+			*(++uTable_out) = u;
+			*(++lTable_out) = arcLength;
+			vc = v;
+		}
+
+		if (lNormalize)
+			for (i = 1, arcLengthInv = ijk_recip_dbl(arcLength); i <= numDivisions; ++i)
+				*(++lTable) *= arcLengthInv;
+	}
+	return arcLength;
+}
+
+ijk_inl doublev ijkVecSampleTableInc4dv(double4 v_out, f64 const uTable[], double4 const vTable[], index i, index di, f64 const u)
+{
+	doublekv v0, v1;
+	f64 uReparam;
+	f64 u0, u1 = *(uTable + (i += (di ? di : (di = 1))));
+
+	while (u1 < u)
+		u1 = *(uTable + (i += di));
+	v1 = *(vTable + i);
+	v0 = *(vTable + (i -= di));
+	u0 = *(uTable + i);
+	uReparam = ijkInterpLinearInv_dbl(u0, u1, u);
+	return ijkVecLerp4dv(v_out, v0, v1, uReparam);
+}
+
+ijk_inl doublev ijkVecSampleTableDec4dv(double4 v_out, f64 const uTable[], double4 const vTable[], index i, index di, f64 const u)
+{
+	doublekv v0, v1;
+	f64 uReparam;
+	f64 u0, u1 = *(uTable + (i += (di ? di : (di = 1))));
+
+	while (u1 > u)
+		u1 = *(uTable + (i += di));
+	v1 = *(vTable + i);
+	v0 = *(vTable + (i -= di));
+	u0 = *(uTable + i);
+	uReparam = ijkInterpLinearInv_dbl(u0, u1, u);
+	return ijkVecLerp4dv(v_out, v0, v1, uReparam);
 }
 
 
@@ -4231,7 +5147,7 @@ ijk_inl double ijkVecLengthInv2d(dvec2 const v_in)
 ijk_inl double ijkVecLengthInvSafe2d(dvec2 const v_in)
 {
 	double const lengthSq = ijkVecLengthSq2d(v_in);
-	return (lengthSq > flt_zero ? ijkSqrtInv_dbl(lengthSq) : flt_zero);
+	return (lengthSq > dbl_zero ? ijkSqrtInv_dbl(lengthSq) : dbl_zero);
 }
 
 ijk_inl dvec2 ijkVecNormalize2d(dvec2 const v_in)
@@ -4326,7 +5242,7 @@ ijk_inl dvec2 ijkVecLerpInv2d(dvec2 const v0, dvec2 const v1, dvec2 const v_lerp
 
 ijk_inl dvec2 ijkVecLerpRevInit2d(dvec2 const v_lerp, dvec2 const v1, double const u)
 {
-	double const s = ijk_recip_dbl(flt_one - u);
+	double const s = ijk_recip_dbl(dbl_one - u);
 	dvec2 const v0_out = {
 		(v_lerp.x - v1.x * u) * s,
 		(v_lerp.y - v1.y * u) * s,
@@ -4414,7 +5330,7 @@ ijk_inl dvec2 ijkVecSlerp2d(dvec2 const v0, dvec2 const v1, double const u)
 
 ijk_inl dvec2 ijkVecReflectScale2d(dvec2 const v_in, dvec2 const v_nrm)
 {
-	double const d = flt_two * ijkVecDot2d(v_in, v_nrm), lenSq = ijkVecLengthSq2d(v_nrm);
+	double const d = dbl_two * ijkVecDot2d(v_in, v_nrm), lenSq = ijkVecLengthSq2d(v_nrm);
 	dvec2 const v_out = {
 		(v_in.x * lenSq - d * v_nrm.x),
 		(v_in.y * lenSq - d * v_nrm.y),
@@ -4424,7 +5340,7 @@ ijk_inl dvec2 ijkVecReflectScale2d(dvec2 const v_in, dvec2 const v_nrm)
 
 ijk_inl dvec2 ijkVecUnitReflect2d(dvec2 const v_in, dvec2 const v_nrm)
 {
-	double const d = flt_two * ijkVecDot2d(v_in, v_nrm);
+	double const d = dbl_two * ijkVecDot2d(v_in, v_nrm);
 	dvec2 const v_out = {
 		(v_in.x - d * v_nrm.x),
 		(v_in.y - d * v_nrm.y),
@@ -4434,12 +5350,302 @@ ijk_inl dvec2 ijkVecUnitReflect2d(dvec2 const v_in, dvec2 const v_nrm)
 
 ijk_inl dvec2 ijkVecReflect2d(dvec2 const v_in, dvec2 const v_nrm)
 {
-	double const d = flt_two * ijkVecDot2d(v_in, v_nrm), lenSqInv = d * ijkVecLengthSqInv2d(v_nrm);
+	double const d = dbl_two * ijkVecDot2d(v_in, v_nrm), lenSqInv = d * ijkVecLengthSqInv2d(v_nrm);
 	dvec2 const v_out = {
 		(v_in.x - lenSqInv * v_nrm.x),
 		(v_in.y - lenSqInv * v_nrm.y),
 	};
 	return v_out;
+}
+
+ijk_inl double ijkVecDistance2d(dvec2 const v_lh, dvec2 const v_rh)
+{
+	dvec2 const diff = {
+		(v_lh.x - v_rh.x),
+		(v_lh.y - v_rh.y),
+	};
+	return ijkVecLength2d(diff);
+}
+
+ijk_inl dvec2 ijkVecResize2d(dvec2 const v_in, double const length)
+{
+	double const s = length * ijkVecLengthInv2d(v_in);
+	return ijkVecMul2ds(v_in, s);
+}
+
+ijk_inl dvec2 ijkVecResizeSafe2d(dvec2 const v_in, double const length)
+{
+	double const s = length * ijkVecLengthInvSafe2d(v_in);
+	return ijkVecMul2ds(v_in, s);
+}
+
+ijk_inl double ijkVecCrossResize2d(dvec2 const v_lh, dvec2 const v_rh, double const length)
+{
+	return (length * ijkVecCrossNormalize2d(v_lh, v_rh));
+}
+
+ijk_inl double ijkVecCrossResizeSafe2d(dvec2 const v_lh, dvec2 const v_rh, double const length)
+{
+	return (length * ijkVecCrossNormalizeSafe2d(v_lh, v_rh));
+}
+
+ijk_inl dvec2 ijkVecNearest2d(dvec2 const v0, dvec2 const v1, double const u)
+{
+	return (u < dbl_half ? v0 : v1);
+}
+
+ijk_inl dvec2 ijkVecBinearest2d(dvec2 const v00, dvec2 const v01, dvec2 const v10, dvec2 const v11, double const u0, double const u1, double const u)
+{
+	return (u < dbl_half ? u0 < dbl_half ? v00 : v01 : u1 < dbl_half ? v10 : v11);
+}
+
+ijk_inl dvec2 ijkVecRemap2d(dvec2 const v0_dst, dvec2 const v1_dst, dvec2 const v0_src, dvec2 const v1_src, dvec2 const v_src)
+{
+	dvec2 const v_out = {
+		ijkInterpRemap_dbl(v0_dst.x, v1_dst.x, v0_src.x, v1_src.x, v_src.x),
+		ijkInterpRemap_dbl(v0_dst.y, v1_dst.y, v0_src.y, v1_src.y, v_src.y),
+	};
+	return v_out;
+}
+
+ijk_inl dvec2 ijkVecBezier0O2d(dvec2 const v0, double const u)
+{
+	return v0;
+}
+
+ijk_inl dvec2 ijkVecBezier1O2d(dvec2 const v0, dvec2 const v1, double const u)
+{
+	return ijkVecLerp2d(v0, v1, u);
+}
+
+ijk_inl dvec2 ijkVecBezier2O2d(dvec2 const v0, dvec2 const v1, dvec2 const v2, double const u)
+{
+	dvec2 const u0 = ijkVecBezier1O2d(v0, v1, u), u1 = ijkVecBezier1O2d(v1, v2, u);
+	return ijkVecLerp2d(u0, u1, u);
+}
+
+ijk_inl dvec2 ijkVecBezier3O2d(dvec2 const v0, dvec2 const v1, dvec2 const v2, dvec2 const v3, double const u)
+{
+	dvec2 const u0 = ijkVecBezier2O2d(v0, v1, v2, u), u1 = ijkVecBezier2O2d(v1, v2, v3, u);
+	return ijkVecLerp2d(u0, u1, u);
+}
+
+ijk_inl dvec2 ijkVecBezierNO2d(dvec2 const v[], size const order, double const u)
+{
+	if (order > 0)
+	{
+		dvec2 const u0 = ijkVecBezierNO2d(v + 0, order - 1, u), u1 = ijkVecBezierNO2d(v + 1, order - 1, u);
+		return ijkVecLerp2d(u0, u1, u);
+	}
+	return *v;
+}
+
+ijk_inl dvec2 ijkVecCubicHermite2d(dvec2 const v0, dvec2 const dv0, dvec2 const v1, dvec2 const dv1, double const u)
+{
+	double const u2 = u * u, u3 = u * u2;
+	dvec4 const k = {
+		(dbl_one - dbl_three * u2 + dbl_two * u3),
+		(u - dbl_two * u2 + u3),
+		(dbl_three * u2 - dbl_two * u3),
+		(u3 - u2),
+	};
+	dvec2 const v_out = {
+		(k.x * v0.x + k.y * dv0.x + k.z * v1.x + k.w * dv1.x),
+		(k.x * v0.y + k.y * dv0.y + k.z * v1.y + k.w * dv1.y),
+	};
+	return v_out;
+}
+
+ijk_inl dvec2 ijkVecCubicHermiteHandles2d(dvec2 const v0, dvec2 const cv0, dvec2 const v1, dvec2 const cv1, double const u)
+{
+	double const u2 = u * u, u3 = u * u2;
+	dvec4 const k = {
+		(dbl_one - u - u2 + u3),
+		(u - dbl_two * u2 + u3),
+		(dbl_four * u2 - dbl_three * u3),
+		(u3 - u2),
+	};
+	dvec2 const v_out = {
+		(k.x * v0.x + k.y * cv0.x + k.z * v1.x + k.w * cv1.x),
+		(k.x * v0.y + k.y * cv0.y + k.z * v1.y + k.w * cv1.y),
+	};
+	return v_out;
+}
+
+ijk_inl dvec2 ijkVecCubicCatmullRom2d(dvec2 const vp, dvec2 const v0, dvec2 const v1, dvec2 const v2, double const u)
+{
+	double const uh = dbl_half * u, u2h = u * uh, u3h = u * u2h;
+	dvec4 const k = {
+		(dbl_two * u2h - uh - u3h),
+		(dbl_one - dbl_five * u2h + dbl_three * u3h),
+		(uh + dbl_four * u2h - dbl_three * u3h),
+		(u3h - u2h),
+	};
+	dvec2 const v_out = {
+		(k.x * vp.x + k.y * v0.x + k.z * v1.x + k.w * v2.x),
+		(k.x * vp.y + k.y * v0.y + k.z * v1.y + k.w * v2.y),
+	};
+	return v_out;
+}
+
+ijk_inl dvec2 ijkVecBicubicCatmullRom2d(dvec2 const vpp, dvec2 const vp0, dvec2 const vp1, dvec2 const vp2, dvec2 const v0p, dvec2 const v00, dvec2 const v01, dvec2 const v02, dvec2 const v1p, dvec2 const v10, dvec2 const v11, dvec2 const v12, dvec2 const v2p, dvec2 const v20, dvec2 const v21, dvec2 const v22, double const up, double const u0, double const u1, double const u2, double const u)
+{
+	dvec2 const vp = ijkVecCubicCatmullRom2d(vpp, vp0, vp1, vp2, up), v0 = ijkVecCubicCatmullRom2d(v0p, v00, v01, v02, u0),
+		v1 = ijkVecCubicCatmullRom2d(v1p, v10, v11, v12, u1), v2 = ijkVecCubicCatmullRom2d(v2p, v20, v21, v22, u2);
+	return ijkVecCubicCatmullRom2d(vp, v0, v1, v2, u);
+}
+
+ijk_inl double ijkVecReparamCubicHermite2d(double uTable_out[], double lTable_out[], dvec2 vTable_out[], size const numDivisions, ibool const lNormalize, dvec2 const v0, dvec2 const dv0, dvec2 const v1, dvec2 const dv1)
+{
+	double u = dbl_zero, du, arcLength = dbl_zero, arcLengthInv;
+	double* lTable = lTable_out;
+	uindex i;
+	dvec2 v, vc;
+
+	if (uTable_out && lTable_out && vTable_out && numDivisions)
+	{
+		*uTable_out = u;
+		*lTable_out = arcLength;
+		*vTable_out = vc = v0;
+
+		for (i = 1, du = ijk_recip_dbl((double)numDivisions); i <= numDivisions; ++i)
+		{
+			u = (double)i * du;
+			v = ijkVecCubicHermite2d(v0, dv0, v1, dv1, u);
+			arcLength += ijkVecDistance2d(v, vc);
+			*(++uTable_out) = u;
+			*(++lTable_out) = arcLength;
+			*(++vTable_out) = vc = v;
+		}
+
+		if (lNormalize)
+			for (i = 1, arcLengthInv = ijk_recip_dbl(arcLength); i <= numDivisions; ++i)
+				*(++lTable) *= arcLengthInv;
+	}
+	return arcLength;
+}
+
+ijk_inl double ijkVecReparamCubicHermiteHandles2d(double uTable_out[], double lTable_out[], dvec2 vTable_out[], size const numDivisions, ibool const lNormalize, dvec2 const v0, dvec2 const cv0, dvec2 const v1, dvec2 const cv1)
+{
+	double u = dbl_zero, du, arcLength = dbl_zero, arcLengthInv;
+	double* lTable = lTable_out;
+	uindex i;
+	dvec2 v, vc;
+
+	if (uTable_out && lTable_out && vTable_out && numDivisions)
+	{
+		*uTable_out = u;
+		*lTable_out = arcLength;
+		*vTable_out = vc = v0;
+
+		for (i = 1, du = ijk_recip_dbl((double)numDivisions); i <= numDivisions; ++i)
+		{
+			u = (double)i * du;
+			v = ijkVecCubicHermiteHandles2d(v0, cv0, v1, cv1, u);
+			arcLength += ijkVecDistance2d(v, vc);
+			*(++uTable_out) = u;
+			*(++lTable_out) = arcLength;
+			*(++vTable_out) = vc = v;
+		}
+
+		if (lNormalize)
+			for (i = 1, arcLengthInv = ijk_recip_dbl(arcLength); i <= numDivisions; ++i)
+				*(++lTable) *= arcLengthInv;
+	}
+	return arcLength;
+}
+
+ijk_inl double ijkVecReparamCubicCatmullRom2d(double uTable_out[], double lTable_out[], dvec2 vTable_out[], size const numDivisions, ibool const lNormalize, dvec2 const vp, dvec2 const v0, dvec2 const v1, dvec2 const v2)
+{
+	double u = dbl_zero, du, arcLength = dbl_zero, arcLengthInv;
+	double* lTable = lTable_out;
+	uindex i;
+	dvec2 v, vc;
+
+	if (uTable_out && lTable_out && vTable_out && numDivisions)
+	{
+		*uTable_out = u;
+		*lTable_out = arcLength;
+		*vTable_out = vc = v0;
+
+		for (i = 1, du = ijk_recip_dbl((double)numDivisions); i <= numDivisions; ++i)
+		{
+			u = (double)i * du;
+			v = ijkVecCubicCatmullRom2d(vp, v0, v1, v2, u);
+			arcLength += ijkVecDistance2d(v, vc);
+			*(++uTable_out) = u;
+			*(++lTable_out) = arcLength;
+			*(++vTable_out) = vc = v;
+		}
+
+		if (lNormalize)
+			for (i = 1, arcLengthInv = ijk_recip_dbl(arcLength); i <= numDivisions; ++i)
+				*(++lTable) *= arcLengthInv;
+	}
+	return arcLength;
+}
+
+ijk_inl double ijkVecReparamBicubicCatmullRom2d(double uTable_out[], double lTable_out[], dvec2 vTable_out[], size const numDivisions, ibool const lNormalize, dvec2 const vpp, dvec2 const vp0, dvec2 const vp1, dvec2 const vp2, dvec2 const v0p, dvec2 const v00, dvec2 const v01, dvec2 const v02, dvec2 const v1p, dvec2 const v10, dvec2 const v11, dvec2 const v12, dvec2 const v2p, dvec2 const v20, dvec2 const v21, dvec2 const v22, double const up, double const u0, double const u1, double const u2)
+{
+	double u = dbl_zero, du, arcLength = dbl_zero, arcLengthInv;
+	double* lTable = lTable_out;
+	uindex i;
+	dvec2 v, vc;
+
+	if (uTable_out && lTable_out && vTable_out && numDivisions)
+	{
+		dvec2 const vp = ijkVecCubicCatmullRom2d(vpp, vp0, vp1, vp2, up), v0 = ijkVecCubicCatmullRom2d(v0p, v00, v01, v02, u0),
+			v1 = ijkVecCubicCatmullRom2d(v1p, v10, v11, v12, u1), v2 = ijkVecCubicCatmullRom2d(v2p, v20, v21, v22, u2);
+
+		*uTable_out = u;
+		*lTable_out = arcLength;
+		*vTable_out = vc = v0;
+
+		for (i = 1, du = ijk_recip_dbl((double)numDivisions); i <= numDivisions; ++i)
+		{
+			u = (double)i * du;
+			v = ijkVecCubicCatmullRom2d(vp, v0, v1, v2, u);
+			arcLength += ijkVecDistance2d(v, vc);
+			*(++uTable_out) = u;
+			*(++lTable_out) = arcLength;
+			*(++vTable_out) = vc = v;
+		}
+
+		if (lNormalize)
+			for (i = 1, arcLengthInv = ijk_recip_dbl(arcLength); i <= numDivisions; ++i)
+				*(++lTable) *= arcLengthInv;
+	}
+	return arcLength;
+}
+
+ijk_inl dvec2 ijkVecSampleTableInc2d(double const uTable[], dvec2 const vTable[], index i, index di, double const u)
+{
+	dvec2 v0, v1;
+	double uReparam;
+	double u0, u1 = *(uTable + (i += (di ? di : (di = 1))));
+
+	while (u1 < u)
+		u1 = *(uTable + (i += di));
+	v1 = *(vTable + i);
+	v0 = *(vTable + (i -= di));
+	u0 = *(uTable + i);
+	uReparam = ijkInterpLinearInv_dbl(u0, u1, u);
+	return ijkVecLerp2d(v0, v1, uReparam);
+}
+
+ijk_inl dvec2 ijkVecSampleTableDec2d(double const uTable[], dvec2 const vTable[], index i, index di, double const u)
+{
+	dvec2 v0, v1;
+	double uReparam;
+	double u0, u1 = *(uTable + (i += (di ? di : (di = 1))));
+
+	while (u1 > u)
+		u1 = *(uTable + (i += di));
+	v1 = *(vTable + i);
+	v0 = *(vTable + (i -= di));
+	u0 = *(uTable + i);
+	uReparam = ijkInterpLinearInv_dbl(u0, u1, u);
+	return ijkVecLerp2d(v0, v1, uReparam);
 }
 
 
@@ -4474,7 +5680,7 @@ ijk_inl double ijkVecLengthInv3d(dvec3 const v_in)
 ijk_inl double ijkVecLengthInvSafe3d(dvec3 const v_in)
 {
 	double const lengthSq = ijkVecLengthSq3d(v_in);
-	return (lengthSq > flt_zero ? ijkSqrtInv_dbl(lengthSq) : flt_zero);
+	return (lengthSq > dbl_zero ? ijkSqrtInv_dbl(lengthSq) : dbl_zero);
 }
 
 ijk_inl dvec3 ijkVecNormalize3d(dvec3 const v_in)
@@ -4559,7 +5765,7 @@ ijk_inl dvec3 ijkVecLerpInv3d(dvec3 const v0, dvec3 const v1, dvec3 const v_lerp
 
 ijk_inl dvec3 ijkVecLerpRevInit3d(dvec3 const v_lerp, dvec3 const v1, double const u)
 {
-	double const s = ijk_recip_dbl(flt_one - u);
+	double const s = ijk_recip_dbl(dbl_one - u);
 	dvec3 const v0_out = {
 		(v_lerp.x - v1.x * u) * s,
 		(v_lerp.y - v1.y * u) * s,
@@ -4648,7 +5854,7 @@ ijk_inl dvec3 ijkVecSlerp3d(dvec3 const v0, dvec3 const v1, double const u)
 
 ijk_inl dvec3 ijkVecReflectScale3d(dvec3 const v_in, dvec3 const v_nrm)
 {
-	double const d = flt_two * ijkVecDot3d(v_in, v_nrm), lenSq = ijkVecLengthSq3d(v_nrm);
+	double const d = dbl_two * ijkVecDot3d(v_in, v_nrm), lenSq = ijkVecLengthSq3d(v_nrm);
 	dvec3 const v_out = {
 		(v_in.x * lenSq - d * v_nrm.x),
 		(v_in.y * lenSq - d * v_nrm.y),
@@ -4659,7 +5865,7 @@ ijk_inl dvec3 ijkVecReflectScale3d(dvec3 const v_in, dvec3 const v_nrm)
 
 ijk_inl dvec3 ijkVecUnitReflect3d(dvec3 const v_in, dvec3 const v_nrm)
 {
-	double const d = flt_two * ijkVecDot3d(v_in, v_nrm);
+	double const d = dbl_two * ijkVecDot3d(v_in, v_nrm);
 	dvec3 const v_out = {
 		(v_in.x - d * v_nrm.x),
 		(v_in.y - d * v_nrm.y),
@@ -4670,13 +5876,312 @@ ijk_inl dvec3 ijkVecUnitReflect3d(dvec3 const v_in, dvec3 const v_nrm)
 
 ijk_inl dvec3 ijkVecReflect3d(dvec3 const v_in, dvec3 const v_nrm)
 {
-	double const d = flt_two * ijkVecDot3d(v_in, v_nrm), lenSqInv = d * ijkVecLengthSqInv3d(v_nrm);
+	double const d = dbl_two * ijkVecDot3d(v_in, v_nrm), lenSqInv = d * ijkVecLengthSqInv3d(v_nrm);
 	dvec3 const v_out = {
 		(v_in.x - lenSqInv * v_nrm.x),
 		(v_in.y - lenSqInv * v_nrm.y),
 		(v_in.z - lenSqInv * v_nrm.z),
 	};
 	return v_out;
+}
+
+ijk_inl double ijkVecDistance3d(dvec3 const v_lh, dvec3 const v_rh)
+{
+	dvec3 const diff = {
+		(v_lh.x - v_rh.x),
+		(v_lh.y - v_rh.y),
+		(v_lh.z - v_rh.z),
+	};
+	return ijkVecLength3d(diff);
+}
+
+ijk_inl dvec3 ijkVecResize3d(dvec3 const v_in, double const length)
+{
+	double const s = length * ijkVecLengthInv3d(v_in);
+	return ijkVecMul3ds(v_in, s);
+}
+
+ijk_inl dvec3 ijkVecResizeSafe3d(dvec3 const v_in, double const length)
+{
+	double const s = length * ijkVecLengthInvSafe3d(v_in);
+	return ijkVecMul3ds(v_in, s);
+}
+
+ijk_inl dvec3 ijkVecCrossResize3d(dvec3 const v_lh, dvec3 const v_rh, double const length)
+{
+	dvec3 const c = ijkVecCrossNormalize3d(v_lh, v_rh);
+	double const s = length * ijkVecLengthInv3d(c);
+	return ijkVecMul3ds(c, s);
+}
+
+ijk_inl dvec3 ijkVecCrossResizeSafe3d(dvec3 const v_lh, dvec3 const v_rh, double const length)
+{
+	dvec3 const c = ijkVecCrossNormalize3d(v_lh, v_rh);
+	double const s = length * ijkVecLengthInvSafe3d(c);
+	return ijkVecMul3ds(c, s);
+}
+
+ijk_inl dvec3 ijkVecNearest3d(dvec3 const v0, dvec3 const v1, double const u)
+{
+	return (u < dbl_half ? v0 : v1);
+}
+
+ijk_inl dvec3 ijkVecBinearest3d(dvec3 const v00, dvec3 const v01, dvec3 const v10, dvec3 const v11, double const u0, double const u1, double const u)
+{
+	return (u < dbl_half ? u0 < dbl_half ? v00 : v01 : u1 < dbl_half ? v10 : v11);
+}
+
+ijk_inl dvec3 ijkVecRemap3d(dvec3 const v0_dst, dvec3 const v1_dst, dvec3 const v0_src, dvec3 const v1_src, dvec3 const v_src)
+{
+	dvec3 const v_out = {
+		ijkInterpRemap_dbl(v0_dst.x, v1_dst.x, v0_src.x, v1_src.x, v_src.x),
+		ijkInterpRemap_dbl(v0_dst.y, v1_dst.y, v0_src.y, v1_src.y, v_src.y),
+		ijkInterpRemap_dbl(v0_dst.z, v1_dst.z, v0_src.z, v1_src.z, v_src.z),
+	};
+	return v_out;
+}
+
+ijk_inl dvec3 ijkVecBezier0O3d(dvec3 const v0, double const u)
+{
+	return v0;
+}
+
+ijk_inl dvec3 ijkVecBezier1O3d(dvec3 const v0, dvec3 const v1, double const u)
+{
+	return ijkVecLerp3d(v0, v1, u);
+}
+
+ijk_inl dvec3 ijkVecBezier2O3d(dvec3 const v0, dvec3 const v1, dvec3 const v2, double const u)
+{
+	dvec3 const u0 = ijkVecBezier1O3d(v0, v1, u), u1 = ijkVecBezier1O3d(v1, v2, u);
+	return ijkVecLerp3d(u0, u1, u);
+}
+
+ijk_inl dvec3 ijkVecBezier3O3d(dvec3 const v0, dvec3 const v1, dvec3 const v2, dvec3 const v3, double const u)
+{
+	dvec3 const u0 = ijkVecBezier2O3d(v0, v1, v2, u), u1 = ijkVecBezier2O3d(v1, v2, v3, u);
+	return ijkVecLerp3d(u0, u1, u);
+}
+
+ijk_inl dvec3 ijkVecBezierNO3d(dvec3 const v[], size const order, double const u)
+{
+	if (order > 0)
+	{
+		dvec3 const u0 = ijkVecBezierNO3d(v + 0, order - 1, u), u1 = ijkVecBezierNO3d(v + 1, order - 1, u);
+		return ijkVecLerp3d(u0, u1, u);
+	}
+	return *v;
+}
+
+ijk_inl dvec3 ijkVecCubicHermite3d(dvec3 const v0, dvec3 const dv0, dvec3 const v1, dvec3 const dv1, double const u)
+{
+	double const u2 = u * u, u3 = u * u2;
+	dvec4 const k = {
+		(dbl_one - dbl_three * u2 + dbl_two * u3),
+		(u - dbl_two * u2 + u3),
+		(dbl_three * u2 - dbl_two * u3),
+		(u3 - u2),
+	};
+	dvec3 const v_out = {
+		(k.x * v0.x + k.y * dv0.x + k.z * v1.x + k.w * dv1.x),
+		(k.x * v0.y + k.y * dv0.y + k.z * v1.y + k.w * dv1.y),
+		(k.x * v0.z + k.y * dv0.z + k.z * v1.z + k.w * dv1.z),
+	};
+	return v_out;
+}
+
+ijk_inl dvec3 ijkVecCubicHermiteHandles3d(dvec3 const v0, dvec3 const cv0, dvec3 const v1, dvec3 const cv1, double const u)
+{
+	double const u2 = u * u, u3 = u * u2;
+	dvec4 const k = {
+		(dbl_one - u - u2 + u3),
+		(u - dbl_two * u2 + u3),
+		(dbl_four * u2 - dbl_three * u3),
+		(u3 - u2),
+	};
+	dvec3 const v_out = {
+		(k.x * v0.x + k.y * cv0.x + k.z * v1.x + k.w * cv1.x),
+		(k.x * v0.y + k.y * cv0.y + k.z * v1.y + k.w * cv1.y),
+		(k.x * v0.z + k.y * cv0.z + k.z * v1.z + k.w * cv1.z),
+	};
+	return v_out;
+}
+
+ijk_inl dvec3 ijkVecCubicCatmullRom3d(dvec3 const vp, dvec3 const v0, dvec3 const v1, dvec3 const v2, double const u)
+{
+	double const uh = dbl_half * u, u2h = u * uh, u3h = u * u2h;
+	dvec4 const k = {
+		(dbl_two * u2h - uh - u3h),
+		(dbl_one - dbl_five * u2h + dbl_three * u3h),
+		(uh + dbl_four * u2h - dbl_three * u3h),
+		(u3h - u2h),
+	};
+	dvec3 const v_out = {
+		(k.x * vp.x + k.y * v0.x + k.z * v1.x + k.w * v2.x),
+		(k.x * vp.y + k.y * v0.y + k.z * v1.y + k.w * v2.y),
+		(k.x * vp.z + k.y * v0.z + k.z * v1.z + k.w * v2.z),
+	};
+	return v_out;
+}
+
+ijk_inl dvec3 ijkVecBicubicCatmullRom3d(dvec3 const vpp, dvec3 const vp0, dvec3 const vp1, dvec3 const vp2, dvec3 const v0p, dvec3 const v00, dvec3 const v01, dvec3 const v02, dvec3 const v1p, dvec3 const v10, dvec3 const v11, dvec3 const v12, dvec3 const v2p, dvec3 const v20, dvec3 const v21, dvec3 const v22, double const up, double const u0, double const u1, double const u2, double const u)
+{
+	dvec3 const vp = ijkVecCubicCatmullRom3d(vpp, vp0, vp1, vp2, up), v0 = ijkVecCubicCatmullRom3d(v0p, v00, v01, v02, u0),
+		v1 = ijkVecCubicCatmullRom3d(v1p, v10, v11, v12, u1), v2 = ijkVecCubicCatmullRom3d(v2p, v20, v21, v22, u2);
+	return ijkVecCubicCatmullRom3d(vp, v0, v1, v2, u);
+}
+
+ijk_inl double ijkVecReparamCubicHermite3d(double uTable_out[], double lTable_out[], dvec3 vTable_out[], size const numDivisions, ibool const lNormalize, dvec3 const v0, dvec3 const dv0, dvec3 const v1, dvec3 const dv1)
+{
+	double u = dbl_zero, du, arcLength = dbl_zero, arcLengthInv;
+	double* lTable = lTable_out;
+	uindex i;
+	dvec3 v, vc;
+
+	if (uTable_out && lTable_out && vTable_out && numDivisions)
+	{
+		*uTable_out = u;
+		*lTable_out = arcLength;
+		*vTable_out = vc = v0;
+
+		for (i = 1, du = ijk_recip_dbl((double)numDivisions); i <= numDivisions; ++i)
+		{
+			u = (double)i * du;
+			v = ijkVecCubicHermite3d(v0, dv0, v1, dv1, u);
+			arcLength += ijkVecDistance3d(v, vc);
+			*(++uTable_out) = u;
+			*(++lTable_out) = arcLength;
+			*(++vTable_out) = vc = v;
+		}
+
+		if (lNormalize)
+			for (i = 1, arcLengthInv = ijk_recip_dbl(arcLength); i <= numDivisions; ++i)
+				*(++lTable) *= arcLengthInv;
+	}
+	return arcLength;
+}
+
+ijk_inl double ijkVecReparamCubicHermiteHandles3d(double uTable_out[], double lTable_out[], dvec3 vTable_out[], size const numDivisions, ibool const lNormalize, dvec3 const v0, dvec3 const cv0, dvec3 const v1, dvec3 const cv1)
+{
+	double u = dbl_zero, du, arcLength = dbl_zero, arcLengthInv;
+	double* lTable = lTable_out;
+	uindex i;
+	dvec3 v, vc;
+
+	if (uTable_out && lTable_out && vTable_out && numDivisions)
+	{
+		*uTable_out = u;
+		*lTable_out = arcLength;
+		*vTable_out = vc = v0;
+
+		for (i = 1, du = ijk_recip_dbl((double)numDivisions); i <= numDivisions; ++i)
+		{
+			u = (double)i * du;
+			v = ijkVecCubicHermiteHandles3d(v0, cv0, v1, cv1, u);
+			arcLength += ijkVecDistance3d(v, vc);
+			*(++uTable_out) = u;
+			*(++lTable_out) = arcLength;
+			*(++vTable_out) = vc = v;
+		}
+
+		if (lNormalize)
+			for (i = 1, arcLengthInv = ijk_recip_dbl(arcLength); i <= numDivisions; ++i)
+				*(++lTable) *= arcLengthInv;
+	}
+	return arcLength;
+}
+
+ijk_inl double ijkVecReparamCubicCatmullRom3d(double uTable_out[], double lTable_out[], dvec3 vTable_out[], size const numDivisions, ibool const lNormalize, dvec3 const vp, dvec3 const v0, dvec3 const v1, dvec3 const v2)
+{
+	double u = dbl_zero, du, arcLength = dbl_zero, arcLengthInv;
+	double* lTable = lTable_out;
+	uindex i;
+	dvec3 v, vc;
+
+	if (uTable_out && lTable_out && vTable_out && numDivisions)
+	{
+		*uTable_out = u;
+		*lTable_out = arcLength;
+		*vTable_out = vc = v0;
+
+		for (i = 1, du = ijk_recip_dbl((double)numDivisions); i <= numDivisions; ++i)
+		{
+			u = (double)i * du;
+			v = ijkVecCubicCatmullRom3d(vp, v0, v1, v2, u);
+			arcLength += ijkVecDistance3d(v, vc);
+			*(++uTable_out) = u;
+			*(++lTable_out) = arcLength;
+			*(++vTable_out) = vc = v;
+		}
+
+		if (lNormalize)
+			for (i = 1, arcLengthInv = ijk_recip_dbl(arcLength); i <= numDivisions; ++i)
+				*(++lTable) *= arcLengthInv;
+	}
+	return arcLength;
+}
+
+ijk_inl double ijkVecReparamBicubicCatmullRom3d(double uTable_out[], double lTable_out[], dvec3 vTable_out[], size const numDivisions, ibool const lNormalize, dvec3 const vpp, dvec3 const vp0, dvec3 const vp1, dvec3 const vp2, dvec3 const v0p, dvec3 const v00, dvec3 const v01, dvec3 const v02, dvec3 const v1p, dvec3 const v10, dvec3 const v11, dvec3 const v12, dvec3 const v2p, dvec3 const v20, dvec3 const v21, dvec3 const v22, double const up, double const u0, double const u1, double const u2)
+{
+	double u = dbl_zero, du, arcLength = dbl_zero, arcLengthInv;
+	double* lTable = lTable_out;
+	uindex i;
+	dvec3 v, vc;
+
+	if (uTable_out && lTable_out && vTable_out && numDivisions)
+	{
+		dvec3 const vp = ijkVecCubicCatmullRom3d(vpp, vp0, vp1, vp2, up), v0 = ijkVecCubicCatmullRom3d(v0p, v00, v01, v02, u0),
+			v1 = ijkVecCubicCatmullRom3d(v1p, v10, v11, v12, u1), v2 = ijkVecCubicCatmullRom3d(v2p, v20, v21, v22, u2);
+
+		*uTable_out = u;
+		*lTable_out = arcLength;
+		*vTable_out = vc = v0;
+
+		for (i = 1, du = ijk_recip_dbl((double)numDivisions); i <= numDivisions; ++i)
+		{
+			u = (double)i * du;
+			v = ijkVecCubicCatmullRom3d(vp, v0, v1, v2, u);
+			arcLength += ijkVecDistance3d(v, vc);
+			*(++uTable_out) = u;
+			*(++lTable_out) = arcLength;
+			*(++vTable_out) = vc = v;
+		}
+
+		if (lNormalize)
+			for (i = 1, arcLengthInv = ijk_recip_dbl(arcLength); i <= numDivisions; ++i)
+				*(++lTable) *= arcLengthInv;
+	}
+	return arcLength;
+}
+
+ijk_inl dvec3 ijkVecSampleTableInc3d(double const uTable[], dvec3 const vTable[], index i, index di, double const u)
+{
+	dvec3 v0, v1;
+	double uReparam;
+	double u0, u1 = *(uTable + (i += (di ? di : (di = 1))));
+
+	while (u1 < u)
+		u1 = *(uTable + (i += di));
+	v1 = *(vTable + i);
+	v0 = *(vTable + (i -= di));
+	u0 = *(uTable + i);
+	uReparam = ijkInterpLinearInv_dbl(u0, u1, u);
+	return ijkVecLerp3d(v0, v1, uReparam);
+}
+
+ijk_inl dvec3 ijkVecSampleTableDec3d(double const uTable[], dvec3 const vTable[], index i, index di, double const u)
+{
+	dvec3 v0, v1;
+	double uReparam;
+	double u0, u1 = *(uTable + (i += (di ? di : (di = 1))));
+
+	while (u1 > u)
+		u1 = *(uTable + (i += di));
+	v1 = *(vTable + i);
+	v0 = *(vTable + (i -= di));
+	u0 = *(uTable + i);
+	uReparam = ijkInterpLinearInv_dbl(u0, u1, u);
+	return ijkVecLerp3d(v0, v1, uReparam);
 }
 
 
@@ -4711,7 +6216,7 @@ ijk_inl double ijkVecLengthInv4d(dvec4 const v_in)
 ijk_inl double ijkVecLengthInvSafe4d(dvec4 const v_in)
 {
 	double const lengthSq = ijkVecLengthSq4d(v_in);
-	return (lengthSq > flt_zero ? ijkSqrtInv_dbl(lengthSq) : flt_zero);
+	return (lengthSq > dbl_zero ? ijkSqrtInv_dbl(lengthSq) : dbl_zero);
 }
 
 ijk_inl dvec4 ijkVecNormalize4d(dvec4 const v_in)
@@ -4798,7 +6303,7 @@ ijk_inl dvec4 ijkVecLerpInv4d(dvec4 const v0, dvec4 const v1, dvec4 const v_lerp
 
 ijk_inl dvec4 ijkVecLerpRevInit4d(dvec4 const v_lerp, dvec4 const v1, double const u)
 {
-	double const s = ijk_recip_dbl(flt_one - u);
+	double const s = ijk_recip_dbl(dbl_one - u);
 	dvec4 const v0_out = {
 		(v_lerp.x - v1.x * u) * s,
 		(v_lerp.y - v1.y * u) * s,
@@ -4888,7 +6393,7 @@ ijk_inl dvec4 ijkVecSlerp4d(dvec4 const v0, dvec4 const v1, double const u)
 
 ijk_inl dvec4 ijkVecReflectScale4d(dvec4 const v_in, dvec4 const v_nrm)
 {
-	double const d = flt_two * ijkVecDot4d(v_in, v_nrm), lenSq = ijkVecLengthSq4d(v_nrm);
+	double const d = dbl_two * ijkVecDot4d(v_in, v_nrm), lenSq = ijkVecLengthSq4d(v_nrm);
 	dvec4 const v_out = {
 		(v_in.x * lenSq - d * v_nrm.x),
 		(v_in.y * lenSq - d * v_nrm.y),
@@ -4900,7 +6405,7 @@ ijk_inl dvec4 ijkVecReflectScale4d(dvec4 const v_in, dvec4 const v_nrm)
 
 ijk_inl dvec4 ijkVecUnitReflect4d(dvec4 const v_in, dvec4 const v_nrm)
 {
-	double const d = flt_two * ijkVecDot4d(v_in, v_nrm);
+	double const d = dbl_two * ijkVecDot4d(v_in, v_nrm);
 	dvec4 const v_out = {
 		(v_in.x - d * v_nrm.x),
 		(v_in.y - d * v_nrm.y),
@@ -4912,7 +6417,7 @@ ijk_inl dvec4 ijkVecUnitReflect4d(dvec4 const v_in, dvec4 const v_nrm)
 
 ijk_inl dvec4 ijkVecReflect4d(dvec4 const v_in, dvec4 const v_nrm)
 {
-	double const d = flt_two * ijkVecDot4d(v_in, v_nrm), lenSqInv = d * ijkVecLengthSqInv4d(v_nrm);
+	double const d = dbl_two * ijkVecDot4d(v_in, v_nrm), lenSqInv = d * ijkVecLengthSqInv4d(v_nrm);
 	dvec4 const v_out = {
 		(v_in.x - lenSqInv * v_nrm.x),
 		(v_in.y - lenSqInv * v_nrm.y),
@@ -4920,6 +6425,310 @@ ijk_inl dvec4 ijkVecReflect4d(dvec4 const v_in, dvec4 const v_nrm)
 		(v_in.w - lenSqInv * v_nrm.w),
 	};
 	return v_out;
+}
+
+ijk_inl double ijkVecDistance4d(dvec4 const v_lh, dvec4 const v_rh)
+{
+	dvec4 const diff = {
+		(v_lh.x - v_rh.x),
+		(v_lh.y - v_rh.y),
+		(v_lh.z - v_rh.z),
+		(v_lh.w - v_rh.w),
+	};
+	return ijkVecLength4d(diff);
+}
+
+ijk_inl dvec4 ijkVecResize4d(dvec4 const v_in, double const length)
+{
+	double const s = length * ijkVecLengthInv4d(v_in);
+	return ijkVecMul4ds(v_in, s);
+}
+
+ijk_inl dvec4 ijkVecResizeSafe4d(dvec4 const v_in, double const length)
+{
+	double const s = length * ijkVecLengthInvSafe4d(v_in);
+	return ijkVecMul4ds(v_in, s);
+}
+
+ijk_inl dvec4 ijkVecCrossResize4d(dvec4 const v_lh, dvec4 const v_rh, double const length)
+{
+	dvec4 const c = ijkVecCrossNormalize4d(v_lh, v_rh);
+	double const s = length * ijkVecLengthInv3d(c.xyz);
+	return ijkVecMul4ds(c, s);
+}
+
+ijk_inl dvec4 ijkVecCrossResizeSafe4d(dvec4 const v_lh, dvec4 const v_rh, double const length)
+{
+	dvec4 const c = ijkVecCrossNormalize4d(v_lh, v_rh);
+	double const s = length * ijkVecLengthInvSafe3d(c.xyz);
+	return ijkVecMul4ds(c, s);
+}
+
+ijk_inl dvec4 ijkVecNearest4d(dvec4 const v0, dvec4 const v1, double const u)
+{
+	return (u < dbl_half ? v0 : v1);
+}
+
+ijk_inl dvec4 ijkVecBinearest4d(dvec4 const v00, dvec4 const v01, dvec4 const v10, dvec4 const v11, double const u0, double const u1, double const u)
+{
+	return (u < dbl_half ? u0 < dbl_half ? v00 : v01 : u1 < dbl_half ? v10 : v11);
+}
+
+ijk_inl dvec4 ijkVecRemap4d(dvec4 const v0_dst, dvec4 const v1_dst, dvec4 const v0_src, dvec4 const v1_src, dvec4 const v_src)
+{
+	dvec4 const v_out = {
+		ijkInterpRemap_dbl(v0_dst.x, v1_dst.x, v0_src.x, v1_src.x, v_src.x),
+		ijkInterpRemap_dbl(v0_dst.y, v1_dst.y, v0_src.y, v1_src.y, v_src.y),
+		ijkInterpRemap_dbl(v0_dst.z, v1_dst.z, v0_src.z, v1_src.z, v_src.z),
+		ijkInterpRemap_dbl(v0_dst.w, v1_dst.w, v0_src.w, v1_src.w, v_src.w),
+	};
+	return v_out;
+}
+
+ijk_inl dvec4 ijkVecBezier0O4d(dvec4 const v0, double const u)
+{
+	return v0;
+}
+
+ijk_inl dvec4 ijkVecBezier1O4d(dvec4 const v0, dvec4 const v1, double const u)
+{
+	return ijkVecLerp4d(v0, v1, u);
+}
+
+ijk_inl dvec4 ijkVecBezier2O4d(dvec4 const v0, dvec4 const v1, dvec4 const v2, double const u)
+{
+	dvec4 const u0 = ijkVecBezier1O4d(v0, v1, u), u1 = ijkVecBezier1O4d(v1, v2, u);
+	return ijkVecLerp4d(u0, u1, u);
+}
+
+ijk_inl dvec4 ijkVecBezier3O4d(dvec4 const v0, dvec4 const v1, dvec4 const v2, dvec4 const v3, double const u)
+{
+	dvec4 const u0 = ijkVecBezier2O4d(v0, v1, v2, u), u1 = ijkVecBezier2O4d(v1, v2, v3, u);
+	return ijkVecLerp4d(u0, u1, u);
+}
+
+ijk_inl dvec4 ijkVecBezierNO4d(dvec4 const v[], size const order, double const u)
+{
+	if (order > 0)
+	{
+		dvec4 const u0 = ijkVecBezierNO4d(v + 0, order - 1, u), u1 = ijkVecBezierNO4d(v + 1, order - 1, u);
+		return ijkVecLerp4d(u0, u1, u);
+	}
+	return *v;
+}
+
+ijk_inl dvec4 ijkVecCubicHermite4d(dvec4 const v0, dvec4 const dv0, dvec4 const v1, dvec4 const dv1, double const u)
+{
+	double const u2 = u * u, u3 = u * u2;
+	dvec4 const k = {
+		(dbl_one - dbl_three * u2 + dbl_two * u3),
+		(u - dbl_two * u2 + u3),
+		(dbl_three * u2 - dbl_two * u3),
+		(u3 - u2),
+	};
+	dvec4 const v_out = {
+		(k.x * v0.x + k.y * dv0.x + k.z * v1.x + k.w * dv1.x),
+		(k.x * v0.y + k.y * dv0.y + k.z * v1.y + k.w * dv1.y),
+		(k.x * v0.z + k.y * dv0.z + k.z * v1.z + k.w * dv1.z),
+		(k.x * v0.w + k.y * dv0.w + k.z * v1.w + k.w * dv1.w),
+	};
+	return v_out;
+}
+
+ijk_inl dvec4 ijkVecCubicHermiteHandles4d(dvec4 const v0, dvec4 const cv0, dvec4 const v1, dvec4 const cv1, double const u)
+{
+	double const u2 = u * u, u3 = u * u2;
+	dvec4 const k = {
+		(dbl_one - u - u2 + u3),
+		(u - dbl_two * u2 + u3),
+		(dbl_four * u2 - dbl_three * u3),
+		(u3 - u2),
+	};
+	dvec4 const v_out = {
+		(k.x * v0.x + k.y * cv0.x + k.z * v1.x + k.w * cv1.x),
+		(k.x * v0.y + k.y * cv0.y + k.z * v1.y + k.w * cv1.y),
+		(k.x * v0.z + k.y * cv0.z + k.z * v1.z + k.w * cv1.z),
+		(k.x * v0.w + k.y * cv0.w + k.z * v1.w + k.w * cv1.w),
+	};
+	return v_out;
+}
+
+ijk_inl dvec4 ijkVecCubicCatmullRom4d(dvec4 const vp, dvec4 const v0, dvec4 const v1, dvec4 const v2, double const u)
+{
+	double const uh = dbl_half * u, u2h = u * uh, u3h = u * u2h;
+	dvec4 const k = {
+		(dbl_two * u2h - uh - u3h),
+		(dbl_one - dbl_five * u2h + dbl_three * u3h),
+		(uh + dbl_four * u2h - dbl_three * u3h),
+		(u3h - u2h),
+	};
+	dvec4 const v_out = {
+		(k.x * vp.x + k.y * v0.x + k.z * v1.x + k.w * v2.x),
+		(k.x * vp.y + k.y * v0.y + k.z * v1.y + k.w * v2.y),
+		(k.x * vp.z + k.y * v0.z + k.z * v1.z + k.w * v2.z),
+		(k.x * vp.w + k.y * v0.w + k.z * v1.w + k.w * v2.w),
+	};
+	return v_out;
+}
+
+ijk_inl dvec4 ijkVecBicubicCatmullRom4d(dvec4 const vpp, dvec4 const vp0, dvec4 const vp1, dvec4 const vp2, dvec4 const v0p, dvec4 const v00, dvec4 const v01, dvec4 const v02, dvec4 const v1p, dvec4 const v10, dvec4 const v11, dvec4 const v12, dvec4 const v2p, dvec4 const v20, dvec4 const v21, dvec4 const v22, double const up, double const u0, double const u1, double const u2, double const u)
+{
+	dvec4 const vp = ijkVecCubicCatmullRom4d(vpp, vp0, vp1, vp2, up), v0 = ijkVecCubicCatmullRom4d(v0p, v00, v01, v02, u0),
+		v1 = ijkVecCubicCatmullRom4d(v1p, v10, v11, v12, u1), v2 = ijkVecCubicCatmullRom4d(v2p, v20, v21, v22, u2);
+	return ijkVecCubicCatmullRom4d(vp, v0, v1, v2, u);
+}
+
+ijk_inl double ijkVecReparamCubicHermite4d(double uTable_out[], double lTable_out[], dvec4 vTable_out[], size const numDivisions, ibool const lNormalize, dvec4 const v0, dvec4 const dv0, dvec4 const v1, dvec4 const dv1)
+{
+	double u = dbl_zero, du, arcLength = dbl_zero, arcLengthInv;
+	double* lTable = lTable_out;
+	uindex i;
+	dvec4 v, vc;
+
+	if (uTable_out && lTable_out && vTable_out && numDivisions)
+	{
+		*uTable_out = u;
+		*lTable_out = arcLength;
+		*vTable_out = vc = v0;
+
+		for (i = 1, du = ijk_recip_dbl((double)numDivisions); i <= numDivisions; ++i)
+		{
+			u = (double)i * du;
+			v = ijkVecCubicHermite4d(v0, dv0, v1, dv1, u);
+			arcLength += ijkVecDistance4d(v, vc);
+			*(++uTable_out) = u;
+			*(++lTable_out) = arcLength;
+			*(++vTable_out) = vc = v;
+		}
+
+		if (lNormalize)
+			for (i = 1, arcLengthInv = ijk_recip_dbl(arcLength); i <= numDivisions; ++i)
+				*(++lTable) *= arcLengthInv;
+	}
+	return arcLength;
+}
+
+ijk_inl double ijkVecReparamCubicHermiteHandles4d(double uTable_out[], double lTable_out[], dvec4 vTable_out[], size const numDivisions, ibool const lNormalize, dvec4 const v0, dvec4 const cv0, dvec4 const v1, dvec4 const cv1)
+{
+	double u = dbl_zero, du, arcLength = dbl_zero, arcLengthInv;
+	double* lTable = lTable_out;
+	uindex i;
+	dvec4 v, vc;
+
+	if (uTable_out && lTable_out && vTable_out && numDivisions)
+	{
+		*uTable_out = u;
+		*lTable_out = arcLength;
+		*vTable_out = vc = v0;
+
+		for (i = 1, du = ijk_recip_dbl((double)numDivisions); i <= numDivisions; ++i)
+		{
+			u = (double)i * du;
+			v = ijkVecCubicHermiteHandles4d(v0, cv0, v1, cv1, u);
+			arcLength += ijkVecDistance4d(v, vc);
+			*(++uTable_out) = u;
+			*(++lTable_out) = arcLength;
+			*(++vTable_out) = vc = v;
+		}
+
+		if (lNormalize)
+			for (i = 1, arcLengthInv = ijk_recip_dbl(arcLength); i <= numDivisions; ++i)
+				*(++lTable) *= arcLengthInv;
+	}
+	return arcLength;
+}
+
+ijk_inl double ijkVecReparamCubicCatmullRom4d(double uTable_out[], double lTable_out[], dvec4 vTable_out[], size const numDivisions, ibool const lNormalize, dvec4 const vp, dvec4 const v0, dvec4 const v1, dvec4 const v2)
+{
+	double u = dbl_zero, du, arcLength = dbl_zero, arcLengthInv;
+	double* lTable = lTable_out;
+	uindex i;
+	dvec4 v, vc;
+
+	if (uTable_out && lTable_out && vTable_out && numDivisions)
+	{
+		*uTable_out = u;
+		*lTable_out = arcLength;
+		*vTable_out = vc = v0;
+
+		for (i = 1, du = ijk_recip_dbl((double)numDivisions); i <= numDivisions; ++i)
+		{
+			u = (double)i * du;
+			v = ijkVecCubicCatmullRom4d(vp, v0, v1, v2, u);
+			arcLength += ijkVecDistance4d(v, vc);
+			*(++uTable_out) = u;
+			*(++lTable_out) = arcLength;
+			*(++vTable_out) = vc = v;
+		}
+
+		if (lNormalize)
+			for (i = 1, arcLengthInv = ijk_recip_dbl(arcLength); i <= numDivisions; ++i)
+				*(++lTable) *= arcLengthInv;
+	}
+	return arcLength;
+}
+
+ijk_inl double ijkVecReparamBicubicCatmullRom4d(double uTable_out[], double lTable_out[], dvec4 vTable_out[], size const numDivisions, ibool const lNormalize, dvec4 const vpp, dvec4 const vp0, dvec4 const vp1, dvec4 const vp2, dvec4 const v0p, dvec4 const v00, dvec4 const v01, dvec4 const v02, dvec4 const v1p, dvec4 const v10, dvec4 const v11, dvec4 const v12, dvec4 const v2p, dvec4 const v20, dvec4 const v21, dvec4 const v22, double const up, double const u0, double const u1, double const u2)
+{
+	double u = dbl_zero, du, arcLength = dbl_zero, arcLengthInv;
+	double* lTable = lTable_out;
+	uindex i;
+	dvec4 v, vc;
+
+	if (uTable_out && lTable_out && vTable_out && numDivisions)
+	{
+		dvec4 const vp = ijkVecCubicCatmullRom4d(vpp, vp0, vp1, vp2, up), v0 = ijkVecCubicCatmullRom4d(v0p, v00, v01, v02, u0),
+			v1 = ijkVecCubicCatmullRom4d(v1p, v10, v11, v12, u1), v2 = ijkVecCubicCatmullRom4d(v2p, v20, v21, v22, u2);
+
+		*uTable_out = u;
+		*lTable_out = arcLength;
+		*vTable_out = vc = v0;
+
+		for (i = 1, du = ijk_recip_dbl((double)numDivisions); i <= numDivisions; ++i)
+		{
+			u = (double)i * du;
+			v = ijkVecCubicCatmullRom4d(vp, v0, v1, v2, u);
+			arcLength += ijkVecDistance4d(v, vc);
+			*(++uTable_out) = u;
+			*(++lTable_out) = arcLength;
+			*(++vTable_out) = vc = v;
+		}
+
+		if (lNormalize)
+			for (i = 1, arcLengthInv = ijk_recip_dbl(arcLength); i <= numDivisions; ++i)
+				*(++lTable) *= arcLengthInv;
+	}
+	return arcLength;
+}
+
+ijk_inl dvec4 ijkVecSampleTableInc4d(double const uTable[], dvec4 const vTable[], index i, index di, double const u)
+{
+	dvec4 v0, v1;
+	double uReparam;
+	double u0, u1 = *(uTable + (i += (di ? di : (di = 1))));
+
+	while (u1 < u)
+		u1 = *(uTable + (i += di));
+	v1 = *(vTable + i);
+	v0 = *(vTable + (i -= di));
+	u0 = *(uTable + i);
+	uReparam = ijkInterpLinearInv_dbl(u0, u1, u);
+	return ijkVecLerp4d(v0, v1, uReparam);
+}
+
+ijk_inl dvec4 ijkVecSampleTableDec4d(double const uTable[], dvec4 const vTable[], index i, index di, double const u)
+{
+	dvec4 v0, v1;
+	double uReparam;
+	double u0, u1 = *(uTable + (i += (di ? di : (di = 1))));
+
+	while (u1 > u)
+		u1 = *(uTable + (i += di));
+	v1 = *(vTable + i);
+	v0 = *(vTable + (i -= di));
+	u0 = *(uTable + i);
+	uReparam = ijkInterpLinearInv_dbl(u0, u1, u);
+	return ijkVecLerp4d(v0, v1, uReparam);
 }
 
 
