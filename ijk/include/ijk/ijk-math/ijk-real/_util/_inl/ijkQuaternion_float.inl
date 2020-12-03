@@ -414,6 +414,36 @@ ijk_inl floatv ijkQuatMulQfv(float4 q_out, float4 const q_lh, float4 const q_rh)
 	return ijkQuatCopyQfv(q_out, q);
 }
 
+ijk_inl floatv ijkQuatMulConjQfv(float4 q_out, float4 const q_lh, float4 const q_rh)
+{
+	// ql qr* = (wl + vl)(wr - vr)
+	//		= wl wr - wl vr + vl wr - vl vr
+	//		= wl wr - wl vr + vl wr - vl x vr + vl . vr
+	//		= (wl wr + vl . vr) + vr x vl + vl wr - wl vr
+	//		= ql . qr + vr x vl + vl wr - wl vr
+	float4 q;
+	q[0] = q_rh[1] * q_lh[2] - q_rh[2] * q_lh[1] - q_lh[3] * q_rh[0] + q_lh[0] * q_rh[3];
+	q[1] = q_rh[2] * q_lh[0] - q_rh[0] * q_lh[2] - q_lh[3] * q_rh[1] + q_lh[1] * q_rh[3];
+	q[2] = q_rh[0] * q_lh[1] - q_rh[1] * q_lh[0] - q_lh[3] * q_rh[2] + q_lh[2] * q_rh[3];
+	q[3] = ijkVecDot4fv(q_lh, q_rh);
+	return ijkQuatCopyQfv(q_out, q);
+}
+
+ijk_inl floatv ijkQuatConjMulQfv(float4 q_out, float4 const q_lh, float4 const q_rh)
+{
+	// ql* qr = (wl - vl)(wr + vr)
+	//		= wl wr + wl vr - vl wr - vl vr
+	//		= wl wr + wl vr - vl wr - vl x vr + vl . vr
+	//		= (wl wr + vl . vr) + vr x vl - vl wr + wl vr
+	//		= ql . qr + vr x vl - vl wr + wl vr
+	float4 q;
+	q[0] = q_rh[1] * q_lh[2] - q_rh[2] * q_lh[1] - q_rh[3] * q_lh[0] + q_rh[0] * q_lh[3];
+	q[1] = q_rh[2] * q_lh[0] - q_rh[0] * q_lh[2] - q_rh[3] * q_lh[1] + q_rh[1] * q_lh[3];
+	q[2] = q_rh[0] * q_lh[1] - q_rh[1] * q_lh[0] - q_rh[3] * q_lh[2] + q_rh[2] * q_lh[3];
+	q[3] = ijkVecDot4fv(q_lh, q_rh);
+	return ijkQuatCopyQfv(q_out, q);
+}
+
 ijk_inl floatv ijkQuatDivQfv(float4 q_out, float4 const q_lh, float4 const q_rh)
 {
 	float4 q_inv;
@@ -817,6 +847,7 @@ ijk_inl floatv ijkQuatRotateScaleVecQfv3(float3 v_out, float4 const q_in, float3
 	//		= v|q|^2 + 2(wq(vq x v) + vq(vq . v) - v(vq . vq))
 	//		= v|q|^2 + 2(vq x (wq v) + vq x (vq x v))
 	//		= v|q|^2 + 2vq x (wq v + vq x v)
+	// 24*,14+-
 	f32 const vx = v_in[0], vy = v_in[1], vz = v_in[2], qx = q_in[0], qy = q_in[1], qz = q_in[2], qw = q_in[3],
 		ww = qw * qw - ijkVecLengthSq3fv(q_in), w2 = flt_two * qw, d = flt_two * ijkVecDot3fv(q_in, v_in);	// 9*, 5+-
 	float3 const v = {
@@ -824,6 +855,7 @@ ijk_inl floatv ijkQuatRotateScaleVecQfv3(float3 v_out, float4 const q_in, float3
 		(vy * ww + w2 * (qz * vx - qx * vz) + qy * d),	// 5*, 3+-
 		(vz * ww + w2 * (qx * vy - qy * vx) + qz * d),	// 5*, 3+-
 	};
+	// 25*,15+-
 	//f32 const lenSq = ijkQuatLengthSqQfv(q_in);	// 4*, 3+
 	//float3 const v = {
 	//	(qy * vz - qz * vy + qw * vx),	// 3*, 2+-
@@ -1088,7 +1120,7 @@ ijk_inl floatv ijkQuatDecodeTranslateQfv(float3 translate_out, float4 const qt_i
 	//		= t|q|^2 = t (unit encoding quaternion; proves that real is zero)
 	// t = 2q'q*
 	//		= 2([w' w + v . v'] - w' v + v' w + v x v')
-	//		= 2([0] + [v' w - w' v + v x v'])
+	//		= 2([0] + [v' w - w' v + v x v'])	-> [15x9+- = 24]
 	f32 const qx = q_decode[0], qy = q_decode[1], qz = q_decode[2], qw = q_decode[3],
 		qtx = qt_in[0], qty = qt_in[1], qtz = qt_in[2], qtw = qt_in[3];
 	translate_out[0] = flt_two * (qtx * qw - qtw * qx + qy * qtz - qz * qty);
@@ -1624,20 +1656,85 @@ ijk_inl float4m ijkDualQuatGetMatTranslateRemScaleDQfm4(float4x4 m_out, float2x4
 
 ijk_inl floatv ijkDualQuatTransformScaleVecDQfm3(float3 v_out, float2x4 const dq_in, float3 const v_in)
 {
-
-	return v_out;
+	// ensure scale is applied to rotation part only: 
+	//	(1 + Ev') = Q (1 + Ev|Q|^2) !Q / |Q|^2
+	//				= (r + Ed)(1 + Ev|Q|^2)(r* - Ed*) / |Q|^2
+	//				= (r + Ed)(r* - Ed* + Evr*|Q|^2 - EE(...)) / |Q|^2
+	//				= (r + Ed)(r* + E(vr*|Q|^2 - d*)) / |Q|^2
+	//				= (rr* + Er(vr*|Q|^2 - d*) + Edr* + EE(...)) / |Q|^2
+	//				= (|Q|^2 + E(rvr*|Q|^2 - r(r*t*/2) + trr*/2)) / |Q|^2
+	//				= (|Q|^2 + E(rvr*|Q|^2 - r(r*t*/2) + trr*/2)) / |Q|^2
+	//				= (|Q|^2 + E(rvr*|Q|^2 + rr*t/2 + trr*/2) / |Q|^2
+	//				= (|Q|^2 + E(rvr*|Q|^2 + t|Q|^2) / |Q|^2
+	//				= 1 + E(rvr* + t)
+	//				= 1 + E(rvr* + 2dr^-1) -> rotate, scale, translate in correct sequence
+	//						rvr* + 2dr^-1
+	//							= rvr* + 2dr*/|Q|^2	-> [rotate&scale: 24x14+; decode: 21; lenSqDiv: 4; add: 3; total = 38+21+4+3 = 66]
+	//							= (rv + 2d/|Q|^2)r*	-> [mul: 12x8+; lenSq: 4*3+; recipMulAdd: 9; mulConj(no real): 12*9+; total = 20+7+9+21 = 57]
+	floatkv r = dq_in[0], d = dq_in[1];
+	f32 const lenSqInv = (flt_two / ijkQuatLengthSqQfv(r));
+	float4 const tmp_lh = {
+		(lenSqInv * d[0] + r[1] * v_in[2] - r[2] * v_in[1] + r[3] * v_in[0]),
+		(lenSqInv * d[1] + r[2] * v_in[0] - r[0] * v_in[2] + r[3] * v_in[1]),
+		(lenSqInv * d[2] + r[0] * v_in[1] - r[1] * v_in[0] + r[3] * v_in[2]),
+		(lenSqInv * d[3] - ijkVecDot3fv(r, v_in)),
+	};
+	return ijkQuatDecodeTranslateD2Qfv(v_out, tmp_lh, r);
 }
 
 ijk_inl floatv ijkDualQuatUnitTransformVecDQfm3(float3 v_out, float2x4 const dq_in, float3 const v_in)
 {
-
-	return v_out;
+	// input is assumed to be normalized, or translation part should be scaled as well
+	//	(1 + Ev') = Q (1 + Ev) !Q
+	//				= (r + Ed)(1 + Ev)(r* - Ed*)
+	//				= (r + Ed)(r* - Ed* + Evr* - EE(...))
+	//				= (r + Ed)(r* + E(vr* - d*))
+	//				= (rr* + Er(vr* - d*) + Edr* + EE(...))
+	//				= (|Q|^2 + E(rvr* - r(r*t*/2) + trr*/2))
+	//				= (|Q|^2 + E(rvr* - r(r*t*/2) + trr*/2))
+	//				= (|Q|^2 + E(rvr* + rr*t/2 + trr*/2)
+	//				= (|Q|^2 + E(rvr* + t|Q|^2)
+	//				= |Q|^2 + E(rvr* + t|Q|^2)
+	//				= |Q|^2 + E(rvr* + 2dr*) -> rotate, scale, scaled translate
+	//							rvr* + 2dr*
+	//								= rvr* + 2dr*	-> [rotate&scale: 38; decode: 24; add: 3; total = 38+24+3 = 65]
+	//								= (rv + 2d)r*	-> [mul: 20; add&scale: 8; mulConj(no real): 21; total = 20+8+21 = 49]
+	floatkv r = dq_in[0], d = dq_in[1];
+	float4 const tmp_lh = {
+		(flt_two * d[0] + r[1] * v_in[2] - r[2] * v_in[1] + r[3] * v_in[0]),
+		(flt_two * d[1] + r[2] * v_in[0] - r[0] * v_in[2] + r[3] * v_in[1]),
+		(flt_two * d[2] + r[0] * v_in[1] - r[1] * v_in[0] + r[3] * v_in[2]),
+		(flt_two * d[3] - ijkVecDot3fv(r, v_in)),
+	};
+	return ijkQuatDecodeTranslateD2Qfv(v_out, tmp_lh, r);
 }
 
 ijk_inl floatv ijkDualQuatTransformVecDQfm3(float3 v_out, float2x4 const dq_in, float3 const v_in)
 {
-
-	return v_out;
+	// normalize result to make rigid transform
+	//	(1 + Ev') = Q (1 + Ev) !Q / |Q|^2
+	//				= (r + Ed)(1 + Ev)(r* - Ed*) / |Q|^2
+	//				= (r + Ed)(r* - Ed* + Evr* - EE(...)) / |Q|^2
+	//				= (r + Ed)(r* + E(vr* - d*)) / |Q|^2
+	//				= (rr* + Er(vr* - d*) + Edr* + EE(...)) / |Q|^2
+	//				= (|Q|^2 + E(rvr* - r(r*t*/2) + trr*/2)) / |Q|^2
+	//				= (|Q|^2 + E(rvr* - r(r*t*/2) + trr*/2)) / |Q|^2
+	//				= (|Q|^2 + E(rvr* + rr*t/2 + trr*/2) / |Q|^2
+	//				= (|Q|^2 + E(rvr* + t|Q|^2) / |Q|^2
+	//				= 1 + E(rvr*/|Q|^2 + t)
+	//				= 1 + E(rvr^-1 + t)
+	//				= 1 + E(rvr^-1 + 2dr^-1) -> rotate, translate
+	//						rvr^-1 + 2dr^-1
+	//							= (rvr* + 2dr*)/|Q|^2	-> [see above: 66; lenSq: 4*3+; div: 4; total = 77]
+	//							= (rv + 2d)r*/|Q|^2		-> [see above: 49; lenSq: 12; div: 4; total = 65]
+	floatkv r = dq_in[0], d = dq_in[1];
+	float4 const tmp_lh = {
+		(flt_two * d[0] + r[1] * v_in[2] - r[2] * v_in[1] + r[3] * v_in[0]),
+		(flt_two * d[1] + r[2] * v_in[0] - r[0] * v_in[2] + r[3] * v_in[1]),
+		(flt_two * d[2] + r[0] * v_in[1] - r[1] * v_in[0] + r[3] * v_in[2]),
+		(flt_two * d[3] - ijkVecDot3fv(r, v_in)),
+	};
+	return ijkQuatDecodeTranslateRemScaleD2Qfv(v_out, tmp_lh, r);
 }
 
 ijk_inl float4m ijkDualQuatLerpDQfm(float2x4 dq_out, float2x4 const dq0, float2x4 const dq1, f32 const u)

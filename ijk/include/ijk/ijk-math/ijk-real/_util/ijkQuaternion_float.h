@@ -287,6 +287,22 @@ floatv ijkQuatMulVecQfv3q(float4 q_out, float3 const v_lh, float4 const q_rh);
 //		return: q_out
 floatv ijkQuatMulQfv(float4 q_out, float4 const q_lh, float4 const q_rh);
 
+// ijkQuatMulConjQ*v
+//	Calculate product of quaternion with quaternion conjugate.
+//		param q_out: output quaternion, product
+//		param q_lh: left-hand quaternion
+//		param q_rh: right-hand quaternion, conjugated before multiplying
+//		return: q_out
+floatv ijkQuatMulConjQfv(float4 q_out, float4 const q_lh, float4 const q_rh);
+
+// ijkQuatConjMulQ*v
+//	Calculate product of quaternion conjugate with quaternion.
+//		param q_out: output quaternion, product
+//		param q_lh: left-hand quaternion, conjugated before multiplying
+//		param q_rh: right-hand quaternion
+//		return: q_out
+floatv ijkQuatConjMulQfv(float4 q_out, float4 const q_lh, float4 const q_rh);
+
 // ijkQuatDivQ*v
 //	Calculate quotient of quaternions (multiply by rh inverse).
 //		param q_out: output quaternion, quotient
@@ -1261,7 +1277,8 @@ floatv ijkDualQuatTransformScaleVecDQfm3(float3 v_out, float2x4 const dq_in, flo
 
 // ijkDualQuatUnitTransformVecDQ*m3
 //	Transform a 3D vector using a dual quaternion; use when dual quaternion is 
-//	unit-length for most optimized solution.
+//	unit-length for most optimized solution or when translation part should 
+//	also be scaled.
 //		param v_out: output vector
 //		param dq_in: input dual quaternion
 //		param v_in: input vector
@@ -1270,7 +1287,7 @@ floatv ijkDualQuatUnitTransformVecDQfm3(float3 v_out, float2x4 const dq_in, floa
 
 // ijkDualQuatTransformVecDQ*m3
 //	Transform a 3D vector using a dual quaternion; use when dual quaternion is 
-//	unit length or translation part should also be scaled.
+//	non-unit length to remove scale from all parts.
 //		param v_out: output vector
 //		param dq_in: input dual quaternion
 //		param v_in: input vector
