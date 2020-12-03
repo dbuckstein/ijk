@@ -3309,6 +3309,356 @@ floatv ijkVecUnitReflect2fv(float2 v_out, float2 const v_in, float2 const v_nrm)
 //		return: v_out
 floatv ijkVecReflect2fv(float2 v_out, float2 const v_in, float2 const v_nrm);
 
+// ijkVecResize2*v
+//	Change length of vector, retaining direction.
+//		param v_out: output vector, resized
+//		param v_in: input vector
+//		param length: new length of vector
+//		return: v_out
+floatv ijkVecResize2fv(float2 v_out, float2 const v_in, f32 const length);
+
+// ijkVecResizeSafe2*v
+//	Change length of vector, retaining direction; division-by-zero safe.
+//		param v_out: output vector, resized
+//		param v_in: input vector
+//		param length: new length of vector
+//		return: v_out
+floatv ijkVecResizeSafe2fv(float2 v_out, float2 const v_in, f32 const length);
+
+// ijkVecCrossResize2*v
+//	Change length of cross product result, retaining direction.
+//		param v_lh: left-hand vector
+//		param v_lh: right-hand vector
+//		param length: new length of vector
+//		return: resized scalar cross product
+f32 ijkVecCrossResize2fv(float2 const v_lh, float2 const v_rh, f32 const length);
+
+// ijkVecCrossResizeSafe2*v
+//	Change length of cross product result, retaining direction; 
+//	division-by-zero safe.
+//		param v_lh: left-hand vector
+//		param v_lh: right-hand vector
+//		param length: new length of vector
+//		return: resized scalar cross product
+f32 ijkVecCrossResizeSafe2fv(float2 const v_lh, float2 const v_rh, f32 const length);
+
+// ijkVecNearest2*v
+//	Nearest-neighbor interpolation between two reference values.
+//		param v_out: output vector, interpolated
+//		param v0: initial reference value/start point, result when t<0.5
+//		param v1: terminal reference value/end point, result when t>=0.5
+//		param u: interpolation parameter
+//		return: v_out
+floatv ijkVecNearest2fv(float2 v_out, float2 const v0, float2 const v1, f32 const u);
+
+// ijkVecBinearest2*v
+//	Nearest-neighbor interpolation of nearest-neighbor interpolated values.
+//		param v_out: output vector, interpolated
+//		param v00: initial reference value/start point in first pair, result 
+//			of first pair when t0<0.5
+//		param v01: terminal reference value/end point in first pair, result 
+//			of first pair when t0>=0.5
+//		param v10: initial reference value/start point in second pair, result 
+//			of second pair when t1<0.5
+//		param v11: terminal reference value/end point in second pair, result 
+//			of second pair when t1>=0.5
+//		param u0: interpolation parameter for first pair
+//		param u1: interpolation parameter for second pair
+//		param u: interpolation parameter for results
+//		return: v_out
+floatv ijkVecBinearest2fv(float2 v_out, float2 const v00, float2 const v01, float2 const v10, float2 const v11, f32 const u0, f32 const u1, f32 const u);
+
+// ijkVecRemap2*v
+//	Linear remap between two ranges by first inverse interpolating between 
+//	source/original range and then linearly interpolating between destination/
+//	target range.
+//		param v_out: output vector, interpolated
+//		param v0_dst: initial reference value in destination/target range, 
+//			result when v_src=v0_src
+//		param v1_dst: terminal reference value in destination/target range, 
+//			result when v_src=v1_src
+//		param v0_src: initial reference value in source/original range
+//		param v1_src: terminal reference value in source/original range
+//		param v_src: value to be remapped from original to target range
+//		return: v_out
+floatv ijkVecRemap2fv(float2 v_out, float2 const v0_dst, float2 const v1_dst, float2 const v0_src, float2 const v1_src, float2 const v_src);
+
+// ijkVecBezier0O2*v
+//	Perform order-0 (point) Bezier interpolation given one reference value.
+//		param v_out: output vector, interpolated
+//		param v0: reference value, always returned
+//		param u: interpolation parameter; not used for order 0 interpolation
+//		return: v_out
+floatv ijkVecBezier0O2fv(float2 v_out, float2 const v0, f32 const u);
+
+// ijkVecBezier1O2*v
+//	Perform order-1 (linear) Bezier interpolation given two reference values.
+//		param v_out: output vector, interpolated
+//		param v0: first reference value, result when t=0
+//		param v1: second reference value, result when t=1
+//		param u: interpolation parameter; inputs in [0,1] interpolate between 
+//			v0 and v1
+//		return: v_out
+floatv ijkVecBezier1O2fv(float2 v_out, float2 const v0, float2 const v1, f32 const u);
+
+// ijkVecBezier2O2*v
+//	Perform order-2 (quadratic) Bezier interpolation given three reference 
+//	values.
+//		param v_out: output vector, interpolated
+//		param v0: first reference value, result when t=0
+//		param v1: second reference value
+//		param v2: third reference value, result when t=1
+//		param u: interpolation parameter; inputs in [0,1] interpolate between 
+//			v0 and v2
+//		return: v_out
+floatv ijkVecBezier2O2fv(float2 v_out, float2 const v0, float2 const v1, float2 const v2, f32 const u);
+
+// ijkVecBezier3O2*v
+//	Perform order-3 (cubic) Bezier interpolation given four reference values.
+//		param v_out: output vector, interpolated
+//		param v0: first reference value, result when t=0
+//		param v1: second reference value
+//		param v2: third reference value
+//		param v3: fourth reference value, result when t=1
+//		param u: interpolation parameter; inputs in [0,1] interpolate between 
+//			v0 and v3
+//		return: v_out
+floatv ijkVecBezier3O2fv(float2 v_out, float2 const v0, float2 const v1, float2 const v2, float2 const v3, f32 const u);
+
+// ijkVecBezierNO2*v
+//	Perform order-N (recursive) Bezier interpolation given an array of 
+//	reference values.
+//		param v_out: output vector, interpolated
+//		param v: array of reference values, result when t=0 is v[0], result 
+//			when t=1 is v[order]
+//			valid: non-null
+//		param order: order of interpolation or number of recursive steps; 
+//			note: size of array is order+1, order is maximum index
+//		param u: interpolation parameter; inputs in [0,1] interpolate between 
+//			v[0] and v[order]
+//		return: v_out
+floatv ijkVecBezierNO2fv(float2 v_out, float2 const v[], size const order, f32 const u);
+
+// ijkVecCubicHermite2*v
+//	Cubic Hermite spline/curve interpolation between two reference values with 
+//	control tangents (rates of change at reference values).
+//		param v_out: output vector, interpolated
+//		param v0: initial reference value/start point, result when t=0
+//		param dv0: initial tangent/rate of change
+//		param v1: terminal reference value/end point, result when t=1
+//		param dv1: terminal tangent/rate of change
+//		param u: interpolation parameter; inputs in [0,1] interpolate between 
+//			v0 and v1
+//		return: v_out
+floatv ijkVecCubicHermite2fv(float2 v_out, float2 const v0, float2 const dv0, float2 const v1, float2 const dv1, f32 const u);
+
+// ijkVecCubicHermiteHandles2*v
+//	Cubic Hermite spline/curve interpolation between two reference values with 
+//	control handles to determine rate of change at reference values.
+//		param v_out: output vector, interpolated
+//		param v0: initial reference value/start point, result when t=0
+//		param cv0: initial control handle value, should be greater than v0 
+//			for a positive rate of change
+//		param v1: terminal reference value/end point, result when t=1
+//		param cv1: terminal control handle value, should be greater than v1 
+//			for a positive rate of change
+//		param u: interpolation parameter; inputs in [0,1] interpolate between 
+//			v0 and v1
+//		return: v_out
+floatv ijkVecCubicHermiteHandles2fv(float2 v_out, float2 const v0, float2 const cv0, float2 const v1, float2 const cv1, f32 const u);
+
+// ijkVecCubicCatmullRom2*v
+//	Catmull-Rom spline/curve interpolation between two reference values with 
+//	two external control values.
+//		param v_out: output vector, interpolated
+//		param vp: initial control value (value before initial reference)
+//		param v0: initial reference value/start point, result when t=0
+//		param v1: terminal reference value/end point, result when t=1
+//		param v2: terminal control value (value after terminal reference)
+//		param u: interpolation parameter; inputs in [0,1] interpolate between 
+//			v0 and v1
+//		return: v_out
+floatv ijkVecCubicCatmullRom2fv(float2 v_out, float2 const vp, float2 const v0, float2 const v1, float2 const v2, f32 const u);
+
+// ijkVecBicubicCatmullRom2*v
+//	Bi-cubic interpolation using Catmull-Rom interpolation for segments.
+//		param v_out: output vector, interpolated
+//		param vpp: initial control value of initial control curve
+//		param vp0: initial reference value/start point of initial control 
+//			curve, result of initial control curve when tp=0
+//		param vp1: terminal reference value/end point of initial control 
+//			curve, result of initial control curve when tp=1
+//		param vp2: terminal control value of initial control curve
+//		param v0p: initial control value of initial value curve
+//		param v00: initial reference value/start point of initial value 
+//			curve, result of initial value curve when t0=0
+//		param v01: terminal reference value/end point of initial value 
+//			curve, result of initial value curve when t0=1
+//		param v02: terminal control value of initial value curve
+//		param v1p: initial control value of terminal value curve
+//		param v10: initial reference value/start point of terminal value 
+//			curve, result of terminal value curve when t1=0
+//		param v11: terminal reference value/end point of terminal value 
+//			curve, result of terminal value curve when t1=1
+//		param v12: terminal control value of terminal value curve
+//		param v2p: initial control value of terminal control curve
+//		param v20: initial reference value/start point of terminal control 
+//			curve, result of terminal control curve when t2=0
+//		param v21: terminal reference value/end point of terminal control 
+//			curve, result of terminal control curve when t2=1
+//		param v22: terminal control value of terminal control curve
+//		param up: interpolation parameter for initial control curve
+//		param u0: interpolation parameter for initial value curve
+//		param u1: interpolation parameter for terminal value curve
+//		param u2: interpolation parameter for terminal control curve
+//		param u: interpolation parameter for result
+//		return: v_out
+floatv ijkVecBicubicCatmullRom2fv(float2 v_out, float2 const vpp, float2 const vp0, float2 const vp1, float2 const vp2, float2 const v0p, float2 const v00, float2 const v01, float2 const v02, float2 const v1p, float2 const v10, float2 const v11, float2 const v12, float2 const v2p, float2 const v20, float2 const v21, float2 const v22, f32 const up, f32 const u0, f32 const u1, f32 const u2, f32 const u);
+
+// ijkVecReparamCubicHermite2*v
+//	Reparameterize a cubic Hermite segment into sample table.
+//		param uTable_out: array of interpolation parameters at each sample
+//			valid: non-null
+//		param lTable_out: array of accumulated arc lengths at each sample
+//			valid: non-null
+//		param vTable_out: array of values sampled
+//			valid: non-null
+//		param numDivisions: number of intermediate samples on segment
+//			valid: non-zero
+//			note: tables should have at least (numDivisions+1) elements
+//			note: precision of arc length increases as this number increases
+//		param lNormalize: option to normalize arc lengths
+//		param v0: initial reference value/start point, result when t=0
+//		param dv0: initial tangent/rate of change
+//		param v1: terminal reference value/end point, result when t=1
+//		param dv1: terminal tangent/rate of change
+//		return: total arc length
+f32 ijkVecReparamCubicHermite2fv(f32 uTable_out[], f32 lTable_out[], float2 vTable_out[], size const numDivisions, ibool const lNormalize, float2 const v0, float2 const dv0, float2 const v1, float2 const dv1);
+
+// ijkVecReparamCubicHermiteHandles2*v
+//	Reparameterize a cubic Hermite segment with handles into sample table.
+//		param uTable_out: array of interpolation parameters at each sample
+//			valid: non-null
+//		param lTable_out: array of accumulated arc lengths at each sample
+//			valid: non-null
+//		param vTable_out: array of values sampled
+//			valid: non-null
+//		param numDivisions: number of intermediate samples on segment
+//			valid: non-zero
+//			note: tables should have at least (numDivisions+1) elements
+//			note: precision of arc length increases as this number increases
+//		param lNormalize: option to normalize arc lengths
+//		param v0: initial reference value/start point, result when t=0
+//		param cv0: initial control handle value, should be greater than v0 
+//			for a positive rate of change
+//		param v1: terminal reference value/end point, result when t=1
+//		param cv1: terminal control handle value, should be greater than v1 
+//			for a positive rate of change
+//		return: total arc length
+f32 ijkVecReparamCubicHermiteHandles2fv(f32 uTable_out[], f32 lTable_out[], float2 vTable_out[], size const numDivisions, ibool const lNormalize, float2 const v0, float2 const cv0, float2 const v1, float2 const cv1);
+
+// ijkVecReparamCubicCatmullRom2*v
+//	Reparameterize a cubic Catmull-Rom segment into sample table.
+//		param uTable_out: array of interpolation parameters at each sample
+//			valid: non-null
+//		param lTable_out: array of accumulated arc lengths at each sample
+//			valid: non-null
+//		param vTable_out: array of values sampled
+//			valid: non-null
+//		param numDivisions: number of intermediate samples on segment
+//			valid: non-zero
+//			note: tables should have at least (numDivisions+1) elements
+//			note: precision of arc length increases as this number increases
+//		param lNormalize: option to normalize arc lengths
+//		param vp: initial control value
+//		param v0: initial reference value/start point, result when t=0
+//		param v1: terminal reference value/end point, result when t=1
+//		param v2: terminal control value
+//		return: total arc length
+f32 ijkVecReparamCubicCatmullRom2fv(f32 uTable_out[], f32 lTable_out[], float2 vTable_out[], size const numDivisions, ibool const lNormalize, float2 const vp, float2 const v0, float2 const v1, float2 const v2);
+
+// ijkVecReparamBicubicCatmullRom2*v
+//	Reparameterize a bi-cubic Catmull-Rom segment into sample table.
+//		param uTable_out: array of interpolation parameters at each sample
+//			valid: non-null
+//		param lTable_out: array of accumulated arc lengths at each sample
+//			valid: non-null
+//		param vTable_out: array of values sampled
+//			valid: non-null
+//		param numDivisions: number of intermediate samples on segment
+//			valid: non-zero
+//			note: tables should have at least (numDivisions+1) elements
+//			note: precision of arc length increases as this number increases
+//		param lNormalize: option to normalize arc lengths
+//		param vpp: initial control value of initial control curve
+//		param vp0: initial reference value/start point of initial control 
+//			curve, result of initial control curve when tp=0
+//		param vp1: terminal reference value/end point of initial control 
+//			curve, result of initial control curve when tp=1
+//		param vp2: terminal control value of initial control curve
+//		param v0p: initial control value of initial value curve
+//		param v00: initial reference value/start point of initial value 
+//			curve, result of initial value curve when t0=0
+//		param v01: terminal reference value/end point of initial value 
+//			curve, result of initial value curve when t0=1
+//		param v02: terminal control value of initial value curve
+//		param v1p: initial control value of terminal value curve
+//		param v10: initial reference value/start point of terminal value 
+//			curve, result of terminal value curve when t1=0
+//		param v11: terminal reference value/end point of terminal value 
+//			curve, result of terminal value curve when t1=1
+//		param v12: terminal control value of terminal value curve
+//		param v2p: initial control value of terminal control curve
+//		param v20: initial reference value/start point of terminal control 
+//			curve, result of terminal control curve when t2=0
+//		param v21: terminal reference value/end point of terminal control 
+//			curve, result of terminal control curve when t2=1
+//		param v22: terminal control value of terminal control curve
+//		param up: interpolation parameter for initial control curve
+//		param u0: interpolation parameter for initial value curve
+//		param u1: interpolation parameter for terminal value curve
+//		param u2: interpolation parameter for terminal control curve
+//		return: total arc length
+f32 ijkVecReparamBicubicCatmullRom2fv(f32 uTable_out[], f32 lTable_out[], float2 vTable_out[], size const numDivisions, ibool const lNormalize, float2 const vpp, float2 const vp0, float2 const vp1, float2 const vp2, float2 const v0p, float2 const v00, float2 const v01, float2 const v02, float2 const v1p, float2 const v10, float2 const v11, float2 const v12, float2 const v2p, float2 const v20, float2 const v21, float2 const v22, f32 const up, f32 const u0, f32 const u1, f32 const u2);
+
+// ijkVecSampleTableInc2*v
+//	Find index of parameter in table and approximate value by interpolating 
+//	surrounding samples in table. Assumes that parameter values increase as 
+//	the table is traversed (parameter increases as index increases) and will 
+//	contuinue searching until tabled parameter is greater than input parameter.
+//		param v_out: output vector, interpolated value in table that 
+//			approximates input parameter
+//		param uTable: array of increasing sampling parameters (search table)
+//			valid: non-null
+//		param vTable: array of sampled values (value table)
+//			valid: non-null
+//		param i: starting search index
+//			note: zero if starting from beginning of tables
+//		param di: search index step size (increment of i at each iteration)
+//			note: defaults to 1 if passed 0
+//		param u: input parameter to find in search table
+//		return: v_out
+floatv ijkVecSampleTableInc2fv(float2 v_out, f32 const uTable[], float2 const vTable[], index i, index di, f32 const u);
+
+// ijkVecSampleTableDec2*v
+//	Find index of parameter in table and approximate value by interpolating 
+//	surrounding samples in table. Assumes that parameter values decrease as 
+//	the table is traversed (parameter increases as index increases) and will 
+//	contuinue searching until tabled parameter is less than input parameter.
+//		param v_out: output vector, interpolated value in table that 
+//			approximates input parameter
+//		param uTable: array of decreasing sampling parameters (search table)
+//			valid: non-null
+//		param vTable: array of sampled values (value table)
+//			valid: non-null
+//		param i: starting search index
+//			note: zero if starting from beginning of tables
+//		param di: search index step size (increment of i at each iteration)
+//			note: defaults to 1 if passed 0
+//		param u: input parameter to find in search table
+//		return: v_out
+floatv ijkVecSampleTableDec2fv(float2 v_out, f32 const uTable[], float2 const vTable[], index i, index di, f32 const u);
+
 
 //-----------------------------------------------------------------------------
 
@@ -3590,6 +3940,358 @@ floatv ijkVecUnitReflect3fv(float3 v_out, float3 const v_in, float3 const v_nrm)
 //		param v_nrm: normal vector
 //		return: v_out
 floatv ijkVecReflect3fv(float3 v_out, float3 const v_in, float3 const v_nrm);
+
+// ijkVecResize3*v
+//	Change length of vector, retaining direction.
+//		param v_out: output vector, resized
+//		param v_in: input vector
+//		param length: new length of vector
+//		return: v_out
+floatv ijkVecResize3fv(float3 v_out, float3 const v_in, f32 const length);
+
+// ijkVecResizeSafe3*v
+//	Change length of vector, retaining direction; division-by-zero safe.
+//		param v_out: output vector, resized
+//		param v_in: input vector
+//		param length: new length of vector
+//		return: v_out
+floatv ijkVecResizeSafe3fv(float3 v_out, float3 const v_in, f32 const length);
+
+// ijkVecCrossResize3*v
+//	Change length of cross product result, retaining direction.
+//		param v_out: output cross product vector, resized
+//		param v_lh: left-hand vector
+//		param v_lh: right-hand vector
+//		param length: new length of vector
+//		return: v_out
+floatv ijkVecCrossResize3fv(float3 v_out, float3 const v_lh, float3 const v_rh, f32 const length);
+
+// ijkVecCrossResizeSafe3*v
+//	Change length of cross product result, retaining direction; 
+//	division-by-zero safe.
+//		param v_out: output cross product vector, resized
+//		param v_lh: left-hand vector
+//		param v_lh: right-hand vector
+//		param length: new length of vector
+//		return: v_out
+floatv ijkVecCrossResizeSafe3fv(float3 v_out, float3 const v_lh, float3 const v_rh, f32 const length);
+
+// ijkVecNearest3*v
+//	Nearest-neighbor interpolation between two reference values.
+//		param v_out: output vector, interpolated
+//		param v0: initial reference value/start point, result when t<0.5
+//		param v1: terminal reference value/end point, result when t>=0.5
+//		param u: interpolation parameter
+//		return: v_out
+floatv ijkVecNearest3fv(float3 v_out, float3 const v0, float3 const v1, f32 const u);
+
+// ijkVecBinearest3*v
+//	Nearest-neighbor interpolation of nearest-neighbor interpolated values.
+//		param v_out: output vector, interpolated
+//		param v00: initial reference value/start point in first pair, result 
+//			of first pair when t0<0.5
+//		param v01: terminal reference value/end point in first pair, result 
+//			of first pair when t0>=0.5
+//		param v10: initial reference value/start point in second pair, result 
+//			of second pair when t1<0.5
+//		param v11: terminal reference value/end point in second pair, result 
+//			of second pair when t1>=0.5
+//		param u0: interpolation parameter for first pair
+//		param u1: interpolation parameter for second pair
+//		param u: interpolation parameter for results
+//		return: v_out
+floatv ijkVecBinearest3fv(float3 v_out, float3 const v00, float3 const v01, float3 const v10, float3 const v11, f32 const u0, f32 const u1, f32 const u);
+
+// ijkVecRemap3*v
+//	Linear remap between two ranges by first inverse interpolating between 
+//	source/original range and then linearly interpolating between destination/
+//	target range.
+//		param v_out: output vector, interpolated
+//		param v0_dst: initial reference value in destination/target range, 
+//			result when v_src=v0_src
+//		param v1_dst: terminal reference value in destination/target range, 
+//			result when v_src=v1_src
+//		param v0_src: initial reference value in source/original range
+//		param v1_src: terminal reference value in source/original range
+//		param v_src: value to be remapped from original to target range
+//		return: v_out
+floatv ijkVecRemap3fv(float3 v_out, float3 const v0_dst, float3 const v1_dst, float3 const v0_src, float3 const v1_src, float3 const v_src);
+
+// ijkVecBezier0O3*v
+//	Perform order-0 (point) Bezier interpolation given one reference value.
+//		param v_out: output vector, interpolated
+//		param v0: reference value, always returned
+//		param u: interpolation parameter; not used for order 0 interpolation
+//		return: v_out
+floatv ijkVecBezier0O3fv(float3 v_out, float3 const v0, f32 const u);
+
+// ijkVecBezier1O3*v
+//	Perform order-1 (linear) Bezier interpolation given two reference values.
+//		param v_out: output vector, interpolated
+//		param v0: first reference value, result when t=0
+//		param v1: second reference value, result when t=1
+//		param u: interpolation parameter; inputs in [0,1] interpolate between 
+//			v0 and v1
+//		return: v_out
+floatv ijkVecBezier1O3fv(float3 v_out, float3 const v0, float3 const v1, f32 const u);
+
+// ijkVecBezier2O3*v
+//	Perform order-2 (quadratic) Bezier interpolation given three reference 
+//	values.
+//		param v_out: output vector, interpolated
+//		param v0: first reference value, result when t=0
+//		param v1: second reference value
+//		param v2: third reference value, result when t=1
+//		param u: interpolation parameter; inputs in [0,1] interpolate between 
+//			v0 and v2
+//		return: v_out
+floatv ijkVecBezier2O3fv(float3 v_out, float3 const v0, float3 const v1, float3 const v2, f32 const u);
+
+// ijkVecBezier3O3*v
+//	Perform order-3 (cubic) Bezier interpolation given four reference values.
+//		param v_out: output vector, interpolated
+//		param v0: first reference value, result when t=0
+//		param v1: second reference value
+//		param v2: third reference value
+//		param v3: fourth reference value, result when t=1
+//		param u: interpolation parameter; inputs in [0,1] interpolate between 
+//			v0 and v3
+//		return: v_out
+floatv ijkVecBezier3O3fv(float3 v_out, float3 const v0, float3 const v1, float3 const v2, float3 const v3, f32 const u);
+
+// ijkVecBezierNO3*v
+//	Perform order-N (recursive) Bezier interpolation given an array of 
+//	reference values.
+//		param v_out: output vector, interpolated
+//		param v: array of reference values, result when t=0 is v[0], result 
+//			when t=1 is v[order]
+//			valid: non-null
+//		param order: order of interpolation or number of recursive steps; 
+//			note: size of array is order+1, order is maximum index
+//		param u: interpolation parameter; inputs in [0,1] interpolate between 
+//			v[0] and v[order]
+//		return: v_out
+floatv ijkVecBezierNO3fv(float3 v_out, float3 const v[], size const order, f32 const u);
+
+// ijkVecCubicHermite3*v
+//	Cubic Hermite spline/curve interpolation between two reference values with 
+//	control tangents (rates of change at reference values).
+//		param v_out: output vector, interpolated
+//		param v0: initial reference value/start point, result when t=0
+//		param dv0: initial tangent/rate of change
+//		param v1: terminal reference value/end point, result when t=1
+//		param dv1: terminal tangent/rate of change
+//		param u: interpolation parameter; inputs in [0,1] interpolate between 
+//			v0 and v1
+//		return: v_out
+floatv ijkVecCubicHermite3fv(float3 v_out, float3 const v0, float3 const dv0, float3 const v1, float3 const dv1, f32 const u);
+
+// ijkVecCubicHermiteHandles3*v
+//	Cubic Hermite spline/curve interpolation between two reference values with 
+//	control handles to determine rate of change at reference values.
+//		param v_out: output vector, interpolated
+//		param v0: initial reference value/start point, result when t=0
+//		param cv0: initial control handle value, should be greater than v0 
+//			for a positive rate of change
+//		param v1: terminal reference value/end point, result when t=1
+//		param cv1: terminal control handle value, should be greater than v1 
+//			for a positive rate of change
+//		param u: interpolation parameter; inputs in [0,1] interpolate between 
+//			v0 and v1
+//		return: v_out
+floatv ijkVecCubicHermiteHandles3fv(float3 v_out, float3 const v0, float3 const cv0, float3 const v1, float3 const cv1, f32 const u);
+
+// ijkVecCubicCatmullRom3*v
+//	Catmull-Rom spline/curve interpolation between two reference values with 
+//	two external control values.
+//		param v_out: output vector, interpolated
+//		param vp: initial control value (value before initial reference)
+//		param v0: initial reference value/start point, result when t=0
+//		param v1: terminal reference value/end point, result when t=1
+//		param v2: terminal control value (value after terminal reference)
+//		param u: interpolation parameter; inputs in [0,1] interpolate between 
+//			v0 and v1
+//		return: v_out
+floatv ijkVecCubicCatmullRom3fv(float3 v_out, float3 const vp, float3 const v0, float3 const v1, float3 const v2, f32 const u);
+
+// ijkVecBicubicCatmullRom3*v
+//	Bi-cubic interpolation using Catmull-Rom interpolation for segments.
+//		param v_out: output vector, interpolated
+//		param vpp: initial control value of initial control curve
+//		param vp0: initial reference value/start point of initial control 
+//			curve, result of initial control curve when tp=0
+//		param vp1: terminal reference value/end point of initial control 
+//			curve, result of initial control curve when tp=1
+//		param vp2: terminal control value of initial control curve
+//		param v0p: initial control value of initial value curve
+//		param v00: initial reference value/start point of initial value 
+//			curve, result of initial value curve when t0=0
+//		param v01: terminal reference value/end point of initial value 
+//			curve, result of initial value curve when t0=1
+//		param v02: terminal control value of initial value curve
+//		param v1p: initial control value of terminal value curve
+//		param v10: initial reference value/start point of terminal value 
+//			curve, result of terminal value curve when t1=0
+//		param v11: terminal reference value/end point of terminal value 
+//			curve, result of terminal value curve when t1=1
+//		param v12: terminal control value of terminal value curve
+//		param v2p: initial control value of terminal control curve
+//		param v20: initial reference value/start point of terminal control 
+//			curve, result of terminal control curve when t2=0
+//		param v21: terminal reference value/end point of terminal control 
+//			curve, result of terminal control curve when t2=1
+//		param v22: terminal control value of terminal control curve
+//		param up: interpolation parameter for initial control curve
+//		param u0: interpolation parameter for initial value curve
+//		param u1: interpolation parameter for terminal value curve
+//		param u2: interpolation parameter for terminal control curve
+//		param u: interpolation parameter for result
+//		return: v_out
+floatv ijkVecBicubicCatmullRom3fv(float3 v_out, float3 const vpp, float3 const vp0, float3 const vp1, float3 const vp2, float3 const v0p, float3 const v00, float3 const v01, float3 const v02, float3 const v1p, float3 const v10, float3 const v11, float3 const v12, float3 const v2p, float3 const v20, float3 const v21, float3 const v22, f32 const up, f32 const u0, f32 const u1, f32 const u2, f32 const u);
+
+// ijkVecReparamCubicHermite3*v
+//	Reparameterize a cubic Hermite segment into sample table.
+//		param uTable_out: array of interpolation parameters at each sample
+//			valid: non-null
+//		param lTable_out: array of accumulated arc lengths at each sample
+//			valid: non-null
+//		param vTable_out: array of values sampled
+//			valid: non-null
+//		param numDivisions: number of intermediate samples on segment
+//			valid: non-zero
+//			note: tables should have at least (numDivisions+1) elements
+//			note: precision of arc length increases as this number increases
+//		param lNormalize: option to normalize arc lengths
+//		param v0: initial reference value/start point, result when t=0
+//		param dv0: initial tangent/rate of change
+//		param v1: terminal reference value/end point, result when t=1
+//		param dv1: terminal tangent/rate of change
+//		return: total arc length
+f32 ijkVecReparamCubicHermite3fv(f32 uTable_out[], f32 lTable_out[], float3 vTable_out[], size const numDivisions, ibool const lNormalize, float3 const v0, float3 const dv0, float3 const v1, float3 const dv1);
+
+// ijkVecReparamCubicHermiteHandles3*v
+//	Reparameterize a cubic Hermite segment with handles into sample table.
+//		param uTable_out: array of interpolation parameters at each sample
+//			valid: non-null
+//		param lTable_out: array of accumulated arc lengths at each sample
+//			valid: non-null
+//		param vTable_out: array of values sampled
+//			valid: non-null
+//		param numDivisions: number of intermediate samples on segment
+//			valid: non-zero
+//			note: tables should have at least (numDivisions+1) elements
+//			note: precision of arc length increases as this number increases
+//		param lNormalize: option to normalize arc lengths
+//		param v0: initial reference value/start point, result when t=0
+//		param cv0: initial control handle value, should be greater than v0 
+//			for a positive rate of change
+//		param v1: terminal reference value/end point, result when t=1
+//		param cv1: terminal control handle value, should be greater than v1 
+//			for a positive rate of change
+//		return: total arc length
+f32 ijkVecReparamCubicHermiteHandles3fv(f32 uTable_out[], f32 lTable_out[], float3 vTable_out[], size const numDivisions, ibool const lNormalize, float3 const v0, float3 const cv0, float3 const v1, float3 const cv1);
+
+// ijkVecReparamCubicCatmullRom3*v
+//	Reparameterize a cubic Catmull-Rom segment into sample table.
+//		param uTable_out: array of interpolation parameters at each sample
+//			valid: non-null
+//		param lTable_out: array of accumulated arc lengths at each sample
+//			valid: non-null
+//		param vTable_out: array of values sampled
+//			valid: non-null
+//		param numDivisions: number of intermediate samples on segment
+//			valid: non-zero
+//			note: tables should have at least (numDivisions+1) elements
+//			note: precision of arc length increases as this number increases
+//		param lNormalize: option to normalize arc lengths
+//		param vp: initial control value
+//		param v0: initial reference value/start point, result when t=0
+//		param v1: terminal reference value/end point, result when t=1
+//		param v2: terminal control value
+//		return: total arc length
+f32 ijkVecReparamCubicCatmullRom3fv(f32 uTable_out[], f32 lTable_out[], float3 vTable_out[], size const numDivisions, ibool const lNormalize, float3 const vp, float3 const v0, float3 const v1, float3 const v2);
+
+// ijkVecReparamBicubicCatmullRom3*v
+//	Reparameterize a bi-cubic Catmull-Rom segment into sample table.
+//		param uTable_out: array of interpolation parameters at each sample
+//			valid: non-null
+//		param lTable_out: array of accumulated arc lengths at each sample
+//			valid: non-null
+//		param vTable_out: array of values sampled
+//			valid: non-null
+//		param numDivisions: number of intermediate samples on segment
+//			valid: non-zero
+//			note: tables should have at least (numDivisions+1) elements
+//			note: precision of arc length increases as this number increases
+//		param lNormalize: option to normalize arc lengths
+//		param vpp: initial control value of initial control curve
+//		param vp0: initial reference value/start point of initial control 
+//			curve, result of initial control curve when tp=0
+//		param vp1: terminal reference value/end point of initial control 
+//			curve, result of initial control curve when tp=1
+//		param vp2: terminal control value of initial control curve
+//		param v0p: initial control value of initial value curve
+//		param v00: initial reference value/start point of initial value 
+//			curve, result of initial value curve when t0=0
+//		param v01: terminal reference value/end point of initial value 
+//			curve, result of initial value curve when t0=1
+//		param v02: terminal control value of initial value curve
+//		param v1p: initial control value of terminal value curve
+//		param v10: initial reference value/start point of terminal value 
+//			curve, result of terminal value curve when t1=0
+//		param v11: terminal reference value/end point of terminal value 
+//			curve, result of terminal value curve when t1=1
+//		param v12: terminal control value of terminal value curve
+//		param v2p: initial control value of terminal control curve
+//		param v20: initial reference value/start point of terminal control 
+//			curve, result of terminal control curve when t2=0
+//		param v21: terminal reference value/end point of terminal control 
+//			curve, result of terminal control curve when t2=1
+//		param v22: terminal control value of terminal control curve
+//		param up: interpolation parameter for initial control curve
+//		param u0: interpolation parameter for initial value curve
+//		param u1: interpolation parameter for terminal value curve
+//		param u2: interpolation parameter for terminal control curve
+//		return: total arc length
+f32 ijkVecReparamBicubicCatmullRom3fv(f32 uTable_out[], f32 lTable_out[], float3 vTable_out[], size const numDivisions, ibool const lNormalize, float3 const vpp, float3 const vp0, float3 const vp1, float3 const vp2, float3 const v0p, float3 const v00, float3 const v01, float3 const v02, float3 const v1p, float3 const v10, float3 const v11, float3 const v12, float3 const v2p, float3 const v20, float3 const v21, float3 const v22, f32 const up, f32 const u0, f32 const u1, f32 const u2);
+
+// ijkVecSampleTableInc3*v
+//	Find index of parameter in table and approximate value by interpolating 
+//	surrounding samples in table. Assumes that parameter values increase as 
+//	the table is traversed (parameter increases as index increases) and will 
+//	contuinue searching until tabled parameter is greater than input parameter.
+//		param v_out: output vector, interpolated value in table that 
+//			approximates input parameter
+//		param uTable: array of increasing sampling parameters (search table)
+//			valid: non-null
+//		param vTable: array of sampled values (value table)
+//			valid: non-null
+//		param i: starting search index
+//			note: zero if starting from beginning of tables
+//		param di: search index step size (increment of i at each iteration)
+//			note: defaults to 1 if passed 0
+//		param u: input parameter to find in search table
+//		return: v_out
+floatv ijkVecSampleTableInc3fv(float3 v_out, f32 const uTable[], float3 const vTable[], index i, index di, f32 const u);
+
+// ijkVecSampleTableDec3*v
+//	Find index of parameter in table and approximate value by interpolating 
+//	surrounding samples in table. Assumes that parameter values decrease as 
+//	the table is traversed (parameter increases as index increases) and will 
+//	contuinue searching until tabled parameter is less than input parameter.
+//		param v_out: output vector, interpolated value in table that 
+//			approximates input parameter
+//		param uTable: array of decreasing sampling parameters (search table)
+//			valid: non-null
+//		param vTable: array of sampled values (value table)
+//			valid: non-null
+//		param i: starting search index
+//			note: zero if starting from beginning of tables
+//		param di: search index step size (increment of i at each iteration)
+//			note: defaults to 1 if passed 0
+//		param u: input parameter to find in search table
+//		return: v_out
+floatv ijkVecSampleTableDec3fv(float3 v_out, f32 const uTable[], float3 const vTable[], index i, index di, f32 const u);
 
 
 //-----------------------------------------------------------------------------
@@ -3873,6 +4575,358 @@ floatv ijkVecUnitReflect4fv(float4 v_out, float4 const v_in, float4 const v_nrm)
 //		return: v_out
 floatv ijkVecReflect4fv(float4 v_out, float4 const v_in, float4 const v_nrm);
 
+// ijkVecResize4*v
+//	Change length of vector, retaining direction.
+//		param v_out: output vector, resized
+//		param v_in: input vector
+//		param length: new length of vector
+//		return: v_out
+floatv ijkVecResize4fv(float4 v_out, float4 const v_in, f32 const length);
+
+// ijkVecResizeSafe4*v
+//	Change length of vector, retaining direction; division-by-zero safe.
+//		param v_out: output vector, resized
+//		param v_in: input vector
+//		param length: new length of vector
+//		return: v_out
+floatv ijkVecResizeSafe4fv(float4 v_out, float4 const v_in, f32 const length);
+
+// ijkVecCrossResize4*v
+//	Change length of cross product result, retaining direction.
+//		param v_out: output cross product vector, resized
+//		param v_lh: left-hand vector
+//		param v_lh: right-hand vector
+//		param length: new length of vector
+//		return: v_out
+floatv ijkVecCrossResize4fv(float4 v_out, float4 const v_lh, float4 const v_rh, f32 const length);
+
+// ijkVecCrossResizeSafe4*v
+//	Change length of cross product result, retaining direction; 
+//	division-by-zero safe.
+//		param v_out: output cross product vector, resized
+//		param v_lh: left-hand vector
+//		param v_lh: right-hand vector
+//		param length: new length of vector
+//		return: v_out
+floatv ijkVecCrossResizeSafe4fv(float4 v_out, float4 const v_lh, float4 const v_rh, f32 const length);
+
+// ijkVecNearest4*v
+//	Nearest-neighbor interpolation between two reference values.
+//		param v_out: output vector, interpolated
+//		param v0: initial reference value/start point, result when t<0.5
+//		param v1: terminal reference value/end point, result when t>=0.5
+//		param u: interpolation parameter
+//		return: v_out
+floatv ijkVecNearest4fv(float4 v_out, float4 const v0, float4 const v1, f32 const u);
+
+// ijkVecBinearest4*v
+//	Nearest-neighbor interpolation of nearest-neighbor interpolated values.
+//		param v_out: output vector, interpolated
+//		param v00: initial reference value/start point in first pair, result 
+//			of first pair when t0<0.5
+//		param v01: terminal reference value/end point in first pair, result 
+//			of first pair when t0>=0.5
+//		param v10: initial reference value/start point in second pair, result 
+//			of second pair when t1<0.5
+//		param v11: terminal reference value/end point in second pair, result 
+//			of second pair when t1>=0.5
+//		param u0: interpolation parameter for first pair
+//		param u1: interpolation parameter for second pair
+//		param u: interpolation parameter for results
+//		return: v_out
+floatv ijkVecBinearest4fv(float4 v_out, float4 const v00, float4 const v01, float4 const v10, float4 const v11, f32 const u0, f32 const u1, f32 const u);
+
+// ijkVecRemap4*v
+//	Linear remap between two ranges by first inverse interpolating between 
+//	source/original range and then linearly interpolating between destination/
+//	target range.
+//		param v_out: output vector, interpolated
+//		param v0_dst: initial reference value in destination/target range, 
+//			result when v_src=v0_src
+//		param v1_dst: terminal reference value in destination/target range, 
+//			result when v_src=v1_src
+//		param v0_src: initial reference value in source/original range
+//		param v1_src: terminal reference value in source/original range
+//		param v_src: value to be remapped from original to target range
+//		return: v_out
+floatv ijkVecRemap4fv(float4 v_out, float4 const v0_dst, float4 const v1_dst, float4 const v0_src, float4 const v1_src, float4 const v_src);
+
+// ijkVecBezier0O4*v
+//	Perform order-0 (point) Bezier interpolation given one reference value.
+//		param v_out: output vector, interpolated
+//		param v0: reference value, always returned
+//		param u: interpolation parameter; not used for order 0 interpolation
+//		return: v_out
+floatv ijkVecBezier0O4fv(float4 v_out, float4 const v0, f32 const u);
+
+// ijkVecBezier1O4*v
+//	Perform order-1 (linear) Bezier interpolation given two reference values.
+//		param v_out: output vector, interpolated
+//		param v0: first reference value, result when t=0
+//		param v1: second reference value, result when t=1
+//		param u: interpolation parameter; inputs in [0,1] interpolate between 
+//			v0 and v1
+//		return: v_out
+floatv ijkVecBezier1O4fv(float4 v_out, float4 const v0, float4 const v1, f32 const u);
+
+// ijkVecBezier2O4*v
+//	Perform order-2 (quadratic) Bezier interpolation given three reference 
+//	values.
+//		param v_out: output vector, interpolated
+//		param v0: first reference value, result when t=0
+//		param v1: second reference value
+//		param v2: third reference value, result when t=1
+//		param u: interpolation parameter; inputs in [0,1] interpolate between 
+//			v0 and v2
+//		return: v_out
+floatv ijkVecBezier2O4fv(float4 v_out, float4 const v0, float4 const v1, float4 const v2, f32 const u);
+
+// ijkVecBezier3O4*v
+//	Perform order-3 (cubic) Bezier interpolation given four reference values.
+//		param v_out: output vector, interpolated
+//		param v0: first reference value, result when t=0
+//		param v1: second reference value
+//		param v2: third reference value
+//		param v3: fourth reference value, result when t=1
+//		param u: interpolation parameter; inputs in [0,1] interpolate between 
+//			v0 and v3
+//		return: v_out
+floatv ijkVecBezier3O4fv(float4 v_out, float4 const v0, float4 const v1, float4 const v2, float4 const v3, f32 const u);
+
+// ijkVecBezierNO4*v
+//	Perform order-N (recursive) Bezier interpolation given an array of 
+//	reference values.
+//		param v_out: output vector, interpolated
+//		param v: array of reference values, result when t=0 is v[0], result 
+//			when t=1 is v[order]
+//			valid: non-null
+//		param order: order of interpolation or number of recursive steps; 
+//			note: size of array is order+1, order is maximum index
+//		param u: interpolation parameter; inputs in [0,1] interpolate between 
+//			v[0] and v[order]
+//		return: v_out
+floatv ijkVecBezierNO4fv(float4 v_out, float4 const v[], size const order, f32 const u);
+
+// ijkVecCubicHermite4*v
+//	Cubic Hermite spline/curve interpolation between two reference values with 
+//	control tangents (rates of change at reference values).
+//		param v_out: output vector, interpolated
+//		param v0: initial reference value/start point, result when t=0
+//		param dv0: initial tangent/rate of change
+//		param v1: terminal reference value/end point, result when t=1
+//		param dv1: terminal tangent/rate of change
+//		param u: interpolation parameter; inputs in [0,1] interpolate between 
+//			v0 and v1
+//		return: v_out
+floatv ijkVecCubicHermite4fv(float4 v_out, float4 const v0, float4 const dv0, float4 const v1, float4 const dv1, f32 const u);
+
+// ijkVecCubicHermiteHandles4*v
+//	Cubic Hermite spline/curve interpolation between two reference values with 
+//	control handles to determine rate of change at reference values.
+//		param v_out: output vector, interpolated
+//		param v0: initial reference value/start point, result when t=0
+//		param cv0: initial control handle value, should be greater than v0 
+//			for a positive rate of change
+//		param v1: terminal reference value/end point, result when t=1
+//		param cv1: terminal control handle value, should be greater than v1 
+//			for a positive rate of change
+//		param u: interpolation parameter; inputs in [0,1] interpolate between 
+//			v0 and v1
+//		return: v_out
+floatv ijkVecCubicHermiteHandles4fv(float4 v_out, float4 const v0, float4 const cv0, float4 const v1, float4 const cv1, f32 const u);
+
+// ijkVecCubicCatmullRom4*v
+//	Catmull-Rom spline/curve interpolation between two reference values with 
+//	two external control values.
+//		param v_out: output vector, interpolated
+//		param vp: initial control value (value before initial reference)
+//		param v0: initial reference value/start point, result when t=0
+//		param v1: terminal reference value/end point, result when t=1
+//		param v2: terminal control value (value after terminal reference)
+//		param u: interpolation parameter; inputs in [0,1] interpolate between 
+//			v0 and v1
+//		return: v_out
+floatv ijkVecCubicCatmullRom4fv(float4 v_out, float4 const vp, float4 const v0, float4 const v1, float4 const v2, f32 const u);
+
+// ijkVecBicubicCatmullRom4*v
+//	Bi-cubic interpolation using Catmull-Rom interpolation for segments.
+//		param v_out: output vector, interpolated
+//		param vpp: initial control value of initial control curve
+//		param vp0: initial reference value/start point of initial control 
+//			curve, result of initial control curve when tp=0
+//		param vp1: terminal reference value/end point of initial control 
+//			curve, result of initial control curve when tp=1
+//		param vp2: terminal control value of initial control curve
+//		param v0p: initial control value of initial value curve
+//		param v00: initial reference value/start point of initial value 
+//			curve, result of initial value curve when t0=0
+//		param v01: terminal reference value/end point of initial value 
+//			curve, result of initial value curve when t0=1
+//		param v02: terminal control value of initial value curve
+//		param v1p: initial control value of terminal value curve
+//		param v10: initial reference value/start point of terminal value 
+//			curve, result of terminal value curve when t1=0
+//		param v11: terminal reference value/end point of terminal value 
+//			curve, result of terminal value curve when t1=1
+//		param v12: terminal control value of terminal value curve
+//		param v2p: initial control value of terminal control curve
+//		param v20: initial reference value/start point of terminal control 
+//			curve, result of terminal control curve when t2=0
+//		param v21: terminal reference value/end point of terminal control 
+//			curve, result of terminal control curve when t2=1
+//		param v22: terminal control value of terminal control curve
+//		param up: interpolation parameter for initial control curve
+//		param u0: interpolation parameter for initial value curve
+//		param u1: interpolation parameter for terminal value curve
+//		param u2: interpolation parameter for terminal control curve
+//		param u: interpolation parameter for result
+//		return: v_out
+floatv ijkVecBicubicCatmullRom4fv(float4 v_out, float4 const vpp, float4 const vp0, float4 const vp1, float4 const vp2, float4 const v0p, float4 const v00, float4 const v01, float4 const v02, float4 const v1p, float4 const v10, float4 const v11, float4 const v12, float4 const v2p, float4 const v20, float4 const v21, float4 const v22, f32 const up, f32 const u0, f32 const u1, f32 const u2, f32 const u);
+
+// ijkVecReparamCubicHermite4*v
+//	Reparameterize a cubic Hermite segment into sample table.
+//		param uTable_out: array of interpolation parameters at each sample
+//			valid: non-null
+//		param lTable_out: array of accumulated arc lengths at each sample
+//			valid: non-null
+//		param vTable_out: array of values sampled
+//			valid: non-null
+//		param numDivisions: number of intermediate samples on segment
+//			valid: non-zero
+//			note: tables should have at least (numDivisions+1) elements
+//			note: precision of arc length increases as this number increases
+//		param lNormalize: option to normalize arc lengths
+//		param v0: initial reference value/start point, result when t=0
+//		param dv0: initial tangent/rate of change
+//		param v1: terminal reference value/end point, result when t=1
+//		param dv1: terminal tangent/rate of change
+//		return: total arc length
+f32 ijkVecReparamCubicHermite4fv(f32 uTable_out[], f32 lTable_out[], float4 vTable_out[], size const numDivisions, ibool const lNormalize, float4 const v0, float4 const dv0, float4 const v1, float4 const dv1);
+
+// ijkVecReparamCubicHermiteHandles4*v
+//	Reparameterize a cubic Hermite segment with handles into sample table.
+//		param uTable_out: array of interpolation parameters at each sample
+//			valid: non-null
+//		param lTable_out: array of accumulated arc lengths at each sample
+//			valid: non-null
+//		param vTable_out: array of values sampled
+//			valid: non-null
+//		param numDivisions: number of intermediate samples on segment
+//			valid: non-zero
+//			note: tables should have at least (numDivisions+1) elements
+//			note: precision of arc length increases as this number increases
+//		param lNormalize: option to normalize arc lengths
+//		param v0: initial reference value/start point, result when t=0
+//		param cv0: initial control handle value, should be greater than v0 
+//			for a positive rate of change
+//		param v1: terminal reference value/end point, result when t=1
+//		param cv1: terminal control handle value, should be greater than v1 
+//			for a positive rate of change
+//		return: total arc length
+f32 ijkVecReparamCubicHermiteHandles4fv(f32 uTable_out[], f32 lTable_out[], float4 vTable_out[], size const numDivisions, ibool const lNormalize, float4 const v0, float4 const cv0, float4 const v1, float4 const cv1);
+
+// ijkVecReparamCubicCatmullRom4*v
+//	Reparameterize a cubic Catmull-Rom segment into sample table.
+//		param uTable_out: array of interpolation parameters at each sample
+//			valid: non-null
+//		param lTable_out: array of accumulated arc lengths at each sample
+//			valid: non-null
+//		param vTable_out: array of values sampled
+//			valid: non-null
+//		param numDivisions: number of intermediate samples on segment
+//			valid: non-zero
+//			note: tables should have at least (numDivisions+1) elements
+//			note: precision of arc length increases as this number increases
+//		param lNormalize: option to normalize arc lengths
+//		param vp: initial control value
+//		param v0: initial reference value/start point, result when t=0
+//		param v1: terminal reference value/end point, result when t=1
+//		param v2: terminal control value
+//		return: total arc length
+f32 ijkVecReparamCubicCatmullRom4fv(f32 uTable_out[], f32 lTable_out[], float4 vTable_out[], size const numDivisions, ibool const lNormalize, float4 const vp, float4 const v0, float4 const v1, float4 const v2);
+
+// ijkVecReparamBicubicCatmullRom4*v
+//	Reparameterize a bi-cubic Catmull-Rom segment into sample table.
+//		param uTable_out: array of interpolation parameters at each sample
+//			valid: non-null
+//		param lTable_out: array of accumulated arc lengths at each sample
+//			valid: non-null
+//		param vTable_out: array of values sampled
+//			valid: non-null
+//		param numDivisions: number of intermediate samples on segment
+//			valid: non-zero
+//			note: tables should have at least (numDivisions+1) elements
+//			note: precision of arc length increases as this number increases
+//		param lNormalize: option to normalize arc lengths
+//		param vpp: initial control value of initial control curve
+//		param vp0: initial reference value/start point of initial control 
+//			curve, result of initial control curve when tp=0
+//		param vp1: terminal reference value/end point of initial control 
+//			curve, result of initial control curve when tp=1
+//		param vp2: terminal control value of initial control curve
+//		param v0p: initial control value of initial value curve
+//		param v00: initial reference value/start point of initial value 
+//			curve, result of initial value curve when t0=0
+//		param v01: terminal reference value/end point of initial value 
+//			curve, result of initial value curve when t0=1
+//		param v02: terminal control value of initial value curve
+//		param v1p: initial control value of terminal value curve
+//		param v10: initial reference value/start point of terminal value 
+//			curve, result of terminal value curve when t1=0
+//		param v11: terminal reference value/end point of terminal value 
+//			curve, result of terminal value curve when t1=1
+//		param v12: terminal control value of terminal value curve
+//		param v2p: initial control value of terminal control curve
+//		param v20: initial reference value/start point of terminal control 
+//			curve, result of terminal control curve when t2=0
+//		param v21: terminal reference value/end point of terminal control 
+//			curve, result of terminal control curve when t2=1
+//		param v22: terminal control value of terminal control curve
+//		param up: interpolation parameter for initial control curve
+//		param u0: interpolation parameter for initial value curve
+//		param u1: interpolation parameter for terminal value curve
+//		param u2: interpolation parameter for terminal control curve
+//		return: total arc length
+f32 ijkVecReparamBicubicCatmullRom4fv(f32 uTable_out[], f32 lTable_out[], float4 vTable_out[], size const numDivisions, ibool const lNormalize, float4 const vpp, float4 const vp0, float4 const vp1, float4 const vp2, float4 const v0p, float4 const v00, float4 const v01, float4 const v02, float4 const v1p, float4 const v10, float4 const v11, float4 const v12, float4 const v2p, float4 const v20, float4 const v21, float4 const v22, f32 const up, f32 const u0, f32 const u1, f32 const u2);
+
+// ijkVecSampleTableInc4*v
+//	Find index of parameter in table and approximate value by interpolating 
+//	surrounding samples in table. Assumes that parameter values increase as 
+//	the table is traversed (parameter increases as index increases) and will 
+//	contuinue searching until tabled parameter is greater than input parameter.
+//		param v_out: output vector, interpolated value in table that 
+//			approximates input parameter
+//		param uTable: array of increasing sampling parameters (search table)
+//			valid: non-null
+//		param vTable: array of sampled values (value table)
+//			valid: non-null
+//		param i: starting search index
+//			note: zero if starting from beginning of tables
+//		param di: search index step size (increment of i at each iteration)
+//			note: defaults to 1 if passed 0
+//		param u: input parameter to find in search table
+//		return: v_out
+floatv ijkVecSampleTableInc4fv(float4 v_out, f32 const uTable[], float4 const vTable[], index i, index di, f32 const u);
+
+// ijkVecSampleTableDec4*v
+//	Find index of parameter in table and approximate value by interpolating 
+//	surrounding samples in table. Assumes that parameter values decrease as 
+//	the table is traversed (parameter increases as index increases) and will 
+//	contuinue searching until tabled parameter is less than input parameter.
+//		param v_out: output vector, interpolated value in table that 
+//			approximates input parameter
+//		param uTable: array of decreasing sampling parameters (search table)
+//			valid: non-null
+//		param vTable: array of sampled values (value table)
+//			valid: non-null
+//		param i: starting search index
+//			note: zero if starting from beginning of tables
+//		param di: search index step size (increment of i at each iteration)
+//			note: defaults to 1 if passed 0
+//		param u: input parameter to find in search table
+//		return: v_out
+floatv ijkVecSampleTableDec4fv(float4 v_out, f32 const uTable[], float4 const vTable[], index i, index di, f32 const u);
+
 
 //-----------------------------------------------------------------------------
 
@@ -4136,6 +5190,338 @@ fvec2 ijkVecUnitReflect2f(fvec2 const v_in, fvec2 const v_nrm);
 //		return: reflected vector
 fvec2 ijkVecReflect2f(fvec2 const v_in, fvec2 const v_nrm);
 
+// ijkVecResize2*
+//	Change length of vector, retaining direction.
+//		param v_in: input vector
+//		param length: new length of vector
+//		return: resized vector
+fvec2 ijkVecResize2f(fvec2 const v_in, float const length);
+
+// ijkVecResizeSafe2*
+//	Change length of vector, retaining direction; division-by-zero safe.
+//		param v_in: input vector
+//		param length: new length of vector
+//		return: resized vector
+fvec2 ijkVecResizeSafe2f(fvec2 const v_in, float const length);
+
+// ijkVecCrossResize2*
+//	Change length of cross product result, retaining direction.
+//		param v_lh: left-hand vector
+//		param v_lh: right-hand vector
+//		param length: new length of vector
+//		return: resized scalar cross product
+float ijkVecCrossResize2f(fvec2 const v_lh, fvec2 const v_rh, float const length);
+
+// ijkVecCrossResizeSafe2*
+//	Change length of cross product result, retaining direction; 
+//	division-by-zero safe.
+//		param v_lh: left-hand vector
+//		param v_lh: right-hand vector
+//		param length: new length of vector
+//		return: resized scalar cross product
+float ijkVecCrossResizeSafe2f(fvec2 const v_lh, fvec2 const v_rh, float const length);
+
+// ijkVecNearest2*
+//	Nearest-neighbor interpolation between two reference values.
+//		param v0: initial reference value/start point, result when t<0.5
+//		param v1: terminal reference value/end point, result when t>=0.5
+//		param u: interpolation parameter
+//		return: nearest-neighbor interpolated vector, exactly v0 or v1
+fvec2 ijkVecNearest2f(fvec2 const v0, fvec2 const v1, float const u);
+
+// ijkVecBinearest2*
+//	Nearest-neighbor interpolation of nearest-neighbor interpolated values.
+//		param v00: initial reference value/start point in first pair, result 
+//			of first pair when t0<0.5
+//		param v01: terminal reference value/end point in first pair, result 
+//			of first pair when t0>=0.5
+//		param v10: initial reference value/start point in second pair, result 
+//			of second pair when t1<0.5
+//		param v11: terminal reference value/end point in second pair, result 
+//			of second pair when t1>=0.5
+//		param u0: interpolation parameter for first pair
+//		param u1: interpolation parameter for second pair
+//		param u: interpolation parameter for results
+//		return: bi-nearest-neighbor interpolated vector
+fvec2 ijkVecBinearest2f(fvec2 const v00, fvec2 const v01, fvec2 const v10, fvec2 const v11, float const u0, float const u1, float const u);
+
+// ijkVecRemap2*
+//	Linear remap between two ranges by first inverse interpolating between 
+//	source/original range and then linearly interpolating between destination/
+//	target range.
+//		param v0_dst: initial reference value in destination/target range, 
+//			result when v_src=v0_src
+//		param v1_dst: terminal reference value in destination/target range, 
+//			result when v_src=v1_src
+//		param v0_src: initial reference value in source/original range
+//		param v1_src: terminal reference value in source/original range
+//		param v_src: value to be remapped from original to target range
+//		return: vector in original range remapped to target range
+fvec2 ijkVecRemap2f(fvec2 const v0_dst, fvec2 const v1_dst, fvec2 const v0_src, fvec2 const v1_src, fvec2 const v_src);
+
+// ijkVecBezier0O2*
+//	Perform order-0 (point) Bezier interpolation given one reference value.
+//		param v0: reference value, always returned
+//		param u: interpolation parameter; not used for order 0 interpolation
+//		return: v0
+fvec2 ijkVecBezier0O2f(fvec2 const v0, float const u);
+
+// ijkVecBezier1O2*
+//	Perform order-1 (linear) Bezier interpolation given two reference values.
+//		param v0: first reference value, result when t=0
+//		param v1: second reference value, result when t=1
+//		param u: interpolation parameter; inputs in [0,1] interpolate between 
+//			v0 and v1
+//		return: linear interpolation between v0 and v1
+fvec2 ijkVecBezier1O2f(fvec2 const v0, fvec2 const v1, float const u);
+
+// ijkVecBezier2O2*
+//	Perform order-2 (quadratic) Bezier interpolation given three reference 
+//	values.
+//		param v0: first reference value, result when t=0
+//		param v1: second reference value
+//		param v2: third reference value, result when t=1
+//		param u: interpolation parameter; inputs in [0,1] interpolate between 
+//			v0 and v2
+//		return: quadratic Bezier interpolation between v0 and v2
+fvec2 ijkVecBezier2O2f(fvec2 const v0, fvec2 const v1, fvec2 const v2, float const u);
+
+// ijkVecBezier3O2*
+//	Perform order-3 (cubic) Bezier interpolation given four reference values.
+//		param v0: first reference value, result when t=0
+//		param v1: second reference value
+//		param v2: third reference value
+//		param v3: fourth reference value, result when t=1
+//		param u: interpolation parameter; inputs in [0,1] interpolate between 
+//			v0 and v3
+//		return: cubic Bezier interpolation between v0 and v3
+fvec2 ijkVecBezier3O2f(fvec2 const v0, fvec2 const v1, fvec2 const v2, fvec2 const v3, float const u);
+
+// ijkVecBezierNO2*
+//	Perform order-N (recursive) Bezier interpolation given an array of 
+//	reference values.
+//		param v: array of reference values, result when t=0 is v[0], result 
+//			when t=1 is v[order]
+//			valid: non-null
+//		param order: order of interpolation or number of recursive steps; 
+//			note: size of array is order+1, order is maximum index
+//		param u: interpolation parameter; inputs in [0,1] interpolate between 
+//			v[0] and v[order]
+//		return: recursive Bezier interpolation between v[0] and v[order]
+fvec2 ijkVecBezierNO2f(fvec2 const v[], size const order, float const u);
+
+// ijkVecCubicHermite2*
+//	Cubic Hermite spline/curve interpolation between two reference values with 
+//	control tangents (rates of change at reference values).
+//		param v0: initial reference value/start point, result when t=0
+//		param dv0: initial tangent/rate of change
+//		param v1: terminal reference value/end point, result when t=1
+//		param dv1: terminal tangent/rate of change
+//		param u: interpolation parameter; inputs in [0,1] interpolate between 
+//			v0 and v1
+//		return: interpolated vector on spline/curve segment
+fvec2 ijkVecCubicHermite2f(fvec2 const v0, fvec2 const dv0, fvec2 const v1, fvec2 const dv1, float const u);
+
+// ijkVecCubicHermiteHandles2*
+//	Cubic Hermite spline/curve interpolation between two reference values with 
+//	control handles to determine rate of change at reference values.
+//		param v0: initial reference value/start point, result when t=0
+//		param cv0: initial control handle value, should be greater than v0 
+//			for a positive rate of change
+//		param v1: terminal reference value/end point, result when t=1
+//		param cv1: terminal control handle value, should be greater than v1 
+//			for a positive rate of change
+//		param u: interpolation parameter; inputs in [0,1] interpolate between 
+//			v0 and v1
+//		return: interpolated vector on spline/curve segment
+fvec2 ijkVecCubicHermiteHandles2f(fvec2 const v0, fvec2 const cv0, fvec2 const v1, fvec2 const cv1, float const u);
+
+// ijkVecCubicCatmullRom2*
+//	Catmull-Rom spline/curve interpolation between two reference values with 
+//	two external control values.
+//		param vp: initial control value (value before initial reference)
+//		param v0: initial reference value/start point, result when t=0
+//		param v1: terminal reference value/end point, result when t=1
+//		param v2: terminal control value (value after terminal reference)
+//		param u: interpolation parameter; inputs in [0,1] interpolate between 
+//			v0 and v1
+//		return: interpolated vector on spline/curve segment
+fvec2 ijkVecCubicCatmullRom2f(fvec2 const vp, fvec2 const v0, fvec2 const v1, fvec2 const v2, float const u);
+
+// ijkVecBicubicCatmullRom2*
+//	Bi-cubic interpolation using Catmull-Rom interpolation for segments.
+//		param vpp: initial control value of initial control curve
+//		param vp0: initial reference value/start point of initial control 
+//			curve, result of initial control curve when tp=0
+//		param vp1: terminal reference value/end point of initial control 
+//			curve, result of initial control curve when tp=1
+//		param vp2: terminal control value of initial control curve
+//		param v0p: initial control value of initial value curve
+//		param v00: initial reference value/start point of initial value 
+//			curve, result of initial value curve when t0=0
+//		param v01: terminal reference value/end point of initial value 
+//			curve, result of initial value curve when t0=1
+//		param v02: terminal control value of initial value curve
+//		param v1p: initial control value of terminal value curve
+//		param v10: initial reference value/start point of terminal value 
+//			curve, result of terminal value curve when t1=0
+//		param v11: terminal reference value/end point of terminal value 
+//			curve, result of terminal value curve when t1=1
+//		param v12: terminal control value of terminal value curve
+//		param v2p: initial control value of terminal control curve
+//		param v20: initial reference value/start point of terminal control 
+//			curve, result of terminal control curve when t2=0
+//		param v21: terminal reference value/end point of terminal control 
+//			curve, result of terminal control curve when t2=1
+//		param v22: terminal control value of terminal control curve
+//		param up: interpolation parameter for initial control curve
+//		param u0: interpolation parameter for initial value curve
+//		param u1: interpolation parameter for terminal value curve
+//		param u2: interpolation parameter for terminal control curve
+//		param u: interpolation parameter for result
+//		return: interpolated vector
+fvec2 ijkVecBicubicCatmullRom2f(fvec2 const vpp, fvec2 const vp0, fvec2 const vp1, fvec2 const vp2, fvec2 const v0p, fvec2 const v00, fvec2 const v01, fvec2 const v02, fvec2 const v1p, fvec2 const v10, fvec2 const v11, fvec2 const v12, fvec2 const v2p, fvec2 const v20, fvec2 const v21, fvec2 const v22, float const up, float const u0, float const u1, float const u2, float const u);
+
+// ijkVecReparamCubicHermite2*
+//	Reparameterize a cubic Hermite segment into sample table.
+//		param uTable_out: array of interpolation parameters at each sample
+//			valid: non-null
+//		param lTable_out: array of accumulated arc lengths at each sample
+//			valid: non-null
+//		param vTable_out: array of values sampled
+//			valid: non-null
+//		param numDivisions: number of intermediate samples on segment
+//			valid: non-zero
+//			note: tables should have at least (numDivisions+1) elements
+//			note: precision of arc length increases as this number increases
+//		param lNormalize: option to normalize arc lengths
+//		param v0: initial reference value/start point, result when t=0
+//		param dv0: initial tangent/rate of change
+//		param v1: terminal reference value/end point, result when t=1
+//		param dv1: terminal tangent/rate of change
+//		return: total arc length
+float ijkVecReparamCubicHermite2f(float uTable_out[], float lTable_out[], fvec2 vTable_out[], size const numDivisions, ibool const lNormalize, fvec2 const v0, fvec2 const dv0, fvec2 const v1, fvec2 const dv1);
+
+// ijkVecReparamCubicHermiteHandles2*
+//	Reparameterize a cubic Hermite segment with handles into sample table.
+//		param uTable_out: array of interpolation parameters at each sample
+//			valid: non-null
+//		param lTable_out: array of accumulated arc lengths at each sample
+//			valid: non-null
+//		param vTable_out: array of values sampled
+//			valid: non-null
+//		param numDivisions: number of intermediate samples on segment
+//			valid: non-zero
+//			note: tables should have at least (numDivisions+1) elements
+//			note: precision of arc length increases as this number increases
+//		param lNormalize: option to normalize arc lengths
+//		param v0: initial reference value/start point, result when t=0
+//		param cv0: initial control handle value, should be greater than v0 
+//			for a positive rate of change
+//		param v1: terminal reference value/end point, result when t=1
+//		param cv1: terminal control handle value, should be greater than v1 
+//			for a positive rate of change
+//		return: total arc length
+float ijkVecReparamCubicHermiteHandles2f(float uTable_out[], float lTable_out[], fvec2 vTable_out[], size const numDivisions, ibool const lNormalize, fvec2 const v0, fvec2 const cv0, fvec2 const v1, fvec2 const cv1);
+
+// ijkVecReparamCubicCatmullRom2*
+//	Reparameterize a cubic Catmull-Rom segment into sample table.
+//		param uTable_out: array of interpolation parameters at each sample
+//			valid: non-null
+//		param lTable_out: array of accumulated arc lengths at each sample
+//			valid: non-null
+//		param vTable_out: array of values sampled
+//			valid: non-null
+//		param numDivisions: number of intermediate samples on segment
+//			valid: non-zero
+//			note: tables should have at least (numDivisions+1) elements
+//			note: precision of arc length increases as this number increases
+//		param lNormalize: option to normalize arc lengths
+//		param vp: initial control value
+//		param v0: initial reference value/start point, result when t=0
+//		param v1: terminal reference value/end point, result when t=1
+//		param v2: terminal control value
+//		return: total arc length
+float ijkVecReparamCubicCatmullRom2f(float uTable_out[], float lTable_out[], fvec2 vTable_out[], size const numDivisions, ibool const lNormalize, fvec2 const vp, fvec2 const v0, fvec2 const v1, fvec2 const v2);
+
+// ijkVecReparamBicubicCatmullRom2*
+//	Reparameterize a bi-cubic Catmull-Rom segment into sample table.
+//		param uTable_out: array of interpolation parameters at each sample
+//			valid: non-null
+//		param lTable_out: array of accumulated arc lengths at each sample
+//			valid: non-null
+//		param vTable_out: array of values sampled
+//			valid: non-null
+//		param numDivisions: number of intermediate samples on segment
+//			valid: non-zero
+//			note: tables should have at least (numDivisions+1) elements
+//			note: precision of arc length increases as this number increases
+//		param lNormalize: option to normalize arc lengths
+//		param vpp: initial control value of initial control curve
+//		param vp0: initial reference value/start point of initial control 
+//			curve, result of initial control curve when tp=0
+//		param vp1: terminal reference value/end point of initial control 
+//			curve, result of initial control curve when tp=1
+//		param vp2: terminal control value of initial control curve
+//		param v0p: initial control value of initial value curve
+//		param v00: initial reference value/start point of initial value 
+//			curve, result of initial value curve when t0=0
+//		param v01: terminal reference value/end point of initial value 
+//			curve, result of initial value curve when t0=1
+//		param v02: terminal control value of initial value curve
+//		param v1p: initial control value of terminal value curve
+//		param v10: initial reference value/start point of terminal value 
+//			curve, result of terminal value curve when t1=0
+//		param v11: terminal reference value/end point of terminal value 
+//			curve, result of terminal value curve when t1=1
+//		param v12: terminal control value of terminal value curve
+//		param v2p: initial control value of terminal control curve
+//		param v20: initial reference value/start point of terminal control 
+//			curve, result of terminal control curve when t2=0
+//		param v21: terminal reference value/end point of terminal control 
+//			curve, result of terminal control curve when t2=1
+//		param v22: terminal control value of terminal control curve
+//		param up: interpolation parameter for initial control curve
+//		param u0: interpolation parameter for initial value curve
+//		param u1: interpolation parameter for terminal value curve
+//		param u2: interpolation parameter for terminal control curve
+//		return: total arc length
+float ijkVecReparamBicubicCatmullRom2f(float uTable_out[], float lTable_out[], fvec2 vTable_out[], size const numDivisions, ibool const lNormalize, fvec2 const vpp, fvec2 const vp0, fvec2 const vp1, fvec2 const vp2, fvec2 const v0p, fvec2 const v00, fvec2 const v01, fvec2 const v02, fvec2 const v1p, fvec2 const v10, fvec2 const v11, fvec2 const v12, fvec2 const v2p, fvec2 const v20, fvec2 const v21, fvec2 const v22, float const up, float const u0, float const u1, float const u2);
+
+// ijkVecSampleTableInc2*
+//	Find index of parameter in table and approximate value by interpolating 
+//	surrounding samples in table. Assumes that parameter values increase as 
+//	the table is traversed (parameter increases as index increases) and will 
+//	contuinue searching until tabled parameter is greater than input parameter.
+//		param uTable: array of increasing sampling parameters (search table)
+//			valid: non-null
+//		param vTable: array of sampled values (value table)
+//			valid: non-null
+//		param i: starting search index
+//			note: zero if starting from beginning of tables
+//		param di: search index step size (increment of i at each iteration)
+//			note: defaults to 1 if passed 0
+//		param u: input parameter to find in search table
+//		return: interpolated vector in table that approximates input parameter
+fvec2 ijkVecSampleTableInc2f(float const uTable[], fvec2 const vTable[], index i, index di, float const u);
+
+// ijkVecSampleTableDec2*
+//	Find index of parameter in table and approximate value by interpolating 
+//	surrounding samples in table. Assumes that parameter values decrease as 
+//	the table is traversed (parameter increases as index increases) and will 
+//	contuinue searching until tabled parameter is less than input parameter.
+//		param uTable: array of decreasing sampling parameters (search table)
+//			valid: non-null
+//		param vTable: array of sampled values (value table)
+//			valid: non-null
+//		param i: starting search index
+//			note: zero if starting from beginning of tables
+//		param di: search index step size (increment of i at each iteration)
+//			note: defaults to 1 if passed 0
+//		param u: input parameter to find in search table
+//		return: interpolated vector in table that approximates input parameter
+fvec2 ijkVecSampleTableDec2f(float const uTable[], fvec2 const vTable[], index i, index di, float const u);
+
 
 //-----------------------------------------------------------------------------
 
@@ -4392,6 +5778,338 @@ fvec3 ijkVecUnitReflect3f(fvec3 const v_in, fvec3 const v_nrm);
 //		return: reflected vector
 fvec3 ijkVecReflect3f(fvec3 const v_in, fvec3 const v_nrm);
 
+// ijkVecResize3*
+//	Change length of vector, retaining direction.
+//		param v_in: input vector
+//		param length: new length of vector
+//		return: resized vector
+fvec3 ijkVecResize3f(fvec3 const v_in, float const length);
+
+// ijkVecResizeSafe3*
+//	Change length of vector, retaining direction; division-by-zero safe.
+//		param v_in: input vector
+//		param length: new length of vector
+//		return: resized vector
+fvec3 ijkVecResizeSafe3f(fvec3 const v_in, float const length);
+
+// ijkVecCrossResize3*
+//	Change length of cross product result, retaining direction.
+//		param v_lh: left-hand vector
+//		param v_lh: right-hand vector
+//		param length: new length of vector
+//		return: resized cross product
+fvec3 ijkVecCrossResize3f(fvec3 const v_lh, fvec3 const v_rh, float const length);
+
+// ijkVecCrossResizeSafe3*
+//	Change length of cross product result, retaining direction; 
+//	division-by-zero safe.
+//		param v_lh: left-hand vector
+//		param v_lh: right-hand vector
+//		param length: new length of vector
+//		return: resized cross product
+fvec3 ijkVecCrossResizeSafe3f(fvec3 const v_lh, fvec3 const v_rh, float const length);
+
+// ijkVecNearest3*
+//	Nearest-neighbor interpolation between two reference values.
+//		param v0: initial reference value/start point, result when t<0.5
+//		param v1: terminal reference value/end point, result when t>=0.5
+//		param u: interpolation parameter
+//		return: nearest-neighbor interpolated vector, exactly v0 or v1
+fvec3 ijkVecNearest3f(fvec3 const v0, fvec3 const v1, float const u);
+
+// ijkVecBinearest3*
+//	Nearest-neighbor interpolation of nearest-neighbor interpolated values.
+//		param v00: initial reference value/start point in first pair, result 
+//			of first pair when t0<0.5
+//		param v01: terminal reference value/end point in first pair, result 
+//			of first pair when t0>=0.5
+//		param v10: initial reference value/start point in second pair, result 
+//			of second pair when t1<0.5
+//		param v11: terminal reference value/end point in second pair, result 
+//			of second pair when t1>=0.5
+//		param u0: interpolation parameter for first pair
+//		param u1: interpolation parameter for second pair
+//		param u: interpolation parameter for results
+//		return: bi-nearest-neighbor interpolated vector
+fvec3 ijkVecBinearest3f(fvec3 const v00, fvec3 const v01, fvec3 const v10, fvec3 const v11, float const u0, float const u1, float const u);
+
+// ijkVecRemap3*
+//	Linear remap between two ranges by first inverse interpolating between 
+//	source/original range and then linearly interpolating between destination/
+//	target range.
+//		param v0_dst: initial reference value in destination/target range, 
+//			result when v_src=v0_src
+//		param v1_dst: terminal reference value in destination/target range, 
+//			result when v_src=v1_src
+//		param v0_src: initial reference value in source/original range
+//		param v1_src: terminal reference value in source/original range
+//		param v_src: value to be remapped from original to target range
+//		return: vector in original range remapped to target range
+fvec3 ijkVecRemap3f(fvec3 const v0_dst, fvec3 const v1_dst, fvec3 const v0_src, fvec3 const v1_src, fvec3 const v_src);
+
+// ijkVecBezier0O3*
+//	Perform order-0 (point) Bezier interpolation given one reference value.
+//		param v0: reference value, always returned
+//		param u: interpolation parameter; not used for order 0 interpolation
+//		return: v0
+fvec3 ijkVecBezier0O3f(fvec3 const v0, float const u);
+
+// ijkVecBezier1O3*
+//	Perform order-1 (linear) Bezier interpolation given two reference values.
+//		param v0: first reference value, result when t=0
+//		param v1: second reference value, result when t=1
+//		param u: interpolation parameter; inputs in [0,1] interpolate between 
+//			v0 and v1
+//		return: linear interpolation between v0 and v1
+fvec3 ijkVecBezier1O3f(fvec3 const v0, fvec3 const v1, float const u);
+
+// ijkVecBezier2O3*
+//	Perform order-2 (quadratic) Bezier interpolation given three reference 
+//	values.
+//		param v0: first reference value, result when t=0
+//		param v1: second reference value
+//		param v2: third reference value, result when t=1
+//		param u: interpolation parameter; inputs in [0,1] interpolate between 
+//			v0 and v2
+//		return: quadratic Bezier interpolation between v0 and v2
+fvec3 ijkVecBezier2O3f(fvec3 const v0, fvec3 const v1, fvec3 const v2, float const u);
+
+// ijkVecBezier3O3*
+//	Perform order-3 (cubic) Bezier interpolation given four reference values.
+//		param v0: first reference value, result when t=0
+//		param v1: second reference value
+//		param v2: third reference value
+//		param v3: fourth reference value, result when t=1
+//		param u: interpolation parameter; inputs in [0,1] interpolate between 
+//			v0 and v3
+//		return: cubic Bezier interpolation between v0 and v3
+fvec3 ijkVecBezier3O3f(fvec3 const v0, fvec3 const v1, fvec3 const v2, fvec3 const v3, float const u);
+
+// ijkVecBezierNO3*
+//	Perform order-N (recursive) Bezier interpolation given an array of 
+//	reference values.
+//		param v: array of reference values, result when t=0 is v[0], result 
+//			when t=1 is v[order]
+//			valid: non-null
+//		param order: order of interpolation or number of recursive steps; 
+//			note: size of array is order+1, order is maximum index
+//		param u: interpolation parameter; inputs in [0,1] interpolate between 
+//			v[0] and v[order]
+//		return: recursive Bezier interpolation between v[0] and v[order]
+fvec3 ijkVecBezierNO3f(fvec3 const v[], size const order, float const u);
+
+// ijkVecCubicHermite3*
+//	Cubic Hermite spline/curve interpolation between two reference values with 
+//	control tangents (rates of change at reference values).
+//		param v0: initial reference value/start point, result when t=0
+//		param dv0: initial tangent/rate of change
+//		param v1: terminal reference value/end point, result when t=1
+//		param dv1: terminal tangent/rate of change
+//		param u: interpolation parameter; inputs in [0,1] interpolate between 
+//			v0 and v1
+//		return: interpolated vector on spline/curve segment
+fvec3 ijkVecCubicHermite3f(fvec3 const v0, fvec3 const dv0, fvec3 const v1, fvec3 const dv1, float const u);
+
+// ijkVecCubicHermiteHandles3*
+//	Cubic Hermite spline/curve interpolation between two reference values with 
+//	control handles to determine rate of change at reference values.
+//		param v0: initial reference value/start point, result when t=0
+//		param cv0: initial control handle value, should be greater than v0 
+//			for a positive rate of change
+//		param v1: terminal reference value/end point, result when t=1
+//		param cv1: terminal control handle value, should be greater than v1 
+//			for a positive rate of change
+//		param u: interpolation parameter; inputs in [0,1] interpolate between 
+//			v0 and v1
+//		return: interpolated vector on spline/curve segment
+fvec3 ijkVecCubicHermiteHandles3f(fvec3 const v0, fvec3 const cv0, fvec3 const v1, fvec3 const cv1, float const u);
+
+// ijkVecCubicCatmullRom3*
+//	Catmull-Rom spline/curve interpolation between two reference values with 
+//	two external control values.
+//		param vp: initial control value (value before initial reference)
+//		param v0: initial reference value/start point, result when t=0
+//		param v1: terminal reference value/end point, result when t=1
+//		param v2: terminal control value (value after terminal reference)
+//		param u: interpolation parameter; inputs in [0,1] interpolate between 
+//			v0 and v1
+//		return: interpolated vector on spline/curve segment
+fvec3 ijkVecCubicCatmullRom3f(fvec3 const vp, fvec3 const v0, fvec3 const v1, fvec3 const v2, float const u);
+
+// ijkVecBicubicCatmullRom3*
+//	Bi-cubic interpolation using Catmull-Rom interpolation for segments.
+//		param vpp: initial control value of initial control curve
+//		param vp0: initial reference value/start point of initial control 
+//			curve, result of initial control curve when tp=0
+//		param vp1: terminal reference value/end point of initial control 
+//			curve, result of initial control curve when tp=1
+//		param vp2: terminal control value of initial control curve
+//		param v0p: initial control value of initial value curve
+//		param v00: initial reference value/start point of initial value 
+//			curve, result of initial value curve when t0=0
+//		param v01: terminal reference value/end point of initial value 
+//			curve, result of initial value curve when t0=1
+//		param v02: terminal control value of initial value curve
+//		param v1p: initial control value of terminal value curve
+//		param v10: initial reference value/start point of terminal value 
+//			curve, result of terminal value curve when t1=0
+//		param v11: terminal reference value/end point of terminal value 
+//			curve, result of terminal value curve when t1=1
+//		param v12: terminal control value of terminal value curve
+//		param v2p: initial control value of terminal control curve
+//		param v20: initial reference value/start point of terminal control 
+//			curve, result of terminal control curve when t2=0
+//		param v21: terminal reference value/end point of terminal control 
+//			curve, result of terminal control curve when t2=1
+//		param v22: terminal control value of terminal control curve
+//		param up: interpolation parameter for initial control curve
+//		param u0: interpolation parameter for initial value curve
+//		param u1: interpolation parameter for terminal value curve
+//		param u2: interpolation parameter for terminal control curve
+//		param u: interpolation parameter for result
+//		return: interpolated vector
+fvec3 ijkVecBicubicCatmullRom3f(fvec3 const vpp, fvec3 const vp0, fvec3 const vp1, fvec3 const vp2, fvec3 const v0p, fvec3 const v00, fvec3 const v01, fvec3 const v02, fvec3 const v1p, fvec3 const v10, fvec3 const v11, fvec3 const v12, fvec3 const v2p, fvec3 const v20, fvec3 const v21, fvec3 const v22, float const up, float const u0, float const u1, float const u2, float const u);
+
+// ijkVecReparamCubicHermite3*
+//	Reparameterize a cubic Hermite segment into sample table.
+//		param uTable_out: array of interpolation parameters at each sample
+//			valid: non-null
+//		param lTable_out: array of accumulated arc lengths at each sample
+//			valid: non-null
+//		param vTable_out: array of values sampled
+//			valid: non-null
+//		param numDivisions: number of intermediate samples on segment
+//			valid: non-zero
+//			note: tables should have at least (numDivisions+1) elements
+//			note: precision of arc length increases as this number increases
+//		param lNormalize: option to normalize arc lengths
+//		param v0: initial reference value/start point, result when t=0
+//		param dv0: initial tangent/rate of change
+//		param v1: terminal reference value/end point, result when t=1
+//		param dv1: terminal tangent/rate of change
+//		return: total arc length
+float ijkVecReparamCubicHermite3f(float uTable_out[], float lTable_out[], fvec3 vTable_out[], size const numDivisions, ibool const lNormalize, fvec3 const v0, fvec3 const dv0, fvec3 const v1, fvec3 const dv1);
+
+// ijkVecReparamCubicHermiteHandles3*
+//	Reparameterize a cubic Hermite segment with handles into sample table.
+//		param uTable_out: array of interpolation parameters at each sample
+//			valid: non-null
+//		param lTable_out: array of accumulated arc lengths at each sample
+//			valid: non-null
+//		param vTable_out: array of values sampled
+//			valid: non-null
+//		param numDivisions: number of intermediate samples on segment
+//			valid: non-zero
+//			note: tables should have at least (numDivisions+1) elements
+//			note: precision of arc length increases as this number increases
+//		param lNormalize: option to normalize arc lengths
+//		param v0: initial reference value/start point, result when t=0
+//		param cv0: initial control handle value, should be greater than v0 
+//			for a positive rate of change
+//		param v1: terminal reference value/end point, result when t=1
+//		param cv1: terminal control handle value, should be greater than v1 
+//			for a positive rate of change
+//		return: total arc length
+float ijkVecReparamCubicHermiteHandles3f(float uTable_out[], float lTable_out[], fvec3 vTable_out[], size const numDivisions, ibool const lNormalize, fvec3 const v0, fvec3 const cv0, fvec3 const v1, fvec3 const cv1);
+
+// ijkVecReparamCubicCatmullRom3*
+//	Reparameterize a cubic Catmull-Rom segment into sample table.
+//		param uTable_out: array of interpolation parameters at each sample
+//			valid: non-null
+//		param lTable_out: array of accumulated arc lengths at each sample
+//			valid: non-null
+//		param vTable_out: array of values sampled
+//			valid: non-null
+//		param numDivisions: number of intermediate samples on segment
+//			valid: non-zero
+//			note: tables should have at least (numDivisions+1) elements
+//			note: precision of arc length increases as this number increases
+//		param lNormalize: option to normalize arc lengths
+//		param vp: initial control value
+//		param v0: initial reference value/start point, result when t=0
+//		param v1: terminal reference value/end point, result when t=1
+//		param v2: terminal control value
+//		return: total arc length
+float ijkVecReparamCubicCatmullRom3f(float uTable_out[], float lTable_out[], fvec3 vTable_out[], size const numDivisions, ibool const lNormalize, fvec3 const vp, fvec3 const v0, fvec3 const v1, fvec3 const v2);
+
+// ijkVecReparamBicubicCatmullRom3*
+//	Reparameterize a bi-cubic Catmull-Rom segment into sample table.
+//		param uTable_out: array of interpolation parameters at each sample
+//			valid: non-null
+//		param lTable_out: array of accumulated arc lengths at each sample
+//			valid: non-null
+//		param vTable_out: array of values sampled
+//			valid: non-null
+//		param numDivisions: number of intermediate samples on segment
+//			valid: non-zero
+//			note: tables should have at least (numDivisions+1) elements
+//			note: precision of arc length increases as this number increases
+//		param lNormalize: option to normalize arc lengths
+//		param vpp: initial control value of initial control curve
+//		param vp0: initial reference value/start point of initial control 
+//			curve, result of initial control curve when tp=0
+//		param vp1: terminal reference value/end point of initial control 
+//			curve, result of initial control curve when tp=1
+//		param vp2: terminal control value of initial control curve
+//		param v0p: initial control value of initial value curve
+//		param v00: initial reference value/start point of initial value 
+//			curve, result of initial value curve when t0=0
+//		param v01: terminal reference value/end point of initial value 
+//			curve, result of initial value curve when t0=1
+//		param v02: terminal control value of initial value curve
+//		param v1p: initial control value of terminal value curve
+//		param v10: initial reference value/start point of terminal value 
+//			curve, result of terminal value curve when t1=0
+//		param v11: terminal reference value/end point of terminal value 
+//			curve, result of terminal value curve when t1=1
+//		param v12: terminal control value of terminal value curve
+//		param v2p: initial control value of terminal control curve
+//		param v20: initial reference value/start point of terminal control 
+//			curve, result of terminal control curve when t2=0
+//		param v21: terminal reference value/end point of terminal control 
+//			curve, result of terminal control curve when t2=1
+//		param v22: terminal control value of terminal control curve
+//		param up: interpolation parameter for initial control curve
+//		param u0: interpolation parameter for initial value curve
+//		param u1: interpolation parameter for terminal value curve
+//		param u2: interpolation parameter for terminal control curve
+//		return: total arc length
+float ijkVecReparamBicubicCatmullRom3f(float uTable_out[], float lTable_out[], fvec3 vTable_out[], size const numDivisions, ibool const lNormalize, fvec3 const vpp, fvec3 const vp0, fvec3 const vp1, fvec3 const vp2, fvec3 const v0p, fvec3 const v00, fvec3 const v01, fvec3 const v02, fvec3 const v1p, fvec3 const v10, fvec3 const v11, fvec3 const v12, fvec3 const v2p, fvec3 const v20, fvec3 const v21, fvec3 const v22, float const up, float const u0, float const u1, float const u2);
+
+// ijkVecSampleTableInc3*
+//	Find index of parameter in table and approximate value by interpolating 
+//	surrounding samples in table. Assumes that parameter values increase as 
+//	the table is traversed (parameter increases as index increases) and will 
+//	contuinue searching until tabled parameter is greater than input parameter.
+//		param uTable: array of increasing sampling parameters (search table)
+//			valid: non-null
+//		param vTable: array of sampled values (value table)
+//			valid: non-null
+//		param i: starting search index
+//			note: zero if starting from beginning of tables
+//		param di: search index step size (increment of i at each iteration)
+//			note: defaults to 1 if passed 0
+//		param u: input parameter to find in search table
+//		return: interpolated vector in table that approximates input parameter
+fvec3 ijkVecSampleTableInc3f(float const uTable[], fvec3 const vTable[], index i, index di, float const u);
+
+// ijkVecSampleTableDec3*
+//	Find index of parameter in table and approximate value by interpolating 
+//	surrounding samples in table. Assumes that parameter values decrease as 
+//	the table is traversed (parameter increases as index increases) and will 
+//	contuinue searching until tabled parameter is less than input parameter.
+//		param uTable: array of decreasing sampling parameters (search table)
+//			valid: non-null
+//		param vTable: array of sampled values (value table)
+//			valid: non-null
+//		param i: starting search index
+//			note: zero if starting from beginning of tables
+//		param di: search index step size (increment of i at each iteration)
+//			note: defaults to 1 if passed 0
+//		param u: input parameter to find in search table
+//		return: interpolated vector in table that approximates input parameter
+fvec3 ijkVecSampleTableDec3f(float const uTable[], fvec3 const vTable[], index i, index di, float const u);
+
 
 //-----------------------------------------------------------------------------
 
@@ -4647,6 +6365,338 @@ fvec4 ijkVecUnitReflect4f(fvec4 const v_in, fvec4 const v_nrm);
 //		param v_nrm: normal vector
 //		return: reflected vector
 fvec4 ijkVecReflect4f(fvec4 const v_in, fvec4 const v_nrm);
+
+// ijkVecResize4*
+//	Change length of vector, retaining direction.
+//		param v_in: input vector
+//		param length: new length of vector
+//		return: resized vector
+fvec4 ijkVecResize4f(fvec4 const v_in, float const length);
+
+// ijkVecResizeSafe4*
+//	Change length of vector, retaining direction; division-by-zero safe.
+//		param v_in: input vector
+//		param length: new length of vector
+//		return: resized vector
+fvec4 ijkVecResizeSafe4f(fvec4 const v_in, float const length);
+
+// ijkVecCrossResize4*
+//	Change length of cross product result, retaining direction.
+//		param v_lh: left-hand vector
+//		param v_lh: right-hand vector
+//		param length: new length of vector
+//		return: resized cross product
+fvec4 ijkVecCrossResize4f(fvec4 const v_lh, fvec4 const v_rh, float const length);
+
+// ijkVecCrossResizeSafe4*
+//	Change length of cross product result, retaining direction; 
+//	division-by-zero safe.
+//		param v_lh: left-hand vector
+//		param v_lh: right-hand vector
+//		param length: new length of vector
+//		return: resized cross product
+fvec4 ijkVecCrossResizeSafe4f(fvec4 const v_lh, fvec4 const v_rh, float const length);
+
+// ijkVecNearest4*
+//	Nearest-neighbor interpolation between two reference values.
+//		param v0: initial reference value/start point, result when t<0.5
+//		param v1: terminal reference value/end point, result when t>=0.5
+//		param u: interpolation parameter
+//		return: nearest-neighbor interpolated vector, exactly v0 or v1
+fvec4 ijkVecNearest4f(fvec4 const v0, fvec4 const v1, float const u);
+
+// ijkVecBinearest4*
+//	Nearest-neighbor interpolation of nearest-neighbor interpolated values.
+//		param v00: initial reference value/start point in first pair, result 
+//			of first pair when t0<0.5
+//		param v01: terminal reference value/end point in first pair, result 
+//			of first pair when t0>=0.5
+//		param v10: initial reference value/start point in second pair, result 
+//			of second pair when t1<0.5
+//		param v11: terminal reference value/end point in second pair, result 
+//			of second pair when t1>=0.5
+//		param u0: interpolation parameter for first pair
+//		param u1: interpolation parameter for second pair
+//		param u: interpolation parameter for results
+//		return: bi-nearest-neighbor interpolated vector
+fvec4 ijkVecBinearest4f(fvec4 const v00, fvec4 const v01, fvec4 const v10, fvec4 const v11, float const u0, float const u1, float const u);
+
+// ijkVecRemap4*
+//	Linear remap between two ranges by first inverse interpolating between 
+//	source/original range and then linearly interpolating between destination/
+//	target range.
+//		param v0_dst: initial reference value in destination/target range, 
+//			result when v_src=v0_src
+//		param v1_dst: terminal reference value in destination/target range, 
+//			result when v_src=v1_src
+//		param v0_src: initial reference value in source/original range
+//		param v1_src: terminal reference value in source/original range
+//		param v_src: value to be remapped from original to target range
+//		return: vector in original range remapped to target range
+fvec4 ijkVecRemap4f(fvec4 const v0_dst, fvec4 const v1_dst, fvec4 const v0_src, fvec4 const v1_src, fvec4 const v_src);
+
+// ijkVecBezier0O4*
+//	Perform order-0 (point) Bezier interpolation given one reference value.
+//		param v0: reference value, always returned
+//		param u: interpolation parameter; not used for order 0 interpolation
+//		return: v0
+fvec4 ijkVecBezier0O4f(fvec4 const v0, float const u);
+
+// ijkVecBezier1O4*
+//	Perform order-1 (linear) Bezier interpolation given two reference values.
+//		param v0: first reference value, result when t=0
+//		param v1: second reference value, result when t=1
+//		param u: interpolation parameter; inputs in [0,1] interpolate between 
+//			v0 and v1
+//		return: linear interpolation between v0 and v1
+fvec4 ijkVecBezier1O4f(fvec4 const v0, fvec4 const v1, float const u);
+
+// ijkVecBezier2O4*
+//	Perform order-2 (quadratic) Bezier interpolation given three reference 
+//	values.
+//		param v0: first reference value, result when t=0
+//		param v1: second reference value
+//		param v2: third reference value, result when t=1
+//		param u: interpolation parameter; inputs in [0,1] interpolate between 
+//			v0 and v2
+//		return: quadratic Bezier interpolation between v0 and v2
+fvec4 ijkVecBezier2O4f(fvec4 const v0, fvec4 const v1, fvec4 const v2, float const u);
+
+// ijkVecBezier3O4*
+//	Perform order-3 (cubic) Bezier interpolation given four reference values.
+//		param v0: first reference value, result when t=0
+//		param v1: second reference value
+//		param v2: third reference value
+//		param v3: fourth reference value, result when t=1
+//		param u: interpolation parameter; inputs in [0,1] interpolate between 
+//			v0 and v3
+//		return: cubic Bezier interpolation between v0 and v3
+fvec4 ijkVecBezier3O4f(fvec4 const v0, fvec4 const v1, fvec4 const v2, fvec4 const v3, float const u);
+
+// ijkVecBezierNO4*
+//	Perform order-N (recursive) Bezier interpolation given an array of 
+//	reference values.
+//		param v: array of reference values, result when t=0 is v[0], result 
+//			when t=1 is v[order]
+//			valid: non-null
+//		param order: order of interpolation or number of recursive steps; 
+//			note: size of array is order+1, order is maximum index
+//		param u: interpolation parameter; inputs in [0,1] interpolate between 
+//			v[0] and v[order]
+//		return: recursive Bezier interpolation between v[0] and v[order]
+fvec4 ijkVecBezierNO4f(fvec4 const v[], size const order, float const u);
+
+// ijkVecCubicHermite4*
+//	Cubic Hermite spline/curve interpolation between two reference values with 
+//	control tangents (rates of change at reference values).
+//		param v0: initial reference value/start point, result when t=0
+//		param dv0: initial tangent/rate of change
+//		param v1: terminal reference value/end point, result when t=1
+//		param dv1: terminal tangent/rate of change
+//		param u: interpolation parameter; inputs in [0,1] interpolate between 
+//			v0 and v1
+//		return: interpolated vector on spline/curve segment
+fvec4 ijkVecCubicHermite4f(fvec4 const v0, fvec4 const dv0, fvec4 const v1, fvec4 const dv1, float const u);
+
+// ijkVecCubicHermiteHandles4*
+//	Cubic Hermite spline/curve interpolation between two reference values with 
+//	control handles to determine rate of change at reference values.
+//		param v0: initial reference value/start point, result when t=0
+//		param cv0: initial control handle value, should be greater than v0 
+//			for a positive rate of change
+//		param v1: terminal reference value/end point, result when t=1
+//		param cv1: terminal control handle value, should be greater than v1 
+//			for a positive rate of change
+//		param u: interpolation parameter; inputs in [0,1] interpolate between 
+//			v0 and v1
+//		return: interpolated vector on spline/curve segment
+fvec4 ijkVecCubicHermiteHandles4f(fvec4 const v0, fvec4 const cv0, fvec4 const v1, fvec4 const cv1, float const u);
+
+// ijkVecCubicCatmullRom4*
+//	Catmull-Rom spline/curve interpolation between two reference values with 
+//	two external control values.
+//		param vp: initial control value (value before initial reference)
+//		param v0: initial reference value/start point, result when t=0
+//		param v1: terminal reference value/end point, result when t=1
+//		param v2: terminal control value (value after terminal reference)
+//		param u: interpolation parameter; inputs in [0,1] interpolate between 
+//			v0 and v1
+//		return: interpolated vector on spline/curve segment
+fvec4 ijkVecCubicCatmullRom4f(fvec4 const vp, fvec4 const v0, fvec4 const v1, fvec4 const v2, float const u);
+
+// ijkVecBicubicCatmullRom4*
+//	Bi-cubic interpolation using Catmull-Rom interpolation for segments.
+//		param vpp: initial control value of initial control curve
+//		param vp0: initial reference value/start point of initial control 
+//			curve, result of initial control curve when tp=0
+//		param vp1: terminal reference value/end point of initial control 
+//			curve, result of initial control curve when tp=1
+//		param vp2: terminal control value of initial control curve
+//		param v0p: initial control value of initial value curve
+//		param v00: initial reference value/start point of initial value 
+//			curve, result of initial value curve when t0=0
+//		param v01: terminal reference value/end point of initial value 
+//			curve, result of initial value curve when t0=1
+//		param v02: terminal control value of initial value curve
+//		param v1p: initial control value of terminal value curve
+//		param v10: initial reference value/start point of terminal value 
+//			curve, result of terminal value curve when t1=0
+//		param v11: terminal reference value/end point of terminal value 
+//			curve, result of terminal value curve when t1=1
+//		param v12: terminal control value of terminal value curve
+//		param v2p: initial control value of terminal control curve
+//		param v20: initial reference value/start point of terminal control 
+//			curve, result of terminal control curve when t2=0
+//		param v21: terminal reference value/end point of terminal control 
+//			curve, result of terminal control curve when t2=1
+//		param v22: terminal control value of terminal control curve
+//		param up: interpolation parameter for initial control curve
+//		param u0: interpolation parameter for initial value curve
+//		param u1: interpolation parameter for terminal value curve
+//		param u2: interpolation parameter for terminal control curve
+//		param u: interpolation parameter for result
+//		return: interpolated vector
+fvec4 ijkVecBicubicCatmullRom4f(fvec4 const vpp, fvec4 const vp0, fvec4 const vp1, fvec4 const vp2, fvec4 const v0p, fvec4 const v00, fvec4 const v01, fvec4 const v02, fvec4 const v1p, fvec4 const v10, fvec4 const v11, fvec4 const v12, fvec4 const v2p, fvec4 const v20, fvec4 const v21, fvec4 const v22, float const up, float const u0, float const u1, float const u2, float const u);
+
+// ijkVecReparamCubicHermite4*
+//	Reparameterize a cubic Hermite segment into sample table.
+//		param uTable_out: array of interpolation parameters at each sample
+//			valid: non-null
+//		param lTable_out: array of accumulated arc lengths at each sample
+//			valid: non-null
+//		param vTable_out: array of values sampled
+//			valid: non-null
+//		param numDivisions: number of intermediate samples on segment
+//			valid: non-zero
+//			note: tables should have at least (numDivisions+1) elements
+//			note: precision of arc length increases as this number increases
+//		param lNormalize: option to normalize arc lengths
+//		param v0: initial reference value/start point, result when t=0
+//		param dv0: initial tangent/rate of change
+//		param v1: terminal reference value/end point, result when t=1
+//		param dv1: terminal tangent/rate of change
+//		return: total arc length
+float ijkVecReparamCubicHermite4f(float uTable_out[], float lTable_out[], fvec4 vTable_out[], size const numDivisions, ibool const lNormalize, fvec4 const v0, fvec4 const dv0, fvec4 const v1, fvec4 const dv1);
+
+// ijkVecReparamCubicHermiteHandles4*
+//	Reparameterize a cubic Hermite segment with handles into sample table.
+//		param uTable_out: array of interpolation parameters at each sample
+//			valid: non-null
+//		param lTable_out: array of accumulated arc lengths at each sample
+//			valid: non-null
+//		param vTable_out: array of values sampled
+//			valid: non-null
+//		param numDivisions: number of intermediate samples on segment
+//			valid: non-zero
+//			note: tables should have at least (numDivisions+1) elements
+//			note: precision of arc length increases as this number increases
+//		param lNormalize: option to normalize arc lengths
+//		param v0: initial reference value/start point, result when t=0
+//		param cv0: initial control handle value, should be greater than v0 
+//			for a positive rate of change
+//		param v1: terminal reference value/end point, result when t=1
+//		param cv1: terminal control handle value, should be greater than v1 
+//			for a positive rate of change
+//		return: total arc length
+float ijkVecReparamCubicHermiteHandles4f(float uTable_out[], float lTable_out[], fvec4 vTable_out[], size const numDivisions, ibool const lNormalize, fvec4 const v0, fvec4 const cv0, fvec4 const v1, fvec4 const cv1);
+
+// ijkVecReparamCubicCatmullRom4*
+//	Reparameterize a cubic Catmull-Rom segment into sample table.
+//		param uTable_out: array of interpolation parameters at each sample
+//			valid: non-null
+//		param lTable_out: array of accumulated arc lengths at each sample
+//			valid: non-null
+//		param vTable_out: array of values sampled
+//			valid: non-null
+//		param numDivisions: number of intermediate samples on segment
+//			valid: non-zero
+//			note: tables should have at least (numDivisions+1) elements
+//			note: precision of arc length increases as this number increases
+//		param lNormalize: option to normalize arc lengths
+//		param vp: initial control value
+//		param v0: initial reference value/start point, result when t=0
+//		param v1: terminal reference value/end point, result when t=1
+//		param v2: terminal control value
+//		return: total arc length
+float ijkVecReparamCubicCatmullRom4f(float uTable_out[], float lTable_out[], fvec4 vTable_out[], size const numDivisions, ibool const lNormalize, fvec4 const vp, fvec4 const v0, fvec4 const v1, fvec4 const v2);
+
+// ijkVecReparamBicubicCatmullRom4*
+//	Reparameterize a bi-cubic Catmull-Rom segment into sample table.
+//		param uTable_out: array of interpolation parameters at each sample
+//			valid: non-null
+//		param lTable_out: array of accumulated arc lengths at each sample
+//			valid: non-null
+//		param vTable_out: array of values sampled
+//			valid: non-null
+//		param numDivisions: number of intermediate samples on segment
+//			valid: non-zero
+//			note: tables should have at least (numDivisions+1) elements
+//			note: precision of arc length increases as this number increases
+//		param lNormalize: option to normalize arc lengths
+//		param vpp: initial control value of initial control curve
+//		param vp0: initial reference value/start point of initial control 
+//			curve, result of initial control curve when tp=0
+//		param vp1: terminal reference value/end point of initial control 
+//			curve, result of initial control curve when tp=1
+//		param vp2: terminal control value of initial control curve
+//		param v0p: initial control value of initial value curve
+//		param v00: initial reference value/start point of initial value 
+//			curve, result of initial value curve when t0=0
+//		param v01: terminal reference value/end point of initial value 
+//			curve, result of initial value curve when t0=1
+//		param v02: terminal control value of initial value curve
+//		param v1p: initial control value of terminal value curve
+//		param v10: initial reference value/start point of terminal value 
+//			curve, result of terminal value curve when t1=0
+//		param v11: terminal reference value/end point of terminal value 
+//			curve, result of terminal value curve when t1=1
+//		param v12: terminal control value of terminal value curve
+//		param v2p: initial control value of terminal control curve
+//		param v20: initial reference value/start point of terminal control 
+//			curve, result of terminal control curve when t2=0
+//		param v21: terminal reference value/end point of terminal control 
+//			curve, result of terminal control curve when t2=1
+//		param v22: terminal control value of terminal control curve
+//		param up: interpolation parameter for initial control curve
+//		param u0: interpolation parameter for initial value curve
+//		param u1: interpolation parameter for terminal value curve
+//		param u2: interpolation parameter for terminal control curve
+//		return: total arc length
+float ijkVecReparamBicubicCatmullRom4f(float uTable_out[], float lTable_out[], fvec4 vTable_out[], size const numDivisions, ibool const lNormalize, fvec4 const vpp, fvec4 const vp0, fvec4 const vp1, fvec4 const vp2, fvec4 const v0p, fvec4 const v00, fvec4 const v01, fvec4 const v02, fvec4 const v1p, fvec4 const v10, fvec4 const v11, fvec4 const v12, fvec4 const v2p, fvec4 const v20, fvec4 const v21, fvec4 const v22, float const up, float const u0, float const u1, float const u2);
+
+// ijkVecSampleTableInc4*
+//	Find index of parameter in table and approximate value by interpolating 
+//	surrounding samples in table. Assumes that parameter values increase as 
+//	the table is traversed (parameter increases as index increases) and will 
+//	contuinue searching until tabled parameter is greater than input parameter.
+//		param uTable: array of increasing sampling parameters (search table)
+//			valid: non-null
+//		param vTable: array of sampled values (value table)
+//			valid: non-null
+//		param i: starting search index
+//			note: zero if starting from beginning of tables
+//		param di: search index step size (increment of i at each iteration)
+//			note: defaults to 1 if passed 0
+//		param u: input parameter to find in search table
+//		return: interpolated vector in table that approximates input parameter
+fvec4 ijkVecSampleTableInc4f(float const uTable[], fvec4 const vTable[], index i, index di, float const u);
+
+// ijkVecSampleTableDec4*
+//	Find index of parameter in table and approximate value by interpolating 
+//	surrounding samples in table. Assumes that parameter values decrease as 
+//	the table is traversed (parameter increases as index increases) and will 
+//	contuinue searching until tabled parameter is less than input parameter.
+//		param uTable: array of decreasing sampling parameters (search table)
+//			valid: non-null
+//		param vTable: array of sampled values (value table)
+//			valid: non-null
+//		param i: starting search index
+//			note: zero if starting from beginning of tables
+//		param di: search index step size (increment of i at each iteration)
+//			note: defaults to 1 if passed 0
+//		param u: input parameter to find in search table
+//		return: interpolated vector in table that approximates input parameter
+fvec4 ijkVecSampleTableDec4f(float const uTable[], fvec4 const vTable[], index i, index di, float const u);
 
 
 //-----------------------------------------------------------------------------
