@@ -1017,10 +1017,12 @@ ijk_inl f64 ijkVecDot3dv(double3 const v_lh, double3 const v_rh)
 
 ijk_inl doublev ijkVecCross3dv(double3 v_out, double3 const v_lh, double3 const v_rh)
 {
-	v_out[0] = (v_lh[1] * v_rh[2] - v_lh[2] * v_rh[1]);
-	v_out[1] = (v_lh[2] * v_rh[0] - v_lh[0] * v_rh[2]);
-	v_out[2] = (v_lh[0] * v_rh[1] - v_lh[1] * v_rh[0]);
-	return v_out;
+	double3 const c = {
+		(v_lh[1] * v_rh[2] - v_lh[2] * v_rh[1]),
+		(v_lh[2] * v_rh[0] - v_lh[0] * v_rh[2]),
+		(v_lh[0] * v_rh[1] - v_lh[1] * v_rh[0]),
+	};
+	return ijkVecCopy3dv(v_out, c);
 }
 
 
