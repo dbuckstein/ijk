@@ -3309,6 +3309,13 @@ floatv ijkVecUnitReflect2fv(float2 v_out, float2 const v_in, float2 const v_nrm)
 //		return: v_out
 floatv ijkVecReflect2fv(float2 v_out, float2 const v_in, float2 const v_nrm);
 
+// ijkVecDistance2*v
+//	Calculate distance between two points.
+//		param v_lh: left-hand input
+//		param v_rh: right-hand input
+//		return: distance between inputs
+f32 ijkVecDistance2fv(float2 const v_lh, float2 const v_rh);
+
 // ijkVecResize2*v
 //	Change length of vector, retaining direction.
 //		param v_out: output vector, resized
@@ -3316,13 +3323,6 @@ floatv ijkVecReflect2fv(float2 v_out, float2 const v_in, float2 const v_nrm);
 //		param length: new length of vector
 //		return: v_out
 floatv ijkVecResize2fv(float2 v_out, float2 const v_in, f32 const length);
-
-// ijkVecDistance2*v
-//	Calculate distance between two points.
-//		param v_lh: left-hand input
-//		param v_rh: right-hand input
-//		return: distance between inputs
-f32 ijkVecDistance2fv(float2 const v_lh, float2 const v_rh);
 
 // ijkVecResizeSafe2*v
 //	Change length of vector, retaining direction; division-by-zero safe.

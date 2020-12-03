@@ -214,7 +214,7 @@ extern "C" {
 //		param v_rh: right-hand vector
 //		return: v_out
 //realv ijkVecMod2rv(real2 v_out, real2 const v_lh, real2 const v_rh);
-#define ijkVecMod2rv ijkVecMod2(ijkVecMod2rv,v)
+#define ijkVecMod2rv ijkVecMod2(ijkVecMod2,v)
 
 // ijkVecModSafe2*v
 //	Calculate component-wise remainder of 2D vectors, division-by-zero safe.
@@ -1607,7 +1607,7 @@ extern "C" {
 //		param s_rh: right-hand scalar
 //		return: bv_out
 //boolv ijkVecAnd4rvs(bool4 bv_out, real4 const v_lh, real const s_rh);
-#define ijkVecAnd4rvs ijk_declrealfs(ijkVecAnd4rvs,vs)
+#define ijkVecAnd4rvs ijk_declrealfs(ijkVecAnd4r,vs)
 
 // ijkVecNand4*vs
 //	Component-wise logical 'nand' of 4D vector and scalar.
@@ -3745,6 +3745,386 @@ extern "C" {
 //realv ijkVecReflect2rv(real2 v_out, real2 const v_in, real2 const v_nrm);
 #define ijkVecReflect2rv ijk_declrealfs(ijkVecReflect2,v)
 
+// ijkVecDistance2*v
+//	Calculate distance between two points.
+//		param v_lh: left-hand input
+//		param v_rh: right-hand input
+//		return: distance between inputs
+//real ijkVecDistance2rv(real2 const v_lh, real2 const v_rh);
+#define ijkVecDistance2rv ijk_declrealfs(ijkVecDistance2,v)
+
+// ijkVecResize2*v
+//	Change length of vector, retaining direction.
+//		param v_out: output vector, resized
+//		param v_in: input vector
+//		param length: new length of vector
+//		return: v_out
+//realv ijkVecResize2rv(real2 v_out, real2 const v_in, real const length);
+#define ijkVecDistance2rv ijk_declrealfs(ijkVecDistance2,v)
+
+// ijkVecResizeSafe2*v
+//	Change length of vector, retaining direction; division-by-zero safe.
+//		param v_out: output vector, resized
+//		param v_in: input vector
+//		param length: new length of vector
+//		return: v_out
+//realv ijkVecResizeSafe2rv(real2 v_out, real2 const v_in, real const length);
+#define ijkVecResizeSafe2rv ijk_declrealfs(ijkVecResizeSafe2,v)
+
+// ijkVecCrossResize2*v
+//	Change length of cross product result, retaining direction.
+//		param v_lh: left-hand vector
+//		param v_lh: right-hand vector
+//		param length: new length of vector
+//		return: resized scalar cross product
+//real ijkVecCrossResize2rv(real2 const v_lh, real2 const v_rh, real const length);
+#define ijkVecCrossResize2rv ijk_declrealfs(ijkVecCrossResize2,v)
+
+// ijkVecCrossResizeSafe2*v
+//	Change length of cross product result, retaining direction; 
+//	division-by-zero safe.
+//		param v_lh: left-hand vector
+//		param v_lh: right-hand vector
+//		param length: new length of vector
+//		return: resized scalar cross product
+//real ijkVecCrossResizeSafe2rv(real2 const v_lh, real2 const v_rh, real const length);
+#define ijkVecCrossResizeSafe2rv ijk_declrealfs(ijkVecCrossResizeSafe2,v)
+
+// ijkVecNearest2*v
+//	Nearest-neighbor interpolation between two reference values.
+//		param v_out: output vector, interpolated
+//		param v0: initial reference value/start point, result when t<0.5
+//		param v1: terminal reference value/end point, result when t>=0.5
+//		param u: interpolation parameter
+//		return: v_out
+//realv ijkVecNearest2rv(real2 v_out, real2 const v0, real2 const v1, real const u);
+#define ijkVecNearest2rv ijk_declrealfs(ijkVecNearest2,v)
+
+// ijkVecBinearest2*v
+//	Nearest-neighbor interpolation of nearest-neighbor interpolated values.
+//		param v_out: output vector, interpolated
+//		param v00: initial reference value/start point in first pair, result 
+//			of first pair when t0<0.5
+//		param v01: terminal reference value/end point in first pair, result 
+//			of first pair when t0>=0.5
+//		param v10: initial reference value/start point in second pair, result 
+//			of second pair when t1<0.5
+//		param v11: terminal reference value/end point in second pair, result 
+//			of second pair when t1>=0.5
+//		param u0: interpolation parameter for first pair
+//		param u1: interpolation parameter for second pair
+//		param u: interpolation parameter for results
+//		return: v_out
+//realv ijkVecBinearest2rv(real2 v_out, real2 const v00, real2 const v01, real2 const v10, real2 const v11, real const u0, real const u1, real const u);
+#define ijkVecDistaijkVecBinearest2rvnce2rv ijk_declrealfs(ijkVecBinearest2,v)
+
+// ijkVecRemap2*v
+//	Linear remap between two ranges by first inverse interpolating between 
+//	source/original range and then linearly interpolating between destination/
+//	target range.
+//		param v_out: output vector, interpolated
+//		param v0_dst: initial reference value in destination/target range, 
+//			result when v_src=v0_src
+//		param v1_dst: terminal reference value in destination/target range, 
+//			result when v_src=v1_src
+//		param v0_src: initial reference value in source/original range
+//		param v1_src: terminal reference value in source/original range
+//		param v_src: value to be remapped from original to target range
+//		return: v_out
+//realv ijkVecRemap2rv(real2 v_out, real2 const v0_dst, real2 const v1_dst, real2 const v0_src, real2 const v1_src, real2 const v_src);
+#define ijkVecRemap2rv ijk_declrealfs(ijkVecRemap2,v)
+
+// ijkVecBezier0O2*v
+//	Perform order-0 (point) Bezier interpolation given one reference value.
+//		param v_out: output vector, interpolated
+//		param v0: reference value, always returned
+//		param u: interpolation parameter; not used for order 0 interpolation
+//		return: v_out
+//realv ijkVecBezier0O2rv(real2 v_out, real2 const v0, real const u);
+#define ijkVecBezier0O2rv ijk_declrealfs(ijkVecBezier0O2,v)
+
+// ijkVecBezier1O2*v
+//	Perform order-1 (linear) Bezier interpolation given two reference values.
+//		param v_out: output vector, interpolated
+//		param v0: first reference value, result when t=0
+//		param v1: second reference value, result when t=1
+//		param u: interpolation parameter; inputs in [0,1] interpolate between 
+//			v0 and v1
+//		return: v_out
+//realv ijkVecBezier1O2rv(real2 v_out, real2 const v0, real2 const v1, real const u);
+#define ijkVecBezier1O2rv ijk_declrealfs(ijkVecBezier1O2,v)
+
+// ijkVecBezier2O2*v
+//	Perform order-2 (quadratic) Bezier interpolation given three reference 
+//	values.
+//		param v_out: output vector, interpolated
+//		param v0: first reference value, result when t=0
+//		param v1: second reference value
+//		param v2: third reference value, result when t=1
+//		param u: interpolation parameter; inputs in [0,1] interpolate between 
+//			v0 and v2
+//		return: v_out
+//realv ijkVecBezier2O2rv(real2 v_out, real2 const v0, real2 const v1, real2 const v2, real const u);
+#define ijkVecBezier2O2rv ijk_declrealfs(ijkVecBezier2O2,v)
+
+// ijkVecBezier3O2*v
+//	Perform order-3 (cubic) Bezier interpolation given four reference values.
+//		param v_out: output vector, interpolated
+//		param v0: first reference value, result when t=0
+//		param v1: second reference value
+//		param v2: third reference value
+//		param v3: fourth reference value, result when t=1
+//		param u: interpolation parameter; inputs in [0,1] interpolate between 
+//			v0 and v3
+//		return: v_out
+//realv ijkVecBezier3O2rv(real2 v_out, real2 const v0, real2 const v1, real2 const v2, real2 const v3, real const u);
+#define ijkVecBezier3O2rv ijk_declrealfs(ijkVecBezier3O2,v)
+
+// ijkVecBezierNO2*v
+//	Perform order-N (recursive) Bezier interpolation given an array of 
+//	reference values.
+//		param v_out: output vector, interpolated
+//		param v: array of reference values, result when t=0 is v[0], result 
+//			when t=1 is v[order]
+//			valid: non-null
+//		param order: order of interpolation or number of recursive steps; 
+//			note: size of array is order+1, order is maximum index
+//		param u: interpolation parameter; inputs in [0,1] interpolate between 
+//			v[0] and v[order]
+//		return: v_out
+//realv ijkVecBezierNO2rv(real2 v_out, real2 const v[], size const order, real const u);
+#define ijkVecBezierNO2rv ijk_declrealfs(ijkVecBezierNO2,v)
+
+// ijkVecCubicHermite2*v
+//	Cubic Hermite spline/curve interpolation between two reference values with 
+//	control tangents (rates of change at reference values).
+//		param v_out: output vector, interpolated
+//		param v0: initial reference value/start point, result when t=0
+//		param dv0: initial tangent/rate of change
+//		param v1: terminal reference value/end point, result when t=1
+//		param dv1: terminal tangent/rate of change
+//		param u: interpolation parameter; inputs in [0,1] interpolate between 
+//			v0 and v1
+//		return: v_out
+//realv ijkVecCubicHermite2rv(real2 v_out, real2 const v0, real2 const dv0, real2 const v1, real2 const dv1, real const u);
+#define ijkVecCubicHermite2rv ijk_declrealfs(ijkVecCubicHermite2,v)
+
+// ijkVecCubicHermiteHandles2*v
+//	Cubic Hermite spline/curve interpolation between two reference values with 
+//	control handles to determine rate of change at reference values.
+//		param v_out: output vector, interpolated
+//		param v0: initial reference value/start point, result when t=0
+//		param cv0: initial control handle value, should be greater than v0 
+//			for a positive rate of change
+//		param v1: terminal reference value/end point, result when t=1
+//		param cv1: terminal control handle value, should be greater than v1 
+//			for a positive rate of change
+//		param u: interpolation parameter; inputs in [0,1] interpolate between 
+//			v0 and v1
+//		return: v_out
+//realv ijkVecCubicHermiteHandles2rv(real2 v_out, real2 const v0, real2 const cv0, real2 const v1, real2 const cv1, real const u);
+#define ijkVecCubicHermiteHandles2rv ijk_declrealfs(ijkVecCubicHermiteHandles2,v)
+
+// ijkVecCubicCatmullRom2*v
+//	Catmull-Rom spline/curve interpolation between two reference values with 
+//	two external control values.
+//		param v_out: output vector, interpolated
+//		param vp: initial control value (value before initial reference)
+//		param v0: initial reference value/start point, result when t=0
+//		param v1: terminal reference value/end point, result when t=1
+//		param v2: terminal control value (value after terminal reference)
+//		param u: interpolation parameter; inputs in [0,1] interpolate between 
+//			v0 and v1
+//		return: v_out
+//realv ijkVecCubicCatmullRom2rv(real2 v_out, real2 const vp, real2 const v0, real2 const v1, real2 const v2, real const u);
+#define ijkVecCubicCatmullRom2rv ijk_declrealfs(ijkVecCubicCatmullRom2,v)
+
+// ijkVecBicubicCatmullRom2*v
+//	Bi-cubic interpolation using Catmull-Rom interpolation for segments.
+//		param v_out: output vector, interpolated
+//		param vpp: initial control value of initial control curve
+//		param vp0: initial reference value/start point of initial control 
+//			curve, result of initial control curve when tp=0
+//		param vp1: terminal reference value/end point of initial control 
+//			curve, result of initial control curve when tp=1
+//		param vp2: terminal control value of initial control curve
+//		param v0p: initial control value of initial value curve
+//		param v00: initial reference value/start point of initial value 
+//			curve, result of initial value curve when t0=0
+//		param v01: terminal reference value/end point of initial value 
+//			curve, result of initial value curve when t0=1
+//		param v02: terminal control value of initial value curve
+//		param v1p: initial control value of terminal value curve
+//		param v10: initial reference value/start point of terminal value 
+//			curve, result of terminal value curve when t1=0
+//		param v11: terminal reference value/end point of terminal value 
+//			curve, result of terminal value curve when t1=1
+//		param v12: terminal control value of terminal value curve
+//		param v2p: initial control value of terminal control curve
+//		param v20: initial reference value/start point of terminal control 
+//			curve, result of terminal control curve when t2=0
+//		param v21: terminal reference value/end point of terminal control 
+//			curve, result of terminal control curve when t2=1
+//		param v22: terminal control value of terminal control curve
+//		param up: interpolation parameter for initial control curve
+//		param u0: interpolation parameter for initial value curve
+//		param u1: interpolation parameter for terminal value curve
+//		param u2: interpolation parameter for terminal control curve
+//		param u: interpolation parameter for result
+//		return: v_out
+//realv ijkVecBicubicCatmullRom2rv(real2 v_out, real2 const vpp, real2 const vp0, real2 const vp1, real2 const vp2, real2 const v0p, real2 const v00, real2 const v01, real2 const v02, real2 const v1p, real2 const v10, real2 const v11, real2 const v12, real2 const v2p, real2 const v20, real2 const v21, real2 const v22, real const up, real const u0, real const u1, real const u2, real const u);
+#define ijkVecBicubicCatmullRom2rv ijk_declrealfs(ijkVecBicubicCatmullRom2,v)
+
+// ijkVecReparamCubicHermite2*v
+//	Reparameterize a cubic Hermite segment into sample table.
+//		param uTable_out: array of interpolation parameters at each sample
+//			valid: non-null
+//		param lTable_out: array of accumulated arc lengths at each sample
+//			valid: non-null
+//		param vTable_out: array of values sampled
+//			valid: non-null
+//		param numDivisions: number of intermediate samples on segment
+//			valid: non-zero
+//			note: tables should have at least (numDivisions+1) elements
+//			note: precision of arc length increases as this number increases
+//		param lNormalize: option to normalize arc lengths
+//		param v0: initial reference value/start point, result when t=0
+//		param dv0: initial tangent/rate of change
+//		param v1: terminal reference value/end point, result when t=1
+//		param dv1: terminal tangent/rate of change
+//		return: total arc length
+//real ijkVecReparamCubicHermite2rv(real uTable_out[], real lTable_out[], real2 vTable_out[], size const numDivisions, ibool const lNormalize, real2 const v0, real2 const dv0, real2 const v1, real2 const dv1);
+#define ijkVecReparamCubicHermite2rv ijk_declrealfs(ijkVecReparamCubicHermite2,v)
+
+// ijkVecReparamCubicHermiteHandles2*v
+//	Reparameterize a cubic Hermite segment with handles into sample table.
+//		param uTable_out: array of interpolation parameters at each sample
+//			valid: non-null
+//		param lTable_out: array of accumulated arc lengths at each sample
+//			valid: non-null
+//		param vTable_out: array of values sampled
+//			valid: non-null
+//		param numDivisions: number of intermediate samples on segment
+//			valid: non-zero
+//			note: tables should have at least (numDivisions+1) elements
+//			note: precision of arc length increases as this number increases
+//		param lNormalize: option to normalize arc lengths
+//		param v0: initial reference value/start point, result when t=0
+//		param cv0: initial control handle value, should be greater than v0 
+//			for a positive rate of change
+//		param v1: terminal reference value/end point, result when t=1
+//		param cv1: terminal control handle value, should be greater than v1 
+//			for a positive rate of change
+//		return: total arc length
+//real ijkVecReparamCubicHermiteHandles2rv(real uTable_out[], real lTable_out[], real2 vTable_out[], size const numDivisions, ibool const lNormalize, real2 const v0, real2 const cv0, real2 const v1, real2 const cv1);
+#define ijkVecReparamCubicHermiteHandles2rv ijk_declrealfs(ijkVecReparamCubicHermiteHandles2,v)
+
+// ijkVecReparamCubicCatmullRom2*v
+//	Reparameterize a cubic Catmull-Rom segment into sample table.
+//		param uTable_out: array of interpolation parameters at each sample
+//			valid: non-null
+//		param lTable_out: array of accumulated arc lengths at each sample
+//			valid: non-null
+//		param vTable_out: array of values sampled
+//			valid: non-null
+//		param numDivisions: number of intermediate samples on segment
+//			valid: non-zero
+//			note: tables should have at least (numDivisions+1) elements
+//			note: precision of arc length increases as this number increases
+//		param lNormalize: option to normalize arc lengths
+//		param vp: initial control value
+//		param v0: initial reference value/start point, result when t=0
+//		param v1: terminal reference value/end point, result when t=1
+//		param v2: terminal control value
+//		return: total arc length
+//real ijkVecReparamCubicCatmullRom2rv(real uTable_out[], real lTable_out[], real2 vTable_out[], size const numDivisions, ibool const lNormalize, real2 const vp, real2 const v0, real2 const v1, real2 const v2);
+#define ijkVecReparamCubicCatmullRom2rv ijk_declrealfs(ijkVecReparamCubicCatmullRom2,v)
+
+// ijkVecReparamBicubicCatmullRom2*v
+//	Reparameterize a bi-cubic Catmull-Rom segment into sample table.
+//		param uTable_out: array of interpolation parameters at each sample
+//			valid: non-null
+//		param lTable_out: array of accumulated arc lengths at each sample
+//			valid: non-null
+//		param vTable_out: array of values sampled
+//			valid: non-null
+//		param numDivisions: number of intermediate samples on segment
+//			valid: non-zero
+//			note: tables should have at least (numDivisions+1) elements
+//			note: precision of arc length increases as this number increases
+//		param lNormalize: option to normalize arc lengths
+//		param vpp: initial control value of initial control curve
+//		param vp0: initial reference value/start point of initial control 
+//			curve, result of initial control curve when tp=0
+//		param vp1: terminal reference value/end point of initial control 
+//			curve, result of initial control curve when tp=1
+//		param vp2: terminal control value of initial control curve
+//		param v0p: initial control value of initial value curve
+//		param v00: initial reference value/start point of initial value 
+//			curve, result of initial value curve when t0=0
+//		param v01: terminal reference value/end point of initial value 
+//			curve, result of initial value curve when t0=1
+//		param v02: terminal control value of initial value curve
+//		param v1p: initial control value of terminal value curve
+//		param v10: initial reference value/start point of terminal value 
+//			curve, result of terminal value curve when t1=0
+//		param v11: terminal reference value/end point of terminal value 
+//			curve, result of terminal value curve when t1=1
+//		param v12: terminal control value of terminal value curve
+//		param v2p: initial control value of terminal control curve
+//		param v20: initial reference value/start point of terminal control 
+//			curve, result of terminal control curve when t2=0
+//		param v21: terminal reference value/end point of terminal control 
+//			curve, result of terminal control curve when t2=1
+//		param v22: terminal control value of terminal control curve
+//		param up: interpolation parameter for initial control curve
+//		param u0: interpolation parameter for initial value curve
+//		param u1: interpolation parameter for terminal value curve
+//		param u2: interpolation parameter for terminal control curve
+//		return: total arc length
+//real ijkVecReparamBicubicCatmullRom2rv(real uTable_out[], real lTable_out[], real2 vTable_out[], size const numDivisions, ibool const lNormalize, real2 const vpp, real2 const vp0, real2 const vp1, real2 const vp2, real2 const v0p, real2 const v00, real2 const v01, real2 const v02, real2 const v1p, real2 const v10, real2 const v11, real2 const v12, real2 const v2p, real2 const v20, real2 const v21, real2 const v22, real const up, real const u0, real const u1, real const u2);
+#define ijkVecReparamBicubicCatmullRom2rv ijk_declrealfs(ijkVecReparamBicubicCatmullRom2,v)
+
+// ijkVecSampleTableInc2*v
+//	Find index of parameter in table and approximate value by interpolating 
+//	surrounding samples in table. Assumes that parameter values increase as 
+//	the table is traversed (parameter increases as index increases) and will 
+//	contuinue searching until tabled parameter is greater than input parameter.
+//		param v_out: output vector, interpolated value in table that 
+//			approximates input parameter
+//		param uTable: array of increasing sampling parameters (search table)
+//			valid: non-null
+//		param vTable: array of sampled values (value table)
+//			valid: non-null
+//		param i: starting search index
+//			note: zero if starting from beginning of tables
+//		param di: search index step size (increment of i at each iteration)
+//			note: defaults to 1 if passed 0
+//		param u: input parameter to find in search table
+//		return: v_out
+//realv ijkVecSampleTableInc2rv(real2 v_out, real const uTable[], real2 const vTable[], index i, index di, real const u);
+#define ijkVecSampleTableInc2rv ijk_declrealfs(ijkVecSampleTableInc2,v)
+
+// ijkVecSampleTableDec2*v
+//	Find index of parameter in table and approximate value by interpolating 
+//	surrounding samples in table. Assumes that parameter values decrease as 
+//	the table is traversed (parameter increases as index increases) and will 
+//	contuinue searching until tabled parameter is less than input parameter.
+//		param v_out: output vector, interpolated value in table that 
+//			approximates input parameter
+//		param uTable: array of decreasing sampling parameters (search table)
+//			valid: non-null
+//		param vTable: array of sampled values (value table)
+//			valid: non-null
+//		param i: starting search index
+//			note: zero if starting from beginning of tables
+//		param di: search index step size (increment of i at each iteration)
+//			note: defaults to 1 if passed 0
+//		param u: input parameter to find in search table
+//		return: v_out
+//realv ijkVecSampleTableDec2rv(real2 v_out, real const uTable[], real2 const vTable[], index i, index di, real const u);
+#define ijkVecSampleTableDec2rv ijk_declrealfs(ijkVecSampleTableDec2,v)
+
 
 //-----------------------------------------------------------------------------
 
@@ -4059,6 +4439,388 @@ extern "C" {
 //		return: v_out
 //realv ijkVecReflect3rv(real3 v_out, real3 const v_in, real3 const v_nrm);
 #define ijkVecReflect3rv ijk_declrealfs(ijkVecReflect3,v)
+
+// ijkVecDistance3*v
+//	Calculate distance between two points.
+//		param v_lh: left-hand input
+//		param v_rh: right-hand input
+//		return: distance between inputs
+//real ijkVecDistance3rv(real3 const v_lh, real3 const v_rh);
+#define ijkVecDistance3rv ijk_declrealfs(ijkVecDistance3,v)
+
+// ijkVecResize3*v
+//	Change length of vector, retaining direction.
+//		param v_out: output vector, resized
+//		param v_in: input vector
+//		param length: new length of vector
+//		return: v_out
+//realv ijkVecResize3rv(real3 v_out, real3 const v_in, real const length);
+#define ijkVecResize3rv ijk_declrealfs(ijkVecResize3,v)
+
+// ijkVecResizeSafe3*v
+//	Change length of vector, retaining direction; division-by-zero safe.
+//		param v_out: output vector, resized
+//		param v_in: input vector
+//		param length: new length of vector
+//		return: v_out
+//realv ijkVecResizeSafe3rv(real3 v_out, real3 const v_in, real const length);
+#define ijkVecResizeSafe3rv ijk_declrealfs(ijkVecResizeSafe3,v)
+
+// ijkVecCrossResize3*v
+//	Change length of cross product result, retaining direction.
+//		param v_out: output cross product vector, resized
+//		param v_lh: left-hand vector
+//		param v_lh: right-hand vector
+//		param length: new length of vector
+//		return: v_out
+//realv ijkVecCrossResize3rv(real3 v_out, real3 const v_lh, real3 const v_rh, real const length);
+#define ijkVecCrossResize3rv ijk_declrealfs(ijkVecCrossResize3,v)
+
+// ijkVecCrossResizeSafe3*v
+//	Change length of cross product result, retaining direction; 
+//	division-by-zero safe.
+//		param v_out: output cross product vector, resized
+//		param v_lh: left-hand vector
+//		param v_lh: right-hand vector
+//		param length: new length of vector
+//		return: v_out
+//realv ijkVecCrossResizeSafe3rv(real3 v_out, real3 const v_lh, real3 const v_rh, real const length);
+#define ijkVecCrossResizeSafe3rv ijk_declrealfs(ijkVecCrossResizeSafe3,v)
+
+// ijkVecNearest3*v
+//	Nearest-neighbor interpolation between two reference values.
+//		param v_out: output vector, interpolated
+//		param v0: initial reference value/start point, result when t<0.5
+//		param v1: terminal reference value/end point, result when t>=0.5
+//		param u: interpolation parameter
+//		return: v_out
+//realv ijkVecNearest3rv(real3 v_out, real3 const v0, real3 const v1, real const u);
+#define ijkVecNearest3rv ijk_declrealfs(ijkVecNearest3,v)
+
+// ijkVecBinearest3*v
+//	Nearest-neighbor interpolation of nearest-neighbor interpolated values.
+//		param v_out: output vector, interpolated
+//		param v00: initial reference value/start point in first pair, result 
+//			of first pair when t0<0.5
+//		param v01: terminal reference value/end point in first pair, result 
+//			of first pair when t0>=0.5
+//		param v10: initial reference value/start point in second pair, result 
+//			of second pair when t1<0.5
+//		param v11: terminal reference value/end point in second pair, result 
+//			of second pair when t1>=0.5
+//		param u0: interpolation parameter for first pair
+//		param u1: interpolation parameter for second pair
+//		param u: interpolation parameter for results
+//		return: v_out
+//realv ijkVecBinearest3rv(real3 v_out, real3 const v00, real3 const v01, real3 const v10, real3 const v11, real const u0, real const u1, real const u);
+#define ijkVecBinearest3rv ijk_declrealfs(ijkVecBinearest3,v)
+
+// ijkVecRemap3*v
+//	Linear remap between two ranges by first inverse interpolating between 
+//	source/original range and then linearly interpolating between destination/
+//	target range.
+//		param v_out: output vector, interpolated
+//		param v0_dst: initial reference value in destination/target range, 
+//			result when v_src=v0_src
+//		param v1_dst: terminal reference value in destination/target range, 
+//			result when v_src=v1_src
+//		param v0_src: initial reference value in source/original range
+//		param v1_src: terminal reference value in source/original range
+//		param v_src: value to be remapped from original to target range
+//		return: v_out
+//realv ijkVecRemap3rv(real3 v_out, real3 const v0_dst, real3 const v1_dst, real3 const v0_src, real3 const v1_src, real3 const v_src);
+#define ijkVecRemap3rv ijk_declrealfs(ijkVecRemap3,v)
+
+// ijkVecBezier0O3*v
+//	Perform order-0 (point) Bezier interpolation given one reference value.
+//		param v_out: output vector, interpolated
+//		param v0: reference value, always returned
+//		param u: interpolation parameter; not used for order 0 interpolation
+//		return: v_out
+//realv ijkVecBezier0O3rv(real3 v_out, real3 const v0, real const u);
+#define ijkVecBezier0O3rv ijk_declrealfs(ijkVecBezier0O3,v)
+
+// ijkVecBezier1O3*v
+//	Perform order-1 (linear) Bezier interpolation given two reference values.
+//		param v_out: output vector, interpolated
+//		param v0: first reference value, result when t=0
+//		param v1: second reference value, result when t=1
+//		param u: interpolation parameter; inputs in [0,1] interpolate between 
+//			v0 and v1
+//		return: v_out
+//realv ijkVecBezier1O3rv(real3 v_out, real3 const v0, real3 const v1, real const u);
+#define ijkVecBezier1O3rv ijk_declrealfs(ijkVecBezier1O3,v)
+
+// ijkVecBezier2O3*v
+//	Perform order-2 (quadratic) Bezier interpolation given three reference 
+//	values.
+//		param v_out: output vector, interpolated
+//		param v0: first reference value, result when t=0
+//		param v1: second reference value
+//		param v2: third reference value, result when t=1
+//		param u: interpolation parameter; inputs in [0,1] interpolate between 
+//			v0 and v2
+//		return: v_out
+//realv ijkVecBezier2O3rv(real3 v_out, real3 const v0, real3 const v1, real3 const v2, real const u);
+#define ijkVecBezier2O3rv ijk_declrealfs(ijkVecBezier2O3,v)
+
+// ijkVecBezier3O3*v
+//	Perform order-3 (cubic) Bezier interpolation given four reference values.
+//		param v_out: output vector, interpolated
+//		param v0: first reference value, result when t=0
+//		param v1: second reference value
+//		param v2: third reference value
+//		param v3: fourth reference value, result when t=1
+//		param u: interpolation parameter; inputs in [0,1] interpolate between 
+//			v0 and v3
+//		return: v_out
+//realv ijkVecBezier3O3rv(real3 v_out, real3 const v0, real3 const v1, real3 const v2, real3 const v3, real const u);
+#define ijkVecBezier3O3rv ijk_declrealfs(ijkVecBezier3O3,v)
+
+// ijkVecBezierNO3*v
+//	Perform order-N (recursive) Bezier interpolation given an array of 
+//	reference values.
+//		param v_out: output vector, interpolated
+//		param v: array of reference values, result when t=0 is v[0], result 
+//			when t=1 is v[order]
+//			valid: non-null
+//		param order: order of interpolation or number of recursive steps; 
+//			note: size of array is order+1, order is maximum index
+//		param u: interpolation parameter; inputs in [0,1] interpolate between 
+//			v[0] and v[order]
+//		return: v_out
+//realv ijkVecBezierNO3rv(real3 v_out, real3 const v[], size const order, real const u);
+#define ijkVecBezierNO3rv ijk_declrealfs(ijkVecBezierNO3,v)
+
+// ijkVecCubicHermite3*v
+//	Cubic Hermite spline/curve interpolation between two reference values with 
+//	control tangents (rates of change at reference values).
+//		param v_out: output vector, interpolated
+//		param v0: initial reference value/start point, result when t=0
+//		param dv0: initial tangent/rate of change
+//		param v1: terminal reference value/end point, result when t=1
+//		param dv1: terminal tangent/rate of change
+//		param u: interpolation parameter; inputs in [0,1] interpolate between 
+//			v0 and v1
+//		return: v_out
+//realv ijkVecCubicHermite3rv(real3 v_out, real3 const v0, real3 const dv0, real3 const v1, real3 const dv1, real const u);
+#define ijkVecCubicHermite3rv ijk_declrealfs(ijkVecCubicHermite3,v)
+
+// ijkVecCubicHermiteHandles3*v
+//	Cubic Hermite spline/curve interpolation between two reference values with 
+//	control handles to determine rate of change at reference values.
+//		param v_out: output vector, interpolated
+//		param v0: initial reference value/start point, result when t=0
+//		param cv0: initial control handle value, should be greater than v0 
+//			for a positive rate of change
+//		param v1: terminal reference value/end point, result when t=1
+//		param cv1: terminal control handle value, should be greater than v1 
+//			for a positive rate of change
+//		param u: interpolation parameter; inputs in [0,1] interpolate between 
+//			v0 and v1
+//		return: v_out
+//realv ijkVecCubicHermiteHandles3rv(real3 v_out, real3 const v0, real3 const cv0, real3 const v1, real3 const cv1, real const u);
+#define ijkVecCubicHermiteHandles3rv ijk_declrealfs(ijkVecCubicHermiteHandles3,v)
+
+// ijkVecCubicCatmullRom3*v
+//	Catmull-Rom spline/curve interpolation between two reference values with 
+//	two external control values.
+//		param v_out: output vector, interpolated
+//		param vp: initial control value (value before initial reference)
+//		param v0: initial reference value/start point, result when t=0
+//		param v1: terminal reference value/end point, result when t=1
+//		param v2: terminal control value (value after terminal reference)
+//		param u: interpolation parameter; inputs in [0,1] interpolate between 
+//			v0 and v1
+//		return: v_out
+//realv ijkVecCubicCatmullRom3rv(real3 v_out, real3 const vp, real3 const v0, real3 const v1, real3 const v2, real const u);
+#define ijkVecCubicCatmullRom3rv ijk_declrealfs(ijkVecCubicCatmullRom3,v)
+
+// ijkVecBicubicCatmullRom3*v
+//	Bi-cubic interpolation using Catmull-Rom interpolation for segments.
+//		param v_out: output vector, interpolated
+//		param vpp: initial control value of initial control curve
+//		param vp0: initial reference value/start point of initial control 
+//			curve, result of initial control curve when tp=0
+//		param vp1: terminal reference value/end point of initial control 
+//			curve, result of initial control curve when tp=1
+//		param vp2: terminal control value of initial control curve
+//		param v0p: initial control value of initial value curve
+//		param v00: initial reference value/start point of initial value 
+//			curve, result of initial value curve when t0=0
+//		param v01: terminal reference value/end point of initial value 
+//			curve, result of initial value curve when t0=1
+//		param v02: terminal control value of initial value curve
+//		param v1p: initial control value of terminal value curve
+//		param v10: initial reference value/start point of terminal value 
+//			curve, result of terminal value curve when t1=0
+//		param v11: terminal reference value/end point of terminal value 
+//			curve, result of terminal value curve when t1=1
+//		param v12: terminal control value of terminal value curve
+//		param v2p: initial control value of terminal control curve
+//		param v20: initial reference value/start point of terminal control 
+//			curve, result of terminal control curve when t2=0
+//		param v21: terminal reference value/end point of terminal control 
+//			curve, result of terminal control curve when t2=1
+//		param v22: terminal control value of terminal control curve
+//		param up: interpolation parameter for initial control curve
+//		param u0: interpolation parameter for initial value curve
+//		param u1: interpolation parameter for terminal value curve
+//		param u2: interpolation parameter for terminal control curve
+//		param u: interpolation parameter for result
+//		return: v_out
+//realv ijkVecBicubicCatmullRom3rv(real3 v_out, real3 const vpp, real3 const vp0, real3 const vp1, real3 const vp2, real3 const v0p, real3 const v00, real3 const v01, real3 const v02, real3 const v1p, real3 const v10, real3 const v11, real3 const v12, real3 const v2p, real3 const v20, real3 const v21, real3 const v22, real const up, real const u0, real const u1, real const u2, real const u);
+#define ijkVecBicubicCatmullRom3rv ijk_declrealfs(ijkVecBicubicCatmullRom3,v)
+
+// ijkVecReparamCubicHermite3*v
+//	Reparameterize a cubic Hermite segment into sample table.
+//		param uTable_out: array of interpolation parameters at each sample
+//			valid: non-null
+//		param lTable_out: array of accumulated arc lengths at each sample
+//			valid: non-null
+//		param vTable_out: array of values sampled
+//			valid: non-null
+//		param numDivisions: number of intermediate samples on segment
+//			valid: non-zero
+//			note: tables should have at least (numDivisions+1) elements
+//			note: precision of arc length increases as this number increases
+//		param lNormalize: option to normalize arc lengths
+//		param v0: initial reference value/start point, result when t=0
+//		param dv0: initial tangent/rate of change
+//		param v1: terminal reference value/end point, result when t=1
+//		param dv1: terminal tangent/rate of change
+//		return: total arc length
+//real ijkVecReparamCubicHermite3rv(real uTable_out[], real lTable_out[], real3 vTable_out[], size const numDivisions, ibool const lNormalize, real3 const v0, real3 const dv0, real3 const v1, real3 const dv1);
+#define ijkVecReparamCubicHermite3rv ijk_declrealfs(ijkVecReparamCubicHermite3,v)
+
+// ijkVecReparamCubicHermiteHandles3*v
+//	Reparameterize a cubic Hermite segment with handles into sample table.
+//		param uTable_out: array of interpolation parameters at each sample
+//			valid: non-null
+//		param lTable_out: array of accumulated arc lengths at each sample
+//			valid: non-null
+//		param vTable_out: array of values sampled
+//			valid: non-null
+//		param numDivisions: number of intermediate samples on segment
+//			valid: non-zero
+//			note: tables should have at least (numDivisions+1) elements
+//			note: precision of arc length increases as this number increases
+//		param lNormalize: option to normalize arc lengths
+//		param v0: initial reference value/start point, result when t=0
+//		param cv0: initial control handle value, should be greater than v0 
+//			for a positive rate of change
+//		param v1: terminal reference value/end point, result when t=1
+//		param cv1: terminal control handle value, should be greater than v1 
+//			for a positive rate of change
+//		return: total arc length
+//real ijkVecReparamCubicHermiteHandles3rv(real uTable_out[], real lTable_out[], real3 vTable_out[], size const numDivisions, ibool const lNormalize, real3 const v0, real3 const cv0, real3 const v1, real3 const cv1);
+#define ijkVecReparamCubicHermiteHandles3rv ijk_declrealfs(ijkVecReparamCubicHermiteHandles3,v)
+
+// ijkVecReparamCubicCatmullRom3*v
+//	Reparameterize a cubic Catmull-Rom segment into sample table.
+//		param uTable_out: array of interpolation parameters at each sample
+//			valid: non-null
+//		param lTable_out: array of accumulated arc lengths at each sample
+//			valid: non-null
+//		param vTable_out: array of values sampled
+//			valid: non-null
+//		param numDivisions: number of intermediate samples on segment
+//			valid: non-zero
+//			note: tables should have at least (numDivisions+1) elements
+//			note: precision of arc length increases as this number increases
+//		param lNormalize: option to normalize arc lengths
+//		param vp: initial control value
+//		param v0: initial reference value/start point, result when t=0
+//		param v1: terminal reference value/end point, result when t=1
+//		param v2: terminal control value
+//		return: total arc length
+//real ijkVecReparamCubicCatmullRom3rv(real uTable_out[], real lTable_out[], real3 vTable_out[], size const numDivisions, ibool const lNormalize, real3 const vp, real3 const v0, real3 const v1, real3 const v2);
+#define ijkVecReparamCubicCatmullRom3rv ijk_declrealfs(ijkVecReparamCubicCatmullRom3,v)
+
+// ijkVecReparamBicubicCatmullRom3*v
+//	Reparameterize a bi-cubic Catmull-Rom segment into sample table.
+//		param uTable_out: array of interpolation parameters at each sample
+//			valid: non-null
+//		param lTable_out: array of accumulated arc lengths at each sample
+//			valid: non-null
+//		param vTable_out: array of values sampled
+//			valid: non-null
+//		param numDivisions: number of intermediate samples on segment
+//			valid: non-zero
+//			note: tables should have at least (numDivisions+1) elements
+//			note: precision of arc length increases as this number increases
+//		param lNormalize: option to normalize arc lengths
+//		param vpp: initial control value of initial control curve
+//		param vp0: initial reference value/start point of initial control 
+//			curve, result of initial control curve when tp=0
+//		param vp1: terminal reference value/end point of initial control 
+//			curve, result of initial control curve when tp=1
+//		param vp2: terminal control value of initial control curve
+//		param v0p: initial control value of initial value curve
+//		param v00: initial reference value/start point of initial value 
+//			curve, result of initial value curve when t0=0
+//		param v01: terminal reference value/end point of initial value 
+//			curve, result of initial value curve when t0=1
+//		param v02: terminal control value of initial value curve
+//		param v1p: initial control value of terminal value curve
+//		param v10: initial reference value/start point of terminal value 
+//			curve, result of terminal value curve when t1=0
+//		param v11: terminal reference value/end point of terminal value 
+//			curve, result of terminal value curve when t1=1
+//		param v12: terminal control value of terminal value curve
+//		param v2p: initial control value of terminal control curve
+//		param v20: initial reference value/start point of terminal control 
+//			curve, result of terminal control curve when t2=0
+//		param v21: terminal reference value/end point of terminal control 
+//			curve, result of terminal control curve when t2=1
+//		param v22: terminal control value of terminal control curve
+//		param up: interpolation parameter for initial control curve
+//		param u0: interpolation parameter for initial value curve
+//		param u1: interpolation parameter for terminal value curve
+//		param u2: interpolation parameter for terminal control curve
+//		return: total arc length
+//real ijkVecReparamBicubicCatmullRom3rv(real uTable_out[], real lTable_out[], real3 vTable_out[], size const numDivisions, ibool const lNormalize, real3 const vpp, real3 const vp0, real3 const vp1, real3 const vp2, real3 const v0p, real3 const v00, real3 const v01, real3 const v02, real3 const v1p, real3 const v10, real3 const v11, real3 const v12, real3 const v2p, real3 const v20, real3 const v21, real3 const v22, real const up, real const u0, real const u1, real const u2);
+#define ijkVecReparamBicubicCatmullRom3rv ijk_declrealfs(ijkVecReparamBicubicCatmullRom3,v)
+
+// ijkVecSampleTableInc3*v
+//	Find index of parameter in table and approximate value by interpolating 
+//	surrounding samples in table. Assumes that parameter values increase as 
+//	the table is traversed (parameter increases as index increases) and will 
+//	contuinue searching until tabled parameter is greater than input parameter.
+//		param v_out: output vector, interpolated value in table that 
+//			approximates input parameter
+//		param uTable: array of increasing sampling parameters (search table)
+//			valid: non-null
+//		param vTable: array of sampled values (value table)
+//			valid: non-null
+//		param i: starting search index
+//			note: zero if starting from beginning of tables
+//		param di: search index step size (increment of i at each iteration)
+//			note: defaults to 1 if passed 0
+//		param u: input parameter to find in search table
+//		return: v_out
+//realv ijkVecSampleTableInc3rv(real3 v_out, real const uTable[], real3 const vTable[], index i, index di, real const u);
+#define ijkVecSampleTableInc3rv ijk_declrealfs(ijkVecSampleTableInc3,v)
+
+// ijkVecSampleTableDec3*v
+//	Find index of parameter in table and approximate value by interpolating 
+//	surrounding samples in table. Assumes that parameter values decrease as 
+//	the table is traversed (parameter increases as index increases) and will 
+//	contuinue searching until tabled parameter is less than input parameter.
+//		param v_out: output vector, interpolated value in table that 
+//			approximates input parameter
+//		param uTable: array of decreasing sampling parameters (search table)
+//			valid: non-null
+//		param vTable: array of sampled values (value table)
+//			valid: non-null
+//		param i: starting search index
+//			note: zero if starting from beginning of tables
+//		param di: search index step size (increment of i at each iteration)
+//			note: defaults to 1 if passed 0
+//		param u: input parameter to find in search table
+//		return: v_out
+//realv ijkVecSampleTableDec3rv(real3 v_out, real const uTable[], real3 const vTable[], index i, index di, real const u);
+#define ijkVecSampleTableDec3rv ijk_declrealfs(ijkVecSampleTableDec3,v)
 
 
 //-----------------------------------------------------------------------------
@@ -4375,6 +5137,388 @@ extern "C" {
 //realv ijkVecReflect4rv(real4 v_out, real4 const v_in, real4 const v_nrm);
 #define ijkVecReflect4rv ijk_declrealfs(ijkVecReflect4,v)
 
+// ijkVecDistance4*v
+//	Calculate "distance" between two 4D vectors.
+//		param v_lh: left-hand input
+//		param v_rh: right-hand input
+//		return: distance between inputs
+//real ijkVecDistance4rv(real4 const v_lh, real4 const v_rh);
+#define ijkVecDistance4rv ijk_declrealfs(ijkVecDistance4,v)
+
+// ijkVecResize4*v
+//	Change length of vector, retaining direction.
+//		param v_out: output vector, resized
+//		param v_in: input vector
+//		param length: new length of vector
+//		return: v_out
+//realv ijkVecResize4rv(real4 v_out, real4 const v_in, real const length);
+#define ijkVecResize4rv ijk_declrealfs(ijkVecResize4,v)
+
+// ijkVecResizeSafe4*v
+//	Change length of vector, retaining direction; division-by-zero safe.
+//		param v_out: output vector, resized
+//		param v_in: input vector
+//		param length: new length of vector
+//		return: v_out
+//realv ijkVecResizeSafe4rv(real4 v_out, real4 const v_in, real const length);
+#define ijkVecResizeSafe4rv ijk_declrealfs(ijkVecResizeSafe4,v)
+
+// ijkVecCrossResize4*v
+//	Change length of cross product result, retaining direction.
+//		param v_out: output cross product vector, resized
+//		param v_lh: left-hand vector
+//		param v_lh: right-hand vector
+//		param length: new length of vector
+//		return: v_out
+//realv ijkVecCrossResize4rv(real4 v_out, real4 const v_lh, real4 const v_rh, real const length);
+#define ijkVecCrossResize4rv ijk_declrealfs(ijkVecCrossResize4,v)
+
+// ijkVecCrossResizeSafe4*v
+//	Change length of cross product result, retaining direction; 
+//	division-by-zero safe.
+//		param v_out: output cross product vector, resized
+//		param v_lh: left-hand vector
+//		param v_lh: right-hand vector
+//		param length: new length of vector
+//		return: v_out
+//realv ijkVecCrossResizeSafe4rv(real4 v_out, real4 const v_lh, real4 const v_rh, real const length);
+#define ijkVecCrossResizeSafe4rv ijk_declrealfs(ijkVecCrossResizeSafe4,v)
+
+// ijkVecNearest4*v
+//	Nearest-neighbor interpolation between two reference values.
+//		param v_out: output vector, interpolated
+//		param v0: initial reference value/start point, result when t<0.5
+//		param v1: terminal reference value/end point, result when t>=0.5
+//		param u: interpolation parameter
+//		return: v_out
+//realv ijkVecNearest4rv(real4 v_out, real4 const v0, real4 const v1, real const u);
+#define ijkVecNearest4rv ijk_declrealfs(ijkVecNearest4,v)
+
+// ijkVecBinearest4*v
+//	Nearest-neighbor interpolation of nearest-neighbor interpolated values.
+//		param v_out: output vector, interpolated
+//		param v00: initial reference value/start point in first pair, result 
+//			of first pair when t0<0.5
+//		param v01: terminal reference value/end point in first pair, result 
+//			of first pair when t0>=0.5
+//		param v10: initial reference value/start point in second pair, result 
+//			of second pair when t1<0.5
+//		param v11: terminal reference value/end point in second pair, result 
+//			of second pair when t1>=0.5
+//		param u0: interpolation parameter for first pair
+//		param u1: interpolation parameter for second pair
+//		param u: interpolation parameter for results
+//		return: v_out
+//realv ijkVecBinearest4rv(real4 v_out, real4 const v00, real4 const v01, real4 const v10, real4 const v11, real const u0, real const u1, real const u);
+#define ijkVecBinearest4rv ijk_declrealfs(ijkVecBinearest4,v)
+
+// ijkVecRemap4*v
+//	Linear remap between two ranges by first inverse interpolating between 
+//	source/original range and then linearly interpolating between destination/
+//	target range.
+//		param v_out: output vector, interpolated
+//		param v0_dst: initial reference value in destination/target range, 
+//			result when v_src=v0_src
+//		param v1_dst: terminal reference value in destination/target range, 
+//			result when v_src=v1_src
+//		param v0_src: initial reference value in source/original range
+//		param v1_src: terminal reference value in source/original range
+//		param v_src: value to be remapped from original to target range
+//		return: v_out
+//realv ijkVecRemap4rv(real4 v_out, real4 const v0_dst, real4 const v1_dst, real4 const v0_src, real4 const v1_src, real4 const v_src);
+#define ijkVecRemap4rv ijk_declrealfs(ijkVecRemap4,v)
+
+// ijkVecBezier0O4*v
+//	Perform order-0 (point) Bezier interpolation given one reference value.
+//		param v_out: output vector, interpolated
+//		param v0: reference value, always returned
+//		param u: interpolation parameter; not used for order 0 interpolation
+//		return: v_out
+//realv ijkVecBezier0O4rv(real4 v_out, real4 const v0, real const u);
+#define ijkVecBezier0O4rv ijk_declrealfs(ijkVecBezier0O4,v)
+
+// ijkVecBezier1O4*v
+//	Perform order-1 (linear) Bezier interpolation given two reference values.
+//		param v_out: output vector, interpolated
+//		param v0: first reference value, result when t=0
+//		param v1: second reference value, result when t=1
+//		param u: interpolation parameter; inputs in [0,1] interpolate between 
+//			v0 and v1
+//		return: v_out
+//realv ijkVecBezier1O4rv(real4 v_out, real4 const v0, real4 const v1, real const u);
+#define ijkVecBezier1O4rv ijk_declrealfs(ijkVecBezier1O4,v)
+
+// ijkVecBezier2O4*v
+//	Perform order-2 (quadratic) Bezier interpolation given three reference 
+//	values.
+//		param v_out: output vector, interpolated
+//		param v0: first reference value, result when t=0
+//		param v1: second reference value
+//		param v2: third reference value, result when t=1
+//		param u: interpolation parameter; inputs in [0,1] interpolate between 
+//			v0 and v2
+//		return: v_out
+//realv ijkVecBezier2O4rv(real4 v_out, real4 const v0, real4 const v1, real4 const v2, real const u);
+#define ijkVecBezier2O4rv ijk_declrealfs(ijkVecBezier2O4,v)
+
+// ijkVecBezier3O4*v
+//	Perform order-3 (cubic) Bezier interpolation given four reference values.
+//		param v_out: output vector, interpolated
+//		param v0: first reference value, result when t=0
+//		param v1: second reference value
+//		param v2: third reference value
+//		param v3: fourth reference value, result when t=1
+//		param u: interpolation parameter; inputs in [0,1] interpolate between 
+//			v0 and v3
+//		return: v_out
+//realv ijkVecBezier3O4rv(real4 v_out, real4 const v0, real4 const v1, real4 const v2, real4 const v3, real const u);
+#define ijkVecBezier3O4rv ijk_declrealfs(ijkVecBezier3O4,v)
+
+// ijkVecBezierNO4*v
+//	Perform order-N (recursive) Bezier interpolation given an array of 
+//	reference values.
+//		param v_out: output vector, interpolated
+//		param v: array of reference values, result when t=0 is v[0], result 
+//			when t=1 is v[order]
+//			valid: non-null
+//		param order: order of interpolation or number of recursive steps; 
+//			note: size of array is order+1, order is maximum index
+//		param u: interpolation parameter; inputs in [0,1] interpolate between 
+//			v[0] and v[order]
+//		return: v_out
+//realv ijkVecBezierNO4rv(real4 v_out, real4 const v[], size const order, real const u);
+#define ijkVecBezierNO4rv ijk_declrealfs(ijkVecBezierNO4,v)
+
+// ijkVecCubicHermite4*v
+//	Cubic Hermite spline/curve interpolation between two reference values with 
+//	control tangents (rates of change at reference values).
+//		param v_out: output vector, interpolated
+//		param v0: initial reference value/start point, result when t=0
+//		param dv0: initial tangent/rate of change
+//		param v1: terminal reference value/end point, result when t=1
+//		param dv1: terminal tangent/rate of change
+//		param u: interpolation parameter; inputs in [0,1] interpolate between 
+//			v0 and v1
+//		return: v_out
+//realv ijkVecCubicHermite4rv(real4 v_out, real4 const v0, real4 const dv0, real4 const v1, real4 const dv1, real const u);
+#define ijkVecCubicHermite4rv ijk_declrealfs(ijkVecCubicHermite4,v)
+
+// ijkVecCubicHermiteHandles4*v
+//	Cubic Hermite spline/curve interpolation between two reference values with 
+//	control handles to determine rate of change at reference values.
+//		param v_out: output vector, interpolated
+//		param v0: initial reference value/start point, result when t=0
+//		param cv0: initial control handle value, should be greater than v0 
+//			for a positive rate of change
+//		param v1: terminal reference value/end point, result when t=1
+//		param cv1: terminal control handle value, should be greater than v1 
+//			for a positive rate of change
+//		param u: interpolation parameter; inputs in [0,1] interpolate between 
+//			v0 and v1
+//		return: v_out
+//realv ijkVecCubicHermiteHandles4rv(real4 v_out, real4 const v0, real4 const cv0, real4 const v1, real4 const cv1, real const u);
+#define ijkVecCubicHermiteHandles4rv ijk_declrealfs(ijkVecCubicHermiteHandles4,v)
+
+// ijkVecCubicCatmullRom4*v
+//	Catmull-Rom spline/curve interpolation between two reference values with 
+//	two external control values.
+//		param v_out: output vector, interpolated
+//		param vp: initial control value (value before initial reference)
+//		param v0: initial reference value/start point, result when t=0
+//		param v1: terminal reference value/end point, result when t=1
+//		param v2: terminal control value (value after terminal reference)
+//		param u: interpolation parameter; inputs in [0,1] interpolate between 
+//			v0 and v1
+//		return: v_out
+//realv ijkVecCubicCatmullRom4rv(real4 v_out, real4 const vp, real4 const v0, real4 const v1, real4 const v2, real const u);
+#define ijkVecCubicCatmullRom4rv ijk_declrealfs(ijkVecCubicCatmullRom4,v)
+
+// ijkVecBicubicCatmullRom4*v
+//	Bi-cubic interpolation using Catmull-Rom interpolation for segments.
+//		param v_out: output vector, interpolated
+//		param vpp: initial control value of initial control curve
+//		param vp0: initial reference value/start point of initial control 
+//			curve, result of initial control curve when tp=0
+//		param vp1: terminal reference value/end point of initial control 
+//			curve, result of initial control curve when tp=1
+//		param vp2: terminal control value of initial control curve
+//		param v0p: initial control value of initial value curve
+//		param v00: initial reference value/start point of initial value 
+//			curve, result of initial value curve when t0=0
+//		param v01: terminal reference value/end point of initial value 
+//			curve, result of initial value curve when t0=1
+//		param v02: terminal control value of initial value curve
+//		param v1p: initial control value of terminal value curve
+//		param v10: initial reference value/start point of terminal value 
+//			curve, result of terminal value curve when t1=0
+//		param v11: terminal reference value/end point of terminal value 
+//			curve, result of terminal value curve when t1=1
+//		param v12: terminal control value of terminal value curve
+//		param v2p: initial control value of terminal control curve
+//		param v20: initial reference value/start point of terminal control 
+//			curve, result of terminal control curve when t2=0
+//		param v21: terminal reference value/end point of terminal control 
+//			curve, result of terminal control curve when t2=1
+//		param v22: terminal control value of terminal control curve
+//		param up: interpolation parameter for initial control curve
+//		param u0: interpolation parameter for initial value curve
+//		param u1: interpolation parameter for terminal value curve
+//		param u2: interpolation parameter for terminal control curve
+//		param u: interpolation parameter for result
+//		return: v_out
+//realv ijkVecBicubicCatmullRom4rv(real4 v_out, real4 const vpp, real4 const vp0, real4 const vp1, real4 const vp2, real4 const v0p, real4 const v00, real4 const v01, real4 const v02, real4 const v1p, real4 const v10, real4 const v11, real4 const v12, real4 const v2p, real4 const v20, real4 const v21, real4 const v22, real const up, real const u0, real const u1, real const u2, real const u);
+#define ijkVecBicubicCatmullRom4rv ijk_declrealfs(ijkVecBicubicCatmullRom4,v)
+
+// ijkVecReparamCubicHermite4*v
+//	Reparameterize a cubic Hermite segment into sample table.
+//		param uTable_out: array of interpolation parameters at each sample
+//			valid: non-null
+//		param lTable_out: array of accumulated arc lengths at each sample
+//			valid: non-null
+//		param vTable_out: array of values sampled
+//			valid: non-null
+//		param numDivisions: number of intermediate samples on segment
+//			valid: non-zero
+//			note: tables should have at least (numDivisions+1) elements
+//			note: precision of arc length increases as this number increases
+//		param lNormalize: option to normalize arc lengths
+//		param v0: initial reference value/start point, result when t=0
+//		param dv0: initial tangent/rate of change
+//		param v1: terminal reference value/end point, result when t=1
+//		param dv1: terminal tangent/rate of change
+//		return: total arc length
+//real ijkVecReparamCubicHermite4rv(real uTable_out[], real lTable_out[], real4 vTable_out[], size const numDivisions, ibool const lNormalize, real4 const v0, real4 const dv0, real4 const v1, real4 const dv1);
+#define ijkVecReparamCubicHermite4rv ijk_declrealfs(ijkVecReparamCubicHermite4,v)
+
+// ijkVecReparamCubicHermiteHandles4*v
+//	Reparameterize a cubic Hermite segment with handles into sample table.
+//		param uTable_out: array of interpolation parameters at each sample
+//			valid: non-null
+//		param lTable_out: array of accumulated arc lengths at each sample
+//			valid: non-null
+//		param vTable_out: array of values sampled
+//			valid: non-null
+//		param numDivisions: number of intermediate samples on segment
+//			valid: non-zero
+//			note: tables should have at least (numDivisions+1) elements
+//			note: precision of arc length increases as this number increases
+//		param lNormalize: option to normalize arc lengths
+//		param v0: initial reference value/start point, result when t=0
+//		param cv0: initial control handle value, should be greater than v0 
+//			for a positive rate of change
+//		param v1: terminal reference value/end point, result when t=1
+//		param cv1: terminal control handle value, should be greater than v1 
+//			for a positive rate of change
+//		return: total arc length
+//real ijkVecReparamCubicHermiteHandles4rv(real uTable_out[], real lTable_out[], real4 vTable_out[], size const numDivisions, ibool const lNormalize, real4 const v0, real4 const cv0, real4 const v1, real4 const cv1);
+#define ijkVecReparamCubicHermiteHandles4rv ijk_declrealfs(ijkVecReparamCubicHermiteHandles4,v)
+
+// ijkVecReparamCubicCatmullRom4*v
+//	Reparameterize a cubic Catmull-Rom segment into sample table.
+//		param uTable_out: array of interpolation parameters at each sample
+//			valid: non-null
+//		param lTable_out: array of accumulated arc lengths at each sample
+//			valid: non-null
+//		param vTable_out: array of values sampled
+//			valid: non-null
+//		param numDivisions: number of intermediate samples on segment
+//			valid: non-zero
+//			note: tables should have at least (numDivisions+1) elements
+//			note: precision of arc length increases as this number increases
+//		param lNormalize: option to normalize arc lengths
+//		param vp: initial control value
+//		param v0: initial reference value/start point, result when t=0
+//		param v1: terminal reference value/end point, result when t=1
+//		param v2: terminal control value
+//		return: total arc length
+//real ijkVecReparamCubicCatmullRom4rv(real uTable_out[], real lTable_out[], real4 vTable_out[], size const numDivisions, ibool const lNormalize, real4 const vp, real4 const v0, real4 const v1, real4 const v2);
+#define ijkVecReparamCubicCatmullRom4rv ijk_declrealfs(ijkVecReparamCubicCatmullRom4,v)
+
+// ijkVecReparamBicubicCatmullRom4*v
+//	Reparameterize a bi-cubic Catmull-Rom segment into sample table.
+//		param uTable_out: array of interpolation parameters at each sample
+//			valid: non-null
+//		param lTable_out: array of accumulated arc lengths at each sample
+//			valid: non-null
+//		param vTable_out: array of values sampled
+//			valid: non-null
+//		param numDivisions: number of intermediate samples on segment
+//			valid: non-zero
+//			note: tables should have at least (numDivisions+1) elements
+//			note: precision of arc length increases as this number increases
+//		param lNormalize: option to normalize arc lengths
+//		param vpp: initial control value of initial control curve
+//		param vp0: initial reference value/start point of initial control 
+//			curve, result of initial control curve when tp=0
+//		param vp1: terminal reference value/end point of initial control 
+//			curve, result of initial control curve when tp=1
+//		param vp2: terminal control value of initial control curve
+//		param v0p: initial control value of initial value curve
+//		param v00: initial reference value/start point of initial value 
+//			curve, result of initial value curve when t0=0
+//		param v01: terminal reference value/end point of initial value 
+//			curve, result of initial value curve when t0=1
+//		param v02: terminal control value of initial value curve
+//		param v1p: initial control value of terminal value curve
+//		param v10: initial reference value/start point of terminal value 
+//			curve, result of terminal value curve when t1=0
+//		param v11: terminal reference value/end point of terminal value 
+//			curve, result of terminal value curve when t1=1
+//		param v12: terminal control value of terminal value curve
+//		param v2p: initial control value of terminal control curve
+//		param v20: initial reference value/start point of terminal control 
+//			curve, result of terminal control curve when t2=0
+//		param v21: terminal reference value/end point of terminal control 
+//			curve, result of terminal control curve when t2=1
+//		param v22: terminal control value of terminal control curve
+//		param up: interpolation parameter for initial control curve
+//		param u0: interpolation parameter for initial value curve
+//		param u1: interpolation parameter for terminal value curve
+//		param u2: interpolation parameter for terminal control curve
+//		return: total arc length
+//real ijkVecReparamBicubicCatmullRom4rv(real uTable_out[], real lTable_out[], real4 vTable_out[], size const numDivisions, ibool const lNormalize, real4 const vpp, real4 const vp0, real4 const vp1, real4 const vp2, real4 const v0p, real4 const v00, real4 const v01, real4 const v02, real4 const v1p, real4 const v10, real4 const v11, real4 const v12, real4 const v2p, real4 const v20, real4 const v21, real4 const v22, real const up, real const u0, real const u1, real const u2);
+#define ijkVecReparamBicubicCatmullRom4rv ijk_declrealfs(ijkVecReparamBicubicCatmullRom4,v)
+
+// ijkVecSampleTableInc4*v
+//	Find index of parameter in table and approximate value by interpolating 
+//	surrounding samples in table. Assumes that parameter values increase as 
+//	the table is traversed (parameter increases as index increases) and will 
+//	contuinue searching until tabled parameter is greater than input parameter.
+//		param v_out: output vector, interpolated value in table that 
+//			approximates input parameter
+//		param uTable: array of increasing sampling parameters (search table)
+//			valid: non-null
+//		param vTable: array of sampled values (value table)
+//			valid: non-null
+//		param i: starting search index
+//			note: zero if starting from beginning of tables
+//		param di: search index step size (increment of i at each iteration)
+//			note: defaults to 1 if passed 0
+//		param u: input parameter to find in search table
+//		return: v_out
+//realv ijkVecSampleTableInc4rv(real4 v_out, real const uTable[], real4 const vTable[], index i, index di, real const u);
+#define ijkVecSampleTableInc4rv ijk_declrealfs(ijkVecSampleTableInc4,v)
+
+// ijkVecSampleTableDec4*v
+//	Find index of parameter in table and approximate value by interpolating 
+//	surrounding samples in table. Assumes that parameter values decrease as 
+//	the table is traversed (parameter increases as index increases) and will 
+//	contuinue searching until tabled parameter is less than input parameter.
+//		param v_out: output vector, interpolated value in table that 
+//			approximates input parameter
+//		param uTable: array of decreasing sampling parameters (search table)
+//			valid: non-null
+//		param vTable: array of sampled values (value table)
+//			valid: non-null
+//		param i: starting search index
+//			note: zero if starting from beginning of tables
+//		param di: search index step size (increment of i at each iteration)
+//			note: defaults to 1 if passed 0
+//		param u: input parameter to find in search table
+//		return: v_out
+//realv ijkVecSampleTableDec4rv(real4 v_out, real const uTable[], real4 const vTable[], index i, index di, real const u);
+#define ijkVecSampleTableDec4rv ijk_declrealfs(ijkVecSampleTableDec4,v)
+
 
 //-----------------------------------------------------------------------------
 
@@ -4671,6 +5815,368 @@ extern "C" {
 //rvec2 ijkVecReflect2r(rvec2 const v_in, rvec2 const v_nrm);
 #define ijkVecReflect2r ijk_declrealfs(ijkVecReflect2,)
 
+// ijkVecDistance2*
+//	Calculate distance between two points.
+//		param v_lh: left-hand input
+//		param v_rh: right-hand input
+//		return: distance between inputs
+//real ijkVecDistance2r(rvec2 const v_lh, rvec2 const v_rh);
+#define ijkVecDistance2r ijk_declrealfs(ijkVecDistance2,)
+
+// ijkVecResize2*
+//	Change length of vector, retaining direction.
+//		param v_in: input vector
+//		param length: new length of vector
+//		return: resized vector
+//rvec2 ijkVecResize2r(rvec2 const v_in, real const length);
+#define ijkVecResize2r ijk_declrealfs(ijkVecResize2,)
+
+// ijkVecResizeSafe2*
+//	Change length of vector, retaining direction; division-by-zero safe.
+//		param v_in: input vector
+//		param length: new length of vector
+//		return: resized vector
+//rvec2 ijkVecResizeSafe2r(rvec2 const v_in, real const length);
+#define ijkVecResizeSafe2r ijk_declrealfs(ijkVecResizeSafe2,)
+
+// ijkVecCrossResize2*
+//	Change length of cross product result, retaining direction.
+//		param v_lh: left-hand vector
+//		param v_lh: right-hand vector
+//		param length: new length of vector
+//		return: resized scalar cross product
+//real ijkVecCrossResize2r(rvec2 const v_lh, rvec2 const v_rh, real const length);
+#define ijkVecCrossResize2r ijk_declrealfs(ijkVecCrossResize2,)
+
+// ijkVecCrossResizeSafe2*
+//	Change length of cross product result, retaining direction; 
+//	division-by-zero safe.
+//		param v_lh: left-hand vector
+//		param v_lh: right-hand vector
+//		param length: new length of vector
+//		return: resized scalar cross product
+//real ijkVecCrossResizeSafe2r(rvec2 const v_lh, rvec2 const v_rh, real const length);
+#define ijkVecCrossResizeSafe2r ijk_declrealfs(ijkVecCrossResizeSafe2,)
+
+// ijkVecNearest2*
+//	Nearest-neighbor interpolation between two reference values.
+//		param v0: initial reference value/start point, result when t<0.5
+//		param v1: terminal reference value/end point, result when t>=0.5
+//		param u: interpolation parameter
+//		return: nearest-neighbor interpolated vector, exactly v0 or v1
+//rvec2 ijkVecNearest2r(rvec2 const v0, rvec2 const v1, real const u);
+#define ijkVecNearest2r ijk_declrealfs(ijkVecNearest2,)
+
+// ijkVecBinearest2*
+//	Nearest-neighbor interpolation of nearest-neighbor interpolated values.
+//		param v00: initial reference value/start point in first pair, result 
+//			of first pair when t0<0.5
+//		param v01: terminal reference value/end point in first pair, result 
+//			of first pair when t0>=0.5
+//		param v10: initial reference value/start point in second pair, result 
+//			of second pair when t1<0.5
+//		param v11: terminal reference value/end point in second pair, result 
+//			of second pair when t1>=0.5
+//		param u0: interpolation parameter for first pair
+//		param u1: interpolation parameter for second pair
+//		param u: interpolation parameter for results
+//		return: bi-nearest-neighbor interpolated vector
+//rvec2 ijkVecBinearest2r(rvec2 const v00, rvec2 const v01, rvec2 const v10, rvec2 const v11, real const u0, real const u1, real const u);
+#define ijkVecBinearest2r ijk_declrealfs(ijkVecBinearest2,)
+
+// ijkVecRemap2*
+//	Linear remap between two ranges by first inverse interpolating between 
+//	source/original range and then linearly interpolating between destination/
+//	target range.
+//		param v0_dst: initial reference value in destination/target range, 
+//			result when v_src=v0_src
+//		param v1_dst: terminal reference value in destination/target range, 
+//			result when v_src=v1_src
+//		param v0_src: initial reference value in source/original range
+//		param v1_src: terminal reference value in source/original range
+//		param v_src: value to be remapped from original to target range
+//		return: vector in original range remapped to target range
+//rvec2 ijkVecRemap2r(rvec2 const v0_dst, rvec2 const v1_dst, rvec2 const v0_src, rvec2 const v1_src, rvec2 const v_src);
+#define ijkVecRemap2r ijk_declrealfs(ijkVecRemap2,)
+
+// ijkVecBezier0O2*
+//	Perform order-0 (point) Bezier interpolation given one reference value.
+//		param v0: reference value, always returned
+//		param u: interpolation parameter; not used for order 0 interpolation
+//		return: v0
+//rvec2 ijkVecBezier0O2r(rvec2 const v0, real const u);
+#define ijkVecBezier0O2r ijk_declrealfs(ijkVecBezier0O2,)
+
+// ijkVecBezier1O2*
+//	Perform order-1 (linear) Bezier interpolation given two reference values.
+//		param v0: first reference value, result when t=0
+//		param v1: second reference value, result when t=1
+//		param u: interpolation parameter; inputs in [0,1] interpolate between 
+//			v0 and v1
+//		return: linear interpolation between v0 and v1
+//rvec2 ijkVecBezier1O2r(rvec2 const v0, rvec2 const v1, real const u);
+#define ijkVecBezier1O2r ijk_declrealfs(ijkVecBezier1O2,)
+
+// ijkVecBezier2O2*
+//	Perform order-2 (quadratic) Bezier interpolation given three reference 
+//	values.
+//		param v0: first reference value, result when t=0
+//		param v1: second reference value
+//		param v2: third reference value, result when t=1
+//		param u: interpolation parameter; inputs in [0,1] interpolate between 
+//			v0 and v2
+//		return: quadratic Bezier interpolation between v0 and v2
+//rvec2 ijkVecBezier2O2r(rvec2 const v0, rvec2 const v1, rvec2 const v2, real const u);
+#define ijkVecBezier2O2r ijk_declrealfs(ijkVecBezier2O2,)
+
+// ijkVecBezier3O2*
+//	Perform order-3 (cubic) Bezier interpolation given four reference values.
+//		param v0: first reference value, result when t=0
+//		param v1: second reference value
+//		param v2: third reference value
+//		param v3: fourth reference value, result when t=1
+//		param u: interpolation parameter; inputs in [0,1] interpolate between 
+//			v0 and v3
+//		return: cubic Bezier interpolation between v0 and v3
+//rvec2 ijkVecBezier3O2r(rvec2 const v0, rvec2 const v1, rvec2 const v2, rvec2 const v3, real const u);
+#define ijkVecBezier3O2r ijk_declrealfs(ijkVecBezier3O2,)
+
+// ijkVecBezierNO2*
+//	Perform order-N (recursive) Bezier interpolation given an array of 
+//	reference values.
+//		param v: array of reference values, result when t=0 is v[0], result 
+//			when t=1 is v[order]
+//			valid: non-null
+//		param order: order of interpolation or number of recursive steps; 
+//			note: size of array is order+1, order is maximum index
+//		param u: interpolation parameter; inputs in [0,1] interpolate between 
+//			v[0] and v[order]
+//		return: recursive Bezier interpolation between v[0] and v[order]
+//rvec2 ijkVecBezierNO2r(rvec2 const v[], size const order, real const u);
+#define ijkVecBezierNO2r ijk_declrealfs(ijkVecBezierNO2,)
+
+// ijkVecCubicHermite2*
+//	Cubic Hermite spline/curve interpolation between two reference values with 
+//	control tangents (rates of change at reference values).
+//		param v0: initial reference value/start point, result when t=0
+//		param dv0: initial tangent/rate of change
+//		param v1: terminal reference value/end point, result when t=1
+//		param dv1: terminal tangent/rate of change
+//		param u: interpolation parameter; inputs in [0,1] interpolate between 
+//			v0 and v1
+//		return: interpolated vector on spline/curve segment
+//rvec2 ijkVecCubicHermite2r(rvec2 const v0, rvec2 const dv0, rvec2 const v1, rvec2 const dv1, real const u);
+#define ijkVecCubicHermite2r ijk_declrealfs(ijkVecCubicHermite2,)
+
+// ijkVecCubicHermiteHandles2*
+//	Cubic Hermite spline/curve interpolation between two reference values with 
+//	control handles to determine rate of change at reference values.
+//		param v0: initial reference value/start point, result when t=0
+//		param cv0: initial control handle value, should be greater than v0 
+//			for a positive rate of change
+//		param v1: terminal reference value/end point, result when t=1
+//		param cv1: terminal control handle value, should be greater than v1 
+//			for a positive rate of change
+//		param u: interpolation parameter; inputs in [0,1] interpolate between 
+//			v0 and v1
+//		return: interpolated vector on spline/curve segment
+//rvec2 ijkVecCubicHermiteHandles2r(rvec2 const v0, rvec2 const cv0, rvec2 const v1, rvec2 const cv1, real const u);
+#define ijkVecCubicHermiteHandles2r ijk_declrealfs(ijkVecCubicHermiteHandles2,)
+
+// ijkVecCubicCatmullRom2*
+//	Catmull-Rom spline/curve interpolation between two reference values with 
+//	two external control values.
+//		param vp: initial control value (value before initial reference)
+//		param v0: initial reference value/start point, result when t=0
+//		param v1: terminal reference value/end point, result when t=1
+//		param v2: terminal control value (value after terminal reference)
+//		param u: interpolation parameter; inputs in [0,1] interpolate between 
+//			v0 and v1
+//		return: interpolated vector on spline/curve segment
+//rvec2 ijkVecCubicCatmullRom2r(rvec2 const vp, rvec2 const v0, rvec2 const v1, rvec2 const v2, real const u);
+#define ijkVecCubicCatmullRom2r ijk_declrealfs(ijkVecCubicCatmullRom2,)
+
+// ijkVecBicubicCatmullRom2*
+//	Bi-cubic interpolation using Catmull-Rom interpolation for segments.
+//		param vpp: initial control value of initial control curve
+//		param vp0: initial reference value/start point of initial control 
+//			curve, result of initial control curve when tp=0
+//		param vp1: terminal reference value/end point of initial control 
+//			curve, result of initial control curve when tp=1
+//		param vp2: terminal control value of initial control curve
+//		param v0p: initial control value of initial value curve
+//		param v00: initial reference value/start point of initial value 
+//			curve, result of initial value curve when t0=0
+//		param v01: terminal reference value/end point of initial value 
+//			curve, result of initial value curve when t0=1
+//		param v02: terminal control value of initial value curve
+//		param v1p: initial control value of terminal value curve
+//		param v10: initial reference value/start point of terminal value 
+//			curve, result of terminal value curve when t1=0
+//		param v11: terminal reference value/end point of terminal value 
+//			curve, result of terminal value curve when t1=1
+//		param v12: terminal control value of terminal value curve
+//		param v2p: initial control value of terminal control curve
+//		param v20: initial reference value/start point of terminal control 
+//			curve, result of terminal control curve when t2=0
+//		param v21: terminal reference value/end point of terminal control 
+//			curve, result of terminal control curve when t2=1
+//		param v22: terminal control value of terminal control curve
+//		param up: interpolation parameter for initial control curve
+//		param u0: interpolation parameter for initial value curve
+//		param u1: interpolation parameter for terminal value curve
+//		param u2: interpolation parameter for terminal control curve
+//		param u: interpolation parameter for result
+//		return: interpolated vector
+//rvec2 ijkVecBicubicCatmullRom2r(rvec2 const vpp, rvec2 const vp0, rvec2 const vp1, rvec2 const vp2, rvec2 const v0p, rvec2 const v00, rvec2 const v01, rvec2 const v02, rvec2 const v1p, rvec2 const v10, rvec2 const v11, rvec2 const v12, rvec2 const v2p, rvec2 const v20, rvec2 const v21, rvec2 const v22, real const up, real const u0, real const u1, real const u2, real const u);
+#define ijkVecBicubicCatmullRom2r ijk_declrealfs(ijkVecBicubicCatmullRom2,)
+
+// ijkVecReparamCubicHermite2*
+//	Reparameterize a cubic Hermite segment into sample table.
+//		param uTable_out: array of interpolation parameters at each sample
+//			valid: non-null
+//		param lTable_out: array of accumulated arc lengths at each sample
+//			valid: non-null
+//		param vTable_out: array of values sampled
+//			valid: non-null
+//		param numDivisions: number of intermediate samples on segment
+//			valid: non-zero
+//			note: tables should have at least (numDivisions+1) elements
+//			note: precision of arc length increases as this number increases
+//		param lNormalize: option to normalize arc lengths
+//		param v0: initial reference value/start point, result when t=0
+//		param dv0: initial tangent/rate of change
+//		param v1: terminal reference value/end point, result when t=1
+//		param dv1: terminal tangent/rate of change
+//		return: total arc length
+//real ijkVecReparamCubicHermite2r(real uTable_out[], real lTable_out[], rvec2 vTable_out[], size const numDivisions, ibool const lNormalize, rvec2 const v0, rvec2 const dv0, rvec2 const v1, rvec2 const dv1);
+#define ijkVecReparamCubicHermite2r ijk_declrealfs(ijkVecReparamCubicHermite2,)
+
+// ijkVecReparamCubicHermiteHandles2*
+//	Reparameterize a cubic Hermite segment with handles into sample table.
+//		param uTable_out: array of interpolation parameters at each sample
+//			valid: non-null
+//		param lTable_out: array of accumulated arc lengths at each sample
+//			valid: non-null
+//		param vTable_out: array of values sampled
+//			valid: non-null
+//		param numDivisions: number of intermediate samples on segment
+//			valid: non-zero
+//			note: tables should have at least (numDivisions+1) elements
+//			note: precision of arc length increases as this number increases
+//		param lNormalize: option to normalize arc lengths
+//		param v0: initial reference value/start point, result when t=0
+//		param cv0: initial control handle value, should be greater than v0 
+//			for a positive rate of change
+//		param v1: terminal reference value/end point, result when t=1
+//		param cv1: terminal control handle value, should be greater than v1 
+//			for a positive rate of change
+//		return: total arc length
+//real ijkVecReparamCubicHermiteHandles2r(real uTable_out[], real lTable_out[], rvec2 vTable_out[], size const numDivisions, ibool const lNormalize, rvec2 const v0, rvec2 const cv0, rvec2 const v1, rvec2 const cv1);
+#define ijkVecReparamCubicHermiteHandles2r ijk_declrealfs(ijkVecReparamCubicHermiteHandles2,)
+
+// ijkVecReparamCubicCatmullRom2*
+//	Reparameterize a cubic Catmull-Rom segment into sample table.
+//		param uTable_out: array of interpolation parameters at each sample
+//			valid: non-null
+//		param lTable_out: array of accumulated arc lengths at each sample
+//			valid: non-null
+//		param vTable_out: array of values sampled
+//			valid: non-null
+//		param numDivisions: number of intermediate samples on segment
+//			valid: non-zero
+//			note: tables should have at least (numDivisions+1) elements
+//			note: precision of arc length increases as this number increases
+//		param lNormalize: option to normalize arc lengths
+//		param vp: initial control value
+//		param v0: initial reference value/start point, result when t=0
+//		param v1: terminal reference value/end point, result when t=1
+//		param v2: terminal control value
+//		return: total arc length
+//real ijkVecReparamCubicCatmullRom2r(real uTable_out[], real lTable_out[], rvec2 vTable_out[], size const numDivisions, ibool const lNormalize, rvec2 const vp, rvec2 const v0, rvec2 const v1, rvec2 const v2);
+#define ijkVecReparamCubicCatmullRom2r ijk_declrealfs(ijkVecReparamCubicCatmullRom2,)
+
+// ijkVecReparamBicubicCatmullRom2*
+//	Reparameterize a bi-cubic Catmull-Rom segment into sample table.
+//		param uTable_out: array of interpolation parameters at each sample
+//			valid: non-null
+//		param lTable_out: array of accumulated arc lengths at each sample
+//			valid: non-null
+//		param vTable_out: array of values sampled
+//			valid: non-null
+//		param numDivisions: number of intermediate samples on segment
+//			valid: non-zero
+//			note: tables should have at least (numDivisions+1) elements
+//			note: precision of arc length increases as this number increases
+//		param lNormalize: option to normalize arc lengths
+//		param vpp: initial control value of initial control curve
+//		param vp0: initial reference value/start point of initial control 
+//			curve, result of initial control curve when tp=0
+//		param vp1: terminal reference value/end point of initial control 
+//			curve, result of initial control curve when tp=1
+//		param vp2: terminal control value of initial control curve
+//		param v0p: initial control value of initial value curve
+//		param v00: initial reference value/start point of initial value 
+//			curve, result of initial value curve when t0=0
+//		param v01: terminal reference value/end point of initial value 
+//			curve, result of initial value curve when t0=1
+//		param v02: terminal control value of initial value curve
+//		param v1p: initial control value of terminal value curve
+//		param v10: initial reference value/start point of terminal value 
+//			curve, result of terminal value curve when t1=0
+//		param v11: terminal reference value/end point of terminal value 
+//			curve, result of terminal value curve when t1=1
+//		param v12: terminal control value of terminal value curve
+//		param v2p: initial control value of terminal control curve
+//		param v20: initial reference value/start point of terminal control 
+//			curve, result of terminal control curve when t2=0
+//		param v21: terminal reference value/end point of terminal control 
+//			curve, result of terminal control curve when t2=1
+//		param v22: terminal control value of terminal control curve
+//		param up: interpolation parameter for initial control curve
+//		param u0: interpolation parameter for initial value curve
+//		param u1: interpolation parameter for terminal value curve
+//		param u2: interpolation parameter for terminal control curve
+//		return: total arc length
+//real ijkVecReparamBicubicCatmullRom2r(real uTable_out[], real lTable_out[], rvec2 vTable_out[], size const numDivisions, ibool const lNormalize, rvec2 const vpp, rvec2 const vp0, rvec2 const vp1, rvec2 const vp2, rvec2 const v0p, rvec2 const v00, rvec2 const v01, rvec2 const v02, rvec2 const v1p, rvec2 const v10, rvec2 const v11, rvec2 const v12, rvec2 const v2p, rvec2 const v20, rvec2 const v21, rvec2 const v22, real const up, real const u0, real const u1, real const u2);
+#define ijkVecReparamBicubicCatmullRom2r ijk_declrealfs(ijkVecReparamBicubicCatmullRom2,)
+
+// ijkVecSampleTableInc2*
+//	Find index of parameter in table and approximate value by interpolating 
+//	surrounding samples in table. Assumes that parameter values increase as 
+//	the table is traversed (parameter increases as index increases) and will 
+//	contuinue searching until tabled parameter is greater than input parameter.
+//		param uTable: array of increasing sampling parameters (search table)
+//			valid: non-null
+//		param vTable: array of sampled values (value table)
+//			valid: non-null
+//		param i: starting search index
+//			note: zero if starting from beginning of tables
+//		param di: search index step size (increment of i at each iteration)
+//			note: defaults to 1 if passed 0
+//		param u: input parameter to find in search table
+//		return: interpolated vector in table that approximates input parameter
+//rvec2 ijkVecSampleTableInc2r(real const uTable[], rvec2 const vTable[], index i, index di, real const u);
+#define ijkVecSampleTableInc2r ijk_declrealfs(ijkVecSampleTableInc2,)
+
+// ijkVecSampleTableDec2*
+//	Find index of parameter in table and approximate value by interpolating 
+//	surrounding samples in table. Assumes that parameter values decrease as 
+//	the table is traversed (parameter increases as index increases) and will 
+//	contuinue searching until tabled parameter is less than input parameter.
+//		param uTable: array of decreasing sampling parameters (search table)
+//			valid: non-null
+//		param vTable: array of sampled values (value table)
+//			valid: non-null
+//		param i: starting search index
+//			note: zero if starting from beginning of tables
+//		param di: search index step size (increment of i at each iteration)
+//			note: defaults to 1 if passed 0
+//		param u: input parameter to find in search table
+//		return: interpolated vector in table that approximates input parameter
+//rvec2 ijkVecSampleTableDec2r(real const uTable[], rvec2 const vTable[], index i, index di, real const u);
+#define ijkVecSampleTableDec2r ijk_declrealfs(ijkVecSampleTableDec2,)
+
 
 //-----------------------------------------------------------------------------
 
@@ -4960,6 +6466,368 @@ extern "C" {
 //rvec3 ijkVecReflect3r(rvec3 const v_in, rvec3 const v_nrm);
 #define ijkVecReflect3r ijk_declrealfs(ijkVecReflect3,)
 
+// ijkVecDistance3*
+//	Calculate distance between two points.
+//		param v_lh: left-hand input
+//		param v_rh: right-hand input
+//		return: distance between inputs
+//real ijkVecDistance3r(rvec3 const v_lh, rvec3 const v_rh);
+#define ijkVecDistance3r ijk_declrealfs(ijkVecDistance3,)
+
+// ijkVecResize3*
+//	Change length of vector, retaining direction.
+//		param v_in: input vector
+//		param length: new length of vector
+//		return: resized vector
+//rvec3 ijkVecResize3r(rvec3 const v_in, real const length);
+#define ijkVecResize3r ijk_declrealfs(ijkVecResize3,)
+
+// ijkVecResizeSafe3*
+//	Change length of vector, retaining direction; division-by-zero safe.
+//		param v_in: input vector
+//		param length: new length of vector
+//		return: resized vector
+//rvec3 ijkVecResizeSafe3r(rvec3 const v_in, real const length);
+#define ijkVecResizeSafe3r ijk_declrealfs(ijkVecResizeSafe3,)
+
+// ijkVecCrossResize3*
+//	Change length of cross product result, retaining direction.
+//		param v_lh: left-hand vector
+//		param v_lh: right-hand vector
+//		param length: new length of vector
+//		return: resized cross product
+//rvec3 ijkVecCrossResize3r(rvec3 const v_lh, rvec3 const v_rh, real const length);
+#define ijkVecCrossResize3r ijk_declrealfs(ijkVecCrossResize3,)
+
+// ijkVecCrossResizeSafe3*
+//	Change length of cross product result, retaining direction; 
+//	division-by-zero safe.
+//		param v_lh: left-hand vector
+//		param v_lh: right-hand vector
+//		param length: new length of vector
+//		return: resized cross product
+//rvec3 ijkVecCrossResizeSafe3r(rvec3 const v_lh, rvec3 const v_rh, real const length);
+#define ijkVecCrossResizeSafe3r ijk_declrealfs(ijkVecCrossResizeSafe3,)
+
+// ijkVecNearest3*
+//	Nearest-neighbor interpolation between two reference values.
+//		param v0: initial reference value/start point, result when t<0.5
+//		param v1: terminal reference value/end point, result when t>=0.5
+//		param u: interpolation parameter
+//		return: nearest-neighbor interpolated vector, exactly v0 or v1
+//rvec3 ijkVecNearest3r(rvec3 const v0, rvec3 const v1, real const u);
+#define ijkVecNearest3r ijk_declrealfs(ijkVecNearest3,)
+
+// ijkVecBinearest3*
+//	Nearest-neighbor interpolation of nearest-neighbor interpolated values.
+//		param v00: initial reference value/start point in first pair, result 
+//			of first pair when t0<0.5
+//		param v01: terminal reference value/end point in first pair, result 
+//			of first pair when t0>=0.5
+//		param v10: initial reference value/start point in second pair, result 
+//			of second pair when t1<0.5
+//		param v11: terminal reference value/end point in second pair, result 
+//			of second pair when t1>=0.5
+//		param u0: interpolation parameter for first pair
+//		param u1: interpolation parameter for second pair
+//		param u: interpolation parameter for results
+//		return: bi-nearest-neighbor interpolated vector
+//rvec3 ijkVecBinearest3r(rvec3 const v00, rvec3 const v01, rvec3 const v10, rvec3 const v11, real const u0, real const u1, real const u);
+#define ijkVecBinearest3r ijk_declrealfs(ijkVecBinearest3,)
+
+// ijkVecRemap3*
+//	Linear remap between two ranges by first inverse interpolating between 
+//	source/original range and then linearly interpolating between destination/
+//	target range.
+//		param v0_dst: initial reference value in destination/target range, 
+//			result when v_src=v0_src
+//		param v1_dst: terminal reference value in destination/target range, 
+//			result when v_src=v1_src
+//		param v0_src: initial reference value in source/original range
+//		param v1_src: terminal reference value in source/original range
+//		param v_src: value to be remapped from original to target range
+//		return: vector in original range remapped to target range
+//rvec3 ijkVecRemap3r(rvec3 const v0_dst, rvec3 const v1_dst, rvec3 const v0_src, rvec3 const v1_src, rvec3 const v_src);
+#define ijkVecRemap3r ijk_declrealfs(ijkVecRemap3,)
+
+// ijkVecBezier0O3*
+//	Perform order-0 (point) Bezier interpolation given one reference value.
+//		param v0: reference value, always returned
+//		param u: interpolation parameter; not used for order 0 interpolation
+//		return: v0
+//rvec3 ijkVecBezier0O3r(rvec3 const v0, real const u);
+#define ijkVecBezier0O3r ijk_declrealfs(ijkVecBezier0O3,)
+
+// ijkVecBezier1O3*
+//	Perform order-1 (linear) Bezier interpolation given two reference values.
+//		param v0: first reference value, result when t=0
+//		param v1: second reference value, result when t=1
+//		param u: interpolation parameter; inputs in [0,1] interpolate between 
+//			v0 and v1
+//		return: linear interpolation between v0 and v1
+//rvec3 ijkVecBezier1O3r(rvec3 const v0, rvec3 const v1, real const u);
+#define ijkVecBezier1O3r ijk_declrealfs(ijkVecBezier1O3,)
+
+// ijkVecBezier2O3*
+//	Perform order-2 (quadratic) Bezier interpolation given three reference 
+//	values.
+//		param v0: first reference value, result when t=0
+//		param v1: second reference value
+//		param v2: third reference value, result when t=1
+//		param u: interpolation parameter; inputs in [0,1] interpolate between 
+//			v0 and v2
+//		return: quadratic Bezier interpolation between v0 and v2
+//rvec3 ijkVecBezier2O3r(rvec3 const v0, rvec3 const v1, rvec3 const v2, real const u);
+#define ijkVecBezier2O3r ijk_declrealfs(ijkVecBezier2O3,)
+
+// ijkVecBezier3O3*
+//	Perform order-3 (cubic) Bezier interpolation given four reference values.
+//		param v0: first reference value, result when t=0
+//		param v1: second reference value
+//		param v2: third reference value
+//		param v3: fourth reference value, result when t=1
+//		param u: interpolation parameter; inputs in [0,1] interpolate between 
+//			v0 and v3
+//		return: cubic Bezier interpolation between v0 and v3
+//rvec3 ijkVecBezier3O3r(rvec3 const v0, rvec3 const v1, rvec3 const v2, rvec3 const v3, real const u);
+#define ijkVecBezier3O3r ijk_declrealfs(ijkVecBezier3O3,)
+
+// ijkVecBezierNO3*
+//	Perform order-N (recursive) Bezier interpolation given an array of 
+//	reference values.
+//		param v: array of reference values, result when t=0 is v[0], result 
+//			when t=1 is v[order]
+//			valid: non-null
+//		param order: order of interpolation or number of recursive steps; 
+//			note: size of array is order+1, order is maximum index
+//		param u: interpolation parameter; inputs in [0,1] interpolate between 
+//			v[0] and v[order]
+//		return: recursive Bezier interpolation between v[0] and v[order]
+//rvec3 ijkVecBezierNO3r(rvec3 const v[], size const order, real const u);
+#define ijkVecBezierNO3r ijk_declrealfs(ijkVecBezierNO3,)
+
+// ijkVecCubicHermite3*
+//	Cubic Hermite spline/curve interpolation between two reference values with 
+//	control tangents (rates of change at reference values).
+//		param v0: initial reference value/start point, result when t=0
+//		param dv0: initial tangent/rate of change
+//		param v1: terminal reference value/end point, result when t=1
+//		param dv1: terminal tangent/rate of change
+//		param u: interpolation parameter; inputs in [0,1] interpolate between 
+//			v0 and v1
+//		return: interpolated vector on spline/curve segment
+//rvec3 ijkVecCubicHermite3r(rvec3 const v0, rvec3 const dv0, rvec3 const v1, rvec3 const dv1, real const u);
+#define ijkVecCubicHermite3r ijk_declrealfs(ijkVecCubicHermite3,)
+
+// ijkVecCubicHermiteHandles3*
+//	Cubic Hermite spline/curve interpolation between two reference values with 
+//	control handles to determine rate of change at reference values.
+//		param v0: initial reference value/start point, result when t=0
+//		param cv0: initial control handle value, should be greater than v0 
+//			for a positive rate of change
+//		param v1: terminal reference value/end point, result when t=1
+//		param cv1: terminal control handle value, should be greater than v1 
+//			for a positive rate of change
+//		param u: interpolation parameter; inputs in [0,1] interpolate between 
+//			v0 and v1
+//		return: interpolated vector on spline/curve segment
+//rvec3 ijkVecCubicHermiteHandles3r(rvec3 const v0, rvec3 const cv0, rvec3 const v1, rvec3 const cv1, real const u);
+#define ijkVecCubicHermiteHandles3r ijk_declrealfs(ijkVecCubicHermiteHandles3,)
+
+// ijkVecCubicCatmullRom3*
+//	Catmull-Rom spline/curve interpolation between two reference values with 
+//	two external control values.
+//		param vp: initial control value (value before initial reference)
+//		param v0: initial reference value/start point, result when t=0
+//		param v1: terminal reference value/end point, result when t=1
+//		param v2: terminal control value (value after terminal reference)
+//		param u: interpolation parameter; inputs in [0,1] interpolate between 
+//			v0 and v1
+//		return: interpolated vector on spline/curve segment
+//rvec3 ijkVecCubicCatmullRom3r(rvec3 const vp, rvec3 const v0, rvec3 const v1, rvec3 const v2, real const u);
+#define ijkVecCubicCatmullRom3r ijk_declrealfs(ijkVecCubicCatmullRom3,)
+
+// ijkVecBicubicCatmullRom3*
+//	Bi-cubic interpolation using Catmull-Rom interpolation for segments.
+//		param vpp: initial control value of initial control curve
+//		param vp0: initial reference value/start point of initial control 
+//			curve, result of initial control curve when tp=0
+//		param vp1: terminal reference value/end point of initial control 
+//			curve, result of initial control curve when tp=1
+//		param vp2: terminal control value of initial control curve
+//		param v0p: initial control value of initial value curve
+//		param v00: initial reference value/start point of initial value 
+//			curve, result of initial value curve when t0=0
+//		param v01: terminal reference value/end point of initial value 
+//			curve, result of initial value curve when t0=1
+//		param v02: terminal control value of initial value curve
+//		param v1p: initial control value of terminal value curve
+//		param v10: initial reference value/start point of terminal value 
+//			curve, result of terminal value curve when t1=0
+//		param v11: terminal reference value/end point of terminal value 
+//			curve, result of terminal value curve when t1=1
+//		param v12: terminal control value of terminal value curve
+//		param v2p: initial control value of terminal control curve
+//		param v20: initial reference value/start point of terminal control 
+//			curve, result of terminal control curve when t2=0
+//		param v21: terminal reference value/end point of terminal control 
+//			curve, result of terminal control curve when t2=1
+//		param v22: terminal control value of terminal control curve
+//		param up: interpolation parameter for initial control curve
+//		param u0: interpolation parameter for initial value curve
+//		param u1: interpolation parameter for terminal value curve
+//		param u2: interpolation parameter for terminal control curve
+//		param u: interpolation parameter for result
+//		return: interpolated vector
+//rvec3 ijkVecBicubicCatmullRom3r(rvec3 const vpp, rvec3 const vp0, rvec3 const vp1, rvec3 const vp2, rvec3 const v0p, rvec3 const v00, rvec3 const v01, rvec3 const v02, rvec3 const v1p, rvec3 const v10, rvec3 const v11, rvec3 const v12, rvec3 const v2p, rvec3 const v20, rvec3 const v21, rvec3 const v22, real const up, real const u0, real const u1, real const u2, real const u);
+#define ijkVecBicubicCatmullRom3r ijk_declrealfs(ijkVecBicubicCatmullRom3,)
+
+// ijkVecReparamCubicHermite3*
+//	Reparameterize a cubic Hermite segment into sample table.
+//		param uTable_out: array of interpolation parameters at each sample
+//			valid: non-null
+//		param lTable_out: array of accumulated arc lengths at each sample
+//			valid: non-null
+//		param vTable_out: array of values sampled
+//			valid: non-null
+//		param numDivisions: number of intermediate samples on segment
+//			valid: non-zero
+//			note: tables should have at least (numDivisions+1) elements
+//			note: precision of arc length increases as this number increases
+//		param lNormalize: option to normalize arc lengths
+//		param v0: initial reference value/start point, result when t=0
+//		param dv0: initial tangent/rate of change
+//		param v1: terminal reference value/end point, result when t=1
+//		param dv1: terminal tangent/rate of change
+//		return: total arc length
+//real ijkVecReparamCubicHermite3r(real uTable_out[], real lTable_out[], rvec3 vTable_out[], size const numDivisions, ibool const lNormalize, rvec3 const v0, rvec3 const dv0, rvec3 const v1, rvec3 const dv1);
+#define ijkVecReparamCubicHermite3r ijk_declrealfs(ijkVecReparamCubicHermite3,)
+
+// ijkVecReparamCubicHermiteHandles3*
+//	Reparameterize a cubic Hermite segment with handles into sample table.
+//		param uTable_out: array of interpolation parameters at each sample
+//			valid: non-null
+//		param lTable_out: array of accumulated arc lengths at each sample
+//			valid: non-null
+//		param vTable_out: array of values sampled
+//			valid: non-null
+//		param numDivisions: number of intermediate samples on segment
+//			valid: non-zero
+//			note: tables should have at least (numDivisions+1) elements
+//			note: precision of arc length increases as this number increases
+//		param lNormalize: option to normalize arc lengths
+//		param v0: initial reference value/start point, result when t=0
+//		param cv0: initial control handle value, should be greater than v0 
+//			for a positive rate of change
+//		param v1: terminal reference value/end point, result when t=1
+//		param cv1: terminal control handle value, should be greater than v1 
+//			for a positive rate of change
+//		return: total arc length
+//real ijkVecReparamCubicHermiteHandles3r(real uTable_out[], real lTable_out[], rvec3 vTable_out[], size const numDivisions, ibool const lNormalize, rvec3 const v0, rvec3 const cv0, rvec3 const v1, rvec3 const cv1);
+#define ijkVecReparamCubicHermiteHandles3r ijk_declrealfs(ijkVecReparamCubicHermiteHandles3,)
+
+// ijkVecReparamCubicCatmullRom3*
+//	Reparameterize a cubic Catmull-Rom segment into sample table.
+//		param uTable_out: array of interpolation parameters at each sample
+//			valid: non-null
+//		param lTable_out: array of accumulated arc lengths at each sample
+//			valid: non-null
+//		param vTable_out: array of values sampled
+//			valid: non-null
+//		param numDivisions: number of intermediate samples on segment
+//			valid: non-zero
+//			note: tables should have at least (numDivisions+1) elements
+//			note: precision of arc length increases as this number increases
+//		param lNormalize: option to normalize arc lengths
+//		param vp: initial control value
+//		param v0: initial reference value/start point, result when t=0
+//		param v1: terminal reference value/end point, result when t=1
+//		param v2: terminal control value
+//		return: total arc length
+//real ijkVecReparamCubicCatmullRom3r(real uTable_out[], real lTable_out[], rvec3 vTable_out[], size const numDivisions, ibool const lNormalize, rvec3 const vp, rvec3 const v0, rvec3 const v1, rvec3 const v2);
+#define ijkVecReparamCubicCatmullRom3r ijk_declrealfs(ijkVecReparamCubicCatmullRom3,)
+
+// ijkVecReparamBicubicCatmullRom3*
+//	Reparameterize a bi-cubic Catmull-Rom segment into sample table.
+//		param uTable_out: array of interpolation parameters at each sample
+//			valid: non-null
+//		param lTable_out: array of accumulated arc lengths at each sample
+//			valid: non-null
+//		param vTable_out: array of values sampled
+//			valid: non-null
+//		param numDivisions: number of intermediate samples on segment
+//			valid: non-zero
+//			note: tables should have at least (numDivisions+1) elements
+//			note: precision of arc length increases as this number increases
+//		param lNormalize: option to normalize arc lengths
+//		param vpp: initial control value of initial control curve
+//		param vp0: initial reference value/start point of initial control 
+//			curve, result of initial control curve when tp=0
+//		param vp1: terminal reference value/end point of initial control 
+//			curve, result of initial control curve when tp=1
+//		param vp2: terminal control value of initial control curve
+//		param v0p: initial control value of initial value curve
+//		param v00: initial reference value/start point of initial value 
+//			curve, result of initial value curve when t0=0
+//		param v01: terminal reference value/end point of initial value 
+//			curve, result of initial value curve when t0=1
+//		param v02: terminal control value of initial value curve
+//		param v1p: initial control value of terminal value curve
+//		param v10: initial reference value/start point of terminal value 
+//			curve, result of terminal value curve when t1=0
+//		param v11: terminal reference value/end point of terminal value 
+//			curve, result of terminal value curve when t1=1
+//		param v12: terminal control value of terminal value curve
+//		param v2p: initial control value of terminal control curve
+//		param v20: initial reference value/start point of terminal control 
+//			curve, result of terminal control curve when t2=0
+//		param v21: terminal reference value/end point of terminal control 
+//			curve, result of terminal control curve when t2=1
+//		param v22: terminal control value of terminal control curve
+//		param up: interpolation parameter for initial control curve
+//		param u0: interpolation parameter for initial value curve
+//		param u1: interpolation parameter for terminal value curve
+//		param u2: interpolation parameter for terminal control curve
+//		return: total arc length
+//real ijkVecReparamBicubicCatmullRom3r(real uTable_out[], real lTable_out[], rvec3 vTable_out[], size const numDivisions, ibool const lNormalize, rvec3 const vpp, rvec3 const vp0, rvec3 const vp1, rvec3 const vp2, rvec3 const v0p, rvec3 const v00, rvec3 const v01, rvec3 const v02, rvec3 const v1p, rvec3 const v10, rvec3 const v11, rvec3 const v12, rvec3 const v2p, rvec3 const v20, rvec3 const v21, rvec3 const v22, real const up, real const u0, real const u1, real const u2);
+#define ijkVecReparamBicubicCatmullRom3r ijk_declrealfs(ijkVecReparamBicubicCatmullRom3,)
+
+// ijkVecSampleTableInc3*
+//	Find index of parameter in table and approximate value by interpolating 
+//	surrounding samples in table. Assumes that parameter values increase as 
+//	the table is traversed (parameter increases as index increases) and will 
+//	contuinue searching until tabled parameter is greater than input parameter.
+//		param uTable: array of increasing sampling parameters (search table)
+//			valid: non-null
+//		param vTable: array of sampled values (value table)
+//			valid: non-null
+//		param i: starting search index
+//			note: zero if starting from beginning of tables
+//		param di: search index step size (increment of i at each iteration)
+//			note: defaults to 1 if passed 0
+//		param u: input parameter to find in search table
+//		return: interpolated vector in table that approximates input parameter
+//rvec3 ijkVecSampleTableInc3r(real const uTable[], rvec3 const vTable[], index i, index di, real const u);
+#define ijkVecSampleTableInc3r ijk_declrealfs(ijkVecSampleTableInc3,)
+
+// ijkVecSampleTableDec3*
+//	Find index of parameter in table and approximate value by interpolating 
+//	surrounding samples in table. Assumes that parameter values decrease as 
+//	the table is traversed (parameter increases as index increases) and will 
+//	contuinue searching until tabled parameter is less than input parameter.
+//		param uTable: array of decreasing sampling parameters (search table)
+//			valid: non-null
+//		param vTable: array of sampled values (value table)
+//			valid: non-null
+//		param i: starting search index
+//			note: zero if starting from beginning of tables
+//		param di: search index step size (increment of i at each iteration)
+//			note: defaults to 1 if passed 0
+//		param u: input parameter to find in search table
+//		return: interpolated vector in table that approximates input parameter
+//rvec3 ijkVecSampleTableDec3r(real const uTable[], rvec3 const vTable[], index i, index di, real const u);
+#define ijkVecSampleTableDec3r ijk_declrealfs(ijkVecSampleTableDec3,)
+
 
 //-----------------------------------------------------------------------------
 
@@ -5248,6 +7116,368 @@ extern "C" {
 //		return: reflected vector
 //rvec4 ijkVecReflect4r(rvec4 const v_in, rvec4 const v_nrm);
 #define ijkVecReflect4r ijk_declrealfs(ijkVecReflect4,)
+
+// ijkVecDistance4*
+//	Calculate "distance" between two 4D vectors.
+//		param v_lh: left-hand input
+//		param v_rh: right-hand input
+//		return: distance between inputs
+//real ijkVecDistance4r(rvec4 const v_lh, rvec4 const v_rh);
+#define ijkVecDistance4r ijk_declrealfs(ijkVecDistance4,)
+
+// ijkVecResize4*
+//	Change length of vector, retaining direction.
+//		param v_in: input vector
+//		param length: new length of vector
+//		return: resized vector
+//rvec4 ijkVecResize4r(rvec4 const v_in, real const length);
+#define ijkVecResize4r ijk_declrealfs(ijkVecResize4,)
+
+// ijkVecResizeSafe4*
+//	Change length of vector, retaining direction; division-by-zero safe.
+//		param v_in: input vector
+//		param length: new length of vector
+//		return: resized vector
+//rvec4 ijkVecResizeSafe4r(rvec4 const v_in, real const length);
+#define ijkVecResizeSafe4r ijk_declrealfs(ijkVecResizeSafe4,)
+
+// ijkVecCrossResize4*
+//	Change length of cross product result, retaining direction.
+//		param v_lh: left-hand vector
+//		param v_lh: right-hand vector
+//		param length: new length of vector
+//		return: resized cross product
+//rvec4 ijkVecCrossResize4r(rvec4 const v_lh, rvec4 const v_rh, real const length);
+#define ijkVecCrossResize4r ijk_declrealfs(ijkVecCrossResize4,)
+
+// ijkVecCrossResizeSafe4*
+//	Change length of cross product result, retaining direction; 
+//	division-by-zero safe.
+//		param v_lh: left-hand vector
+//		param v_lh: right-hand vector
+//		param length: new length of vector
+//		return: resized cross product
+//rvec4 ijkVecCrossResizeSafe4r(rvec4 const v_lh, rvec4 const v_rh, real const length);
+#define ijkVecCrossResizeSafe4r ijk_declrealfs(ijkVecCrossResizeSafe4,)
+
+// ijkVecNearest4*
+//	Nearest-neighbor interpolation between two reference values.
+//		param v0: initial reference value/start point, result when t<0.5
+//		param v1: terminal reference value/end point, result when t>=0.5
+//		param u: interpolation parameter
+//		return: nearest-neighbor interpolated vector, exactly v0 or v1
+//rvec4 ijkVecNearest4r(rvec4 const v0, rvec4 const v1, real const u);
+#define ijkVecNearest4r ijk_declrealfs(ijkVecNearest4,)
+
+// ijkVecBinearest4*
+//	Nearest-neighbor interpolation of nearest-neighbor interpolated values.
+//		param v00: initial reference value/start point in first pair, result 
+//			of first pair when t0<0.5
+//		param v01: terminal reference value/end point in first pair, result 
+//			of first pair when t0>=0.5
+//		param v10: initial reference value/start point in second pair, result 
+//			of second pair when t1<0.5
+//		param v11: terminal reference value/end point in second pair, result 
+//			of second pair when t1>=0.5
+//		param u0: interpolation parameter for first pair
+//		param u1: interpolation parameter for second pair
+//		param u: interpolation parameter for results
+//		return: bi-nearest-neighbor interpolated vector
+//rvec4 ijkVecBinearest4r(rvec4 const v00, rvec4 const v01, rvec4 const v10, rvec4 const v11, real const u0, real const u1, real const u);
+#define ijkVecBinearest4r ijk_declrealfs(ijkVecBinearest4,)
+
+// ijkVecRemap4*
+//	Linear remap between two ranges by first inverse interpolating between 
+//	source/original range and then linearly interpolating between destination/
+//	target range.
+//		param v0_dst: initial reference value in destination/target range, 
+//			result when v_src=v0_src
+//		param v1_dst: terminal reference value in destination/target range, 
+//			result when v_src=v1_src
+//		param v0_src: initial reference value in source/original range
+//		param v1_src: terminal reference value in source/original range
+//		param v_src: value to be remapped from original to target range
+//		return: vector in original range remapped to target range
+//rvec4 ijkVecRemap4r(rvec4 const v0_dst, rvec4 const v1_dst, rvec4 const v0_src, rvec4 const v1_src, rvec4 const v_src);
+#define ijkVecRemap4r ijk_declrealfs(ijkVecRemap4,)
+
+// ijkVecBezier0O4*
+//	Perform order-0 (point) Bezier interpolation given one reference value.
+//		param v0: reference value, always returned
+//		param u: interpolation parameter; not used for order 0 interpolation
+//		return: v0
+//rvec4 ijkVecBezier0O4r(rvec4 const v0, real const u);
+#define ijkVecBezier0O4r ijk_declrealfs(ijkVecBezier0O4,)
+
+// ijkVecBezier1O4*
+//	Perform order-1 (linear) Bezier interpolation given two reference values.
+//		param v0: first reference value, result when t=0
+//		param v1: second reference value, result when t=1
+//		param u: interpolation parameter; inputs in [0,1] interpolate between 
+//			v0 and v1
+//		return: linear interpolation between v0 and v1
+//rvec4 ijkVecBezier1O4r(rvec4 const v0, rvec4 const v1, real const u);
+#define ijkVecBezier1O4r ijk_declrealfs(ijkVecBezier1O4,)
+
+// ijkVecBezier2O4*
+//	Perform order-2 (quadratic) Bezier interpolation given three reference 
+//	values.
+//		param v0: first reference value, result when t=0
+//		param v1: second reference value
+//		param v2: third reference value, result when t=1
+//		param u: interpolation parameter; inputs in [0,1] interpolate between 
+//			v0 and v2
+//		return: quadratic Bezier interpolation between v0 and v2
+//rvec4 ijkVecBezier2O4r(rvec4 const v0, rvec4 const v1, rvec4 const v2, real const u);
+#define ijkVecBezier2O4r ijk_declrealfs(ijkVecBezier2O4,)
+
+// ijkVecBezier3O4*
+//	Perform order-3 (cubic) Bezier interpolation given four reference values.
+//		param v0: first reference value, result when t=0
+//		param v1: second reference value
+//		param v2: third reference value
+//		param v3: fourth reference value, result when t=1
+//		param u: interpolation parameter; inputs in [0,1] interpolate between 
+//			v0 and v3
+//		return: cubic Bezier interpolation between v0 and v3
+//rvec4 ijkVecBezier3O4r(rvec4 const v0, rvec4 const v1, rvec4 const v2, rvec4 const v3, real const u);
+#define ijkVecBezier3O4r ijk_declrealfs(ijkVecBezier3O4,)
+
+// ijkVecBezierNO4*
+//	Perform order-N (recursive) Bezier interpolation given an array of 
+//	reference values.
+//		param v: array of reference values, result when t=0 is v[0], result 
+//			when t=1 is v[order]
+//			valid: non-null
+//		param order: order of interpolation or number of recursive steps; 
+//			note: size of array is order+1, order is maximum index
+//		param u: interpolation parameter; inputs in [0,1] interpolate between 
+//			v[0] and v[order]
+//		return: recursive Bezier interpolation between v[0] and v[order]
+//rvec4 ijkVecBezierNO4r(rvec4 const v[], size const order, real const u);
+#define ijkVecBezierNO4r ijk_declrealfs(ijkVecBezierNO4,)
+
+// ijkVecCubicHermite4*
+//	Cubic Hermite spline/curve interpolation between two reference values with 
+//	control tangents (rates of change at reference values).
+//		param v0: initial reference value/start point, result when t=0
+//		param dv0: initial tangent/rate of change
+//		param v1: terminal reference value/end point, result when t=1
+//		param dv1: terminal tangent/rate of change
+//		param u: interpolation parameter; inputs in [0,1] interpolate between 
+//			v0 and v1
+//		return: interpolated vector on spline/curve segment
+//rvec4 ijkVecCubicHermite4r(rvec4 const v0, rvec4 const dv0, rvec4 const v1, rvec4 const dv1, real const u);
+#define ijkVecCubicHermite4r ijk_declrealfs(ijkVecCubicHermite4,)
+
+// ijkVecCubicHermiteHandles4*
+//	Cubic Hermite spline/curve interpolation between two reference values with 
+//	control handles to determine rate of change at reference values.
+//		param v0: initial reference value/start point, result when t=0
+//		param cv0: initial control handle value, should be greater than v0 
+//			for a positive rate of change
+//		param v1: terminal reference value/end point, result when t=1
+//		param cv1: terminal control handle value, should be greater than v1 
+//			for a positive rate of change
+//		param u: interpolation parameter; inputs in [0,1] interpolate between 
+//			v0 and v1
+//		return: interpolated vector on spline/curve segment
+//rvec4 ijkVecCubicHermiteHandles4r(rvec4 const v0, rvec4 const cv0, rvec4 const v1, rvec4 const cv1, real const u);
+#define ijkVecCubicHermiteHandles4r ijk_declrealfs(ijkVecCubicHermiteHandles4,)
+
+// ijkVecCubicCatmullRom4*
+//	Catmull-Rom spline/curve interpolation between two reference values with 
+//	two external control values.
+//		param vp: initial control value (value before initial reference)
+//		param v0: initial reference value/start point, result when t=0
+//		param v1: terminal reference value/end point, result when t=1
+//		param v2: terminal control value (value after terminal reference)
+//		param u: interpolation parameter; inputs in [0,1] interpolate between 
+//			v0 and v1
+//		return: interpolated vector on spline/curve segment
+//rvec4 ijkVecCubicCatmullRom4r(rvec4 const vp, rvec4 const v0, rvec4 const v1, rvec4 const v2, real const u);
+#define ijkVecCubicCatmullRom4r ijk_declrealfs(ijkVecCubicCatmullRom4,)
+
+// ijkVecBicubicCatmullRom4*
+//	Bi-cubic interpolation using Catmull-Rom interpolation for segments.
+//		param vpp: initial control value of initial control curve
+//		param vp0: initial reference value/start point of initial control 
+//			curve, result of initial control curve when tp=0
+//		param vp1: terminal reference value/end point of initial control 
+//			curve, result of initial control curve when tp=1
+//		param vp2: terminal control value of initial control curve
+//		param v0p: initial control value of initial value curve
+//		param v00: initial reference value/start point of initial value 
+//			curve, result of initial value curve when t0=0
+//		param v01: terminal reference value/end point of initial value 
+//			curve, result of initial value curve when t0=1
+//		param v02: terminal control value of initial value curve
+//		param v1p: initial control value of terminal value curve
+//		param v10: initial reference value/start point of terminal value 
+//			curve, result of terminal value curve when t1=0
+//		param v11: terminal reference value/end point of terminal value 
+//			curve, result of terminal value curve when t1=1
+//		param v12: terminal control value of terminal value curve
+//		param v2p: initial control value of terminal control curve
+//		param v20: initial reference value/start point of terminal control 
+//			curve, result of terminal control curve when t2=0
+//		param v21: terminal reference value/end point of terminal control 
+//			curve, result of terminal control curve when t2=1
+//		param v22: terminal control value of terminal control curve
+//		param up: interpolation parameter for initial control curve
+//		param u0: interpolation parameter for initial value curve
+//		param u1: interpolation parameter for terminal value curve
+//		param u2: interpolation parameter for terminal control curve
+//		param u: interpolation parameter for result
+//		return: interpolated vector
+//rvec4 ijkVecBicubicCatmullRom4r(rvec4 const vpp, rvec4 const vp0, rvec4 const vp1, rvec4 const vp2, rvec4 const v0p, rvec4 const v00, rvec4 const v01, rvec4 const v02, rvec4 const v1p, rvec4 const v10, rvec4 const v11, rvec4 const v12, rvec4 const v2p, rvec4 const v20, rvec4 const v21, rvec4 const v22, real const up, real const u0, real const u1, real const u2, real const u);
+#define ijkVecBicubicCatmullRom4r ijk_declrealfs(ijkVecBicubicCatmullRom4,)
+
+// ijkVecReparamCubicHermite4*
+//	Reparameterize a cubic Hermite segment into sample table.
+//		param uTable_out: array of interpolation parameters at each sample
+//			valid: non-null
+//		param lTable_out: array of accumulated arc lengths at each sample
+//			valid: non-null
+//		param vTable_out: array of values sampled
+//			valid: non-null
+//		param numDivisions: number of intermediate samples on segment
+//			valid: non-zero
+//			note: tables should have at least (numDivisions+1) elements
+//			note: precision of arc length increases as this number increases
+//		param lNormalize: option to normalize arc lengths
+//		param v0: initial reference value/start point, result when t=0
+//		param dv0: initial tangent/rate of change
+//		param v1: terminal reference value/end point, result when t=1
+//		param dv1: terminal tangent/rate of change
+//		return: total arc length
+//real ijkVecReparamCubicHermite4r(real uTable_out[], real lTable_out[], rvec4 vTable_out[], size const numDivisions, ibool const lNormalize, rvec4 const v0, rvec4 const dv0, rvec4 const v1, rvec4 const dv1);
+#define ijkVecReparamCubicHermite4r ijk_declrealfs(ijkVecReparamCubicHermite4,)
+
+// ijkVecReparamCubicHermiteHandles4*
+//	Reparameterize a cubic Hermite segment with handles into sample table.
+//		param uTable_out: array of interpolation parameters at each sample
+//			valid: non-null
+//		param lTable_out: array of accumulated arc lengths at each sample
+//			valid: non-null
+//		param vTable_out: array of values sampled
+//			valid: non-null
+//		param numDivisions: number of intermediate samples on segment
+//			valid: non-zero
+//			note: tables should have at least (numDivisions+1) elements
+//			note: precision of arc length increases as this number increases
+//		param lNormalize: option to normalize arc lengths
+//		param v0: initial reference value/start point, result when t=0
+//		param cv0: initial control handle value, should be greater than v0 
+//			for a positive rate of change
+//		param v1: terminal reference value/end point, result when t=1
+//		param cv1: terminal control handle value, should be greater than v1 
+//			for a positive rate of change
+//		return: total arc length
+//real ijkVecReparamCubicHermiteHandles4r(real uTable_out[], real lTable_out[], rvec4 vTable_out[], size const numDivisions, ibool const lNormalize, rvec4 const v0, rvec4 const cv0, rvec4 const v1, rvec4 const cv1);
+#define ijkVecReparamCubicHermiteHandles4r ijk_declrealfs(ijkVecReparamCubicHermiteHandles4,)
+
+// ijkVecReparamCubicCatmullRom4*
+//	Reparameterize a cubic Catmull-Rom segment into sample table.
+//		param uTable_out: array of interpolation parameters at each sample
+//			valid: non-null
+//		param lTable_out: array of accumulated arc lengths at each sample
+//			valid: non-null
+//		param vTable_out: array of values sampled
+//			valid: non-null
+//		param numDivisions: number of intermediate samples on segment
+//			valid: non-zero
+//			note: tables should have at least (numDivisions+1) elements
+//			note: precision of arc length increases as this number increases
+//		param lNormalize: option to normalize arc lengths
+//		param vp: initial control value
+//		param v0: initial reference value/start point, result when t=0
+//		param v1: terminal reference value/end point, result when t=1
+//		param v2: terminal control value
+//		return: total arc length
+//real ijkVecReparamCubicCatmullRom4r(real uTable_out[], real lTable_out[], rvec4 vTable_out[], size const numDivisions, ibool const lNormalize, rvec4 const vp, rvec4 const v0, rvec4 const v1, rvec4 const v2);
+#define ijkVecReparamCubicCatmullRom4r ijk_declrealfs(ijkVecReparamCubicCatmullRom4,)
+
+// ijkVecReparamBicubicCatmullRom4*
+//	Reparameterize a bi-cubic Catmull-Rom segment into sample table.
+//		param uTable_out: array of interpolation parameters at each sample
+//			valid: non-null
+//		param lTable_out: array of accumulated arc lengths at each sample
+//			valid: non-null
+//		param vTable_out: array of values sampled
+//			valid: non-null
+//		param numDivisions: number of intermediate samples on segment
+//			valid: non-zero
+//			note: tables should have at least (numDivisions+1) elements
+//			note: precision of arc length increases as this number increases
+//		param lNormalize: option to normalize arc lengths
+//		param vpp: initial control value of initial control curve
+//		param vp0: initial reference value/start point of initial control 
+//			curve, result of initial control curve when tp=0
+//		param vp1: terminal reference value/end point of initial control 
+//			curve, result of initial control curve when tp=1
+//		param vp2: terminal control value of initial control curve
+//		param v0p: initial control value of initial value curve
+//		param v00: initial reference value/start point of initial value 
+//			curve, result of initial value curve when t0=0
+//		param v01: terminal reference value/end point of initial value 
+//			curve, result of initial value curve when t0=1
+//		param v02: terminal control value of initial value curve
+//		param v1p: initial control value of terminal value curve
+//		param v10: initial reference value/start point of terminal value 
+//			curve, result of terminal value curve when t1=0
+//		param v11: terminal reference value/end point of terminal value 
+//			curve, result of terminal value curve when t1=1
+//		param v12: terminal control value of terminal value curve
+//		param v2p: initial control value of terminal control curve
+//		param v20: initial reference value/start point of terminal control 
+//			curve, result of terminal control curve when t2=0
+//		param v21: terminal reference value/end point of terminal control 
+//			curve, result of terminal control curve when t2=1
+//		param v22: terminal control value of terminal control curve
+//		param up: interpolation parameter for initial control curve
+//		param u0: interpolation parameter for initial value curve
+//		param u1: interpolation parameter for terminal value curve
+//		param u2: interpolation parameter for terminal control curve
+//		return: total arc length
+//real ijkVecReparamBicubicCatmullRom4r(real uTable_out[], real lTable_out[], rvec4 vTable_out[], size const numDivisions, ibool const lNormalize, rvec4 const vpp, rvec4 const vp0, rvec4 const vp1, rvec4 const vp2, rvec4 const v0p, rvec4 const v00, rvec4 const v01, rvec4 const v02, rvec4 const v1p, rvec4 const v10, rvec4 const v11, rvec4 const v12, rvec4 const v2p, rvec4 const v20, rvec4 const v21, rvec4 const v22, real const up, real const u0, real const u1, real const u2);
+#define ijkVecReparamBicubicCatmullRom4r ijk_declrealfs(ijkVecReparamBicubicCatmullRom4,)
+
+// ijkVecSampleTableInc4*
+//	Find index of parameter in table and approximate value by interpolating 
+//	surrounding samples in table. Assumes that parameter values increase as 
+//	the table is traversed (parameter increases as index increases) and will 
+//	contuinue searching until tabled parameter is greater than input parameter.
+//		param uTable: array of increasing sampling parameters (search table)
+//			valid: non-null
+//		param vTable: array of sampled values (value table)
+//			valid: non-null
+//		param i: starting search index
+//			note: zero if starting from beginning of tables
+//		param di: search index step size (increment of i at each iteration)
+//			note: defaults to 1 if passed 0
+//		param u: input parameter to find in search table
+//		return: interpolated vector in table that approximates input parameter
+//rvec4 ijkVecSampleTableInc4r(real const uTable[], rvec4 const vTable[], index i, index di, real const u);
+#define ijkVecSampleTableInc4r ijk_declrealfs(ijkVecSampleTableInc4,)
+
+// ijkVecSampleTableDec4*
+//	Find index of parameter in table and approximate value by interpolating 
+//	surrounding samples in table. Assumes that parameter values decrease as 
+//	the table is traversed (parameter increases as index increases) and will 
+//	contuinue searching until tabled parameter is less than input parameter.
+//		param uTable: array of decreasing sampling parameters (search table)
+//			valid: non-null
+//		param vTable: array of sampled values (value table)
+//			valid: non-null
+//		param i: starting search index
+//			note: zero if starting from beginning of tables
+//		param di: search index step size (increment of i at each iteration)
+//			note: defaults to 1 if passed 0
+//		param u: input parameter to find in search table
+//		return: interpolated vector in table that approximates input parameter
+//rvec4 ijkVecSampleTableDec4r(real const uTable[], rvec4 const vTable[], index i, index di, real const u);
+#define ijkVecSampleTableDec4r ijk_declrealfs(ijkVecSampleTableDec4,)
 
 
 //-----------------------------------------------------------------------------
