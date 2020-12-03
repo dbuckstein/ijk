@@ -19,23 +19,21 @@
 		c-based rendering framework
 	By Daniel S. Buckstein
 
-	ijk-math.h
-	Main header for math library.
+	ijkQuaternion.inl
+	Inline definitions for quaternion types.
 */
 
-#ifndef _IJK_MATH_H_
-#define _IJK_MATH_H_
+#ifdef _IJK_QUATERNION_H_
+#ifndef _IJK_QUATERNION_INL_
+#define _IJK_QUATERNION_INL_
 
 
-#include "ijk-real/ijkReal.h"
-#include "ijk-real/ijkSqrt.h"
-#include "ijk-real/ijkStats.h"
-#include "ijk-real/ijkRandom.h"
-#include "ijk-real/ijkInterpolation.h"
-#include "ijk-real/ijkTrigonometry.h"
-#include "ijk-real/ijkVector.h"
-#include "ijk-real/ijkMatrix.h"
-#include "ijk-real/ijkQuaternion.h"
+//-----------------------------------------------------------------------------
 
 
-#endif	// !_IJK_MATH_H_
+
+//-----------------------------------------------------------------------------
+
+
+#endif	// !_IJK_QUATERNION_INL_
+#endif	// _IJK_QUATERNION_H_

@@ -37,29 +37,21 @@
 // Vector definition shortcuts (in lieu of templates in C).
 ///
 #define IJK_VECS(t1,x,t2,y)				struct { t1 x; t2 y; }
-#define IJK_VEC2(t1,t2,t3,t4,x,y,z,w)	t2 x##y; IJK_VECS(t1,x,t1,y)
-#define IJK_VEC3(t1,t2,t3,t4,x,y,z,w)	t3 x##y##z; t2 x##y; IJK_VECS(t1,x,union,{ IJK_VEC2(t1,t2,,,y,z,,); })
-#define IJK_VEC4(t1,t2,t3,t4,x,y,z,w)	t4 x##y##z##w; t3 x##y##z; t2 x##y; IJK_VECS(t1,x,union,{ IJK_VEC3(t1,t2,t3,,y,z,w,); })
+#define IJK_VEC2(t1,t2,t3,t4,x,y,z,w)	{ t2 x##y; IJK_VECS(t1,x,t1,y); }
+#define IJK_VEC3(t1,t2,t3,t4,x,y,z,w)	{ t3 x##y##z; t2 x##y; IJK_VECS(t1,x,union,IJK_VEC2(t1,t2,,,y,z,,)); }
+#define IJK_VEC4(t1,t2,t3,t4,x,y,z,w)	{ t4 x##y##z##w; t3 x##y##z; t2 x##y; IJK_VECS(t1,x,union,IJK_VEC3(t1,t2,t3,,y,z,w,)); }
+#define IJK_VECA2(t1,t2,t3,t4,x,y,z,w)	t1 x##y[2]; IJK_VECS(t1,x,t1,y)
+#define IJK_VECA3(t1,t2,t3,t4,x,y,z,w)	t1 x##y##z[3]; t2 x##y; IJK_VECS(t1,x,union,IJK_VEC2(t1,t2,,,y,z,,))
+#define IJK_VECA4(t1,t2,t3,t4,x,y,z,w)	t1 x##y##z##w[4]; t3 x##y##z; t2 x##y; IJK_VECS(t1,x,union,IJK_VEC3(t1,t2,t3,,y,z,w,))
 #define IJK_VEC_DECL(decl,t1,t2,t3,t4)	decl(t1,t2,t3,t4,x,y,z,w); decl(t1,t2,t3,t4,r,g,b,a); decl(t1,t2,t3,t4,s,t,p,q)
-
-// Vector definition shortcuts (in lieu of templates in C) using arrays.
-///
-#define IJK_VECA2(t0,x,y,z,w)			t0 x##y[2]; IJK_VECS(t0,x,t0,y)
-#define IJK_VECA3(t0,x,y,z,w)			t0 x##y##z[3]; t0 x##y[2]; IJK_VECS(t0,x,union,{ IJK_VECA2(t0,y,z,,); })
-#define IJK_VECA4(t0,x,y,z,w)			t0 x##y##z##w[4]; t0 x##y##z[3]; t0 x##y[2]; IJK_VECS(t0,x,union,{ IJK_VECA3(t0,y,z,w,); })
-#define IJK_VECA_DECL(decl,t0)			decl(t0,x,y,z,w); decl(t0,r,g,b,a); decl(t0,s,t,p,q)
 
 // IJK_VEC_IMPL
 //	Implements union vector of specified type in target interface.
-//		param vecType: base type of vector (e.g. 'int' for integer vectors)
-//		param vecSize: number of elements in vector (e.g. '2' for a 2D vector)
-#define IJK_VEC_IMPL(vecType,vecSize)	IJK_VEC_DECL(IJK_VEC##vecSize,vecType,vecType##2,vecType##3,vecType##4)
-
-// IJK_VECA_IMPL
-//	Implements union vector of specified type in target interface using arrays.
-//		param vecType: base type of vector (e.g. 'int' for integer vectors)
-//		param vecSize: number of elements in vector (e.g. '2' for a 2D vector)
-#define IJK_VECA_IMPL(vecType,vecSize)	IJK_VECA_DECL(IJK_VECA##vecSize,vecType)
+//		param type: base type of vector (e.g. 'int' for integer vectors)
+//		param tvec: vector type prefix (e.g. 'ivec' for integer vectors)
+//		param sz: number of elements in vector (e.g. '2' for a 2D vector)
+//		param sfx: suffix after elements (e.g. '<type>' for a template vector)
+#define IJK_VEC_IMPL(type,tvec,sz,sfx)	type v[sz]; IJK_VEC_DECL(IJK_VECA##sz,type,tvec##2##sfx,tvec##3##sfx,tvec##4##sfx)
 
 #pragma endregion
 // IJK_SWIZZLE_VECTOR_DECL
@@ -68,6 +60,7 @@
 #ifdef __cplusplus
 extern "C" {
 #else	// !__cplusplus
+typedef enum ijkVecComp	ijkVecComp;
 typedef union bvec2		bvec2;
 typedef union bvec3		bvec3;
 typedef union bvec4		bvec4;
@@ -102,15 +95,28 @@ typedef union dvec4		dvec4;
 
 // Convenience macros for declaring vector types.
 ///
-#define IJK_BVEC_IMPL(vecSize)			IJK_VEC_IMPL(bool,vecSize)
-#define IJK_IVEC_IMPL(vecSize)			IJK_VEC_IMPL(int,vecSize)
-#define IJK_ILVEC_IMPL(vecSize)			IJK_VEC_IMPL(intl,vecSize)
-#define IJK_UVEC_IMPL(vecSize)			IJK_VEC_IMPL(uint,vecSize)
-#define IJK_ULVEC_IMPL(vecSize)			IJK_VEC_IMPL(uintl,vecSize)
-#define IJK_FVEC_IMPL(vecSize)			IJK_VEC_IMPL(float,vecSize)
-#define IJK_DVEC_IMPL(vecSize)			IJK_VEC_IMPL(double,vecSize)
+#define IJK_BVEC_IMPL(sz)				IJK_VEC_IMPL(bool,bvec,sz,)
+#define IJK_IVEC_IMPL(sz)				IJK_VEC_IMPL(int,ivec,sz,)
+#define IJK_ILVEC_IMPL(sz)				IJK_VEC_IMPL(intl,ilvec,sz,)
+#define IJK_UVEC_IMPL(sz)				IJK_VEC_IMPL(uint,uvec,sz,)
+#define IJK_ULVEC_IMPL(sz)				IJK_VEC_IMPL(uintl,ulvec,sz,)
+#define IJK_FVEC_IMPL(sz)				IJK_VEC_IMPL(float,fvec,sz,)
+#define IJK_DVEC_IMPL(sz)				IJK_VEC_IMPL(double,dvec,sz,)
 
 #endif	// __cplusplus
+
+
+//-----------------------------------------------------------------------------
+
+// ijkVecComp
+//	Named vector component index for user access.
+enum ijkVecComp
+{
+	ijkVecX,
+	ijkVecY,
+	ijkVecZ,
+	ijkVecW,
+};
 
 
 //-----------------------------------------------------------------------------
@@ -166,7 +172,7 @@ typedef f64				* doublev,	// Generic double-precision array-based vector, repres
 
 // bvec2
 //	Data structure representing 2D boolean vector.
-//		members xy, rg, st: array of elements, used as pointer argument to vector functions
+//		members v, xy, rg, st: array of elements, used as pointer argument to vector functions
 //		members x, y: individual named elements representing a spatial coordinate
 //		members r, g: individual named elements representing a color
 //		members s, t: individual named elements representing a parametric coordinate
@@ -177,9 +183,9 @@ union bvec2
 
 // bvec3
 //	Data structure representing 3D boolean vector.
-//		members xyz, rgb, stp: array of elements, used as pointer argument to vector functions
-//		members xy, rg, st: partial swizzle of first two elements, used in same fashion as above
-//		members yz, gb, tp: partial swizzle of last two elements, used in same fashion as above
+//		members v, xyz, rgb, stp: array of elements, used as pointer argument to vector functions
+//		members xy, rg, st: partial swizzle of first two elements
+//		members yz, gb, tp: partial swizzle of last two elements
 //		members x, y, z: individual named elements representing a spatial coordinate
 //		members r, g, b: individual named elements representing a color
 //		members s, t, p: individual named elements representing a parametric coordinate
@@ -190,12 +196,12 @@ union bvec3
 
 // bvec4
 //	Data structure representing 4D boolean vector.
-//		members xyzw, rgba, stpq: array of elements, used as pointer argument to vector functions
-//		members xyz, rgb, stp: partial swizzle of first three elements, used in same fashion as above
-//		members yzw, gba, tpq: partial swizzle of last three elements, used in same fashion as above
-//		members xy, rg, st: partial swizzle of first two elements, used in same fashion as above
-//		members yz, gb, tp: partial swizzle of middle two elements, used in same fashion as above
-//		members zw, ba, pq: partial swizzle of last two elements, used in same fashion as above
+//		members v, xyzw, rgba, stpq: array of elements, used as pointer argument to vector functions
+//		members xyz, rgb, stp: partial swizzle of first three elements
+//		members yzw, gba, tpq: partial swizzle of last three elements
+//		members xy, rg, st: partial swizzle of first two elements
+//		members yz, gb, tp: partial swizzle of middle two elements
+//		members zw, ba, pq: partial swizzle of last two elements
 //		members x, y, z, w: individual named elements representing a spatial coordinate
 //			note: vectors have w = 0, while points have w = 1
 //		members r, g, b, a: individual named elements representing a color
@@ -210,7 +216,7 @@ union bvec4
 
 // ivec2
 //	Data structure representing 2D signed 32-bit integer vector.
-//		members xy, rg, st: array of elements, used as pointer argument to vector functions
+//		members v, xy, rg, st: array of elements, used as pointer argument to vector functions
 //		members x, y: individual named elements representing a spatial coordinate
 //		members r, g: individual named elements representing a color
 //		members s, t: individual named elements representing a parametric coordinate
@@ -221,9 +227,9 @@ union ivec2
 
 // ivec3
 //	Data structure representing 3D signed 32-bit integer vector.
-//		members xyz, rgb, stp: array of elements, used as pointer argument to vector functions
-//		members xy, rg, st: partial swizzle of first two elements, used in same fashion as above
-//		members yz, gb, tp: partial swizzle of last two elements, used in same fashion as above
+//		members v, xyz, rgb, stp: array of elements, used as pointer argument to vector functions
+//		members xy, rg, st: partial swizzle of first two elements
+//		members yz, gb, tp: partial swizzle of last two elements
 //		members x, y, z: individual named elements representing a spatial coordinate
 //		members r, g, b: individual named elements representing a color
 //		members s, t, p: individual named elements representing a parametric coordinate
@@ -234,12 +240,12 @@ union ivec3
 
 // ivec4
 //	Data structure representing 4D signed 32-bit integer vector.
-//		members xyzw, rgba, stpq: array of elements, used as pointer argument to vector functions
-//		members xyz, rgb, stp: partial swizzle of first three elements, used in same fashion as above
-//		members yzw, gba, tpq: partial swizzle of last three elements, used in same fashion as above
-//		members xy, rg, st: partial swizzle of first two elements, used in same fashion as above
-//		members yz, gb, tp: partial swizzle of middle two elements, used in same fashion as above
-//		members zw, ba, pq: partial swizzle of last two elements, used in same fashion as above
+//		members v, xyzw, rgba, stpq: array of elements, used as pointer argument to vector functions
+//		members xyz, rgb, stp: partial swizzle of first three elements
+//		members yzw, gba, tpq: partial swizzle of last three elements
+//		members xy, rg, st: partial swizzle of first two elements
+//		members yz, gb, tp: partial swizzle of middle two elements
+//		members zw, ba, pq: partial swizzle of last two elements
 //		members x, y, z, w: individual named elements representing a spatial coordinate
 //			note: vectors have w = 0, while points have w = 1
 //		members r, g, b, a: individual named elements representing a color
@@ -254,7 +260,7 @@ union ivec4
 
 // ilvec2
 //	Data structure representing 2D signed 64-bit integer vector.
-//		members xy, rg, st: array of elements, used as pointer argument to vector functions
+//		members v, xy, rg, st: array of elements, used as pointer argument to vector functions
 //		members x, y: individual named elements representing a spatial coordinate
 //		members r, g: individual named elements representing a color
 //		members s, t: individual named elements representing a parametric coordinate
@@ -265,9 +271,9 @@ union ilvec2
 
 // ilvec3
 //	Data structure representing 3D signed 64-bit integer vector.
-//		members xyz, rgb, stp: array of elements, used as pointer argument to vector functions
-//		members xy, rg, st: partial swizzle of first two elements, used in same fashion as above
-//		members yz, gb, tp: partial swizzle of last two elements, used in same fashion as above
+//		members v, xyz, rgb, stp: array of elements, used as pointer argument to vector functions
+//		members xy, rg, st: partial swizzle of first two elements
+//		members yz, gb, tp: partial swizzle of last two elements
 //		members x, y, z: individual named elements representing a spatial coordinate
 //		members r, g, b: individual named elements representing a color
 //		members s, t, p: individual named elements representing a parametric coordinate
@@ -278,12 +284,12 @@ union ilvec3
 
 // ilvec4
 //	Data structure representing 4D signed 64-bit integer vector.
-//		members xyzw, rgba, stpq: array of elements, used as pointer argument to vector functions
-//		members xyz, rgb, stp: partial swizzle of first three elements, used in same fashion as above
-//		members yzw, gba, tpq: partial swizzle of last three elements, used in same fashion as above
-//		members xy, rg, st: partial swizzle of first two elements, used in same fashion as above
-//		members yz, gb, tp: partial swizzle of middle two elements, used in same fashion as above
-//		members zw, ba, pq: partial swizzle of last two elements, used in same fashion as above
+//		members v, xyzw, rgba, stpq: array of elements, used as pointer argument to vector functions
+//		members xyz, rgb, stp: partial swizzle of first three elements
+//		members yzw, gba, tpq: partial swizzle of last three elements
+//		members xy, rg, st: partial swizzle of first two elements
+//		members yz, gb, tp: partial swizzle of middle two elements
+//		members zw, ba, pq: partial swizzle of last two elements
 //		members x, y, z, w: individual named elements representing a spatial coordinate
 //			note: vectors have w = 0, while points have w = 1
 //		members r, g, b, a: individual named elements representing a color
@@ -298,7 +304,7 @@ union ilvec4
 
 // uvec2
 //	Data structure representing 2D unsigned 32-bit integer vector.
-//		members xy, rg, st: array of elements, used as pointer argument to vector functions
+//		members v, xy, rg, st: array of elements, used as pointer argument to vector functions
 //		members x, y: individual named elements representing a spatial coordinate
 //		members r, g: individual named elements representing a color
 //		members s, t: individual named elements representing a parametric coordinate
@@ -309,9 +315,9 @@ union uvec2
 
 // uvec3
 //	Data structure representing 3D unsigned 32-bit integer vector.
-//		members xyz, rgb, stp: array of elements, used as pointer argument to vector functions
-//		members xy, rg, st: partial swizzle of first two elements, used in same fashion as above
-//		members yz, gb, tp: partial swizzle of last two elements, used in same fashion as above
+//		members v, xyz, rgb, stp: array of elements, used as pointer argument to vector functions
+//		members xy, rg, st: partial swizzle of first two elements
+//		members yz, gb, tp: partial swizzle of last two elements
 //		members x, y, z: individual named elements representing a spatial coordinate
 //		members r, g, b: individual named elements representing a color
 //		members s, t, p: individual named elements representing a parametric coordinate
@@ -322,12 +328,12 @@ union uvec3
 
 // uvec4
 //	Data structure representing 4D unsigned 32-bit integer vector.
-//		members xyzw, rgba, stpq: array of elements, used as pointer argument to vector functions
-//		members xyz, rgb, stp: partial swizzle of first three elements, used in same fashion as above
-//		members yzw, gba, tpq: partial swizzle of last three elements, used in same fashion as above
-//		members xy, rg, st: partial swizzle of first two elements, used in same fashion as above
-//		members yz, gb, tp: partial swizzle of middle two elements, used in same fashion as above
-//		members zw, ba, pq: partial swizzle of last two elements, used in same fashion as above
+//		members v, xyzw, rgba, stpq: array of elements, used as pointer argument to vector functions
+//		members xyz, rgb, stp: partial swizzle of first three elements
+//		members yzw, gba, tpq: partial swizzle of last three elements
+//		members xy, rg, st: partial swizzle of first two elements
+//		members yz, gb, tp: partial swizzle of middle two elements
+//		members zw, ba, pq: partial swizzle of last two elements
 //		members x, y, z, w: individual named elements representing a spatial coordinate
 //			note: vectors have w = 0, while points have w = 1
 //		members r, g, b, a: individual named elements representing a color
@@ -342,7 +348,7 @@ union uvec4
 
 // ulvec2
 //	Data structure representing 2D unsigned 64-bit integer vector.
-//		members xy, rg, st: array of elements, used as pointer argument to vector functions
+//		members v, xy, rg, st: array of elements, used as pointer argument to vector functions
 //		members x, y: individual named elements representing a spatial coordinate
 //		members r, g: individual named elements representing a color
 //		members s, t: individual named elements representing a parametric coordinate
@@ -353,9 +359,9 @@ union ulvec2
 
 // ulvec3
 //	Data structure representing 3D unsigned 64-bit integer vector.
-//		members xyz, rgb, stp: array of elements, used as pointer argument to vector functions
-//		members xy, rg, st: partial swizzle of first two elements, used in same fashion as above
-//		members yz, gb, tp: partial swizzle of last two elements, used in same fashion as above
+//		members v, xyz, rgb, stp: array of elements, used as pointer argument to vector functions
+//		members xy, rg, st: partial swizzle of first two elements
+//		members yz, gb, tp: partial swizzle of last two elements
 //		members x, y, z: individual named elements representing a spatial coordinate
 //		members r, g, b: individual named elements representing a color
 //		members s, t, p: individual named elements representing a parametric coordinate
@@ -366,12 +372,12 @@ union ulvec3
 
 // ulvec4
 //	Data structure representing 4D unsigned 64-bit integer vector.
-//		members xyzw, rgba, stpq: array of elements, used as pointer argument to vector functions
-//		members xyz, rgb, stp: partial swizzle of first three elements, used in same fashion as above
-//		members yzw, gba, tpq: partial swizzle of last three elements, used in same fashion as above
-//		members xy, rg, st: partial swizzle of first two elements, used in same fashion as above
-//		members yz, gb, tp: partial swizzle of middle two elements, used in same fashion as above
-//		members zw, ba, pq: partial swizzle of last two elements, used in same fashion as above
+//		members v, xyzw, rgba, stpq: array of elements, used as pointer argument to vector functions
+//		members xyz, rgb, stp: partial swizzle of first three elements
+//		members yzw, gba, tpq: partial swizzle of last three elements
+//		members xy, rg, st: partial swizzle of first two elements
+//		members yz, gb, tp: partial swizzle of middle two elements
+//		members zw, ba, pq: partial swizzle of last two elements
 //		members x, y, z, w: individual named elements representing a spatial coordinate
 //			note: vectors have w = 0, while points have w = 1
 //		members r, g, b, a: individual named elements representing a color
@@ -386,7 +392,7 @@ union ulvec4
 
 // fvec2
 //	Data structure representing 2D single-precision (float) vector.
-//		members xy, rg, st: array of elements, used as pointer argument to vector functions
+//		members v, xy, rg, st: array of elements, used as pointer argument to vector functions
 //		members x, y: individual named elements representing a spatial coordinate
 //		members r, g: individual named elements representing a color
 //		members s, t: individual named elements representing a parametric coordinate
@@ -397,9 +403,9 @@ union fvec2
 
 // fvec3
 //	Data structure representing 3D single-precision (float) vector.
-//		members xyz, rgb, stp: array of elements, used as pointer argument to vector functions
-//		members xy, rg, st: partial swizzle of first two elements, used in same fashion as above
-//		members yz, gb, tp: partial swizzle of last two elements, used in same fashion as above
+//		members v, xyz, rgb, stp: array of elements, used as pointer argument to vector functions
+//		members xy, rg, st: partial swizzle of first two elements
+//		members yz, gb, tp: partial swizzle of last two elements
 //		members x, y, z: individual named elements representing a spatial coordinate
 //		members r, g, b: individual named elements representing a color
 //		members s, t, p: individual named elements representing a parametric coordinate
@@ -410,12 +416,12 @@ union fvec3
 
 // fvec4
 //	Data structure representing 4D single-precision (float) vector.
-//		members xyzw, rgba, stpq: array of elements, used as pointer argument to vector functions
-//		members xyz, rgb, stp: partial swizzle of first three elements, used in same fashion as above
-//		members yzw, gba, tpq: partial swizzle of last three elements, used in same fashion as above
-//		members xy, rg, st: partial swizzle of first two elements, used in same fashion as above
-//		members yz, gb, tp: partial swizzle of middle two elements, used in same fashion as above
-//		members zw, ba, pq: partial swizzle of last two elements, used in same fashion as above
+//		members v, xyzw, rgba, stpq: array of elements, used as pointer argument to vector functions
+//		members xyz, rgb, stp: partial swizzle of first three elements
+//		members yzw, gba, tpq: partial swizzle of last three elements
+//		members xy, rg, st: partial swizzle of first two elements
+//		members yz, gb, tp: partial swizzle of middle two elements
+//		members zw, ba, pq: partial swizzle of last two elements
 //		members x, y, z, w: individual named elements representing a spatial coordinate
 //			note: vectors have w = 0, while points have w = 1
 //		members r, g, b, a: individual named elements representing a color
@@ -430,7 +436,7 @@ union fvec4
 
 // dvec2
 //	Data structure representing 2D double-precision (double) vector.
-//		members xy, rg, st: array of elements, used as pointer argument to vector functions
+//		members v, xy, rg, st: array of elements, used as pointer argument to vector functions
 //		members x, y: individual named elements representing a spatial coordinate
 //		members r, g: individual named elements representing a color
 //		members s, t: individual named elements representing a parametric coordinate
@@ -441,9 +447,9 @@ union dvec2
 
 // dvec3
 //	Data structure representing 3D double-precision (double) vector.
-//		members xyz, rgb, stp: array of elements, used as pointer argument to vector functions
-//		members xy, rg, st: partial swizzle of first two elements, used in same fashion as above
-//		members yz, gb, tp: partial swizzle of last two elements, used in same fashion as above
+//		members v, xyz, rgb, stp: array of elements, used as pointer argument to vector functions
+//		members xy, rg, st: partial swizzle of first two elements
+//		members yz, gb, tp: partial swizzle of last two elements
 //		members x, y, z: individual named elements representing a spatial coordinate
 //		members r, g, b: individual named elements representing a color
 //		members s, t, p: individual named elements representing a parametric coordinate
@@ -454,12 +460,12 @@ union dvec3
 
 // dvec4
 //	Data structure representing 4D double-precision (double) vector.
-//		members xyzw, rgba, stpq: array of elements, used as pointer argument to vector functions
-//		members xyz, rgb, stp: partial swizzle of first three elements, used in same fashion as above
-//		members yzw, gba, tpq: partial swizzle of last three elements, used in same fashion as above
-//		members xy, rg, st: partial swizzle of first two elements, used in same fashion as above
-//		members yz, gb, tp: partial swizzle of middle two elements, used in same fashion as above
-//		members zw, ba, pq: partial swizzle of last two elements, used in same fashion as above
+//		members v, xyzw, rgba, stpq: array of elements, used as pointer argument to vector functions
+//		members xyz, rgb, stp: partial swizzle of first three elements
+//		members yzw, gba, tpq: partial swizzle of last three elements
+//		members xy, rg, st: partial swizzle of first two elements
+//		members yz, gb, tp: partial swizzle of middle two elements
+//		members zw, ba, pq: partial swizzle of last two elements
 //		members x, y, z, w: individual named elements representing a spatial coordinate
 //			note: vectors have w = 0, while points have w = 1
 //		members r, g, b, a: individual named elements representing a color
@@ -492,32 +498,6 @@ union dvec4
 #ifdef __cplusplus
 extern "C" {
 #endif	// __cplusplus
-
-//-----------------------------------------------------------------------------
-
-// Alternative names for float vector.
-///
-typedef fvec2		vec2;
-typedef fvec3		vec3;
-typedef fvec4		vec4;
-
-// Select real vector types.
-///
-typedef real const	* realkv;	// Generic constant real-type array-based vector, represented by pointer, used as constant vector return type since returning sized array is not allowed.
-typedef real		* realv,	// Generic real-type array-based vector, represented by pointer, used as vector return type since returning sized array is not allowed.
-					real2[2],	// 2D real-type array-based vector, always passed by pointer.
-					real3[3],	// 3D real-type array-based vector, always passed by pointer.
-					real4[4];	// 4D real-type array-based vector, always passed by pointer.
-
-#ifdef IJK_REAL_DBL
-typedef dvec2		rvec2;		// Real 2D vector data structure type is 2D double vector.
-typedef dvec3		rvec3;		// Real 3D vector data structure type is 3D double vector.
-typedef dvec4		rvec4;		// Real 4D vector data structure type is 4D double vector.
-#else	// !IJK_REAL_DBL
-typedef fvec2		rvec2;		// Real 2D vector data structure type is 2D float vector.
-typedef fvec3		rvec3;		// Real 3D vector data structure type is 3D float vector.
-typedef fvec4		rvec4;		// Real 4D vector data structure type is 4D float vector.
-#endif	// IJK_REAL_DBL
 
 
 //-----------------------------------------------------------------------------
@@ -825,6 +805,12 @@ ijk_ext ulvec4 const ulvec4_wn;		// (  0,  0,  0, -1 )
 
 //-----------------------------------------------------------------------------
 
+// Alternative names for float vector.
+///
+typedef fvec2		vec2;		// Alias for 2D float vector.
+typedef fvec3		vec3;		// Alias for 3D float vector.
+typedef fvec4		vec4;		// Alias for 4D float vector.
+
 // Global constants for float array-based vectors and data structures.
 ///
 ijk_ext float2 const float2_1;		// ( +1, +1 )
@@ -985,67 +971,147 @@ ijk_ext dvec4 const dvec4_wn;		// (  0,  0,  0, -1 )
 
 //-----------------------------------------------------------------------------
 
+// Select real vector types.
+///
+typedef real const	* realkv;	// Generic constant real-type array-based vector, represented by pointer, used as constant vector return type since returning sized array is not allowed.
+typedef real		* realv,	// Generic real-type array-based vector, represented by pointer, used as vector return type since returning sized array is not allowed.
+					real2[2],	// 2D real-type array-based vector, always passed by pointer.
+					real3[3],	// 3D real-type array-based vector, always passed by pointer.
+					real4[4];	// 4D real-type array-based vector, always passed by pointer.
+
 // Global constants for real array-based vectors and data structures.
 ///
-ijk_ext real2 const real2_1;		// ( +1, +1 )
-ijk_ext real2 const real2_0;		// (  0,  0 )
-ijk_ext real2 const real2_1n;		// ( -1, -1 )
-ijk_ext real2 const real2_x;		// ( +1,  0 )
-ijk_ext real2 const real2_y;		// (  0, +1 )
-ijk_ext real2 const real2_xn;		// ( -1,  0 )
-ijk_ext real2 const real2_yn;		// (  0, -1 )
+#ifdef IJK_REAL_DBL
+typedef dvec2		rvec2;		// Real 2D vector data structure type is 2D double vector.
+typedef dvec3		rvec3;		// Real 3D vector data structure type is 3D double vector.
+typedef dvec4		rvec4;		// Real 4D vector data structure type is 4D double vector.
 
-ijk_ext real3 const real3_1;		// ( +1, +1, +1 )
-ijk_ext real3 const real3_0;		// (  0,  0,  0 )
-ijk_ext real3 const real3_1n;		// ( -1, -1, -1 )
-ijk_ext real3 const real3_x;		// ( +1,  0,  0 )
-ijk_ext real3 const real3_y;		// (  0, +1,  0 )
-ijk_ext real3 const real3_z;		// (  0,  0, +1 )
-ijk_ext real3 const real3_xn;		// ( -1,  0,  0 )
-ijk_ext real3 const real3_yn;		// (  0, -1,  0 )
-ijk_ext real3 const real3_zn;		// (  0,  0, -1 )
+#define real2_1		double2_1	// ( +1, +1 )
+#define real2_0		double2_0	// (  0,  0 )
+#define real2_1n	double2_1n	// ( -1, -1 )
+#define real2_x		double2_x	// ( +1,  0 )
+#define real2_y		double2_y	// (  0, +1 )
+#define real2_xn	double2_xn	// ( -1,  0 )
+#define real2_yn	double2_yn	// (  0, -1 )
 
-ijk_ext real4 const real4_1;		// ( +1, +1, +1, +1 )
-ijk_ext real4 const real4_0;		// (  0,  0,  0,  0 )
-ijk_ext real4 const real4_1n;		// ( -1, -1, -1, -1 )
-ijk_ext real4 const real4_x;		// ( +1,  0,  0,  0 )
-ijk_ext real4 const real4_y;		// (  0, +1,  0,  0 )
-ijk_ext real4 const real4_z;		// (  0,  0, +1,  0 )
-ijk_ext real4 const real4_w;		// (  0,  0,  0, +1 )
-ijk_ext real4 const real4_xn;		// ( -1,  0,  0,  0 )
-ijk_ext real4 const real4_yn;		// (  0, -1,  0,  0 )
-ijk_ext real4 const real4_zn;		// (  0,  0, -1,  0 )
-ijk_ext real4 const real4_wn;		// (  0,  0,  0, -1 )
+#define real3_1		double3_1	// ( +1, +1, +1 )
+#define real3_0		double3_0	// (  0,  0,  0 )
+#define real3_1n	double3_1n	// ( -1, -1, -1 )
+#define real3_x		double3_x	// ( +1,  0,  0 )
+#define real3_y		double3_y	// (  0, +1,  0 )
+#define real3_z		double3_z	// (  0,  0, +1 )
+#define real3_xn	double3_xn	// ( -1,  0,  0 )
+#define real3_yn	double3_yn	// (  0, -1,  0 )
+#define real3_zn	double3_zn	// (  0,  0, -1 )
 
-ijk_ext rvec2 const rvec2_1;		// ( +1, +1 )
-ijk_ext rvec2 const rvec2_0;		// (  0,  0 )
-ijk_ext rvec2 const rvec2_1n;		// ( -1, -1 )
-ijk_ext rvec2 const rvec2_x;		// ( +1,  0 )
-ijk_ext rvec2 const rvec2_y;		// (  0, +1 )
-ijk_ext rvec2 const rvec2_xn;		// ( -1,  0 )
-ijk_ext rvec2 const rvec2_yn;		// (  0, -1 )
+#define real4_1		double4_1	// ( +1, +1, +1, +1 )
+#define real4_0		double4_0	// (  0,  0,  0,  0 )
+#define real4_1n	double4_1n	// ( -1, -1, -1, -1 )
+#define real4_x		double4_x	// ( +1,  0,  0,  0 )
+#define real4_y		double4_y	// (  0, +1,  0,  0 )
+#define real4_z		double4_z	// (  0,  0, +1,  0 )
+#define real4_w		double4_w	// (  0,  0,  0, +1 )
+#define real4_xn	double4_xn	// ( -1,  0,  0,  0 )
+#define real4_yn	double4_yn	// (  0, -1,  0,  0 )
+#define real4_zn	double4_zn	// (  0,  0, -1,  0 )
+#define real4_wn	double4_wn	// (  0,  0,  0, -1 )
 
-ijk_ext rvec3 const rvec3_1;		// ( +1, +1, +1 )
-ijk_ext rvec3 const rvec3_0;		// (  0,  0,  0 )
-ijk_ext rvec3 const rvec3_1n;		// ( -1, -1, -1 )
-ijk_ext rvec3 const rvec3_x;		// ( +1,  0,  0 )
-ijk_ext rvec3 const rvec3_y;		// (  0, +1,  0 )
-ijk_ext rvec3 const rvec3_z;		// (  0,  0, +1 )
-ijk_ext rvec3 const rvec3_xn;		// ( -1,  0,  0 )
-ijk_ext rvec3 const rvec3_yn;		// (  0, -1,  0 )
-ijk_ext rvec3 const rvec3_zn;		// (  0,  0, -1 )
+#define rvec2_1		dvec2_1		// ( +1, +1 )
+#define rvec2_0		dvec2_0		// (  0,  0 )
+#define rvec2_1n	dvec2_1n	// ( -1, -1 )
+#define rvec2_x		dvec2_x		// ( +1,  0 )
+#define rvec2_y		dvec2_y		// (  0, +1 )
+#define rvec2_xn	dvec2_xn	// ( -1,  0 )
+#define rvec2_yn	dvec2_yn	// (  0, -1 )
 
-ijk_ext rvec4 const rvec4_1;		// ( +1, +1, +1, +1 )
-ijk_ext rvec4 const rvec4_0;		// (  0,  0,  0,  0 )
-ijk_ext rvec4 const rvec4_1n;		// ( -1, -1, -1, -1 )
-ijk_ext rvec4 const rvec4_x;		// ( +1,  0,  0,  0 )
-ijk_ext rvec4 const rvec4_y;		// (  0, +1,  0,  0 )
-ijk_ext rvec4 const rvec4_z;		// (  0,  0, +1,  0 )
-ijk_ext rvec4 const rvec4_w;		// (  0,  0,  0, +1 )
-ijk_ext rvec4 const rvec4_xn;		// ( -1,  0,  0,  0 )
-ijk_ext rvec4 const rvec4_yn;		// (  0, -1,  0,  0 )
-ijk_ext rvec4 const rvec4_zn;		// (  0,  0, -1,  0 )
-ijk_ext rvec4 const rvec4_wn;		// (  0,  0,  0, -1 )
+#define rvec3_1		dvec3_1		// ( +1, +1, +1 )
+#define rvec3_0		dvec3_0		// (  0,  0,  0 )
+#define rvec3_1n	dvec3_1n	// ( -1, -1, -1 )
+#define rvec3_x		dvec3_x		// ( +1,  0,  0 )
+#define rvec3_y		dvec3_y		// (  0, +1,  0 )
+#define rvec3_z		dvec3_z		// (  0,  0, +1 )
+#define rvec3_xn	dvec3_xn	// ( -1,  0,  0 )
+#define rvec3_yn	dvec3_yn	// (  0, -1,  0 )
+#define rvec3_zn	dvec3_zn	// (  0,  0, -1 )
+
+#define rvec4_1		dvec4_1		// ( +1, +1, +1, +1 )
+#define rvec4_0		dvec4_0		// (  0,  0,  0,  0 )
+#define rvec4_1n	dvec4_1n	// ( -1, -1, -1, -1 )
+#define rvec4_x		dvec4_x		// ( +1,  0,  0,  0 )
+#define rvec4_y		dvec4_y		// (  0, +1,  0,  0 )
+#define rvec4_z		dvec4_z		// (  0,  0, +1,  0 )
+#define rvec4_w		dvec4_w		// (  0,  0,  0, +1 )
+#define rvec4_xn	dvec4_xn	// ( -1,  0,  0,  0 )
+#define rvec4_yn	dvec4_yn	// (  0, -1,  0,  0 )
+#define rvec4_zn	dvec4_zn	// (  0,  0, -1,  0 )
+#define rvec4_wn	dvec4_wn	// (  0,  0,  0, -1 )
+
+#else	// !IJK_REAL_DBL
+typedef fvec2		rvec2;		// Real 2D vector data structure type is 2D float vector.
+typedef fvec3		rvec3;		// Real 3D vector data structure type is 3D float vector.
+typedef fvec4		rvec4;		// Real 4D vector data structure type is 4D float vector.
+
+#define real2_1		float2_1	// ( +1, +1 )
+#define real2_0		float2_0	// (  0,  0 )
+#define real2_1n	float2_1n	// ( -1, -1 )
+#define real2_x		float2_x	// ( +1,  0 )
+#define real2_y		float2_y	// (  0, +1 )
+#define real2_xn	float2_xn	// ( -1,  0 )
+#define real2_yn	float2_yn	// (  0, -1 )
+
+#define real3_1		float3_1	// ( +1, +1, +1 )
+#define real3_0		float3_0	// (  0,  0,  0 )
+#define real3_1n	float3_1n	// ( -1, -1, -1 )
+#define real3_x		float3_x	// ( +1,  0,  0 )
+#define real3_y		float3_y	// (  0, +1,  0 )
+#define real3_z		float3_z	// (  0,  0, +1 )
+#define real3_xn	float3_xn	// ( -1,  0,  0 )
+#define real3_yn	float3_yn	// (  0, -1,  0 )
+#define real3_zn	float3_zn	// (  0,  0, -1 )
+
+#define real4_1		float4_1	// ( +1, +1, +1, +1 )
+#define real4_0		float4_0	// (  0,  0,  0,  0 )
+#define real4_1n	float4_1n	// ( -1, -1, -1, -1 )
+#define real4_x		float4_x	// ( +1,  0,  0,  0 )
+#define real4_y		float4_y	// (  0, +1,  0,  0 )
+#define real4_z		float4_z	// (  0,  0, +1,  0 )
+#define real4_w		float4_w	// (  0,  0,  0, +1 )
+#define real4_xn	float4_xn	// ( -1,  0,  0,  0 )
+#define real4_yn	float4_yn	// (  0, -1,  0,  0 )
+#define real4_zn	float4_zn	// (  0,  0, -1,  0 )
+#define real4_wn	float4_wn	// (  0,  0,  0, -1 )
+
+#define rvec2_1		fvec2_1		// ( +1, +1 )
+#define rvec2_0		fvec2_0		// (  0,  0 )
+#define rvec2_1n	fvec2_1n	// ( -1, -1 )
+#define rvec2_x		fvec2_x		// ( +1,  0 )
+#define rvec2_y		fvec2_y		// (  0, +1 )
+#define rvec2_xn	fvec2_xn	// ( -1,  0 )
+#define rvec2_yn	fvec2_yn	// (  0, -1 )
+
+#define rvec3_1		fvec3_1		// ( +1, +1, +1 )
+#define rvec3_0		fvec3_0		// (  0,  0,  0 )
+#define rvec3_1n	fvec3_1n	// ( -1, -1, -1 )
+#define rvec3_x		fvec3_x		// ( +1,  0,  0 )
+#define rvec3_y		fvec3_y		// (  0, +1,  0 )
+#define rvec3_z		fvec3_z		// (  0,  0, +1 )
+#define rvec3_xn	fvec3_xn	// ( -1,  0,  0 )
+#define rvec3_yn	fvec3_yn	// (  0, -1,  0 )
+#define rvec3_zn	fvec3_zn	// (  0,  0, -1 )
+
+#define rvec4_1		fvec4_1		// ( +1, +1, +1, +1 )
+#define rvec4_0		fvec4_0		// (  0,  0,  0,  0 )
+#define rvec4_1n	fvec4_1n	// ( -1, -1, -1, -1 )
+#define rvec4_x		fvec4_x		// ( +1,  0,  0,  0 )
+#define rvec4_y		fvec4_y		// (  0, +1,  0,  0 )
+#define rvec4_z		fvec4_z		// (  0,  0, +1,  0 )
+#define rvec4_w		fvec4_w		// (  0,  0,  0, +1 )
+#define rvec4_xn	fvec4_xn	// ( -1,  0,  0,  0 )
+#define rvec4_yn	fvec4_yn	// (  0, -1,  0,  0 )
+#define rvec4_zn	fvec4_zn	// (  0,  0, -1,  0 )
+#define rvec4_wn	fvec4_wn	// (  0,  0,  0, -1 )
+
+#endif	// IJK_REAL_DBL
 
 
 //-----------------------------------------------------------------------------

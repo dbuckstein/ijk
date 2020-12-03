@@ -33,6 +33,27 @@ extern "C" {
 #endif	// __cplusplus
 
 //-----------------------------------------------------------------------------
+
+// ijkMat2P*m
+//	Pass-thru array-based 2D matrix function (does nothing).
+//		param m_out: output matrix
+//		return: m_out
+float2m ijkMat2Pfm(float2x2 m_out);
+
+// ijkMat3P*m
+//	Pass-thru array-based 3D matrix function (does nothing).
+//		param m_out: output matrix
+//		return: m_out
+float3m ijkMat3Pfm(float3x3 m_out);
+
+// ijkMat4P*m
+//	Pass-thru array-based 4D matrix function (does nothing).
+//		param m_out: output matrix
+//		return: m_out
+float4m ijkMat4Pfm(float4x4 m_out);
+
+
+//-----------------------------------------------------------------------------
 	
 // ijkMatInit2*m
 //	Initialize 2x2 matrix to default (identity: ones along the diagonal).
@@ -76,6 +97,13 @@ float2m ijkMatCopy2fm3(float2x2 m_out, float3x3 const m_in);
 //		param m_in: input matrix
 //		return: m_out
 float2m ijkMatCopy2fm4(float2x2 m_out, float4x4 const m_in);
+
+// ijkMatNegate2*m
+//	Negate 2x2 matrix.
+//		param m_out: output matrix
+//		param m_in: input matrix
+//		return: m_out
+float2m ijkMatNegate2fm(float2x2 m_out, float2x2 const m_in);
 
 // ijkMatCopy2*ms
 //	Copy 2x2 matrix diagonal from scalar (scalar along the diagonal).
@@ -195,6 +223,13 @@ float3m ijkMatCopy3fm3(float3x3 m_out, float3x3 const m_in);
 //		param m_in: input matrix
 //		return: m_out
 float3m ijkMatCopy3fm4(float3x3 m_out, float4x4 const m_in);
+
+// ijkMatNegate3*m
+//	Negate 3x3 matrix.
+//		param m_out: output matrix
+//		param m_in: input matrix
+//		return: m_out
+float3m ijkMatNegate3fm(float3x3 m_out, float3x3 const m_in);
 
 // ijkMatCopy3*ms
 //	Copy 3x3 matrix diagonal from scalar (scalar along the diagonal).
@@ -317,6 +352,13 @@ float4m ijkMatCopy4fm3(float4x4 m_out, float3x3 const m_in);
 //		return: m_out
 float4m ijkMatCopy4fm4(float4x4 m_out, float4x4 const m_in);
 
+// ijkMatNegate4*m
+//	Negate 4x4 matrix.
+//		param m_out: output matrix
+//		param m_in: input matrix
+//		return: m_out
+float4m ijkMatNegate4fm(float4x4 m_out, float4x4 const m_in);
+
 // ijkMatCopy4*ms
 //	Copy 4x4 matrix diagonal from scalar (scalar along the diagonal).
 //		param m_out: output matrix
@@ -436,6 +478,12 @@ fmat2 ijkMatCopy2f3(fmat3 const m_in);
 //		return: copy of input's upper-left 2x2 matrix
 fmat2 ijkMatCopy2f4(fmat4 const m_in);
 
+// ijkMatNegate2*
+//	Negate 2x2 matrix.
+//		param m_in: input matrix
+//		return: negated matrix
+fmat2 ijkMatNegate2f(fmat2 const m_in);
+
 // ijkMatCopy2*s
 //	Copy 2x2 matrix diagonal from scalar (scalar along the diagonal).
 //		param s_diag: input scalar assigned to diagonal elements
@@ -539,6 +587,12 @@ fmat3 ijkMatCopy3f3(fmat3 const m_in);
 //		param m_in: input matrix
 //		return: copy of input's upper-left 3x3 matrix
 fmat3 ijkMatCopy3f4(fmat4 const m_in);
+
+// ijkMatNegate3*
+//	Negate 3x3 matrix.
+//		param m_in: input matrix
+//		return: negated matrix
+fmat3 ijkMatNegate3f(fmat3 const m_in);
 
 // ijkMatCopy3*s
 //	Copy 3x3 matrix diagonal from scalar (scalar along the diagonal).
@@ -645,6 +699,12 @@ fmat4 ijkMatCopy4f3(fmat3 const m_in);
 //		param m_in: input matrix
 //		return: copy of input
 fmat4 ijkMatCopy4f4(fmat4 const m_in);
+
+// ijkMatNegate4*
+//	Negate 4x4 matrix.
+//		param m_in: input matrix
+//		return: negated matrix
+fmat4 ijkMatNegate4f(fmat4 const m_in);
 
 // ijkMatCopy4*s
 //	Copy 4x4 matrix diagonal from scalar (scalar along the diagonal).
@@ -1094,7 +1154,7 @@ float3km ijkMatGetRotateZYX3fm(float3x3 const m_in, float3 rotateDegXYZ_out);
 //		param m_out: output matrix, rotation
 //		param order: written order of Euler angles (functional order of 
 //			operations is right-to-left)
-//		param rotateDegXYZ_out: storage for Euler angles in component order XYZ
+//		param rotateDegXYZ: Euler angles in degrees (component order XYZ)
 //		return: m_out
 float3m ijkMatRotate3fm(float3x3 m_out, ijkRotationOrder const order, float3 const rotateDegXYZ);
 
@@ -1422,7 +1482,7 @@ float4km ijkMatGetRotateZYX4fm(float4x4 const m_in, float3 rotateDegXYZ_out);
 //		param m_out: output matrix, rotation
 //		param order: written order of Euler angles (functional order of 
 //			operations is right-to-left)
-//		param rotateDegXYZ_out: storage for Euler angles in component order XYZ
+//		param rotateDegXYZ: Euler angles in degrees (component order XYZ)
 //		return: m_out
 float4m ijkMatRotate4fm(float4x4 m_out, ijkRotationOrder const order, float3 const rotateDegXYZ);
 
@@ -1688,6 +1748,31 @@ float4m ijkMatInverseRotateScaleTranslate4fm(float4x4 m_out, float4x4 const m_in
 //		param m_in: input matrix
 //		return: m_out
 float4m ijkMatInverseTransposeTranslate4fm(float4x4 m_out, float4x4 const m_in);
+
+// ijkMatMulTransform4*m
+//	Concatenate as if inputs are transformation matrices, saving a few 
+//	operations over full 4x4 product.
+//		param m_out: output matrix, transform product
+//		param m_lh: left-hand input matrix
+//		param m_rh: right-hand input matrix
+//		return: m_out
+float4m ijkMatMulTransform4fm(float4x4 m_out, float4x4 const m_lh, float4x4 const m_rh);
+
+// ijkMatMulVecTransform4*mv3
+//	Multiply 3D vector by transformation matrix, saving a few operations.
+//		param v_out: output vector, transformed input
+//		param m_lh: left-hand input matrix
+//		param v_rh: right-hand input vector
+//		return: v_out
+floatv ijkMatMulVecTransform4fmv3(float3 v_out, float4x4 const m_lh, float3 const v_rh);
+
+// ijkMatMulVecTransform4*mv4
+//	Multiply 4D vector by transformation matrix, saving a few operations.
+//		param v_out: output vector, transformed input
+//		param m_lh: left-hand input matrix
+//		param v_rh: right-hand input vector
+//		return: v_out
+floatv ijkMatMulVecTransform4fmv4(float4 v_out, float4x4 const m_lh, float4 const v_rh);
 
 // ijkMatLookAt4*m
 //	Create look-at 4D matrix given origin, target and calibration vector.
@@ -2659,6 +2744,28 @@ fmat4 ijkMatInverseRotateScaleTranslate4f(fmat4 const m_in);
 //		param m_in: input matrix
 //		return: quick inverse
 fmat4 ijkMatInverseTransposeTranslate4f(fmat4 const m_in);
+
+// ijkMatMulTransform4*
+//	Concatenate as if inputs are transformation matrices, saving a few 
+//	operations over full 4x4 product.
+//		param m_lh: left-hand input matrix
+//		param m_rh: right-hand input matrix
+//		return: transform product
+fmat4 ijkMatMulTransform4f(fmat4 const m_lh, fmat4 const m_rh);
+
+// ijkMatMulVecTransform4*v3
+//	Multiply 3D vector by transformation matrix, saving a few operations.
+//		param m_lh: left-hand input matrix
+//		param v_rh: right-hand input vector
+//		return: transformed input
+fvec3 ijkMatMulVecTransform4fv3(fmat4 const m_lh, fvec3 const v_rh);
+
+// ijkMatMulVecTransform4*v4
+//	Multiply 4D vector by transformation matrix, saving a few operations.
+//		param m_lh: left-hand input matrix
+//		param v_rh: right-hand input vector
+//		return: transformed input
+fvec4 ijkMatMulVecTransform4fv4(fmat4 const m_lh, fvec4 const v_rh);
 
 // ijkMatLookAt4*
 //	Create look-at 4D matrix given origin, target and calibration vector.

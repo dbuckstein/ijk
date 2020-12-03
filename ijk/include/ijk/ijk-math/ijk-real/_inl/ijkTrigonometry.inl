@@ -588,6 +588,12 @@ ijk_inl flt ijkTrigLn1p_flt(flt const x)
 	return (flt)sum;
 }
 
+ijk_inl flt ijkTrigPow_flt(flt const x, flt const y)
+{
+	// x^y = e^(y ln(x))
+	return ijkTrigExp_flt(y * ijkTrigLn1p_flt(x - flt_one));
+}
+
 
 //-----------------------------------------------------------------------------
 
@@ -1142,6 +1148,12 @@ ijk_inl dbl ijkTrigLn1p_dbl(dbl const x)
 		sum += X * F / degree;
 	}
 	return sum;
+}
+
+ijk_inl dbl ijkTrigPow_dbl(dbl const x, dbl const y)
+{
+	// x^y = e^(y ln(x))
+	return ijkTrigExp_dbl(y * ijkTrigLn1p_dbl(x - dbl_one));
 }
 
 

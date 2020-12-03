@@ -19,51 +19,39 @@
 		c-based rendering framework
 	By Daniel S. Buckstein
 
-	ijkMatrix.c
-	Source definitions for matrix types.
+	ijkQuaternion.c
+	Source definitions for quaternion types.
 */
 
-#include "ijk/ijk-math/ijk-real/ijkMatrix.h"
+#include "ijk/ijk-math/ijk-real/ijkQuaternion.h"
 
 
 //-----------------------------------------------------------------------------
 
-#define __m2_id		{	+1, +0,				+0, +1	}
-#define __m3_id		{	+1, +0, +0,			+0, +1, +0,			+0, +0, +1 }
-#define __m4_id		{	+1, +0, +0, +0,		+0, +1, +0, +0,		+0, +0, +1, +0,		+0, +0, +0, +1 }
+#define __q_id		{	+0, +0, +0, +1	}
+#define __dq_id		{	+0, +0, +0, +1, +0, +0, +0, +0	}
 
 
 //-----------------------------------------------------------------------------
 
-float2x2 const float2x2_id = __m2_id;
-float4 const float4m_id = __m2_id;
-fmat2 const fmat2_id = __m2_id;
-mat2 const mat2_id = __m2_id;
+float4 const float4q_id = __q_id;
+fquat const fquat_id = __q_id;
+quat const quat_id = __q_id;
 
-float3x3 const float3x3_id = __m3_id;
-float9 const float9m_id = __m3_id;
-fmat3 const fmat3_id = __m3_id;
-mat3 const mat3_id = __m3_id;
-
-float4x4 const float4x4_id = __m4_id;
-float16 const float16m_id = __m4_id;
-fmat4 const fmat4_id = __m4_id;
-mat4 const mat4_id = __m4_id;
+float2x4 const float2x4_id = __dq_id;
+float8 const float8dq_id = __dq_id;
+fdualquat const fdualquat_id = __dq_id;
+dualquat const dualquat_id = __dq_id;
 
 
 //-----------------------------------------------------------------------------
 
-double2x2 const double2x2_id = __m2_id;
-double4 const double4m_id = __m2_id;
-dmat2 const dmat2_id = __m2_id;
+double4 const double4q_id = __q_id;
+dquat const dquat_id = __q_id;
 
-double3x3 const double3x3_id = __m3_id;
-double9 const double9m_id = __m3_id;
-dmat3 const dmat3_id = __m3_id;
-
-double4x4 const double4x4_id = __m4_id;
-double16 const double16m_id = __m4_id;
-dmat4 const dmat4_id = __m4_id;
+double2x4 const double2x4_id = __dq_id;
+double8 const double8dq_id = __dq_id;
+ddualquat const ddualquat_id = __dq_id;
 
 
 //-----------------------------------------------------------------------------

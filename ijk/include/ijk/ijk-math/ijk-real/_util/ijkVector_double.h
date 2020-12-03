@@ -3263,6 +3263,52 @@ double2* ijkVecOrthoList2dv(double2 vl_out[], double2 const v_base, double2 cons
 //		return: vl_out
 double2* ijkVecOrthoNormList2dv(double2 vl_out[], double2 const v_base, double2 const vl_in[], size const n, double2 v_base_norm_out);
 
+// ijkVecNlerp2*v
+//	Calculate normalized linear interpolation between two 2D vectors; keeps
+//	result at unit-length but yields a non-uniform rate of change.
+//		param v_out: output vector, interpolated vector
+//		param v0: input initial control vector, result when param is 0
+//		param v1: input terminal control vector, result when param is 1
+//		param u: interpolation parameter; values in domain [0,1] result in 
+//			interpolation in range [v0,v1], others result in extrapolation
+//		return: v_out
+doublev ijkVecNlerp2dv(double2 v_out, double2 const v0, double2 const v1, f64 const u);
+
+// ijkVecSlerp2*v
+//	Calculate spherical linear interpolation between two unit 2D vectors; keeps
+//	result at unit-length and yields a uniform rate of change.
+//		param v_out: output vector, interpolated vector
+//		param v0: input initial control vector, result when param is 0
+//		param v1: input terminal control vector, result when param is 1
+//		param u: interpolation parameter; values in domain [0,1] result in 
+//			interpolation in range [v0,v1], others result in extrapolation
+//		return: v_out
+doublev ijkVecSlerp2dv(double2 v_out, double2 const v0, double2 const v1, f64 const u);
+
+// ijkVecReflectScale2*v
+//	Reflect incident vector about normal, scaling to match normal size.
+//		param v_out: output vector, reflected vector
+//		param v_in: input vector, incident vector
+//		param v_nrm: normal vector
+//		return: v_out
+doublev ijkVecReflectScale2dv(double2 v_out, double2 const v_in, double2 const v_nrm);
+
+// ijkVecUnitReflect2*v
+//	Reflect incident vector about normal; optimized for unit normal vector.
+//		param v_out: output vector, reflected vector
+//		param v_in: input vector, incident vector
+//		param v_nrm: normal vector
+//		return: v_out
+doublev ijkVecUnitReflect2dv(double2 v_out, double2 const v_in, double2 const v_nrm);
+
+// ijkVecReflect2*v
+//	Reflect incident vector about normal.
+//		param v_out: output vector, reflected vector
+//		param v_in: input vector, incident vector
+//		param v_nrm: normal vector
+//		return: v_out
+doublev ijkVecReflect2dv(double2 v_out, double2 const v_in, double2 const v_nrm);
+
 
 //-----------------------------------------------------------------------------
 
@@ -3498,6 +3544,52 @@ double3* ijkVecOrthoList3dv(double3 vl_out[], double3 const v_base, double3 cons
 //		param v_base_norm_out: normalized base vector
 //		return: vl_out
 double3* ijkVecOrthoNormList3dv(double3 vl_out[], double3 const v_base, double3 const vl_in[], size const n, double3 v_base_norm_out);
+
+// ijkVecNlerp3*v
+//	Calculate normalized linear interpolation between two 3D vectors; keeps
+//	result at unit-length but yields a non-uniform rate of change.
+//		param v_out: output vector, interpolated vector
+//		param v0: input initial control vector, result when param is 0
+//		param v1: input terminal control vector, result when param is 1
+//		param u: interpolation parameter; values in domain [0,1] result in 
+//			interpolation in range [v0,v1], others result in extrapolation
+//		return: v_out
+doublev ijkVecNlerp3dv(double3 v_out, double3 const v0, double3 const v1, f64 const u);
+
+// ijkVecSlerp3*v
+//	Calculate spherical linear interpolation between two unit 3D vectors; keeps
+//	result at unit-length and yields a uniform rate of change.
+//		param v_out: output vector, interpolated vector
+//		param v0: input initial control vector, result when param is 0
+//		param v1: input terminal control vector, result when param is 1
+//		param u: interpolation parameter; values in domain [0,1] result in 
+//			interpolation in range [v0,v1], others result in extrapolation
+//		return: v_out
+doublev ijkVecSlerp3dv(double3 v_out, double3 const v0, double3 const v1, f64 const u);
+
+// ijkVecReflectScale3*v
+//	Reflect incident vector about normal, scaling to match normal size.
+//		param v_out: output vector, reflected vector
+//		param v_in: input vector, incident vector
+//		param v_nrm: normal vector
+//		return: v_out
+doublev ijkVecReflectScale3dv(double3 v_out, double3 const v_in, double3 const v_nrm);
+
+// ijkVecUnitReflect3*v
+//	Reflect incident vector about normal; optimized for unit normal vector.
+//		param v_out: output vector, reflected vector
+//		param v_in: input vector, incident vector
+//		param v_nrm: normal vector
+//		return: v_out
+doublev ijkVecUnitReflect3dv(double3 v_out, double3 const v_in, double3 const v_nrm);
+
+// ijkVecReflect3*v
+//	Reflect incident vector about normal.
+//		param v_out: output vector, reflected vector
+//		param v_in: input vector, incident vector
+//		param v_nrm: normal vector
+//		return: v_out
+doublev ijkVecReflect3dv(double3 v_out, double3 const v_in, double3 const v_nrm);
 
 
 //-----------------------------------------------------------------------------
@@ -3735,6 +3827,52 @@ double4* ijkVecOrthoList4dv(double4 vl_out[], double4 const v_base, double4 cons
 //		return: vl_out
 double4* ijkVecOrthoNormList4dv(double4 vl_out[], double4 const v_base, double4 const vl_in[], size const n, double4 v_base_norm_out);
 
+// ijkVecNlerp4*v
+//	Calculate normalized linear interpolation between two 4D vectors; keeps
+//	result at unit-length but yields a non-uniform rate of change.
+//		param v_out: output vector, interpolated vector
+//		param v0: input initial control vector, result when param is 0
+//		param v1: input terminal control vector, result when param is 1
+//		param u: interpolation parameter; values in domain [0,1] result in 
+//			interpolation in range [v0,v1], others result in extrapolation
+//		return: v_out
+doublev ijkVecNlerp4dv(double4 v_out, double4 const v0, double4 const v1, f64 const u);
+
+// ijkVecSlerp4*v
+//	Calculate spherical linear interpolation between two unit 4D vectors; keeps
+//	result at unit-length and yields a uniform rate of change.
+//		param v_out: output vector, interpolated vector
+//		param v0: input initial control vector, result when param is 0
+//		param v1: input terminal control vector, result when param is 1
+//		param u: interpolation parameter; values in domain [0,1] result in 
+//			interpolation in range [v0,v1], others result in extrapolation
+//		return: v_out
+doublev ijkVecSlerp4dv(double4 v_out, double4 const v0, double4 const v1, f64 const u);
+
+// ijkVecReflectScale4*v
+//	Reflect incident vector about normal, scaling to match normal size.
+//		param v_out: output vector, reflected vector
+//		param v_in: input vector, incident vector
+//		param v_nrm: normal vector
+//		return: v_out
+doublev ijkVecReflectScale4dv(double4 v_out, double4 const v_in, double4 const v_nrm);
+
+// ijkVecUnitReflect4*v
+//	Reflect incident vector about normal; optimized for unit normal vector.
+//		param v_out: output vector, reflected vector
+//		param v_in: input vector, incident vector
+//		param v_nrm: normal vector
+//		return: v_out
+doublev ijkVecUnitReflect4dv(double4 v_out, double4 const v_in, double4 const v_nrm);
+
+// ijkVecReflect4*v
+//	Reflect incident vector about normal.
+//		param v_out: output vector, reflected vector
+//		param v_in: input vector, incident vector
+//		param v_nrm: normal vector
+//		return: v_out
+doublev ijkVecReflect4dv(double4 v_out, double4 const v_in, double4 const v_nrm);
+
 
 //-----------------------------------------------------------------------------
 
@@ -3957,6 +4095,47 @@ dvec2* ijkVecOrthoList2d(dvec2 vl_out[], dvec2 const v_base, dvec2 const vl_in[]
 //		return: vl_out
 dvec2* ijkVecOrthoNormList2d(dvec2 vl_out[], dvec2 const v_base, dvec2 const vl_in[], size const n, dvec2* const v_base_norm_out);
 
+// ijkVecNlerp2*
+//	Calculate normalized linear interpolation between two 2D vectors; keeps
+//	result at unit-length but yields a non-uniform rate of change.
+//		param v0: input initial control vector, result when param is 0
+//		param v1: input terminal control vector, result when param is 1
+//		param u: interpolation parameter; values in domain [0,1] result in 
+//			interpolation in range [v0,v1], others result in extrapolation
+//		return: interpolated vector
+dvec2 ijkVecNlerp2d(dvec2 const v0, dvec2 const v1, double const u);
+
+// ijkVecSlerp2*
+//	Calculate spherical linear interpolation between two unit 2D vectors; keeps
+//	result at unit-length and yields a uniform rate of change.
+//		param v0: input initial control vector, result when param is 0
+//		param v1: input terminal control vector, result when param is 1
+//		param u: interpolation parameter; values in domain [0,1] result in 
+//			interpolation in range [v0,v1], others result in extrapolation
+//		return: interpolated vector
+dvec2 ijkVecSlerp2d(dvec2 const v0, dvec2 const v1, double const u);
+
+// ijkVecReflectScale2*
+//	Reflect incident vector about normal, scaling to match normal size.
+//		param v_in: input vector, incident vector
+//		param v_nrm: normal vector
+//		return: reflected vector
+dvec2 ijkVecReflectScale2d(dvec2 const v_in, dvec2 const v_nrm);
+
+// ijkVecUnitReflect2*
+//	Reflect incident vector about normal; optimized for unit normal vector.
+//		param v_in: input vector, incident vector
+//		param v_nrm: normal vector
+//		return: reflected vector
+dvec2 ijkVecUnitReflect2d(dvec2 const v_in, dvec2 const v_nrm);
+
+// ijkVecReflect2*
+//	Reflect incident vector about normal.
+//		param v_in: input vector, incident vector
+//		param v_nrm: normal vector
+//		return: reflected vector
+dvec2 ijkVecReflect2d(dvec2 const v_in, dvec2 const v_nrm);
+
 
 //-----------------------------------------------------------------------------
 
@@ -4172,6 +4351,47 @@ dvec3* ijkVecOrthoList3d(dvec3 vl_out[], dvec3 const v_base, dvec3 const vl_in[]
 //		return: vl_out
 dvec3* ijkVecOrthoNormList3d(dvec3 vl_out[], dvec3 const v_base, dvec3 const vl_in[], size const n, dvec3* const v_base_norm_out);
 
+// ijkVecNlerp3*
+//	Calculate normalized linear interpolation between two 3D vectors; keeps
+//	result at unit-length but yields a non-uniform rate of change.
+//		param v0: input initial control vector, result when param is 0
+//		param v1: input terminal control vector, result when param is 1
+//		param u: interpolation parameter; values in domain [0,1] result in 
+//			interpolation in range [v0,v1], others result in extrapolation
+//		return: interpolated vector
+dvec3 ijkVecNlerp3d(dvec3 const v0, dvec3 const v1, double const u);
+
+// ijkVecSlerp3*
+//	Calculate spherical linear interpolation between two unit 3D vectors; keeps
+//	result at unit-length and yields a uniform rate of change.
+//		param v0: input initial control vector, result when param is 0
+//		param v1: input terminal control vector, result when param is 1
+//		param u: interpolation parameter; values in domain [0,1] result in 
+//			interpolation in range [v0,v1], others result in extrapolation
+//		return: interpolated vector
+dvec3 ijkVecSlerp3d(dvec3 const v0, dvec3 const v1, double const u);
+
+// ijkVecReflectScale3*
+//	Reflect incident vector about normal, scaling to match normal size.
+//		param v_in: input vector, incident vector
+//		param v_nrm: normal vector
+//		return: reflected vector
+dvec3 ijkVecReflectScale3d(dvec3 const v_in, dvec3 const v_nrm);
+
+// ijkVecUnitReflect3*
+//	Reflect incident vector about normal; optimized for unit normal vector.
+//		param v_in: input vector, incident vector
+//		param v_nrm: normal vector
+//		return: reflected vector
+dvec3 ijkVecUnitReflect3d(dvec3 const v_in, dvec3 const v_nrm);
+
+// ijkVecReflect3*
+//	Reflect incident vector about normal.
+//		param v_in: input vector, incident vector
+//		param v_nrm: normal vector
+//		return: reflected vector
+dvec3 ijkVecReflect3d(dvec3 const v_in, dvec3 const v_nrm);
+
 
 //-----------------------------------------------------------------------------
 
@@ -4386,6 +4606,47 @@ dvec4* ijkVecOrthoList4d(dvec4 vl_out[], dvec4 const v_base, dvec4 const vl_in[]
 //		param v_base_norm_out: normalized base vector
 //		return: vl_out
 dvec4* ijkVecOrthoNormList4d(dvec4 vl_out[], dvec4 const v_base, dvec4 const vl_in[], size const n, dvec4* const v_base_norm_out);
+
+// ijkVecNlerp4*
+//	Calculate normalized linear interpolation between two 4D vectors; keeps
+//	result at unit-length but yields a non-uniform rate of change.
+//		param v0: input initial control vector, result when param is 0
+//		param v1: input terminal control vector, result when param is 1
+//		param u: interpolation parameter; values in domain [0,1] result in 
+//			interpolation in range [v0,v1], others result in extrapolation
+//		return: interpolated vector
+dvec4 ijkVecNlerp4d(dvec4 const v0, dvec4 const v1, double const u);
+
+// ijkVecSlerp4*
+//	Calculate spherical linear interpolation between two unit 4D vectors; keeps
+//	result at unit-length and yields a uniform rate of change.
+//		param v0: input initial control vector, result when param is 0
+//		param v1: input terminal control vector, result when param is 1
+//		param u: interpolation parameter; values in domain [0,1] result in 
+//			interpolation in range [v0,v1], others result in extrapolation
+//		return: interpolated vector
+dvec4 ijkVecSlerp4d(dvec4 const v0, dvec4 const v1, double const u);
+
+// ijkVecReflectScale4*
+//	Reflect incident vector about normal, scaling to match normal size.
+//		param v_in: input vector, incident vector
+//		param v_nrm: normal vector
+//		return: reflected vector
+dvec4 ijkVecReflectScale4d(dvec4 const v_in, dvec4 const v_nrm);
+
+// ijkVecUnitReflect4*
+//	Reflect incident vector about normal; optimized for unit normal vector.
+//		param v_in: input vector, incident vector
+//		param v_nrm: normal vector
+//		return: reflected vector
+dvec4 ijkVecUnitReflect4d(dvec4 const v_in, dvec4 const v_nrm);
+
+// ijkVecReflect4*
+//	Reflect incident vector about normal.
+//		param v_in: input vector, incident vector
+//		param v_nrm: normal vector
+//		return: reflected vector
+dvec4 ijkVecReflect4d(dvec4 const v_in, dvec4 const v_nrm);
 
 
 //-----------------------------------------------------------------------------

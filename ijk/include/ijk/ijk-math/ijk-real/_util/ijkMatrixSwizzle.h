@@ -56,6 +56,7 @@ struct ttmat2
 	explicit ttmat2(ttvec1<f64> const mc[2][2]);					// Construct matrix given double array-based matrix.
 
 	ttmat2 const operator +() const;
+	ttmat2 const operator -() const;
 	ttmat2 const operator +(ttmat2 const& m_rh) const;
 	ttmat2 const operator -(ttmat2 const& m_rh) const;
 	ttvec2<type> const operator *(ttvec2<type> const& v_rh) const;
@@ -115,6 +116,7 @@ struct ttmat3
 	explicit ttmat3(ttvec1<f64> const mc[3][3]);					// Construct matrix given double array-based matrix.
 
 	ttmat3 const operator +() const;
+	ttmat3 const operator -() const;
 	ttmat3 const operator +(ttmat3 const& m_rh) const;
 	ttmat3 const operator -(ttmat3 const& m_rh) const;
 	ttvec3<type> const operator *(ttvec3<type> const& v_rh) const;
@@ -174,6 +176,7 @@ struct ttmat4
 	explicit ttmat4(ttvec1<f64> const mc[4][4]);					// Construct matrix given double array-based matrix.
 
 	ttmat4 const operator +() const;
+	ttmat4 const operator -() const;
 	ttmat4 const operator +(ttmat4 const& m_rh) const;
 	ttmat4 const operator -(ttmat4 const& m_rh) const;
 	ttvec4<type> const operator *(ttvec4<type> const& v_rh) const;

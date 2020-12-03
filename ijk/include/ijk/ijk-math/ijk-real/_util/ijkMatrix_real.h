@@ -33,6 +33,30 @@ extern "C" {
 #endif	// __cplusplus
 
 //-----------------------------------------------------------------------------
+
+// ijkMat2P*m
+//	Pass-thru array-based 2D matrix function (does nothing).
+//		param m_out: output matrix
+//		return: m_out
+//real2m ijkMat2Prm(real2x2 m_out);
+#define ijkMat2Prm ijk_declrealfs(ijkMat2P,m)
+
+// ijkMat3P*m
+//	Pass-thru array-based 3D matrix function (does nothing).
+//		param m_out: output matrix
+//		return: m_out
+//real3m ijkMat3Prm(real3x3 m_out);
+#define ijkMat3Prm ijk_declrealfs(ijkMat3P,m)
+
+// ijkMat4P*m
+//	Pass-thru array-based 4D matrix function (does nothing).
+//		param m_out: output matrix
+//		return: m_out
+//real4m ijkMat4Prm(real4x4 m_out);
+#define ijkMat4Prm ijk_declrealfs(ijkMat4P,m)
+
+
+//-----------------------------------------------------------------------------
 	
 // ijkMatInit2*m
 //	Initialize 2x2 matrix to default (identity: ones along the diagonal).
@@ -82,6 +106,14 @@ extern "C" {
 //		return: m_out
 //real2m ijkMatCopy2rm4(real2x2 m_out, real4x4 const m_in);
 #define ijkMatCopy2rm4 ijk_declrealfs(ijkMatCopy2,m4)
+
+// ijkMatNegate2*m
+//	Negate 2x2 matrix.
+//		param m_out: output matrix
+//		param m_in: input matrix
+//		return: m_out
+//real2m ijkMatNegate2rm(real2x2 m_out, real2x2 const m_in);
+#define ijkMatNegate2rm ijk_declrealfs(ijkMatNegate2,m)
 
 // ijkMatCopy2*ms
 //	Copy 2x2 matrix diagonal from scalar (scalar along the diagonal).
@@ -216,6 +248,14 @@ extern "C" {
 //		return: m_out
 //real3m ijkMatCopy3rm4(real3x3 m_out, real4x4 const m_in);
 #define ijkMatCopy3rm4 ijk_declrealfs(ijkMatCopy3,m4)
+
+// ijkMatNegate3*m
+//	Negate 3x3 matrix.
+//		param m_out: output matrix
+//		param m_in: input matrix
+//		return: m_out
+//real3m ijkMatNegate3rm(real3x3 m_out, real3x3 const m_in);
+#define ijkMatNegate3rm ijk_declrealfs(ijkMatNegate3,m)
 
 // ijkMatCopy3*ms
 //	Copy 3x3 matrix diagonal from scalar (scalar along the diagonal).
@@ -353,6 +393,14 @@ extern "C" {
 //real4m ijkMatCopy4rm4(real4x4 m_out, real4x4 const m_in);
 #define ijkMatCopy4rm4 ijk_declrealfs(ijkMatCopy4,m4)
 
+// ijkMatNegate4*m
+//	Negate 4x4 matrix.
+//		param m_out: output matrix
+//		param m_in: input matrix
+//		return: m_out
+//real4m ijkMatNegate4rm(real4x4 m_out, real4x4 const m_in);
+#define ijkMatNegate4rm ijk_declrealfs(ijkMatNegate4,m)
+
 // ijkMatCopy4*ms
 //	Copy 4x4 matrix diagonal from scalar (scalar along the diagonal).
 //		param m_out: output matrix
@@ -487,6 +535,13 @@ extern "C" {
 //rmat2 ijkMatCopy2r4(rmat4 const m_in);
 #define ijkMatCopy2r4 ijk_declrealfs(ijkMatCopy2,4)
 
+// ijkMatNegate2*
+//	Negate 2x2 matrix.
+//		param m_in: input matrix
+//		return: negated matrix
+//rmat2 ijkMatNegate2r(rmat2 const m_in);
+#define ijkMatNegate2r ijk_declrealfs(ijkMatNegate2,)
+
 // ijkMatCopy2*s
 //	Copy 2x2 matrix diagonal from scalar (scalar along the diagonal).
 //		param s_diag: input scalar assigned to diagonal elements
@@ -605,6 +660,13 @@ extern "C" {
 //		return: copy of input's upper-left 3x3 matrix
 //rmat3 ijkMatCopy3r4(rmat4 const m_in);
 #define ijkMatCopy3r4 ijk_declrealfs(ijkMatCopy3,4)
+
+// ijkMatNegate3*
+//	Negate 3x3 matrix.
+//		param m_in: input matrix
+//		return: negated matrix
+//rmat3 ijkMatNegate3r(rmat3 const m_in);
+#define ijkMatNegate3r ijk_declrealfs(ijkMatNegate3,)
 
 // ijkMatCopy3*s
 //	Copy 3x3 matrix diagonal from scalar (scalar along the diagonal).
@@ -726,6 +788,13 @@ extern "C" {
 //		return: copy of input
 //rmat4 ijkMatCopy4r4(rmat4 const m_in);
 #define ijkMatCopy4r4 ijk_declrealfs(ijkMatCopy4,4)
+
+// ijkMatNegate4*
+//	Negate 4x4 matrix.
+//		param m_in: input matrix
+//		return: negated matrix
+//rmat4 ijkMatNegate4r(rmat4 const m_in);
+#define ijkMatNegate4r ijk_declrealfs(ijkMatNegate4,)
 
 // ijkMatCopy4*s
 //	Copy 4x4 matrix diagonal from scalar (scalar along the diagonal).
@@ -1232,7 +1301,7 @@ extern "C" {
 //		param m_out: output matrix, rotation
 //		param order: written order of Euler angles (functional order of 
 //			operations is right-to-left)
-//		param rotateDegXYZ_out: storage for Euler angles in component order XYZ
+//		param rotateDegXYZ: Euler angles in degrees (component order XYZ)
 //		return: m_out
 //real3m ijkMatRotate3rm(real3x3 m_out, ijkRotationOrder const order, real3 const rotateDegXYZ);
 #define ijkMatRotate3rm ijk_declrealfs(ijkMatRotate3,m)
@@ -1600,7 +1669,7 @@ extern "C" {
 //		param m_out: output matrix, rotation
 //		param order: written order of Euler angles (functional order of 
 //			operations is right-to-left)
-//		param rotateDegXYZ_out: storage for Euler angles in component order XYZ
+//		param rotateDegXYZ: Euler angles in degrees (component order XYZ)
 //		return: m_out
 //real4m ijkMatRotate4rm(real4x4 m_out, ijkRotationOrder const order, real3 const rotateDegXYZ);
 #define ijkMatRotate4rm ijk_declrealfs(ijkMatRotate4,m)
@@ -1908,6 +1977,34 @@ extern "C" {
 //		return: m_out
 //real4m ijkMatLookAt4rm(real4x4 m_out, real4x4 m_inv_out_opt, real3 const origin, real3 const target, real3 const calibUnit, ijkTransformBasis const calibAxis);
 #define ijkMatLookAt4rm ijk_declrealfs(ijkMatLookAt4,m)
+
+// ijkMatMulTransform4*m
+//	Concatenate as if inputs are transformation matrices, saving a few 
+//	operations over full 4x4 product.
+//		param m_out: output matrix, transform product
+//		param m_lh: left-hand input matrix
+//		param m_rh: right-hand input matrix
+//		return: m_out
+//real4m ijkMatMulTransform4rm(real4x4 m_out, real4x4 const m_lh, real4x4 const m_rh);
+#define ijkMatMulTransform4rm ijk_declrealfs(ijkMatMulTransform4,m)
+
+// ijkMatMulVecTransform4*mv3
+//	Multiply 3D vector by transformation matrix, saving a few operations.
+//		param v_out: output vector, transformed input
+//		param m_lh: left-hand input matrix
+//		param v_rh: right-hand input vector
+//		return: v_out
+//realv ijkMatMulVecTransform4rmv3(real3 v_out, real4x4 const m_lh, real3 const v_rh);
+#define ijkMatMulVecTransform4rmv3 ijk_declrealfs(ijkMatMulVecTransform4,mv3)
+
+// ijkMatMulVecTransform4*mv4
+//	Multiply 4D vector by transformation matrix, saving a few operations.
+//		param v_out: output vector, transformed input
+//		param m_lh: left-hand input matrix
+//		param v_rh: right-hand input vector
+//		return: v_out
+//realv ijkMatMulVecTransform4rmv4(real4 v_out, real4x4 const m_lh, real4 const v_rh);
+#define ijkMatMulVecTransform4rmv4 ijk_declrealfs(ijkMatMulVecTransform4,mv4)
 
 // ijkMatProjectionPerspective4*m
 //	Create perspective projection matrix.
@@ -2991,6 +3088,31 @@ extern "C" {
 //		return: quick inverse
 //rmat4 ijkMatInverseTransposeTranslate4r(rmat4 const m_in);
 #define ijkMatInverseTransposeTranslate4r ijk_declrealfs(ijkMatInverseTransposeTranslate4,)
+
+// ijkMatMulTransform4*
+//	Concatenate as if inputs are transformation matrices, saving a few 
+//	operations over full 4x4 product.
+//		param m_lh: left-hand input matrix
+//		param m_rh: right-hand input matrix
+//		return: transform product
+//rmat4 ijkMatMulTransform4r(rmat4 const m_lh, rmat4 const m_rh);
+#define ijkMatMulTransform4r ijk_declrealfs(ijkMatMulTransform4,)
+
+// ijkMatMulVecTransform4*v3
+//	Multiply 3D vector by transformation matrix, saving a few operations.
+//		param m_lh: left-hand input matrix
+//		param v_rh: right-hand input vector
+//		return: transformed input
+//dvec3 ijkMatMulVecTransform4rv3(rmat4 const m_lh, dvec3 const v_rh);
+#define ijkMatMulVecTransform4rv3 ijk_declrealfs(ijkMatMulVecTransform4,v3)
+
+// ijkMatMulVecTransform4*v4
+//	Multiply 4D vector by transformation matrix, saving a few operations.
+//		param m_lh: left-hand input matrix
+//		param v_rh: right-hand input vector
+//		return: transformed input
+//dvec4 ijkMatMulVecTransform4rv4(rmat4 const m_lh, dvec4 const v_rh);
+#define ijkMatMulVecTransform4rv4 ijk_declrealfs(ijkMatMulVecTransform4,v4)
 
 // ijkMatLookAt4*
 //	Create look-at 4D matrix given origin, target and calibration vector.
