@@ -36,6 +36,6 @@ void ijkMathTestQuaternionSwizzle()
 {
 	typedef f32 base, * basev;
 	typedef float type;
-	//typedef fquat tquat;
-	//typedef fdualquat tdualquat;
+	typedef fquat tquat;
+	typedef fdualquat tdualquat;
 }

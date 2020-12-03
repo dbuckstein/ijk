@@ -525,6 +525,13 @@ flt ijkTrigExp_flt(flt const x);
 //		return: ln(x+1)
 flt ijkTrigLn1p_flt(flt const x);
 
+// ijkTrigPow_flt
+//	Power of exponent.
+//		param x: base
+//		param y: exponent
+//		return: x^y
+flt ijkTrigPow_flt(flt const x, flt const y);
+
 
 //-----------------------------------------------------------------------------
 
@@ -1015,6 +1022,13 @@ dbl ijkTrigExp_dbl(dbl const x);
 //		param x: value of which to take logarithm
 //		return: ln(x+1)
 dbl ijkTrigLn1p_dbl(dbl const x);
+
+// ijkTrigPow_dbl
+//	Power of exponent.
+//		param x: base
+//		param y: exponent
+//		return: x^y
+dbl ijkTrigPow_dbl(dbl const x, dbl const y);
 
 
 //-----------------------------------------------------------------------------
@@ -1572,6 +1586,14 @@ dbl ijkTrigLn1p_dbl(dbl const x);
 //		return: ln(x+1)
 //real ijkTrigLn1p(real const x);
 #define	ijkTrigLn1p						ijk_declrealf(ijkTrigLn1p)
+
+// ijkTrigPow
+//	Power of exponent.
+//		param x: base
+//		param y: exponent
+//		return: x^y
+//real ijkTrigPow(real const x, real const y);
+#define ijkTrigPow						ijk_declrealf(ijkTrigPow)
 
 
 //-----------------------------------------------------------------------------

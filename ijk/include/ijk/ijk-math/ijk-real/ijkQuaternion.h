@@ -33,11 +33,36 @@
 #ifdef __cplusplus
 extern "C" {
 #else	// !__cplusplus
+typedef enum ijkQuatComp		ijkQuatComp;
+typedef enum ijkDualQuatComp	ijkDualQuatComp;
 typedef union fquat		fquat;
 typedef union fdualquat	fdualquat;
 typedef union dquat		dquat;
 typedef union ddualquat	ddualquat;
 #endif	// __cplusplus
+
+
+//-----------------------------------------------------------------------------
+
+// ijkQuatComp
+//	Named quaternion component index for user access; vector part comes first 
+//	for easier access since it is more likely to be used.
+enum ijkQuatComp
+{
+	ijkQuatVecX,
+	ijkQuatVecY,
+	ijkQuatVecZ,
+	ijkQuatReal,
+};
+
+// ijkDualQuatComp
+//	Named dual quaternion component index for user access; real quaternion 
+//	comes first for easier access since it is more likely to be used.
+enum ijkDualQuatComp
+{
+	ijkDualQuatReal,
+	ijkDualQuatDual,
+};
 
 
 //-----------------------------------------------------------------------------
@@ -56,55 +81,61 @@ typedef double4			double2x4[2];	// 2x4 (2c x 4r) double-precision array-based qu
 #else // !__cplusplus
 
 // fquat
-//	Data structure representing float quaternion.
+//	Data structure representing single-precision float quaternion.
 //		member v: vector array-based data
 //		members vec, re: vector and real components
 //		members x, y, z, w: individual components
 union fquat
 {
 	float4 v;
-	struct { float3 vec; f32 re; };
+	struct { fvec3 vec; f32 re; };
 	struct { f32 x, y, z, w; };
 };
 
 // dquat
-//	Data structure representing double quaternion.
+//	Data structure representing double-precision float quaternion.
 //		member v: vector array-based data
 //		members vec, re: vector and real components
 //		members x, y, z, w: individual components
 union dquat
 {
 	double4 v;
-	struct { double3 vec; f64 re; };
+	struct { dvec3 vec; f64 re; };
 	struct { f64 x, y, z, w; };
 };
 
 // fdualquat
-//	Data structure representing float dual quaternion.
+//	Data structure representing single-precision float dual quaternion; this 
+//	is designed for spatial transformations.
 //		member v: vector array-based data
 //		member m: matrix array-based data
 //		member q: quaternion components
 //		members qr, qd: real and dual quaternion components
+//		members re, dual: real and dual quaternion components
 union fdualquat
 {
 	float8 v;
 	float2x4 m;
 	fquat q[2];
 	struct { fquat qr, qd; };
+	struct { fquat re, dual; };
 };
 
 // ddualquat
-//	Data structure representing double dual quaternion.
+//	Data structure representing double-precision float dual quaternion; this 
+//	is designed for spatial transformations.
 //		member v: vector array-based data
 //		member m: matrix array-based data
 //		member q: quaternion components
 //		members qr, qd: real and dual quaternion components
+//		members re, dual: real and dual quaternion components
 union ddualquat
 {
 	double8 v;
 	double2x4 m;
 	dquat q[2];
 	struct { dquat qr, qd; };
+	struct { dquat re, dual; };
 };
 
 
