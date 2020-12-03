@@ -55,6 +55,12 @@ float4m ijkDualQuatPfm(float2x4 dq_out);
 //		return: q_out
 floatv ijkQuatInitQfv(float4 q_out);
 
+// ijkQuatInitZeroQ*v
+//	Initialize zero quaternion.
+//		param q_out: output quaternion
+//		return: q_out
+floatv ijkQuatInitZeroQfv(float4 q_out);
+
 // ijkQuatInitElemsQ*v
 //	Initialize individual elements of quaternion.
 //		param q_out: output quaternion
@@ -664,6 +670,16 @@ floatv ijkQuatEncodeTranslateX2Qfv(float4 qt_out, float3 const translate_in, flo
 //		return: translate_out
 floatv ijkQuatDecodeTranslateQfv(float3 translate_out, float4 const qt_in, float4 const q_decode);
 
+// ijkQuatDecodeTranslateD2Q*vs
+//	Decode half translation offset vector from quaternion with scalar 
+//	multiplier; use if encoding quaternion is unit or if decoded translation 
+//	should have additional user-defined scale.
+//		param translate_out: output vector, translation offset
+//		param qt_in: input quaternion, encoded translation
+//		param q_decode: decoding quaternion
+//		return: translate_out
+floatv ijkQuatDecodeTranslateD2Qfvs(float3 translate_out, float4 const qt_in, float4 const q_decode, f32 const s);
+
 // ijkQuatDecodeTranslateD2Q*v
 //	Decode half translation offset vector from quaternion; use if encoding 
 //	quaternion is unit or if decoded translation should have scale.
@@ -1100,6 +1116,67 @@ float4km ijkDualQuatGetRotateScaleTranslateDQfm(float2x4 const dq_in, ijkRotatio
 //		param translate_out: storage for translation offset vector
 //		return: dq_in
 float4km ijkDualQuatGetAxisAngleScaleTranslateDQfm(float2x4 const dq_in, float3 axis_unit_out, f32* const angle_degrees_out, f32* const scale_unif_out, float3 translate_out);
+
+// ijkDualQuatGetTranslateRemScaleDQ*m
+//	Extract Euler angles from rotation dual quaternion, removing scale from 
+//	translation part.
+//		param dq_in: input dual quaternion
+//		param translate_out: storage for translation offset vector
+//		return: dq_in
+float4km ijkDualQuatGetTranslateRemScaleDQfm(float2x4 const dq_in, float3 translate_out);
+
+// ijkDualQuatGetRotateTranslateRemScaleDQ*m
+//	Extract Euler angles from rotation dual quaternion, removing scale from 
+//	translation part.
+//		param dq_in: input dual quaternion
+//		param order: written order of Euler angles (functional order of 
+//			operations is right-to-left)
+//		param rotateDegXYZ_out: storage for Euler angles in component order XYZ
+//		param translate_out: storage for translation offset vector
+//		return: dq_in
+float4km ijkDualQuatGetRotateTranslateRemScaleDQfm(float2x4 const dq_in, ijkRotationOrder const order, float3 rotateDegXYZ_out, float3 translate_out);
+
+// ijkDualQuatGetAxisAngleTranslateRemScaleDQ*m
+//	Extract unit axis and angle in degrees from dual quaternion, removing 
+//	scale from translation part.
+//		param dq_in: input dual quaternion
+//		param axis_unit_out: storage for unit axis of rotation
+//		param angle_degrees_out: storage for rotation angle in degrees
+//		param translate_out: storage for translation offset vector
+//		return: dq_in
+float4km ijkDualQuatGetAxisAngleTranslateRemScaleDQfm(float2x4 const dq_in, float3 axis_unit_out, f32* const angle_degrees_out, float3 translate_out);
+
+// ijkDualQuatGetScaleTranslateRemScaleDQ*m
+//	Extract uniform scale from dual quaternion, removing scale from 
+//	translation part.
+//		param dq_in: input dual quaternion
+//		param scale_unif_out: storage for uniform scale amount
+//		param translate_out: storage for translation offset vector
+//		return: dq_in
+float4km ijkDualQuatGetScaleTranslateRemScaleDQfm(float2x4 const dq_in, f32* const scale_unif_out, float3 translate_out);
+
+// ijkDualQuatGetRotateScaleTranslateRemScaleDQ*m
+//	Extract Euler angles and uniform scale from dual quaternion, removing 
+//	scale from translation part.
+//		param dq_in: input dual quaternion
+//		param order: written order of Euler angles (functional order of 
+//			operations is right-to-left)
+//		param rotateDegXYZ_out: storage for Euler angles in component order XYZ
+//		param scale_unif_out: storage for uniform scale amount
+//		param translate_out: storage for translation offset vector
+//		return: dq_in
+float4km ijkDualQuatGetRotateScaleTranslateRemScaleDQfm(float2x4 const dq_in, ijkRotationOrder const order, float3 rotateDegXYZ_out, f32* const scale_unif_out, float3 translate_out);
+
+// ijkDualQuatGetAxisAngleScaleTranslateRemScaleDQ*m
+//	Extract unit axis, angle in degrees and uniform scale from dual quaternion,
+//	removing scale from translation part.
+//		param dq_in: input dual quaternion
+//		param axis_unit_out: storage for unit axis of rotation
+//		param angle_degrees_out: storage for rotation angle in degrees
+//		param scale_unif_out: storage for uniform scale amount
+//		param translate_out: storage for translation offset vector
+//		return: dq_in
+float4km ijkDualQuatGetAxisAngleScaleTranslateRemScaleDQfm(float2x4 const dq_in, float3 axis_unit_out, f32* const angle_degrees_out, f32* const scale_unif_out, float3 translate_out);
 
 // ijkDualQuatGetScrewParamsDQ*m
 //	Extract screw parameters from dual quaternion.
