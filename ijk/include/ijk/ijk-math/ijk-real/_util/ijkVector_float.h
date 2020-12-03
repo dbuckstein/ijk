@@ -3317,6 +3317,13 @@ floatv ijkVecReflect2fv(float2 v_out, float2 const v_in, float2 const v_nrm);
 //		return: v_out
 floatv ijkVecResize2fv(float2 v_out, float2 const v_in, f32 const length);
 
+// ijkVecDistance2*v
+//	Calculate distance between two points.
+//		param v_lh: left-hand input
+//		param v_rh: right-hand input
+//		return: distance between inputs
+f32 ijkVecDistance2fv(float2 const v_lh, float2 const v_rh);
+
 // ijkVecResizeSafe2*v
 //	Change length of vector, retaining direction; division-by-zero safe.
 //		param v_out: output vector, resized
@@ -3940,6 +3947,13 @@ floatv ijkVecUnitReflect3fv(float3 v_out, float3 const v_in, float3 const v_nrm)
 //		param v_nrm: normal vector
 //		return: v_out
 floatv ijkVecReflect3fv(float3 v_out, float3 const v_in, float3 const v_nrm);
+
+// ijkVecDistance3*v
+//	Calculate distance between two points.
+//		param v_lh: left-hand input
+//		param v_rh: right-hand input
+//		return: distance between inputs
+f32 ijkVecDistance3fv(float3 const v_lh, float3 const v_rh);
 
 // ijkVecResize3*v
 //	Change length of vector, retaining direction.
@@ -4575,6 +4589,13 @@ floatv ijkVecUnitReflect4fv(float4 v_out, float4 const v_in, float4 const v_nrm)
 //		return: v_out
 floatv ijkVecReflect4fv(float4 v_out, float4 const v_in, float4 const v_nrm);
 
+// ijkVecDistance4*v
+//	Calculate "distance" between two 4D vectors.
+//		param v_lh: left-hand input
+//		param v_rh: right-hand input
+//		return: distance between inputs
+f32 ijkVecDistance4fv(float4 const v_lh, float4 const v_rh);
+
 // ijkVecResize4*v
 //	Change length of vector, retaining direction.
 //		param v_out: output vector, resized
@@ -5190,6 +5211,13 @@ fvec2 ijkVecUnitReflect2f(fvec2 const v_in, fvec2 const v_nrm);
 //		return: reflected vector
 fvec2 ijkVecReflect2f(fvec2 const v_in, fvec2 const v_nrm);
 
+// ijkVecDistance2*
+//	Calculate distance between two points.
+//		param v_lh: left-hand input
+//		param v_rh: right-hand input
+//		return: distance between inputs
+float ijkVecDistance2f(fvec2 const v_lh, fvec2 const v_rh);
+
 // ijkVecResize2*
 //	Change length of vector, retaining direction.
 //		param v_in: input vector
@@ -5778,6 +5806,13 @@ fvec3 ijkVecUnitReflect3f(fvec3 const v_in, fvec3 const v_nrm);
 //		return: reflected vector
 fvec3 ijkVecReflect3f(fvec3 const v_in, fvec3 const v_nrm);
 
+// ijkVecDistance3*
+//	Calculate distance between two points.
+//		param v_lh: left-hand input
+//		param v_rh: right-hand input
+//		return: distance between inputs
+float ijkVecDistance3f(fvec3 const v_lh, fvec3 const v_rh);
+
 // ijkVecResize3*
 //	Change length of vector, retaining direction.
 //		param v_in: input vector
@@ -6365,6 +6400,13 @@ fvec4 ijkVecUnitReflect4f(fvec4 const v_in, fvec4 const v_nrm);
 //		param v_nrm: normal vector
 //		return: reflected vector
 fvec4 ijkVecReflect4f(fvec4 const v_in, fvec4 const v_nrm);
+
+// ijkVecDistance4*
+//	Calculate "distance" between two 4D vectors.
+//		param v_lh: left-hand input
+//		param v_rh: right-hand input
+//		return: distance between inputs
+float ijkVecDistance4f(fvec4 const v_lh, fvec4 const v_rh);
 
 // ijkVecResize4*
 //	Change length of vector, retaining direction.

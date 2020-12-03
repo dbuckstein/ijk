@@ -3709,6 +3709,272 @@ ijk_inl floatv ijkVecReflect2fv(float2 v_out, float2 const v_in, float2 const v_
 	return v_out;
 }
 
+ijk_inl f32 ijkVecDistance2fv(float2 const v_lh, float2 const v_rh)
+{
+	float2 const diff = {
+		(v_lh[0] - v_rh[0]),
+		(v_lh[1] - v_rh[1]),
+	};
+	return ijkVecLength2fv(diff);
+}
+
+ijk_inl floatv ijkVecResize2fv(float2 v_out, float2 const v_in, f32 const length)
+{
+	f32 const s = length * ijkVecLengthInv2fv(v_in);
+	return ijkVecMul2fvs(v_out, v_in, s);
+}
+
+ijk_inl floatv ijkVecResizeSafe2fv(float2 v_out, float2 const v_in, f32 const length)
+{
+	f32 const s = length * ijkVecLengthInvSafe2fv(v_in);
+	return ijkVecMul2fvs(v_out, v_in, s);
+}
+
+ijk_inl f32 ijkVecCrossResize2fv(float2 const v_lh, float2 const v_rh, f32 const length)
+{
+	return (length * ijkVecCrossNormalize2fv(v_lh, v_rh));
+}
+
+ijk_inl f32 ijkVecCrossResizeSafe2fv(float2 const v_lh, float2 const v_rh, f32 const length)
+{
+	return (length * ijkVecCrossNormalizeSafe2fv(v_lh, v_rh));
+}
+
+ijk_inl floatv ijkVecNearest2fv(float2 v_out, float2 const v0, float2 const v1, f32 const u)
+{
+	return ijkVecCopy2fv(v_out, (u < flt_half ? v0 : v1));
+}
+
+ijk_inl floatv ijkVecBinearest2fv(float2 v_out, float2 const v00, float2 const v01, float2 const v10, float2 const v11, f32 const u0, f32 const u1, f32 const u)
+{
+	return ijkVecCopy2fv(v_out, (u < flt_half ? u0 < flt_half ? v00 : v01 : u1 < flt_half ? v10 : v11));
+}
+
+ijk_inl floatv ijkVecRemap2fv(float2 v_out, float2 const v0_dst, float2 const v1_dst, float2 const v0_src, float2 const v1_src, float2 const v_src)
+{
+	v_out[0] = ijkInterpRemap_flt(v0_dst[0], v1_dst[0], v0_src[0], v1_src[0], v_src[0]);
+	v_out[1] = ijkInterpRemap_flt(v0_dst[1], v1_dst[1], v0_src[1], v1_src[1], v_src[1]);
+	return v_out;
+}
+
+ijk_inl floatv ijkVecBezier0O2fv(float2 v_out, float2 const v0, f32 const u)
+{
+	return ijkVecCopy2fv(v_out, v0);
+}
+
+ijk_inl floatv ijkVecBezier1O2fv(float2 v_out, float2 const v0, float2 const v1, f32 const u)
+{
+	return ijkVecLerp2fv(v_out, v0, v1, u);
+}
+
+ijk_inl floatv ijkVecBezier2O2fv(float2 v_out, float2 const v0, float2 const v1, float2 const v2, f32 const u)
+{
+	float2 u0, u1;
+	ijkVecBezier1O2fv(u0, v0, v1, u);
+	ijkVecBezier1O2fv(u1, v1, v2, u);
+	return ijkVecLerp2fv(v_out, u0, u1, u);
+}
+
+ijk_inl floatv ijkVecBezier3O2fv(float2 v_out, float2 const v0, float2 const v1, float2 const v2, float2 const v3, f32 const u)
+{
+	float2 u0, u1;
+	ijkVecBezier2O2fv(u0, v0, v1, v2, u);
+	ijkVecBezier2O2fv(u1, v1, v2, v3, u);
+	return ijkVecLerp2fv(v_out, u0, u1, u);
+}
+
+ijk_inl floatv ijkVecBezierNO2fv(float2 v_out, float2 const v[], size const order, f32 const u)
+{
+	float2 u0, u1;
+	if (order > 0)
+		return ijkVecLerp2fv(v_out, ijkVecBezierNO2fv(u0, v + 0, order - 1, u), ijkVecBezierNO2fv(u1, v + 1, order - 1, u), u);
+	return v_out;
+}
+
+ijk_inl floatv ijkVecCubicHermite2fv(float2 v_out, float2 const v0, float2 const dv0, float2 const v1, float2 const dv1, f32 const u)
+{
+	v_out[0] = ijkInterpCubicHermite_flt(v0[0], dv0[0], v1[0], dv1[0], u);
+	v_out[1] = ijkInterpCubicHermite_flt(v0[1], dv0[1], v1[1], dv1[1], u);
+	return v_out;
+}
+
+ijk_inl floatv ijkVecCubicHermiteHandles2fv(float2 v_out, float2 const v0, float2 const cv0, float2 const v1, float2 const cv1, f32 const u)
+{
+	v_out[0] = ijkInterpCubicHermiteHandles_flt(v0[0], cv0[0], v1[0], cv1[0], u);
+	v_out[1] = ijkInterpCubicHermiteHandles_flt(v0[1], cv0[1], v1[1], cv1[1], u);
+	return v_out;
+}
+
+ijk_inl floatv ijkVecCubicCatmullRom2fv(float2 v_out, float2 const vp, float2 const v0, float2 const v1, float2 const v2, f32 const u)
+{
+	v_out[0] = ijkInterpCubicCatmullRom_flt(vp[0], v0[0], v1[0], v2[0], u);
+	v_out[1] = ijkInterpCubicCatmullRom_flt(vp[1], v0[1], v1[1], v2[1], u);
+	return v_out;
+}
+
+ijk_inl floatv ijkVecBicubicCatmullRom2fv(float2 v_out, float2 const vpp, float2 const vp0, float2 const vp1, float2 const vp2, float2 const v0p, float2 const v00, float2 const v01, float2 const v02, float2 const v1p, float2 const v10, float2 const v11, float2 const v12, float2 const v2p, float2 const v20, float2 const v21, float2 const v22, f32 const up, f32 const u0, f32 const u1, f32 const u2, f32 const u)
+{
+	v_out[0] = ijkInterpBicubicCatmullRom_flt(vpp[0], vp0[0], vp1[0], vp2[0], v0p[0], v00[0], v01[0], v02[0], v1p[0], v10[0], v11[0], v12[0], v2p[0], v20[0], v21[0], v22[0], up, u0, u1, u2, u);
+	v_out[1] = ijkInterpBicubicCatmullRom_flt(vpp[1], vp0[1], vp1[1], vp2[1], v0p[1], v00[1], v01[1], v02[1], v1p[1], v10[1], v11[1], v12[1], v2p[1], v20[1], v21[1], v22[1], up, u0, u1, u2, u);
+	return v_out;
+}
+
+ijk_inl f32 ijkVecReparamCubicHermite2fv(f32 uTable_out[], f32 lTable_out[], float2 vTable_out[], size const numDivisions, ibool const lNormalize, float2 const v0, float2 const dv0, float2 const v1, float2 const dv1)
+{
+	f32 u = flt_zero, du, arcLength = flt_zero, arcLengthInv;
+	f32* lTable = lTable_out;
+	uindex i;
+	floatkv v, vc;
+
+	if (uTable_out && lTable_out && vTable_out && numDivisions)
+	{
+		*uTable_out = u;
+		*lTable_out = arcLength;
+		vc = ijkVecCopy2fv(*vTable_out, v0);
+
+		for (i = 1, du = ijk_recip_flt((f32)numDivisions); i <= numDivisions; ++i)
+		{
+			u = (f32)i * du;
+			v = ijkVecCubicHermite2fv(*(++vTable_out), v0, dv0, v1, dv1, u);
+			arcLength += ijkVecDistance2fv(v, vc);
+			*(++uTable_out) = u;
+			*(++lTable_out) = arcLength;
+			vc = v;
+		}
+
+		if (lNormalize)
+			for (i = 1, arcLengthInv = ijk_recip_flt(arcLength); i <= numDivisions; ++i)
+				*(++lTable) *= arcLengthInv;
+	}
+	return arcLength;
+}
+
+ijk_inl f32 ijkVecReparamCubicHermiteHandles2fv(f32 uTable_out[], f32 lTable_out[], float2 vTable_out[], size const numDivisions, ibool const lNormalize, float2 const v0, float2 const cv0, float2 const v1, float2 const cv1)
+{
+	f32 u = flt_zero, du, arcLength = flt_zero, arcLengthInv;
+	f32* lTable = lTable_out;
+	uindex i;
+	floatkv v, vc;
+
+	if (uTable_out && lTable_out && vTable_out && numDivisions)
+	{
+		*uTable_out = u;
+		*lTable_out = arcLength;
+		vc = ijkVecCopy2fv(*vTable_out, v0);
+
+		for (i = 1, du = ijk_recip_flt((f32)numDivisions); i <= numDivisions; ++i)
+		{
+			u = (f32)i * du;
+			v = ijkVecCubicHermiteHandles2fv(*(++vTable_out), v0, cv0, v1, cv1, u);
+			arcLength += ijkVecDistance2fv(v, vc);
+			*(++uTable_out) = u;
+			*(++lTable_out) = arcLength;
+			vc = v;
+		}
+
+		if (lNormalize)
+			for (i = 1, arcLengthInv = ijk_recip_flt(arcLength); i <= numDivisions; ++i)
+				*(++lTable) *= arcLengthInv;
+	}
+	return arcLength;
+}
+
+ijk_inl f32 ijkVecReparamCubicCatmullRom2fv(f32 uTable_out[], f32 lTable_out[], float2 vTable_out[], size const numDivisions, ibool const lNormalize, float2 const vp, float2 const v0, float2 const v1, float2 const v2)
+{
+	f32 u = flt_zero, du, arcLength = flt_zero, arcLengthInv;
+	f32* lTable = lTable_out;
+	uindex i;
+	floatkv v, vc;
+
+	if (uTable_out && lTable_out && vTable_out && numDivisions)
+	{
+		*uTable_out = u;
+		*lTable_out = arcLength;
+		vc = ijkVecCopy2fv(*vTable_out, v0);
+
+		for (i = 1, du = ijk_recip_flt((f32)numDivisions); i <= numDivisions; ++i)
+		{
+			u = (f32)i * du;
+			v = ijkVecCubicCatmullRom2fv(*(++vTable_out), vp, v0, v1, v2, u);
+			arcLength += ijkVecDistance2fv(v, vc);
+			*(++uTable_out) = u;
+			*(++lTable_out) = arcLength;
+			vc = v;
+		}
+
+		if (lNormalize)
+			for (i = 1, arcLengthInv = ijk_recip_flt(arcLength); i <= numDivisions; ++i)
+				*(++lTable) *= arcLengthInv;
+	}
+	return arcLength;
+}
+
+ijk_inl f32 ijkVecReparamBicubicCatmullRom2fv(f32 uTable_out[], f32 lTable_out[], float2 vTable_out[], size const numDivisions, ibool const lNormalize, float2 const vpp, float2 const vp0, float2 const vp1, float2 const vp2, float2 const v0p, float2 const v00, float2 const v01, float2 const v02, float2 const v1p, float2 const v10, float2 const v11, float2 const v12, float2 const v2p, float2 const v20, float2 const v21, float2 const v22, f32 const up, f32 const u0, f32 const u1, f32 const u2)
+{
+	f32 u = flt_zero, du, arcLength = flt_zero, arcLengthInv;
+	f32* lTable = lTable_out;
+	uindex i;
+	floatkv v, vc;
+
+	if (uTable_out && lTable_out && vTable_out && numDivisions)
+	{
+		float2 vp, v0, v1, v2;
+		ijkVecCubicCatmullRom2fv(vp, vpp, vp0, vp1, vp2, up);
+		ijkVecCubicCatmullRom2fv(v0, v0p, v00, v01, v02, u0);
+		ijkVecCubicCatmullRom2fv(v1, v1p, v10, v11, v12, u1);
+		ijkVecCubicCatmullRom2fv(v2, v2p, v20, v21, v22, u2);
+
+		*uTable_out = u;
+		*lTable_out = arcLength;
+		vc = ijkVecCopy2fv(*vTable_out, v0);
+
+		for (i = 1, du = ijk_recip_flt((f32)numDivisions); i <= numDivisions; ++i)
+		{
+			u = (f32)i * du;
+			v = ijkVecCubicCatmullRom2fv(*(++vTable_out), vp, v0, v1, v2, u);
+			arcLength += ijkVecDistance2fv(v, vc);
+			*(++uTable_out) = u;
+			*(++lTable_out) = arcLength;
+			vc = v;
+		}
+
+		if (lNormalize)
+			for (i = 1, arcLengthInv = ijk_recip_flt(arcLength); i <= numDivisions; ++i)
+				*(++lTable) *= arcLengthInv;
+	}
+	return arcLength;
+}
+
+ijk_inl floatv ijkVecSampleTableInc2fv(float2 v_out, f32 const uTable[], float2 const vTable[], index i, index di, f32 const u)
+{
+	floatkv v0, v1;
+	f32 uReparam;
+	f32 u0, u1 = *(uTable + (i += (di ? di : (di = 1))));
+
+	while (u1 < u)
+		u1 = *(uTable + (i += di));
+	v1 = *(vTable + i);
+	v0 = *(vTable + (i -= di));
+	u0 = *(uTable + i);
+	uReparam = ijkInterpLinearInv_flt(u0, u1, u);
+	return ijkVecLerp2fv(v_out, v0, v1, uReparam);
+}
+
+ijk_inl floatv ijkVecSampleTableDec2fv(float2 v_out, f32 const uTable[], float2 const vTable[], index i, index di, f32 const u)
+{
+	floatkv v0, v1;
+	f32 uReparam;
+	f32 u0, u1 = *(uTable + (i += (di ? di : (di = 1))));
+
+	while (u1 > u)
+		u1 = *(uTable + (i += di));
+	v1 = *(vTable + i);
+	v0 = *(vTable + (i -= di));
+	u0 = *(uTable + i);
+	uReparam = ijkInterpLinearInv_flt(u0, u1, u);
+	return ijkVecLerp2fv(v_out, v0, v1, uReparam);
+}
+
 
 //-----------------------------------------------------------------------------
 
