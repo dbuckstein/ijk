@@ -6734,6 +6734,157 @@ ijk_inl fvec4 ijkVecSampleTableDec4f(float const uTable[], fvec4 const vTable[],
 
 //-----------------------------------------------------------------------------
 
+ijk_inl i8 ijkVecPack1fb(f32 const v_in)
+{
+
+	return 0;
+}
+
+ijk_inl f32 ijkVecUnpack1fb(i8 const i_in)
+{
+
+	return flt_zero;
+}
+
+ijk_inl i16 ijkVecPack1fs(f32 const v_in)
+{
+
+	return 0;
+}
+
+ijk_inl f32 ijkVecUnpack1fs(i16 const i_in)
+{
+
+	return flt_zero;
+}
+
+ijk_inl i16 ijkVecPack2fvs(float2 const v_in)
+{
+
+	return 0;
+}
+
+ijk_inl floatv ijkVecUnpack2fvs(float2 v_out, i16 const i_in)
+{
+
+	return v_out;
+}
+
+ijk_inl i32 ijkVecPack2fvl(float2 const v_in)
+{
+
+	return 0;
+}
+
+ijk_inl floatv ijkVecUnpack2fvl(float2 v_out, i32 const i_in)
+{
+
+	return v_out;
+}
+
+ijk_inl i32 ijkVecPack3fvl(float3 const v_in)
+{
+
+	return 0;
+}
+
+ijk_inl floatv ijkVecUnpack3fvl(float3 v_out, i32 const i_in)
+{
+
+	return v_out;
+}
+
+ijk_inl i32 ijkVecPack4fvl(float4 const v_in)
+{
+
+	return 0;
+}
+
+ijk_inl floatv ijkVecUnpack4fvl(float4 v_out, i32 const i_in)
+{
+
+	return v_out;
+}
+
+ijk_inl i64 ijkVecPack4fvll(float4 const v_in)
+{
+
+	return 0;
+}
+
+ijk_inl floatv ijkVecUnpack4fvll(float4 v_out, i64 const i_in)
+{
+
+	return v_out;
+}
+
+ijk_inl i32 ijkVecPackUnitXYZ4fvl(float4 const v_in)
+{
+
+	return 0;
+}
+
+ijk_inl floatv ijkVecUnpackUnitXYZ4fvl(float4 v_out, i32 const i_in)
+{
+
+	return v_out;
+}
+
+ijk_inl i32 ijkVecPackUnit3of4fvl(float4 const v_in)
+{
+
+	return 0;
+}
+
+ijk_inl floatv ijkVecUnpackUnit3of4fvl(float4 v_out, i32 const i_in)
+{
+
+	return v_out;
+}
+
+ijk_inl i64 ijkVecPackUnitXYZ4fvll(float4 const v_in)
+{
+
+	return 0;
+}
+
+ijk_inl floatv ijkVecUnpackUnitXYZ4fvll(float4 v_out, i64 const i_in)
+{
+
+	return v_out;
+}
+
+ijk_inl i64 ijkVecPackUnit3of4fvll(float4 const v_in, uindex const excl)
+{
+
+	return 0;
+}
+
+ijk_inl floatv ijkVecUnpackUnit3of4fvll(float4 v_out, i64 const i_in, uindex* const excl_out)
+{
+
+	return v_out;
+}
+
+ijk_inl i64 ijkVecPackQuant4fvll(float4 const v_in)
+{
+
+	return 0;
+}
+
+ijk_inl floatv ijkVecUnpackQuant4fvll(float4 v_out, i64 const i_in)
+{
+
+	return v_out;
+}
+
+
+//-----------------------------------------------------------------------------
+
+
+
+//-----------------------------------------------------------------------------
+
 
 #endif	// !_IJK_VECTOR_FLOAT_INL_
 #endif	// _IJK_VECTOR_FLOAT_H_
