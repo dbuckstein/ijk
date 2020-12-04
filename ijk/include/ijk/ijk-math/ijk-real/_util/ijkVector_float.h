@@ -6743,6 +6743,345 @@ fvec4 ijkVecSampleTableDec4f(float const uTable[], fvec4 const vTable[], index i
 
 //-----------------------------------------------------------------------------
 
+#ifdef __cplusplus
+extern "C" {
+#endif	// __cplusplus
+
+//-----------------------------------------------------------------------------
+
+// ijkVecPack1*b
+//	Compress decimal scalar into a single byte (8 bits).
+//		param v_in: symmetric-unit scalar to compress, in [-1,+1]
+//		return: byte encoding scalar
+i8 ijkVecPack1fb(f32 const v_in);
+
+// ijkVecUnpack1*b
+//	Decompress decimal scalar from a single byte (8 bits).
+//		param i_in: integer encoding scalar to decompress
+//		return: decoded scalar
+f32 ijkVecUnpack1fb(i8 const i_in);
+
+// ijkVecPack1*s
+//	Compress decimal scalar into a short integer (16 bits).
+//		param v_in: symmetric-unit scalar to compress, in [-1,+1]
+//		return: short integer encoding scalar
+i16 ijkVecPack1fs(f32 const v_in);
+
+// ijkVecUnpack1*s
+//	Decompress decimal scalar from a short integer (16 bits).
+//		param i_in: integer encoding scalar to decompress
+//		return: decoded scalar
+f32 ijkVecUnpack1fs(i16 const i_in);
+
+// ijkVecPack2*vs
+//	Compress 2D vector into a short integer (16 bits).
+//		param v_in: symmetric-unit vector to compress, elements in [-1,+1]
+//		return: short integer encoding vector
+i16 ijkVecPack2fvs(float2 const v_in);
+
+// ijkVecUnpack2*vs
+//	Decompress 2D vector from a short integer (16 bits).
+//		param v_out: output vector, decoded vector
+//		param i_in: integer encoding vector to decompress
+//		return: v_out
+floatv ijkVecUnpack2fvs(float2 v_out, i16 const i_in);
+
+// ijkVecPack2*vl
+//	Compress 2D vector into a long integer (32 bits).
+//		param v_in: symmetric-unit vector to compress, elements in [-1,+1]
+//		return: short integer encoding vector
+i32 ijkVecPack2fvl(float2 const v_in);
+
+// ijkVecUnpack2*vl
+//	Decompress 2D vector from a long integer (32 bits).
+//		param v_out: output vector, decoded vector
+//		param i_in: integer encoding vector to decompress
+//		return: v_out
+floatv ijkVecUnpack2fvl(float2 v_out, i32 const i_in);
+
+// ijkVecPack3*vl
+//	Compress 3D vector into a long integer (32 bits); components are encoded 
+//	into 10 bits each.
+//		param v_in: symmetric-unit vector to compress, elements in [-1,+1]
+//		return: short integer encoding vector
+i32 ijkVecPack3fvl(float3 const v_in);
+
+// ijkVecUnpack3*vl
+//	Decompress 3D vector from a long integer (32 bits).
+//		param v_out: output vector, decoded vector
+//		param i_in: integer encoding vector to decompress
+//		return: v_out
+floatv ijkVecUnpack3fvl(float3 v_out, i32 const i_in);
+
+// ijkVecPack4*vl
+//	Compress 4D vector into a long integer (32 bits).
+//		param v_in: symmetric-unit vector to compress, elements in [-1,+1]
+//		return: short integer encoding vector
+i32 ijkVecPack4fvl(float4 const v_in);
+
+// ijkVecUnpack4*vl
+//	Decompress 4D vector from a long integer (32 bits).
+//		param v_out: output vector, decoded vector
+//		param i_in: integer encoding vector to decompress
+//		return: v_out
+floatv ijkVecUnpack4fvl(float4 v_out, i32 const i_in);
+
+// ijkVecPack4*vll
+//	Compress 4D vector into a long-long integer (64 bits).
+//		param v_in: symmetric-unit vector to compress, elements in [-1,+1]
+//		return: short integer encoding vector
+i64 ijkVecPack4fvll(float4 const v_in);
+
+// ijkVecUnpack4*vll
+//	Decompress 4D vector from a long-long integer (64 bits).
+//		param v_out: output vector, decoded vector
+//		param i_in: integer encoding vector to decompress
+//		return: v_out
+floatv ijkVecUnpack4fvll(float4 v_out, i64 const i_in);
+
+// ijkVecPackUnitXYZ4*vl
+//	Compress three components of 4D unit vector into a long integer (32 bits); 
+//	components are encoded into 10 bits each, while one of the remaining bits 
+//	specifies the sign of the fourth element.
+//		param v_in: symmetric-unit vector to compress, elements in [-1,+1]
+//		return: short integer encoding vector
+i32 ijkVecPackUnitXYZ4fvl(float4 const v_in);
+
+// ijkVecUnpackUnitXYZ4*vl
+//	Decompress 4D unit vector from a long integer (32 bits) encoding only 
+//	three components and the sign of the fourth.
+//		param v_out: output vector, decoded vector
+//		param i_in: integer encoding vector to decompress
+//		return: v_out
+floatv ijkVecUnpackUnitXYZ4fvl(float4 v_out, i32 const i_in);
+
+// ijkVecPackUnit3of4*vl
+//	Compress three components of 4D unit vector into a long integer (32 bits); 
+//	components are encoded into 10 bits each, while the remaining bits specify 
+//	the index of the excluded element. If the excluded component is negative, 
+//	the whole vector will be negated.
+//		param v_in: symmetric-unit vector to compress, elements in [-1,+1]
+//		return: short integer encoding vector
+i32 ijkVecPackUnit3of4fvl(float4 const v_in);
+
+// ijkVecUnpackUnit3of4*vl
+//	Decompress 4D unit vector from a long integer (32 bits) encoding only 
+//	three components and the index of the fourth.
+//		param v_out: output vector, decoded vector
+//		param i_in: integer encoding vector to decompress
+//		return: v_out
+floatv ijkVecUnpackUnit3of4fvl(float4 v_out, i32 const i_in);
+
+// ijkVecPackUnitXYZ4*vll
+//	Compress three components of 4D unit vector into a long-long integer 
+//	(64 bits); components are encoded into 21 bits each, while the remaining 
+//	bit specifies the sign of the excluded element.
+//		param v_in: symmetric-unit vector to compress, elements in [-1,+1]
+//		return: short integer encoding vector
+i64 ijkVecPackUnitXYZ4fvll(float4 const v_in);
+
+// ijkVecUnpackUnitXYZ4*vll
+//	Decompress 4D unit vector from a long-long integer (64 bits) encoding 
+//	only three components and the sign of the fourth.
+//		param v_out: output vector, decoded vector
+//		param i_in: integer encoding vector to decompress
+//		return: v_out
+floatv ijkVecUnpackUnitXYZ4fvll(float4 v_out, i64 const i_in);
+
+// ijkVecPackUnit3of4*vll
+//	Compress three components of 4D unit vector into a long-long integer 
+//	(64 bits); components are encoded into 20 bits each, while the remaining 
+//	bits specify the index and sign of the excluded element.
+//		param v_in: symmetric-unit vector to compress, elements in [-1,+1]
+//		param excl: index of excluded element, in [0,3]
+//		return: short integer encoding vector
+i64 ijkVecPackUnit3of4fvll(float4 const v_in, uindex const excl);
+
+// ijkVecUnpackUnit3of4*vll
+//	Decompress 4D unit vector from a long-long integer (64 bits) encoding 
+//	only three components and the index of the fourth.
+//		param v_out: output vector, decoded vector
+//		param i_in: integer encoding vector to decompress
+//		param excl_out: pointer to storage for index of excluded element
+//		return: v_out
+floatv ijkVecUnpackUnit3of4fvll(float4 v_out, i64 const i_in, uindex* const excl_out);
+
+// ijkVecPackQuant4*vll
+//	Compress three components of 4D quantized unit vector into the 48 MOST 
+//	significant bits of a long-long integer (64 bits); components are encoded 
+//	into 15 bits each, with the sign and index of the maximum component 
+//	stored in the remaining bits. Since the maximum value of the stored three 
+//	components will be between [-sqrt(0.5),+sqrt(0.5)], they can be quantized 
+//	for better precision when decoded.
+//		param v_in: symmetric-unit vector to compress, elements in [-1,+1]
+//		return: short integer encoding vector
+i64 ijkVecPackQuant4fvll(float4 const v_in);
+
+// ijkVecUnpackQuant4*vll
+//	Decompress 4D quantized unit vector from a long-long integer (64 bits) 
+//	encoding only three components, and the sign and index of the fourth; the 
+//	decoded elements are stored in the 48 MOST significant bits.
+//		param v_out: output vector, decoded vector
+//		param i_in: integer encoding vector to decompress
+//		return: v_out
+floatv ijkVecUnpackQuant4fvll(float4 v_out, i64 const i_in);
+
+
+//-----------------------------------------------------------------------------
+
+
+#ifdef __cplusplus
+}
+#endif	// __cplusplus
+
+//-----------------------------------------------------------------------------
+
+// ijkVecPack2*s
+//	Compress 2D vector into a short integer (16 bits).
+//		param v_in: symmetric-unit vector to compress, elements in [-1,+1]
+//		return: short integer encoding vector
+i16 ijkVecPack2fs(fvec2 const v_in);
+
+// ijkVecUnpack2*s
+//	Decompress 2D vector from a short integer (16 bits).
+//		param i_in: integer encoding vector to decompress
+//		return: decoded vector
+fvec2 ijkVecUnpack2fs(i16 const i_in);
+
+// ijkVecPack2*l
+//	Compress 2D vector into a long integer (32 bits).
+//		param v_in: symmetric-unit vector to compress, elements in [-1,+1]
+//		return: short integer encoding vector
+i32 ijkVecPack2fl(fvec2 const v_in);
+
+// ijkVecUnpack2*l
+//	Decompress 2D vector from a long integer (32 bits).
+//		param i_in: integer encoding vector to decompress
+//		return: decoded vector
+fvec2 ijkVecUnpack2fl(i32 const i_in);
+
+// ijkVecPack3*l
+//	Compress 3D vector into a long integer (32 bits); components are encoded 
+//	into 10 bits each.
+//		param v_in: symmetric-unit vector to compress, elements in [-1,+1]
+//		return: short integer encoding vector
+i32 ijkVecPack3fl(fvec3 const v_in);
+
+// ijkVecUnpack3*l
+//	Decompress 3D vector from a long integer (32 bits).
+//		param i_in: integer encoding vector to decompress
+//		return: decoded vector
+fvec3 ijkVecUnpack3fl(i32 const i_in);
+
+// ijkVecPack4*l
+//	Compress 4D vector into a long integer (32 bits).
+//		param v_in: symmetric-unit vector to compress, elements in [-1,+1]
+//		return: short integer encoding vector
+i32 ijkVecPack4fl(fvec4 const v_in);
+
+// ijkVecUnpack4*l
+//	Decompress 4D vector from a long integer (32 bits).
+//		param i_in: integer encoding vector to decompress
+//		return: decoded vector
+fvec4 ijkVecUnpack4fl(i32 const i_in);
+
+// ijkVecPack4*ll
+//	Compress 4D vector into a long-long integer (64 bits).
+//		param v_in: symmetric-unit vector to compress, elements in [-1,+1]
+//		return: short integer encoding vector
+i64 ijkVecPack4fll(fvec4 const v_in);
+
+// ijkVecUnpack4*ll
+//	Decompress 4D vector from a long-long integer (64 bits).
+//		param i_in: integer encoding vector to decompress
+//		return: decoded vector
+fvec4 ijkVecUnpack4fll(i64 const i_in);
+
+// ijkVecPackUnitXYZ4*l
+//	Compress three components of 4D unit vector into a long integer (32 bits); 
+//	components are encoded into 10 bits each, while one of the remaining bits 
+//	specifies the sign of the fourth element.
+//		param v_in: symmetric-unit vector to compress, elements in [-1,+1]
+//		return: short integer encoding vector
+i32 ijkVecPackUnitXYZ4fl(fvec4 const v_in);
+
+// ijkVecUnpackUnitXYZ4*l
+//	Decompress 4D unit vector from a long integer (32 bits) encoding only 
+//	three components and the sign of the fourth.
+//		param i_in: integer encoding vector to decompress
+//		return: decoded vector
+fvec4 ijkVecUnpackUnitXYZ4fl(i32 const i_in);
+
+// ijkVecPackUnit3of4*l
+//	Compress three components of 4D unit vector into a long integer (32 bits); 
+//	components are encoded into 10 bits each, while the remaining bits specify 
+//	the index of the excluded element. If the excluded component is negative, 
+//	the whole vector will be negated.
+//		param v_in: symmetric-unit vector to compress, elements in [-1,+1]
+//		return: short integer encoding vector
+i32 ijkVecPackUnit3of4fl(fvec4 const v_in);
+
+// ijkVecUnpackUnit3of4*l
+//	Decompress 4D unit vector from a long integer (32 bits) encoding only 
+//	three components and the index of the fourth.
+//		param i_in: integer encoding vector to decompress
+//		return: decoded vector
+fvec4 ijkVecUnpackUnit3of4fl(i32 const i_in);
+
+// ijkVecPackUnitXYZ4*ll
+//	Compress three components of 4D unit vector into a long-long integer 
+//	(64 bits); components are encoded into 21 bits each, while the remaining 
+//	bit specifies the sign of the excluded element.
+//		param v_in: symmetric-unit vector to compress, elements in [-1,+1]
+//		return: short integer encoding vector
+i64 ijkVecPackUnitXYZ4fll(fvec4 const v_in);
+
+// ijkVecUnpackUnitXYZ4*ll
+//	Decompress 4D unit vector from a long-long integer (64 bits) encoding 
+//	only three components and the sign of the fourth.
+//		param i_in: integer encoding vector to decompress
+//		return: decoded vector
+fvec4 ijkVecUnpackUnitXYZ4fll(i64 const i_in);
+
+// ijkVecPackUnit3of4*ll
+//	Compress three components of 4D unit vector into a long-long integer 
+//	(64 bits); components are encoded into 20 bits each, while the remaining 
+//	bits specify the index and sign of the excluded element.
+//		param v_in: symmetric-unit vector to compress, elements in [-1,+1]
+//		param excl: index of excluded element, in [0,3]
+//		return: short integer encoding vector
+i64 ijkVecPackUnit3of4fll(fvec4 const v_in, uindex const excl);
+
+// ijkVecUnpackUnit3of4*ll
+//	Decompress 4D unit vector from a long-long integer (64 bits) encoding 
+//	only three components and the index of the fourth.
+//		param i_in: integer encoding vector to decompress
+//		param excl_out: pointer to storage for index of excluded element
+//		return: decoded vector
+fvec4 ijkVecUnpackUnit3of4fll(i64 const i_in, uindex* const excl_out);
+
+// ijkVecPackQuant4*ll
+//	Compress three components of 4D quantized unit vector into the 48 MOST 
+//	significant bits of a long-long integer (64 bits); components are encoded 
+//	into 15 bits each, with the sign and index of the maximum component 
+//	stored in the remaining bits. Since the maximum value of the stored three 
+//	components will be between [-sqrt(0.5),+sqrt(0.5)], they can be quantized 
+//	for better precision when decoded.
+//		param v_in: symmetric-unit vector to compress, elements in [-1,+1]
+//		return: short integer encoding vector
+i64 ijkVecPackQuant4fll(fvec4 const v_in);
+
+// ijkVecUnpackQuant4*ll
+//	Decompress 4D quantized unit vector from a long-long integer (64 bits) 
+//	encoding only three components, and the sign and index of the fourth; the 
+//	decoded elements are stored in the 48 MOST significant bits.
+//		param i_in: integer encoding vector to decompress
+//		return: decoded vector
+fvec4 ijkVecUnpackQuant4fll(i64 const i_in);
+
+
+//-----------------------------------------------------------------------------
+
 
 #include "_inl/ijkVector_float.inl"
 
