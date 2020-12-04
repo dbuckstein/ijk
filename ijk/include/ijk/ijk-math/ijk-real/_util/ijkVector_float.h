@@ -6861,16 +6861,18 @@ floatv ijkVecUnpackUnitXYZ4fvl(float4 v_out, i32 const i_in);
 //	the index of the excluded element. If the excluded component is negative, 
 //	the whole vector will be negated.
 //		param v_in: symmetric-unit vector to compress, elements in [-1,+1]
+//		param excl: index of excluded element, in [0,3]
 //		return: short integer encoding vector
-i32 ijkVecPackUnit3of4fvl(float4 const v_in);
+i32 ijkVecPackUnit3of4fvl(float4 const v_in, uindex const excl);
 
 // ijkVecUnpackUnit3of4*vl
 //	Decompress 4D unit vector from a long integer (32 bits) encoding only 
 //	three components and the index of the fourth.
 //		param v_out: output vector, decoded vector
 //		param i_in: integer encoding vector to decompress
+//		param excl_out: pointer to storage for index of excluded element
 //		return: v_out
-floatv ijkVecUnpackUnit3of4fvl(float4 v_out, i32 const i_in);
+floatv ijkVecUnpackUnit3of4fvl(float4 v_out, i32 const i_in, uindex* const excl_out);
 
 // ijkVecPackQuant4*l
 //	Compress three components of 4D quantized unit vector into a long integer 
@@ -7037,15 +7039,17 @@ fvec4 ijkVecUnpackUnitXYZ4fl(i32 const i_in);
 //	the index of the excluded element. If the excluded component is negative, 
 //	the whole vector will be negated.
 //		param v_in: symmetric-unit vector to compress, elements in [-1,+1]
+//		param excl: index of excluded element, in [0,3]
 //		return: short integer encoding vector
-i32 ijkVecPackUnit3of4fl(fvec4 const v_in);
+i32 ijkVecPackUnit3of4fl(fvec4 const v_in, uindex const excl);
 
 // ijkVecUnpackUnit3of4*l
 //	Decompress 4D unit vector from a long integer (32 bits) encoding only 
 //	three components and the index of the fourth.
 //		param i_in: integer encoding vector to decompress
+//		param excl_out: pointer to storage for index of excluded element
 //		return: decoded vector
-fvec4 ijkVecUnpackUnit3of4fl(i32 const i_in);
+fvec4 ijkVecUnpackUnit3of4fl(i32 const i_in, uindex* const excl_out);
 
 // ijkVecPackQuant4*l
 //	Compress three components of 4D quantized unit vector into a long integer 

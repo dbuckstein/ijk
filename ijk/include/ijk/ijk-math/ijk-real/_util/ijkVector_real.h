@@ -7597,8 +7597,9 @@ extern "C" {
 //	components are encoded into 10 bits each, while one of the remaining bits 
 //	specifies the sign of the fourth element.
 //		param v_in: symmetric-unit vector to compress, elements in [-1,+1]
+//		param excl: index of excluded element, in [0,3]
 //		return: short integer encoding vector
-//i32 ijkVecPackUnitXYZ4rvl(real4 const v_in);
+//i32 ijkVecPackUnitXYZ4rvl(real4 const v_in, uindex const excl);
 #define ijkVecPackUnitXYZ4rvl ijk_declrealfs(ijkVecPackUnitXYZ4,vl)
 
 // ijkVecUnpackUnitXYZ4*vl
@@ -7606,8 +7607,9 @@ extern "C" {
 //	three components and the sign of the fourth.
 //		param v_out: output vector, decoded vector
 //		param i_in: integer encoding vector to decompress
+//		param excl_out: pointer to storage for index of excluded element
 //		return: v_out
-//realv ijkVecUnpackUnitXYZ4rvl(real4 v_out, i32 const i_in);
+//realv ijkVecUnpackUnitXYZ4rvl(real4 v_out, i32 const i_in, uindex* const excl_out);
 #define ijkVecUnpackUnitXYZ4rvl ijk_declrealfs(ijkVecUnpackUnitXYZ4,vl)
 
 // ijkVecPackUnit3of4*vl
@@ -7814,16 +7816,18 @@ extern "C" {
 //	the index of the excluded element. If the excluded component is negative, 
 //	the whole vector will be negated.
 //		param v_in: symmetric-unit vector to compress, elements in [-1,+1]
+//		param excl: index of excluded element, in [0,3]
 //		return: short integer encoding vector
-//i32 ijkVecPackUnit3of4rl(rvec4 const v_in);
+//i32 ijkVecPackUnit3of4rl(rvec4 const v_in, uindex const excl);
 #define ijkVecPackUnit3of4rl ijk_declrealfs(ijkVecPackUnit3of4,l)
 
 // ijkVecUnpackUnit3of4*l
 //	Decompress 4D unit vector from a long integer (32 bits) encoding only 
 //	three components and the index of the fourth.
 //		param i_in: integer encoding vector to decompress
+//		param excl_out: pointer to storage for index of excluded element
 //		return: decoded vector
-//rvec4 ijkVecUnpackUnit3of4rl(i32 const i_in);
+//rvec4 ijkVecUnpackUnit3of4rl(i32 const i_in, uindex* const excl_out);
 #define ijkVecUnpackUnit3of4rl ijk_declrealfs(ijkVecUnpackUnit3of4,l)
 
 // ijkVecPackQuant4*l
