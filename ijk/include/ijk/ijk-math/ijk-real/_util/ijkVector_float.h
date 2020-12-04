@@ -6872,6 +6872,25 @@ i32 ijkVecPackUnit3of4fvl(float4 const v_in);
 //		return: v_out
 floatv ijkVecUnpackUnit3of4fvl(float4 v_out, i32 const i_in);
 
+// ijkVecPackQuant4*l
+//	Compress three components of 4D quantized unit vector into a long integer 
+//	(32 bits); components are encoded into 10 bits each, with the index of the 
+//	maximum component stored in the remaining bits. Since the maximum value of 
+//	the stored three components will be between [-sqrt(0.5),+sqrt(0.5)], they
+//	can be quantized for better precision when decoded. If the excluded (max) 
+//	component is negative, the entire vector is negated to make it positive.
+//		param v_in: symmetric-unit vector to compress, elements in [-1,+1]
+//		return: short integer encoding vector
+i32 ijkVecPackQuant4fvl(float4 const v_in);
+
+// ijkVecUnpackQuant4*l
+//	Decompress 4D quantized unit vector from a long integer (32 bits) 
+//	encoding only three components and the index of the fourth.
+//		param v_out: output vector, decoded vector
+//		param i_in: integer encoding vector to decompress
+//		return: v_out
+floatv ijkVecUnpackQuant4fvl(float4 v_out, i32 const i_in);
+
 // ijkVecPackUnitXYZ4*vll
 //	Compress three components of 4D unit vector into a long-long integer 
 //	(64 bits); components are encoded into 21 bits each, while the remaining 
@@ -7027,6 +7046,24 @@ i32 ijkVecPackUnit3of4fl(fvec4 const v_in);
 //		param i_in: integer encoding vector to decompress
 //		return: decoded vector
 fvec4 ijkVecUnpackUnit3of4fl(i32 const i_in);
+
+// ijkVecPackQuant4*l
+//	Compress three components of 4D quantized unit vector into a long integer 
+//	(32 bits); components are encoded into 10 bits each, with the index of the 
+//	maximum component stored in the remaining bits. Since the maximum value of 
+//	the stored three components will be between [-sqrt(0.5),+sqrt(0.5)], they
+//	can be quantized for better precision when decoded. If the excluded (max) 
+//	component is negative, the entire vector is negated to make it positive.
+//		param v_in: symmetric-unit vector to compress, elements in [-1,+1]
+//		return: short integer encoding vector
+i32 ijkVecPackQuant4fl(fvec4 const v_in);
+
+// ijkVecUnpackQuant4*l
+//	Decompress 4D quantized unit vector from a long integer (32 bits) 
+//	encoding only three components and the index of the fourth.
+//		param i_in: integer encoding vector to decompress
+//		return: decoded vector
+fvec4 ijkVecUnpackQuant4fl(i32 const i_in);
 
 // ijkVecPackUnitXYZ4*ll
 //	Compress three components of 4D unit vector into a long-long integer 

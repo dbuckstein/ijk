@@ -5508,9 +5508,9 @@ ijk_inl float ijkVecReparamCubicHermite2f(float uTable_out[], float lTable_out[]
 		*lTable_out = arcLength;
 		*vTable_out = vc = v0;
 
-		for (i = 1, du = ijk_recip_flt((float)numDivisions); i <= numDivisions; ++i)
+		for (i = 1, du = ijk_recip_flt((f32)numDivisions); i <= numDivisions; ++i)
 		{
-			u = (float)i * du;
+			u = (f32)i * du;
 			v = ijkVecCubicHermite2f(v0, dv0, v1, dv1, u);
 			arcLength += ijkVecDistance2f(v, vc);
 			*(++uTable_out) = u;
@@ -5538,9 +5538,9 @@ ijk_inl float ijkVecReparamCubicHermiteHandles2f(float uTable_out[], float lTabl
 		*lTable_out = arcLength;
 		*vTable_out = vc = v0;
 
-		for (i = 1, du = ijk_recip_flt((float)numDivisions); i <= numDivisions; ++i)
+		for (i = 1, du = ijk_recip_flt((f32)numDivisions); i <= numDivisions; ++i)
 		{
-			u = (float)i * du;
+			u = (f32)i * du;
 			v = ijkVecCubicHermiteHandles2f(v0, cv0, v1, cv1, u);
 			arcLength += ijkVecDistance2f(v, vc);
 			*(++uTable_out) = u;
@@ -5568,9 +5568,9 @@ ijk_inl float ijkVecReparamCubicCatmullRom2f(float uTable_out[], float lTable_ou
 		*lTable_out = arcLength;
 		*vTable_out = vc = v0;
 
-		for (i = 1, du = ijk_recip_flt((float)numDivisions); i <= numDivisions; ++i)
+		for (i = 1, du = ijk_recip_flt((f32)numDivisions); i <= numDivisions; ++i)
 		{
-			u = (float)i * du;
+			u = (f32)i * du;
 			v = ijkVecCubicCatmullRom2f(vp, v0, v1, v2, u);
 			arcLength += ijkVecDistance2f(v, vc);
 			*(++uTable_out) = u;
@@ -5601,9 +5601,9 @@ ijk_inl float ijkVecReparamBicubicCatmullRom2f(float uTable_out[], float lTable_
 		*lTable_out = arcLength;
 		*vTable_out = vc = v0;
 
-		for (i = 1, du = ijk_recip_flt((float)numDivisions); i <= numDivisions; ++i)
+		for (i = 1, du = ijk_recip_flt((f32)numDivisions); i <= numDivisions; ++i)
 		{
-			u = (float)i * du;
+			u = (f32)i * du;
 			v = ijkVecCubicCatmullRom2f(vp, v0, v1, v2, u);
 			arcLength += ijkVecDistance2f(v, vc);
 			*(++uTable_out) = u;
@@ -6044,9 +6044,9 @@ ijk_inl float ijkVecReparamCubicHermite3f(float uTable_out[], float lTable_out[]
 		*lTable_out = arcLength;
 		*vTable_out = vc = v0;
 
-		for (i = 1, du = ijk_recip_flt((float)numDivisions); i <= numDivisions; ++i)
+		for (i = 1, du = ijk_recip_flt((f32)numDivisions); i <= numDivisions; ++i)
 		{
-			u = (float)i * du;
+			u = (f32)i * du;
 			v = ijkVecCubicHermite3f(v0, dv0, v1, dv1, u);
 			arcLength += ijkVecDistance3f(v, vc);
 			*(++uTable_out) = u;
@@ -6074,9 +6074,9 @@ ijk_inl float ijkVecReparamCubicHermiteHandles3f(float uTable_out[], float lTabl
 		*lTable_out = arcLength;
 		*vTable_out = vc = v0;
 
-		for (i = 1, du = ijk_recip_flt((float)numDivisions); i <= numDivisions; ++i)
+		for (i = 1, du = ijk_recip_flt((f32)numDivisions); i <= numDivisions; ++i)
 		{
-			u = (float)i * du;
+			u = (f32)i * du;
 			v = ijkVecCubicHermiteHandles3f(v0, cv0, v1, cv1, u);
 			arcLength += ijkVecDistance3f(v, vc);
 			*(++uTable_out) = u;
@@ -6104,9 +6104,9 @@ ijk_inl float ijkVecReparamCubicCatmullRom3f(float uTable_out[], float lTable_ou
 		*lTable_out = arcLength;
 		*vTable_out = vc = v0;
 
-		for (i = 1, du = ijk_recip_flt((float)numDivisions); i <= numDivisions; ++i)
+		for (i = 1, du = ijk_recip_flt((f32)numDivisions); i <= numDivisions; ++i)
 		{
-			u = (float)i * du;
+			u = (f32)i * du;
 			v = ijkVecCubicCatmullRom3f(vp, v0, v1, v2, u);
 			arcLength += ijkVecDistance3f(v, vc);
 			*(++uTable_out) = u;
@@ -6137,9 +6137,9 @@ ijk_inl float ijkVecReparamBicubicCatmullRom3f(float uTable_out[], float lTable_
 		*lTable_out = arcLength;
 		*vTable_out = vc = v0;
 
-		for (i = 1, du = ijk_recip_flt((float)numDivisions); i <= numDivisions; ++i)
+		for (i = 1, du = ijk_recip_flt((f32)numDivisions); i <= numDivisions; ++i)
 		{
-			u = (float)i * du;
+			u = (f32)i * du;
 			v = ijkVecCubicCatmullRom3f(vp, v0, v1, v2, u);
 			arcLength += ijkVecDistance3f(v, vc);
 			*(++uTable_out) = u;
@@ -6591,9 +6591,9 @@ ijk_inl float ijkVecReparamCubicHermite4f(float uTable_out[], float lTable_out[]
 		*lTable_out = arcLength;
 		*vTable_out = vc = v0;
 
-		for (i = 1, du = ijk_recip_flt((float)numDivisions); i <= numDivisions; ++i)
+		for (i = 1, du = ijk_recip_flt((f32)numDivisions); i <= numDivisions; ++i)
 		{
-			u = (float)i * du;
+			u = (f32)i * du;
 			v = ijkVecCubicHermite4f(v0, dv0, v1, dv1, u);
 			arcLength += ijkVecDistance4f(v, vc);
 			*(++uTable_out) = u;
@@ -6621,9 +6621,9 @@ ijk_inl float ijkVecReparamCubicHermiteHandles4f(float uTable_out[], float lTabl
 		*lTable_out = arcLength;
 		*vTable_out = vc = v0;
 
-		for (i = 1, du = ijk_recip_flt((float)numDivisions); i <= numDivisions; ++i)
+		for (i = 1, du = ijk_recip_flt((f32)numDivisions); i <= numDivisions; ++i)
 		{
-			u = (float)i * du;
+			u = (f32)i * du;
 			v = ijkVecCubicHermiteHandles4f(v0, cv0, v1, cv1, u);
 			arcLength += ijkVecDistance4f(v, vc);
 			*(++uTable_out) = u;
@@ -6651,9 +6651,9 @@ ijk_inl float ijkVecReparamCubicCatmullRom4f(float uTable_out[], float lTable_ou
 		*lTable_out = arcLength;
 		*vTable_out = vc = v0;
 
-		for (i = 1, du = ijk_recip_flt((float)numDivisions); i <= numDivisions; ++i)
+		for (i = 1, du = ijk_recip_flt((f32)numDivisions); i <= numDivisions; ++i)
 		{
-			u = (float)i * du;
+			u = (f32)i * du;
 			v = ijkVecCubicCatmullRom4f(vp, v0, v1, v2, u);
 			arcLength += ijkVecDistance4f(v, vc);
 			*(++uTable_out) = u;
@@ -6684,9 +6684,9 @@ ijk_inl float ijkVecReparamBicubicCatmullRom4f(float uTable_out[], float lTable_
 		*lTable_out = arcLength;
 		*vTable_out = vc = v0;
 
-		for (i = 1, du = ijk_recip_flt((float)numDivisions); i <= numDivisions; ++i)
+		for (i = 1, du = ijk_recip_flt((f32)numDivisions); i <= numDivisions; ++i)
 		{
-			u = (float)i * du;
+			u = (f32)i * du;
 			v = ijkVecCubicCatmullRom4f(vp, v0, v1, v2, u);
 			arcLength += ijkVecDistance4f(v, vc);
 			*(++uTable_out) = u;
@@ -6736,85 +6736,104 @@ ijk_inl fvec4 ijkVecSampleTableDec4f(float const uTable[], fvec4 const vTable[],
 
 ijk_inl i8 ijkVecPack1fb(f32 const v_in)
 {
-
-	return 0;
+	// pack signed float into signed byte: 7 bits + sign
+	//	2^7-1 = 127
+	return (i8)(v_in * 127.0f);
 }
 
 ijk_inl f32 ijkVecUnpack1fb(i8 const i_in)
 {
-
-	return flt_zero;
+	return ((f32)i_in / 127.0f);
 }
 
 ijk_inl i16 ijkVecPack1fs(f32 const v_in)
 {
-
-	return 0;
+	// sign + 15 bits
+	return (i16)(v_in * 32767.0f);
 }
 
 ijk_inl f32 ijkVecUnpack1fs(i16 const i_in)
 {
-
-	return flt_zero;
+	return ((f32)i_in / 32767.0f);
 }
 
 ijk_inl i16 ijkVecPack2fvs(float2 const v_in)
 {
-
-	return 0;
+	return (i16)(
+		(i8)(v_in[0] * 127.0f) << 000 |
+		(i8)(v_in[1] * 127.0f) << 010);
 }
 
 ijk_inl floatv ijkVecUnpack2fvs(float2 v_out, i16 const i_in)
 {
-
+	v_out[0] = ((f32)(i_in >> 000 & 0xff) / 127.0f);
+	v_out[1] = ((f32)(i_in >> 010 & 0xff) / 127.0f);
 	return v_out;
 }
 
 ijk_inl i32 ijkVecPack2fvl(float2 const v_in)
 {
-
-	return 0;
+	return (i32)(
+		(i16)(v_in[0] * 32767.0f) << 000 |
+		(i16)(v_in[1] * 32767.0f) << 020);
 }
 
 ijk_inl floatv ijkVecUnpack2fvl(float2 v_out, i32 const i_in)
 {
-
+	v_out[0] = ((f32)(i_in >> 000 & 0xffff) / 32767.0f);
+	v_out[1] = ((f32)(i_in >> 020 & 0xffff) / 32767.0f);
 	return v_out;
 }
 
 ijk_inl i32 ijkVecPack3fvl(float3 const v_in)
 {
-
-	return 0;
+	return (i32)(
+		((i32)(v_in[0] * 511.0f) & 0x03ff) << 00 |
+		((i32)(v_in[1] * 511.0f) & 0x03ff) << 10 |
+		((i32)(v_in[2] * 511.0f) & 0x03ff) << 20);
 }
 
 ijk_inl floatv ijkVecUnpack3fvl(float3 v_out, i32 const i_in)
 {
-
+	v_out[0] = ((f32)(i_in >> 00 & 0x03ff) / 511.0f);
+	v_out[1] = ((f32)(i_in >> 10 & 0x03ff) / 511.0f);
+	v_out[2] = ((f32)(i_in >> 20 & 0x03ff) / 511.0f);
 	return v_out;
 }
 
 ijk_inl i32 ijkVecPack4fvl(float4 const v_in)
 {
-
-	return 0;
+	return (i32)(
+		(i8)(v_in[0] * 127.0f) << 000 |
+		(i8)(v_in[1] * 127.0f) << 010 |
+		(i8)(v_in[2] * 127.0f) << 020 |
+		(i8)(v_in[3] * 127.0f) << 030);
 }
 
 ijk_inl floatv ijkVecUnpack4fvl(float4 v_out, i32 const i_in)
 {
-
+	v_out[0] = ((f32)(i_in >> 000 & 0xff) / 127.0f);
+	v_out[1] = ((f32)(i_in >> 010 & 0xff) / 127.0f);
+	v_out[2] = ((f32)(i_in >> 020 & 0xff) / 127.0f);
+	v_out[3] = ((f32)(i_in >> 030 & 0xff) / 127.0f);
 	return v_out;
 }
 
 ijk_inl i64 ijkVecPack4fvll(float4 const v_in)
 {
-
-	return 0;
+	return (i64)(
+		(i64)(v_in[0] * 32767.0f) << 000 |
+		(i64)(v_in[1] * 32767.0f) << 020 |
+		(i64)(v_in[2] * 32767.0f) << 040 |
+		(i64)(v_in[3] * 32767.0f) << 060);
 }
 
 ijk_inl floatv ijkVecUnpack4fvll(float4 v_out, i64 const i_in)
 {
-
+	v_out[0] = ((f32)(i_in >> 000 & 0xffff) / 32767.0f);
+	v_out[1] = ((f32)(i_in >> 020 & 0xffff) / 32767.0f);
+	v_out[2] = ((f32)(i_in >> 040 & 0xffff) / 32767.0f);
+	v_out[3] = ((f32)(i_in >> 060 & 0xffff) / 32767.0f);
 	return v_out;
 }
 
@@ -6837,6 +6856,18 @@ ijk_inl i32 ijkVecPackUnit3of4fvl(float4 const v_in)
 }
 
 ijk_inl floatv ijkVecUnpackUnit3of4fvl(float4 v_out, i32 const i_in)
+{
+
+	return v_out;
+}
+
+ijk_inl i32 ijkVecPackQuant4fvl(float4 const v_in)
+{
+
+	return 0;
+}
+
+ijk_inl floatv ijkVecUnpackQuant4fvl(float4 v_out, i32 const i_in)
 {
 
 	return v_out;

@@ -5508,9 +5508,9 @@ ijk_inl double ijkVecReparamCubicHermite2d(double uTable_out[], double lTable_ou
 		*lTable_out = arcLength;
 		*vTable_out = vc = v0;
 
-		for (i = 1, du = ijk_recip_dbl((double)numDivisions); i <= numDivisions; ++i)
+		for (i = 1, du = ijk_recip_dbl((f64)numDivisions); i <= numDivisions; ++i)
 		{
-			u = (double)i * du;
+			u = (f64)i * du;
 			v = ijkVecCubicHermite2d(v0, dv0, v1, dv1, u);
 			arcLength += ijkVecDistance2d(v, vc);
 			*(++uTable_out) = u;
@@ -5538,9 +5538,9 @@ ijk_inl double ijkVecReparamCubicHermiteHandles2d(double uTable_out[], double lT
 		*lTable_out = arcLength;
 		*vTable_out = vc = v0;
 
-		for (i = 1, du = ijk_recip_dbl((double)numDivisions); i <= numDivisions; ++i)
+		for (i = 1, du = ijk_recip_dbl((f64)numDivisions); i <= numDivisions; ++i)
 		{
-			u = (double)i * du;
+			u = (f64)i * du;
 			v = ijkVecCubicHermiteHandles2d(v0, cv0, v1, cv1, u);
 			arcLength += ijkVecDistance2d(v, vc);
 			*(++uTable_out) = u;
@@ -5568,9 +5568,9 @@ ijk_inl double ijkVecReparamCubicCatmullRom2d(double uTable_out[], double lTable
 		*lTable_out = arcLength;
 		*vTable_out = vc = v0;
 
-		for (i = 1, du = ijk_recip_dbl((double)numDivisions); i <= numDivisions; ++i)
+		for (i = 1, du = ijk_recip_dbl((f64)numDivisions); i <= numDivisions; ++i)
 		{
-			u = (double)i * du;
+			u = (f64)i * du;
 			v = ijkVecCubicCatmullRom2d(vp, v0, v1, v2, u);
 			arcLength += ijkVecDistance2d(v, vc);
 			*(++uTable_out) = u;
@@ -5601,9 +5601,9 @@ ijk_inl double ijkVecReparamBicubicCatmullRom2d(double uTable_out[], double lTab
 		*lTable_out = arcLength;
 		*vTable_out = vc = v0;
 
-		for (i = 1, du = ijk_recip_dbl((double)numDivisions); i <= numDivisions; ++i)
+		for (i = 1, du = ijk_recip_dbl((f64)numDivisions); i <= numDivisions; ++i)
 		{
-			u = (double)i * du;
+			u = (f64)i * du;
 			v = ijkVecCubicCatmullRom2d(vp, v0, v1, v2, u);
 			arcLength += ijkVecDistance2d(v, vc);
 			*(++uTable_out) = u;
@@ -6044,9 +6044,9 @@ ijk_inl double ijkVecReparamCubicHermite3d(double uTable_out[], double lTable_ou
 		*lTable_out = arcLength;
 		*vTable_out = vc = v0;
 
-		for (i = 1, du = ijk_recip_dbl((double)numDivisions); i <= numDivisions; ++i)
+		for (i = 1, du = ijk_recip_dbl((f64)numDivisions); i <= numDivisions; ++i)
 		{
-			u = (double)i * du;
+			u = (f64)i * du;
 			v = ijkVecCubicHermite3d(v0, dv0, v1, dv1, u);
 			arcLength += ijkVecDistance3d(v, vc);
 			*(++uTable_out) = u;
@@ -6074,9 +6074,9 @@ ijk_inl double ijkVecReparamCubicHermiteHandles3d(double uTable_out[], double lT
 		*lTable_out = arcLength;
 		*vTable_out = vc = v0;
 
-		for (i = 1, du = ijk_recip_dbl((double)numDivisions); i <= numDivisions; ++i)
+		for (i = 1, du = ijk_recip_dbl((f64)numDivisions); i <= numDivisions; ++i)
 		{
-			u = (double)i * du;
+			u = (f64)i * du;
 			v = ijkVecCubicHermiteHandles3d(v0, cv0, v1, cv1, u);
 			arcLength += ijkVecDistance3d(v, vc);
 			*(++uTable_out) = u;
@@ -6104,9 +6104,9 @@ ijk_inl double ijkVecReparamCubicCatmullRom3d(double uTable_out[], double lTable
 		*lTable_out = arcLength;
 		*vTable_out = vc = v0;
 
-		for (i = 1, du = ijk_recip_dbl((double)numDivisions); i <= numDivisions; ++i)
+		for (i = 1, du = ijk_recip_dbl((f64)numDivisions); i <= numDivisions; ++i)
 		{
-			u = (double)i * du;
+			u = (f64)i * du;
 			v = ijkVecCubicCatmullRom3d(vp, v0, v1, v2, u);
 			arcLength += ijkVecDistance3d(v, vc);
 			*(++uTable_out) = u;
@@ -6137,9 +6137,9 @@ ijk_inl double ijkVecReparamBicubicCatmullRom3d(double uTable_out[], double lTab
 		*lTable_out = arcLength;
 		*vTable_out = vc = v0;
 
-		for (i = 1, du = ijk_recip_dbl((double)numDivisions); i <= numDivisions; ++i)
+		for (i = 1, du = ijk_recip_dbl((f64)numDivisions); i <= numDivisions; ++i)
 		{
-			u = (double)i * du;
+			u = (f64)i * du;
 			v = ijkVecCubicCatmullRom3d(vp, v0, v1, v2, u);
 			arcLength += ijkVecDistance3d(v, vc);
 			*(++uTable_out) = u;
@@ -6591,9 +6591,9 @@ ijk_inl double ijkVecReparamCubicHermite4d(double uTable_out[], double lTable_ou
 		*lTable_out = arcLength;
 		*vTable_out = vc = v0;
 
-		for (i = 1, du = ijk_recip_dbl((double)numDivisions); i <= numDivisions; ++i)
+		for (i = 1, du = ijk_recip_dbl((f64)numDivisions); i <= numDivisions; ++i)
 		{
-			u = (double)i * du;
+			u = (f64)i * du;
 			v = ijkVecCubicHermite4d(v0, dv0, v1, dv1, u);
 			arcLength += ijkVecDistance4d(v, vc);
 			*(++uTable_out) = u;
@@ -6621,9 +6621,9 @@ ijk_inl double ijkVecReparamCubicHermiteHandles4d(double uTable_out[], double lT
 		*lTable_out = arcLength;
 		*vTable_out = vc = v0;
 
-		for (i = 1, du = ijk_recip_dbl((double)numDivisions); i <= numDivisions; ++i)
+		for (i = 1, du = ijk_recip_dbl((f64)numDivisions); i <= numDivisions; ++i)
 		{
-			u = (double)i * du;
+			u = (f64)i * du;
 			v = ijkVecCubicHermiteHandles4d(v0, cv0, v1, cv1, u);
 			arcLength += ijkVecDistance4d(v, vc);
 			*(++uTable_out) = u;
@@ -6651,9 +6651,9 @@ ijk_inl double ijkVecReparamCubicCatmullRom4d(double uTable_out[], double lTable
 		*lTable_out = arcLength;
 		*vTable_out = vc = v0;
 
-		for (i = 1, du = ijk_recip_dbl((double)numDivisions); i <= numDivisions; ++i)
+		for (i = 1, du = ijk_recip_dbl((f64)numDivisions); i <= numDivisions; ++i)
 		{
-			u = (double)i * du;
+			u = (f64)i * du;
 			v = ijkVecCubicCatmullRom4d(vp, v0, v1, v2, u);
 			arcLength += ijkVecDistance4d(v, vc);
 			*(++uTable_out) = u;
@@ -6684,9 +6684,9 @@ ijk_inl double ijkVecReparamBicubicCatmullRom4d(double uTable_out[], double lTab
 		*lTable_out = arcLength;
 		*vTable_out = vc = v0;
 
-		for (i = 1, du = ijk_recip_dbl((double)numDivisions); i <= numDivisions; ++i)
+		for (i = 1, du = ijk_recip_dbl((f64)numDivisions); i <= numDivisions; ++i)
 		{
-			u = (double)i * du;
+			u = (f64)i * du;
 			v = ijkVecCubicCatmullRom4d(vp, v0, v1, v2, u);
 			arcLength += ijkVecDistance4d(v, vc);
 			*(++uTable_out) = u;

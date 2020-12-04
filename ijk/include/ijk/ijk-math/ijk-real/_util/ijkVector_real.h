@@ -7629,6 +7629,27 @@ extern "C" {
 //realv ijkVecUnpackUnit3of4rvl(real4 v_out, i32 const i_in);
 #define ijkVecUnpackUnit3of4rvl ijk_declrealfs(ijkVecUnpackUnit3of4,vl)
 
+// ijkVecPackQuant4*l
+//	Compress three components of 4D quantized unit vector into a long integer 
+//	(32 bits); components are encoded into 10 bits each, with the index of the 
+//	maximum component stored in the remaining bits. Since the maximum value of 
+//	the stored three components will be between [-sqrt(0.5),+sqrt(0.5)], they
+//	can be quantized for better precision when decoded. If the excluded (max) 
+//	component is negative, the entire vector is negated to make it positive.
+//		param v_in: symmetric-unit vector to compress, elements in [-1,+1]
+//		return: short integer encoding vector
+//i32 ijkVecPackQuant4rvl(real4 const v_in);
+#define ijkVecPackQuant4rvl ijk_declrealfs(ijkVecPackQuant4,vl)
+
+// ijkVecUnpackQuant4*l
+//	Decompress 4D quantized unit vector from a long integer (32 bits) 
+//	encoding only three components and the index of the fourth.
+//		param v_out: output vector, decoded vector
+//		param i_in: integer encoding vector to decompress
+//		return: v_out
+//realv ijkVecUnpackQuant4rvl(real4 v_out, i32 const i_in);
+#define ijkVecUnpackQuant4rvl ijk_declrealfs(ijkVecUnpackQuant4,vl)
+
 // ijkVecPackUnitXYZ4*vll
 //	Compress three components of 4D unit vector into a long-long integer 
 //	(64 bits); components are encoded into 21 bits each, while the remaining 
@@ -7804,6 +7825,26 @@ extern "C" {
 //		return: decoded vector
 //rvec4 ijkVecUnpackUnit3of4rl(i32 const i_in);
 #define ijkVecUnpackUnit3of4rl ijk_declrealfs(ijkVecUnpackUnit3of4,l)
+
+// ijkVecPackQuant4*l
+//	Compress three components of 4D quantized unit vector into a long integer 
+//	(32 bits); components are encoded into 10 bits each, with the index of the 
+//	maximum component stored in the remaining bits. Since the maximum value of 
+//	the stored three components will be between [-sqrt(0.5),+sqrt(0.5)], they
+//	can be quantized for better precision when decoded. If the excluded (max) 
+//	component is negative, the entire vector is negated to make it positive.
+//		param v_in: symmetric-unit vector to compress, elements in [-1,+1]
+//		return: short integer encoding vector
+//i32 ijkVecPackQuant4rl(rvec4 const v_in);
+#define ijkVecPackQuant4rl ijk_declrealfs(ijkVecPackQuant4,l)
+
+// ijkVecUnpackQuant4*l
+//	Decompress 4D quantized unit vector from a long integer (32 bits) 
+//	encoding only three components and the index of the fourth.
+//		param i_in: integer encoding vector to decompress
+//		return: decoded vector
+//rvec4 ijkVecUnpackQuant4rl(i32 const i_in);
+#define ijkVecUnpackQuant4rl ijk_declrealfs(ijkVecUnpackQuant4,l)
 
 // ijkVecPackUnitXYZ4*ll
 //	Compress three components of 4D unit vector into a long-long integer 
