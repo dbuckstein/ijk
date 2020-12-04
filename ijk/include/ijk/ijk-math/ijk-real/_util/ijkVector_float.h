@@ -6743,9 +6743,11 @@ fvec4 ijkVecSampleTableDec4f(float const uTable[], fvec4 const vTable[], index i
 
 //-----------------------------------------------------------------------------
 
+
 #ifdef __cplusplus
 extern "C" {
 #endif	// __cplusplus
+
 
 //-----------------------------------------------------------------------------
 
@@ -6954,6 +6956,7 @@ floatv ijkVecUnpackQuant4fvll(float4 v_out, i64 const i_in);
 #ifdef __cplusplus
 }
 #endif	// __cplusplus
+
 
 //-----------------------------------------------------------------------------
 

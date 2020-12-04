@@ -6734,6 +6734,479 @@ ijk_inl dvec4 ijkVecSampleTableDec4d(double const uTable[], dvec4 const vTable[]
 
 //-----------------------------------------------------------------------------
 
+ijk_inl i8 ijkVecPack1db(f64 const v_in)
+{
+	// pack signed double into signed byte: 7 bits + sign
+	//	2^7-1 = 127
+	return (i8)(v_in * 127.0);
+}
+
+ijk_inl f64 ijkVecUnpack1db(i8 const i_in)
+{
+	return ((f64)i_in / 127.0);
+}
+
+ijk_inl i16 ijkVecPack1ds(f64 const v_in)
+{
+	// sign + 15 bits
+	return (i16)(v_in * 32767.0);
+}
+
+ijk_inl f64 ijkVecUnpack1ds(i16 const i_in)
+{
+	return ((f64)i_in / 32767.0);
+}
+
+ijk_inl i16 ijkVecPack2dvs(double2 const v_in)
+{
+	// scale inputs, mask and shift
+	return (i16)(
+		((i16)(v_in[0] * 127.0) & 0xff) |
+		((i16)(v_in[1] * 127.0) & 0xff) << 8);
+}
+
+ijk_inl doublev ijkVecUnpack2dvs(double2 v_out, i16 const i_in)
+{
+	// shift, mask and scale
+	v_out[0] = ((f64)(i_in		& 0xff) / 127.0);
+	v_out[1] = ((f64)(i_in >> 8 & 0xff) / 127.0);
+	return v_out;
+}
+
+ijk_inl i32 ijkVecPack2dvl(double2 const v_in)
+{
+	return (i32)(
+		((i32)(v_in[0] * 32767.0) & 0xffff) |
+		((i32)(v_in[1] * 32767.0) & 0xffff) << 16);
+}
+
+ijk_inl doublev ijkVecUnpack2dvl(double2 v_out, i32 const i_in)
+{
+	v_out[0] = ((f64)(i_in		 & 0xffff) / 32767.0);
+	v_out[1] = ((f64)(i_in >> 16 & 0xffff) / 32767.0);
+	return v_out;
+}
+
+ijk_inl i32 ijkVecPack3dvl(double3 const v_in)
+{
+	return (i32)(
+		((i32)(v_in[0] * 511.0) & 0x03ff) |
+		((i32)(v_in[1] * 511.0) & 0x03ff) << 10 |
+		((i32)(v_in[2] * 511.0) & 0x03ff) << 20);
+}
+
+ijk_inl doublev ijkVecUnpack3dvl(double3 v_out, i32 const i_in)
+{
+	v_out[0] = ((f64)(i_in		 & 0x03ff) / 511.0);
+	v_out[1] = ((f64)(i_in >> 10 & 0x03ff) / 511.0);
+	v_out[2] = ((f64)(i_in >> 20 & 0x03ff) / 511.0);
+	return v_out;
+}
+
+ijk_inl i32 ijkVecPack4dvl(double4 const v_in)
+{
+	return (i32)(
+		((i32)(v_in[0] * 127.0) & 0xff) |
+		((i32)(v_in[1] * 127.0) & 0xff) <<  8 |
+		((i32)(v_in[2] * 127.0) & 0xff) << 16 |
+		((i32)(v_in[3] * 127.0) & 0xff) << 24);
+}
+
+ijk_inl doublev ijkVecUnpack4dvl(double4 v_out, i32 const i_in)
+{
+	v_out[0] = ((f64)(i_in		 & 0xff) / 127.0);
+	v_out[1] = ((f64)(i_in >>  8 & 0xff) / 127.0);
+	v_out[2] = ((f64)(i_in >> 16 & 0xff) / 127.0);
+	v_out[3] = ((f64)(i_in >> 24 & 0xff) / 127.0);
+	return v_out;
+}
+
+ijk_inl i64 ijkVecPack4dvll(double4 const v_in)
+{
+	return (i64)(
+		((i64)(v_in[0] * 32767.0) & 0xffff) |
+		((i64)(v_in[1] * 32767.0) & 0xffff) << 16 |
+		((i64)(v_in[2] * 32767.0) & 0xffff) << 32 |
+		((i64)(v_in[3] * 32767.0) & 0xffff) << 48);
+}
+
+ijk_inl doublev ijkVecUnpack4dvll(double4 v_out, i64 const i_in)
+{
+	v_out[0] = ((f64)(i_in		 & 0xffff) / 32767.0);
+	v_out[1] = ((f64)(i_in >> 16 & 0xffff) / 32767.0);
+	v_out[2] = ((f64)(i_in >> 32 & 0xffff) / 32767.0);
+	v_out[3] = ((f64)(i_in >> 48 & 0xffff) / 32767.0);
+	return v_out;
+}
+
+ijk_inl i32 ijkVecPackUnitXYZ4dvl(double4 const v_in)
+{
+	// store first three elements and sign of fourth
+	return (i32)(
+		((i32)(v_in[0] * 511.0) & 0x03ff) |
+		((i32)(v_in[1] * 511.0) & 0x03ff) << 10 |
+		((i32)(v_in[2] * 511.0) & 0x03ff) << 20 |
+		(*(i32*)(v_in + 3) & 0x80000000));
+}
+
+ijk_inl doublev ijkVecUnpackUnitXYZ4dvl(double4 v_out, i32 const i_in)
+{
+	// extract first three elements, calculate fourth using magnitude and sign
+	v_out[0] = ((f64)(i_in		 & 0x03ff) / 511.0);
+	v_out[1] = ((f64)(i_in >> 10 & 0x03ff) / 511.0);
+	v_out[2] = ((f64)(i_in >> 20 & 0x03ff) / 511.0);
+	v_out[3] = ((f64)(i_in >> 31) * ijkSqrt_dbl(dbl_one - ijkVecLengthSq3dv(v_out)));
+	return v_out;
+}
+
+ijk_inl i32 ijkVecPackUnit3of4dvl(double4 const v_in, uindex const excl)
+{
+	// entire vector scales by sign of excluded element
+	// store all others and index of excluded
+	uindex const x = (excl % 4);
+	f64 const f = (*(i32*)(v_in + x) & 0x80000000) ? -511.0 : +511.0;
+	return (i32)(
+		((i32)(v_in[(x + 1) % 4] * f) & 0x03ff) |
+		((i32)(v_in[(x + 2) % 4] * f) & 0x03ff) << 10 |
+		((i32)(v_in[(x + 3) % 4] * f) & 0x03ff) << 20 |
+		x << 30);
+}
+
+ijk_inl doublev ijkVecUnpackUnit3of4dvl(double4 v_out, i32 const i_in, uindex* const excl_out)
+{
+	// get index of excluded, extract others, calculate using magnitude
+	uindex const x = *excl_out = (i_in >> 30);
+	f64 v1, v2, v3;
+	v_out[(x + 1) % 4] = v1 = ((f64)(i_in		& 0x03ff) / 511.0);
+	v_out[(x + 2) % 4] = v2 = ((f64)(i_in >> 10 & 0x03ff) / 511.0);
+	v_out[(x + 3) % 4] = v3 = ((f64)(i_in >> 20 & 0x03ff) / 511.0);
+	v_out[x] = ijkSqrt_dbl(dbl_one - v1 * v1 - v2 * v2 - v3 * v3);
+	return v_out;
+}
+
+ijk_inl i32 ijkVecPackQuant4dvl(double4 const v_in)
+{
+	// calculate index of component with greatest magnitude
+	double4 const sq = { (v_in[0] * v_in[0]), (v_in[1] * v_in[1]), (v_in[2] * v_in[2]), (v_in[3] * v_in[3]) };
+	uindex const xy = (sq[1] >= sq[0]) + 0, zw = (sq[3] >= sq[2]) + 2, x = (sq[xy] >= sq[zw] ? xy : zw);
+	f64 const f = (*(i32*)(v_in + x) & 0x80000000) ? -722.6631303726515 : +722.6631303726515; // ~= 511 * sqrt(2)
+	return (i32)(
+		((i32)(v_in[(x + 1) % 4] * f) & 0x03ff) |
+		((i32)(v_in[(x + 2) % 4] * f) & 0x03ff) << 10 |
+		((i32)(v_in[(x + 3) % 4] * f) & 0x03ff) << 20 |
+		x << 30);
+}
+
+ijk_inl doublev ijkVecUnpackQuant4dvl(double4 v_out, i32 const i_in)
+{
+	// get index of excluded, extract others, calculate using magnitude
+	uindex const x = (i_in >> 30);
+	f64 v1, v2, v3;
+	v_out[(x + 1) % 4] = v1 = ((f64)(i_in		& 0x03ff) / 722.6631303726515);
+	v_out[(x + 2) % 4] = v2 = ((f64)(i_in >> 10 & 0x03ff) / 722.6631303726515);
+	v_out[(x + 3) % 4] = v3 = ((f64)(i_in >> 20 & 0x03ff) / 722.6631303726515);
+	v_out[x] = ijkSqrt_dbl(dbl_one - v1 * v1 - v2 * v2 - v3 * v3);
+	return v_out;
+}
+
+ijk_inl i64 ijkVecPackUnitXYZ4dvll(double4 const v_in)
+{
+	// store first three elements and sign of fourth
+	return (i64)(
+		((i64)(v_in[0] * 1048575.0) & 0x001fffff) << 00 |
+		((i64)(v_in[1] * 1048575.0) & 0x001fffff) << 21 |
+		((i64)(v_in[2] * 1048575.0) & 0x001fffff) << 42 |
+		((i64)(*(i32*)(v_in + 3) & 0x80000000)) << 31);
+}
+
+ijk_inl doublev ijkVecUnpackUnitXYZ4dvll(double4 v_out, i64 const i_in)
+{
+	v_out[0] = ((f64)(i_in		 & 0x001fffff) / 1048575.0);
+	v_out[1] = ((f64)(i_in >> 21 & 0x001fffff) / 1048575.0);
+	v_out[2] = ((f64)(i_in >> 42 & 0x001fffff) / 1048575.0);
+	v_out[3] = ((f64)(i_in >> 63) * ijkSqrt_dbl(dbl_one - ijkVecLengthSq3dv(v_out)));
+	return v_out;
+}
+
+ijk_inl i64 ijkVecPackUnit3of4dvll(double4 const v_in, uindex const excl)
+{
+	// this time store index and sign
+	uindex const x = (excl % 4);
+	return (i64)(
+		((i64)(v_in[(x + 1) % 4] * 524287.0) & 0x000fffff) |
+		((i64)(v_in[(x + 2) % 4] * 524287.0) & 0x000fffff) << 10 |
+		((i64)(v_in[(x + 3) % 4] * 524287.0) & 0x000fffff) << 20 |
+		((i64)(*(i32*)(v_in + x) & 0x80000000)) << 31 |
+		x << 61);
+}
+
+ijk_inl doublev ijkVecUnpackUnit3of4dvll(double4 v_out, i64 const i_in, uindex* const excl_out)
+{
+	// get missing index without sign
+	uindex const x = (i_in >> 61 & 3);
+	f64 v1, v2, v3;
+	v_out[(x + 1) % 4] = v1 = ((f64)(i_in		& 0x000fffff) / 524287.0);
+	v_out[(x + 2) % 4] = v2 = ((f64)(i_in >> 20 & 0x000fffff) / 524287.0);
+	v_out[(x + 3) % 4] = v3 = ((f64)(i_in >> 40 & 0x000fffff) / 524287.0);
+	v_out[x] = ((f64)(i_in >> 63) * ijkSqrt_dbl(dbl_one - v1 * v1 - v2 * v2 - v3 * v3));
+	return v_out;
+}
+
+ijk_inl i64 ijkVecPackQuant4dvll(double4 const v_in)
+{
+	double4 const sq = { (v_in[0] * v_in[0]), (v_in[1] * v_in[1]), (v_in[2] * v_in[2]), (v_in[3] * v_in[3]) };
+	uindex const xy = (sq[1] >= sq[0]) + 0, zw = (sq[3] >= sq[2]) + 2, x = (sq[xy] >= sq[zw] ? xy : zw);
+	return (i64)(
+		((i64)(v_in[(x + 1) % 4] * 23169.06079235841) & 0x7fff) << 16 | // ~= 16383 * sqrt(2); << 16
+		((i64)(v_in[(x + 2) % 4] * 23169.06079235841) & 0x7fff) << 31 |	// << 15 << 16
+		((i64)(v_in[(x + 3) % 4] * 23169.06079235841) & 0x7fff) << 46 |	// << 30 << 16
+		((i64)(*(i32*)(v_in + x) & 0x80000000)) << 31 |
+		x << 61);
+}
+
+ijk_inl doublev ijkVecUnpackQuant4dvll(double4 v_out, i64 const i_in)
+{
+	uindex const x = (i_in >> 61 & 3);
+	f64 v1, v2, v3;
+	v_out[(x + 1) % 4] = v1 = ((f64)(i_in >> 16 & 0x7fff) / 23169.06079235841);
+	v_out[(x + 2) % 4] = v2 = ((f64)(i_in >> 31 & 0x7fff) / 23169.06079235841);
+	v_out[(x + 3) % 4] = v3 = ((f64)(i_in >> 46 & 0x7fff) / 23169.06079235841);
+	v_out[x] = ((f64)(i_in >> 63) * ijkSqrt_dbl(dbl_one - v1 * v1 - v2 * v2 - v3 * v3));
+	return v_out;
+}
+
+
+//-----------------------------------------------------------------------------
+
+ijk_inl i16 ijkVecPack2ds(dvec2 const v_in)
+{
+	return (i16)(
+		((i16)(v_in.x * 127.0) & 0xff) |
+		((i16)(v_in.y * 127.0) & 0xff) << 8);
+}
+
+ijk_inl dvec2 ijkVecUnpack2ds(i16 const i_in)
+{
+	dvec2 const v_out = {
+		((f64)(i_in		 & 0xff) / 127.0),
+		((f64)(i_in >> 8 & 0xff) / 127.0),
+	};
+	return v_out;
+}
+
+ijk_inl i32 ijkVecPack2dl(dvec2 const v_in)
+{
+	return (i32)(
+		((i32)(v_in.x * 32767.0) & 0xffff) |
+		((i32)(v_in.y * 32767.0) & 0xffff) << 16);
+}
+
+ijk_inl dvec2 ijkVecUnpack2dl(i32 const i_in)
+{
+	dvec2 const v_out = {
+		((f64)(i_in		  & 0xffff) / 32767.0),
+		((f64)(i_in >> 16 & 0xffff) / 32767.0),
+	};
+	return v_out;
+}
+
+ijk_inl i32 ijkVecPack3dl(dvec3 const v_in)
+{
+	return (i32)(
+		((i32)(v_in.x * 511.0) & 0x03ff) |
+		((i32)(v_in.y * 511.0) & 0x03ff) << 10 |
+		((i32)(v_in.z * 511.0) & 0x03ff) << 20);
+}
+
+ijk_inl dvec3 ijkVecUnpack3dl(i32 const i_in)
+{
+	dvec3 const v_out = {
+		((f64)(i_in		  & 0x03ff) / 511.0),
+		((f64)(i_in >> 10 & 0x03ff) / 511.0),
+		((f64)(i_in >> 20 & 0x03ff) / 511.0),
+	};
+	return v_out;
+}
+
+ijk_inl i32 ijkVecPack4dl(dvec4 const v_in)
+{
+	return (i32)(
+		((i32)(v_in.x * 127.0) & 0xff) |
+		((i32)(v_in.y * 127.0) & 0xff) <<  8 |
+		((i32)(v_in.z * 127.0) & 0xff) << 16 |
+		((i32)(v_in.w * 127.0) & 0xff) << 24);
+}
+
+ijk_inl dvec4 ijkVecUnpack4dl(i32 const i_in)
+{
+	dvec4 const v_out = {
+		((f64)(i_in		  & 0xff) / 127.0),
+		((f64)(i_in >>  8 & 0xff) / 127.0),
+		((f64)(i_in >> 16 & 0xff) / 127.0),
+		((f64)(i_in >> 24 & 0xff) / 127.0),
+	};
+	return v_out;
+}
+
+ijk_inl i64 ijkVecPack4dll(dvec4 const v_in)
+{
+	return (i64)(
+		((i64)(v_in.x * 32767.0) & 0xffff) |
+		((i64)(v_in.y * 32767.0) & 0xffff) << 16 |
+		((i64)(v_in.z * 32767.0) & 0xffff) << 32 |
+		((i64)(v_in.w * 32767.0) & 0xffff) << 48);
+}
+
+ijk_inl dvec4 ijkVecUnpack4dll(i64 const i_in)
+{
+	dvec4 const v_out = {
+		((f64)(i_in		  & 0xffff) / 32767.0),
+		((f64)(i_in >> 16 & 0xffff) / 32767.0),
+		((f64)(i_in >> 32 & 0xffff) / 32767.0),
+		((f64)(i_in >> 48 & 0xffff) / 32767.0),
+	};
+	return v_out;
+}
+
+ijk_inl i32 ijkVecPackUnitXYZ4dl(dvec4 const v_in)
+{
+	return (i32)(
+		((i32)(v_in.x * 511.0) & 0x03ff) |
+		((i32)(v_in.y * 511.0) & 0x03ff) << 10 |
+		((i32)(v_in.z * 511.0) & 0x03ff) << 20 |
+		(*(i32*)(v_in.v + 3) & 0x80000000));
+}
+
+ijk_inl dvec4 ijkVecUnpackUnitXYZ4dl(i32 const i_in)
+{
+	f64 x, y, z;
+	dvec4 const v_out = {
+		(x = (f64)(i_in		  & 0x03ff) / 511.0),
+		(y = (f64)(i_in >> 10 & 0x03ff) / 511.0),
+		(z = (f64)(i_in >> 20 & 0x03ff) / 511.0),
+		((f64)(i_in >> 31) * ijkSqrt_dbl(dbl_one - x * x - y * y - z * z)),
+	};
+	return v_out;
+}
+
+ijk_inl i32 ijkVecPackUnit3of4dl(dvec4 const v_in, uindex const excl)
+{
+	uindex const x = (excl % 4);
+	f64 const f = (*(i32*)(v_in.v + x) & 0x80000000) ? -511.0 : +511.0;
+	return (i32)(
+		((i32)(v_in.v[(x + 1) % 4] * f) & 0x03ff) |
+		((i32)(v_in.v[(x + 2) % 4] * f) & 0x03ff) << 10 |
+		((i32)(v_in.v[(x + 3) % 4] * f) & 0x03ff) << 20 |
+		x << 30);
+}
+
+ijk_inl dvec4 ijkVecUnpackUnit3of4dl(i32 const i_in, uindex* const excl_out)
+{
+	uindex const x = *excl_out = (i_in >> 30);
+	f64 v1, v2, v3;
+	dvec4 v_out;
+	v_out.v[(x + 1) % 4] = v1 = ((f64)(i_in		  & 0x03ff) / 511.0);
+	v_out.v[(x + 2) % 4] = v2 = ((f64)(i_in >> 10 & 0x03ff) / 511.0);
+	v_out.v[(x + 3) % 4] = v3 = ((f64)(i_in >> 20 & 0x03ff) / 511.0);
+	v_out.v[x] = ijkSqrt_dbl(dbl_one - v1 * v1 - v2 * v2 - v3 * v3);
+	return v_out;
+}
+
+ijk_inl i32 ijkVecPackQuant4dl(dvec4 const v_in)
+{
+	dvec4 const sq = { (v_in.x * v_in.x), (v_in.y * v_in.y), (v_in.z * v_in.z), (v_in.w * v_in.w) };
+	uindex const xy = (sq.y >= sq.x) + 0, zw = (sq.w >= sq.z) + 2, x = (sq.v[xy] >= sq.v[zw] ? xy : zw);
+	f64 const f = (*(i32*)(v_in.v + x) & 0x80000000) ? -722.6631303726515 : +722.6631303726515; // ~= 511 * sqrt(2)
+	return (i32)(
+		((i32)(v_in.v[(x + 1) % 4] * f) & 0x03ff) |
+		((i32)(v_in.v[(x + 2) % 4] * f) & 0x03ff) << 10 |
+		((i32)(v_in.v[(x + 3) % 4] * f) & 0x03ff) << 20 |
+		x << 30);
+}
+
+ijk_inl dvec4 ijkVecUnpackQuant4dl(i32 const i_in)
+{
+	uindex const x = (i_in >> 30);
+	f64 v1, v2, v3;
+	dvec4 v_out;
+	v_out.v[(x + 1) % 4] = v1 = ((f64)(i_in		  & 0x03ff) / 722.6631303726515);
+	v_out.v[(x + 2) % 4] = v2 = ((f64)(i_in >> 10 & 0x03ff) / 722.6631303726515);
+	v_out.v[(x + 3) % 4] = v3 = ((f64)(i_in >> 20 & 0x03ff) / 722.6631303726515);
+	v_out.v[x] = ijkSqrt_dbl(dbl_one - v1 * v1 - v2 * v2 - v3 * v3);
+	return v_out;
+}
+
+ijk_inl i64 ijkVecPackUnitXYZ4dll(dvec4 const v_in)
+{
+	return (i64)(
+		((i64)(v_in.x * 1048575.0) & 0x001fffff) << 00 |
+		((i64)(v_in.y * 1048575.0) & 0x001fffff) << 21 |
+		((i64)(v_in.z * 1048575.0) & 0x001fffff) << 42 |
+		((i64)(*(i32*)(v_in.v + 3) & 0x80000000)) << 31);
+}
+
+ijk_inl dvec4 ijkVecUnpackUnitXYZ4dll(i64 const i_in)
+{
+	f64 x, y, z;
+	dvec4 const v_out = {
+		(x = (f64)(i_in		  & 0x001fffff) / 1048575.0),
+		(y = (f64)(i_in >> 21 & 0x001fffff) / 1048575.0),
+		(z = (f64)(i_in >> 42 & 0x001fffff) / 1048575.0),
+		((f64)(i_in >> 63) * ijkSqrt_dbl(dbl_one - x * x - y * y - z * z)),
+	};
+	return v_out;
+}
+
+ijk_inl i64 ijkVecPackUnit3of4dll(dvec4 const v_in, uindex const excl)
+{
+	uindex const x = (excl % 4);
+	return (i64)(
+		((i64)(v_in.v[(x + 1) % 4] * 524287.0) & 0x000fffff) |
+		((i64)(v_in.v[(x + 2) % 4] * 524287.0) & 0x000fffff) << 10 |
+		((i64)(v_in.v[(x + 3) % 4] * 524287.0) & 0x000fffff) << 20 |
+		((i64)(*(i32*)(v_in.v + x) & 0x80000000)) << 31 |
+		x << 61);
+}
+
+ijk_inl dvec4 ijkVecUnpackUnit3of4dll(i64 const i_in, uindex* const excl_out)
+{
+	uindex const x = (i_in >> 61 & 3);
+	f64 v1, v2, v3;
+	dvec4 v_out;
+	v_out.v[(x + 1) % 4] = v1 = ((f64)(i_in		  & 0x000fffff) / 524287.0);
+	v_out.v[(x + 2) % 4] = v2 = ((f64)(i_in >> 20 & 0x000fffff) / 524287.0);
+	v_out.v[(x + 3) % 4] = v3 = ((f64)(i_in >> 40 & 0x000fffff) / 524287.0);
+	v_out.v[x] = ((f64)(i_in >> 63) * ijkSqrt_dbl(dbl_one - v1 * v1 - v2 * v2 - v3 * v3));
+	return v_out;
+}
+
+ijk_inl i64 ijkVecPackQuant4dll(dvec4 const v_in)
+{
+	dvec4 const sq = { (v_in.x * v_in.x), (v_in.y * v_in.y), (v_in.z * v_in.z), (v_in.w * v_in.w) };
+	uindex const xy = (sq.y >= sq.x) + 0, zw = (sq.w >= sq.z) + 2, x = (sq.v[xy] >= sq.v[zw] ? xy : zw);
+	return (i64)(
+		((i64)(v_in.v[(x + 1) % 4] * 23169.06079235841) & 0x7fff) << 16 | // ~= 16383 * sqrt(2); << 16
+		((i64)(v_in.v[(x + 2) % 4] * 23169.06079235841) & 0x7fff) << 31 |	// << 15 << 16
+		((i64)(v_in.v[(x + 3) % 4] * 23169.06079235841) & 0x7fff) << 46 |	// << 30 << 16
+		((i64)(*(i32*)(v_in.v + x) & 0x80000000)) << 31 |
+		x << 61);
+}
+
+ijk_inl dvec4 ijkVecUnpackQuant4dll(i64 const i_in)
+{
+	uindex const x = (i_in >> 61 & 3);
+	f64 v1, v2, v3;
+	dvec4 v_out;
+	v_out.v[(x + 1) % 4] = v1 = ((f64)(i_in >> 16 & 0x7fff) / 23169.06079235841);
+	v_out.v[(x + 2) % 4] = v2 = ((f64)(i_in >> 31 & 0x7fff) / 23169.06079235841);
+	v_out.v[(x + 3) % 4] = v3 = ((f64)(i_in >> 46 & 0x7fff) / 23169.06079235841);
+	v_out.v[x] = ((f64)(i_in >> 63) * ijkSqrt_dbl(dbl_one - v1 * v1 - v2 * v2 - v3 * v3));
+	return v_out;
+}
+
+
+//-----------------------------------------------------------------------------
+
 
 #endif	// !_IJK_VECTOR_DOUBLE_INL_
 #endif	// _IJK_VECTOR_DOUBLE_H_
