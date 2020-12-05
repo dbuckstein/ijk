@@ -83,7 +83,7 @@ ijk_inl iret ijkMouseIsButtonDownAgain(ijkMouseState const* const mouse, ijkMous
 {
 	if (mouse)
 	{
-		return (mouse->state.button[button] & mouse->state_prev.button[button]);
+		return (mouse->state.button[button] && mouse->state_prev.button[button]);
 	}
 	return ijk_fail_invalidparams;
 }
@@ -93,7 +93,7 @@ ijk_inl iret ijkMouseIsButtonUpAgain(ijkMouseState const* const mouse, ijkMouseB
 {
 	if (mouse)
 	{
-		return !(mouse->state.button[button] | mouse->state.button[button]);
+		return !(mouse->state.button[button] || mouse->state.button[button]);
 	}
 	return ijk_fail_invalidparams;
 }
@@ -103,7 +103,7 @@ ijk_inl iret ijkMouseIsButtonPressed(ijkMouseState const* const mouse, ijkMouseB
 {
 	if (mouse)
 	{
-		return (mouse->state.button[button] & ~mouse->state_prev.button[button]);
+		return (mouse->state.button[button] && !mouse->state_prev.button[button]);
 	}
 	return ijk_fail_invalidparams;
 }
@@ -113,7 +113,7 @@ ijk_inl iret ijkMouseIsButtonReleased(ijkMouseState const* const mouse, ijkMouse
 {
 	if (mouse)
 	{
-		return (~mouse->state.button[button] & mouse->state_prev.button[button]);
+		return (mouse->state_prev.button[button] && !mouse->state.button[button]);
 	}
 	return ijk_fail_invalidparams;
 }
@@ -259,7 +259,7 @@ ijk_inl iret ijkKeyboardIsKeyDownAgain(ijkKeyboardState const* const keyboard, i
 {
 	if (keyboard)
 	{
-		return (keyboard->state.key[keyVirt] & keyboard->state_prev.key[keyVirt]);
+		return (keyboard->state.key[keyVirt] && keyboard->state_prev.key[keyVirt]);
 	}
 	return ijk_fail_invalidparams;
 }
@@ -269,7 +269,7 @@ ijk_inl iret ijkKeyboardIsKeyUpAgain(ijkKeyboardState const* const keyboard, ijk
 {
 	if (keyboard)
 	{
-		return !(keyboard->state.key[keyVirt] | keyboard->state_prev.key[keyVirt]);
+		return !(keyboard->state.key[keyVirt] || keyboard->state_prev.key[keyVirt]);
 	}
 	return ijk_fail_invalidparams;
 }
@@ -279,7 +279,7 @@ ijk_inl iret ijkKeyboardIsKeyPressed(ijkKeyboardState const* const keyboard, ijk
 {
 	if (keyboard)
 	{
-		return (keyboard->state.key[keyVirt] & ~keyboard->state_prev.key[keyVirt]);
+		return (keyboard->state.key[keyVirt] && !keyboard->state_prev.key[keyVirt]);
 	}
 	return ijk_fail_invalidparams;
 }
@@ -289,7 +289,7 @@ ijk_inl iret ijkKeyboardIsKeyReleased(ijkKeyboardState const* const keyboard, ij
 {
 	if (keyboard)
 	{
-		return (~keyboard->state.key[keyVirt] & keyboard->state_prev.key[keyVirt]);
+		return (keyboard->state_prev.key[keyVirt] && !keyboard->state.key[keyVirt]);
 	}
 	return ijk_fail_invalidparams;
 }
@@ -341,7 +341,7 @@ ijk_inl iret ijkKeyboardIsKeyCharDownAgain(ijkKeyboardState const* const keyboar
 {
 	if (keyboard && keyChar >= 0)
 	{
-		return (keyboard->state.keyChar[keyChar] & keyboard->state_prev.keyChar[keyChar]);
+		return (keyboard->state.keyChar[keyChar] && keyboard->state_prev.keyChar[keyChar]);
 	}
 	return ijk_fail_invalidparams;
 }
@@ -351,7 +351,7 @@ ijk_inl iret ijkKeyboardIsKeyCharUpAgain(ijkKeyboardState const* const keyboard,
 {
 	if (keyboard && keyChar >= 0)
 	{
-		return !(keyboard->state.keyChar[keyChar] | keyboard->state_prev.keyChar[keyChar]);
+		return !(keyboard->state.keyChar[keyChar] || keyboard->state_prev.keyChar[keyChar]);
 	}
 	return ijk_fail_invalidparams;
 }
@@ -361,7 +361,7 @@ ijk_inl iret ijkKeyboardIsKeyCharPressed(ijkKeyboardState const* const keyboard,
 {
 	if (keyboard && keyChar >= 0)
 	{
-		return (keyboard->state.keyChar[keyChar] & ~keyboard->state_prev.keyChar[keyChar]);
+		return (keyboard->state.keyChar[keyChar] && !keyboard->state_prev.keyChar[keyChar]);
 	}
 	return ijk_fail_invalidparams;
 }
@@ -371,7 +371,7 @@ ijk_inl iret ijkKeyboardIsKeyCharReleased(ijkKeyboardState const* const keyboard
 {
 	if (keyboard && keyChar >= 0)
 	{
-		return (~keyboard->state.keyChar[keyChar] & keyboard->state_prev.keyChar[keyChar]);
+		return (keyboard->state_prev.keyChar[keyChar] && !keyboard->state.keyChar[keyChar]);
 	}
 	return ijk_fail_invalidparams;
 }

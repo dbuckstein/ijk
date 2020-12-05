@@ -89,6 +89,12 @@ iret ijkGamepadUpdate(ijkGamepadState* const gamepad)
 			gamepad->state.thumbX_right_unit = invThumbNormR * gamepad->state.thumbX_right;
 			gamepad->state.thumbY_right_unit = invThumbNormR * gamepad->state.thumbY_right;
 
+			// changes
+			gamepad->button_downAgain = gamepad->state.button & gamepad->state_prev.button;
+			gamepad->button_upAgain = gamepad->state.button | gamepad->state_prev.button;
+			gamepad->button_pressed = gamepad->state.button & ~gamepad->state_prev.button;
+			gamepad->button_released = gamepad->state_prev.button & ~gamepad->state.button;
+
 			// success
 			return ijk_success;
 		}
