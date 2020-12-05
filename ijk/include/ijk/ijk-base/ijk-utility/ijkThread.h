@@ -42,7 +42,7 @@ typedef struct		ijkMutex			ijkMutex;
 
 // ijk_warn_mutex_current
 //	Mutex warning indicating that calling thread already holds mutex lock.
-#define ijk_warn_mutex_current	ijk_warncode(1)
+#define ijk_warn_mutex_current	ijk_warncode(0x1)
 
 
 // ijkThreadEntryFunc

@@ -41,7 +41,7 @@ typedef struct ijkStream				ijkStream;
 
 // ijk_warn_stream_incomplete
 //	Stream warning indicating that read/write operation did not fully complete.
-#define ijk_warn_stream_incomplete	ijk_warncode(1)
+#define ijk_warn_stream_incomplete	ijk_warncode(0x1)
 
 
 // ijkStream
