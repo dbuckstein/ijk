@@ -6859,11 +6859,11 @@ ijk_inl floatv ijkVecUnpackUnitXYZ4fvl(float4 v_out, i32 const i_in)
 	return v_out;
 }
 
-ijk_inl i32 ijkVecPackUnit3of4fvl(float4 const v_in, uindex const excl)
+ijk_inl i32 ijkVecPackUnit3of4fvl(float4 const v_in, ui32 const excl)
 {
 	// entire vector scales by sign of excluded element
 	// store all others and index of excluded
-	uindex const x = (excl % 4);
+	ui32 const x = (excl % 4);
 	f32 const f = (*(i32*)(v_in + x) & 0x80000000) ? -511.0f : +511.0f;
 	return (i32)(
 		((i32)(v_in[(x + 1) % 4] * f) & 0x03ff) |
@@ -6872,10 +6872,10 @@ ijk_inl i32 ijkVecPackUnit3of4fvl(float4 const v_in, uindex const excl)
 		x << 30);
 }
 
-ijk_inl floatv ijkVecUnpackUnit3of4fvl(float4 v_out, i32 const i_in, uindex* const excl_out)
+ijk_inl floatv ijkVecUnpackUnit3of4fvl(float4 v_out, i32 const i_in, ui32* const excl_out)
 {
 	// get index of excluded, extract others, calculate using magnitude
-	uindex const x = *excl_out = (i_in >> 30);
+	ui32 const x = *excl_out = (i_in >> 30);
 	f32 v1, v2, v3;
 	v_out[(x + 1) % 4] = v1 = ((f32)(i_in		& 0x03ff) / 511.0f);
 	v_out[(x + 2) % 4] = v2 = ((f32)(i_in >> 10 & 0x03ff) / 511.0f);
@@ -6888,7 +6888,7 @@ ijk_inl i32 ijkVecPackQuant4fvl(float4 const v_in)
 {
 	// calculate index of component with greatest magnitude
 	float4 const sq = { (v_in[0] * v_in[0]), (v_in[1] * v_in[1]), (v_in[2] * v_in[2]), (v_in[3] * v_in[3]) };
-	uindex const xy = (sq[1] >= sq[0]) + 0, zw = (sq[3] >= sq[2]) + 2, x = (sq[xy] >= sq[zw] ? xy : zw);
+	ui32 const xy = (sq[1] >= sq[0]) + 0, zw = (sq[3] >= sq[2]) + 2, x = (sq[xy] >= sq[zw] ? xy : zw);
 	f32 const f = (*(i32*)(v_in + x) & 0x80000000) ? -722.6631f : +722.6631f; // ~= 511 * sqrt(2)
 	return (i32)(
 		((i32)(v_in[(x + 1) % 4] * f) & 0x03ff) |
@@ -6900,7 +6900,7 @@ ijk_inl i32 ijkVecPackQuant4fvl(float4 const v_in)
 ijk_inl floatv ijkVecUnpackQuant4fvl(float4 v_out, i32 const i_in)
 {
 	// get index of excluded, extract others, calculate using magnitude
-	uindex const x = (i_in >> 30);
+	ui32 const x = (i_in >> 30);
 	f32 v1, v2, v3;
 	v_out[(x + 1) % 4] = v1 = ((f32)(i_in		& 0x03ff) / 722.6631f);
 	v_out[(x + 2) % 4] = v2 = ((f32)(i_in >> 10 & 0x03ff) / 722.6631f);
@@ -6928,10 +6928,10 @@ ijk_inl floatv ijkVecUnpackUnitXYZ4fvll(float4 v_out, i64 const i_in)
 	return v_out;
 }
 
-ijk_inl i64 ijkVecPackUnit3of4fvll(float4 const v_in, uindex const excl)
+ijk_inl i64 ijkVecPackUnit3of4fvll(float4 const v_in, ui64 const excl)
 {
 	// this time store index and sign
-	uindex const x = (excl % 4);
+	ui64 const x = (excl % 4);
 	return (i64)(
 		((i64)(v_in[(x + 1) % 4] * 524287.0f) & 0x000fffff) |
 		((i64)(v_in[(x + 2) % 4] * 524287.0f) & 0x000fffff) << 10 |
@@ -6940,10 +6940,10 @@ ijk_inl i64 ijkVecPackUnit3of4fvll(float4 const v_in, uindex const excl)
 		x << 61);
 }
 
-ijk_inl floatv ijkVecUnpackUnit3of4fvll(float4 v_out, i64 const i_in, uindex* const excl_out)
+ijk_inl floatv ijkVecUnpackUnit3of4fvll(float4 v_out, i64 const i_in, ui64* const excl_out)
 {
 	// get missing index without sign
-	uindex const x = (i_in >> 61 & 3);
+	ui64 const x = (i_in >> 61 & 3);
 	f32 v1, v2, v3;
 	v_out[(x + 1) % 4] = v1 = ((f32)(i_in		& 0x000fffff) / 524287.0f);
 	v_out[(x + 2) % 4] = v2 = ((f32)(i_in >> 20 & 0x000fffff) / 524287.0f);
@@ -6955,7 +6955,7 @@ ijk_inl floatv ijkVecUnpackUnit3of4fvll(float4 v_out, i64 const i_in, uindex* co
 ijk_inl i64 ijkVecPackQuant4fvll(float4 const v_in)
 {
 	float4 const sq = { (v_in[0] * v_in[0]), (v_in[1] * v_in[1]), (v_in[2] * v_in[2]), (v_in[3] * v_in[3]) };
-	uindex const xy = (sq[1] >= sq[0]) + 0, zw = (sq[3] >= sq[2]) + 2, x = (sq[xy] >= sq[zw] ? xy : zw);
+	ui64 const xy = (sq[1] >= sq[0]) + 0, zw = (sq[3] >= sq[2]) + 2, x = (sq[xy] >= sq[zw] ? xy : zw);
 	return (i64)(
 		((i64)(v_in[(x + 1) % 4] * 23169.06079f) & 0x7fff) << 16 | // ~= 16383 * sqrt(2); << 16
 		((i64)(v_in[(x + 2) % 4] * 23169.06079f) & 0x7fff) << 31 |	// << 15 << 16
@@ -6966,7 +6966,7 @@ ijk_inl i64 ijkVecPackQuant4fvll(float4 const v_in)
 
 ijk_inl floatv ijkVecUnpackQuant4fvll(float4 v_out, i64 const i_in)
 {
-	uindex const x = (i_in >> 61 & 3);
+	ui64 const x = (i_in >> 61 & 3);
 	f32 v1, v2, v3;
 	v_out[(x + 1) % 4] = v1 = ((f32)(i_in >> 16 & 0x7fff) / 23169.06079f);
 	v_out[(x + 2) % 4] = v2 = ((f32)(i_in >> 31 & 0x7fff) / 23169.06079f);
@@ -7089,9 +7089,9 @@ ijk_inl fvec4 ijkVecUnpackUnitXYZ4fl(i32 const i_in)
 	return v_out;
 }
 
-ijk_inl i32 ijkVecPackUnit3of4fl(fvec4 const v_in, uindex const excl)
+ijk_inl i32 ijkVecPackUnit3of4fl(fvec4 const v_in, ui32 const excl)
 {
-	uindex const x = (excl % 4);
+	ui32 const x = (excl % 4);
 	f32 const f = (*(i32*)(v_in.v + x) & 0x80000000) ? -511.0f : +511.0f;
 	return (i32)(
 		((i32)(v_in.v[(x + 1) % 4] * f) & 0x03ff) |
@@ -7100,9 +7100,9 @@ ijk_inl i32 ijkVecPackUnit3of4fl(fvec4 const v_in, uindex const excl)
 		x << 30);
 }
 
-ijk_inl fvec4 ijkVecUnpackUnit3of4fl(i32 const i_in, uindex* const excl_out)
+ijk_inl fvec4 ijkVecUnpackUnit3of4fl(i32 const i_in, ui32* const excl_out)
 {
-	uindex const x = *excl_out = (i_in >> 30);
+	ui32 const x = *excl_out = (i_in >> 30);
 	f32 v1, v2, v3;
 	fvec4 v_out;
 	v_out.v[(x + 1) % 4] = v1 = ((f32)(i_in			& 0x03ff) / 511.0f);
@@ -7115,7 +7115,7 @@ ijk_inl fvec4 ijkVecUnpackUnit3of4fl(i32 const i_in, uindex* const excl_out)
 ijk_inl i32 ijkVecPackQuant4fl(fvec4 const v_in)
 {
 	fvec4 const sq = { (v_in.x * v_in.x), (v_in.y * v_in.y), (v_in.z * v_in.z), (v_in.w * v_in.w) };
-	uindex const xy = (sq.y >= sq.x) + 0, zw = (sq.w >= sq.z) + 2, x = (sq.v[xy] >= sq.v[zw] ? xy : zw);
+	ui32 const xy = (sq.y >= sq.x) + 0, zw = (sq.w >= sq.z) + 2, x = (sq.v[xy] >= sq.v[zw] ? xy : zw);
 	f32 const f = (*(i32*)(v_in.v + x) & 0x80000000) ? -722.6631f : +722.6631f; // ~= 511 * sqrt(2)
 	return (i32)(
 		((i32)(v_in.v[(x + 1) % 4] * f) & 0x03ff) |
@@ -7126,7 +7126,7 @@ ijk_inl i32 ijkVecPackQuant4fl(fvec4 const v_in)
 
 ijk_inl fvec4 ijkVecUnpackQuant4fl(i32 const i_in)
 {
-	uindex const x = (i_in >> 30);
+	ui32 const x = (i_in >> 30);
 	f32 v1, v2, v3;
 	fvec4 v_out;
 	v_out.v[(x + 1) % 4] = v1 = ((f32)(i_in		& 0x03ff) / 722.6631f);
@@ -7157,9 +7157,9 @@ ijk_inl fvec4 ijkVecUnpackUnitXYZ4fll(i64 const i_in)
 	return v_out;
 }
 
-ijk_inl i64 ijkVecPackUnit3of4fll(fvec4 const v_in, uindex const excl)
+ijk_inl i64 ijkVecPackUnit3of4fll(fvec4 const v_in, ui64 const excl)
 {
-	uindex const x = (excl % 4);
+	ui64 const x = (excl % 4);
 	return (i64)(
 		((i64)(v_in.v[(x + 1) % 4] * 524287.0f) & 0x000fffff) |
 		((i64)(v_in.v[(x + 2) % 4] * 524287.0f) & 0x000fffff) << 10 |
@@ -7168,9 +7168,9 @@ ijk_inl i64 ijkVecPackUnit3of4fll(fvec4 const v_in, uindex const excl)
 		x << 61);
 }
 
-ijk_inl fvec4 ijkVecUnpackUnit3of4fll(i64 const i_in, uindex* const excl_out)
+ijk_inl fvec4 ijkVecUnpackUnit3of4fll(i64 const i_in, ui64* const excl_out)
 {
-	uindex const x = (i_in >> 61 & 3);
+	ui64 const x = (i_in >> 61 & 3);
 	f32 v1, v2, v3;
 	fvec4 v_out;
 	v_out.v[(x + 1) % 4] = v1 = ((f32)(i_in & 0x000fffff) / 524287.0f);
@@ -7183,7 +7183,7 @@ ijk_inl fvec4 ijkVecUnpackUnit3of4fll(i64 const i_in, uindex* const excl_out)
 ijk_inl i64 ijkVecPackQuant4fll(fvec4 const v_in)
 {
 	fvec4 const sq = { (v_in.x * v_in.x), (v_in.y * v_in.y), (v_in.z * v_in.z), (v_in.w * v_in.w) };
-	uindex const xy = (sq.y >= sq.x) + 0, zw = (sq.w >= sq.z) + 2, x = (sq.v[xy] >= sq.v[zw] ? xy : zw);
+	ui64 const xy = (sq.y >= sq.x) + 0, zw = (sq.w >= sq.z) + 2, x = (sq.v[xy] >= sq.v[zw] ? xy : zw);
 	return (i64)(
 		((i64)(v_in.v[(x + 1) % 4] * 23169.06079f) & 0x7fff) << 16 | // ~= 16383 * sqrt(2); << 16
 		((i64)(v_in.v[(x + 2) % 4] * 23169.06079f) & 0x7fff) << 31 |	// << 15 << 16
@@ -7194,7 +7194,7 @@ ijk_inl i64 ijkVecPackQuant4fll(fvec4 const v_in)
 
 ijk_inl fvec4 ijkVecUnpackQuant4fll(i64 const i_in)
 {
-	uindex const x = (i_in >> 61 & 3);
+	ui64 const x = (i_in >> 61 & 3);
 	f32 v1, v2, v3;
 	fvec4 v_out;
 	v_out.v[(x + 1) % 4] = v1 = ((f32)(i_in >> 16 & 0x7fff) / 23169.06079f);

@@ -6865,7 +6865,7 @@ floatv ijkVecUnpackUnitXYZ4fvl(float4 v_out, i32 const i_in);
 //		param v_in: symmetric-unit vector to compress, elements in [-1,+1]
 //		param excl: index of excluded element, in [0,3]
 //		return: short integer encoding vector
-i32 ijkVecPackUnit3of4fvl(float4 const v_in, uindex const excl);
+i32 ijkVecPackUnit3of4fvl(float4 const v_in, ui32 const excl);
 
 // ijkVecUnpackUnit3of4*vl
 //	Decompress 4D unit vector from a long integer (32 bits) encoding only 
@@ -6874,7 +6874,7 @@ i32 ijkVecPackUnit3of4fvl(float4 const v_in, uindex const excl);
 //		param i_in: integer encoding vector to decompress
 //		param excl_out: pointer to storage for index of excluded element
 //		return: v_out
-floatv ijkVecUnpackUnit3of4fvl(float4 v_out, i32 const i_in, uindex* const excl_out);
+floatv ijkVecUnpackUnit3of4fvl(float4 v_out, i32 const i_in, ui32* const excl_out);
 
 // ijkVecPackQuant4*l
 //	Compress three components of 4D quantized unit vector into a long integer 
@@ -6918,7 +6918,7 @@ floatv ijkVecUnpackUnitXYZ4fvll(float4 v_out, i64 const i_in);
 //		param v_in: symmetric-unit vector to compress, elements in [-1,+1]
 //		param excl: index of excluded element, in [0,3]
 //		return: short integer encoding vector
-i64 ijkVecPackUnit3of4fvll(float4 const v_in, uindex const excl);
+i64 ijkVecPackUnit3of4fvll(float4 const v_in, ui64 const excl);
 
 // ijkVecUnpackUnit3of4*vll
 //	Decompress 4D unit vector from a long-long integer (64 bits) encoding 
@@ -6927,7 +6927,7 @@ i64 ijkVecPackUnit3of4fvll(float4 const v_in, uindex const excl);
 //		param i_in: integer encoding vector to decompress
 //		param excl_out: pointer to storage for index of excluded element
 //		return: v_out
-floatv ijkVecUnpackUnit3of4fvll(float4 v_out, i64 const i_in, uindex* const excl_out);
+floatv ijkVecUnpackUnit3of4fvll(float4 v_out, i64 const i_in, ui64* const excl_out);
 
 // ijkVecPackQuant4*vll
 //	Compress three components of 4D quantized unit vector into the 48 MOST 
@@ -7044,7 +7044,7 @@ fvec4 ijkVecUnpackUnitXYZ4fl(i32 const i_in);
 //		param v_in: symmetric-unit vector to compress, elements in [-1,+1]
 //		param excl: index of excluded element, in [0,3]
 //		return: short integer encoding vector
-i32 ijkVecPackUnit3of4fl(fvec4 const v_in, uindex const excl);
+i32 ijkVecPackUnit3of4fl(fvec4 const v_in, ui32 const excl);
 
 // ijkVecUnpackUnit3of4*l
 //	Decompress 4D unit vector from a long integer (32 bits) encoding only 
@@ -7052,7 +7052,7 @@ i32 ijkVecPackUnit3of4fl(fvec4 const v_in, uindex const excl);
 //		param i_in: integer encoding vector to decompress
 //		param excl_out: pointer to storage for index of excluded element
 //		return: decoded vector
-fvec4 ijkVecUnpackUnit3of4fl(i32 const i_in, uindex* const excl_out);
+fvec4 ijkVecUnpackUnit3of4fl(i32 const i_in, ui32* const excl_out);
 
 // ijkVecPackQuant4*l
 //	Compress three components of 4D quantized unit vector into a long integer 
@@ -7094,7 +7094,7 @@ fvec4 ijkVecUnpackUnitXYZ4fll(i64 const i_in);
 //		param v_in: symmetric-unit vector to compress, elements in [-1,+1]
 //		param excl: index of excluded element, in [0,3]
 //		return: short integer encoding vector
-i64 ijkVecPackUnit3of4fll(fvec4 const v_in, uindex const excl);
+i64 ijkVecPackUnit3of4fll(fvec4 const v_in, ui64 const excl);
 
 // ijkVecUnpackUnit3of4*ll
 //	Decompress 4D unit vector from a long-long integer (64 bits) encoding 
@@ -7102,7 +7102,7 @@ i64 ijkVecPackUnit3of4fll(fvec4 const v_in, uindex const excl);
 //		param i_in: integer encoding vector to decompress
 //		param excl_out: pointer to storage for index of excluded element
 //		return: decoded vector
-fvec4 ijkVecUnpackUnit3of4fll(i64 const i_in, uindex* const excl_out);
+fvec4 ijkVecUnpackUnit3of4fll(i64 const i_in, ui64* const excl_out);
 
 // ijkVecPackQuant4*ll
 //	Compress three components of 4D quantized unit vector into the 48 MOST 
