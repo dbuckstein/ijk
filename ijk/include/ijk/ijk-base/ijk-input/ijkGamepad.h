@@ -99,6 +99,7 @@ struct ijkGamepadState
 		dbl trigger_left_unit, trigger_right_unit;
 		dbl thumbX_left_unit, thumbY_left_unit, thumbX_right_unit, thumbY_right_unit;
 	} state, state_prev;
+	word button_downAgain, button_upAgain, button_pressed, button_released;
 };
 
 
