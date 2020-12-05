@@ -12,6 +12,7 @@ This section outlines the core guidelines, values and rules in the framework.
 * All headers must be C++ friendly for consumption only. Use (extern "C" {...}) in case a user's C++ file consumes a framework header. Also use typedefs to allow C++ structure naming conventions to be used in C (e.g. typedef struct StructureName StructureName;).
 * For graphics implementations, use cross-platform, C-based APIs/SDKs (e.g. Vulkan, OpenGL) and their respective shading languages or binary formats (GLSL, SPIR-V).
 * All functions must be documented before implementation. Comment interfaces/prototypes with brief descriptions, member/parameter names and descriptions and validation notes, and possible return cases denoting success, warnings or failures.
+* All functions should return integer types, with the exception of math functions which primarily operate on real (float or double) numbers, or real-based (vector) numbers.
 
 ### Repository Standards
 * The main branch for versioning and releases is 'master'.
@@ -50,11 +51,12 @@ This section outlines known tasks to be completed and that have been completed.
 - [x] basic input
 - [ ] gamepad input - implemented xinput for Windows
 #### Math
-- [ ] stats (flt, dbl, int)
-- [ ] random (flt, dbl, int)
-- [ ] sqrt (flt, dbl)
+- [x] sqrt (flt, dbl)
+- [x] stats (flt, dbl, int)
+- [x] random (flt, dbl, int)
 - [ ] interpolation (flt, dbl)
 - [ ] trigonometry (flt, dbl)
+- [ ] complex(flt, dbl)
 - [ ] vector (flt, dbl, int)
 - [ ] matrix (flt, dbl, int)
 - [ ] quaternion (flt, dbl)

@@ -37,18 +37,28 @@
 #define ijk_ext							extern
 
 
+// general integer constants
+///
+#define ijk_zero						0
+#define ijk_one							1
+#define ijk_pos(x)						(+(x))
+#define ijk_neg(x)						(-(x))
+#define ijk_one_p						ijk_pos(ijk_one)
+#define ijk_one_n						ijk_neg(ijk_one)
+
+
 // general flags and checks
 ///
-#define ijk_true						(1)
-#define ijk_false						(0)
-#define ijk_success						(0)
-#define ijk_failure						(-1)
-#define ijk_warning						(+1)
-#define ijk_failcode(x)					(-(x))
-#define ijk_warncode(x)					(+(x))
+#define ijk_success						ijk_zero
+#define ijk_failure						ijk_one_n
+#define ijk_warning						ijk_one_p
+#define ijk_failcode(x)					ijk_neg(x)
+#define ijk_warncode(x)					ijk_pos(x)
 #define ijk_fail_invalidparams			ijk_failcode(1)
 #define ijk_fail_operationfail			ijk_failcode(2)
 
+#define ijk_true						ijk_one
+#define ijk_false						ijk_zero
 #define ijk_istrue(x)					((x) != ijk_false)
 #define ijk_isfalse(x)					((x) == ijk_false)
 #define ijk_issuccess(x)				((x) == ijk_success)
@@ -56,33 +66,32 @@
 #define ijk_iswarning(x)				((x) >= ijk_warning)
 #define ijk_isnfailure(x)				((x) > ijk_failure)
 
-#define ijk_flagch(x, f)				(((x) & (f)) != (0))
-#define ijk_flagnch(x, f)				(((x) & (f)) == (0))
-#define ijk_flageq(x, f)				(((x) & (f)) == (f))
-#define ijk_flagneq(x, f)				(((x) & (f)) != (f))
+#define ijk_flagch(x,f)					(((x) & (f)) != (ijk_zero))
+#define ijk_flagnch(x,f)				(((x) & (f)) == (ijk_zero))
+#define ijk_flageq(x,f)					(((x) & (f)) == (f))
+#define ijk_flagneq(x,f)				(((x) & (f)) != (f))
 
 
 // token stringify and concatenate
 ///
 #define ijk_tokenstr(x)					__ijk_cfg_tokenstr(x)
-#define ijk_tokencat(x, y)				__ijk_cfg_tokencat(x, y)
-#define ijk_tokencat_arch(x)			ijk_tokencat(x, __ijk_cfg_archbits)
+#define ijk_tokencat(x,y)				__ijk_cfg_tokencat(x,y)
+#define ijk_tokencat_arch(x)			ijk_tokencat(x,__ijk_cfg_archbits)
 
 
-// simple mathematical operations
+// simple global logical operations
 ///
-#define ijk_minimum(x, y)				((x) <= (y) ? (x) : (y))
-#define ijk_maximum(x, y)				((x) >= (y) ? (x) : (y))
-#define ijk_clamp(lower, upper, value)	((value) >= (lower) ? (value) <= (upper) ? (value) : (upper) : (lower))
-#define ijk_sgn(x)						((x) > 0 ? +1 : (x) < 0 ? -1 : 0)
-#define ijk_abs(x)						((x) >= 0 ? +(x) : -(x))
-
-
-// simple logical operations
-///
-#define ijk_swap2(x, y, tmp)			tmp=x;x=y;y=tmp
-#define ijk_swap3(x, y, z, tmp)			tmp=x;x=y;y=z;z=tmp
-#define ijk_swap4(x, y, z, w, tmp)		tmp=x;x=y;y=z;z=w;w=tmp
+#define ijk_squared(x)						((x) * (x))
+#define ijk_minimum(x,y)					((x) <= (y) ? (x) : (y))
+#define ijk_maximum(x,y)					((x) >= (y) ? (x) : (y))
+#define ijk_isclamp(x_min,x_max,x)			((x) >= (x_min) && (x) <= (x_max))
+#define ijk_isnclamp(x_min,x_max,x)			((x) < (x_min) || (x) > (x_max))
+#define ijk_clamp(x_min,x_max,x)			((x) >= (x_min) ? (x) <= (x_max) ? (x) : (x_max) : (x_min))
+#define ijk_clamp_inv(x_min,x_max,x0,x)		((x) >= (x_max) || (x) <= (x_min) ? (x) : ((x) >= (x0) ? (x_max) : (x_min)))
+#define ijk_clamp_loop(x_min,x_max,dx,x)	while((x) > (x_max)) (x) -= (dx); while((x) < (x_min)) (x) += (dx)
+#define ijk_swap2(x,y,tmp)					tmp=x;x=y;y=tmp
+#define ijk_swap3(x,y,z,tmp)				tmp=x;x=y;y=z;z=tmp
+#define ijk_swap4(x,y,z,w,tmp)				tmp=x;x=y;y=z;z=w;w=tmp
 
 
 #endif	// !_IJK_MACROS_H_
