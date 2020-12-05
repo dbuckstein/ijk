@@ -22,18 +22,36 @@
     <Filter Include="Header Files\ijk-platform">
       <UniqueIdentifier>{23a0bff0-258d-4bf7-8746-ee4bff74d630}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\ijk-platform\ijk-app">
+      <UniqueIdentifier>{3838b004-9d55-4e4f-b939-1aa168f7581e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\_platform_win\ijk-app">
+      <UniqueIdentifier>{f230e902-858a-4600-b9f3-5154b3d6271d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\common\ijk-app">
+      <UniqueIdentifier>{799aa35b-11c9-4e64-b3db-f7856ede9c67}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\source\ijk-platform\common\ijk-platform.c">
       <Filter>Source Files\common</Filter>
     </ClCompile>
-    <ClCompile Include="_platform_win\ijkWindow.c">
-      <Filter>Source Files\_platform_win</Filter>
+    <ClCompile Include="_platform_win\ijk-app\ijkWindow.c">
+      <Filter>Source Files\_platform_win\ijk-app</Filter>
+    </ClCompile>
+    <ClCompile Include="_platform_win\ijk-app\ijkConsole.c">
+      <Filter>Source Files\_platform_win\ijk-app</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\include\ijk\ijk-platform\ijk-platform.h">
       <Filter>Header Files\ijk-platform</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\ijk\ijk-platform\ijk-app\ijkWindow.h">
+      <Filter>Header Files\ijk-platform\ijk-app</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\ijk\ijk-platform\ijk-app\ijkConsole.h">
+      <Filter>Header Files\ijk-platform\ijk-app</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

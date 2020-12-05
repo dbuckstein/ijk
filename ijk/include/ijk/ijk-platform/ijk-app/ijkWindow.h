@@ -19,7 +19,13 @@
 		c-based rendering framework
 	By Daniel S. Buckstein
 
-	ijkWindow.c
-	Window management source.
+	ijkWindow.h
+	Window management interface.
 */
 
+#ifndef _IJK_WINDOW_H_
+#define _IJK_WINDOW_H_
+
+
+
+#endif	// !_IJK_WINDOW_H_

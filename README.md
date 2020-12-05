@@ -1,5 +1,5 @@
 # ijk
-ijk: an open-source, cross-platform, light-weight, c-based rendering framework
+ijk: an open-source, cross-platform, light-weight, c-based rendering framework \
 By Daniel S. Buckstein
 
 
