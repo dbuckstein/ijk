@@ -19,15 +19,229 @@
     <Filter Include="Header Files\ijk-math">
       <UniqueIdentifier>{0acaa139-38a6-43cd-80ce-ab2e91750ea8}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\ijk-math\ijk-real">
+      <UniqueIdentifier>{8d4f16bf-e393-4d75-b66a-08d3dd4ad6d2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\common\ijk-real">
+      <UniqueIdentifier>{58f84b7a-d689-403c-b3a0-03cbe87b6393}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\common\ijk-xmath">
+      <UniqueIdentifier>{5e26b8f2-7b71-4114-88a9-84e1eefb3fb4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\ijk-math\ijk-real\_inl">
+      <UniqueIdentifier>{ab5a83be-bd92-4a97-8549-cdb70bb169eb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\common\ijk-real\_asm">
+      <UniqueIdentifier>{9b63c867-16b2-4359-8e70-466f5ef76d9e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\common\ijk-real\_cpp">
+      <UniqueIdentifier>{d39a2a6b-d0b5-435f-9f07-3dcd12d65deb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\ijk-math\ijk-real\_util">
+      <UniqueIdentifier>{f343483e-0e25-4c42-b783-8ef5c9c8ef7c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\ijk-math\ijk-real\_util\_inl">
+      <UniqueIdentifier>{0fc15d88-9e2e-467d-8a35-e958b38c367c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\ijk-math\ijk-real-ext">
+      <UniqueIdentifier>{ce829540-eaad-456d-91a9-29dc2b332887}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\ijk-math\ijk-real-ext\_inl">
+      <UniqueIdentifier>{cff62012-f43b-4a9a-8a41-16c32f34cb55}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\source\ijk-math\common\ijk-math.c">
       <Filter>Source Files\common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\ijk-math\common\ijk-real\ijkReal.c">
+      <Filter>Source Files\common\ijk-real</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\ijk-math\common\ijk-real\ijkRandom.c">
+      <Filter>Source Files\common\ijk-real</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\ijk-math\common\ijk-real\ijkSqrt.c">
+      <Filter>Source Files\common\ijk-real</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\ijk-math\common\ijk-real\ijkTrigonometry.c">
+      <Filter>Source Files\common\ijk-real</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\ijk-math\common\ijk-real\ijkVector.c">
+      <Filter>Source Files\common\ijk-real</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\ijk-math\common\ijk-real\_cpp\ijkVectorSwizzle.cpp">
+      <Filter>Source Files\common\ijk-real\_cpp</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\ijk-math\common\ijk-real\ijkMatrix.c">
+      <Filter>Source Files\common\ijk-real</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\ijk-math\common\ijk-real\_cpp\ijkMatrixSwizzle.cpp">
+      <Filter>Source Files\common\ijk-real\_cpp</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\ijk-math\common\ijk-real\_cpp\ijkQuaternionSwizzle.cpp">
+      <Filter>Source Files\common\ijk-real\_cpp</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\ijk-math\common\ijk-real\ijkQuaternion.c">
+      <Filter>Source Files\common\ijk-real</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\include\ijk\ijk-math\ijk-math.h">
       <Filter>Header Files\ijk-math</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\include\ijk\ijk-math\ijk-real\ijkReal.h">
+      <Filter>Header Files\ijk-math\ijk-real</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\ijk\ijk-math\ijk-real\ijkVector.h">
+      <Filter>Header Files\ijk-math\ijk-real</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\ijk\ijk-math\ijk-real\ijkMatrix.h">
+      <Filter>Header Files\ijk-math\ijk-real</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\ijk\ijk-math\ijk-real\ijkRandom.h">
+      <Filter>Header Files\ijk-math\ijk-real</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\ijk\ijk-math\ijk-real\ijkStats.h">
+      <Filter>Header Files\ijk-math\ijk-real</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\ijk\ijk-math\ijk-real\ijkSqrt.h">
+      <Filter>Header Files\ijk-math\ijk-real</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\ijk\ijk-math\ijk-real\ijkInterpolation.h">
+      <Filter>Header Files\ijk-math\ijk-real</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\ijk\ijk-math\ijk-real\ijkTrigonometry.h">
+      <Filter>Header Files\ijk-math\ijk-real</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\ijk\ijk-math\ijk-real\_util\ijkVectorSwizzle.h">
+      <Filter>Header Files\ijk-math\ijk-real\_util</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\ijk\ijk-math\ijk-real\_util\ijkVector_int.h">
+      <Filter>Header Files\ijk-math\ijk-real\_util</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\ijk\ijk-math\ijk-real\_util\ijkVector_bool.h">
+      <Filter>Header Files\ijk-math\ijk-real\_util</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\ijk\ijk-math\ijk-real\_util\ijkVector_float.h">
+      <Filter>Header Files\ijk-math\ijk-real\_util</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\ijk\ijk-math\ijk-real\_util\ijkVector_uint.h">
+      <Filter>Header Files\ijk-math\ijk-real\_util</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\ijk\ijk-math\ijk-real\_util\ijkVectorSwizzle_macros.h">
+      <Filter>Header Files\ijk-math\ijk-real\_util</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\ijk\ijk-math\ijk-real\_util\ijkVector_intl.h">
+      <Filter>Header Files\ijk-math\ijk-real\_util</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\ijk\ijk-math\ijk-real\_util\ijkVector_uintl.h">
+      <Filter>Header Files\ijk-math\ijk-real\_util</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\ijk\ijk-math\ijk-real\_util\ijkVector_double.h">
+      <Filter>Header Files\ijk-math\ijk-real\_util</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\ijk\ijk-math\ijk-real\_util\ijkMatrix_float.h">
+      <Filter>Header Files\ijk-math\ijk-real\_util</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\ijk\ijk-math\ijk-real\_util\ijkMatrix_double.h">
+      <Filter>Header Files\ijk-math\ijk-real\_util</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\ijk\ijk-math\ijk-real\_util\ijkMatrixSwizzle.h">
+      <Filter>Header Files\ijk-math\ijk-real\_util</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\ijk\ijk-math\ijk-real\_util\ijkMatrix_real.h">
+      <Filter>Header Files\ijk-math\ijk-real\_util</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\ijk\ijk-math\ijk-real\_util\ijkVector_real.h">
+      <Filter>Header Files\ijk-math\ijk-real\_util</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\ijk\ijk-math\ijk-real\ijkQuaternion.h">
+      <Filter>Header Files\ijk-math\ijk-real</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\ijk\ijk-math\ijk-real\_util\ijkQuaternion_double.h">
+      <Filter>Header Files\ijk-math\ijk-real\_util</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\ijk\ijk-math\ijk-real\_util\ijkQuaternion_float.h">
+      <Filter>Header Files\ijk-math\ijk-real\_util</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\ijk\ijk-math\ijk-real\_util\ijkQuaternion_real.h">
+      <Filter>Header Files\ijk-math\ijk-real\_util</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\ijk\ijk-math\ijk-real\_util\ijkQuaternionSwizzle.h">
+      <Filter>Header Files\ijk-math\ijk-real\_util</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\..\include\ijk\ijk-math\ijk-real\_inl\ijkRandom.inl">
+      <Filter>Header Files\ijk-math\ijk-real\_inl</Filter>
+    </None>
+    <None Include="..\..\..\include\ijk\ijk-math\ijk-real\_inl\ijkStats.inl">
+      <Filter>Header Files\ijk-math\ijk-real\_inl</Filter>
+    </None>
+    <None Include="..\..\..\include\ijk\ijk-math\ijk-real\_inl\ijkSqrt.inl">
+      <Filter>Header Files\ijk-math\ijk-real\_inl</Filter>
+    </None>
+    <None Include="..\..\..\include\ijk\ijk-math\ijk-real\_inl\ijkInterpolation.inl">
+      <Filter>Header Files\ijk-math\ijk-real\_inl</Filter>
+    </None>
+    <None Include="..\..\..\include\ijk\ijk-math\ijk-real\_inl\ijkTrigonometry.inl">
+      <Filter>Header Files\ijk-math\ijk-real\_inl</Filter>
+    </None>
+    <None Include="..\..\..\include\ijk\ijk-math\ijk-real\_inl\ijkVector.inl">
+      <Filter>Header Files\ijk-math\ijk-real\_inl</Filter>
+    </None>
+    <None Include="..\..\..\include\ijk\ijk-math\ijk-real\_util\_inl\ijkVectorSwizzle.inl">
+      <Filter>Header Files\ijk-math\ijk-real\_util\_inl</Filter>
+    </None>
+    <None Include="..\..\..\include\ijk\ijk-math\ijk-real\_util\_inl\ijkVector_int.inl">
+      <Filter>Header Files\ijk-math\ijk-real\_util\_inl</Filter>
+    </None>
+    <None Include="..\..\..\include\ijk\ijk-math\ijk-real\_util\_inl\ijkVector_bool.inl">
+      <Filter>Header Files\ijk-math\ijk-real\_util\_inl</Filter>
+    </None>
+    <None Include="..\..\..\include\ijk\ijk-math\ijk-real\_util\_inl\ijkVector_float.inl">
+      <Filter>Header Files\ijk-math\ijk-real\_util\_inl</Filter>
+    </None>
+    <None Include="..\..\..\include\ijk\ijk-math\ijk-real\_util\_inl\ijkVector_uint.inl">
+      <Filter>Header Files\ijk-math\ijk-real\_util\_inl</Filter>
+    </None>
+    <None Include="..\..\..\include\ijk\ijk-math\ijk-real\_util\_inl\ijkVector_intl.inl">
+      <Filter>Header Files\ijk-math\ijk-real\_util\_inl</Filter>
+    </None>
+    <None Include="..\..\..\include\ijk\ijk-math\ijk-real\_util\_inl\ijkVector_uintl.inl">
+      <Filter>Header Files\ijk-math\ijk-real\_util\_inl</Filter>
+    </None>
+    <None Include="..\..\..\include\ijk\ijk-math\ijk-real\_util\_inl\ijkVector_double.inl">
+      <Filter>Header Files\ijk-math\ijk-real\_util\_inl</Filter>
+    </None>
+    <None Include="..\..\..\include\ijk\ijk-math\ijk-real\_inl\ijkMatrix.inl">
+      <Filter>Header Files\ijk-math\ijk-real\_inl</Filter>
+    </None>
+    <None Include="..\..\..\include\ijk\ijk-math\ijk-real\_util\_inl\ijkMatrix_float.inl">
+      <Filter>Header Files\ijk-math\ijk-real\_util\_inl</Filter>
+    </None>
+    <None Include="..\..\..\include\ijk\ijk-math\ijk-real\_util\_inl\ijkMatrix_double.inl">
+      <Filter>Header Files\ijk-math\ijk-real\_util\_inl</Filter>
+    </None>
+    <None Include="..\..\..\include\ijk\ijk-math\ijk-real\_util\_inl\ijkMatrixSwizzle.inl">
+      <Filter>Header Files\ijk-math\ijk-real\_util\_inl</Filter>
+    </None>
+    <None Include="..\..\..\include\ijk\ijk-math\ijk-real\_inl\ijkQuaternion.inl">
+      <Filter>Header Files\ijk-math\ijk-real\_inl</Filter>
+    </None>
+    <None Include="..\..\..\include\ijk\ijk-math\ijk-real\_util\_inl\ijkQuaternion_double.inl">
+      <Filter>Header Files\ijk-math\ijk-real\_util\_inl</Filter>
+    </None>
+    <None Include="..\..\..\include\ijk\ijk-math\ijk-real\_util\_inl\ijkQuaternion_float.inl">
+      <Filter>Header Files\ijk-math\ijk-real\_util\_inl</Filter>
+    </None>
+    <None Include="..\..\..\include\ijk\ijk-math\ijk-real\_util\_inl\ijkQuaternionSwizzle.inl">
+      <Filter>Header Files\ijk-math\ijk-real\_util\_inl</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <MASM Include="..\..\..\source\ijk-math\common\ijk-real\_asm\ijkSqrt_a.asm">
+      <Filter>Source Files\common\ijk-real\_asm</Filter>
+    </MASM>
   </ItemGroup>
 </Project>

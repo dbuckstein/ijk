@@ -54,6 +54,7 @@
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
+    <Import Project="$(VCTargetsPath)\BuildCustomizations\masm.props" />
   </ImportGroup>
   <ImportGroup Label="Shared">
   </ImportGroup>
@@ -156,11 +157,96 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\source\ijk-math\common\ijk-math.c" />
+    <ClCompile Include="..\..\..\source\ijk-math\common\ijk-real\ijkMatrix.c" />
+    <ClCompile Include="..\..\..\source\ijk-math\common\ijk-real\ijkQuaternion.c" />
+    <ClCompile Include="..\..\..\source\ijk-math\common\ijk-real\ijkRandom.c" />
+    <ClCompile Include="..\..\..\source\ijk-math\common\ijk-real\ijkReal.c" />
+    <ClCompile Include="..\..\..\source\ijk-math\common\ijk-real\ijkSqrt.c">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\ijk-math\common\ijk-real\ijkTrigonometry.c" />
+    <ClCompile Include="..\..\..\source\ijk-math\common\ijk-real\ijkVector.c" />
+    <ClCompile Include="..\..\..\source\ijk-math\common\ijk-real\_cpp\ijkMatrixSwizzle.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\ijk-math\common\ijk-real\_cpp\ijkQuaternionSwizzle.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\ijk-math\common\ijk-real\_cpp\ijkVectorSwizzle.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\include\ijk\ijk-math\ijk-math.h" />
+    <ClInclude Include="..\..\..\include\ijk\ijk-math\ijk-real\ijkInterpolation.h" />
+    <ClInclude Include="..\..\..\include\ijk\ijk-math\ijk-real\ijkMatrix.h" />
+    <ClInclude Include="..\..\..\include\ijk\ijk-math\ijk-real\ijkQuaternion.h" />
+    <ClInclude Include="..\..\..\include\ijk\ijk-math\ijk-real\ijkRandom.h" />
+    <ClInclude Include="..\..\..\include\ijk\ijk-math\ijk-real\ijkReal.h" />
+    <ClInclude Include="..\..\..\include\ijk\ijk-math\ijk-real\ijkSqrt.h" />
+    <ClInclude Include="..\..\..\include\ijk\ijk-math\ijk-real\ijkStats.h" />
+    <ClInclude Include="..\..\..\include\ijk\ijk-math\ijk-real\ijkTrigonometry.h" />
+    <ClInclude Include="..\..\..\include\ijk\ijk-math\ijk-real\ijkVector.h" />
+    <ClInclude Include="..\..\..\include\ijk\ijk-math\ijk-real\_util\ijkMatrixSwizzle.h" />
+    <ClInclude Include="..\..\..\include\ijk\ijk-math\ijk-real\_util\ijkMatrix_double.h" />
+    <ClInclude Include="..\..\..\include\ijk\ijk-math\ijk-real\_util\ijkMatrix_float.h" />
+    <ClInclude Include="..\..\..\include\ijk\ijk-math\ijk-real\_util\ijkMatrix_real.h" />
+    <ClInclude Include="..\..\..\include\ijk\ijk-math\ijk-real\_util\ijkQuaternionSwizzle.h" />
+    <ClInclude Include="..\..\..\include\ijk\ijk-math\ijk-real\_util\ijkQuaternion_double.h" />
+    <ClInclude Include="..\..\..\include\ijk\ijk-math\ijk-real\_util\ijkQuaternion_float.h" />
+    <ClInclude Include="..\..\..\include\ijk\ijk-math\ijk-real\_util\ijkQuaternion_real.h" />
+    <ClInclude Include="..\..\..\include\ijk\ijk-math\ijk-real\_util\ijkVectorSwizzle.h" />
+    <ClInclude Include="..\..\..\include\ijk\ijk-math\ijk-real\_util\ijkVectorSwizzle_macros.h" />
+    <ClInclude Include="..\..\..\include\ijk\ijk-math\ijk-real\_util\ijkVector_bool.h" />
+    <ClInclude Include="..\..\..\include\ijk\ijk-math\ijk-real\_util\ijkVector_double.h" />
+    <ClInclude Include="..\..\..\include\ijk\ijk-math\ijk-real\_util\ijkVector_float.h" />
+    <ClInclude Include="..\..\..\include\ijk\ijk-math\ijk-real\_util\ijkVector_int.h" />
+    <ClInclude Include="..\..\..\include\ijk\ijk-math\ijk-real\_util\ijkVector_intl.h" />
+    <ClInclude Include="..\..\..\include\ijk\ijk-math\ijk-real\_util\ijkVector_real.h" />
+    <ClInclude Include="..\..\..\include\ijk\ijk-math\ijk-real\_util\ijkVector_uint.h" />
+    <ClInclude Include="..\..\..\include\ijk\ijk-math\ijk-real\_util\ijkVector_uintl.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\..\include\ijk\ijk-math\ijk-real\_inl\ijkInterpolation.inl" />
+    <None Include="..\..\..\include\ijk\ijk-math\ijk-real\_inl\ijkMatrix.inl" />
+    <None Include="..\..\..\include\ijk\ijk-math\ijk-real\_inl\ijkQuaternion.inl" />
+    <None Include="..\..\..\include\ijk\ijk-math\ijk-real\_inl\ijkRandom.inl" />
+    <None Include="..\..\..\include\ijk\ijk-math\ijk-real\_inl\ijkSqrt.inl" />
+    <None Include="..\..\..\include\ijk\ijk-math\ijk-real\_inl\ijkStats.inl" />
+    <MASM Include="..\..\..\source\ijk-math\common\ijk-real\_asm\ijkSqrt_a.asm">
+      <FileType>Document</FileType>
+    </MASM>
+    <None Include="..\..\..\include\ijk\ijk-math\ijk-real\_inl\ijkTrigonometry.inl" />
+    <None Include="..\..\..\include\ijk\ijk-math\ijk-real\_inl\ijkVector.inl" />
+    <None Include="..\..\..\include\ijk\ijk-math\ijk-real\_util\_inl\ijkMatrixSwizzle.inl" />
+    <None Include="..\..\..\include\ijk\ijk-math\ijk-real\_util\_inl\ijkMatrix_double.inl" />
+    <None Include="..\..\..\include\ijk\ijk-math\ijk-real\_util\_inl\ijkMatrix_float.inl" />
+    <None Include="..\..\..\include\ijk\ijk-math\ijk-real\_util\_inl\ijkQuaternionSwizzle.inl" />
+    <None Include="..\..\..\include\ijk\ijk-math\ijk-real\_util\_inl\ijkQuaternion_double.inl" />
+    <None Include="..\..\..\include\ijk\ijk-math\ijk-real\_util\_inl\ijkQuaternion_float.inl" />
+    <None Include="..\..\..\include\ijk\ijk-math\ijk-real\_util\_inl\ijkVectorSwizzle.inl" />
+    <None Include="..\..\..\include\ijk\ijk-math\ijk-real\_util\_inl\ijkVector_bool.inl" />
+    <None Include="..\..\..\include\ijk\ijk-math\ijk-real\_util\_inl\ijkVector_double.inl" />
+    <None Include="..\..\..\include\ijk\ijk-math\ijk-real\_util\_inl\ijkVector_float.inl" />
+    <None Include="..\..\..\include\ijk\ijk-math\ijk-real\_util\_inl\ijkVector_int.inl" />
+    <None Include="..\..\..\include\ijk\ijk-math\ijk-real\_util\_inl\ijkVector_intl.inl" />
+    <None Include="..\..\..\include\ijk\ijk-math\ijk-real\_util\_inl\ijkVector_uint.inl" />
+    <None Include="..\..\..\include\ijk\ijk-math\ijk-real\_util\_inl\ijkVector_uintl.inl" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
+    <Import Project="$(VCTargetsPath)\BuildCustomizations\masm.targets" />
   </ImportGroup>
 </Project>
