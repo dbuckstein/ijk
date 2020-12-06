@@ -47,9 +47,11 @@ typedef struct ijkConsole ijkConsole;
 // ijkConsole
 //	Descriptor for console instance.
 //		member handle: internal handle data
+//		member io: internal i/o flags
 struct ijkConsole
 {
-	ptr handle[2];
+	ptr handle[4];
+	i32 io[3];
 };
 
 
@@ -64,6 +66,18 @@ struct ijkConsole
 //		return FAILURE: ijk_fail_operationfail if console not initialized
 //		return FAILURE: ijk_fail_invalidparams if invalid parameters
 iret ijkConsoleCreateMain(ijkConsole* const console);
+
+// ijkConsoleRedirectMain
+//	Redirect standard pipes to console or default.
+//		param console: pointer to descriptor that stores console info
+//			valid: non-null
+//		param redirectInput: option to redirect standard input to console
+//		param redirectOutput: option to redirect standard output to console
+//		param redirectError: option to redirect standard error to console
+//		return SUCCESS: ijk_success if console successfully redirected
+//		return FAILURE: ijk_fail_operationfail if console not redirected
+//		return FAILURE: ijk_fail_invalidparams if invalid parameters
+iret ijkConsoleRedirectMain(ijkConsole* const console, ibool const redirectInput, ibool const redirectOutput, ibool const redirectError);
 
 // ijkConsoleReleaseMain
 //	Terminate and release console instance for the main process.

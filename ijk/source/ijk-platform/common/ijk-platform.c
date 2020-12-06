@@ -41,35 +41,33 @@ void ijkPlatformTestConsole()
 		// press '0' to release console
 		if (GetAsyncKeyState(48))
 		{
-			fprintf(stdout, "\n  STDOUT: CONSOLE -> DEFAULT  \n");
-			fprintf(stderr, "\n  STDERR: CONSOLE -> DEFAULT  \n");
-			ijkConsoleReleaseMain(console);
-			fprintf(stdout, "\n  STDOUT->DEFAULT  \n");
-			fprintf(stderr, "\n  STDERR->DEFAULT  \n");
+			if (ijk_isnfailure(ijkConsoleReleaseMain(console)))
+			{
+
+			}
 		}
 		// press '1' to create console
 		else if (GetAsyncKeyState(49))
 		{
-			fprintf(stdout, "\n  STDOUT: DEFAULT -> CONSOLE  \n");
-			fprintf(stderr, "\n  STDERR: DEFAULT -> CONSOLE  \n");
-			ijkConsoleCreateMain(console);
-			fprintf(stdout, "\n  STDOUT->CONSOLE  \n");
-			fprintf(stderr, "\n  STDERR->CONSOLE  \n");
+			if (ijk_isnfailure(ijkConsoleCreateMain(console)))
+			{
+				ijkConsoleRedirectMain(console, 1, 1, 1);
+			}
 		}
 		// press '2' to test stdin
 		else if (GetAsyncKeyState(50))
 		{
-			fscanf(stdin, "%d", &i);
+			//fscanf(stdin, "%d", &i);
 		}
 		// press '3' to test stdout
 		else if (GetAsyncKeyState(51))
 		{
-			fprintf(stdout, "  %d %d  ", 3, i);
+			//fprintf(stdout, "  %d %d  ", 3, i);
 		}
 		// press '4' to test stderr
 		else if (GetAsyncKeyState(52))
 		{
-			fprintf(stderr, "  %d %d  ", 4, i);
+			//fprintf(stderr, "  %d %d  ", 4, i);
 		}
 	}
 #endif	// WINDOWS
