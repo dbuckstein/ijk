@@ -28,6 +28,7 @@
 
 #include "ijk/ijk-platform/ijk-app/ijkConsole.h"
 #include <stdio.h>
+#include <Windows.h>
 
 // 'printf' equivalent for 'stderr'
 #define eprintf(format, ...)	fprintf(stderr, format, __VA_ARGS__)
@@ -36,73 +37,87 @@
 #define cerr(format, ...)		eprintf(format, __VA_ARGS__)
 
 
-iret ijkConsoleCreate(ijkConsole* const console_out, ibool const input, ibool const output, ibool const error)
-{
-	if (console_out &&
-		!*console_out->handle)
-	{
+//-----------------------------------------------------------------------------
 
-		return ijk_fail_operationfail;
+iret ijkConsoleCreateMain(ijkConsole* const console)
+{
+	if (console)
+	{
+		// if console not already open
+		if (!GetConsoleWindow())
+		{
+			// allocate and show console
+			if (AllocConsole())
+			{
+				// disable closing console manually because doing this kills 
+				//	the whole application; could also start a new process, 
+				//	but then there's also that to manage
+				DeleteMenu(GetSystemMenu(GetConsoleWindow(), FALSE), SC_CLOSE, MF_BYCOMMAND);
+
+				// set up stdin
+				if (GetStdHandle(STD_INPUT_HANDLE) != INVALID_HANDLE_VALUE)
+					if (freopen("CONIN$", "r", stdin) == 0)
+						setvbuf(stdin, NULL, _IONBF, 0);
+
+				// set up stdout
+				if (GetStdHandle(STD_OUTPUT_HANDLE) != INVALID_HANDLE_VALUE)
+					if (freopen("CONOUT$", "w", stdout) == 0)
+						setvbuf(stdout, NULL, _IONBF, 0);
+
+				// set up stderr
+				if (GetStdHandle(STD_ERROR_HANDLE) != INVALID_HANDLE_VALUE)
+					if (freopen("CONOUT$", "w", stderr) == 0)
+						setvbuf(stderr, NULL, _IONBF, 0);
+
+				// done
+				return ijk_success;
+			}
+			return ijk_fail_operationfail;
+		}
+		return ijk_warn_console_exist;
 	}
 	return ijk_fail_invalidparams;
 }
 
 
-iret ijkConsoleCreateMain(ibool const input, ibool const output, ibool const error)
+iret ijkConsoleReleaseMain(ijkConsole* const console)
 {
-	//if (1)
+	if (console)
 	{
+		// if console exists
+		if (GetConsoleWindow())
+		{
+			// delete console instance
+			// console will hide when all standard handles are closed
+			if (FreeConsole())
+			{
+				// redirect stdin
+				if (GetStdHandle(STD_INPUT_HANDLE) != INVALID_HANDLE_VALUE)
+					if (freopen("NUL:", "r", stdin) == 0)
+						setvbuf(stdin, NULL, _IONBF, 0);
 
-		return ijk_fail_operationfail;
+				// redirect stdout
+				if (GetStdHandle(STD_OUTPUT_HANDLE) != INVALID_HANDLE_VALUE)
+					if (freopen("NUL:", "w", stdout) == 0)
+						setvbuf(stdout, NULL, _IONBF, 0);
+
+				// redirect stderr
+				if (GetStdHandle(STD_ERROR_HANDLE) != INVALID_HANDLE_VALUE)
+					if (freopen("NUL:", "w", stderr) == 0)
+						setvbuf(stderr, NULL, _IONBF, 0);
+
+				// done
+				return ijk_success;
+			}
+			return ijk_fail_operationfail;
+		}
+		return ijk_warn_console_exist;
 	}
 	return ijk_fail_invalidparams;
 }
 
 
-iret ijkConsoleRelease(ijkConsole* const console)
-{
-	if (console &&
-		*console->handle)
-	{
-
-		return ijk_fail_operationfail;
-	}
-	return ijk_fail_invalidparams;
-}
-
-
-iret ijkConsoleReleaseMain()
-{
-	//if (1)
-	{
-
-		return ijk_fail_operationfail;
-	}
-	return ijk_fail_invalidparams;
-}
-
-
-iret ijkConsoleActivate(ijkConsole const* const console)
-{
-	if (console &&
-		*console->handle)
-	{
-
-		return ijk_fail_operationfail;
-	}
-	return ijk_fail_invalidparams;
-}
-
-
-iret ijkConsoleDeactive()
-{
-	//if (1)
-	{
-
-		return ijk_fail_operationfail;
-	}
-	return ijk_fail_invalidparams;
-}
+//-----------------------------------------------------------------------------
 
 
 #endif	// WINDOWS
