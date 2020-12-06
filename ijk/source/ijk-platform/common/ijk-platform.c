@@ -37,53 +37,60 @@ void ijkPlatformTestConsole()
 	fprintf(stdout, "\n STDOUT INIT \n");
 	fprintf(stderr, "\n STDERR INIT \n");
 
-	if (ijk_isnfailure(ijkConsoleCreateMain(console)))
+	while (i)
 	{
-		fprintf(stdout, "\n STDOUT CREATED \n");
-		fprintf(stderr, "\n STDERR CREATED \n");
-	}
+		if (ijk_isnfailure(ijkConsoleCreateMain(console)))
+		{
+			fprintf(stdout, "\n STDOUT CREATED \n");
+			fprintf(stderr, "\n STDERR CREATED \n");
+		}
 
-	system("pause");
-	if (ijk_isnfailure(ijkConsoleReleaseMain(console)))
-	{
-		fprintf(stdout, "\n STDOUT RELEASED \n");
-		fprintf(stderr, "\n STDERR RELEASED \n");
-	}
-	if (ijk_isnfailure(ijkConsoleCreateMain(console)))
-	{
-		fprintf(stdout, "\n STDOUT CREATED \n");
-		fprintf(stderr, "\n STDERR CREATED \n");
-	}
+		system("pause");
+		if (ijk_isnfailure(ijkConsoleReleaseMain(console)))
+		{
+			fprintf(stdout, "\n STDOUT RELEASED \n");
+			fprintf(stderr, "\n STDERR RELEASED \n");
+		}
+		if (ijk_isnfailure(ijkConsoleCreateMain(console)))
+		{
+			fprintf(stdout, "\n STDOUT CREATED \n");
+			fprintf(stderr, "\n STDERR CREATED \n");
+		}
 
-	system("pause");
-	if (ijk_isnfailure(ijkConsoleRedirectMain(console, 0, 0, 0)))
-	{
-		fprintf(stdout, "\n STDOUT RESET \n");
-		fprintf(stderr, "\n STDERR RESET \n");
-	}
-	if (ijk_isnfailure(ijkConsoleRedirectMain(console, 1, 1, 1)))
-	{
-		fprintf(stdout, "\n STDOUT REDIRECTED \n");
-		fprintf(stderr, "\n STDERR REDIRECTED \n");
-	}
+		system("pause");
+		if (ijk_isnfailure(ijkConsoleRedirectMain(console, 0, 0, 0)))
+		{
+			fprintf(stdout, "\n STDOUT RESET \n");
+			fprintf(stderr, "\n STDERR RESET \n");
+		}
+		if (ijk_isnfailure(ijkConsoleRedirectMain(console, 1, 1, 1)))
+		{
+			fprintf(stdout, "\n STDOUT REDIRECTED \n");
+			fprintf(stderr, "\n STDERR REDIRECTED \n");
+		}
 
-	system("pause");
-	if (ijk_isnfailure(ijkConsoleRedirectMain(console, 0, 0, 0)))
-	{
-		fprintf(stdout, "\n STDOUT RESET \n");
-		fprintf(stderr, "\n STDERR RESET \n");
-	}
-	if (ijk_isnfailure(ijkConsoleRedirectMain(console, 1, 1, 1)))
-	{
-		fprintf(stdout, "\n STDOUT REDIRECTED \n");
-		fprintf(stderr, "\n STDERR REDIRECTED \n");
-	}
+		system("pause");
+		if (ijk_isnfailure(ijkConsoleRedirectMain(console, 0, 0, 0)))
+		{
+			fprintf(stdout, "\n STDOUT RESET \n");
+			fprintf(stderr, "\n STDERR RESET \n");
+		}
+		if (ijk_isnfailure(ijkConsoleRedirectMain(console, 1, 1, 1)))
+		{
+			fprintf(stdout, "\n STDOUT REDIRECTED \n");
+			fprintf(stderr, "\n STDERR REDIRECTED \n");
+		}
 
-	system("pause");
-	if (ijk_isnfailure(ijkConsoleReleaseMain(console)))
-	{
-		fprintf(stdout, "\n STDOUT RELEASED \n");
-		fprintf(stderr, "\n STDERR RELEASED \n");
+		fprintf(stdout, "\n STDOUT TEST AGAIN? -> ");
+		fprintf(stderr, "\n STDERR TEST AGAIN? -> ");
+		fscanf(stdin, "%d", &i);
+
+		system("pause");
+		if (ijk_isnfailure(ijkConsoleReleaseMain(console)))
+		{
+			fprintf(stdout, "\n STDOUT RELEASED \n");
+			fprintf(stderr, "\n STDERR RELEASED \n");
+		}
 	}
 
 	fprintf(stdout, "\n STDOUT TERM \n");

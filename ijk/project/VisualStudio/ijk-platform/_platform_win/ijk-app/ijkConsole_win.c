@@ -41,44 +41,6 @@
 
 //-----------------------------------------------------------------------------
 
-// redirect standard handles to console
-ijk_inl void ijkConsoleInternalRedirect()
-{
-	// set up stdin
-	if (GetStdHandle(STD_INPUT_HANDLE) != INVALID_HANDLE_VALUE)
-		if (freopen("CONIN$", "r", stdin) == 0)
-			setvbuf(stdin, NULL, _IONBF, 0);
-
-	// set up stdout
-	if (GetStdHandle(STD_OUTPUT_HANDLE) != INVALID_HANDLE_VALUE)
-		if (freopen("CONOUT$", "w", stdout) == 0)
-			setvbuf(stdout, NULL, _IONBF, 0);
-
-	// set up stderr
-	if (GetStdHandle(STD_ERROR_HANDLE) != INVALID_HANDLE_VALUE)
-		if (freopen("CONOUT$", "w", stderr) == 0)
-			setvbuf(stderr, NULL, _IONBF, 0);
-}
-
-// hard reset of standard handles
-ijk_inl void ijkConsoleInternalReset()
-{
-	// redirect stdin
-	if (GetStdHandle(STD_INPUT_HANDLE) != INVALID_HANDLE_VALUE)
-		if (freopen("NUL:", "r", stdin) == 0)
-			setvbuf(stdin, NULL, _IONBF, 0);
-
-	// redirect stdout
-	if (GetStdHandle(STD_OUTPUT_HANDLE) != INVALID_HANDLE_VALUE)
-		if (freopen("NUL:", "w", stdout) == 0)
-			setvbuf(stdout, NULL, _IONBF, 0);
-
-	// redirect stderr
-	if (GetStdHandle(STD_ERROR_HANDLE) != INVALID_HANDLE_VALUE)
-		if (freopen("NUL:", "w", stderr) == 0)
-			setvbuf(stderr, NULL, _IONBF, 0);
-}
-
 // redirect with settings
 ijk_inl void ijkConsoleInternalRedirectToggle(ijkConsole* const console, ibool const redirectInput, ibool const redirectOutput, ibool const redirectError)
 {
@@ -87,15 +49,43 @@ ijk_inl void ijkConsoleInternalRedirectToggle(ijkConsole* const console, ibool c
 
 	// redirect input
 	i = 0;
-	if (redirectInput && !console->handle[0])
+	if (redirectInput && !console->handle[i])
 	{
-		// flush and clear all stream buffers
-		//j = fprintf(stdout, "\n STDIN =/= CONSOLE \n");
-		//j = _flushall();
+		if (GetStdHandle(STD_INPUT_HANDLE) != INVALID_HANDLE_VALUE)
+		{
+			// flush buffer, duplicate handle and reopen stream to console
+			//j = fprintf(stdin, "\n STDIN =/= DEFAULT \n");
+			j = fflush(stdin);
+			j = _dup(i);
+			str = freopen("CONIN$", "r+", stdin);
+			if (str)
+			{
+				// store values and configure
+				console->handle[i] = str;
+				console->io[i] = j;
+				j = setvbuf(stdin, NULL, _IONBF, 0);
+				//j = fprintf(stdin, "\n STDIN == CONSOLE \n");
+			}
+		}
 	}
-	else if (console->handle[0])
+	else if (console->handle[i])
 	{
-
+		if (GetStdHandle(STD_INPUT_HANDLE) != INVALID_HANDLE_VALUE)
+		{
+			// flush and reopen
+			//j = fprintf(stdin, "\n STDIN =/= CONSOLE \n");
+			j = fflush(stdin);
+			str = freopen("NUL:", "r+", stdin);
+			if (str)
+			{
+				// duplicate handle and reconfigure stream, reset variables
+				j = _dup2(console->io[i], i);
+				j = setvbuf(stdin, NULL, _IONBF, 0);
+				//j = fprintf(stdin, "\n STDIN == DEFAULT \n");
+				console->handle[i] = 0;
+				console->io[i] = -1;
+			}
+		}
 	}
 
 	// redirect output
@@ -104,65 +94,38 @@ ijk_inl void ijkConsoleInternalRedirectToggle(ijkConsole* const console, ibool c
 	{
 		if (GetStdHandle(STD_OUTPUT_HANDLE) != INVALID_HANDLE_VALUE)
 		{
-			j = fprintf(stdout, "\n STDOUT =/= DEFAULT \n");
+			// flush buffer, duplicate handle and reopen stream to console
+			//j = fprintf(stdout, "\n STDOUT =/= DEFAULT \n");
 			j = fflush(stdout);
+			j = _dup(i);
 			str = freopen("CONOUT$", "a+", stdout);
 			if (str)
 			{
-				j = setvbuf(stdout, NULL, _IONBF, 0);
-				j = fprintf(stdout, "\n STDOUT == CONSOLE \n");
+				// store values and configure
 				console->handle[i] = str;
+				console->io[i] = j;
+				j = setvbuf(stdout, NULL, _IONBF, 0);
+				//j = fprintf(stdout, "\n STDOUT == CONSOLE \n");
 			}
-
-			// copy handle to stdout
-		/*	j = fopen_s((FILE**)(console->handle + i), "CONOUT$", "w");
-			if (console->handle[i])
-			{
-				// enable streaming
-				j = setvbuf(console->handle[i], NULL, _IONBF, 0);
-
-				// route stdout to console
-				str = stdout;
-				fprintf(str, "\n STDOUT =/= DEFAULT \n");
-				fflush(str);
-				console->io[i] = _dup(i);
-				j = _fileno(console->handle[i]);
-				j = _dup2(j, i);
-				if (j == 0)
-				{
-					str = stdout;
-					fprintf(str, "\n STDOUT == CONSOLE \n");
-				}
-			}*/
 		}
 	}
 	else if (console->handle[i])
 	{
 		if (GetStdHandle(STD_OUTPUT_HANDLE) != INVALID_HANDLE_VALUE)
 		{
-			j = fprintf(stdout, "\n STDOUT =/= CONSOLE \n");
+			// flush and reopen
+			//j = fprintf(stdout, "\n STDOUT =/= CONSOLE \n");
 			j = fflush(stdout);
 			str = freopen("NUL:", "a+", stdout);
 			if (str)
 			{
+				// duplicate handle and reconfigure stream, reset variables
+				j = _dup2(console->io[i], i);
 				j = setvbuf(stdout, NULL, _IONBF, 0);
-				j = fprintf(stdout, "\n STDOUT == DEFAULT \n");
+				//j = fprintf(stdout, "\n STDOUT == DEFAULT \n");
 				console->handle[i] = 0;
-			}
-
-			// finish stdout buffer and close file
-		/*	fprintf(stdout, "\n STDOUT =/= CONSOLE \n");
-			fflush(stdout);
-			fclose(console->handle[i]);
-			console->handle[i] = 0;
-
-			// reassign stdout to original
-			j = _dup2(console->io[i], i);
-			if (j == 0)
-			{
 				console->io[i] = -1;
-				fprintf(stdout, "\n STDOUT == DEFAULT \n");
-			}*/
+			}
 		}
 	}
 
@@ -170,11 +133,41 @@ ijk_inl void ijkConsoleInternalRedirectToggle(ijkConsole* const console, ibool c
 	i = 2;
 	if (redirectError && !console->handle[i])
 	{
-
+		if (GetStdHandle(STD_ERROR_HANDLE) != INVALID_HANDLE_VALUE)
+		{
+			// flush buffer, duplicate handle and reopen stream to console
+			//j = fprintf(stderr, "\n STDERR =/= DEFAULT \n");
+			j = fflush(stderr);
+			j = _dup(i);
+			str = freopen("CONOUT$", "a+", stderr);
+			if (str)
+			{
+				// store values and configure
+				console->handle[i] = str;
+				console->io[i] = j;
+				j = setvbuf(stderr, NULL, _IONBF, 0);
+				//j = fprintf(stderr, "\n STDERR == CONSOLE \n");
+			}
+		}
 	}
 	else if (console->handle[i])
 	{
-
+		if (GetStdHandle(STD_ERROR_HANDLE) != INVALID_HANDLE_VALUE)
+		{
+			// flush and reopen
+			//j = fprintf(stderr, "\n STDERR =/= CONSOLE \n");
+			j = fflush(stderr);
+			str = freopen("NUL:", "a+", stderr);
+			if (str)
+			{
+				// duplicate handle and reconfigure stream, reset variables
+				j = _dup2(console->io[i], i);
+				j = setvbuf(stderr, NULL, _IONBF, 0);
+				//j = fprintf(stderr, "\n STDERR == DEFAULT \n");
+				console->handle[i] = 0;
+				console->io[i] = -1;
+			}
+		}
 	}
 }
 
