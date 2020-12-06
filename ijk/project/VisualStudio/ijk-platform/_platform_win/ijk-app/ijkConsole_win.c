@@ -262,5 +262,128 @@ iret ijkConsoleReleaseMain(ijkConsole* const console)
 
 //-----------------------------------------------------------------------------
 
+iret ijkConsoleGetCursor(i16* const x_out, i16* const y_out)
+{
+	if (x_out && y_out)
+	{
+		CONSOLE_SCREEN_BUFFER_INFO screenBufferInfo[1];
+		HANDLE const stdHandle = GetStdHandle(STD_OUTPUT_HANDLE), console = GetConsoleWindow();
+		if (stdHandle && console &&
+			GetConsoleScreenBufferInfo(stdHandle, screenBufferInfo))
+		{
+			*x_out = screenBufferInfo->dwCursorPosition.X;
+			*y_out = screenBufferInfo->dwCursorPosition.Y;
+			return ijk_success;
+		}
+		return ijk_fail_operationfail;
+	}
+	return ijk_fail_invalidparams;
+}
+
+
+iret ijkConsoleSetCursor(i16 const x, i16 const y)
+{
+	COORD const pos = { x, y };
+	HANDLE const stdHandle = GetStdHandle(STD_OUTPUT_HANDLE), console = GetConsoleWindow();
+	if (stdHandle && console &&
+		SetConsoleCursorPosition(stdHandle, pos))
+	{
+		return ijk_success;
+	}
+	return ijk_fail_operationfail;
+}
+
+
+iret ijkConsoleToggleCursor(ibool const visible)
+{
+	CONSOLE_CURSOR_INFO cursorInfo[1];
+	HANDLE const stdHandle = GetStdHandle(STD_OUTPUT_HANDLE), console = GetConsoleWindow();
+	if (stdHandle && console &&
+		GetConsoleCursorInfo(stdHandle, cursorInfo))
+	{
+		cursorInfo->bVisible = visible;
+		if (SetConsoleCursorInfo(stdHandle, cursorInfo))
+		{
+			return ijk_success;
+		}
+	}
+	return ijk_fail_operationfail;
+}
+
+
+iret ijkConsoleGetColor(ijkConsoleColor* const fg_out, ijkConsoleColor* const bg_out)
+{
+	if (fg_out && bg_out)
+	{
+		CONSOLE_SCREEN_BUFFER_INFO screenBufferInfo[1];
+		HANDLE const stdHandle = GetStdHandle(STD_OUTPUT_HANDLE), console = GetConsoleWindow();
+		if (stdHandle && console &&
+			GetConsoleScreenBufferInfo(stdHandle, screenBufferInfo))
+		{
+			*fg_out = (ijkConsoleColor)(screenBufferInfo->wAttributes & 0xf);
+			*bg_out = (ijkConsoleColor)(screenBufferInfo->wAttributes >> 4 & 0xf);
+			return ijk_success;
+		}
+		return ijk_fail_operationfail;
+	}
+	return ijk_fail_invalidparams;
+}
+
+
+iret ijkConsoleSetColor(ijkConsoleColor const fg, ijkConsoleColor const bg)
+{
+	HANDLE const stdHandle = GetStdHandle(STD_OUTPUT_HANDLE), console = GetConsoleWindow();
+	if (stdHandle && console &&
+		SetConsoleTextAttribute(stdHandle, (i16)(fg | bg << 4)))
+	{
+		return ijk_success;
+	}
+	return ijk_fail_operationfail;
+}
+
+
+iret ijkConsoleResetColor()
+{
+	return ijkConsoleSetColor(ijkConsoleColor_white, ijkConsoleColor_black);
+}
+
+
+iret ijkConsoleGetCursorColor(i16* const x_out, i16* const y_out, ijkConsoleColor* const fg_out, ijkConsoleColor* const bg_out)
+{
+	if (x_out && y_out && fg_out && bg_out)
+	{
+		CONSOLE_SCREEN_BUFFER_INFO screenBufferInfo[1];
+		HANDLE const stdHandle = GetStdHandle(STD_OUTPUT_HANDLE), console = GetConsoleWindow();
+		if (stdHandle && console &&
+			GetConsoleScreenBufferInfo(stdHandle, screenBufferInfo))
+		{
+			*x_out = screenBufferInfo->dwCursorPosition.X;
+			*y_out = screenBufferInfo->dwCursorPosition.Y;
+			*fg_out = (ijkConsoleColor)(screenBufferInfo->wAttributes & 0xf);
+			*bg_out = (ijkConsoleColor)(screenBufferInfo->wAttributes >> 4 & 0xf);
+			return ijk_success;
+		}
+		return ijk_fail_operationfail;
+	}
+	return ijk_fail_invalidparams;
+}
+
+
+iret ijkConsoleSetCursorColor(i16 const x, i16 const y, ijkConsoleColor const fg, ijkConsoleColor const bg)
+{
+	COORD const pos = { x, y };
+	HANDLE const stdHandle = GetStdHandle(STD_OUTPUT_HANDLE), console = GetConsoleWindow();
+	if (stdHandle && console &&
+		SetConsoleCursorPosition(stdHandle, pos) &&
+		SetConsoleTextAttribute(stdHandle, (i16)(fg | bg << 4)))
+	{
+		return ijk_success;
+	}
+	return ijk_fail_operationfail;
+}
+
+
+//-----------------------------------------------------------------------------
+
 
 #endif	// WINDOWS

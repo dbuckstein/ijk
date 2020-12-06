@@ -60,15 +60,36 @@ struct ijkConsole
 //	List of color codes for changing display style in console.
 enum ijkConsoleColor
 {
-	ijkConsoleColor_off = 0x0,		// Color is disabled (black).
-	ijkConsoleColor_blue = 0x1,		// Color contains blue channel.
-	ijkConsoleColor_green = 0x2,	// Color contains green channel.
-	ijkConsoleColor_cyan = ijkConsoleColor_green | ijkConsoleColor_blue,	// Color contains green and blue channels to form cyan.
-	ijkConsoleColor_red = 0x4,		// Color contains red channel.
-	ijkConsoleColor_magenta = ijkConsoleColor_blue | ijkConsoleColor_red,	// Color contains blue and red channels to form magenta.
-	ijkConsoleColor_yellow = ijkConsoleColor_red | ijkConsoleColor_green,	// Color contains red and green channels to form yellow.
-	ijkConsoleColor_white = ijkConsoleColor_red | ijkConsoleColor_green | ijkConsoleColor_blue,	// Color contains all primary channels.
-	ijkConsoleColor_alpha = 0x8		// Color is fully opaque/intense.
+	// Channels.
+	///
+	ijkConsoleColor_0 = 0x0,	// Color is disabled.
+	ijkConsoleColor_b = 0x1,	// Color contains blue channel.
+	ijkConsoleColor_g = 0x2,	// Color contains green channel.
+	ijkConsoleColor_gb,			// Color contains green and blue channels to form cyan.
+	ijkConsoleColor_r = 0x4,	// Color contains red channel.
+	ijkConsoleColor_br,			// Color contains blue and red channels to form magenta.
+	ijkConsoleColor_rg,			// Color contains red and green channels to form yellow.
+	ijkConsoleColor_rgb,		// Color contains all primary channels.
+	ijkConsoleColor_a = 0x8,	// Color is fully opaque/intense.
+
+	// Colors.
+	///
+	ijkConsoleColor_black = ijkConsoleColor_0,	// Black:           (0, 0, 0, 0)
+	ijkConsoleColor_blue_d,						// Blue (dark):     (0, 0, 1, 0)
+	ijkConsoleColor_green_d,					// Green (dark):    (0, 1, 0, 0)
+	ijkConsoleColor_cyan_d,						// Cyan (dark):     (0, 1, 1, 0)
+	ijkConsoleColor_red_d,						// Red (dark):      (1, 0, 0, 0)
+	ijkConsoleColor_magenta_d,					// Magenta (dark):  (1, 0, 1, 0)
+	ijkConsoleColor_yellow_d,					// Yellow (dark):   (1, 1, 0, 0)
+	ijkConsoleColor_grey_d,						// Grey (dark):     (1, 1, 1, 0)
+	ijkConsoleColor_grey,						// Grey:            (0, 0, 0, 1)
+	ijkConsoleColor_blue,						// Blue:            (0, 0, 1, 1)
+	ijkConsoleColor_green,						// Green:           (0, 1, 0, 1)
+	ijkConsoleColor_cyan,						// Cyan:            (0, 1, 1, 1)
+	ijkConsoleColor_red,						// Red:             (1, 0, 0, 1)
+	ijkConsoleColor_magenta,					// Magenta:         (1, 0, 1, 1)
+	ijkConsoleColor_yellow,						// Yellow:          (1, 1, 0, 1)
+	ijkConsoleColor_white,						// White:           (1, 1, 1, 1)
 };
 
 
