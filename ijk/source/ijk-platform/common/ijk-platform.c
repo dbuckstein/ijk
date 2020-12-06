@@ -26,49 +26,67 @@
 #include "ijk/ijk-platform/ijk-platform.h"
 
 #include <stdio.h>
+#include <stdlib.h>
 
 void ijkPlatformTestConsole()
 {
 #if (__ijk_cfg_platform == WINDOWS)
-	i16 GetAsyncKeyState(i32 key);
 	i32 i = -1;
-
 	ijkConsole console[1] = { 0 };
 
-	// quit function with escape key
-	while (!GetAsyncKeyState(27))
-	{
-		// press '0' to release console
-		if (GetAsyncKeyState(48))
-		{
-			if (ijk_isnfailure(ijkConsoleReleaseMain(console)))
-			{
+	fprintf(stdout, "\n STDOUT INIT \n");
+	fprintf(stderr, "\n STDERR INIT \n");
 
-			}
-		}
-		// press '1' to create console
-		else if (GetAsyncKeyState(49))
-		{
-			if (ijk_isnfailure(ijkConsoleCreateMain(console)))
-			{
-				ijkConsoleRedirectMain(console, 1, 1, 1);
-			}
-		}
-		// press '2' to test stdin
-		else if (GetAsyncKeyState(50))
-		{
-			//fscanf(stdin, "%d", &i);
-		}
-		// press '3' to test stdout
-		else if (GetAsyncKeyState(51))
-		{
-			//fprintf(stdout, "  %d %d  ", 3, i);
-		}
-		// press '4' to test stderr
-		else if (GetAsyncKeyState(52))
-		{
-			//fprintf(stderr, "  %d %d  ", 4, i);
-		}
+	if (ijk_isnfailure(ijkConsoleCreateMain(console)))
+	{
+		fprintf(stdout, "\n STDOUT CREATED \n");
+		fprintf(stderr, "\n STDERR CREATED \n");
 	}
+
+	system("pause");
+	if (ijk_isnfailure(ijkConsoleReleaseMain(console)))
+	{
+		fprintf(stdout, "\n STDOUT RELEASED \n");
+		fprintf(stderr, "\n STDERR RELEASED \n");
+	}
+	if (ijk_isnfailure(ijkConsoleCreateMain(console)))
+	{
+		fprintf(stdout, "\n STDOUT CREATED \n");
+		fprintf(stderr, "\n STDERR CREATED \n");
+	}
+
+	system("pause");
+	if (ijk_isnfailure(ijkConsoleRedirectMain(console, 0, 0, 0)))
+	{
+		fprintf(stdout, "\n STDOUT RESET \n");
+		fprintf(stderr, "\n STDERR RESET \n");
+	}
+	if (ijk_isnfailure(ijkConsoleRedirectMain(console, 1, 1, 1)))
+	{
+		fprintf(stdout, "\n STDOUT REDIRECTED \n");
+		fprintf(stderr, "\n STDERR REDIRECTED \n");
+	}
+
+	system("pause");
+	if (ijk_isnfailure(ijkConsoleRedirectMain(console, 0, 0, 0)))
+	{
+		fprintf(stdout, "\n STDOUT RESET \n");
+		fprintf(stderr, "\n STDERR RESET \n");
+	}
+	if (ijk_isnfailure(ijkConsoleRedirectMain(console, 1, 1, 1)))
+	{
+		fprintf(stdout, "\n STDOUT REDIRECTED \n");
+		fprintf(stderr, "\n STDERR REDIRECTED \n");
+	}
+
+	system("pause");
+	if (ijk_isnfailure(ijkConsoleReleaseMain(console)))
+	{
+		fprintf(stdout, "\n STDOUT RELEASED \n");
+		fprintf(stderr, "\n STDERR RELEASED \n");
+	}
+
+	fprintf(stdout, "\n STDOUT TERM \n");
+	fprintf(stderr, "\n STDERR TERM \n");
 #endif	// WINDOWS
 }

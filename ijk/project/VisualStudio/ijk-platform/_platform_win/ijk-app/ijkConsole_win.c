@@ -79,6 +79,105 @@ ijk_inl void ijkConsoleInternalReset()
 			setvbuf(stderr, NULL, _IONBF, 0);
 }
 
+// redirect with settings
+ijk_inl void ijkConsoleInternalRedirectToggle(ijkConsole* const console, ibool const redirectInput, ibool const redirectOutput, ibool const redirectError)
+{
+	FILE* str = 0;
+	i32 i = -1, j = -1;
+
+	// redirect input
+	i = 0;
+	if (redirectInput && !console->handle[0])
+	{
+		// flush and clear all stream buffers
+		//j = fprintf(stdout, "\n STDIN =/= CONSOLE \n");
+		//j = _flushall();
+	}
+	else if (console->handle[0])
+	{
+
+	}
+
+	// redirect output
+	i = 1;
+	if (redirectOutput && !console->handle[i])
+	{
+		if (GetStdHandle(STD_OUTPUT_HANDLE) != INVALID_HANDLE_VALUE)
+		{
+			j = fprintf(stdout, "\n STDOUT =/= DEFAULT \n");
+			j = fflush(stdout);
+			str = freopen("CONOUT$", "a+", stdout);
+			if (str)
+			{
+				j = setvbuf(stdout, NULL, _IONBF, 0);
+				j = fprintf(stdout, "\n STDOUT == CONSOLE \n");
+				console->handle[i] = str;
+			}
+
+			// copy handle to stdout
+		/*	j = fopen_s((FILE**)(console->handle + i), "CONOUT$", "w");
+			if (console->handle[i])
+			{
+				// enable streaming
+				j = setvbuf(console->handle[i], NULL, _IONBF, 0);
+
+				// route stdout to console
+				str = stdout;
+				fprintf(str, "\n STDOUT =/= DEFAULT \n");
+				fflush(str);
+				console->io[i] = _dup(i);
+				j = _fileno(console->handle[i]);
+				j = _dup2(j, i);
+				if (j == 0)
+				{
+					str = stdout;
+					fprintf(str, "\n STDOUT == CONSOLE \n");
+				}
+			}*/
+		}
+	}
+	else if (console->handle[i])
+	{
+		if (GetStdHandle(STD_OUTPUT_HANDLE) != INVALID_HANDLE_VALUE)
+		{
+			j = fprintf(stdout, "\n STDOUT =/= CONSOLE \n");
+			j = fflush(stdout);
+			str = freopen("NUL:", "a+", stdout);
+			if (str)
+			{
+				j = setvbuf(stdout, NULL, _IONBF, 0);
+				j = fprintf(stdout, "\n STDOUT == DEFAULT \n");
+				console->handle[i] = 0;
+			}
+
+			// finish stdout buffer and close file
+		/*	fprintf(stdout, "\n STDOUT =/= CONSOLE \n");
+			fflush(stdout);
+			fclose(console->handle[i]);
+			console->handle[i] = 0;
+
+			// reassign stdout to original
+			j = _dup2(console->io[i], i);
+			if (j == 0)
+			{
+				console->io[i] = -1;
+				fprintf(stdout, "\n STDOUT == DEFAULT \n");
+			}*/
+		}
+	}
+
+	// redirect error
+	i = 2;
+	if (redirectError && !console->handle[i])
+	{
+
+	}
+	else if (console->handle[i])
+	{
+
+	}
+}
+
 
 //-----------------------------------------------------------------------------
 
@@ -105,6 +204,9 @@ iret ijkConsoleCreateMain(ijkConsole* const console)
 				//	but then there's also that to manage
 				DeleteMenu(GetSystemMenu(handle, FALSE), SC_CLOSE, MF_BYCOMMAND);
 
+				// redirect to new console
+				ijkConsoleInternalRedirectToggle(console, 1, 1, 1);
+
 				// done
 				return ijk_success;
 			}
@@ -118,77 +220,14 @@ iret ijkConsoleCreateMain(ijkConsole* const console)
 
 iret ijkConsoleRedirectMain(ijkConsole* const console, ibool const redirectInput, ibool const redirectOutput, ibool const redirectError)
 {
-	i32 i = -1;
 	if (console)
 	{
 		// if console exists
 		kptr const handle = GetConsoleWindow();
 		if ((console->handle[3] == handle) && handle)
 		{
-			// flush and clear all stream buffers
-			_flushall();
-
-			// redirect input
-			i = 0;
-			if (redirectInput && !console->handle[0])
-			{
-
-			}
-			else if (console->handle[0])
-			{
-
-			}
-
-			// redirect output
-			i = 1;
-			if (redirectOutput && !console->handle[i])
-			{
-				if (GetStdHandle(STD_OUTPUT_HANDLE) != INVALID_HANDLE_VALUE)
-				{
-					// copy handle to stdout
-					console->io[i] = _dup(i);
-					console->handle[i] = fopen("CONOUT$", "w");
-					if (console->handle[i])
-					{
-						// enable streaming
-						setvbuf(console->handle[i], NULL, _IONBF, 0);
-
-						// route stdout to console
-						fprintf(stdout, "\n STDOUT =/= DEFAULT \n");
-						fflush(stdout);
-						if (_dup2(_fileno(console->handle[i]), i) >= 0)
-						{
-							fprintf(stdout, "\n STDOUT == CONSOLE \n");
-						}
-					}
-				}
-			}
-			else if (console->handle[i])
-			{
-				// finish stdout buffer and close file
-				fprintf(stdout, "\n STDOUT =/= CONSOLE \n");
-				fflush(stdout);
-				fclose(console->handle[i]);
-				console->handle[i] = 0;
-
-				// reassign stdout to original
-				if (_dup2(console->io[i], i) >= 0)
-				{
-					console->io[i] = -1;
-					fprintf(stdout, "\n STDOUT == DEFAULT \n");
-				}
-			}
-
-			// redirect error
-			i = 2;
-			if (redirectError && !console->handle[i])
-			{
-
-			}
-			else if (console->handle[i])
-			{
-
-			}
+			// redirect toggle
+			ijkConsoleInternalRedirectToggle(console, redirectInput, redirectOutput, redirectError);
 
 			// done
 			return ijk_success;
@@ -208,7 +247,7 @@ iret ijkConsoleReleaseMain(ijkConsole* const console)
 		if ((console->handle[3] == handle) && handle)
 		{
 			// reset to original standard i/o
-			ijkConsoleRedirectMain(console, 0, 0, 0);
+			ijkConsoleInternalRedirectToggle(console, 0, 0, 0);
 
 			// delete console instance
 			// console will hide when all standard handles are closed
