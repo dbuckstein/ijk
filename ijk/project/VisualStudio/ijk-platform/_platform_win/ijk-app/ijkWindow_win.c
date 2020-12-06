@@ -23,4 +23,11 @@
 	Window management source.
 */
 
+#include "ijk/ijk/ijk-config.h"
+#if (__ijk_cfg_platform == WINDOWS)
+
 #include "ijk/ijk-platform/ijk-app/ijkWindow.h"
+
+
+
+#endif	// WINDOWS

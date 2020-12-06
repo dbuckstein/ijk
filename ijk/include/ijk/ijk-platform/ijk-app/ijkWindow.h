@@ -26,6 +26,20 @@
 #ifndef _IJK_WINDOW_H_
 #define _IJK_WINDOW_H_
 
+#include "ijk/ijk/ijk-typedefs.h"
+
+
+#ifdef __cplusplus
+extern "C" {
+#else	// !__cplusplus
+
+
+
+#endif	// __cplusplus
+
+#ifdef __cplusplus
+}
+#endif	// __cplusplus
 
 
 #endif	// !_IJK_WINDOW_H_
