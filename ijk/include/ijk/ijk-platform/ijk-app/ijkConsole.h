@@ -65,11 +65,11 @@ enum ijkConsoleColor
 	ijkConsoleColor_0 = 0x0,	// Color is disabled.
 	ijkConsoleColor_b = 0x1,	// Color contains blue channel.
 	ijkConsoleColor_g = 0x2,	// Color contains green channel.
-	ijkConsoleColor_gb,			// Color contains green and blue channels to form cyan.
+	ijkConsoleColor_gb,			// Color contains green and blue channels.
 	ijkConsoleColor_r = 0x4,	// Color contains red channel.
-	ijkConsoleColor_br,			// Color contains blue and red channels to form magenta.
-	ijkConsoleColor_rg,			// Color contains red and green channels to form yellow.
-	ijkConsoleColor_rgb,		// Color contains all primary channels.
+	ijkConsoleColor_br,			// Color contains blue and red channels.
+	ijkConsoleColor_rg,			// Color contains red and green channels.
+	ijkConsoleColor_rgb,		// Color contains red, green and blue channels.
 	ijkConsoleColor_a = 0x8,	// Color is fully opaque/intense.
 
 	// Colors.
@@ -81,8 +81,8 @@ enum ijkConsoleColor
 	ijkConsoleColor_red_d,						// Red (dark):      (1, 0, 0, 0)
 	ijkConsoleColor_magenta_d,					// Magenta (dark):  (1, 0, 1, 0)
 	ijkConsoleColor_yellow_d,					// Yellow (dark):   (1, 1, 0, 0)
-	ijkConsoleColor_grey_d,						// Grey (dark):     (1, 1, 1, 0)
-	ijkConsoleColor_grey,						// Grey:            (0, 0, 0, 1)
+	ijkConsoleColor_grey,						// Grey:            (1, 1, 1, 0)
+	ijkConsoleColor_grey_d,						// Grey (dark):     (0, 0, 0, 1)
 	ijkConsoleColor_blue,						// Blue:            (0, 0, 1, 1)
 	ijkConsoleColor_green,						// Green:           (0, 1, 0, 1)
 	ijkConsoleColor_cyan,						// Cyan:            (0, 1, 1, 1)
@@ -206,6 +206,12 @@ iret ijkConsoleGetCursorColor(i16* const x_out, i16* const y_out, ijkConsoleColo
 //		return FAILURE: ijk_fail_operationfail if operation failed
 //		return FAILURE: ijk_fail_invalidparams if invalid parameters
 iret ijkConsoleSetCursorColor(i16 const x, i16 const y, ijkConsoleColor const fg, ijkConsoleColor const bg);
+
+// ijkConsoleDrawTestPatch
+//	Display test patch in console.
+//		return SUCCESS: ijk_success if operation succeeded
+//		return FAILURE: ijk_fail_operationfail if operation failed
+iret ijkConsoleDrawTestPatch();
 
 
 //-----------------------------------------------------------------------------

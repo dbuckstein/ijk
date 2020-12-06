@@ -383,6 +383,40 @@ iret ijkConsoleSetCursorColor(i16 const x, i16 const y, ijkConsoleColor const fg
 }
 
 
+iret ijkConsoleDrawTestPatch()
+{
+	HANDLE const stdHandle = GetStdHandle(STD_OUTPUT_HANDLE), console = GetConsoleWindow();
+	if (stdHandle && console)
+	{
+		// test all colors and shifts
+		i16 x, y;
+		ijkConsoleColor fg, bg;
+		for (y = 0; y < 16; ++y)
+		{
+			for (x = 0; x < 16; ++x)
+			{
+				fg = (ijkConsoleColor)y;
+				bg = (ijkConsoleColor)x;
+				ijkConsoleSetColor(fg, bg);
+				ijkConsoleSetCursor(x * 2, y);
+				printf("%x", (i32)x);
+				ijkConsoleSetCursorColor(x * 2 + 1, y, fg, bg);
+				printf("%x", (i32)y);
+			}
+		}
+		ijkConsoleGetCursor(&x, &y);
+		ijkConsoleGetColor(&fg, &bg);
+		ijkConsoleGetCursorColor(&x, &y, &fg, &bg);
+		ijkConsoleResetColor();
+		printf("[]=(%d, %d) \n", (i32)x, (i32)y);
+
+		// done
+		return ijk_success;
+	}
+	return ijk_fail_operationfail;
+}
+
+
 //-----------------------------------------------------------------------------
 
 
