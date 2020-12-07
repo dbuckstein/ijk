@@ -27,6 +27,9 @@
 
 #if (__ijk_cfg_platform == WINDOWS)
 
+//#include <stdio.h>
+//#include <stdlib.h>
+
 
 //-----------------------------------------------------------------------------
 // application entry point
@@ -41,23 +44,33 @@ iret __stdcall wWinMain(
 	iret status = -1;
 	ptr handle[1] = { 0 };
 
+	//ijkConsole console[1] = { 0 };
+
 	// initialize application instance
-	//status = ijkApplicationStartSingleInstanceSwitchExisting(appName);
-	//status = ijkApplicationStartSingleInstance(handle, appName);
-	i32 i = -1;
-	status = ijkApplicationStartMultipleInstance(handle, appName, 3, &i);
+	status = ijkApplicationStartSingleInstanceSwitchExisting(appName);
+	//i32 i = -1;
+	//ui32 const c = 1;
+	//status = ijkApplicationStartSingleInstance(handle, appName, &i);
+	//ui32 const c = 3;
+	//status = ijkApplicationStartMultipleInstance(handle, appName, c, &i);
 	if (ijk_issuccess(status))
 	{
-		while (1)
-		{
-
-		}
+		// initialize
+		//ijkConsoleCreateMain(console);
+		//printf("APP INST INDEX: %d / %d \n", i, c);
+		//system("pause");
 
 		// terminate application instance
-		//status = ijkApplicationStopSingleInstance(handle);
-		status = ijkApplicationStopMultipleInstance(handle, &i);
+		//status = ijkApplicationStopSingleInstance(handle, &i);
+		//status = ijkApplicationStopMultipleInstance(handle, &i);
 		if (ijk_issuccess(status))
 		{
+			// terminate
+			//printf("APP INST REMAIN: %d / %d \n", i, c);
+			//system("pause");
+			//ijkConsoleReleaseMain(console);
+
+			// done
 			status = ijk_success;
 		}
 	}

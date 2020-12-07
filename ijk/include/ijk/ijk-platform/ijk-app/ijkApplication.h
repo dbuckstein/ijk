@@ -66,12 +66,14 @@ iret ijkApplicationStartSingleInstanceSwitchExisting(tag const windowName);
 //			valid: non-null, value pointed to is null
 //		param instanceName: name of application instance
 //			valid: non-null, non-empty
+//		param index_out_opt: optional pointer to index of this instance; if 
+//			passed, points to value of exactly zero (the only valid index)
 //		return SUCCESS: ijk_success if application can be initialized
 //		return WARNING: ijk_warn_application_exist if application cannot be 
 //			initialized due to another instance existing
 //		return FAILURE: ijk_fail_operationfail if application not initialized
 //		return FAILURE: ijk_fail_invalidparams if invalid parameters
-iret ijkApplicationStartSingleInstance(ptr* const handle_out, tag const instanceName);
+iret ijkApplicationStartSingleInstance(ptr* const handle_out, tag const instanceName, i32* const index_out_opt);
 
 // ijkApplicationStartMultipleInstance
 //	Call at the beginning of application entry to allow running multiple 
@@ -95,10 +97,13 @@ iret ijkApplicationStartMultipleInstance(ptr* const handle_out, tag const instan
 //	Stop single instance using mutex.
 //		param handle: pointer to mutex handle
 //			valid: non-null, value pointed to is non-null
+//		param available_out_opt: optional pointer to number of available or  
+//			remaining instances after release; if passed, points to value of 
+//			exactly one (the only valid availability)
 //		return SUCCESS: ijk_success if application successfully terminated
 //		return FAILURE: ijk_fail_operationfail if application not terminated
 //		return FAILURE: ijk_fail_invalidparams if invalid parameters
-iret ijkApplicationStopSingleInstance(ptr* const handle);
+iret ijkApplicationStopSingleInstance(ptr* const handle, ui32* const available_out_opt);
 
 // ijkApplicationStopMultipleInstance
 //	Stop instance using semaphore.
@@ -110,7 +115,7 @@ iret ijkApplicationStopSingleInstance(ptr* const handle);
 //		return SUCCESS: ijk_success if application successfully terminated
 //		return FAILURE: ijk_fail_operationfail if application not terminated
 //		return FAILURE: ijk_fail_invalidparams if invalid parameters
-iret ijkApplicationStopMultipleInstance(ptr* const handle, i32* const available_out_opt);
+iret ijkApplicationStopMultipleInstance(ptr* const handle, ui32* const available_out_opt);
 
 
 //-----------------------------------------------------------------------------
