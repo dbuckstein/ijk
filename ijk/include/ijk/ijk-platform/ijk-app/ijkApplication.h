@@ -38,17 +38,26 @@ extern "C" {
 
 //-----------------------------------------------------------------------------
 
+// ijk_warn_application_exist
+//	Application warning indicating that application cannot be initialized 
+//	because instance already exists, or indicates that the app should 
+//	terminate because instance cannot be initialized.
+#define ijk_warn_application_exist	ijk_warncode(0x1)
+
+
 // ijkApplicationStartSingleInstanceSwitchExisting
 //	Call at the beginning of application entry to prevent multiple instances 
 //	of the application from running; automatically switch to original instance.
-//		param windowClassName: name of application's window class
-//			valid: non-null, non-empty
 //		param windowName: title of window created
 //			valid: non-null, non-empty
-//		return SUCCESS: ijk_success if application successfully initialized
-//		return FAILURE: ijk_fail_operationfail if application not initialized
+//		return SUCCESS: ijk_success if application can be initialized
+//		return WARNING: ijk_warn_application_exist if application cannot be 
+//			initialized due to another instance existing; original instance 
+//			will automatically be activated and displayed in foreground
+//		return FAILURE: ijk_fail_operationfail if application not initialized 
+//			and failed to switch to original instance
 //		return FAILURE: ijk_fail_invalidparams if invalid parameters
-iret ijkApplicationStartSingleInstanceSwitchExisting(tag const windowClassName, tag const windowName);
+iret ijkApplicationStartSingleInstanceSwitchExisting(tag const windowName);
 
 // ijkApplicationStartSingleInstance
 //	Call at the beginning of application entry to prevent multiple instances 
@@ -57,7 +66,9 @@ iret ijkApplicationStartSingleInstanceSwitchExisting(tag const windowClassName, 
 //			valid: non-null, value pointed to is null
 //		param instanceName: name of application instance
 //			valid: non-null, non-empty
-//		return SUCCESS: ijk_success if application successfully initialized
+//		return SUCCESS: ijk_success if application can be initialized
+//		return WARNING: ijk_warn_application_exist if application cannot be 
+//			initialized due to another instance existing
 //		return FAILURE: ijk_fail_operationfail if application not initialized
 //		return FAILURE: ijk_fail_invalidparams if invalid parameters
 iret ijkApplicationStartSingleInstance(ptr* const handle_out, tag const instanceName);
@@ -65,13 +76,15 @@ iret ijkApplicationStartSingleInstance(ptr* const handle_out, tag const instance
 // ijkApplicationStartMultipleInstance
 //	Call at the beginning of application entry to allow running multiple 
 //	instances of application.
-//		param handle_out: pointer to semaphor handle
+//		param handle_out: pointer to semaphore handle
 //			valid: non-null, value pointed to is null
 //		param instanceName: name of application instance
 //			valid: non-null, non-empty
 //		param limit: number of instances allowed
 //			valid: non-zero
-//		return SUCCESS: ijk_success if application successfully initialized
+//		return SUCCESS: ijk_success if application can be initialized
+//		return WARNING: ijk_warn_application_exist if application cannot be 
+//			initialized due to another instance existing
 //		return FAILURE: ijk_fail_operationfail if application not initialized
 //		return FAILURE: ijk_fail_invalidparams if invalid parameters
 iret ijkApplicationStartMultipleInstance(ptr* const handle_out, tag const instanceName, ui32 const limit);
@@ -86,8 +99,8 @@ iret ijkApplicationStartMultipleInstance(ptr* const handle_out, tag const instan
 iret ijkApplicationStopSingleInstance(ptr* const handle);
 
 // ijkApplicationStopMultipleInstance
-//	Stop instance using semaphor.
-//		param handle: pointer to semaphor handle
+//	Stop instance using semaphore.
+//		param handle: pointer to semaphore handle
 //			valid: non-null, value pointed to is non-null
 //		return SUCCESS: ijk_success if application successfully terminated
 //		return FAILURE: ijk_fail_operationfail if application not terminated

@@ -28,15 +28,27 @@
 
 #include "ijk/ijk-platform/ijk-app/ijkApplication.h"
 
+#include <Windows.h>
+
 
 //-----------------------------------------------------------------------------
 
-iret ijkApplicationStartSingleInstanceSwitchExisting(tag const windowClassName, tag const windowName)
+iret ijkApplicationStartSingleInstanceSwitchExisting(tag const windowName)
 {
-	if (windowClassName && windowName && *windowClassName && *windowName)
+	if (windowName && *windowName)
 	{
-
-		return ijk_fail_operationfail;
+		// find existing instance
+		HWND const existing = FindWindowA(0, windowName);
+		if (existing)
+		{
+			// set foreground window to existing
+			if (SetForegroundWindow(existing))
+			{
+				return ijk_warn_application_exist;
+			}
+			return ijk_fail_operationfail;
+		}
+		return ijk_success;
 	}
 	return ijk_fail_invalidparams;
 }
@@ -46,7 +58,19 @@ iret ijkApplicationStartSingleInstance(ptr* const handle_out, tag const instance
 {
 	if (handle_out && instanceName && !*handle_out && *instanceName)
 	{
-
+		// create mutex handle
+		*handle_out = CreateMutexA(0, 0, instanceName);
+		if (*handle_out)
+		{
+			// check if instance exists
+			if (*handle_out && GetLastError() == ERROR_ALREADY_EXISTS)
+			{
+				CloseHandle(*handle_out);
+				*handle_out = 0;
+				return ijk_warn_application_exist;
+			}
+			return ijk_success;
+		}
 		return ijk_fail_operationfail;
 	}
 	return ijk_fail_invalidparams;
@@ -57,7 +81,19 @@ iret ijkApplicationStartMultipleInstance(ptr* const handle_out, tag const instan
 {
 	if (handle_out && instanceName && !*handle_out && *instanceName && limit)
 	{
-
+		// create semaphore handle
+		*handle_out = CreateSemaphoreA(0, limit, limit, instanceName);
+		if (*handle_out)
+		{
+			// check if waited too long for new instance
+			if (*handle_out && WaitForSingleObject(*handle_out, 0) == WAIT_TIMEOUT)
+			{
+				CloseHandle(*handle_out);
+				*handle_out = 0;
+				return ijk_warn_application_exist;
+			}
+			return ijk_success;
+		}
 		return ijk_fail_operationfail;
 	}
 	return ijk_fail_invalidparams;
@@ -68,7 +104,13 @@ iret ijkApplicationStopSingleInstance(ptr* const handle)
 {
 	if (handle && *handle)
 	{
-
+		// release and close mutex
+		if (ReleaseMutex(*handle))
+		{
+			CloseHandle(*handle);
+			*handle = 0;
+			return ijk_success;
+		}
 		return ijk_fail_operationfail;
 	}
 	return ijk_fail_invalidparams;
@@ -79,7 +121,13 @@ iret ijkApplicationStopMultipleInstance(ptr* const handle)
 {
 	if (handle && *handle)
 	{
-
+		// release and close semaphore
+		if (ReleaseSemaphore(*handle, 1, 0))
+		{
+			CloseHandle(*handle);
+			*handle = 0;
+			return ijk_success;
+		}
 		return ijk_fail_operationfail;
 	}
 	return ijk_fail_invalidparams;
