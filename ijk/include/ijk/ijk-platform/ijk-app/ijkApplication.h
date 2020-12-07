@@ -44,20 +44,13 @@ extern "C" {
 //	terminate because instance cannot be initialized.
 #define ijk_warn_application_exist	ijk_warncode(0x1)
 
+// ijk_warn_application_no_window
+//	Application warning indicating that application cannot switch to active 
+//	window because the existing instance does not have one.
+#define ijk_warn_application_no_window	ijk_warncode(0x2)
 
-// ijkApplicationStartSingleInstanceSwitchExisting
-//	Call at the beginning of application entry to prevent multiple instances 
-//	of the application from running; automatically switch to original instance.
-//		param windowName: title of window created
-//			valid: non-null, non-empty
-//		return SUCCESS: ijk_success if application can be initialized
-//		return WARNING: ijk_warn_application_exist if application cannot be 
-//			initialized due to another instance existing; original instance 
-//			will automatically be activated and displayed in foreground
-//		return FAILURE: ijk_fail_operationfail if application not initialized 
-//			and failed to switch to original instance
-//		return FAILURE: ijk_fail_invalidparams if invalid parameters
-iret ijkApplicationStartSingleInstanceSwitchExisting(tag const windowName);
+
+//-----------------------------------------------------------------------------
 
 // ijkApplicationStartSingleInstance
 //	Call at the beginning of application entry to prevent multiple instances 
@@ -74,6 +67,23 @@ iret ijkApplicationStartSingleInstanceSwitchExisting(tag const windowName);
 //		return FAILURE: ijk_fail_operationfail if application not initialized
 //		return FAILURE: ijk_fail_invalidparams if invalid parameters
 iret ijkApplicationStartSingleInstance(ptr* const handle_out, tag const instanceName, i32* const index_out_opt);
+
+// ijkApplicationStartSingleInstanceSwitch
+//	Call at the beginning of application entry to prevent multiple instances 
+//	of the application from running; automatically switch to original instance 
+//	if it has a window attached.
+//		param handle_out: pointer to mutex handle
+//			valid: non-null, value pointed to is null
+//		param instanceName: name of application instance
+//			valid: non-null, non-empty
+//		param index_out_opt: optional pointer to index of this instance; if 
+//			passed, points to value of exactly zero (the only valid index)
+//		return SUCCESS: ijk_success if application can be initialized
+//		return WARNING: ijk_warn_application_exist if application cannot be 
+//			initialized due to another instance existing
+//		return FAILURE: ijk_fail_operationfail if application not initialized
+//		return FAILURE: ijk_fail_invalidparams if invalid parameters
+iret ijkApplicationStartSingleInstanceSwitch(ptr* const handle_out, tag const instanceName, i32* const index_out_opt);
 
 // ijkApplicationStartMultipleInstance
 //	Call at the beginning of application entry to allow running multiple 

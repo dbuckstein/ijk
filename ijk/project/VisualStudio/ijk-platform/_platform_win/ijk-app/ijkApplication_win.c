@@ -33,27 +33,6 @@
 
 //-----------------------------------------------------------------------------
 
-iret ijkApplicationStartSingleInstanceSwitchExisting(tag const windowName)
-{
-	if (windowName && *windowName)
-	{
-		// find existing instance
-		HWND const existing = FindWindowA(0, windowName);
-		if (existing)
-		{
-			// set foreground window to existing
-			if (SetForegroundWindow(existing))
-			{
-				return ijk_warn_application_exist;
-			}
-			return ijk_fail_operationfail;
-		}
-		return ijk_success;
-	}
-	return ijk_fail_invalidparams;
-}
-
-
 iret ijkApplicationStartSingleInstance(ptr* const handle_out, tag const instanceName, i32* const index_out_opt)
 {
 	if (index_out_opt)
@@ -88,6 +67,28 @@ iret ijkApplicationStartSingleInstance(ptr* const handle_out, tag const instance
 		return ijk_fail_operationfail;
 	}
 	return ijk_fail_invalidparams;
+}
+
+
+iret ijkApplicationStartSingleInstanceSwitch(ptr* const handle_out, tag const instanceName, i32* const index_out_opt)
+{
+	iret status = ijkApplicationStartSingleInstance(handle_out, instanceName, index_out_opt);
+	if (status == ijk_warn_application_exist)
+	{
+		HWND const existing = FindWindowA(0, instanceName);
+		if (SetForegroundWindow(existing))
+		{
+			// switched to existing window
+			// nothing more to do
+		}
+		else
+		{
+			// cannot switch to existing window
+			// append warning
+			status |= ijk_warn_application_no_window;
+		}
+	}
+	return status;
 }
 
 

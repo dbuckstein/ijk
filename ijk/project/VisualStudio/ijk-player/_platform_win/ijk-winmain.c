@@ -27,8 +27,8 @@
 
 #if (__ijk_cfg_platform == WINDOWS)
 
-//#include <stdio.h>
-//#include <stdlib.h>
+#include <stdio.h>
+#include <stdlib.h>
 
 
 //-----------------------------------------------------------------------------
@@ -44,31 +44,30 @@ iret __stdcall wWinMain(
 	iret status = -1;
 	ptr handle[1] = { 0 };
 
-	//ijkConsole console[1] = { 0 };
+	ijkConsole console[1] = { 0 };
 
 	// initialize application instance
-	status = ijkApplicationStartSingleInstanceSwitchExisting(appName);
-	//i32 i = -1;
-	//ui32 const c = 1;
+	i32 i = -1;
+	ui32 c = 1;
+	status = ijkApplicationStartSingleInstanceSwitch(handle, appName, &i);
 	//status = ijkApplicationStartSingleInstance(handle, appName, &i);
-	//ui32 const c = 3;
-	//status = ijkApplicationStartMultipleInstance(handle, appName, c, &i);
+	//status = ijkApplicationStartMultipleInstance(handle, appName, (c = 3), &i);
 	if (ijk_issuccess(status))
 	{
 		// initialize
-		//ijkConsoleCreateMain(console);
-		//printf("APP INST INDEX: %d / %d \n", i, c);
-		//system("pause");
+		ijkConsoleCreateMain(console);
+		printf("APP INST INDEX: %d / %d \n", i, c);
+		system("pause");
 
 		// terminate application instance
-		//status = ijkApplicationStopSingleInstance(handle, &i);
+		status = ijkApplicationStopSingleInstance(handle, &i);
 		//status = ijkApplicationStopMultipleInstance(handle, &i);
 		if (ijk_issuccess(status))
 		{
 			// terminate
-			//printf("APP INST REMAIN: %d / %d \n", i, c);
-			//system("pause");
-			//ijkConsoleReleaseMain(console);
+			printf("APP INST REMAIN: %d / %d \n", i, c);
+			system("pause");
+			ijkConsoleReleaseMain(console);
 
 			// done
 			status = ijk_success;
