@@ -33,9 +33,9 @@
 extern "C" {
 #else	// !__cplusplus
 
-
-
 #endif	// __cplusplus
+
+
 
 #ifdef __cplusplus
 }

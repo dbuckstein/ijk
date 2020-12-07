@@ -23,25 +23,63 @@
 	Windows application entry point.
 */
 
-#if (defined _WINDOWS || defined _WIN32)
+#include "ijk/ijk-platform/ijk-platform.h"
 
-#include <Windows.h>
+#if (__ijk_cfg_platform == WINDOWS)
+
+#include <stdio.h>
+#include <stdlib.h>
 
 
 //-----------------------------------------------------------------------------
 // application entry point
 
-int APIENTRY wWinMain(
-	_In_ HINSTANCE hInstance,
-	_In_opt_ HINSTANCE hPrevInstance,
-	_In_ LPWSTR    lpCmdLine,
-	_In_ int       nCmdShow)
+iret __stdcall wWinMain(
+	kptr const		hInstance,
+	kptr const		hPrevInstance,
+	kwcstr const	lpCmdLine,
+	i32 const		nCmdShow)
 {
+	ktag appName = "ijk Player Application";
+	iret status = -1;
+	ptr handle[1] = { 0 };
 
+	ijkConsole console[1] = { 0 };
+
+	// initialize application instance
+	i32 i = -1;
+	ui32 c = 1;
+	status = ijkApplicationStartSingleInstanceSwitch(handle, appName, &i);
+	//status = ijkApplicationStartSingleInstance(handle, appName, &i);
+	//status = ijkApplicationStartMultipleInstance(handle, appName, (c = 3), &i);
+	if (ijk_issuccess(status))
+	{
+		// initialize
+		ijkConsoleCreateMain(console);
+		printf("APP INST INDEX: %d / %d \n", i, c);
+		system("pause");
+
+		// terminate application instance
+		status = ijkApplicationStopSingleInstance(handle, &i);
+		//status = ijkApplicationStopMultipleInstance(handle, &i);
+		if (ijk_issuccess(status))
+		{
+			// terminate
+			printf("APP INST REMAIN: %d / %d \n", i, c);
+			system("pause");
+			ijkConsoleReleaseMain(console);
+
+			// done
+			status = ijk_success;
+		}
+	}
+
+	// the end
+	return status;
 }
 
 
 //-----------------------------------------------------------------------------
 
 
-#endif  // (defined _WINDOWS || defined _WIN32)
+#endif  // WINDOWS
