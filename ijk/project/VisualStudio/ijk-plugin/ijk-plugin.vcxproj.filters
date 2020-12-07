@@ -21,11 +21,11 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="_platform_win\ijk-dllmain.c">
-      <Filter>Source Files\_platform_win</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\source\ijk-plugin\common\ijk-plugin.c">
       <Filter>Source Files\common</Filter>
+    </ClCompile>
+    <ClCompile Include="_platform_win\source\ijk-dllmain.c">
+      <Filter>Source Files\_platform_win</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

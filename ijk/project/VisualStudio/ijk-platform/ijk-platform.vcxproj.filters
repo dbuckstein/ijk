@@ -42,13 +42,13 @@
     <ClCompile Include="..\..\..\source\ijk-platform\common\ijk-platform.c">
       <Filter>Source Files\common</Filter>
     </ClCompile>
-    <ClCompile Include="_platform_win\ijk-app\ijkConsole_win.c">
+    <ClCompile Include="_platform_win\source\ijk-app\ijkApplication_win.c">
       <Filter>Source Files\_platform_win\ijk-app</Filter>
     </ClCompile>
-    <ClCompile Include="_platform_win\ijk-app\ijkWindow_win.c">
+    <ClCompile Include="_platform_win\source\ijk-app\ijkConsole_win.c">
       <Filter>Source Files\_platform_win\ijk-app</Filter>
     </ClCompile>
-    <ClCompile Include="_platform_win\ijk-app\ijkApplication_win.c">
+    <ClCompile Include="_platform_win\source\ijk-app\ijkWindow_win.c">
       <Filter>Source Files\_platform_win\ijk-app</Filter>
     </ClCompile>
   </ItemGroup>
