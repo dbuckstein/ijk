@@ -31,6 +31,12 @@
     <Filter Include="Source Files\common\ijk-app">
       <UniqueIdentifier>{799aa35b-11c9-4e64-b3db-f7856ede9c67}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\ijk-platform\ijk-app\_util">
+      <UniqueIdentifier>{ec0a8541-b898-4d7d-aacb-62e8e5c16003}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\ijk-platform\ijk-app\_util\_inl">
+      <UniqueIdentifier>{b05f0eec-c409-4d72-b57b-e479c203e45c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\source\ijk-platform\common\ijk-platform.c">
@@ -59,5 +65,13 @@
     <ClInclude Include="..\..\..\include\ijk\ijk-platform\ijk-app\ijkApplication.h">
       <Filter>Header Files\ijk-platform\ijk-app</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\include\ijk\ijk-platform\ijk-app\_util\ijk-dylib.h">
+      <Filter>Header Files\ijk-platform\ijk-app\_util</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\..\include\ijk\ijk-platform\ijk-app\_util\_inl\ijk-dylib.inl">
+      <Filter>Header Files\ijk-platform\ijk-app\_util\_inl</Filter>
+    </None>
   </ItemGroup>
 </Project>

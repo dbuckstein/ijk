@@ -184,9 +184,6 @@
     <ClCompile Include="..\..\..\source\ijk-plugin\common\ijk-plugin.c" />
     <ClCompile Include="_platform_win\ijk-dllmain.c" />
   </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="..\..\..\source\ijk-plugin\ijk-dylib.h" />
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

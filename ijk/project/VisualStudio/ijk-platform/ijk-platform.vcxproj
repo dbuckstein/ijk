@@ -164,7 +164,11 @@
     <ClInclude Include="..\..\..\include\ijk\ijk-platform\ijk-app\ijkApplication.h" />
     <ClInclude Include="..\..\..\include\ijk\ijk-platform\ijk-app\ijkConsole.h" />
     <ClInclude Include="..\..\..\include\ijk\ijk-platform\ijk-app\ijkWindow.h" />
+    <ClInclude Include="..\..\..\include\ijk\ijk-platform\ijk-app\_util\ijk-dylib.h" />
     <ClInclude Include="..\..\..\include\ijk\ijk-platform\ijk-platform.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\..\include\ijk\ijk-platform\ijk-app\_util\_inl\ijk-dylib.inl" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

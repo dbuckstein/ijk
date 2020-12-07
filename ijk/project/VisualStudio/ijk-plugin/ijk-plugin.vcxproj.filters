@@ -28,9 +28,4 @@
       <Filter>Source Files\common</Filter>
     </ClCompile>
   </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="..\..\..\source\ijk-plugin\ijk-dylib.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
-  </ItemGroup>
 </Project>

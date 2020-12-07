@@ -26,7 +26,13 @@
 #include "ijk/ijk/ijk-config.h"
 #if (__ijk_cfg_platform == WINDOWS)
 
+// Windows / non-GNU-C
+#include <Windows.h>
+// Unix (Mac/Linux) / GNU-C
+//#include <dlfcn.h>
+
 #include "ijk/ijk-platform/ijk-app/ijkWindow.h"
+#include "ijk/ijk-platform/ijk-app/_util/ijk-dylib.h"
 
 
 
