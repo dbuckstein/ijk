@@ -40,7 +40,7 @@ ijk_inl i16 ijkGamepadInternalClampDeadzone16(i16 const value, i16 const deadzon
 }
 
 
-#if (__ijk_cfg_platform == WINDOWS)
+#if ijk_platform_is(WINDOWS)
 #include <Windows.h>
 #include <Xinput.h>
 

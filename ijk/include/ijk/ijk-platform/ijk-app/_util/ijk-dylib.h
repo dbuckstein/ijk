@@ -32,7 +32,7 @@
 
 //-----------------------------------------------------------------------------
 
-#if (__ijk_cfg_platform == WINDOWS)
+#if ijk_platform_is(WINDOWS)
 
 // Export symbol to dylib.
 #define IJK_DYLIB_EXPORT	__declspec(dllexport)

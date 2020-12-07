@@ -26,7 +26,7 @@
 #include "ijk/ijk-base/ijk-input/ijkInput.h"
 
 
-#if (__ijk_cfg_platform == WINDOWS)
+#if ijk_platform_is(WINDOWS)
 #include <Windows.h>
 #else	// !WINDOWS
 
@@ -40,7 +40,7 @@ iret ijkInputGetSystemCursor(i32 x_out[1], i32 y_out[1])
 	if (x_out && y_out)
 	{
 		iret result = 0;
-#if (__ijk_cfg_platform == WINDOWS)
+#if ijk_platform_is(WINDOWS)
 		POINT p[1];
 		result = GetCursorPos(p);
 		if (result)
@@ -61,7 +61,7 @@ iret ijkInputGetSystemCursor(i32 x_out[1], i32 y_out[1])
 iret ijkInputSetSystemCursor(i32 const x, i32 const y)
 {
 	iret result = 0;
-#if (__ijk_cfg_platform == WINDOWS)
+#if ijk_platform_is(WINDOWS)
 	result = SetCursorPos(x, y);
 	if (result)
 		return ijk_success;
@@ -77,7 +77,7 @@ iret ijkInputGetSystemKeyboardState(sbyte keys_out[256])
 	if (keys_out)
 	{
 		iret result = 0;
-#if (__ijk_cfg_platform == WINDOWS)
+#if ijk_platform_is(WINDOWS)
 		result = GetKeyboardState((pbyte)keys_out);
 		if (result)
 			return ijk_success;
@@ -94,7 +94,7 @@ iret ijkInputGetSystemKeyState(sbyte key_out[1], ijkKeyVirt const keyVirt)
 {
 	if (key_out)
 	{
-#if (__ijk_cfg_platform == WINDOWS)
+#if ijk_platform_is(WINDOWS)
 		word const result = GetAsyncKeyState(keyVirt);
 		if (result)
 		{

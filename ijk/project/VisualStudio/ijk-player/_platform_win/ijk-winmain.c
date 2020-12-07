@@ -25,7 +25,7 @@
 
 #include "ijk/ijk-platform/ijk-platform.h"
 
-#if (__ijk_cfg_platform == WINDOWS)
+#if ijk_platform_is(WINDOWS)
 
 #include <stdio.h>
 #include <stdlib.h>

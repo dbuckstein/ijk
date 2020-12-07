@@ -256,7 +256,7 @@ iret ijkStreamWriteElement(ijkStream* const stream, kptr const elem, size const 
 
 //-----------------------------------------------------------------------------
 
-#if (__ijk_cfg_platform == WINDOWS)
+#if ijk_platform_is(WINDOWS)
 #include <direct.h>
 #else	// !WINDOWS
 #include <sys/stat.h>
@@ -269,7 +269,7 @@ iret ijkStreamMakeDirectory(kcstr const directory)
 		*directory)
 	{
 		iret const result =
-#if (__ijk_cfg_platform == WINDOWS)
+#if ijk_platform_is(WINDOWS)
 			_mkdir(directory);
 #else	// !WINDOWS
 			mkdir(directory, 0700);

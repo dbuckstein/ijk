@@ -23,10 +23,8 @@
 	Console management source.
 */
 
-#include "ijk/ijk/ijk-config.h"
-#if (__ijk_cfg_platform == WINDOWS)
-
 #include "ijk/ijk-platform/ijk-app/ijkConsole.h"
+#if ijk_platform_is(WINDOWS)
 
 #include <io.h>
 #include <stdio.h>

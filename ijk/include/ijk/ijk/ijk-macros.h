@@ -83,6 +83,11 @@
 #define ijk_tokencat_arch(x)			ijk_tokencat(x,__ijk_cfg_archbits)	// Concatenate token x with architecture bits.
 
 
+// Platform and configuration checks.
+#define ijk_platform_is(x)				(__ijk_cfg_platform == (x))
+#define ijk_platform_isn(x)				(__ijk_cfg_platform != (x))
+
+
 // Simple global logical operations.
 ///
 #define ijk_squared(x)						((x) * (x))							// Square value x.
