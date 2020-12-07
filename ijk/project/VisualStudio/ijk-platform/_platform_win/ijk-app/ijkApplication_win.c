@@ -31,6 +31,59 @@
 
 //-----------------------------------------------------------------------------
 
+iret ijkApplicationStartSingleInstanceSwitchExisting(tag const windowClassName, tag const windowName)
+{
+	if (windowClassName && windowName && *windowClassName && *windowName)
+	{
+
+		return ijk_fail_operationfail;
+	}
+	return ijk_fail_invalidparams;
+}
+
+
+iret ijkApplicationStartSingleInstance(ptr* const handle_out, tag const instanceName)
+{
+	if (handle_out && instanceName && !*handle_out && *instanceName)
+	{
+
+		return ijk_fail_operationfail;
+	}
+	return ijk_fail_invalidparams;
+}
+
+
+iret ijkApplicationStartMultipleInstance(ptr* const handle_out, tag const instanceName, ui32 const limit)
+{
+	if (handle_out && instanceName && !*handle_out && *instanceName && limit)
+	{
+
+		return ijk_fail_operationfail;
+	}
+	return ijk_fail_invalidparams;
+}
+
+
+iret ijkApplicationStopSingleInstance(ptr* const handle)
+{
+	if (handle && *handle)
+	{
+
+		return ijk_fail_operationfail;
+	}
+	return ijk_fail_invalidparams;
+}
+
+
+iret ijkApplicationStopMultipleInstance(ptr* const handle)
+{
+	if (handle && *handle)
+	{
+
+		return ijk_fail_operationfail;
+	}
+	return ijk_fail_invalidparams;
+}
 
 
 //-----------------------------------------------------------------------------

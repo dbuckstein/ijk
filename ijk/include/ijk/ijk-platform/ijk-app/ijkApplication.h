@@ -38,6 +38,61 @@ extern "C" {
 
 //-----------------------------------------------------------------------------
 
+// ijkApplicationStartSingleInstanceSwitchExisting
+//	Call at the beginning of application entry to prevent multiple instances 
+//	of the application from running; automatically switch to original instance.
+//		param windowClassName: name of application's window class
+//			valid: non-null, non-empty
+//		param windowName: title of window created
+//			valid: non-null, non-empty
+//		return SUCCESS: ijk_success if application successfully initialized
+//		return FAILURE: ijk_fail_operationfail if application not initialized
+//		return FAILURE: ijk_fail_invalidparams if invalid parameters
+iret ijkApplicationStartSingleInstanceSwitchExisting(tag const windowClassName, tag const windowName);
+
+// ijkApplicationStartSingleInstance
+//	Call at the beginning of application entry to prevent multiple instances 
+//	of the application from running.
+//		param handle_out: pointer to mutex handle
+//			valid: non-null, value pointed to is null
+//		param instanceName: name of application instance
+//			valid: non-null, non-empty
+//		return SUCCESS: ijk_success if application successfully initialized
+//		return FAILURE: ijk_fail_operationfail if application not initialized
+//		return FAILURE: ijk_fail_invalidparams if invalid parameters
+iret ijkApplicationStartSingleInstance(ptr* const handle_out, tag const instanceName);
+
+// ijkApplicationStartMultipleInstance
+//	Call at the beginning of application entry to allow running multiple 
+//	instances of application.
+//		param handle_out: pointer to semaphor handle
+//			valid: non-null, value pointed to is null
+//		param instanceName: name of application instance
+//			valid: non-null, non-empty
+//		param limit: number of instances allowed
+//			valid: non-zero
+//		return SUCCESS: ijk_success if application successfully initialized
+//		return FAILURE: ijk_fail_operationfail if application not initialized
+//		return FAILURE: ijk_fail_invalidparams if invalid parameters
+iret ijkApplicationStartMultipleInstance(ptr* const handle_out, tag const instanceName, ui32 const limit);
+
+// ijkApplicationStopSingleInstance
+//	Stop single instance using mutex.
+//		param handle: pointer to mutex handle
+//			valid: non-null, value pointed to is non-null
+//		return SUCCESS: ijk_success if application successfully terminated
+//		return FAILURE: ijk_fail_operationfail if application not terminated
+//		return FAILURE: ijk_fail_invalidparams if invalid parameters
+iret ijkApplicationStopSingleInstance(ptr* const handle);
+
+// ijkApplicationStopMultipleInstance
+//	Stop instance using semaphor.
+//		param handle: pointer to semaphor handle
+//			valid: non-null, value pointed to is non-null
+//		return SUCCESS: ijk_success if application successfully terminated
+//		return FAILURE: ijk_fail_operationfail if application not terminated
+//		return FAILURE: ijk_fail_invalidparams if invalid parameters
+iret ijkApplicationStopMultipleInstance(ptr* const handle);
 
 
 //-----------------------------------------------------------------------------
