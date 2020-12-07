@@ -82,12 +82,14 @@ iret ijkApplicationStartSingleInstance(ptr* const handle_out, tag const instance
 //			valid: non-null, non-empty
 //		param limit: number of instances allowed
 //			valid: non-zero
+//		param index_out_opt: optional pointer to index of this instance; if 
+//			passed, points to non-negative value upon success
 //		return SUCCESS: ijk_success if application can be initialized
 //		return WARNING: ijk_warn_application_exist if application cannot be 
 //			initialized due to another instance existing
 //		return FAILURE: ijk_fail_operationfail if application not initialized
 //		return FAILURE: ijk_fail_invalidparams if invalid parameters
-iret ijkApplicationStartMultipleInstance(ptr* const handle_out, tag const instanceName, ui32 const limit);
+iret ijkApplicationStartMultipleInstance(ptr* const handle_out, tag const instanceName, ui32 const limit, i32* const index_out_opt);
 
 // ijkApplicationStopSingleInstance
 //	Stop single instance using mutex.
@@ -102,10 +104,13 @@ iret ijkApplicationStopSingleInstance(ptr* const handle);
 //	Stop instance using semaphore.
 //		param handle: pointer to semaphore handle
 //			valid: non-null, value pointed to is non-null
+//		param available_out_opt: optional pointer to number of available or  
+//			remaining instances after release; if passed, points to positive 
+//			value upon success
 //		return SUCCESS: ijk_success if application successfully terminated
 //		return FAILURE: ijk_fail_operationfail if application not terminated
 //		return FAILURE: ijk_fail_invalidparams if invalid parameters
-iret ijkApplicationStopMultipleInstance(ptr* const handle);
+iret ijkApplicationStopMultipleInstance(ptr* const handle, i32* const available_out_opt);
 
 
 //-----------------------------------------------------------------------------

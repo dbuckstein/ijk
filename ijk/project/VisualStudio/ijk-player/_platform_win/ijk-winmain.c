@@ -23,25 +23,51 @@
 	Windows application entry point.
 */
 
-#if (defined _WINDOWS || defined _WIN32)
+#include "ijk/ijk-platform/ijk-platform.h"
 
-#include <Windows.h>
+#if (__ijk_cfg_platform == WINDOWS)
 
 
 //-----------------------------------------------------------------------------
 // application entry point
 
-int APIENTRY wWinMain(
-	_In_ HINSTANCE hInstance,
-	_In_opt_ HINSTANCE hPrevInstance,
-	_In_ LPWSTR    lpCmdLine,
-	_In_ int       nCmdShow)
+iret __stdcall wWinMain(
+	kptr const		hInstance,
+	kptr const		hPrevInstance,
+	kwcstr const	lpCmdLine,
+	i32 const		nCmdShow)
 {
+	ktag appName = "ijk Player Application";
+	iret status = -1;
+	ptr handle[1] = { 0 };
 
+	// initialize application instance
+	//status = ijkApplicationStartSingleInstanceSwitchExisting(appName);
+	//status = ijkApplicationStartSingleInstance(handle, appName);
+	i32 i = -1;
+	status = ijkApplicationStartMultipleInstance(handle, appName, 3, &i);
+	if (ijk_issuccess(status))
+	{
+		while (1)
+		{
+
+		}
+
+		// terminate application instance
+		//status = ijkApplicationStopSingleInstance(handle);
+		status = ijkApplicationStopMultipleInstance(handle, &i);
+		if (ijk_issuccess(status))
+		{
+			status = ijk_success;
+		}
+	}
+
+	// the end
+	return status;
 }
 
 
 //-----------------------------------------------------------------------------
 
 
-#endif  // (defined _WINDOWS || defined _WIN32)
+#endif  // WINDOWS

@@ -27,6 +27,7 @@
 #define _IJK_PLATFORM_H_
 
 
+#include "ijk-app/ijkApplication.h"
 #include "ijk-app/ijkConsole.h"
 #include "ijk-app/ijkWindow.h"
 

@@ -59,16 +59,18 @@ iret ijkApplicationStartSingleInstance(ptr* const handle_out, tag const instance
 	if (handle_out && instanceName && !*handle_out && *instanceName)
 	{
 		// create mutex handle
-		*handle_out = CreateMutexA(0, 0, instanceName);
-		if (*handle_out)
+		ptr const handle = CreateMutexA(0, 0, instanceName);
+		if (handle)
 		{
 			// check if instance exists
-			if (*handle_out && GetLastError() == ERROR_ALREADY_EXISTS)
+			dword status = GetLastError();
+			if (status == ERROR_ALREADY_EXISTS)
 			{
-				CloseHandle(*handle_out);
-				*handle_out = 0;
+				// attempt close handle
+				status = CloseHandle(handle);
 				return ijk_warn_application_exist;
 			}
+			*handle_out = handle;
 			return ijk_success;
 		}
 		return ijk_fail_operationfail;
@@ -77,22 +79,54 @@ iret ijkApplicationStartSingleInstance(ptr* const handle_out, tag const instance
 }
 
 
-iret ijkApplicationStartMultipleInstance(ptr* const handle_out, tag const instanceName, ui32 const limit)
+iret ijkApplicationStartMultipleInstance(ptr* const handle_out, tag const instanceName, ui32 const limit, i32* const index_out_opt)
 {
+	if (index_out_opt)
+		*index_out_opt = -1;
 	if (handle_out && instanceName && !*handle_out && *instanceName && limit)
 	{
-		// create semaphore handle
-		*handle_out = CreateSemaphoreA(0, limit, limit, instanceName);
-		if (*handle_out)
+		// create semaphore handle, max count (signaled)
+		ptr const handle = CreateSemaphoreA(0, limit, limit, instanceName);
+		if (handle)
 		{
-			// check if waited too long for new instance
-			if (*handle_out && WaitForSingleObject(*handle_out, 0) == WAIT_TIMEOUT)
+			dword status = GetLastError();
+			
+			// get signal state, decrements count
+			dword signal = WaitForSingleObject(handle, 0);
+
+			// semaphore has positive count (signaled)
+			if (signal == WAIT_OBJECT_0)
 			{
-				CloseHandle(*handle_out);
-				*handle_out = 0;
+				if (index_out_opt)
+				{
+					// to get current count, force semaphor change then undo
+					// count will be two less than limit
+					signal = WaitForSingleObject(handle, 0);
+					ReleaseSemaphore(handle, 1, index_out_opt);
+					*index_out_opt = limit - (*index_out_opt + 2);
+				}
+
+				// done
+				*handle_out = handle;
+				return ijk_success;
+			}
+			// check if waited too long for new instance
+			// this happens if count is zero (non-signaled) and timeout occurs
+			else if (signal == WAIT_TIMEOUT)
+			{
+				// current count is limit because a new instance should not start
+				if (index_out_opt)
+					*index_out_opt = limit;
+
+				//status == ERROR_ALREADY_EXISTS
+				// attempt close handle
+				CloseHandle(handle);
 				return ijk_warn_application_exist;
 			}
-			return ijk_success;
+
+			// error
+			CloseHandle(handle);
+			return ijk_fail_operationfail;
 		}
 		return ijk_fail_operationfail;
 	}
@@ -105,9 +139,8 @@ iret ijkApplicationStopSingleInstance(ptr* const handle)
 	if (handle && *handle)
 	{
 		// release and close mutex
-		if (ReleaseMutex(*handle))
+		if (ReleaseMutex(*handle) && CloseHandle(*handle))
 		{
-			CloseHandle(*handle);
 			*handle = 0;
 			return ijk_success;
 		}
@@ -117,14 +150,20 @@ iret ijkApplicationStopSingleInstance(ptr* const handle)
 }
 
 
-iret ijkApplicationStopMultipleInstance(ptr* const handle)
+iret ijkApplicationStopMultipleInstance(ptr* const handle, i32* const available_out_opt)
 {
+	if (available_out_opt)
+		*available_out_opt = -1;
 	if (handle && *handle)
 	{
-		// release and close semaphore
-		if (ReleaseSemaphore(*handle, 1, 0))
+		// release and close semaphore, increasing count by 1 (signaled)
+		if (ReleaseSemaphore(*handle, 1, available_out_opt) && CloseHandle(*handle))
 		{
-			CloseHandle(*handle);
+			// update count
+			if (available_out_opt)
+				++(*available_out_opt);
+
+			// done
 			*handle = 0;
 			return ijk_success;
 		}
