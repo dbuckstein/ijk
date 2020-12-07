@@ -42,6 +42,9 @@
     <ClCompile Include="_platform_win\ijk-app\ijkWindow_win.c">
       <Filter>Source Files\_platform_win\ijk-app</Filter>
     </ClCompile>
+    <ClCompile Include="_platform_win\ijk-app\ijkApplication_win.c">
+      <Filter>Source Files\_platform_win\ijk-app</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\include\ijk\ijk-platform\ijk-platform.h">
@@ -51,6 +54,9 @@
       <Filter>Header Files\ijk-platform\ijk-app</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\include\ijk\ijk-platform\ijk-app\ijkConsole.h">
+      <Filter>Header Files\ijk-platform\ijk-app</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\ijk\ijk-platform\ijk-app\ijkApplication.h">
       <Filter>Header Files\ijk-platform\ijk-app</Filter>
     </ClInclude>
   </ItemGroup>
