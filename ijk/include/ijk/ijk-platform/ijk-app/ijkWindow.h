@@ -54,7 +54,7 @@ typedef ptr ijkWindowInfo;
 typedef ptr ijkRendererInfo;
 
 
-// Window callbacks
+// Window callback function pointer types.
 ///
 typedef iret(*ijkWindowCallback_p)		(ptr p);											// Window callback with pointer parameter.
 typedef iret(*ijkWindowCallback_pi)		(ptr p, i32 const i0);								// Window callback with pointer and integer parameters.
@@ -91,26 +91,26 @@ enum ijkWindowControl
 
 // ijkWindow
 //	Window descriptor.
-//		member pluginData: pointer to persistent plugin data
-//		member pluginHandle: pointer to persistent plugin handle
 //		member winPlat: pointer to platform info
 //		member winRender: pointer to renderer info
 //		member winCtrl: window controls and feature flags
-//		member id: window identifier
 //		members pos_x, pos_y: position of window on display in pixels
 //		members sz_x, sz_y: size of window on display in pixels
+//		member id: window identifier
+//		member pluginData: pointer to persistent plugin data
+//		member pluginHandle: pointer to persistent plugin handle
 //		members callback: array of function pointers to callbacks in plugin
 struct ijkWindow
 {
-	ptr pluginData;
-	ptr pluginHandle;
 	ijkWindowPlatform winPlat;
 	ijkRendererInfo winRender;
-
 	ijkWindowControl winCtrl;
+	i16 pos_x, pos_y;
+	i16 sz_x, sz_y;
 	i32 id;
-	i32 pos_x, pos_y;
-	i32 sz_x, sz_y;
+	ptr pluginData;
+	ptr pluginHandle;
+	ptr platformData;
 
 	union {
 		ptr callback[32];
@@ -133,6 +133,132 @@ struct ijkWindow
 		};
 	};
 };
+
+
+//-----------------------------------------------------------------------------
+
+// ijkWindowInfoCreateDefault
+//	Create default window info with rendering capabilities.
+//		param windowInfo_out: pointer to window info handle
+//			valid: non-null, points to null
+//		param applicationInst: pointer to application handle
+//			valid: non-null, valid handle
+//		param descriptorName: brief description of info
+//			valid: non-null, non-empty c-string
+//		param iconID: icon identifier
+//			note: pass zero to use default icon
+//		return SUCCESS: ijk_success if info initialized
+//		return FAILURE: ijk_fail_operationfail if info not initialized
+//		return FAILURE: ijk_fail_invalidparams if invalid parameters
+iret ijkWindowInfoCreateDefault(ijkWindowInfo* const windowInfo_out, ptr const applicationInst, tag const descriptorName, i32 const iconID);
+
+// ijkWindowInfoRelease
+//	Release window info.
+//		param windowInfo: pointer to window info
+//			valid: non-null, valid handle
+//		return SUCCESS: ijk_success if info released
+//		return FAILURE: ijk_fail_operationfail if info not released
+//		return FAILURE: ijk_fail_invalidparams if invalid parameters
+iret ijkWindowInfoRelease(ijkWindowInfo const windowInfo);
+
+// ijkWindowPlatformCreate
+//	Initialize platform info.
+//		param platformInfo_out: pointer to platform info handle
+//			valid: non-null, points to null
+//		param dev: description of development environment
+//			valid: non-null, non-empty c-string
+//		param target: description of build target
+//			valid: non-null, non-empty c-string
+//		param sdk: description of framework
+//			valid: non-null, non-empty c-string
+//		param cfg: description of configuration
+//			valid: non-null, non-empty c-string
+//		return SUCCESS: ijk_success if info initialized
+//		return FAILURE: ijk_fail_operationfail if info not initialized
+//		return FAILURE: ijk_fail_invalidparams if invalid parameters
+iret ijkWindowPlatformCreate(ijkWindowPlatform* const platformInfo_out, tag const dev, tag const target, tag const sdk, tag const cfg);
+
+// ijkWindowPlatformRelease
+//	Release platform info.
+//		param platformInfo: pointer to platform info
+//			valid: non-null, valid handle
+//		return SUCCESS: ijk_success if info released
+//		return FAILURE: ijk_fail_operationfail if info not released
+//		return FAILURE: ijk_fail_invalidparams if invalid parameters
+iret ijkWindowPlatformRelease(ijkWindowPlatform const platformInfo);
+
+// ijkWindowCreate
+//	Create and open window with specified features.
+//		param window_out: pointer to window descriptor
+//			valid: non-null, non-initialized
+//		param windowInfo: pointer to window info
+//			valid: non-null, valid handle
+//		param platformInfo: pointer to platform info
+//			valid: non-null, valid handle
+//		param rendererInfo_opt: optional pointer to renderer info
+//			valid: non-null, valid handle
+//		param windowName: name of window
+//			valid: non-null, non-empty c-string
+//		param windowPos_x: horizontal position of window on display in pixels
+//			note: left edge of display is zero
+//		param windowPos_y: vertical position of window on display in pixels
+//			note: top edge of display is zero
+//		param windowSize_x: horizontal size of window on display in pixels
+//		param windowSize_y: vertical size of window on display in pixels
+//		param windowCtrl: control/feature flags for window
+//		return SUCCESS: ijk_success if window initialized
+//		return FAILURE: ijk_fail_operationfail if window not initialized
+//		return FAILURE: ijk_fail_invalidparams if invalid parameters
+iret ijkWindowCreate(ijkWindow* const window_out, ijkWindowInfo const windowInfo, ijkWindowPlatform const platformInfo, ijkRendererInfo const rendererInfo_opt, tag const windowName, ui16 const windowPos_x, ui16 const windowPos_y, ui16 const windowSize_x, ui16 const windowSize_y, ijkWindowControl const windowCtrl);
+
+// ijkWindowRelease
+//	Close and release window.
+//		param window: pointer to window descriptor
+//			valid: non-null, initialized
+//		return SUCCESS: ijk_success if window released
+//		return FAILURE: ijk_fail_operationfail if window not released
+//		return FAILURE: ijk_fail_invalidparams if invalid parameters
+iret ijkWindowRelease(ijkWindow* const window);
+
+// ijkWindowLoop
+//	Enter window event main loop.
+//		param window: pointer to window descriptor
+//			valid: non-null, initialized
+//		return SUCCESS: ijk_success if main loop exited successfully
+//		return FAILURE: ijk_fail_operationfail if loop not started
+//		return FAILURE: ijk_fail_invalidparams if invalid parameters
+iret ijkWindowLoop(ijkWindow* const window);
+
+// ijkWindowLoopThread
+//	Enter window event main loop on a separate thread.
+//		param thread_out: pointer to thread handle
+//			valid: non-null, points to null
+//		param threadName: name of thread
+//			valid: non-null, non-empty c-string
+//		param window: pointer to window descriptor
+//			valid: non-null, initialized
+//		return SUCCESS: ijk_success if main loop thread started successfully
+//		return FAILURE: ijk_fail_operationfail if loop thread not started
+//		return FAILURE: ijk_fail_invalidparams if invalid parameters
+iret ijkWindowLoopThread(ptr* const thread_out, tag const threadName, ijkWindow* const window);
+
+// ijkWindowLoopThreadStatus
+//	If window event loop is threaded, check status (thread return code).
+//		param thread: pointer to thread descriptor
+//			valid: non-null, initialized
+//		return SUCCESS: ijk_success if thread has exited
+//		return FAILURE: ijk_fail_operationfail if thread has not exited
+//		return FAILURE: ijk_fail_invalidparams if invalid parameters
+iret ijkWindowLoopThreadStatus(ptr const thread);
+
+// ijkWindowLoopThreadKill
+//	Force-terminate event loop thread.
+//		param thread: pointer to thread descriptor
+//			valid: non-null, initialized
+//		return SUCCESS: ijk_success if thread terminated
+//		return FAILURE: ijk_fail_operationfail if thread not terminated
+//		return FAILURE: ijk_fail_invalidparams if invalid parameters
+iret ijkWindowLoopThreadKill(ptr const thread);
 
 
 //-----------------------------------------------------------------------------
