@@ -159,6 +159,7 @@
     <ClCompile Include="_platform_win\source\ijk-app\ijkApplication_win.c" />
     <ClCompile Include="_platform_win\source\ijk-app\ijkConsole_win.c" />
     <ClCompile Include="_platform_win\source\ijk-app\ijkWindow_win.c" />
+    <ClCompile Include="_platform_win\source\ijk-app\_util\ijkWindowUnlockPDB_win.c" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\include\ijk\ijk-platform\ijk-app\ijkApplication.h" />

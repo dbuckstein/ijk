@@ -37,6 +37,9 @@
     <Filter Include="Header Files\ijk-platform\ijk-app\_util\_inl">
       <UniqueIdentifier>{b05f0eec-c409-4d72-b57b-e479c203e45c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\_platform_win\ijk-app\_util">
+      <UniqueIdentifier>{69b09623-9f30-46d9-9774-cf12ce698a2e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\source\ijk-platform\common\ijk-platform.c">
@@ -50,6 +53,9 @@
     </ClCompile>
     <ClCompile Include="_platform_win\source\ijk-app\ijkWindow_win.c">
       <Filter>Source Files\_platform_win\ijk-app</Filter>
+    </ClCompile>
+    <ClCompile Include="_platform_win\source\ijk-app\_util\ijkWindowUnlockPDB_win.c">
+      <Filter>Source Files\_platform_win\ijk-app\_util</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

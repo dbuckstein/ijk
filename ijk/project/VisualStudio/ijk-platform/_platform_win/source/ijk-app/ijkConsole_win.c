@@ -19,8 +19,8 @@
 		c-based rendering framework
 	By Daniel S. Buckstein
 
-	ijkConsole.c
-	Console management source.
+	ijkConsole_win.c
+	Console management source for Windows.
 */
 
 #include "ijk/ijk-platform/ijk-app/ijkConsole.h"

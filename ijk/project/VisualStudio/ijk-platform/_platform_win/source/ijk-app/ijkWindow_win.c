@@ -19,8 +19,8 @@
 		c-based rendering framework
 	By Daniel S. Buckstein
 
-	ijkWindow.c
-	Window management source.
+	ijkWindow_win.c
+	Window management source for Windows.
 */
 
 #include "ijk/ijk-platform/ijk-app/ijkWindow.h"
@@ -34,13 +34,92 @@
 #include "ijk/ijk-platform/ijk-app/_util/ijk-dylib.h"
 
 
-struct ijkWindowPlatform_win
+//-----------------------------------------------------------------------------
+
+typedef HINSTANCE ijkApplicationInstance_win;
+typedef WNDCLASSEXA ijkWindowInfo_win;
+typedef struct
 {
 	kcstr dir_build;
 	kcstr dir_target;
 	kcstr dir_sdk;
 	kcstr tag_cfg;
-};
+} ijkWindowPlatform_win;
+
+
+//-----------------------------------------------------------------------------
+
+iret ijkWindowInfoCreateDefault(ijkWindowInfo* const windowInfo_out, ptr const applicationInst, tag const descriptorName, i32 const iconID)
+{
+
+	return ijk_fail_invalidparams;
+}
+
+
+iret ijkWindowInfoRelease(ijkWindowInfo const windowInfo)
+{
+
+	return ijk_fail_invalidparams;
+}
+
+
+iret ijkWindowPlatformCreate(ijkWindowPlatform* const platformInfo_out, tag const dev, tag const target, tag const sdk, tag const cfg)
+{
+
+	return ijk_fail_invalidparams;
+}
+
+
+iret ijkWindowPlatformRelease(ijkWindowPlatform const platformInfo)
+{
+
+	return ijk_fail_invalidparams;
+}
+
+
+iret ijkWindowCreate(ijkWindow* const window_out, ijkWindowInfo const windowInfo, ijkWindowPlatform const platformInfo, ijkRendererInfo const rendererInfo_opt, tag const windowName, ui16 const windowPos_x, ui16 const windowPos_y, ui16 const windowSize_x, ui16 const windowSize_y, ijkWindowControl const windowCtrl)
+{
+
+	return ijk_fail_invalidparams;
+}
+
+
+iret ijkWindowRelease(ijkWindow* const window)
+{
+
+	return ijk_fail_invalidparams;
+}
+
+
+iret ijkWindowLoop(ijkWindow* const window)
+{
+
+	return ijk_fail_invalidparams;
+}
+
+
+iret ijkWindowLoopThread(ptr* const thread_out, tag const threadName, ijkWindow* const window)
+{
+
+	return ijk_fail_invalidparams;
+}
+
+
+iret ijkWindowLoopThreadStatus(ptr const thread)
+{
+
+	return ijk_fail_invalidparams;
+}
+
+
+iret ijkWindowLoopThreadKill(ptr const thread)
+{
+
+	return ijk_fail_invalidparams;
+}
+
+
+//-----------------------------------------------------------------------------
 
 
 #endif	// WINDOWS

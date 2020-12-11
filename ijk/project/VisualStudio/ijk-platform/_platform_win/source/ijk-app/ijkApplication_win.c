@@ -19,8 +19,8 @@
 		c-based rendering framework
 	By Daniel S. Buckstein
 
-	ijkApplication.c
-	Application management source.
+	ijkApplication_win.c
+	Application management source for Windows.
 */
 
 #include "ijk/ijk-platform/ijk-app/ijkApplication.h"
