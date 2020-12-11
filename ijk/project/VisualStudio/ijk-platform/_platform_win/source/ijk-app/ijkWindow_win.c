@@ -34,5 +34,13 @@
 #include "ijk/ijk-platform/ijk-app/_util/ijk-dylib.h"
 
 
+struct ijkWindowPlatform_win
+{
+	kcstr dir_build;
+	kcstr dir_target;
+	kcstr dir_sdk;
+	kcstr tag_cfg;
+};
+
 
 #endif	// WINDOWS

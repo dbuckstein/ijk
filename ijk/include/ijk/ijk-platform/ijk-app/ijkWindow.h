@@ -32,7 +32,7 @@
 #ifdef __cplusplus
 extern "C" {
 #else	// !__cplusplus
-typedef struct ijkWindowPlatform	ijkWindowPlatform;
+typedef struct ijkWindow			ijkWindow;
 typedef enum ijkWindowControl		ijkWindowControl;
 #endif	// __cplusplus
 
@@ -40,23 +40,30 @@ typedef enum ijkWindowControl		ijkWindowControl;
 //-----------------------------------------------------------------------------
 
 // ijkWindowPlatform
-struct ijkWindowPlatform
-{
-	kcstr const dir_build;
-	kcstr const dir_target;
-	kcstr const dir_sdk;
-	kcstr const tag_cfg;
-};
-
-// ijkWindow
-typedef ptr ijkWindow;
+//	Platform descriptor for internal use.
+typedef ptr ijkWindowPlatform;
 
 // ijkWindowInfo
+//	Platform-agnostic alias for window info descriptor, implemented in source 
+//	for platform-specific requirements.
 typedef ptr ijkWindowInfo;
 
 // ijkRendererInfo
+//	Renderer- and platform-agnostic alias for renderer info descriptor, 
+//	implemented in source for renderer- and platform-specific requirements.
 typedef ptr ijkRendererInfo;
 
+
+// Window callbacks
+///
+typedef iret(*ijkWindowCallback_p)		(ptr p);											// Window callback with pointer parameter.
+typedef iret(*ijkWindowCallback_pi)		(ptr p, i32 const i0);								// Window callback with pointer and integer parameters.
+typedef iret(*ijkWindowCallback_pii)	(ptr p, i32 const i0, i32 const i1);				// Window callback with pointer and two integer parameters.
+typedef iret(*ijkWindowCallback_piii)	(ptr p, i32 const i0, i32 const i1, i32 const i2);	// Window callback with pointer and three integer parameters.
+typedef iret(*ijkWindowCallback_pp2)	(ptr p, ptr* p_out);								// Window callback with pointer and pointer-to-pointer parameters.
+
+
+//-----------------------------------------------------------------------------
 
 // ijkWindowControl
 //	Control or feature flags for window creation.
@@ -82,10 +89,50 @@ enum ijkWindowControl
 };
 
 
-//-----------------------------------------------------------------------------
+// ijkWindow
+//	Window descriptor.
+//		member pluginData: pointer to persistent plugin data
+//		member pluginHandle: pointer to persistent plugin handle
+//		member winPlat: pointer to platform info
+//		member winRender: pointer to renderer info
+//		member winCtrl: window controls and feature flags
+//		member id: window identifier
+//		members pos_x, pos_y: position of window on display in pixels
+//		members sz_x, sz_y: size of window on display in pixels
+//		members callback: array of function pointers to callbacks in plugin
+struct ijkWindow
+{
+	ptr pluginData;
+	ptr pluginHandle;
+	ijkWindowPlatform winPlat;
+	ijkRendererInfo winRender;
 
-// ijkWindowPlatformInit
-//	Initialize permanent window platform descriptor.
+	ijkWindowControl winCtrl;
+	i32 id;
+	i32 pos_x, pos_y;
+	i32 sz_x, sz_y;
+
+	union {
+		ptr callback[32];
+		struct {
+			ijkWindowCallback_pp2 callback_load, callback_load_hot;									// Load/hot-load callback.
+			ijkWindowCallback_pp2 callback_reload, callback_reload_hot;								// Reload/hot-reload callback.
+			ijkWindowCallback_p callback_unload, callback_unload_hot;								// Unload/hot-unload callback.
+			ijkWindowCallback_p callback_winActivate, callback_winDeactivate;						// Window activate/deactivate callback.
+			ijkWindowCallback_pii callback_winMove, callback_winResize;								// Window move/resize callback.
+			ijkWindowCallback_pi callback_keyPressVirt, callback_keyPressAscii;						// Virtual/ASCII key press callback.
+			ijkWindowCallback_pi callback_keyHoldVirt, callback_keyHoldAscii;						// Virtual/ASCII key hold callback.
+			ijkWindowCallback_pi callback_keyReleaseVirt, callback_keyReleaseAscii;					// Virtual/ASCII key release callback.
+			ijkWindowCallback_piii callback_mouseClick, callback_mouseClick2;						// Mouse click/double-click callback.
+			ijkWindowCallback_piii callback_mouseRelease, callback_mouseWheel;						// Mouse release/scroll callback.
+			ijkWindowCallback_pii callback_mouseMove, callback_mouseMove_ext;						// Mouse move inside/outside window callback.
+			ijkWindowCallback_pii callback_mouseEnter, callback_mouseLeave;							// Mouse enter/leave window callback.
+			ijkWindowCallback_p callback_willReload, callback_willReload_hot;						// Plugin will reload/hot-reload callback.
+			ijkWindowCallback_p callback_willUnload, callback_willUnload_hot;						// Plugin will unload/hot-unload callback.
+			ijkWindowCallback_p callback_user1, callback_user2, callback_user3, callback_user4;		// User function callbacks (F9-F12).
+		};
+	};
+};
 
 
 //-----------------------------------------------------------------------------
