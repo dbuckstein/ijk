@@ -36,8 +36,16 @@
 
 //-----------------------------------------------------------------------------
 
-typedef HINSTANCE ijkApplicationInstance_win;
+// ijkApplicationInstance_win
+//	Windows-specific application instance descriptor.
+typedef HINSTANCE ijkAppInst_win;
+
+// ijkApplicationInstance_win
+//	Windows-specific window info descriptor.
 typedef WNDCLASSEXA ijkWindowInfo_win;
+
+// ijkWindowPlatform_win
+//	Windows-specific platform info descriptor.
 typedef struct
 {
 	kcstr dir_build;

@@ -155,6 +155,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\..\source\ijk-platform\common\ijk-app\ijkWindow.c" />
     <ClCompile Include="..\..\..\source\ijk-platform\common\ijk-platform.c" />
     <ClCompile Include="_platform_win\source\ijk-app\ijkApplication_win.c" />
     <ClCompile Include="_platform_win\source\ijk-app\ijkConsole_win.c" />

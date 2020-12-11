@@ -57,6 +57,9 @@
     <ClCompile Include="_platform_win\source\ijk-app\_util\ijkWindowUnlockPDB_win.c">
       <Filter>Source Files\_platform_win\ijk-app\_util</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\source\ijk-platform\common\ijk-app\ijkWindow.c">
+      <Filter>Source Files\common\ijk-app</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\include\ijk\ijk-platform\ijk-platform.h">
