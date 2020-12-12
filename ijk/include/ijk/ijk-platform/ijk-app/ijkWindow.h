@@ -146,11 +146,11 @@ struct ijkWindow
 //		param descriptorName: brief description of info
 //			valid: non-null, non-empty c-string
 //		param iconID: icon identifier
-//			note: pass zero to use default icon
+//			note: pass negative to use default icon
 //		return SUCCESS: ijk_success if info initialized
 //		return FAILURE: ijk_fail_operationfail if info not initialized
 //		return FAILURE: ijk_fail_invalidparams if invalid parameters
-iret ijkWindowInfoCreateDefault(ijkWindowInfo* const windowInfo_out, ptr const applicationInst, tag const descriptorName, i32 const iconID);
+iret ijkWindowInfoCreateDefault(ijkWindowInfo* const windowInfo_out, kptr const applicationInst, tag const descriptorName, i32 const iconID);
 
 // ijkWindowInfoRelease
 //	Release window info.
@@ -159,7 +159,7 @@ iret ijkWindowInfoCreateDefault(ijkWindowInfo* const windowInfo_out, ptr const a
 //		return SUCCESS: ijk_success if info released
 //		return FAILURE: ijk_fail_operationfail if info not released
 //		return FAILURE: ijk_fail_invalidparams if invalid parameters
-iret ijkWindowInfoRelease(ijkWindowInfo const windowInfo);
+iret ijkWindowInfoRelease(ijkWindowInfo* const windowInfo);
 
 // ijkWindowPlatformCreate
 //	Initialize platform info.
@@ -185,7 +185,7 @@ iret ijkWindowPlatformCreate(ijkWindowPlatform* const platformInfo_out, tag cons
 //		return SUCCESS: ijk_success if info released
 //		return FAILURE: ijk_fail_operationfail if info not released
 //		return FAILURE: ijk_fail_invalidparams if invalid parameters
-iret ijkWindowPlatformRelease(ijkWindowPlatform const platformInfo);
+iret ijkWindowPlatformRelease(ijkWindowPlatform* const platformInfo);
 
 // ijkWindowCreate
 //	Create and open window with specified features.
@@ -249,7 +249,7 @@ iret ijkWindowLoopThread(ptr* const thread_out, tag const threadName, ijkWindow*
 //		return SUCCESS: ijk_success if thread has exited
 //		return FAILURE: ijk_fail_operationfail if thread has not exited
 //		return FAILURE: ijk_fail_invalidparams if invalid parameters
-iret ijkWindowLoopThreadStatus(ptr const thread);
+iret ijkWindowLoopThreadStatus(kptr* const thread);
 
 // ijkWindowLoopThreadKill
 //	Force-terminate event loop thread.
@@ -258,7 +258,7 @@ iret ijkWindowLoopThreadStatus(ptr const thread);
 //		return SUCCESS: ijk_success if thread terminated
 //		return FAILURE: ijk_fail_operationfail if thread not terminated
 //		return FAILURE: ijk_fail_invalidparams if invalid parameters
-iret ijkWindowLoopThreadKill(ptr const thread);
+iret ijkWindowLoopThreadKill(ptr* const thread);
 
 
 //-----------------------------------------------------------------------------

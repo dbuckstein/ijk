@@ -30,6 +30,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+#include "../../ijk-player.rc.h"
+
 
 //-----------------------------------------------------------------------------
 // application entry point
@@ -41,38 +43,24 @@ iret __stdcall wWinMain(
 	i32 const		nCmdShow)
 {
 	ktag appName = "ijk Player Application";
+	ktag infoName = "ijkPlayerApplicationInfo";
 	iret status = -1;
-	ptr handle[1] = { 0 };
-
-	ijkConsole console[1] = { 0 };
-
-	// initialize application instance
 	i32 i = -1;
-	ui32 c = 1;
-	status = ijkApplicationStartSingleInstanceSwitch(handle, appName, &i);
-	//status = ijkApplicationStartSingleInstance(handle, appName, &i);
-	//status = ijkApplicationStartMultipleInstance(handle, appName, (c = 3), &i);
-	if (ijk_issuccess(status))
-	{
-		// initialize
-		ijkConsoleCreateMain(console);
-		printf("APP INST INDEX: %d / %d \n", i, c);
-		system("pause");
 
-		// terminate application instance
-		status = ijkApplicationStopSingleInstance(handle, &i);
-		//status = ijkApplicationStopMultipleInstance(handle, &i);
-		if (ijk_issuccess(status))
-		{
-			// terminate
-			printf("APP INST REMAIN: %d / %d \n", i, c);
-			system("pause");
-			ijkConsoleReleaseMain(console);
+	ptr app[1] = { 0 };
+	ijkConsole console[1] = { 0 };
+	ijkWindowInfo windowInfo[1] = { 0 };
+	ijkWindowPlatform platformInfo[1] = { 0 };
 
-			// done
-			status = ijk_success;
-		}
-	}
+	status = ijkApplicationStartSingleInstanceSwitch(app, appName, &i);
+	status = ijkConsoleCreateMain(console);
+	status = ijkWindowInfoCreateDefault(windowInfo, hInstance, infoName, IDI_ICON1);
+	status = ijkWindowPlatformCreate(platformInfo, ijk_envstr_vsdevenv, ijk_envstr_slnpath, ijk_envstr_sdkdir, ijk_envstr_cfgdir);
+
+	status = ijkWindowPlatformRelease(platformInfo);
+	status = ijkWindowInfoRelease(windowInfo);
+	status = ijkConsoleReleaseMain(console);
+	status = ijkApplicationStopSingleInstance(app, &i);
 
 	// the end
 	return status;

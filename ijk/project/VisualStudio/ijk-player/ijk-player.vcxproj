@@ -94,7 +94,7 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>WIN$(PlatformArchitecture);_WINDOWS;WIN32_LEAN_AND_MEAN;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions);ijk_envstr_vsdevenv=$(ijk_vsdevenv.Replace('\','\\'));ijk_envstr_slnpath="$(SolutionPath.Replace('\','\\'))";ijk_envstr_sdkdir="$(ijk_sdk.Replace('\','\\')).";ijk_envstr_cfgdir="\\$(PlatformTarget)\\$(PlatformToolset)\\$(Configuration)\\.";_DEBUG</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN$(PlatformArchitecture);_WINDOWS;WIN32_LEAN_AND_MEAN;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions);ijk_envstr_vsdevenv="$(ijk_vsdevenv.Replace('\','\\'))";ijk_envstr_slnpath="$(SolutionPath.Replace('\','\\'))";ijk_envstr_sdkdir="$(ijk_sdk.Replace('\','\\')).";ijk_envstr_cfgdir="\\$(PlatformTarget)\\$(PlatformToolset)\\$(Configuration)\\.";_DEBUG</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <TreatWarningAsError>true</TreatWarningAsError>
       <AdditionalIncludeDirectories>$(ijk_sdk)include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
@@ -110,7 +110,7 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>WIN$(PlatformArchitecture);_WINDOWS;WIN32_LEAN_AND_MEAN;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions);ijk_envstr_vsdevenv=$(ijk_vsdevenv.Replace('\','\\'));ijk_envstr_slnpath="$(SolutionPath.Replace('\','\\'))";ijk_envstr_sdkdir="$(ijk_sdk.Replace('\','\\')).";ijk_envstr_cfgdir="\\$(PlatformTarget)\\$(PlatformToolset)\\$(Configuration)\\.";_DEBUG</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN$(PlatformArchitecture);_WINDOWS;WIN32_LEAN_AND_MEAN;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions);ijk_envstr_vsdevenv="$(ijk_vsdevenv.Replace('\','\\'))";ijk_envstr_slnpath="$(SolutionPath.Replace('\','\\'))";ijk_envstr_sdkdir="$(ijk_sdk.Replace('\','\\')).";ijk_envstr_cfgdir="\\$(PlatformTarget)\\$(PlatformToolset)\\$(Configuration)\\.";_DEBUG</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <TreatWarningAsError>true</TreatWarningAsError>
       <AdditionalIncludeDirectories>$(ijk_sdk)include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
@@ -128,7 +128,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>WIN$(PlatformArchitecture);_WINDOWS;WIN32_LEAN_AND_MEAN;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions);ijk_envstr_vsdevenv=$(ijk_vsdevenv.Replace('\','\\'));ijk_envstr_slnpath="$(SolutionPath.Replace('\','\\'))";ijk_envstr_sdkdir="$(ijk_sdk.Replace('\','\\')).";ijk_envstr_cfgdir="\\$(PlatformTarget)\\$(PlatformToolset)\\$(Configuration)\\.";NDEBUG</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN$(PlatformArchitecture);_WINDOWS;WIN32_LEAN_AND_MEAN;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions);ijk_envstr_vsdevenv="$(ijk_vsdevenv.Replace('\','\\'))";ijk_envstr_slnpath="$(SolutionPath.Replace('\','\\'))";ijk_envstr_sdkdir="$(ijk_sdk.Replace('\','\\')).";ijk_envstr_cfgdir="\\$(PlatformTarget)\\$(PlatformToolset)\\$(Configuration)\\.";NDEBUG</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <TreatWarningAsError>true</TreatWarningAsError>
       <AdditionalIncludeDirectories>$(ijk_sdk)include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
@@ -149,7 +149,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>WIN$(PlatformArchitecture);_WINDOWS;WIN32_LEAN_AND_MEAN;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions);ijk_envstr_vsdevenv=$(ijk_vsdevenv.Replace('\','\\'));ijk_envstr_slnpath="$(SolutionPath.Replace('\','\\'))";ijk_envstr_sdkdir="$(ijk_sdk.Replace('\','\\')).";ijk_envstr_cfgdir="\\$(PlatformTarget)\\$(PlatformToolset)\\$(Configuration)\\.";NDEBUG</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN$(PlatformArchitecture);_WINDOWS;WIN32_LEAN_AND_MEAN;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions);ijk_envstr_vsdevenv="$(ijk_vsdevenv.Replace('\','\\'))";ijk_envstr_slnpath="$(SolutionPath.Replace('\','\\'))";ijk_envstr_sdkdir="$(ijk_sdk.Replace('\','\\')).";ijk_envstr_cfgdir="\\$(PlatformTarget)\\$(PlatformToolset)\\$(Configuration)\\.";NDEBUG</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <TreatWarningAsError>true</TreatWarningAsError>
       <AdditionalIncludeDirectories>$(ijk_sdk)include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
