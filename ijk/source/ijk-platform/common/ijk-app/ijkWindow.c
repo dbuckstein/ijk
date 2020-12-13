@@ -52,6 +52,7 @@ iret ijkWindowInternalSetCallbackDefaults(ijkWindow* const window)
 		window->callback_reload = window->callback_reload_hot = ijkWindowCallbackDefault_pp2;
 		window->callback_unload = window->callback_unload_hot = ijkWindowCallbackDefault_p;
 		window->callback_winActivate = window->callback_winDeactivate = ijkWindowCallbackDefault_p;
+		window->callback_display = window->callback_idle = ijkWindowCallbackDefault_p;
 		window->callback_winMove = window->callback_winResize = ijkWindowCallbackDefault_pii;
 		window->callback_keyPressVirt = window->callback_keyPressAscii = ijkWindowCallbackDefault_pi;
 		window->callback_keyHoldVirt = window->callback_keyHoldAscii = ijkWindowCallbackDefault_pi;
@@ -60,14 +61,37 @@ iret ijkWindowInternalSetCallbackDefaults(ijkWindow* const window)
 		window->callback_mouseRelease = window->callback_mouseWheel = ijkWindowCallbackDefault_piii;
 		window->callback_mouseMove = window->callback_mouseMove_ext = ijkWindowCallbackDefault_pii;
 		window->callback_mouseEnter = window->callback_mouseLeave = ijkWindowCallbackDefault_pii;
-		window->callback_willReload = window->callback_willReload_hot = ijkWindowCallbackDefault_p;
-		window->callback_willUnload = window->callback_willUnload_hot = ijkWindowCallbackDefault_p;
+		window->callback_willReload = window->callback_willUnload = ijkWindowCallbackDefault_p;
 		window->callback_user1 = window->callback_user2 = window->callback_user3 = window->callback_user4 = ijkWindowCallbackDefault_p;
 
 		// done
 		return ijk_success;
 	}
 	return ijk_fail_invalidparams;
+}
+
+
+//-----------------------------------------------------------------------------
+
+iret ijkWindowPlatformPackResource(i8 const controlID, i8 const iconID, i8 const cursorID)
+{
+	return ((iret)controlID | (iret)iconID << 8 | (iret)cursorID << 16);
+}
+
+
+iret ijkWindowPlatformInternalUnpackControl(iret const resource)
+{
+	return (resource & 0xff);
+}
+
+iret ijkWindowPlatformInternalUnpackIconID(iret const resource)
+{
+	return (resource >> 8 & 0xff);
+}
+
+iret ijkWindowPlatformInternalUnpackCursorID(iret const resource)
+{
+	return (resource >> 16 & 0xff);
 }
 
 

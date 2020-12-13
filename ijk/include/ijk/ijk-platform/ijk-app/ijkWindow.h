@@ -73,7 +73,7 @@ enum ijkWindowControl
 	ijkWinCtrl_F1_info = 0x0001,		// Press F1 to bring up player info window.
 	ijkWinCtrl_F2_load = 0x0002,		// Press F2 to bring up load plugin window.
 	ijkWinCtrl_F3_reload = 0x0004,		// Press F3 to reload current plugin.
-	ijkWinCtrl_F4_close = 0x0008,		// Press F4 to close current plugin.
+	ijkWinCtrl_F4_unload = 0x0008,		// Press F4 to unload current plugin.
 	ijkWinCtrl_F5_debug = 0x0010,		// Press F5 to load and run debug plugin.
 	ijkWinCtrl_F6_build = 0x0020,		// Press F6 to hot build-and-swap debug plugin.
 	ijkWinCtrl_F7_rebuild = 0x0040,		// Press F7 to hot rebuild-and-swap debug plugin.
@@ -83,9 +83,14 @@ enum ijkWindowControl
 	ijkWinCtrl_F11_user3 = 0x0400,		// Press F11 for user function 3.
 	ijkWinCtrl_F12_user4 = 0x0800,		// Press F12 for user function 4.
 	ijkWinCtrl_esc_quit = 0x1000,		// Press escape to quit application.
-	ijkWinCtrl_autoLoad = 0x2000,		// Auto-load debug plugin on-load.
-	ijkWinCtrl_startFullscr = 0x4000,	// Full-screen on start.
-	ijkWinCtrl_hideCursor = 0x8000,		// Hide cursor or mouse pointer.
+	ijkWinCtrl_hideCursor = 0x2000,		// Hide cursor or mouse pointer.
+	ijkWinCtrl_lockCursor = 0x4000,		// Lock cursor to window area.
+	ijkWinCtrl_fullscr_start = 0x8000,	// Full-screen on start.
+	ijkWinCtrl_all = 0xffff				// All control/feature flags enabled.
+		//(ijkWinCtrl_F1_info | ijkWinCtrl_F2_load | ijkWinCtrl_F3_reload | ijkWinCtrl_F4_unload |
+		// ijkWinCtrl_F5_debug | ijkWinCtrl_F6_build | ijkWinCtrl_F7_rebuild | ijkWinCtrl_F8_fullscr |
+		// ijkWinCtrl_F9_user1 | ijkWinCtrl_F10_user2 | ijkWinCtrl_F11_user3 | ijkWinCtrl_F12_user4 |
+		// ijkWinCtrl_esc_quit | ijkWinCtrl_hideCursor | ijkWinCtrl_lockCursor | ijkWinCtrl_fullscr_start)
 };
 
 
@@ -96,7 +101,7 @@ enum ijkWindowControl
 //		member winCtrl: window controls and feature flags
 //		members pos_x, pos_y: position of window on display in pixels
 //		members sz_x, sz_y: size of window on display in pixels
-//		member id: window identifier
+//		member windowData: internal window data
 //		member pluginData: pointer to persistent plugin data
 //		member pluginHandle: pointer to persistent plugin handle
 //		members callback: array of function pointers to callbacks in plugin
@@ -107,10 +112,9 @@ struct ijkWindow
 	ijkWindowControl winCtrl;
 	i16 pos_x, pos_y;
 	i16 sz_x, sz_y;
-	i32 id;
+	ptr windowData;
 	ptr pluginData;
 	ptr pluginHandle;
-	ptr platformData;
 
 	union {
 		ptr callback[32];
@@ -119,6 +123,7 @@ struct ijkWindow
 			ijkWindowCallback_pp2 callback_reload, callback_reload_hot;								// Reload/hot-reload callback.
 			ijkWindowCallback_p callback_unload, callback_unload_hot;								// Unload/hot-unload callback.
 			ijkWindowCallback_p callback_winActivate, callback_winDeactivate;						// Window activate/deactivate callback.
+			ijkWindowCallback_p callback_display, callback_idle;									// Window display/idle callback.
 			ijkWindowCallback_pii callback_winMove, callback_winResize;								// Window move/resize callback.
 			ijkWindowCallback_pi callback_keyPressVirt, callback_keyPressAscii;						// Virtual/ASCII key press callback.
 			ijkWindowCallback_pi callback_keyHoldVirt, callback_keyHoldAscii;						// Virtual/ASCII key hold callback.
@@ -127,8 +132,7 @@ struct ijkWindow
 			ijkWindowCallback_piii callback_mouseRelease, callback_mouseWheel;						// Mouse release/scroll callback.
 			ijkWindowCallback_pii callback_mouseMove, callback_mouseMove_ext;						// Mouse move inside/outside window callback.
 			ijkWindowCallback_pii callback_mouseEnter, callback_mouseLeave;							// Mouse enter/leave window callback.
-			ijkWindowCallback_p callback_willReload, callback_willReload_hot;						// Plugin will reload/hot-reload callback.
-			ijkWindowCallback_p callback_willUnload, callback_willUnload_hot;						// Plugin will unload/hot-unload callback.
+			ijkWindowCallback_p callback_willReload, callback_willUnload;							// Plugin pre-reload/unload callback.
 			ijkWindowCallback_p callback_user1, callback_user2, callback_user3, callback_user4;		// User function callbacks (F9-F12).
 		};
 	};
@@ -137,34 +141,19 @@ struct ijkWindow
 
 //-----------------------------------------------------------------------------
 
-// ijkWindowInfoCreateDefault
-//	Create default window info with rendering capabilities.
-//		param windowInfo_out: pointer to window info handle
-//			valid: non-null, points to null
-//		param applicationInst: pointer to application handle
-//			valid: non-null, valid handle
-//		param descriptorName: brief description of info
-//			valid: non-null, non-empty c-string
+// ijkWindowPlatformPackResource
+//	Pack resource flags into integer.
+//		param controlID: control identifier
 //		param iconID: icon identifier
-//			note: pass negative to use default icon
-//		return SUCCESS: ijk_success if info initialized
-//		return FAILURE: ijk_fail_operationfail if info not initialized
-//		return FAILURE: ijk_fail_invalidparams if invalid parameters
-iret ijkWindowInfoCreateDefault(ijkWindowInfo* const windowInfo_out, kptr const applicationInst, tag const descriptorName, i32 const iconID);
-
-// ijkWindowInfoRelease
-//	Release window info.
-//		param windowInfo: pointer to window info
-//			valid: non-null, valid handle
-//		return SUCCESS: ijk_success if info released
-//		return FAILURE: ijk_fail_operationfail if info not released
-//		return FAILURE: ijk_fail_invalidparams if invalid parameters
-iret ijkWindowInfoRelease(ijkWindowInfo* const windowInfo);
+//		param cursorID: cursor identifier
+iret ijkWindowPlatformPackResource(i8 const controlID, i8 const iconID, i8 const cursorID);
 
 // ijkWindowPlatformCreate
 //	Initialize platform info.
 //		param platformInfo_out: pointer to platform info handle
 //			valid: non-null, points to null
+//		param applicationInst: pointer to application handle
+//			valid: non-null, valid handle
 //		param dev: description of development environment
 //			valid: non-null, non-empty c-string
 //		param target: description of build target
@@ -173,10 +162,11 @@ iret ijkWindowInfoRelease(ijkWindowInfo* const windowInfo);
 //			valid: non-null, non-empty c-string
 //		param cfg: description of configuration
 //			valid: non-null, non-empty c-string
+//		param applicationRes: resource descriptor
 //		return SUCCESS: ijk_success if info initialized
 //		return FAILURE: ijk_fail_operationfail if info not initialized
 //		return FAILURE: ijk_fail_invalidparams if invalid parameters
-iret ijkWindowPlatformCreate(ijkWindowPlatform* const platformInfo_out, tag const dev, tag const target, tag const sdk, tag const cfg);
+iret ijkWindowPlatformCreate(ijkWindowPlatform* const platformInfo_out, kptr const applicationInst, tag const dev, tag const target, tag const sdk, tag const cfg, i32 const applicationRes);
 
 // ijkWindowPlatformRelease
 //	Release platform info.
@@ -186,6 +176,28 @@ iret ijkWindowPlatformCreate(ijkWindowPlatform* const platformInfo_out, tag cons
 //		return FAILURE: ijk_fail_operationfail if info not released
 //		return FAILURE: ijk_fail_invalidparams if invalid parameters
 iret ijkWindowPlatformRelease(ijkWindowPlatform* const platformInfo);
+
+// ijkWindowInfoCreateDefault
+//	Create default window info with rendering capabilities.
+//		param windowInfo_out: pointer to window info handle
+//			valid: non-null, points to null
+//		param platformInfo: pointer to platform info
+//			valid: non-null, valid handle
+//		param descriptorName: brief description of info
+//			valid: non-null, non-empty c-string
+//		return SUCCESS: ijk_success if info initialized
+//		return FAILURE: ijk_fail_operationfail if info not initialized
+//		return FAILURE: ijk_fail_invalidparams if invalid parameters
+iret ijkWindowInfoCreateDefault(ijkWindowInfo* const windowInfo_out, ijkWindowPlatform const* const platformInfo, tag const descriptorName);
+
+// ijkWindowInfoRelease
+//	Release window info.
+//		param windowInfo: pointer to window info
+//			valid: non-null, valid handle
+//		return SUCCESS: ijk_success if info released
+//		return FAILURE: ijk_fail_operationfail if info not released
+//		return FAILURE: ijk_fail_invalidparams if invalid parameters
+iret ijkWindowInfoRelease(ijkWindowInfo* const windowInfo);
 
 // ijkWindowCreate
 //	Create and open window with specified features.
@@ -209,7 +221,7 @@ iret ijkWindowPlatformRelease(ijkWindowPlatform* const platformInfo);
 //		return SUCCESS: ijk_success if window initialized
 //		return FAILURE: ijk_fail_operationfail if window not initialized
 //		return FAILURE: ijk_fail_invalidparams if invalid parameters
-iret ijkWindowCreate(ijkWindow* const window_out, ijkWindowInfo const windowInfo, ijkWindowPlatform const platformInfo, ijkRendererInfo const rendererInfo_opt, tag const windowName, ui16 const windowPos_x, ui16 const windowPos_y, ui16 const windowSize_x, ui16 const windowSize_y, ijkWindowControl const windowCtrl);
+iret ijkWindowCreate(ijkWindow* const window_out, ijkWindowInfo const* const windowInfo, ijkWindowPlatform const* const platformInfo, ijkRendererInfo const* const rendererInfo_opt, tag const windowName, ui16 const windowPos_x, ui16 const windowPos_y, ui16 const windowSize_x, ui16 const windowSize_y, ijkWindowControl const windowCtrl);
 
 // ijkWindowRelease
 //	Close and release window.
