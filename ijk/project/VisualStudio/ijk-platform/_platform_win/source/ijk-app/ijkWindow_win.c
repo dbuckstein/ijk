@@ -48,7 +48,7 @@ typedef WNDCLASSEXA ijkWindowInfo_win;
 
 // ijkWindowPlatform_win
 //	Windows-specific platform info descriptor.
-typedef struct
+typedef struct ijkWindowPlatform_win_tag
 {
 	// Important paths and strings.
 	///
@@ -59,24 +59,219 @@ typedef struct
 
 	// Other important data.
 	///
+	i32 appWinCt;						// Application window count.
 	i32 appRes;							// Application resource.
 	ijkAppInst_win appInst;				// Application instance.
-	TRACKMOUSEEVENT mouseTracker[1];	// Mouse tracker inside and outside window.
 } ijkWindowPlatform_win;
+
+// ijkPlatformData_win
+//	Windows-specific platform data descriptor for window.
+typedef struct ijkPlatformData_win_tag
+{
+	TRACKMOUSEEVENT mouseTracker[1];	// Mouse tracker inside and outside window.
+	byte keyboardTracker[128];			// Keyboard tracker for character keys.
+	HDC deviceContext;					// Window device context.
+} ijkPlatformData_win;
 
 
 //-----------------------------------------------------------------------------
 
 // ijkWindowInternalEventProcess
 //	Internal processor for window events.
-LRESULT CALLBACK ijkWindowInternalEventProcess(HWND window, UINT message, WPARAM wParam, LPARAM lParam)
+LRESULT CALLBACK ijkWindowInternalEventProcess(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
+	// prototype for setting default callbacks
+	iret ijkWindowInternalSetCallbackDefaults(ijkWindow* const window);
+
+	// get user data
+	ijkWindow* window = (ijkWindow*)GetWindowLongPtrA(hWnd, GWLP_USERDATA);
+	ijkPlatformData_win* platformData;
+	ijkWindowPlatform_win* info;
+
+	// process message
 	switch (message)
 	{
+		// window initial creation
+	case WM_NCCREATE: {
+		platformData = (ijkPlatformData_win*)malloc(sizeof(ijkPlatformData_win));
+		if (platformData)
+		{
+			memset(platformData, 0, sizeof(*platformData));
+			platformData->mouseTracker->cbSize = sizeof(platformData->mouseTracker);
+			platformData->mouseTracker->dwFlags = (TME_LEAVE | TME_HOVER | TME_NONCLIENT);
+			platformData->mouseTracker->dwHoverTime = 0;
+			platformData->mouseTracker->hwndTrack = hWnd;
+			platformData->deviceContext = GetDC(hWnd);
+
+			window = (ijkWindow*)((LPCREATESTRUCT)lParam)->lpCreateParams;
+			window->platformData = platformData;
+			window->windowData = hWnd;
+
+			info = (ijkWindowPlatform_win*)window->winPlat;
+			info->appWinCt += 1;
+
+			// set modified user data
+			SetWindowLongPtrA(hWnd, GWLP_USERDATA, (LONG_PTR)window);
+		}
+	}	break;
+		// window finishing creation
+	case WM_CREATE: {
+		// set up rendering
+		if (window->winRender)
+		{
+
+		}
+		// set up non-rendering
+		else
+		{
+
+		}
+
+		// reset callbacks
+		ijkWindowInternalSetCallbackDefaults(window);
+	}	break;
+		// window closed
+	case WM_CLOSE: {
+		// this will also recursively take down any menus the window has
+		DestroyWindow(hWnd);
+	}	break;
+		// window destroyed
+	case WM_DESTROY: {
+		// unload plugin
+		if (window->pluginHandle)
+		{
+			// ****TO-DO
+
+			ijkWindowInternalSetCallbackDefaults(window);
+			window->pluginData = 0;
+			window->pluginHandle = 0;
+		}
+
+		// clean up rendering
+		if (window->winRender)
+		{
+			// ****TO-DO
+
+			window->winRender = 0;
+		}
+
+		// clean up data
+		if (window->platformData)
+		{
+			platformData = (ijkPlatformData_win*)window->platformData;
+			ReleaseDC(hWnd, platformData->deviceContext);
+			free(platformData);
+			window->platformData = 0;
+		}
+
+		// reset general data
+		window->windowData = 0;
+		window->winPlat = 0;
+	}	break;
+	case WM_PAINT: {
+		if (!window->callback_display(window->pluginData))
+		{
+			PAINTSTRUCT paint[1];
+			RECT updateRect[1];
+			GetUpdateRect(hWnd, updateRect, 0);
+			FillRect(BeginPaint(hWnd, paint), updateRect, (HBRUSH)(COLOR_WINDOW));
+			EndPaint(hWnd, paint);
+		}
+	}	break;
+	//case WM_ERASEBKGND:
+	//	break;
+
+		// menu or accelerator item
+	case WM_COMMAND: {
+		switch (LOWORD(wParam))
+		{
+		}
+	}	break;
+
+		// window changes activation state
+	case WM_ACTIVATE: {
+		switch (LOWORD(wParam))
+		{
+		case WA_ACTIVE:
+		case WA_CLICKACTIVE:
+			break;
+		case WA_INACTIVE:
+			break;
+		}
+	}	break;
+		// window moves
+	case WM_MOVE:
+		break;
+		// window is resized
+	case WM_SIZE:
+		break;
+
+		// any virtual key
+	case WM_KEYDOWN:
+		break;
+		// character keys, no up call
+	case WM_CHAR:
+		break;
+		// release for keyPress, need to figure out if character is released
+	case WM_KEYUP:
+		break;
+
+		// left mouse pressed
+	case WM_LBUTTONDOWN:
+		break;
+		// middle button pressed
+	case WM_MBUTTONDOWN:
+		break;
+		// right button pressed
+	case WM_RBUTTONDOWN:
+		break;
+		// other button pressed
+	case WM_XBUTTONDOWN:
+		break;
+		// left mouse double-clicked
+	case WM_LBUTTONDBLCLK:
+		break;
+		// middle button double-clicked
+	case WM_MBUTTONDBLCLK:
+		break;
+		// right button double-clicked
+	case WM_RBUTTONDBLCLK:
+		break;
+		// other button double-clicked
+	case WM_XBUTTONDBLCLK:
+		break;
+		// left mouse released
+	case WM_LBUTTONUP:
+		break;
+		// middle button released
+	case WM_MBUTTONUP:
+		break;
+		// right button released
+	case WM_RBUTTONUP:
+		break;
+		// other button released
+	case WM_XBUTTONUP:
+		break;
+		// mouse wheel scrolled
+	case WM_MOUSEWHEEL:
+		break;
+		// mouse moved
+	case WM_MOUSEMOVE:
+		break;
+		// mouse left
+	case WM_MOUSELEAVE:
+		break;
+		// mouse hovers (used to track enter)
+	case WM_MOUSEHOVER:
+		break;
+		// mouse click activates
+	case WM_MOUSEACTIVATE:
+		break;
+
 	default:
 		break;
 	}
-	return DefWindowProcA(window, message, wParam, lParam);
+	return DefWindowProcA(hWnd, message, wParam, lParam);
 }
 
 
@@ -93,14 +288,12 @@ iret ijkWindowPlatformCreate(ijkWindowPlatform* const platformInfo_out, kptr con
 			platformInfo->dir_target = target;
 			platformInfo->dir_sdk = sdk;
 			platformInfo->tag_cfg = cfg;
-
+			platformInfo->appWinCt = 0;
 			platformInfo->appRes = applicationRes;
 			platformInfo->appInst = (ijkAppInst_win)applicationInst;
-			memset(platformInfo->mouseTracker, 0, sizeof(platformInfo->mouseTracker));
 			
-			*platformInfo_out = platformInfo;
-
 			// done
+			*platformInfo_out = platformInfo;
 			return ijk_success;
 		}
 		return ijk_fail_operationfail;
@@ -116,9 +309,9 @@ iret ijkWindowPlatformRelease(ijkWindowPlatform* const platformInfo)
 		// release and reset
 		ijkWindowPlatform_win* const info = *platformInfo;
 		free(info);
-		*platformInfo = 0;
 
 		// done
+		*platformInfo = 0;
 		return ijk_success;
 	}
 	return ijk_fail_invalidparams;
@@ -159,10 +352,8 @@ iret ijkWindowInfoCreateDefault(ijkWindowInfo* const windowInfo_out, ijkWindowPl
 			// register
 			if (RegisterClassExA(windowInfo))
 			{
-				// success, copy
-				*windowInfo_out = windowInfo;
-
 				// done
+				*windowInfo_out = windowInfo;
 				return ijk_success;
 			}
 
@@ -184,9 +375,9 @@ iret ijkWindowInfoRelease(ijkWindowInfo* const windowInfo)
 		{
 			// release and reset
 			free(info);
-			*windowInfo = 0;
 
 			// done
+			*windowInfo = 0;
 			return ijk_success;
 		}
 		return ijk_fail_operationfail;
@@ -197,10 +388,6 @@ iret ijkWindowInfoRelease(ijkWindowInfo* const windowInfo)
 
 iret ijkWindowCreate(ijkWindow* const window_out, ijkWindowInfo const* const windowInfo, ijkWindowPlatform const* const platformInfo, ijkRendererInfo const* const rendererInfo_opt, tag const windowName, ui16 const windowPos_x, ui16 const windowPos_y, ui16 const windowSize_x, ui16 const windowSize_y, ijkWindowControl const windowCtrl)
 {
-	// prototype for setting default callbacks
-	iret ijkWindowInternalSetCallbackDefaults(ijkWindow* const window);
-
-	// validate
 	if (window_out && !window_out->windowData && windowInfo && *windowInfo && platformInfo && *platformInfo && windowName && *windowName)
 	{
 		ibool const fullScreen = ijk_flagch(windowCtrl, ijkWinCtrl_fullscr_start);
@@ -214,6 +401,8 @@ iret ijkWindowCreate(ijkWindow* const window_out, ijkWindowInfo const* const win
 		dword style = (WS_CLIPCHILDREN | WS_CLIPSIBLINGS), styleEx = 0;
 
 		ijkWindowInfo_win const* const info = *windowInfo;
+		ijkWindowPlatform_win* const plat = *platformInfo;
+		ijkRendererInfo* const render = (rendererInfo_opt ? *rendererInfo_opt : 0);
 
 		// set display area as child of another window
 		if (parent)
@@ -245,16 +434,15 @@ iret ijkWindowCreate(ijkWindow* const window_out, ijkWindowInfo const* const win
 		}
 
 		// set data
-		window_out->winPlat = platformInfo;
-		window_out->winRender = rendererInfo_opt;
+		window_out->winPlat = plat;
+		window_out->winRender = render;
 		window_out->winCtrl = windowCtrl;
-		ijkWindowInternalSetCallbackDefaults(window_out);
 
 		// attempt to make a window
 		// 'window_out->window' is set through window process callback
 		handle = CreateWindowExA(
 			styleEx, info->lpszClassName, windowName, style,
-			displayArea.left, displayArea.top, (displayArea.right - displayArea.left), (displayArea.bottom - displayArea.top),
+			0, 0, (displayArea.right - displayArea.left), (displayArea.bottom - displayArea.top),
 			parent, NULL, info->hInstance, window_out);
 
 		// success
@@ -292,8 +480,7 @@ iret ijkWindowRelease(ijkWindow* const window)
 		if (DestroyWindow((HWND)(window->windowData)))
 		{
 			// window properties should be set during destruction
-			// just need to reset callbacks
-			return ijkWindowInternalSetCallbackDefaults(window);
+			return ijk_success;
 		}
 		return ijk_fail_operationfail;
 	}
@@ -329,10 +516,10 @@ iret ijkWindowLoop(ijkWindow* const window)
 		while (msg->message - WM_QUIT)
 		{
 			// check for accelerator key
-			if (!TranslateAccelerator(handle, hAccel, msg))
+			if (!TranslateAcceleratorA(handle, hAccel, msg))
 			{
 				TranslateMessage(msg);
-				DispatchMessage(msg);
+				DispatchMessageA(msg);
 			}
 
 			// check for other message

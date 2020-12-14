@@ -101,9 +101,10 @@ enum ijkWindowControl
 //		member winCtrl: window controls and feature flags
 //		members pos_x, pos_y: position of window on display in pixels
 //		members sz_x, sz_y: size of window on display in pixels
+//		member platformData: internal platform data pertinent to window
 //		member windowData: internal window data
-//		member pluginData: pointer to persistent plugin data
-//		member pluginHandle: pointer to persistent plugin handle
+//		member pluginData: internal pointer to persistent plugin data
+//		member pluginHandle: internal pointer to persistent plugin handle
 //		members callback: array of function pointers to callbacks in plugin
 struct ijkWindow
 {
@@ -112,6 +113,8 @@ struct ijkWindow
 	ijkWindowControl winCtrl;
 	i16 pos_x, pos_y;
 	i16 sz_x, sz_y;
+
+	ptr platformData;
 	ptr windowData;
 	ptr pluginData;
 	ptr pluginHandle;
