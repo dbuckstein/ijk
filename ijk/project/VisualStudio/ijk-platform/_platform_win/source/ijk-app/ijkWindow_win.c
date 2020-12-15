@@ -108,7 +108,7 @@ LRESULT CALLBACK ijkWindowInternalEventProcess(HWND hWnd, UINT message, WPARAM w
 			window->windowData = hWnd;
 
 			info = (ijkWindowPlatform_win*)window->winPlat;
-			info->appWinCt += 1;
+			++info->appWinCt;
 
 			// set modified user data
 			SetWindowLongPtrA(hWnd, GWLP_USERDATA, (LONG_PTR)window);
@@ -119,11 +119,13 @@ LRESULT CALLBACK ijkWindowInternalEventProcess(HWND hWnd, UINT message, WPARAM w
 		// set up rendering
 		if (window->winRender)
 		{
+			// ****TO-DO
 
 		}
 		// set up non-rendering
 		else
 		{
+			// ****TO-DO
 
 		}
 
@@ -165,11 +167,19 @@ LRESULT CALLBACK ijkWindowInternalEventProcess(HWND hWnd, UINT message, WPARAM w
 		}
 
 		// reset general data
+		info = (ijkWindowPlatform_win*)window->winPlat;
 		window->windowData = 0;
 		window->winPlat = 0;
+
+		// check if all windows are closed
+		--info->appWinCt;
+		if (info->appWinCt <= 0)
+		{
+			PostQuitMessage(ijk_success);
+		}
 	}	break;
 	case WM_PAINT: {
-		if (!window->callback_display(window->pluginData))
+		if (ijk_isfailure(window->callback_display(window->pluginData)))
 		{
 			PAINTSTRUCT paint[1];
 			RECT updateRect[1];
@@ -334,6 +344,8 @@ iret ijkWindowInfoCreateDefault(ijkWindowInfo* const windowInfo_out, ijkWindowPl
 			ijkWindowPlatform_win const* const info = *platformInfo;
 			i8 const iconID = (i8)ijkWindowPlatformInternalUnpackIconID(info->appRes);
 			i8 const cursorID = (i8)ijkWindowPlatformInternalUnpackCursorID(info->appRes);
+			LPSTR const iconStr = (iconID >= 0 ? MAKEINTRESOURCEA(iconID) : MAKEINTRESOURCEA(32517));
+			LPSTR const cursorStr = (cursorID >= 0 ? MAKEINTRESOURCEA(cursorID) : MAKEINTRESOURCEA(32512));
 
 			// fill in properties
 			windowInfo->cbSize = (ui32)sz;
@@ -342,8 +354,8 @@ iret ijkWindowInfoCreateDefault(ijkWindowInfo* const windowInfo_out, ijkWindowPl
 			windowInfo->cbClsExtra = 0;
 			windowInfo->cbWndExtra = (i32)szaddr;
 			windowInfo->hInstance = info->appInst;
-			windowInfo->hIcon = LoadIconA(windowInfo->hInstance, (iconID >= 0 ? MAKEINTRESOURCEA(iconID) : MAKEINTRESOURCEA(32517))); // IDI_WINLOGO = 32517
-			windowInfo->hCursor = LoadCursorA(windowInfo->hInstance, (cursorID >= 0 ? MAKEINTRESOURCEA(cursorID) : MAKEINTRESOURCEA(32512))); // IDC_ARROW = 32512
+			windowInfo->hIcon = LoadIconA(windowInfo->hInstance, iconStr); // IDI_WINLOGO = 32517
+			windowInfo->hCursor = LoadCursorA(NULL, cursorStr); // IDC_ARROW = 32512
 			windowInfo->hbrBackground = 0;
 			windowInfo->lpszMenuName = 0;
 			windowInfo->lpszClassName = descriptorName;
@@ -497,7 +509,7 @@ iret ijkWindowLoop(ijkWindow* const window)
 	if (window && window->windowData)
 	{
 		// platform info
-		ijkWindowPlatform_win const* const info = *((ijkWindowPlatform_win**)window->winPlat);
+		ijkWindowPlatform_win const* const info = (ijkWindowPlatform_win*)window->winPlat;
 		i8 const accelID = (i8)ijkWindowPlatformInternalUnpackControl(info->appRes);
 
 		// load accelerator table
@@ -509,35 +521,32 @@ iret ijkWindowLoop(ijkWindow* const window)
 		// message
 		MSG msg[1] = { 0 };
 
-		// idle result
-		iret idle;
+		// result
+		iret result = 0;
 
 		// while quit message has not been posted
-		while (msg->message - WM_QUIT)
+		while (msg->message != WM_QUIT)
 		{
-			// check for accelerator key
-			if (!TranslateAcceleratorA(handle, hAccel, msg))
+			// check for message
+			if (PeekMessageA(msg, NULL, 0, 0, PM_REMOVE))
 			{
-				TranslateMessage(msg);
-				DispatchMessageA(msg);
+				// check for accelerator key
+				if (!TranslateAcceleratorA(handle, hAccel, msg))
+				{
+					TranslateMessage(msg);
+					DispatchMessageA(msg);
+				}
 			}
-
-			// check for other message
-			//else if (PeekMessage(msg, NULL, 0, 0, PM_REMOVE))
-			//{
-			//	// if there is a message, process the message
-			//	TranslateMessage(msg);
-			//	DispatchMessage(msg);
-			//}
 
 			// if no message, idle
 			else
 			{
-				idle = window->callback_idle(window->pluginData);
+				// idle callback
+				result = window->callback_idle(window->pluginData);
 
-				// if the result is positive, idle is successful
+				// if the result is positive, plugin threw a flag or warning
 				// if rendering, this should mean that a frame was rendered
-				if (idle > 0)
+				if (ijk_iswarning(result))
 				{
 					//ijkRendererInfo_win* const info = *window->winRender;
 					//if (ijkRenderContextIsCurrent(info->renderContext))
@@ -547,9 +556,9 @@ iret ijkWindowLoop(ijkWindow* const window)
 					//}
 				}
 
-				// if the result is negative, the demo should be unloaded
+				// if the result is negative, plugin threw a failure code
 				// standalone window should close the window, which also unloads
-				else if (idle < 0)
+				else if (ijk_isfailure(result))
 				{
 					if (ijk_flagch(window->winCtrl, ijkWinCtrl_esc_quit))
 					{
@@ -563,15 +572,15 @@ iret ijkWindowLoop(ijkWindow* const window)
 					}
 				}
 
-				// if result is zero, nothing happened
+				// if result is zero, plugin idle succeeded, nothing happened
 				// ...carry on
 			}
 		}
 
-		// unload
-
 		// done
-		return (i32)msg->wParam;
+		DestroyAcceleratorTable(hAccel);
+		result = (iret)msg->wParam;
+		return result;
 	}
 	return ijk_fail_invalidparams;
 }
