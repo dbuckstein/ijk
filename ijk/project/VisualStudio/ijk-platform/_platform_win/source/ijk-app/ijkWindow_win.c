@@ -77,6 +77,92 @@ typedef struct ijkPlatformData_win_tag
 
 //-----------------------------------------------------------------------------
 
+void ijkWindowInternalProcessF1(ijkWindow* window)
+{
+	byte buffer[1024] = { 0 }, * bufferPtr = buffer;
+	byte const* const info[] = {
+		"ijk Player Application: Information",
+		"ijk: an open-source, cross-platform, light-weight, ",
+		"    c-based rendering framework",
+		"Copyright 2020 Daniel S.Buckstein",
+	};
+	bufferPtr += sprintf(bufferPtr, "%s\n%s\n%s\n\n", info[1], info[2], info[3]);
+	if (window->pluginHandle)
+	{
+		bufferPtr += sprintf(bufferPtr, "Current plugin: ");
+
+		// ****TO-DO
+		// print plugin info
+
+	}
+	else
+		bufferPtr += sprintf(bufferPtr, "No plugin loaded.");
+	MessageBoxA(window->windowData, buffer, *info, (MB_OK | MB_ICONINFORMATION | MB_SETFOREGROUND));
+}
+
+void ijkWindowInternalProcessF2(ijkWindow* window)
+{
+	// ****TO-DO
+	// display load plugin menu
+
+}
+
+void ijkWindowInternalProcessF3(ijkWindow* window)
+{
+	// ****TO-DO
+	// reload plugin
+
+}
+
+void ijkWindowInternalProcessF4(ijkWindow* window)
+{
+	// ****TO-DO
+	// unload plugin
+
+}
+
+void ijkWindowInternalProcessF5(ijkWindow* window)
+{
+	// ****TO-DO
+	// debug plugin
+
+}
+
+void ijkWindowInternalProcessF6(ijkWindow* window)
+{
+	// ****TO-DO
+	// hot-build-and-load plugin
+
+}
+
+void ijkWindowInternalProcessF7(ijkWindow* window)
+{
+	// ****TO-DO
+	// hot-rebuild-and-load plugin
+
+}
+
+void ijkWindowInternalProcessF8(ijkWindow* window)
+{
+	// ****TO-DO
+	// toggle full-screen
+
+}
+
+void ijkWindowInternalProcessEsc(ijkWindow* window)
+{
+	if (GetStdHandle(STD_INPUT_HANDLE) && GetConsoleWindow())
+	{
+		byte buffer[64] = { 0 };
+		printf("\n___:...............................................................;\nCMD:");
+		fgets(buffer, szb(buffer), stdin);
+		window->callback_user4c(window->pluginData, 1, (ptr*)(&buffer));
+	}
+}
+
+
+//-----------------------------------------------------------------------------
+
 // ijkWindowInternalEventProcess
 //	Internal processor for window events.
 LRESULT CALLBACK ijkWindowInternalEventProcess(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
@@ -189,8 +275,12 @@ LRESULT CALLBACK ijkWindowInternalEventProcess(HWND hWnd, UINT message, WPARAM w
 			EndPaint(hWnd, paint);
 		}
 	}	break;
-	//case WM_ERASEBKGND:
-	//	break;
+	//case WM_ERASEBKGND: {
+	//	// return non-zero if processed invalidated portion of background
+	//}	break;
+	//case WM_HELP: {
+	//	LPHELPINFO const help = (LPHELPINFO)HIWORD(lParam);
+	//}	break;
 
 		// menu or accelerator item
 	case WM_COMMAND: {
@@ -204,53 +294,37 @@ LRESULT CALLBACK ijkWindowInternalEventProcess(HWND hWnd, UINT message, WPARAM w
 			// accelerator table entry
 			switch (value - base)
 			{
-			case 0: // F1: about window
+			case 0: // F1: info dialog
 				if (window->winCtrl & ijkWinCtrl_F1_info)
-				{
-
-				}
+					ijkWindowInternalProcessF1(window);
 				break;
 			case 1: // F2: load plugin
 				if (window->winCtrl & ijkWinCtrl_F2_load)
-				{
-
-				}
+					ijkWindowInternalProcessF2(window);
 				break;
 			case 2: // F3: reload plugin
 				if (window->winCtrl & ijkWinCtrl_F3_reload)
-				{
-
-				}
+					ijkWindowInternalProcessF3(window);
 				break;
 			case 3: // F4: unload plugin
 				if (window->winCtrl & ijkWinCtrl_F4_unload)
-				{
-
-				}
+					ijkWindowInternalProcessF4(window);
 				break;
 			case 4: // F5: debug plugin
 				if (window->winCtrl & ijkWinCtrl_F5_debug)
-				{
-
-				}
+					ijkWindowInternalProcessF5(window);
 				break;
 			case 5: // F6: hot-build plugin
 				if (window->winCtrl & ijkWinCtrl_F6_build)
-				{
-
-				}
+					ijkWindowInternalProcessF6(window);
 				break;
 			case 6: // F7: hot-rebuild plugin
 				if (window->winCtrl & ijkWinCtrl_F7_rebuild)
-				{
-
-				}
+					ijkWindowInternalProcessF7(window);
 				break;
 			case 7: // F8: toggle full-screen
 				if (window->winCtrl & ijkWinCtrl_F8_fullscr)
-				{
-
-				}
+					ijkWindowInternalProcessF8(window);
 				break;
 			case 8: // F9: user 1
 				if (window->winCtrl & ijkWinCtrl_F9_user1)
@@ -269,13 +343,8 @@ LRESULT CALLBACK ijkWindowInternalEventProcess(HWND hWnd, UINT message, WPARAM w
 			//		window->callback_user4c(window->pluginData, 0, 0);
 			//	break;
 			case 12: // ESC: command
-				if ((window->winCtrl & ijkWinCtrl_esc_cmd) && GetStdHandle(STD_INPUT_HANDLE))
-				{
-					byte buffer[64] = { 0 };
-					printf("\n___:...............................................................;\nCMD:");
-					fgets(buffer, szb(buffer), stdin);
-					window->callback_user4c(window->pluginData, 1, (ptr*)(&buffer));
-				}
+				if (window->winCtrl & ijkWinCtrl_esc_cmd)
+					ijkWindowInternalProcessEsc(window);
 				break;
 			}
 		}

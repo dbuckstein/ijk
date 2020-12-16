@@ -87,10 +87,6 @@ enum ijkWindowControl
 	ijkWinCtrl_lockCursor = 0x4000,		// Lock cursor to window area.
 	ijkWinCtrl_fullscr_start = 0x8000,	// Full-screen on start.
 	ijkWinCtrl_all = 0xffff				// All control/feature flags enabled.
-		//(ijkWinCtrl_F1_info | ijkWinCtrl_F2_load | ijkWinCtrl_F3_reload | ijkWinCtrl_F4_unload |
-		// ijkWinCtrl_F5_debug | ijkWinCtrl_F6_build | ijkWinCtrl_F7_rebuild | ijkWinCtrl_F8_fullscr |
-		// ijkWinCtrl_F9_user1 | ijkWinCtrl_F10_user2 | ijkWinCtrl_F11_user3 | ijkWinCtrl_F12_user4 |
-		// ijkWinCtrl_esc_quit | ijkWinCtrl_hideCursor | ijkWinCtrl_lockCursor | ijkWinCtrl_fullscr_start)
 };
 
 
