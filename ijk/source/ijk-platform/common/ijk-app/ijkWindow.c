@@ -30,11 +30,11 @@
 
 // Default callbacks.
 ///
-iret ijkWindowCallbackDefault_p(ptr p) { return ijk_fail_invalidparams; }												// Default window callback with pointer parameter.
-iret ijkWindowCallbackDefault_pi(ptr p, i32 const i0) { return ijk_fail_invalidparams; }								// Default window callback with pointer and integer parameters.
-iret ijkWindowCallbackDefault_pii(ptr p, i32 const i0, i32 const i1) { return ijk_fail_invalidparams; }					// Default window callback with pointer and two integer parameters.
-iret ijkWindowCallbackDefault_piii(ptr p, i32 const i0, i32 const i1, i32 const i2) { return ijk_fail_invalidparams; }	// Default window callback with pointer and three integer parameters.
-iret ijkWindowCallbackDefault_pp2(ptr p, ptr* p_out) { return ijk_fail_invalidparams; }									// Default window callback with pointer and pointer-to-pointer parameters.
+iret ijkWindowCallbackDefault_p(ptr p) { return ijk_fail_invalidparams; }								// Default window callback with pointer parameter.
+iret ijkWindowCallbackDefault_pi(ptr p, i32 i) { return ijk_fail_invalidparams; }						// Default window callback with pointer and integer parameters.
+iret ijkWindowCallbackDefault_pii(ptr p, i32 i0, i32 i1) { return ijk_fail_invalidparams; }				// Default window callback with pointer and two integer parameters.
+iret ijkWindowCallbackDefault_piii(ptr p, i32 i0, i32 i1, i32 i2) { return ijk_fail_invalidparams; }	// Default window callback with pointer and three integer parameters.
+iret ijkWindowCallbackDefault_pip2(ptr p, i32 i, ptr* p_out) { return ijk_fail_invalidparams; }			// Default window callback with pointer and pointer-to-pointer parameters.
 
 
 // ijkWindowInternalSetCallbackDefaults
@@ -48,8 +48,8 @@ iret ijkWindowInternalSetCallbackDefaults(ijkWindow* const window)
 	if (window)
 	{
 		// set default function for all callbacks
-		window->callback_load = window->callback_load_hot = ijkWindowCallbackDefault_pp2;
-		window->callback_reload = window->callback_reload_hot = ijkWindowCallbackDefault_pp2;
+		window->callback_load = window->callback_load_hot = ijkWindowCallbackDefault_pip2;
+		window->callback_reload = window->callback_reload_hot = ijkWindowCallbackDefault_pip2;
 		window->callback_unload = window->callback_unload_hot = ijkWindowCallbackDefault_p;
 		window->callback_winActivate = window->callback_winDeactivate = ijkWindowCallbackDefault_p;
 		window->callback_display = window->callback_idle = ijkWindowCallbackDefault_p;
@@ -62,7 +62,8 @@ iret ijkWindowInternalSetCallbackDefaults(ijkWindow* const window)
 		window->callback_mouseMove = window->callback_mouseMove_ext = ijkWindowCallbackDefault_pii;
 		window->callback_mouseEnter = window->callback_mouseLeave = ijkWindowCallbackDefault_pii;
 		window->callback_willReload = window->callback_willUnload = ijkWindowCallbackDefault_p;
-		window->callback_user1 = window->callback_user2 = window->callback_user3 = window->callback_user4 = ijkWindowCallbackDefault_p;
+		window->callback_user1 = window->callback_user2 = window->callback_user3 = ijkWindowCallbackDefault_p;
+		window->callback_user4c = ijkWindowCallbackDefault_pip2;
 
 		// done
 		return ijk_success;
@@ -73,25 +74,34 @@ iret ijkWindowInternalSetCallbackDefaults(ijkWindow* const window)
 
 //-----------------------------------------------------------------------------
 
-iret ijkWindowPlatformPackResource(i8 const controlID, i8 const iconID, i8 const cursorID)
+iret ijkWindowPlatformPackResource(ui64* const res_out, i16 const controlBase, i8 const controlID, i8 const iconID, i8 const cursorID)
 {
-	return ((iret)controlID | (iret)iconID << 8 | (iret)cursorID << 16);
+	if (res_out)
+	{
+		*res_out = ((ui64)((ui16)controlBase) | (ui64)((ui8)controlID) << 16 | (ui64)((ui8)iconID) << 32 | (ui64)((ui8)cursorID) << 40);
+		return ijk_success;
+	}
+	return ijk_fail_invalidparams;
 }
 
-
-iret ijkWindowPlatformInternalUnpackControl(iret const resource)
+iret ijkWindowPlatformInternalUnpackControlBase(ui64 const resource)
 {
-	return (resource & 0xff);
+	return (iret)((ui16)(resource & 0xffff));
 }
 
-iret ijkWindowPlatformInternalUnpackIconID(iret const resource)
+iret ijkWindowPlatformInternalUnpackControlID(ui64 const resource)
 {
-	return (resource >> 8 & 0xff);
+	return (iret)((ui8)(resource >> 16 & 0xff));
 }
 
-iret ijkWindowPlatformInternalUnpackCursorID(iret const resource)
+iret ijkWindowPlatformInternalUnpackIconID(ui64 const resource)
 {
-	return (resource >> 16 & 0xff);
+	return (iret)((ui8)(resource >> 32 & 0xff));
+}
+
+iret ijkWindowPlatformInternalUnpackCursorID(ui64 const resource)
+{
+	return (iret)((ui8)(resource >> 40 & 0xff));
 }
 
 

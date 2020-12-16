@@ -56,11 +56,11 @@ typedef ptr ijkRendererInfo;
 
 // Window callback function pointer types.
 ///
-typedef iret(*ijkWindowCallback_p)		(ptr p);											// Window callback with pointer parameter.
-typedef iret(*ijkWindowCallback_pi)		(ptr p, i32 const i0);								// Window callback with pointer and integer parameters.
-typedef iret(*ijkWindowCallback_pii)	(ptr p, i32 const i0, i32 const i1);				// Window callback with pointer and two integer parameters.
-typedef iret(*ijkWindowCallback_piii)	(ptr p, i32 const i0, i32 const i1, i32 const i2);	// Window callback with pointer and three integer parameters.
-typedef iret(*ijkWindowCallback_pp2)	(ptr p, ptr* p_out);								// Window callback with pointer and pointer-to-pointer parameters.
+typedef iret(*ijkWindowCallback_p)		(ptr p);							// Window callback with pointer parameter.
+typedef iret(*ijkWindowCallback_pi)		(ptr p, i32 i);						// Window callback with pointer and integer parameters.
+typedef iret(*ijkWindowCallback_pii)	(ptr p, i32 i0, i32 i1);			// Window callback with pointer and two integer parameters.
+typedef iret(*ijkWindowCallback_piii)	(ptr p, i32 i0, i32 i1, i32 i2);	// Window callback with pointer and three integer parameters.
+typedef iret(*ijkWindowCallback_pip2)	(ptr p, i32 i, ptr* pp);			// Window callback with pointer, integer and pointer-to-pointer parameters.
 
 
 //-----------------------------------------------------------------------------
@@ -81,8 +81,8 @@ enum ijkWindowControl
 	ijkWinCtrl_F9_user1 = 0x0100,		// Press F9 for user function 1.
 	ijkWinCtrl_F10_user2 = 0x0200,		// Press F10 for user function 2.
 	ijkWinCtrl_F11_user3 = 0x0400,		// Press F11 for user function 3.
-	ijkWinCtrl_F12_user4 = 0x0800,		// Press F12 for user function 4.
-	ijkWinCtrl_esc_quit = 0x1000,		// Press escape to quit application.
+	ijkWinCtrl_F12_user4c = 0x0800,		// Press F12 for user function 4, no additional command (ignored on Windows, reserved by debugger).
+	ijkWinCtrl_esc_cmd = 0x1000,		// Press escape to enter and process command (calls user4 with additional command).
 	ijkWinCtrl_hideCursor = 0x2000,		// Hide cursor or mouse pointer.
 	ijkWinCtrl_lockCursor = 0x4000,		// Lock cursor to window area.
 	ijkWinCtrl_fullscr_start = 0x8000,	// Full-screen on start.
@@ -122,21 +122,22 @@ struct ijkWindow
 	union {
 		ptr callback[32];
 		struct {
-			ijkWindowCallback_pp2 callback_load, callback_load_hot;									// Load/hot-load callback.
-			ijkWindowCallback_pp2 callback_reload, callback_reload_hot;								// Reload/hot-reload callback.
-			ijkWindowCallback_p callback_unload, callback_unload_hot;								// Unload/hot-unload callback.
-			ijkWindowCallback_p callback_winActivate, callback_winDeactivate;						// Window activate/deactivate callback.
-			ijkWindowCallback_p callback_display, callback_idle;									// Window display/idle callback.
-			ijkWindowCallback_pii callback_winMove, callback_winResize;								// Window move/resize callback.
-			ijkWindowCallback_pi callback_keyPressVirt, callback_keyPressAscii;						// Virtual/ASCII key press callback.
-			ijkWindowCallback_pi callback_keyHoldVirt, callback_keyHoldAscii;						// Virtual/ASCII key hold callback.
-			ijkWindowCallback_pi callback_keyReleaseVirt, callback_keyReleaseAscii;					// Virtual/ASCII key release callback.
-			ijkWindowCallback_piii callback_mouseClick, callback_mouseClick2;						// Mouse click/double-click callback.
-			ijkWindowCallback_piii callback_mouseRelease, callback_mouseWheel;						// Mouse release/scroll callback.
-			ijkWindowCallback_pii callback_mouseMove, callback_mouseMove_ext;						// Mouse move inside/outside window callback.
-			ijkWindowCallback_pii callback_mouseEnter, callback_mouseLeave;							// Mouse enter/leave window callback.
-			ijkWindowCallback_p callback_willReload, callback_willUnload;							// Plugin pre-reload/unload callback.
-			ijkWindowCallback_p callback_user1, callback_user2, callback_user3, callback_user4;		// User function callbacks (F9-F12).
+			ijkWindowCallback_pip2 callback_load, callback_load_hot;				// Load/hot-load callback.
+			ijkWindowCallback_pip2 callback_reload, callback_reload_hot;			// Reload/hot-reload callback.
+			ijkWindowCallback_p callback_unload, callback_unload_hot;				// Unload/hot-unload callback.
+			ijkWindowCallback_p callback_winActivate, callback_winDeactivate;		// Window activate/deactivate callback.
+			ijkWindowCallback_p callback_display, callback_idle;					// Window display/idle callback.
+			ijkWindowCallback_pii callback_winMove, callback_winResize;				// Window move/resize callback.
+			ijkWindowCallback_pi callback_keyPressVirt, callback_keyPressAscii;		// Virtual/ASCII key press callback.
+			ijkWindowCallback_pi callback_keyHoldVirt, callback_keyHoldAscii;		// Virtual/ASCII key hold callback.
+			ijkWindowCallback_pi callback_keyReleaseVirt, callback_keyReleaseAscii;	// Virtual/ASCII key release callback.
+			ijkWindowCallback_piii callback_mouseClick, callback_mouseClick2;		// Mouse click/double-click callback.
+			ijkWindowCallback_piii callback_mouseRelease, callback_mouseWheel;		// Mouse release/scroll callback.
+			ijkWindowCallback_pii callback_mouseMove, callback_mouseMove_ext;		// Mouse move inside/outside window callback.
+			ijkWindowCallback_pii callback_mouseEnter, callback_mouseLeave;			// Mouse enter/leave window callback.
+			ijkWindowCallback_p callback_willReload, callback_willUnload;			// Plugin pre-reload/unload callback.
+			ijkWindowCallback_p callback_user1, callback_user2, callback_user3;		// User function callbacks (F9-F11).
+			ijkWindowCallback_pip2 callback_user4c;									// User function callback with command (F12/ESC).
 		};
 	};
 };
@@ -146,10 +147,14 @@ struct ijkWindow
 
 // ijkWindowPlatformPackResource
 //	Pack resource flags into integer.
+//		param res_out: pointer to resource integer
+//		param controlBase: control base offset
 //		param controlID: control identifier
 //		param iconID: icon identifier
 //		param cursorID: cursor identifier
-iret ijkWindowPlatformPackResource(i8 const controlID, i8 const iconID, i8 const cursorID);
+//		return SUCCESS: ijk_success if resource packed
+//		return FAILURE: ijk_fail_invalidparams if invalid parameters
+iret ijkWindowPlatformPackResource(ui64* const res_out, i16 const controlBase, i8 const controlID, i8 const iconID, i8 const cursorID);
 
 // ijkWindowPlatformCreate
 //	Initialize platform info.
@@ -169,7 +174,7 @@ iret ijkWindowPlatformPackResource(i8 const controlID, i8 const iconID, i8 const
 //		return SUCCESS: ijk_success if info initialized
 //		return FAILURE: ijk_fail_operationfail if info not initialized
 //		return FAILURE: ijk_fail_invalidparams if invalid parameters
-iret ijkWindowPlatformCreate(ijkWindowPlatform* const platformInfo_out, kptr const applicationInst, tag const dev, tag const target, tag const sdk, tag const cfg, i32 const applicationRes);
+iret ijkWindowPlatformCreate(ijkWindowPlatform* const platformInfo_out, kptr const applicationInst, tag const dev, tag const target, tag const sdk, tag const cfg, ui64 const applicationRes);
 
 // ijkWindowPlatformRelease
 //	Release platform info.

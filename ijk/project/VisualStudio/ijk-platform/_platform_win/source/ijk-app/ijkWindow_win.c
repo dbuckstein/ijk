@@ -31,6 +31,7 @@
 // Unix (Mac/Linux) / GNU-C
 //#include <dlfcn.h>
 
+#include <stdio.h>
 #include <stdlib.h>
 
 #include "ijk/ijk-platform/ijk-app/_util/ijk-dylib.h"
@@ -60,7 +61,7 @@ typedef struct ijkWindowPlatform_win_tag
 	// Other important data.
 	///
 	i32 appWinCt;						// Application window count.
-	i32 appRes;							// Application resource.
+	ui64 appRes;						// Application packed resource info.
 	ijkAppInst_win appInst;				// Application instance.
 } ijkWindowPlatform_win;
 
@@ -193,14 +194,97 @@ LRESULT CALLBACK ijkWindowInternalEventProcess(HWND hWnd, UINT message, WPARAM w
 
 		// menu or accelerator item
 	case WM_COMMAND: {
-		switch (LOWORD(wParam))
+		iret ijkWindowPlatformInternalUnpackControlBase(ui64 const resource);
+		word const value = LOWORD(wParam);
+		ui16 base = 0;
+		info = (ijkWindowPlatform_win*)window->winPlat;
+		base = (ui16)ijkWindowPlatformInternalUnpackControlBase(info->appRes);
+		if ((value <= (base + 12)) && value >= base)
 		{
+			// accelerator table entry
+			switch (value - base)
+			{
+			case 0: // F1: about window
+				if (window->winCtrl & ijkWinCtrl_F1_info)
+				{
+
+				}
+				break;
+			case 1: // F2: load plugin
+				if (window->winCtrl & ijkWinCtrl_F2_load)
+				{
+
+				}
+				break;
+			case 2: // F3: reload plugin
+				if (window->winCtrl & ijkWinCtrl_F3_reload)
+				{
+
+				}
+				break;
+			case 3: // F4: unload plugin
+				if (window->winCtrl & ijkWinCtrl_F4_unload)
+				{
+
+				}
+				break;
+			case 4: // F5: debug plugin
+				if (window->winCtrl & ijkWinCtrl_F5_debug)
+				{
+
+				}
+				break;
+			case 5: // F6: hot-build plugin
+				if (window->winCtrl & ijkWinCtrl_F6_build)
+				{
+
+				}
+				break;
+			case 6: // F7: hot-rebuild plugin
+				if (window->winCtrl & ijkWinCtrl_F7_rebuild)
+				{
+
+				}
+				break;
+			case 7: // F8: toggle full-screen
+				if (window->winCtrl & ijkWinCtrl_F8_fullscr)
+				{
+
+				}
+				break;
+			case 8: // F9: user 1
+				if (window->winCtrl & ijkWinCtrl_F9_user1)
+					window->callback_user1(window->pluginData);
+				break;
+			case 9: // F10: user 2
+				if (window->winCtrl & ijkWinCtrl_F10_user2)
+					window->callback_user2(window->pluginData);
+				break;
+			case 10: // F11: user 3
+				if (window->winCtrl & ijkWinCtrl_F11_user3)
+					window->callback_user3(window->pluginData);
+				break;
+			//case 11: // F12: user 4
+			//	if (window->winCtrl & ijkWinCtrl_F12_user4)
+			//		window->callback_user4c(window->pluginData, 0, 0);
+			//	break;
+			case 12: // ESC: command
+				if ((window->winCtrl & ijkWinCtrl_esc_cmd) && GetStdHandle(STD_INPUT_HANDLE))
+				{
+					byte buffer[64] = { 0 };
+					printf("\n___:...............................................................;\nCMD:");
+					fgets(buffer, szb(buffer), stdin);
+					window->callback_user4c(window->pluginData, 1, (ptr*)(&buffer));
+				}
+				break;
+			}
 		}
 	}	break;
 
 		// window changes activation state
 	case WM_ACTIVATE: {
-		switch (LOWORD(wParam))
+		word const value = LOWORD(wParam);
+		switch (value)
 		{
 		case WA_ACTIVE:
 		case WA_CLICKACTIVE:
@@ -287,7 +371,7 @@ LRESULT CALLBACK ijkWindowInternalEventProcess(HWND hWnd, UINT message, WPARAM w
 
 //-----------------------------------------------------------------------------
 
-iret ijkWindowPlatformCreate(ijkWindowPlatform* const platformInfo_out, kptr const applicationInst, tag const dev, tag const target, tag const sdk, tag const cfg, i32 const applicationRes)
+iret ijkWindowPlatformCreate(ijkWindowPlatform* const platformInfo_out, kptr const applicationInst, tag const dev, tag const target, tag const sdk, tag const cfg, ui64 const applicationRes)
 {
 	if (platformInfo_out && !*platformInfo_out && applicationInst && dev && *dev && target && *target && sdk && *sdk && cfg && *cfg)
 	{
@@ -331,8 +415,8 @@ iret ijkWindowPlatformRelease(ijkWindowPlatform* const platformInfo)
 iret ijkWindowInfoCreateDefault(ijkWindowInfo* const windowInfo_out, ijkWindowPlatform const* const platformInfo, tag const descriptorName)
 {
 	// get info
-	iret ijkWindowPlatformInternalUnpackIconID(iret const resource);
-	iret ijkWindowPlatformInternalUnpackCursorID(iret const resource);
+	iret ijkWindowPlatformInternalUnpackIconID(ui64 const resource);
+	iret ijkWindowPlatformInternalUnpackCursorID(ui64 const resource);
 
 	// validate
 	if (windowInfo_out && !*windowInfo_out && platformInfo && *platformInfo && descriptorName && *descriptorName)
@@ -503,14 +587,16 @@ iret ijkWindowRelease(ijkWindow* const window)
 iret ijkWindowLoop(ijkWindow* const window)
 {
 	// unpacking utility
-	iret ijkWindowPlatformInternalUnpackControl(iret const resource);
+	iret ijkWindowPlatformInternalUnpackControlBase(ui64 const resource);
+	iret ijkWindowPlatformInternalUnpackControlID(ui64 const resource);
 
 	// validate
 	if (window && window->windowData)
 	{
 		// platform info
 		ijkWindowPlatform_win const* const info = (ijkWindowPlatform_win*)window->winPlat;
-		i8 const accelID = (i8)ijkWindowPlatformInternalUnpackControl(info->appRes);
+		ui16 const accelBase = (ui16)ijkWindowPlatformInternalUnpackControlBase(info->appRes);
+		i8 const accelID = (i8)ijkWindowPlatformInternalUnpackControlID(info->appRes);
 
 		// load accelerator table
 		HACCEL hAccel = (accelID >= 0 ? LoadAcceleratorsA(info->appInst, MAKEINTRESOURCEA(accelID)) : 0);
@@ -560,7 +646,7 @@ iret ijkWindowLoop(ijkWindow* const window)
 				// standalone window should close the window, which also unloads
 				else if (ijk_isfailure(result))
 				{
-					if (ijk_flagch(window->winCtrl, ijkWinCtrl_esc_quit))
+					if (ijk_flagch(window->winCtrl, ijkWinCtrl_esc_cmd))
 					{
 						// standalone mode, kill window
 						//PostMessageA(handle, WM_CLOSE, 0, 0);
