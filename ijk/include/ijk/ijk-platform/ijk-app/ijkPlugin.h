@@ -68,14 +68,12 @@ struct ijkPluginInfo
 
 // ijkPlugin
 //	Plugin descriptor.
-//		member info: instance of info descriptor
 //		member handle: handle to dylib
 //		member data: user data defined in plugin
 //		member ijkPluginCallback: array of plugin callbacks from dylib
 //		members ijkPluginCallback*: specific plugin callbacks from dylib
 struct ijkPlugin
 {
-	ijkPluginInfo info;
 	ptr handle;
 	ptr data;
 	union {
@@ -104,6 +102,59 @@ struct ijkPlugin
 
 //-----------------------------------------------------------------------------
 
+// ijkPluginInfoSet
+//	Set fields in plugin info descriptor.
+//		param pluginInfo_out: pointer to plugin info descriptor
+//			valid: non-null
+//		param name: short name of plugin
+//			note: if invalid c-string, uses default
+//		param dylib: short name of dynamic library file (no extension)
+//			note: if invalid c-string, uses default
+//		param author: short name of author/creator of plugin
+//			note: if invalid c-string, uses default
+//		param version: short description of plugin parameters/details
+//			note: if invalid c-string, uses default
+//		param info: longer description of plugin purpose/activities
+//			note: if invalid c-string, uses default
+//		return SUCCESS: ijk_success if set descriptor
+//		return FAILURE: ijk_fail_invalidparams if invalid parameters
+iret ijkPluginInfoSet(ijkPluginInfo* const pluginInfo_out, tag const name, tag const dylib, tag const author, tag const version, byte const info[128]);
+
+// ijkPluginInfoSetDefault
+//	Set default plugin info descriptor with a couple optional fields.
+//		param pluginInfo_out: pointer to plugin info descriptor
+//			valid: non-null
+//		param author: short name of author/creator of plugin
+//			note: if invalid c-string, uses default
+//		param version: short description of plugin parameters/details
+//			note: if invalid c-string, uses default
+//		return SUCCESS: ijk_success if set descriptor
+//		return FAILURE: ijk_fail_invalidparams if invalid parameters
+iret ijkPluginInfoSetDefault(ijkPluginInfo* const pluginInfo_out, tag const author, tag const version);
+
+// ijkPluginInfoReset
+//	Set default plugin info descriptor.
+//		param pluginInfo: pointer to plugin info descriptor
+//			valid: non-null
+//		return SUCCESS: ijk_success if set descriptor
+//		return FAILURE: ijk_fail_invalidparams if invalid parameters
+iret ijkPluginInfoReset(ijkPluginInfo* const pluginInfo);
+
+// ijkPluginLoad
+//		param plugin_out: pointer to plugin descriptor
+//			valid: non-null, uninitialized
+//		param pluginInfo: pointer to plugin info descriptor
+//			valid: non-null
+//		return SUCCESS: ijk_success if loaded plugin
+//		return FAILURE: ijk_fail_invalidparams if invalid parameters
+iret ijkPluginLoad(ijkPlugin* const plugin_out, ijkPluginInfo const* const pluginInfo);
+
+// ijkPluginUnload
+//		param plugin: pointer to plugin descriptor
+//			valid: non-null, initialized
+//		return SUCCESS: ijk_success if unloaded plugin
+//		return FAILURE: ijk_fail_invalidparams if invalid parameters
+iret ijkPluginUnload(ijkPlugin* const plugin);
 
 
 //-----------------------------------------------------------------------------

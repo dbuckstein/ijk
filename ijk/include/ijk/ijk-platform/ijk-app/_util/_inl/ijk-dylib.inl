@@ -25,7 +25,7 @@
 
 #ifndef _IJK_DYLIB_INL_
 #define _IJK_DYLIB_INL_
-#include "ijk/ijk-platform/ijk-app/_util/ijk-dylib.h"
+#include "../ijk-dylib.h"
 
 //-----------------------------------------------------------------------------
 

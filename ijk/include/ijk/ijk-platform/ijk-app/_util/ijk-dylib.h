@@ -42,6 +42,8 @@
 #define IJK_DYLIB_HANDLE	HMODULE
 // Tag for symbol handle.
 #define IJK_DYLIB_FUNC		FARPROC
+// Tag for dylib file extension.
+#define IJK_DYLIB_EXT		".dll"
 // Tag for loading dylib.
 #define IJK_DYLIB_LOAD(dylib_path)		LoadLibraryA(dylib_path)
 // Tag for unloading dylib.
@@ -56,9 +58,11 @@
 // Import symbol from dylib.
 #define IJK_DYLIB_IMPORT	__attribute__((weak_import))
 // Tag for dylib handle.
-#define IJK_DYLIB_HANDLE	void*
+#define IJK_DYLIB_HANDLE	ptr
 // Tag for symbol handle.
-#define IJK_DYLIB_FUNC		void*
+#define IJK_DYLIB_FUNC		ptr
+// Tag for dylib file extension.
+#define IJK_DYLIB_EXT		".so"
 // Tag for loading dylib.
 #define IJK_DYLIB_LOAD(dylib_path)		dlopen(dylib_path, RTLD_NOW)
 // Tag for unloading dylib.
