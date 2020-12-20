@@ -26,7 +26,7 @@
 #ifndef _IJK_WINDOW_H_
 #define _IJK_WINDOW_H_
 
-#include "ijk/ijk/ijk-typedefs.h"
+#include "ijkPlugin.h"
 
 
 #ifdef __cplusplus
@@ -54,15 +54,6 @@ typedef ptr ijkWindowInfo;
 typedef ptr ijkRendererInfo;
 
 
-// Window callback function pointer types.
-///
-typedef iret(*ijkWindowCallback_p)		(ptr p);							// Window callback with pointer parameter.
-typedef iret(*ijkWindowCallback_pi)		(ptr p, i32 i);						// Window callback with pointer and integer parameters.
-typedef iret(*ijkWindowCallback_pii)	(ptr p, i32 i0, i32 i1);			// Window callback with pointer and two integer parameters.
-typedef iret(*ijkWindowCallback_piii)	(ptr p, i32 i0, i32 i1, i32 i2);	// Window callback with pointer and three integer parameters.
-typedef iret(*ijkWindowCallback_pip2)	(ptr p, i32 i, ptr* pp);			// Window callback with pointer, integer and pointer-to-pointer parameters.
-
-
 //-----------------------------------------------------------------------------
 
 // ijkWindowControl
@@ -81,7 +72,7 @@ enum ijkWindowControl
 	ijkWinCtrl_F9_user1 = 0x0100,		// Press F9 for user function 1.
 	ijkWinCtrl_F10_user2 = 0x0200,		// Press F10 for user function 2.
 	ijkWinCtrl_F11_user3 = 0x0400,		// Press F11 for user function 3.
-	ijkWinCtrl_F12_user4c = 0x0800,		// Press F12 for user function 4, no additional command (ignored on Windows, reserved by debugger).
+	ijkWinCtrl_F12_user4c = 0x0800,		// Press F12 for user function 4, no additional command (also triggers a breakpoint in VS).
 	ijkWinCtrl_esc_cmd = 0x1000,		// Press escape to enter and process command (calls user4 with additional command).
 	ijkWinCtrl_hideCursor = 0x2000,		// Hide cursor or mouse pointer.
 	ijkWinCtrl_lockCursor = 0x4000,		// Lock cursor to window area.
@@ -99,9 +90,7 @@ enum ijkWindowControl
 //		members sz_x, sz_y: size of window on display in pixels
 //		member platformData: internal platform data pertinent to window
 //		member windowData: internal window data
-//		member pluginData: internal pointer to persistent plugin data
-//		member pluginHandle: internal pointer to persistent plugin handle
-//		members callback: array of function pointers to callbacks in plugin
+//		member plugin: plugin descriptor
 struct ijkWindow
 {
 	ijkWindowPlatform winPlat;
@@ -112,30 +101,7 @@ struct ijkWindow
 
 	ptr platformData;
 	ptr windowData;
-	ptr pluginData;
-	ptr pluginHandle;
-
-	union {
-		ptr callback[32];
-		struct {
-			ijkWindowCallback_pip2 callback_load, callback_load_hot;				// Load/hot-load callback.
-			ijkWindowCallback_pip2 callback_reload, callback_reload_hot;			// Reload/hot-reload callback.
-			ijkWindowCallback_p callback_unload, callback_unload_hot;				// Unload/hot-unload callback.
-			ijkWindowCallback_p callback_winActivate, callback_winDeactivate;		// Window activate/deactivate callback.
-			ijkWindowCallback_p callback_display, callback_idle;					// Window display/idle callback.
-			ijkWindowCallback_pii callback_winMove, callback_winResize;				// Window move/resize callback.
-			ijkWindowCallback_pi callback_keyPressVirt, callback_keyPressAscii;		// Virtual/ASCII key press callback.
-			ijkWindowCallback_pi callback_keyHoldVirt, callback_keyHoldAscii;		// Virtual/ASCII key hold callback.
-			ijkWindowCallback_pi callback_keyReleaseVirt, callback_keyReleaseAscii;	// Virtual/ASCII key release callback.
-			ijkWindowCallback_piii callback_mouseClick, callback_mouseClick2;		// Mouse click/double-click callback.
-			ijkWindowCallback_piii callback_mouseRelease, callback_mouseWheel;		// Mouse release/scroll callback.
-			ijkWindowCallback_pii callback_mouseMove, callback_mouseMove_ext;		// Mouse move inside/outside window callback.
-			ijkWindowCallback_pii callback_mouseEnter, callback_mouseLeave;			// Mouse enter/leave window callback.
-			ijkWindowCallback_p callback_willReload, callback_willUnload;			// Plugin pre-reload/unload callback.
-			ijkWindowCallback_p callback_user1, callback_user2, callback_user3;		// User function callbacks (F9-F11).
-			ijkWindowCallback_pip2 callback_user4c;									// User function callback with command (F12/ESC).
-		};
-	};
+	ijkPlugin plugin[1];
 };
 
 

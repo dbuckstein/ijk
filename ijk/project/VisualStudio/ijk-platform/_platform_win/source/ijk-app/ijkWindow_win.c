@@ -53,10 +53,10 @@ typedef struct ijkWindowPlatform_win_tag
 {
 	// Important paths and strings.
 	///
-	kcstr dir_build;	// Development and build environment.
-	kcstr dir_target;	// Framework solution/workspace as build target.
-	kcstr dir_sdk;		// Framework SDK directory.
-	kcstr tag_cfg;		// Framework configuration.
+	kcstr dir_build;					// Development and build environment.
+	kcstr dir_target;					// Framework solution/workspace as build target.
+	kcstr dir_sdk;						// Framework SDK directory.
+	kcstr tag_cfg;						// Framework configuration.
 
 	// Other important data.
 	///
@@ -81,22 +81,47 @@ void ijkWindowInternalProcessF1(ijkWindow* window)
 {
 	byte buffer[1024] = { 0 }, * bufferPtr = buffer;
 	byte const* const info[] = {
-		"ijk Player Application: Information",
+		"ijk Player Application: About",
 		"ijk: an open-source, cross-platform, light-weight, ",
 		"    c-based rendering framework",
 		"Copyright 2020 Daniel S.Buckstein",
 	};
-	bufferPtr += sprintf(bufferPtr, "%s\n%s\n%s\n\n", info[1], info[2], info[3]);
-	if (window->pluginHandle)
+	bufferPtr += sprintf(bufferPtr, "%s\n%s\n%s", info[1], info[2], info[3]);
+
+	// print renderer info
+	bufferPtr += sprintf(bufferPtr, "\n\n");
+	if (window->winRender)
+	{
+		bufferPtr += sprintf(bufferPtr, "Current render context: ");
+
+		// ****TO-DO
+		/*
+		// e.g. for OpenGL: 
+		kptag* const versionStr = glGetString(GL_VERSION);
+		kptag* const shadingStr = glGetString(GL_SHADING_LANGUAGE_VERSION);
+		kptag* const rendererStr = glGetString(GL_RENDERER);
+		kptag* const vendorStr = glGetString(GL_VENDOR);
+		*/
+	}
+	else
+		bufferPtr += sprintf(bufferPtr, "No render context initialized.");
+
+	// print plugin info
+	bufferPtr += sprintf(bufferPtr, "\n\n");
+	if (window->plugin->handle)
 	{
 		bufferPtr += sprintf(bufferPtr, "Current plugin: ");
 
 		// ****TO-DO
-		// print plugin info
-
+		/*
+		// example:
+		// name, author, description
+		*/
 	}
 	else
-		bufferPtr += sprintf(bufferPtr, "No plugin loaded.");
+		bufferPtr += sprintf(bufferPtr, "No plugin initialized.");
+
+	// present message box
 	MessageBoxA(window->windowData, buffer, *info, (MB_OK | MB_ICONINFORMATION | MB_SETFOREGROUND));
 }
 
@@ -151,12 +176,17 @@ void ijkWindowInternalProcessF8(ijkWindow* window)
 
 void ijkWindowInternalProcessEsc(ijkWindow* window)
 {
-	if (GetStdHandle(STD_INPUT_HANDLE) && GetConsoleWindow())
+	byte buffer[80] = { 0 };
+	HWND const console = GetConsoleWindow();
+	if (GetStdHandle(STD_INPUT_HANDLE) && console)
 	{
-		byte buffer[64] = { 0 };
-		printf("\n___:...............................................................;\nCMD:");
+		// if console exists, make it foreground and get command
+		SetForegroundWindow(console);
+		printf("\n___:...............................................................................;\nCMD:");
 		fgets(buffer, szb(buffer), stdin);
-		window->callback_user4c(window->pluginData, 1, (ptr*)(&buffer));
+
+		// pass command to plugin like a regular system command
+		window->plugin->ijkPluginCallback_user4c(window->plugin->data, 1, (ptr*)(&buffer));
 	}
 }
 
@@ -168,7 +198,7 @@ void ijkWindowInternalProcessEsc(ijkWindow* window)
 LRESULT CALLBACK ijkWindowInternalEventProcess(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
 	// prototype for setting default callbacks
-	iret ijkWindowInternalSetCallbackDefaults(ijkWindow* const window);
+	iret ijkPluginInternalSetCallbackDefaults(ijkPlugin* const plugin);
 
 	// get user data
 	ijkWindow* window = (ijkWindow*)GetWindowLongPtrA(hWnd, GWLP_USERDATA);
@@ -217,7 +247,7 @@ LRESULT CALLBACK ijkWindowInternalEventProcess(HWND hWnd, UINT message, WPARAM w
 		}
 
 		// reset callbacks
-		ijkWindowInternalSetCallbackDefaults(window);
+		ijkPluginInternalSetCallbackDefaults(window->plugin);
 	}	break;
 		// window closed
 	case WM_CLOSE: {
@@ -227,13 +257,13 @@ LRESULT CALLBACK ijkWindowInternalEventProcess(HWND hWnd, UINT message, WPARAM w
 		// window destroyed
 	case WM_DESTROY: {
 		// unload plugin
-		if (window->pluginHandle)
+		if (window->plugin->handle)
 		{
 			// ****TO-DO
 
-			ijkWindowInternalSetCallbackDefaults(window);
-			window->pluginData = 0;
-			window->pluginHandle = 0;
+			ijkPluginInternalSetCallbackDefaults(window->plugin);
+			window->plugin->data = 0;
+			window->plugin->handle = 0;
 		}
 
 		// clean up rendering
@@ -266,7 +296,7 @@ LRESULT CALLBACK ijkWindowInternalEventProcess(HWND hWnd, UINT message, WPARAM w
 		}
 	}	break;
 	case WM_PAINT: {
-		if (ijk_isfailure(window->callback_display(window->pluginData)))
+		if (ijk_isfailure(window->plugin->ijkPluginCallback_display(window->plugin->data)))
 		{
 			PAINTSTRUCT paint[1];
 			RECT updateRect[1];
@@ -328,20 +358,20 @@ LRESULT CALLBACK ijkWindowInternalEventProcess(HWND hWnd, UINT message, WPARAM w
 				break;
 			case 8: // F9: user 1
 				if (window->winCtrl & ijkWinCtrl_F9_user1)
-					window->callback_user1(window->pluginData);
+					window->plugin->ijkPluginCallback_user1(window->plugin->data);
 				break;
 			case 9: // F10: user 2
 				if (window->winCtrl & ijkWinCtrl_F10_user2)
-					window->callback_user2(window->pluginData);
+					window->plugin->ijkPluginCallback_user2(window->plugin->data);
 				break;
 			case 10: // F11: user 3
 				if (window->winCtrl & ijkWinCtrl_F11_user3)
-					window->callback_user3(window->pluginData);
+					window->plugin->ijkPluginCallback_user3(window->plugin->data);
 				break;
-			//case 11: // F12: user 4
-			//	if (window->winCtrl & ijkWinCtrl_F12_user4)
-			//		window->callback_user4c(window->pluginData, 0, 0);
-			//	break;
+			case 11: // F12: user 4
+				if (window->winCtrl & ijkWinCtrl_F12_user4c)
+					window->plugin->ijkPluginCallback_user4c(window->plugin->data, 0, 0);
+				break;
 			case 12: // ESC: command
 				if (window->winCtrl & ijkWinCtrl_esc_cmd)
 					ijkWindowInternalProcessEsc(window);
@@ -635,9 +665,6 @@ iret ijkWindowCreate(ijkWindow* const window_out, ijkWindowInfo const* const win
 
 iret ijkWindowRelease(ijkWindow* const window)
 {
-	// prototype for resetting
-	iret ijkWindowInternalSetCallbackDefaults(ijkWindow* const window);
-
 	// validate
 	if (window && window->windowData)
 	{
@@ -697,7 +724,7 @@ iret ijkWindowLoop(ijkWindow* const window)
 			else
 			{
 				// idle callback
-				result = window->callback_idle(window->pluginData);
+				result = window->plugin->ijkPluginCallback_idle(window->plugin->data);
 
 				// if the result is positive, plugin threw a flag or warning
 				// if rendering, this should mean that a frame was rendered

@@ -29,6 +29,7 @@
 
 #include "ijk-app/ijkApplication.h"
 #include "ijk-app/ijkConsole.h"
+#include "ijk-app/ijkPlugin.h"
 #include "ijk-app/ijkWindow.h"
 
 
