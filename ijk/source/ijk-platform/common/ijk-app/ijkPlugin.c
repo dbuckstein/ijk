@@ -25,6 +25,16 @@
 
 #include "ijk/ijk-platform/ijk-app/ijkPlugin.h"
 
+#if ijk_platform_is(WINDOWS)
+// Windows / non-GNU-C
+#include <Windows.h>
+#else	// !WINDOWS
+// Unix (Mac/Linux) / GNU-C
+#include <dlfcn.h>
+#endif	// WINDOWS
+
+#include "ijk/ijk-platform/ijk-app/_util/_inl/ijk-dylib.inl"
+
 
 //-----------------------------------------------------------------------------
 
@@ -43,32 +53,134 @@ iret ijkPluginCallback_default_pip2(ptr p, i32 i, ptr* p_out) { return ijk_fail_
 //	Set default callbacks for window interface.
 //		param plugin: pointer to plugin descriptor
 //			valid: non-null
-//		return SUCCESS: ijk_success if set callbacks
-//		return FAILURE: ijk_fail_invalidparams if invalid parameters
-iret ijkPluginInternalSetCallbackDefaults(ijkPlugin* const plugin)
+void ijkPluginInternalSetCallbackDefaults(ijkPlugin* const plugin)
 {
-	if (plugin)
+	// set default function for all callbacks
+	plugin->ijkPluginCallback_load = plugin->ijkPluginCallback_load_hot = ijkPluginCallback_default_pip2;
+	plugin->ijkPluginCallback_reload = plugin->ijkPluginCallback_reload_hot = ijkPluginCallback_default_pip2;
+	plugin->ijkPluginCallback_unload = plugin->ijkPluginCallback_unload_hot = ijkPluginCallback_default_p;
+	plugin->ijkPluginCallback_winActivate = plugin->ijkPluginCallback_winDeactivate = ijkPluginCallback_default_p;
+	plugin->ijkPluginCallback_display = plugin->ijkPluginCallback_idle = ijkPluginCallback_default_p;
+	plugin->ijkPluginCallback_winMove = plugin->ijkPluginCallback_winResize = ijkPluginCallback_default_pii;
+	plugin->ijkPluginCallback_keyPressVirt = plugin->ijkPluginCallback_keyPressAscii = ijkPluginCallback_default_pi;
+	plugin->ijkPluginCallback_keyHoldVirt = plugin->ijkPluginCallback_keyHoldAscii = ijkPluginCallback_default_pi;
+	plugin->ijkPluginCallback_keyReleaseVirt = plugin->ijkPluginCallback_keyReleaseAscii = ijkPluginCallback_default_pi;
+	plugin->ijkPluginCallback_mouseClick = plugin->ijkPluginCallback_mouseClick2 = ijkPluginCallback_default_piii;
+	plugin->ijkPluginCallback_mouseRelease = plugin->ijkPluginCallback_mouseWheel = ijkPluginCallback_default_piii;
+	plugin->ijkPluginCallback_mouseMove = plugin->ijkPluginCallback_mouseMove_ext = ijkPluginCallback_default_pii;
+	plugin->ijkPluginCallback_mouseEnter = plugin->ijkPluginCallback_mouseLeave = ijkPluginCallback_default_pii;
+	plugin->ijkPluginCallback_willReload = plugin->ijkPluginCallback_willUnload = ijkPluginCallback_default_p;
+	plugin->ijkPluginCallback_user1 = plugin->ijkPluginCallback_user2 = plugin->ijkPluginCallback_user3 = ijkPluginCallback_default_p;
+	plugin->ijkPluginCallback_user4c = ijkPluginCallback_default_pip2;
+}
+
+
+//-----------------------------------------------------------------------------
+
+// ijk_plugin_load_symbol
+//	Load symbol with contingency.
+#define ijk_plugin_load_symbol(plugin,symbol,def)	if (ijk_isfailure(ijkDylibGetSymbol((IJK_DYLIB_FUNC*)(&plugin->symbol), plugin->handle, ijk_tokenstr(symbol)))) plugin->symbol = def
+
+
+//-----------------------------------------------------------------------------
+
+iret ijkPluginInfoSet(ijkPluginInfo* const pluginInfo_out, tag const name, tag const dylib, tag const author, tag const version, byte const info[128])
+{
+	if (pluginInfo_out)
 	{
-		// set default function for all callbacks
-		plugin->ijkPluginCallback_load = plugin->ijkPluginCallback_load_hot = ijkPluginCallback_default_pip2;
-		plugin->ijkPluginCallback_reload = plugin->ijkPluginCallback_reload_hot = ijkPluginCallback_default_pip2;
-		plugin->ijkPluginCallback_unload = plugin->ijkPluginCallback_unload_hot = ijkPluginCallback_default_p;
-		plugin->ijkPluginCallback_winActivate = plugin->ijkPluginCallback_winDeactivate = ijkPluginCallback_default_p;
-		plugin->ijkPluginCallback_display = plugin->ijkPluginCallback_idle = ijkPluginCallback_default_p;
-		plugin->ijkPluginCallback_winMove = plugin->ijkPluginCallback_winResize = ijkPluginCallback_default_pii;
-		plugin->ijkPluginCallback_keyPressVirt = plugin->ijkPluginCallback_keyPressAscii = ijkPluginCallback_default_pi;
-		plugin->ijkPluginCallback_keyHoldVirt = plugin->ijkPluginCallback_keyHoldAscii = ijkPluginCallback_default_pi;
-		plugin->ijkPluginCallback_keyReleaseVirt = plugin->ijkPluginCallback_keyReleaseAscii = ijkPluginCallback_default_pi;
-		plugin->ijkPluginCallback_mouseClick = plugin->ijkPluginCallback_mouseClick2 = ijkPluginCallback_default_piii;
-		plugin->ijkPluginCallback_mouseRelease = plugin->ijkPluginCallback_mouseWheel = ijkPluginCallback_default_piii;
-		plugin->ijkPluginCallback_mouseMove = plugin->ijkPluginCallback_mouseMove_ext = ijkPluginCallback_default_pii;
-		plugin->ijkPluginCallback_mouseEnter = plugin->ijkPluginCallback_mouseLeave = ijkPluginCallback_default_pii;
-		plugin->ijkPluginCallback_willReload = plugin->ijkPluginCallback_willUnload = ijkPluginCallback_default_p;
-		plugin->ijkPluginCallback_user1 = plugin->ijkPluginCallback_user2 = plugin->ijkPluginCallback_user3 = ijkPluginCallback_default_p;
-		plugin->ijkPluginCallback_user4c = ijkPluginCallback_default_pip2;
+		// defaults
+		ijkPluginInfo const def = { "ijk Plugin (SDK)", "ijk-plugin", "Daniel S. Buckstein", "ijk-plugin:0.0.0", "Default plugin loaded and built with current SDK configuration." };
+
+		// copy
+		strncpy(pluginInfo_out->name, (name && *name) ? name : def.name, szb(pluginInfo_out->name));
+		strncpy(pluginInfo_out->dylib, (dylib && *dylib) ? dylib : def.dylib, szb(pluginInfo_out->dylib));
+		strncpy(pluginInfo_out->author, (author && *author) ? author : def.author, szb(pluginInfo_out->author));
+		strncpy(pluginInfo_out->version, (version && *version) ? version : def.version, szb(pluginInfo_out->version));
+		strncpy(pluginInfo_out->info, (info && *info) ? info : def.info, szb(pluginInfo_out->info));
 
 		// done
 		return ijk_success;
+	}
+	return ijk_fail_invalidparams;
+}
+
+
+iret ijkPluginInfoSetDefault(ijkPluginInfo* const pluginInfo_out, tag const author, tag const version)
+{
+	return ijkPluginInfoSet(pluginInfo_out, 0, 0, author, version, 0);
+}
+
+
+iret ijkPluginInfoReset(ijkPluginInfo* const pluginInfo)
+{
+	return ijkPluginInfoSet(pluginInfo, 0, 0, 0, 0, 0);
+}
+
+
+iret ijkPluginLoad(ijkPlugin* const plugin_out, ijkPluginInfo const* const pluginInfo)
+{
+	if (plugin_out && !plugin_out->handle)
+	{
+		// set path
+		byte path[64] = "./ijk-plugin/";
+		strcat(strcat(path, pluginInfo->dylib), IJK_DYLIB_EXT);
+		if (ijk_issuccess(ijkDylibLoad((IJK_DYLIB_HANDLE*)(&plugin_out->handle), path)))
+		{
+			// attempt to load all symbols
+			ijk_plugin_load_symbol(plugin_out, ijkPluginCallback_load, ijkPluginCallback_default_pip2);
+			ijk_plugin_load_symbol(plugin_out, ijkPluginCallback_load_hot, ijkPluginCallback_default_pip2);
+			ijk_plugin_load_symbol(plugin_out, ijkPluginCallback_reload, ijkPluginCallback_default_pip2);
+			ijk_plugin_load_symbol(plugin_out, ijkPluginCallback_reload_hot, ijkPluginCallback_default_pip2);
+			ijk_plugin_load_symbol(plugin_out, ijkPluginCallback_unload, ijkPluginCallback_default_p);
+			ijk_plugin_load_symbol(plugin_out, ijkPluginCallback_unload_hot, ijkPluginCallback_default_p);
+			ijk_plugin_load_symbol(plugin_out, ijkPluginCallback_winActivate, ijkPluginCallback_default_p);
+			ijk_plugin_load_symbol(plugin_out, ijkPluginCallback_winDeactivate, ijkPluginCallback_default_p);
+			ijk_plugin_load_symbol(plugin_out, ijkPluginCallback_display, ijkPluginCallback_default_p);
+			ijk_plugin_load_symbol(plugin_out, ijkPluginCallback_idle, ijkPluginCallback_default_p);
+			ijk_plugin_load_symbol(plugin_out, ijkPluginCallback_winMove, ijkPluginCallback_default_pii);
+			ijk_plugin_load_symbol(plugin_out, ijkPluginCallback_winResize, ijkPluginCallback_default_pii);
+			ijk_plugin_load_symbol(plugin_out, ijkPluginCallback_keyPressVirt, ijkPluginCallback_default_pi);
+			ijk_plugin_load_symbol(plugin_out, ijkPluginCallback_keyPressAscii, ijkPluginCallback_default_pi);
+			ijk_plugin_load_symbol(plugin_out, ijkPluginCallback_keyHoldVirt, ijkPluginCallback_default_pi);
+			ijk_plugin_load_symbol(plugin_out, ijkPluginCallback_keyHoldAscii, ijkPluginCallback_default_pi);
+			ijk_plugin_load_symbol(plugin_out, ijkPluginCallback_keyReleaseVirt, ijkPluginCallback_default_pi);
+			ijk_plugin_load_symbol(plugin_out, ijkPluginCallback_keyReleaseAscii, ijkPluginCallback_default_pi);
+			ijk_plugin_load_symbol(plugin_out, ijkPluginCallback_mouseClick, ijkPluginCallback_default_piii);
+			ijk_plugin_load_symbol(plugin_out, ijkPluginCallback_mouseClick2, ijkPluginCallback_default_piii);
+			ijk_plugin_load_symbol(plugin_out, ijkPluginCallback_mouseRelease, ijkPluginCallback_default_piii);
+			ijk_plugin_load_symbol(plugin_out, ijkPluginCallback_mouseWheel, ijkPluginCallback_default_piii);
+			ijk_plugin_load_symbol(plugin_out, ijkPluginCallback_mouseMove, ijkPluginCallback_default_pii);
+			ijk_plugin_load_symbol(plugin_out, ijkPluginCallback_mouseMove_ext, ijkPluginCallback_default_pii);
+			ijk_plugin_load_symbol(plugin_out, ijkPluginCallback_mouseEnter, ijkPluginCallback_default_pii);
+			ijk_plugin_load_symbol(plugin_out, ijkPluginCallback_mouseLeave, ijkPluginCallback_default_pii);
+			ijk_plugin_load_symbol(plugin_out, ijkPluginCallback_willReload, ijkPluginCallback_default_p);
+			ijk_plugin_load_symbol(plugin_out, ijkPluginCallback_willUnload, ijkPluginCallback_default_p);
+			ijk_plugin_load_symbol(plugin_out, ijkPluginCallback_user1, ijkPluginCallback_default_p);
+			ijk_plugin_load_symbol(plugin_out, ijkPluginCallback_user2, ijkPluginCallback_default_p);
+			ijk_plugin_load_symbol(plugin_out, ijkPluginCallback_user3, ijkPluginCallback_default_p);
+			ijk_plugin_load_symbol(plugin_out, ijkPluginCallback_user4c, ijkPluginCallback_default_pip2);
+
+			// done
+			return ijk_success;
+		}
+		return ijk_fail_operationfail;
+	}
+	return ijk_fail_invalidparams;
+}
+
+
+iret ijkPluginUnload(ijkPlugin* const plugin)
+{
+	if (plugin && plugin->handle)
+	{
+		// unload
+		if (ijk_issuccess(ijkDylibUnload((IJK_DYLIB_HANDLE)(plugin->handle))))
+		{
+			// reset
+			ijkPluginInternalSetCallbackDefaults(plugin);
+			return ijk_success;
+		}
+		return ijk_fail_operationfail;
 	}
 	return ijk_fail_invalidparams;
 }
