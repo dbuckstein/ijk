@@ -25,16 +25,10 @@
 
 #include "ijk/ijk-platform/ijk-app/ijkWindow.h"
 #if ijk_platform_is(WINDOWS)
-
-// Windows / non-GNU-C
 #include <Windows.h>
-// Unix (Mac/Linux) / GNU-C
-//#include <dlfcn.h>
 
 #include <stdio.h>
 #include <stdlib.h>
-
-#include "ijk/ijk-platform/ijk-app/_util/_inl/ijk-dylib.inl"
 
 
 //-----------------------------------------------------------------------------
@@ -198,7 +192,7 @@ void ijkWindowInternalProcessEsc(ijkWindow* window)
 LRESULT CALLBACK ijkWindowInternalEventProcess(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
 	// prototype for setting default callbacks
-	iret ijkPluginInternalSetCallbackDefaults(ijkPlugin* const plugin);
+	void ijkPluginInternalSetCallbackDefaults(ijkPlugin* const plugin);
 
 	// get user data
 	ijkWindow* window = (ijkWindow*)GetWindowLongPtrA(hWnd, GWLP_USERDATA);
@@ -585,9 +579,9 @@ iret ijkWindowCreate(ijkWindow* const window_out, ijkWindowInfo const* const win
 {
 	if (window_out && !window_out->windowData && windowInfo && *windowInfo && platformInfo && *platformInfo && windowName && *windowName)
 	{
-		ibool const fullScreen = ijk_flagch(windowCtrl, ijkWinCtrl_fullscr_start);
 		ibool const hideCursor = ijk_flagch(windowCtrl, ijkWinCtrl_hideCursor);
 		ibool const lockCursor = ijk_flagch(windowCtrl, ijkWinCtrl_lockCursor);
+		ibool const fullScreen = ijk_false;
 		ibool const showWindow = SW_SHOW;
 		
 		HWND parent = 0;
@@ -768,26 +762,81 @@ iret ijkWindowLoop(ijkWindow* const window)
 }
 
 
+iret ijkWindowLoadDefaultPlugin(ijkWindow* const window)
+{
+	if (window && window->windowData)
+	{
+
+	}
+	return ijk_fail_invalidparams;
+}
+
+
+//-----------------------------------------------------------------------------
+/*
+// ijkWindowLoopThread
+//	Enter window event main loop on a separate thread.
+//		param thread_out: pointer to thread handle
+//			valid: non-null, points to null
+//		param threadName: name of thread
+//			valid: non-null, non-empty c-string
+//		param window: pointer to window descriptor
+//			valid: non-null, initialized
+//		return SUCCESS: ijk_success if main loop thread started successfully
+//		return FAILURE: ijk_fail_operationfail if loop thread not started
+//		return FAILURE: ijk_fail_invalidparams if invalid parameters
+iret ijkWindowLoopThread(ptr* const thread_out, tag const threadName, ijkWindow* const window);
+
+// ijkWindowLoopThreadStatus
+//	If window event loop is threaded, check status (thread return code).
+//		param thread: pointer to thread descriptor
+//			valid: non-null, initialized
+//		return SUCCESS: ijk_success if thread has exited
+//		return FAILURE: ijk_fail_operationfail if thread has not exited
+//		return FAILURE: ijk_fail_invalidparams if invalid parameters
+iret ijkWindowLoopThreadStatus(kptr* const thread);
+
+// ijkWindowLoopThreadKill
+//	Force-terminate event loop thread.
+//		param thread: pointer to thread descriptor
+//			valid: non-null, initialized
+//		return SUCCESS: ijk_success if thread terminated
+//		return FAILURE: ijk_fail_operationfail if thread not terminated
+//		return FAILURE: ijk_fail_invalidparams if invalid parameters
+iret ijkWindowLoopThreadKill(ptr* const thread);
+
+
+//-----------------------------------------------------------------------------
+
 iret ijkWindowLoopThread(ptr* const thread_out, tag const threadName, ijkWindow* const window)
 {
+	if (thread_out && !*thread_out && threadName && *threadName && window && window->windowData)
+	{
 
+	}
 	return ijk_fail_invalidparams;
 }
 
 
 iret ijkWindowLoopThreadStatus(kptr* const thread)
 {
+	if (thread && *thread)
+	{
 
+	}
 	return ijk_fail_invalidparams;
 }
 
 
 iret ijkWindowLoopThreadKill(ptr* const thread)
 {
+	if (thread && *thread)
+	{
 
+	}
 	return ijk_fail_invalidparams;
 }
-
+*/
 
 //-----------------------------------------------------------------------------
 
