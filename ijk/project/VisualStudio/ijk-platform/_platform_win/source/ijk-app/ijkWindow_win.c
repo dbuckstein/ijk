@@ -34,7 +34,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#include "ijk/ijk-platform/ijk-app/_util/ijk-dylib.h"
+#include "ijk/ijk-platform/ijk-app/_util/_inl/ijk-dylib.inl"
 
 
 //-----------------------------------------------------------------------------

@@ -23,13 +23,22 @@
 	Dynamic library configuration.
 */
 
-#ifdef _IJK_DYLIB_H_
 #ifndef _IJK_DYLIB_INL_
 #define _IJK_DYLIB_INL_
-
+#include "ijk/ijk-platform/ijk-app/_util/ijk-dylib.h"
 
 //-----------------------------------------------------------------------------
 
+// ijkDylibLoad
+//	Call dynamic library load.
+//		param handle_out: pointer to library handle
+//			valid: non-null, points at null
+//		param dylibPath: string representing path to library
+//			valid: non-null, non-empty
+//		return SUCCESS: ijk_success if library loaded; handle_out points to 
+//			non-null, valid library handle
+//		return FAILURE: ijk_fail_operationfail if library not loaded
+//		return FAILURE: ijk_fail_invalidparams if invalid parameters
 ijk_inl iret ijkDylibLoad(IJK_DYLIB_HANDLE* const handle_out, kcstr const dylibPath)
 {
 	if (handle_out && dylibPath && !*handle_out && *dylibPath)
@@ -45,6 +54,13 @@ ijk_inl iret ijkDylibLoad(IJK_DYLIB_HANDLE* const handle_out, kcstr const dylibP
 	return ijk_fail_invalidparams;
 }
 
+// ijkDylibUnload
+//	Call dynamic library unload.
+//		param handle: library handle
+//			valid: non-null
+//		return SUCCESS: ijk_success if library unloaded
+//		return FAILURE: ijk_fail_operationfail if library not loaded
+//		return FAILURE: ijk_fail_invalidparams if invalid parameters
 ijk_inl iret ijkDylibUnload(IJK_DYLIB_HANDLE const handle)
 {
 	if (handle)
@@ -56,6 +72,18 @@ ijk_inl iret ijkDylibUnload(IJK_DYLIB_HANDLE const handle)
 	return ijk_fail_invalidparams;
 }
 
+// ijkDylibGetSymbol
+//	Call dynamic library get symbol.
+//		param symbol_out: pointer to function handle
+//			valid: non-null, points at null
+//		param handle: library handle
+//			valid: non-null
+//		param symbolName: string representing name of symbol in library
+//			valid: non-null, non-empty
+//		return SUCCESS: ijk_success if symbol loaded; symbol_out points to 
+//			non-null, valid function pointer
+//		return FAILURE: ijk_fail_operationfail if empty not loaded
+//		return FAILURE: ijk_fail_invalidparams if invalid parameters
 ijk_inl iret ijkDylibGetSymbol(IJK_DYLIB_FUNC* const symbol_out, IJK_DYLIB_HANDLE const handle, kcstr const symbolName)
 {
 	if (symbol_out && handle && symbolName && !*symbol_out && *symbolName)
@@ -76,4 +104,3 @@ ijk_inl iret ijkDylibGetSymbol(IJK_DYLIB_FUNC* const symbol_out, IJK_DYLIB_HANDL
 
 
 #endif	// !_IJK_DYLIB_INL_
-#endif	// _IJK_DYLIB_H_
