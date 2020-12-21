@@ -61,9 +61,9 @@ iret __stdcall wWinMain(
 		ijkWinCtrl_F1_info | ijkWinCtrl_F2_load | ijkWinCtrl_F3_reload | ijkWinCtrl_F4_unload |
 		ijkWinCtrl_F5_debug | ijkWinCtrl_F6_build | ijkWinCtrl_F7_rebuild | ijkWinCtrl_F8_fullscr |
 		ijkWinCtrl_F9_user1 | ijkWinCtrl_F10_user2 | ijkWinCtrl_F11_user3 | ijkWinCtrl_F12_user4c |
-		ijkWinCtrl_esc_cmd | ijkWinCtrl_hideCursor | ijkWinCtrl_lockCursor | ijkWinCtrl_drawInactive);
+		ijkWinCtrl_esc_cmd);// | ijkWinCtrl_hideCursor | ijkWinCtrl_lockCursor | ijkWinCtrl_drawInactive);
 	
-	status = ijkWindowPlatformPackResource(&resource, ID_ACCEL_F1, IDR_ACCEL, IDI_ICON1, -1);
+	status = ijkWindowPlatformPackResource(&resource, ID_ACCEL_F1, IDR_ACCEL, IDD_DIALOGBAR, IDI_ICON1, -1);
 
 	status = ijkApplicationStartSingleInstanceSwitch(app, appName, &i);
 	status = ijkConsoleCreateMain(console);

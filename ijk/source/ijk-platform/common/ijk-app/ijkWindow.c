@@ -28,11 +28,11 @@
 
 //-----------------------------------------------------------------------------
 
-iret ijkWindowPlatformPackResource(ui64* const res_out, i16 const controlBase, i8 const controlID, i8 const iconID, i8 const cursorID)
+iret ijkWindowPlatformPackResource(ui64* const res_out, i16 const controlBase, i8 const controlID, i8 const dialogID, i8 const iconID, i8 const cursorID)
 {
 	if (res_out)
 	{
-		*res_out = ((ui64)((ui16)controlBase) | (ui64)((ui8)controlID) << 16 | (ui64)((ui8)iconID) << 32 | (ui64)((ui8)cursorID) << 40);
+		*res_out = ((ui64)((ui16)controlBase) | (ui64)((ui8)controlID) << 16 | (ui64)((ui8)dialogID) << 24 | (ui64)((ui8)iconID) << 32 | (ui64)((ui8)cursorID) << 40);
 		return ijk_success;
 	}
 	return ijk_fail_invalidparams;
@@ -46,6 +46,11 @@ iret ijkWindowPlatformInternalUnpackControlBase(ui64 const resource)
 iret ijkWindowPlatformInternalUnpackControlID(ui64 const resource)
 {
 	return (iret)((ui8)(resource >> 16 & 0xff));
+}
+
+iret ijkWindowPlatformInternalUnpackDialogID(ui64 const resource)
+{
+	return (iret)((ui8)(resource >> 24 & 0xff));
 }
 
 iret ijkWindowPlatformInternalUnpackIconID(ui64 const resource)

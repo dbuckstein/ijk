@@ -113,11 +113,12 @@ struct ijkWindow
 //		param res_out: pointer to resource integer
 //		param controlBase: control base offset
 //		param controlID: control identifier
+//		param dialogID: dialog identifier
 //		param iconID: icon identifier
 //		param cursorID: cursor identifier
 //		return SUCCESS: ijk_success if resource packed
 //		return FAILURE: ijk_fail_invalidparams if invalid parameters
-iret ijkWindowPlatformPackResource(ui64* const res_out, i16 const controlBase, i8 const controlID, i8 const iconID, i8 const cursorID);
+iret ijkWindowPlatformPackResource(ui64* const res_out, i16 const controlBase, i8 const controlID, i8 const dialogID, i8 const iconID, i8 const cursorID);
 
 // ijkWindowPlatformCreate
 //	Initialize platform info.

@@ -1,0 +1,9 @@
+#ijk: an open-source, cross-platform, light-weight,
+#	c-based rendering framework
+#By Daniel S. Buckstein
+#Copyright 2020
+
+@ "ijk Plugin (Test0)" "ijk-plugin" "Dan Buckstein" "ijk-test:0.0.0" "Testing debuggable plugin description 0."
+@ "ijk Plugin (Test1)" "ijk-plugin" "Dan Buckstein" "ijk-test:0.0.1" "Testing debuggable plugin description 1."
+@ "ijk Plugin (Test2)" "ijk-plugin" "Dan Buckstein" "ijk-test:0.0.2" "Testing debuggable plugin description 2."
+@ "ijk Plugin (Test3)" "ijk-plugin" "Dan Buckstein" "ijk-test:0.0.3" "Testing debuggable plugin description 3."

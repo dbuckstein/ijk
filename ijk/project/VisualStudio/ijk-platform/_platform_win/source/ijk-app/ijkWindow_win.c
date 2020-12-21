@@ -71,6 +71,26 @@ typedef struct ijkPlatformData_win_tag
 
 //-----------------------------------------------------------------------------
 
+LRESULT CALLBACK ijkWindowInternalEventProcessList(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam)
+{
+	switch (message)
+	{
+	case WM_INITDIALOG: {
+
+	}	break;
+	case WM_CLOSE: {
+		EndDialog(hDlg, 0);
+	}	break;
+
+	default:
+		break;
+	}
+	return DefWindowProcA(hDlg, message, wParam, lParam);
+}
+
+
+//-----------------------------------------------------------------------------
+
 void ijkWindowInternalProcessF1(ijkWindow* window)
 {
 	byte buffer[1024] = { 0 }, * bufferPtr = buffer;
@@ -80,13 +100,15 @@ void ijkWindowInternalProcessF1(ijkWindow* window)
 		"    c-based rendering framework",
 		"Copyright 2020 Daniel S.Buckstein",
 	};
-	bufferPtr += sprintf(bufferPtr, "%s\n%s\n%s", info[1], info[2], info[3]);
+	bufferPtr += sprintf(bufferPtr, "%s\n%s\n%s\n\n", info[1], info[2], info[3]);
 
 	// print renderer info
-	bufferPtr += sprintf(bufferPtr, "\n\n");
 	if (window->winRender)
 	{
-		bufferPtr += sprintf(bufferPtr, "Current render context: ");
+		kptag const rendererName = "dummyName", rendererInfo = "dummyInfo";
+		bufferPtr += sprintf(bufferPtr,
+			"Current render context: %s \n %s\n\n",
+			rendererName, rendererInfo);
 
 		// ****TO-DO
 		/*
@@ -98,22 +120,18 @@ void ijkWindowInternalProcessF1(ijkWindow* window)
 		*/
 	}
 	else
-		bufferPtr += sprintf(bufferPtr, "No render context initialized.");
+		bufferPtr += sprintf(bufferPtr, "No render context initialized.\n\n");
 
 	// print plugin info
-	bufferPtr += sprintf(bufferPtr, "\n\n");
 	if (window->plugin->handle)
 	{
-		bufferPtr += sprintf(bufferPtr, "Current plugin: ");
-
-		// ****TO-DO
-		/*
-		// example:
-		// name, author, description
-		*/
+		bufferPtr += sprintf(bufferPtr,
+			"  Current plugin: %s\n  %s \n  %s\n  %s\n  %s\n\n",
+			window->pluginInfo->name, window->pluginInfo->dylib, window->pluginInfo->author,
+			window->pluginInfo->version, window->pluginInfo->info);
 	}
 	else
-		bufferPtr += sprintf(bufferPtr, "No plugin initialized.");
+		bufferPtr += sprintf(bufferPtr, "No plugin initialized.\n\n");
 
 	// present message box
 	MessageBoxA(window->windowData, buffer, *info, (MB_OK | MB_ICONINFORMATION | MB_SETFOREGROUND));
@@ -121,9 +139,14 @@ void ijkWindowInternalProcessF1(ijkWindow* window)
 
 void ijkWindowInternalProcessF2(ijkWindow* window)
 {
-	// ****TO-DO
-	// display load plugin menu
+	iret ijkWindowPlatformInternalUnpackDialogID(ui64 const resource);
 
+	ijkWindowPlatform_win* info = (ijkWindowPlatform_win*)window->winPlat;
+	i8 const dialogID = (i8)ijkWindowPlatformInternalUnpackDialogID(info->appRes);
+	LPCSTR const dialogRes = MAKEINTRESOURCEA(dialogID);
+
+	// create window
+	DialogBoxA(info->appInst, dialogRes, window->windowData, ijkWindowInternalEventProcessList);
 }
 
 void ijkWindowInternalProcessF3(ijkWindow* window)
@@ -320,55 +343,68 @@ LRESULT CALLBACK ijkWindowInternalEventProcess(HWND hWnd, UINT message, WPARAM w
 			{
 			case 0: // F1: info dialog
 				if (window->winCtrl & ijkWinCtrl_F1_info)
-					ijkWindowInternalProcessF1(window);
+					if (window->windowData == GetActiveWindow())
+						ijkWindowInternalProcessF1(window);
 				break;
 			case 1: // F2: load plugin
 				if (window->winCtrl & ijkWinCtrl_F2_load)
-					ijkWindowInternalProcessF2(window);
+					if (window->windowData == GetActiveWindow())
+						ijkWindowInternalProcessF2(window);
 				break;
 			case 2: // F3: reload plugin
 				if (window->winCtrl & ijkWinCtrl_F3_reload)
-					ijkWindowInternalProcessF3(window);
+					if (window->windowData == GetActiveWindow())
+						ijkWindowInternalProcessF3(window);
 				break;
 			case 3: // F4: unload plugin
 				if (window->winCtrl & ijkWinCtrl_F4_unload)
-					ijkWindowInternalProcessF4(window);
+					if (window->windowData == GetActiveWindow())
+						ijkWindowInternalProcessF4(window);
 				break;
 			case 4: // F5: debug plugin
 				if (window->winCtrl & ijkWinCtrl_F5_debug)
-					ijkWindowInternalProcessF5(window);
+					if (window->windowData == GetActiveWindow())
+						ijkWindowInternalProcessF5(window);
 				break;
 			case 5: // F6: hot-build plugin
 				if (window->winCtrl & ijkWinCtrl_F6_build)
-					ijkWindowInternalProcessF6(window);
+					if (window->windowData == GetActiveWindow())
+						ijkWindowInternalProcessF6(window);
 				break;
 			case 6: // F7: hot-rebuild plugin
 				if (window->winCtrl & ijkWinCtrl_F7_rebuild)
-					ijkWindowInternalProcessF7(window);
+					if (window->windowData == GetActiveWindow())
+						ijkWindowInternalProcessF7(window);
 				break;
 			case 7: // F8: toggle full-screen
 				if (window->winCtrl & ijkWinCtrl_F8_fullscr)
-					ijkWindowInternalProcessF8(window);
+					if (window->windowData == GetActiveWindow())
+						ijkWindowInternalProcessF8(window);
 				break;
 			case 8: // F9: user 1
 				if (window->winCtrl & ijkWinCtrl_F9_user1)
-					window->plugin->ijkPluginCallback_user1(window->plugin->data);
+					if (window->windowData == GetActiveWindow())
+						window->plugin->ijkPluginCallback_user1(window->plugin->data);
 				break;
 			case 9: // F10: user 2
 				if (window->winCtrl & ijkWinCtrl_F10_user2)
-					window->plugin->ijkPluginCallback_user2(window->plugin->data);
+					if (window->windowData == GetActiveWindow())
+						window->plugin->ijkPluginCallback_user2(window->plugin->data);
 				break;
 			case 10: // F11: user 3
 				if (window->winCtrl & ijkWinCtrl_F11_user3)
-					window->plugin->ijkPluginCallback_user3(window->plugin->data);
+					if (window->windowData == GetActiveWindow())
+						window->plugin->ijkPluginCallback_user3(window->plugin->data);
 				break;
 			case 11: // F12: user 4
 				if (window->winCtrl & ijkWinCtrl_F12_user4c)
-					window->plugin->ijkPluginCallback_user4c(window->plugin->data, 0, 0);
+					if (window->windowData == GetActiveWindow())
+						window->plugin->ijkPluginCallback_user4c(window->plugin->data, 0, 0);
 				break;
 			case 12: // ESC: command
 				if (window->winCtrl & ijkWinCtrl_esc_cmd)
-					ijkWindowInternalProcessEsc(window);
+					if (window->windowData == GetActiveWindow())
+						ijkWindowInternalProcessEsc(window);
 				break;
 			}
 		}
