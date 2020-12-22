@@ -73,19 +73,47 @@ typedef struct ijkPlatformData_win_tag
 
 LRESULT CALLBACK ijkWindowInternalEventProcessList(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam)
 {
+	word const value = LOWORD(wParam);
 	switch (message)
 	{
-	case WM_INITDIALOG: {
+	case WM_INITDIALOG:
+		switch (lParam)
+		{
+		case ijkWinCtrl_F2_load: {
 
-	}	break;
+			return TRUE;
+		}
+		case ijkWinCtrl_esc_cmd: {
+
+			return TRUE;
+		}
+		}
+		return FALSE;
 	case WM_CLOSE: {
-		EndDialog(hDlg, 0);
-	}	break;
-
-	default:
-		break;
+		HWND hWnd = GetParent(hDlg);
+		EndDialog(hDlg, value);
+		return TRUE;
 	}
-	return DefWindowProcA(hDlg, message, wParam, lParam);
+	case WM_COMMAND:
+		switch (value)
+		{
+		case IDOK: {
+			HWND hWnd = GetParent(hDlg);
+			
+			// ****TO-DO: 
+			//	send command to parent window
+
+			EndDialog(hDlg, value);
+			return TRUE;
+		}
+		case IDCLOSE:
+		case IDCANCEL:
+			EndDialog(hDlg, value);
+			return TRUE;
+		}
+		return FALSE;
+	}
+	return FALSE;
 }
 
 
@@ -145,8 +173,8 @@ void ijkWindowInternalProcessF2(ijkWindow* window)
 	i8 const dialogID = (i8)ijkWindowPlatformInternalUnpackDialogID(info->appRes);
 	LPCSTR const dialogRes = MAKEINTRESOURCEA(dialogID);
 
-	// create window
-	DialogBoxA(info->appInst, dialogRes, window->windowData, ijkWindowInternalEventProcessList);
+	// create window for selecting plugin
+	DialogBoxParamA(info->appInst, dialogRes, window->windowData, ijkWindowInternalEventProcessList, ijkWinCtrl_F2_load);
 }
 
 void ijkWindowInternalProcessF3(ijkWindow* window)
@@ -193,18 +221,16 @@ void ijkWindowInternalProcessF8(ijkWindow* window)
 
 void ijkWindowInternalProcessEsc(ijkWindow* window)
 {
-	byte buffer[80] = { 0 };
-	HWND const console = GetConsoleWindow();
-	if (GetStdHandle(STD_INPUT_HANDLE) && console)
-	{
-		// if console exists, make it foreground and get command
-		SetForegroundWindow(console);
-		printf("\n___:...............................................................................;\nCMD:");
-		fgets(buffer, szb(buffer), stdin);
+	iret ijkWindowPlatformInternalUnpackDialogID(ui64 const resource);
 
-		// pass command to plugin like a regular system command
-		window->plugin->ijkPluginCallback_user4c(window->plugin->data, 1, (ptr*)(&buffer));
-	}
+	ijkWindowPlatform_win* info = (ijkWindowPlatform_win*)window->winPlat;
+	i8 const dialogID = (i8)ijkWindowPlatformInternalUnpackDialogID(info->appRes);
+	LPCSTR const dialogRes = MAKEINTRESOURCEA(dialogID);
+
+	// create window for typing command
+	DialogBoxParamA(info->appInst, dialogRes, window->windowData, ijkWindowInternalEventProcessList, ijkWinCtrl_esc_cmd);
+
+	//window->plugin->ijkPluginCallback_user4c(window->plugin->data, 1, (ptr*)(&cmd));
 }
 
 
@@ -343,68 +369,55 @@ LRESULT CALLBACK ijkWindowInternalEventProcess(HWND hWnd, UINT message, WPARAM w
 			{
 			case 0: // F1: info dialog
 				if (window->winCtrl & ijkWinCtrl_F1_info)
-					if (window->windowData == GetActiveWindow())
-						ijkWindowInternalProcessF1(window);
+					ijkWindowInternalProcessF1(window);
 				break;
 			case 1: // F2: load plugin
 				if (window->winCtrl & ijkWinCtrl_F2_load)
-					if (window->windowData == GetActiveWindow())
-						ijkWindowInternalProcessF2(window);
+					ijkWindowInternalProcessF2(window);
 				break;
 			case 2: // F3: reload plugin
 				if (window->winCtrl & ijkWinCtrl_F3_reload)
-					if (window->windowData == GetActiveWindow())
-						ijkWindowInternalProcessF3(window);
+					ijkWindowInternalProcessF3(window);
 				break;
 			case 3: // F4: unload plugin
 				if (window->winCtrl & ijkWinCtrl_F4_unload)
-					if (window->windowData == GetActiveWindow())
-						ijkWindowInternalProcessF4(window);
+					ijkWindowInternalProcessF4(window);
 				break;
 			case 4: // F5: debug plugin
 				if (window->winCtrl & ijkWinCtrl_F5_debug)
-					if (window->windowData == GetActiveWindow())
-						ijkWindowInternalProcessF5(window);
+					ijkWindowInternalProcessF5(window);
 				break;
 			case 5: // F6: hot-build plugin
 				if (window->winCtrl & ijkWinCtrl_F6_build)
-					if (window->windowData == GetActiveWindow())
-						ijkWindowInternalProcessF6(window);
+					ijkWindowInternalProcessF6(window);
 				break;
 			case 6: // F7: hot-rebuild plugin
 				if (window->winCtrl & ijkWinCtrl_F7_rebuild)
-					if (window->windowData == GetActiveWindow())
-						ijkWindowInternalProcessF7(window);
+					ijkWindowInternalProcessF7(window);
 				break;
 			case 7: // F8: toggle full-screen
 				if (window->winCtrl & ijkWinCtrl_F8_fullscr)
-					if (window->windowData == GetActiveWindow())
-						ijkWindowInternalProcessF8(window);
+					ijkWindowInternalProcessF8(window);
 				break;
 			case 8: // F9: user 1
 				if (window->winCtrl & ijkWinCtrl_F9_user1)
-					if (window->windowData == GetActiveWindow())
-						window->plugin->ijkPluginCallback_user1(window->plugin->data);
+					window->plugin->ijkPluginCallback_user1(window->plugin->data);
 				break;
 			case 9: // F10: user 2
 				if (window->winCtrl & ijkWinCtrl_F10_user2)
-					if (window->windowData == GetActiveWindow())
-						window->plugin->ijkPluginCallback_user2(window->plugin->data);
+					window->plugin->ijkPluginCallback_user2(window->plugin->data);
 				break;
 			case 10: // F11: user 3
 				if (window->winCtrl & ijkWinCtrl_F11_user3)
-					if (window->windowData == GetActiveWindow())
-						window->plugin->ijkPluginCallback_user3(window->plugin->data);
+					window->plugin->ijkPluginCallback_user3(window->plugin->data);
 				break;
 			case 11: // F12: user 4
 				if (window->winCtrl & ijkWinCtrl_F12_user4c)
-					if (window->windowData == GetActiveWindow())
-						window->plugin->ijkPluginCallback_user4c(window->plugin->data, 0, 0);
+					window->plugin->ijkPluginCallback_user4c(window->plugin->data, 0, 0);
 				break;
 			case 12: // ESC: command
 				if (window->winCtrl & ijkWinCtrl_esc_cmd)
-					if (window->windowData == GetActiveWindow())
-						ijkWindowInternalProcessEsc(window);
+					ijkWindowInternalProcessEsc(window);
 				break;
 			}
 		}
