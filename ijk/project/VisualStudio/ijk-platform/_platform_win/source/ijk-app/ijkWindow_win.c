@@ -73,43 +73,113 @@ typedef struct ijkPlatformData_win_tag
 
 LRESULT CALLBACK ijkWindowInternalEventProcessList(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam)
 {
-	word const value = LOWORD(wParam);
+	typedef struct ijkTagWindowDialog
+	{
+		HWND box, text;
+		ijkWindowControl winCtrl;
+	} ijkWindowDialog;
+	ijkWindowDialog* dlg = (ijkWindowDialog*)GetWindowLongPtrA(hDlg, GWLP_USERDATA);
+
+	word const value = LOWORD(wParam), cmd = HIWORD(wParam);
 	switch (message)
 	{
-	case WM_INITDIALOG:
-		switch (lParam)
+	case WM_INITDIALOG: {
+		ijkWindowControl const winCtrl = (ijkWindowControl)lParam;
+		byte caption[256] = { 0 };
+		RECT rect = { 0 };
+		HWND box = 0;
+		GetWindowTextA(hDlg, caption, szb(caption));
+		switch (winCtrl)
 		{
 		case ijkWinCtrl_F2_load: {
+			strcat(caption, "Load Plugin");
 
-			return TRUE;
-		}
+			// ****TO-DO: 
+			// load plugin data
+			if (0)
+			{
+				GetWindowRect(hDlg, &rect);
+				box = CreateWindowExA(0, "LISTBOX", 0,
+					(WS_CHILD | WS_VISIBLE | WS_VSCROLL | ES_LEFT | ES_AUTOVSCROLL),
+					(8), (8), (rect.right - rect.left - 256), (rect.bottom - rect.top - 96), hDlg, 0,
+					(HINSTANCE)GetWindowLongPtrA(hDlg, GWLP_HINSTANCE), NULL);
+			}
+			// if empty, display warning and close dialog before it appears
+			else
+			{
+				MessageBoxA(hDlg, "No plugin information available.", "ijk Player Application: Load Plugin Failed", (MB_OK | MB_ICONEXCLAMATION | MB_SETFOREGROUND));
+				EndDialog(hDlg, value);
+				return TRUE;
+			}
+		}	break;
 		case ijkWinCtrl_esc_cmd: {
-
-			return TRUE;
+			strcat(caption, "Enter Command");
+			GetWindowRect(hDlg, &rect);
+			box = CreateWindowExA(0, "EDIT", 0,
+				(WS_CHILD | WS_VISIBLE | WS_VSCROLL | ES_LEFT | ES_MULTILINE | ES_UPPERCASE | ES_WANTRETURN | ES_AUTOVSCROLL),
+				(8), (8), (rect.right - rect.left - 32), (rect.bottom - rect.top - 96), hDlg, 0,
+				(HINSTANCE)GetWindowLongPtrA(hDlg, GWLP_HINSTANCE), NULL);
+		}	break;
 		}
-		}
-		return FALSE;
+		dlg = (ijkWindowDialog*)malloc(szb(ijkWindowDialog));
+		dlg->box = box;
+		dlg->winCtrl = winCtrl;
+		SetWindowTextA(hDlg, caption);
+		SetWindowLongPtrA(hDlg, GWLP_USERDATA, (LONG_PTR)dlg);
+		return TRUE;
+	}
 	case WM_CLOSE: {
-		HWND hWnd = GetParent(hDlg);
+		free(dlg);
 		EndDialog(hDlg, value);
 		return TRUE;
 	}
 	case WM_COMMAND:
-		switch (value)
+		if (cmd == EN_CHANGE)
 		{
-		case IDOK: {
-			HWND hWnd = GetParent(hDlg);
-			
-			// ****TO-DO: 
-			//	send command to parent window
-
-			EndDialog(hDlg, value);
+			switch (dlg->winCtrl)
+			{
+			case ijkWinCtrl_F2_load: {
+				// ****TO-DO: 
+				//	enable OK button if selection
+			}	break;
+			case ijkWinCtrl_esc_cmd: {
+				if (SendMessageA(dlg->box, WM_GETTEXTLENGTH, 0, 0))
+					EnableWindow(GetDlgItem(hDlg, IDOK), TRUE);
+				else
+					EnableWindow(GetDlgItem(hDlg, IDOK), FALSE);
+			}	break;
+			}
 			return TRUE;
 		}
-		case IDCLOSE:
-		case IDCANCEL:
-			EndDialog(hDlg, value);
-			return TRUE;
+		else
+		{
+			switch (value)
+			{
+			case IDOK: {
+				HWND hWnd = GetParent(hDlg);
+				// ****TO-DO: 
+				//	send command to parent window
+				switch (dlg->winCtrl)
+				{
+				case ijkWinCtrl_F2_load: {
+					// ****TO-DO: 
+					//	copy info structure at selected index
+				}	break;
+				case ijkWinCtrl_esc_cmd: {
+					// ****TO-DO: 
+					//	copy command string
+					//window->plugin->ijkPluginCallback_user4c(window->plugin->data, 1, (ptr*)(&cmd));
+				}	break;
+				}
+				// fall through to close
+			}
+			case IDCLOSE:
+			case IDCANCEL:
+				// exit dialog
+				free(dlg);
+				EndDialog(hDlg, value);
+				return TRUE;
+			}
 		}
 		return FALSE;
 	}
@@ -117,9 +187,21 @@ LRESULT CALLBACK ijkWindowInternalEventProcessList(HWND hDlg, UINT message, WPAR
 }
 
 
+void ijkWindowInternalCreateDialog(ijkWindow* const window, ijkWindowControl const purpose)
+{
+	iret ijkWindowPlatformInternalUnpackDialogID(ui64 const resource);
+
+	ijkWindowPlatform_win* info = (ijkWindowPlatform_win*)window->winPlat;
+	i8 const dialogID = (i8)ijkWindowPlatformInternalUnpackDialogID(info->appRes);
+	LPCSTR const dialogRes = MAKEINTRESOURCEA(dialogID);
+
+	DialogBoxParamA(info->appInst, dialogRes, window->windowData, ijkWindowInternalEventProcessList, (LPARAM)purpose);
+}
+
+
 //-----------------------------------------------------------------------------
 
-void ijkWindowInternalProcessF1(ijkWindow* window)
+void ijkWindowInternalProcessF1(ijkWindow* const window)
 {
 	byte buffer[1024] = { 0 }, * bufferPtr = buffer;
 	byte const* const info[] = {
@@ -165,72 +247,56 @@ void ijkWindowInternalProcessF1(ijkWindow* window)
 	MessageBoxA(window->windowData, buffer, *info, (MB_OK | MB_ICONINFORMATION | MB_SETFOREGROUND));
 }
 
-void ijkWindowInternalProcessF2(ijkWindow* window)
+void ijkWindowInternalProcessF2(ijkWindow* const window)
 {
-	iret ijkWindowPlatformInternalUnpackDialogID(ui64 const resource);
-
-	ijkWindowPlatform_win* info = (ijkWindowPlatform_win*)window->winPlat;
-	i8 const dialogID = (i8)ijkWindowPlatformInternalUnpackDialogID(info->appRes);
-	LPCSTR const dialogRes = MAKEINTRESOURCEA(dialogID);
-
-	// create window for selecting plugin
-	DialogBoxParamA(info->appInst, dialogRes, window->windowData, ijkWindowInternalEventProcessList, ijkWinCtrl_F2_load);
+	ijkWindowInternalCreateDialog(window, ijkWinCtrl_F2_load);
 }
 
-void ijkWindowInternalProcessF3(ijkWindow* window)
+void ijkWindowInternalProcessF3(ijkWindow* const window)
 {
 	// ****TO-DO
 	// reload plugin
 
 }
 
-void ijkWindowInternalProcessF4(ijkWindow* window)
+void ijkWindowInternalProcessF4(ijkWindow* const window)
 {
 	// ****TO-DO
 	// unload plugin
 
 }
 
-void ijkWindowInternalProcessF5(ijkWindow* window)
+void ijkWindowInternalProcessF5(ijkWindow* const window)
 {
 	// ****TO-DO
 	// debug plugin
 
 }
 
-void ijkWindowInternalProcessF6(ijkWindow* window)
+void ijkWindowInternalProcessF6(ijkWindow* const window)
 {
 	// ****TO-DO
 	// hot-build-and-load plugin
 
 }
 
-void ijkWindowInternalProcessF7(ijkWindow* window)
+void ijkWindowInternalProcessF7(ijkWindow* const window)
 {
 	// ****TO-DO
 	// hot-rebuild-and-load plugin
 
 }
 
-void ijkWindowInternalProcessF8(ijkWindow* window)
+void ijkWindowInternalProcessF8(ijkWindow* const window)
 {
 	// ****TO-DO
 	// toggle full-screen
 
 }
 
-void ijkWindowInternalProcessEsc(ijkWindow* window)
+void ijkWindowInternalProcessEsc(ijkWindow* const window)
 {
-	iret ijkWindowPlatformInternalUnpackDialogID(ui64 const resource);
-
-	ijkWindowPlatform_win* info = (ijkWindowPlatform_win*)window->winPlat;
-	i8 const dialogID = (i8)ijkWindowPlatformInternalUnpackDialogID(info->appRes);
-	LPCSTR const dialogRes = MAKEINTRESOURCEA(dialogID);
-
-	// create window for typing command
-	DialogBoxParamA(info->appInst, dialogRes, window->windowData, ijkWindowInternalEventProcessList, ijkWinCtrl_esc_cmd);
-
-	//window->plugin->ijkPluginCallback_user4c(window->plugin->data, 1, (ptr*)(&cmd));
+	ijkWindowInternalCreateDialog(window, ijkWinCtrl_esc_cmd);
 }
 
 
@@ -437,9 +503,11 @@ LRESULT CALLBACK ijkWindowInternalEventProcess(HWND hWnd, UINT message, WPARAM w
 	}	break;
 		// window moves
 	case WM_MOVE:
+		// clip cursor
 		break;
 		// window is resized
 	case WM_SIZE:
+		// clip cursor
 		break;
 
 		// any virtual key
