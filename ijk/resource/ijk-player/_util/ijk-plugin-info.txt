@@ -1,0 +1,21 @@
+#ijk: an open-source, cross-platform, light-weight,
+#	c-based rendering framework
+#By Daniel S. Buckstein
+#Copyright 2020
+
+@ "ijk Plugin (Test0)" "ijk-plugin" "Dan Buckstein" "ijk-test:0.0.0" "Testing debuggable plugin description 0."
+@ "ijk Plugin (Test1)" "ijk-plugin" "Dan Buckstein" "ijk-test:0.0.1" "Testing debuggable plugin description 1."
+@ "ijk Plugin (Test2)" "ijk-plugin" "Dan Buckstein" "ijk-test:0.0.2" "Testing debuggable plugin description 2."
+@ "ijk Plugin (Test3)" "ijk-plugin" "Dan Buckstein" "ijk-test:0.0.3" "Testing debuggable plugin description 3."
+@ "ijk Plugin (Test4)" "ijk-plugin" "Dan Buckstein" "ijk-test:0.0.4" "Testing debuggable plugin description 4."
+@ "ijk Plugin (Test5)" "ijk-plugin" "Dan Buckstein" "ijk-test:0.0.5" "Testing debuggable plugin description 5."
+@ "ijk Plugin (Test6)" "ijk-plugin" "Dan Buckstein" "ijk-test:0.0.6" "Testing debuggable plugin description 6."
+@ "ijk Plugin (Test7)" "ijk-plugin" "Dan Buckstein" "ijk-test:0.0.7" "Testing debuggable plugin description 7."
+@ "ijk Plugin (Test8)" "ijk-plugin" "Dan Buckstein" "ijk-test:0.0.8" "Testing debuggable plugin description 8."
+@ "ijk Plugin (Test9)" "ijk-plugin" "Dan Buckstein" "ijk-test:0.0.9" "Testing debuggable plugin description 9."
+@ "ijk Plugin (TestA)" "ijk-plugin" "Dan Buckstein" "ijk-test:0.0.A" "Testing debuggable plugin description A."
+@ "ijk Plugin (TestB)" "ijk-plugin" "Dan Buckstein" "ijk-test:0.0.B" "Testing debuggable plugin description B."
+@ "ijk Plugin (TestC)" "ijk-plugin" "Dan Buckstein" "ijk-test:0.0.C" "Testing debuggable plugin description C."
+@ "ijk Plugin (TestD)" "ijk-plugin" "Dan Buckstein" "ijk-test:0.0.D" "Testing debuggable plugin description D."
+@ "ijk Plugin (TestE)" "ijk-plugin" "Dan Buckstein" "ijk-test:0.0.E" "Testing debuggable plugin description E."
+@ "ijk Plugin (TestF)" "ijk-plugin" "Dan Buckstein" "ijk-test:0.0.F" "Testing debuggable plugin description F."

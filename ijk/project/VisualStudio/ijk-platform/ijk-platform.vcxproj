@@ -155,6 +155,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\..\source\ijk-platform\common\ijk-app\ijkPlugin.c" />
     <ClCompile Include="..\..\..\source\ijk-platform\common\ijk-app\ijkWindow.c" />
     <ClCompile Include="..\..\..\source\ijk-platform\common\ijk-platform.c" />
     <ClCompile Include="_platform_win\source\ijk-app\ijkApplication_win.c" />
@@ -165,6 +166,7 @@
   <ItemGroup>
     <ClInclude Include="..\..\..\include\ijk\ijk-platform\ijk-app\ijkApplication.h" />
     <ClInclude Include="..\..\..\include\ijk\ijk-platform\ijk-app\ijkConsole.h" />
+    <ClInclude Include="..\..\..\include\ijk\ijk-platform\ijk-app\ijkPlugin.h" />
     <ClInclude Include="..\..\..\include\ijk\ijk-platform\ijk-app\ijkWindow.h" />
     <ClInclude Include="..\..\..\include\ijk\ijk-platform\ijk-app\_util\ijk-dylib.h" />
     <ClInclude Include="..\..\..\include\ijk\ijk-platform\ijk-platform.h" />
