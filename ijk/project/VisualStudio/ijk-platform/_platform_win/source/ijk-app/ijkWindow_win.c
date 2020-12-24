@@ -73,6 +73,19 @@ typedef struct ijkPlatformData_win_tag
 #define IJK_PLUGIN_INFO_PATH "../../../../resource/ijk-player/_util/ijk-plugin-info.txt"
 
 
+// ijkWindowControlMessage
+//	Message identifiers for handling window controls.
+enum ijkWindowControlMessage
+{
+	ijkWinCtrlCmd = WM_USER,
+	ijkWinCtrlCmd_load,
+	ijkWinCtrlCmd_unload,
+	ijkWinCtrlCmd_build,
+	ijkWinCtrlCmd_rebuild,
+	ijkWinCtrlCmd_cmd,
+};
+
+
 //-----------------------------------------------------------------------------
 
 LRESULT CALLBACK ijkWindowInternalEventProcessList(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam)
@@ -234,13 +247,32 @@ LRESULT CALLBACK ijkWindowInternalEventProcessList(HWND hDlg, UINT message, WPAR
 				switch (dlg->winCtrl)
 				{
 				case ijkWinCtrl_F2_load: {
-					// ****TO-DO: 
-					//	copy info structure at selected index
+					//	send info structure at selected index
+					ijkPluginInfo const* info = 0;
+					i32 i = (int)SendMessageA(dlg->box, LB_GETCURSEL, 0, 0);
+					if (i >= 0)
+					{
+						i = (int)SendMessageA(dlg->box, LB_GETITEMDATA, i, 0);
+						info = dlg->pluginInfo + i;
+						SendMessageA(hWnd, ijkWinCtrlCmd_unload, 0, 0);
+						SendMessageA(hWnd, ijkWinCtrlCmd_load, 0, (LPARAM)info);
+					}
+					else
+					{
+						MessageBoxA(hDlg, "Error: Invalid plugin info.", "ijk Player Application: Load Plugin Failed", (MB_OK | MB_ICONHAND | MB_SETFOREGROUND));
+					}
 				}	break;
 				case ijkWinCtrl_esc_cmd: {
-					// ****TO-DO: 
-					//	copy command string
-					//window->plugin->ijkPluginCallback_user4c(window->plugin->data, 1, (ptr*)(&cmd));
+					//	send command string
+					i32 const i = GetWindowTextLengthA(dlg->box), j = (i + 1);
+					if (i >= 0)
+					{
+						ptag buf = (ptag)malloc((size)j);
+						buf[i] = 0;
+						GetWindowTextA(dlg->box, buf, j);
+						SendMessageA(hWnd, ijkWinCtrlCmd_cmd, 0, (LPARAM)buf);
+						free(buf);
+					}
 				}	break;
 				}
 				// fall through to close
@@ -645,6 +677,38 @@ LRESULT CALLBACK ijkWindowInternalEventProcess(HWND hWnd, UINT message, WPARAM w
 		// mouse click activates
 	case WM_MOUSEACTIVATE:
 		break;
+
+		// window control events
+	case ijkWinCtrlCmd_load: {
+		ijkPluginInfo const* info = (ijkPluginInfo*)lParam;
+		if (ijk_issuccess(ijkPluginLoad(window->plugin, info)))
+		{
+
+		}
+	}	break;
+	case ijkWinCtrlCmd_unload: {
+		if (ijk_issuccess(ijkPluginUnload(window->plugin)))
+		{
+			// repaint
+			RECT rect;
+			GetWindowRect(window->windowData, &rect);
+			InvalidateRect(window->windowData, &rect, TRUE);
+			UpdateWindow(window->windowData);
+		}
+	}	break;
+	case ijkWinCtrlCmd_build: {
+	
+	}	break;
+	case ijkWinCtrlCmd_rebuild: {
+		
+	}	break;
+	case ijkWinCtrlCmd_cmd: {
+		kpbyte cmd = (pbyte)lParam;
+		if (cmd)
+		{
+			window->plugin->ijkPluginCallback_user4c(window->plugin->data, 1, (ptr*)(&cmd));
+		}
+	}	break;
 
 	default:
 		break;

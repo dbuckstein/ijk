@@ -81,8 +81,8 @@ void ijkPluginInternalSetCallbackDefaults(ijkPlugin* const plugin)
 //-----------------------------------------------------------------------------
 
 // ijk_plugin_load_symbol
-//	Load symbol with contingency.
-#define ijk_plugin_load_symbol(plugin,symbol,def)	if (ijk_isfailure(ijkDylibGetSymbol((IJK_DYLIB_FUNC*)(&plugin->symbol), plugin->handle, ijk_tokenstr(symbol)))) plugin->symbol = def
+//	Reset and load symbol with contingency.
+#define ijk_plugin_load_symbol(plugin,symbol,def)	(plugin->symbol = 0); if (ijk_isfailure(ijkDylibGetSymbol((IJK_DYLIB_FUNC*)(&plugin->symbol), plugin->handle, ijk_tokenstr(symbol)))) plugin->symbol = def
 
 
 //-----------------------------------------------------------------------------
