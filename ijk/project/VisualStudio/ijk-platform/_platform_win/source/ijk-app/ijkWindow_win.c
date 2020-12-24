@@ -69,6 +69,10 @@ typedef struct ijkPlatformData_win_tag
 } ijkPlatformData_win;
 
 
+// Relative path to plugin info resource.
+#define IJK_PLUGIN_INFO_PATH "../../../../resource/ijk-player/_util/ijk-plugin-info.txt"
+
+
 //-----------------------------------------------------------------------------
 
 LRESULT CALLBACK ijkWindowInternalEventProcessList(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam)
@@ -76,6 +80,8 @@ LRESULT CALLBACK ijkWindowInternalEventProcessList(HWND hDlg, UINT message, WPAR
 	typedef struct ijkTagWindowDialog
 	{
 		HWND box, text;
+		ijkPluginInfo* pluginInfo;
+		size pluginInfoCount;
 		ijkWindowControl winCtrl;
 	} ijkWindowDialog;
 	ijkWindowDialog* dlg = (ijkWindowDialog*)GetWindowLongPtrA(hDlg, GWLP_USERDATA);
@@ -84,25 +90,47 @@ LRESULT CALLBACK ijkWindowInternalEventProcessList(HWND hDlg, UINT message, WPAR
 	switch (message)
 	{
 	case WM_INITDIALOG: {
+		HINSTANCE const inst = (HINSTANCE)GetWindowLongPtrA(hDlg, GWLP_HINSTANCE);
 		ijkWindowControl const winCtrl = (ijkWindowControl)lParam;
 		byte caption[256] = { 0 };
 		RECT rect = { 0 };
-		HWND box = 0;
+		HWND box = 0, text = 0;
+		ijkPluginInfo* pluginInfo = 0;
+		size pluginInfoCount = 0, i = 0;
+		i32 pos = -1;
+
 		GetWindowTextA(hDlg, caption, szb(caption));
 		switch (winCtrl)
 		{
 		case ijkWinCtrl_F2_load: {
-			strcat(caption, "Load Plugin");
-
-			// ****TO-DO: 
 			// load plugin data
-			if (0)
+			if (ijk_issuccess(ijkPluginInfoListLoad(&pluginInfo, &pluginInfoCount, IJK_PLUGIN_INFO_PATH)) && pluginInfoCount)
 			{
+				i32 w, h;
+
+				// create plugin box
+				strcat(caption, "Load Plugin");
 				GetWindowRect(hDlg, &rect);
 				box = CreateWindowExA(0, "LISTBOX", 0,
-					(WS_CHILD | WS_VISIBLE | WS_VSCROLL | ES_LEFT | ES_AUTOVSCROLL),
-					(8), (8), (rect.right - rect.left - 256), (rect.bottom - rect.top - 96), hDlg, 0,
-					(HINSTANCE)GetWindowLongPtrA(hDlg, GWLP_HINSTANCE), NULL);
+					(WS_CHILD | WS_VISIBLE | WS_VSCROLL | ES_AUTOVSCROLL | LBS_NOTIFY),
+					(8), (8), (w = (rect.right - rect.left - 304)), (h = (rect.bottom - rect.top - 96)),
+					hDlg, 0, inst, NULL);
+				SetFocus(box);
+
+				// create info display box
+				text = CreateWindowExA(0, "STATIC", 0,
+					(WS_CHILD | WS_VISIBLE | SS_LEFT),
+					(w + 16), (8), w, h,
+					hDlg, 0, inst, NULL);
+				SetWindowTextA(text, "Select plugin info to display.");
+
+				// populate list
+				for (i = 0; i < pluginInfoCount; ++i)
+				{
+					pos = (i32)SendMessageA(box, LB_ADDSTRING, 0, (LPARAM)pluginInfo[i].name);
+					if (pos >= 0)
+						SendMessageA(box, LB_SETITEMDATA, pos, (LPARAM)i);
+				}
 			}
 			// if empty, display warning and close dialog before it appears
 			else
@@ -113,52 +141,96 @@ LRESULT CALLBACK ijkWindowInternalEventProcessList(HWND hDlg, UINT message, WPAR
 			}
 		}	break;
 		case ijkWinCtrl_esc_cmd: {
+			i32 w, h;
+
+			// create command box
 			strcat(caption, "Enter Command");
 			GetWindowRect(hDlg, &rect);
 			box = CreateWindowExA(0, "EDIT", 0,
 				(WS_CHILD | WS_VISIBLE | WS_VSCROLL | ES_LEFT | ES_MULTILINE | ES_UPPERCASE | ES_WANTRETURN | ES_AUTOVSCROLL),
-				(8), (8), (rect.right - rect.left - 32), (rect.bottom - rect.top - 96), hDlg, 0,
-				(HINSTANCE)GetWindowLongPtrA(hDlg, GWLP_HINSTANCE), NULL);
+				(8), (8), (w = (rect.right - rect.left - 32)), (h = (rect.bottom - rect.top - 96)),
+				hDlg, 0, inst, NULL);
+			SetFocus(box);
+
+			// create info display box
+			text = CreateWindowExA(0, "STATIC", 0,
+				(WS_CHILD | WS_VISIBLE | SS_LEFT),
+				(8), (h + 24), 256, 16,
+				hDlg, 0, inst, NULL);
+			SetWindowTextA(text, "Enter command.");
 		}	break;
 		}
 		dlg = (ijkWindowDialog*)malloc(szb(ijkWindowDialog));
 		dlg->box = box;
+		dlg->text = text;
+		dlg->pluginInfo = pluginInfo;
+		dlg->pluginInfoCount = pluginInfoCount;
 		dlg->winCtrl = winCtrl;
 		SetWindowTextA(hDlg, caption);
 		SetWindowLongPtrA(hDlg, GWLP_USERDATA, (LONG_PTR)dlg);
 		return TRUE;
 	}
 	case WM_CLOSE: {
+		if (dlg->winCtrl == ijkWinCtrl_F2_load)
+			ijkPluginInfoListRelease(&dlg->pluginInfo);
 		free(dlg);
 		EndDialog(hDlg, value);
 		return TRUE;
 	}
 	case WM_COMMAND:
-		if (cmd == EN_CHANGE)
+		switch (cmd)
 		{
-			switch (dlg->winCtrl)
+		case EN_CHANGE:
+			if (dlg->winCtrl == ijkWinCtrl_esc_cmd)
 			{
-			case ijkWinCtrl_F2_load: {
-				// ****TO-DO: 
-				//	enable OK button if selection
-			}	break;
-			case ijkWinCtrl_esc_cmd: {
+				// toggle OK button
 				if (SendMessageA(dlg->box, WM_GETTEXTLENGTH, 0, 0))
+				{
 					EnableWindow(GetDlgItem(hDlg, IDOK), TRUE);
+					SetWindowTextA(dlg->text, "Press OK to send command.");
+				}
 				else
+				{
 					EnableWindow(GetDlgItem(hDlg, IDOK), FALSE);
-			}	break;
+					SetWindowTextA(dlg->text, "Enter command.");
+				}
+				return TRUE;
 			}
-			return TRUE;
-		}
-		else
-		{
+			break;
+		case LBN_SELCHANGE:
+		case LBN_DBLCLK:
+			if (dlg->winCtrl == ijkWinCtrl_F2_load)
+			{
+				ijkPluginInfo const* info = 0;
+				byte buf[512] = { 0 };
+				i32 i = -1;
+
+				// display info in text box
+				i = (int)SendMessageA(dlg->box, LB_GETCURSEL, 0, 0);
+				if (i >= 0)
+				{
+					i = (int)SendMessageA(dlg->box, LB_GETITEMDATA, i, 0);
+					info = dlg->pluginInfo + i;
+					sprintf(buf, "Press OK to load plugin: \n\n%s \n  By %s \n  Ver. %s \n%s \n",
+						info->name, info->author, info->version, info->info);
+					SetWindowTextA(dlg->text, buf);
+
+					// enable OK button
+					EnableWindow(GetDlgItem(hDlg, IDOK), TRUE);
+				}
+				return TRUE;
+			}
+			break;
+		case LBN_SELCANCEL: {
+			SetWindowTextA(dlg->text, "Select plugin info to display.");
+		}	break;
+
+		default:
 			switch (value)
 			{
 			case IDOK: {
-				HWND hWnd = GetParent(hDlg);
-				// ****TO-DO: 
 				//	send command to parent window
+				HWND hWnd = GetParent(hDlg);
 				switch (dlg->winCtrl)
 				{
 				case ijkWinCtrl_F2_load: {
@@ -176,12 +248,14 @@ LRESULT CALLBACK ijkWindowInternalEventProcessList(HWND hDlg, UINT message, WPAR
 			case IDCLOSE:
 			case IDCANCEL:
 				// exit dialog
+				if (dlg->winCtrl == ijkWinCtrl_F2_load)
+					ijkPluginInfoListRelease(&dlg->pluginInfo);
 				free(dlg);
 				EndDialog(hDlg, value);
 				return TRUE;
 			}
+			break;
 		}
-		return FALSE;
 	}
 	return FALSE;
 }

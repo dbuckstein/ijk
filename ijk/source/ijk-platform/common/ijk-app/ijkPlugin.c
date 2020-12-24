@@ -35,6 +35,9 @@
 
 #include "ijk/ijk-platform/ijk-app/_util/_inl/ijk-dylib.inl"
 
+#include <stdio.h>
+#include <stdlib.h>
+
 
 //-----------------------------------------------------------------------------
 
@@ -114,6 +117,110 @@ iret ijkPluginInfoSetDefault(ijkPluginInfo* const pluginInfo_out, tag const auth
 iret ijkPluginInfoReset(ijkPluginInfo* const pluginInfo)
 {
 	return ijkPluginInfoSet(pluginInfo, 0, 0, 0, 0, 0);
+}
+
+
+iret ijkPluginInfoListLoad(ijkPluginInfo** const pluginInfoList_out, size* const count_out, kptag const resourceFile)
+{
+	if (pluginInfoList_out && !*pluginInfoList_out && count_out && resourceFile && *resourceFile)
+	{
+		iret result = ijk_fail_operationfail;
+		FILE* fp;
+		if (fp = fopen(resourceFile, "r"))
+		{
+			byte line[512] = { 0 }, * linePtr;
+			size count = 0;
+			i32 const sz = szb(line);
+
+			// get number of list items
+			while (fgets(line, sz, fp))
+				if (*line == '@')
+					++count;
+
+			// if found potential entries
+			if (count)
+			{
+				if (fp = freopen(resourceFile, "r", fp))
+				{
+					ijkPluginInfo tmp = { 0 }, * const list = (ijkPluginInfo*)malloc(szb(tmp) * count);
+					ptag data;
+
+					// parse entries
+					count = 0;
+					while (linePtr = fgets(line, sz, fp))
+						if (*(linePtr++) == '@')
+						{
+							// skip opening quote and copy until closing quote
+							// name
+							data = tmp.name;
+							while (*(linePtr++) != '\"');
+							while (*(linePtr) != '\"')
+								*(data++) = *(linePtr++);
+							++linePtr;
+
+							// library file
+							data = tmp.dylib;
+							while (*(linePtr++) != '\"');
+							while (*(linePtr) != '\"')
+								*(data++) = *(linePtr++);
+							++linePtr;
+
+							// author
+							data = tmp.author;
+							while (*(linePtr++) != '\"');
+							while (*(linePtr) != '\"')
+								*(data++) = *(linePtr++);
+							++linePtr;
+
+							// version
+							data = tmp.version;
+							while (*(linePtr++) != '\"');
+							while (*(linePtr) != '\"')
+								*(data++) = *(linePtr++);
+							++linePtr;
+
+							// description
+							data = tmp.info;
+							while (*(linePtr++) != '\"');
+							while (*(linePtr) != '\"')
+								*(data++) = *(linePtr++);
+							++linePtr;
+
+							// copy
+							list[count++] = tmp;
+						}
+
+					// if still valid entries
+					if (count)
+					{
+						// done
+						*pluginInfoList_out = list;
+						*count_out = count;
+						result = ijk_success;
+					}
+				}
+			}
+			// close
+			fclose(fp);
+		}
+		return result;
+	}
+	return ijk_fail_invalidparams;
+}
+
+
+iret ijkPluginInfoListRelease(ijkPluginInfo** const pluginInfoList)
+{
+	if (pluginInfoList && *pluginInfoList)
+	{
+		// release
+		free(*pluginInfoList);
+		*pluginInfoList = 0;
+
+		// done
+		return ijk_success;
+	}
+	return ijk_fail_invalidparams;
 }
 
 

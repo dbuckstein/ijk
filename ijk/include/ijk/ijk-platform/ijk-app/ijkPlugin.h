@@ -140,6 +140,30 @@ iret ijkPluginInfoSetDefault(ijkPluginInfo* const pluginInfo_out, tag const auth
 //		return FAILURE: ijk_fail_invalidparams if invalid parameters
 iret ijkPluginInfoReset(ijkPluginInfo* const pluginInfo);
 
+// ijkPluginInfoListLoad
+//	Load plugin info list from text file.
+//		param pluginInfoList_out: pointer to array of plugin info descriptors
+//			valid: non-null, points to null
+//		param count_out: pointer to count storage
+//			valid: non-null
+//		param resourceFile: file containing info list
+//			valid: non-null, non-empty c-string
+//		return SUCCESS: ijk_success if loaded descriptors
+//			note: upon success, pluginInfoList_out points to valid list and 
+//			count_out holds a non-zero count of the number of elements in list
+//		return FAILURE: ijk_fail_operationfail if descriptors not loaded
+//		return FAILURE: ijk_fail_invalidparams if invalid parameters
+iret ijkPluginInfoListLoad(ijkPluginInfo** const pluginInfoList_out, size* const count_out, kptag const resourceFile);
+
+// ijkPluginInfoListRelease
+//	Release plugin info list.
+//		param pluginInfoList: pointer to array of plugin info descriptors
+//			valid: non-null, points to valid list
+//		return SUCCESS: ijk_success if released descriptors
+//			note: upon success, pluginInfoList_out points to null
+//		return FAILURE: ijk_fail_invalidparams if invalid parameters
+iret ijkPluginInfoListRelease(ijkPluginInfo** const pluginInfoList);
+
 // ijkPluginLoad
 //		param plugin_out: pointer to plugin descriptor
 //			valid: non-null, uninitialized
