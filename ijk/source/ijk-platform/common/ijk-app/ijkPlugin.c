@@ -70,7 +70,7 @@ void ijkPluginInternalSetCallbackDefaults(ijkPlugin* const plugin)
 	plugin->ijkPluginCallback_keyReleaseVirt = plugin->ijkPluginCallback_keyReleaseAscii = ijkPluginCallback_default_pi;
 	plugin->ijkPluginCallback_mouseClick = plugin->ijkPluginCallback_mouseClick2 = ijkPluginCallback_default_piii;
 	plugin->ijkPluginCallback_mouseRelease = plugin->ijkPluginCallback_mouseWheel = ijkPluginCallback_default_piii;
-	plugin->ijkPluginCallback_mouseMove = plugin->ijkPluginCallback_mouseMove_ext = ijkPluginCallback_default_pii;
+	plugin->ijkPluginCallback_mouseMove = plugin->ijkPluginCallback_mouseDrag = ijkPluginCallback_default_pii;
 	plugin->ijkPluginCallback_mouseEnter = plugin->ijkPluginCallback_mouseLeave = ijkPluginCallback_default_pii;
 	plugin->ijkPluginCallback_willReload = plugin->ijkPluginCallback_willUnload = ijkPluginCallback_default_p;
 	plugin->ijkPluginCallback_user1 = plugin->ijkPluginCallback_user2 = plugin->ijkPluginCallback_user3 = ijkPluginCallback_default_p;
@@ -257,7 +257,7 @@ iret ijkPluginLoad(ijkPlugin* const plugin_out, ijkPluginInfo const* const plugi
 			ijk_plugin_load_symbol(plugin_out, ijkPluginCallback_mouseRelease, ijkPluginCallback_default_piii);
 			ijk_plugin_load_symbol(plugin_out, ijkPluginCallback_mouseWheel, ijkPluginCallback_default_piii);
 			ijk_plugin_load_symbol(plugin_out, ijkPluginCallback_mouseMove, ijkPluginCallback_default_pii);
-			ijk_plugin_load_symbol(plugin_out, ijkPluginCallback_mouseMove_ext, ijkPluginCallback_default_pii);
+			ijk_plugin_load_symbol(plugin_out, ijkPluginCallback_mouseDrag, ijkPluginCallback_default_pii);
 			ijk_plugin_load_symbol(plugin_out, ijkPluginCallback_mouseEnter, ijkPluginCallback_default_pii);
 			ijk_plugin_load_symbol(plugin_out, ijkPluginCallback_mouseLeave, ijkPluginCallback_default_pii);
 			ijk_plugin_load_symbol(plugin_out, ijkPluginCallback_willReload, ijkPluginCallback_default_p);

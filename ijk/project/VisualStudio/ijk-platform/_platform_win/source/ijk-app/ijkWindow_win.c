@@ -30,6 +30,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+#include "ijk/ijk-base/ijk-input/ijkInput.h"
+
 
 //-----------------------------------------------------------------------------
 
@@ -63,7 +65,7 @@ typedef struct ijkWindowPlatform_win_tag
 //	Windows-specific platform data descriptor for window.
 typedef struct ijkPlatformData_win_tag
 {
-	TRACKMOUSEEVENT mouseTracker[1];	// Mouse tracker inside and outside window.
+	TRACKMOUSEEVENT mouseTracker[2];	// Mouse tracker inside and outside window.
 	byte keyboardTracker[128];			// Keyboard tracker for character keys.
 	HDC deviceContext;					// Window device context.
 } ijkPlatformData_win;
@@ -77,13 +79,20 @@ typedef struct ijkPlatformData_win_tag
 //	Message identifiers for handling window controls.
 enum ijkWindowControlMessage
 {
-	ijkWinCtrlCmd = WM_USER,
-	ijkWinCtrlCmd_load,
-	ijkWinCtrlCmd_unload,
-	ijkWinCtrlCmd_build,
-	ijkWinCtrlCmd_rebuild,
-	ijkWinCtrlCmd_cmd,
+	ijkWinCtrlMsg = WM_USER,
+	ijkWinCtrlMsg_load,
+	ijkWinCtrlMsg_unload,
+	ijkWinCtrlMsg_build,
+	ijkWinCtrlMsg_rebuild,
+	ijkWinCtrlMsg_cmd,
 };
+
+
+//-----------------------------------------------------------------------------
+
+// ijkWindowInternalUnlockPDB
+//	Release PDB.
+iret ijkWindowInternalUnlockPDB(kptag const sdkDirStr, kptag const cfgDirStr, kptag const projName);
 
 
 //-----------------------------------------------------------------------------
@@ -254,8 +263,8 @@ LRESULT CALLBACK ijkWindowInternalEventProcessList(HWND hDlg, UINT message, WPAR
 					{
 						i = (int)SendMessageA(dlg->box, LB_GETITEMDATA, i, 0);
 						info = dlg->pluginInfo + i;
-						SendMessageA(hWnd, ijkWinCtrlCmd_unload, 0, 0);
-						SendMessageA(hWnd, ijkWinCtrlCmd_load, 0, (LPARAM)info);
+						SendMessageA(hWnd, ijkWinCtrlMsg_unload, 0, 0);
+						SendMessageA(hWnd, ijkWinCtrlMsg_load, 0, (LPARAM)info);
 					}
 					else
 					{
@@ -270,7 +279,7 @@ LRESULT CALLBACK ijkWindowInternalEventProcessList(HWND hDlg, UINT message, WPAR
 						ptag buf = (ptag)malloc((size)j);
 						buf[i] = 0;
 						GetWindowTextA(dlg->box, buf, j);
-						SendMessageA(hWnd, ijkWinCtrlCmd_cmd, 0, (LPARAM)buf);
+						SendMessageA(hWnd, ijkWinCtrlMsg_cmd, 0, (LPARAM)buf);
 						free(buf);
 					}
 				}	break;
@@ -429,10 +438,11 @@ LRESULT CALLBACK ijkWindowInternalEventProcess(HWND hWnd, UINT message, WPARAM w
 		if (platformData)
 		{
 			memset(platformData, 0, sizeof(*platformData));
-			platformData->mouseTracker->cbSize = sizeof(platformData->mouseTracker);
-			platformData->mouseTracker->dwFlags = (TME_LEAVE | TME_HOVER | TME_NONCLIENT);
-			platformData->mouseTracker->dwHoverTime = 0;
-			platformData->mouseTracker->hwndTrack = hWnd;
+			platformData->mouseTracker[0].cbSize = platformData->mouseTracker[1].cbSize = szb(TRACKMOUSEEVENT);
+			platformData->mouseTracker[0].hwndTrack = platformData->mouseTracker[1].hwndTrack = hWnd;
+			platformData->mouseTracker[0].dwFlags = (TME_LEAVE);
+			platformData->mouseTracker[1].dwFlags = (TME_HOVER | TME_NONCLIENT);
+			platformData->mouseTracker[1].dwHoverTime = 0;
 			platformData->deviceContext = GetDC(hWnd);
 
 			window = (ijkWindow*)((LPCREATESTRUCT)lParam)->lpCreateParams;
@@ -441,6 +451,10 @@ LRESULT CALLBACK ijkWindowInternalEventProcess(HWND hWnd, UINT message, WPARAM w
 
 			info = (ijkWindowPlatform_win*)window->winPlat;
 			++info->appWinCt;
+
+			// track mouse
+			TrackMouseEvent(platformData->mouseTracker + 0);
+			TrackMouseEvent(platformData->mouseTracker + 1);
 
 			// set modified user data
 			SetWindowLongPtrA(hWnd, GWLP_USERDATA, (LONG_PTR)window);
@@ -472,14 +486,9 @@ LRESULT CALLBACK ijkWindowInternalEventProcess(HWND hWnd, UINT message, WPARAM w
 		// window destroyed
 	case WM_DESTROY: {
 		// unload plugin
-		if (window->plugin->handle)
-		{
-			// ****TO-DO
-
-			ijkPluginInternalSetCallbackDefaults(window->plugin);
-			window->plugin->data = 0;
-			window->plugin->handle = 0;
-		}
+		window->plugin->ijkPluginCallback_willUnload(window->plugin->data);
+		window->plugin->ijkPluginCallback_unload(window->plugin->data);
+		ijkPluginUnload(window->plugin);
 
 		// clean up rendering
 		if (window->winRender)
@@ -602,91 +611,175 @@ LRESULT CALLBACK ijkWindowInternalEventProcess(HWND hWnd, UINT message, WPARAM w
 		{
 		case WA_ACTIVE:
 		case WA_CLICKACTIVE:
+			if (window->winRender)
+			{
+				// ****TO-DO
+				// enable context
+			}
+			window->plugin->ijkPluginCallback_winActivate(window->plugin->data);
 			break;
 		case WA_INACTIVE:
+			window->plugin->ijkPluginCallback_winDeactivate(window->plugin->data);
+			if (!(window->winCtrl & ijkWinCtrl_drawInactive) && window->winRender)
+			{
+				// disable context
+			}
 			break;
 		}
 	}	break;
 		// window moves
-	case WM_MOVE:
+	case WM_MOVE: {
 		// clip cursor
-		break;
+		if (window->winCtrl & ijkWinCtrl_lockCursor)
+		{
+			RECT winRect[1];
+			GetWindowRect(window->windowData, winRect);
+			ClipCursor(winRect);
+		}
+
+		// callback
+		window->pos_x = (i16)LOWORD(lParam);
+		window->pos_y = (i16)HIWORD(lParam);
+		window->plugin->ijkPluginCallback_winMove(window->plugin->data, window->pos_x, window->pos_y);
+	}	break;
 		// window is resized
-	case WM_SIZE:
+	case WM_SIZE: {
 		// clip cursor
-		break;
+		if (window->winCtrl & ijkWinCtrl_lockCursor)
+		{
+			RECT winRect[1];
+			GetWindowRect(window->windowData, winRect);
+			ClipCursor(winRect);
+		}
+
+		// callback
+		window->sz_x = (i16)LOWORD(lParam);
+		window->sz_y = (i16)HIWORD(lParam);
+		window->plugin->ijkPluginCallback_winResize(window->plugin->data, window->sz_x, window->sz_y);
+	}	break;
 
 		// any virtual key
-	case WM_KEYDOWN:
-		break;
-		// character keys, no up call
-	case WM_CHAR:
-		break;
+	case WM_KEYDOWN: {
+		ijkPluginCallback_pi const cb = (HIWORD(lParam) & KF_REPEAT) ? window->plugin->ijkPluginCallback_keyHoldVirt : window->plugin->ijkPluginCallback_keyPressVirt;
+		i32 const key = (i32)LOWORD(wParam);
+		cb(window->plugin->data, key);
+	}	break;
+		// character keys, no up call, track which character key
+	case WM_CHAR: {
+		ijkPluginCallback_pi const cb = (HIWORD(lParam) & KF_REPEAT) ? window->plugin->ijkPluginCallback_keyHoldAscii : window->plugin->ijkPluginCallback_keyPressAscii;
+		i32 const key_a = (i32)LOWORD(wParam);
+		cb(window->plugin->data, key_a);
+
+		platformData = (ijkPlatformData_win*)window->platformData;
+		platformData->keyboardTracker[(i8)key_a] = ijk_true;
+	}	break;
 		// release for keyPress, need to figure out if character is released
-	case WM_KEYUP:
-		break;
+	case WM_KEYUP: {
+		i32 const key = (i32)wParam, key_map = MapVirtualKeyA(key, MAPVK_VK_TO_CHAR), key_a = (i32)LOWORD(key_map);
+		window->plugin->ijkPluginCallback_keyReleaseVirt(window->plugin->data, key);
+		if (key_map)
+		{
+			window->plugin->ijkPluginCallback_keyReleaseAscii(window->plugin->data, key_a);
+			platformData = (ijkPlatformData_win*)window->platformData;
+			platformData->keyboardTracker[(i8)key_a] = ijk_false;
+		}
+	}	break;
 
 		// left mouse pressed
 	case WM_LBUTTONDOWN:
+		window->plugin->ijkPluginCallback_mouseClick(window->plugin->data, ijkMouseBtn_left, (i32)LOWORD(lParam), (i32)HIWORD(lParam));
 		break;
 		// middle button pressed
 	case WM_MBUTTONDOWN:
+		window->plugin->ijkPluginCallback_mouseClick(window->plugin->data, ijkMouseBtn_middle, (i32)LOWORD(lParam), (i32)HIWORD(lParam));
 		break;
 		// right button pressed
 	case WM_RBUTTONDOWN:
+		window->plugin->ijkPluginCallback_mouseClick(window->plugin->data, ijkMouseBtn_right, (i32)LOWORD(lParam), (i32)HIWORD(lParam));
 		break;
 		// other button pressed
 	case WM_XBUTTONDOWN:
+		window->plugin->ijkPluginCallback_mouseClick(window->plugin->data, (i32)HIWORD(wParam) + ijkMouseBtn_right, (i32)LOWORD(lParam), (i32)HIWORD(lParam));
 		break;
 		// left mouse double-clicked
 	case WM_LBUTTONDBLCLK:
+		window->plugin->ijkPluginCallback_mouseClick2(window->plugin->data, ijkMouseBtn_left, (i32)LOWORD(lParam), (i32)HIWORD(lParam));
 		break;
 		// middle button double-clicked
 	case WM_MBUTTONDBLCLK:
+		window->plugin->ijkPluginCallback_mouseClick2(window->plugin->data, ijkMouseBtn_middle, (i32)LOWORD(lParam), (i32)HIWORD(lParam));
 		break;
 		// right button double-clicked
 	case WM_RBUTTONDBLCLK:
+		window->plugin->ijkPluginCallback_mouseClick2(window->plugin->data, ijkMouseBtn_right, (i32)LOWORD(lParam), (i32)HIWORD(lParam));
 		break;
 		// other button double-clicked
 	case WM_XBUTTONDBLCLK:
+		window->plugin->ijkPluginCallback_mouseClick2(window->plugin->data, (i32)HIWORD(wParam) + ijkMouseBtn_right, (i32)LOWORD(lParam), (i32)HIWORD(lParam));
 		break;
 		// left mouse released
 	case WM_LBUTTONUP:
+		window->plugin->ijkPluginCallback_mouseRelease(window->plugin->data, ijkMouseBtn_left, (i32)LOWORD(lParam), (i32)HIWORD(lParam));
 		break;
 		// middle button released
 	case WM_MBUTTONUP:
+		window->plugin->ijkPluginCallback_mouseRelease(window->plugin->data, ijkMouseBtn_middle, (i32)LOWORD(lParam), (i32)HIWORD(lParam));
 		break;
 		// right button released
 	case WM_RBUTTONUP:
+		window->plugin->ijkPluginCallback_mouseRelease(window->plugin->data, ijkMouseBtn_right, (i32)LOWORD(lParam), (i32)HIWORD(lParam));
 		break;
 		// other button released
 	case WM_XBUTTONUP:
+		window->plugin->ijkPluginCallback_mouseRelease(window->plugin->data, (i32)HIWORD(wParam) + ijkMouseBtn_right, (i32)LOWORD(lParam), (i32)HIWORD(lParam));
 		break;
 		// mouse wheel scrolled
 	case WM_MOUSEWHEEL:
+		window->plugin->ijkPluginCallback_mouseWheel(window->plugin->data, ((i32)HIWORD(wParam) / WHEEL_DELTA), (i32)LOWORD(lParam), (i32)HIWORD(lParam));
 		break;
 		// mouse moved
-	case WM_MOUSEMOVE:
-		break;
+	case WM_MOUSEMOVE: {
+		i32 const btn = (MK_LBUTTON | MK_MBUTTON | MK_RBUTTON | MK_XBUTTON1 | MK_XBUTTON2);
+		ijkPluginCallback_pii const cb = (wParam & btn) ? window->plugin->ijkPluginCallback_mouseDrag : window->plugin->ijkPluginCallback_mouseMove;
+		cb(window->plugin->data, (i32)LOWORD(lParam), (i32)HIWORD(lParam));
+		platformData = (ijkPlatformData_win*)window->platformData;
+		TrackMouseEvent(platformData->mouseTracker + 0);
+	}	break;
 		// mouse left
-	case WM_MOUSELEAVE:
-		break;
+	case WM_MOUSELEAVE: {
+		POINT pos;
+		GetCursorPos(&pos);
+		ScreenToClient(window->windowData, &pos);
+		window->plugin->ijkPluginCallback_mouseLeave(window->plugin->data, pos.x, pos.y);
+		platformData = (ijkPlatformData_win*)window->platformData;
+		TrackMouseEvent(platformData->mouseTracker + 1);
+	}	break;
 		// mouse hovers (used to track enter)
-	case WM_MOUSEHOVER:
-		break;
+	case WM_MOUSEHOVER: {
+		POINT pos;
+		GetCursorPos(&pos);
+		ScreenToClient(window->windowData, &pos);
+		window->plugin->ijkPluginCallback_mouseEnter(window->plugin->data, pos.x, pos.y);
+		platformData = (ijkPlatformData_win*)window->platformData;
+		TrackMouseEvent(platformData->mouseTracker + 0);
+	}	break;
 		// mouse click activates
-	case WM_MOUSEACTIVATE:
-		break;
+	//case WM_MOUSEACTIVATE:
+	//	break;
 
 		// window control events
-	case ijkWinCtrlCmd_load: {
+	case ijkWinCtrlMsg_load: {
+		// load plugin
 		ijkPluginInfo const* info = (ijkPluginInfo*)lParam;
 		if (ijk_issuccess(ijkPluginLoad(window->plugin, info)))
 		{
-
+			window->plugin->ijkPluginCallback_load(window->plugin->data, 1, (ptr*)(&window->plugin->data));
 		}
 	}	break;
-	case ijkWinCtrlCmd_unload: {
+	case ijkWinCtrlMsg_unload: {
+		// unload plugin
+		window->plugin->ijkPluginCallback_willUnload(window->plugin->data);
+		window->plugin->ijkPluginCallback_unload(window->plugin->data);
 		if (ijk_issuccess(ijkPluginUnload(window->plugin)))
 		{
 			// repaint
@@ -696,13 +789,13 @@ LRESULT CALLBACK ijkWindowInternalEventProcess(HWND hWnd, UINT message, WPARAM w
 			UpdateWindow(window->windowData);
 		}
 	}	break;
-	case ijkWinCtrlCmd_build: {
-	
+	case ijkWinCtrlMsg_build: {
+
 	}	break;
-	case ijkWinCtrlCmd_rebuild: {
+	case ijkWinCtrlMsg_rebuild: {
 		
 	}	break;
-	case ijkWinCtrlCmd_cmd: {
+	case ijkWinCtrlMsg_cmd: {
 		kpbyte cmd = (pbyte)lParam;
 		if (cmd)
 		{
@@ -894,7 +987,18 @@ iret ijkWindowCreate(ijkWindow* const window_out, ijkWindowInfo const* const win
 		{
 			if (lockCursor)
 			{
-				GetWindowRect(handle, &displayArea);
+				POINT corners[2];
+				GetClientRect(handle, &displayArea);
+				corners[0].x = displayArea.left;
+				corners[0].y = displayArea.top;
+				corners[1].x = displayArea.right;
+				corners[1].y = displayArea.bottom;
+				ClientToScreen(handle, corners + 0);
+				ClientToScreen(handle, corners + 1);
+				displayArea.left = corners[0].x;
+				displayArea.top = corners[0].y;
+				displayArea.right = corners[1].x;
+				displayArea.bottom = corners[1].y;
 				ClipCursor(&displayArea);
 			}
 			ShowCursor(!hideCursor);

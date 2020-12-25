@@ -59,7 +59,7 @@ IJK_DYLIB_SYMBOL iret ijkPluginCallback_mouseClick2(ijkPluginData* data, i32 i0,
 IJK_DYLIB_SYMBOL iret ijkPluginCallback_mouseRelease(ijkPluginData* data, i32 i0, i32 i1, i32 i2);
 IJK_DYLIB_SYMBOL iret ijkPluginCallback_mouseWheel(ijkPluginData* data, i32 i0, i32 i1, i32 i2);
 IJK_DYLIB_SYMBOL iret ijkPluginCallback_mouseMove(ijkPluginData* data, i32 i0, i32 i1);
-IJK_DYLIB_SYMBOL iret ijkPluginCallback_mouseMove_ext(ijkPluginData* data, i32 i0, i32 i1);
+IJK_DYLIB_SYMBOL iret ijkPluginCallback_mouseDrag(ijkPluginData* data, i32 i0, i32 i1);
 IJK_DYLIB_SYMBOL iret ijkPluginCallback_mouseEnter(ijkPluginData* data, i32 i0, i32 i1);
 IJK_DYLIB_SYMBOL iret ijkPluginCallback_mouseLeave(ijkPluginData* data, i32 i0, i32 i1);
 IJK_DYLIB_SYMBOL iret ijkPluginCallback_willReload(ijkPluginData* data);
@@ -214,7 +214,7 @@ iret ijkPluginCallback_mouseMove(ijkPluginData* data, i32 i0, i32 i1)
 	return ijk_success;
 }
 
-iret ijkPluginCallback_mouseMove_ext(ijkPluginData* data, i32 i0, i32 i1)
+iret ijkPluginCallback_mouseDrag(ijkPluginData* data, i32 i0, i32 i1)
 {
 
 	return ijk_success;

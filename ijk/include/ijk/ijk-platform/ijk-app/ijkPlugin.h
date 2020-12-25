@@ -90,7 +90,7 @@ struct ijkPlugin
 			ijkPluginCallback_pi ijkPluginCallback_keyReleaseVirt, ijkPluginCallback_keyReleaseAscii;		// Virtual/ASCII key release callback.
 			ijkPluginCallback_piii ijkPluginCallback_mouseClick, ijkPluginCallback_mouseClick2;				// Mouse click/double-click callback.
 			ijkPluginCallback_piii ijkPluginCallback_mouseRelease, ijkPluginCallback_mouseWheel;			// Mouse release/scroll callback.
-			ijkPluginCallback_pii ijkPluginCallback_mouseMove, ijkPluginCallback_mouseMove_ext;				// Mouse move inside/outside window callback.
+			ijkPluginCallback_pii ijkPluginCallback_mouseMove, ijkPluginCallback_mouseDrag;					// Mouse move/drag callback.
 			ijkPluginCallback_pii ijkPluginCallback_mouseEnter, ijkPluginCallback_mouseLeave;				// Mouse enter/leave window callback.
 			ijkPluginCallback_p ijkPluginCallback_willReload, ijkPluginCallback_willUnload;					// Plugin pre-reload/unload callback.
 			ijkPluginCallback_p ijkPluginCallback_user1, ijkPluginCallback_user2, ijkPluginCallback_user3;	// User function callbacks (F9-F11).
