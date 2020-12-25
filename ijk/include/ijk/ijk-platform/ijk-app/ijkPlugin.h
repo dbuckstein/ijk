@@ -81,7 +81,7 @@ struct ijkPlugin
 		struct {
 			ijkPluginCallback_pip2 ijkPluginCallback_load, ijkPluginCallback_load_hot;						// Load/hot-load callback.
 			ijkPluginCallback_pip2 ijkPluginCallback_reload, ijkPluginCallback_reload_hot;					// Reload/hot-reload callback.
-			ijkPluginCallback_p ijkPluginCallback_unload, ijkPluginCallback_unload_hot;						// Unload/hot-unload callback.
+			ijkPluginCallback_pip2 ijkPluginCallback_unload, ijkPluginCallback_unload_hot;					// Unload/hot-unload callback.
 			ijkPluginCallback_p ijkPluginCallback_winActivate, ijkPluginCallback_winDeactivate;				// Window activate/deactivate callback.
 			ijkPluginCallback_p ijkPluginCallback_display, ijkPluginCallback_idle;							// Window display/idle callback.
 			ijkPluginCallback_pii ijkPluginCallback_winMove, ijkPluginCallback_winResize;					// Window move/resize callback.

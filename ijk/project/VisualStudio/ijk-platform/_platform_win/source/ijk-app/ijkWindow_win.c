@@ -65,8 +65,9 @@ typedef struct ijkWindowPlatform_win_tag
 //	Windows-specific platform data descriptor for window.
 typedef struct ijkPlatformData_win_tag
 {
-	TRACKMOUSEEVENT mouseTracker[2];	// Mouse tracker inside and outside window.
-	byte keyboardTracker[128];			// Keyboard tracker for character keys.
+	TRACKMOUSEEVENT mouseTracker[1];	// Mouse tracker inside and outside window.
+	byte keyboardState[128];			// Keyboard tracker for character keys.
+	ibool mouseState;					// Mouse tracker for hovering.
 	HDC deviceContext;					// Window device context.
 } ijkPlatformData_win;
 
@@ -81,6 +82,7 @@ enum ijkWindowControlMessage
 {
 	ijkWinCtrlMsg = WM_USER,
 	ijkWinCtrlMsg_load,
+	ijkWinCtrlMsg_reload,
 	ijkWinCtrlMsg_unload,
 	ijkWinCtrlMsg_build,
 	ijkWinCtrlMsg_rebuild,
@@ -228,12 +230,12 @@ LRESULT CALLBACK ijkWindowInternalEventProcessList(HWND hDlg, UINT message, WPAR
 				i32 i = -1;
 
 				// display info in text box
-				i = (int)SendMessageA(dlg->box, LB_GETCURSEL, 0, 0);
+				i = (i32)SendMessageA(dlg->box, LB_GETCURSEL, 0, 0);
 				if (i >= 0)
 				{
-					i = (int)SendMessageA(dlg->box, LB_GETITEMDATA, i, 0);
+					i = (i32)SendMessageA(dlg->box, LB_GETITEMDATA, i, 0);
 					info = dlg->pluginInfo + i;
-					sprintf(buf, "Press OK to load plugin: \n\n%s \n  By %s \n  Ver. %s \n%s \n",
+					sprintf(buf, "Press OK to load plugin: \n\n\"%s\" \n  By %s \n  Ver. %s \n%s \n",
 						info->name, info->author, info->version, info->info);
 					SetWindowTextA(dlg->text, buf);
 
@@ -258,10 +260,10 @@ LRESULT CALLBACK ijkWindowInternalEventProcessList(HWND hDlg, UINT message, WPAR
 				case ijkWinCtrl_F2_load: {
 					//	send info structure at selected index
 					ijkPluginInfo const* info = 0;
-					i32 i = (int)SendMessageA(dlg->box, LB_GETCURSEL, 0, 0);
+					i32 i = (i32)SendMessageA(dlg->box, LB_GETCURSEL, 0, 0);
 					if (i >= 0)
 					{
-						i = (int)SendMessageA(dlg->box, LB_GETITEMDATA, i, 0);
+						i = (i32)SendMessageA(dlg->box, LB_GETITEMDATA, i, 0);
 						info = dlg->pluginInfo + i;
 						SendMessageA(hWnd, ijkWinCtrlMsg_unload, 0, 0);
 						SendMessageA(hWnd, ijkWinCtrlMsg_load, 0, (LPARAM)info);
@@ -302,21 +304,7 @@ LRESULT CALLBACK ijkWindowInternalEventProcessList(HWND hDlg, UINT message, WPAR
 }
 
 
-void ijkWindowInternalCreateDialog(ijkWindow* const window, ijkWindowControl const purpose)
-{
-	iret ijkWindowPlatformInternalUnpackDialogID(ui64 const resource);
-
-	ijkWindowPlatform_win* info = (ijkWindowPlatform_win*)window->winPlat;
-	i8 const dialogID = (i8)ijkWindowPlatformInternalUnpackDialogID(info->appRes);
-	LPCSTR const dialogRes = MAKEINTRESOURCEA(dialogID);
-
-	DialogBoxParamA(info->appInst, dialogRes, window->windowData, ijkWindowInternalEventProcessList, (LPARAM)purpose);
-}
-
-
-//-----------------------------------------------------------------------------
-
-void ijkWindowInternalProcessF1(ijkWindow* const window)
+void ijkWindowInternalCreateInfo(ijkWindow* const window)
 {
 	byte buffer[1024] = { 0 }, * bufferPtr = buffer;
 	byte const* const info[] = {
@@ -337,7 +325,7 @@ void ijkWindowInternalProcessF1(ijkWindow* const window)
 
 		// ****TO-DO
 		/*
-		// e.g. for OpenGL: 
+		// e.g. for OpenGL:
 		kptag* const versionStr = glGetString(GL_VERSION);
 		kptag* const shadingStr = glGetString(GL_SHADING_LANGUAGE_VERSION);
 		kptag* const rendererStr = glGetString(GL_RENDERER);
@@ -351,8 +339,8 @@ void ijkWindowInternalProcessF1(ijkWindow* const window)
 	if (window->plugin->handle)
 	{
 		bufferPtr += sprintf(bufferPtr,
-			"  Current plugin: %s\n  %s \n  %s\n  %s\n  %s\n\n",
-			window->pluginInfo->name, window->pluginInfo->dylib, window->pluginInfo->author,
+			"Plugin: \"%s\" \n  By: %s \n  Ver. %s \n%s \n\n",
+			window->pluginInfo->name, window->pluginInfo->author,
 			window->pluginInfo->version, window->pluginInfo->info);
 	}
 	else
@@ -362,23 +350,72 @@ void ijkWindowInternalProcessF1(ijkWindow* const window)
 	MessageBoxA(window->windowData, buffer, *info, (MB_OK | MB_ICONINFORMATION | MB_SETFOREGROUND));
 }
 
+
+void ijkWindowInternalCreateDialog(ijkWindow* const window, ijkWindowControl const purpose)
+{
+	iret ijkWindowPlatformInternalUnpackDialogID(ui64 const resource);
+
+	ijkWindowPlatform_win* info = (ijkWindowPlatform_win*)window->winPlat;
+	i8 const dialogID = (i8)ijkWindowPlatformInternalUnpackDialogID(info->appRes);
+	LPCSTR const dialogRes = MAKEINTRESOURCEA(dialogID);
+
+	DialogBoxParamA(info->appInst, dialogRes, window->windowData, ijkWindowInternalEventProcessList, (LPARAM)purpose);
+}
+
+
+void ijkWindowInternalLockCursor(ijkWindow* const window)
+{
+	if (window)
+	{
+		HWND const handle = window->windowData;
+		POINT corners[2];
+		RECT displayArea[1];
+
+		// calculate corners in client space and lock
+		GetClientRect(handle, displayArea);
+		corners[0].x = displayArea->left;
+		corners[0].y = displayArea->top;
+		corners[1].x = displayArea->right;
+		corners[1].y = displayArea->bottom;
+		ClientToScreen(handle, corners + 0);
+		ClientToScreen(handle, corners + 1);
+		displayArea->left = corners[0].x;
+		displayArea->top = corners[0].y;
+		displayArea->right = corners[1].x;
+		displayArea->bottom = corners[1].y;
+		ClipCursor(displayArea);
+	}
+	else
+	{
+		ClipCursor(0);
+	}
+}
+
+
+//-----------------------------------------------------------------------------
+
+void ijkWindowInternalProcessF1(ijkWindow* const window)
+{
+	// open info window
+	ijkWindowInternalCreateInfo(window);
+}
+
 void ijkWindowInternalProcessF2(ijkWindow* const window)
 {
+	// open dialog box for loading
 	ijkWindowInternalCreateDialog(window, ijkWinCtrl_F2_load);
 }
 
 void ijkWindowInternalProcessF3(ijkWindow* const window)
 {
-	// ****TO-DO
 	// reload plugin
-
+	SendMessageA(window->windowData, ijkWinCtrlMsg_reload, 0, 0);
 }
 
 void ijkWindowInternalProcessF4(ijkWindow* const window)
 {
-	// ****TO-DO
 	// unload plugin
-
+	SendMessageA(window->windowData, ijkWinCtrlMsg_unload, 0, 0);
 }
 
 void ijkWindowInternalProcessF5(ijkWindow* const window)
@@ -411,6 +448,7 @@ void ijkWindowInternalProcessF8(ijkWindow* const window)
 
 void ijkWindowInternalProcessEsc(ijkWindow* const window)
 {
+	// open dialog for command
 	ijkWindowInternalCreateDialog(window, ijkWinCtrl_esc_cmd);
 }
 
@@ -434,15 +472,13 @@ LRESULT CALLBACK ijkWindowInternalEventProcess(HWND hWnd, UINT message, WPARAM w
 	{
 		// window initial creation
 	case WM_NCCREATE: {
-		platformData = (ijkPlatformData_win*)malloc(sizeof(ijkPlatformData_win));
+		platformData = (ijkPlatformData_win*)malloc(szb(ijkPlatformData_win));
 		if (platformData)
 		{
-			memset(platformData, 0, sizeof(*platformData));
-			platformData->mouseTracker[0].cbSize = platformData->mouseTracker[1].cbSize = szb(TRACKMOUSEEVENT);
-			platformData->mouseTracker[0].hwndTrack = platformData->mouseTracker[1].hwndTrack = hWnd;
+			memset(platformData, 0, szb(*platformData));
+			platformData->mouseTracker[0].hwndTrack = hWnd;
+			platformData->mouseTracker[0].cbSize = szb(TRACKMOUSEEVENT);
 			platformData->mouseTracker[0].dwFlags = (TME_LEAVE);
-			platformData->mouseTracker[1].dwFlags = (TME_HOVER | TME_NONCLIENT);
-			platformData->mouseTracker[1].dwHoverTime = 0;
 			platformData->deviceContext = GetDC(hWnd);
 
 			window = (ijkWindow*)((LPCREATESTRUCT)lParam)->lpCreateParams;
@@ -453,8 +489,7 @@ LRESULT CALLBACK ijkWindowInternalEventProcess(HWND hWnd, UINT message, WPARAM w
 			++info->appWinCt;
 
 			// track mouse
-			TrackMouseEvent(platformData->mouseTracker + 0);
-			TrackMouseEvent(platformData->mouseTracker + 1);
+			TrackMouseEvent(platformData->mouseTracker);
 
 			// set modified user data
 			SetWindowLongPtrA(hWnd, GWLP_USERDATA, (LONG_PTR)window);
@@ -487,7 +522,7 @@ LRESULT CALLBACK ijkWindowInternalEventProcess(HWND hWnd, UINT message, WPARAM w
 	case WM_DESTROY: {
 		// unload plugin
 		window->plugin->ijkPluginCallback_willUnload(window->plugin->data);
-		window->plugin->ijkPluginCallback_unload(window->plugin->data);
+		window->plugin->ijkPluginCallback_unload(window->plugin->data, 1, (ptr*)(&window->plugin->data));
 		ijkPluginUnload(window->plugin);
 
 		// clean up rendering
@@ -631,11 +666,7 @@ LRESULT CALLBACK ijkWindowInternalEventProcess(HWND hWnd, UINT message, WPARAM w
 	case WM_MOVE: {
 		// clip cursor
 		if (window->winCtrl & ijkWinCtrl_lockCursor)
-		{
-			RECT winRect[1];
-			GetWindowRect(window->windowData, winRect);
-			ClipCursor(winRect);
-		}
+			ijkWindowInternalLockCursor(window);
 
 		// callback
 		window->pos_x = (i16)LOWORD(lParam);
@@ -646,11 +677,7 @@ LRESULT CALLBACK ijkWindowInternalEventProcess(HWND hWnd, UINT message, WPARAM w
 	case WM_SIZE: {
 		// clip cursor
 		if (window->winCtrl & ijkWinCtrl_lockCursor)
-		{
-			RECT winRect[1];
-			GetWindowRect(window->windowData, winRect);
-			ClipCursor(winRect);
-		}
+			ijkWindowInternalLockCursor(window);
 
 		// callback
 		window->sz_x = (i16)LOWORD(lParam);
@@ -671,7 +698,7 @@ LRESULT CALLBACK ijkWindowInternalEventProcess(HWND hWnd, UINT message, WPARAM w
 		cb(window->plugin->data, key_a);
 
 		platformData = (ijkPlatformData_win*)window->platformData;
-		platformData->keyboardTracker[(i8)key_a] = ijk_true;
+		platformData->keyboardState[(i8)key_a] = ijk_true;
 	}	break;
 		// release for keyPress, need to figure out if character is released
 	case WM_KEYUP: {
@@ -681,7 +708,7 @@ LRESULT CALLBACK ijkWindowInternalEventProcess(HWND hWnd, UINT message, WPARAM w
 		{
 			window->plugin->ijkPluginCallback_keyReleaseAscii(window->plugin->data, key_a);
 			platformData = (ijkPlatformData_win*)window->platformData;
-			platformData->keyboardTracker[(i8)key_a] = ijk_false;
+			platformData->keyboardState[(i8)key_a] = ijk_false;
 		}
 	}	break;
 
@@ -735,14 +762,20 @@ LRESULT CALLBACK ijkWindowInternalEventProcess(HWND hWnd, UINT message, WPARAM w
 		break;
 		// mouse wheel scrolled
 	case WM_MOUSEWHEEL:
-		window->plugin->ijkPluginCallback_mouseWheel(window->plugin->data, ((i32)HIWORD(wParam) / WHEEL_DELTA), (i32)LOWORD(lParam), (i32)HIWORD(lParam));
+		window->plugin->ijkPluginCallback_mouseWheel(window->plugin->data, (i32)(GET_WHEEL_DELTA_WPARAM(wParam) / WHEEL_DELTA), (i32)LOWORD(lParam), (i32)HIWORD(lParam));
 		break;
 		// mouse moved
 	case WM_MOUSEMOVE: {
+		i32 const x = (i32)LOWORD(lParam), y = (i32)HIWORD(lParam);
 		i32 const btn = (MK_LBUTTON | MK_MBUTTON | MK_RBUTTON | MK_XBUTTON1 | MK_XBUTTON2);
 		ijkPluginCallback_pii const cb = (wParam & btn) ? window->plugin->ijkPluginCallback_mouseDrag : window->plugin->ijkPluginCallback_mouseMove;
-		cb(window->plugin->data, (i32)LOWORD(lParam), (i32)HIWORD(lParam));
 		platformData = (ijkPlatformData_win*)window->platformData;
+		if (!platformData->mouseState)
+		{
+			platformData->mouseState = ijk_true;
+			window->plugin->ijkPluginCallback_mouseEnter(window->plugin->data, x, y);
+		}
+		cb(window->plugin->data, x, y);
 		TrackMouseEvent(platformData->mouseTracker + 0);
 	}	break;
 		// mouse left
@@ -752,17 +785,11 @@ LRESULT CALLBACK ijkWindowInternalEventProcess(HWND hWnd, UINT message, WPARAM w
 		ScreenToClient(window->windowData, &pos);
 		window->plugin->ijkPluginCallback_mouseLeave(window->plugin->data, pos.x, pos.y);
 		platformData = (ijkPlatformData_win*)window->platformData;
-		TrackMouseEvent(platformData->mouseTracker + 1);
+		platformData->mouseState = ijk_false;
 	}	break;
 		// mouse hovers (used to track enter)
-	case WM_MOUSEHOVER: {
-		POINT pos;
-		GetCursorPos(&pos);
-		ScreenToClient(window->windowData, &pos);
-		window->plugin->ijkPluginCallback_mouseEnter(window->plugin->data, pos.x, pos.y);
-		platformData = (ijkPlatformData_win*)window->platformData;
-		TrackMouseEvent(platformData->mouseTracker + 0);
-	}	break;
+	//case WM_MOUSEHOVER:
+	//	break;
 		// mouse click activates
 	//case WM_MOUSEACTIVATE:
 	//	break;
@@ -774,12 +801,18 @@ LRESULT CALLBACK ijkWindowInternalEventProcess(HWND hWnd, UINT message, WPARAM w
 		if (ijk_issuccess(ijkPluginLoad(window->plugin, info)))
 		{
 			window->plugin->ijkPluginCallback_load(window->plugin->data, 1, (ptr*)(&window->plugin->data));
+			*window->pluginInfo = *info;
 		}
+	}	break;
+	case ijkWinCtrlMsg_reload: {
+		// reload plugin
+		window->plugin->ijkPluginCallback_willReload(window->plugin->data);
+		window->plugin->ijkPluginCallback_reload(window->plugin->data, 1, (ptr*)(&window->plugin->data));
 	}	break;
 	case ijkWinCtrlMsg_unload: {
 		// unload plugin
 		window->plugin->ijkPluginCallback_willUnload(window->plugin->data);
-		window->plugin->ijkPluginCallback_unload(window->plugin->data);
+		window->plugin->ijkPluginCallback_unload(window->plugin->data, 1, (ptr*)(&window->plugin->data));
 		if (ijk_issuccess(ijkPluginUnload(window->plugin)))
 		{
 			// repaint
@@ -816,7 +849,7 @@ iret ijkWindowPlatformCreate(ijkWindowPlatform* const platformInfo_out, kptr con
 {
 	if (platformInfo_out && !*platformInfo_out && applicationInst && dev && *dev && target && *target && sdk && *sdk && cfg && *cfg)
 	{
-		ijkWindowPlatform_win* const platformInfo = malloc(sizeof(ijkWindowPlatform_win));
+		ijkWindowPlatform_win* const platformInfo = malloc(szb(ijkWindowPlatform_win));
 		if (platformInfo)
 		{
 			platformInfo->dir_build = dev;
@@ -862,7 +895,7 @@ iret ijkWindowInfoCreateDefault(ijkWindowInfo* const windowInfo_out, ijkWindowPl
 	// validate
 	if (windowInfo_out && !*windowInfo_out && platformInfo && *platformInfo && descriptorName && *descriptorName)
 	{
-		size const sz = sizeof(ijkWindowInfo_win);
+		size const sz = szb(ijkWindowInfo_win);
 		ijkWindowInfo_win* const windowInfo = malloc(sz);
 		if (windowInfo)
 		{
@@ -986,21 +1019,7 @@ iret ijkWindowCreate(ijkWindow* const window_out, ijkWindowInfo const* const win
 		if (handle)
 		{
 			if (lockCursor)
-			{
-				POINT corners[2];
-				GetClientRect(handle, &displayArea);
-				corners[0].x = displayArea.left;
-				corners[0].y = displayArea.top;
-				corners[1].x = displayArea.right;
-				corners[1].y = displayArea.bottom;
-				ClientToScreen(handle, corners + 0);
-				ClientToScreen(handle, corners + 1);
-				displayArea.left = corners[0].x;
-				displayArea.top = corners[0].y;
-				displayArea.right = corners[1].x;
-				displayArea.bottom = corners[1].y;
-				ClipCursor(&displayArea);
-			}
+				ijkWindowInternalLockCursor(window_out);
 			ShowCursor(!hideCursor);
 			ShowWindow(handle, showWindow);
 			UpdateWindow(handle);

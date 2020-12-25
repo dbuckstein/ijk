@@ -61,7 +61,7 @@ void ijkPluginInternalSetCallbackDefaults(ijkPlugin* const plugin)
 	// set default function for all callbacks
 	plugin->ijkPluginCallback_load = plugin->ijkPluginCallback_load_hot = ijkPluginCallback_default_pip2;
 	plugin->ijkPluginCallback_reload = plugin->ijkPluginCallback_reload_hot = ijkPluginCallback_default_pip2;
-	plugin->ijkPluginCallback_unload = plugin->ijkPluginCallback_unload_hot = ijkPluginCallback_default_p;
+	plugin->ijkPluginCallback_unload = plugin->ijkPluginCallback_unload_hot = ijkPluginCallback_default_pip2;
 	plugin->ijkPluginCallback_winActivate = plugin->ijkPluginCallback_winDeactivate = ijkPluginCallback_default_p;
 	plugin->ijkPluginCallback_display = plugin->ijkPluginCallback_idle = ijkPluginCallback_default_p;
 	plugin->ijkPluginCallback_winMove = plugin->ijkPluginCallback_winResize = ijkPluginCallback_default_pii;
@@ -238,8 +238,8 @@ iret ijkPluginLoad(ijkPlugin* const plugin_out, ijkPluginInfo const* const plugi
 			ijk_plugin_load_symbol(plugin_out, ijkPluginCallback_load_hot, ijkPluginCallback_default_pip2);
 			ijk_plugin_load_symbol(plugin_out, ijkPluginCallback_reload, ijkPluginCallback_default_pip2);
 			ijk_plugin_load_symbol(plugin_out, ijkPluginCallback_reload_hot, ijkPluginCallback_default_pip2);
-			ijk_plugin_load_symbol(plugin_out, ijkPluginCallback_unload, ijkPluginCallback_default_p);
-			ijk_plugin_load_symbol(plugin_out, ijkPluginCallback_unload_hot, ijkPluginCallback_default_p);
+			ijk_plugin_load_symbol(plugin_out, ijkPluginCallback_unload, ijkPluginCallback_default_pip2);
+			ijk_plugin_load_symbol(plugin_out, ijkPluginCallback_unload_hot, ijkPluginCallback_default_pip2);
 			ijk_plugin_load_symbol(plugin_out, ijkPluginCallback_winActivate, ijkPluginCallback_default_p);
 			ijk_plugin_load_symbol(plugin_out, ijkPluginCallback_winDeactivate, ijkPluginCallback_default_p);
 			ijk_plugin_load_symbol(plugin_out, ijkPluginCallback_display, ijkPluginCallback_default_p);
@@ -285,6 +285,7 @@ iret ijkPluginUnload(ijkPlugin* const plugin)
 		{
 			// reset
 			ijkPluginInternalSetCallbackDefaults(plugin);
+			plugin->handle = 0;
 			return ijk_success;
 		}
 		return ijk_fail_operationfail;
