@@ -105,14 +105,14 @@ iret ijkWindowInternalBuild(ijkWindow* const window, ibool const rebuild)
 			byte bat[256] = { 0 };
 			byte dir[256] = { 0 };
 			byte cmd[1024] = { 0 };
-			i16 i = -1;
-			i16 const pdbrmAttempts = 127;
-
 			kptag const statusText[2] = { "failed", "succeeded" };
 			kptag const proj = ("ijk-plugin");
 			kptag const cfg = (ijk_tokenstr(__ijk_cfg_buildcfg) "|x" ijk_tokenstr(__ijk_cfg_archbits));
 			kptag const sw = (rebuild ? "Rebuild" : "Build");
 			kptag const log = ("ijk-build.txt");
+
+			i16 i = -1;
+			i16 const pdbrmAttempts = 127;
 
 			// utility path
 			sprintf(bat, "%s\\utility\\windows\\dev\\ijk-build", platform->dir_sdk);
@@ -136,6 +136,7 @@ iret ijkWindowInternalBuild(ijkWindow* const window, ibool const rebuild)
 			printf("\n----------------------------------------------------------------\n");
 			printf("ijk Player: Debug info removal complete.");
 			printf("\n----------------------------------------------------------------\n");
+			printf("\n----------------------------------------------------------------\n");
 			printf("ijk Player: Hotbuild [%s] -> [%s]...", sw, platform->tag_cfg);
 			printf("\n----------------------------------------------------------------\n");
 			printf("  Building, please wait... \n");
@@ -146,7 +147,7 @@ iret ijkWindowInternalBuild(ijkWindow* const window, ibool const rebuild)
 			printf("\n----------------------------------------------------------------\n");
 
 			// post copy message to window
-			PostMessageA(window->windowData, ijkWinCtrlMsg_copy, (WPARAM)status, 0);
+			PostMessageA(window->windowData, ijkWinCtrlMsg_copy, 0, (LPARAM)status);
 		}
 		platformData->buildState = 0;
 		status = (status ? ijk_success : ijk_fail_operationfail);
@@ -190,8 +191,31 @@ iret ijkWindowInternalCreateBuildWarning(ijkWindow* const window)
 
 iret ijkWindowInternalCopyBuild(ijkWindow* const window)
 {
+	iret status = ijk_success;
+	ijkWindowPlatform_win* const platform = (ijkWindowPlatform_win*)window->winPlat;
 
-	return ijk_success;
+	byte bat[256] = { 0 };
+	byte cmd[1024] = { 0 };
+	kptag const proj = ("ijk-plugin");
+
+	// utility path
+	sprintf(bat, "%s\\utility\\windows\\dev\\ijk-copy-build", platform->dir_sdk);
+
+	// call batch: call BATCH LIBPATH BINPATH FILE FILE DATAPATH
+	//	assemble: bat cfg cfg proj proj proj cfg
+	sprintf(cmd, "call \"%s\" \".\\lib%s\\\" \".\\bin%s\\%s\\\" \"%s.dll\" \"%s.dll\" \".\\bin%s\\data\\\" ", bat, platform->tag_cfg, platform->tag_cfg, proj, proj, proj, platform->tag_cfg);
+
+	// call copy utility
+	printf("\n----------------------------------------------------------------\n");
+	printf("ijk Player: Deferred plugin copy attempt...");
+	printf("\n----------------------------------------------------------------\n");
+	status = ijk_issuccess(system(cmd));
+	printf("\n----------------------------------------------------------------\n");
+	printf("ijk Player: Plugin copy complete.");
+	printf("\n----------------------------------------------------------------\n");
+
+	// done
+	return status;
 }
 
 
@@ -546,14 +570,6 @@ void ijkWindowInternalToggleFullscreen(ijkWindow* const window)
 }
 
 
-void ijkWindowInternalMove(ijkWindow* const window)
-{
-	RECT displayArea;
-	GetClientRect(window->windowData, &displayArea);
-	MoveWindow(window->windowData, displayArea.left, displayArea.top, (displayArea.right - displayArea.left), (displayArea.bottom - displayArea.top), TRUE);
-}
-
-
 //-----------------------------------------------------------------------------
 
 // ijkWindowInternalEventProcess
@@ -887,25 +903,29 @@ LRESULT CALLBACK ijkWindowInternalEventProcess(HWND hWnd, UINT message, WPARAM w
 
 		// window control events
 	case ijkWinCtrlMsg_load: {
-		// load plugin
+		// hard-load plugin; unload first
 		ijkPluginInfo const* info = (ijkPluginInfo*)lParam;
 		i32 const pluginID = (i32)wParam;
+		window->plugin->ijkPluginCallback_willUnload(window->plugin->data);
+		ijk_issuccess(ijkPluginUnload(window->plugin, ijk_true));
+
+		// hide and load
+		ShowWindow(hWnd, SW_MINIMIZE);
 		if (ijk_issuccess(ijkPluginLoad(window->plugin, info, pluginID)))
 		{
 			// copy info
 			*window->pluginInfo = *info;
 
-			// bump window
-			ijkWindowInternalMove(window);
+			// flash window
+			ShowWindow(hWnd, SW_RESTORE);
 		}
 	}	break;
 	case ijkWinCtrlMsg_reload: {
 		// reload plugin
+		ijkPluginInfo const* info = (ijkPluginInfo*)lParam;
 		window->plugin->ijkPluginCallback_willReload(window->plugin->data);
-		if (ijk_issuccess(ijkPluginReload(window->plugin, 0)))
+		if (ijk_issuccess(ijkPluginReload(window->plugin, info, ijk_false)))
 		{
-			// bump window
-			ijkWindowInternalMove(window);
 		}
 	}	break;
 	case ijkWinCtrlMsg_unload: {
@@ -917,14 +937,14 @@ LRESULT CALLBACK ijkWindowInternalEventProcess(HWND hWnd, UINT message, WPARAM w
 			// reset info
 			memset(window->pluginInfo, 0, szb(window->pluginInfo));
 
-			// bump window
-			ijkWindowInternalMove(window);
+			// reset plugin
+			ijkPluginReset(window->plugin);
 		}
 	}	break;
 	case ijkWinCtrlMsg_debug: {
 		// unload current
 		i32 const currentID = window->plugin->id;
-		if (window->plugin->id >= 0)
+		if (currentID >= 0)
 			SendMessageA(hWnd, ijkWinCtrlMsg_unload, wParam, 0);
 
 		// load debug (default)
@@ -940,9 +960,26 @@ LRESULT CALLBACK ijkWindowInternalEventProcess(HWND hWnd, UINT message, WPARAM w
 	}	break;
 	case ijkWinCtrlMsg_copy: {
 		// perform reload and copy dylib
-		ibool const success = (ibool)wParam;
+		ibool const success = (ibool)lParam;
 		if (success)
+		{
+			i32 const currentID = window->plugin->id;
+			ibool const currentDbg = (currentID == -2);
+
+			// if reloading debug plugin, send reload notice first
+			if (currentDbg)
+				window->plugin->ijkPluginCallback_willReload(window->plugin->data);
+
+			// always unload, safe if not debug
+			window->plugin->ijkPluginCallback_willUnload(window->plugin->data);
+			ijkPluginUnload(window->plugin, (currentID >= 0));
+
+			// copy build
 			ijkWindowInternalCopyBuild(window);
+
+			// load debug plugin
+			ijkWindowLoadDefaultPlugin(window, 0, 0, currentDbg);
+		}
 	}	break;
 	case ijkWinCtrlMsg_cmd: {
 		// capture and send command

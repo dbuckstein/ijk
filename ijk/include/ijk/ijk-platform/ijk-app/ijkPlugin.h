@@ -192,16 +192,19 @@ iret ijkPluginLoad(ijkPlugin* const plugin_out, ijkPluginInfo const* const plugi
 //		param pluginInfo_opt: optional pointer to plugin info descriptor
 //			note: if non-null, new plugin info is used to perform reload, 
 //			behaving as an unload first then loading the new plugin
+//		param safe: flag to delete plugin data on unload if any exists
+//			note: set true to avoid memory leak, otherwise caller is 
+//			responsible for managing plugin data some other way
 //		return SUCCESS: ijk_success if unloaded plugin
 //		return FAILURE: ijk_fail_operationfail if plugin not reloaded
 //		return FAILURE: ijk_fail_invalidparams if invalid parameters
-iret ijkPluginReload(ijkPlugin* const plugin, ijkPluginInfo const* const pluginInfo_opt);
+iret ijkPluginReload(ijkPlugin* const plugin, ijkPluginInfo const* const pluginInfo_opt, ibool const safe);
 
 // ijkPluginUnload
 //	Unload plugin library.
 //		param plugin: pointer to plugin descriptor
 //			valid: non-null, initialized
-//		param safe: flag to delete plugin data if any is set
+//		param safe: flag to delete plugin data if any exists
 //			note: set true to avoid memory leak, otherwise caller is 
 //			responsible for managing plugin data some other way
 //		return SUCCESS: ijk_success if unloaded plugin

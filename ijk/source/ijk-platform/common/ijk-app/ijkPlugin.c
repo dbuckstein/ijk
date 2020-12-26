@@ -125,6 +125,64 @@ void ijkPluginInternalSetCallbacks(ijkPlugin* const plugin)
 }
 
 
+// ijkPluginLoad
+//	Internal plugin load routine.
+iret ijkPluginInternalLoad(ijkPlugin* const plugin_out, ijkPluginInfo const* const pluginInfo, i32 const pluginID, ibool const reload)
+{
+	// set path
+	byte path[64] = "./ijk-plugin/";
+	strcat(strcat(path, pluginInfo->dylib), IJK_DYLIB_EXT);
+	if (ijk_issuccess(ijkDylibLoad((IJK_DYLIB_HANDLE*)(&plugin_out->handle), path)))
+	{
+		ijkPluginCallback_pip2 cb = 0;
+
+		// get callbacks from library
+		ijkPluginInternalSetCallbacks(plugin_out);
+
+		// set ID, set and invoke callback
+		plugin_out->id = pluginID;
+		if (reload)
+			cb = (pluginID >= 0 ? plugin_out->ijkPluginCallback_reload : plugin_out->ijkPluginCallback_reload_hot);
+		else
+			cb = (pluginID >= 0 ? plugin_out->ijkPluginCallback_load : plugin_out->ijkPluginCallback_load_hot);
+		cb(plugin_out->data, plugin_out->id, (ptr*)(&plugin_out->data));
+
+		// done
+		return ijk_success;
+	}
+	return ijk_fail_operationfail;
+}
+
+
+// ijkPluginUnload
+//	Internal plugin unload routine.
+iret ijkPluginInternalUnload(ijkPlugin* const plugin, ibool const safe)
+{
+	// unload callback
+	ijkPluginCallback_pip2 cb = 0;
+	cb = (plugin->id >= 0 ? plugin->ijkPluginCallback_unload : plugin->ijkPluginCallback_unload_hot);
+	cb(plugin->data, plugin->id, (ptr*)(&plugin->data));
+	if (safe && plugin->data)
+	{
+		free(plugin->data);
+		plugin->data = 0;
+		plugin->id = ijk_fail_invalidparams;
+	}
+
+	// reset callbacks
+	ijkPluginInternalResetCallbacks(plugin);
+
+	// do unload
+	if (ijk_issuccess(ijkDylibUnload((IJK_DYLIB_HANDLE)(plugin->handle))))
+	{
+		// reset
+		plugin->handle = 0;
+		return ijk_success;
+	}
+	return ijk_fail_operationfail;
+}
+
+
 //-----------------------------------------------------------------------------
 
 iret ijkPluginInfoSet(ijkPluginInfo* const pluginInfo_out, tag const name, tag const dylib, tag const author, tag const version, byte const info[128])
@@ -280,57 +338,27 @@ iret ijkPluginReset(ijkPlugin* const plugin_out)
 iret ijkPluginLoad(ijkPlugin* const plugin_out, ijkPluginInfo const* const pluginInfo, i32 const pluginID)
 {
 	if (plugin_out && !plugin_out->handle && pluginID != ijk_fail_invalidparams)
-	{
-		// set path
-		byte path[64] = "./ijk-plugin/";
-		strcat(strcat(path, pluginInfo->dylib), IJK_DYLIB_EXT);
-		if (ijk_issuccess(ijkDylibLoad((IJK_DYLIB_HANDLE*)(&plugin_out->handle), path)))
-		{
-			ijkPluginCallback_pip2 cb = 0;
-
-			// get callbacks from library
-			ijkPluginInternalSetCallbacks(plugin_out);
-
-			// set ID and call load
-			plugin_out->id = pluginID;
-			cb = (pluginID >= 0 ? plugin_out->ijkPluginCallback_load : plugin_out->ijkPluginCallback_load_hot);
-			cb(plugin_out->data, plugin_out->id, (ptr*)(&plugin_out->data));
-
-			// done
-			return ijk_success;
-		}
-		return ijk_fail_operationfail;
-	}
+		return ijkPluginInternalLoad(plugin_out, pluginInfo, pluginID, ijk_false);
 	return ijk_fail_invalidparams;
 }
 
 
-iret ijkPluginReload(ijkPlugin* const plugin, ijkPluginInfo const* const pluginInfo_opt)
+iret ijkPluginReload(ijkPlugin* const plugin, ijkPluginInfo const* const pluginInfo_opt, ibool const safe)
 {
-	if (plugin && plugin->handle)
+	if (plugin)
 	{
-		ijkPluginCallback_pip2 cb = 0;
 		if (pluginInfo_opt)
 		{
-			cb = (plugin->id >= 0 ? plugin->ijkPluginCallback_unload : plugin->ijkPluginCallback_unload_hot);
-			cb(plugin->data, plugin->id, (ptr*)(&plugin->data));
-			if (ijk_issuccess(ijkDylibUnload((IJK_DYLIB_HANDLE)(plugin->handle))))
-			{
-				byte path[64] = "./ijk-plugin/";
-				strcat(strcat(path, pluginInfo_opt->dylib), IJK_DYLIB_EXT);
-
-				plugin->handle = 0;
-				if (ijk_issuccess(ijkDylibLoad((IJK_DYLIB_HANDLE*)(&plugin->handle), path)))
-				{
-					ijkPluginInternalSetCallbacks(plugin);
-					cb = (plugin->id >= 0 ? plugin->ijkPluginCallback_reload : plugin->ijkPluginCallback_reload_hot);
-					cb(plugin->data, plugin->id, (ptr*)(&plugin->data));
-					return ijk_success;
-				}
-			}
+			// unload and then load
+			i32 const pluginID = plugin->id;
+			if (plugin->handle)
+				ijkPluginInternalUnload(plugin, safe);
+			return ijkPluginInternalLoad(plugin, pluginInfo_opt, pluginID, ijk_true);
 		}
-		else
+		else if (plugin->handle)
 		{
+			// immediate reload
+			ijkPluginCallback_pip2 cb = 0;
 			cb = (plugin->id >= 0 ? plugin->ijkPluginCallback_reload : plugin->ijkPluginCallback_reload_hot);
 			cb(plugin->data, plugin->id, (ptr*)(&plugin->data));
 			return ijk_success;
@@ -344,27 +372,7 @@ iret ijkPluginReload(ijkPlugin* const plugin, ijkPluginInfo const* const pluginI
 iret ijkPluginUnload(ijkPlugin* const plugin, ibool const safe)
 {
 	if (plugin && plugin->handle)
-	{
-		// unload callback
-		ijkPluginCallback_pip2 const cb = (plugin->id >= 0 ? plugin->ijkPluginCallback_unload : plugin->ijkPluginCallback_unload_hot);
-		cb(plugin->data, plugin->id, (ptr*)(&plugin->data));
-		if (safe && plugin->data)
-		{
-			free(plugin->data);
-			plugin->data = 0;
-			plugin->id = ijk_fail_invalidparams;
-		}
-		ijkPluginInternalResetCallbacks(plugin);
-
-		// do unload
-		if (ijk_issuccess(ijkDylibUnload((IJK_DYLIB_HANDLE)(plugin->handle))))
-		{
-			// reset
-			plugin->handle = 0;
-			return ijk_success;
-		}
-		return ijk_fail_operationfail;
-	}
+		return ijkPluginInternalUnload(plugin, safe);
 	return ijk_fail_invalidparams;
 }
 
