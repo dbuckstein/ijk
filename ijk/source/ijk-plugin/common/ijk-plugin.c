@@ -94,6 +94,13 @@ iret ijkPluginCallback_load(ijkPluginData* data, i32 f, ijkPluginData** data_out
 
 iret ijkPluginCallback_load_hot(ijkPluginData* data, i32 f, ijkPluginData** data_out)
 {
+	if (!*data_out)
+	{
+		*data_out = (ijkPluginData*)malloc(szb(ijkPluginData));
+		**data_out = f;
+	}
+
+	printf("\n ijkPluginCallback_load_hot(data=%p, f=%d, *data_out=%p)", data, f, *data_out);
 
 	return ijk_success;
 }
@@ -118,6 +125,18 @@ iret ijkPluginCallback_reload(ijkPluginData* data, i32 f, ijkPluginData** data_o
 
 iret ijkPluginCallback_reload_hot(ijkPluginData* data, i32 f, ijkPluginData** data_out)
 {
+	if (*data_out)
+	{
+		free(*data_out);
+		*data_out = 0;
+	}
+	if (!*data_out)
+	{
+		*data_out = (ijkPluginData*)malloc(szb(ijkPluginData));
+		**data_out = f;
+	}
+
+	printf("\n ijkPluginCallback_reload_hot(data=%p, f=%d, *data_out=%p)", data, f, *data_out);
 
 	return ijk_success;
 }
@@ -137,6 +156,13 @@ iret ijkPluginCallback_unload(ijkPluginData* data, i32 f, ijkPluginData** data_o
 
 iret ijkPluginCallback_unload_hot(ijkPluginData* data, i32 f, ijkPluginData** data_out)
 {
+	if (*data_out)
+	{
+		free(*data_out);
+		*data_out = 0;
+	}
+
+	printf("\n ijkPluginCallback_unload_hot(data=%p, f=%d, *data_out=%p)", data, f, *data_out);
 
 	return ijk_success;
 }
@@ -283,36 +309,42 @@ iret ijkPluginCallback_mouseLeave(ijkPluginData* data, i32 x, i32 y)
 
 iret ijkPluginCallback_willReload(ijkPluginData* data)
 {
+	printf("\n ijkPluginCallback_willReload(data=%p)", data);
 
 	return ijk_success;
 }
 
 iret ijkPluginCallback_willUnload(ijkPluginData* data)
 {
+	printf("\n ijkPluginCallback_willUnload(data=%p)", data);
 
 	return ijk_success;
 }
 
 iret ijkPluginCallback_user1(ijkPluginData* data)
 {
+	printf("\n ijkPluginCallback_user1(data=%p)", data);
 
 	return ijk_success;
 }
 
 iret ijkPluginCallback_user2(ijkPluginData* data)
 {
+	printf("\n ijkPluginCallback_user2(data=%p)", data);
 
 	return ijk_success;
 }
 
 iret ijkPluginCallback_user3(ijkPluginData* data)
 {
+	printf("\n ijkPluginCallback_user3(data=%p)", data);
 
 	return ijk_success;
 }
 
 iret ijkPluginCallback_user4c(ijkPluginData* data, i32 const argc, byte const* const argv[])
 {
+	printf("\n ijkPluginCallback_user4c(data=%p, argc=%d, *argv=%s)", data, argc, *argv);
 
 	return ijk_success;
 }

@@ -216,14 +216,20 @@ iret ijkWindowLoop(ijkWindow* const window);
 
 // ijkWindowLoadDefaultPlugin
 //	Interface to load default plugin into target window; any loaded plugin is 
-//	cleaned up when the window is closed, which is why  there is no matching 
+//	cleaned up when the window is closed, which is why there is no matching 
 //	public unload interface.
 //		param window: pointer to target window
 //			valid: non-null, initialized
+//		param author: short name of author/creator of plugin
+//			note: if invalid c-string, uses default
+//		param version: short description of plugin parameters/details
+//			note: if invalid c-string, uses default
+//		param reload: flag describing whether demo should reload (true) or be 
+//			treated as a new load (false)
 //		return SUCCESS: ijk_success if plugin loaded
 //		return FAILURE: ijk_fail_operationfail if plugin not loaded
 //		return FAILURE: ijk_fail_invalidparams if invalid parameters
-iret ijkWindowLoadDefaultPlugin(ijkWindow* const window);
+iret ijkWindowLoadDefaultPlugin(ijkWindow* const window, tag const author, tag const version, ibool const reload);
 
 
 //-----------------------------------------------------------------------------

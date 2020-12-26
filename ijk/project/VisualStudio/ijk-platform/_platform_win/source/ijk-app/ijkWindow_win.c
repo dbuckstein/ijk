@@ -67,8 +67,8 @@ typedef struct ijkPlatformData_win_tag
 {
 	TRACKMOUSEEVENT mouseTracker[1];	// Mouse tracker inside and outside window.
 	RECT originalWindowArea[1];			// Window area for toggling full-screen.
-	byte keyboardState[128];			// Keyboard tracker for character keys.
-	ibool mouseState;					// Mouse tracker for hovering.
+	BOOL mouseState;					// Mouse tracker for hovering.
+	BOOL buildState;					// Build tracker for hot-build.
 	HDC deviceContext;					// Window device context.
 } ijkPlatformData_win;
 
@@ -92,6 +92,56 @@ enum ijkWindowControlMessage
 // ijkWindowInternalUnlockPDB
 //	Release PDB.
 iret ijkWindowInternalUnlockPDB(kptag const sdkDirStr, kptag const cfgDirStr, kptag const projName);
+
+iret ijkWindowInternalBuild(ijkWindow* const window, ibool const rebuild)
+{
+	ijkPlatformData_win* const platform = (ijkPlatformData_win*)window->platformData;
+	if (!platform->buildState)
+	{
+		platform->buildState = 1;
+
+		// ****TO-DO
+		// build
+
+		platform->buildState = 0;
+		return ijk_success;
+	}
+	return ijk_fail_operationfail;
+}
+
+iret ijkWindowInternalBuildThread(ijkWindow* const window)
+{
+	return ijkWindowInternalBuild(window, ijk_false);
+}
+
+iret ijkWindowInternalRebuildThread(ijkWindow* const window)
+{
+	return ijkWindowInternalBuild(window, ijk_true);
+}
+
+iret ijkWindowInternalCreateBuildWarning(ijkWindow* const window)
+{
+	ijkPlatformData_win* const platform = (ijkPlatformData_win*)window->platformData;
+	if (platform->buildState)
+	{
+		ibool const hideCursor = (window->winCtrl & ijkWinCtrl_hideCursor);
+
+		// reveal cursor
+		if (hideCursor)
+			ShowCursor(TRUE);
+
+		// warning
+		MessageBoxA(window->windowData, "Please wait for build operation to finish.", "ijk Player Application: Building", (MB_OK | MB_ICONEXCLAMATION | MB_SETFOREGROUND));
+
+		// reveal cursor
+		if (hideCursor)
+			ShowCursor(TRUE);
+
+		// done
+		return ijk_failure;
+	}
+	return ijk_success;
+}
 
 
 //-----------------------------------------------------------------------------
@@ -276,12 +326,12 @@ LRESULT CALLBACK ijkWindowInternalEventProcessList(HWND hDlg, UINT message, WPAR
 				case ijkWinCtrl_esc_cmd: {
 					//	send command string
 					i32 const i = GetWindowTextLengthA(dlg->box), j = (i + 1);
-					if (i >= 0)
+					if (i > 0)
 					{
 						ptag buf = (ptag)malloc((size)j);
 						buf[i] = 0;
 						GetWindowTextA(dlg->box, buf, j);
-						SendMessageA(hWnd, ijkWinCtrlMsg_cmd, 0, (LPARAM)buf);
+						SendMessageA(hWnd, ijkWinCtrlMsg_cmd, (WPARAM)i, (LPARAM)buf);
 						free(buf);
 					}
 				}	break;
@@ -451,9 +501,6 @@ void ijkWindowInternalToggleFullscreen(ijkWindow* const window)
 //	Internal processor for window events.
 LRESULT CALLBACK ijkWindowInternalEventProcess(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
-	// prototype for setting default callbacks
-	void ijkPluginInternalSetCallbackDefaults(ijkPlugin* const plugin);
-
 	// get user data
 	ijkWindow* window = (ijkWindow*)GetWindowLongPtrA(hWnd, GWLP_USERDATA);
 	ijkPlatformData_win* platformData;
@@ -495,15 +542,9 @@ LRESULT CALLBACK ijkWindowInternalEventProcess(HWND hWnd, UINT message, WPARAM w
 			// ****TO-DO
 
 		}
-		// set up non-rendering
-		else
-		{
-			// ****TO-DO
 
-		}
-
-		// reset callbacks
-		ijkPluginInternalSetCallbackDefaults(window->plugin);
+		// reset plugin and callbacks
+		ijkPluginReset(window->plugin);
 	}	break;
 		// window closed
 	case WM_CLOSE: {
@@ -541,9 +582,7 @@ LRESULT CALLBACK ijkWindowInternalEventProcess(HWND hWnd, UINT message, WPARAM w
 		// check if all windows are closed
 		--info->appWinCt;
 		if (info->appWinCt <= 0)
-		{
 			PostQuitMessage(ijk_success);
-		}
 	}	break;
 	case WM_PAINT: {
 		PAINTSTRUCT paint[1];
@@ -578,27 +617,33 @@ LRESULT CALLBACK ijkWindowInternalEventProcess(HWND hWnd, UINT message, WPARAM w
 				break;
 			case 1: // F2: load plugin dialog
 				if (window->winCtrl & ijkWinCtrl_F2_load)
-					ijkWindowInternalCreateDialog(window, ijkWinCtrl_F2_load);
+					if (ijk_issuccess(ijkWindowInternalCreateBuildWarning(window)))
+						ijkWindowInternalCreateDialog(window, ijkWinCtrl_F2_load);
 				break;
 			case 2: // F3: reload plugin
 				if (window->winCtrl & ijkWinCtrl_F3_reload)
-					SendMessageA(window->windowData, ijkWinCtrlMsg_reload, 0, 0);
+					if (ijk_issuccess(ijkWindowInternalCreateBuildWarning(window)))
+						SendMessageA(window->windowData, ijkWinCtrlMsg_reload, 0, 0);
 				break;
 			case 3: // F4: unload plugin
 				if (window->winCtrl & ijkWinCtrl_F4_unload)
-					SendMessageA(window->windowData, ijkWinCtrlMsg_unload, 0, 0);
+					if (ijk_issuccess(ijkWindowInternalCreateBuildWarning(window)))
+						SendMessageA(window->windowData, ijkWinCtrlMsg_unload, 0, 0);
 				break;
 			case 4: // F5: debug plugin
 				if (window->winCtrl & ijkWinCtrl_F5_debug)
-					SendMessageA(window->windowData, ijkWinCtrlMsg_debug, 0, 0);
+					if (ijk_issuccess(ijkWindowInternalCreateBuildWarning(window)))
+						SendMessageA(window->windowData, ijkWinCtrlMsg_debug, 0, 0);
 				break;
 			case 5: // F6: hot-build plugin
 				if (window->winCtrl & ijkWinCtrl_F6_build)
-					SendMessageA(window->windowData, ijkWinCtrlMsg_build, 0, 0);
+					if (ijk_issuccess(ijkWindowInternalCreateBuildWarning(window)))
+						SendMessageA(window->windowData, ijkWinCtrlMsg_build, 0, 0);
 				break;
 			case 6: // F7: hot-rebuild plugin
 				if (window->winCtrl & ijkWinCtrl_F7_rebuild)
-					SendMessageA(window->windowData, ijkWinCtrlMsg_rebuild, 0, 0);
+					if (ijk_issuccess(ijkWindowInternalCreateBuildWarning(window)))
+						SendMessageA(window->windowData, ijkWinCtrlMsg_rebuild, 0, 0);
 				break;
 			case 7: // F8: toggle full-screen
 				if (window->winCtrl & ijkWinCtrl_F8_fullscr)
@@ -639,7 +684,7 @@ LRESULT CALLBACK ijkWindowInternalEventProcess(HWND hWnd, UINT message, WPARAM w
 				ijkWindowInternalLockCursor(window);
 			if (window->winRender)
 			{
-				// ****TO-DO: 
+				// ****TO-DO
 				// enable context
 			}
 			window->plugin->ijkPluginCallback_winActivate(window->plugin->data);
@@ -648,7 +693,7 @@ LRESULT CALLBACK ijkWindowInternalEventProcess(HWND hWnd, UINT message, WPARAM w
 			window->plugin->ijkPluginCallback_winDeactivate(window->plugin->data);
 			if (!(window->winCtrl & ijkWinCtrl_drawInactive) && window->winRender)
 			{
-				// ****TO-DO: 
+				// ****TO-DO
 				// disable context
 			}
 			if (window->winCtrl & ijkWinCtrl_lockCursor)
@@ -690,20 +735,13 @@ LRESULT CALLBACK ijkWindowInternalEventProcess(HWND hWnd, UINT message, WPARAM w
 		ijkPluginCallback_pi const cb = (HIWORD(lParam) & KF_REPEAT) ? window->plugin->ijkPluginCallback_keyHoldAscii : window->plugin->ijkPluginCallback_keyPressAscii;
 		i32 const key_a = (i32)LOWORD(wParam);
 		cb(window->plugin->data, key_a);
-
-		platformData = (ijkPlatformData_win*)window->platformData;
-		platformData->keyboardState[(i8)key_a] = ijk_true;
 	}	break;
 		// release for keyPress, need to figure out if character is released
 	case WM_KEYUP: {
 		i32 const key = (i32)wParam, key_map = MapVirtualKeyA(key, MAPVK_VK_TO_CHAR), key_a = (i32)LOWORD(key_map);
 		window->plugin->ijkPluginCallback_keyReleaseVirt(window->plugin->data, key);
-		if (key_map)
-		{
+		if (key_a)
 			window->plugin->ijkPluginCallback_keyReleaseAscii(window->plugin->data, key_a);
-			platformData = (ijkPlatformData_win*)window->platformData;
-			platformData->keyboardState[(i8)key_a] = ijk_false;
-		}
 	}	break;
 
 		// left mouse pressed
@@ -802,7 +840,10 @@ LRESULT CALLBACK ijkWindowInternalEventProcess(HWND hWnd, UINT message, WPARAM w
 	case ijkWinCtrlMsg_reload: {
 		// reload plugin
 		window->plugin->ijkPluginCallback_willReload(window->plugin->data);
-		window->plugin->ijkPluginCallback_reload(window->plugin->data, window->plugin->id, (ptr*)(&window->plugin->data));
+		if (ijk_issuccess(ijkPluginReload(window->plugin, 0)))
+		{
+			// done
+		}
 	}	break;
 	case ijkWinCtrlMsg_unload: {
 		// unload plugin
@@ -817,20 +858,23 @@ LRESULT CALLBACK ijkWindowInternalEventProcess(HWND hWnd, UINT message, WPARAM w
 		}
 	}	break;
 	case ijkWinCtrlMsg_debug: {
-
+		// unload current
+		if (window->plugin->id >= 0)
+			SendMessageA(hWnd, ijkWinCtrlMsg_unload, 0, 0);
+		// load debug (default)
+		ijkWindowLoadDefaultPlugin(window, 0, 0, (window->plugin->id == -2));
 	}	break;
 	case ijkWinCtrlMsg_build: {
-
+		CreateThread(0, 0, ijkWindowInternalBuildThread, window, 0, 0);
 	}	break;
 	case ijkWinCtrlMsg_rebuild: {
-		
+		CreateThread(0, 0, ijkWindowInternalRebuildThread, window, 0, 0);
 	}	break;
 	case ijkWinCtrlMsg_cmd: {
-		kpbyte cmd = (pbyte)lParam;
-		if (cmd)
-		{
+		kpbyte const cmd = (pbyte)lParam;
+		i32 const len = (i32)wParam;
+		if (cmd && len)
 			window->plugin->ijkPluginCallback_user4c(window->plugin->data, 1, (ptr*)(&cmd));
-		}
 	}	break;
 
 	default:
@@ -988,7 +1032,6 @@ iret ijkWindowCreate(ijkWindow* const window_out, ijkWindowInfo const* const win
 		window_out->winPlat = plat;
 		window_out->winRender = render;
 		window_out->winCtrl = windowCtrl;
-		window_out->plugin->id = -2;
 
 		// attempt to make a window
 		// window's handle is set through window process callback
@@ -1122,11 +1165,19 @@ iret ijkWindowLoop(ijkWindow* const window)
 }
 
 
-iret ijkWindowLoadDefaultPlugin(ijkWindow* const window)
+iret ijkWindowLoadDefaultPlugin(ijkWindow* const window, tag const author, tag const version, ibool const reload)
 {
 	if (window && window->windowData)
 	{
-
+		i32 const i = -2;
+		ui32 const msg = (reload ? ijkWinCtrlMsg_reload : ijkWinCtrlMsg_load);
+		ijkPluginInfo info[1] = { 0 };
+		if (ijk_issuccess(ijkPluginInfoSetDefault(info, author, version)))
+		{
+			SendMessageA(window->windowData, msg, (WPARAM)i, (LPARAM)info);
+			return ijk_success;
+		}
+		return ijk_fail_operationfail;
 	}
 	return ijk_fail_invalidparams;
 }

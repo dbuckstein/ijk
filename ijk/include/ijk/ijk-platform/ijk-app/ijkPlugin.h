@@ -166,23 +166,46 @@ iret ijkPluginInfoListLoad(ijkPluginInfo** const pluginInfoList_out, size* const
 //		return FAILURE: ijk_fail_invalidparams if invalid parameters
 iret ijkPluginInfoListRelease(ijkPluginInfo** const pluginInfoList);
 
+// ijkPluginReset
+//	Reset plugin and callbacks.
+//		param plugin_out: pointer to plugin descriptor
+//			valid: non-null, uninitialized
+//		return SUCCESS: ijk_success if loaded plugin
+//		return FAILURE: ijk_fail_invalidparams if invalid parameters
+iret ijkPluginReset(ijkPlugin* const plugin_out);
+
 // ijkPluginLoad
+//	Load plugin library and retrieve callbacks.
 //		param plugin_out: pointer to plugin descriptor
 //			valid: non-null, uninitialized
 //		param pluginInfo: pointer to plugin info descriptor
 //			valid: non-null
 //		param pluginID: identifier for plugin
 //		return SUCCESS: ijk_success if loaded plugin
+//		return FAILURE: ijk_fail_operationfail if plugin not loaded
 //		return FAILURE: ijk_fail_invalidparams if invalid parameters
 iret ijkPluginLoad(ijkPlugin* const plugin_out, ijkPluginInfo const* const pluginInfo, i32 const pluginID);
 
+// ijkPluginReload
+//		param plugin: pointer to plugin descriptor
+//			valid: non-null, initialized
+//		param pluginInfo_opt: optional pointer to plugin info descriptor
+//			note: if non-null, new plugin info is used to perform reload, 
+//			behaving as an unload first then loading the new plugin
+//		return SUCCESS: ijk_success if unloaded plugin
+//		return FAILURE: ijk_fail_operationfail if plugin not reloaded
+//		return FAILURE: ijk_fail_invalidparams if invalid parameters
+iret ijkPluginReload(ijkPlugin* const plugin, ijkPluginInfo const* const pluginInfo_opt);
+
 // ijkPluginUnload
+//	Unload plugin library.
 //		param plugin: pointer to plugin descriptor
 //			valid: non-null, initialized
 //		param safe: flag to delete plugin data if any is set
 //			note: set true to avoid memory leak, otherwise caller is 
 //			responsible for managing plugin data some other way
 //		return SUCCESS: ijk_success if unloaded plugin
+//		return FAILURE: ijk_fail_operationfail if plugin not unloaded
 //		return FAILURE: ijk_fail_invalidparams if invalid parameters
 iret ijkPluginUnload(ijkPlugin* const plugin, ibool const safe);
 
