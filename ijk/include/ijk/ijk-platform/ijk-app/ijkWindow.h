@@ -190,10 +190,11 @@ iret ijkWindowInfoRelease(ijkWindowInfo* const windowInfo);
 //		param windowSize_x: horizontal size of window on display in pixels
 //		param windowSize_y: vertical size of window on display in pixels
 //		param windowCtrl: control/feature flags for window
+//		param fullScreen: flag to create full-screen window
 //		return SUCCESS: ijk_success if window initialized
 //		return FAILURE: ijk_fail_operationfail if window not initialized
 //		return FAILURE: ijk_fail_invalidparams if invalid parameters
-iret ijkWindowCreate(ijkWindow* const window_out, ijkWindowInfo const* const windowInfo, ijkWindowPlatform const* const platformInfo, ijkRendererInfo const* const rendererInfo_opt, tag const windowName, ui16 const windowPos_x, ui16 const windowPos_y, ui16 const windowSize_x, ui16 const windowSize_y, ijkWindowControl const windowCtrl);
+iret ijkWindowCreate(ijkWindow* const window_out, ijkWindowInfo const* const windowInfo, ijkWindowPlatform const* const platformInfo, ijkRendererInfo const* const rendererInfo_opt, tag const windowName, ui16 const windowPos_x, ui16 const windowPos_y, ui16 const windowSize_x, ui16 const windowSize_y, ijkWindowControl const windowCtrl, ibool const fullScreen);
 
 // ijkWindowRelease
 //	Close and release window.

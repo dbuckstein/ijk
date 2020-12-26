@@ -43,11 +43,11 @@
 
 // Default callbacks.
 ///
-iret ijkPluginCallback_default_p(ptr p) { return ijk_fail_invalidparams; }								// Default window callback with pointer parameter.
-iret ijkPluginCallback_default_pi(ptr p, i32 i) { return ijk_fail_invalidparams; }						// Default window callback with pointer and integer parameters.
-iret ijkPluginCallback_default_pii(ptr p, i32 i0, i32 i1) { return ijk_fail_invalidparams; }			// Default window callback with pointer and two integer parameters.
-iret ijkPluginCallback_default_piii(ptr p, i32 i0, i32 i1, i32 i2) { return ijk_fail_invalidparams; }	// Default window callback with pointer and three integer parameters.
-iret ijkPluginCallback_default_pip2(ptr p, i32 i, ptr* p_out) { return ijk_fail_invalidparams; }		// Default window callback with pointer and pointer-to-pointer parameters.
+iret ijkPluginCallback_default_p(ptr p) { return ijk_success; }								// Default window callback with pointer parameter.
+iret ijkPluginCallback_default_pi(ptr p, i32 i) { return ijk_success; }						// Default window callback with pointer and integer parameters.
+iret ijkPluginCallback_default_pii(ptr p, i32 i0, i32 i1) { return ijk_success; }			// Default window callback with pointer and two integer parameters.
+iret ijkPluginCallback_default_piii(ptr p, i32 i0, i32 i1, i32 i2) { return ijk_success; }	// Default window callback with pointer and three integer parameters.
+iret ijkPluginCallback_default_pip2(ptr p, i32 i, ptr* p_out) { return ijk_success; }		// Default window callback with pointer and pointer-to-pointer parameters.
 
 
 //-----------------------------------------------------------------------------
@@ -224,7 +224,7 @@ iret ijkPluginInfoListRelease(ijkPluginInfo** const pluginInfoList)
 }
 
 
-iret ijkPluginLoad(ijkPlugin* const plugin_out, ijkPluginInfo const* const pluginInfo)
+iret ijkPluginLoad(ijkPlugin* const plugin_out, ijkPluginInfo const* const pluginInfo, i32 const pluginID)
 {
 	if (plugin_out && !plugin_out->handle)
 	{
@@ -267,6 +267,10 @@ iret ijkPluginLoad(ijkPlugin* const plugin_out, ijkPluginInfo const* const plugi
 			ijk_plugin_load_symbol(plugin_out, ijkPluginCallback_user3, ijkPluginCallback_default_p);
 			ijk_plugin_load_symbol(plugin_out, ijkPluginCallback_user4c, ijkPluginCallback_default_pip2);
 
+			// set ID and call load
+			plugin_out->id = pluginID;
+			plugin_out->ijkPluginCallback_load(plugin_out->data, plugin_out->id, (ptr*)(&plugin_out->data));
+
 			// done
 			return ijk_success;
 		}
@@ -276,16 +280,25 @@ iret ijkPluginLoad(ijkPlugin* const plugin_out, ijkPluginInfo const* const plugi
 }
 
 
-iret ijkPluginUnload(ijkPlugin* const plugin)
+iret ijkPluginUnload(ijkPlugin* const plugin, ibool const safe)
 {
 	if (plugin && plugin->handle)
 	{
-		// unload
+		// unload callback
+		plugin->ijkPluginCallback_unload(plugin->data, plugin->id, (ptr*)(&plugin->data));
+
+		// do unload
 		if (ijk_issuccess(ijkDylibUnload((IJK_DYLIB_HANDLE)(plugin->handle))))
 		{
 			// reset
 			ijkPluginInternalSetCallbackDefaults(plugin);
 			plugin->handle = 0;
+			if (safe && plugin->data)
+			{
+				free(plugin->data);
+				plugin->data = 0;
+				plugin->id = -1;
+			}
 			return ijk_success;
 		}
 		return ijk_fail_operationfail;

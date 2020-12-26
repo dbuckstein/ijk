@@ -70,12 +70,14 @@ struct ijkPluginInfo
 //	Plugin descriptor.
 //		member handle: handle to dylib
 //		member data: user data defined in plugin
+//		member id: plugin identifier
 //		member ijkPluginCallback: array of plugin callbacks from dylib
 //		members ijkPluginCallback*: specific plugin callbacks from dylib
 struct ijkPlugin
 {
 	ptr handle;
 	ptr data;
+	i32 id;
 	union {
 		ptr ijkPluginCallback[32];
 		struct {
@@ -169,16 +171,20 @@ iret ijkPluginInfoListRelease(ijkPluginInfo** const pluginInfoList);
 //			valid: non-null, uninitialized
 //		param pluginInfo: pointer to plugin info descriptor
 //			valid: non-null
+//		param pluginID: identifier for plugin
 //		return SUCCESS: ijk_success if loaded plugin
 //		return FAILURE: ijk_fail_invalidparams if invalid parameters
-iret ijkPluginLoad(ijkPlugin* const plugin_out, ijkPluginInfo const* const pluginInfo);
+iret ijkPluginLoad(ijkPlugin* const plugin_out, ijkPluginInfo const* const pluginInfo, i32 const pluginID);
 
 // ijkPluginUnload
 //		param plugin: pointer to plugin descriptor
 //			valid: non-null, initialized
+//		param safe: flag to delete plugin data if any is set
+//			note: set true to avoid memory leak, otherwise caller is 
+//			responsible for managing plugin data some other way
 //		return SUCCESS: ijk_success if unloaded plugin
 //		return FAILURE: ijk_fail_invalidparams if invalid parameters
-iret ijkPluginUnload(ijkPlugin* const plugin);
+iret ijkPluginUnload(ijkPlugin* const plugin, ibool const safe);
 
 
 //-----------------------------------------------------------------------------

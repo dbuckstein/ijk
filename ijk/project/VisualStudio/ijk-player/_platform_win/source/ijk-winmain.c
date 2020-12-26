@@ -69,7 +69,7 @@ iret __stdcall wWinMain(
 	status = ijkConsoleCreateMain(console);
 	status = ijkWindowPlatformCreate(platformInfo, hInstance, ijk_envstr_vsdevenv, ijk_envstr_slnpath, ijk_envstr_sdkdir, ijk_envstr_cfgdir, resource);
 	status = ijkWindowInfoCreateDefault(windowInfo, platformInfo, infoName);
-	status = ijkWindowCreate(window, windowInfo, platformInfo, renderInfo, appName, pos_x, pos_y, sz_x, sz_y, winCtrl);
+	status = ijkWindowCreate(window, windowInfo, platformInfo, renderInfo, appName, pos_x, pos_y, sz_x, sz_y, winCtrl, ijk_false);
 	status = ijkWindowLoop(window);
 	status = ijkWindowRelease(window);
 	status = ijkWindowInfoRelease(windowInfo);

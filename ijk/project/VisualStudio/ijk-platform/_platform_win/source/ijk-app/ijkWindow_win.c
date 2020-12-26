@@ -66,15 +66,11 @@ typedef struct ijkWindowPlatform_win_tag
 typedef struct ijkPlatformData_win_tag
 {
 	TRACKMOUSEEVENT mouseTracker[1];	// Mouse tracker inside and outside window.
+	RECT originalWindowArea[1];			// Window area for toggling full-screen.
 	byte keyboardState[128];			// Keyboard tracker for character keys.
 	ibool mouseState;					// Mouse tracker for hovering.
 	HDC deviceContext;					// Window device context.
 } ijkPlatformData_win;
-
-
-// Relative path to plugin info resource.
-#define IJK_PLUGIN_INFO_PATH "../../../../resource/ijk-player/_util/ijk-plugin-info.txt"
-
 
 // ijkWindowControlMessage
 //	Message identifiers for handling window controls.
@@ -84,6 +80,7 @@ enum ijkWindowControlMessage
 	ijkWinCtrlMsg_load,
 	ijkWinCtrlMsg_reload,
 	ijkWinCtrlMsg_unload,
+	ijkWinCtrlMsg_debug,
 	ijkWinCtrlMsg_build,
 	ijkWinCtrlMsg_rebuild,
 	ijkWinCtrlMsg_cmd,
@@ -127,6 +124,9 @@ LRESULT CALLBACK ijkWindowInternalEventProcessList(HWND hDlg, UINT message, WPAR
 		switch (winCtrl)
 		{
 		case ijkWinCtrl_F2_load: {
+			// relative path to plugin info resource
+			kptag const IJK_PLUGIN_INFO_PATH = "../../../../resource/ijk-player/_util/ijk-plugin-info.txt";
+
 			// load plugin data
 			if (ijk_issuccess(ijkPluginInfoListLoad(&pluginInfo, &pluginInfoCount, IJK_PLUGIN_INFO_PATH)) && pluginInfoCount)
 			{
@@ -266,7 +266,7 @@ LRESULT CALLBACK ijkWindowInternalEventProcessList(HWND hDlg, UINT message, WPAR
 						i = (i32)SendMessageA(dlg->box, LB_GETITEMDATA, i, 0);
 						info = dlg->pluginInfo + i;
 						SendMessageA(hWnd, ijkWinCtrlMsg_unload, 0, 0);
-						SendMessageA(hWnd, ijkWinCtrlMsg_load, 0, (LPARAM)info);
+						SendMessageA(hWnd, ijkWinCtrlMsg_load, (WPARAM)i, (LPARAM)info);
 					}
 					else
 					{
@@ -306,6 +306,8 @@ LRESULT CALLBACK ijkWindowInternalEventProcessList(HWND hDlg, UINT message, WPAR
 
 void ijkWindowInternalCreateInfo(ijkWindow* const window)
 {
+	ibool const hideCursor = (window->winCtrl & ijkWinCtrl_hideCursor);
+
 	byte buffer[1024] = { 0 }, * bufferPtr = buffer;
 	byte const* const info[] = {
 		"ijk Player Application: About",
@@ -346,8 +348,16 @@ void ijkWindowInternalCreateInfo(ijkWindow* const window)
 	else
 		bufferPtr += sprintf(bufferPtr, "No plugin initialized.\n\n");
 
+	// reveal cursor
+	if (hideCursor)
+		ShowCursor(TRUE);
+
 	// present message box
 	MessageBoxA(window->windowData, buffer, *info, (MB_OK | MB_ICONINFORMATION | MB_SETFOREGROUND));
+
+	// hide cursor
+	if (hideCursor)
+		ShowCursor(FALSE);
 }
 
 
@@ -357,9 +367,19 @@ void ijkWindowInternalCreateDialog(ijkWindow* const window, ijkWindowControl con
 
 	ijkWindowPlatform_win* info = (ijkWindowPlatform_win*)window->winPlat;
 	i8 const dialogID = (i8)ijkWindowPlatformInternalUnpackDialogID(info->appRes);
+	ibool const hideCursor = (window->winCtrl & ijkWinCtrl_hideCursor);
 	LPCSTR const dialogRes = MAKEINTRESOURCEA(dialogID);
 
+	// reveal cursor
+	if (hideCursor)
+		ShowCursor(TRUE);
+
+	// present dialog box
 	DialogBoxParamA(info->appInst, dialogRes, window->windowData, ijkWindowInternalEventProcessList, (LPARAM)purpose);
+
+	// hide cursor
+	if (hideCursor)
+		ShowCursor(FALSE);
 }
 
 
@@ -392,64 +412,36 @@ void ijkWindowInternalLockCursor(ijkWindow* const window)
 }
 
 
-//-----------------------------------------------------------------------------
-
-void ijkWindowInternalProcessF1(ijkWindow* const window)
+void ijkWindowInternalToggleFullscreen(ijkWindow* const window)
 {
-	// open info window
-	ijkWindowInternalCreateInfo(window);
-}
+	RECT displayArea = { 0 };
+	HWND hWnd = window->windowData;
+	dword style = (dword)GetWindowLongPtrA(hWnd, GWL_STYLE), styleEx = (dword)GetWindowLongPtrA(hWnd, GWL_EXSTYLE);
 
-void ijkWindowInternalProcessF2(ijkWindow* const window)
-{
-	// open dialog box for loading
-	ijkWindowInternalCreateDialog(window, ijkWinCtrl_F2_load);
-}
+	// full-screen if original display area is not all zeros
+	ijkPlatformData_win* const info = (ijkPlatformData_win*)window->platformData;
+	if (info->originalWindowArea->left | info->originalWindowArea->top | info->originalWindowArea->right | info->originalWindowArea->bottom)
+	{
+		// full-screen to windowed
+		styleEx |= WS_EX_WINDOWEDGE;
+		style |= WS_OVERLAPPEDWINDOW;
+		displayArea = *info->originalWindowArea;
+		memset(info->originalWindowArea, 0, szb(info->originalWindowArea));
+	}
+	else
+	{
+		// windowed to full-screen
+		styleEx &= ~WS_EX_WINDOWEDGE;
+		style &= ~WS_OVERLAPPEDWINDOW;
+		GetClientRect(hWnd, info->originalWindowArea);
+		GetWindowRect(GetDesktopWindow(), &displayArea);
+	}
 
-void ijkWindowInternalProcessF3(ijkWindow* const window)
-{
-	// reload plugin
-	SendMessageA(window->windowData, ijkWinCtrlMsg_reload, 0, 0);
-}
-
-void ijkWindowInternalProcessF4(ijkWindow* const window)
-{
-	// unload plugin
-	SendMessageA(window->windowData, ijkWinCtrlMsg_unload, 0, 0);
-}
-
-void ijkWindowInternalProcessF5(ijkWindow* const window)
-{
-	// ****TO-DO
-	// debug plugin
-
-}
-
-void ijkWindowInternalProcessF6(ijkWindow* const window)
-{
-	// ****TO-DO
-	// hot-build-and-load plugin
-
-}
-
-void ijkWindowInternalProcessF7(ijkWindow* const window)
-{
-	// ****TO-DO
-	// hot-rebuild-and-load plugin
-
-}
-
-void ijkWindowInternalProcessF8(ijkWindow* const window)
-{
-	// ****TO-DO
-	// toggle full-screen
-
-}
-
-void ijkWindowInternalProcessEsc(ijkWindow* const window)
-{
-	// open dialog for command
-	ijkWindowInternalCreateDialog(window, ijkWinCtrl_esc_cmd);
+	// perform resize
+	SetWindowLongPtrA(hWnd, GWL_EXSTYLE, styleEx);
+	SetWindowLongPtrA(hWnd, GWL_STYLE, style);
+	AdjustWindowRectEx(&displayArea, style, ijk_false, styleEx);
+	MoveWindow(hWnd, 0, 0, (displayArea.right - displayArea.left), (displayArea.bottom - displayArea.top), TRUE);
 }
 
 
@@ -522,8 +514,7 @@ LRESULT CALLBACK ijkWindowInternalEventProcess(HWND hWnd, UINT message, WPARAM w
 	case WM_DESTROY: {
 		// unload plugin
 		window->plugin->ijkPluginCallback_willUnload(window->plugin->data);
-		window->plugin->ijkPluginCallback_unload(window->plugin->data, 1, (ptr*)(&window->plugin->data));
-		ijkPluginUnload(window->plugin);
+		ijkPluginUnload(window->plugin, ijk_true);
 
 		// clean up rendering
 		if (window->winRender)
@@ -555,14 +546,12 @@ LRESULT CALLBACK ijkWindowInternalEventProcess(HWND hWnd, UINT message, WPARAM w
 		}
 	}	break;
 	case WM_PAINT: {
-		if (ijk_isfailure(window->plugin->ijkPluginCallback_display(window->plugin->data)))
-		{
-			PAINTSTRUCT paint[1];
-			RECT updateRect[1];
-			GetUpdateRect(hWnd, updateRect, 0);
-			FillRect(BeginPaint(hWnd, paint), updateRect, (HBRUSH)(COLOR_WINDOW));
-			EndPaint(hWnd, paint);
-		}
+		PAINTSTRUCT paint[1];
+		RECT updateRect[1];
+		GetUpdateRect(hWnd, updateRect, 0);
+		FillRect(BeginPaint(hWnd, paint), updateRect, (HBRUSH)(COLOR_WINDOW));
+		EndPaint(hWnd, paint);
+		window->plugin->ijkPluginCallback_display(window->plugin->data);
 	}	break;
 	//case WM_ERASEBKGND: {
 	//	// return non-zero if processed invalidated portion of background
@@ -585,35 +574,35 @@ LRESULT CALLBACK ijkWindowInternalEventProcess(HWND hWnd, UINT message, WPARAM w
 			{
 			case 0: // F1: info dialog
 				if (window->winCtrl & ijkWinCtrl_F1_info)
-					ijkWindowInternalProcessF1(window);
+					ijkWindowInternalCreateInfo(window);
 				break;
-			case 1: // F2: load plugin
+			case 1: // F2: load plugin dialog
 				if (window->winCtrl & ijkWinCtrl_F2_load)
-					ijkWindowInternalProcessF2(window);
+					ijkWindowInternalCreateDialog(window, ijkWinCtrl_F2_load);
 				break;
 			case 2: // F3: reload plugin
 				if (window->winCtrl & ijkWinCtrl_F3_reload)
-					ijkWindowInternalProcessF3(window);
+					SendMessageA(window->windowData, ijkWinCtrlMsg_reload, 0, 0);
 				break;
 			case 3: // F4: unload plugin
 				if (window->winCtrl & ijkWinCtrl_F4_unload)
-					ijkWindowInternalProcessF4(window);
+					SendMessageA(window->windowData, ijkWinCtrlMsg_unload, 0, 0);
 				break;
 			case 4: // F5: debug plugin
 				if (window->winCtrl & ijkWinCtrl_F5_debug)
-					ijkWindowInternalProcessF5(window);
+					SendMessageA(window->windowData, ijkWinCtrlMsg_debug, 0, 0);
 				break;
 			case 5: // F6: hot-build plugin
 				if (window->winCtrl & ijkWinCtrl_F6_build)
-					ijkWindowInternalProcessF6(window);
+					SendMessageA(window->windowData, ijkWinCtrlMsg_build, 0, 0);
 				break;
 			case 6: // F7: hot-rebuild plugin
 				if (window->winCtrl & ijkWinCtrl_F7_rebuild)
-					ijkWindowInternalProcessF7(window);
+					SendMessageA(window->windowData, ijkWinCtrlMsg_rebuild, 0, 0);
 				break;
 			case 7: // F8: toggle full-screen
 				if (window->winCtrl & ijkWinCtrl_F8_fullscr)
-					ijkWindowInternalProcessF8(window);
+					ijkWindowInternalToggleFullscreen(window);
 				break;
 			case 8: // F9: user 1
 				if (window->winCtrl & ijkWinCtrl_F9_user1)
@@ -631,9 +620,9 @@ LRESULT CALLBACK ijkWindowInternalEventProcess(HWND hWnd, UINT message, WPARAM w
 				if (window->winCtrl & ijkWinCtrl_F12_user4c)
 					window->plugin->ijkPluginCallback_user4c(window->plugin->data, 0, 0);
 				break;
-			case 12: // ESC: command
+			case 12: // ESC: command dialog
 				if (window->winCtrl & ijkWinCtrl_esc_cmd)
-					ijkWindowInternalProcessEsc(window);
+					ijkWindowInternalCreateDialog(window, ijkWinCtrl_esc_cmd);
 				break;
 			}
 		}
@@ -646,9 +635,11 @@ LRESULT CALLBACK ijkWindowInternalEventProcess(HWND hWnd, UINT message, WPARAM w
 		{
 		case WA_ACTIVE:
 		case WA_CLICKACTIVE:
+			if (window->winCtrl & ijkWinCtrl_lockCursor)
+				ijkWindowInternalLockCursor(window);
 			if (window->winRender)
 			{
-				// ****TO-DO
+				// ****TO-DO: 
 				// enable context
 			}
 			window->plugin->ijkPluginCallback_winActivate(window->plugin->data);
@@ -657,8 +648,11 @@ LRESULT CALLBACK ijkWindowInternalEventProcess(HWND hWnd, UINT message, WPARAM w
 			window->plugin->ijkPluginCallback_winDeactivate(window->plugin->data);
 			if (!(window->winCtrl & ijkWinCtrl_drawInactive) && window->winRender)
 			{
+				// ****TO-DO: 
 				// disable context
 			}
+			if (window->winCtrl & ijkWinCtrl_lockCursor)
+				ijkWindowInternalLockCursor(0);
 			break;
 		}
 	}	break;
@@ -798,22 +792,22 @@ LRESULT CALLBACK ijkWindowInternalEventProcess(HWND hWnd, UINT message, WPARAM w
 	case ijkWinCtrlMsg_load: {
 		// load plugin
 		ijkPluginInfo const* info = (ijkPluginInfo*)lParam;
-		if (ijk_issuccess(ijkPluginLoad(window->plugin, info)))
+		i32 const pluginID = (i32)wParam;
+		if (ijk_issuccess(ijkPluginLoad(window->plugin, info, pluginID)))
 		{
-			window->plugin->ijkPluginCallback_load(window->plugin->data, 1, (ptr*)(&window->plugin->data));
+			// copy info
 			*window->pluginInfo = *info;
 		}
 	}	break;
 	case ijkWinCtrlMsg_reload: {
 		// reload plugin
 		window->plugin->ijkPluginCallback_willReload(window->plugin->data);
-		window->plugin->ijkPluginCallback_reload(window->plugin->data, 1, (ptr*)(&window->plugin->data));
+		window->plugin->ijkPluginCallback_reload(window->plugin->data, window->plugin->id, (ptr*)(&window->plugin->data));
 	}	break;
 	case ijkWinCtrlMsg_unload: {
 		// unload plugin
 		window->plugin->ijkPluginCallback_willUnload(window->plugin->data);
-		window->plugin->ijkPluginCallback_unload(window->plugin->data, 1, (ptr*)(&window->plugin->data));
-		if (ijk_issuccess(ijkPluginUnload(window->plugin)))
+		if (ijk_issuccess(ijkPluginUnload(window->plugin, ijk_true)))
 		{
 			// repaint
 			RECT rect;
@@ -821,6 +815,9 @@ LRESULT CALLBACK ijkWindowInternalEventProcess(HWND hWnd, UINT message, WPARAM w
 			InvalidateRect(window->windowData, &rect, TRUE);
 			UpdateWindow(window->windowData);
 		}
+	}	break;
+	case ijkWinCtrlMsg_debug: {
+
 	}	break;
 	case ijkWinCtrlMsg_build: {
 
@@ -956,73 +953,61 @@ iret ijkWindowInfoRelease(ijkWindowInfo* const windowInfo)
 }
 
 
-iret ijkWindowCreate(ijkWindow* const window_out, ijkWindowInfo const* const windowInfo, ijkWindowPlatform const* const platformInfo, ijkRendererInfo const* const rendererInfo_opt, tag const windowName, ui16 const windowPos_x, ui16 const windowPos_y, ui16 const windowSize_x, ui16 const windowSize_y, ijkWindowControl const windowCtrl)
+iret ijkWindowCreate(ijkWindow* const window_out, ijkWindowInfo const* const windowInfo, ijkWindowPlatform const* const platformInfo, ijkRendererInfo const* const rendererInfo_opt, tag const windowName, ui16 const windowPos_x, ui16 const windowPos_y, ui16 const windowSize_x, ui16 const windowSize_y, ijkWindowControl const windowCtrl, ibool const fullScreen)
 {
 	if (window_out && !window_out->windowData && windowInfo && *windowInfo && platformInfo && *platformInfo && windowName && *windowName)
 	{
 		ibool const hideCursor = ijk_flagch(windowCtrl, ijkWinCtrl_hideCursor);
 		ibool const lockCursor = ijk_flagch(windowCtrl, ijkWinCtrl_lockCursor);
-		ibool const fullScreen = ijk_false;
 		ibool const showWindow = SW_SHOW;
 		
-		HWND parent = 0;
 		HWND handle = 0;
 		RECT displayArea = { 0 };
-		dword style = (WS_CLIPCHILDREN | WS_CLIPSIBLINGS), styleEx = 0;
+		dword style = (WS_CLIPCHILDREN | WS_CLIPSIBLINGS | WS_VISIBLE | WS_POPUP), styleEx = (WS_EX_APPWINDOW);
 
 		ijkWindowInfo_win const* const info = *windowInfo;
 		ijkWindowPlatform_win* const plat = *platformInfo;
 		ijkRendererInfo* const render = (rendererInfo_opt ? *rendererInfo_opt : 0);
 
-		// set display area as child of another window
-		if (parent)
-		{
-			displayArea.left = (i16)windowPos_x;
-			displayArea.top = (i16)windowPos_y;
-			displayArea.right = displayArea.left + windowSize_x;
-			displayArea.bottom = displayArea.top + windowSize_y;
-			style |= WS_CHILD | WS_VISIBLE;
-		}
-		// set display area for full-screen
-		else if (fullScreen)
-		{
-			GetWindowRect(GetDesktopWindow(), &displayArea);
-			styleEx |= WS_EX_APPWINDOW;
-			style |= WS_POPUP;
-			AdjustWindowRectEx(&displayArea, style, ijk_false, styleEx);
-		}
+		// set full-screen area
+		//if (fullScreen)
+		//	GetWindowRect(GetDesktopWindow(), &displayArea);
+		
 		// set display area for windowed
-		else
+		//else
 		{
 			displayArea.left = (i16)windowPos_x;
 			displayArea.top = (i16)windowPos_y;
 			displayArea.right = displayArea.left + windowSize_x;
 			displayArea.bottom = displayArea.top + windowSize_y;
-			styleEx |= WS_EX_APPWINDOW | WS_EX_WINDOWEDGE;
+			styleEx |= WS_EX_WINDOWEDGE;
 			style |= WS_OVERLAPPEDWINDOW;
-			AdjustWindowRectEx(&displayArea, style, ijk_false, styleEx);
 		}
 
 		// set data
 		window_out->winPlat = plat;
 		window_out->winRender = render;
 		window_out->winCtrl = windowCtrl;
+		window_out->plugin->id = -2;
 
 		// attempt to make a window
-		// 'window_out->window' is set through window process callback
+		// window's handle is set through window process callback
+		AdjustWindowRectEx(&displayArea, style, ijk_false, styleEx);
 		handle = CreateWindowExA(
 			styleEx, info->lpszClassName, windowName, style,
-			0, 0, (displayArea.right - displayArea.left), (displayArea.bottom - displayArea.top),
-			parent, NULL, info->hInstance, window_out);
+			windowPos_x, windowPos_y, (displayArea.right - displayArea.left), (displayArea.bottom - displayArea.top),
+			NULL, NULL, info->hInstance, window_out);
 
 		// success
 		if (handle)
 		{
-			if (lockCursor)
-				ijkWindowInternalLockCursor(window_out);
 			ShowCursor(!hideCursor);
 			ShowWindow(handle, showWindow);
 			UpdateWindow(handle);
+			if (lockCursor)
+				ijkWindowInternalLockCursor(window_out);
+			if (fullScreen)
+				ijkWindowInternalToggleFullscreen(window_out);
 
 			// done
 			return ijk_success;
@@ -1114,16 +1099,13 @@ iret ijkWindowLoop(ijkWindow* const window)
 				// standalone window should close the window, which also unloads
 				else if (ijk_isfailure(result))
 				{
-					if (ijk_flagch(window->winCtrl, ijkWinCtrl_esc_cmd))
-					{
-						// standalone mode, kill window
-						//PostMessageA(handle, WM_CLOSE, 0, 0);
-					}
+					// send command
+					if (window->winCtrl & ijkWinCtrl_esc_cmd)
+						ijkWindowInternalCreateDialog(window, ijkWinCtrl_esc_cmd);
+
+					// auto-kill window
 					else
-					{
-						// exit demo
-						//PostMessageA(handle, ID_ACCEL_ESC, 0, 0);
-					}
+						PostMessageA(handle, WM_CLOSE, 0, 0);
 				}
 
 				// if result is zero, plugin idle succeeded, nothing happened
@@ -1149,72 +1131,6 @@ iret ijkWindowLoadDefaultPlugin(ijkWindow* const window)
 	return ijk_fail_invalidparams;
 }
 
-
-//-----------------------------------------------------------------------------
-/*
-// ijkWindowLoopThread
-//	Enter window event main loop on a separate thread.
-//		param thread_out: pointer to thread handle
-//			valid: non-null, points to null
-//		param threadName: name of thread
-//			valid: non-null, non-empty c-string
-//		param window: pointer to window descriptor
-//			valid: non-null, initialized
-//		return SUCCESS: ijk_success if main loop thread started successfully
-//		return FAILURE: ijk_fail_operationfail if loop thread not started
-//		return FAILURE: ijk_fail_invalidparams if invalid parameters
-iret ijkWindowLoopThread(ptr* const thread_out, tag const threadName, ijkWindow* const window);
-
-// ijkWindowLoopThreadStatus
-//	If window event loop is threaded, check status (thread return code).
-//		param thread: pointer to thread descriptor
-//			valid: non-null, initialized
-//		return SUCCESS: ijk_success if thread has exited
-//		return FAILURE: ijk_fail_operationfail if thread has not exited
-//		return FAILURE: ijk_fail_invalidparams if invalid parameters
-iret ijkWindowLoopThreadStatus(kptr* const thread);
-
-// ijkWindowLoopThreadKill
-//	Force-terminate event loop thread.
-//		param thread: pointer to thread descriptor
-//			valid: non-null, initialized
-//		return SUCCESS: ijk_success if thread terminated
-//		return FAILURE: ijk_fail_operationfail if thread not terminated
-//		return FAILURE: ijk_fail_invalidparams if invalid parameters
-iret ijkWindowLoopThreadKill(ptr* const thread);
-
-
-//-----------------------------------------------------------------------------
-
-iret ijkWindowLoopThread(ptr* const thread_out, tag const threadName, ijkWindow* const window)
-{
-	if (thread_out && !*thread_out && threadName && *threadName && window && window->windowData)
-	{
-
-	}
-	return ijk_fail_invalidparams;
-}
-
-
-iret ijkWindowLoopThreadStatus(kptr* const thread)
-{
-	if (thread && *thread)
-	{
-
-	}
-	return ijk_fail_invalidparams;
-}
-
-
-iret ijkWindowLoopThreadKill(ptr* const thread)
-{
-	if (thread && *thread)
-	{
-
-	}
-	return ijk_fail_invalidparams;
-}
-*/
 
 //-----------------------------------------------------------------------------
 
