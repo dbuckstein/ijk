@@ -84,8 +84,11 @@
 
 
 // Platform and configuration checks.
-#define ijk_platform_is(x)				(__ijk_cfg_platform == (x))
-#define ijk_platform_isn(x)				(__ijk_cfg_platform != (x))
+///
+#define ijk_platform_is(x)				(__ijk_cfg_platform == (x))			// Platform comparison.
+#define ijk_platform_isn(x)				(__ijk_cfg_platform != (x))			// Platform not comparison.
+#define ijk_buildcfg_is(x)				(__ijk_cfg_buildcfg == (x))			// Build configuration comparison.
+#define ijk_buildcfg_isn(x)				(__ijk_cfg_buildcfg != (x))			// Build configuration not comparison.
 
 
 // Simple global logical operations.

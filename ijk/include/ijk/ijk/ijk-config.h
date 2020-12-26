@@ -55,6 +55,15 @@
 #endif	// platform
 
 
+// set build configuration
+///
+#if (defined _DEBUG && !defined NDEBUG)
+#define __ijk_cfg_buildcfg				Debug
+#else
+#define __ijk_cfg_buildcfg				Release
+#endif	// config
+
+
 // global config macros
 ///
 #define __ijk_cfg_tokenstr(x)			#x

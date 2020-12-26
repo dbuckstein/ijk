@@ -10,7 +10,7 @@
 :: -requires Microsoft.Component.MSBuild for msbuild
 :: msbuild path: MSBuild\**\msbuild.exe
 set "vswhere=C:\Program Files (x86)\Microsoft Visual Studio\Installer\vswhere.exe"
-for /f "usebackq tokens=*" %%i in (`"%vswhere%" -latest -find Common7\IDE\**\devenv.exe`) do (
+for /f "usebackq tokens=*" %%i in (`"%vswhere%" -latest -find Common7\IDE\**\devenv.com`) do (
 	set "ijk_vsdevenv=%%i"
 )
 set "vswhere="

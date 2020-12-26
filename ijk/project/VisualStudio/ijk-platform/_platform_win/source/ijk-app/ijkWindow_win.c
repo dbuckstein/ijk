@@ -83,30 +83,75 @@ enum ijkWindowControlMessage
 	ijkWinCtrlMsg_debug,
 	ijkWinCtrlMsg_build,
 	ijkWinCtrlMsg_rebuild,
+	ijkWinCtrlMsg_copy,
 	ijkWinCtrlMsg_cmd,
 };
 
 
 //-----------------------------------------------------------------------------
 
-// ijkWindowInternalUnlockPDB
-//	Release PDB.
-iret ijkWindowInternalUnlockPDB(kptag const sdkDirStr, kptag const cfgDirStr, kptag const projName);
-
 iret ijkWindowInternalBuild(ijkWindow* const window, ibool const rebuild)
 {
-	ijkPlatformData_win* const platform = (ijkPlatformData_win*)window->platformData;
-	if (!platform->buildState)
+	iret ijkWindowInternalUnlockPDB(kptag const sdkDirStr, kptag const cfgDirStr, kptag const projName);
+
+	iret status = ijk_success;
+	ijkWindowPlatform_win* const platform = (ijkWindowPlatform_win*)window->winPlat;
+	ijkPlatformData_win* const platformData = (ijkPlatformData_win*)window->platformData;
+	if (!platformData->buildState)
 	{
-		platform->buildState = 1;
+		platformData->buildState = 1;
+		//if (platformData->buildState)
+		{
+			byte bat[256] = { 0 };
+			byte dir[256] = { 0 };
+			byte cmd[1024] = { 0 };
+			i16 i = -1;
+			i16 const pdbrmAttempts = 127;
 
-		// ****TO-DO
-		// build
+			kptag const statusText[2] = { "failed", "succeeded" };
+			kptag const proj = ("ijk-plugin");
+			kptag const cfg = (ijk_tokenstr(__ijk_cfg_buildcfg) "|x" ijk_tokenstr(__ijk_cfg_archbits));
+			kptag const sw = (rebuild ? "Rebuild" : "Build");
+			kptag const log = ("ijk-build.txt");
 
-		platform->buildState = 0;
-		return ijk_success;
+			// utility path
+			sprintf(bat, "%s\\utility\\windows\\dev\\ijk-build", platform->dir_sdk);
+
+			// project path
+			sprintf(dir, "%s\\project\\VisualStudio\\%s\\%s.vcxproj", platform->dir_sdk, proj, proj);
+
+			// call batch: call "BATCH" "DEVENV" "PROJ" "CFG" "LOG" "SWITCH" "STOPCOPY"
+			//		batch: call "DEVENV" "PROJ" /SWITCH(b/rb) "CFG(cfg|arch)" /Out "LOG"
+			sprintf(cmd, "call \"%s\" \"%s\" \"%s\" \"%s\" \"%s\" \"%s\" \"%s\" ", bat, platform->dir_build, dir, cfg, log, sw, "YES");
+
+			// build
+			printf("\n----------------------------------------------------------------\n");
+			printf("ijk Player: Debug info removal attempt...");
+			printf("\n----------------------------------------------------------------\n");
+			for (i = 0; i < pdbrmAttempts && !status; ++i)
+				status = ijkWindowInternalUnlockPDB(platform->dir_sdk, platform->tag_cfg, proj);
+			printf("  Attempt %s (%u/%u). \n", statusText[status], i, pdbrmAttempts);
+			if (status && ijkWindowInternalUnlockPDB(platform->dir_sdk, platform->tag_cfg, proj))
+				printf("  Debug info removal confirmed. \n");
+			printf("\n----------------------------------------------------------------\n");
+			printf("ijk Player: Debug info removal complete.");
+			printf("\n----------------------------------------------------------------\n");
+			printf("ijk Player: Hotbuild [%s] -> [%s]...", sw, platform->tag_cfg);
+			printf("\n----------------------------------------------------------------\n");
+			printf("  Building, please wait... \n");
+			status = ijk_issuccess(system(cmd));
+			printf("  Build %s. \n", statusText[status]);
+			printf("\n----------------------------------------------------------------\n");
+			printf("ijk Player: Hotbuild complete.");
+			printf("\n----------------------------------------------------------------\n");
+
+			// post copy message to window
+			PostMessageA(window->windowData, ijkWinCtrlMsg_copy, (WPARAM)status, 0);
+		}
+		platformData->buildState = 0;
+		status = (status ? ijk_success : ijk_fail_operationfail);
 	}
-	return ijk_fail_operationfail;
+	return status;
 }
 
 iret ijkWindowInternalBuildThread(ijkWindow* const window)
@@ -140,6 +185,12 @@ iret ijkWindowInternalCreateBuildWarning(ijkWindow* const window)
 		// done
 		return ijk_failure;
 	}
+	return ijk_success;
+}
+
+iret ijkWindowInternalCopyBuild(ijkWindow* const window)
+{
+
 	return ijk_success;
 }
 
@@ -315,7 +366,7 @@ LRESULT CALLBACK ijkWindowInternalEventProcessList(HWND hDlg, UINT message, WPAR
 					{
 						i = (i32)SendMessageA(dlg->box, LB_GETITEMDATA, i, 0);
 						info = dlg->pluginInfo + i;
-						SendMessageA(hWnd, ijkWinCtrlMsg_unload, 0, 0);
+						SendMessageA(hWnd, ijkWinCtrlMsg_unload, (WPARAM)ijk_true, 0);
 						SendMessageA(hWnd, ijkWinCtrlMsg_load, (WPARAM)i, (LPARAM)info);
 					}
 					else
@@ -495,6 +546,14 @@ void ijkWindowInternalToggleFullscreen(ijkWindow* const window)
 }
 
 
+void ijkWindowInternalMove(ijkWindow* const window)
+{
+	RECT displayArea;
+	GetClientRect(window->windowData, &displayArea);
+	MoveWindow(window->windowData, displayArea.left, displayArea.top, (displayArea.right - displayArea.left), (displayArea.bottom - displayArea.top), TRUE);
+}
+
+
 //-----------------------------------------------------------------------------
 
 // ijkWindowInternalEventProcess
@@ -628,12 +687,12 @@ LRESULT CALLBACK ijkWindowInternalEventProcess(HWND hWnd, UINT message, WPARAM w
 			case 3: // F4: unload plugin
 				if (window->winCtrl & ijkWinCtrl_F4_unload)
 					if (ijk_issuccess(ijkWindowInternalCreateBuildWarning(window)))
-						SendMessageA(window->windowData, ijkWinCtrlMsg_unload, 0, 0);
+						SendMessageA(window->windowData, ijkWinCtrlMsg_unload, (WPARAM)ijk_true, 0);
 				break;
 			case 4: // F5: debug plugin
 				if (window->winCtrl & ijkWinCtrl_F5_debug)
 					if (ijk_issuccess(ijkWindowInternalCreateBuildWarning(window)))
-						SendMessageA(window->windowData, ijkWinCtrlMsg_debug, 0, 0);
+						SendMessageA(window->windowData, ijkWinCtrlMsg_debug, (WPARAM)ijk_true, 0);
 				break;
 			case 5: // F6: hot-build plugin
 				if (window->winCtrl & ijkWinCtrl_F6_build)
@@ -835,6 +894,9 @@ LRESULT CALLBACK ijkWindowInternalEventProcess(HWND hWnd, UINT message, WPARAM w
 		{
 			// copy info
 			*window->pluginInfo = *info;
+
+			// bump window
+			ijkWindowInternalMove(window);
 		}
 	}	break;
 	case ijkWinCtrlMsg_reload: {
@@ -842,39 +904,61 @@ LRESULT CALLBACK ijkWindowInternalEventProcess(HWND hWnd, UINT message, WPARAM w
 		window->plugin->ijkPluginCallback_willReload(window->plugin->data);
 		if (ijk_issuccess(ijkPluginReload(window->plugin, 0)))
 		{
-			// done
+			// bump window
+			ijkWindowInternalMove(window);
 		}
 	}	break;
 	case ijkWinCtrlMsg_unload: {
 		// unload plugin
+		ibool const safe = (ibool)wParam;
 		window->plugin->ijkPluginCallback_willUnload(window->plugin->data);
-		if (ijk_issuccess(ijkPluginUnload(window->plugin, ijk_true)))
+		if (ijk_issuccess(ijkPluginUnload(window->plugin, safe)))
 		{
-			// repaint
-			RECT rect;
-			GetWindowRect(window->windowData, &rect);
-			InvalidateRect(window->windowData, &rect, TRUE);
-			UpdateWindow(window->windowData);
+			// reset info
+			memset(window->pluginInfo, 0, szb(window->pluginInfo));
+
+			// bump window
+			ijkWindowInternalMove(window);
 		}
 	}	break;
 	case ijkWinCtrlMsg_debug: {
 		// unload current
+		i32 const currentID = window->plugin->id;
 		if (window->plugin->id >= 0)
-			SendMessageA(hWnd, ijkWinCtrlMsg_unload, 0, 0);
+			SendMessageA(hWnd, ijkWinCtrlMsg_unload, wParam, 0);
+
 		// load debug (default)
-		ijkWindowLoadDefaultPlugin(window, 0, 0, (window->plugin->id == -2));
+		ijkWindowLoadDefaultPlugin(window, 0, 0, (currentID == -2));
 	}	break;
 	case ijkWinCtrlMsg_build: {
+		// launch build thread
 		CreateThread(0, 0, ijkWindowInternalBuildThread, window, 0, 0);
 	}	break;
 	case ijkWinCtrlMsg_rebuild: {
+		// launch rebuild thread
 		CreateThread(0, 0, ijkWindowInternalRebuildThread, window, 0, 0);
 	}	break;
+	case ijkWinCtrlMsg_copy: {
+		// perform reload and copy dylib
+		ibool const success = (ibool)wParam;
+		if (success)
+			ijkWindowInternalCopyBuild(window);
+	}	break;
 	case ijkWinCtrlMsg_cmd: {
+		// capture and send command
 		kpbyte const cmd = (pbyte)lParam;
 		i32 const len = (i32)wParam;
+		ibool fwd = ijk_false;
 		if (cmd && len)
-			window->plugin->ijkPluginCallback_user4c(window->plugin->data, 1, (ptr*)(&cmd));
+		{
+			// ****TO-DO
+			// process command locally first, sending only if not captured
+			fwd = ijk_true;
+
+			// forward command to plugin
+			if (fwd)
+				window->plugin->ijkPluginCallback_user4c(window->plugin->data, 1, (ptr*)(&cmd));
+		}
 	}	break;
 
 	default:
