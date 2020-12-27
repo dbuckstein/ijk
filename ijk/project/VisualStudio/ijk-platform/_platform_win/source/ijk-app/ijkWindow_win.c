@@ -444,22 +444,7 @@ void ijkWindowInternalCreateInfo(ijkWindow* const window)
 
 	// print renderer info
 	if (window->renderContext->info)
-	{
-		kptag const rendererName = "dummyName", rendererInfo = "dummyInfo";
-		bufferPtr += sprintf(bufferPtr,
-			"Current render context: %s \n %s\n\n",
-			rendererName, rendererInfo);
-
-		// ****TO-DO
-		//ijkRenderContextPrintInfo(window->renderContext, &bufferPtr);
-		/*
-		// e.g. for OpenGL:
-		kptag* const versionStr = glGetString(GL_VERSION);
-		kptag* const shadingStr = glGetString(GL_SHADING_LANGUAGE_VERSION);
-		kptag* const rendererStr = glGetString(GL_RENDERER);
-		kptag* const vendorStr = glGetString(GL_VENDOR);
-		*/
-	}
+		ijkRenderContextPrintInfo(window->renderContext, &bufferPtr);
 	else
 		bufferPtr += sprintf(bufferPtr, "No render context initialized.\n\n");
 
@@ -686,9 +671,8 @@ LRESULT CALLBACK ijkWindowInternalEventProcess(HWND hWnd, UINT message, WPARAM w
 	}	break;
 		// window finishing creation
 	case WM_CREATE: {
-		// ****TO-DO
 		// set up rendering
-		//ijkRenderContextCreate(window->renderContext, window->renderContext->renderer);
+		ijkRenderContextCreate(window->renderContext, window->renderContext->renderer);
 
 		// reset plugin and callbacks
 		ijkPluginReset(window->plugin);
@@ -704,9 +688,8 @@ LRESULT CALLBACK ijkWindowInternalEventProcess(HWND hWnd, UINT message, WPARAM w
 		window->plugin->ijkPluginCallback_willUnload(window->plugin->data);
 		ijkPluginUnload(window->plugin, ijk_true);
 
-		// ****TO-DO
 		// clean up rendering
-		//ijkRenderContextRelease(window->renderContext);
+		ijkRenderContextRelease(window->renderContext);
 
 		// clean up data
 		if (window->platformData)
@@ -816,28 +799,30 @@ LRESULT CALLBACK ijkWindowInternalEventProcess(HWND hWnd, UINT message, WPARAM w
 		switch (value)
 		{
 		case WA_ACTIVE:
-		case WA_CLICKACTIVE:
+		case WA_CLICKACTIVE: {
+			// cursor
 			if (window->winCtrl & ijkWinCtrl_lockCursor)
 				ijkWindowInternalLockCursor(window);
+
+			// enable context
 			if (window->renderContext->info)
-			{
-				// ****TO-DO
-				// enable context
-				//ijkRenderContextActivate(window->renderContext);
-			}
+				ijkRenderContextActivate(window->renderContext);
+
+			// callback
 			window->plugin->ijkPluginCallback_winActivate(window->plugin->data);
-			break;
-		case WA_INACTIVE:
+		}	break;
+		case WA_INACTIVE: {
+			// callback
 			window->plugin->ijkPluginCallback_winDeactivate(window->plugin->data);
+
+			// disable context
 			if (!(window->winCtrl & ijkWinCtrl_drawInactive) && window->renderContext->info)
-			{
-				// ****TO-DO
-				// disable context
-				//ijkRenderContextDeactivate(window->renderContext);
-			}
+				ijkRenderContextDeactivate(window->renderContext);
+
+			// cursor
 			if (window->winCtrl & ijkWinCtrl_lockCursor)
 				ijkWindowInternalLockCursor(0);
-			break;
+		}	break;
 		}
 	}	break;
 		// window moves

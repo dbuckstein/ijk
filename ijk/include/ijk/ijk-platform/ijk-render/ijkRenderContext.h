@@ -85,7 +85,7 @@ struct ijkRenderContext
 //		return FAILURE: ijk_fail_renderer_unsupported if renderer unsupported
 //		return FAILURE: ijk_fail_operationfail if renderer not initialized
 //		return FAILURE: ijk_fail_invalidparams if invalid parameters
-
+iret ijkRenderContextCreate(ijkRenderContext* const renderContext_out, ijkRenderer const renderer);
 
 // ijkRenderContextRelease
 //	Terminate and release render context.
@@ -94,7 +94,7 @@ struct ijkRenderContext
 //		return SUCCESS: ijk_success if renderer terminated
 //		return FAILURE: ijk_fail_operationfail if renderer not terminated
 //		return FAILURE: ijk_fail_invalidparams if invalid parameters
-
+iret ijkRenderContextRelease(ijkRenderContext* const renderContext);
 
 // ijkRenderContextActivate
 //	Activate render context.
@@ -103,7 +103,7 @@ struct ijkRenderContext
 //		return SUCCESS: ijk_success if renderer activated
 //		return FAILURE: ijk_fail_operationfail if renderer not activated
 //		return FAILURE: ijk_fail_invalidparams if invalid parameters
-
+iret ijkRenderContextActivate(ijkRenderContext const* const renderContext);
 
 // ijkRenderContextDeactivate
 //	Deactivate render context.
@@ -112,7 +112,7 @@ struct ijkRenderContext
 //		return SUCCESS: ijk_success if renderer deactivated
 //		return FAILURE: ijk_fail_operationfail if renderer not deactivated
 //		return FAILURE: ijk_fail_invalidparams if invalid parameters
-
+iret ijkRenderContextDeactivate(ijkRenderContext const* const renderContext);
 
 // ijkRenderContextLink
 //	Link render contexts, allowing them to share resources; must be done prior 
@@ -124,18 +124,19 @@ struct ijkRenderContext
 //		return SUCCESS: ijk_success if renderers linked
 //		return FAILURE: ijk_fail_operationfail if renderers not linked
 //		return FAILURE: ijk_fail_invalidparams if invalid parameters
-
+iret ijkRenderContextLink(ijkRenderContext const* const renderContext0, ijkRenderContext const* const renderContext1);
 
 // ijkRenderContextPrintInfo
-//	Link render contexts, allowing them to share resources; must be done prior 
-//	to any rendering tasks to allow either context to manage resources.
+//	Print info about render context to target buffer string.
 //		param renderContext: pointer to render context
 //			valid: non-null, initialized
 //		param bufferPtr: pointer to c-string to capture info
 //			valid: non-null, points to valid c-string
+//			note: upon success, c-string target will advance by info length
 //		return SUCCESS: ijk_success if info printed to buffer
 //		return FAILURE: ijk_fail_operationfail if info not printed
 //		return FAILURE: ijk_fail_invalidparams if invalid parameters
+iret ijkRenderContextPrintInfo(ijkRenderContext const* const renderContext, cstr* const bufferPtr);
 
 
 //-----------------------------------------------------------------------------
