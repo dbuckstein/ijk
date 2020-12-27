@@ -444,7 +444,11 @@ void ijkWindowInternalCreateInfo(ijkWindow* const window)
 
 	// print renderer info
 	if (window->renderContext->info)
+	{
+		bufferPtr += sprintf(bufferPtr, "Render context: ");
 		ijkRenderContextPrintInfo(window->renderContext, &bufferPtr);
+		bufferPtr += sprintf(bufferPtr, "\n");
+	}
 	else
 		bufferPtr += sprintf(bufferPtr, "No render context initialized.\n\n");
 
@@ -672,7 +676,9 @@ LRESULT CALLBACK ijkWindowInternalEventProcess(HWND hWnd, UINT message, WPARAM w
 		// window finishing creation
 	case WM_CREATE: {
 		// set up rendering
-		ijkRenderContextCreate(window->renderContext, window->renderContext->renderer);
+		ijkRenderer const renderer = window->renderContext->renderer;
+		window->renderContext->renderer = ijkRenderer_none;
+		ijkRenderContextCreate(window->renderContext, renderer);
 
 		// reset plugin and callbacks
 		ijkPluginReset(window->plugin);

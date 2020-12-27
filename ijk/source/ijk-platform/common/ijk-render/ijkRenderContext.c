@@ -30,42 +30,104 @@
 
 iret ijkRenderContextCreate(ijkRenderContext* const renderContext_out, ijkRenderer const renderer)
 {
+	// declare render context initializers
+	iret ijkRenderContextCreate_vk(ijkRenderContext* const renderContext_out, ijkRendererInfo* const info_out);
 
+	// validate
+	if (renderContext_out && !renderContext_out->info && renderer)
+	{
+		iret status = ijk_fail_renderer_unsupported;
+
+		// call correct function
+		switch (renderer)
+		{
+		case ijkRenderer_Vulkan:
+			status = ijkRenderContextCreate_vk(renderContext_out, &renderContext_out->info);
+			break;
+		case ijkRenderer_OpenGL:
+			break;
+		case ijkRenderer_DirectX:
+			break;
+		case ijkRenderer_Metal:
+			break;
+		}
+
+		// set
+		if (ijk_issuccess(status))
+		{
+			renderContext_out->renderer = renderer;
+		}
+		return status;
+	}
 	return ijk_fail_invalidparams;
 }
 
 
 iret ijkRenderContextRelease(ijkRenderContext* const renderContext)
 {
+	if (renderContext && renderContext->info)
+	{
 
+		return ijk_fail_operationfail;
+	}
 	return ijk_fail_invalidparams;
 }
 
 
 iret ijkRenderContextActivate(ijkRenderContext const* const renderContext)
 {
+	if (renderContext && renderContext->info)
+	{
 
+		return ijk_fail_operationfail;
+	}
 	return ijk_fail_invalidparams;
 }
 
 
 iret ijkRenderContextDeactivate(ijkRenderContext const* const renderContext)
 {
+	if (renderContext && renderContext->info)
+	{
 
+		return ijk_fail_operationfail;
+	}
 	return ijk_fail_invalidparams;
 }
 
 
 iret ijkRenderContextLink(ijkRenderContext const* const renderContext0, ijkRenderContext const* const renderContext1)
 {
+	if (renderContext0 && renderContext0->info && renderContext1 && renderContext1->info)
+	{
 
+		return ijk_fail_operationfail;
+	}
 	return ijk_fail_invalidparams;
 }
 
 
 iret ijkRenderContextPrintInfo(ijkRenderContext const* const renderContext, cstr* const bufferPtr)
 {
+	iret ijkRenderContextPrintInfo_vk(ijkRenderContext const* const renderContext, cstr* const bufferPtr);
+	iret ijkRenderContextPrintInfo_gl(ijkRenderContext const* const renderContext, cstr* const bufferPtr);
 
+	// validate
+	if (renderContext && renderContext->renderer && renderContext->info && bufferPtr && *bufferPtr)
+	{
+		switch (renderContext->renderer)
+		{
+		case ijkRenderer_Vulkan:
+			return ijkRenderContextPrintInfo_vk(renderContext, bufferPtr);
+		case ijkRenderer_OpenGL:
+			return ijkRenderContextPrintInfo_gl(renderContext, bufferPtr);
+		case ijkRenderer_DirectX:
+			break;
+		case ijkRenderer_Metal:
+			break;
+		}
+		return ijk_fail_operationfail;
+	}
 	return ijk_fail_invalidparams;
 }
 

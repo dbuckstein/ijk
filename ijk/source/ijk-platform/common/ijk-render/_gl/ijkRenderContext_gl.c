@@ -25,19 +25,21 @@
 
 #include "ijk/ijk-platform/ijk-render/ijkRenderContext.h"
 
+#include <stdio.h>
+
 
 //-----------------------------------------------------------------------------
 
-iret ijkRenderContextPrintInfo_gl(ijkRenderContext const* const renderContext)
+iret ijkRenderContextPrintInfo_gl(ijkRenderContext const* const renderContext, cstr* const bufferPtr)
 {
+	*bufferPtr += sprintf(*bufferPtr, "OpenGL \n");
 	/*
 	kptag* const versionStr = glGetString(GL_VERSION);
 	kptag* const shadingStr = glGetString(GL_SHADING_LANGUAGE_VERSION);
 	kptag* const rendererStr = glGetString(GL_RENDERER);
 	kptag* const vendorStr = glGetString(GL_VENDOR);
 	*/
-
-	return ijk_fail_invalidparams;
+	return ijk_success;
 }
 
 

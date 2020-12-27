@@ -96,6 +96,12 @@
     <ClCompile Include="_platform_win\source\ijk-render\_gl\ijkRenderContext_win_gl.c">
       <Filter>Source Files\_platform_win\ijk-render\_gl</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\source\ijk-platform\common\ijk-render\_vk\ijkRenderContext_vk.c">
+      <Filter>Source Files\common\ijk-render\_vk</Filter>
+    </ClCompile>
+    <ClCompile Include="_platform_win\source\ijk-render\_vk\ijkRenderContext_win_vk.c">
+      <Filter>Source Files\_platform_win\ijk-render\_vk</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\include\ijk\ijk-platform\ijk-platform.h">

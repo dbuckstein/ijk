@@ -19,17 +19,56 @@
 		c-based rendering framework
 	By Daniel S. Buckstein
 
-	ijkRenderContext_win_gl.c
-	OpenGL render context management source for Windows.
+	ijkRenderContext_win_vk.c
+	Vulkan render context management source for Windows.
 */
 
 #include "ijk/ijk-platform/ijk-render/ijkRenderContext.h"
 #if ijk_platform_is(WINDOWS)
 #include <Windows.h>
 
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
 
 //-----------------------------------------------------------------------------
 
+// ijkRendererInfo_win_vk
+//	Renderer info for Vulkan render context on Windows.
+typedef struct ijkRendererInfo_win_vk_tag
+{
+	ijkRenderContext const* rc;
+} ijkRendererInfo_win_vk;
+
+
+//-----------------------------------------------------------------------------
+
+iret ijkRenderContextCreateWINDOWS_vk(ijkRenderContext* const renderContext_out, ijkRendererInfo_win_vk** const info_out)
+{
+	if (info_out)
+	{
+		// allocate platform info
+		size const sz = szb(ijkRendererInfo_win_vk);
+		ijkRendererInfo_win_vk* info = (ijkRendererInfo_win_vk*)malloc(sz);
+		if (info)
+		{
+			// reset
+			memset(info, 0, sz);
+			info->rc = renderContext_out;
+			*info_out = info;
+
+			// ****TO-DO: 
+			//	-> set platform-specific renderer info
+
+
+			// done
+			return ijk_success;
+		}
+		return ijk_fail_operationfail;
+	}
+	return ijk_fail_invalidparams;
+}
 
 
 //-----------------------------------------------------------------------------

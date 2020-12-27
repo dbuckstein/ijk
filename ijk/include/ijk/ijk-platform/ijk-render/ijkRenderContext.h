@@ -43,6 +43,10 @@ typedef enum ijkRenderer		ijkRenderer;
 //	Renderer warning indicating that renderer type is not supported.
 #define ijk_fail_renderer_unsupported	ijk_failcode(0x4)
 
+// ijkRenderContextFunc
+//	Generate prototype for render context function.
+#define ijkRenderContextFunc(f)			ijk_tokencat(f, ijk_tokencat(__ijk_cfg_platform, _rc))
+
 
 //-----------------------------------------------------------------------------
 
@@ -56,8 +60,8 @@ typedef ptr ijkRendererInfo;
 enum ijkRenderer
 {
 	ijkRenderer_none,		// No renderer enabled.
-	ijkRenderer_OpenGL,		// OpenGL: cross-platform.
-	ijkRenderer_Vulkan,		// Vulkan: cross-platform, low-overhead.
+	ijkRenderer_Vulkan,		// Vulkan: cross-platform, low-overhead, powerful.
+	ijkRenderer_OpenGL,		// OpenGL: cross-platform, easy to learn.
 	ijkRenderer_DirectX,	// DirectX: Microsoft native.
 	ijkRenderer_Metal,		// Metal: Apple native.
 };
