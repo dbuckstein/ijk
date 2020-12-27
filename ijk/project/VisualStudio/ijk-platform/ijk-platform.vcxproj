@@ -170,6 +170,7 @@
     <ClInclude Include="..\..\..\include\ijk\ijk-platform\ijk-app\ijkWindow.h" />
     <ClInclude Include="..\..\..\include\ijk\ijk-platform\ijk-app\_util\ijk-dylib.h" />
     <ClInclude Include="..\..\..\include\ijk\ijk-platform\ijk-platform.h" />
+    <ClInclude Include="..\..\..\include\ijk\ijk-platform\ijk-render\ijkRenderContext.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\include\ijk\ijk-platform\ijk-app\_util\_inl\ijk-dylib.inl" />

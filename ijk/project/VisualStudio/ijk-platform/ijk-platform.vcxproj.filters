@@ -40,6 +40,15 @@
     <Filter Include="Source Files\_platform_win\ijk-app\_util">
       <UniqueIdentifier>{69b09623-9f30-46d9-9774-cf12ce698a2e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\ijk-platform\ijk-render">
+      <UniqueIdentifier>{ba9d7bd6-e412-426f-9804-a6867f3eec40}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\_platform_win\ijk-render">
+      <UniqueIdentifier>{697d4eb7-73f5-4680-83b8-d74b2f060a3a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\common\ijk-render">
+      <UniqueIdentifier>{1fa00cef-88ed-4ae0-a8af-4ba8256ca370}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\source\ijk-platform\common\ijk-platform.c">
@@ -82,6 +91,9 @@
     </ClInclude>
     <ClInclude Include="..\..\..\include\ijk\ijk-platform\ijk-app\ijkPlugin.h">
       <Filter>Header Files\ijk-platform\ijk-app</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\ijk\ijk-platform\ijk-render\ijkRenderContext.h">
+      <Filter>Header Files\ijk-platform\ijk-render</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
