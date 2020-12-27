@@ -26,7 +26,7 @@
 #include "ijk/ijk-base/ijk-utility/ijkTimer.h"
 
 
-#if (__ijk_cfg_platform == WINDOWS)
+#if ijk_platform_is(WINDOWS)
 #include <Windows.h>
 #else	// !WINDOWS
 #include <time.h>
@@ -93,7 +93,7 @@ iret ijkTimerStart(ijkTimer* const timer)
 	{
 		// take measurement
 		ibool result;
-#if (__ijk_cfg_platform == WINDOWS)
+#if ijk_platform_is(WINDOWS)
 		result = QueryPerformanceFrequency((PLARGE_INTEGER)timer->tf)
 			&& QueryPerformanceCounter((PLARGE_INTEGER)timer->t0);
 #else	// !WINDOWS
@@ -130,7 +130,7 @@ iret ijkTimerStop(ijkTimer* const timer)
 	{
 		// take measurement
 		ibool result;
-#if (__ijk_cfg_platform == WINDOWS)
+#if ijk_platform_is(WINDOWS)
 		result = QueryPerformanceFrequency((PLARGE_INTEGER)timer->tf)
 			&& QueryPerformanceCounter((PLARGE_INTEGER)timer->t1);
 #else	// !WINDOWS
@@ -165,7 +165,7 @@ iret ijkTimerCheckTick(ijkTimer* const timer)
 	{
 		// take measurement
 		ibool result;
-#if (__ijk_cfg_platform == WINDOWS)
+#if ijk_platform_is(WINDOWS)
 		result = QueryPerformanceFrequency((PLARGE_INTEGER)timer->tf)
 			&& QueryPerformanceCounter((PLARGE_INTEGER)timer->t1);
 #else	// !WINDOWS

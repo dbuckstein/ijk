@@ -155,16 +155,24 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\..\source\ijk-platform\common\ijk-app\ijkPlugin.c" />
+    <ClCompile Include="..\..\..\source\ijk-platform\common\ijk-app\ijkWindow.c" />
     <ClCompile Include="..\..\..\source\ijk-platform\common\ijk-platform.c" />
-    <ClCompile Include="_platform_win\ijk-app\ijkApplication_win.c" />
-    <ClCompile Include="_platform_win\ijk-app\ijkConsole_win.c" />
-    <ClCompile Include="_platform_win\ijk-app\ijkWindow_win.c" />
+    <ClCompile Include="_platform_win\source\ijk-app\ijkApplication_win.c" />
+    <ClCompile Include="_platform_win\source\ijk-app\ijkConsole_win.c" />
+    <ClCompile Include="_platform_win\source\ijk-app\ijkWindow_win.c" />
+    <ClCompile Include="_platform_win\source\ijk-app\_util\ijkWindowUnlockPDB_win.c" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\include\ijk\ijk-platform\ijk-app\ijkApplication.h" />
     <ClInclude Include="..\..\..\include\ijk\ijk-platform\ijk-app\ijkConsole.h" />
+    <ClInclude Include="..\..\..\include\ijk\ijk-platform\ijk-app\ijkPlugin.h" />
     <ClInclude Include="..\..\..\include\ijk\ijk-platform\ijk-app\ijkWindow.h" />
+    <ClInclude Include="..\..\..\include\ijk\ijk-platform\ijk-app\_util\ijk-dylib.h" />
     <ClInclude Include="..\..\..\include\ijk\ijk-platform\ijk-platform.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\..\include\ijk\ijk-platform\ijk-app\_util\_inl\ijk-dylib.inl" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

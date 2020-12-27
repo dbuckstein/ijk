@@ -213,6 +213,12 @@ iret ijkConsoleSetCursorColor(i16 const x, i16 const y, ijkConsoleColor const fg
 //		return FAILURE: ijk_fail_operationfail if operation failed
 iret ijkConsoleDrawTestPatch();
 
+// ijkConsoleClear
+//	Clear console, erasing text and setting background to set color.
+//		return SUCCESS: ijk_success if operation succeeded
+//		return FAILURE: ijk_fail_operationfail if operation failed
+iret ijkConsoleClear();
+
 
 //-----------------------------------------------------------------------------
 

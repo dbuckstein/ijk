@@ -27,7 +27,7 @@
 
 
 // include platform APIs
-#if (__ijk_cfg_platform == WINDOWS)
+#if ijk_platform_is(WINDOWS)
 #include <Windows.h>
 #else	// !WINDOWS
 #include <pthread.h>
@@ -91,7 +91,7 @@ iret ijkThreadInternalSetName(dword id, kptag name)
 
 
 // internal thread launcher
-#if (__ijk_cfg_platform == WINDOWS)
+#if ijk_platform_is(WINDOWS)
 iret __stdcall ijkThreadInternalEntryFunc(ijkThread* const thread)
 {
 #else	// !WINDOWS
@@ -114,7 +114,7 @@ ptr ijkThreadInternalEntryFunc(ijkThread* const thread)
 	thread->sysID = 0;
 	*thread->handle = 0;
 
-#if (__ijk_cfg_platform == WINDOWS)
+#if ijk_platform_is(WINDOWS)
 	return thread->result;
 }
 #else	// !WINDOWS
@@ -140,7 +140,7 @@ iret ijkThreadCreate(ijkThread* const thread_out, ijkThreadEntryFunc const entry
 		ijk_copytag(thread_out->name, name);
 
 		// launch
-#if (__ijk_cfg_platform == WINDOWS)
+#if ijk_platform_is(WINDOWS)
 		* thread_out->handle = CreateThread(0, 0, ijkThreadInternalEntryFunc, thread_out, 0, &thread_out->sysID);
 #else	// !WINDOWS
 		thread_out->sysID = 1;
@@ -164,7 +164,7 @@ iret ijkThreadRelease(ijkThread* const thread)
 		*thread->handle)
 	{
 		ibool result;
-#if (__ijk_cfg_platform == WINDOWS)
+#if ijk_platform_is(WINDOWS)
 		result = (WaitForSingleObject(*thread->handle, INFINITE) == WAIT_OBJECT_0);
 #else	// !WINDOWS
 		result = ijk_issuccess(pthread_join(*(pthread_t*)thread->handle, 0));
@@ -192,7 +192,7 @@ iret ijkThreadReleaseUnsafe(ijkThread* const thread)
 		*thread->handle)
 	{
 		ibool result;
-#if (__ijk_cfg_platform == WINDOWS)
+#if ijk_platform_is(WINDOWS)
 		// unsafe because TerminateThread does not allow thread to clean up
 		// https://docs.microsoft.com/en-us/cpp/code-quality/c6258?view=vs-2019
 		result = ijk_istrue(TerminateThread(*thread->handle, ijk_failure))
@@ -221,7 +221,7 @@ iret ijkThreadCheckActive(ijkThread const* const thread)
 	if (thread &&
 		*thread->handle)
 	{
-#if (__ijk_cfg_platform == WINDOWS)
+#if ijk_platform_is(WINDOWS)
 		dword result;
 		GetExitCodeThread(*thread->handle, &result);
 		if (result == STILL_ACTIVE)
@@ -241,7 +241,7 @@ iret ijkThreadCheckActive(ijkThread const* const thread)
 
 dword ijkThreadInternalGetSysID()
 {
-#if (__ijk_cfg_platform == WINDOWS)
+#if ijk_platform_is(WINDOWS)
 	return GetCurrentThreadId();
 #else	// !WINDOWS
 	return gettid();

@@ -19,13 +19,42 @@
     <Filter Include="Source Files\common">
       <UniqueIdentifier>{b217d662-a1bd-465a-9bd2-a601554bf9de}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Resource Files\_platform_win">
+      <UniqueIdentifier>{545e1a83-e3e4-401b-9e67-51eb0b1285a5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files\_platform_win\icon">
+      <UniqueIdentifier>{efacfbdf-3c9c-4c41-83ba-f40dc6df6fff}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files\_util">
+      <UniqueIdentifier>{62b21656-fe75-42fa-9fd4-6be34ed01e3f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="_platform_win\ijk-winmain.c">
-      <Filter>Source Files\_platform_win</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\source\ijk-player\common\ijk-player.c">
       <Filter>Source Files\common</Filter>
     </ClCompile>
+    <ClCompile Include="_platform_win\source\ijk-winmain.c">
+      <Filter>Source Files\_platform_win</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="ijk-player.rc">
+      <Filter>Resource Files\_platform_win</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="_platform_win\resource\icon\cbtk.ico">
+      <Filter>Resource Files\_platform_win\icon</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="ijk-player.rc.h">
+      <Filter>Resource Files\_platform_win</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="..\..\..\resource\ijk-player\_util\ijk-plugin-info.txt">
+      <Filter>Resource Files\_util</Filter>
+    </Text>
   </ItemGroup>
 </Project>

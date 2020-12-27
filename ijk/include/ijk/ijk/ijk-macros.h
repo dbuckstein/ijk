@@ -57,14 +57,14 @@
 #define ijk_fail_invalidparams			ijk_failcode(0x1)	// Code for failure due to invalid parameter(s).
 #define ijk_fail_operationfail			ijk_failcode(0x2)	// Code for failure due to general failure(s).
 
-#define ijk_true						ijk_one				// Shorthand for true (one).
-#define ijk_false						ijk_zero			// Shorthand for false (zero).
+#define ijk_true						ijk_one						// Shorthand for true (one).
+#define ijk_false						ijk_zero					// Shorthand for false (zero).
 #define ijk_istrue(x)					((x) != ijk_false)			// Check if value represents true (non-zero).
 #define ijk_isfalse(x)					((x) == ijk_false)			// Check if value represents false (zero).
 #define ijk_issuccess(x)				((x) == ijk_success)		// Check if value represents success code (zero).
-#define ijk_isfailure(x)				((x) <= ijk_failure)		// Check if value represents failure code (negative).
-#define ijk_iswarning(x)				((x) >= ijk_warning)		// Check if value represents warning code (positive).
-#define ijk_isnfailure(x)				((x) > ijk_failure)			// Check if value represents non-failure code (non-negative).
+#define ijk_isfailure(x)				((x) <  ijk_success)		// Check if value represents failure code (negative).
+#define ijk_iswarning(x)				((x) >  ijk_success)		// Check if value represents warning code (positive).
+#define ijk_isnfailure(x)				((x) >= ijk_success)		// Check if value represents non-failure code (non-negative).
 #define ijk_failch(xn,f)				(ijk_failcode(xn) & (f))	// Check negative failure code (xn) against reason/cause flag (f).
 #define ijk_warnch(xp,f)				(ijk_warncode(xp) & (f))	// Check positive failure code (xp) against reason/cause flag (f).
 
@@ -81,6 +81,14 @@
 #define ijk_tokenstr(x)					__ijk_cfg_tokenstr(x)				// Stringify token x.
 #define ijk_tokencat(x,y)				__ijk_cfg_tokencat(x,y)				// Concatenate tokens x and y.
 #define ijk_tokencat_arch(x)			ijk_tokencat(x,__ijk_cfg_archbits)	// Concatenate token x with architecture bits.
+
+
+// Platform and configuration checks.
+///
+#define ijk_platform_is(x)				(__ijk_cfg_platform == (x))			// Platform comparison.
+#define ijk_platform_isn(x)				(__ijk_cfg_platform != (x))			// Platform not comparison.
+#define ijk_buildcfg_is(x)				(__ijk_cfg_buildcfg == (x))			// Build configuration comparison.
+#define ijk_buildcfg_isn(x)				(__ijk_cfg_buildcfg != (x))			// Build configuration not comparison.
 
 
 // Simple global logical operations.

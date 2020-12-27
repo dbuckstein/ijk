@@ -1,0 +1,140 @@
+// Microsoft Visual C++ generated resource script.
+//
+#include "ijk-player.rc.h"
+
+#define APSTUDIO_READONLY_SYMBOLS
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 2 resource.
+//
+#include "winres.h"
+
+/////////////////////////////////////////////////////////////////////////////
+#undef APSTUDIO_READONLY_SYMBOLS
+
+/////////////////////////////////////////////////////////////////////////////
+// English (United States) resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)
+LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_US
+#pragma code_page(1252)
+
+#ifdef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// TEXTINCLUDE
+//
+
+1 TEXTINCLUDE 
+BEGIN
+    "ijk-player.rc.h\0"
+END
+
+2 TEXTINCLUDE 
+BEGIN
+    "#include ""winres.h""\r\n"
+    "\0"
+END
+
+3 TEXTINCLUDE 
+BEGIN
+    "\r\n"
+    "\0"
+END
+
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Icon
+//
+
+// Icon with lowest ID value placed first to ensure application icon
+// remains consistent on all systems.
+IDI_ICON1               ICON                    "_platform_win\\resource\\icon\\cbtk.ico"
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Accelerator
+//
+
+IDR_ACCEL ACCELERATORS
+BEGIN
+    VK_ESCAPE,      ID_ACCEL_ESC,           VIRTKEY, NOINVERT
+    VK_F1,          ID_ACCEL_F1,            VIRTKEY, NOINVERT
+    VK_F10,         ID_ACCEL_F10,           VIRTKEY, NOINVERT
+    VK_F11,         ID_ACCEL_F11,           VIRTKEY, NOINVERT
+    VK_F12,         ID_ACCEL_F12,           VIRTKEY, NOINVERT
+    VK_F2,          ID_ACCEL_F2,            VIRTKEY, NOINVERT
+    VK_F3,          ID_ACCEL_F3,            VIRTKEY, NOINVERT
+    VK_F4,          ID_ACCEL_F4,            VIRTKEY, NOINVERT
+    VK_F5,          ID_ACCEL_F5,            VIRTKEY, NOINVERT
+    VK_F6,          ID_ACCEL_F6,            VIRTKEY, NOINVERT
+    VK_F7,          ID_ACCEL_F7,            VIRTKEY, NOINVERT
+    VK_F8,          ID_ACCEL_F8,            VIRTKEY, NOINVERT
+    VK_F9,          ID_ACCEL_F9,            VIRTKEY, NOINVERT
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog
+//
+
+IDD_DIALOGBAR DIALOGEX 0, 0, 360, 180
+STYLE DS_SETFONT | DS_MODALFRAME | DS_SETFOREGROUND | DS_FIXEDSYS | DS_CENTER | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
+EXSTYLE WS_EX_APPWINDOW
+CAPTION "ijk Player Application: "
+FONT 8, "MS Shell Dlg", 400, 0, 0x0
+BEGIN
+    PUSHBUTTON      "OK",IDOK,244,158,50,14,WS_DISABLED
+    PUSHBUTTON      "Cancel",IDCANCEL,302,158,50,14
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// DESIGNINFO
+//
+
+#ifdef APSTUDIO_INVOKED
+GUIDELINES DESIGNINFO
+BEGIN
+    IDD_DIALOGBAR, DIALOG
+    BEGIN
+        LEFTMARGIN, 8
+        RIGHTMARGIN, 352
+        TOPMARGIN, 8
+        BOTTOMMARGIN, 172
+    END
+END
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// AFX_DIALOG_LAYOUT
+//
+
+IDD_DIALOGBAR AFX_DIALOG_LAYOUT
+BEGIN
+    0
+END
+
+#endif    // English (United States) resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+
+#ifndef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 3 resource.
+//
+
+
+/////////////////////////////////////////////////////////////////////////////
+#endif    // not APSTUDIO_INVOKED
+

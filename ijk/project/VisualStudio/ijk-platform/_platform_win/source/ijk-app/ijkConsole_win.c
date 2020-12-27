@@ -19,14 +19,12 @@
 		c-based rendering framework
 	By Daniel S. Buckstein
 
-	ijkConsole.c
-	Console management source.
+	ijkConsole_win.c
+	Console management source for Windows.
 */
 
-#include "ijk/ijk/ijk-config.h"
-#if (__ijk_cfg_platform == WINDOWS)
-
 #include "ijk/ijk-platform/ijk-app/ijkConsole.h"
+#if ijk_platform_is(WINDOWS)
 
 #include <io.h>
 #include <stdio.h>
@@ -412,6 +410,35 @@ iret ijkConsoleDrawTestPatch()
 
 		// done
 		return ijk_success;
+	}
+	return ijk_fail_operationfail;
+}
+
+
+iret ijkConsoleClear()
+{
+	// help to avoid using system("cls"): https://docs.microsoft.com/en-us/windows/console/clearing-the-screen 
+	HANDLE const stdHandle = GetStdHandle(STD_OUTPUT_HANDLE), console = GetConsoleWindow();
+	if (stdHandle && console)
+	{
+		// simple clear
+		//system("cls");
+
+		CONSOLE_SCREEN_BUFFER_INFO buffer[1];
+		if (GetConsoleScreenBufferInfo(stdHandle, buffer))
+		{
+			COORD const coord = { 0, 0 };
+			dword const sz = (buffer->dwSize.X * buffer->dwSize.Y);
+			dword write[1] = { 0 };
+			if (FillConsoleOutputCharacterA(stdHandle, ' ', sz, coord, write) &&
+				GetConsoleScreenBufferInfo(stdHandle, buffer) &&
+				FillConsoleOutputAttribute(stdHandle, buffer->wAttributes, sz, coord, write) &&
+				SetConsoleCursorPosition(stdHandle, coord))
+			{
+				// done
+				return ijk_success;
+			}
+		}
 	}
 	return ijk_fail_operationfail;
 }
