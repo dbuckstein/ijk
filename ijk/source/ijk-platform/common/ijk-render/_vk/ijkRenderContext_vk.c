@@ -36,25 +36,23 @@
 //	Renderer info for Vulkan render context.
 typedef struct ijkRendererInfo_vk_tag
 {
-	ijkRenderContext const* rc;
-	ijkRendererInfo info_platform;
+	ijkRenderContext const* renderContext;
 } ijkRendererInfo_vk;
 
 
-//-----------------------------------------------------------------------------
-
 #define _rc _vk
-#define ijkRenderContextCreateP ijkRenderContextFunc(ijkRenderContextCreate)
+#define ijkRenderContextCreateRP ijk_rc_rp(ijkRenderContextCreate)
+#define info info_r
 
 
 //-----------------------------------------------------------------------------
 
-iret ijkRenderContextCreate_vk(ijkRenderContext* const renderContext_out, ijkRendererInfo_vk** const info_out)
+iret ijkRenderContextCreate_vk(ijkRenderContext* const renderContext_out)
 {
-	iret ijkRenderContextCreateP(ijkRenderContext* const renderContext_out, ijkRendererInfo* const info_out);
+	iret ijkRenderContextCreateRP(ijkRenderContext* const renderContext_out);
 
 	// validate
-	if (info_out == (ptr)(&renderContext_out->info))
+	if (renderContext_out->info == 0)
 	{
 		// allocate renderer info
 		size const sz = szb(ijkRendererInfo_vk);
@@ -63,11 +61,11 @@ iret ijkRenderContextCreate_vk(ijkRenderContext* const renderContext_out, ijkRen
 		{
 			// initialize platform info
 			memset(info, 0, sz);
-			if (ijk_issuccess(ijkRenderContextCreateP(renderContext_out, &info->info_platform)))
+			if (ijk_issuccess(ijkRenderContextCreateRP(renderContext_out)))
 			{
 				// reset
-				info->rc = renderContext_out;
-				*info_out = info;
+				renderContext_out->info = info;
+				info->renderContext = renderContext_out;
 
 				// ****TO-DO: 
 				//	-> set renderer info

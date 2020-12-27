@@ -23,13 +23,71 @@
 	OpenGL render context management source for Windows.
 */
 
+/*
+	Download latest version of GLEW (OpenGL Extension Wrangler): 
+		-> http://glew.sourceforge.net/ 
+	Unzip versioned folder (e.g. "glew-2.1.0") into container directory at 
+	system level: "C:/GLEW" (e.g. above, full path "C:/GLEW/glew-2.1.0").
+	After unzipping, run install utility: 
+		-> "<ijk root>/utility/windows/dev/ijk-glewlocate.bat" 
+		-> Environment variables: GLEW_PATH
+	Other info about GL loaders and extension managers: 
+		-> https://www.khronos.org/opengl/wiki/OpenGL_Loading_Library 
+*/
+
 #include "ijk/ijk-platform/ijk-render/ijkRenderContext.h"
 #if ijk_platform_is(WINDOWS)
 #include <Windows.h>
 
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
 
 //-----------------------------------------------------------------------------
 
+// ijkRendererInfo_win_gl
+//	Renderer info for OpenGL render context on Windows.
+typedef struct ijkRendererInfo_win_gl_tag
+{
+	ijkRenderContext const* renderContext;
+	HGLRC rc;
+	HWND wnd;
+	HDC dc;
+	i32 pf;
+} ijkRendererInfo_win_gl;
+
+
+#define info info_rp
+
+
+//-----------------------------------------------------------------------------
+
+iret ijkRenderContextCreateWINDOWS_gl(ijkRenderContext* const renderContext_out)
+{
+	if (renderContext_out->info == 0)
+	{
+		// allocate platform info
+		size const sz = szb(ijkRendererInfo_win_gl);
+		ijkRendererInfo_win_gl* info = (ijkRendererInfo_win_gl*)malloc(sz);
+		if (info)
+		{
+			// reset
+			memset(info, 0, sz);
+			renderContext_out->info = info;
+			info->renderContext = renderContext_out;
+
+			// ****TO-DO: 
+			//	-> set platform-specific renderer info
+
+
+			// done
+			return ijk_success;
+		}
+		return ijk_fail_operationfail;
+	}
+	return ijk_fail_invalidparams;
+}
 
 
 //-----------------------------------------------------------------------------

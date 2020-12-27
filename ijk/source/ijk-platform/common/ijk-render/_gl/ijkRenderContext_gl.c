@@ -26,6 +26,60 @@
 #include "ijk/ijk-platform/ijk-render/ijkRenderContext.h"
 
 #include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+
+//-----------------------------------------------------------------------------
+
+// ijkRendererInfo_gl
+//	Renderer info for OpenGL render context.
+typedef struct ijkRendererInfo_gl_tag
+{
+	ijkRenderContext const* renderContext;
+} ijkRendererInfo_gl;
+
+
+#define _rc _gl
+#define ijkRenderContextCreateRP ijk_rc_rp(ijkRenderContextCreate)
+#define info info_r
+
+
+//-----------------------------------------------------------------------------
+
+iret ijkRenderContextCreate_gl(ijkRenderContext* const renderContext_out)
+{
+	iret ijkRenderContextCreateRP(ijkRenderContext* const renderContext_out);
+
+	// validate
+	if (renderContext_out->info == 0)
+	{
+		// allocate renderer info
+		size const sz = szb(ijkRendererInfo_gl);
+		ijkRendererInfo_gl* info = (ijkRendererInfo_gl*)malloc(sz);
+		if (info)
+		{
+			// initialize platform info
+			memset(info, 0, sz);
+			if (ijk_issuccess(ijkRenderContextCreateRP(renderContext_out)))
+			{
+				// reset
+				renderContext_out->info = info;
+				info->renderContext = renderContext_out;
+
+				// ****TO-DO: 
+				//	-> set renderer info
+
+
+				// done
+				return ijk_success;
+			}
+			free(info);
+		}
+		return ijk_fail_operationfail;
+	}
+	return ijk_fail_invalidparams;
+}
 
 
 //-----------------------------------------------------------------------------

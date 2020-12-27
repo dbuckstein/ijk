@@ -31,10 +31,11 @@
 iret ijkRenderContextCreate(ijkRenderContext* const renderContext_out, ijkRenderer const renderer)
 {
 	// declare render context initializers
-	iret ijkRenderContextCreate_vk(ijkRenderContext* const renderContext_out, ijkRendererInfo* const info_out);
+	iret ijkRenderContextCreate_vk(ijkRenderContext* const renderContext_out);
+	iret ijkRenderContextCreate_gl(ijkRenderContext* const renderContext_out);
 
 	// validate
-	if (renderContext_out && !renderContext_out->info && renderer)
+	if (renderContext_out && !renderContext_out->renderer && renderer)
 	{
 		iret status = ijk_fail_renderer_unsupported;
 
@@ -42,9 +43,10 @@ iret ijkRenderContextCreate(ijkRenderContext* const renderContext_out, ijkRender
 		switch (renderer)
 		{
 		case ijkRenderer_Vulkan:
-			status = ijkRenderContextCreate_vk(renderContext_out, &renderContext_out->info);
+			status = ijkRenderContextCreate_vk(renderContext_out);
 			break;
 		case ijkRenderer_OpenGL:
+			status = ijkRenderContextCreate_gl(renderContext_out);
 			break;
 		case ijkRenderer_DirectX:
 			break;
@@ -65,7 +67,7 @@ iret ijkRenderContextCreate(ijkRenderContext* const renderContext_out, ijkRender
 
 iret ijkRenderContextRelease(ijkRenderContext* const renderContext)
 {
-	if (renderContext && renderContext->info)
+	if (renderContext && renderContext->renderer)
 	{
 
 		return ijk_fail_operationfail;
@@ -76,7 +78,7 @@ iret ijkRenderContextRelease(ijkRenderContext* const renderContext)
 
 iret ijkRenderContextActivate(ijkRenderContext const* const renderContext)
 {
-	if (renderContext && renderContext->info)
+	if (renderContext && renderContext->renderer)
 	{
 
 		return ijk_fail_operationfail;
@@ -87,7 +89,7 @@ iret ijkRenderContextActivate(ijkRenderContext const* const renderContext)
 
 iret ijkRenderContextDeactivate(ijkRenderContext const* const renderContext)
 {
-	if (renderContext && renderContext->info)
+	if (renderContext && renderContext->renderer)
 	{
 
 		return ijk_fail_operationfail;
@@ -98,7 +100,7 @@ iret ijkRenderContextDeactivate(ijkRenderContext const* const renderContext)
 
 iret ijkRenderContextLink(ijkRenderContext const* const renderContext0, ijkRenderContext const* const renderContext1)
 {
-	if (renderContext0 && renderContext0->info && renderContext1 && renderContext1->info)
+	if (renderContext0 && renderContext1 && renderContext0->renderer && renderContext0->renderer == renderContext1->renderer)
 	{
 
 		return ijk_fail_operationfail;
@@ -113,7 +115,7 @@ iret ijkRenderContextPrintInfo(ijkRenderContext const* const renderContext, cstr
 	iret ijkRenderContextPrintInfo_gl(ijkRenderContext const* const renderContext, cstr* const bufferPtr);
 
 	// validate
-	if (renderContext && renderContext->renderer && renderContext->info && bufferPtr && *bufferPtr)
+	if (renderContext && renderContext->renderer && bufferPtr && *bufferPtr)
 	{
 		switch (renderContext->renderer)
 		{

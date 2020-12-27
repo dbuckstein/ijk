@@ -24,10 +24,57 @@
 */
 
 #include "ijk/ijk-platform/ijk-render/ijkRenderContext.h"
+#if ijk_platform_is(WINDOWS)
+#include <Windows.h>
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+
+//-----------------------------------------------------------------------------
+
+// ijkRendererInfo_win
+//	Renderer info for render context on Windows platform.
+typedef struct ijkRendererInfo_win_tag
+{
+	ijkRenderContext const* renderContext;
+} ijkRendererInfo_win;
+
+
+#define info info_p
+
+
+//-----------------------------------------------------------------------------
+
+iret ijkRenderContextCreateWINDOWS(ijkRenderContext* const renderContext_out)
+{
+	if (renderContext_out->info == 0)
+	{
+		// allocate platform info
+		size const sz = szb(ijkRendererInfo_win);
+		ijkRendererInfo_win* info = (ijkRendererInfo_win*)malloc(sz);
+		if (info)
+		{
+			// reset
+			memset(info, 0, sz);
+			renderContext_out->info = info;
+			info->renderContext = renderContext_out;
+
+			// ****TO-DO: 
+			//	-> set platform-specific renderer info
+
+
+			// done
+			return ijk_success;
+		}
+		return ijk_fail_operationfail;
+	}
+	return ijk_fail_invalidparams;
+}
 
 
 //-----------------------------------------------------------------------------
 
 
-
-//-----------------------------------------------------------------------------
+#endif	// WINDOWS

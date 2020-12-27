@@ -23,6 +23,12 @@
 	Vulkan render context management source for Windows.
 */
 
+/*
+	Download and install Vulkan SDK for current platform: 
+		-> https://vulkan.lunarg.com/sdk/home#windows 
+		-> Environment variables: VK_SDK_PATH & VULKAN_SDK
+*/
+
 #include "ijk/ijk-platform/ijk-render/ijkRenderContext.h"
 #if ijk_platform_is(WINDOWS)
 #include <Windows.h>
@@ -38,15 +44,18 @@
 //	Renderer info for Vulkan render context on Windows.
 typedef struct ijkRendererInfo_win_vk_tag
 {
-	ijkRenderContext const* rc;
+	ijkRenderContext const* renderContext;
 } ijkRendererInfo_win_vk;
+
+
+#define info info_rp
 
 
 //-----------------------------------------------------------------------------
 
-iret ijkRenderContextCreateWINDOWS_vk(ijkRenderContext* const renderContext_out, ijkRendererInfo_win_vk** const info_out)
+iret ijkRenderContextCreateWINDOWS_vk(ijkRenderContext* const renderContext_out)
 {
-	if (info_out)
+	if (renderContext_out->info == 0)
 	{
 		// allocate platform info
 		size const sz = szb(ijkRendererInfo_win_vk);
@@ -55,8 +64,8 @@ iret ijkRenderContextCreateWINDOWS_vk(ijkRenderContext* const renderContext_out,
 		{
 			// reset
 			memset(info, 0, sz);
-			info->rc = renderContext_out;
-			*info_out = info;
+			renderContext_out->info = info;
+			info->renderContext = renderContext_out;
 
 			// ****TO-DO: 
 			//	-> set platform-specific renderer info

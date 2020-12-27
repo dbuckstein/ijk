@@ -155,12 +155,12 @@ iret ijkWindowInternalBuild(ijkWindow* const window, ibool const rebuild)
 	return status;
 }
 
-iret ijkWindowInternalBuildThread(ijkWindow* const window)
+iret __stdcall ijkWindowInternalBuildThread(ijkWindow* const window)
 {
 	return ijkWindowInternalBuild(window, ijk_false);
 }
 
-iret ijkWindowInternalRebuildThread(ijkWindow* const window)
+iret __stdcall ijkWindowInternalRebuildThread(ijkWindow* const window)
 {
 	return ijkWindowInternalBuild(window, ijk_true);
 }
@@ -443,7 +443,7 @@ void ijkWindowInternalCreateInfo(ijkWindow* const window)
 	bufferPtr += sprintf(bufferPtr, "%s\n%s\n%s\n\n", info[1], info[2], info[3]);
 
 	// print renderer info
-	if (window->renderContext->info)
+	if (window->renderContext->renderer)
 	{
 		bufferPtr += sprintf(bufferPtr, "Render context: ");
 		ijkRenderContextPrintInfo(window->renderContext, &bufferPtr);
@@ -811,8 +811,7 @@ LRESULT CALLBACK ijkWindowInternalEventProcess(HWND hWnd, UINT message, WPARAM w
 				ijkWindowInternalLockCursor(window);
 
 			// enable context
-			if (window->renderContext->info)
-				ijkRenderContextActivate(window->renderContext);
+			ijkRenderContextActivate(window->renderContext);
 
 			// callback
 			window->plugin->ijkPluginCallback_winActivate(window->plugin->data);
@@ -822,7 +821,7 @@ LRESULT CALLBACK ijkWindowInternalEventProcess(HWND hWnd, UINT message, WPARAM w
 			window->plugin->ijkPluginCallback_winDeactivate(window->plugin->data);
 
 			// disable context
-			if (!(window->winCtrl & ijkWinCtrl_drawInactive) && window->renderContext->info)
+			if (!(window->winCtrl & ijkWinCtrl_drawInactive))
 				ijkRenderContextDeactivate(window->renderContext);
 
 			// cursor

@@ -87,8 +87,10 @@
 ///
 #define ijk_platform_is(x)				(__ijk_cfg_platform == (x))			// Platform comparison.
 #define ijk_platform_isn(x)				(__ijk_cfg_platform != (x))			// Platform not comparison.
+#define ijk_platform_fn(f)				ijk_tokencat(f,__ijk_cfg_platform)	// Platform-specific function.
 #define ijk_buildcfg_is(x)				(__ijk_cfg_buildcfg == (x))			// Build configuration comparison.
 #define ijk_buildcfg_isn(x)				(__ijk_cfg_buildcfg != (x))			// Build configuration not comparison.
+#define ijk_buildcfg_fn(f)				ijk_tokencat(f,__ijk_cfg_buildcfg)	// Build configuration-specific function.
 
 
 // Simple global logical operations.
