@@ -572,6 +572,80 @@ void ijkWindowInternalToggleFullscreen(ijkWindow* const window)
 
 //-----------------------------------------------------------------------------
 
+ijk_inl void ijkWindowInternalHandleF1(ijkWindow* const window)
+{
+	ijkWindowInternalCreateInfo(window);
+}
+
+ijk_inl void ijkWindowInternalHandleF2(ijkWindow* const window)
+{
+	if (ijk_issuccess(ijkWindowInternalCreateBuildWarning(window)))
+		ijkWindowInternalCreateDialog(window, ijkWinCtrl_F2_load);
+}
+
+ijk_inl void ijkWindowInternalHandleF3(ijkWindow* const window)
+{
+	if (ijk_issuccess(ijkWindowInternalCreateBuildWarning(window)))
+		SendMessageA(window->windowData, ijkWinCtrlMsg_reload, 0, 0);
+}
+
+ijk_inl void ijkWindowInternalHandleF4(ijkWindow* const window)
+{
+	if (ijk_issuccess(ijkWindowInternalCreateBuildWarning(window)))
+		SendMessageA(window->windowData, ijkWinCtrlMsg_unload, (WPARAM)ijk_true, 0);
+}
+
+ijk_inl void ijkWindowInternalHandleF5(ijkWindow* const window)
+{
+	if (ijk_issuccess(ijkWindowInternalCreateBuildWarning(window)))
+		SendMessageA(window->windowData, ijkWinCtrlMsg_debug, (WPARAM)ijk_true, 0);
+}
+
+ijk_inl void ijkWindowInternalHandleF6(ijkWindow* const window)
+{
+	if (ijk_issuccess(ijkWindowInternalCreateBuildWarning(window)))
+		SendMessageA(window->windowData, ijkWinCtrlMsg_build, 0, 0);
+}
+
+ijk_inl void ijkWindowInternalHandleF7(ijkWindow* const window)
+{
+	if (ijk_issuccess(ijkWindowInternalCreateBuildWarning(window)))
+		SendMessageA(window->windowData, ijkWinCtrlMsg_rebuild, 0, 0);
+}
+
+ijk_inl void ijkWindowInternalHandleF8(ijkWindow* const window)
+{
+	ijkWindowInternalToggleFullscreen(window);
+}
+
+ijk_inl void ijkWindowInternalHandleF9(ijkWindow* const window)
+{
+	window->plugin->ijkPluginCallback_user1(window->plugin->data);
+}
+
+ijk_inl void ijkWindowInternalHandleF10(ijkWindow* const window)
+{
+	window->plugin->ijkPluginCallback_user2(window->plugin->data);
+}
+
+ijk_inl void ijkWindowInternalHandleF11(ijkWindow* const window)
+{
+	window->plugin->ijkPluginCallback_user3(window->plugin->data);
+}
+
+ijk_inl void ijkWindowInternalHandleF12(ijkWindow* const window)
+{
+	window->plugin->ijkPluginCallback_user4c(window->plugin->data, 0, 0);
+}
+
+ijk_inl void ijkWindowInternalHandleESC(ijkWindow* const window)
+{
+	ijkWindowInternalCreateDialog(window, ijkWinCtrl_esc_cmd);
+}
+
+
+//-----------------------------------------------------------------------------
+
 // ijkWindowInternalEventProcess
 //	Internal processor for window events.
 LRESULT CALLBACK ijkWindowInternalEventProcess(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
@@ -688,61 +762,55 @@ LRESULT CALLBACK ijkWindowInternalEventProcess(HWND hWnd, UINT message, WPARAM w
 			{
 			case 0: // F1: info dialog
 				if (window->winCtrl & ijkWinCtrl_F1_info)
-					ijkWindowInternalCreateInfo(window);
+					ijkWindowInternalHandleF1(window);
 				break;
 			case 1: // F2: load plugin dialog
 				if (window->winCtrl & ijkWinCtrl_F2_load)
-					if (ijk_issuccess(ijkWindowInternalCreateBuildWarning(window)))
-						ijkWindowInternalCreateDialog(window, ijkWinCtrl_F2_load);
+					ijkWindowInternalHandleF2(window);
 				break;
 			case 2: // F3: reload plugin
 				if (window->winCtrl & ijkWinCtrl_F3_reload)
-					if (ijk_issuccess(ijkWindowInternalCreateBuildWarning(window)))
-						SendMessageA(window->windowData, ijkWinCtrlMsg_reload, 0, 0);
+					ijkWindowInternalHandleF3(window);
 				break;
 			case 3: // F4: unload plugin
 				if (window->winCtrl & ijkWinCtrl_F4_unload)
-					if (ijk_issuccess(ijkWindowInternalCreateBuildWarning(window)))
-						SendMessageA(window->windowData, ijkWinCtrlMsg_unload, (WPARAM)ijk_true, 0);
+					ijkWindowInternalHandleF4(window);
 				break;
 			case 4: // F5: debug plugin
 				if (window->winCtrl & ijkWinCtrl_F5_debug)
-					if (ijk_issuccess(ijkWindowInternalCreateBuildWarning(window)))
-						SendMessageA(window->windowData, ijkWinCtrlMsg_debug, (WPARAM)ijk_true, 0);
+					ijkWindowInternalHandleF5(window);
 				break;
 			case 5: // F6: hot-build plugin
 				if (window->winCtrl & ijkWinCtrl_F6_build)
-					if (ijk_issuccess(ijkWindowInternalCreateBuildWarning(window)))
-						SendMessageA(window->windowData, ijkWinCtrlMsg_build, 0, 0);
+					ijkWindowInternalHandleF6(window);
 				break;
 			case 6: // F7: hot-rebuild plugin
 				if (window->winCtrl & ijkWinCtrl_F7_rebuild)
-					if (ijk_issuccess(ijkWindowInternalCreateBuildWarning(window)))
-						SendMessageA(window->windowData, ijkWinCtrlMsg_rebuild, 0, 0);
+					ijkWindowInternalHandleF7(window);
 				break;
 			case 7: // F8: toggle full-screen
 				if (window->winCtrl & ijkWinCtrl_F8_fullscr)
-					ijkWindowInternalToggleFullscreen(window);
+					ijkWindowInternalHandleF8(window);
 				break;
 			case 8: // F9: user 1
 				if (window->winCtrl & ijkWinCtrl_F9_user1)
-					window->plugin->ijkPluginCallback_user1(window->plugin->data);
+					ijkWindowInternalHandleF9(window);
 				break;
 			case 9: // F10: user 2
 				if (window->winCtrl & ijkWinCtrl_F10_user2)
-					window->plugin->ijkPluginCallback_user2(window->plugin->data);
+					ijkWindowInternalHandleF10(window);
 				break;
 			case 10: // F11: user 3
 				if (window->winCtrl & ijkWinCtrl_F11_user3)
-					window->plugin->ijkPluginCallback_user3(window->plugin->data);
+					ijkWindowInternalHandleF11(window);
 				break;
 			case 11: // F12: user 4
 				if (window->winCtrl & ijkWinCtrl_F12_user4c)
-					window->plugin->ijkPluginCallback_user4c(window->plugin->data, 0, 0);
+					ijkWindowInternalHandleF12(window);
 				break;
 			case 12: // ESC: command dialog
 				if (window->winCtrl & ijkWinCtrl_esc_cmd)
-					ijkWindowInternalCreateDialog(window, ijkWinCtrl_esc_cmd);
+					ijkWindowInternalHandleESC(window);
 				break;
 			}
 		}
@@ -985,15 +1053,51 @@ LRESULT CALLBACK ijkWindowInternalEventProcess(HWND hWnd, UINT message, WPARAM w
 		// capture and send command
 		kpbyte const cmd = (pbyte)lParam;
 		i32 const len = (i32)wParam;
-		ibool fwd = ijk_false;
+
+		// process command locally first, sending only if not captured
 		if (cmd && len)
 		{
-			// ****TO-DO
-			// process command locally first, sending only if not captured
-			fwd = ijk_true;
-
+			// kill app (in case of emergency)
+			if (!strcmp(cmd, "IJK EXIT"))
+				exit(ijk_success);
+			// info box
+			else if (!strcmp(cmd, "IJK INFO"))
+				ijkWindowInternalHandleF1(window);
+			// load dialog
+			else if (!strcmp(cmd, "IJK LOAD"))
+				ijkWindowInternalHandleF2(window);
+			// reload
+			else if (!strcmp(cmd, "IJK RELOAD"))
+				ijkWindowInternalHandleF3(window);
+			// unload
+			else if (!strcmp(cmd, "IJK UNLOAD"))
+				ijkWindowInternalHandleF4(window);
+			// debug
+			else if (!strcmp(cmd, "IJK DEBUG"))
+				ijkWindowInternalHandleF5(window);
+			// build
+			else if (!strcmp(cmd, "IJK BUILD"))
+				ijkWindowInternalHandleF6(window);
+			// rebuild
+			else if (!strcmp(cmd, "IJK REBUILD"))
+				ijkWindowInternalHandleF7(window);
+			// fullscreen
+			else if (!strcmp(cmd, "IJK FULLSCR"))
+				ijkWindowInternalHandleF8(window);
+			// user1
+			else if (!strcmp(cmd, "IJK USER1"))
+				ijkWindowInternalHandleF9(window);
+			// user2
+			else if (!strcmp(cmd, "IJK USER2"))
+				ijkWindowInternalHandleF10(window);
+			// user3
+			else if (!strcmp(cmd, "IJK USER3"))
+				ijkWindowInternalHandleF11(window);
+			// user4
+			else if (!strcmp(cmd, "IJK USER4C"))
+				ijkWindowInternalHandleF12(window);
 			// forward command to plugin
-			if (fwd)
+			else
 				window->plugin->ijkPluginCallback_user4c(window->plugin->data, 1, (ptr*)(&cmd));
 		}
 	}	break;
