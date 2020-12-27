@@ -27,6 +27,7 @@
 #define _IJK_WINDOW_H_
 
 #include "ijkPlugin.h"
+#include "ijk/ijk-platform/ijk-render/ijkRenderContext.h"
 
 
 #ifdef __cplusplus
@@ -47,11 +48,6 @@ typedef ptr ijkWindowPlatform;
 //	Platform-agnostic alias for window info descriptor, implemented in source 
 //	for platform-specific requirements.
 typedef ptr ijkWindowInfo;
-
-// ijkRendererInfo
-//	Renderer- and platform-agnostic alias for renderer info descriptor, 
-//	implemented in source for renderer- and platform-specific requirements.
-typedef ptr ijkRendererInfo;
 
 
 //-----------------------------------------------------------------------------
@@ -86,8 +82,8 @@ enum ijkWindowControl
 //		member plugin: plugin descriptor
 //		member pluginInfo: plugin info descriptor
 //		member winPlat: pointer to platform info
-//		member winRender: pointer to renderer info
 //		member winCtrl: window controls and feature flags
+//		member renderContext: pointer to render context
 //		members pos_x, pos_y: position of window on display in pixels
 //		members sz_x, sz_y: size of window on display in pixels
 //		member platformData: internal platform data pertinent to window
@@ -97,8 +93,8 @@ struct ijkWindow
 	ijkPlugin plugin[1];
 	ijkPluginInfo pluginInfo[1];
 	ijkWindowPlatform winPlat;
-	ijkRendererInfo winRender;
 	ijkWindowControl winCtrl;
+	ijkRenderContext renderContext[1];
 	i16 pos_x, pos_y;
 	i16 sz_x, sz_y;
 	ptr platformData;
@@ -179,8 +175,6 @@ iret ijkWindowInfoRelease(ijkWindowInfo* const windowInfo);
 //			valid: non-null, valid handle
 //		param platformInfo: pointer to platform info
 //			valid: non-null, valid handle
-//		param rendererInfo_opt: optional pointer to renderer info
-//			valid: non-null, valid handle
 //		param windowName: name of window
 //			valid: non-null, non-empty c-string
 //		param windowPos_x: horizontal position of window on display in pixels
@@ -191,10 +185,11 @@ iret ijkWindowInfoRelease(ijkWindowInfo* const windowInfo);
 //		param windowSize_y: vertical size of window on display in pixels
 //		param windowCtrl: control/feature flags for window
 //		param fullScreen: flag to create full-screen window
+//		param renderer_opt: optional renderer type
 //		return SUCCESS: ijk_success if window initialized
 //		return FAILURE: ijk_fail_operationfail if window not initialized
 //		return FAILURE: ijk_fail_invalidparams if invalid parameters
-iret ijkWindowCreate(ijkWindow* const window_out, ijkWindowInfo const* const windowInfo, ijkWindowPlatform const* const platformInfo, ijkRendererInfo const* const rendererInfo_opt, tag const windowName, ui16 const windowPos_x, ui16 const windowPos_y, ui16 const windowSize_x, ui16 const windowSize_y, ijkWindowControl const windowCtrl, ibool const fullScreen);
+iret ijkWindowCreate(ijkWindow* const window_out, ijkWindowInfo const* const windowInfo, ijkWindowPlatform const* const platformInfo, tag const windowName, ui16 const windowPos_x, ui16 const windowPos_y, ui16 const windowSize_x, ui16 const windowSize_y, ijkWindowControl const windowCtrl, ibool const fullScreen, ijkRenderer const renderer_opt);
 
 // ijkWindowRelease
 //	Close and release window.

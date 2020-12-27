@@ -443,7 +443,7 @@ void ijkWindowInternalCreateInfo(ijkWindow* const window)
 	bufferPtr += sprintf(bufferPtr, "%s\n%s\n%s\n\n", info[1], info[2], info[3]);
 
 	// print renderer info
-	if (window->winRender)
+	if (window->renderContext->info)
 	{
 		kptag const rendererName = "dummyName", rendererInfo = "dummyInfo";
 		bufferPtr += sprintf(bufferPtr,
@@ -451,6 +451,7 @@ void ijkWindowInternalCreateInfo(ijkWindow* const window)
 			rendererName, rendererInfo);
 
 		// ****TO-DO
+		//ijkRenderContextPrintInfo(window->renderContext, &bufferPtr);
 		/*
 		// e.g. for OpenGL:
 		kptag* const versionStr = glGetString(GL_VERSION);
@@ -685,12 +686,9 @@ LRESULT CALLBACK ijkWindowInternalEventProcess(HWND hWnd, UINT message, WPARAM w
 	}	break;
 		// window finishing creation
 	case WM_CREATE: {
+		// ****TO-DO
 		// set up rendering
-		if (window->winRender)
-		{
-			// ****TO-DO
-
-		}
+		//ijkRenderContextCreate(window->renderContext, window->renderContext->renderer);
 
 		// reset plugin and callbacks
 		ijkPluginReset(window->plugin);
@@ -706,13 +704,9 @@ LRESULT CALLBACK ijkWindowInternalEventProcess(HWND hWnd, UINT message, WPARAM w
 		window->plugin->ijkPluginCallback_willUnload(window->plugin->data);
 		ijkPluginUnload(window->plugin, ijk_true);
 
+		// ****TO-DO
 		// clean up rendering
-		if (window->winRender)
-		{
-			// ****TO-DO
-
-			window->winRender = 0;
-		}
+		//ijkRenderContextRelease(window->renderContext);
 
 		// clean up data
 		if (window->platformData)
@@ -825,19 +819,21 @@ LRESULT CALLBACK ijkWindowInternalEventProcess(HWND hWnd, UINT message, WPARAM w
 		case WA_CLICKACTIVE:
 			if (window->winCtrl & ijkWinCtrl_lockCursor)
 				ijkWindowInternalLockCursor(window);
-			if (window->winRender)
+			if (window->renderContext->info)
 			{
 				// ****TO-DO
 				// enable context
+				//ijkRenderContextActivate(window->renderContext);
 			}
 			window->plugin->ijkPluginCallback_winActivate(window->plugin->data);
 			break;
 		case WA_INACTIVE:
 			window->plugin->ijkPluginCallback_winDeactivate(window->plugin->data);
-			if (!(window->winCtrl & ijkWinCtrl_drawInactive) && window->winRender)
+			if (!(window->winCtrl & ijkWinCtrl_drawInactive) && window->renderContext->info)
 			{
 				// ****TO-DO
 				// disable context
+				//ijkRenderContextDeactivate(window->renderContext);
 			}
 			if (window->winCtrl & ijkWinCtrl_lockCursor)
 				ijkWindowInternalLockCursor(0);
@@ -1222,7 +1218,7 @@ iret ijkWindowInfoRelease(ijkWindowInfo* const windowInfo)
 }
 
 
-iret ijkWindowCreate(ijkWindow* const window_out, ijkWindowInfo const* const windowInfo, ijkWindowPlatform const* const platformInfo, ijkRendererInfo const* const rendererInfo_opt, tag const windowName, ui16 const windowPos_x, ui16 const windowPos_y, ui16 const windowSize_x, ui16 const windowSize_y, ijkWindowControl const windowCtrl, ibool const fullScreen)
+iret ijkWindowCreate(ijkWindow* const window_out, ijkWindowInfo const* const windowInfo, ijkWindowPlatform const* const platformInfo, tag const windowName, ui16 const windowPos_x, ui16 const windowPos_y, ui16 const windowSize_x, ui16 const windowSize_y, ijkWindowControl const windowCtrl, ibool const fullScreen, ijkRenderer const renderer_opt)
 {
 	if (window_out && !window_out->windowData && windowInfo && *windowInfo && platformInfo && *platformInfo && windowName && *windowName)
 	{
@@ -1236,7 +1232,6 @@ iret ijkWindowCreate(ijkWindow* const window_out, ijkWindowInfo const* const win
 
 		ijkWindowInfo_win const* const info = *windowInfo;
 		ijkWindowPlatform_win* const plat = *platformInfo;
-		ijkRendererInfo* const render = (rendererInfo_opt ? *rendererInfo_opt : 0);
 
 		// set full-screen area
 		//if (fullScreen)
@@ -1255,8 +1250,8 @@ iret ijkWindowCreate(ijkWindow* const window_out, ijkWindowInfo const* const win
 
 		// set data
 		window_out->winPlat = plat;
-		window_out->winRender = render;
 		window_out->winCtrl = windowCtrl;
+		window_out->renderContext->renderer = renderer_opt;
 
 		// attempt to make a window
 		// window's handle is set through window process callback
