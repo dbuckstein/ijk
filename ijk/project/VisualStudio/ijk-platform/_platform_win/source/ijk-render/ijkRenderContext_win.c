@@ -49,9 +49,9 @@ typedef struct ijkRendererInfo_win_tag
 
 iret ijkRenderContextCreateWINDOWS(ijkRenderContext* const renderContext_out)
 {
-	if (renderContext_out->info == 0)
+	if (renderContext_out && !renderContext_out->info)
 	{
-		// allocate platform info
+		// allocate platform renderer-agnostic info
 		size const sz = szb(ijkRendererInfo_win);
 		ijkRendererInfo_win* info = (ijkRendererInfo_win*)malloc(sz);
 		if (info)
@@ -62,7 +62,7 @@ iret ijkRenderContextCreateWINDOWS(ijkRenderContext* const renderContext_out)
 			info->renderContext = renderContext_out;
 
 			// ****TO-DO: 
-			//	-> set platform-specific renderer info
+			//	-> set platform-specific renderer-agnostic info
 
 
 			// done

@@ -29,6 +29,8 @@
 #include <stdlib.h>
 #include <string.h>
 
+#include "vulkan/vulkan.h"
+
 
 //-----------------------------------------------------------------------------
 
@@ -41,7 +43,7 @@ typedef struct ijkRendererInfo_vk_tag
 
 
 #define _rc _vk
-#define ijkRenderContextCreateRP ijk_rc_rp(ijkRenderContextCreate)
+#define ijkRenderContextCreateRP	ijk_rc_rp(ijkRenderContextCreate)
 #define info info_r
 
 
@@ -52,7 +54,7 @@ iret ijkRenderContextCreate_vk(ijkRenderContext* const renderContext_out)
 	iret ijkRenderContextCreateRP(ijkRenderContext* const renderContext_out);
 
 	// validate
-	if (renderContext_out->info == 0)
+	if (renderContext_out && !renderContext_out->info)
 	{
 		// allocate renderer info
 		size const sz = szb(ijkRendererInfo_vk);
@@ -68,7 +70,7 @@ iret ijkRenderContextCreate_vk(ijkRenderContext* const renderContext_out)
 				info->renderContext = renderContext_out;
 
 				// ****TO-DO: 
-				//	-> set renderer info
+				//	-> set platform-agnostic renderer info
 
 
 				// done

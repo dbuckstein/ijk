@@ -37,6 +37,9 @@
 #include <stdlib.h>
 #include <string.h>
 
+#include "vulkan/vulkan.h"
+#include "vulkan/vulkan_win32.h"
+
 
 //-----------------------------------------------------------------------------
 
@@ -48,6 +51,7 @@ typedef struct ijkRendererInfo_win_vk_tag
 } ijkRendererInfo_win_vk;
 
 
+#define ijkRenderContextCreateP	ijk_platform_fn(ijkRenderContextCreate)
 #define info info_rp
 
 
@@ -55,24 +59,32 @@ typedef struct ijkRendererInfo_win_vk_tag
 
 iret ijkRenderContextCreateWINDOWS_vk(ijkRenderContext* const renderContext_out)
 {
-	if (renderContext_out->info == 0)
+	iret ijkRenderContextCreateP(ijkRenderContext* const renderContext_out);
+
+	// validate
+	if (renderContext_out && !renderContext_out->info)
 	{
 		// allocate platform info
 		size const sz = szb(ijkRendererInfo_win_vk);
 		ijkRendererInfo_win_vk* info = (ijkRendererInfo_win_vk*)malloc(sz);
 		if (info)
 		{
-			// reset
+			// initialize platform renderer-agnostic info
 			memset(info, 0, sz);
-			renderContext_out->info = info;
-			info->renderContext = renderContext_out;
+			if (ijk_issuccess(ijkRenderContextCreateP(renderContext_out)))
+			{
+				// reset
+				renderContext_out->info = info;
+				info->renderContext = renderContext_out;
 
-			// ****TO-DO: 
-			//	-> set platform-specific renderer info
+				// ****TO-DO: 
+				//	-> set platform-specific renderer info
 
 
-			// done
-			return ijk_success;
+				// done
+				return ijk_success;
+			}
+			free(info);
 		}
 		return ijk_fail_operationfail;
 	}

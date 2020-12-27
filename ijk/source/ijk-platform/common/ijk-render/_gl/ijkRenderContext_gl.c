@@ -29,6 +29,8 @@
 #include <stdlib.h>
 #include <string.h>
 
+#include "GL/glew.h"
+
 
 //-----------------------------------------------------------------------------
 
@@ -41,7 +43,7 @@ typedef struct ijkRendererInfo_gl_tag
 
 
 #define _rc _gl
-#define ijkRenderContextCreateRP ijk_rc_rp(ijkRenderContextCreate)
+#define ijkRenderContextCreateRP	ijk_rc_rp(ijkRenderContextCreate)
 #define info info_r
 
 
@@ -52,7 +54,7 @@ iret ijkRenderContextCreate_gl(ijkRenderContext* const renderContext_out)
 	iret ijkRenderContextCreateRP(ijkRenderContext* const renderContext_out);
 
 	// validate
-	if (renderContext_out->info == 0)
+	if (renderContext_out && !renderContext_out->info)
 	{
 		// allocate renderer info
 		size const sz = szb(ijkRendererInfo_gl);
@@ -68,7 +70,7 @@ iret ijkRenderContextCreate_gl(ijkRenderContext* const renderContext_out)
 				info->renderContext = renderContext_out;
 
 				// ****TO-DO: 
-				//	-> set renderer info
+				//	-> set platform-agnostic renderer info
 
 
 				// done
@@ -87,12 +89,10 @@ iret ijkRenderContextCreate_gl(ijkRenderContext* const renderContext_out)
 iret ijkRenderContextPrintInfo_gl(ijkRenderContext const* const renderContext, cstr* const bufferPtr)
 {
 	*bufferPtr += sprintf(*bufferPtr, "OpenGL \n");
-	/*
-	kptag* const versionStr = glGetString(GL_VERSION);
-	kptag* const shadingStr = glGetString(GL_SHADING_LANGUAGE_VERSION);
-	kptag* const rendererStr = glGetString(GL_RENDERER);
-	kptag* const vendorStr = glGetString(GL_VENDOR);
-	*/
+	*bufferPtr += sprintf(*bufferPtr, "  GL version: %s \n", glGetString(GL_VERSION));
+	*bufferPtr += sprintf(*bufferPtr, "  GLSL version: %s \n", glGetString(GL_SHADING_LANGUAGE_VERSION));
+	*bufferPtr += sprintf(*bufferPtr, "  GPU renderer: %s \n", glGetString(GL_RENDERER));
+	*bufferPtr += sprintf(*bufferPtr, "  GPU vendor: %s \n", glGetString(GL_VENDOR));
 	return ijk_success;
 }
 
