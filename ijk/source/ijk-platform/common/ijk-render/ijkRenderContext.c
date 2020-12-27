@@ -31,8 +31,8 @@
 iret ijkRenderContextCreate(ijkRenderContext* const renderContext_out, ijkRenderer const renderer)
 {
 	// declare render context initializers
-	iret ijkRenderContextCreate_vk(ijkRenderContext* const renderContext_out);
-	iret ijkRenderContextCreate_gl(ijkRenderContext* const renderContext_out);
+	iret ijkRenderContextCreate_vk(ijkRenderContext* const renderContext_out, ijkRenderer const renderer);
+	iret ijkRenderContextCreate_gl(ijkRenderContext* const renderContext_out, ijkRenderer const renderer);
 
 	// validate
 	if (renderContext_out && !renderContext_out->renderer && renderer)
@@ -43,10 +43,10 @@ iret ijkRenderContextCreate(ijkRenderContext* const renderContext_out, ijkRender
 		switch (renderer)
 		{
 		case ijkRenderer_Vulkan:
-			status = ijkRenderContextCreate_vk(renderContext_out);
+			status = ijkRenderContextCreate_vk(renderContext_out, renderer);
 			break;
 		case ijkRenderer_OpenGL:
-			status = ijkRenderContextCreate_gl(renderContext_out);
+			status = ijkRenderContextCreate_gl(renderContext_out, renderer);
 			break;
 		case ijkRenderer_DirectX:
 			break;
@@ -67,10 +67,36 @@ iret ijkRenderContextCreate(ijkRenderContext* const renderContext_out, ijkRender
 
 iret ijkRenderContextRelease(ijkRenderContext* const renderContext)
 {
+	iret ijkRenderContextRelease_vk(ijkRenderContext* const renderContext);
+	iret ijkRenderContextRelease_gl(ijkRenderContext* const renderContext);
+
+	// validate
 	if (renderContext && renderContext->renderer)
 	{
+		iret status = ijk_fail_operationfail;
 
-		return ijk_fail_operationfail;
+		// call correct function
+		switch (renderContext->renderer)
+		{
+		case ijkRenderer_Vulkan:
+			status = ijkRenderContextRelease_vk(renderContext);
+			break;
+		case ijkRenderer_OpenGL:
+			status = ijkRenderContextRelease_gl(renderContext);
+			break;
+		case ijkRenderer_DirectX:
+			break;
+		case ijkRenderer_Metal:
+			break;
+		}
+
+		// reset
+		if (ijk_issuccess(status))
+		{
+			renderContext->renderer = ijkRenderer_none;
+			renderContext->info_r = renderContext->info_p = renderContext->info_rp = 0;
+		}
+		return status;
 	}
 	return ijk_fail_invalidparams;
 }

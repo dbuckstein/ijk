@@ -45,16 +45,17 @@ typedef struct ijkRendererInfo_gl_tag
 #define _rc _gl
 #define ijkRenderContextCreateRP	ijk_rc_rp(ijkRenderContextCreate)
 #define info info_r
+#define type ijkRenderer_OpenGL
 
 
 //-----------------------------------------------------------------------------
 
-iret ijkRenderContextCreate_gl(ijkRenderContext* const renderContext_out)
+iret ijkRenderContextCreate_gl(ijkRenderContext* const renderContext_out, ijkRenderer const renderer)
 {
 	iret ijkRenderContextCreateRP(ijkRenderContext* const renderContext_out);
 
 	// validate
-	if (renderContext_out && !renderContext_out->info)
+	if (renderContext_out && renderer == type && !renderContext_out->info)
 	{
 		// allocate renderer info
 		size const sz = szb(ijkRendererInfo_gl);
@@ -83,17 +84,30 @@ iret ijkRenderContextCreate_gl(ijkRenderContext* const renderContext_out)
 	return ijk_fail_invalidparams;
 }
 
-
-//-----------------------------------------------------------------------------
+iret ijkRenderContextRelease_gl(ijkRenderContext* const renderContext)
+{
+	if (renderContext && renderContext->renderer == type && renderContext->info)
+	{
+		free(renderContext->info_p);
+		free(renderContext->info_rp);
+		free(renderContext->info_r);
+		return ijk_success;
+	}
+	return ijk_fail_invalidparams;
+}
 
 iret ijkRenderContextPrintInfo_gl(ijkRenderContext const* const renderContext, cstr* const bufferPtr)
 {
-	*bufferPtr += sprintf(*bufferPtr, "OpenGL \n");
-	*bufferPtr += sprintf(*bufferPtr, "  GL version: %s \n", glGetString(GL_VERSION));
-	*bufferPtr += sprintf(*bufferPtr, "  GLSL version: %s \n", glGetString(GL_SHADING_LANGUAGE_VERSION));
-	*bufferPtr += sprintf(*bufferPtr, "  GPU renderer: %s \n", glGetString(GL_RENDERER));
-	*bufferPtr += sprintf(*bufferPtr, "  GPU vendor: %s \n", glGetString(GL_VENDOR));
-	return ijk_success;
+	if (renderContext && renderContext->renderer == type && renderContext->info)
+	{
+		*bufferPtr += sprintf(*bufferPtr, "OpenGL \n");
+		*bufferPtr += sprintf(*bufferPtr, "  GL version: %s \n", glGetString(GL_VERSION));
+		*bufferPtr += sprintf(*bufferPtr, "  GLSL version: %s \n", glGetString(GL_SHADING_LANGUAGE_VERSION));
+		*bufferPtr += sprintf(*bufferPtr, "  GPU renderer: %s \n", glGetString(GL_RENDERER));
+		*bufferPtr += sprintf(*bufferPtr, "  GPU vendor: %s \n", glGetString(GL_VENDOR));
+		return ijk_success;
+	}
+	return ijk_fail_invalidparams;
 }
 
 

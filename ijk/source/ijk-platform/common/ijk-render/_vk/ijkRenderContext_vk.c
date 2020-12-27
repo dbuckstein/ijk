@@ -45,16 +45,17 @@ typedef struct ijkRendererInfo_vk_tag
 #define _rc _vk
 #define ijkRenderContextCreateRP	ijk_rc_rp(ijkRenderContextCreate)
 #define info info_r
+#define type ijkRenderer_Vulkan
 
 
 //-----------------------------------------------------------------------------
 
-iret ijkRenderContextCreate_vk(ijkRenderContext* const renderContext_out)
+iret ijkRenderContextCreate_vk(ijkRenderContext* const renderContext_out, ijkRenderer const renderer)
 {
 	iret ijkRenderContextCreateRP(ijkRenderContext* const renderContext_out);
 
 	// validate
-	if (renderContext_out && !renderContext_out->info)
+	if (renderContext_out && renderer == type && !renderContext_out->info)
 	{
 		// allocate renderer info
 		size const sz = szb(ijkRendererInfo_vk);
@@ -83,11 +84,27 @@ iret ijkRenderContextCreate_vk(ijkRenderContext* const renderContext_out)
 	return ijk_fail_invalidparams;
 }
 
+iret ijkRenderContextRelease_vk(ijkRenderContext* const renderContext)
+{
+	if (renderContext && renderContext->renderer == type && renderContext->info)
+	{
+		free(renderContext->info_p);
+		free(renderContext->info_rp);
+		free(renderContext->info_r);
+		return ijk_success;
+	}
+	return ijk_fail_invalidparams;
+}
+
 iret ijkRenderContextPrintInfo_vk(ijkRenderContext const* const renderContext, cstr* const bufferPtr)
 {
-	*bufferPtr += sprintf(*bufferPtr, "Vulkan \n");
+	if (renderContext && renderContext->renderer == type && renderContext->info)
+	{
+		*bufferPtr += sprintf(*bufferPtr, "Vulkan \n");
 
-	return ijk_success;
+		return ijk_success;
+	}
+	return ijk_fail_invalidparams;
 }
 
 
