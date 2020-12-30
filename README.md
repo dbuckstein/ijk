@@ -17,8 +17,8 @@ This section outlines the core guidelines, values and rules in the framework.
 * Standard C includes should appear first in source files, if ever, to prevent framework from potentially overwriting standard data types.
 
 ### Repository Standards
-* The main branch for versioning and releases is 'master', no development allowed on this branch.
-* The main branch for development, organization and setting up release candidates is 'dev/ijk'.
+* The main branch and primary branch for versioning and releases is called 'main', no development allowed on this branch.
+* The primary branch for development, organization and setting up release candidates is called 'dev/ijk'.
 * Branches are named with a path format (e.g. dev/feature/subfeature) to indicate parent/child branch relationships.
 * Branches may only merge with direct parent and direct child branches.
 * Projects must treat warnings as errors; if there is any sort of issue, no matter how minor, fix it!
@@ -80,14 +80,14 @@ This section outlines known tasks to be completed and that have been completed.
 #### Platform
 - [x] Windows Visual Studio framework
 - [ ] Mac OS Xcode framework
-- [ ] console interface, decouple from app
-- [ ] window interface, user-friendly menus
-- [ ] programmer-friendly menu system
+- [x] console interface, decouple from app
+- [x] window interface, user-friendly menus
+- [x] programmer-friendly menu system
 - [ ] OpenGL context and renderer source
 - [ ] Vulkan context and renderer source
 - [ ] platform-agnostic, renderer-agnostic renderer interface
-- [ ] Visual Studio hotbuild utility and interface
+- [x] Visual Studio hotbuild utility and interface
 - [ ] Xcode hotbuild utility and interface
 #### Plugin
-- [ ] hotbuild hooks
+- [x] hotbuild hooks
 - [ ] basic platform-agnostic, renderer-agnostic app

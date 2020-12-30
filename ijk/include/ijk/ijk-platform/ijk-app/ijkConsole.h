@@ -44,6 +44,14 @@ typedef enum ijkConsoleColor	ijkConsoleColor;
 //	already exists, or deleted because one does not exist.
 #define ijk_warn_console_exist	ijk_warncode(0x1)
 
+// eprintf
+//	Shorthand macro for outputting formatted string to standard error.
+#define eprintf(fmt, ...)		fprintf(stderr, fmt, __VA_ARGS__)
+
+// dprintf
+//	Shorthand macro for outputting formatted string to debugging interface.
+#define dprintf(fmt, ...)		ijkConsolePrintDebug(fmt, __VA_ARGS__)
+
 
 // ijkConsole
 //	Descriptor for console instance.
@@ -96,7 +104,8 @@ enum ijkConsoleColor
 //-----------------------------------------------------------------------------
 
 // ijkConsoleCreateMain
-//	Create and initialize console instance for the main process.
+//	Create and initialize console instance for the main process; redirects 
+//	standard input and output to new console (excludes standard error).
 //		param console: pointer to descriptor that stores console info
 //			valid: non-null
 //		return SUCCESS: ijk_success if console successfully initialized
@@ -218,6 +227,18 @@ iret ijkConsoleDrawTestPatch();
 //		return SUCCESS: ijk_success if operation succeeded
 //		return FAILURE: ijk_fail_operationfail if operation failed
 iret ijkConsoleClear();
+
+
+//-----------------------------------------------------------------------------
+
+// ijkConsolePrintDebug
+//	Print formatted string to debugging interface.
+//		param format: format string, as used with standard 'printf'
+//			valid: non-null c-string
+//		params ...: parameter list matching specifications in 'format'
+//		return SUCCESS: result of internal print operation if succeeded
+//		return FAILURE: ijk_fail_invalidparams if invalid parameters
+iret ijkConsolePrintDebug(kcstr const format, ...);
 
 
 //-----------------------------------------------------------------------------

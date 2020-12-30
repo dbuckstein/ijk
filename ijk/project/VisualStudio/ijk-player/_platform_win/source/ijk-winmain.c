@@ -33,10 +33,10 @@
 //-----------------------------------------------------------------------------
 // application entry point
 
-iret __stdcall wWinMain(
+iret __stdcall WinMain(
 	kptr const		hInstance,
 	kptr const		hPrevInstance,
-	kwcstr const	lpCmdLine,
+	kcstr const		lpCmdLine,
 	i32 const		nCmdShow)
 {
 	iret ijkPlayerMain(ijkWindowPlatform* const platformInfo);

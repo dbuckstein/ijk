@@ -30,12 +30,6 @@
 #include <stdio.h>
 #include <Windows.h>
 
-// 'printf' equivalent for 'stderr'
-#define eprintf(format, ...)	fprintf(stderr, format, __VA_ARGS__)
-#define cin(format, ...)		fscanf(stdin, format, __VA_ARGS__)
-#define cout(format, ...)		printf(stdout, format, __VA_ARGS__)
-#define cerr(format, ...)		eprintf(format, __VA_ARGS__)
-
 
 //-----------------------------------------------------------------------------
 
@@ -47,9 +41,9 @@ ijk_inl void ijkConsoleInternalRedirectToggle(ijkConsole* const console, ibool c
 
 	// redirect input
 	i = 0;
-	if (redirectInput && !console->handle[i])
+	if (redirectInput)
 	{
-		if (GetStdHandle(STD_INPUT_HANDLE) != INVALID_HANDLE_VALUE)
+		if (GetStdHandle(STD_INPUT_HANDLE) != INVALID_HANDLE_VALUE && !console->handle[i])
 		{
 			// flush buffer, duplicate handle and reopen stream to console
 			//j = fprintf(stdin, "\n STDIN =/= DEFAULT \n");
@@ -66,9 +60,9 @@ ijk_inl void ijkConsoleInternalRedirectToggle(ijkConsole* const console, ibool c
 			}
 		}
 	}
-	else if (console->handle[i])
+	else
 	{
-		if (GetStdHandle(STD_INPUT_HANDLE) != INVALID_HANDLE_VALUE)
+		if (GetStdHandle(STD_INPUT_HANDLE) != INVALID_HANDLE_VALUE && console->handle[i])
 		{
 			// flush and reopen
 			//j = fprintf(stdin, "\n STDIN =/= CONSOLE \n");
@@ -88,9 +82,9 @@ ijk_inl void ijkConsoleInternalRedirectToggle(ijkConsole* const console, ibool c
 
 	// redirect output
 	i = 1;
-	if (redirectOutput && !console->handle[i])
+	if (redirectOutput)
 	{
-		if (GetStdHandle(STD_OUTPUT_HANDLE) != INVALID_HANDLE_VALUE)
+		if (GetStdHandle(STD_OUTPUT_HANDLE) != INVALID_HANDLE_VALUE && !console->handle[i])
 		{
 			// flush buffer, duplicate handle and reopen stream to console
 			//j = fprintf(stdout, "\n STDOUT =/= DEFAULT \n");
@@ -107,9 +101,9 @@ ijk_inl void ijkConsoleInternalRedirectToggle(ijkConsole* const console, ibool c
 			}
 		}
 	}
-	else if (console->handle[i])
+	else
 	{
-		if (GetStdHandle(STD_OUTPUT_HANDLE) != INVALID_HANDLE_VALUE)
+		if (GetStdHandle(STD_OUTPUT_HANDLE) != INVALID_HANDLE_VALUE && console->handle[i])
 		{
 			// flush and reopen
 			//j = fprintf(stdout, "\n STDOUT =/= CONSOLE \n");
@@ -129,9 +123,9 @@ ijk_inl void ijkConsoleInternalRedirectToggle(ijkConsole* const console, ibool c
 
 	// redirect error
 	i = 2;
-	if (redirectError && !console->handle[i])
+	if (redirectError)
 	{
-		if (GetStdHandle(STD_ERROR_HANDLE) != INVALID_HANDLE_VALUE)
+		if (GetStdHandle(STD_ERROR_HANDLE) != INVALID_HANDLE_VALUE && !console->handle[i])
 		{
 			// flush buffer, duplicate handle and reopen stream to console
 			//j = fprintf(stderr, "\n STDERR =/= DEFAULT \n");
@@ -148,9 +142,9 @@ ijk_inl void ijkConsoleInternalRedirectToggle(ijkConsole* const console, ibool c
 			}
 		}
 	}
-	else if (console->handle[i])
+	else
 	{
-		if (GetStdHandle(STD_ERROR_HANDLE) != INVALID_HANDLE_VALUE)
+		if (GetStdHandle(STD_ERROR_HANDLE) != INVALID_HANDLE_VALUE && console->handle[i])
 		{
 			// flush and reopen
 			//j = fprintf(stderr, "\n STDERR =/= CONSOLE \n");
@@ -195,8 +189,8 @@ iret ijkConsoleCreateMain(ijkConsole* const console)
 				//	but then there's also that to manage
 				DeleteMenu(GetSystemMenu(handle, FALSE), SC_CLOSE, MF_BYCOMMAND);
 
-				// redirect to new console
-				ijkConsoleInternalRedirectToggle(console, 1, 1, 1);
+				// redirect to new console (in/out, not err)
+				ijkConsoleInternalRedirectToggle(console, 1, 1, 0);
 
 				// done
 				return ijk_success;
@@ -441,6 +435,31 @@ iret ijkConsoleClear()
 		}
 	}
 	return ijk_fail_operationfail;
+}
+
+
+//-----------------------------------------------------------------------------
+
+iret ijkConsolePrintDebug(kcstr const format, ...)
+{
+	if (format)
+	{
+		byte str[256] = { 0 };
+		va_list args = 0;
+		iret result = 0;
+
+		// fill buffer with formatted arguments
+		va_start(args, format);
+		result = _vsnprintf(str, szb(str), format, args);
+		va_end(args);
+
+		// internal print
+		OutputDebugStringA(str);
+
+		// return length
+		return result;
+	}
+	return ijk_fail_invalidparams;
 }
 
 
