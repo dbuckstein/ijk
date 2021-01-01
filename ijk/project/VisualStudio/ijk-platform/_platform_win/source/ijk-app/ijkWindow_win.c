@@ -1,5 +1,5 @@
 /*
-   Copyright 2020 Daniel S. Buckstein
+   Copyright 2020-2021 Daniel S. Buckstein
 
    Licensed under the Apache License, Version 2.0 (the "License");
    you may not use this file except in compliance with the License.
@@ -438,7 +438,7 @@ void ijkWindowInternalCreateInfo(ijkWindow* const window)
 		"ijk Player Application: About",
 		"ijk: an open-source, cross-platform, light-weight, ",
 		"    c-based rendering framework",
-		"Copyright 2020 Daniel S.Buckstein",
+		"Copyright 2020-2021 Daniel S.Buckstein",
 	};
 	bufferPtr += sprintf(bufferPtr, "%s\n%s\n%s\n\n", info[1], info[2], info[3]);
 
