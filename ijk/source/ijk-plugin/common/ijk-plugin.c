@@ -83,7 +83,7 @@ iret ijkPluginCallback_load(ijkPluginData* data, i32 f, ijkPluginData** data_out
 {
 	if (!*data_out)
 	{
-		*data_out = (ijkPluginData*)malloc(szb(ijkPluginData));
+		*data_out = (ijkPluginData*)malloc(sizeof(ijkPluginData));
 		**data_out = f;
 	}
 
@@ -96,7 +96,7 @@ iret ijkPluginCallback_load_hot(ijkPluginData* data, i32 f, ijkPluginData** data
 {
 	if (!*data_out)
 	{
-		*data_out = (ijkPluginData*)malloc(szb(ijkPluginData));
+		*data_out = (ijkPluginData*)malloc(sizeof(ijkPluginData));
 		**data_out = f;
 	}
 
@@ -114,7 +114,7 @@ iret ijkPluginCallback_reload(ijkPluginData* data, i32 f, ijkPluginData** data_o
 	}
 	if (!*data_out)
 	{
-		*data_out = (ijkPluginData*)malloc(szb(ijkPluginData));
+		*data_out = (ijkPluginData*)malloc(sizeof(ijkPluginData));
 		**data_out = f;
 	}
 
@@ -132,7 +132,7 @@ iret ijkPluginCallback_reload_hot(ijkPluginData* data, i32 f, ijkPluginData** da
 	}
 	if (!*data_out)
 	{
-		*data_out = (ijkPluginData*)malloc(szb(ijkPluginData));
+		*data_out = (ijkPluginData*)malloc(sizeof(ijkPluginData));
 		**data_out = f;
 	}
 

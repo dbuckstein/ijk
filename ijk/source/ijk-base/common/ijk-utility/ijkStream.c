@@ -32,7 +32,7 @@
 
 //-----------------------------------------------------------------------------
 
-iret ijkStreamCreateFile(ijkStream* const stream_out, kcstr const filePath, ibool const readMode)
+iret ijkStreamCreateFile(ijkStream* const stream_out, kstr const filePath, bool const readMode)
 {
 	if (stream_out && filePath && *filePath &&
 		!stream_out->base)
@@ -57,7 +57,7 @@ iret ijkStreamCreateFile(ijkStream* const stream_out, kcstr const filePath, iboo
 }
 
 
-iret ijkStreamCreateBuffer(ijkStream* const stream_out, size const buffSize, kcstr const readSource)
+iret ijkStreamCreateBuffer(ijkStream* const stream_out, size const buffSize, kstr const readSource)
 {
 	if (stream_out && buffSize &&
 		!stream_out->base)
@@ -91,7 +91,7 @@ iret ijkStreamCreateBuffer(ijkStream* const stream_out, size const buffSize, kcs
 }
 
 
-iret ijkStreamLoadBuffer(ijkStream* const stream_out, kcstr const filePath)
+iret ijkStreamLoadBuffer(ijkStream* const stream_out, kstr const filePath)
 {
 	if (stream_out && filePath && *filePath &&
 		!stream_out->base)
@@ -129,7 +129,7 @@ iret ijkStreamLoadBuffer(ijkStream* const stream_out, kcstr const filePath)
 }
 
 
-iret ijkStreamSaveBuffer(ijkStream const* const stream, kcstr const filePath)
+iret ijkStreamSaveBuffer(ijkStream const* const stream, kstr const filePath)
 {
 	if (stream && filePath && *filePath &&
 		stream->base && ijk_isfalse(stream->isFile))
@@ -263,7 +263,7 @@ iret ijkStreamWriteElement(ijkStream* const stream, kptr const elem, size const 
 #endif	// WINDOWS
 
 
-iret ijkStreamMakeDirectory(kcstr const directory)
+iret ijkStreamMakeDirectory(kstr const directory)
 {
 	if (directory &&
 		*directory)

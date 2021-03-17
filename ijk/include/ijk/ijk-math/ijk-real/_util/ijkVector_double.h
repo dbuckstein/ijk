@@ -3540,7 +3540,7 @@ doublev ijkVecBicubicCatmullRom2dv(double2 v_out, double2 const vpp, double2 con
 //		param v1: terminal reference value/end point, result when t=1
 //		param dv1: terminal tangent/rate of change
 //		return: total arc length
-f64 ijkVecReparamCubicHermite2dv(f64 uTable_out[], f64 lTable_out[], double2 vTable_out[], size const numDivisions, ibool const lNormalize, double2 const v0, double2 const dv0, double2 const v1, double2 const dv1);
+f64 ijkVecReparamCubicHermite2dv(f64 uTable_out[], f64 lTable_out[], double2 vTable_out[], size const numDivisions, bool const lNormalize, double2 const v0, double2 const dv0, double2 const v1, double2 const dv1);
 
 // ijkVecReparamCubicHermiteHandles2*v
 //	Reparameterize a cubic Hermite segment with handles into sample table.
@@ -3562,7 +3562,7 @@ f64 ijkVecReparamCubicHermite2dv(f64 uTable_out[], f64 lTable_out[], double2 vTa
 //		param cv1: terminal control handle value, should be greater than v1 
 //			for a positive rate of change
 //		return: total arc length
-f64 ijkVecReparamCubicHermiteHandles2dv(f64 uTable_out[], f64 lTable_out[], double2 vTable_out[], size const numDivisions, ibool const lNormalize, double2 const v0, double2 const cv0, double2 const v1, double2 const cv1);
+f64 ijkVecReparamCubicHermiteHandles2dv(f64 uTable_out[], f64 lTable_out[], double2 vTable_out[], size const numDivisions, bool const lNormalize, double2 const v0, double2 const cv0, double2 const v1, double2 const cv1);
 
 // ijkVecReparamCubicCatmullRom2*v
 //	Reparameterize a cubic Catmull-Rom segment into sample table.
@@ -3582,7 +3582,7 @@ f64 ijkVecReparamCubicHermiteHandles2dv(f64 uTable_out[], f64 lTable_out[], doub
 //		param v1: terminal reference value/end point, result when t=1
 //		param v2: terminal control value
 //		return: total arc length
-f64 ijkVecReparamCubicCatmullRom2dv(f64 uTable_out[], f64 lTable_out[], double2 vTable_out[], size const numDivisions, ibool const lNormalize, double2 const vp, double2 const v0, double2 const v1, double2 const v2);
+f64 ijkVecReparamCubicCatmullRom2dv(f64 uTable_out[], f64 lTable_out[], double2 vTable_out[], size const numDivisions, bool const lNormalize, double2 const vp, double2 const v0, double2 const v1, double2 const v2);
 
 // ijkVecReparamBicubicCatmullRom2*v
 //	Reparameterize a bi-cubic Catmull-Rom segment into sample table.
@@ -3626,7 +3626,7 @@ f64 ijkVecReparamCubicCatmullRom2dv(f64 uTable_out[], f64 lTable_out[], double2 
 //		param u1: interpolation parameter for terminal value curve
 //		param u2: interpolation parameter for terminal control curve
 //		return: total arc length
-f64 ijkVecReparamBicubicCatmullRom2dv(f64 uTable_out[], f64 lTable_out[], double2 vTable_out[], size const numDivisions, ibool const lNormalize, double2 const vpp, double2 const vp0, double2 const vp1, double2 const vp2, double2 const v0p, double2 const v00, double2 const v01, double2 const v02, double2 const v1p, double2 const v10, double2 const v11, double2 const v12, double2 const v2p, double2 const v20, double2 const v21, double2 const v22, f64 const up, f64 const u0, f64 const u1, f64 const u2);
+f64 ijkVecReparamBicubicCatmullRom2dv(f64 uTable_out[], f64 lTable_out[], double2 vTable_out[], size const numDivisions, bool const lNormalize, double2 const vpp, double2 const vp0, double2 const vp1, double2 const vp2, double2 const v0p, double2 const v00, double2 const v01, double2 const v02, double2 const v1p, double2 const v10, double2 const v11, double2 const v12, double2 const v2p, double2 const v20, double2 const v21, double2 const v22, f64 const up, f64 const u0, f64 const u1, f64 const u2);
 
 // ijkVecSampleTableInc2*v
 //	Find index of parameter in table and approximate value by interpolating 
@@ -4181,7 +4181,7 @@ doublev ijkVecBicubicCatmullRom3dv(double3 v_out, double3 const vpp, double3 con
 //		param v1: terminal reference value/end point, result when t=1
 //		param dv1: terminal tangent/rate of change
 //		return: total arc length
-f64 ijkVecReparamCubicHermite3dv(f64 uTable_out[], f64 lTable_out[], double3 vTable_out[], size const numDivisions, ibool const lNormalize, double3 const v0, double3 const dv0, double3 const v1, double3 const dv1);
+f64 ijkVecReparamCubicHermite3dv(f64 uTable_out[], f64 lTable_out[], double3 vTable_out[], size const numDivisions, bool const lNormalize, double3 const v0, double3 const dv0, double3 const v1, double3 const dv1);
 
 // ijkVecReparamCubicHermiteHandles3*v
 //	Reparameterize a cubic Hermite segment with handles into sample table.
@@ -4203,7 +4203,7 @@ f64 ijkVecReparamCubicHermite3dv(f64 uTable_out[], f64 lTable_out[], double3 vTa
 //		param cv1: terminal control handle value, should be greater than v1 
 //			for a positive rate of change
 //		return: total arc length
-f64 ijkVecReparamCubicHermiteHandles3dv(f64 uTable_out[], f64 lTable_out[], double3 vTable_out[], size const numDivisions, ibool const lNormalize, double3 const v0, double3 const cv0, double3 const v1, double3 const cv1);
+f64 ijkVecReparamCubicHermiteHandles3dv(f64 uTable_out[], f64 lTable_out[], double3 vTable_out[], size const numDivisions, bool const lNormalize, double3 const v0, double3 const cv0, double3 const v1, double3 const cv1);
 
 // ijkVecReparamCubicCatmullRom3*v
 //	Reparameterize a cubic Catmull-Rom segment into sample table.
@@ -4223,7 +4223,7 @@ f64 ijkVecReparamCubicHermiteHandles3dv(f64 uTable_out[], f64 lTable_out[], doub
 //		param v1: terminal reference value/end point, result when t=1
 //		param v2: terminal control value
 //		return: total arc length
-f64 ijkVecReparamCubicCatmullRom3dv(f64 uTable_out[], f64 lTable_out[], double3 vTable_out[], size const numDivisions, ibool const lNormalize, double3 const vp, double3 const v0, double3 const v1, double3 const v2);
+f64 ijkVecReparamCubicCatmullRom3dv(f64 uTable_out[], f64 lTable_out[], double3 vTable_out[], size const numDivisions, bool const lNormalize, double3 const vp, double3 const v0, double3 const v1, double3 const v2);
 
 // ijkVecReparamBicubicCatmullRom3*v
 //	Reparameterize a bi-cubic Catmull-Rom segment into sample table.
@@ -4267,7 +4267,7 @@ f64 ijkVecReparamCubicCatmullRom3dv(f64 uTable_out[], f64 lTable_out[], double3 
 //		param u1: interpolation parameter for terminal value curve
 //		param u2: interpolation parameter for terminal control curve
 //		return: total arc length
-f64 ijkVecReparamBicubicCatmullRom3dv(f64 uTable_out[], f64 lTable_out[], double3 vTable_out[], size const numDivisions, ibool const lNormalize, double3 const vpp, double3 const vp0, double3 const vp1, double3 const vp2, double3 const v0p, double3 const v00, double3 const v01, double3 const v02, double3 const v1p, double3 const v10, double3 const v11, double3 const v12, double3 const v2p, double3 const v20, double3 const v21, double3 const v22, f64 const up, f64 const u0, f64 const u1, f64 const u2);
+f64 ijkVecReparamBicubicCatmullRom3dv(f64 uTable_out[], f64 lTable_out[], double3 vTable_out[], size const numDivisions, bool const lNormalize, double3 const vpp, double3 const vp0, double3 const vp1, double3 const vp2, double3 const v0p, double3 const v00, double3 const v01, double3 const v02, double3 const v1p, double3 const v10, double3 const v11, double3 const v12, double3 const v2p, double3 const v20, double3 const v21, double3 const v22, f64 const up, f64 const u0, f64 const u1, f64 const u2);
 
 // ijkVecSampleTableInc3*v
 //	Find index of parameter in table and approximate value by interpolating 
@@ -4822,7 +4822,7 @@ doublev ijkVecBicubicCatmullRom4dv(double4 v_out, double4 const vpp, double4 con
 //		param v1: terminal reference value/end point, result when t=1
 //		param dv1: terminal tangent/rate of change
 //		return: total arc length
-f64 ijkVecReparamCubicHermite4dv(f64 uTable_out[], f64 lTable_out[], double4 vTable_out[], size const numDivisions, ibool const lNormalize, double4 const v0, double4 const dv0, double4 const v1, double4 const dv1);
+f64 ijkVecReparamCubicHermite4dv(f64 uTable_out[], f64 lTable_out[], double4 vTable_out[], size const numDivisions, bool const lNormalize, double4 const v0, double4 const dv0, double4 const v1, double4 const dv1);
 
 // ijkVecReparamCubicHermiteHandles4*v
 //	Reparameterize a cubic Hermite segment with handles into sample table.
@@ -4844,7 +4844,7 @@ f64 ijkVecReparamCubicHermite4dv(f64 uTable_out[], f64 lTable_out[], double4 vTa
 //		param cv1: terminal control handle value, should be greater than v1 
 //			for a positive rate of change
 //		return: total arc length
-f64 ijkVecReparamCubicHermiteHandles4dv(f64 uTable_out[], f64 lTable_out[], double4 vTable_out[], size const numDivisions, ibool const lNormalize, double4 const v0, double4 const cv0, double4 const v1, double4 const cv1);
+f64 ijkVecReparamCubicHermiteHandles4dv(f64 uTable_out[], f64 lTable_out[], double4 vTable_out[], size const numDivisions, bool const lNormalize, double4 const v0, double4 const cv0, double4 const v1, double4 const cv1);
 
 // ijkVecReparamCubicCatmullRom4*v
 //	Reparameterize a cubic Catmull-Rom segment into sample table.
@@ -4864,7 +4864,7 @@ f64 ijkVecReparamCubicHermiteHandles4dv(f64 uTable_out[], f64 lTable_out[], doub
 //		param v1: terminal reference value/end point, result when t=1
 //		param v2: terminal control value
 //		return: total arc length
-f64 ijkVecReparamCubicCatmullRom4dv(f64 uTable_out[], f64 lTable_out[], double4 vTable_out[], size const numDivisions, ibool const lNormalize, double4 const vp, double4 const v0, double4 const v1, double4 const v2);
+f64 ijkVecReparamCubicCatmullRom4dv(f64 uTable_out[], f64 lTable_out[], double4 vTable_out[], size const numDivisions, bool const lNormalize, double4 const vp, double4 const v0, double4 const v1, double4 const v2);
 
 // ijkVecReparamBicubicCatmullRom4*v
 //	Reparameterize a bi-cubic Catmull-Rom segment into sample table.
@@ -4908,7 +4908,7 @@ f64 ijkVecReparamCubicCatmullRom4dv(f64 uTable_out[], f64 lTable_out[], double4 
 //		param u1: interpolation parameter for terminal value curve
 //		param u2: interpolation parameter for terminal control curve
 //		return: total arc length
-f64 ijkVecReparamBicubicCatmullRom4dv(f64 uTable_out[], f64 lTable_out[], double4 vTable_out[], size const numDivisions, ibool const lNormalize, double4 const vpp, double4 const vp0, double4 const vp1, double4 const vp2, double4 const v0p, double4 const v00, double4 const v01, double4 const v02, double4 const v1p, double4 const v10, double4 const v11, double4 const v12, double4 const v2p, double4 const v20, double4 const v21, double4 const v22, f64 const up, f64 const u0, f64 const u1, f64 const u2);
+f64 ijkVecReparamBicubicCatmullRom4dv(f64 uTable_out[], f64 lTable_out[], double4 vTable_out[], size const numDivisions, bool const lNormalize, double4 const vpp, double4 const vp0, double4 const vp1, double4 const vp2, double4 const v0p, double4 const v00, double4 const v01, double4 const v02, double4 const v1p, double4 const v10, double4 const v11, double4 const v12, double4 const v2p, double4 const v20, double4 const v21, double4 const v22, f64 const up, f64 const u0, f64 const u1, f64 const u2);
 
 // ijkVecSampleTableInc4*v
 //	Find index of parameter in table and approximate value by interpolating 
@@ -5428,7 +5428,7 @@ dvec2 ijkVecBicubicCatmullRom2d(dvec2 const vpp, dvec2 const vp0, dvec2 const vp
 //		param v1: terminal reference value/end point, result when t=1
 //		param dv1: terminal tangent/rate of change
 //		return: total arc length
-double ijkVecReparamCubicHermite2d(double uTable_out[], double lTable_out[], dvec2 vTable_out[], size const numDivisions, ibool const lNormalize, dvec2 const v0, dvec2 const dv0, dvec2 const v1, dvec2 const dv1);
+double ijkVecReparamCubicHermite2d(double uTable_out[], double lTable_out[], dvec2 vTable_out[], size const numDivisions, bool const lNormalize, dvec2 const v0, dvec2 const dv0, dvec2 const v1, dvec2 const dv1);
 
 // ijkVecReparamCubicHermiteHandles2*
 //	Reparameterize a cubic Hermite segment with handles into sample table.
@@ -5450,7 +5450,7 @@ double ijkVecReparamCubicHermite2d(double uTable_out[], double lTable_out[], dve
 //		param cv1: terminal control handle value, should be greater than v1 
 //			for a positive rate of change
 //		return: total arc length
-double ijkVecReparamCubicHermiteHandles2d(double uTable_out[], double lTable_out[], dvec2 vTable_out[], size const numDivisions, ibool const lNormalize, dvec2 const v0, dvec2 const cv0, dvec2 const v1, dvec2 const cv1);
+double ijkVecReparamCubicHermiteHandles2d(double uTable_out[], double lTable_out[], dvec2 vTable_out[], size const numDivisions, bool const lNormalize, dvec2 const v0, dvec2 const cv0, dvec2 const v1, dvec2 const cv1);
 
 // ijkVecReparamCubicCatmullRom2*
 //	Reparameterize a cubic Catmull-Rom segment into sample table.
@@ -5470,7 +5470,7 @@ double ijkVecReparamCubicHermiteHandles2d(double uTable_out[], double lTable_out
 //		param v1: terminal reference value/end point, result when t=1
 //		param v2: terminal control value
 //		return: total arc length
-double ijkVecReparamCubicCatmullRom2d(double uTable_out[], double lTable_out[], dvec2 vTable_out[], size const numDivisions, ibool const lNormalize, dvec2 const vp, dvec2 const v0, dvec2 const v1, dvec2 const v2);
+double ijkVecReparamCubicCatmullRom2d(double uTable_out[], double lTable_out[], dvec2 vTable_out[], size const numDivisions, bool const lNormalize, dvec2 const vp, dvec2 const v0, dvec2 const v1, dvec2 const v2);
 
 // ijkVecReparamBicubicCatmullRom2*
 //	Reparameterize a bi-cubic Catmull-Rom segment into sample table.
@@ -5514,7 +5514,7 @@ double ijkVecReparamCubicCatmullRom2d(double uTable_out[], double lTable_out[], 
 //		param u1: interpolation parameter for terminal value curve
 //		param u2: interpolation parameter for terminal control curve
 //		return: total arc length
-double ijkVecReparamBicubicCatmullRom2d(double uTable_out[], double lTable_out[], dvec2 vTable_out[], size const numDivisions, ibool const lNormalize, dvec2 const vpp, dvec2 const vp0, dvec2 const vp1, dvec2 const vp2, dvec2 const v0p, dvec2 const v00, dvec2 const v01, dvec2 const v02, dvec2 const v1p, dvec2 const v10, dvec2 const v11, dvec2 const v12, dvec2 const v2p, dvec2 const v20, dvec2 const v21, dvec2 const v22, double const up, double const u0, double const u1, double const u2);
+double ijkVecReparamBicubicCatmullRom2d(double uTable_out[], double lTable_out[], dvec2 vTable_out[], size const numDivisions, bool const lNormalize, dvec2 const vpp, dvec2 const vp0, dvec2 const vp1, dvec2 const vp2, dvec2 const v0p, dvec2 const v00, dvec2 const v01, dvec2 const v02, dvec2 const v1p, dvec2 const v10, dvec2 const v11, dvec2 const v12, dvec2 const v2p, dvec2 const v20, dvec2 const v21, dvec2 const v22, double const up, double const u0, double const u1, double const u2);
 
 // ijkVecSampleTableInc2*
 //	Find index of parameter in table and approximate value by interpolating 
@@ -6023,7 +6023,7 @@ dvec3 ijkVecBicubicCatmullRom3d(dvec3 const vpp, dvec3 const vp0, dvec3 const vp
 //		param v1: terminal reference value/end point, result when t=1
 //		param dv1: terminal tangent/rate of change
 //		return: total arc length
-double ijkVecReparamCubicHermite3d(double uTable_out[], double lTable_out[], dvec3 vTable_out[], size const numDivisions, ibool const lNormalize, dvec3 const v0, dvec3 const dv0, dvec3 const v1, dvec3 const dv1);
+double ijkVecReparamCubicHermite3d(double uTable_out[], double lTable_out[], dvec3 vTable_out[], size const numDivisions, bool const lNormalize, dvec3 const v0, dvec3 const dv0, dvec3 const v1, dvec3 const dv1);
 
 // ijkVecReparamCubicHermiteHandles3*
 //	Reparameterize a cubic Hermite segment with handles into sample table.
@@ -6045,7 +6045,7 @@ double ijkVecReparamCubicHermite3d(double uTable_out[], double lTable_out[], dve
 //		param cv1: terminal control handle value, should be greater than v1 
 //			for a positive rate of change
 //		return: total arc length
-double ijkVecReparamCubicHermiteHandles3d(double uTable_out[], double lTable_out[], dvec3 vTable_out[], size const numDivisions, ibool const lNormalize, dvec3 const v0, dvec3 const cv0, dvec3 const v1, dvec3 const cv1);
+double ijkVecReparamCubicHermiteHandles3d(double uTable_out[], double lTable_out[], dvec3 vTable_out[], size const numDivisions, bool const lNormalize, dvec3 const v0, dvec3 const cv0, dvec3 const v1, dvec3 const cv1);
 
 // ijkVecReparamCubicCatmullRom3*
 //	Reparameterize a cubic Catmull-Rom segment into sample table.
@@ -6065,7 +6065,7 @@ double ijkVecReparamCubicHermiteHandles3d(double uTable_out[], double lTable_out
 //		param v1: terminal reference value/end point, result when t=1
 //		param v2: terminal control value
 //		return: total arc length
-double ijkVecReparamCubicCatmullRom3d(double uTable_out[], double lTable_out[], dvec3 vTable_out[], size const numDivisions, ibool const lNormalize, dvec3 const vp, dvec3 const v0, dvec3 const v1, dvec3 const v2);
+double ijkVecReparamCubicCatmullRom3d(double uTable_out[], double lTable_out[], dvec3 vTable_out[], size const numDivisions, bool const lNormalize, dvec3 const vp, dvec3 const v0, dvec3 const v1, dvec3 const v2);
 
 // ijkVecReparamBicubicCatmullRom3*
 //	Reparameterize a bi-cubic Catmull-Rom segment into sample table.
@@ -6109,7 +6109,7 @@ double ijkVecReparamCubicCatmullRom3d(double uTable_out[], double lTable_out[], 
 //		param u1: interpolation parameter for terminal value curve
 //		param u2: interpolation parameter for terminal control curve
 //		return: total arc length
-double ijkVecReparamBicubicCatmullRom3d(double uTable_out[], double lTable_out[], dvec3 vTable_out[], size const numDivisions, ibool const lNormalize, dvec3 const vpp, dvec3 const vp0, dvec3 const vp1, dvec3 const vp2, dvec3 const v0p, dvec3 const v00, dvec3 const v01, dvec3 const v02, dvec3 const v1p, dvec3 const v10, dvec3 const v11, dvec3 const v12, dvec3 const v2p, dvec3 const v20, dvec3 const v21, dvec3 const v22, double const up, double const u0, double const u1, double const u2);
+double ijkVecReparamBicubicCatmullRom3d(double uTable_out[], double lTable_out[], dvec3 vTable_out[], size const numDivisions, bool const lNormalize, dvec3 const vpp, dvec3 const vp0, dvec3 const vp1, dvec3 const vp2, dvec3 const v0p, dvec3 const v00, dvec3 const v01, dvec3 const v02, dvec3 const v1p, dvec3 const v10, dvec3 const v11, dvec3 const v12, dvec3 const v2p, dvec3 const v20, dvec3 const v21, dvec3 const v22, double const up, double const u0, double const u1, double const u2);
 
 // ijkVecSampleTableInc3*
 //	Find index of parameter in table and approximate value by interpolating 
@@ -6618,7 +6618,7 @@ dvec4 ijkVecBicubicCatmullRom4d(dvec4 const vpp, dvec4 const vp0, dvec4 const vp
 //		param v1: terminal reference value/end point, result when t=1
 //		param dv1: terminal tangent/rate of change
 //		return: total arc length
-double ijkVecReparamCubicHermite4d(double uTable_out[], double lTable_out[], dvec4 vTable_out[], size const numDivisions, ibool const lNormalize, dvec4 const v0, dvec4 const dv0, dvec4 const v1, dvec4 const dv1);
+double ijkVecReparamCubicHermite4d(double uTable_out[], double lTable_out[], dvec4 vTable_out[], size const numDivisions, bool const lNormalize, dvec4 const v0, dvec4 const dv0, dvec4 const v1, dvec4 const dv1);
 
 // ijkVecReparamCubicHermiteHandles4*
 //	Reparameterize a cubic Hermite segment with handles into sample table.
@@ -6640,7 +6640,7 @@ double ijkVecReparamCubicHermite4d(double uTable_out[], double lTable_out[], dve
 //		param cv1: terminal control handle value, should be greater than v1 
 //			for a positive rate of change
 //		return: total arc length
-double ijkVecReparamCubicHermiteHandles4d(double uTable_out[], double lTable_out[], dvec4 vTable_out[], size const numDivisions, ibool const lNormalize, dvec4 const v0, dvec4 const cv0, dvec4 const v1, dvec4 const cv1);
+double ijkVecReparamCubicHermiteHandles4d(double uTable_out[], double lTable_out[], dvec4 vTable_out[], size const numDivisions, bool const lNormalize, dvec4 const v0, dvec4 const cv0, dvec4 const v1, dvec4 const cv1);
 
 // ijkVecReparamCubicCatmullRom4*
 //	Reparameterize a cubic Catmull-Rom segment into sample table.
@@ -6660,7 +6660,7 @@ double ijkVecReparamCubicHermiteHandles4d(double uTable_out[], double lTable_out
 //		param v1: terminal reference value/end point, result when t=1
 //		param v2: terminal control value
 //		return: total arc length
-double ijkVecReparamCubicCatmullRom4d(double uTable_out[], double lTable_out[], dvec4 vTable_out[], size const numDivisions, ibool const lNormalize, dvec4 const vp, dvec4 const v0, dvec4 const v1, dvec4 const v2);
+double ijkVecReparamCubicCatmullRom4d(double uTable_out[], double lTable_out[], dvec4 vTable_out[], size const numDivisions, bool const lNormalize, dvec4 const vp, dvec4 const v0, dvec4 const v1, dvec4 const v2);
 
 // ijkVecReparamBicubicCatmullRom4*
 //	Reparameterize a bi-cubic Catmull-Rom segment into sample table.
@@ -6704,7 +6704,7 @@ double ijkVecReparamCubicCatmullRom4d(double uTable_out[], double lTable_out[], 
 //		param u1: interpolation parameter for terminal value curve
 //		param u2: interpolation parameter for terminal control curve
 //		return: total arc length
-double ijkVecReparamBicubicCatmullRom4d(double uTable_out[], double lTable_out[], dvec4 vTable_out[], size const numDivisions, ibool const lNormalize, dvec4 const vpp, dvec4 const vp0, dvec4 const vp1, dvec4 const vp2, dvec4 const v0p, dvec4 const v00, dvec4 const v01, dvec4 const v02, dvec4 const v1p, dvec4 const v10, dvec4 const v11, dvec4 const v12, dvec4 const v2p, dvec4 const v20, dvec4 const v21, dvec4 const v22, double const up, double const u0, double const u1, double const u2);
+double ijkVecReparamBicubicCatmullRom4d(double uTable_out[], double lTable_out[], dvec4 vTable_out[], size const numDivisions, bool const lNormalize, dvec4 const vpp, dvec4 const vp0, dvec4 const vp1, dvec4 const vp2, dvec4 const v0p, dvec4 const v00, dvec4 const v01, dvec4 const v02, dvec4 const v1p, dvec4 const v10, dvec4 const v11, dvec4 const v12, dvec4 const v2p, dvec4 const v20, dvec4 const v21, dvec4 const v22, double const up, double const u0, double const u1, double const u2);
 
 // ijkVecSampleTableInc4*
 //	Find index of parameter in table and approximate value by interpolating 

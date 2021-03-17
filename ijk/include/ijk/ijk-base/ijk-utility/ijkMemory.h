@@ -34,8 +34,6 @@
 
 #ifdef __cplusplus
 extern "C" {
-#else	// !__cplusplus
-
 #endif	// __cplusplus
 
 
@@ -103,7 +101,7 @@ ptr ijkMemoryCopy(ptr const dst, kptr const src, size const sz_bytes);
 //			valid: non-zero
 //		return SUCCESS: number of bytes before difference
 //		return FAILURE: ijk_fail_invalidparams if invalid parameters
-ptrdiff ijkMemoryCompare(kptr const dst, kptr const src, size const sz_bytes);
+pdiff ijkMemoryCompare(kptr const dst, kptr const src, size const sz_bytes);
 
 // ijkMemoryCopyC
 //	Set/format memory block of chomps.
@@ -148,7 +146,7 @@ ptr ijkMemoryCopyC(ptr const dst, kptr const src, size const sz_chomps);
 //			valid: non-zero
 //		return SUCCESS: number of chomps before difference
 //		return FAILURE: ijk_fail_invalidparams if invalid parameters
-ptrdiff ijkMemoryCompareC(kptr const dst, kptr const src, size const sz_chomps);
+pdiff ijkMemoryCompareC(kptr const dst, kptr const src, size const sz_chomps);
 
 
 //-----------------------------------------------------------------------------
@@ -374,7 +372,7 @@ iret ijkMemoryBlockSave(kptr const block, ijkStream* const stream, ijkStreamWrit
 //		return SUCCESS: ijk_success if status retrieved
 //		return FAILURE: ijk_fail_invalidparams if invalid parameters
 //		return FAILURE: ijk_fail_operationfail if status not retrieved
-iret ijkMemoryBlockIsInPool(kptr const block, kptr const pool, ibool* const status_out);
+iret ijkMemoryBlockIsInPool(kptr const block, kptr const pool, bool* const status_out);
 
 // ijkMemoryBlockGetName
 //	Get the name of a reserved block.

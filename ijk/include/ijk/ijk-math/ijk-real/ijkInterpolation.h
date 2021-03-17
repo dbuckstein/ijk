@@ -336,7 +336,7 @@ flt ijkInterpBicubicCatmullRom_flt(flt const vpp, flt const vp0, flt const vp1, 
 //		param v1: terminal reference value/end point, result when t=1
 //		param dv1: terminal tangent/rate of change
 //		return: total arc length
-flt ijkInterpReparamCubicHermite_flt(flt tTable_out[], flt lTable_out[], flt vTable_out[], size const numDivisions, ibool const lNormalize, flt const v0, flt const dv0, flt const v1, flt const dv1);
+flt ijkInterpReparamCubicHermite_flt(flt tTable_out[], flt lTable_out[], flt vTable_out[], size const numDivisions, bool const lNormalize, flt const v0, flt const dv0, flt const v1, flt const dv1);
 
 // ijkInterpReparamCubicHermiteHandles_flt
 //	Reparameterize a cubic Hermite segment with handles into sample table.
@@ -358,7 +358,7 @@ flt ijkInterpReparamCubicHermite_flt(flt tTable_out[], flt lTable_out[], flt vTa
 //		param cv1: terminal control handle value, should be greater than v1 
 //			for a positive rate of change
 //		return: total arc length
-flt ijkInterpReparamCubicHermiteHandles_flt(flt tTable_out[], flt lTable_out[], flt vTable_out[], size const numDivisions, ibool const lNormalize, flt const v0, flt const cv0, flt const v1, flt const cv1);
+flt ijkInterpReparamCubicHermiteHandles_flt(flt tTable_out[], flt lTable_out[], flt vTable_out[], size const numDivisions, bool const lNormalize, flt const v0, flt const cv0, flt const v1, flt const cv1);
 
 // ijkInterpReparamCubicCatmullRom_flt
 //	Reparameterize a cubic Catmull-Rom segment into sample table.
@@ -378,7 +378,7 @@ flt ijkInterpReparamCubicHermiteHandles_flt(flt tTable_out[], flt lTable_out[], 
 //		param v1: terminal reference value/end point, result when t=1
 //		param v2: terminal control value
 //		return: total arc length
-flt ijkInterpReparamCubicCatmullRom_flt(flt tTable_out[], flt lTable_out[], flt vTable_out[], size const numDivisions, ibool const lNormalize, flt const vp, flt const v0, flt const v1, flt const v2);
+flt ijkInterpReparamCubicCatmullRom_flt(flt tTable_out[], flt lTable_out[], flt vTable_out[], size const numDivisions, bool const lNormalize, flt const vp, flt const v0, flt const v1, flt const v2);
 
 // ijkInterpReparamBicubicCatmullRom_flt
 //	Reparameterize a bi-cubic Catmull-Rom segment into sample table.
@@ -422,7 +422,7 @@ flt ijkInterpReparamCubicCatmullRom_flt(flt tTable_out[], flt lTable_out[], flt 
 //		param t1: interpolation parameter for terminal value curve
 //		param t2: interpolation parameter for terminal control curve
 //		return: total arc length
-flt ijkInterpReparamBicubicCatmullRom_flt(flt tTable_out[], flt lTable_out[], flt vTable_out[], size const numDivisions, ibool const lNormalize, flt const vpp, flt const vp0, flt const vp1, flt const vp2, flt const v0p, flt const v00, flt const v01, flt const v02, flt const v1p, flt const v10, flt const v11, flt const v12, flt const v2p, flt const v20, flt const v21, flt const v22, flt const tp, flt const t0, flt const t1, flt const t2);
+flt ijkInterpReparamBicubicCatmullRom_flt(flt tTable_out[], flt lTable_out[], flt vTable_out[], size const numDivisions, bool const lNormalize, flt const vpp, flt const vp0, flt const vp1, flt const vp2, flt const v0p, flt const v00, flt const v01, flt const v02, flt const v1p, flt const v10, flt const v11, flt const v12, flt const v2p, flt const v20, flt const v21, flt const v22, flt const tp, flt const t0, flt const t1, flt const t2);
 
 // ijkInterpSampleTableInc_flt
 //	Find index of parameter in table and approximate value by interpolating 
@@ -798,7 +798,7 @@ dbl ijkInterpBicubicCatmullRom_dbl(dbl const vpp, dbl const vp0, dbl const vp1, 
 //		param v1: terminal reference value/end point, result when t=1
 //		param dv1: terminal tangent/rate of change
 //		return: total arc length
-dbl ijkInterpReparamCubicHermite_dbl(dbl tTable_out[], dbl lTable_out[], dbl vTable_out[], size const numDivisions, ibool const lNormalize, dbl const v0, dbl const dv0, dbl const v1, dbl const dv1);
+dbl ijkInterpReparamCubicHermite_dbl(dbl tTable_out[], dbl lTable_out[], dbl vTable_out[], size const numDivisions, bool const lNormalize, dbl const v0, dbl const dv0, dbl const v1, dbl const dv1);
 
 // ijkInterpReparamCubicHermiteHandles_dbl
 //	Reparameterize a cubic Hermite segment with handles into sample table.
@@ -820,7 +820,7 @@ dbl ijkInterpReparamCubicHermite_dbl(dbl tTable_out[], dbl lTable_out[], dbl vTa
 //		param cv1: terminal control handle value, should be greater than v1 
 //			for a positive rate of change
 //		return: total arc length
-dbl ijkInterpReparamCubicHermiteHandles_dbl(dbl tTable_out[], dbl lTable_out[], dbl vTable_out[], size const numDivisions, ibool const lNormalize, dbl const v0, dbl const cv0, dbl const v1, dbl const cv1);
+dbl ijkInterpReparamCubicHermiteHandles_dbl(dbl tTable_out[], dbl lTable_out[], dbl vTable_out[], size const numDivisions, bool const lNormalize, dbl const v0, dbl const cv0, dbl const v1, dbl const cv1);
 
 // ijkInterpReparamCubicCatmullRom_dbl
 //	Reparameterize a cubic Catmull-Rom segment into sample table.
@@ -840,7 +840,7 @@ dbl ijkInterpReparamCubicHermiteHandles_dbl(dbl tTable_out[], dbl lTable_out[], 
 //		param v1: terminal reference value/end point, result when t=1
 //		param v2: terminal control value
 //		return: total arc length
-dbl ijkInterpReparamCubicCatmullRom_dbl(dbl tTable_out[], dbl lTable_out[], dbl vTable_out[], size const numDivisions, ibool const lNormalize, dbl const vp, dbl const v0, dbl const v1, dbl const v2);
+dbl ijkInterpReparamCubicCatmullRom_dbl(dbl tTable_out[], dbl lTable_out[], dbl vTable_out[], size const numDivisions, bool const lNormalize, dbl const vp, dbl const v0, dbl const v1, dbl const v2);
 
 // ijkInterpReparamBicubicCatmullRom_dbl
 //	Reparameterize a bi-cubic Catmull-Rom segment into sample table.
@@ -884,7 +884,7 @@ dbl ijkInterpReparamCubicCatmullRom_dbl(dbl tTable_out[], dbl lTable_out[], dbl 
 //		param t1: interpolation parameter for terminal value curve
 //		param t2: interpolation parameter for terminal control curve
 //		return: total arc length
-dbl ijkInterpReparamBicubicCatmullRom_dbl(dbl tTable_out[], dbl lTable_out[], dbl vTable_out[], size const numDivisions, ibool const lNormalize, dbl const vpp, dbl const vp0, dbl const vp1, dbl const vp2, dbl const v0p, dbl const v00, dbl const v01, dbl const v02, dbl const v1p, dbl const v10, dbl const v11, dbl const v12, dbl const v2p, dbl const v20, dbl const v21, dbl const v22, dbl const tp, dbl const t0, dbl const t1, dbl const t2);
+dbl ijkInterpReparamBicubicCatmullRom_dbl(dbl tTable_out[], dbl lTable_out[], dbl vTable_out[], size const numDivisions, bool const lNormalize, dbl const vpp, dbl const vp0, dbl const vp1, dbl const vp2, dbl const v0p, dbl const v00, dbl const v01, dbl const v02, dbl const v1p, dbl const v10, dbl const v11, dbl const v12, dbl const v2p, dbl const v20, dbl const v21, dbl const v22, dbl const tp, dbl const t0, dbl const t1, dbl const t2);
 
 // ijkInterpSampleTableInc_dbl
 //	Find index of parameter in table and approximate value by interpolating 
@@ -1283,7 +1283,7 @@ index ijkInterpSampleTableDecIndex_dbl(dbl* const tReparam_out, dbl const tTable
 //		param v1: terminal reference value/end point, result when t=1
 //		param dv1: terminal tangent/rate of change
 //		return: total arc length
-//real ijkInterpReparamCubicHermite(real tTable_out[], real lTable_out[], real vTable_out[], size const numDivisions, ibool const lNormalize, real const v0, real const dv0, real const v1, real const dv1);
+//real ijkInterpReparamCubicHermite(real tTable_out[], real lTable_out[], real vTable_out[], size const numDivisions, bool const lNormalize, real const v0, real const dv0, real const v1, real const dv1);
 #define ijkInterpReparamCubicHermite		ijk_declrealf(ijkInterpReparamCubicHermite)
 
 // ijkInterpReparamCubicHermiteHandles
@@ -1306,7 +1306,7 @@ index ijkInterpSampleTableDecIndex_dbl(dbl* const tReparam_out, dbl const tTable
 //		param cv1: terminal control handle value, should be greater than v1 
 //			for a positive rate of change
 //		return: total arc length
-//real ijkInterpReparamCubicHermiteHandles(real tTable_out[], real lTable_out[], real vTable_out[], size const numDivisions, ibool const lNormalize, real const v0, real const cv0, real const v1, real const cv1);
+//real ijkInterpReparamCubicHermiteHandles(real tTable_out[], real lTable_out[], real vTable_out[], size const numDivisions, bool const lNormalize, real const v0, real const cv0, real const v1, real const cv1);
 #define ijkInterpReparamCubicHermiteHandles	ijk_declrealf(ijkInterpReparamCubicHermiteHandles)
 
 // ijkInterpReparamCubicCatmullRom
@@ -1327,7 +1327,7 @@ index ijkInterpSampleTableDecIndex_dbl(dbl* const tReparam_out, dbl const tTable
 //		param v1: terminal reference value/end point, result when t=1
 //		param v2: terminal control value
 //		return: total arc length
-//real ijkInterpReparamCubicCatmullRom(real tTable_out[], real lTable_out[], real vTable_out[], size const numDivisions, ibool const lNormalize, real const vp, real const v0, real const v1, real const v2);
+//real ijkInterpReparamCubicCatmullRom(real tTable_out[], real lTable_out[], real vTable_out[], size const numDivisions, bool const lNormalize, real const vp, real const v0, real const v1, real const v2);
 #define ijkInterpReparamCubicCatmullRom		ijk_declrealf(ijkInterpReparamCubicCatmullRom)
 
 // ijkInterpReparamBicubicCatmullRom
@@ -1372,7 +1372,7 @@ index ijkInterpSampleTableDecIndex_dbl(dbl* const tReparam_out, dbl const tTable
 //		param t1: interpolation parameter for terminal value curve
 //		param t2: interpolation parameter for terminal control curve
 //		return: total arc length
-//real ijkInterpReparamBicubicCatmullRom(real tTable_out[], real lTable_out[], real vTable_out[], size const numDivisions, ibool const lNormalize, real const vpp, real const vp0, real const vp1, real const vp2, real const v0p, real const v00, real const v01, real const v02, real const v1p, real const v10, real const v11, real const v12, real const v2p, real const v20, real const v21, real const v22, real const tp, real const t0, real const t1, real const t2);
+//real ijkInterpReparamBicubicCatmullRom(real tTable_out[], real lTable_out[], real vTable_out[], size const numDivisions, bool const lNormalize, real const vpp, real const vp0, real const vp1, real const vp2, real const v0p, real const v00, real const v01, real const v02, real const v1p, real const v10, real const v11, real const v12, real const v2p, real const v20, real const v21, real const v22, real const tp, real const t0, real const t1, real const t2);
 #define ijkInterpReparamBicubicCatmullRom	ijk_declrealf(ijkInterpReparamBicubicCatmullRom)
 
 // ijkInterpSampleTableInc

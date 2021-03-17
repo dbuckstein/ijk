@@ -49,10 +49,10 @@ typedef struct ijkWindowPlatform_win_tag
 {
 	// Important paths and strings.
 	///
-	kcstr dir_build;					// Development and build environment.
-	kcstr dir_target;					// Framework solution/workspace as build target.
-	kcstr dir_sdk;						// Framework SDK directory.
-	kcstr tag_cfg;						// Framework configuration.
+	kstr dir_build;						// Development and build environment.
+	kstr dir_target;					// Framework solution/workspace as build target.
+	kstr dir_sdk;						// Framework SDK directory.
+	kstr tag_cfg;						// Framework configuration.
 
 	// Other important data.
 	///
@@ -90,7 +90,7 @@ enum ijkWindowControlMessage
 
 //-----------------------------------------------------------------------------
 
-iret ijkWindowInternalBuild(ijkWindow* const window, ibool const rebuild)
+iret ijkWindowInternalBuild(ijkWindow* const window, bool const rebuild)
 {
 	iret ijkWindowInternalUnlockPDB(kptag const sdkDirStr, kptag const cfgDirStr, kptag const projName);
 
@@ -170,7 +170,7 @@ iret ijkWindowInternalCreateBuildWarning(ijkWindow* const window)
 	ijkPlatformData_win* const platform = (ijkPlatformData_win*)window->platformData;
 	if (platform->buildState)
 	{
-		ibool const hideCursor = (window->winCtrl & ijkWinCtrl_hideCursor);
+		bool const hideCursor = (window->winCtrl & ijkWinCtrl_hideCursor);
 
 		// reveal cursor
 		if (hideCursor)
@@ -245,7 +245,7 @@ LRESULT CALLBACK ijkWindowInternalEventProcessList(HWND hDlg, UINT message, WPAR
 		size pluginInfoCount = 0, i = 0;
 		i32 pos = -1;
 
-		GetWindowTextA(hDlg, caption, szb(caption));
+		GetWindowTextA(hDlg, caption, sizeof(caption));
 		switch (winCtrl)
 		{
 		case ijkWinCtrl_F2_load: {
@@ -309,15 +309,19 @@ LRESULT CALLBACK ijkWindowInternalEventProcessList(HWND hDlg, UINT message, WPAR
 			SetWindowTextA(text, "Enter command.");
 		}	break;
 		}
-		dlg = (ijkWindowDialog*)malloc(szb(ijkWindowDialog));
-		dlg->box = box;
-		dlg->text = text;
-		dlg->pluginInfo = pluginInfo;
-		dlg->pluginInfoCount = pluginInfoCount;
-		dlg->winCtrl = winCtrl;
-		SetWindowTextA(hDlg, caption);
-		SetWindowLongPtrA(hDlg, GWLP_USERDATA, (LONG_PTR)dlg);
-		return TRUE;
+		dlg = (ijkWindowDialog*)malloc(sizeof(ijkWindowDialog));
+		if (dlg)
+		{
+			dlg->box = box;
+			dlg->text = text;
+			dlg->pluginInfo = pluginInfo;
+			dlg->pluginInfoCount = pluginInfoCount;
+			dlg->winCtrl = winCtrl;
+			SetWindowTextA(hDlg, caption);
+			SetWindowLongPtrA(hDlg, GWLP_USERDATA, (LONG_PTR)dlg);
+			return TRUE;
+		}
+		return FALSE;
 	}
 	case WM_CLOSE: {
 		if (dlg->winCtrl == ijkWinCtrl_F2_load)
@@ -400,14 +404,17 @@ LRESULT CALLBACK ijkWindowInternalEventProcessList(HWND hDlg, UINT message, WPAR
 				}	break;
 				case ijkWinCtrl_esc_cmd: {
 					//	send command string
-					i32 const i = GetWindowTextLengthA(dlg->box), j = (i + 1);
+					i32 const i = GetWindowTextLengthA(dlg->box);
 					if (i > 0)
 					{
-						ptag buf = (ptag)malloc((size)j);
-						buf[i] = 0;
-						GetWindowTextA(dlg->box, buf, j);
-						SendMessageA(hWnd, ijkWinCtrlMsg_cmd, (WPARAM)i, (LPARAM)buf);
-						free(buf);
+						ptag buf = (ptag)malloc((size)i + 1);
+						if (buf)
+						{
+							buf[i] = 0;
+							GetWindowTextA(dlg->box, buf, (i + 1));
+							SendMessageA(hWnd, ijkWinCtrlMsg_cmd, (WPARAM)i, (LPARAM)buf);
+							free(buf);
+						}
 					}
 				}	break;
 				}
@@ -431,7 +438,7 @@ LRESULT CALLBACK ijkWindowInternalEventProcessList(HWND hDlg, UINT message, WPAR
 
 void ijkWindowInternalCreateInfo(ijkWindow* const window)
 {
-	ibool const hideCursor = (window->winCtrl & ijkWinCtrl_hideCursor);
+	bool const hideCursor = (window->winCtrl & ijkWinCtrl_hideCursor);
 
 	byte buffer[1024] = { 0 }, * bufferPtr = buffer;
 	byte const* const info[] = {
@@ -482,7 +489,7 @@ void ijkWindowInternalCreateDialog(ijkWindow* const window, ijkWindowControl con
 
 	ijkWindowPlatform_win* info = (ijkWindowPlatform_win*)window->winPlat;
 	i8 const dialogID = (i8)ijkWindowPlatformInternalUnpackDialogID(info->appRes);
-	ibool const hideCursor = (window->winCtrl & ijkWinCtrl_hideCursor);
+	bool const hideCursor = (window->winCtrl & ijkWinCtrl_hideCursor);
 	LPCSTR const dialogRes = MAKEINTRESOURCEA(dialogID);
 
 	// reveal cursor
@@ -541,7 +548,7 @@ void ijkWindowInternalToggleFullscreen(ijkWindow* const window)
 		styleEx |= WS_EX_WINDOWEDGE;
 		style |= WS_OVERLAPPEDWINDOW;
 		displayArea = *info->originalWindowArea;
-		memset(info->originalWindowArea, 0, szb(info->originalWindowArea));
+		memset(info->originalWindowArea, 0, sizeof(info->originalWindowArea));
 	}
 	else
 	{
@@ -650,12 +657,12 @@ LRESULT CALLBACK ijkWindowInternalEventProcess(HWND hWnd, UINT message, WPARAM w
 	{
 		// window initial creation
 	case WM_NCCREATE: {
-		platformData = (ijkPlatformData_win*)malloc(szb(ijkPlatformData_win));
+		platformData = (ijkPlatformData_win*)malloc(sizeof(ijkPlatformData_win));
 		if (platformData)
 		{
-			memset(platformData, 0, szb(*platformData));
+			memset(platformData, 0, sizeof(*platformData));
 			platformData->mouseTracker[0].hwndTrack = hWnd;
-			platformData->mouseTracker[0].cbSize = szb(TRACKMOUSEEVENT);
+			platformData->mouseTracker[0].cbSize = sizeof(TRACKMOUSEEVENT);
 			platformData->mouseTracker[0].dwFlags = (TME_LEAVE);
 			platformData->deviceContext = GetDC(hWnd);
 
@@ -984,12 +991,12 @@ LRESULT CALLBACK ijkWindowInternalEventProcess(HWND hWnd, UINT message, WPARAM w
 	}	break;
 	case ijkWinCtrlMsg_unload: {
 		// unload plugin
-		ibool const safe = (ibool)wParam;
+		bool const safe = (bool)wParam;
 		window->plugin->ijkPluginCallback_willUnload(window->plugin->data);
 		if (ijk_issuccess(ijkPluginUnload(window->plugin, safe)))
 		{
 			// reset info
-			memset(window->pluginInfo, 0, szb(window->pluginInfo));
+			memset(window->pluginInfo, 0, sizeof(window->pluginInfo));
 
 			// reset plugin
 			ijkPluginReset(window->plugin);
@@ -1014,11 +1021,11 @@ LRESULT CALLBACK ijkWindowInternalEventProcess(HWND hWnd, UINT message, WPARAM w
 	}	break;
 	case ijkWinCtrlMsg_copy: {
 		// perform reload and copy dylib
-		ibool const success = (ibool)lParam;
+		bool const success = (bool)lParam;
 		if (success)
 		{
 			i32 const currentID = window->plugin->id;
-			ibool const currentDbg = (currentID == -2);
+			bool const currentDbg = (currentID == -2);
 
 			// if reloading debug plugin, send reload notice first
 			if (currentDbg)
@@ -1101,7 +1108,7 @@ iret ijkWindowPlatformCreate(ijkWindowPlatform* const platformInfo_out, kptr con
 {
 	if (platformInfo_out && !*platformInfo_out && applicationInst && dev && *dev && target && *target && sdk && *sdk && cfg && *cfg)
 	{
-		ijkWindowPlatform_win* const platformInfo = malloc(szb(ijkWindowPlatform_win));
+		ijkWindowPlatform_win* const platformInfo = malloc(sizeof(ijkWindowPlatform_win));
 		if (platformInfo)
 		{
 			platformInfo->dir_build = dev;
@@ -1147,7 +1154,7 @@ iret ijkWindowInfoCreateDefault(ijkWindowInfo* const windowInfo_out, ijkWindowPl
 	// validate
 	if (windowInfo_out && !*windowInfo_out && platformInfo && *platformInfo && descriptorName && *descriptorName)
 	{
-		size const sz = szb(ijkWindowInfo_win);
+		size const sz = sizeof(ijkWindowInfo_win);
 		ijkWindowInfo_win* const windowInfo = malloc(sz);
 		if (windowInfo)
 		{
@@ -1162,7 +1169,7 @@ iret ijkWindowInfoCreateDefault(ijkWindowInfo* const windowInfo_out, ijkWindowPl
 			windowInfo->style = (CS_HREDRAW | CS_VREDRAW | CS_OWNDC | CS_DBLCLKS);
 			windowInfo->lpfnWndProc = ijkWindowInternalEventProcess;
 			windowInfo->cbClsExtra = 0;
-			windowInfo->cbWndExtra = (i32)szaddr;
+			windowInfo->cbWndExtra = (i32)szptr;
 			windowInfo->hInstance = info->appInst;
 			windowInfo->hIcon = LoadIconA(windowInfo->hInstance, iconStr); // IDI_WINLOGO = 32517
 			windowInfo->hCursor = LoadCursorA(NULL, cursorStr); // IDC_ARROW = 32512
@@ -1208,13 +1215,13 @@ iret ijkWindowInfoRelease(ijkWindowInfo* const windowInfo)
 }
 
 
-iret ijkWindowCreate(ijkWindow* const window_out, ijkWindowInfo const* const windowInfo, ijkWindowPlatform const* const platformInfo, tag const windowName, ui16 const windowPos_x, ui16 const windowPos_y, ui16 const windowSize_x, ui16 const windowSize_y, ijkWindowControl const windowCtrl, ibool const fullScreen, ijkRenderer const renderer_opt)
+iret ijkWindowCreate(ijkWindow* const window_out, ijkWindowInfo const* const windowInfo, ijkWindowPlatform const* const platformInfo, tag const windowName, ui16 const windowPos_x, ui16 const windowPos_y, ui16 const windowSize_x, ui16 const windowSize_y, ijkWindowControl const windowCtrl, bool const fullScreen, ijkRenderer const renderer_opt)
 {
 	if (window_out && !window_out->windowData && windowInfo && *windowInfo && platformInfo && *platformInfo && windowName && *windowName)
 	{
-		ibool const hideCursor = ijk_flagch(windowCtrl, ijkWinCtrl_hideCursor);
-		ibool const lockCursor = ijk_flagch(windowCtrl, ijkWinCtrl_lockCursor);
-		ibool const showWindow = SW_SHOW;
+		bool const hideCursor = ijk_flagch(windowCtrl, ijkWinCtrl_hideCursor);
+		bool const lockCursor = ijk_flagch(windowCtrl, ijkWinCtrl_lockCursor);
+		bool const showWindow = SW_SHOW;
 		
 		HWND handle = 0;
 		RECT displayArea = { 0 };
@@ -1305,7 +1312,7 @@ iret ijkWindowLoop(ijkWindow* const window)
 		i8 const accelID = (i8)ijkWindowPlatformInternalUnpackControlID(info->appRes);
 
 		// load accelerator table
-		HACCEL hAccel = (accelID >= 0 ? LoadAcceleratorsA(info->appInst, MAKEINTRESOURCEA(accelID)) : 0);
+		HACCEL hAccel = LoadAcceleratorsA(info->appInst, MAKEINTRESOURCEA(accelID));
 
 		// window
 		HWND handle = (HWND)window->windowData;
@@ -1375,7 +1382,7 @@ iret ijkWindowLoop(ijkWindow* const window)
 }
 
 
-iret ijkWindowLoadDefaultPlugin(ijkWindow* const window, tag const author, tag const version, ibool const reload)
+iret ijkWindowLoadDefaultPlugin(ijkWindow* const window, tag const author, tag const version, bool const reload)
 {
 	if (window && window->windowData)
 	{

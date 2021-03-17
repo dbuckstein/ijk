@@ -32,13 +32,6 @@
 
 #ifdef __cplusplus
 extern "C" {
-#else	// !__cplusplus
-typedef enum ijkQuatComp		ijkQuatComp;
-typedef enum ijkDualQuatComp	ijkDualQuatComp;
-typedef union fquat		fquat;
-typedef union fdualquat	fdualquat;
-typedef union dquat		dquat;
-typedef union ddualquat	ddualquat;
 #endif	// __cplusplus
 
 
@@ -47,22 +40,22 @@ typedef union ddualquat	ddualquat;
 // ijkQuatComp
 //	Named quaternion component index for user access; vector part comes first 
 //	for easier access since it is more likely to be used.
-enum ijkQuatComp
+typedef enum ijkQuatComp
 {
 	ijkQuatVecX,
 	ijkQuatVecY,
 	ijkQuatVecZ,
 	ijkQuatReal,
-};
+} ijkQuatComp;
 
 // ijkDualQuatComp
 //	Named dual quaternion component index for user access; real quaternion 
 //	comes first for easier access since it is more likely to be used.
-enum ijkDualQuatComp
+typedef enum ijkDualQuatComp
 {
 	ijkDualQuatReal,
 	ijkDualQuatDual,
-};
+} ijkDualQuatComp;
 
 
 //-----------------------------------------------------------------------------
@@ -85,24 +78,24 @@ typedef double4			double2x4[2];	// 2x4 (2c x 4r) double-precision array-based qu
 //		member v: vector array-based data
 //		members vec, re: vector and real components
 //		members x, y, z, w: individual components
-union fquat
+typedef union fquat
 {
 	float4 v;
 	struct { fvec3 vec; f32 re; };
 	struct { f32 x, y, z, w; };
-};
+} fquat;
 
 // dquat
 //	Data structure representing double-precision float quaternion.
 //		member v: vector array-based data
 //		members vec, re: vector and real components
 //		members x, y, z, w: individual components
-union dquat
+typedef union dquat
 {
 	double4 v;
 	struct { dvec3 vec; f64 re; };
 	struct { f64 x, y, z, w; };
-};
+} dquat;
 
 // fdualquat
 //	Data structure representing single-precision float dual quaternion; this 
@@ -112,14 +105,14 @@ union dquat
 //		member q: quaternion components
 //		members qr, qd: real and dual quaternion components
 //		members re, dual: real and dual quaternion components
-union fdualquat
+typedef union fdualquat
 {
 	float8 v;
 	float2x4 m;
 	fquat q[2];
 	struct { fquat qr, qd; };
 	struct { fquat re, dual; };
-};
+} fdualquat;
 
 // ddualquat
 //	Data structure representing double-precision float dual quaternion; this 
@@ -129,14 +122,14 @@ union fdualquat
 //		member q: quaternion components
 //		members qr, qd: real and dual quaternion components
 //		members re, dual: real and dual quaternion components
-union ddualquat
+typedef union ddualquat
 {
 	double8 v;
 	double2x4 m;
 	dquat q[2];
 	struct { dquat qr, qd; };
 	struct { dquat re, dual; };
-};
+} ddualquat;
 
 
 #endif	// __cplusplus

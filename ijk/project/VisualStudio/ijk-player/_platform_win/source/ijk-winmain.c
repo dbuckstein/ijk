@@ -36,7 +36,7 @@
 iret __stdcall WinMain(
 	kptr const		hInstance,
 	kptr const		hPrevInstance,
-	kcstr const		lpCmdLine,
+	kstr const		lpCmdLine,
 	i32 const		nCmdShow)
 {
 	iret ijkPlayerMain(ijkWindowPlatform* const platformInfo);

@@ -58,7 +58,7 @@ typedef ijk_real					real;
 
 // szreal
 //	Size of real type.
-#define szreal						szb(real)
+#define szreal						sizeof(real)
 
 // szrealbr
 //	Byte ratio of real type size to single-precision float size.

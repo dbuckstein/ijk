@@ -28,12 +28,6 @@
 
 //-----------------------------------------------------------------------------
 
-#ifndef __cplusplus
-typedef struct ijkMemoryPool	ijkMemoryPool;
-typedef struct ijkMemoryBlock	ijkMemoryBlock;
-#endif	// !__cplusplus
-
-
 // ijkMemoryPool
 //	Managed memory pool descriptor.
 //		member name: name of pool used for identification
@@ -45,7 +39,7 @@ typedef struct ijkMemoryBlock	ijkMemoryBlock;
 //		member chompOffsetNext: offset to next reservation block descriptor
 //		member chompOffsetLastRelease: offset to last-released block descriptor
 //		member reserveCount: number of reservations
-struct ijkMemoryPool
+typedef struct ijkMemoryPool
 {
 	dtag name;							// identifier
 	size chompsReserved;				// space occupied
@@ -56,15 +50,15 @@ struct ijkMemoryPool
 	size chompOffsetNext;				// offset to next reservation
 	size chompOffsetLastRelease;		// offset to last release
 	size reserveCount;					// number of reservations
-};
+} ijkMemoryPool;
 
 // szmempool
 //	Convenient macro for size of pool.
-#define szmempool						szb(ijkMemoryPool)
+#define szmempool						sizeof(ijkMemoryPool)
 
 // szcmempool
 //	Size of pool in chomps.
-#define szcmempool						szc(ijkMemoryPool)
+#define szcmempool						szbuff(ijkMemoryPool)
 
 
 // ijkMemoryBlock
@@ -78,7 +72,7 @@ struct ijkMemoryPool
 //		member chompOffsetTail: offset towards pool tail
 //		member chompOpenHead: open/available chomps from pool head
 //		member chompOpenTail: open/available chomps towards pool tail
-struct ijkMemoryBlock
+typedef struct ijkMemoryBlock
 {
 	dtag name;							// identifier
 	flag type;							// user-defined type
@@ -89,15 +83,15 @@ struct ijkMemoryBlock
 	size chompOffsetTail;				// offset towards pool tail
 	size chompOpenHead;					// available from head
 	size chompOpenTail;					// available towards tail
-};
+} ijkMemoryBlock;
 
 // szmemblock
 //	Convenient macro for size of reservation block.
-#define szmemblock						szb(ijkMemoryBlock)
+#define szmemblock						sizeof(ijkMemoryBlock)
 
 // szcmemblock
 //	Size of reservation block in chomps.
-#define szcmempool						szc(ijkMemoryPool)
+#define szcmemblock						szbuff(ijkMemoryBlock)
 
 
 //-----------------------------------------------------------------------------
@@ -342,7 +336,7 @@ iret ijkMemoryBlockSave(kptr const block, ijkStream* const stream, ijkStreamWrit
 }
 
 
-iret ijkMemoryBlockIsInPool(kptr const block, kptr const pool, ibool* const status_out)
+iret ijkMemoryBlockIsInPool(kptr const block, kptr const pool, bool* const status_out)
 {
 	if (block && pool && status_out)
 	{

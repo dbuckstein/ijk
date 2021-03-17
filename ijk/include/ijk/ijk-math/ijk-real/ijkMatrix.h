@@ -32,16 +32,6 @@
 
 #ifdef __cplusplus
 extern "C" {
-#else	// !__cplusplus
-typedef enum ijkRotationOrder	ijkRotationOrder;
-typedef enum ijkTransformBasis	ijkTransformBasis;
-typedef enum ijkMatComp	ijkMatComp;
-typedef union fmat2		fmat2;
-typedef union fmat3		fmat3;
-typedef union fmat4		fmat4;
-typedef union dmat2		dmat2;
-typedef union dmat3		dmat3;
-typedef union dmat4		dmat4;
 #endif	// __cplusplus
 
 
@@ -80,7 +70,7 @@ typedef double4			* double4m,		// Generic 4D double-precision-based matrix, repr
 //	rotations. Note that in right-handed systems, the order of operations is 
 //	right-to-left (e.g. if the selected written order is XYZ, the individual 
 //	rotations occur in the functional order Z then Y then X).
-enum ijkRotationOrder
+typedef enum ijkRotationOrder
 {
 	ijkRotationXYZ,		// Written order XYZ; order of operations is Z then Y then X.
 	ijkRotationYZX,		// Written order YZX; order of operations is X then Z then Y.
@@ -88,27 +78,27 @@ enum ijkRotationOrder
 	ijkRotationYXZ,		// Written order YXZ; order of operations is Z then X then Y.
 	ijkRotationXZY,		// Written order XZY; order of operations is Y then Z then X.
 	ijkRotationZYX,		// Written order ZYX; order of operations is X then Y then Z.
-};
+} ijkRotationOrder;
 
 // ijkTransformBasis
 //	Named axis indices for basis vectors in matrix.
-enum ijkTransformBasis
+typedef enum ijkTransformBasis
 {
 	ijkTransformRight,	// Right or X axis is first basis vector.
 	ijkTransformVert,	// Vertical or Y axis is second basis vector.
 	ijkTransformNorm,	// Normal or Z axis is third basis vector.
 	ijkTransformOrig,	// Origin or W axis is fourth basis vector.
-};
+} ijkTransformBasis;
 
 // ijkMatComp
 //	Named matrix component index for user access.
-enum ijkMatComp
+typedef enum ijkMatComp
 {
 	ijkMatColumn0,
 	ijkMatColumn1,
 	ijkMatColumn2,
 	ijkMatColumn3,
-};
+} ijkMatComp;
 
 
 //-----------------------------------------------------------------------------
@@ -126,7 +116,7 @@ enum ijkMatComp
 //		members x0, y0, x1, y1: column vector components
 //		members v00, v01, v02, v03: array vector components
 //		members m00, m01, m10, m11: array matrix components
-union fmat2
+typedef union fmat2
 {
 	float4 v;
 	float2x2 m;
@@ -135,7 +125,7 @@ union fmat2
 	struct { float x0, y0, x1, y1; };
 	struct { float v00, v01, v02, v03; };
 	struct { float m00, m01, m10, m11; };
-};
+} fmat2;
 
 // fmat3
 //	Data structure representing 3D column-major float matrix.
@@ -146,7 +136,7 @@ union fmat2
 //		members x0, y0, z0, x1, y1, z1, x2, y2, z2: column vector components
 //		members v00, v01, v02, v03, v04, v05, v06, v07, v08: array vector components
 //		members m00, m01, m02, m10, m11, m12, m20, m21, m22: array matrix components
-union fmat3
+typedef union fmat3
 {
 	float9 v;
 	float3x3 m;
@@ -155,7 +145,7 @@ union fmat3
 	struct { float x0, y0, z0, x1, y1, z1, x2, y2, z2; };
 	struct { float v00, v01, v02, v03, v04, v05, v06, v07, v08; };
 	struct { float m00, m01, m02, m10, m11, m12, m20, m21, m22; };
-};
+} fmat3;
 
 // fmat4
 //	Data structure representing 4D column-major float matrix.
@@ -166,7 +156,7 @@ union fmat3
 //		members x0, y0, z0, w0, x1, y1, z1, w1, x2, y2, z2, w2, x3, y3, z3, w3: column vector components
 //		members v00, v01, v02, v03, v04, v05, v06, v07, v08, v09, v10, v11, v12, v13, v14, v15: array vector components
 //		members m00, m01, m02, m03, m10, m11, m12, m13, m20, m21, m22, m23, m30, m31, m32, m33: array matrix components
-union fmat4
+typedef union fmat4
 {
 	float16 v;
 	float4x4 m;
@@ -175,7 +165,7 @@ union fmat4
 	struct { float x0, y0, z0, w0, x1, y1, z1, w1, x2, y2, z2, w2, x3, y3, z3, w3; };
 	struct { float v00, v01, v02, v03, v04, v05, v06, v07, v08, v09, v10, v11, v12, v13, v14, v15; };
 	struct { float m00, m01, m02, m03, m10, m11, m12, m13, m20, m21, m22, m23, m30, m31, m32, m33; };
-};
+} fmat4;
 
 
 //-----------------------------------------------------------------------------
@@ -189,7 +179,7 @@ union fmat4
 //		members x0, y0, x1, y1: column vector components
 //		members v00, v01, v02, v03: array vector components
 //		members m00, m01, m10, m11: array matrix components
-union dmat2
+typedef union dmat2
 {
 	double4 v;
 	double2x2 m;
@@ -198,7 +188,7 @@ union dmat2
 	struct { double x0, y0, x1, y1; };
 	struct { double v00, v01, v02, v03; };
 	struct { double m00, m01, m10, m11; };
-};
+} dmat2;
 
 // dmat3
 //	Data structure representing 3D column-major double matrix.
@@ -209,7 +199,7 @@ union dmat2
 //		members x0, y0, z0, x1, y1, z1, x2, y2, z2: column vector components
 //		members v00, v01, v02, v03, v04, v05, v06, v07, v08: array vector components
 //		members m00, m01, m02, m10, m11, m12, m20, m21, m22: array matrix components
-union dmat3
+typedef union dmat3
 {
 	double9 v;
 	double3x3 m;
@@ -218,7 +208,7 @@ union dmat3
 	struct { double x0, y0, z0, x1, y1, z1, x2, y2, z2; };
 	struct { double v00, v01, v02, v03, v04, v05, v06, v07, v08; };
 	struct { double m00, m01, m02, m10, m11, m12, m20, m21, m22; };
-};
+} dmat3;
 
 // dmat4
 //	Data structure representing 4D column-major double matrix.
@@ -229,7 +219,7 @@ union dmat3
 //		members x0, y0, z0, w0, x1, y1, z1, w1, x2, y2, z2, w2, x3, y3, z3, w3: column vector components
 //		members v00, v01, v02, v03, v04, v05, v06, v07, v08, v09, v10, v11, v12, v13, v14, v15: array vector components
 //		members m00, m01, m02, m03, m10, m11, m12, m13, m20, m21, m22, m23, m30, m31, m32, m33: array matrix components
-union dmat4
+typedef union dmat4
 {
 	double16 v;
 	double4x4 m;
@@ -238,7 +228,7 @@ union dmat4
 	struct { double x0, y0, z0, w0, x1, y1, z1, w1, x2, y2, z2, w2, x3, y3, z3, w3; };
 	struct { double v00, v01, v02, v03, v04, v05, v06, v07, v08, v09, v10, v11, v12, v13, v14, v15; };
 	struct { double m00, m01, m02, m03, m10, m11, m12, m13, m20, m21, m22, m23, m30, m31, m32, m33; };
-};
+} dmat4;
 
 
 #endif	// __cplusplus

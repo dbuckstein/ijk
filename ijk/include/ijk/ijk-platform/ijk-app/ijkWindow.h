@@ -32,9 +32,6 @@
 
 #ifdef __cplusplus
 extern "C" {
-#else	// !__cplusplus
-typedef struct ijkWindow			ijkWindow;
-typedef enum ijkWindowControl		ijkWindowControl;
 #endif	// __cplusplus
 
 
@@ -54,7 +51,7 @@ typedef ptr ijkWindowInfo;
 
 // ijkWindowControl
 //	Control or feature flags for window creation.
-enum ijkWindowControl
+typedef enum ijkWindowControl
 {
 	ijkWinCtrl_none,					// All control/feature flags disabled.
 	ijkWinCtrl_F1_info = 0x0001,		// Press F1 to bring up player info window.
@@ -74,7 +71,7 @@ enum ijkWindowControl
 	ijkWinCtrl_lockCursor = 0x4000,		// Lock cursor to window area.
 	ijkWinCtrl_drawInactive = 0x8000,	// Draw even when window is inactive.
 	ijkWinCtrl_all = 0xffff				// All control/feature flags enabled.
-};
+} ijkWindowControl;
 
 
 // ijkWindow
@@ -88,7 +85,7 @@ enum ijkWindowControl
 //		members sz_x, sz_y: size of window on display in pixels
 //		member platformData: internal platform data pertinent to window
 //		member windowData: internal window data
-struct ijkWindow
+typedef struct ijkWindow
 {
 	ijkPlugin plugin[1];
 	ijkPluginInfo pluginInfo[1];
@@ -99,7 +96,7 @@ struct ijkWindow
 	i16 sz_x, sz_y;
 	ptr platformData;
 	ptr windowData;
-};
+} ijkWindow;
 
 
 //-----------------------------------------------------------------------------
@@ -189,7 +186,7 @@ iret ijkWindowInfoRelease(ijkWindowInfo* const windowInfo);
 //		return SUCCESS: ijk_success if window initialized
 //		return FAILURE: ijk_fail_operationfail if window not initialized
 //		return FAILURE: ijk_fail_invalidparams if invalid parameters
-iret ijkWindowCreate(ijkWindow* const window_out, ijkWindowInfo const* const windowInfo, ijkWindowPlatform const* const platformInfo, tag const windowName, ui16 const windowPos_x, ui16 const windowPos_y, ui16 const windowSize_x, ui16 const windowSize_y, ijkWindowControl const windowCtrl, ibool const fullScreen, ijkRenderer const renderer_opt);
+iret ijkWindowCreate(ijkWindow* const window_out, ijkWindowInfo const* const windowInfo, ijkWindowPlatform const* const platformInfo, tag const windowName, ui16 const windowPos_x, ui16 const windowPos_y, ui16 const windowSize_x, ui16 const windowSize_y, ijkWindowControl const windowCtrl, bool const fullScreen, ijkRenderer const renderer_opt);
 
 // ijkWindowRelease
 //	Close and release window.
@@ -224,7 +221,7 @@ iret ijkWindowLoop(ijkWindow* const window);
 //		return SUCCESS: ijk_success if plugin loaded
 //		return FAILURE: ijk_fail_operationfail if plugin not loaded
 //		return FAILURE: ijk_fail_invalidparams if invalid parameters
-iret ijkWindowLoadDefaultPlugin(ijkWindow* const window, tag const author, tag const version, ibool const reload);
+iret ijkWindowLoadDefaultPlugin(ijkWindow* const window, tag const author, tag const version, bool const reload);
 
 
 //-----------------------------------------------------------------------------

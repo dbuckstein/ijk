@@ -92,7 +92,7 @@ iret ijkTimerStart(ijkTimer* const timer)
 	if (timer)
 	{
 		// take measurement
-		ibool result;
+		bool result;
 #if ijk_platform_is(WINDOWS)
 		result = QueryPerformanceFrequency((PLARGE_INTEGER)timer->tf)
 			&& QueryPerformanceCounter((PLARGE_INTEGER)timer->t0);
@@ -129,7 +129,7 @@ iret ijkTimerStop(ijkTimer* const timer)
 	if (timer)
 	{
 		// take measurement
-		ibool result;
+		bool result;
 #if ijk_platform_is(WINDOWS)
 		result = QueryPerformanceFrequency((PLARGE_INTEGER)timer->tf)
 			&& QueryPerformanceCounter((PLARGE_INTEGER)timer->t1);
@@ -164,7 +164,7 @@ iret ijkTimerCheckTick(ijkTimer* const timer)
 	if (timer)
 	{
 		// take measurement
-		ibool result;
+		bool result;
 #if ijk_platform_is(WINDOWS)
 		result = QueryPerformanceFrequency((PLARGE_INTEGER)timer->tf)
 			&& QueryPerformanceCounter((PLARGE_INTEGER)timer->t1);

@@ -32,12 +32,6 @@
 
 #ifdef __cplusplus
 extern "C" {
-#else	// !__cplusplus
-typedef enum ijkMouseBtn				ijkMouseBtn;
-typedef enum ijkKeyVirt					ijkKeyVirt;
-typedef enum ijkKeyChar					ijkKeyChar;
-typedef struct ijkMouseState			ijkMouseState;
-typedef struct ijkKeyboardState			ijkKeyboardState;
 #endif	// __cplusplus
 
 
@@ -45,20 +39,20 @@ typedef struct ijkKeyboardState			ijkKeyboardState;
 
 // ijkMouseBtn
 //	Enumeration of mouse buttons.
-enum ijkMouseBtn
+typedef enum ijkMouseBtn
 {
 	ijkMouseBtn_left,
 	ijkMouseBtn_middle,
 	ijkMouseBtn_right,
 	ijkMouseBtn_extra1,
 	ijkMouseBtn_extra2,
-};
+} ijkMouseBtn;
 
 
 // ijkKeyVirt
 //	Enumeration of virtual keys. These are not ASCII characters, they are the 
 //	codes for the actual keys. For special ASCII character codes, see below.
-enum ijkKeyVirt
+typedef enum ijkKeyVirt
 {
 	ijkKeyVirt_null,
 	ijkKeyVirt_backspace = 8,
@@ -233,7 +227,7 @@ enum ijkKeyVirt
 	ijkKeyVirt_quotes = ijkKeyVirt_singlequote,
 	ijkKeyVirt_apostrophe = ijkKeyVirt_singlequote,
 	ijkKeyVirt_function = 255
-};
+} ijkKeyVirt;
 
 
 // ijkKeyChar
@@ -242,7 +236,7 @@ enum ijkKeyVirt
 //	callbacks. If a key can be represented by a character, the enum can be 
 //	replaced with the literal character (e.g. 'a'); otherwise, use the enum 
 //	codes to check the state of an ASCII key.
-enum ijkKeyChar
+typedef enum ijkKeyChar
 {
 	ijkKeyChar_null,						// '\0'
 	ijkKeyChar_starthead,
@@ -412,7 +406,7 @@ enum ijkKeyChar
 	ijkKeyChar_enter,
 	ijkKeyChar_ctrl_enter = ijkKeyChar_newline,
 	ijkKeyChar_ctrl_backspace = ijkKeyChar_delete
-};
+} ijkKeyChar;
 
 
 // ijkMouseState
@@ -422,13 +416,13 @@ enum ijkKeyChar
 //		member button: within states, flags to describe button states
 //		member x: within states, horizontal coordinate of cursor
 //		member y: within states, vertical coordinate of cursor
-struct ijkMouseState
+typedef struct ijkMouseState
 {
 	struct {
 		sbyte button[8];		// button state flags
 		i32 x, y;				// screen coordinate of cursor
 	} state, state_prev;		// current and previous states
-};
+} ijkMouseState;
 
 
 // ijkKeyboardState
@@ -437,13 +431,13 @@ struct ijkMouseState
 //		member state_prev: previous state of keyboard
 //		member key: within states, flags to describe virtual key states
 //		member keyChar: within states, flags to describe ASCII/char key states
-struct ijkKeyboardState
+typedef struct ijkKeyboardState
 {
 	struct {
 		sbyte key[256];			// virtual key state flags
 		sbyte keyChar[128];		// ASCII/char key state flags
 	} state, state_prev;		// current and previous states
-};
+} ijkKeyboardState;
 
 
 //-----------------------------------------------------------------------------
@@ -458,7 +452,7 @@ struct ijkKeyboardState
 //		param button: button enumerator
 //		return SUCCESS: ijk_success if retrieved state
 //		return FAILURE: ijk_fail_invalidparams if invalid parameters
-iret ijkMouseGetButtonState(ijkMouseState const* const mouse, ibool state_out[1], ijkMouseBtn const button);
+iret ijkMouseGetButtonState(ijkMouseState const* const mouse, bool state_out[1], ijkMouseBtn const button);
 
 // ijkMouseSetButtonState
 //	Set the current state of a mouse button.
@@ -468,7 +462,7 @@ iret ijkMouseGetButtonState(ijkMouseState const* const mouse, ibool state_out[1]
 //		param button: button enumerator
 //		return SUCCESS: ijk_success if set state
 //		return FAILURE: ijk_fail_invalidparams if invalid parameters
-iret ijkMouseSetButtonState(ijkMouseState* const mouse, ibool const state, ijkMouseBtn const button);
+iret ijkMouseSetButtonState(ijkMouseState* const mouse, bool const state, ijkMouseBtn const button);
 
 // ijkMouseIsButtonDown
 //	Check whether a mouse button is down.
@@ -539,7 +533,7 @@ iret ijkMouseIsButtonReleased(ijkMouseState const* const mouse, ijkMouseBtn cons
 //			note: upon successful return, points to wheel state value
 //		return SUCCESS: ijk_success if retrieved state
 //		return FAILURE: ijk_fail_invalidparams if invalid parameters
-iret ijkMouseGetWheelState(ijkMouseState const* const mouse, istate state_out[1]);
+iret ijkMouseGetWheelState(ijkMouseState const* const mouse, i32 state_out[1]);
 
 // ijkMouseSetWheelState
 //	Set the current state of the mouse wheel.
@@ -548,7 +542,7 @@ iret ijkMouseGetWheelState(ijkMouseState const* const mouse, istate state_out[1]
 //		param state: wheel state to set
 //		return SUCCESS: ijk_success if set state
 //		return FAILURE: ijk_fail_invalidparams if invalid parameters
-iret ijkMouseSetWheelState(ijkMouseState* const mouse, istate const state);
+iret ijkMouseSetWheelState(ijkMouseState* const mouse, i32 const state);
 
 // ijkMouseGetWheelChange
 //	Get the change in the mouse wheel state.
@@ -559,7 +553,7 @@ iret ijkMouseSetWheelState(ijkMouseState* const mouse, istate const state);
 //			note: upon successful return, points to wheel change value
 //		return SUCCESS: ijk_success if retrieved state
 //		return FAILURE: ijk_fail_invalidparams if invalid parameters
-iret ijkMouseGetWheelChange(ijkMouseState const* const mouse, istate state_out[1]);
+iret ijkMouseGetWheelChange(ijkMouseState const* const mouse, i32 state_out[1]);
 
 // ijkMouseGetPos
 //	Get the current position of the cursor.
@@ -628,7 +622,7 @@ iret ijkMouseReset(ijkMouseState* const mouse);
 //		param keyVirt: virtual key code
 //		return SUCCESS: ijk_success if retrieved state
 //		return FAILURE: ijk_fail_invalidparams if invalid parameters
-iret ijkKeyboardGetKeyState(ijkKeyboardState const* const keyboard, ibool state_out[1], ijkKeyVirt const keyVirt);
+iret ijkKeyboardGetKeyState(ijkKeyboardState const* const keyboard, bool state_out[1], ijkKeyVirt const keyVirt);
 
 // ijkKeyboardSetKeyState
 //	Set the current state of a virtual key.
@@ -638,7 +632,7 @@ iret ijkKeyboardGetKeyState(ijkKeyboardState const* const keyboard, ibool state_
 //		param keyVirt: virtual key code
 //		return SUCCESS: ijk_success if set state
 //		return FAILURE: ijk_fail_invalidparams if invalid parameters
-iret ijkKeyboardSetKeyState(ijkKeyboardState* const keyboard, ibool const state, ijkKeyVirt const keyVirt);
+iret ijkKeyboardSetKeyState(ijkKeyboardState* const keyboard, bool const state, ijkKeyVirt const keyVirt);
 
 // ijkKeyboardIsKeyDown
 //	Check whether key is down.
@@ -711,7 +705,7 @@ iret ijkKeyboardIsKeyReleased(ijkKeyboardState const* const keyboard, ijkKeyVirt
 //			valid: non-negative
 //		return SUCCESS: ijk_success if retrieved state
 //		return FAILURE: ijk_fail_invalidparams if invalid parameters
-iret ijkKeyboardGetKeyCharState(ijkKeyboardState const* const keyboard, ibool state_out[1], sbyte const keyChar);
+iret ijkKeyboardGetKeyCharState(ijkKeyboardState const* const keyboard, bool state_out[1], sbyte const keyChar);
 
 // ijkKeyboardSetKeyCharState
 //	Set the current state of a character/ASCII key.
@@ -722,7 +716,7 @@ iret ijkKeyboardGetKeyCharState(ijkKeyboardState const* const keyboard, ibool st
 //			valid: non-negative
 //		return SUCCESS: ijk_success if set state
 //		return FAILURE: ijk_fail_invalidparams if invalid parameters
-iret ijkKeyboardSetKeyCharState(ijkKeyboardState* const keyboard, ibool const state, sbyte const keyChar);
+iret ijkKeyboardSetKeyCharState(ijkKeyboardState* const keyboard, bool const state, sbyte const keyChar);
 
 // ijkKeyboardIsKeyCharDown
 //	Check whether character key is down.

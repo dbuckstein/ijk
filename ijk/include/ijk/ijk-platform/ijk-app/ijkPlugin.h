@@ -31,9 +31,6 @@
 
 #ifdef __cplusplus
 extern "C" {
-#else	// !__cplusplus
-typedef struct ijkPluginInfo	ijkPluginInfo;
-typedef struct ijkPlugin		ijkPlugin;
 #endif	// __cplusplus
 
 
@@ -57,14 +54,14 @@ typedef iret(*ijkPluginCallback_pip2)	(ptr p, i32 i, ptr* pp);			// Plugin callb
 //		member author: short name of author/creator of plugin
 //		member version: short description of plugin parameters/details
 //		member info: longer description of plugin purpose/activities
-struct ijkPluginInfo
+typedef struct ijkPluginInfo
 {
 	tag name;
 	tag dylib;
 	tag author;
 	tag version;
 	byte info[128];
-};
+} ijkPluginInfo;
 
 // ijkPlugin
 //	Plugin descriptor.
@@ -73,7 +70,7 @@ struct ijkPluginInfo
 //		member id: plugin identifier
 //		member ijkPluginCallback: array of plugin callbacks from dylib
 //		members ijkPluginCallback*: specific plugin callbacks from dylib
-struct ijkPlugin
+typedef struct ijkPlugin
 {
 	ptr handle;
 	ptr data;
@@ -99,7 +96,7 @@ struct ijkPlugin
 			ijkPluginCallback_pip2 ijkPluginCallback_user4c;												// User function callback with command (F12/ESC).
 		};
 	};
-};
+} ijkPlugin;
 
 
 //-----------------------------------------------------------------------------
@@ -198,7 +195,7 @@ iret ijkPluginLoad(ijkPlugin* const plugin_out, ijkPluginInfo const* const plugi
 //		return SUCCESS: ijk_success if unloaded plugin
 //		return FAILURE: ijk_fail_operationfail if plugin not reloaded
 //		return FAILURE: ijk_fail_invalidparams if invalid parameters
-iret ijkPluginReload(ijkPlugin* const plugin, ijkPluginInfo const* const pluginInfo_opt, ibool const safe);
+iret ijkPluginReload(ijkPlugin* const plugin, ijkPluginInfo const* const pluginInfo_opt, bool const safe);
 
 // ijkPluginUnload
 //	Unload plugin library.
@@ -210,7 +207,7 @@ iret ijkPluginReload(ijkPlugin* const plugin, ijkPluginInfo const* const pluginI
 //		return SUCCESS: ijk_success if unloaded plugin
 //		return FAILURE: ijk_fail_operationfail if plugin not unloaded
 //		return FAILURE: ijk_fail_invalidparams if invalid parameters
-iret ijkPluginUnload(ijkPlugin* const plugin, ibool const safe);
+iret ijkPluginUnload(ijkPlugin* const plugin, bool const safe);
 
 
 //-----------------------------------------------------------------------------

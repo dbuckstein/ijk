@@ -32,8 +32,6 @@
 
 #ifdef __cplusplus
 extern "C" {
-#else	// !__cplusplus
-typedef struct ijkStream				ijkStream;
 #endif	// __cplusplus
 
 
@@ -51,14 +49,14 @@ typedef struct ijkStream				ijkStream;
 //		member length: length of contents
 //		member isRead: flag whether interface is used for reading
 //		member isFile: flag whether interface is used for file streaming
-struct ijkStream
+typedef struct ijkStream
 {
-	pbyte base;							// stream contents
-	pbyte head;							// content head
+	ptag base;							// stream contents
+	ptag head;							// content head
 	size length;						// length of contents
-	ibool isRead;						// read flag
-	ibool isFile;						// file flag
-};
+	bool isRead;						// read flag
+	bool isFile;						// file flag
+} ijkStream;
 
 
 // ijkStreamReadFunc
@@ -93,7 +91,7 @@ typedef iret(*ijkStreamWriteFunc)(ijkStream* const stream, kptr streamArg);
 //		return SUCCESS: ijk_success if file opened
 //		return FAILURE: ijk_fail_invalidparams if invalid parameters
 //		return FAILURE: ijk_fail_operationfail if file not opened
-iret ijkStreamCreateFile(ijkStream* const stream_out, kcstr const filePath, ibool const readMode);
+iret ijkStreamCreateFile(ijkStream* const stream_out, kstr const filePath, bool const readMode);
 
 // ijkStreamCreateBuffer
 //	Allocate empty string for writing.
@@ -106,7 +104,7 @@ iret ijkStreamCreateFile(ijkStream* const stream_out, kcstr const filePath, iboo
 //		return SUCCESS: ijk_success if buffer allocated
 //		return FAILURE: ijk_fail_invalidparams if invalid parameters
 //		return FAILURE: ijk_fail_operationfail if buffer not allocated
-iret ijkStreamCreateBuffer(ijkStream* const stream_out, size const buffSize, kcstr const readSource);
+iret ijkStreamCreateBuffer(ijkStream* const stream_out, size const buffSize, kstr const readSource);
 
 // ijkStreamLoadBuffer
 //	Allocate buffer from file for reading.
@@ -117,7 +115,7 @@ iret ijkStreamCreateBuffer(ijkStream* const stream_out, size const buffSize, kcs
 //		return SUCCESS: ijk_success if file loaded
 //		return FAILURE: ijk_fail_invalidparams if invalid parameters
 //		return FAILURE: ijk_fail_operationfail if file not loaded
-iret ijkStreamLoadBuffer(ijkStream* const stream_out, kcstr const filePath);
+iret ijkStreamLoadBuffer(ijkStream* const stream_out, kstr const filePath);
 
 // ijkStreamSaveBuffer
 //	Store buffer in file.
@@ -129,7 +127,7 @@ iret ijkStreamLoadBuffer(ijkStream* const stream_out, kcstr const filePath);
 //		return SUCCESS: ijk_success if file saved
 //		return FAILURE: ijk_fail_invalidparams if invalid parameters
 //		return FAILURE: ijk_fail_operationfail if file not saved
-iret ijkStreamSaveBuffer(ijkStream const* const stream, kcstr const filePath);
+iret ijkStreamSaveBuffer(ijkStream const* const stream, kstr const filePath);
 
 // ijkStreamGetOffset
 //	Get number of bytes streamed.
@@ -149,7 +147,7 @@ iret ijkStreamGetOffset(ijkStream const* const stream, size* const offset_out);
 //		param readMode: reset in read mode if true, otherwise write
 //		return SUCCESS: ijk_success if stream reset
 //		return FAILURE: ijk_fail_invalidparams if invalid parameters
-iret ijkStreamBufferReset(ijkStream* const stream, ibool const readMode);
+iret ijkStreamBufferReset(ijkStream* const stream, bool const readMode);
 
 // ijkStreamRelease
 //	Close file or release string contents.
@@ -241,7 +239,7 @@ iret ijkStreamWriteElement(ijkStream* const stream, kptr const elem, size const 
 //		return SUCCESS: ijk_success if directory created
 //		return FAILURE: ijk_fail_invalidparams if invalid parameters
 //		return FAILURE: ijk_fail_operationfail if directory creation failed
-iret ijkStreamMakeDirectory(kcstr const directory);
+iret ijkStreamMakeDirectory(kstr const directory);
 
 
 //-----------------------------------------------------------------------------

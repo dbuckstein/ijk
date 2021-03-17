@@ -48,7 +48,7 @@ iret ijkRenderContextCreate(ijkRenderContext* const renderContext_out, ijkRender
 		case ijkRenderer_OpenGL:
 			status = ijkRenderContextCreate_gl(renderContext_out, renderer);
 			break;
-		case ijkRenderer_DirectX:
+		case ijkRenderer_Direct3D:
 			break;
 		case ijkRenderer_Metal:
 			break;
@@ -84,7 +84,7 @@ iret ijkRenderContextRelease(ijkRenderContext* const renderContext)
 		case ijkRenderer_OpenGL:
 			status = ijkRenderContextRelease_gl(renderContext);
 			break;
-		case ijkRenderer_DirectX:
+		case ijkRenderer_Direct3D:
 			break;
 		case ijkRenderer_Metal:
 			break;
@@ -94,7 +94,7 @@ iret ijkRenderContextRelease(ijkRenderContext* const renderContext)
 		if (ijk_issuccess(status))
 		{
 			renderContext->renderer = ijkRenderer_none;
-			renderContext->info_r = renderContext->info_p = renderContext->info_rp = 0;
+			renderContext->rendererInfo = renderContext->rendererInfo_p = 0;
 		}
 		return status;
 	}
@@ -135,10 +135,10 @@ iret ijkRenderContextLink(ijkRenderContext const* const renderContext0, ijkRende
 }
 
 
-iret ijkRenderContextPrintInfo(ijkRenderContext const* const renderContext, cstr* const bufferPtr)
+iret ijkRenderContextPrintInfo(ijkRenderContext const* const renderContext, str* const bufferPtr)
 {
-	iret ijkRenderContextPrintInfo_vk(ijkRenderContext const* const renderContext, cstr* const bufferPtr);
-	iret ijkRenderContextPrintInfo_gl(ijkRenderContext const* const renderContext, cstr* const bufferPtr);
+	iret ijkRenderContextPrintInfo_vk(ijkRenderContext const* const renderContext, str* const bufferPtr);
+	iret ijkRenderContextPrintInfo_gl(ijkRenderContext const* const renderContext, str* const bufferPtr);
 
 	// validate
 	if (renderContext && renderContext->renderer && bufferPtr && *bufferPtr)
@@ -149,7 +149,7 @@ iret ijkRenderContextPrintInfo(ijkRenderContext const* const renderContext, cstr
 			return ijkRenderContextPrintInfo_vk(renderContext, bufferPtr);
 		case ijkRenderer_OpenGL:
 			return ijkRenderContextPrintInfo_gl(renderContext, bufferPtr);
-		case ijkRenderer_DirectX:
+		case ijkRenderer_Direct3D:
 			break;
 		case ijkRenderer_Metal:
 			break;

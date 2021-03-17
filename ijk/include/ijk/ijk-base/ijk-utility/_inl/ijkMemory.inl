@@ -96,7 +96,7 @@ ijk_inl ptr ijkMemoryCopy(ptr const dst, kptr const src, size const sz_bytes)
 }
 
 
-ijk_inl ptrdiff ijkMemoryCompare(kptr const dst, kptr const src, size const sz_bytes)
+ijk_inl pdiff ijkMemoryCompare(kptr const dst, kptr const src, size const sz_bytes)
 {
 	if (dst && src && sz_bytes)
 	{
@@ -159,7 +159,7 @@ ijk_inl ptr ijkMemoryCopyC(ptr const dst, kptr const src, size const sz_chomps)
 }
 
 
-ijk_inl ptrdiff ijkMemoryCompareC(kptr const dst, kptr const src, size const sz_chomps)
+ijk_inl pdiff ijkMemoryCompareC(kptr const dst, kptr const src, size const sz_chomps)
 {
 	if (dst && src && sz_chomps)
 	{

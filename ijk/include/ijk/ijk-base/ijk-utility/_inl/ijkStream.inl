@@ -42,7 +42,7 @@ ijk_inl iret ijkStreamGetOffset(ijkStream const* const stream, size* const offse
 }
 
 
-ijk_inl iret ijkStreamBufferReset(ijkStream* const stream, ibool const readMode)
+ijk_inl iret ijkStreamBufferReset(ijkStream* const stream, bool const readMode)
 {
 	if (stream &&
 		stream->base && ijk_isfalse(stream->isFile))

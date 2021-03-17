@@ -31,9 +31,6 @@
 
 #ifdef __cplusplus
 extern "C" {
-#else	// !__cplusplus
-typedef struct ijkRenderContext	ijkRenderContext;
-typedef enum ijkRenderer		ijkRenderer;
 #endif	// __cplusplus
 
 
@@ -57,29 +54,24 @@ typedef ptr ijkRendererInfo;
 
 // ijkRenderer
 //	Enumeration of available renderers.
-enum ijkRenderer
+typedef enum ijkRenderer
 {
 	ijkRenderer_none,		// No renderer enabled.
-	ijkRenderer_Vulkan,		// Vulkan: cross-platform, low-overhead, powerful.
-	ijkRenderer_OpenGL,		// OpenGL: cross-platform, easy to learn.
-	ijkRenderer_DirectX,	// DirectX: Microsoft native.
-	ijkRenderer_Metal,		// Metal: Apple native.
-};
+	ijkRenderer_Vulkan,		// Vulkan (VK): cross-platform, low-overhead, powerful.
+	ijkRenderer_OpenGL,		// OpenGL (GL): cross-platform, easy to learn.
+	ijkRenderer_Direct3D,	// Direct3D (D3D): Microsoft native.
+	ijkRenderer_Metal,		// Metal (MTL): Apple native.
+} ijkRenderer;
 
 // ijkRenderContext
 //	High-level rendering context descriptor.
 //		member renderer: renderer type enum
 //		member info*: internal renderer info
-struct ijkRenderContext
+typedef struct ijkRenderContext
 {
 	ijkRenderer renderer;
-	union {
-		ijkRendererInfo info[3];
-		struct {
-			ijkRendererInfo info_r, info_p, info_rp;
-		};
-	};
-};
+	ijkRendererInfo rendererInfo, rendererInfo_p;
+} ijkRenderContext;
 
 
 //-----------------------------------------------------------------------------
@@ -145,7 +137,7 @@ iret ijkRenderContextLink(ijkRenderContext const* const renderContext0, ijkRende
 //		return SUCCESS: ijk_success if info printed to buffer
 //		return FAILURE: ijk_fail_operationfail if info not printed
 //		return FAILURE: ijk_fail_invalidparams if invalid parameters
-iret ijkRenderContextPrintInfo(ijkRenderContext const* const renderContext, cstr* const bufferPtr);
+iret ijkRenderContextPrintInfo(ijkRenderContext const* const renderContext, str* const bufferPtr);
 
 
 //-----------------------------------------------------------------------------

@@ -32,8 +32,6 @@
 
 #ifdef __cplusplus
 extern "C" {
-#else	// !__cplusplus
-typedef struct		ijkTimer			ijkTimer;
 #endif	// __cplusplus
 
 
@@ -48,9 +46,9 @@ typedef struct		ijkTimer			ijkTimer;
 //		member tickComplete: duration of completed tick measurement (on tick)
 //		member ticksPerSecond: expected number of ticks per second
 //		member secondsPerTick: expected time per tick; inverse ticks per second
-struct ijkTimer
+typedef struct ijkTimer
 {
-	ibool active;						// running flag
+	bool active;						// running flag
 	qword tickCount;					// number of ticks
 	dbl totalTime;						// total time taken
 	dbl tickMeasure;					// current tick measurement
@@ -58,7 +56,7 @@ struct ijkTimer
 	dbl ticksPerSecond;					// expected tick rate
 	dbl secondsPerTick;					// expected tick time
 	qword tf[1], t0[1], t1[1];			// internal measurement
-};
+} ijkTimer;
 
 
 //-----------------------------------------------------------------------------

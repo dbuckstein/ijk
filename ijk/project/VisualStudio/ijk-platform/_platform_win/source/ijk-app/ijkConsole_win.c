@@ -34,7 +34,7 @@
 //-----------------------------------------------------------------------------
 
 // redirect with settings
-ijk_inl void ijkConsoleInternalRedirectToggle(ijkConsole* const console, ibool const redirectInput, ibool const redirectOutput, ibool const redirectError)
+ijk_inl void ijkConsoleInternalRedirectToggle(ijkConsole* const console, bool const redirectInput, bool const redirectOutput, bool const redirectError)
 {
 	FILE* str = 0;
 	i32 i = -1, j = -1;
@@ -203,7 +203,7 @@ iret ijkConsoleCreateMain(ijkConsole* const console)
 }
 
 
-iret ijkConsoleRedirectMain(ijkConsole* const console, ibool const redirectInput, ibool const redirectOutput, ibool const redirectError)
+iret ijkConsoleRedirectMain(ijkConsole* const console, bool const redirectInput, bool const redirectOutput, bool const redirectError)
 {
 	if (console)
 	{
@@ -286,7 +286,7 @@ iret ijkConsoleSetCursor(i16 const x, i16 const y)
 }
 
 
-iret ijkConsoleToggleCursor(ibool const visible)
+iret ijkConsoleToggleCursor(bool const visible)
 {
 	CONSOLE_CURSOR_INFO cursorInfo[1];
 	HANDLE const stdHandle = GetStdHandle(STD_OUTPUT_HANDLE), console = GetConsoleWindow();
@@ -440,7 +440,7 @@ iret ijkConsoleClear()
 
 //-----------------------------------------------------------------------------
 
-iret ijkConsolePrintDebug(kcstr const format, ...)
+iret ijkConsolePrintDebug(kstr const format, ...)
 {
 	if (format)
 	{
@@ -450,7 +450,7 @@ iret ijkConsolePrintDebug(kcstr const format, ...)
 
 		// fill buffer with formatted arguments
 		va_start(args, format);
-		result = _vsnprintf(str, szb(str), format, args);
+		result = _vsnprintf(str, sizeof(str), format, args);
 		va_end(args);
 
 		// internal print

@@ -37,18 +37,18 @@
 
 //-----------------------------------------------------------------------------
 
-ijk_inl iret ijkMouseGetButtonState(ijkMouseState const* const mouse, ibool state_out[1], ijkMouseBtn const button)
+ijk_inl iret ijkMouseGetButtonState(ijkMouseState const* const mouse, bool state_out[1], ijkMouseBtn const button)
 {
 	if (mouse && state_out)
 	{
-		*state_out = (ibool)(mouse->state.button[button]);
+		*state_out = (bool)(mouse->state.button[button]);
 		return ijk_success;
 	}
 	return ijk_fail_invalidparams;
 }
 
 
-ijk_inl iret ijkMouseSetButtonState(ijkMouseState* const mouse, ibool const state, ijkMouseBtn const button)
+ijk_inl iret ijkMouseSetButtonState(ijkMouseState* const mouse, bool const state, ijkMouseBtn const button)
 {
 	if (mouse)
 	{
@@ -119,18 +119,18 @@ ijk_inl iret ijkMouseIsButtonReleased(ijkMouseState const* const mouse, ijkMouse
 }
 
 
-ijk_inl iret ijkMouseGetWheelState(ijkMouseState const* const mouse, istate state_out[1])
+ijk_inl iret ijkMouseGetWheelState(ijkMouseState const* const mouse, i32 state_out[1])
 {
 	if (mouse && state_out)
 	{
-		*state_out = (istate)(mouse->state.button[ijkMouseBtn_wheel]);
+		*state_out = (i32)(mouse->state.button[ijkMouseBtn_wheel]);
 		return ijk_success;
 	}
 	return ijk_fail_invalidparams;
 }
 
 
-ijk_inl iret ijkMouseSetWheelState(ijkMouseState* const mouse, istate const state)
+ijk_inl iret ijkMouseSetWheelState(ijkMouseState* const mouse, i32 const state)
 {
 	if (mouse)
 	{
@@ -141,11 +141,11 @@ ijk_inl iret ijkMouseSetWheelState(ijkMouseState* const mouse, istate const stat
 }
 
 
-ijk_inl iret ijkMouseGetWheelChange(ijkMouseState const* const mouse, istate state_out[1])
+ijk_inl iret ijkMouseGetWheelChange(ijkMouseState const* const mouse, i32 state_out[1])
 {
 	if (mouse && state_out)
 	{
-		*state_out = (istate)(mouse->state.button[ijkMouseBtn_wheel] - mouse->state_prev.button[ijkMouseBtn_wheel]);
+		*state_out = (i32)(mouse->state.button[ijkMouseBtn_wheel] - mouse->state_prev.button[ijkMouseBtn_wheel]);
 		return ijk_success;
 	}
 	return ijk_fail_invalidparams;
@@ -204,7 +204,7 @@ ijk_inl iret ijkMouseReset(ijkMouseState* const mouse)
 	ptr ijkMemorySetZero(ptr const dst, size const sz_bytes);
 	if (mouse)
 	{
-		ijkMemorySetZero(mouse->state.button, szb(mouse->state));
+		ijkMemorySetZero(mouse->state.button, sizeof(mouse->state));
 		return ijk_success;
 	}
 	return ijk_fail_invalidparams;
@@ -213,18 +213,18 @@ ijk_inl iret ijkMouseReset(ijkMouseState* const mouse)
 
 //-----------------------------------------------------------------------------
 
-ijk_inl iret ijkKeyboardGetKeyState(ijkKeyboardState const* const keyboard, ibool state_out[1], ijkKeyVirt const keyVirt)
+ijk_inl iret ijkKeyboardGetKeyState(ijkKeyboardState const* const keyboard, bool state_out[1], ijkKeyVirt const keyVirt)
 {
 	if (keyboard && state_out)
 	{
-		*state_out = (ibool)(keyboard->state.key[keyVirt]);
+		*state_out = (bool)(keyboard->state.key[keyVirt]);
 		return ijk_success;
 	}
 	return ijk_fail_invalidparams;
 }
 
 
-ijk_inl iret ijkKeyboardSetKeyState(ijkKeyboardState* const keyboard, ibool const state, ijkKeyVirt const keyVirt)
+ijk_inl iret ijkKeyboardSetKeyState(ijkKeyboardState* const keyboard, bool const state, ijkKeyVirt const keyVirt)
 {
 	if (keyboard)
 	{
@@ -295,18 +295,18 @@ ijk_inl iret ijkKeyboardIsKeyReleased(ijkKeyboardState const* const keyboard, ij
 }
 
 
-ijk_inl iret ijkKeyboardGetKeyCharState(ijkKeyboardState const* const keyboard, ibool state_out[1], sbyte const keyChar)
+ijk_inl iret ijkKeyboardGetKeyCharState(ijkKeyboardState const* const keyboard, bool state_out[1], sbyte const keyChar)
 {
 	if (keyboard && state_out && keyChar >= 0)
 	{
-		*state_out = (ibool)(keyboard->state.keyChar[keyChar]);
+		*state_out = (bool)(keyboard->state.keyChar[keyChar]);
 		return ijk_success;
 	}
 	return ijk_fail_invalidparams;
 }
 
 
-ijk_inl iret ijkKeyboardSetKeyCharState(ijkKeyboardState* const keyboard, ibool const state, sbyte const keyChar)
+ijk_inl iret ijkKeyboardSetKeyCharState(ijkKeyboardState* const keyboard, bool const state, sbyte const keyChar)
 {
 	if (keyboard && keyChar >= 0)
 	{
@@ -393,7 +393,7 @@ ijk_inl iret ijkKeyboardReset(ijkKeyboardState* const keyboard)
 	ptr ijkMemorySetZero(ptr const dst, size const sz_bytes);
 	if (keyboard)
 	{
-		ijkMemorySetZero(keyboard->state.key, szb(keyboard->state));
+		ijkMemorySetZero(keyboard->state.key, sizeof(keyboard->state));
 		return ijk_success;
 	}
 	return ijk_fail_invalidparams;

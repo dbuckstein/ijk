@@ -39,7 +39,7 @@
 //			non-null, valid library handle
 //		return FAILURE: ijk_fail_operationfail if library not loaded
 //		return FAILURE: ijk_fail_invalidparams if invalid parameters
-ijk_inl iret ijkDylibLoad(IJK_DYLIB_HANDLE* const handle_out, kcstr const dylibPath)
+ijk_inl iret ijkDylibLoad(IJK_DYLIB_HANDLE* const handle_out, kstr const dylibPath)
 {
 	if (handle_out && dylibPath && !*handle_out && *dylibPath)
 	{
@@ -84,7 +84,7 @@ ijk_inl iret ijkDylibUnload(IJK_DYLIB_HANDLE const handle)
 //			non-null, valid function pointer
 //		return FAILURE: ijk_fail_operationfail if empty not loaded
 //		return FAILURE: ijk_fail_invalidparams if invalid parameters
-ijk_inl iret ijkDylibGetSymbol(IJK_DYLIB_FUNC* const symbol_out, IJK_DYLIB_HANDLE const handle, kcstr const symbolName)
+ijk_inl iret ijkDylibGetSymbol(IJK_DYLIB_FUNC* const symbol_out, IJK_DYLIB_HANDLE const handle, kstr const symbolName)
 {
 	if (symbol_out && handle && symbolName && !*symbol_out && *symbolName)
 	{

@@ -127,7 +127,7 @@ void ijkPluginInternalSetCallbacks(ijkPlugin* const plugin)
 
 // ijkPluginLoad
 //	Internal plugin load routine.
-iret ijkPluginInternalLoad(ijkPlugin* const plugin_out, ijkPluginInfo const* const pluginInfo, i32 const pluginID, ibool const reload)
+iret ijkPluginInternalLoad(ijkPlugin* const plugin_out, ijkPluginInfo const* const pluginInfo, i32 const pluginID, bool const reload)
 {
 	// set path
 	byte path[64] = "./ijk-plugin/";
@@ -156,7 +156,7 @@ iret ijkPluginInternalLoad(ijkPlugin* const plugin_out, ijkPluginInfo const* con
 
 // ijkPluginUnload
 //	Internal plugin unload routine.
-iret ijkPluginInternalUnload(ijkPlugin* const plugin, ibool const safe)
+iret ijkPluginInternalUnload(ijkPlugin* const plugin, bool const safe)
 {
 	// unload callback
 	ijkPluginCallback_pip2 cb = 0;
@@ -193,11 +193,11 @@ iret ijkPluginInfoSet(ijkPluginInfo* const pluginInfo_out, tag const name, tag c
 		ijkPluginInfo const def = { "ijk Plugin (SDK)", "ijk-plugin", "Daniel S. Buckstein", (__TIME__" "__DATE__), "Default plugin built and loaded with current SDK configuration." };
 
 		// copy
-		strncpy(pluginInfo_out->name, (name && *name) ? name : def.name, szb(pluginInfo_out->name));
-		strncpy(pluginInfo_out->dylib, (dylib && *dylib) ? dylib : def.dylib, szb(pluginInfo_out->dylib));
-		strncpy(pluginInfo_out->author, (author && *author) ? author : def.author, szb(pluginInfo_out->author));
-		strncpy(pluginInfo_out->version, (version && *version) ? version : def.version, szb(pluginInfo_out->version));
-		strncpy(pluginInfo_out->info, (info && *info) ? info : def.info, szb(pluginInfo_out->info));
+		strncpy(pluginInfo_out->name, (name && *name) ? name : def.name, sizeof(pluginInfo_out->name));
+		strncpy(pluginInfo_out->dylib, (dylib && *dylib) ? dylib : def.dylib, sizeof(pluginInfo_out->dylib));
+		strncpy(pluginInfo_out->author, (author && *author) ? author : def.author, sizeof(pluginInfo_out->author));
+		strncpy(pluginInfo_out->version, (version && *version) ? version : def.version, sizeof(pluginInfo_out->version));
+		strncpy(pluginInfo_out->info, (info && *info) ? info : def.info, sizeof(pluginInfo_out->info));
 
 		// done
 		return ijk_success;
@@ -228,7 +228,7 @@ iret ijkPluginInfoListLoad(ijkPluginInfo** const pluginInfoList_out, size* const
 		{
 			byte line[512] = { 0 }, * linePtr;
 			size count = 0;
-			i32 const sz = szb(line);
+			i32 const sz = sizeof(line);
 
 			// get number of list items
 			while (fgets(line, sz, fp))
@@ -240,7 +240,7 @@ iret ijkPluginInfoListLoad(ijkPluginInfo** const pluginInfoList_out, size* const
 			{
 				if (fp = freopen(resourceFile, "r", fp))
 				{
-					ijkPluginInfo tmp = { 0 }, * const list = (ijkPluginInfo*)malloc(szb(tmp) * count);
+					ijkPluginInfo tmp = { 0 }, * const list = (ijkPluginInfo*)malloc(sizeof(tmp) * count);
 					ptag data;
 
 					// parse entries
@@ -343,7 +343,7 @@ iret ijkPluginLoad(ijkPlugin* const plugin_out, ijkPluginInfo const* const plugi
 }
 
 
-iret ijkPluginReload(ijkPlugin* const plugin, ijkPluginInfo const* const pluginInfo_opt, ibool const safe)
+iret ijkPluginReload(ijkPlugin* const plugin, ijkPluginInfo const* const pluginInfo_opt, bool const safe)
 {
 	if (plugin)
 	{
@@ -369,7 +369,7 @@ iret ijkPluginReload(ijkPlugin* const plugin, ijkPluginInfo const* const pluginI
 }
 
 
-iret ijkPluginUnload(ijkPlugin* const plugin, ibool const safe)
+iret ijkPluginUnload(ijkPlugin* const plugin, bool const safe)
 {
 	if (plugin && plugin->handle)
 		return ijkPluginInternalUnload(plugin, safe);

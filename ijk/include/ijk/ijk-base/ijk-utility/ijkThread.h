@@ -32,9 +32,6 @@
 
 #ifdef __cplusplus
 extern "C" {
-#else	// !__cplusplus
-typedef struct		ijkThread			ijkThread;
-typedef struct		ijkMutex			ijkMutex;
 #endif	// __cplusplus
 
 
@@ -62,25 +59,25 @@ typedef iret(*ijkThreadEntryFunc)(ptr entryArg);
 //		member sysID: system ID number of thread, identifier for handle
 //		member active: boolean flag describing whether thread is running
 //		member result: integer return value from entry function
-struct ijkThread
+typedef struct ijkThread
 {
 	ptr handle[2];					// internal handles
 	ijkThreadEntryFunc entryFunc;	// entry function
 	ptr entryArg;					// entry argument
 	tag name;						// name of thread
 	dword sysID;					// system ID of thread
-	ibool active;					// whether thread is still executing
+	bool active;					// whether thread is still executing
 	iret result;					// return value from entry function
-};
+} ijkThread;
 
 
 // ijkMutex
 //	Simple mutex (mutual exclusion) descriptor.
 //		member sysID: system ID number of thread holding mutex
-struct ijkMutex
+typedef struct ijkMutex
 {
 	dword sysID;					// system ID of holding thread
-};
+} ijkMutex;
 
 
 //-----------------------------------------------------------------------------

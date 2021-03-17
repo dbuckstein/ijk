@@ -32,10 +32,6 @@
 
 #ifdef __cplusplus
 extern "C" {
-#else	// !__cplusplus
-typedef enum ijkGamepadID				ijkGamepadID;
-typedef enum ijkGamepadBtn				ijkGamepadBtn;
-typedef struct ijkGamepadState			ijkGamepadState;
 #endif	// __cplusplus
 
 
@@ -43,18 +39,18 @@ typedef struct ijkGamepadState			ijkGamepadState;
 
 // ijkGamepadID
 //	Enumeration of gamepad IDs by player number.
-enum ijkGamepadID
+typedef enum ijkGamepadID
 {
 	ijkGamepadID_player1,
 	ijkGamepadID_player2,
 	ijkGamepadID_player3,
 	ijkGamepadID_player4,
-};
+} ijkGamepadID;
 
 
 // ijkGamepadBtn
 //	Enumeration of gamepad buttons.
-enum ijkGamepadBtn
+typedef enum ijkGamepadBtn
 {
 	ijkGamepadBtn_dpad_up		= 0x0001,
 	ijkGamepadBtn_dpad_down		= 0x0002,
@@ -72,7 +68,7 @@ enum ijkGamepadBtn
 	ijkGamepadBtn_B				= 0x2000,
 	ijkGamepadBtn_X				= 0x4000,
 	ijkGamepadBtn_Y				= 0x8000,
-};
+} ijkGamepadBtn;
 
 
 // ijkGamepadState
@@ -87,7 +83,7 @@ enum ijkGamepadBtn
 //		members trigger...unit: normalized trigger values
 //		members thumb...unit: normalized thumbstick directions
 //		member connected: connection status
-struct ijkGamepadState
+typedef struct ijkGamepadState
 {
 	dword ctrlID;
 	dword packet[1];
@@ -95,12 +91,12 @@ struct ijkGamepadState
 		word button;
 		byte trigger_left, trigger_right;
 		i16 thumbX_left, thumbY_left, thumbX_right, thumbY_right;
-		ibool connected;
+		i32 connected;
 		dbl trigger_left_unit, trigger_right_unit;
 		dbl thumbX_left_unit, thumbY_left_unit, thumbX_right_unit, thumbY_right_unit;
 	} state, state_prev;
 	word button_downAgain, button_upAgain, button_pressed, button_released;
-};
+} ijkGamepadState;
 
 
 //-----------------------------------------------------------------------------
@@ -115,7 +111,7 @@ struct ijkGamepadState
 //		param button: gamepad button
 //		return SUCCESS: ijk_success if retrieved state
 //		return FAILURE: ijk_fail_invalidparams if invalid parameters
-iret ijkGamepadGetButtonState(ijkGamepadState const* const gamepad, ibool state_out[1], ijkGamepadBtn const button);
+iret ijkGamepadGetButtonState(ijkGamepadState const* const gamepad, bool state_out[1], ijkGamepadBtn const button);
 
 // ijkGamepadIsButtonDown
 //	Check whether gamepad button is down.
@@ -186,7 +182,7 @@ iret ijkGamepadIsButtonReleased(ijkGamepadState const* const gamepad, ijkGamepad
 //			note: upon successful return, points to boolean (true is pressed)
 //		return SUCCESS: ijk_success if retrieved state
 //		return FAILURE: ijk_fail_invalidparams if invalid parameters
-iret ijkGamepadGetConnectionState(ijkGamepadState const* const gamepad, ibool state_out[1]);
+iret ijkGamepadGetConnectionState(ijkGamepadState const* const gamepad, bool state_out[1]);
 
 // ijkGamepadIsConnected
 //	Check whether gamepad is connected.

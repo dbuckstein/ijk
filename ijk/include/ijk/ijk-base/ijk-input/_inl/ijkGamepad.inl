@@ -30,11 +30,11 @@
 
 //-----------------------------------------------------------------------------
 
-ijk_inl iret ijkGamepadGetButtonState(ijkGamepadState const* const gamepad, ibool state_out[1], ijkGamepadBtn const button)
+ijk_inl iret ijkGamepadGetButtonState(ijkGamepadState const* const gamepad, bool state_out[1], ijkGamepadBtn const button)
 {
 	if (gamepad && state_out)
 	{
-		*state_out = (ibool)ijk_flagch(gamepad->state.button, button);
+		*state_out = (bool)ijk_flagch(gamepad->state.button, button);
 		return ijk_success;
 	}
 	return ijk_fail_invalidparams;
@@ -101,11 +101,11 @@ ijk_inl iret ijkGamepadIsButtonReleased(ijkGamepadState const* const gamepad, ij
 }
 
 
-ijk_inl iret ijkGamepadGetConnectionState(ijkGamepadState const* const gamepad, ibool state_out[1])
+ijk_inl iret ijkGamepadGetConnectionState(ijkGamepadState const* const gamepad, bool state_out[1])
 {
 	if (gamepad && state_out)
 	{
-		*state_out = (ibool)ijk_istrue(gamepad->state.connected);
+		*state_out = (bool)ijk_istrue(gamepad->state.connected);
 		return ijk_success;
 	}
 	return ijk_fail_invalidparams;
@@ -332,7 +332,7 @@ ijk_inl iret ijkGamepadReset(ijkGamepadState* const gamepad)
 	ptr ijkMemorySetZero(ptr const dst, size const sz_bytes);
 	if (gamepad)
 	{
-		ijkMemorySetZero(gamepad->packet, (szb(gamepad->packet) + szb(gamepad->state)));
+		ijkMemorySetZero(gamepad->packet, (sizeof(gamepad->packet) + sizeof(gamepad->state)));
 		return ijk_success;
 	}
 	return ijk_fail_invalidparams;

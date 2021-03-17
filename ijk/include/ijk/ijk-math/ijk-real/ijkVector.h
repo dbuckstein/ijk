@@ -59,50 +59,6 @@
 
 #ifdef __cplusplus
 extern "C" {
-#else	// !__cplusplus
-typedef enum ijkVecComp	ijkVecComp;
-typedef union bvec2		bvec2;
-typedef union bvec3		bvec3;
-typedef union bvec4		bvec4;
-typedef union ivec2		ivec2;
-typedef union ivec3		ivec3;
-typedef union ivec4		ivec4;
-typedef union ilvec2	ilvec2;
-typedef union ilvec3	ilvec3;
-typedef union ilvec4	ilvec4;
-typedef union uvec2		uvec2;
-typedef union uvec3		uvec3;
-typedef union uvec4		uvec4;
-typedef union ulvec2	ulvec2;
-typedef union ulvec3	ulvec3;
-typedef union ulvec4	ulvec4;
-typedef union fvec2		fvec2;
-typedef union fvec3		fvec3;
-typedef union fvec4		fvec4;
-typedef union dvec2		dvec2;
-typedef union dvec3		dvec3;
-typedef union dvec4		dvec4;
-
-// Built-in type overrides.
-///
-#define bool			byte	// sizeof(bool) = 1; does not align with GLSL
-#define int				i32
-#define intl			i64		// sizeof(intl) = 8; does not align with GLSL
-#define uint			ui32
-#define uintl			ui64	// sizeof(uintl) = 8; does not align with GLSL
-#define float			f32
-#define double			f64
-
-// Convenience macros for declaring vector types.
-///
-#define IJK_BVEC_IMPL(sz)				IJK_VEC_IMPL(bool,bvec,sz,)
-#define IJK_IVEC_IMPL(sz)				IJK_VEC_IMPL(int,ivec,sz,)
-#define IJK_ILVEC_IMPL(sz)				IJK_VEC_IMPL(intl,ilvec,sz,)
-#define IJK_UVEC_IMPL(sz)				IJK_VEC_IMPL(uint,uvec,sz,)
-#define IJK_ULVEC_IMPL(sz)				IJK_VEC_IMPL(uintl,ulvec,sz,)
-#define IJK_FVEC_IMPL(sz)				IJK_VEC_IMPL(float,fvec,sz,)
-#define IJK_DVEC_IMPL(sz)				IJK_VEC_IMPL(double,dvec,sz,)
-
 #endif	// __cplusplus
 
 
@@ -110,19 +66,19 @@ typedef union dvec4		dvec4;
 
 // ijkVecComp
 //	Named vector component index for user access.
-enum ijkVecComp
+typedef enum ijkVecComp
 {
 	ijkVecX,
 	ijkVecY,
 	ijkVecZ,
 	ijkVecW,
-};
+} ijkVecComp;
 
 
 //-----------------------------------------------------------------------------
 
-typedef byte const		* boolkv;	// Generic constant boolean/byte array-based vector, represented by pointer, used as constant vector return type since returning sized array is not allowed.
-typedef byte			* boolv,	// Generic boolean/byte array-based vector, represented by pointer, used as vector return type since returning sized array is not allowed.
+typedef bool const		* boolkv;	// Generic constant boolean/byte array-based vector, represented by pointer, used as constant vector return type since returning sized array is not allowed.
+typedef bool			* boolv,	// Generic boolean/byte array-based vector, represented by pointer, used as vector return type since returning sized array is not allowed.
 						bool2[2],	// 2D boolean array-based vector, always passed by pointer.
 						bool3[3],	// 3D boolean array-based vector, always passed by pointer.
 						bool4[4];	// 4D boolean array-based vector, always passed by pointer.
@@ -170,16 +126,36 @@ typedef f64				* doublev,	// Generic double-precision array-based vector, repres
 
 #else // !__cplusplus
 
+// Built-in type overrides.
+///
+#define int				i32
+#define intl			i64		// sizeof(intl) = 8; does not align with GLSL
+#define uint			ui32
+#define uintl			ui64	// sizeof(uintl) = 8; does not align with GLSL
+#define float			f32
+#define double			f64
+
+// Convenience macros for declaring vector types.
+///
+#define IJK_BVEC_IMPL(sz)				IJK_VEC_IMPL(bool,bvec,sz,)
+#define IJK_IVEC_IMPL(sz)				IJK_VEC_IMPL(int,ivec,sz,)
+#define IJK_ILVEC_IMPL(sz)				IJK_VEC_IMPL(intl,ilvec,sz,)
+#define IJK_UVEC_IMPL(sz)				IJK_VEC_IMPL(uint,uvec,sz,)
+#define IJK_ULVEC_IMPL(sz)				IJK_VEC_IMPL(uintl,ulvec,sz,)
+#define IJK_FVEC_IMPL(sz)				IJK_VEC_IMPL(float,fvec,sz,)
+#define IJK_DVEC_IMPL(sz)				IJK_VEC_IMPL(double,dvec,sz,)
+
+
 // bvec2
 //	Data structure representing 2D boolean vector.
 //		members v, xy, rg, st: array of elements, used as pointer argument to vector functions
 //		members x, y: individual named elements representing a spatial coordinate
 //		members r, g: individual named elements representing a color
 //		members s, t: individual named elements representing a parametric coordinate
-union bvec2
+typedef union bvec2
 {
 	IJK_BVEC_IMPL(2);
-};
+} bvec2;
 
 // bvec3
 //	Data structure representing 3D boolean vector.
@@ -189,10 +165,10 @@ union bvec2
 //		members x, y, z: individual named elements representing a spatial coordinate
 //		members r, g, b: individual named elements representing a color
 //		members s, t, p: individual named elements representing a parametric coordinate
-union bvec3
+typedef union bvec3
 {
 	IJK_BVEC_IMPL(3);
-};
+} bvec3;
 
 // bvec4
 //	Data structure representing 4D boolean vector.
@@ -206,10 +182,10 @@ union bvec3
 //			note: vectors have w = 0, while points have w = 1
 //		members r, g, b, a: individual named elements representing a color
 //		members s, t, p, q: individual named elements representing a parametric coordinate
-union bvec4
+typedef union bvec4
 {
 	IJK_BVEC_IMPL(4);
-};
+} bvec4;
 
 
 //-----------------------------------------------------------------------------
@@ -220,10 +196,10 @@ union bvec4
 //		members x, y: individual named elements representing a spatial coordinate
 //		members r, g: individual named elements representing a color
 //		members s, t: individual named elements representing a parametric coordinate
-union ivec2
+typedef union ivec2
 {
 	IJK_IVEC_IMPL(2);
-};
+} ivec2;
 
 // ivec3
 //	Data structure representing 3D signed 32-bit integer vector.
@@ -233,10 +209,10 @@ union ivec2
 //		members x, y, z: individual named elements representing a spatial coordinate
 //		members r, g, b: individual named elements representing a color
 //		members s, t, p: individual named elements representing a parametric coordinate
-union ivec3
+typedef union ivec3
 {
 	IJK_IVEC_IMPL(3);
-};
+} ivec3;
 
 // ivec4
 //	Data structure representing 4D signed 32-bit integer vector.
@@ -250,10 +226,10 @@ union ivec3
 //			note: vectors have w = 0, while points have w = 1
 //		members r, g, b, a: individual named elements representing a color
 //		members s, t, p, q: individual named elements representing a parametric coordinate
-union ivec4
+typedef union ivec4
 {
 	IJK_IVEC_IMPL(4);
-};
+} ivec4;
 
 
 //-----------------------------------------------------------------------------
@@ -264,10 +240,10 @@ union ivec4
 //		members x, y: individual named elements representing a spatial coordinate
 //		members r, g: individual named elements representing a color
 //		members s, t: individual named elements representing a parametric coordinate
-union ilvec2
+typedef union ilvec2
 {
 	IJK_ILVEC_IMPL(2);
-};
+} ilvec2;
 
 // ilvec3
 //	Data structure representing 3D signed 64-bit integer vector.
@@ -277,10 +253,10 @@ union ilvec2
 //		members x, y, z: individual named elements representing a spatial coordinate
 //		members r, g, b: individual named elements representing a color
 //		members s, t, p: individual named elements representing a parametric coordinate
-union ilvec3
+typedef union ilvec3
 {
 	IJK_ILVEC_IMPL(3);
-};
+} ilvec3;
 
 // ilvec4
 //	Data structure representing 4D signed 64-bit integer vector.
@@ -294,10 +270,10 @@ union ilvec3
 //			note: vectors have w = 0, while points have w = 1
 //		members r, g, b, a: individual named elements representing a color
 //		members s, t, p, q: individual named elements representing a parametric coordinate
-union ilvec4
+typedef union ilvec4
 {
 	IJK_ILVEC_IMPL(4);
-};
+} ilvec4;
 
 
 //-----------------------------------------------------------------------------
@@ -308,10 +284,10 @@ union ilvec4
 //		members x, y: individual named elements representing a spatial coordinate
 //		members r, g: individual named elements representing a color
 //		members s, t: individual named elements representing a parametric coordinate
-union uvec2
+typedef union uvec2
 {
 	IJK_UVEC_IMPL(2);
-};
+} uvec2;
 
 // uvec3
 //	Data structure representing 3D unsigned 32-bit integer vector.
@@ -321,10 +297,10 @@ union uvec2
 //		members x, y, z: individual named elements representing a spatial coordinate
 //		members r, g, b: individual named elements representing a color
 //		members s, t, p: individual named elements representing a parametric coordinate
-union uvec3
+typedef union uvec3
 {
 	IJK_UVEC_IMPL(3);
-};
+} uvec3;
 
 // uvec4
 //	Data structure representing 4D unsigned 32-bit integer vector.
@@ -338,10 +314,10 @@ union uvec3
 //			note: vectors have w = 0, while points have w = 1
 //		members r, g, b, a: individual named elements representing a color
 //		members s, t, p, q: individual named elements representing a parametric coordinate
-union uvec4
+typedef union uvec4
 {
 	IJK_UVEC_IMPL(4);
-};
+} uvec4;
 
 
 //-----------------------------------------------------------------------------
@@ -352,10 +328,10 @@ union uvec4
 //		members x, y: individual named elements representing a spatial coordinate
 //		members r, g: individual named elements representing a color
 //		members s, t: individual named elements representing a parametric coordinate
-union ulvec2
+typedef union ulvec2
 {
 	IJK_ULVEC_IMPL(2);
-};
+} ulvec2;
 
 // ulvec3
 //	Data structure representing 3D unsigned 64-bit integer vector.
@@ -365,10 +341,10 @@ union ulvec2
 //		members x, y, z: individual named elements representing a spatial coordinate
 //		members r, g, b: individual named elements representing a color
 //		members s, t, p: individual named elements representing a parametric coordinate
-union ulvec3
+typedef union ulvec3
 {
 	IJK_ULVEC_IMPL(3);
-};
+} ulvec3;
 
 // ulvec4
 //	Data structure representing 4D unsigned 64-bit integer vector.
@@ -382,10 +358,10 @@ union ulvec3
 //			note: vectors have w = 0, while points have w = 1
 //		members r, g, b, a: individual named elements representing a color
 //		members s, t, p, q: individual named elements representing a parametric coordinate
-union ulvec4
+typedef union ulvec4
 {
 	IJK_ULVEC_IMPL(4);
-};
+} ulvec4;
 
 
 //-----------------------------------------------------------------------------
@@ -396,10 +372,10 @@ union ulvec4
 //		members x, y: individual named elements representing a spatial coordinate
 //		members r, g: individual named elements representing a color
 //		members s, t: individual named elements representing a parametric coordinate
-union fvec2
+typedef union fvec2
 {
 	IJK_FVEC_IMPL(2);
-};
+} fvec2;
 
 // fvec3
 //	Data structure representing 3D single-precision (float) vector.
@@ -409,10 +385,10 @@ union fvec2
 //		members x, y, z: individual named elements representing a spatial coordinate
 //		members r, g, b: individual named elements representing a color
 //		members s, t, p: individual named elements representing a parametric coordinate
-union fvec3
+typedef union fvec3
 {
 	IJK_FVEC_IMPL(3);
-};
+} fvec3;
 
 // fvec4
 //	Data structure representing 4D single-precision (float) vector.
@@ -426,10 +402,10 @@ union fvec3
 //			note: vectors have w = 0, while points have w = 1
 //		members r, g, b, a: individual named elements representing a color
 //		members s, t, p, q: individual named elements representing a parametric coordinate
-union fvec4
+typedef union fvec4
 {
 	IJK_FVEC_IMPL(4);
-};
+} fvec4;
 
 
 //-----------------------------------------------------------------------------
@@ -440,10 +416,10 @@ union fvec4
 //		members x, y: individual named elements representing a spatial coordinate
 //		members r, g: individual named elements representing a color
 //		members s, t: individual named elements representing a parametric coordinate
-union dvec2
+typedef union dvec2
 {
 	IJK_DVEC_IMPL(2);
-};
+} dvec2;
 
 // dvec3
 //	Data structure representing 3D double-precision (double) vector.
@@ -453,10 +429,10 @@ union dvec2
 //		members x, y, z: individual named elements representing a spatial coordinate
 //		members r, g, b: individual named elements representing a color
 //		members s, t, p: individual named elements representing a parametric coordinate
-union dvec3
+typedef union dvec3
 {
 	IJK_DVEC_IMPL(3);
-};
+} dvec3;
 
 // dvec4
 //	Data structure representing 4D double-precision (double) vector.
@@ -470,10 +446,10 @@ union dvec3
 //			note: vectors have w = 0, while points have w = 1
 //		members r, g, b, a: individual named elements representing a color
 //		members s, t, p, q: individual named elements representing a parametric coordinate
-union dvec4
+typedef union dvec4
 {
 	IJK_DVEC_IMPL(4);
-};
+} dvec4;
 
 #endif	// __cplusplus
 

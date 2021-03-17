@@ -3993,7 +3993,7 @@ extern "C" {
 //		param v1: terminal reference value/end point, result when t=1
 //		param dv1: terminal tangent/rate of change
 //		return: total arc length
-//real ijkVecReparamCubicHermite2rv(real uTable_out[], real lTable_out[], real2 vTable_out[], size const numDivisions, ibool const lNormalize, real2 const v0, real2 const dv0, real2 const v1, real2 const dv1);
+//real ijkVecReparamCubicHermite2rv(real uTable_out[], real lTable_out[], real2 vTable_out[], size const numDivisions, bool const lNormalize, real2 const v0, real2 const dv0, real2 const v1, real2 const dv1);
 #define ijkVecReparamCubicHermite2rv ijk_declrealfs(ijkVecReparamCubicHermite2,v)
 
 // ijkVecReparamCubicHermiteHandles2*v
@@ -4016,7 +4016,7 @@ extern "C" {
 //		param cv1: terminal control handle value, should be greater than v1 
 //			for a positive rate of change
 //		return: total arc length
-//real ijkVecReparamCubicHermiteHandles2rv(real uTable_out[], real lTable_out[], real2 vTable_out[], size const numDivisions, ibool const lNormalize, real2 const v0, real2 const cv0, real2 const v1, real2 const cv1);
+//real ijkVecReparamCubicHermiteHandles2rv(real uTable_out[], real lTable_out[], real2 vTable_out[], size const numDivisions, bool const lNormalize, real2 const v0, real2 const cv0, real2 const v1, real2 const cv1);
 #define ijkVecReparamCubicHermiteHandles2rv ijk_declrealfs(ijkVecReparamCubicHermiteHandles2,v)
 
 // ijkVecReparamCubicCatmullRom2*v
@@ -4037,7 +4037,7 @@ extern "C" {
 //		param v1: terminal reference value/end point, result when t=1
 //		param v2: terminal control value
 //		return: total arc length
-//real ijkVecReparamCubicCatmullRom2rv(real uTable_out[], real lTable_out[], real2 vTable_out[], size const numDivisions, ibool const lNormalize, real2 const vp, real2 const v0, real2 const v1, real2 const v2);
+//real ijkVecReparamCubicCatmullRom2rv(real uTable_out[], real lTable_out[], real2 vTable_out[], size const numDivisions, bool const lNormalize, real2 const vp, real2 const v0, real2 const v1, real2 const v2);
 #define ijkVecReparamCubicCatmullRom2rv ijk_declrealfs(ijkVecReparamCubicCatmullRom2,v)
 
 // ijkVecReparamBicubicCatmullRom2*v
@@ -4082,7 +4082,7 @@ extern "C" {
 //		param u1: interpolation parameter for terminal value curve
 //		param u2: interpolation parameter for terminal control curve
 //		return: total arc length
-//real ijkVecReparamBicubicCatmullRom2rv(real uTable_out[], real lTable_out[], real2 vTable_out[], size const numDivisions, ibool const lNormalize, real2 const vpp, real2 const vp0, real2 const vp1, real2 const vp2, real2 const v0p, real2 const v00, real2 const v01, real2 const v02, real2 const v1p, real2 const v10, real2 const v11, real2 const v12, real2 const v2p, real2 const v20, real2 const v21, real2 const v22, real const up, real const u0, real const u1, real const u2);
+//real ijkVecReparamBicubicCatmullRom2rv(real uTable_out[], real lTable_out[], real2 vTable_out[], size const numDivisions, bool const lNormalize, real2 const vpp, real2 const vp0, real2 const vp1, real2 const vp2, real2 const v0p, real2 const v00, real2 const v01, real2 const v02, real2 const v1p, real2 const v10, real2 const v11, real2 const v12, real2 const v2p, real2 const v20, real2 const v21, real2 const v22, real const up, real const u0, real const u1, real const u2);
 #define ijkVecReparamBicubicCatmullRom2rv ijk_declrealfs(ijkVecReparamBicubicCatmullRom2,v)
 
 // ijkVecSampleTableInc2*v
@@ -4690,7 +4690,7 @@ extern "C" {
 //		param v1: terminal reference value/end point, result when t=1
 //		param dv1: terminal tangent/rate of change
 //		return: total arc length
-//real ijkVecReparamCubicHermite3rv(real uTable_out[], real lTable_out[], real3 vTable_out[], size const numDivisions, ibool const lNormalize, real3 const v0, real3 const dv0, real3 const v1, real3 const dv1);
+//real ijkVecReparamCubicHermite3rv(real uTable_out[], real lTable_out[], real3 vTable_out[], size const numDivisions, bool const lNormalize, real3 const v0, real3 const dv0, real3 const v1, real3 const dv1);
 #define ijkVecReparamCubicHermite3rv ijk_declrealfs(ijkVecReparamCubicHermite3,v)
 
 // ijkVecReparamCubicHermiteHandles3*v
@@ -4713,7 +4713,7 @@ extern "C" {
 //		param cv1: terminal control handle value, should be greater than v1 
 //			for a positive rate of change
 //		return: total arc length
-//real ijkVecReparamCubicHermiteHandles3rv(real uTable_out[], real lTable_out[], real3 vTable_out[], size const numDivisions, ibool const lNormalize, real3 const v0, real3 const cv0, real3 const v1, real3 const cv1);
+//real ijkVecReparamCubicHermiteHandles3rv(real uTable_out[], real lTable_out[], real3 vTable_out[], size const numDivisions, bool const lNormalize, real3 const v0, real3 const cv0, real3 const v1, real3 const cv1);
 #define ijkVecReparamCubicHermiteHandles3rv ijk_declrealfs(ijkVecReparamCubicHermiteHandles3,v)
 
 // ijkVecReparamCubicCatmullRom3*v
@@ -4734,7 +4734,7 @@ extern "C" {
 //		param v1: terminal reference value/end point, result when t=1
 //		param v2: terminal control value
 //		return: total arc length
-//real ijkVecReparamCubicCatmullRom3rv(real uTable_out[], real lTable_out[], real3 vTable_out[], size const numDivisions, ibool const lNormalize, real3 const vp, real3 const v0, real3 const v1, real3 const v2);
+//real ijkVecReparamCubicCatmullRom3rv(real uTable_out[], real lTable_out[], real3 vTable_out[], size const numDivisions, bool const lNormalize, real3 const vp, real3 const v0, real3 const v1, real3 const v2);
 #define ijkVecReparamCubicCatmullRom3rv ijk_declrealfs(ijkVecReparamCubicCatmullRom3,v)
 
 // ijkVecReparamBicubicCatmullRom3*v
@@ -4779,7 +4779,7 @@ extern "C" {
 //		param u1: interpolation parameter for terminal value curve
 //		param u2: interpolation parameter for terminal control curve
 //		return: total arc length
-//real ijkVecReparamBicubicCatmullRom3rv(real uTable_out[], real lTable_out[], real3 vTable_out[], size const numDivisions, ibool const lNormalize, real3 const vpp, real3 const vp0, real3 const vp1, real3 const vp2, real3 const v0p, real3 const v00, real3 const v01, real3 const v02, real3 const v1p, real3 const v10, real3 const v11, real3 const v12, real3 const v2p, real3 const v20, real3 const v21, real3 const v22, real const up, real const u0, real const u1, real const u2);
+//real ijkVecReparamBicubicCatmullRom3rv(real uTable_out[], real lTable_out[], real3 vTable_out[], size const numDivisions, bool const lNormalize, real3 const vpp, real3 const vp0, real3 const vp1, real3 const vp2, real3 const v0p, real3 const v00, real3 const v01, real3 const v02, real3 const v1p, real3 const v10, real3 const v11, real3 const v12, real3 const v2p, real3 const v20, real3 const v21, real3 const v22, real const up, real const u0, real const u1, real const u2);
 #define ijkVecReparamBicubicCatmullRom3rv ijk_declrealfs(ijkVecReparamBicubicCatmullRom3,v)
 
 // ijkVecSampleTableInc3*v
@@ -5387,7 +5387,7 @@ extern "C" {
 //		param v1: terminal reference value/end point, result when t=1
 //		param dv1: terminal tangent/rate of change
 //		return: total arc length
-//real ijkVecReparamCubicHermite4rv(real uTable_out[], real lTable_out[], real4 vTable_out[], size const numDivisions, ibool const lNormalize, real4 const v0, real4 const dv0, real4 const v1, real4 const dv1);
+//real ijkVecReparamCubicHermite4rv(real uTable_out[], real lTable_out[], real4 vTable_out[], size const numDivisions, bool const lNormalize, real4 const v0, real4 const dv0, real4 const v1, real4 const dv1);
 #define ijkVecReparamCubicHermite4rv ijk_declrealfs(ijkVecReparamCubicHermite4,v)
 
 // ijkVecReparamCubicHermiteHandles4*v
@@ -5410,7 +5410,7 @@ extern "C" {
 //		param cv1: terminal control handle value, should be greater than v1 
 //			for a positive rate of change
 //		return: total arc length
-//real ijkVecReparamCubicHermiteHandles4rv(real uTable_out[], real lTable_out[], real4 vTable_out[], size const numDivisions, ibool const lNormalize, real4 const v0, real4 const cv0, real4 const v1, real4 const cv1);
+//real ijkVecReparamCubicHermiteHandles4rv(real uTable_out[], real lTable_out[], real4 vTable_out[], size const numDivisions, bool const lNormalize, real4 const v0, real4 const cv0, real4 const v1, real4 const cv1);
 #define ijkVecReparamCubicHermiteHandles4rv ijk_declrealfs(ijkVecReparamCubicHermiteHandles4,v)
 
 // ijkVecReparamCubicCatmullRom4*v
@@ -5431,7 +5431,7 @@ extern "C" {
 //		param v1: terminal reference value/end point, result when t=1
 //		param v2: terminal control value
 //		return: total arc length
-//real ijkVecReparamCubicCatmullRom4rv(real uTable_out[], real lTable_out[], real4 vTable_out[], size const numDivisions, ibool const lNormalize, real4 const vp, real4 const v0, real4 const v1, real4 const v2);
+//real ijkVecReparamCubicCatmullRom4rv(real uTable_out[], real lTable_out[], real4 vTable_out[], size const numDivisions, bool const lNormalize, real4 const vp, real4 const v0, real4 const v1, real4 const v2);
 #define ijkVecReparamCubicCatmullRom4rv ijk_declrealfs(ijkVecReparamCubicCatmullRom4,v)
 
 // ijkVecReparamBicubicCatmullRom4*v
@@ -5476,7 +5476,7 @@ extern "C" {
 //		param u1: interpolation parameter for terminal value curve
 //		param u2: interpolation parameter for terminal control curve
 //		return: total arc length
-//real ijkVecReparamBicubicCatmullRom4rv(real uTable_out[], real lTable_out[], real4 vTable_out[], size const numDivisions, ibool const lNormalize, real4 const vpp, real4 const vp0, real4 const vp1, real4 const vp2, real4 const v0p, real4 const v00, real4 const v01, real4 const v02, real4 const v1p, real4 const v10, real4 const v11, real4 const v12, real4 const v2p, real4 const v20, real4 const v21, real4 const v22, real const up, real const u0, real const u1, real const u2);
+//real ijkVecReparamBicubicCatmullRom4rv(real uTable_out[], real lTable_out[], real4 vTable_out[], size const numDivisions, bool const lNormalize, real4 const vpp, real4 const vp0, real4 const vp1, real4 const vp2, real4 const v0p, real4 const v00, real4 const v01, real4 const v02, real4 const v1p, real4 const v10, real4 const v11, real4 const v12, real4 const v2p, real4 const v20, real4 const v21, real4 const v22, real const up, real const u0, real const u1, real const u2);
 #define ijkVecReparamBicubicCatmullRom4rv ijk_declrealfs(ijkVecReparamBicubicCatmullRom4,v)
 
 // ijkVecSampleTableInc4*v
@@ -6049,7 +6049,7 @@ extern "C" {
 //		param v1: terminal reference value/end point, result when t=1
 //		param dv1: terminal tangent/rate of change
 //		return: total arc length
-//real ijkVecReparamCubicHermite2r(real uTable_out[], real lTable_out[], rvec2 vTable_out[], size const numDivisions, ibool const lNormalize, rvec2 const v0, rvec2 const dv0, rvec2 const v1, rvec2 const dv1);
+//real ijkVecReparamCubicHermite2r(real uTable_out[], real lTable_out[], rvec2 vTable_out[], size const numDivisions, bool const lNormalize, rvec2 const v0, rvec2 const dv0, rvec2 const v1, rvec2 const dv1);
 #define ijkVecReparamCubicHermite2r ijk_declrealfs(ijkVecReparamCubicHermite2,)
 
 // ijkVecReparamCubicHermiteHandles2*
@@ -6072,7 +6072,7 @@ extern "C" {
 //		param cv1: terminal control handle value, should be greater than v1 
 //			for a positive rate of change
 //		return: total arc length
-//real ijkVecReparamCubicHermiteHandles2r(real uTable_out[], real lTable_out[], rvec2 vTable_out[], size const numDivisions, ibool const lNormalize, rvec2 const v0, rvec2 const cv0, rvec2 const v1, rvec2 const cv1);
+//real ijkVecReparamCubicHermiteHandles2r(real uTable_out[], real lTable_out[], rvec2 vTable_out[], size const numDivisions, bool const lNormalize, rvec2 const v0, rvec2 const cv0, rvec2 const v1, rvec2 const cv1);
 #define ijkVecReparamCubicHermiteHandles2r ijk_declrealfs(ijkVecReparamCubicHermiteHandles2,)
 
 // ijkVecReparamCubicCatmullRom2*
@@ -6093,7 +6093,7 @@ extern "C" {
 //		param v1: terminal reference value/end point, result when t=1
 //		param v2: terminal control value
 //		return: total arc length
-//real ijkVecReparamCubicCatmullRom2r(real uTable_out[], real lTable_out[], rvec2 vTable_out[], size const numDivisions, ibool const lNormalize, rvec2 const vp, rvec2 const v0, rvec2 const v1, rvec2 const v2);
+//real ijkVecReparamCubicCatmullRom2r(real uTable_out[], real lTable_out[], rvec2 vTable_out[], size const numDivisions, bool const lNormalize, rvec2 const vp, rvec2 const v0, rvec2 const v1, rvec2 const v2);
 #define ijkVecReparamCubicCatmullRom2r ijk_declrealfs(ijkVecReparamCubicCatmullRom2,)
 
 // ijkVecReparamBicubicCatmullRom2*
@@ -6138,7 +6138,7 @@ extern "C" {
 //		param u1: interpolation parameter for terminal value curve
 //		param u2: interpolation parameter for terminal control curve
 //		return: total arc length
-//real ijkVecReparamBicubicCatmullRom2r(real uTable_out[], real lTable_out[], rvec2 vTable_out[], size const numDivisions, ibool const lNormalize, rvec2 const vpp, rvec2 const vp0, rvec2 const vp1, rvec2 const vp2, rvec2 const v0p, rvec2 const v00, rvec2 const v01, rvec2 const v02, rvec2 const v1p, rvec2 const v10, rvec2 const v11, rvec2 const v12, rvec2 const v2p, rvec2 const v20, rvec2 const v21, rvec2 const v22, real const up, real const u0, real const u1, real const u2);
+//real ijkVecReparamBicubicCatmullRom2r(real uTable_out[], real lTable_out[], rvec2 vTable_out[], size const numDivisions, bool const lNormalize, rvec2 const vpp, rvec2 const vp0, rvec2 const vp1, rvec2 const vp2, rvec2 const v0p, rvec2 const v00, rvec2 const v01, rvec2 const v02, rvec2 const v1p, rvec2 const v10, rvec2 const v11, rvec2 const v12, rvec2 const v2p, rvec2 const v20, rvec2 const v21, rvec2 const v22, real const up, real const u0, real const u1, real const u2);
 #define ijkVecReparamBicubicCatmullRom2r ijk_declrealfs(ijkVecReparamBicubicCatmullRom2,)
 
 // ijkVecSampleTableInc2*
@@ -6700,7 +6700,7 @@ extern "C" {
 //		param v1: terminal reference value/end point, result when t=1
 //		param dv1: terminal tangent/rate of change
 //		return: total arc length
-//real ijkVecReparamCubicHermite3r(real uTable_out[], real lTable_out[], rvec3 vTable_out[], size const numDivisions, ibool const lNormalize, rvec3 const v0, rvec3 const dv0, rvec3 const v1, rvec3 const dv1);
+//real ijkVecReparamCubicHermite3r(real uTable_out[], real lTable_out[], rvec3 vTable_out[], size const numDivisions, bool const lNormalize, rvec3 const v0, rvec3 const dv0, rvec3 const v1, rvec3 const dv1);
 #define ijkVecReparamCubicHermite3r ijk_declrealfs(ijkVecReparamCubicHermite3,)
 
 // ijkVecReparamCubicHermiteHandles3*
@@ -6723,7 +6723,7 @@ extern "C" {
 //		param cv1: terminal control handle value, should be greater than v1 
 //			for a positive rate of change
 //		return: total arc length
-//real ijkVecReparamCubicHermiteHandles3r(real uTable_out[], real lTable_out[], rvec3 vTable_out[], size const numDivisions, ibool const lNormalize, rvec3 const v0, rvec3 const cv0, rvec3 const v1, rvec3 const cv1);
+//real ijkVecReparamCubicHermiteHandles3r(real uTable_out[], real lTable_out[], rvec3 vTable_out[], size const numDivisions, bool const lNormalize, rvec3 const v0, rvec3 const cv0, rvec3 const v1, rvec3 const cv1);
 #define ijkVecReparamCubicHermiteHandles3r ijk_declrealfs(ijkVecReparamCubicHermiteHandles3,)
 
 // ijkVecReparamCubicCatmullRom3*
@@ -6744,7 +6744,7 @@ extern "C" {
 //		param v1: terminal reference value/end point, result when t=1
 //		param v2: terminal control value
 //		return: total arc length
-//real ijkVecReparamCubicCatmullRom3r(real uTable_out[], real lTable_out[], rvec3 vTable_out[], size const numDivisions, ibool const lNormalize, rvec3 const vp, rvec3 const v0, rvec3 const v1, rvec3 const v2);
+//real ijkVecReparamCubicCatmullRom3r(real uTable_out[], real lTable_out[], rvec3 vTable_out[], size const numDivisions, bool const lNormalize, rvec3 const vp, rvec3 const v0, rvec3 const v1, rvec3 const v2);
 #define ijkVecReparamCubicCatmullRom3r ijk_declrealfs(ijkVecReparamCubicCatmullRom3,)
 
 // ijkVecReparamBicubicCatmullRom3*
@@ -6789,7 +6789,7 @@ extern "C" {
 //		param u1: interpolation parameter for terminal value curve
 //		param u2: interpolation parameter for terminal control curve
 //		return: total arc length
-//real ijkVecReparamBicubicCatmullRom3r(real uTable_out[], real lTable_out[], rvec3 vTable_out[], size const numDivisions, ibool const lNormalize, rvec3 const vpp, rvec3 const vp0, rvec3 const vp1, rvec3 const vp2, rvec3 const v0p, rvec3 const v00, rvec3 const v01, rvec3 const v02, rvec3 const v1p, rvec3 const v10, rvec3 const v11, rvec3 const v12, rvec3 const v2p, rvec3 const v20, rvec3 const v21, rvec3 const v22, real const up, real const u0, real const u1, real const u2);
+//real ijkVecReparamBicubicCatmullRom3r(real uTable_out[], real lTable_out[], rvec3 vTable_out[], size const numDivisions, bool const lNormalize, rvec3 const vpp, rvec3 const vp0, rvec3 const vp1, rvec3 const vp2, rvec3 const v0p, rvec3 const v00, rvec3 const v01, rvec3 const v02, rvec3 const v1p, rvec3 const v10, rvec3 const v11, rvec3 const v12, rvec3 const v2p, rvec3 const v20, rvec3 const v21, rvec3 const v22, real const up, real const u0, real const u1, real const u2);
 #define ijkVecReparamBicubicCatmullRom3r ijk_declrealfs(ijkVecReparamBicubicCatmullRom3,)
 
 // ijkVecSampleTableInc3*
@@ -7351,7 +7351,7 @@ extern "C" {
 //		param v1: terminal reference value/end point, result when t=1
 //		param dv1: terminal tangent/rate of change
 //		return: total arc length
-//real ijkVecReparamCubicHermite4r(real uTable_out[], real lTable_out[], rvec4 vTable_out[], size const numDivisions, ibool const lNormalize, rvec4 const v0, rvec4 const dv0, rvec4 const v1, rvec4 const dv1);
+//real ijkVecReparamCubicHermite4r(real uTable_out[], real lTable_out[], rvec4 vTable_out[], size const numDivisions, bool const lNormalize, rvec4 const v0, rvec4 const dv0, rvec4 const v1, rvec4 const dv1);
 #define ijkVecReparamCubicHermite4r ijk_declrealfs(ijkVecReparamCubicHermite4,)
 
 // ijkVecReparamCubicHermiteHandles4*
@@ -7374,7 +7374,7 @@ extern "C" {
 //		param cv1: terminal control handle value, should be greater than v1 
 //			for a positive rate of change
 //		return: total arc length
-//real ijkVecReparamCubicHermiteHandles4r(real uTable_out[], real lTable_out[], rvec4 vTable_out[], size const numDivisions, ibool const lNormalize, rvec4 const v0, rvec4 const cv0, rvec4 const v1, rvec4 const cv1);
+//real ijkVecReparamCubicHermiteHandles4r(real uTable_out[], real lTable_out[], rvec4 vTable_out[], size const numDivisions, bool const lNormalize, rvec4 const v0, rvec4 const cv0, rvec4 const v1, rvec4 const cv1);
 #define ijkVecReparamCubicHermiteHandles4r ijk_declrealfs(ijkVecReparamCubicHermiteHandles4,)
 
 // ijkVecReparamCubicCatmullRom4*
@@ -7395,7 +7395,7 @@ extern "C" {
 //		param v1: terminal reference value/end point, result when t=1
 //		param v2: terminal control value
 //		return: total arc length
-//real ijkVecReparamCubicCatmullRom4r(real uTable_out[], real lTable_out[], rvec4 vTable_out[], size const numDivisions, ibool const lNormalize, rvec4 const vp, rvec4 const v0, rvec4 const v1, rvec4 const v2);
+//real ijkVecReparamCubicCatmullRom4r(real uTable_out[], real lTable_out[], rvec4 vTable_out[], size const numDivisions, bool const lNormalize, rvec4 const vp, rvec4 const v0, rvec4 const v1, rvec4 const v2);
 #define ijkVecReparamCubicCatmullRom4r ijk_declrealfs(ijkVecReparamCubicCatmullRom4,)
 
 // ijkVecReparamBicubicCatmullRom4*
@@ -7440,7 +7440,7 @@ extern "C" {
 //		param u1: interpolation parameter for terminal value curve
 //		param u2: interpolation parameter for terminal control curve
 //		return: total arc length
-//real ijkVecReparamBicubicCatmullRom4r(real uTable_out[], real lTable_out[], rvec4 vTable_out[], size const numDivisions, ibool const lNormalize, rvec4 const vpp, rvec4 const vp0, rvec4 const vp1, rvec4 const vp2, rvec4 const v0p, rvec4 const v00, rvec4 const v01, rvec4 const v02, rvec4 const v1p, rvec4 const v10, rvec4 const v11, rvec4 const v12, rvec4 const v2p, rvec4 const v20, rvec4 const v21, rvec4 const v22, real const up, real const u0, real const u1, real const u2);
+//real ijkVecReparamBicubicCatmullRom4r(real uTable_out[], real lTable_out[], rvec4 vTable_out[], size const numDivisions, bool const lNormalize, rvec4 const vpp, rvec4 const vp0, rvec4 const vp1, rvec4 const vp2, rvec4 const v0p, rvec4 const v00, rvec4 const v01, rvec4 const v02, rvec4 const v1p, rvec4 const v10, rvec4 const v11, rvec4 const v12, rvec4 const v2p, rvec4 const v20, rvec4 const v21, rvec4 const v22, real const up, real const u0, real const u1, real const u2);
 #define ijkVecReparamBicubicCatmullRom4r ijk_declrealfs(ijkVecReparamBicubicCatmullRom4,)
 
 // ijkVecSampleTableInc4*

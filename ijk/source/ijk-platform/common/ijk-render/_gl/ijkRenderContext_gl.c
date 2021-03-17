@@ -44,8 +44,6 @@ typedef struct ijkRendererInfo_gl_tag
 
 #define _rc _gl
 #define ijkRenderContextCreateRP	ijk_rc_rp(ijkRenderContextCreate)
-#define info info_r
-#define type ijkRenderer_OpenGL
 
 
 //-----------------------------------------------------------------------------
@@ -55,20 +53,20 @@ iret ijkRenderContextCreate_gl(ijkRenderContext* const renderContext_out, ijkRen
 	iret ijkRenderContextCreateRP(ijkRenderContext* const renderContext_out);
 
 	// validate
-	if (renderContext_out && renderer == type && !renderContext_out->info)
+	if (renderContext_out && renderer == ijkRenderer_OpenGL && !renderContext_out->rendererInfo)
 	{
 		// allocate renderer info
-		size const sz = szb(ijkRendererInfo_gl);
-		ijkRendererInfo_gl* info = (ijkRendererInfo_gl*)malloc(sz);
-		if (info)
+		size const sz = sizeof(ijkRendererInfo_gl);
+		ijkRendererInfo_gl* rendererInfo = (ijkRendererInfo_gl*)malloc(sz);
+		if (rendererInfo)
 		{
 			// initialize platform info
-			memset(info, 0, sz);
+			memset(rendererInfo, 0, sz);
 			if (ijk_issuccess(ijkRenderContextCreateRP(renderContext_out)))
 			{
 				// reset
-				renderContext_out->info = info;
-				info->renderContext = renderContext_out;
+				renderContext_out->rendererInfo = rendererInfo;
+				rendererInfo->renderContext = renderContext_out;
 
 				// ****TO-DO: 
 				//	-> set platform-agnostic renderer info
@@ -77,7 +75,7 @@ iret ijkRenderContextCreate_gl(ijkRenderContext* const renderContext_out, ijkRen
 				// done
 				return ijk_success;
 			}
-			free(info);
+			free(rendererInfo);
 		}
 		return ijk_fail_operationfail;
 	}
@@ -86,19 +84,18 @@ iret ijkRenderContextCreate_gl(ijkRenderContext* const renderContext_out, ijkRen
 
 iret ijkRenderContextRelease_gl(ijkRenderContext* const renderContext)
 {
-	if (renderContext && renderContext->renderer == type && renderContext->info)
+	if (renderContext && renderContext->renderer == ijkRenderer_OpenGL && renderContext->rendererInfo)
 	{
-		free(renderContext->info_p);
-		free(renderContext->info_rp);
-		free(renderContext->info_r);
+		free(renderContext->rendererInfo_p);
+		free(renderContext->rendererInfo);
 		return ijk_success;
 	}
 	return ijk_fail_invalidparams;
 }
 
-iret ijkRenderContextPrintInfo_gl(ijkRenderContext const* const renderContext, cstr* const bufferPtr)
+iret ijkRenderContextPrintInfo_gl(ijkRenderContext const* const renderContext, str* const bufferPtr)
 {
-	if (renderContext && renderContext->renderer == type && renderContext->info)
+	if (renderContext && renderContext->renderer == ijkRenderer_OpenGL && renderContext->rendererInfo)
 	{
 		*bufferPtr += sprintf(*bufferPtr, "OpenGL \n");
 		*bufferPtr += sprintf(*bufferPtr, "  GL version: %s \n", glGetString(GL_VERSION));

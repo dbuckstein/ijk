@@ -31,8 +31,6 @@
 
 #ifdef __cplusplus
 extern "C" {
-#else	// !__cplusplus
-
 #endif	// __cplusplus
 
 

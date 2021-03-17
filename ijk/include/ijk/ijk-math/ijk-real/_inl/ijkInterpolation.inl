@@ -251,7 +251,7 @@ ijk_inl flt ijkInterpBicubicCatmullRom_flt(flt const vpp, flt const vp0, flt con
 }
 
 
-ijk_inl flt ijkInterpReparamCubicHermite_flt(flt tTable_out[], flt lTable_out[], flt vTable_out[], size const numDivisions, ibool const lNormalize, flt const v0, flt const dv0, flt const v1, flt const dv1)
+ijk_inl flt ijkInterpReparamCubicHermite_flt(flt tTable_out[], flt lTable_out[], flt vTable_out[], size const numDivisions, bool const lNormalize, flt const v0, flt const dv0, flt const v1, flt const dv1)
 {
 	flt t = flt_zero, dt, arcLength = flt_zero, arcLengthDelta, arcLengthInv, u, u0;
 	flt* lTable = lTable_out;
@@ -286,7 +286,7 @@ ijk_inl flt ijkInterpReparamCubicHermite_flt(flt tTable_out[], flt lTable_out[],
 }
 
 
-ijk_inl flt ijkInterpReparamCubicHermiteHandles_flt(flt tTable_out[], flt lTable_out[], flt vTable_out[], size const numDivisions, ibool const lNormalize, flt const v0, flt const cv0, flt const v1, flt const cv1)
+ijk_inl flt ijkInterpReparamCubicHermiteHandles_flt(flt tTable_out[], flt lTable_out[], flt vTable_out[], size const numDivisions, bool const lNormalize, flt const v0, flt const cv0, flt const v1, flt const cv1)
 {
 	flt t = flt_zero, dt, arcLength = flt_zero, arcLengthDelta, arcLengthInv, u, u0;
 	flt* lTable = lTable_out;
@@ -317,7 +317,7 @@ ijk_inl flt ijkInterpReparamCubicHermiteHandles_flt(flt tTable_out[], flt lTable
 }
 
 
-ijk_inl flt ijkInterpReparamCubicCatmullRom_flt(flt tTable_out[], flt lTable_out[], flt vTable_out[], size const numDivisions, ibool const lNormalize, flt const vp, flt const v0, flt const v1, flt const v2)
+ijk_inl flt ijkInterpReparamCubicCatmullRom_flt(flt tTable_out[], flt lTable_out[], flt vTable_out[], size const numDivisions, bool const lNormalize, flt const vp, flt const v0, flt const v1, flt const v2)
 {
 	flt t = flt_zero, dt, arcLength = flt_zero, arcLengthDelta, arcLengthInv, u, u0;
 	flt* lTable = lTable_out;
@@ -348,7 +348,7 @@ ijk_inl flt ijkInterpReparamCubicCatmullRom_flt(flt tTable_out[], flt lTable_out
 }
 
 
-ijk_inl flt ijkInterpReparamBicubicCatmullRom_flt(flt tTable_out[], flt lTable_out[], flt vTable_out[], size const numDivisions, ibool const lNormalize, flt const vpp, flt const vp0, flt const vp1, flt const vp2, flt const v0p, flt const v00, flt const v01, flt const v02, flt const v1p, flt const v10, flt const v11, flt const v12, flt const v2p, flt const v20, flt const v21, flt const v22, flt const tp, flt const t0, flt const t1, flt const t2)
+ijk_inl flt ijkInterpReparamBicubicCatmullRom_flt(flt tTable_out[], flt lTable_out[], flt vTable_out[], size const numDivisions, bool const lNormalize, flt const vpp, flt const vp0, flt const vp1, flt const vp2, flt const v0p, flt const v00, flt const v01, flt const v02, flt const v1p, flt const v10, flt const v11, flt const v12, flt const v2p, flt const v20, flt const v21, flt const v22, flt const tp, flt const t0, flt const t1, flt const t2)
 {
 	flt t = flt_zero, dt, arcLength = flt_zero, arcLengthDelta, arcLengthInv, u, u0;
 	flt* lTable = lTable_out;
@@ -682,7 +682,7 @@ ijk_inl dbl ijkInterpBicubicCatmullRom_dbl(dbl const vpp, dbl const vp0, dbl con
 }
 
 
-ijk_inl dbl ijkInterpReparamCubicHermite_dbl(dbl tTable_out[], dbl lTable_out[], dbl vTable_out[], size const numDivisions, ibool const lNormalize, dbl const v0, dbl const dv0, dbl const v1, dbl const dv1)
+ijk_inl dbl ijkInterpReparamCubicHermite_dbl(dbl tTable_out[], dbl lTable_out[], dbl vTable_out[], size const numDivisions, bool const lNormalize, dbl const v0, dbl const dv0, dbl const v1, dbl const dv1)
 {
 	dbl t = dbl_zero, dt, arcLength = dbl_zero, arcLengthDelta, arcLengthInv, u, u0;
 	dbl* lTable = lTable_out;
@@ -717,7 +717,7 @@ ijk_inl dbl ijkInterpReparamCubicHermite_dbl(dbl tTable_out[], dbl lTable_out[],
 }
 
 
-ijk_inl dbl ijkInterpReparamCubicHermiteHandles_dbl(dbl tTable_out[], dbl lTable_out[], dbl vTable_out[], size const numDivisions, ibool const lNormalize, dbl const v0, dbl const cv0, dbl const v1, dbl const cv1)
+ijk_inl dbl ijkInterpReparamCubicHermiteHandles_dbl(dbl tTable_out[], dbl lTable_out[], dbl vTable_out[], size const numDivisions, bool const lNormalize, dbl const v0, dbl const cv0, dbl const v1, dbl const cv1)
 {
 	dbl t = dbl_zero, dt, arcLength = dbl_zero, arcLengthDelta, arcLengthInv, u, u0;
 	dbl* lTable = lTable_out;
@@ -748,7 +748,7 @@ ijk_inl dbl ijkInterpReparamCubicHermiteHandles_dbl(dbl tTable_out[], dbl lTable
 }
 
 
-ijk_inl dbl ijkInterpReparamCubicCatmullRom_dbl(dbl tTable_out[], dbl lTable_out[], dbl vTable_out[], size const numDivisions, ibool const lNormalize, dbl const vp, dbl const v0, dbl const v1, dbl const v2)
+ijk_inl dbl ijkInterpReparamCubicCatmullRom_dbl(dbl tTable_out[], dbl lTable_out[], dbl vTable_out[], size const numDivisions, bool const lNormalize, dbl const vp, dbl const v0, dbl const v1, dbl const v2)
 {
 	dbl t = dbl_zero, dt, arcLength = dbl_zero, arcLengthDelta, arcLengthInv, u, u0;
 	dbl* lTable = lTable_out;
@@ -779,7 +779,7 @@ ijk_inl dbl ijkInterpReparamCubicCatmullRom_dbl(dbl tTable_out[], dbl lTable_out
 }
 
 
-ijk_inl dbl ijkInterpReparamBicubicCatmullRom_dbl(dbl tTable_out[], dbl lTable_out[], dbl vTable_out[], size const numDivisions, ibool const lNormalize, dbl const vpp, dbl const vp0, dbl const vp1, dbl const vp2, dbl const v0p, dbl const v00, dbl const v01, dbl const v02, dbl const v1p, dbl const v10, dbl const v11, dbl const v12, dbl const v2p, dbl const v20, dbl const v21, dbl const v22, dbl const tp, dbl const t0, dbl const t1, dbl const t2)
+ijk_inl dbl ijkInterpReparamBicubicCatmullRom_dbl(dbl tTable_out[], dbl lTable_out[], dbl vTable_out[], size const numDivisions, bool const lNormalize, dbl const vpp, dbl const vp0, dbl const vp1, dbl const vp2, dbl const v0p, dbl const v00, dbl const v01, dbl const v02, dbl const v1p, dbl const v10, dbl const v11, dbl const v12, dbl const v2p, dbl const v20, dbl const v21, dbl const v22, dbl const tp, dbl const t0, dbl const t1, dbl const t2)
 {
 	dbl t = dbl_zero, dt, arcLength = dbl_zero, arcLengthDelta, arcLengthInv, u, u0;
 	dbl* lTable = lTable_out;

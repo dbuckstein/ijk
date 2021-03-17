@@ -90,9 +90,6 @@
     <ClCompile Include="..\..\..\source\ijk-platform\common\ijk-render\_gl\ijkRenderContext_gl.c">
       <Filter>Source Files\common\ijk-render\_gl</Filter>
     </ClCompile>
-    <ClCompile Include="_platform_win\source\ijk-render\ijkRenderContext_win.c">
-      <Filter>Source Files\_platform_win\ijk-render</Filter>
-    </ClCompile>
     <ClCompile Include="_platform_win\source\ijk-render\_gl\ijkRenderContext_win_gl.c">
       <Filter>Source Files\_platform_win\ijk-render\_gl</Filter>
     </ClCompile>

@@ -31,9 +31,6 @@
 
 #ifdef __cplusplus
 extern "C" {
-#else	// !__cplusplus
-typedef struct ijkConsole		ijkConsole;
-typedef enum ijkConsoleColor	ijkConsoleColor;
 #endif	// __cplusplus
 
 
@@ -57,16 +54,16 @@ typedef enum ijkConsoleColor	ijkConsoleColor;
 //	Descriptor for console instance.
 //		member handle: internal handle data
 //		member io: internal i/o flags
-struct ijkConsole
+typedef struct ijkConsole
 {
 	ptr handle[4];
 	i32 io[3];
-};
+} ijkConsole;
 
 
 // ijkConsoleColor
 //	List of color codes for changing display style in console.
-enum ijkConsoleColor
+typedef enum ijkConsoleColor
 {
 	// Channels.
 	///
@@ -98,7 +95,7 @@ enum ijkConsoleColor
 	ijkConsoleColor_magenta,					// Magenta:         (1, 0, 1, 1)
 	ijkConsoleColor_yellow,						// Yellow:          (1, 1, 0, 1)
 	ijkConsoleColor_white,						// White:           (1, 1, 1, 1)
-};
+} ijkConsoleColor;
 
 
 //-----------------------------------------------------------------------------
@@ -124,7 +121,7 @@ iret ijkConsoleCreateMain(ijkConsole* const console);
 //		return SUCCESS: ijk_success if console successfully redirected
 //		return FAILURE: ijk_fail_operationfail if console not redirected
 //		return FAILURE: ijk_fail_invalidparams if invalid parameters
-iret ijkConsoleRedirectMain(ijkConsole* const console, ibool const redirectInput, ibool const redirectOutput, ibool const redirectError);
+iret ijkConsoleRedirectMain(ijkConsole* const console, bool const redirectInput, bool const redirectOutput, bool const redirectError);
 
 // ijkConsoleReleaseMain
 //	Terminate and release console instance for the main process.
@@ -163,7 +160,7 @@ iret ijkConsoleSetCursor(i16 const x, i16 const y);
 //		param visible: visible flag; interpreted as boolean
 //		return SUCCESS: ijk_success if operation succeeded
 //		return FAILURE: ijk_fail_operationfail if operation failed
-iret ijkConsoleToggleCursor(ibool const visible);
+iret ijkConsoleToggleCursor(bool const visible);
 
 // ijkConsoleGetColor
 //	Set color of console text.
@@ -238,7 +235,7 @@ iret ijkConsoleClear();
 //		params ...: parameter list matching specifications in 'format'
 //		return SUCCESS: result of internal print operation if succeeded
 //		return FAILURE: ijk_fail_invalidparams if invalid parameters
-iret ijkConsolePrintDebug(kcstr const format, ...);
+iret ijkConsolePrintDebug(kstr const format, ...);
 
 
 //-----------------------------------------------------------------------------

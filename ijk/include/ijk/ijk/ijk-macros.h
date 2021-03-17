@@ -102,10 +102,10 @@
 #define ijk_isnclamp(x_min,x_max,x)			((x) < (x_min) || (x) > (x_max))	// Check if value is not between x_min and x_max.
 #define ijk_clamp(x_min,x_max,x)			((x) >= (x_min) ? (x) <= (x_max) ? (x) : (x_max) : (x_min))						// Clamp value x between x_min and x_max.
 #define ijk_clamp_inv(x_min,x_max,x0,x)		((x) >= (x_max) || (x) <= (x_min) ? (x) : ((x) >= (x0) ? (x_max) : (x_min)))	// Clamp value x to limit x_min or x_max based on origin x0 if value is clamped.
-#define ijk_clamp_loop(x_min,x_max,dx,x)	while((x) > (x_max)) (x) -= (dx); while((x) < (x_min)) (x) += (dx)				// Clamp value x by looping by dx to end up between x_min and x_max.
-#define ijk_swap2(x,y,tmp)					tmp=x;x=y;y=tmp						// Swap two values x and y using placeholder tmp.
-#define ijk_swap3(x,y,z,tmp)				tmp=x;x=y;y=z;z=tmp					// Swap/rotate three values x, y and z using placeholder tmp.
-#define ijk_swap4(x,y,z,w,tmp)				tmp=x;x=y;y=z;z=w;w=tmp				// Swap/rotate four values x, y, z and w using placeholder tmp.
+#define ijk_clamp_loop(x_min,x_max,dx,x)	(x); while((x) > (x_max)) x -= (dx); while((x) < (x_min)) x += (dx)				// Clamp value x by looping by dx to end up between x_min and x_max.
+#define ijk_swap2(x,y,tmp)					(tmp=x);x=y;y=tmp					// Swap two values x and y using placeholder tmp.
+#define ijk_swap3(x,y,z,tmp)				(tmp=x);x=y;y=z;z=tmp				// Swap/rotate three values x, y and z using placeholder tmp.
+#define ijk_swap4(x,y,z,w,tmp)				(tmp=x);x=y;y=z;z=w;w=tmp			// Swap/rotate four values x, y, z and w using placeholder tmp.
 
 
 #endif	// !_IJK_MACROS_H_

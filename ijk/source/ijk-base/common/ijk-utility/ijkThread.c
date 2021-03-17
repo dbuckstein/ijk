@@ -163,7 +163,7 @@ iret ijkThreadRelease(ijkThread* const thread)
 	if (thread &&
 		*thread->handle)
 	{
-		ibool result;
+		bool result;
 #if ijk_platform_is(WINDOWS)
 		result = (WaitForSingleObject(*thread->handle, INFINITE) == WAIT_OBJECT_0);
 #else	// !WINDOWS
@@ -191,7 +191,7 @@ iret ijkThreadReleaseUnsafe(ijkThread* const thread)
 	if (thread &&
 		*thread->handle)
 	{
-		ibool result;
+		bool result;
 #if ijk_platform_is(WINDOWS)
 		// unsafe because TerminateThread does not allow thread to clean up
 		// https://docs.microsoft.com/en-us/cpp/code-quality/c6258?view=vs-2019

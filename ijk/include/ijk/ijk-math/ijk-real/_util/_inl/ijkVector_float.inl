@@ -3872,7 +3872,7 @@ ijk_inl floatv ijkVecBicubicCatmullRom2fv(float2 v_out, float2 const vpp, float2
 	return ijkVecCubicCatmullRom2fv(v_out, vp, v0, v1, v2, u);
 }
 
-ijk_inl f32 ijkVecReparamCubicHermite2fv(f32 uTable_out[], f32 lTable_out[], float2 vTable_out[], size const numDivisions, ibool const lNormalize, float2 const v0, float2 const dv0, float2 const v1, float2 const dv1)
+ijk_inl f32 ijkVecReparamCubicHermite2fv(f32 uTable_out[], f32 lTable_out[], float2 vTable_out[], size const numDivisions, bool const lNormalize, float2 const v0, float2 const dv0, float2 const v1, float2 const dv1)
 {
 	f32 u = flt_zero, du, arcLength = flt_zero, arcLengthInv;
 	f32* lTable = lTable_out;
@@ -3902,7 +3902,7 @@ ijk_inl f32 ijkVecReparamCubicHermite2fv(f32 uTable_out[], f32 lTable_out[], flo
 	return arcLength;
 }
 
-ijk_inl f32 ijkVecReparamCubicHermiteHandles2fv(f32 uTable_out[], f32 lTable_out[], float2 vTable_out[], size const numDivisions, ibool const lNormalize, float2 const v0, float2 const cv0, float2 const v1, float2 const cv1)
+ijk_inl f32 ijkVecReparamCubicHermiteHandles2fv(f32 uTable_out[], f32 lTable_out[], float2 vTable_out[], size const numDivisions, bool const lNormalize, float2 const v0, float2 const cv0, float2 const v1, float2 const cv1)
 {
 	f32 u = flt_zero, du, arcLength = flt_zero, arcLengthInv;
 	f32* lTable = lTable_out;
@@ -3932,7 +3932,7 @@ ijk_inl f32 ijkVecReparamCubicHermiteHandles2fv(f32 uTable_out[], f32 lTable_out
 	return arcLength;
 }
 
-ijk_inl f32 ijkVecReparamCubicCatmullRom2fv(f32 uTable_out[], f32 lTable_out[], float2 vTable_out[], size const numDivisions, ibool const lNormalize, float2 const vp, float2 const v0, float2 const v1, float2 const v2)
+ijk_inl f32 ijkVecReparamCubicCatmullRom2fv(f32 uTable_out[], f32 lTable_out[], float2 vTable_out[], size const numDivisions, bool const lNormalize, float2 const vp, float2 const v0, float2 const v1, float2 const v2)
 {
 	f32 u = flt_zero, du, arcLength = flt_zero, arcLengthInv;
 	f32* lTable = lTable_out;
@@ -3962,7 +3962,7 @@ ijk_inl f32 ijkVecReparamCubicCatmullRom2fv(f32 uTable_out[], f32 lTable_out[], 
 	return arcLength;
 }
 
-ijk_inl f32 ijkVecReparamBicubicCatmullRom2fv(f32 uTable_out[], f32 lTable_out[], float2 vTable_out[], size const numDivisions, ibool const lNormalize, float2 const vpp, float2 const vp0, float2 const vp1, float2 const vp2, float2 const v0p, float2 const v00, float2 const v01, float2 const v02, float2 const v1p, float2 const v10, float2 const v11, float2 const v12, float2 const v2p, float2 const v20, float2 const v21, float2 const v22, f32 const up, f32 const u0, f32 const u1, f32 const u2)
+ijk_inl f32 ijkVecReparamBicubicCatmullRom2fv(f32 uTable_out[], f32 lTable_out[], float2 vTable_out[], size const numDivisions, bool const lNormalize, float2 const vpp, float2 const vp0, float2 const vp1, float2 const vp2, float2 const v0p, float2 const v00, float2 const v01, float2 const v02, float2 const v1p, float2 const v10, float2 const v11, float2 const v12, float2 const v2p, float2 const v20, float2 const v21, float2 const v22, f32 const up, f32 const u0, f32 const u1, f32 const u2)
 {
 	f32 u = flt_zero, du, arcLength = flt_zero, arcLengthInv;
 	f32* lTable = lTable_out;
@@ -4410,7 +4410,7 @@ ijk_inl floatv ijkVecBicubicCatmullRom3fv(float3 v_out, float3 const vpp, float3
 	return ijkVecCubicCatmullRom3fv(v_out, vp, v0, v1, v2, u);
 }
 
-ijk_inl f32 ijkVecReparamCubicHermite3fv(f32 uTable_out[], f32 lTable_out[], float3 vTable_out[], size const numDivisions, ibool const lNormalize, float3 const v0, float3 const dv0, float3 const v1, float3 const dv1)
+ijk_inl f32 ijkVecReparamCubicHermite3fv(f32 uTable_out[], f32 lTable_out[], float3 vTable_out[], size const numDivisions, bool const lNormalize, float3 const v0, float3 const dv0, float3 const v1, float3 const dv1)
 {
 	f32 u = flt_zero, du, arcLength = flt_zero, arcLengthInv;
 	f32* lTable = lTable_out;
@@ -4440,7 +4440,7 @@ ijk_inl f32 ijkVecReparamCubicHermite3fv(f32 uTable_out[], f32 lTable_out[], flo
 	return arcLength;
 }
 
-ijk_inl f32 ijkVecReparamCubicHermiteHandles3fv(f32 uTable_out[], f32 lTable_out[], float3 vTable_out[], size const numDivisions, ibool const lNormalize, float3 const v0, float3 const cv0, float3 const v1, float3 const cv1)
+ijk_inl f32 ijkVecReparamCubicHermiteHandles3fv(f32 uTable_out[], f32 lTable_out[], float3 vTable_out[], size const numDivisions, bool const lNormalize, float3 const v0, float3 const cv0, float3 const v1, float3 const cv1)
 {
 	f32 u = flt_zero, du, arcLength = flt_zero, arcLengthInv;
 	f32* lTable = lTable_out;
@@ -4470,7 +4470,7 @@ ijk_inl f32 ijkVecReparamCubicHermiteHandles3fv(f32 uTable_out[], f32 lTable_out
 	return arcLength;
 }
 
-ijk_inl f32 ijkVecReparamCubicCatmullRom3fv(f32 uTable_out[], f32 lTable_out[], float3 vTable_out[], size const numDivisions, ibool const lNormalize, float3 const vp, float3 const v0, float3 const v1, float3 const v2)
+ijk_inl f32 ijkVecReparamCubicCatmullRom3fv(f32 uTable_out[], f32 lTable_out[], float3 vTable_out[], size const numDivisions, bool const lNormalize, float3 const vp, float3 const v0, float3 const v1, float3 const v2)
 {
 	f32 u = flt_zero, du, arcLength = flt_zero, arcLengthInv;
 	f32* lTable = lTable_out;
@@ -4500,7 +4500,7 @@ ijk_inl f32 ijkVecReparamCubicCatmullRom3fv(f32 uTable_out[], f32 lTable_out[], 
 	return arcLength;
 }
 
-ijk_inl f32 ijkVecReparamBicubicCatmullRom3fv(f32 uTable_out[], f32 lTable_out[], float3 vTable_out[], size const numDivisions, ibool const lNormalize, float3 const vpp, float3 const vp0, float3 const vp1, float3 const vp2, float3 const v0p, float3 const v00, float3 const v01, float3 const v02, float3 const v1p, float3 const v10, float3 const v11, float3 const v12, float3 const v2p, float3 const v20, float3 const v21, float3 const v22, f32 const up, f32 const u0, f32 const u1, f32 const u2)
+ijk_inl f32 ijkVecReparamBicubicCatmullRom3fv(f32 uTable_out[], f32 lTable_out[], float3 vTable_out[], size const numDivisions, bool const lNormalize, float3 const vpp, float3 const vp0, float3 const vp1, float3 const vp2, float3 const v0p, float3 const v00, float3 const v01, float3 const v02, float3 const v1p, float3 const v10, float3 const v11, float3 const v12, float3 const v2p, float3 const v20, float3 const v21, float3 const v22, f32 const up, f32 const u0, f32 const u1, f32 const u2)
 {
 	f32 u = flt_zero, du, arcLength = flt_zero, arcLengthInv;
 	f32* lTable = lTable_out;
@@ -4959,7 +4959,7 @@ ijk_inl floatv ijkVecBicubicCatmullRom4fv(float4 v_out, float4 const vpp, float4
 	return ijkVecCubicCatmullRom4fv(v_out, vp, v0, v1, v2, u);
 }
 
-ijk_inl f32 ijkVecReparamCubicHermite4fv(f32 uTable_out[], f32 lTable_out[], float4 vTable_out[], size const numDivisions, ibool const lNormalize, float4 const v0, float4 const dv0, float4 const v1, float4 const dv1)
+ijk_inl f32 ijkVecReparamCubicHermite4fv(f32 uTable_out[], f32 lTable_out[], float4 vTable_out[], size const numDivisions, bool const lNormalize, float4 const v0, float4 const dv0, float4 const v1, float4 const dv1)
 {
 	f32 u = flt_zero, du, arcLength = flt_zero, arcLengthInv;
 	f32* lTable = lTable_out;
@@ -4989,7 +4989,7 @@ ijk_inl f32 ijkVecReparamCubicHermite4fv(f32 uTable_out[], f32 lTable_out[], flo
 	return arcLength;
 }
 
-ijk_inl f32 ijkVecReparamCubicHermiteHandles4fv(f32 uTable_out[], f32 lTable_out[], float4 vTable_out[], size const numDivisions, ibool const lNormalize, float4 const v0, float4 const cv0, float4 const v1, float4 const cv1)
+ijk_inl f32 ijkVecReparamCubicHermiteHandles4fv(f32 uTable_out[], f32 lTable_out[], float4 vTable_out[], size const numDivisions, bool const lNormalize, float4 const v0, float4 const cv0, float4 const v1, float4 const cv1)
 {
 	f32 u = flt_zero, du, arcLength = flt_zero, arcLengthInv;
 	f32* lTable = lTable_out;
@@ -5019,7 +5019,7 @@ ijk_inl f32 ijkVecReparamCubicHermiteHandles4fv(f32 uTable_out[], f32 lTable_out
 	return arcLength;
 }
 
-ijk_inl f32 ijkVecReparamCubicCatmullRom4fv(f32 uTable_out[], f32 lTable_out[], float4 vTable_out[], size const numDivisions, ibool const lNormalize, float4 const vp, float4 const v0, float4 const v1, float4 const v2)
+ijk_inl f32 ijkVecReparamCubicCatmullRom4fv(f32 uTable_out[], f32 lTable_out[], float4 vTable_out[], size const numDivisions, bool const lNormalize, float4 const vp, float4 const v0, float4 const v1, float4 const v2)
 {
 	f32 u = flt_zero, du, arcLength = flt_zero, arcLengthInv;
 	f32* lTable = lTable_out;
@@ -5049,7 +5049,7 @@ ijk_inl f32 ijkVecReparamCubicCatmullRom4fv(f32 uTable_out[], f32 lTable_out[], 
 	return arcLength;
 }
 
-ijk_inl f32 ijkVecReparamBicubicCatmullRom4fv(f32 uTable_out[], f32 lTable_out[], float4 vTable_out[], size const numDivisions, ibool const lNormalize, float4 const vpp, float4 const vp0, float4 const vp1, float4 const vp2, float4 const v0p, float4 const v00, float4 const v01, float4 const v02, float4 const v1p, float4 const v10, float4 const v11, float4 const v12, float4 const v2p, float4 const v20, float4 const v21, float4 const v22, f32 const up, f32 const u0, f32 const u1, f32 const u2)
+ijk_inl f32 ijkVecReparamBicubicCatmullRom4fv(f32 uTable_out[], f32 lTable_out[], float4 vTable_out[], size const numDivisions, bool const lNormalize, float4 const vpp, float4 const vp0, float4 const vp1, float4 const vp2, float4 const v0p, float4 const v00, float4 const v01, float4 const v02, float4 const v1p, float4 const v10, float4 const v11, float4 const v12, float4 const v2p, float4 const v20, float4 const v21, float4 const v22, f32 const up, f32 const u0, f32 const u1, f32 const u2)
 {
 	f32 u = flt_zero, du, arcLength = flt_zero, arcLengthInv;
 	f32* lTable = lTable_out;
@@ -5495,7 +5495,7 @@ ijk_inl fvec2 ijkVecBicubicCatmullRom2f(fvec2 const vpp, fvec2 const vp0, fvec2 
 	return ijkVecCubicCatmullRom2f(vp, v0, v1, v2, u);
 }
 
-ijk_inl float ijkVecReparamCubicHermite2f(float uTable_out[], float lTable_out[], fvec2 vTable_out[], size const numDivisions, ibool const lNormalize, fvec2 const v0, fvec2 const dv0, fvec2 const v1, fvec2 const dv1)
+ijk_inl float ijkVecReparamCubicHermite2f(float uTable_out[], float lTable_out[], fvec2 vTable_out[], size const numDivisions, bool const lNormalize, fvec2 const v0, fvec2 const dv0, fvec2 const v1, fvec2 const dv1)
 {
 	float u = flt_zero, du, arcLength = flt_zero, arcLengthInv;
 	float* lTable = lTable_out;
@@ -5525,7 +5525,7 @@ ijk_inl float ijkVecReparamCubicHermite2f(float uTable_out[], float lTable_out[]
 	return arcLength;
 }
 
-ijk_inl float ijkVecReparamCubicHermiteHandles2f(float uTable_out[], float lTable_out[], fvec2 vTable_out[], size const numDivisions, ibool const lNormalize, fvec2 const v0, fvec2 const cv0, fvec2 const v1, fvec2 const cv1)
+ijk_inl float ijkVecReparamCubicHermiteHandles2f(float uTable_out[], float lTable_out[], fvec2 vTable_out[], size const numDivisions, bool const lNormalize, fvec2 const v0, fvec2 const cv0, fvec2 const v1, fvec2 const cv1)
 {
 	float u = flt_zero, du, arcLength = flt_zero, arcLengthInv;
 	float* lTable = lTable_out;
@@ -5555,7 +5555,7 @@ ijk_inl float ijkVecReparamCubicHermiteHandles2f(float uTable_out[], float lTabl
 	return arcLength;
 }
 
-ijk_inl float ijkVecReparamCubicCatmullRom2f(float uTable_out[], float lTable_out[], fvec2 vTable_out[], size const numDivisions, ibool const lNormalize, fvec2 const vp, fvec2 const v0, fvec2 const v1, fvec2 const v2)
+ijk_inl float ijkVecReparamCubicCatmullRom2f(float uTable_out[], float lTable_out[], fvec2 vTable_out[], size const numDivisions, bool const lNormalize, fvec2 const vp, fvec2 const v0, fvec2 const v1, fvec2 const v2)
 {
 	float u = flt_zero, du, arcLength = flt_zero, arcLengthInv;
 	float* lTable = lTable_out;
@@ -5585,7 +5585,7 @@ ijk_inl float ijkVecReparamCubicCatmullRom2f(float uTable_out[], float lTable_ou
 	return arcLength;
 }
 
-ijk_inl float ijkVecReparamBicubicCatmullRom2f(float uTable_out[], float lTable_out[], fvec2 vTable_out[], size const numDivisions, ibool const lNormalize, fvec2 const vpp, fvec2 const vp0, fvec2 const vp1, fvec2 const vp2, fvec2 const v0p, fvec2 const v00, fvec2 const v01, fvec2 const v02, fvec2 const v1p, fvec2 const v10, fvec2 const v11, fvec2 const v12, fvec2 const v2p, fvec2 const v20, fvec2 const v21, fvec2 const v22, float const up, float const u0, float const u1, float const u2)
+ijk_inl float ijkVecReparamBicubicCatmullRom2f(float uTable_out[], float lTable_out[], fvec2 vTable_out[], size const numDivisions, bool const lNormalize, fvec2 const vpp, fvec2 const vp0, fvec2 const vp1, fvec2 const vp2, fvec2 const v0p, fvec2 const v00, fvec2 const v01, fvec2 const v02, fvec2 const v1p, fvec2 const v10, fvec2 const v11, fvec2 const v12, fvec2 const v2p, fvec2 const v20, fvec2 const v21, fvec2 const v22, float const up, float const u0, float const u1, float const u2)
 {
 	float u = flt_zero, du, arcLength = flt_zero, arcLengthInv;
 	float* lTable = lTable_out;
@@ -6031,7 +6031,7 @@ ijk_inl fvec3 ijkVecBicubicCatmullRom3f(fvec3 const vpp, fvec3 const vp0, fvec3 
 	return ijkVecCubicCatmullRom3f(vp, v0, v1, v2, u);
 }
 
-ijk_inl float ijkVecReparamCubicHermite3f(float uTable_out[], float lTable_out[], fvec3 vTable_out[], size const numDivisions, ibool const lNormalize, fvec3 const v0, fvec3 const dv0, fvec3 const v1, fvec3 const dv1)
+ijk_inl float ijkVecReparamCubicHermite3f(float uTable_out[], float lTable_out[], fvec3 vTable_out[], size const numDivisions, bool const lNormalize, fvec3 const v0, fvec3 const dv0, fvec3 const v1, fvec3 const dv1)
 {
 	float u = flt_zero, du, arcLength = flt_zero, arcLengthInv;
 	float* lTable = lTable_out;
@@ -6061,7 +6061,7 @@ ijk_inl float ijkVecReparamCubicHermite3f(float uTable_out[], float lTable_out[]
 	return arcLength;
 }
 
-ijk_inl float ijkVecReparamCubicHermiteHandles3f(float uTable_out[], float lTable_out[], fvec3 vTable_out[], size const numDivisions, ibool const lNormalize, fvec3 const v0, fvec3 const cv0, fvec3 const v1, fvec3 const cv1)
+ijk_inl float ijkVecReparamCubicHermiteHandles3f(float uTable_out[], float lTable_out[], fvec3 vTable_out[], size const numDivisions, bool const lNormalize, fvec3 const v0, fvec3 const cv0, fvec3 const v1, fvec3 const cv1)
 {
 	float u = flt_zero, du, arcLength = flt_zero, arcLengthInv;
 	float* lTable = lTable_out;
@@ -6091,7 +6091,7 @@ ijk_inl float ijkVecReparamCubicHermiteHandles3f(float uTable_out[], float lTabl
 	return arcLength;
 }
 
-ijk_inl float ijkVecReparamCubicCatmullRom3f(float uTable_out[], float lTable_out[], fvec3 vTable_out[], size const numDivisions, ibool const lNormalize, fvec3 const vp, fvec3 const v0, fvec3 const v1, fvec3 const v2)
+ijk_inl float ijkVecReparamCubicCatmullRom3f(float uTable_out[], float lTable_out[], fvec3 vTable_out[], size const numDivisions, bool const lNormalize, fvec3 const vp, fvec3 const v0, fvec3 const v1, fvec3 const v2)
 {
 	float u = flt_zero, du, arcLength = flt_zero, arcLengthInv;
 	float* lTable = lTable_out;
@@ -6121,7 +6121,7 @@ ijk_inl float ijkVecReparamCubicCatmullRom3f(float uTable_out[], float lTable_ou
 	return arcLength;
 }
 
-ijk_inl float ijkVecReparamBicubicCatmullRom3f(float uTable_out[], float lTable_out[], fvec3 vTable_out[], size const numDivisions, ibool const lNormalize, fvec3 const vpp, fvec3 const vp0, fvec3 const vp1, fvec3 const vp2, fvec3 const v0p, fvec3 const v00, fvec3 const v01, fvec3 const v02, fvec3 const v1p, fvec3 const v10, fvec3 const v11, fvec3 const v12, fvec3 const v2p, fvec3 const v20, fvec3 const v21, fvec3 const v22, float const up, float const u0, float const u1, float const u2)
+ijk_inl float ijkVecReparamBicubicCatmullRom3f(float uTable_out[], float lTable_out[], fvec3 vTable_out[], size const numDivisions, bool const lNormalize, fvec3 const vpp, fvec3 const vp0, fvec3 const vp1, fvec3 const vp2, fvec3 const v0p, fvec3 const v00, fvec3 const v01, fvec3 const v02, fvec3 const v1p, fvec3 const v10, fvec3 const v11, fvec3 const v12, fvec3 const v2p, fvec3 const v20, fvec3 const v21, fvec3 const v22, float const up, float const u0, float const u1, float const u2)
 {
 	float u = flt_zero, du, arcLength = flt_zero, arcLengthInv;
 	float* lTable = lTable_out;
@@ -6578,7 +6578,7 @@ ijk_inl fvec4 ijkVecBicubicCatmullRom4f(fvec4 const vpp, fvec4 const vp0, fvec4 
 	return ijkVecCubicCatmullRom4f(vp, v0, v1, v2, u);
 }
 
-ijk_inl float ijkVecReparamCubicHermite4f(float uTable_out[], float lTable_out[], fvec4 vTable_out[], size const numDivisions, ibool const lNormalize, fvec4 const v0, fvec4 const dv0, fvec4 const v1, fvec4 const dv1)
+ijk_inl float ijkVecReparamCubicHermite4f(float uTable_out[], float lTable_out[], fvec4 vTable_out[], size const numDivisions, bool const lNormalize, fvec4 const v0, fvec4 const dv0, fvec4 const v1, fvec4 const dv1)
 {
 	float u = flt_zero, du, arcLength = flt_zero, arcLengthInv;
 	float* lTable = lTable_out;
@@ -6608,7 +6608,7 @@ ijk_inl float ijkVecReparamCubicHermite4f(float uTable_out[], float lTable_out[]
 	return arcLength;
 }
 
-ijk_inl float ijkVecReparamCubicHermiteHandles4f(float uTable_out[], float lTable_out[], fvec4 vTable_out[], size const numDivisions, ibool const lNormalize, fvec4 const v0, fvec4 const cv0, fvec4 const v1, fvec4 const cv1)
+ijk_inl float ijkVecReparamCubicHermiteHandles4f(float uTable_out[], float lTable_out[], fvec4 vTable_out[], size const numDivisions, bool const lNormalize, fvec4 const v0, fvec4 const cv0, fvec4 const v1, fvec4 const cv1)
 {
 	float u = flt_zero, du, arcLength = flt_zero, arcLengthInv;
 	float* lTable = lTable_out;
@@ -6638,7 +6638,7 @@ ijk_inl float ijkVecReparamCubicHermiteHandles4f(float uTable_out[], float lTabl
 	return arcLength;
 }
 
-ijk_inl float ijkVecReparamCubicCatmullRom4f(float uTable_out[], float lTable_out[], fvec4 vTable_out[], size const numDivisions, ibool const lNormalize, fvec4 const vp, fvec4 const v0, fvec4 const v1, fvec4 const v2)
+ijk_inl float ijkVecReparamCubicCatmullRom4f(float uTable_out[], float lTable_out[], fvec4 vTable_out[], size const numDivisions, bool const lNormalize, fvec4 const vp, fvec4 const v0, fvec4 const v1, fvec4 const v2)
 {
 	float u = flt_zero, du, arcLength = flt_zero, arcLengthInv;
 	float* lTable = lTable_out;
@@ -6668,7 +6668,7 @@ ijk_inl float ijkVecReparamCubicCatmullRom4f(float uTable_out[], float lTable_ou
 	return arcLength;
 }
 
-ijk_inl float ijkVecReparamBicubicCatmullRom4f(float uTable_out[], float lTable_out[], fvec4 vTable_out[], size const numDivisions, ibool const lNormalize, fvec4 const vpp, fvec4 const vp0, fvec4 const vp1, fvec4 const vp2, fvec4 const v0p, fvec4 const v00, fvec4 const v01, fvec4 const v02, fvec4 const v1p, fvec4 const v10, fvec4 const v11, fvec4 const v12, fvec4 const v2p, fvec4 const v20, fvec4 const v21, fvec4 const v22, float const up, float const u0, float const u1, float const u2)
+ijk_inl float ijkVecReparamBicubicCatmullRom4f(float uTable_out[], float lTable_out[], fvec4 vTable_out[], size const numDivisions, bool const lNormalize, fvec4 const vpp, fvec4 const vp0, fvec4 const vp1, fvec4 const vp2, fvec4 const v0p, fvec4 const v00, fvec4 const v01, fvec4 const v02, fvec4 const v1p, fvec4 const v10, fvec4 const v11, fvec4 const v12, fvec4 const v2p, fvec4 const v20, fvec4 const v21, fvec4 const v22, float const up, float const u0, float const u1, float const u2)
 {
 	float u = flt_zero, du, arcLength = flt_zero, arcLengthInv;
 	float* lTable = lTable_out;
