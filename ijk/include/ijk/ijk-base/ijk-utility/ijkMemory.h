@@ -434,6 +434,103 @@ iret ijkMemoryBlockGetSize(kptr const block, size* const size_out);
 
 //-----------------------------------------------------------------------------
 
+// ijkMemoryGetStringLength
+//	Count the number of characters in a nul-terminated character string.
+//		param s: c-string
+//			valid: non-null
+//		return SUCCESS: number of chars in string, excluding nul-terminator
+//		return FAILURE: ijk_fail_invalidparams if invalid parameters
+pdiff ijkMemoryGetStringLength(kstr s);
+
+// ijkMemoryCompareStrings
+//	Compare the contents of two nul-terminated character strings.
+//		params s0, s1: c-strings to compare
+//			valid: non-null
+//		return SUCCESS: zero if the strings are an exact match
+//		return WARNING: if the strings are not an exact match, the number of 
+//			comparisons until failure (matching characters + 1)
+//		return FAILURE: ijk_fail_invalidparams if invalid parameters
+pdiff ijkMemoryCompareStrings(kstr s0, kstr s1);
+
+// ijkMemoryGetPointerArrayElems
+//	Count the number of elements in an array of pointers; assumes array is 
+//	terminated with a null final element.
+//		param arr: pointer to array of pointers
+//			valid: non-null
+//		return SUCCESS: number of elements in array, excluding null at end
+//		return FAILURE: ijk_fail_invalidparams if invalid parameters
+pdiff ijkMemoryGetPointerArrayElems(kptr const* arr);
+
+// ijkMemoryGetPointerArrayElemsMax
+//	Count the number of elements in an array of pointers up to a maximum; 
+//	assumes array is terminated with a null final element.
+//		param arr: pointer to array of pointers
+//			valid: non-null
+//		param len: maximum length of array
+//			valid: positive
+//		return SUCCESS: number of elements in array, excluding null at end
+//		return FAILURE: ijk_fail_invalidparams if invalid parameters
+pdiff ijkMemoryGetPointerArrayElemsMax(kptr const* arr, pdiff const len);
+
+// ijkMemoryGetStringIndex
+//	Get index of string in an array of strings.
+//		param key: c-string to identify
+//			valid: non-null
+//		param arr: array of strings
+//			valid: non-null
+//		return SUCCESS: non-negative index of string in array
+//		return FAILURE: ijk_fail_operationfail if string not found
+//		return FAILURE: ijk_fail_invalidparams if invalid parameters
+pdiff ijkMemoryGetStringIndex(kstr const key, kstr const* arr);
+
+// ijkMemoryGetStringIndexMax
+//	Get index of string in an array of strings up to a maximum array length.
+//		param key: c-string to identify
+//			valid: non-null
+//		param arr: array of strings
+//			valid: non-null
+//		param len: maximum length of array
+//			valid: positive
+//		return SUCCESS: non-negative index of string in array
+//		return FAILURE: ijk_fail_operationfail if string not found
+//		return FAILURE: ijk_fail_invalidparams if invalid parameters
+pdiff ijkMemoryGetStringIndexMax(kstr const key, kstr const* arr, pdiff const len);
+
+// ijkMemoryStoreString
+//	Store string from one list in another only if not already in the latter.
+//		param key: c-string to identify
+//			valid: non-null
+//		param arr_dst: output/destination array of strings
+//			valid: non-null
+//		param len_dst_inout: pointer to adjustable length of destination array
+//			valid: non-null, value is positive
+//		param arr_src: input/source array of strings
+//			valid: non-null
+//		param len_src: length of source array
+//			valid: positive
+//		return SUCCESS: non-negative index of string in source array
+//		return FAILURE: ijk_fail_operationfail if string not found
+//		return FAILURE: ijk_fail_invalidparams if invalid parameters
+pdiff ijkMemoryStoreString(kstr const key, kstr* const arr_dst, pdiff* const len_dst_inout, kstr const* arr_src, pdiff const len_src);
+
+// ijkMemoryStoreStringList
+//	Store elements of list of strings in another if they are not already in 
+//	the latter.
+//		param arr_dst: output/destination array of strings
+//			valid: non-null
+//		param len_dst_inout: pointer to adjustable length of destination array
+//			valid: non-null, value is positive
+//		param arr_src: input/source array of strings
+//			valid: non-null
+//		param len_src: length of source array
+//			valid: positive
+//		return SUCCESS: final length of destination array
+//		return FAILURE: ijk_fail_invalidparams if invalid parameters
+pdiff ijkMemoryStoreStringList(kstr* const arr_dst, pdiff* const len_dst_inout, kstr const* arr_src, pdiff const len_src);
+
+
+//-----------------------------------------------------------------------------
+
 
 #ifdef __cplusplus
 }

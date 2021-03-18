@@ -177,6 +177,125 @@ ijk_inl pdiff ijkMemoryCompareC(kptr const dst, kptr const src, size const sz_ch
 
 //-----------------------------------------------------------------------------
 
+ijk_inl pdiff ijkMemoryGetStringLength(kstr s)
+{
+	if (s)
+	{
+		// iterate through characters until nul-terminator
+		kstr const first = s;
+		while (*s)
+			++s;
+		return (s - first);
+	}
+	return ijk_fail_invalidparams;
+}
+
+ijk_inl pdiff ijkMemoryCompareStrings(kstr s0, kstr s1)
+{
+	if (s0 && s1)
+	{
+		// iterate through characters until either mismatch or nul-terminator
+		kstr const first0 = s0, first1 = s1;
+		while (*(s0++) == *s1)
+			if (!*(s1++))
+				return 0;
+		return (s0 - first0);
+	}
+	return ijk_fail_invalidparams;
+}
+
+ijk_inl pdiff ijkMemoryGetPointerArrayElems(kptr const* arr)
+{
+	if (arr)
+	{
+		// iterate until null pointer
+		kptr const* const first = arr;
+		while (*arr)
+			++arr;
+		return (arr - first);
+	}
+	return ijk_fail_invalidparams;
+}
+
+ijk_inl pdiff ijkMemoryGetPointerArrayElemsMax(kptr const* arr, pdiff const len)
+{
+	if (arr && len > 0)
+	{
+		// iterate until limit exceeded or null pointer
+		kptr const* const first = arr, *const end = arr + len;
+		while ((arr < end) && *arr)
+			++arr;
+		return (arr - first);
+	}
+	return ijk_fail_invalidparams;
+}
+
+ijk_inl pdiff ijkMemoryGetStringIndex(kstr const key, kstr const* arr)
+{
+	if (arr)
+	{
+		// iterate until matching string found or null pointer
+		kstr const* const first = arr;
+		while (*arr)
+		{
+			if (!ijkMemoryCompareStrings(*arr, key))
+				return (arr - first);
+			++arr;
+		}
+		return ijk_fail_operationfail;
+	}
+	return ijk_fail_invalidparams;
+}
+
+ijk_inl pdiff ijkMemoryGetStringIndexMax(kstr const key, kstr const* arr, pdiff const len)
+{
+	if (arr && len > 0)
+	{
+		// iterate until matching string, null pointer or limit reached
+		kstr const* const first = arr, *const end = arr + len;
+		while ((arr < end) && *arr)
+		{
+			if (!ijkMemoryCompareStrings(*arr, key))
+				return (arr - first);
+			++arr;
+		}
+		return ijk_fail_operationfail;
+	}
+	return ijk_fail_invalidparams;
+}
+
+ijk_inl pdiff ijkMemoryStoreString(kstr const key, kstr* const arr_dst, pdiff* const len_dst_inout, kstr const* arr_src, pdiff const len_src)
+{
+	pdiff n = ijkMemoryGetStringIndexMax(key, arr_dst, *len_dst_inout);
+	if (n < ijk_fail_invalidparams)
+	{
+		// search for string in source list, add to target list if found
+		if ((n = ijkMemoryGetStringIndexMax(key, arr_src, len_src)) >= 0)
+			arr_dst[(*len_dst_inout)++] = arr_src[n];
+	}
+	return n;
+}
+
+ijk_inl pdiff ijkMemoryStoreStringList(kstr* const arr_dst, pdiff* const len_dst_inout, kstr const* arr_src, pdiff const len_src)
+{
+	if (arr_src && len_src > 0)
+	{
+		kstr const* const first = arr_src, * const end = arr_src + len_src;
+		while (arr_src < end)
+		{
+			// search for each string in target list, add if not found
+			if (ijkMemoryGetStringIndexMax(*arr_src, arr_dst, *len_dst_inout) < ijk_fail_invalidparams)
+				arr_dst[(*len_dst_inout)++] = *arr_src;
+			++arr_src;
+		}
+		return *len_dst_inout;
+	}
+	return ijk_fail_invalidparams;
+}
+
+
+//-----------------------------------------------------------------------------
+
 
 #endif	// !_IJK_MEMORY_INL_
 #endif	// _IJK_MEMORY_H_
