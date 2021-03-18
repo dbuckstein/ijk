@@ -19,8 +19,8 @@
 		c-based rendering framework
 	By Daniel S. Buckstein
 
-	ijkRenderContext_gl.c
-	Platform-agnostic OpenGL render context management source.
+	ijkRenderContext_d3d.c
+	Platform-agnostic Direct3D render context management source.
 */
 
 #include "ijk/ijk-platform/ijk-render/ijkRenderContext.h"
@@ -29,35 +29,33 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "GL/glew.h"
-
 
 //-----------------------------------------------------------------------------
 
-// ijkRendererInfo_gl
-//	Renderer info for OpenGL render context.
-typedef struct ijkRendererInfo_gl
+// ijkRendererInfo_d3d
+//	Renderer info for Direct3D render context.
+typedef struct ijkRendererInfo_d3d
 {
 	ijkRenderContext const* renderContext;
-} ijkRendererInfo_gl;
+} ijkRendererInfo_d3d;
 
 
-#define _rc _gl
+#define _rc _d3d
 #define ijkRenderContextCreateRP	ijk_rc_rp(ijkRenderContextCreate)
 
 
 //-----------------------------------------------------------------------------
 
-iret ijkRenderContextCreate_gl(ijkRenderContext* const renderContext_out, ijkRenderer const renderer)
+iret ijkRenderContextCreate_d3d(ijkRenderContext* const renderContext_out, ijkRenderer const renderer)
 {
 	iret ijkRenderContextCreateRP(ijkRenderContext* const renderContext_out);
 
 	// validate
-	if (renderContext_out && renderer == ijkRenderer_OpenGL && !renderContext_out->rendererInfo)
+	if (renderContext_out && renderer == ijkRenderer_Direct3D && !renderContext_out->rendererInfo)
 	{
 		// allocate renderer info
-		size const sz = sizeof(ijkRendererInfo_gl);
-		ijkRendererInfo_gl* rendererInfo = (ijkRendererInfo_gl*)malloc(sz);
+		size const sz = sizeof(ijkRendererInfo_d3d);
+		ijkRendererInfo_d3d* rendererInfo = (ijkRendererInfo_d3d*)malloc(sz);
 		if (rendererInfo)
 		{
 			// initialize platform info
@@ -82,9 +80,9 @@ iret ijkRenderContextCreate_gl(ijkRenderContext* const renderContext_out, ijkRen
 	return ijk_fail_invalidparams;
 }
 
-iret ijkRenderContextRelease_gl(ijkRenderContext* const renderContext)
+iret ijkRenderContextRelease_d3d(ijkRenderContext* const renderContext)
 {
-	if (renderContext && renderContext->renderer == ijkRenderer_OpenGL && renderContext->rendererInfo)
+	if (renderContext && renderContext->renderer == ijkRenderer_Direct3D && renderContext->rendererInfo)
 	{
 		// ****TO-DO: 
 		//	-> renderer-specific cleanup
@@ -98,15 +96,12 @@ iret ijkRenderContextRelease_gl(ijkRenderContext* const renderContext)
 	return ijk_fail_invalidparams;
 }
 
-iret ijkRenderContextPrintInfo_gl(ijkRenderContext const* const renderContext, str* const bufferPtr)
+iret ijkRenderContextPrintInfo_d3d(ijkRenderContext const* const renderContext, str* const bufferPtr)
 {
-	if (renderContext && renderContext->renderer == ijkRenderer_OpenGL && renderContext->rendererInfo)
+	if (renderContext && renderContext->renderer == ijkRenderer_Direct3D && renderContext->rendererInfo)
 	{
-		*bufferPtr += sprintf(*bufferPtr, "OpenGL \n");
-		*bufferPtr += sprintf(*bufferPtr, "  GL version: %s \n", glGetString(GL_VERSION));
-		*bufferPtr += sprintf(*bufferPtr, "  GLSL version: %s \n", glGetString(GL_SHADING_LANGUAGE_VERSION));
-		*bufferPtr += sprintf(*bufferPtr, "  GPU renderer: %s \n", glGetString(GL_RENDERER));
-		*bufferPtr += sprintf(*bufferPtr, "  GPU vendor: %s \n", glGetString(GL_VENDOR));
+		*bufferPtr += sprintf(*bufferPtr, "Direct3D \n");
+
 		return ijk_success;
 	}
 	return ijk_fail_invalidparams;

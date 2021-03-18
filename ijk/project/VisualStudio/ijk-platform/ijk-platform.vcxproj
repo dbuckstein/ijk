@@ -104,7 +104,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
     <Lib>
-      <AdditionalDependencies>vulkan-1.lib;opengl32.lib;glew32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>vulkan-1.lib;opengl32.lib;glew32.lib;d3d12.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>$(vk_sdk_path)\lib$(PlatformArchitecture.Replace('64',''))\;$(glew_path)\lib\Release\$(PlatformName)\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalOptions>/ignore:4006 %(AdditionalOptions)</AdditionalOptions>
     </Lib>
@@ -123,7 +123,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
     <Lib>
-      <AdditionalDependencies>vulkan-1.lib;opengl32.lib;glew32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>vulkan-1.lib;opengl32.lib;glew32.lib;d3d12.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>$(vk_sdk_path)\lib$(PlatformArchitecture.Replace('64',''))\;$(glew_path)\lib\Release\$(PlatformName)\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalOptions>/ignore:4006 %(AdditionalOptions)</AdditionalOptions>
     </Lib>
@@ -146,7 +146,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
     <Lib>
-      <AdditionalDependencies>vulkan-1.lib;opengl32.lib;glew32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>vulkan-1.lib;opengl32.lib;glew32.lib;d3d12.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>$(vk_sdk_path)\lib$(PlatformArchitecture.Replace('64',''))\;$(glew_path)\lib\Release\$(PlatformName)\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalOptions>/ignore:4006 %(AdditionalOptions)</AdditionalOptions>
     </Lib>
@@ -169,7 +169,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
     <Lib>
-      <AdditionalDependencies>vulkan-1.lib;opengl32.lib;glew32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>vulkan-1.lib;opengl32.lib;glew32.lib;d3d12.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>$(vk_sdk_path)\lib$(PlatformArchitecture.Replace('64',''))\;$(glew_path)\lib\Release\$(PlatformName)\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalOptions>/ignore:4006 %(AdditionalOptions)</AdditionalOptions>
     </Lib>
@@ -179,12 +179,14 @@
     <ClCompile Include="..\..\..\source\ijk-platform\common\ijk-app\ijkWindow.c" />
     <ClCompile Include="..\..\..\source\ijk-platform\common\ijk-platform.c" />
     <ClCompile Include="..\..\..\source\ijk-platform\common\ijk-render\ijkRenderContext.c" />
+    <ClCompile Include="..\..\..\source\ijk-platform\common\ijk-render\_d3d\ijkRenderContext_d3d.c" />
     <ClCompile Include="..\..\..\source\ijk-platform\common\ijk-render\_gl\ijkRenderContext_gl.c" />
     <ClCompile Include="..\..\..\source\ijk-platform\common\ijk-render\_vk\ijkRenderContext_vk.c" />
     <ClCompile Include="_platform_win\source\ijk-app\ijkApplication_win.c" />
     <ClCompile Include="_platform_win\source\ijk-app\ijkConsole_win.c" />
     <ClCompile Include="_platform_win\source\ijk-app\ijkWindow_win.c" />
     <ClCompile Include="_platform_win\source\ijk-app\_util\ijkWindowUnlockPDB_win.c" />
+    <ClCompile Include="_platform_win\source\ijk-render\_d3d\ijkRenderContext_win_d3d.c" />
     <ClCompile Include="_platform_win\source\ijk-render\_gl\ijkRenderContext_win_gl.c" />
     <ClCompile Include="_platform_win\source\ijk-render\_vk\ijkRenderContext_win_vk.c" />
   </ItemGroup>

@@ -19,14 +19,13 @@
 		c-based rendering framework
 	By Daniel S. Buckstein
 
-	ijkRenderContext_win_vk.c
-	Vulkan render context management source for Windows.
+	ijkRenderContext_win_d3d.c
+	Direct3D render context management source for Windows.
 */
 
 /*
-	Download and install Vulkan SDK for current platform: 
-		-> https://vulkan.lunarg.com/sdk/home#windows 
-		-> Environment variables: VK_SDK_PATH & VULKAN_SDK
+	Include paths: "$(WindowsSDK_IncludePath)"
+	Library paths: "$(WindowsSDK_LibraryPath)"
 */
 
 #include "ijk/ijk-platform/ijk-render/ijkRenderContext.h"
@@ -37,23 +36,24 @@
 #include <stdlib.h>
 #include <string.h>
 
-#define VK_USE_PLATFORM_WIN32_KHR
-#include "vulkan/vulkan.h"
+#include <d3d12.h>
+#include <d3d12shader.h>
+#include <d3d12sdklayers.h>
 
 
 //-----------------------------------------------------------------------------
 
-// ijkRendererInfo_win_vk
-//	Renderer info for Vulkan render context on Windows.
-typedef struct ijkRendererInfo_win_vk
+// ijkRendererInfo_win_d3d
+//	Renderer info for Direct3D render context on Windows.
+typedef struct ijkRendererInfo_win_d3d
 {
 	ijkRenderContext const* renderContext;
-} ijkRendererInfo_win_vk;
+} ijkRendererInfo_win_d3d;
 
 
 //-----------------------------------------------------------------------------
 
-iret ijkRenderContextCreateWINDOWS_vk(ijkRenderContext* const renderContext_out)
+iret ijkRenderContextCreateWINDOWS_d3d(ijkRenderContext* const renderContext_out)
 {
 	//iret ijkRenderContextCreateP(ijkRenderContext* const renderContext_out);
 
@@ -61,8 +61,8 @@ iret ijkRenderContextCreateWINDOWS_vk(ijkRenderContext* const renderContext_out)
 	if (renderContext_out && !renderContext_out->rendererInfo_p)
 	{
 		// allocate platform info
-		size const sz = sizeof(ijkRendererInfo_win_vk);
-		ijkRendererInfo_win_vk* rendererInfo_p = (ijkRendererInfo_win_vk*)malloc(sz);
+		size const sz = sizeof(ijkRendererInfo_win_d3d);
+		ijkRendererInfo_win_d3d* rendererInfo_p = (ijkRendererInfo_win_d3d*)malloc(sz);
 		if (rendererInfo_p)
 		{
 			// initialize platform renderer-agnostic info

@@ -36,7 +36,7 @@
 
 // ijkRendererInfo_vk
 //	Renderer info for Vulkan render context.
-typedef struct ijkRendererInfo_vk_tag
+typedef struct ijkRendererInfo_vk
 {
 	ijkRenderContext const* renderContext;
 } ijkRendererInfo_vk;
@@ -86,8 +86,13 @@ iret ijkRenderContextRelease_vk(ijkRenderContext* const renderContext)
 {
 	if (renderContext && renderContext->renderer == ijkRenderer_Vulkan && renderContext->rendererInfo)
 	{
+		// ****TO-DO: 
+		//	-> renderer-specific cleanup
+
+
 		free(renderContext->rendererInfo_p);
 		free(renderContext->rendererInfo);
+		renderContext->rendererInfo = renderContext->rendererInfo_p = 0;
 		return ijk_success;
 	}
 	return ijk_fail_invalidparams;

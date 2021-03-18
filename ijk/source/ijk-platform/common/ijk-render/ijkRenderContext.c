@@ -33,6 +33,7 @@ iret ijkRenderContextCreate(ijkRenderContext* const renderContext_out, ijkRender
 	// declare render context initializers
 	iret ijkRenderContextCreate_vk(ijkRenderContext* const renderContext_out, ijkRenderer const renderer);
 	iret ijkRenderContextCreate_gl(ijkRenderContext* const renderContext_out, ijkRenderer const renderer);
+	iret ijkRenderContextCreate_d3d(ijkRenderContext* const renderContext_out, ijkRenderer const renderer);
 
 	// validate
 	if (renderContext_out && !renderContext_out->renderer && renderer)
@@ -49,6 +50,7 @@ iret ijkRenderContextCreate(ijkRenderContext* const renderContext_out, ijkRender
 			status = ijkRenderContextCreate_gl(renderContext_out, renderer);
 			break;
 		case ijkRenderer_Direct3D:
+			status = ijkRenderContextCreate_d3d(renderContext_out, renderer);
 			break;
 		case ijkRenderer_Metal:
 			break;
@@ -69,6 +71,7 @@ iret ijkRenderContextRelease(ijkRenderContext* const renderContext)
 {
 	iret ijkRenderContextRelease_vk(ijkRenderContext* const renderContext);
 	iret ijkRenderContextRelease_gl(ijkRenderContext* const renderContext);
+	iret ijkRenderContextRelease_d3d(ijkRenderContext* const renderContext);
 
 	// validate
 	if (renderContext && renderContext->renderer)
@@ -85,6 +88,7 @@ iret ijkRenderContextRelease(ijkRenderContext* const renderContext)
 			status = ijkRenderContextRelease_gl(renderContext);
 			break;
 		case ijkRenderer_Direct3D:
+			status = ijkRenderContextRelease_d3d(renderContext);
 			break;
 		case ijkRenderer_Metal:
 			break;
@@ -94,7 +98,6 @@ iret ijkRenderContextRelease(ijkRenderContext* const renderContext)
 		if (ijk_issuccess(status))
 		{
 			renderContext->renderer = ijkRenderer_none;
-			renderContext->rendererInfo = renderContext->rendererInfo_p = 0;
 		}
 		return status;
 	}
@@ -139,6 +142,7 @@ iret ijkRenderContextPrintInfo(ijkRenderContext const* const renderContext, str*
 {
 	iret ijkRenderContextPrintInfo_vk(ijkRenderContext const* const renderContext, str* const bufferPtr);
 	iret ijkRenderContextPrintInfo_gl(ijkRenderContext const* const renderContext, str* const bufferPtr);
+	iret ijkRenderContextPrintInfo_d3d(ijkRenderContext const* const renderContext, str* const bufferPtr);
 
 	// validate
 	if (renderContext && renderContext->renderer && bufferPtr && *bufferPtr)
@@ -150,7 +154,7 @@ iret ijkRenderContextPrintInfo(ijkRenderContext const* const renderContext, str*
 		case ijkRenderer_OpenGL:
 			return ijkRenderContextPrintInfo_gl(renderContext, bufferPtr);
 		case ijkRenderer_Direct3D:
-			break;
+			return ijkRenderContextPrintInfo_d3d(renderContext, bufferPtr);
 		case ijkRenderer_Metal:
 			break;
 		}

@@ -51,7 +51,7 @@
 
 // ijkRendererInfo_win_gl
 //	Renderer info for OpenGL render context on Windows.
-typedef struct ijkRendererInfo_win_gl_tag
+typedef struct ijkRendererInfo_win_gl
 {
 	ijkRenderContext const* renderContext;
 	HGLRC rc;
