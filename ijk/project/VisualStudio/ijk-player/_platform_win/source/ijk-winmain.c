@@ -39,7 +39,7 @@ iret __stdcall WinMain(
 	kstr const		lpCmdLine,
 	i32 const		nCmdShow)
 {
-	iret ijkPlayerMain(ijkWindowPlatform* const platformInfo);
+	iret ijkPlayerMain();
 
 	iret status = -1;
 	ui64 resource = -1;
@@ -47,9 +47,9 @@ iret __stdcall WinMain(
 
 	// create platform and run common main
 	status = ijkWindowPlatformPackResource(&resource, ID_ACCEL_F1, IDR_ACCEL, IDD_DIALOGBAR, IDI_ICON1, -1);
-	status = ijkWindowPlatformCreate(platformInfo, hInstance, ijk_envstr_vsdevenv, ijk_envstr_slnpath, ijk_envstr_sdkdir, ijk_envstr_cfgdir, resource);
-	status = ijkPlayerMain(platformInfo);
-	status = ijkWindowPlatformRelease(platformInfo);
+	status = ijkWindowPlatformCreateGlobal(hInstance, ijk_envstr_vsdevenv, ijk_envstr_slnpath, ijk_envstr_sdkdir, ijk_envstr_cfgdir, resource, platformInfo);
+	status = ijkPlayerMain();
+	status = ijkWindowPlatformReleaseGlobal();
 
 	// the end
 	return status;

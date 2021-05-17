@@ -113,10 +113,8 @@ typedef struct ijkWindow
 //		return FAILURE: ijk_fail_invalidparams if invalid parameters
 iret ijkWindowPlatformPackResource(ui64* const res_out, i16 const controlBase, i8 const controlID, i8 const dialogID, i8 const iconID, i8 const cursorID);
 
-// ijkWindowPlatformCreate
-//	Initialize platform info.
-//		param platformInfo_out: pointer to platform info handle
-//			valid: non-null, points to null
+// ijkWindowPlatformCreateGlobal
+//	Initialize globally-accessible platform info.
 //		param applicationInst: pointer to application handle
 //			valid: non-null, valid handle
 //		param dev: description of development environment
@@ -128,32 +126,28 @@ iret ijkWindowPlatformPackResource(ui64* const res_out, i16 const controlBase, i
 //		param cfg: description of configuration
 //			valid: non-null, non-empty c-string
 //		param applicationRes: resource descriptor
+//		param platformInfo_out_opt: optional pointer to platform info handle
 //		return SUCCESS: ijk_success if info initialized
 //		return FAILURE: ijk_fail_operationfail if info not initialized
 //		return FAILURE: ijk_fail_invalidparams if invalid parameters
-iret ijkWindowPlatformCreate(ijkWindowPlatform* const platformInfo_out, kptr const applicationInst, tag const dev, tag const target, tag const sdk, tag const cfg, ui64 const applicationRes);
+iret ijkWindowPlatformCreateGlobal(kptr const applicationInst, tag const dev, tag const target, tag const sdk, tag const cfg, ui64 const applicationRes, ijkWindowPlatform* const platformInfo_out_opt);
 
-// ijkWindowPlatformRelease
-//	Release platform info.
-//		param platformInfo: pointer to platform info
-//			valid: non-null, valid handle
+// ijkWindowPlatformReleaseGlobal
+//	Release globally-accessible platform info.
 //		return SUCCESS: ijk_success if info released
 //		return FAILURE: ijk_fail_operationfail if info not released
-//		return FAILURE: ijk_fail_invalidparams if invalid parameters
-iret ijkWindowPlatformRelease(ijkWindowPlatform* const platformInfo);
+iret ijkWindowPlatformReleaseGlobal();
 
 // ijkWindowInfoCreateDefault
 //	Create default window info with rendering capabilities.
 //		param windowInfo_out: pointer to window info handle
 //			valid: non-null, points to null
-//		param platformInfo: pointer to platform info
-//			valid: non-null, valid handle
 //		param descriptorName: brief description of info
 //			valid: non-null, non-empty c-string
 //		return SUCCESS: ijk_success if info initialized
 //		return FAILURE: ijk_fail_operationfail if info not initialized
 //		return FAILURE: ijk_fail_invalidparams if invalid parameters
-iret ijkWindowInfoCreateDefault(ijkWindowInfo* const windowInfo_out, ijkWindowPlatform const* const platformInfo, tag const descriptorName);
+iret ijkWindowInfoCreateDefault(ijkWindowInfo* const windowInfo_out, tag const descriptorName);
 
 // ijkWindowInfoRelease
 //	Release window info.
@@ -170,8 +164,6 @@ iret ijkWindowInfoRelease(ijkWindowInfo* const windowInfo);
 //			valid: non-null, non-initialized
 //		param windowInfo: pointer to window info
 //			valid: non-null, valid handle
-//		param platformInfo: pointer to platform info
-//			valid: non-null, valid handle
 //		param windowName: name of window
 //			valid: non-null, non-empty c-string
 //		param windowPos_x: horizontal position of window on display in pixels
@@ -186,7 +178,7 @@ iret ijkWindowInfoRelease(ijkWindowInfo* const windowInfo);
 //		return SUCCESS: ijk_success if window initialized
 //		return FAILURE: ijk_fail_operationfail if window not initialized
 //		return FAILURE: ijk_fail_invalidparams if invalid parameters
-iret ijkWindowCreate(ijkWindow* const window_out, ijkWindowInfo const* const windowInfo, ijkWindowPlatform const* const platformInfo, tag const windowName, ui16 const windowPos_x, ui16 const windowPos_y, ui16 const windowSize_x, ui16 const windowSize_y, ijkWindowControl const windowCtrl, bool const fullScreen, ijkRenderer const renderer_opt);
+iret ijkWindowCreate(ijkWindow* const window_out, ijkWindowInfo const* const windowInfo, tag const windowName, ui16 const windowPos_x, ui16 const windowPos_y, ui16 const windowSize_x, ui16 const windowSize_y, ijkWindowControl const windowCtrl, bool const fullScreen, ijkRenderer const renderer_opt);
 
 // ijkWindowRelease
 //	Close and release window.

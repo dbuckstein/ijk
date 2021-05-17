@@ -28,7 +28,7 @@
 
 //-----------------------------------------------------------------------------
 
-iret ijkPlayerMain(ijkWindowPlatform* const platformInfo)
+iret ijkPlayerMain()
 {
 	iret status = -1;
 	i32 i = -1;
@@ -54,8 +54,8 @@ iret ijkPlayerMain(ijkWindowPlatform* const platformInfo)
 	// create application, console and window
 	status = ijkApplicationStartSingleInstanceSwitch(app, appName, &i);
 	status = ijkConsoleCreateMain(console);
-	status = ijkWindowInfoCreateDefault(windowInfo, platformInfo, infoName);
-	status = ijkWindowCreate(window, windowInfo, platformInfo, appName, pos_x, pos_y, sz_x, sz_y, winCtrl, ijk_false, ijkRenderer_none);
+	status = ijkWindowInfoCreateDefault(windowInfo, infoName);
+	status = ijkWindowCreate(window, windowInfo, appName, pos_x, pos_y, sz_x, sz_y, winCtrl, ijk_false, ijkRenderer_none);
 	status = ijkWindowLoop(window);
 	status = ijkWindowRelease(window);
 	status = ijkWindowInfoRelease(windowInfo);

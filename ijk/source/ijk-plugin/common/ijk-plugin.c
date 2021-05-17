@@ -83,8 +83,10 @@ iret ijkPluginCallback_load(ijkPluginData* data, i32 f, ijkPluginData** data_out
 {
 	if (!*data_out)
 	{
-		*data_out = (ijkPluginData*)malloc(sizeof(ijkPluginData));
-		**data_out = f;
+		if (*data_out = (ijkPluginData*)malloc(sizeof(ijkPluginData)))
+		{
+			**data_out = f;
+		}
 	}
 
 	printf("\n ijkPluginCallback_load(data=%p, f=%d, *data_out=%p)", data, f, (data_out ? *data_out : 0));
@@ -96,8 +98,10 @@ iret ijkPluginCallback_load_hot(ijkPluginData* data, i32 f, ijkPluginData** data
 {
 	if (!*data_out)
 	{
-		*data_out = (ijkPluginData*)malloc(sizeof(ijkPluginData));
-		**data_out = f;
+		if (*data_out = (ijkPluginData*)malloc(sizeof(ijkPluginData)))
+		{
+			**data_out = f;
+		}
 	}
 
 	printf("\n ijkPluginCallback_load_hot(data=%p, f=%d, *data_out=%p)", data, f, (data_out ? *data_out : 0));
@@ -114,8 +118,10 @@ iret ijkPluginCallback_reload(ijkPluginData* data, i32 f, ijkPluginData** data_o
 	}
 	if (!*data_out)
 	{
-		*data_out = (ijkPluginData*)malloc(sizeof(ijkPluginData));
-		**data_out = f;
+		if (*data_out = (ijkPluginData*)malloc(sizeof(ijkPluginData)))
+		{
+			**data_out = f;
+		}
 	}
 
 	printf("\n ijkPluginCallback_reload(data=%p, f=%d, *data_out=%p)", data, f, (data_out ? *data_out : 0));
@@ -132,8 +138,10 @@ iret ijkPluginCallback_reload_hot(ijkPluginData* data, i32 f, ijkPluginData** da
 	}
 	if (!*data_out)
 	{
-		*data_out = (ijkPluginData*)malloc(sizeof(ijkPluginData));
-		**data_out = f;
+		if (*data_out = (ijkPluginData*)malloc(sizeof(ijkPluginData)))
+		{
+			**data_out = f;
+		}
 	}
 
 	printf("\n ijkPluginCallback_reload_hot(data=%p, f=%d, *data_out=%p)", data, f, (data_out ? *data_out : 0));

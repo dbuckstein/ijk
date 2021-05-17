@@ -90,6 +90,13 @@ enum ijkWindowControlMessage
 
 //-----------------------------------------------------------------------------
 
+// gPlatformInfo
+//	Globally-accessible platform info.
+static ijkWindowPlatform_win* gPlatformInfo = 0;
+
+
+//-----------------------------------------------------------------------------
+
 iret ijkWindowInternalBuild(ijkWindow* const window, bool const rebuild)
 {
 	iret ijkWindowInternalUnlockPDB(kptag const sdkDirStr, kptag const cfgDirStr, kptag const projName);
@@ -235,6 +242,7 @@ LRESULT CALLBACK ijkWindowInternalEventProcessList(HWND hDlg, UINT message, WPAR
 	word const value = LOWORD(wParam), cmd = HIWORD(wParam);
 	switch (message)
 	{
+		// used instead of WM_CREATE for dialog boxes
 	case WM_INITDIALOG: {
 		HINSTANCE const inst = (HINSTANCE)GetWindowLongPtrA(hDlg, GWLP_HINSTANCE);
 		ijkWindowControl const winCtrl = (ijkWindowControl)lParam;
@@ -432,6 +440,7 @@ LRESULT CALLBACK ijkWindowInternalEventProcessList(HWND hDlg, UINT message, WPAR
 			break;
 		}
 	}
+	// do not pass unprocessed messages to DefDlgProc, recursive
 	return FALSE;
 }
 
@@ -439,25 +448,70 @@ LRESULT CALLBACK ijkWindowInternalEventProcessList(HWND hDlg, UINT message, WPAR
 void ijkWindowInternalCreateInfo(ijkWindow* const window)
 {
 	bool const hideCursor = (window->winCtrl & ijkWinCtrl_hideCursor);
+	bool const enterCmd = (window->winCtrl & ijkWinCtrl_esc_cmd);
 
 	byte buffer[1024] = { 0 }, * bufferPtr = buffer;
 	byte const* const info[] = {
 		"ijk Player Application: About",
 		"ijk: an open-source, cross-platform, light-weight, ",
 		"    c-based rendering framework",
-		"Copyright 2020-2021 Daniel S.Buckstein",
+		"Copyright 2020-2021 Daniel S. Buckstein",
 	};
 	bufferPtr += sprintf(bufferPtr, "%s\n%s\n%s\n\n", info[1], info[2], info[3]);
 
-	// print renderer info
-	if (window->renderContext->renderer)
+	ijkWindowControl const winCtrlAll =
+		ijkWinCtrl_F1_info | ijkWinCtrl_F2_load | ijkWinCtrl_F3_reload | ijkWinCtrl_F4_unload |
+		ijkWinCtrl_F5_debug | ijkWinCtrl_F6_build | ijkWinCtrl_F7_rebuild | ijkWinCtrl_F8_fullscr |
+		ijkWinCtrl_F9_user1 | ijkWinCtrl_F10_user2 | ijkWinCtrl_F11_user3 | ijkWinCtrl_F12_user4c;
+	ijkWindowControl winCtrl = ijkWinCtrl_F1_info;
+	ui32 winCtrlCt = 0;
+	byte const* const ctrlBtn[] = {
+		"F1", "F2", "F3", "F4",
+		"F5", "F6", "F7", "F8",
+		"F9", "F10", "F11", "F12",
+	};
+	byte const* const ctrlCmd[] = {
+		" or cmd IJK INFO", " or cmd IJK LOAD", " or cmd IJK RELOAD", " or cmd IJK UNLOAD",
+		" or cmd IJK DEBUG", " or cmd IJK BUILD", " or cmd IJK REBUILD", " or cmd IJK FULLSCR",
+		" or cmd IJK USER1", " or cmd IJK USER2", " or cmd IJK USER3", " or cmd IJK USER4C",
+	};
+	byte const* const ctrlDesc[] = {
+		"About dialog (you are here)",
+		"Plugin menu dialog",
+		"Reload current plugin",
+		"Unload current plugin",
+		"Load and run debug plugin",
+		"Hot build-and-swap debug plugin",
+		"Hot rebuild-and-swap debug plugin",
+		"Toggle full-screen",
+		"User function 1",
+		"User function 2",
+		"User function 3",
+		"User function 4, no cmd; VS break",
+	};
+
+	// print window features
+	if (window->winCtrl & winCtrlAll)
 	{
-		bufferPtr += sprintf(bufferPtr, "Render context: ");
-		ijkRenderContextPrintInfo(window->renderContext, &bufferPtr);
+		bufferPtr += sprintf(bufferPtr, "Window controls: \n");
+		while (winCtrl < ijkWinCtrl_esc_cmd)
+		{
+			if (window->winCtrl & winCtrl)
+				bufferPtr += sprintf(bufferPtr, "  %s%s: %s \n", ctrlBtn[winCtrlCt],
+					enterCmd ? ctrlCmd[winCtrlCt] : "", ctrlDesc[winCtrlCt]);
+			winCtrl <<= 1;
+			++winCtrlCt;
+		}
+		if (enterCmd)
+		{
+			bufferPtr += sprintf(bufferPtr, "  %s\n  %s\n",
+				"ESC: Enter and send cmd to window or user function 4",
+				"cmd IJK EXIT: Quit application");
+		}
 		bufferPtr += sprintf(bufferPtr, "\n");
 	}
 	else
-		bufferPtr += sprintf(bufferPtr, "No render context initialized.\n\n");
+		bufferPtr += sprintf(bufferPtr, "No window controls.\n\n");
 
 	// print plugin info
 	if (window->plugin->handle)
@@ -469,6 +523,16 @@ void ijkWindowInternalCreateInfo(ijkWindow* const window)
 	}
 	else
 		bufferPtr += sprintf(bufferPtr, "No plugin initialized.\n\n");
+
+	// print renderer info
+	if (window->renderContext->renderer)
+	{
+		bufferPtr += sprintf(bufferPtr, "Render context: ");
+		ijkRenderContextPrintInfo(window->renderContext, &bufferPtr);
+		bufferPtr += sprintf(bufferPtr, "\n");
+	}
+	else
+		bufferPtr += sprintf(bufferPtr, "No render context initialized.\n\n");
 
 	// reveal cursor
 	if (hideCursor)
@@ -536,7 +600,9 @@ void ijkWindowInternalLockCursor(ijkWindow* const window)
 
 void ijkWindowInternalToggleFullscreen(ijkWindow* const window)
 {
+	MONITORINFO monitorArea = { sizeof(MONITORINFO) };
 	RECT displayArea = { 0 };
+
 	HWND hWnd = window->windowData;
 	dword style = (dword)GetWindowLongPtrA(hWnd, GWL_STYLE), styleEx = (dword)GetWindowLongPtrA(hWnd, GWL_EXSTYLE);
 
@@ -555,15 +621,17 @@ void ijkWindowInternalToggleFullscreen(ijkWindow* const window)
 		// windowed to full-screen
 		styleEx &= ~WS_EX_WINDOWEDGE;
 		style &= ~WS_OVERLAPPEDWINDOW;
-		GetClientRect(hWnd, info->originalWindowArea);
-		GetWindowRect(GetDesktopWindow(), &displayArea);
+		GetWindowRect(hWnd, info->originalWindowArea);
+		GetMonitorInfoA(MonitorFromWindow(hWnd, MONITOR_DEFAULTTONEAREST), &monitorArea);
+		displayArea = monitorArea.rcMonitor;
+		//GetWindowRect(GetDesktopWindow(), &displayArea);
+		//AdjustWindowRectEx(&displayArea, style, ijk_false, styleEx);
 	}
 
 	// perform resize
 	SetWindowLongPtrA(hWnd, GWL_EXSTYLE, styleEx);
 	SetWindowLongPtrA(hWnd, GWL_STYLE, style);
-	AdjustWindowRectEx(&displayArea, style, ijk_false, styleEx);
-	MoveWindow(hWnd, 0, 0, (displayArea.right - displayArea.left), (displayArea.bottom - displayArea.top), TRUE);
+	MoveWindow(hWnd, displayArea.left, displayArea.top, (displayArea.right - displayArea.left), (displayArea.bottom - displayArea.top), TRUE);
 }
 
 
@@ -859,6 +927,13 @@ LRESULT CALLBACK ijkWindowInternalEventProcess(HWND hWnd, UINT message, WPARAM w
 		window->sz_y = (i16)HIWORD(lParam);
 		window->plugin->ijkPluginCallback_winResize(window->plugin->data, window->sz_x, window->sz_y);
 	}	break;
+		// window is moved (even in depth) or resized
+	//case WM_WINDOWPOSCHANGED: {
+	//	// clip cursor
+	//	if (window->winCtrl & ijkWinCtrl_lockCursor)
+	//		ijkWindowInternalLockCursor(window);
+	//
+	//}	break;
 
 		// any virtual key
 	case WM_KEYDOWN: {
@@ -971,14 +1046,22 @@ LRESULT CALLBACK ijkWindowInternalEventProcess(HWND hWnd, UINT message, WPARAM w
 		ijk_issuccess(ijkPluginUnload(window->plugin, ijk_true));
 
 		// hide and load
-		ShowWindow(hWnd, SW_MINIMIZE);
+		//ShowWindow(hWnd, SW_MINIMIZE);
 		if (ijk_issuccess(ijkPluginLoad(window->plugin, info, pluginID)))
 		{
 			// copy info
 			*window->pluginInfo = *info;
 
+			// clip cursor
+			if (window->winCtrl & ijkWinCtrl_lockCursor)
+				ijkWindowInternalLockCursor(window);
+
+			// callbacks
+			window->plugin->ijkPluginCallback_winMove(window->plugin->data, window->pos_x, window->pos_y);
+			window->plugin->ijkPluginCallback_winResize(window->plugin->data, window->sz_x, window->sz_y);
+
 			// flash window
-			ShowWindow(hWnd, SW_RESTORE);
+		//	ShowWindow(hWnd, SW_RESTORE);
 		}
 	}	break;
 	case ijkWinCtrlMsg_reload: {
@@ -1050,9 +1133,9 @@ LRESULT CALLBACK ijkWindowInternalEventProcess(HWND hWnd, UINT message, WPARAM w
 		// process command locally first, sending only if not captured
 		if (cmd && len)
 		{
-			// kill app (in case of emergency)
+			// quit app (in case of emergency)
 			if (!strcmp(cmd, "IJK EXIT"))
-				exit(ijk_success);
+				PostQuitMessage(ijk_success);
 			// info box
 			else if (!strcmp(cmd, "IJK INFO"))
 				ijkWindowInternalHandleF1(window);
@@ -1104,23 +1187,29 @@ LRESULT CALLBACK ijkWindowInternalEventProcess(HWND hWnd, UINT message, WPARAM w
 
 //-----------------------------------------------------------------------------
 
-iret ijkWindowPlatformCreate(ijkWindowPlatform* const platformInfo_out, kptr const applicationInst, tag const dev, tag const target, tag const sdk, tag const cfg, ui64 const applicationRes)
+iret ijkWindowPlatformCreateGlobal(
+	kptr const applicationInst, tag const dev, tag const target, tag const sdk, tag const cfg, ui64 const applicationRes,
+	ijkWindowPlatform* const platformInfo_out_opt
+)
 {
-	if (platformInfo_out && !*platformInfo_out && applicationInst && dev && *dev && target && *target && sdk && *sdk && cfg && *cfg)
+	if (//platformInfo_out && !*platformInfo_out && applicationInst && 
+		!gPlatformInfo)
 	{
 		ijkWindowPlatform_win* const platformInfo = malloc(sizeof(ijkWindowPlatform_win));
 		if (platformInfo)
 		{
-			platformInfo->dir_build = dev;
-			platformInfo->dir_target = target;
-			platformInfo->dir_sdk = sdk;
-			platformInfo->tag_cfg = cfg;
+			platformInfo->dir_build = (dev && *dev ? dev : 0);
+			platformInfo->dir_target = (target && *target ? target : 0);
+			platformInfo->dir_sdk = (sdk && *sdk ? sdk : 0);
+			platformInfo->tag_cfg = (cfg && *cfg ? cfg : 0);
 			platformInfo->appWinCt = 0;
 			platformInfo->appRes = applicationRes;
-			platformInfo->appInst = (ijkAppInst_win)applicationInst;
+			platformInfo->appInst = (ijkAppInst_win)(applicationInst ? applicationInst : GetModuleHandle(NULL));
 			
 			// done
-			*platformInfo_out = platformInfo;
+			gPlatformInfo = platformInfo;
+			if (platformInfo_out_opt)
+				*platformInfo_out_opt = platformInfo;
 			return ijk_success;
 		}
 		return ijk_fail_operationfail;
@@ -1129,36 +1218,53 @@ iret ijkWindowPlatformCreate(ijkWindowPlatform* const platformInfo_out, kptr con
 }
 
 
-iret ijkWindowPlatformRelease(ijkWindowPlatform* const platformInfo)
+//		param platformInfo: pointer to platform info
+//			valid: non-null, valid handle
+//		return FAILURE: ijk_fail_invalidparams if invalid parameters
+iret ijkWindowPlatformReleaseGlobal(
+	//ijkWindowPlatform* const platformInfo
+)
 {
-	if (platformInfo && *platformInfo)
+	if (gPlatformInfo)
+		//platformInfo && *platformInfo)
 	{
 		// release and reset
-		ijkWindowPlatform_win* const info = *platformInfo;
+		//ijkWindowPlatform_win* const info = *platformInfo;
+		ijkWindowPlatform_win* const info = gPlatformInfo;
 		free(info);
 
 		// done
-		*platformInfo = 0;
+		//*platformInfo = 0;
+		gPlatformInfo = 0;
 		return ijk_success;
 	}
-	return ijk_fail_invalidparams;
+	return ijk_fail_operationfail;
+	//return ijk_fail_invalidparams;
 }
 
 
-iret ijkWindowInfoCreateDefault(ijkWindowInfo* const windowInfo_out, ijkWindowPlatform const* const platformInfo, tag const descriptorName)
+//		param platformInfo: pointer to platform info
+//			valid: non-null, valid handle
+iret ijkWindowInfoCreateDefault(ijkWindowInfo* const windowInfo_out, tag const descriptorName)
 {
 	// get info
 	iret ijkWindowPlatformInternalUnpackIconID(ui64 const resource);
 	iret ijkWindowPlatformInternalUnpackCursorID(ui64 const resource);
 
 	// validate
-	if (windowInfo_out && !*windowInfo_out && platformInfo && *platformInfo && descriptorName && *descriptorName)
+	if (windowInfo_out && !*windowInfo_out && descriptorName && *descriptorName)
+		//&& platformInfo && *platformInfo
 	{
 		size const sz = sizeof(ijkWindowInfo_win);
 		ijkWindowInfo_win* const windowInfo = malloc(sz);
+
+		// create limited global platform info in case it has not been created
+		ijkWindowPlatformCreateGlobal(0, 0, 0, 0, 0, -1, 0);
+
+		// create window info
 		if (windowInfo)
 		{
-			ijkWindowPlatform_win const* const info = *platformInfo;
+			ijkWindowPlatform_win const* const info = gPlatformInfo;
 			i8 const iconID = (i8)ijkWindowPlatformInternalUnpackIconID(info->appRes);
 			i8 const cursorID = (i8)ijkWindowPlatformInternalUnpackCursorID(info->appRes);
 			LPSTR const iconStr = (iconID >= 0 ? MAKEINTRESOURCEA(iconID) : MAKEINTRESOURCEA(32517));
@@ -1215,9 +1321,12 @@ iret ijkWindowInfoRelease(ijkWindowInfo* const windowInfo)
 }
 
 
-iret ijkWindowCreate(ijkWindow* const window_out, ijkWindowInfo const* const windowInfo, ijkWindowPlatform const* const platformInfo, tag const windowName, ui16 const windowPos_x, ui16 const windowPos_y, ui16 const windowSize_x, ui16 const windowSize_y, ijkWindowControl const windowCtrl, bool const fullScreen, ijkRenderer const renderer_opt)
+//		param platformInfo: pointer to platform info
+//			valid: non-null, valid handle
+iret ijkWindowCreate(ijkWindow* const window_out, ijkWindowInfo const* const windowInfo, tag const windowName, ui16 const windowPos_x, ui16 const windowPos_y, ui16 const windowSize_x, ui16 const windowSize_y, ijkWindowControl const windowCtrl, bool const fullScreen, ijkRenderer const renderer_opt)
 {
-	if (window_out && !window_out->windowData && windowInfo && *windowInfo && platformInfo && *platformInfo && windowName && *windowName)
+	if (window_out && !window_out->windowData && windowInfo && *windowInfo && windowName && *windowName
+		&& gPlatformInfo)
 	{
 		bool const hideCursor = ijk_flagch(windowCtrl, ijkWinCtrl_hideCursor);
 		bool const lockCursor = ijk_flagch(windowCtrl, ijkWinCtrl_lockCursor);
@@ -1228,7 +1337,7 @@ iret ijkWindowCreate(ijkWindow* const window_out, ijkWindowInfo const* const win
 		dword style = (WS_CLIPCHILDREN | WS_CLIPSIBLINGS | WS_VISIBLE | WS_POPUP), styleEx = (WS_EX_APPWINDOW);
 
 		ijkWindowInfo_win const* const info = *windowInfo;
-		ijkWindowPlatform_win* const plat = *platformInfo;
+		ijkWindowPlatform_win* const plat = gPlatformInfo;
 
 		// set full-screen area
 		//if (fullScreen)
