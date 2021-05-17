@@ -63,11 +63,29 @@ flt ijkSqrt_flt(flt const x);
 //		return: inverse square root of x
 flt ijkSqrtInv_flt(flt const x);
 
+// ijkCbrt_flt
+//	Compute fast unsigned cube root.
+//		param x: number to cube root
+//		return: cube root of x
+flt ijkCbrt_flt(flt const x);
+
+// ijkCbrtInv_flt
+//	Compute fast unsigned inverse cube root.
+//		param x: number to cube root
+//		return: inverse cube root of x
+flt ijkCbrtInv_flt(flt const x);
+
 // ijkSqrtInvSafe_flt
 //	Compute fast inverse square root with divide-by-zero safety.
 //		param x: number to square root
 //		return: inverse square root of x
 #define ijkSqrtInvSafe_flt(x)	((x) != flt_zero ? ijkSqrtInv_flt(x) : flt_zero)
+
+// ijkCbrtInvSafe_flt
+//	Compute fast inverse cube root with divide-by-zero safety.
+//		param x: number to cube root
+//		return: inverse cube root of x
+#define ijkCbrtInvSafe_flt(x)	((x) != flt_zero ? ijkCbrtInv_flt(x) : flt_zero)
 
 
 //-----------------------------------------------------------------------------
@@ -98,11 +116,29 @@ dbl ijkSqrt_dbl(dbl const x);
 //		return: inverse square root of x
 dbl ijkSqrtInv_dbl(dbl const x);
 
+// ijkCbrt_dbl
+//	Compute fast unsigned cube root.
+//		param x: number to cube root
+//		return: cube root of x
+dbl ijkCbrt_dbl(dbl const x);
+
+// ijkCbrtInv_dbl
+//	Compute fast unsigned inverse cube root.
+//		param x: number to cube root
+//		return: inverse cube root of x
+dbl ijkCbrtInv_dbl(dbl const x);
+
 // ijkSqrtInvSafe_dbl
 //	Compute fast inverse square root with divide-by-zero safety.
 //		param x: number to square root
 //		return: inverse square root of x
 #define ijkSqrtInvSafe_dbl(x)	((x) != dbl_zero ? ijkSqrtInv_dbl(x) : dbl_zero)
+
+// ijkCbrtInvSafe_dbl
+//	Compute fast inverse cube root with divide-by-zero safety.
+//		param x: number to cube root
+//		return: inverse cube root of x
+#define ijkCbrtInvSafe_dbl(x)	((x) != dbl_zero ? ijkCbrtInv_dbl(x) : dbl_zero)
 
 
 //-----------------------------------------------------------------------------
@@ -137,12 +173,33 @@ dbl ijkSqrtInv_dbl(dbl const x);
 // real ijkSqrtInv(real const x);
 #define ijkSqrtInv			ijk_declrealf(ijkSqrtInv)
 
+// ijkCbrt
+//	Compute fast unsigned cube root.
+//		param x: number to cube root
+//		return: cube root of x
+// real ijkCbrt(real const x);
+#define ijkCbrt				ijk_declrealf(ijkCbrt)
+
+// ijkCbrtInv
+//	Compute fast unsigned inverse cube root.
+//		param x: number to cube root
+//		return: inverse cube root of x
+// real ijkCbrtInv(real const x);
+#define ijkCbrtInv			ijk_declrealf(ijkCbrtInv)
+
 // ijkSqrtInvSafe
 //	Compute fast inverse square root with divide-by-zero safety.
 //		param x: number to square root
 //		return: inverse square root of x
 //#define ijkSqrtInvSafe(x)	(x != real_zero ? ijkSqrtInv(x) : real_zero)
 #define ijkSqrtInvSafe		ijk_declrealf(ijkSqrtInvSafe)
+
+// ijkCbrtInvSafe
+//	Compute fast inverse cube root with divide-by-zero safety.
+//		param x: number to cube root
+//		return: inverse cube root of x
+//#define ijkCbrtInvSafe(x)	(x != real_zero ? ijkCbrtInv(x) : real_zero)
+#define ijkCbrtInvSafe		ijk_declrealf(ijkCbrtInvSafe)
 
 
 //-----------------------------------------------------------------------------

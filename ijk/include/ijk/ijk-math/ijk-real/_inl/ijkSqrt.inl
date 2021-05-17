@@ -36,6 +36,7 @@ ijk_inl flt ijkSqrtInv0x_flt(flt const x)
 		f32 f;
 		i32 i;
 	} u = { x };
+	f32 const xh = x * flt_half;
 
 	// input is converted to an integer, shifted one bit, wizardry occurs, 
 	//	then it is converted back to decimal as a guess for Newton's method
@@ -44,7 +45,7 @@ ijk_inl flt ijkSqrtInv0x_flt(flt const x)
 	// run Newton's method to converge on solution
 	// multiple iterations takes longer, but converges more
 	// 1x optimizes speed while 3x is better for precision
-	u.f *= (flt_3half - flt_half * x * u.f * u.f);
+	u.f *= (flt_3half - xh * u.f * u.f);
 
 	// done
 	return u.f;
@@ -61,7 +62,18 @@ ijk_inl flt ijkSqrt0x_flt(flt const x)
 
 ijk_inl dbl ijkSqrtInv0x_dbl(dbl const x)
 {
-	return (dbl)ijkSqrtInv0x_flt((flt)x);
+	// https://stackoverflow.com/questions/11644441/fast-inverse-square-root-on-x64/11644533
+	// https://cs.uwaterloo.ca/~m32rober/rsqrt.pdf
+	union {
+		f64 f;
+		i64 i;
+	} u = { x };
+	f64 const xh = x * dbl_half;
+	u.i = 0x5fe6eb50c7b537a9 - (u.i >> 1);
+	u.f *= (dbl_3half - xh * u.f * u.f);
+
+	// done
+	return u.f;
 }
 
 

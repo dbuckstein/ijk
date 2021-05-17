@@ -41,6 +41,19 @@ flt ijkSqrtInv_flt(flt const x)
 	return x;
 }
 
+flt ijkCbrt_flt(flt const x)
+{
+	// see 'ijkSqrt_a.asm'
+	return x;
+}
+
+
+flt ijkCbrtInv_flt(flt const x)
+{
+	// see 'ijkSqrt_a.asm'
+	return x;
+}
+
 
 //-----------------------------------------------------------------------------
 
@@ -52,6 +65,19 @@ dbl ijkSqrt_dbl(dbl const x)
 
 
 dbl ijkSqrtInv_dbl(dbl const x)
+{
+	// see 'ijkSqrt_a.asm'
+	return x;
+}
+
+dbl ijkCbrt_dbl(dbl const x)
+{
+	// see 'ijkSqrt_a.asm'
+	return x;
+}
+
+
+dbl ijkCbrtInv_dbl(dbl const x)
 {
 	// see 'ijkSqrt_a.asm'
 	return x;

@@ -225,9 +225,6 @@
     <None Include="..\..\..\include\ijk\ijk-math\ijk-real\_inl\ijkRandom.inl" />
     <None Include="..\..\..\include\ijk\ijk-math\ijk-real\_inl\ijkSqrt.inl" />
     <None Include="..\..\..\include\ijk\ijk-math\ijk-real\_inl\ijkStats.inl" />
-    <MASM Include="..\..\..\source\ijk-math\common\ijk-real\_asm\ijkSqrt_a.asm">
-      <FileType>Document</FileType>
-    </MASM>
     <None Include="..\..\..\include\ijk\ijk-math\ijk-real\_inl\ijkTrigonometry.inl" />
     <None Include="..\..\..\include\ijk\ijk-math\ijk-real\_inl\ijkVector.inl" />
     <None Include="..\..\..\include\ijk\ijk-math\ijk-real\_util\_inl\ijkMatrixSwizzle.inl" />
@@ -244,6 +241,10 @@
     <None Include="..\..\..\include\ijk\ijk-math\ijk-real\_util\_inl\ijkVector_intl.inl" />
     <None Include="..\..\..\include\ijk\ijk-math\ijk-real\_util\_inl\ijkVector_uint.inl" />
     <None Include="..\..\..\include\ijk\ijk-math\ijk-real\_util\_inl\ijkVector_uintl.inl" />
+  </ItemGroup>
+  <ItemGroup>
+    <MASM Include="..\..\..\source\ijk-math\common\ijk-real\_asm\ijkSqrt_x64.asm" />
+    <MASM Include="..\..\..\source\ijk-math\common\ijk-real\_asm\ijkSqrt_x86.asm" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

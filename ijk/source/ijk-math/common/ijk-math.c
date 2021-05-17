@@ -24,6 +24,7 @@
 */
 
 #include <malloc.h>
+#include <stdio.h>
 
 #include "ijk/ijk-math/ijk-math.h"
 
@@ -840,6 +841,29 @@ void ijkMathTestTrigonometry()
 
 void ijkMathTestVector()
 {
+	// test vector functions, namely for efficiency
+	float3 va0f = { flt_zero }, va1f = { flt_zero }, va2f = { flt_zero };
+	double3 va0d = { dbl_zero }, va1d = { dbl_zero }, va2d = { dbl_zero };
+	fvec3 v0f = fvec3_0, v1f = v0f, v2f = v1f;
+	dvec3 v0d = dvec3_0, v1d = v0d, v2d = v1d;
+	i32 result;
+
+	result = scanf("%f %f %f %f %f %f", va0f + 0, va0f + 1, va0f + 2, va1f + 0, va1f + 1, va1f + 2);
+	result = scanf("%lf %lf %lf %lf %lf %lf", va0d + 0, va0d + 1, va0d + 2, va1d + 0, va1d + 1, va1d + 2);
+	result = scanf("%f %f %f %f %f %f", v0f.v + 0, v0f.v + 1, v0f.v + 2, v1f.v + 0, v1f.v + 1, v1f.v + 2);
+	result = scanf("%lf %lf %lf %lf %lf %lf", v0d.v + 0, v0d.v + 1, v0d.v + 2, v1d.v + 0, v1d.v + 1, v1d.v + 2);
+
+	ijkVecAdd3fv(va2f, va0f, va1f);
+	ijkVecAdd3dv(va2d, va0d, va1d);
+	v2f = ijkVecAdd3f(v0f, v1f);
+	v2d = ijkVecAdd3d(v0d, v1d);
+
+	result = printf("%f %f %f %f %f %f", va0f[0], va0f[1], va0f[2], va1f[0], va1f[1], va1f[2]);
+	result = printf("%lf %lf %lf %lf %lf %lf", va0d[0], va0d[1], va0d[2], va1d[0], va1d[1], va1d[2]);
+	result = printf("%f %f %f %f %f %f", v0f.v[0], v0f.v[1], v0f.v[2], v1f.v[0], v1f.v[1], v1f.v[2]);
+	result = printf("%lf %lf %lf %lf %lf %lf", v0d.v[0], v0d.v[1], v0d.v[2], v1d.v[0], v1d.v[1], v1d.v[2]);
+
+
 #ifdef IJK_CPP_ENABLED
 	if (IJK_CPP_ENABLED)
 	{

@@ -43,10 +43,10 @@
     <Filter Include="Header Files\ijk-math\ijk-real\_util\_inl">
       <UniqueIdentifier>{0fc15d88-9e2e-467d-8a35-e958b38c367c}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\ijk-math\ijk-real-ext">
+    <Filter Include="Header Files\ijk-math\ijk-xmath">
       <UniqueIdentifier>{ce829540-eaad-456d-91a9-29dc2b332887}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\ijk-math\ijk-real-ext\_inl">
+    <Filter Include="Header Files\ijk-math\ijk-xmath\_inl">
       <UniqueIdentifier>{cff62012-f43b-4a9a-8a41-16c32f34cb55}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
@@ -240,7 +240,10 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <MASM Include="..\..\..\source\ijk-math\common\ijk-real\_asm\ijkSqrt_a.asm">
+    <MASM Include="..\..\..\source\ijk-math\common\ijk-real\_asm\ijkSqrt_x64.asm">
+      <Filter>Source Files\common\ijk-real\_asm</Filter>
+    </MASM>
+    <MASM Include="..\..\..\source\ijk-math\common\ijk-real\_asm\ijkSqrt_x86.asm">
       <Filter>Source Files\common\ijk-real\_asm</Filter>
     </MASM>
   </ItemGroup>

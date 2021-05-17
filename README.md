@@ -69,12 +69,18 @@ This section outlines known tasks to be completed and that have been completed.
 - [x] vector (flt, dbl, real, int, uint, bool)
 - [x] matrix (flt, dbl, real)
 - [x] quaternion & dual quaternion (flt, dbl, real)
+- [ ] vector intrinsics (flt, dbl, real)
+- [ ] cube root, proper power and logarithms (flt, dbl, real)
 - [ ] ext: basic physics; shapes, hulls, rays, tests (flt)
 - [ ] ext: basic geometry; procedural, loaders (obj, mat, skin) (flt)
 - [ ] ext: basic animation; poses, blend ops, timers, loaders (htr, clip, blend) (flt)
 #### Player
-- [ ] test console in app
-- [ ] test window in app
+- [x] test console in app
+- [x] test window in app
+- [ ] context-less window
+- [ ] context selection window
+- [ ] OpenGL context configuration window
+- [ ] Vulkan context configuration window
 - [ ] sample OpenGL context in app
 - [ ] sample Vulkan context in app
 #### Platform
@@ -85,8 +91,9 @@ This section outlines known tasks to be completed and that have been completed.
 - [x] programmer-friendly menu system
 - [ ] OpenGL context and renderer source
 - [ ] Vulkan context and renderer source
-- [ ] platform-agnostic, renderer-agnostic renderer interface
-- [x] Visual Studio hotbuild utility and interface
+- [ ] Direct3D context and renderer source (Microsoft)
+- [ ] Metal context and renderer source (Apple)
+- [x] Visual Studio hotbuild utility and interface, dependency detection
 - [ ] Xcode hotbuild utility and interface
 #### Plugin
 - [x] hotbuild hooks

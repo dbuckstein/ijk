@@ -20,8 +20,8 @@ COMMENT @
 		c-based rendering framework
 	By Daniel S. Buckstein
 
-	ijkSqrt_a.asm
-	Assembly definitions for fast square root in all possible configurations.
+	ijkSqrt_x86.asm
+	Assembly definitions for fast square root in 32-bit (x86).
 */
 
 /*
@@ -54,51 +54,6 @@ COMMENT @
 IFDEF RAX
 
 
-.data
-one				EQU			1.0			; effectively the same as define
-fs1				dd			one			; constant single (float) set to 1
-fd1				dq			one			; constant double set to 1
-
-
-.code
-
-; sqrt (float)
-; simple sqrt call
-ijkSqrt_flt PROC
-	sqrtss		xmm0,		xmm0		; do scalar single sqrt on xmm0 (already contains arg from function setup)
-	ret									; exit function
-ijkSqrt_flt ENDP
-
-
-; sqrt inverse (float)
-; rsqrtss is handy (one line) but does not give correct result
-; nor does rcpss with reciprocal of square root; better with recip first
-; need to do reciprocal of square root randomly
-ijkSqrtInv_flt PROC
-	movss		xmm1,		[fs1]		; copy constant to register xmm1
-	divss		xmm1,		xmm0		; do reciprocal of xmm0, store in xmm1
-	sqrtss		xmm0,		xmm1		; do scalar single sqrt on xmm1 -> xmm0
-	ret									; exit
-ijkSqrtInv_flt ENDP
-
-
-; sqrt (double)
-; simple sqrt call
-ijkSqrt_dbl PROC
-	sqrtsd		xmm0,		xmm0		; do scalar double sqrt on xmm0
-	ret									; exit function
-ijkSqrt_dbl ENDP
-
-
-; sqrt inverse (double)
-ijkSqrtInv_dbl PROC
-	movsd		xmm1,		[fd1]		; copy constant to register xmm1
-	divsd		xmm1,		xmm0		; do reciprocal of xmm0, store in xmm1
-	sqrtsd		xmm0,		xmm1		; do scalar double sqrt on xmm1 -> xmm0
-	ret									; exit
-ijkSqrtInv_dbl ENDP
-
-
 ;//////////////////////////////////////////////////////////////////////////////
 ; 32-bit if no rax register
 ELSE	; !RAX
@@ -126,6 +81,20 @@ ijkSqrtInv_flt PROC
 ijkSqrtInv_flt ENDP
 
 
+; cbrt (float)
+ijkCbrt_flt PROC
+										; TO-DO
+	ret									; exit
+ijkCbrt_flt ENDP
+
+
+; cbrt inverse (float)
+ijkCbrtInv_flt PROC
+										; TO-DO
+	ret									; exit
+ijkCbrtInv_flt ENDP
+
+
 ; sqrt (double)
 ijkSqrt_dbl PROC
 	fld			qword ptr	[esp+4]		; load input to float stack (st0) as double (i64 size); arg is still 4 bytes past return address (4-byte ptr)
@@ -142,6 +111,20 @@ ijkSqrtInv_dbl PROC
 	fsqrt								; do sqrt on top of stack
 	ret									; exit
 ijkSqrtInv_dbl ENDP
+
+
+; cbrt (double)
+ijkCbrt_dbl PROC
+										; TO-DO
+	ret									; exit
+ijkCbrt_dbl ENDP
+
+
+; cbrt inverse (double)
+ijkCbrtInv_dbl PROC
+										; TO-DO
+	ret									; exit
+ijkCbrtInv_dbl ENDP
 
 
 ;//////////////////////////////////////////////////////////////////////////////
