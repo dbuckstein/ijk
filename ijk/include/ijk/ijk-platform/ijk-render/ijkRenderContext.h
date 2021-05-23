@@ -57,6 +57,7 @@ typedef ptr ijkRendererInfo;
 typedef enum ijkRenderer
 {
 	ijkRenderer_none,		// No renderer enabled.
+	ijkRenderer_software,	// Software (SW): cross-platform, streaming, native.
 	ijkRenderer_Vulkan,		// Vulkan (VK): cross-platform, low-overhead, powerful.
 	ijkRenderer_OpenGL,		// OpenGL (GL): cross-platform, easy to learn.
 	ijkRenderer_Direct3D,	// Direct3D (D3D): Microsoft native.

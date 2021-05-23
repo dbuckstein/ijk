@@ -181,6 +181,7 @@
     <ClCompile Include="..\..\..\source\ijk-platform\common\ijk-render\ijkRenderContext.c" />
     <ClCompile Include="..\..\..\source\ijk-platform\common\ijk-render\_d3d\ijkRenderContext_d3d.c" />
     <ClCompile Include="..\..\..\source\ijk-platform\common\ijk-render\_gl\ijkRenderContext_gl.c" />
+    <ClCompile Include="..\..\..\source\ijk-platform\common\ijk-render\_sw\ijkRenderContext_sw.c" />
     <ClCompile Include="..\..\..\source\ijk-platform\common\ijk-render\_vk\ijkRenderContext_vk.c" />
     <ClCompile Include="_platform_win\source\ijk-app\ijkApplication_win.c" />
     <ClCompile Include="_platform_win\source\ijk-app\ijkConsole_win.c" />
@@ -188,6 +189,7 @@
     <ClCompile Include="_platform_win\source\ijk-app\_util\ijkWindowUnlockPDB_win.c" />
     <ClCompile Include="_platform_win\source\ijk-render\_d3d\ijkRenderContext_win_d3d.c" />
     <ClCompile Include="_platform_win\source\ijk-render\_gl\ijkRenderContext_win_gl.c" />
+    <ClCompile Include="_platform_win\source\ijk-render\_sw\ijkRenderContext_win_sw.c" />
     <ClCompile Include="_platform_win\source\ijk-render\_vk\ijkRenderContext_win_vk.c" />
   </ItemGroup>
   <ItemGroup>

@@ -67,6 +67,12 @@
     <Filter Include="Source Files\common\ijk-render\_d3d">
       <UniqueIdentifier>{6c79ed25-e531-445e-b811-fc156b8ca4dc}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\_platform_win\ijk-render\_sw">
+      <UniqueIdentifier>{c9848dac-4f7e-4e1f-9d9d-a451eb4e7ccc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\common\ijk-render\_sw">
+      <UniqueIdentifier>{227fd189-7549-426f-92bc-420a56ccb8c3}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\source\ijk-platform\common\ijk-platform.c">
@@ -110,6 +116,12 @@
     </ClCompile>
     <ClCompile Include="..\..\..\source\ijk-platform\common\ijk-render\_d3d\ijkRenderContext_d3d.c">
       <Filter>Source Files\common\ijk-render\_d3d</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\ijk-platform\common\ijk-render\_sw\ijkRenderContext_sw.c">
+      <Filter>Source Files\common\ijk-render\_sw</Filter>
+    </ClCompile>
+    <ClCompile Include="_platform_win\source\ijk-render\_sw\ijkRenderContext_win_sw.c">
+      <Filter>Source Files\_platform_win\ijk-render\_sw</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
