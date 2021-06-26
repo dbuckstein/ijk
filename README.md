@@ -7,11 +7,11 @@ By Daniel S. Buckstein
 This section outlines the core guidelines, values and rules in the framework.
 
 ### Coding Standards
-* The framework is programmed in C, using strictly data structures, free functions and data-oriented design/architecture.
-* Some parts of the framework may be written in assembly for speed.
-* No C++ is allowed in framework, with the exception of strictly non-member operators for mathematical purposes. Commits from forks with C++ syntax will not be pulled.
-* All headers must be C++ friendly for consumption only. Use (extern "C" {...}) in case a user's C++ file consumes a framework header. Also use typedefs to allow C++ structure naming conventions to be used in C (e.g. typedef struct StructureName StructureName;).
-* For graphics implementations, use cross-platform, C-based APIs/SDKs (e.g. Vulkan, OpenGL) and their respective shading languages and/or binary formats (GLSL, SPIR-V).
+* The framework is programmed in C, using strictly data structures, non-member functions and data-oriented design/architecture. The following exceptions apply: 
+    * No C++ is allowed in framework, with the exception of strictly vector and matrix operators already implemented for mathematical purposes. Commits from forks with any new C++ syntax will not be pulled; only corrections to existing C++ will be accepted.
+    * Some parts of the framework may be written in native or cross-platform assembly for efficiency.
+* All headers must be C++ friendly for consumption only. Use (extern "C" {...}) in case a user's C++ file consumes a framework header. Also use typedefs to allow C++ structure naming conventions to be used in C (e.g. typedef struct StructureName {...} StructureName;).
+* For graphics implementations, prioritize cross-platform, C-based APIs/SDKs (e.g. Vulkan, OpenGL) and their respective shading languages and/or binary formats (GLSL, SPIR-V). Platform-specific renderer implementations may or may not be available.
 * All functions must be documented before implementation. Comment interfaces/prototypes with brief descriptions, member/parameter names and descriptions and validation notes, and possible return cases denoting success, warnings or failures.
 * All functions should return integer types, with the exception of math functions which primarily operate on real (float or double) numbers, or real-based (vector) numbers.
 * Standard C includes should appear first in source files, if ever, to prevent framework from potentially overwriting standard data types.
@@ -86,15 +86,17 @@ This section outlines known tasks to be completed and that have been completed.
 #### Platform
 - [x] Windows Visual Studio framework
 - [ ] Mac OS Xcode framework
+- [ ] Linux framework
 - [x] console interface, decouple from app
 - [x] window interface, user-friendly menus
 - [x] programmer-friendly menu system
 - [ ] OpenGL context and renderer source
 - [ ] Vulkan context and renderer source
+- [x] Visual Studio hotbuild utility and interface
+- [ ] Visual Studio version and dependency detection
+- [ ] Xcode hotbuild utility and interface
 - [ ] Direct3D context and renderer source (Microsoft)
 - [ ] Metal context and renderer source (Apple)
-- [x] Visual Studio hotbuild utility and interface, dependency detection
-- [ ] Xcode hotbuild utility and interface
 #### Plugin
 - [x] hotbuild hooks
 - [ ] basic platform-agnostic, renderer-agnostic app
